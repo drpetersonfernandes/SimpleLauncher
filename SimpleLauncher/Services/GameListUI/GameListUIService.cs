@@ -9,48 +9,48 @@ namespace SimpleLauncher.Services.GameListUI;
 public class GameListUiService
 {
     private readonly Settings _settings;
-    private MainWindow _mainWindow;
+    private IGameListUiHost _host;
 
     public GameListUiService(Settings settings)
     {
         _settings = settings;
     }
 
-    public void Initialize(MainWindow mainWindow)
+    public void Initialize(IGameListUiHost host)
     {
-        _mainWindow = mainWindow;
+        _host = host;
     }
 
     public async Task SetUiBeforeLoadGameFilesAsync()
     {
-        _mainWindow.Scroller.Dispatcher.Invoke(() => _mainWindow.Scroller.ScrollToTop());
-        _mainWindow.PreviewImage.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = null);
+        _host.Scroller.Dispatcher.Invoke(() => _host.Scroller.ScrollToTop());
+        _host.PreviewImage.Dispatcher.Invoke(() => _host.PreviewImage.Source = null);
 
-        _mainWindow.GameFileGrid.Dispatcher.Invoke(() =>
+        _host.GameFileGrid.Dispatcher.Invoke(() =>
         {
-            ClearGameButtonImages(_mainWindow.GameFileGrid);
-            _mainWindow.GameFileGrid.Children.Clear();
+            ClearGameButtonImages(_host.GameFileGrid);
+            _host.GameFileGrid.Children.Clear();
         });
 
-        await _mainWindow.Dispatcher.InvokeAsync(() => _mainWindow.GameListItems.Clear());
+        await _host.Dispatcher.InvokeAsync(() => _host.GameListItems.Clear());
 
-        await _mainWindow.Dispatcher.InvokeAsync(() =>
+        await _host.Dispatcher.InvokeAsync(() =>
         {
             if (_settings.ViewMode == "GridView")
             {
-                _mainWindow.GameFileGrid.Visibility = Visibility.Visible;
-                _mainWindow.ListViewPreviewArea.Visibility = Visibility.Collapsed;
+                _host.SetGameFileGridVisibility(Visibility.Visible);
+                _host.SetListViewPreviewAreaVisibility(Visibility.Collapsed);
             }
             else
             {
-                _mainWindow.GameFileGrid.Visibility = Visibility.Collapsed;
-                _mainWindow.ListViewPreviewArea.Visibility = Visibility.Visible;
+                _host.SetGameFileGridVisibility(Visibility.Collapsed);
+                _host.SetListViewPreviewAreaVisibility(Visibility.Visible);
             }
         });
 
-        await _mainWindow.Dispatcher.InvokeAsync(() =>
+        await _host.Dispatcher.InvokeAsync(() =>
         {
-            _mainWindow.SetPaginationButtonsVisibility(Visibility.Visible);
+            _host.SetPaginationButtonsVisibility(Visibility.Visible);
         });
     }
 
@@ -60,9 +60,9 @@ public class GameListUiService
 
         if (_settings.ViewMode == "GridView")
         {
-            ClearGameButtonImages(_mainWindow.GameFileGrid);
-            _mainWindow.GameFileGrid.Children.Clear();
-            _mainWindow.GameFileGrid.Children.Add(new TextBlock
+            ClearGameButtonImages(_host.GameFileGrid);
+            _host.GameFileGrid.Children.Clear();
+            _host.GameFileGrid.Children.Add(new TextBlock
             {
                 Text = $"\n{noGamesMatched}",
                 Padding = new Thickness(10)
@@ -70,8 +70,8 @@ public class GameListUiService
         }
         else
         {
-            _mainWindow.GameListItems.Clear();
-            _mainWindow.GameListItems.Add(new GameListViewItem
+            _host.GameListItems.Clear();
+            _host.GameListItems.Add(new GameListViewItem
             {
                 FileName = noGamesMatched,
                 MachineDescription = string.Empty
@@ -81,9 +81,9 @@ public class GameListUiService
 
     public void SetGameButtonsEnabled(bool isEnabled)
     {
-        if (_mainWindow.GameFileGrid == null) return;
+        if (_host.GameFileGrid == null) return;
 
-        foreach (var child in _mainWindow.GameFileGrid.Children)
+        foreach (var child in _host.GameFileGrid.Children)
         {
             if (child is Button button)
             {

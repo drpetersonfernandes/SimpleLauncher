@@ -50,8 +50,7 @@ public partial class RomHistoryViewModel : ObservableObject
     public async Task LoadRomHistoryAsync()
     {
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-            (string)Application.Current.TryFindResource("LoadingROMHistory") ?? "Loading ROM history...",
-            Application.Current.MainWindow as MainWindow);
+            (string)Application.Current.TryFindResource("LoadingROMHistory") ?? "Loading ROM history...");
 
         try
         {

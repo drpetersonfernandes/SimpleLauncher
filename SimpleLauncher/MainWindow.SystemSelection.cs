@@ -188,13 +188,13 @@ public partial class MainWindow
                 }
 
                 _playSoundEffects.PlayNotificationSound();
-                UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...", this);
+                UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...");
             }
             catch (OperationCanceledException)
             {
                 // Handle cancellation if needed, e.g., reset UI state
                 SetLoadingState(false);
-                UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SystemLoadCancelled") ?? "System load cancelled.", this);
+                UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SystemLoadCancelled") ?? "System load cancelled.");
             }
             catch (Exception ex)
             {
@@ -252,7 +252,7 @@ public partial class MainWindow
         try
         {
             _playSoundEffects.PlayNotificationSound();
-            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...", this);
+            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...");
 
             EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _logErrors, _helpUserService, _imageLoader, systemName)
             {
@@ -295,7 +295,7 @@ public partial class MainWindow
 
             UpdateButtonAspectRatioCheckMarks(newAspectRatio);
             // Notify user
-            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingButtonAspectRatio") ?? "Toggling button aspect ratio...", this);
+            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingButtonAspectRatio") ?? "Toggling button aspect ratio...");
 
             var (sl, sq) = GetLoadGameFilesParams();
             SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");

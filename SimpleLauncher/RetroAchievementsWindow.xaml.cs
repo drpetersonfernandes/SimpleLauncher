@@ -58,17 +58,17 @@ public partial class RetroAchievementsWindow : ILoadingState
             {
                 case "MyProfile":
                     _playSoundEffects.PlayNotificationSound();
-                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingUserProfile") ?? "Loading user profile...", Owner as MainWindow);
+                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingUserProfile") ?? "Loading user profile...");
                     _ = LoadUserProfileAsync();
                     break;
                 case "Unlocks":
                     _playSoundEffects.PlayNotificationSound();
-                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingUserUnlocks") ?? "Loading user unlocks...", Owner as MainWindow);
+                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingUserUnlocks") ?? "Loading user unlocks...");
                     _ = LoadUnlocksByDateAsync();
                     break;
                 case "UserProgress":
                     _playSoundEffects.PlayNotificationSound();
-                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingUserCompletionProgress") ?? "Loading user completion progress...", Owner as MainWindow);
+                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingUserCompletionProgress") ?? "Loading user completion progress...");
                     _ = LoadUserProgressAsync();
                     break;
             }
@@ -149,7 +149,7 @@ public partial class RetroAchievementsWindow : ILoadingState
 
     private async Task LoadUserProfileAsync()
     {
-        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingUserProfile") ?? "Fetching user profile...", Owner as MainWindow);
+        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingUserProfile") ?? "Fetching user profile...");
         SetLoadingState(true);
 
         NoProfileOverlay.Visibility = Visibility.Collapsed; // Hide overlay initially
@@ -283,7 +283,7 @@ public partial class RetroAchievementsWindow : ILoadingState
 
     private async Task LoadUnlocksByDateAsync()
     {
-        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingEarnedAchievementsByDate") ?? "Fetching earned achievements by date...", Owner as MainWindow);
+        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingEarnedAchievementsByDate") ?? "Fetching earned achievements by date...");
         SetLoadingState(true);
 
         FetchUnlocksButton.IsEnabled = false; // Disable button during fetch
@@ -402,7 +402,7 @@ public partial class RetroAchievementsWindow : ILoadingState
             NoUnlocksMessage.Text = (string)Application.Current.TryFindResource("RaInfoNoUnlocksFound") ?? "No unlocks found for the selected date range."; // Reset message
 
             // Notify user
-            (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ResettingDatesAndFetchingUnlocks") ?? "Resetting dates and fetching unlocks...", Owner as MainWindow);
+            (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ResettingDatesAndFetchingUnlocks") ?? "Resetting dates and fetching unlocks...");
 
             await LoadUnlocksByDateAsync(); // Automatically fetch for the new date range
         }
@@ -416,7 +416,7 @@ public partial class RetroAchievementsWindow : ILoadingState
 
     private async Task LoadUserProgressAsync()
     {
-        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingUserCompletionProgress") ?? "Fetching user completion progress...", Owner as MainWindow);
+        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingUserCompletionProgress") ?? "Fetching user completion progress...");
         SetLoadingState(true);
 
         NoUserProgressOverlay.Visibility = Visibility.Collapsed;
@@ -495,6 +495,6 @@ public partial class RetroAchievementsWindow : ILoadingState
         LoadingOverlay.Visibility = Visibility.Collapsed;
 
         DebugLogger.Log("[Emergency] User forced overlay dismissal in RetroAchievements Window.");
-        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.", Owner as MainWindow);
+        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 }

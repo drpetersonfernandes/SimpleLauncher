@@ -70,8 +70,7 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
         _settingsManager.SaveAsync();
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-            (string)Application.Current.TryFindResource("SavingGamepadDeadZoneSettings") ?? "Saving gamepad dead zone settings...",
-            Application.Current.MainWindow as MainWindow);
+            (string)Application.Current.TryFindResource("SavingGamepadDeadZoneSettings") ?? "Saving gamepad dead zone settings...");
 
         MessageBoxLibrary.DeadZonesSavedMessageBox();
 
@@ -89,8 +88,7 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
         DeadZoneY = SettingsManager.DefaultDeadZoneY;
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-            (string)Application.Current.TryFindResource("RevertingGamepadDeadZoneSettings") ?? "Reverting gamepad dead zone settings...",
-            Application.Current.MainWindow as MainWindow);
+            (string)Application.Current.TryFindResource("RevertingGamepadDeadZoneSettings") ?? "Reverting gamepad dead zone settings...");
 
         CloseRequested?.Invoke();
     }

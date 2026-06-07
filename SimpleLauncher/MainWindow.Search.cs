@@ -12,7 +12,7 @@ public partial class MainWindow
     {
         try
         {
-            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("Searching") ?? "Searching...", this);
+            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("Searching") ?? "Searching...");
             _playSoundEffects.PlayNotificationSound();
             await ExecuteSearchAsync();
         }
@@ -51,7 +51,7 @@ public partial class MainWindow
     {
         if (_isLoadingGames) return;
 
-        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ExecutingSearch") ?? "Executing search...", this);
+        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ExecutingSearch") ?? "Executing search...");
         var searchingMsg = (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching... Please wait.";
         SetLoadingState(true, searchingMsg);
 

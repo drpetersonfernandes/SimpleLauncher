@@ -60,7 +60,7 @@ public class FavoritesManager
     public Task SaveFavoritesAsync()
     {
         // Notify user outside of any lock to prevent potential deadlock
-        Application.Current.Dispatcher.Invoke(static () => (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SavingFavorites") ?? "Saving favorites...", Application.Current.MainWindow as MainWindow));
+        Application.Current.Dispatcher.Invoke(static () => (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SavingFavorites") ?? "Saving favorites..."));
 
         // Snapshot the ordered list inside the lock, then clear/repopulate outside
         // to avoid ObservableCollection firing CollectionChanged while holding the lock.

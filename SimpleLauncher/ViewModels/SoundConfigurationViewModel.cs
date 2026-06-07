@@ -110,8 +110,7 @@ public partial class SoundConfigurationViewModel : ObservableObject
         _settings.SaveAsync();
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-            (string)Application.Current.TryFindResource("SavingSoundSettings") ?? "Saving sound settings...",
-            Application.Current.MainWindow as MainWindow);
+            (string)Application.Current.TryFindResource("SavingSoundSettings") ?? "Saving sound settings...");
 
         MessageBoxLibrary.SettingsSavedSuccessfullyMessageBox();
 

@@ -701,6 +701,6 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         LoadingOverlay.Visibility = Visibility.Collapsed;
 
         DebugLogger.Log("[Emergency] User forced overlay dismissal in GlobalSearchPage.");
-        _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 }

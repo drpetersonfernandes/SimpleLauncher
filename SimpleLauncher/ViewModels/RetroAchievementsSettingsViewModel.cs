@@ -42,8 +42,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     private void Save()
     {
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-            (string)Application.Current.TryFindResource("SavingRetroAchievementsSettings") ?? "Saving RetroAchievements settings...",
-            Application.Current.MainWindow as MainWindow);
+            (string)Application.Current.TryFindResource("SavingRetroAchievementsSettings") ?? "Saving RetroAchievements settings...");
 
         _settings.RaUsername = (Username).Trim();
         _settings.RaApiKey = ApiKey;
@@ -85,8 +84,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
                 if (string.IsNullOrEmpty(token) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
                 {
                     (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-                        (string)Application.Current.TryFindResource("RaStatusLoggingIn") ?? "Logging in to RetroAchievements...",
-                        Application.Current.MainWindow as MainWindow);
+                        (string)Application.Current.TryFindResource("RaStatusLoggingIn") ?? "Logging in to RetroAchievements...");
 
                     var raService = App.ServiceProvider.GetRequiredService<RetroAchievementsService>();
                     token = await raService.GetSessionTokenAsync(username, password);

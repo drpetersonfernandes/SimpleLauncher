@@ -301,7 +301,7 @@ public partial class GameLauncher
         var playTimeLabel = (string)Application.Current.TryFindResource("Playtime") ?? "Playtime";
 
         TrayIconManager.ShowTrayMessage($"{playTimeLabel}: {playTimeFormatted}");
-        _updateStatusBar.UpdateContent("", context.MainWindow);
+        _updateStatusBar.UpdateContent("");
 
         try
         {
@@ -398,13 +398,13 @@ public partial class GameLauncher
                 }
 
                 TrayIconManager.ShowTrayMessage($"Error: {batchShortName} failed");
-                _updateStatusBar.UpdateContent($"Error: {batchShortName} failed", mainWindow);
+                _updateStatusBar.UpdateContent($"Error: {batchShortName} failed");
             }
             else
             {
                 var launched = (string)Application.Current.TryFindResource("Launched") ?? "launched";
                 TrayIconManager.ShowTrayMessage($"{batchShortName} {launched}");
-                _updateStatusBar.UpdateContent($"{batchShortName} {launched}", mainWindow);
+                _updateStatusBar.UpdateContent($"{batchShortName} {launched}");
             }
         }
         catch (Win32Exception ex)
@@ -413,13 +413,13 @@ public partial class GameLauncher
             {
                 MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _logErrors.LogAndForget(ex, "Application control policy blocked launching batch file.");
-                _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed", mainWindow);
+                _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
             }
             else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
             {
                 MessageBoxLibrary.ElevationRequiredMessageBox();
                 _logErrors.LogAndForget(ex, "Elevation required to launch batch file.");
-                _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed", mainWindow);
+                _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
             }
             else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
             {
@@ -439,7 +439,7 @@ public partial class GameLauncher
                     MessageBoxLibrary.BatchFileFailedMessageBox(resolvedFilePath, ex.Message, logPath);
                 }
 
-                _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed", mainWindow);
+                _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
             }
         }
         catch (Exception ex)
@@ -456,7 +456,7 @@ public partial class GameLauncher
                 MessageBoxLibrary.BatchFileFailedMessageBox(resolvedFilePath, ex.Message, logPath);
             }
 
-            _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed", mainWindow);
+            _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
         }
     }
 
@@ -483,7 +483,7 @@ public partial class GameLauncher
         var launched = (string)Application.Current.TryFindResource("Launched") ?? "launched";
         var fileName = Path.GetFileName(resolvedFilePath);
         TrayIconManager.ShowTrayMessage($"{fileName} {launched}");
-        _updateStatusBar.UpdateContent($"{fileName} {launched}", mainWindow);
+        _updateStatusBar.UpdateContent($"{fileName} {launched}");
 
         try
         {
@@ -653,7 +653,7 @@ public partial class GameLauncher
         DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}\n");
 
         TrayIconManager.ShowTrayMessage($"{Path.GetFileName(psi.FileName)} {launched}");
-        _updateStatusBar.UpdateContent($"{Path.GetFileName(psi.FileName)} {launched}", mainWindow);
+        _updateStatusBar.UpdateContent($"{Path.GetFileName(psi.FileName)} {launched}");
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -868,7 +868,7 @@ public partial class GameLauncher
             {
                 var extractingMsg = (string)Application.Current.TryFindResource("ExtractingEllipsis") ?? "Extracting file... Please wait.";
                 loadingStateProvider.SetLoadingState(true, extractingMsg);
-                _updateStatusBar.UpdateContent(extractingMsg, mainWindow);
+                _updateStatusBar.UpdateContent(extractingMsg);
 
                 try
                 {
@@ -890,7 +890,7 @@ public partial class GameLauncher
 
                 // Update message for launching without incrementing count (caller already has loading state active)
                 var launchingMsg = (string)Application.Current.TryFindResource("Launching") ?? "Launching...";
-                _updateStatusBar.UpdateContent(launchingMsg, mainWindow);
+                _updateStatusBar.UpdateContent(launchingMsg);
             }
         }
 
@@ -1070,7 +1070,7 @@ public partial class GameLauncher
             var launchedwith = (string)Application.Current.TryFindResource("launchedwith") ?? "launched with";
 
             TrayIconManager.ShowTrayMessage($"{originalFileName} {launchedwith} {selectedEmulatorName}");
-            _updateStatusBar.UpdateContent($"{originalFileName} {launchedwith} {selectedEmulatorName}", mainWindow);
+            _updateStatusBar.UpdateContent($"{originalFileName} {launchedwith} {selectedEmulatorName}");
 
             StringBuilder output = new();
             StringBuilder error = new();

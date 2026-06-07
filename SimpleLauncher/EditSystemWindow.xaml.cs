@@ -675,7 +675,7 @@ internal partial class EditSystemWindow : ILoadingState
         MainContentGrid?.IsEnabled = true;
 
         DebugLogger.Log("[Emergency] User forced overlay dismissal in EditSystemWindow.");
-        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 
     private async void ChooseSystemImageButton_Click(object sender, RoutedEventArgs e)

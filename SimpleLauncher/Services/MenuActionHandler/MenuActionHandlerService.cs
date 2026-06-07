@@ -246,7 +246,7 @@ public class MenuActionHandlerService
         try
         {
             _playSoundEffects.PlayNotificationSound();
-            _mainWindow.UpdateStatusBarService.UpdateContent($"Opening {emulatorName} configuration...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent($"Opening {emulatorName} configuration...");
 
             if (!_emulatorConfigWindowFactory.TryGetValue(emulatorName, out var showWindow))
             {
@@ -269,7 +269,7 @@ public class MenuActionHandlerService
         try
         {
             _playSoundEffects.PlayNotificationSound();
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningEasyMode") ?? "Opening Easy Mode...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningEasyMode") ?? "Opening Easy Mode...");
 
             var easyModeWindow = _serviceProvider.GetRequiredService<EasyModeWindow>();
             easyModeWindow.Owner = _mainWindow;
@@ -289,7 +289,7 @@ public class MenuActionHandlerService
         try
         {
             _playSoundEffects.PlayNotificationSound();
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...");
 
             var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
             var selectedSystem = _host.GetSelectedSystem();
@@ -319,7 +319,7 @@ public class MenuActionHandlerService
         try
         {
             _playSoundEffects.PlayNotificationSound();
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningImagePackDownloader") ?? "Opening Image Pack Downloader...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningImagePackDownloader") ?? "Opening Image Pack Downloader...");
 
             _host.ResetUiAsync();
 
@@ -371,7 +371,7 @@ public class MenuActionHandlerService
         try
         {
             _host.CancelAndRecreateToken();
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningLinkSettings") ?? "Opening link settings...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningLinkSettings") ?? "Opening link settings...");
             _playSoundEffects.PlayNotificationSound();
 
             var setLinksWindow = _serviceProvider.GetRequiredService<SetLinksWindow>();
@@ -405,7 +405,7 @@ public class MenuActionHandlerService
             else
                 _gamePadController.Stop();
 
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingGamepadNavigation") ?? "Toggling gamepad navigation...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingGamepadNavigation") ?? "Toggling gamepad navigation...");
         }
         catch (Exception ex)
         {
@@ -420,7 +420,7 @@ public class MenuActionHandlerService
     public void HandleSetGamepadDeadZone()
     {
         _playSoundEffects.PlayNotificationSound();
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningGamepadDeadZoneSettings") ?? "Opening Gamepad Dead Zone settings...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningGamepadDeadZoneSettings") ?? "Opening Gamepad Dead Zone settings...");
 
         var setGamepadDeadZoneWindow = _serviceProvider.GetRequiredService<SetGamepadDeadZoneWindow>();
         setGamepadDeadZoneWindow.ShowDialog();
@@ -449,7 +449,7 @@ public class MenuActionHandlerService
 
             try
             {
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", _mainWindow);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...");
                 _playSoundEffects.PlayNotificationSound();
 
                 _settings.EnableFuzzyMatching = isChecked;
@@ -460,7 +460,7 @@ public class MenuActionHandlerService
                 await Task.Yield();
                 await _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
 
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingFuzzyMatching") ?? "Toggling fuzzy matching...", _mainWindow);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingFuzzyMatching") ?? "Toggling fuzzy matching...");
             }
             catch (Exception ex)
             {
@@ -490,7 +490,7 @@ public class MenuActionHandlerService
             if (!_settings.EnableFuzzyMatching) return;
 
             var (sl, sq) = _host.GetLoadGameFilesParams();
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningFuzzyMatchingSettings") ?? "Opening fuzzy matching settings...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningFuzzyMatchingSettings") ?? "Opening fuzzy matching settings...");
             _host.SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
             await Task.Yield();
             await _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
@@ -505,7 +505,7 @@ public class MenuActionHandlerService
 
     public void HandleSupport()
     {
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningSupportWindow") ?? "Opening support window...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningSupportWindow") ?? "Opening support window...");
         _playSoundEffects.PlayNotificationSound();
 
         var supportRequestWindow = _serviceProvider.GetRequiredService<SupportWindow>();
@@ -518,7 +518,7 @@ public class MenuActionHandlerService
         try
         {
             _playSoundEffects.PlayNotificationSound();
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningDonationPage") ?? "Opening donation page...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningDonationPage") ?? "Opening donation page...");
 
             var psi = new ProcessStartInfo
             {
@@ -538,7 +538,7 @@ public class MenuActionHandlerService
     public void HandleAbout()
     {
         _playSoundEffects.PlayNotificationSound();
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningAboutWindow") ?? "Opening About window...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningAboutWindow") ?? "Opening About window...");
 
         var aboutWindow = _serviceProvider.GetRequiredService<AboutWindow>();
         aboutWindow.Owner = _mainWindow;
@@ -558,7 +558,7 @@ public class MenuActionHandlerService
         try
         {
             _host.CancelAndRecreateToken();
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...");
 
             try
             {
@@ -601,7 +601,7 @@ public class MenuActionHandlerService
                 await _settings.SaveAsync();
 
                 _menuCheckMarkService.UpdateThumbnailSizeCheckMarks(newSize);
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("AdjustingButtonSize") ?? "Adjusting button size...", _mainWindow);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("AdjustingButtonSize") ?? "Adjusting button size...");
 
                 var (sl, sq) = _host.GetLoadGameFilesParams();
                 _host.SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
@@ -627,7 +627,7 @@ public class MenuActionHandlerService
     {
         try
         {
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("AdjustingButtonAspectRatio") ?? "Adjusting button aspect ratio...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("AdjustingButtonAspectRatio") ?? "Adjusting button aspect ratio...");
             _host.CancelAndRecreateToken();
 
             try
@@ -683,7 +683,7 @@ public class MenuActionHandlerService
                 await _settings.SaveAsync();
 
                 _menuCheckMarkService.UpdateNumberOfGamesPerPageCheckMarks(newPage);
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("AdjustingGamesPerPage") ?? "Adjusting games per page...", _mainWindow);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("AdjustingGamesPerPage") ?? "Adjusting games per page...");
 
                 var (sl, sq) = _host.GetLoadGameFilesParams();
                 _host.SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
@@ -706,7 +706,7 @@ public class MenuActionHandlerService
     public void HandleShowGlobalSearch()
     {
         _playSoundEffects.PlayNotificationSound();
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalSearch") ?? "Opening Global Search...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalSearch") ?? "Opening Global Search...");
 
         var globalSearchPage = new Pages.GlobalSearchPage(
             _host.GetSystemManagers(), _host.GetMachines(), _host.GetMameLookup(),
@@ -721,7 +721,7 @@ public class MenuActionHandlerService
 
     public void HandleShowGlobalStats()
     {
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalStatistics") ?? "Opening Global Statistics...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalStatistics") ?? "Opening Global Statistics...");
         _playSoundEffects.PlayNotificationSound();
 
         var globalStatsWindow = _serviceProvider.GetRequiredService<GlobalStatsWindow>();
@@ -734,7 +734,7 @@ public class MenuActionHandlerService
 
     public void HandleShowFavorites()
     {
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningFavorites") ?? "Opening Favorites...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningFavorites") ?? "Opening Favorites...");
         _playSoundEffects.PlayNotificationSound();
 
         var favoritesPage = new Pages.FavoritesPage(
@@ -749,7 +749,7 @@ public class MenuActionHandlerService
     public void HandleShowPlayHistory()
     {
         _playSoundEffects.PlayNotificationSound();
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningPlayHistory") ?? "Opening Play History...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningPlayHistory") ?? "Opening Play History...");
 
         var playHistoryPage = new Pages.PlayHistoryPage(
             _host.GetSystemManagers(), _host.GetMachines(), _settings,
@@ -764,7 +764,7 @@ public class MenuActionHandlerService
     public void HandleShowRetroAchievements()
     {
         _playSoundEffects.PlayNotificationSound();
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...");
 
         var retroAchievementsWindow = _serviceProvider.GetRequiredService<RetroAchievementsWindow>();
         retroAchievementsWindow.Owner = _mainWindow;
@@ -786,7 +786,7 @@ public class MenuActionHandlerService
     {
         try
         {
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingFavoriteGamesForSystem") ?? "Loading favorite games for system...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingFavoriteGamesForSystem") ?? "Loading favorite games for system...");
             _playSoundEffects.PlayNotificationSound();
             await _host.ShowSystemFavoriteGamesAsync();
         }
@@ -802,7 +802,7 @@ public class MenuActionHandlerService
     {
         try
         {
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("PickingARandomGame") ?? "Picking a random game...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("PickingARandomGame") ?? "Picking a random game...");
             _playSoundEffects.PlayNotificationSound();
             await _host.ShowSystemFeelingLuckyAsync();
         }
@@ -824,7 +824,7 @@ public class MenuActionHandlerService
             }
 
             _playSoundEffects.PlayNotificationSound();
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FilteringRetroAchievements") ?? "Filtering games with achievements...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FilteringRetroAchievements") ?? "Filtering games with achievements...");
 
             _host.DeselectTopLetterNumberMenu();
             _host.SetSearchTextBoxText("");
@@ -865,7 +865,7 @@ public class MenuActionHandlerService
                     _menuCheckMarkService.UpdateThumbnailSizeCheckMarks(newSize);
                 }
 
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ZoomingIn") ?? "Zooming in...", _mainWindow);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ZoomingIn") ?? "Zooming in...");
                 var (sl, sq) = _host.GetLoadGameFilesParams();
                 await _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
             }
@@ -880,7 +880,7 @@ public class MenuActionHandlerService
                     _menuCheckMarkService.UpdateThumbnailSizeCheckMarks(newSize);
                 }
 
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ZoomingIn") ?? "Zooming in...", _mainWindow);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ZoomingIn") ?? "Zooming in...");
                 var (sl, sq) = _host.GetLoadGameFilesParams();
                 await _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
             }
@@ -910,7 +910,7 @@ public class MenuActionHandlerService
                     _menuCheckMarkService.UpdateThumbnailSizeCheckMarks(newSize);
                 }
 
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ZoomingOut") ?? "Zooming out...", _mainWindow);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ZoomingOut") ?? "Zooming out...");
                 var (sl, sq) = _host.GetLoadGameFilesParams();
                 await _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
             }
@@ -925,7 +925,7 @@ public class MenuActionHandlerService
                     _menuCheckMarkService.UpdateThumbnailSizeCheckMarks(newSize);
                 }
 
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ZoomingOut") ?? "Zooming out...", _mainWindow);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ZoomingOut") ?? "Zooming out...");
                 var (sl, sq) = _host.GetLoadGameFilesParams();
                 await _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
             }
@@ -944,7 +944,7 @@ public class MenuActionHandlerService
         {
             _host.CancelAndRecreateToken();
 
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingViewMode") ?? "Toggling view mode...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingViewMode") ?? "Toggling view mode...");
             _playSoundEffects.PlayNotificationSound();
 
             if (_host.GetViewMode() == "GridView")
@@ -990,7 +990,7 @@ public class MenuActionHandlerService
                 _host.SetGameFileGridVisibility(Visibility.Visible);
                 _host.SetListViewPreviewAreaVisibility(Visibility.Collapsed);
 
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...", _mainWindow);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...");
             }
             else if (Equals(sender, _host.GetListViewMenuItem()))
             {
@@ -1001,7 +1001,7 @@ public class MenuActionHandlerService
                 _host.SetGameFileGridVisibility(Visibility.Collapsed);
                 _host.SetListViewPreviewAreaVisibility(Visibility.Visible);
 
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...", _mainWindow);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...");
             }
 
             _settings.SaveAsync();
@@ -1031,7 +1031,7 @@ public class MenuActionHandlerService
 
                 _menuCheckMarkService.UpdateFilenameDisplayModeCheckMarks(mode);
 
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingFilenameDisplayMode") ?? "Changing filename display mode...", _mainWindow);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingFilenameDisplayMode") ?? "Changing filename display mode...");
 
                 if (_host.GetViewMode() == "GridView")
                 {
@@ -1068,7 +1068,7 @@ public class MenuActionHandlerService
                 _settings.DisplayMachineName = isChecked;
                 await _settings.SaveAsync();
 
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingDisplayMachineName") ?? "Changing machine name display...", _mainWindow);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingDisplayMachineName") ?? "Changing machine name display...");
 
                 if (_host.GetViewMode() == "GridView")
                 {
@@ -1107,7 +1107,7 @@ public class MenuActionHandlerService
 
                 _menuCheckMarkService.UpdateFilenameFontSizeCheckMarks(size);
 
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingFilenameFontSize") ?? "Changing filename font size...", _mainWindow);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingFilenameFontSize") ?? "Changing filename font size...");
 
                 if (_host.GetViewMode() == "GridView")
                 {
@@ -1146,7 +1146,7 @@ public class MenuActionHandlerService
 
                 _menuCheckMarkService.UpdateMachineNameFontSizeCheckMarks(size);
 
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingMachineNameFontSize") ?? "Changing machine name font size...", _mainWindow);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingMachineNameFontSize") ?? "Changing machine name font size...");
 
                 if (_host.GetViewMode() == "GridView")
                 {
@@ -1175,7 +1175,7 @@ public class MenuActionHandlerService
         try
         {
             _playSoundEffects.PlayNotificationSound();
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningSoundConfigurationSettings") ?? "Opening Sound Configuration settings...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningSoundConfigurationSettings") ?? "Opening Sound Configuration settings...");
 
             var soundConfigWindow = _serviceProvider.GetRequiredService<SoundConfigurationWindow>();
             soundConfigWindow.Owner = _mainWindow;
@@ -1195,7 +1195,7 @@ public class MenuActionHandlerService
         try
         {
             _playSoundEffects.PlayNotificationSound();
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievementsSettings") ?? "Opening RetroAchievements settings...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievementsSettings") ?? "Opening RetroAchievements settings...");
 
             var raSettingsWindow = _serviceProvider.GetRequiredService<RetroAchievementsSettingsWindow>();
             raSettingsWindow.Owner = _mainWindow;
@@ -1214,7 +1214,7 @@ public class MenuActionHandlerService
     {
         _host.CancelAndRecreateToken();
 
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingRetroAchievementsOverlayButton") ?? "Toggling RetroAchievements overlay button...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingRetroAchievementsOverlayButton") ?? "Toggling RetroAchievements overlay button...");
         try
         {
             _playSoundEffects.PlayNotificationSound();
@@ -1238,7 +1238,7 @@ public class MenuActionHandlerService
     {
         _host.CancelAndRecreateToken();
 
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingVideoLinkOverlayButton") ?? "Toggling video link overlay button...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingVideoLinkOverlayButton") ?? "Toggling video link overlay button...");
         try
         {
             _playSoundEffects.PlayNotificationSound();
@@ -1262,7 +1262,7 @@ public class MenuActionHandlerService
     {
         _host.CancelAndRecreateToken();
 
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingInfoLinkOverlayButton") ?? "Toggling info link overlay button...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingInfoLinkOverlayButton") ?? "Toggling info link overlay button...");
         try
         {
             _playSoundEffects.PlayNotificationSound();

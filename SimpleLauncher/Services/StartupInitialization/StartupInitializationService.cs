@@ -20,7 +20,7 @@ public class StartupInitializationService
     private readonly ILogErrors _logErrors;
     private readonly ThemeMenuService _themeMenuService;
     private readonly LanguageMenuService _languageMenuService;
-    private MainWindow _mainWindow;
+    private IStartupInitializationHost _host;
 
     public StartupInitializationService(
         IConfiguration configuration,
@@ -38,9 +38,9 @@ public class StartupInitializationService
         _languageMenuService = languageMenuService;
     }
 
-    public void Initialize(MainWindow mainWindow)
+    public void Initialize(IStartupInitializationHost host)
     {
-        _mainWindow = mainWindow;
+        _host = host;
 
         InitializeStatusBarTimer();
         ApplyInitialThemeAndLanguage();
@@ -56,14 +56,14 @@ public class StartupInitializationService
     private void InitializeStatusBarTimer()
     {
         var statusBarTimeoutSeconds = _configuration.GetValue("StatusBarTimeoutSeconds", 3);
-        _mainWindow.StatusBarTimer = new DispatcherTimer
+        _host.StatusBarTimer = new DispatcherTimer
         {
             Interval = TimeSpan.FromSeconds(statusBarTimeoutSeconds)
         };
-        _mainWindow.StatusBarTimer.Tick += (_, _) =>
+        _host.StatusBarTimer.Tick += (_, _) =>
         {
-            _mainWindow.StatusBarText.Content = "";
-            _mainWindow.StatusBarTimer.Stop();
+            _host.StatusBarText.Content = "";
+            _host.StatusBarTimer.Stop();
         };
 
         DebugLogger.Log("StatusBarTimer was initialized.");
@@ -82,11 +82,11 @@ public class StartupInitializationService
     private void InitializeUiState()
     {
         var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-        _mainWindow.SelectedSystem = nosystemselected;
-        _mainWindow.PlayTime = "00:00:00";
+        _host.SelectedSystem = nosystemselected;
+        _host.PlayTime = "00:00:00";
         DebugLogger.Log("SelectedSystem and PlayTime was set.");
 
-        _mainWindow.SetViewMode(_settings.ViewMode);
+        _host.SetViewMode(_settings.ViewMode);
         DebugLogger.Log("ViewMode was set.");
     }
 
@@ -101,13 +101,13 @@ public class StartupInitializationService
 
     private void InitializePagination()
     {
-        _mainWindow.SetPaginationButtonsDefault();
+        _host.SetPaginationButtonsDefault();
         DebugLogger.Log("Pagination was set.");
     }
 
     private void InitializeTrayIcon()
     {
-        _mainWindow.SetTrayIconManager(new TrayIconManager(_mainWindow, _logErrors));
+        _host.SetTrayIconManager(new TrayIconManager(_host.HostWindow, _logErrors));
         DebugLogger.Log("TrayIconManager was initialized.");
     }
 
@@ -119,9 +119,9 @@ public class StartupInitializationService
 
     private void InitializeOverlayButtons()
     {
-        _mainWindow.RetroAchievementButton.IsChecked = _settings.OverlayRetroAchievementButton;
-        _mainWindow.VideoLinkButton.IsChecked = _settings.OverlayOpenVideoButton;
-        _mainWindow.InfoLinkButton.IsChecked = _settings.OverlayOpenInfoButton;
+        _host.RetroAchievementButton.IsChecked = _settings.OverlayRetroAchievementButton;
+        _host.VideoLinkButton.IsChecked = _settings.OverlayOpenVideoButton;
+        _host.InfoLinkButton.IsChecked = _settings.OverlayOpenInfoButton;
         DebugLogger.Log("Overlay buttons were set.");
     }
 

@@ -8,7 +8,7 @@ public class ThemeMenuService
 {
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly Settings _settings;
-    private MainWindow _mainWindow;
+    private IThemeMenuHost _host;
 
     private static readonly string[] BaseThemeNames = ["Light", "Dark", "Adaptive", "HighContrast", "Midnight"];
 
@@ -26,9 +26,9 @@ public class ThemeMenuService
         _settings = settings;
     }
 
-    public void Initialize(MainWindow mainWindow)
+    public void Initialize(IThemeMenuHost host)
     {
-        _mainWindow = mainWindow;
+        _host = host;
     }
 
     public void ChangeBaseTheme(MenuItem menuItem)
@@ -54,12 +54,12 @@ public class ThemeMenuService
         UncheckAllBaseThemes();
         UncheckAllAccentColors();
 
-        if (_mainWindow.FindName(baseTheme) is MenuItem baseItem)
+        if (_host.FindMenuItemByName(baseTheme) is { } baseItem)
         {
             baseItem.IsChecked = true;
         }
 
-        if (_mainWindow.FindName(accentColor) is MenuItem accentItem)
+        if (_host.FindMenuItemByName(accentColor) is { } accentItem)
         {
             accentItem.IsChecked = true;
         }
@@ -69,7 +69,7 @@ public class ThemeMenuService
     {
         foreach (var name in BaseThemeNames)
         {
-            if (_mainWindow.FindName(name) is MenuItem item)
+            if (_host.FindMenuItemByName(name) is { } item)
             {
                 item.IsChecked = false;
             }
@@ -80,7 +80,7 @@ public class ThemeMenuService
     {
         foreach (var name in AccentColorNames)
         {
-            if (_mainWindow.FindName(name) is MenuItem item)
+            if (_host.FindMenuItemByName(name) is { } item)
             {
                 item.IsChecked = false;
             }

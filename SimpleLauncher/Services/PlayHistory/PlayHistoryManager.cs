@@ -232,7 +232,7 @@ public class PlayHistoryManager
                 try
                 {
                     // Notify user
-                    Application.Current.Dispatcher.Invoke(static () => (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SavingPlayHistory") ?? "Saving play history...", Application.Current.MainWindow as MainWindow));
+                    Application.Current.Dispatcher.Invoke(static () => (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SavingPlayHistory") ?? "Saving play history..."));
 
                     byte[] bytes;
                     lock (_historyLock)
@@ -325,7 +325,7 @@ public class PlayHistoryManager
                 return;
 
             // Notify user
-            Application.Current.Dispatcher.Invoke(static () => (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("UpdatingPlayHistory") ?? "Updating play history...", Application.Current.MainWindow as MainWindow));
+            Application.Current.Dispatcher.Invoke(static () => (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("UpdatingPlayHistory") ?? "Updating play history..."));
 
             // Get the current date and time in a culture-invariant format
             // This ensures it can be parsed regardless of the UI language

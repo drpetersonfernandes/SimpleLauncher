@@ -14,7 +14,7 @@ public partial class MainWindow
 {
     internal async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null, CancellationToken cancellationToken = default)
     {
-        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("Loading") ?? "Loading...", this);
+        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("Loading") ?? "Loading...");
 
         // Note: Loading overlay should be shown by the caller before invoking this method
         // to ensure immediate UI feedback. This prevents the overlay from flickering or not showing.

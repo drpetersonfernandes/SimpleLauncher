@@ -83,32 +83,32 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
             {
                 case "Achievements":
                     _playSoundEffects.PlayNotificationSound();
-                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingAchievements") ?? "Loading achievements...", Owner as MainWindow);
+                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingAchievements") ?? "Loading achievements...");
                     _ = LoadGameAchievementsAsync();
                     break;
                 case "GameInfo":
                     _playSoundEffects.PlayNotificationSound();
-                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingExtendedGameInfo") ?? "Loading extended game info...", Owner as MainWindow);
+                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingExtendedGameInfo") ?? "Loading extended game info...");
                     _ = LoadGameInfoAsync();
                     break;
                 case "GameRanking":
                     _playSoundEffects.PlayNotificationSound();
-                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingGameRankings") ?? "Loading game rankings...", Owner as MainWindow);
+                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingGameRankings") ?? "Loading game rankings...");
                     _ = LoadGameRankingAsync();
                     break;
                 case "MyProfile":
                     _playSoundEffects.PlayNotificationSound();
-                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingUserProfile") ?? "Loading user profile...", Owner as MainWindow);
+                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingUserProfile") ?? "Loading user profile...");
                     _ = LoadUserProfileAsync();
                     break;
                 case "Unlocks":
                     _playSoundEffects.PlayNotificationSound();
-                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingUserUnlocks") ?? "Loading user unlocks...", Owner as MainWindow);
+                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingUserUnlocks") ?? "Loading user unlocks...");
                     _ = LoadUnlocksByDateAsync();
                     break;
                 case "UserProgress":
                     _playSoundEffects.PlayNotificationSound();
-                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingUserCompletionProgress") ?? "Loading user completion progress...", Owner as MainWindow);
+                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingUserCompletionProgress") ?? "Loading user completion progress...");
                     _ = LoadUserProgressAsync();
                     break;
             }
@@ -361,7 +361,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
 
     private async Task LoadGameAchievementsAsync()
     {
-        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingGameAchievements") ?? "Fetching game achievements...", Owner as MainWindow);
+        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingGameAchievements") ?? "Fetching game achievements...");
 
         LoadingOverlay.Content = (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
         LoadingOverlay.Visibility = Visibility.Visible;
@@ -437,7 +437,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
 
     private async Task LoadGameInfoAsync()
     {
-        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingExtendedGameInfo") ?? "Fetching extended game info...", Owner as MainWindow);
+        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingExtendedGameInfo") ?? "Fetching extended game info...");
 
         LoadingOverlay.Content = (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
         LoadingOverlay.Visibility = Visibility.Visible;
@@ -611,7 +611,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
 
     private async Task LoadGameRankingAsync()
     {
-        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingGameRankings") ?? "Fetching game rankings...", Owner as MainWindow);
+        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingGameRankings") ?? "Fetching game rankings...");
 
         LoadingOverlay.Content = (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
         LoadingOverlay.Visibility = Visibility.Visible;
@@ -770,7 +770,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
 
     private async Task LoadUserProfileAsync()
     {
-        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingUserProfile") ?? "Fetching user profile...", Owner as MainWindow);
+        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingUserProfile") ?? "Fetching user profile...");
 
         LoadingOverlay.Content = (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
         LoadingOverlay.Visibility = Visibility.Visible;
@@ -897,7 +897,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
 
     private async Task LoadUnlocksByDateAsync()
     {
-        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingEarnedAchievementsByDate") ?? "Fetching earned achievements by date...", Owner as MainWindow);
+        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingEarnedAchievementsByDate") ?? "Fetching earned achievements by date...");
 
         LoadingOverlay.Content = (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
         LoadingOverlay.Visibility = Visibility.Visible;
@@ -1018,7 +1018,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
             NoUnlocksMessage.Text = (string)Application.Current.TryFindResource("RaInfoNoUnlocksFound") ?? "No unlocks found for the selected date range."; // Reset message
 
             // Notify user
-            (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ResettingDatesAndFetchingUnlocks") ?? "Resetting dates and fetching unlocks...", Owner as MainWindow);
+            (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ResettingDatesAndFetchingUnlocks") ?? "Resetting dates and fetching unlocks...");
 
             await LoadUnlocksByDateAsync(); // Automatically fetch for the new date range
         }
@@ -1032,7 +1032,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
 
     private async Task LoadUserProgressAsync()
     {
-        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingUserCompletionProgress") ?? "Fetching user completion progress...", Owner as MainWindow);
+        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingUserCompletionProgress") ?? "Fetching user completion progress...");
 
         LoadingOverlay.Content = (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
         LoadingOverlay.Visibility = Visibility.Visible;
@@ -1104,6 +1104,6 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         LoadingOverlay.Visibility = Visibility.Collapsed;
 
         DebugLogger.Log("[Emergency] User forced overlay dismissal in RetroAchievements Window.");
-        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.", Owner as MainWindow);
+        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 }

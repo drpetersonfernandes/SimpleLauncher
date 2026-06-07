@@ -340,7 +340,7 @@ public partial class MainWindow
     private void ApplyShowGamesSetting()
     {
         UpdateShowGamesCheckMarks(_settings.ShowGames);
-        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilitySettings") ?? "Applying game visibility settings...", this);
+        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilitySettings") ?? "Applying game visibility settings...");
     }
 
     private void ChangeLanguage_Click(object sender, RoutedEventArgs e)

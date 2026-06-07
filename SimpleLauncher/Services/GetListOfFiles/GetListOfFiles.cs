@@ -129,7 +129,7 @@ public class GetListOfFilesService : IGetListOfFiles
             var message = (string)Application.Current.TryFindResource("RestrictedFoldersSkipped")
                           ?? "Some folders were skipped due to access restrictions. Check the log for details.";
 
-            mainWindow?.UpdateStatusBarService.UpdateContent(message, mainWindow);
+            mainWindow?.UpdateStatusBarService.UpdateContent(message);
 
             if (restrictedFolders.Count > 5)
             {

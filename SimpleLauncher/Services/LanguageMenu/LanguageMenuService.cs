@@ -10,7 +10,7 @@ public class LanguageMenuService
 {
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly Settings _settings;
-    private MainWindow _mainWindow;
+    private ILanguageMenuHost _host;
 
     private static readonly Dictionary<string, string> NameToCode = new()
     {
@@ -40,9 +40,9 @@ public class LanguageMenuService
         _settings = settings;
     }
 
-    public void Initialize(MainWindow mainWindow)
+    public void Initialize(ILanguageMenuHost host)
     {
-        _mainWindow = mainWindow;
+        _host = host;
     }
 
     public void ChangeLanguage(MenuItem menuItem)
@@ -53,7 +53,7 @@ public class LanguageMenuService
         _playSoundEffects.PlayNotificationSound();
         _settings.Language = languageCode;
         SetLanguageCheckMarks(languageCode);
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingLanguage") ?? "Changing language...", _mainWindow);
+        _host.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingLanguage") ?? "Changing language...");
         _settings.SaveAsync();
         QuitSimpleLauncher.RestartApplication();
     }
@@ -62,7 +62,7 @@ public class LanguageMenuService
     {
         foreach (var (name, code) in NameToCode)
         {
-            if (_mainWindow.FindName(name) is MenuItem item)
+            if (_host.FindMenuItemByName(name) is { } item)
             {
                 item.IsChecked = code == languageCode;
             }

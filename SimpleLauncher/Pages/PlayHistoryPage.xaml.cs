@@ -576,7 +576,7 @@ public partial class PlayHistoryPage : ILoadingState
     private void SortByDate_Click(object sender, RoutedEventArgs e)
     {
         // Capture current selection identifier before sorting
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...");
         // Use a non-nullable tuple with nullable elements
         var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
             ? (selectedItem.FileName, selectedItem.SystemName)
@@ -601,7 +601,7 @@ public partial class PlayHistoryPage : ILoadingState
     private void SortByTotalPlayTime_Click(object sender, RoutedEventArgs e)
     {
         // Capture current selection identifier before sorting
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...");
         // Use a non-nullable tuple with nullable elements
         var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
             ? (selectedItem.FileName, selectedItem.SystemName)
@@ -637,7 +637,7 @@ public partial class PlayHistoryPage : ILoadingState
 
         if (selectedItems.Count > 0)
         {
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingHistoryItem") ?? "Removing history item...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingHistoryItem") ?? "Removing history item...");
 
             _playSoundEffects.PlayTrashSound();
 
@@ -664,7 +664,7 @@ public partial class PlayHistoryPage : ILoadingState
     private void RemoveAllHistoryItemButton_Click(object sender, RoutedEventArgs e)
     {
         var result = MessageBoxLibrary.ReallyWantToRemoveAllPlayHistoryMessageBox();
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingAllHistoryItems") ?? "Removing all history items...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingAllHistoryItems") ?? "Removing all history items...");
 
         if (result == MessageBoxResult.Yes)
         {
@@ -696,7 +696,7 @@ public partial class PlayHistoryPage : ILoadingState
             else
             {
                 // Notify user
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingGameFromHistory") ?? "Launching game from history...", _mainWindow);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingGameFromHistory") ?? "Launching game from history...");
                 MessageBoxLibrary.SelectAGameToLaunchMessageBox();
             }
         }
@@ -714,7 +714,7 @@ public partial class PlayHistoryPage : ILoadingState
     private void SortByTimesPlayed_Click(object sender, RoutedEventArgs e)
     {
         // Capture current selection identifier before sorting
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...");
         // Use a non-nullable tuple with nullable elements
         var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
             ? (selectedItem.FileName, selectedItem.SystemName)
@@ -761,6 +761,6 @@ public partial class PlayHistoryPage : ILoadingState
         LoadingOverlay.Visibility = Visibility.Collapsed;
 
         DebugLogger.Log("[Emergency] User forced overlay dismissal in PlayHistoryPage.");
-        _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 }

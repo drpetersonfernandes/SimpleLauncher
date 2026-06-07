@@ -534,7 +534,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         IsLoading = false;
 
         DebugLogger.Log("[Emergency] User forced overlay dismissal in DownloadImagePackWindow.");
-        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 
     /// <summary>

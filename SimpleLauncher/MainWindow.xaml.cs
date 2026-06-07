@@ -52,7 +52,7 @@ namespace SimpleLauncher;
 
 using ILoadingState = Services.LoadingInterface.ILoadingState;
 
-public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingState, IMenuCheckMarkHost, IUiResetHost, IPaginationHost
+public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingState, IMenuCheckMarkHost, IUiResetHost, IPaginationHost, ILoadingOverlayHost, IGameListUiHost, IStartupInitializationHost, IThemeMenuHost, ILanguageMenuHost, IStatusBarHost
 {
     private CancellationTokenSource _cancellationSource = new();
     private bool _isResortOperation;
@@ -245,13 +245,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _systemImageResolverService = systemImageResolverService;
 
         _paginationService.Initialize(this);
-        _themeMenuService.Initialize(this);
-        _languageMenuService.Initialize(this);
-        _loadingOverlayService.Initialize(this);
-        _gameListUiService.Initialize(this);
+        _themeMenuService.Initialize((IThemeMenuHost)this);
+        _languageMenuService.Initialize((ILanguageMenuHost)this);
+        _loadingOverlayService.Initialize((ILoadingOverlayHost)this);
+        _gameListUiService.Initialize((IGameListUiHost)this);
         MenuActionHandlerService.Initialize(this);
         MenuCheckMarkService.Initialize(this);
         UiResetService.Initialize(this);
+        UpdateStatusBarService.Initialize((IStatusBarHost)this);
 
         DataContext = this;
 
@@ -359,7 +360,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                     await _gameScannerService.ScanForStoreGamesAsync();
                     if (_gameScannerService.WasNewSystemCreated)
                     {
-                        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FoundNewMicrosoftWindowsGames") ?? "Found new Microsoft Windows games. Refreshing system list.", this);
+                        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FoundNewMicrosoftWindowsGames") ?? "Found new Microsoft Windows games. Refreshing system list.");
 
                         // Reload to get the new system
                         LoadOrReloadSystemManager();
@@ -403,7 +404,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
-        _startupInitializationService.Initialize(this);
+        _startupInitializationService.Initialize((IStartupInitializationHost)this);
     }
 
     private void MainWindow_Activated(object sender, EventArgs e)
@@ -632,7 +633,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     internal void RefreshGameListAfterPlay(string fileName, string systemName)
     {
-        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RefreshingGameList") ?? "Refreshing game list...", this);
+        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RefreshingGameList") ?? "Refreshing game list...");
         try
         {
             // Only update if in ListView mode

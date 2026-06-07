@@ -75,8 +75,7 @@ public partial class SupportViewModel : ObservableObject
             await SendSupportRequestToApiAsync(fullMessageBuilder.ToString());
 
             (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-                (string)Application.Current.TryFindResource("SendingSupportRequest") ?? "Sending support request...",
-                Application.Current.MainWindow as MainWindow);
+                (string)Application.Current.TryFindResource("SendingSupportRequest") ?? "Sending support request...");
         }
         catch (Exception ex)
         {

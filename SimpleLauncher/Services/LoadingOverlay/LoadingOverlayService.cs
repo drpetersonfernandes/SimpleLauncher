@@ -5,7 +5,7 @@ namespace SimpleLauncher.Services.LoadingOverlay;
 
 public class LoadingOverlayService
 {
-    private MainWindow _mainWindow;
+    private ILoadingOverlayHost _host;
     private int _loadingOperationsCount;
     private readonly object _loadingStateLock = new();
     private readonly PlaySoundEffects _playSoundEffects;
@@ -15,9 +15,9 @@ public class LoadingOverlayService
         _playSoundEffects = playSoundEffects;
     }
 
-    public void Initialize(MainWindow mainWindow)
+    public void Initialize(ILoadingOverlayHost host)
     {
-        _mainWindow = mainWindow;
+        _host = host;
     }
 
     public void SetLoadingState(bool isLoading, string message = null)
@@ -43,21 +43,21 @@ public class LoadingOverlayService
             }
 
             shouldShowOverlay = _loadingOperationsCount > 0;
-            _mainWindow.SetIsLoadingGamesInternal(shouldShowOverlay);
+            _host.SetIsLoadingGamesInternal(shouldShowOverlay);
         }
 
-        _mainWindow.Dispatcher.Invoke(() =>
+        _host.Dispatcher.Invoke(() =>
         {
-            _mainWindow.LoadingOverlay.Visibility = shouldShowOverlay ? Visibility.Visible : Visibility.Collapsed;
-            _mainWindow.MainContentGrid.IsEnabled = !shouldShowOverlay;
+            _host.SetLoadingOverlayVisibility(shouldShowOverlay ? Visibility.Visible : Visibility.Collapsed);
+            _host.SetMainContentGridEnabled(!shouldShowOverlay);
 
             if (isLoading && shouldShowOverlay && message != null)
             {
-                _mainWindow.LoadingOverlay.Content = message;
+                _host.SetLoadingOverlayContent(message);
             }
             else if (!shouldShowOverlay)
             {
-                _mainWindow.LoadingOverlay.Content = (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+                _host.SetLoadingOverlayContent((string)Application.Current.TryFindResource("Loading") ?? "Loading...");
             }
         });
     }
@@ -69,19 +69,19 @@ public class LoadingOverlayService
         lock (_loadingStateLock)
         {
             _loadingOperationsCount = 0;
-            _mainWindow.SetIsLoadingGamesInternal(false);
+            _host.SetIsLoadingGamesInternal(false);
         }
 
-        _mainWindow.CancelAndRecreateToken();
+        _host.CancelAndRecreateToken();
 
-        _mainWindow.Dispatcher.Invoke(() =>
+        _host.Dispatcher.Invoke(() =>
         {
-            _mainWindow.LoadingOverlay.Visibility = Visibility.Collapsed;
-            _mainWindow.MainContentGrid.IsEnabled = true;
+            _host.SetLoadingOverlayVisibility(Visibility.Collapsed);
+            _host.SetMainContentGridEnabled(true);
         });
 
-        _mainWindow.ResetUiAsync();
-        _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.", _mainWindow);
+        _host.ResetUiAsync();
+        _host.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
         DebugAndBugReport.DebugLogger.Log("[Emergency] User forced overlay dismissal via Return button.");
     }
 }

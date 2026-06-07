@@ -1286,6 +1286,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         MainContentGrid?.IsEnabled = true;
 
         DebugLogger.Log("[Emergency] User forced overlay dismissal in EasyModeWindow.");
-        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 }

@@ -58,6 +58,6 @@ public partial class SupportWindow : ILoadingState
         MainContentGrid?.IsEnabled = true;
 
         DebugLogger.Log("[Emergency] User forced overlay dismissal in SupportWindow.");
-        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 }
