@@ -84,66 +84,47 @@ public class LaunchTools : ILaunchTools
         }
     }
 
-    public void CreateBatchFilesForXbox360XblaGames()
+    private static string GetToolExecutablePath(string toolFolder, string baseName, bool useArchSubfolders = false)
     {
         var architecture = RuntimeInformation.ProcessArchitecture;
-        var executableName = architecture switch
+        var archPath = architecture switch
         {
-            Architecture.X64 => "CreateBatchFilesForXbox360XBLAGames.exe",
-            Architecture.Arm64 => "CreateBatchFilesForXbox360XBLAGames_arm64.exe",
+            Architecture.X64 => useArchSubfolders ? Path.Combine("x64", $"{baseName}.exe") : $"{baseName}.exe",
+            Architecture.Arm64 => useArchSubfolders ? Path.Combine("arm64", $"{baseName}.exe") : $"{baseName}_arm64.exe",
             _ => null
         };
 
-        if (executableName == null)
+        if (archPath == null)
         {
             var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
             MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
-            return;
+            return null;
         }
 
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", executableName);
+        return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", toolFolder, archPath);
+    }
+
+    public void CreateBatchFilesForXbox360XblaGames()
+    {
+        var toolPath = GetToolExecutablePath("CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames");
+        if (toolPath == null) return;
+
         LaunchExternalTool(toolPath);
     }
 
     public void CreateBatchFilesForWindowsGames()
     {
-        var architecture = RuntimeInformation.ProcessArchitecture;
-        var executableName = architecture switch
-        {
-            Architecture.X64 => "CreateBatchFilesForWindowsGames.exe",
-            Architecture.Arm64 => "CreateBatchFilesForWindowsGames_arm64.exe",
-            _ => null
-        };
+        var toolPath = GetToolExecutablePath("CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames");
+        if (toolPath == null) return;
 
-        if (executableName == null)
-        {
-            var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
-            return;
-        }
-
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForWindowsGames", executableName);
         LaunchExternalTool(toolPath);
     }
 
     public void FindRomCoverLaunch(string selectedImageFolder, string selectedRomFolder)
     {
-        var architecture = RuntimeInformation.ProcessArchitecture;
-        var executableName = architecture switch
-        {
-            Architecture.X64 => "FindRomCover.exe",
-            Architecture.Arm64 => "FindRomCover_arm64.exe",
-            _ => null
-        };
+        var toolPath = GetToolExecutablePath("FindRomCover", "FindRomCover");
+        if (toolPath == null) return;
 
-        if (executableName == null)
-        {
-            var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
-            return;
-        }
-
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "FindRomCover", executableName);
         var arguments = string.Empty;
         var workingDirectory = Path.GetDirectoryName(toolPath);
 
@@ -160,64 +141,25 @@ public class LaunchTools : ILaunchTools
 
     public void CreateBatchFilesForPs3Games()
     {
-        var architecture = RuntimeInformation.ProcessArchitecture;
-        var executableName = architecture switch
-        {
-            Architecture.X64 => "CreateBatchFilesForPS3Games.exe",
-            Architecture.Arm64 => "CreateBatchFilesForPS3Games_arm64.exe",
-            _ => null
-        };
+        var toolPath = GetToolExecutablePath("CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games");
+        if (toolPath == null) return;
 
-        if (executableName == null)
-        {
-            var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
-            return;
-        }
-
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForPS3Games", executableName);
         LaunchExternalTool(toolPath);
     }
 
     public void BatchConvertIsoToXiso()
     {
-        var architecture = RuntimeInformation.ProcessArchitecture;
-        var executableName = architecture switch
-        {
-            Architecture.X64 => "BatchConvertIsoToXiso.exe",
-            Architecture.Arm64 => "BatchConvertIsoToXiso_arm64.exe",
-            _ => null
-        };
+        var toolPath = GetToolExecutablePath("BatchConvertIsoToXiso", "BatchConvertIsoToXiso");
+        if (toolPath == null) return;
 
-        if (executableName == null)
-        {
-            var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
-            return;
-        }
-
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertIsoToXiso", executableName);
         LaunchExternalTool(toolPath);
     }
 
     public void BatchConvertToChd(string selectedRomFolder)
     {
-        var architecture = RuntimeInformation.ProcessArchitecture;
-        var executableName = architecture switch
-        {
-            Architecture.X64 => "BatchConvertToCHD.exe",
-            Architecture.Arm64 => "BatchConvertToCHD_arm64.exe",
-            _ => null
-        };
+        var toolPath = GetToolExecutablePath("BatchConvertToCHD", "BatchConvertToCHD");
+        if (toolPath == null) return;
 
-        if (executableName == null)
-        {
-            var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
-            return;
-        }
-
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCHD", executableName);
         var arguments = string.Empty;
         var workingDirectory = Path.GetDirectoryName(toolPath);
 
@@ -233,107 +175,43 @@ public class LaunchTools : ILaunchTools
 
     public void BatchConvertToCompressedFile()
     {
-        var architecture = RuntimeInformation.ProcessArchitecture;
-        var executableName = architecture switch
-        {
-            Architecture.X64 => "BatchConvertToCompressedFile.exe",
-            Architecture.Arm64 => "BatchConvertToCompressedFile_arm64.exe",
-            _ => null
-        };
+        var toolPath = GetToolExecutablePath("BatchConvertToCompressedFile", "BatchConvertToCompressedFile");
+        if (toolPath == null) return;
 
-        if (executableName == null)
-        {
-            var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
-            return;
-        }
-
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCompressedFile", executableName);
         LaunchExternalTool(toolPath);
     }
 
     public void BatchConvertToRvz()
     {
-        var architecture = RuntimeInformation.ProcessArchitecture;
-        var executableName = architecture switch
-        {
-            Architecture.X64 => "BatchConvertToRVZ.exe",
-            Architecture.Arm64 => "BatchConvertToRVZ_arm64.exe",
-            _ => null
-        };
+        var toolPath = GetToolExecutablePath("BatchConvertToRVZ", "BatchConvertToRVZ");
+        if (toolPath == null) return;
 
-        if (executableName == null)
-        {
-            var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
-            return;
-        }
-
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToRVZ", executableName);
         LaunchExternalTool(toolPath);
     }
 
     public void CreateBatchFilesForScummVmGames()
     {
-        var architecture = RuntimeInformation.ProcessArchitecture;
-        var executableName = architecture switch
-        {
-            Architecture.X64 => "CreateBatchFilesForScummVMGames.exe",
-            Architecture.Arm64 => "CreateBatchFilesForScummVMGames_arm64.exe",
-            _ => null
-        };
+        var toolPath = GetToolExecutablePath("CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames");
+        if (toolPath == null) return;
 
-        if (executableName == null)
-        {
-            var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
-            return;
-        }
-
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForScummVMGames", executableName);
         LaunchExternalTool(toolPath);
     }
 
     public void RomValidator()
     {
-        var architecture = RuntimeInformation.ProcessArchitecture;
-        var executableName = architecture switch
-        {
-            Architecture.X64 => "RomValidator.exe",
-            Architecture.Arm64 => "RomValidator_arm64.exe",
-            _ => null
-        };
+        var toolPath = GetToolExecutablePath("RomValidator", "RomValidator");
+        if (toolPath == null) return;
 
-        if (executableName == null)
-        {
-            var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
-            return;
-        }
-
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "RomValidator", executableName);
         LaunchExternalTool(toolPath);
     }
 
     public void GameCoverScraper(string selectedImageFolder, string selectedRomFolder)
     {
-        var architecture = RuntimeInformation.ProcessArchitecture;
-        var executablePath = architecture switch
-        {
-            Architecture.X64 => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "GameCoverScraper", "x64", "GameCoverScraper.exe"),
-            Architecture.Arm64 => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "GameCoverScraper", "arm64", "GameCoverScraper.exe"),
-            _ => null
-        };
-
-        if (executablePath == null)
-        {
-            var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
-            return;
-        }
+        var toolPath = GetToolExecutablePath("GameCoverScraper", "GameCoverScraper", true);
+        if (toolPath == null) return;
 
         var arguments = string.Empty;
-        var workingDirectory = Path.GetDirectoryName(executablePath);
+        var workingDirectory = Path.GetDirectoryName(toolPath);
 
         var absoluteImageFolder = !string.IsNullOrEmpty(selectedImageFolder) ? PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder) : null;
         var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder) ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder) : null;
@@ -343,28 +221,16 @@ public class LaunchTools : ILaunchTools
             arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
         }
 
-        LaunchExternalTool(executablePath, arguments, workingDirectory);
+        LaunchExternalTool(toolPath, arguments, workingDirectory);
     }
 
     public void RetroGameCoverDownloader(string selectedImageFolder, string selectedRomFolder)
     {
-        var architecture = RuntimeInformation.ProcessArchitecture;
-        var executablePath = architecture switch
-        {
-            Architecture.X64 => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "RetroGameCoverDownloader", "RetroGameCoverDownloader.exe"),
-            Architecture.Arm64 => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "RetroGameCoverDownloader", "RetroGameCoverDownloader_arm64.exe"),
-            _ => null
-        };
-
-        if (executablePath == null)
-        {
-            var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
-            return;
-        }
+        var toolPath = GetToolExecutablePath("RetroGameCoverDownloader", "RetroGameCoverDownloader");
+        if (toolPath == null) return;
 
         var arguments = string.Empty;
-        var workingDirectory = Path.GetDirectoryName(executablePath);
+        var workingDirectory = Path.GetDirectoryName(toolPath);
 
         var absoluteImageFolder = !string.IsNullOrEmpty(selectedImageFolder) ? PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder) : null;
         var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder) ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder) : null;
@@ -374,6 +240,6 @@ public class LaunchTools : ILaunchTools
             arguments = $"\"{absoluteRomFolder}\" \"{absoluteImageFolder}\"";
         }
 
-        LaunchExternalTool(executablePath, arguments, workingDirectory);
+        LaunchExternalTool(toolPath, arguments, workingDirectory);
     }
 }

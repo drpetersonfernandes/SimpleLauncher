@@ -394,7 +394,7 @@ public class MenuActionHandlerService
             _playSoundEffects.PlayNotificationSound();
 
             _settings.EnableGamePadNavigation = isChecked;
-            _settings.Save();
+            _settings.SaveAsync();
 
             if (isChecked)
                 _gamePadController.Start();
@@ -449,7 +449,7 @@ public class MenuActionHandlerService
                 _playSoundEffects.PlayNotificationSound();
 
                 _settings.EnableFuzzyMatching = isChecked;
-                _settings.Save();
+                await _settings.SaveAsync();
 
                 var (sl, sq) = _host.GetLoadGameFilesParams();
                 _host.SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
@@ -561,7 +561,7 @@ public class MenuActionHandlerService
                 _playSoundEffects.PlayNotificationSound();
 
                 _settings.ShowGames = showGamesMode;
-                _settings.Save();
+                await _settings.SaveAsync();
                 _host.UpdateShowGamesCheckMarks(showGamesMode);
 
                 var (sl, sq) = _host.GetLoadGameFilesParams();
@@ -594,7 +594,7 @@ public class MenuActionHandlerService
 
                 _host.SetGameButtonImageHeight(newSize);
                 _settings.ThumbnailSize = newSize;
-                _settings.Save();
+                await _settings.SaveAsync();
 
                 _host.UpdateThumbnailSizeCheckMarks(newSize);
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("AdjustingButtonSize") ?? "Adjusting button size...", _mainWindow);
@@ -631,7 +631,7 @@ public class MenuActionHandlerService
                 _playSoundEffects.PlayNotificationSound();
 
                 _settings.ButtonAspectRatio = aspectRatio;
-                _settings.Save();
+                await _settings.SaveAsync();
 
                 _host.UpdateButtonAspectRatioCheckMarks(aspectRatio);
 
@@ -676,7 +676,7 @@ public class MenuActionHandlerService
                 _host.SetFilesPerPage(newPage);
                 _host.SetPaginationThreshold(newPage);
                 _settings.GamesPerPage = newPage;
-                _settings.Save();
+                await _settings.SaveAsync();
 
                 _host.UpdateNumberOfGamesPerPageCheckMarks(newPage);
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("AdjustingGamesPerPage") ?? "Adjusting games per page...", _mainWindow);
@@ -857,20 +857,22 @@ public class MenuActionHandlerService
                 if (newSize != _settings.ThumbnailSizeForSystem)
                 {
                     _settings.ThumbnailSizeForSystem = newSize;
-                    _settings.Save();
+                    await _settings.SaveAsync();
+                    _host.UpdateThumbnailSizeCheckMarks(newSize);
                 }
 
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ZoomingIn") ?? "Zooming in...", _mainWindow);
-                await _host.DisplaySystemSelectionScreenAsync(_host.CurrentCancellationToken);
+                var (sl, sq) = _host.GetLoadGameFilesParams();
+                await _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
             }
             else
             {
                 var newSize = Math.Min(MaxThumbnailSize, _settings.ThumbnailSize + ZoomStep);
                 if (newSize != _settings.ThumbnailSize)
                 {
-                    _host.SetGameButtonImageHeight(newSize);
                     _settings.ThumbnailSize = newSize;
-                    _settings.Save();
+                    _host.SetGameButtonImageHeight(newSize);
+                    await _settings.SaveAsync();
                     _host.UpdateThumbnailSizeCheckMarks(newSize);
                 }
 
@@ -881,7 +883,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method NavZoomInButtonClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method HandleZoomIn.");
         }
     }
 
@@ -900,20 +902,22 @@ public class MenuActionHandlerService
                 if (newSize != _settings.ThumbnailSizeForSystem)
                 {
                     _settings.ThumbnailSizeForSystem = newSize;
-                    _settings.Save();
+                    await _settings.SaveAsync();
+                    _host.UpdateThumbnailSizeCheckMarks(newSize);
                 }
 
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ZoomingOut") ?? "Zooming out...", _mainWindow);
-                await _host.DisplaySystemSelectionScreenAsync(_host.CurrentCancellationToken);
+                var (sl, sq) = _host.GetLoadGameFilesParams();
+                await _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
             }
             else
             {
                 var newSize = Math.Max(MinThumbnailSize, _settings.ThumbnailSize - ZoomStep);
                 if (newSize != _settings.ThumbnailSize)
                 {
-                    _host.SetGameButtonImageHeight(newSize);
                     _settings.ThumbnailSize = newSize;
-                    _settings.Save();
+                    _host.SetGameButtonImageHeight(newSize);
+                    await _settings.SaveAsync();
                     _host.UpdateThumbnailSizeCheckMarks(newSize);
                 }
 
@@ -924,7 +928,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method NavZoomOutButtonClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method HandleZoomOut.");
         }
     }
 
@@ -956,7 +960,7 @@ public class MenuActionHandlerService
                 _settings.ViewMode = "GridView";
             }
 
-            _settings.Save();
+            await _settings.SaveAsync();
 
             var (sl, sq) = _host.GetLoadGameFilesParams();
             await _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
@@ -996,7 +1000,7 @@ public class MenuActionHandlerService
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...", _mainWindow);
             }
 
-            _settings.Save();
+            _settings.SaveAsync();
         }
         catch (Exception ex)
         {
@@ -1019,7 +1023,7 @@ public class MenuActionHandlerService
                 _playSoundEffects.PlayNotificationSound();
 
                 _settings.FilenameDisplayMode = mode;
-                _settings.Save();
+                await _settings.SaveAsync();
 
                 _host.UpdateFilenameDisplayModeCheckMarks(mode);
 
@@ -1058,7 +1062,7 @@ public class MenuActionHandlerService
                 _playSoundEffects.PlayNotificationSound();
 
                 _settings.DisplayMachineName = isChecked;
-                _settings.Save();
+                await _settings.SaveAsync();
 
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingDisplayMachineName") ?? "Changing machine name display...", _mainWindow);
 
@@ -1095,7 +1099,7 @@ public class MenuActionHandlerService
                 _playSoundEffects.PlayNotificationSound();
 
                 _settings.FilenameFontSize = size;
-                _settings.Save();
+                await _settings.SaveAsync();
 
                 _host.UpdateFilenameFontSizeCheckMarks(size);
 
@@ -1134,7 +1138,7 @@ public class MenuActionHandlerService
                 _playSoundEffects.PlayNotificationSound();
 
                 _settings.MachineNameFontSize = size;
-                _settings.Save();
+                await _settings.SaveAsync();
 
                 _host.UpdateMachineNameFontSizeCheckMarks(size);
 
@@ -1212,7 +1216,7 @@ public class MenuActionHandlerService
             _playSoundEffects.PlayNotificationSound();
 
             _settings.OverlayRetroAchievementButton = isChecked;
-            _settings.Save();
+            _settings.SaveAsync();
 
             var (sl, sq) = _host.GetLoadGameFilesParams();
             _ = _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
@@ -1236,7 +1240,7 @@ public class MenuActionHandlerService
             _playSoundEffects.PlayNotificationSound();
 
             _settings.OverlayOpenVideoButton = isChecked;
-            _settings.Save();
+            _settings.SaveAsync();
 
             var (sl, sq) = _host.GetLoadGameFilesParams();
             _ = _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
@@ -1260,7 +1264,7 @@ public class MenuActionHandlerService
             _playSoundEffects.PlayNotificationSound();
 
             _settings.OverlayOpenInfoButton = isChecked;
-            _settings.Save();
+            _settings.SaveAsync();
 
             var (sl, sq) = _host.GetLoadGameFilesParams();
             _ = _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
