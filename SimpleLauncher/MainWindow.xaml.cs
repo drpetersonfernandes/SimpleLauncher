@@ -7,21 +7,18 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Models;
+using SimpleLauncher.Services.AudioInput;
+using SimpleLauncher.Services.ApplicationLifecycle;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GameItemRender;
-using SimpleLauncher.Services.GameFileWatcher;
+using SimpleLauncher.Services.GameBrowser;
 using SimpleLauncher.Services.GameListUI;
-using SimpleLauncher.Services.GamePad;
-using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.LaunchTools;
-using SimpleLauncher.Services.MameData;
 using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MenuCheckMark;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.MenuOrchestrator;
 using SimpleLauncher.Services.PlayHistory;
-using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Services.SearchOrchestrator;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.StartupInitialization;
 using SimpleLauncher.Services.SystemConfiguration;
@@ -31,13 +28,9 @@ using SimpleLauncher.Services.UiHelpers;
 using SimpleLauncher.Services.UIReset;
 using SimpleLauncher.Services.UiOrchestrator;
 using SimpleLauncher.Services.UpdateStatusBar;
-using SimpleLauncher.Services.UsageStats;
-using SimpleLauncher.Services.GameFileLoadingOrchestrator;
-using SimpleLauncher.Services.SystemSelectionOrchestrator;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
-using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
 
 namespace SimpleLauncher;
 
@@ -119,98 +112,54 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly FilterMenu _topLetterNumberMenu;
     private readonly WrapPanel _gameFileGrid;
     private readonly SettingsManager _settings;
-    private readonly IGameItemRenderService _gameItemRenderService;
-    private readonly IMameDataService _mameDataService;
+    private readonly IGameBrowserService _gameBrowser;
     private string _selectedImageFolder;
     private List<string> _selectedRomFolders;
 
-    // Game cache and filtering are now handled by dedicated services
-    private readonly Services.GameCache.IGameCacheService _gameCacheService;
-
-    private readonly UpdateChecker _updateChecker;
-    private readonly GamePadController _gamePadController;
     private readonly ILaunchTools _launchTools;
-    private readonly PlaySoundEffects _playSoundEffects;
-    private readonly Stats _stats;
     private readonly ILogErrors _logErrors;
-    private readonly GameScannerService _gameScannerService;
-    private readonly ThemeMenuService _themeMenuService;
-    private readonly LanguageMenuService _languageMenuService;
-    private readonly StartupInitializationService _startupInitializationService;
-    private readonly GameFileWatcherService _gameFileWatcherService;
-    private readonly ISearchOrchestratorService _searchOrchestratorService;
-    internal readonly MenuActionHandlerService MenuActionHandlerService;
+    private readonly IMenuOrchestrator _menuOrchestrator;
+    private readonly IApplicationLifecycleService _lifecycle;
+    private readonly IAudioInputService _audioInput;
     internal readonly IUpdateStatusBar UpdateStatusBarService;
-    internal readonly IMenuCheckMarkService MenuCheckMarkService;
     internal readonly IUiResetService UiResetService;
     internal readonly ISystemConfigurationService SystemConfigurationService;
     internal readonly IUiOrchestrator UiOrchestrator;
-    private readonly ISystemSelectionOrchestrator _systemSelectionOrchestrator;
-    private readonly IGameFileLoadingOrchestrator _gameFileLoadingOrchestrator;
 
     public MainWindow(
         SettingsManager settings,
         PlayHistoryManager playHistoryManager,
-        UpdateChecker updateChecker,
-        GamePadController gamePadController,
-        PlaySoundEffects playSoundEffects,
         ILaunchTools launchTools,
-        Stats stats,
         ILogErrors logErrors,
-        GameScannerService gameScannerService,
-        ThemeMenuService themeMenuService,
-        LanguageMenuService languageMenuService,
-        StartupInitializationService startupInitializationService,
-        GameFileWatcherService gameFileWatcherService,
-        MenuActionHandlerService menuActionHandlerService,
         IUpdateStatusBar updateStatusBarService,
-        IMenuCheckMarkService menuCheckMarkService,
         IUiResetService uiResetService,
         ISystemConfigurationService systemConfigurationService,
-        Services.GameCache.IGameCacheService gameCacheService,
-        IMameDataService mameDataService,
-        ISearchOrchestratorService searchOrchestratorService,
         IUiOrchestrator uiOrchestrator,
-        IGameItemRenderService gameItemRenderService,
-        ISystemSelectionOrchestrator systemSelectionOrchestrator,
-        IGameFileLoadingOrchestrator gameFileLoadingOrchestrator)
+        IGameBrowserService gameBrowser,
+        IMenuOrchestrator menuOrchestrator,
+        IApplicationLifecycleService lifecycle,
+        IAudioInputService audioInput)
     {
         InitializeComponent();
 
-        _gamePadController = gamePadController;
-        _updateChecker = updateChecker;
         _settings = settings;
         PlayHistoryManager = playHistoryManager;
-        _playSoundEffects = playSoundEffects;
         _launchTools = launchTools;
-        _gameScannerService = gameScannerService;
-        _themeMenuService = themeMenuService;
-        _languageMenuService = languageMenuService;
-        _startupInitializationService = startupInitializationService;
-        _gameFileWatcherService = gameFileWatcherService;
-        MenuActionHandlerService = menuActionHandlerService;
-        UpdateStatusBarService = updateStatusBarService;
-        _stats = stats;
         _logErrors = logErrors;
+        UpdateStatusBarService = updateStatusBarService;
 
-        MenuCheckMarkService = menuCheckMarkService;
+        _gameBrowser = gameBrowser;
+        _menuOrchestrator = menuOrchestrator;
+        _lifecycle = lifecycle;
+        _audioInput = audioInput;
+
         UiResetService = uiResetService;
         SystemConfigurationService = systemConfigurationService;
-        _gameCacheService = gameCacheService;
-        _mameDataService = mameDataService;
-        _searchOrchestratorService = searchOrchestratorService;
         UiOrchestrator = uiOrchestrator;
-        _gameItemRenderService = gameItemRenderService;
-        _systemSelectionOrchestrator = systemSelectionOrchestrator;
-        _gameFileLoadingOrchestrator = gameFileLoadingOrchestrator;
 
         UiOrchestrator.Initialize(this);
-        _systemSelectionOrchestrator.Initialize(this);
-        _gameFileLoadingOrchestrator.Initialize(this);
-        _themeMenuService.Initialize((IThemeMenuHost)this);
-        _languageMenuService.Initialize((ILanguageMenuHost)this);
-        MenuActionHandlerService.Initialize(this);
-        MenuCheckMarkService.Initialize(this);
+        _gameBrowser.Initialize(this, this, this);
+        _menuOrchestrator.Initialize(this, this, (IThemeMenuHost)this, (ILanguageMenuHost)this);
         UiResetService.Initialize(this);
         UpdateStatusBarService.Initialize((IStatusBarHost)this);
 
@@ -218,13 +167,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
         // Load and Apply _settings
         ToggleGamepad.IsChecked = _settings.EnableGamePadNavigation;
-        MenuCheckMarkService.UpdateThumbnailSizeCheckMarks(_settings.ThumbnailSize);
-        MenuCheckMarkService.UpdateButtonAspectRatioCheckMarks(_settings.ButtonAspectRatio);
-        MenuCheckMarkService.UpdateNumberOfGamesPerPageCheckMarks(_settings.GamesPerPage);
-        MenuCheckMarkService.UpdateShowGamesCheckMarks(_settings.ShowGames);
-        MenuCheckMarkService.UpdateFilenameDisplayModeCheckMarks(_settings.FilenameDisplayMode);
-        MenuCheckMarkService.UpdateFilenameFontSizeCheckMarks(_settings.FilenameFontSize);
-        MenuCheckMarkService.UpdateMachineNameFontSizeCheckMarks(_settings.MachineNameFontSize);
+        _menuOrchestrator.UpdateThumbnailSizeCheckMarks(_settings.ThumbnailSize);
+        _menuOrchestrator.UpdateButtonAspectRatioCheckMarks(_settings.ButtonAspectRatio);
+        _menuOrchestrator.UpdateNumberOfGamesPerPageCheckMarks(_settings.GamesPerPage);
+        _menuOrchestrator.UpdateShowGamesCheckMarks(_settings.ShowGames);
+        _menuOrchestrator.UpdateFilenameDisplayModeCheckMarks(_settings.FilenameDisplayMode);
+        _menuOrchestrator.UpdateFilenameFontSizeCheckMarks(_settings.FilenameFontSize);
+        _menuOrchestrator.UpdateMachineNameFontSizeCheckMarks(_settings.MachineNameFontSize);
         UiOrchestrator.PaginationFilesPerPage = _settings.GamesPerPage;
         UiOrchestrator.PaginationThreshold = _settings.GamesPerPage;
         ToggleFuzzyMatching.IsChecked = _settings.EnableFuzzyMatching;
@@ -237,10 +186,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             throw new InvalidOperationException("GameFileGrid not found");
         }
 
-        _gameItemRenderService.Initialize(this);
-        _systemSelectionOrchestrator.LoadOrReloadSystemManager();
+        _gameBrowser.LoadOrReloadSystemManager();
 
-        _topLetterNumberMenu = new FilterMenu(_playSoundEffects);
+        _topLetterNumberMenu = new FilterMenu(_audioInput);
 
         // Add _topLetterNumberMenu to the UI
         LetterNumberMenu.Children.Clear();
@@ -250,7 +198,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _topLetterNumberMenu.OnLetterSelected += TopLetterNumberMenu_OnLetterSelected;
 
         // Migrate old play history records to full paths
-        PlayHistoryManager.MigrateFilenamesToFullPaths(_systemManagers);
+        _lifecycle.MigratePlayHistory(_systemManagers);
 
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
@@ -258,7 +206,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         Deactivated += MainWindow_Deactivated;
 
         // Wire up game file watcher to detect external file changes
-        _gameFileWatcherService.GameFilesChanged += _gameFileLoadingOrchestrator.OnGameFilesChanged;
+        _lifecycle.GameFilesChanged += _gameBrowser.OnGameFilesChanged;
 
         // Store the async Loaded handler reference so it can be unsubscribed later
         _asyncLoadedHandler = async void (_, _) =>
@@ -287,7 +235,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     {
         try
         {
-            await _systemSelectionOrchestrator.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
+            await _gameBrowser.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
             DebugLogger.Log("DisplaySystemSelectionScreenAsync called.");
         }
         catch (Exception ex)
@@ -298,9 +246,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
         try
         {
-            await _updateChecker.SilentCheckForUpdatesAsync(this);
+            await _lifecycle.SilentCheckForUpdatesAsync(this);
             DebugLogger.Log("Silent check for updates was done.");
-            await _stats.CallApiAsync();
+            await _lifecycle.ReportUsageAsync();
             DebugLogger.Log("Stats API call was done.");
         }
         catch (Exception ex)
@@ -318,16 +266,16 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 SetLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for Windows games...");
                 try
                 {
-                    await _gameScannerService.ScanForStoreGamesAsync();
-                    if (_gameScannerService.WasNewSystemCreated)
+                    await _gameBrowser.ScanForStoreGamesAsync();
+                    if (_gameBrowser.WasNewSystemCreated)
                     {
                         UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FoundNewMicrosoftWindowsGames") ?? "Found new Microsoft Windows games. Refreshing system list.");
 
                         // Reload to get the new system
-                        _systemSelectionOrchestrator.LoadOrReloadSystemManager();
+                        _gameBrowser.LoadOrReloadSystemManager();
 
                         // After reloading, the system selection screen needs to be updated.
-                        await _systemSelectionOrchestrator.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
+                        await _gameBrowser.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
                     }
                 }
                 catch (Exception ex)
@@ -350,8 +298,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                         easyModeWindow.Owner = this;
                         easyModeWindow.ShowDialog();
 
-                        _systemSelectionOrchestrator.LoadOrReloadSystemManager();
-                        await _systemSelectionOrchestrator.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken); // Await this now
+                        _gameBrowser.LoadOrReloadSystemManager();
+                        await _gameBrowser.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken); // Await this now
                     }
                 }
             }
@@ -365,14 +313,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
-        _startupInitializationService.Initialize((IStartupInitializationHost)this);
+        _lifecycle.InitializeStartup((IStartupInitializationHost)this);
     }
 
     private void MainWindow_Activated(object sender, EventArgs e)
     {
         if (_wasControllerRunningBeforeDeactivation)
         {
-            _gamePadController.Start();
+            _audioInput.StartGamepad();
             DebugLogger.Log("Gamepad controller restarted on window activation.");
         }
 
@@ -381,10 +329,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private void MainWindow_Deactivated(object sender, EventArgs e)
     {
-        if (_gamePadController.IsRunning)
+        if (_audioInput.IsGamepadRunning)
         {
             _wasControllerRunningBeforeDeactivation = true;
-            _gamePadController.Stop();
+            _audioInput.StopGamepad();
             DebugLogger.Log("Gamepad controller temporarily stopped on window deactivation.");
         }
         else
@@ -409,7 +357,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     {
         try
         {
-            await _systemSelectionOrchestrator.SystemComboBoxSelectionChangedAsync(_cancellationSource.Token);
+            await _gameBrowser.SystemComboBoxSelectionChangedAsync(_cancellationSource.Token);
         }
         catch (Exception ex)
         {
@@ -461,7 +409,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         PageContentFrame.Visibility = Visibility.Collapsed;
 
         // Refresh the game list to ensure it's up to date
-        _playSoundEffects.PlayNotificationSound();
+        _audioInput.PlayNotificationSound();
     }
 
     private (string startLetter, string searchQuery) GetLoadGameFilesParams()
@@ -483,10 +431,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 switch (e.Delta)
                 {
                     case > 0:
-                        await MenuActionHandlerService.HandleZoomIn();
+                        await _menuOrchestrator.HandleZoomIn();
                         break;
                     case < 0:
-                        await MenuActionHandlerService.HandleZoomOut();
+                        await _menuOrchestrator.HandleZoomOut();
                         break;
                 }
             }
@@ -513,7 +461,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 CancelAndRecreateToken();
             }
 
-            _playSoundEffects.PlayNotificationSound();
+            _audioInput.PlayNotificationSound();
 
             ResetPaginationButtons(); // Ensure pagination is reset at the beginning
             SearchTextBox.Text = ""; // Clear SearchTextBox
@@ -524,7 +472,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games...");
             await Task.Yield(); // Allow UI to render the loading overlay
 
-            await _gameFileLoadingOrchestrator.LoadGameFilesAsync(selectedLetter, null, _cancellationSource.Token); // searchQuery is null
+            await _gameBrowser.LoadGameFilesAsync(selectedLetter, null, _cancellationSource.Token); // searchQuery is null
         }
         catch (Exception ex)
         {
@@ -542,7 +490,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 CancelAndRecreateToken();
             }
 
-            _playSoundEffects.PlayNotificationSound();
+            _audioInput.PlayNotificationSound();
 
             // Change the filter to ShowAll (as favorites might not have covers)
             _settings.ShowGames = "ShowAll";
@@ -557,7 +505,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingFavoriteGamesForSystem") ?? "Loading favorite games for system...");
             await Task.Yield(); // Allow UI to render the loading overlay
 
-            await _gameFileLoadingOrchestrator.LoadGameFilesAsync(null, "FAVORITES", _cancellationSource.Token);
+            await _gameBrowser.LoadGameFilesAsync(null, "FAVORITES", _cancellationSource.Token);
         }
         catch (Exception ex)
         {
@@ -572,7 +520,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         {
             CancelAndRecreateToken();
 
-            _playSoundEffects.PlayNotificationSound();
+            _audioInput.PlayNotificationSound();
 
             // Change the filter to ShowAll
             _settings.ShowGames = "ShowAll";
@@ -588,7 +536,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games...");
             await Task.Yield(); // Allow UI to render the loading overlay
 
-            await _gameFileLoadingOrchestrator.LoadGameFilesAsync(null, "RANDOM_SELECTION", _cancellationSource.Token);
+            await _gameBrowser.LoadGameFilesAsync(null, "RANDOM_SELECTION", _cancellationSource.Token);
 
             // If in list view, select the game in the DataGrid
             if (_settings.ViewMode != "ListView" || GameDataGrid.Items.Count <= 0) return;
@@ -691,7 +639,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private void SaveApplicationSettings()
     {
         // Save application's current state
-        _settings.ThumbnailSize = _gameItemRenderService.ImageHeight;
+        _settings.ThumbnailSize = _gameBrowser.ImageHeight;
         _settings.GamesPerPage = UiOrchestrator.PaginationFilesPerPage;
         _settings.EnableGamePadNavigation = ToggleGamepad.IsChecked;
         _settings.EnableFuzzyMatching = ToggleFuzzyMatching.IsChecked;
@@ -722,7 +670,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
 
         // If it's a real game item, proceed with loading the preview.
-        _gameItemRenderService.HandleSelectionChangedAsync(selectedItem);
+        _gameBrowser.HandleSelectionChangedAsync(selectedItem);
     }
 
     private async void GameListDoubleClickOnSelectedItemAsync(object sender, MouseButtonEventArgs e)
@@ -741,7 +689,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             }
 
             // Delegate the double-click handling to the render service
-            await _gameItemRenderService.HandleDoubleClickAsync(selectedItem);
+            await _gameBrowser.HandleDoubleClickAsync(selectedItem);
         }
         catch (Exception ex)
         {
@@ -782,7 +730,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
             CancelAndRecreateToken();
 
-            _playSoundEffects.PlayNotificationSound();
+            _audioInput.PlayNotificationSound();
             ((IUiResetHost)this).MameSortOrder = ((IUiResetHost)this).MameSortOrder == "FileName" ? "MachineDescription" : "FileName";
             UpdateSortOrderButtonUi();
 
@@ -790,7 +738,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             try
             {
                 var (sl, sq) = GetLoadGameFilesParams();
-                await _gameFileLoadingOrchestrator.LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+                await _gameBrowser.LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
             }
             finally
             {
@@ -825,12 +773,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     internal Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null, CancellationToken cancellationToken = default)
     {
-        return _gameFileLoadingOrchestrator.LoadGameFilesAsync(startLetter, searchQuery, cancellationToken);
+        return _gameBrowser.LoadGameFilesAsync(startLetter, searchQuery, cancellationToken);
     }
 
     internal Task InvalidateGameFileCachesAsync(CancellationToken cancellationToken = default)
     {
-        return _gameFileLoadingOrchestrator.InvalidateGameFileCachesAsync(cancellationToken);
+        return _gameBrowser.InvalidateGameFileCachesAsync(cancellationToken);
     }
 
     // IUiOrchestratorHost implementation

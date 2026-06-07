@@ -51,10 +51,10 @@ public partial class MainWindow
         }
 
         // Unsubscribe and stop game file watcher
-        if (_gameFileWatcherService != null)
+        if (_lifecycle != null)
         {
-            _gameFileWatcherService.GameFilesChanged -= _gameFileLoadingOrchestrator.OnGameFilesChanged;
-            _gameFileWatcherService.StopWatching();
+            _lifecycle.UnsubscribeGameFilesChanged(_gameBrowser.OnGameFilesChanged);
+            _lifecycle.StopWatching();
         }
     }
 
@@ -94,7 +94,7 @@ public partial class MainWindow
             GameListItems?.Clear();
 
             // Clear game caches via the cache service
-            _gameCacheService?.ClearSync();
+            _gameBrowser?.ClearCache();
 
             _systemManagers?.Clear();
 

@@ -14,9 +14,9 @@ public class FilterMenu
     private Button _selectedButton;
 
     public event Action<string> OnLetterSelected;
-    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly IPlaySoundEffects _playSoundEffects;
 
-    public FilterMenu(PlaySoundEffects playSoundEffects)
+    public FilterMenu(IPlaySoundEffects playSoundEffects)
     {
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
         InitializeAllButton();

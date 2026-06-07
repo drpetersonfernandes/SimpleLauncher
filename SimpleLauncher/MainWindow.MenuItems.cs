@@ -9,29 +9,29 @@ public partial class MainWindow
 {
     internal void SetViewMode(string viewMode)
     {
-        MenuCheckMarkService.SetViewMode(viewMode);
+        _menuOrchestrator.SetViewMode(viewMode);
     }
 
     private void EasyMode_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.HandleEasyMode();
+        _menuOrchestrator.HandleEasyMode();
     }
 
     private void ExpertMode_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.HandleExpertMode();
+        _menuOrchestrator.HandleExpertMode();
     }
 
     private void DownloadImagePack_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.HandleDownloadImagePack();
+        _menuOrchestrator.HandleDownloadImagePack();
     }
 
     private async void ScanForMicrosoftWindowsGames_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            await MenuActionHandlerService.HandleScanForWindowsGames();
+            await _menuOrchestrator.HandleScanForWindowsGames();
         }
         catch (Exception ex)
         {
@@ -53,14 +53,14 @@ public partial class MainWindow
 
     public void LoadOrReloadSystemManager()
     {
-        _systemSelectionOrchestrator.LoadOrReloadSystemManager();
+        _gameBrowser.LoadOrReloadSystemManager();
     }
 
     private async void EditLinksClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
-            await MenuActionHandlerService.HandleEditLinks();
+            await _menuOrchestrator.HandleEditLinks();
         }
         catch (Exception ex)
         {
@@ -72,12 +72,12 @@ public partial class MainWindow
     {
         if (sender is not MenuItem menuItem) return;
 
-        MenuActionHandlerService.HandleToggleGamepad(menuItem.IsChecked);
+        _menuOrchestrator.HandleToggleGamepad(menuItem.IsChecked);
     }
 
     private void SetGamepadDeadZone_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.HandleSetGamepadDeadZone();
+        _menuOrchestrator.HandleSetGamepadDeadZone();
     }
 
     private async void ToggleFuzzyMatchingClickAsync(object sender, RoutedEventArgs e)
@@ -86,7 +86,7 @@ public partial class MainWindow
         {
             if (sender is not MenuItem menuItem) return;
 
-            await MenuActionHandlerService.HandleToggleFuzzyMatching(menuItem.IsChecked);
+            await _menuOrchestrator.HandleToggleFuzzyMatching(menuItem.IsChecked);
         }
         catch (Exception ex)
         {
@@ -98,7 +98,7 @@ public partial class MainWindow
     {
         try
         {
-            await MenuActionHandlerService.HandleSetFuzzyMatchingThreshold();
+            await _menuOrchestrator.HandleSetFuzzyMatchingThreshold();
         }
         catch (Exception ex)
         {
@@ -108,29 +108,29 @@ public partial class MainWindow
 
     private void Support_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.HandleSupport();
+        _menuOrchestrator.HandleSupport();
     }
 
     private void Donate_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.HandleDonate();
+        _menuOrchestrator.HandleDonate();
     }
 
     private void About_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.HandleAbout();
+        _menuOrchestrator.HandleAbout();
     }
 
     private void Exit_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.HandleExit();
+        _menuOrchestrator.HandleExit();
     }
 
     private async void ShowAllGamesClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
-            await MenuActionHandlerService.HandleShowGames("ShowAll");
+            await _menuOrchestrator.HandleShowGames("ShowAll");
         }
         catch (Exception ex)
         {
@@ -142,7 +142,7 @@ public partial class MainWindow
     {
         try
         {
-            await MenuActionHandlerService.HandleShowGames("ShowWithCover");
+            await _menuOrchestrator.HandleShowGames("ShowWithCover");
         }
         catch (Exception ex)
         {
@@ -154,7 +154,7 @@ public partial class MainWindow
     {
         try
         {
-            await MenuActionHandlerService.HandleShowGames("ShowWithoutCover");
+            await _menuOrchestrator.HandleShowGames("ShowWithoutCover");
         }
         catch (Exception ex)
         {
@@ -171,7 +171,7 @@ public partial class MainWindow
             var sizeText = clickedItem.Name.Replace("Size", "");
             if (!int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out var newSize)) return;
 
-            await MenuActionHandlerService.HandleButtonSize(newSize);
+            await _menuOrchestrator.HandleButtonSize(newSize);
         }
         catch (Exception ex)
         {
@@ -185,7 +185,7 @@ public partial class MainWindow
         {
             if (sender is not MenuItem clickedItem) return;
 
-            await MenuActionHandlerService.HandleButtonAspectRatio(clickedItem.Name);
+            await _menuOrchestrator.HandleButtonAspectRatio(clickedItem.Name);
         }
         catch (Exception ex)
         {
@@ -202,7 +202,7 @@ public partial class MainWindow
             var pageText = clickedItem.Name.Replace("Page", "");
             if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out var newPage)) return;
 
-            await MenuActionHandlerService.HandleGamesPerPage(newPage);
+            await _menuOrchestrator.HandleGamesPerPage(newPage);
         }
         catch (Exception ex)
         {
@@ -212,37 +212,37 @@ public partial class MainWindow
 
     private void ShowGlobalSearchWindow_Click()
     {
-        MenuActionHandlerService.HandleShowGlobalSearch();
+        _menuOrchestrator.HandleShowGlobalSearch();
     }
 
     private void ShowGlobalStatsWindow_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.HandleShowGlobalStats();
+        _menuOrchestrator.HandleShowGlobalStats();
     }
 
     private void ShowFavoritesWindow_Click()
     {
-        MenuActionHandlerService.HandleShowFavorites();
+        _menuOrchestrator.HandleShowFavorites();
     }
 
     private void ShowPlayHistoryWindow_Click()
     {
-        MenuActionHandlerService.HandleShowPlayHistory();
+        _menuOrchestrator.HandleShowPlayHistory();
     }
 
     public void ShowRetroAchievementsWindowClick(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.HandleShowRetroAchievements();
+        _menuOrchestrator.HandleShowRetroAchievements();
     }
 
     private void UpdateShowGamesCheckMarks(string selectedValue)
     {
-        MenuCheckMarkService.UpdateShowGamesCheckMarks(selectedValue);
+        _menuOrchestrator.UpdateShowGamesCheckMarks(selectedValue);
     }
 
     private void UpdateButtonAspectRatioCheckMarks(string selectedValue)
     {
-        MenuCheckMarkService.UpdateButtonAspectRatioCheckMarks(selectedValue);
+        _menuOrchestrator.UpdateButtonAspectRatioCheckMarks(selectedValue);
     }
 
     private async void NavToggleButtonAspectRatioClickAsync(object sender, RoutedEventArgs e)
@@ -251,7 +251,7 @@ public partial class MainWindow
         {
             CancelAndRecreateToken();
 
-            _playSoundEffects.PlayNotificationSound();
+            _audioInput.PlayNotificationSound();
 
             // Define the array of aspect ratios in the desired order
             string[] aspectRatios = ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
@@ -276,7 +276,7 @@ public partial class MainWindow
             var (sl, sq) = GetLoadGameFilesParams();
             SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
             await Task.Yield(); // Allow UI to render the loading overlay
-            await _gameFileLoadingOrchestrator.LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+            await _gameBrowser.LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
         }
         catch (Exception ex)
         {
@@ -303,7 +303,7 @@ public partial class MainWindow
                 _ => "Original"
             };
 
-            await MenuActionHandlerService.HandleFilenameDisplayMode(mode);
+            await _menuOrchestrator.HandleFilenameDisplayMode(mode);
         }
         catch (Exception ex)
         {
@@ -317,7 +317,7 @@ public partial class MainWindow
         {
             if (sender is not MenuItem menuItem) return;
 
-            await MenuActionHandlerService.HandleDisplayMachineName(menuItem.IsChecked);
+            await _menuOrchestrator.HandleDisplayMachineName(menuItem.IsChecked);
         }
         catch (Exception ex)
         {
@@ -339,7 +339,7 @@ public partial class MainWindow
                 _ => "Normal"
             };
 
-            await MenuActionHandlerService.HandleFilenameFontSize(size);
+            await _menuOrchestrator.HandleFilenameFontSize(size);
         }
         catch (Exception ex)
         {
@@ -361,7 +361,7 @@ public partial class MainWindow
                 _ => "Normal"
             };
 
-            await MenuActionHandlerService.HandleMachineNameFontSize(size);
+            await _menuOrchestrator.HandleMachineNameFontSize(size);
         }
         catch (Exception ex)
         {
@@ -371,7 +371,7 @@ public partial class MainWindow
 
     private void ChangeViewMode_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.HandleChangeViewMode(sender);
+        _menuOrchestrator.HandleChangeViewMode(sender);
     }
 
     private void ApplyShowGamesSetting()
@@ -384,12 +384,12 @@ public partial class MainWindow
     {
         if (sender is not MenuItem menuItem) return;
 
-        MenuActionHandlerService.HandleChangeLanguage(menuItem);
+        _menuOrchestrator.HandleChangeLanguage(menuItem);
     }
 
     private void NavRestartButton_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.HandleRestart();
+        _menuOrchestrator.HandleRestart();
     }
 
     private void NavGlobalSearchButton_Click(object sender, RoutedEventArgs e)
@@ -421,7 +421,7 @@ public partial class MainWindow
     {
         try
         {
-            await MenuActionHandlerService.HandleShowSystemFavorites();
+            await _menuOrchestrator.HandleShowSystemFavorites();
         }
         catch (Exception ex)
         {
@@ -433,7 +433,7 @@ public partial class MainWindow
     {
         try
         {
-            await MenuActionHandlerService.HandleFeelingLucky();
+            await _menuOrchestrator.HandleFeelingLucky();
         }
         catch (Exception ex)
         {
@@ -445,7 +445,7 @@ public partial class MainWindow
     {
         try
         {
-            await MenuActionHandlerService.HandleShowGamesWithRetroAchievements();
+            await _menuOrchestrator.HandleShowGamesWithRetroAchievements();
         }
         catch (Exception ex)
         {
@@ -457,7 +457,7 @@ public partial class MainWindow
     {
         try
         {
-            await MenuActionHandlerService.HandleZoomIn();
+            await _menuOrchestrator.HandleZoomIn();
         }
         catch (Exception ex)
         {
@@ -469,7 +469,7 @@ public partial class MainWindow
     {
         try
         {
-            await MenuActionHandlerService.HandleZoomOut();
+            await _menuOrchestrator.HandleZoomOut();
         }
         catch (Exception ex)
         {
@@ -481,7 +481,7 @@ public partial class MainWindow
     {
         try
         {
-            await MenuActionHandlerService.HandleToggleViewMode();
+            await _menuOrchestrator.HandleToggleViewMode();
         }
         catch (Exception ex)
         {
@@ -491,12 +491,12 @@ public partial class MainWindow
 
     private void SoundConfiguration_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.HandleSoundConfiguration();
+        _menuOrchestrator.HandleSoundConfiguration();
     }
 
     private void ShowRetroAchievementsSettingsWindow_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.HandleShowRetroAchievementsSettings();
+        _menuOrchestrator.HandleShowRetroAchievementsSettings();
     }
 
     private async void ToggleRetroAchievementButton_Click(object sender, RoutedEventArgs e)
@@ -505,7 +505,7 @@ public partial class MainWindow
         {
             if (sender is not MenuItem menuItem) return;
 
-            await MenuActionHandlerService.HandleToggleRetroAchievementButton(menuItem.IsChecked);
+            await _menuOrchestrator.HandleToggleRetroAchievementButton(menuItem.IsChecked);
         }
         catch (Exception ex)
         {
@@ -519,7 +519,7 @@ public partial class MainWindow
         {
             if (sender is not MenuItem menuItem) return;
 
-            await MenuActionHandlerService.HandleToggleVideoLinkButton(menuItem.IsChecked);
+            await _menuOrchestrator.HandleToggleVideoLinkButton(menuItem.IsChecked);
         }
         catch (Exception ex)
         {
@@ -533,7 +533,7 @@ public partial class MainWindow
         {
             if (sender is not MenuItem menuItem) return;
 
-            await MenuActionHandlerService.HandleToggleInfoLinkButton(menuItem.IsChecked);
+            await _menuOrchestrator.HandleToggleInfoLinkButton(menuItem.IsChecked);
         }
         catch (Exception ex)
         {
@@ -544,120 +544,120 @@ public partial class MainWindow
     // Emulator config windows
     private void ShowXeniaSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("Xenia");
+        _menuOrchestrator.ShowEmulatorConfigWindow("Xenia");
     }
 
     private void ShowMameSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("Mame");
+        _menuOrchestrator.ShowEmulatorConfigWindow("Mame");
     }
 
     private void ShowRetroArchSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("RetroArch");
+        _menuOrchestrator.ShowEmulatorConfigWindow("RetroArch");
     }
 
     private void ShowSupermodelSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("Supermodel");
+        _menuOrchestrator.ShowEmulatorConfigWindow("Supermodel");
     }
 
     private void ShowMednafenSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("Mednafen");
+        _menuOrchestrator.ShowEmulatorConfigWindow("Mednafen");
     }
 
     private void ShowSegaModel2Settings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("SegaModel2");
+        _menuOrchestrator.ShowEmulatorConfigWindow("SegaModel2");
     }
 
     private void ShowAresSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("Ares");
+        _menuOrchestrator.ShowEmulatorConfigWindow("Ares");
     }
 
     private void ShowDaphneSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("Daphne");
+        _menuOrchestrator.ShowEmulatorConfigWindow("Daphne");
     }
 
     private void ShowBlastemSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("Blastem");
+        _menuOrchestrator.ShowEmulatorConfigWindow("Blastem");
     }
 
     private void ShowMesenSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("Mesen");
+        _menuOrchestrator.ShowEmulatorConfigWindow("Mesen");
     }
 
     private void ShowDuckStationSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("DuckStation");
+        _menuOrchestrator.ShowEmulatorConfigWindow("DuckStation");
     }
 
     private void ShowRPCS3Settings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("RPCS3");
+        _menuOrchestrator.ShowEmulatorConfigWindow("RPCS3");
     }
 
     private void ShowFlycastSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("Flycast");
+        _menuOrchestrator.ShowEmulatorConfigWindow("Flycast");
     }
 
     private void ShowStellaSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("Stella");
+        _menuOrchestrator.ShowEmulatorConfigWindow("Stella");
     }
 
     private void ShowDolphinSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("Dolphin");
+        _menuOrchestrator.ShowEmulatorConfigWindow("Dolphin");
     }
 
     private void ShowCemuSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("Cemu");
+        _menuOrchestrator.ShowEmulatorConfigWindow("Cemu");
     }
 
     private void ShowPcsx2Settings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("PCSX2");
+        _menuOrchestrator.ShowEmulatorConfigWindow("PCSX2");
     }
 
     private void ShowAzaharSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("Azahar");
+        _menuOrchestrator.ShowEmulatorConfigWindow("Azahar");
     }
 
     private void ShowYumirSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("Yumir");
+        _menuOrchestrator.ShowEmulatorConfigWindow("Yumir");
     }
 
     private void ShowRaineSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("Raine");
+        _menuOrchestrator.ShowEmulatorConfigWindow("Raine");
     }
 
     private void ShowRedreamSettings_Click(object sender, RoutedEventArgs e)
     {
-        MenuActionHandlerService.ShowEmulatorConfigWindow("Redream");
+        _menuOrchestrator.ShowEmulatorConfigWindow("Redream");
     }
 
     private void ChangeBaseTheme_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not MenuItem menuItem) return;
 
-        _themeMenuService.ChangeBaseTheme(menuItem);
+        _menuOrchestrator.ChangeBaseTheme(menuItem);
     }
 
     private void ChangeAccentColor_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not MenuItem menuItem) return;
 
-        _themeMenuService.ChangeAccentColor(menuItem);
+        _menuOrchestrator.ChangeAccentColor(menuItem);
     }
 }

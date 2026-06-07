@@ -20,7 +20,7 @@ public partial class MainWindow : IMenuActionHost
 
     Task IMenuActionHost.LoadGameFilesAsync(string startLetter, string searchQuery, CancellationToken cancellationToken)
     {
-        return _gameFileLoadingOrchestrator.LoadGameFilesAsync(startLetter, searchQuery, cancellationToken);
+        return _gameBrowser.LoadGameFilesAsync(startLetter, searchQuery, cancellationToken);
     }
 
     (string startLetter, string searchQuery) IMenuActionHost.GetLoadGameFilesParams()
@@ -35,7 +35,7 @@ public partial class MainWindow : IMenuActionHost
 
     void IMenuActionHost.LoadOrReloadSystemManager()
     {
-        _systemSelectionOrchestrator.LoadOrReloadSystemManager();
+        _gameBrowser.LoadOrReloadSystemManager();
     }
 
     void IMenuActionHost.NavigateToPage(Page page)
@@ -50,7 +50,7 @@ public partial class MainWindow : IMenuActionHost
 
     Task IMenuActionHost.DisplaySystemSelectionScreenAsync(CancellationToken cancellationToken)
     {
-        return _systemSelectionOrchestrator.DisplaySystemSelectionScreenAsync(cancellationToken);
+        return _gameBrowser.DisplaySystemSelectionScreenAsync(cancellationToken);
     }
 
     void IMenuActionHost.ResetPaginationButtons()
@@ -89,7 +89,7 @@ public partial class MainWindow : IMenuActionHost
     // Field setters
     void IMenuActionHost.SetGameButtonImageHeight(int height)
     {
-        _gameItemRenderService.ImageHeight = height;
+        _gameBrowser.ImageHeight = height;
     }
 
     void IMenuActionHost.SetFilesPerPage(int count)
@@ -228,17 +228,17 @@ public partial class MainWindow : IMenuActionHost
 
     List<Services.MameManager.MameManager> IMenuActionHost.GetMachines()
     {
-        return _mameDataService.Machines.ToList();
+        return _gameBrowser.Machines.ToList();
     }
 
     Dictionary<string, string> IMenuActionHost.GetMameLookup()
     {
-        return _mameDataService.Lookup;
+        return _gameBrowser.MameLookup;
     }
 
     // Language
     void IMenuActionHost.ChangeLanguageFromMenu(MenuItem menuItem)
     {
-        _languageMenuService.ChangeLanguage(menuItem);
+        _menuOrchestrator.ChangeLanguage(menuItem);
     }
 }

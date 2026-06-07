@@ -220,6 +220,12 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<ISystemSelectionOrchestrator, SystemSelectionOrchestrator>();
         serviceCollection.AddSingleton<IGameFileLoadingOrchestrator, GameFileLoadingOrchestrator>();
 
+        // Facade services
+        serviceCollection.AddSingleton<Services.AudioInput.IAudioInputService, Services.AudioInput.AudioInputService>();
+        serviceCollection.AddSingleton<Services.ApplicationLifecycle.IApplicationLifecycleService, Services.ApplicationLifecycle.ApplicationLifecycleService>();
+        serviceCollection.AddSingleton<Services.MenuOrchestrator.IMenuOrchestrator, Services.MenuOrchestrator.MenuOrchestrator>();
+        serviceCollection.AddSingleton<Services.GameBrowser.IGameBrowserService, Services.GameBrowser.GameBrowserService>();
+
         // ViewModels
         serviceCollection.AddTransient<AboutViewModel>();
         serviceCollection.AddTransient<DebugViewModel>();

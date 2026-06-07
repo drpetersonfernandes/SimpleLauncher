@@ -29,7 +29,7 @@ public partial class MainWindow : IGameFileLoadingHost
 
     Task IGameFileLoadingHost.DisplaySystemSelectionScreenAsync(CancellationToken cancellationToken)
     {
-        return _systemSelectionOrchestrator.DisplaySystemSelectionScreenAsync(cancellationToken);
+        return _gameBrowser.DisplaySystemSelectionScreenAsync(cancellationToken);
     }
 
     void IGameFileLoadingHost.SetLoadingState(bool isLoading, string message)

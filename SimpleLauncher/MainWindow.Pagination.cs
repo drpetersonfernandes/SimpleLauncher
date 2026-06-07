@@ -30,10 +30,10 @@ public partial class MainWindow
             UiOrchestrator.GoToPreviousPage();
 
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingPrevPage") ?? "Loading previous page...");
-            _playSoundEffects.PlayNotificationSound();
+            _audioInput.PlayNotificationSound();
 
             var (sl, sq) = GetLoadGameFilesParams();
-            await _gameFileLoadingOrchestrator.LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+            await _gameBrowser.LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
         }
         catch (Exception ex)
         {
@@ -66,10 +66,10 @@ public partial class MainWindow
             UiOrchestrator.GoToNextPage();
 
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingNextPage") ?? "Loading next page...");
-            _playSoundEffects.PlayNotificationSound();
+            _audioInput.PlayNotificationSound();
 
             var (sl, sq) = GetLoadGameFilesParams();
-            await _gameFileLoadingOrchestrator.LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+            await _gameBrowser.LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
         }
         catch (Exception ex)
         {

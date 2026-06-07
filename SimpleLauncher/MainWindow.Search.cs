@@ -13,7 +13,7 @@ public partial class MainWindow
         try
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("Searching") ?? "Searching...");
-            _playSoundEffects.PlayNotificationSound();
+            _audioInput.PlayNotificationSound();
             await ExecuteSearchAsync();
         }
         catch (Exception ex)
@@ -33,7 +33,7 @@ public partial class MainWindow
         {
             if (e.Key != Key.Enter) return;
 
-            _playSoundEffects.PlayNotificationSound(); // Play sound immediately
+            _audioInput.PlayNotificationSound(); // Play sound immediately
             await ExecuteSearchAsync();
         }
         catch (Exception ex)
@@ -64,7 +64,7 @@ public partial class MainWindow
             ((IUiResetHost)this).ActiveSearchQueryOrMode = searchQuery;
 
             var selectedSystem = SystemComboBox.SelectedItem?.ToString();
-            var result = await _searchOrchestratorService.ValidateAndPrepareAsync(searchQuery, selectedSystem, _cancellationSource.Token);
+            var result = await _gameBrowser.ValidateAndPrepareAsync(searchQuery, selectedSystem, _cancellationSource.Token);
 
             if (!result.IsValid)
             {
@@ -86,7 +86,7 @@ public partial class MainWindow
 
             try
             {
-                await _gameFileLoadingOrchestrator.LoadGameFilesAsync(null, result.ValidatedQuery, _cancellationSource.Token);
+                await _gameBrowser.LoadGameFilesAsync(null, result.ValidatedQuery, _cancellationSource.Token);
                 SetLoadingState(false);
             }
             catch (Exception ex)
