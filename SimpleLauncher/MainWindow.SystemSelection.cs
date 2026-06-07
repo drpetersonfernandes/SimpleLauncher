@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.UIReset;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
@@ -32,8 +33,8 @@ public partial class MainWindow
         TotalFilesLabel.Content = null;
         PrevPageButton2.IsEnabled = false;
         NextPageButton2.IsEnabled = false;
-        _currentFilter = null;
-        _activeSearchQueryOrMode = null;
+        ((IUiResetHost)this).CurrentFilter = null;
+        ((IUiResetHost)this).ActiveSearchQueryOrMode = null;
         SearchTextBox.Text = "";
 
         GameFileGrid.Visibility = Visibility.Visible;
@@ -176,7 +177,7 @@ public partial class MainWindow
             {
                 if (sender is Button { Tag: string systemName })
                 {
-                    if (_isUiUpdating)
+                    if (((IUiResetHost)this).IsUiUpdating)
                     {
                         return;
                     }

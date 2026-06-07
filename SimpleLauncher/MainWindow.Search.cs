@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Input;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.UIReset;
 
 namespace SimpleLauncher;
 
@@ -70,7 +71,7 @@ public partial class MainWindow
             }
 
             var searchQuery = SearchTextBox.Text.Trim();
-            _activeSearchQueryOrMode = searchQuery; // Set active search mode to the text query
+            ((IUiResetHost)this).ActiveSearchQueryOrMode = searchQuery; // Set active search mode to the text query
 
             if (SystemComboBox.SelectedItem == null)
             {
@@ -96,7 +97,7 @@ public partial class MainWindow
 
             // Call DeselectLetter to clear any selected letter filter UI
             _topLetterNumberMenu.DeselectLetter();
-            _currentFilter = null; // Clear active letter filter
+            ((IUiResetHost)this).CurrentFilter = null; // Clear active letter filter
 
             try
             {

@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.UIReset;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
@@ -208,7 +209,7 @@ public partial class MainWindow
                 {
                     // If a search or filter is active, _currentSearchResults holds the full (unpaginated) list.
                     // Otherwise, the full list is in _allGamesForCurrentSystem.
-                    var sourceList = !string.IsNullOrEmpty(_activeSearchQueryOrMode) || !string.IsNullOrEmpty(_currentFilter)
+                    var sourceList = !string.IsNullOrEmpty(((IUiResetHost)this).ActiveSearchQueryOrMode) || !string.IsNullOrEmpty(((IUiResetHost)this).CurrentFilter)
                         ? _currentSearchResults
                         : _allGamesForCurrentSystem;
 
@@ -494,7 +495,7 @@ public partial class MainWindow
 
         List<string> ProcessListOfAllFilesWithMachineDescription(List<string> allFiles)
         {
-            if (_mameSortOrder == "MachineDescription")
+            if (((IUiResetHost)this).MameSortOrder == "MachineDescription")
             {
                 allFiles = allFiles.OrderBy(f =>
                 {

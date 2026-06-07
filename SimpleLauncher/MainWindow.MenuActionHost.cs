@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Services.MenuActionHandler;
+using SimpleLauncher.Services.UIReset;
 
 namespace SimpleLauncher;
 
@@ -82,7 +83,7 @@ public partial class MainWindow : IMenuActionHost
 
     string IMenuActionHost.GetMameSortOrder()
     {
-        return _mameSortOrder;
+        return ((IUiResetHost)this).MameSortOrder;
     }
 
     // Field setters
@@ -103,7 +104,7 @@ public partial class MainWindow : IMenuActionHost
 
     void IMenuActionHost.SetMameSortOrder(string sortOrder)
     {
-        _mameSortOrder = sortOrder;
+        ((IUiResetHost)this).MameSortOrder = sortOrder;
     }
 
     void IMenuActionHost.SetIsLoadingGames(bool value)
@@ -114,58 +115,22 @@ public partial class MainWindow : IMenuActionHost
 
     void IMenuActionHost.SetIsUiUpdating(bool value)
     {
-        _isUiUpdating = value;
+        ((IUiResetHost)this).IsUiUpdating = value;
     }
 
     void IMenuActionHost.SetCurrentFilter(string filter)
     {
-        _currentFilter = filter;
+        ((IUiResetHost)this).CurrentFilter = filter;
     }
 
     void IMenuActionHost.SetActiveSearchQueryOrMode(string mode)
     {
-        _activeSearchQueryOrMode = mode;
+        ((IUiResetHost)this).ActiveSearchQueryOrMode = mode;
     }
 
     void IMenuActionHost.SetIsResortOperation(bool value)
     {
         _isResortOperation = value;
-    }
-
-    // Check mark updates
-    void IMenuActionHost.UpdateThumbnailSizeCheckMarks(int selectedSize)
-    {
-        UpdateThumbnailSizeCheckMarks(selectedSize);
-    }
-
-    void IMenuActionHost.UpdateButtonAspectRatioCheckMarks(string selectedValue)
-    {
-        UpdateButtonAspectRatioCheckMarks(selectedValue);
-    }
-
-    void IMenuActionHost.UpdateNumberOfGamesPerPageCheckMarks(int selectedSize)
-    {
-        UpdateNumberOfGamesPerPageCheckMarks(selectedSize);
-    }
-
-    void IMenuActionHost.UpdateShowGamesCheckMarks(string selectedValue)
-    {
-        UpdateShowGamesCheckMarks(selectedValue);
-    }
-
-    void IMenuActionHost.UpdateFilenameDisplayModeCheckMarks(string selectedValue)
-    {
-        UpdateFilenameDisplayModeCheckMarks(selectedValue);
-    }
-
-    void IMenuActionHost.UpdateFilenameFontSizeCheckMarks(string selectedValue)
-    {
-        UpdateFilenameFontSizeCheckMarks(selectedValue);
-    }
-
-    void IMenuActionHost.UpdateMachineNameFontSizeCheckMarks(string selectedValue)
-    {
-        UpdateMachineNameFontSizeCheckMarks(selectedValue);
     }
 
     // UI state setters

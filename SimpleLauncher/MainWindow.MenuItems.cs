@@ -2,7 +2,6 @@ using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameItemFactory;
-using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 
@@ -10,16 +9,7 @@ public partial class MainWindow
 {
     internal void SetViewMode(string viewMode)
     {
-        if (viewMode == "ListView")
-        {
-            ListView.IsChecked = true;
-            GridView.IsChecked = false;
-        }
-        else
-        {
-            GridView.IsChecked = true;
-            ListView.IsChecked = false;
-        }
+        MenuCheckMarkService.SetViewMode(viewMode);
     }
 
     private void EasyMode_Click(object sender, RoutedEventArgs e)
@@ -53,67 +43,17 @@ public partial class MainWindow
     {
         try
         {
-            CancelAndRecreateToken();
-
-            if (_isUiUpdating) return;
-
-            _isUiUpdating = true;
-
-            if (_isLoadingGames)
-            {
-                _isLoadingGames = false;
-                LoadingOverlay.Visibility = Visibility.Collapsed;
-            }
-
-            try
-            {
-                ResetPaginationButtons();
-
-                SearchTextBox.Text = "";
-
-                _currentFilter = null;
-                _activeSearchQueryOrMode = null;
-
-                _selectedSystem = null;
-                PreviewImage.Source = null;
-                SystemComboBox.SelectedItem = null;
-                EmulatorComboBox.SelectedItem = null;
-                SortOrderToggleButton.Visibility = Visibility.Collapsed;
-                _mameSortOrder = "FileName";
-
-                var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-                SelectedSystem = nosystemselected;
-                PlayTime = "00:00:00";
-
-                await DisplaySystemSelectionScreenAsync(_cancellationSource.Token);
-            }
-            catch (OperationCanceledException)
-            {
-                // Do nothing.
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                _logErrors.LogAndForget(ex, "Error in the method ResetUiAsync.");
-            }
-            finally
-            {
-                _isUiUpdating = false;
-            }
-        }
-        catch (OperationCanceledException)
-        {
-            // Do nothing - cancellation is expected when the UI is reset multiple times
+            await UiResetService.ResetUiAsync();
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ResetUiAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method ResetUiAsync");
         }
     }
 
     public void LoadOrReloadSystemManager()
     {
-        _systemManagers = SystemManager.LoadSystemManagers(_configuration);
+        _systemManagers = SystemConfigurationService.LoadSystemManagers();
         var sortedSystemNames = _systemManagers.Select(static manager => manager.SystemName).OrderBy(static name => name)
             .ToList();
         SystemComboBox.ItemsSource = sortedSystemNames;
@@ -302,54 +242,14 @@ public partial class MainWindow
         MenuActionHandlerService.HandleShowRetroAchievements();
     }
 
-    private void UpdateThumbnailSizeCheckMarks(int selectedSize)
-    {
-        Size50.IsChecked = selectedSize == 50;
-        Size100.IsChecked = selectedSize == 100;
-        Size150.IsChecked = selectedSize == 150;
-        Size200.IsChecked = selectedSize == 200;
-        Size250.IsChecked = selectedSize == 250;
-        Size300.IsChecked = selectedSize == 300;
-        Size350.IsChecked = selectedSize == 350;
-        Size400.IsChecked = selectedSize == 400;
-        Size450.IsChecked = selectedSize == 450;
-        Size500.IsChecked = selectedSize == 500;
-        Size550.IsChecked = selectedSize == 550;
-        Size600.IsChecked = selectedSize == 600;
-        Size650.IsChecked = selectedSize == 650;
-        Size700.IsChecked = selectedSize == 700;
-        Size750.IsChecked = selectedSize == 750;
-        Size800.IsChecked = selectedSize == 800;
-    }
-
-    private void UpdateNumberOfGamesPerPageCheckMarks(int selectedSize)
-    {
-        Page100.IsChecked = selectedSize == 100;
-        Page200.IsChecked = selectedSize == 200;
-        Page300.IsChecked = selectedSize == 300;
-        Page400.IsChecked = selectedSize == 400;
-        Page500.IsChecked = selectedSize == 500;
-        Page1000.IsChecked = selectedSize == 1000;
-        Page10000.IsChecked = selectedSize == 10000;
-        Page1000000.IsChecked = selectedSize == 1000000;
-    }
-
     private void UpdateShowGamesCheckMarks(string selectedValue)
     {
-        ShowAll.IsChecked = selectedValue == "ShowAll";
-        ShowWithCover.IsChecked = selectedValue == "ShowWithCover";
-        ShowWithoutCover.IsChecked = selectedValue == "ShowWithoutCover";
+        MenuCheckMarkService.UpdateShowGamesCheckMarks(selectedValue);
     }
 
     private void UpdateButtonAspectRatioCheckMarks(string selectedValue)
     {
-        Square.IsChecked = selectedValue == "Square";
-        Wider.IsChecked = selectedValue == "Wider";
-        SuperWider.IsChecked = selectedValue == "SuperWider";
-        SuperWider2.IsChecked = selectedValue == "SuperWider2";
-        Taller.IsChecked = selectedValue == "Taller";
-        SuperTaller.IsChecked = selectedValue == "SuperTaller";
-        SuperTaller2.IsChecked = selectedValue == "SuperTaller2";
+        MenuCheckMarkService.UpdateButtonAspectRatioCheckMarks(selectedValue);
     }
 
     private async void FilenameDisplayMode_Click(object sender, RoutedEventArgs e)
@@ -386,14 +286,6 @@ public partial class MainWindow
         {
             _logErrors.LogAndForget(ex, "Error in the method DisplayMachineName_Click.");
         }
-    }
-
-    private void UpdateFilenameDisplayModeCheckMarks(string selectedValue)
-    {
-        FilenameDisplayOriginal.IsChecked = selectedValue == "Original";
-        FilenameDisplayCleanUp.IsChecked = selectedValue == "CleanUp";
-        FilenameDisplayNoFilename.IsChecked = selectedValue == "NoFilename";
-        DisplayMachineNameToggle.IsChecked = _settings.DisplayMachineName;
     }
 
     private async void FilenameFontSize_Click(object sender, RoutedEventArgs e)
@@ -438,20 +330,6 @@ public partial class MainWindow
         {
             _logErrors.LogAndForget(ex, "Error in the method MachineNameFontSize_Click.");
         }
-    }
-
-    private void UpdateFilenameFontSizeCheckMarks(string selectedValue)
-    {
-        FilenameFontSizeSmall.IsChecked = selectedValue == "Small";
-        FilenameFontSizeNormal.IsChecked = selectedValue == "Normal";
-        FilenameFontSizeBig.IsChecked = selectedValue == "Big";
-    }
-
-    private void UpdateMachineNameFontSizeCheckMarks(string selectedValue)
-    {
-        MachineNameFontSizeSmall.IsChecked = selectedValue == "Small";
-        MachineNameFontSizeNormal.IsChecked = selectedValue == "Normal";
-        MachineNameFontSizeBig.IsChecked = selectedValue == "Big";
     }
 
     private void ChangeViewMode_Click(object sender, RoutedEventArgs e)

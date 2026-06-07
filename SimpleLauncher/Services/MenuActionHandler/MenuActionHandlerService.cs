@@ -12,6 +12,7 @@ using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.HelpUser;
 using SimpleLauncher.Services.LoadImages;
+using SimpleLauncher.Services.MenuCheckMark;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
@@ -38,6 +39,7 @@ public class MenuActionHandlerService
     private readonly IGetListOfFiles _getListOfFiles;
     private readonly IFindCoverImage _findCoverImage;
     private readonly IImageLoader _imageLoader;
+    private readonly IMenuCheckMarkService _menuCheckMarkService;
 
     private MainWindow _mainWindow;
     private IMenuActionHost _host;
@@ -59,7 +61,8 @@ public class MenuActionHandlerService
         IGetListOfFiles getListOfFiles,
         IServiceProvider serviceProvider,
         IFindCoverImage findCoverImage,
-        IImageLoader imageLoader)
+        IImageLoader imageLoader,
+        IMenuCheckMarkService menuCheckMarkService)
     {
         _settings = settings;
         _playSoundEffects = playSoundEffects;
@@ -76,6 +79,7 @@ public class MenuActionHandlerService
         _serviceProvider = serviceProvider;
         _findCoverImage = findCoverImage;
         _imageLoader = imageLoader;
+        _menuCheckMarkService = menuCheckMarkService;
 
         _emulatorConfigWindowFactory = new Dictionary<string, Action>(StringComparer.OrdinalIgnoreCase)
         {
@@ -562,7 +566,7 @@ public class MenuActionHandlerService
 
                 _settings.ShowGames = showGamesMode;
                 await _settings.SaveAsync();
-                _host.UpdateShowGamesCheckMarks(showGamesMode);
+                _menuCheckMarkService.UpdateShowGamesCheckMarks(showGamesMode);
 
                 var (sl, sq) = _host.GetLoadGameFilesParams();
                 _host.SetLoadingState(true, (string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...");
@@ -596,7 +600,7 @@ public class MenuActionHandlerService
                 _settings.ThumbnailSize = newSize;
                 await _settings.SaveAsync();
 
-                _host.UpdateThumbnailSizeCheckMarks(newSize);
+                _menuCheckMarkService.UpdateThumbnailSizeCheckMarks(newSize);
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("AdjustingButtonSize") ?? "Adjusting button size...", _mainWindow);
 
                 var (sl, sq) = _host.GetLoadGameFilesParams();
@@ -633,7 +637,7 @@ public class MenuActionHandlerService
                 _settings.ButtonAspectRatio = aspectRatio;
                 await _settings.SaveAsync();
 
-                _host.UpdateButtonAspectRatioCheckMarks(aspectRatio);
+                _menuCheckMarkService.UpdateButtonAspectRatioCheckMarks(aspectRatio);
 
                 var (sl, sq) = _host.GetLoadGameFilesParams();
                 _host.SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
@@ -678,7 +682,7 @@ public class MenuActionHandlerService
                 _settings.GamesPerPage = newPage;
                 await _settings.SaveAsync();
 
-                _host.UpdateNumberOfGamesPerPageCheckMarks(newPage);
+                _menuCheckMarkService.UpdateNumberOfGamesPerPageCheckMarks(newPage);
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("AdjustingGamesPerPage") ?? "Adjusting games per page...", _mainWindow);
 
                 var (sl, sq) = _host.GetLoadGameFilesParams();
@@ -858,7 +862,7 @@ public class MenuActionHandlerService
                 {
                     _settings.ThumbnailSizeForSystem = newSize;
                     await _settings.SaveAsync();
-                    _host.UpdateThumbnailSizeCheckMarks(newSize);
+                    _menuCheckMarkService.UpdateThumbnailSizeCheckMarks(newSize);
                 }
 
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ZoomingIn") ?? "Zooming in...", _mainWindow);
@@ -873,7 +877,7 @@ public class MenuActionHandlerService
                     _settings.ThumbnailSize = newSize;
                     _host.SetGameButtonImageHeight(newSize);
                     await _settings.SaveAsync();
-                    _host.UpdateThumbnailSizeCheckMarks(newSize);
+                    _menuCheckMarkService.UpdateThumbnailSizeCheckMarks(newSize);
                 }
 
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ZoomingIn") ?? "Zooming in...", _mainWindow);
@@ -903,7 +907,7 @@ public class MenuActionHandlerService
                 {
                     _settings.ThumbnailSizeForSystem = newSize;
                     await _settings.SaveAsync();
-                    _host.UpdateThumbnailSizeCheckMarks(newSize);
+                    _menuCheckMarkService.UpdateThumbnailSizeCheckMarks(newSize);
                 }
 
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ZoomingOut") ?? "Zooming out...", _mainWindow);
@@ -918,7 +922,7 @@ public class MenuActionHandlerService
                     _settings.ThumbnailSize = newSize;
                     _host.SetGameButtonImageHeight(newSize);
                     await _settings.SaveAsync();
-                    _host.UpdateThumbnailSizeCheckMarks(newSize);
+                    _menuCheckMarkService.UpdateThumbnailSizeCheckMarks(newSize);
                 }
 
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ZoomingOut") ?? "Zooming out...", _mainWindow);
@@ -1025,7 +1029,7 @@ public class MenuActionHandlerService
                 _settings.FilenameDisplayMode = mode;
                 await _settings.SaveAsync();
 
-                _host.UpdateFilenameDisplayModeCheckMarks(mode);
+                _menuCheckMarkService.UpdateFilenameDisplayModeCheckMarks(mode);
 
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingFilenameDisplayMode") ?? "Changing filename display mode...", _mainWindow);
 
@@ -1101,7 +1105,7 @@ public class MenuActionHandlerService
                 _settings.FilenameFontSize = size;
                 await _settings.SaveAsync();
 
-                _host.UpdateFilenameFontSizeCheckMarks(size);
+                _menuCheckMarkService.UpdateFilenameFontSizeCheckMarks(size);
 
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingFilenameFontSize") ?? "Changing filename font size...", _mainWindow);
 
@@ -1140,7 +1144,7 @@ public class MenuActionHandlerService
                 _settings.MachineNameFontSize = size;
                 await _settings.SaveAsync();
 
-                _host.UpdateMachineNameFontSizeCheckMarks(size);
+                _menuCheckMarkService.UpdateMachineNameFontSizeCheckMarks(size);
 
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingMachineNameFontSize") ?? "Changing machine name font size...", _mainWindow);
 

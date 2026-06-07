@@ -31,14 +31,17 @@ using SimpleLauncher.Services.LaunchTools;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.LoadingOverlay;
 using SimpleLauncher.Services.MenuActionHandler;
+using SimpleLauncher.Services.MenuCheckMark;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.StartupInitialization;
+using SimpleLauncher.Services.SystemConfiguration;
 using SimpleLauncher.Services.ThemeMenu;
 using SimpleLauncher.Services.UpdateStatusBar;
+using SimpleLauncher.Services.UIReset;
 using SimpleLauncher.Services.UsageStats;
 using SimpleLauncher.ViewModels;
 using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
@@ -193,6 +196,9 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IUpdateStatusBar, UpdateStatusBarService>();
         serviceCollection.AddSingleton<IFindCoverImage, FindCoverImage>();
         serviceCollection.AddSingleton<IImageLoader, ImageLoader>();
+        serviceCollection.AddSingleton<IMenuCheckMarkService, MenuCheckMarkService>();
+        serviceCollection.AddSingleton<IUiResetService, UiResetService>();
+        serviceCollection.AddSingleton<ISystemConfigurationService, SystemConfigurationService>();
 
         // ViewModels
         serviceCollection.AddTransient<AboutViewModel>();

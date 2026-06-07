@@ -26,15 +26,18 @@ using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.LoadingOverlay;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.MenuActionHandler;
+using SimpleLauncher.Services.MenuCheckMark;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.StartupInitialization;
+using SimpleLauncher.Services.SystemConfiguration;
 using SimpleLauncher.Services.ThemeMenu;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.UiHelpers;
+using SimpleLauncher.Services.UIReset;
 using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.Services.UsageStats;
 using Application = System.Windows.Application;
@@ -47,10 +50,9 @@ namespace SimpleLauncher;
 
 using ILoadingState = Services.LoadingInterface.ILoadingState;
 
-public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingState
+public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingState, IMenuCheckMarkHost, IUiResetHost
 {
     private CancellationTokenSource _cancellationSource = new();
-    private bool _isUiUpdating;
     private bool _isResortOperation;
     private bool _wasControllerRunningBeforeDeactivation;
 
@@ -123,7 +125,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private int _paginationThreshold;
     internal Button NextPageButton2;
     internal Button PrevPageButton2;
-    private string _currentFilter;
 
     internal TrayIconManager TrayIconManager;
     internal PlayHistoryManager PlayHistoryManager { get; }
@@ -140,9 +141,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private string _selectedImageFolder;
     private List<string> _selectedRomFolders;
     private readonly RetroAchievementsService _retroAchievementsService;
-
-    private string _activeSearchQueryOrMode;
-    private string _mameSortOrder = "FileName";
 
     // All Games for Current System and Current Search
     private List<string> _allGamesForCurrentSystem = [];
@@ -169,6 +167,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly IImageLoader _imageLoader;
     internal readonly MenuActionHandlerService MenuActionHandlerService;
     internal readonly IUpdateStatusBar UpdateStatusBarService;
+    internal readonly IMenuCheckMarkService MenuCheckMarkService;
+    internal readonly IUiResetService UiResetService;
+    internal readonly ISystemConfigurationService SystemConfigurationService;
 
     public MainWindow(
         SettingsManager settings,
@@ -195,7 +196,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         MenuActionHandlerService menuActionHandlerService,
         IUpdateStatusBar updateStatusBarService,
         IFindCoverImage findCoverImage,
-        IImageLoader imageLoader)
+        IImageLoader imageLoader,
+        IMenuCheckMarkService menuCheckMarkService,
+        IUiResetService uiResetService,
+        ISystemConfigurationService systemConfigurationService)
     {
         InitializeComponent();
 
@@ -225,23 +229,29 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _findCoverImage = findCoverImage;
         _imageLoader = imageLoader;
 
+        MenuCheckMarkService = menuCheckMarkService;
+        UiResetService = uiResetService;
+        SystemConfigurationService = systemConfigurationService;
+
         _themeMenuService.Initialize(this);
         _languageMenuService.Initialize(this);
         _loadingOverlayService.Initialize(this);
         _gameListUiService.Initialize(this);
         MenuActionHandlerService.Initialize(this);
+        MenuCheckMarkService.Initialize(this);
+        UiResetService.Initialize(this);
 
         DataContext = this;
 
         // Load and Apply _settings
         ToggleGamepad.IsChecked = _settings.EnableGamePadNavigation;
-        UpdateThumbnailSizeCheckMarks(_settings.ThumbnailSize);
-        UpdateButtonAspectRatioCheckMarks(_settings.ButtonAspectRatio);
-        UpdateNumberOfGamesPerPageCheckMarks(_settings.GamesPerPage);
-        UpdateShowGamesCheckMarks(_settings.ShowGames);
-        UpdateFilenameDisplayModeCheckMarks(_settings.FilenameDisplayMode);
-        UpdateFilenameFontSizeCheckMarks(_settings.FilenameFontSize);
-        UpdateMachineNameFontSizeCheckMarks(_settings.MachineNameFontSize);
+        MenuCheckMarkService.UpdateThumbnailSizeCheckMarks(_settings.ThumbnailSize);
+        MenuCheckMarkService.UpdateButtonAspectRatioCheckMarks(_settings.ButtonAspectRatio);
+        MenuCheckMarkService.UpdateNumberOfGamesPerPageCheckMarks(_settings.GamesPerPage);
+        MenuCheckMarkService.UpdateShowGamesCheckMarks(_settings.ShowGames);
+        MenuCheckMarkService.UpdateFilenameDisplayModeCheckMarks(_settings.FilenameDisplayMode);
+        MenuCheckMarkService.UpdateFilenameFontSizeCheckMarks(_settings.FilenameFontSize);
+        MenuCheckMarkService.UpdateMachineNameFontSizeCheckMarks(_settings.MachineNameFontSize);
         _filesPerPage = _settings.GamesPerPage;
         _paginationThreshold = _settings.GamesPerPage;
         ToggleFuzzyMatching.IsChecked = _settings.EnableFuzzyMatching;
@@ -476,8 +486,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private (string startLetter, string searchQuery) GetLoadGameFilesParams()
     {
-        var searchQueryToUse = _activeSearchQueryOrMode;
-        var startLetterToUse = string.IsNullOrEmpty(searchQueryToUse) ? _currentFilter : null;
+        var searchQueryToUse = ((IUiResetHost)this).ActiveSearchQueryOrMode;
+        var startLetterToUse = string.IsNullOrEmpty(searchQueryToUse) ? ((IUiResetHost)this).CurrentFilter : null;
         return (startLetterToUse, searchQueryToUse);
     }
 
@@ -527,8 +537,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
             ResetPaginationButtons(); // Ensure pagination is reset at the beginning
             SearchTextBox.Text = ""; // Clear SearchTextBox
-            _currentFilter = selectedLetter; // Update current filter
-            _activeSearchQueryOrMode = null; // Reset special search mode
+            ((IUiResetHost)this).CurrentFilter = selectedLetter; // Update current filter
+            ((IUiResetHost)this).ActiveSearchQueryOrMode = null; // Reset special search mode
 
             // Show loading overlay immediately with proper message
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games...");
@@ -560,8 +570,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             ApplyShowGamesSetting();
 
             SearchTextBox.Text = "";
-            _currentFilter = null;
-            _activeSearchQueryOrMode = "FAVORITES";
+            ((IUiResetHost)this).CurrentFilter = null;
+            ((IUiResetHost)this).ActiveSearchQueryOrMode = "FAVORITES";
 
             // Show loading overlay immediately with proper message
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingFavoriteGamesForSystem") ?? "Loading favorite games for system...");
@@ -591,8 +601,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
             _topLetterNumberMenu.DeselectLetter();
             SearchTextBox.Text = "";
-            _currentFilter = null;
-            _activeSearchQueryOrMode = "RANDOM_SELECTION";
+            ((IUiResetHost)this).CurrentFilter = null;
+            ((IUiResetHost)this).ActiveSearchQueryOrMode = "RANDOM_SELECTION";
 
             // Show loading overlay immediately with proper message
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games...");
@@ -933,7 +943,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             CancelAndRecreateToken();
 
             _playSoundEffects.PlayNotificationSound();
-            _mameSortOrder = _mameSortOrder == "FileName" ? "MachineDescription" : "FileName";
+            ((IUiResetHost)this).MameSortOrder = ((IUiResetHost)this).MameSortOrder == "FileName" ? "MachineDescription" : "FileName";
             UpdateSortOrderButtonUi();
 
             _isResortOperation = true; // Set flag before loading
@@ -961,7 +971,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             return;
         }
 
-        if (_mameSortOrder == "FileName")
+        if (((IUiResetHost)this).MameSortOrder == "FileName")
         {
             var tooltipText = (string)Application.Current.TryFindResource("SortByMachineDescriptionTooltip") ?? "Sort by Machine Description";
             SortOrderToggleButton.ToolTip = tooltipText;

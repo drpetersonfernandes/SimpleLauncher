@@ -6,6 +6,7 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DisplaySystemInfo;
 using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.UIReset;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
@@ -19,7 +20,7 @@ public partial class MainWindow
         {
             try
             {
-                if (_isUiUpdating)
+                if (((IUiResetHost)this).IsUiUpdating)
                 {
                     return; // Prevent re-entrance
                 }
@@ -36,7 +37,7 @@ public partial class MainWindow
                     return;
                 }
 
-                _isUiUpdating = true;
+                ((IUiResetHost)this).IsUiUpdating = true;
                 SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...");
                 await Task.Delay(100, _cancellationSource.Token); // Give the UI thread time to render the loading overlay
                 try
@@ -47,8 +48,8 @@ public partial class MainWindow
                     PreviewImage.Source = null;
 
                     _currentSearchResults.Clear();
-                    _currentFilter = null;
-                    _activeSearchQueryOrMode = null;
+                    ((IUiResetHost)this).CurrentFilter = null;
+                    ((IUiResetHost)this).ActiveSearchQueryOrMode = null;
 
                     GameFileGrid.Visibility = Visibility.Visible;
                     ListViewPreviewArea.Visibility = Visibility.Collapsed;
@@ -83,7 +84,7 @@ public partial class MainWindow
                         f.Equals("url", StringComparison.OrdinalIgnoreCase) ||
                         f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
 
-                    _mameSortOrder = "FileName";
+                    ((IUiResetHost)this).MameSortOrder = "FileName";
                     UpdateSortOrderButtonUi();
                     SortOrderToggleButton.Visibility = Visibility.Visible;
 
@@ -147,7 +148,7 @@ public partial class MainWindow
                 finally
                 {
                     SetLoadingState(false);
-                    _isUiUpdating = false;
+                    ((IUiResetHost)this).IsUiUpdating = false;
                 }
             }
             catch (Exception ex)

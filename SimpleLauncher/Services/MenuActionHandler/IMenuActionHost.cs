@@ -37,15 +37,6 @@ public interface IMenuActionHost
     void SetActiveSearchQueryOrMode(string mode);
     void SetIsResortOperation(bool value);
 
-    // Check mark updates
-    void UpdateThumbnailSizeCheckMarks(int selectedSize);
-    void UpdateButtonAspectRatioCheckMarks(string selectedValue);
-    void UpdateNumberOfGamesPerPageCheckMarks(int selectedSize);
-    void UpdateShowGamesCheckMarks(string selectedValue);
-    void UpdateFilenameDisplayModeCheckMarks(string selectedValue);
-    void UpdateFilenameFontSizeCheckMarks(string selectedValue);
-    void UpdateMachineNameFontSizeCheckMarks(string selectedValue);
-
     // UI state setters
     void SetViewModeUi(string viewMode);
     void SetGridViewChecked(bool isChecked);
