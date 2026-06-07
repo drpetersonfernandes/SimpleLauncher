@@ -66,10 +66,10 @@ public partial class RomHistoryViewModel : ObservableObject
                 const string contextMessage = "'history.dat' and 'history.xml' are both missing.";
                 _logErrors.LogAndForget(null, contextMessage);
 
-                var nohistoryxmlfilefound2 = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound") ?? "No 'history.dat' or 'history.xml' file found in the application folder.";
+                var nohistoryxmlfilefound2 = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound2") ?? "No 'history.dat' or 'history.xml' file found in the application folder.";
                 HistoryMarkdown = nohistoryxmlfilefound2;
 
-                MessageBoxLibrary.NoHistoryXmlFoundMessageBox();
+                MessageBoxLibrary.NoHistoryXmlOrDatFoundMessageBox();
                 return;
             }
 

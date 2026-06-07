@@ -19,12 +19,12 @@ internal static class MountZipFiles
     internal static string ConfiguredMountDriveRoot => _preferredMountDriveLetterOnly + ":\\";
 
 
-    private static bool ValidateZipForPathTraversal(string archivePath)
+    private static void ValidateZipForPathTraversal(string archivePath)
     {
         if (!File.Exists(archivePath))
         {
             DebugLogger.Log($"[MountZipFiles] Compressed file not found: {archivePath}");
-            return false;
+            throw new FileNotFoundException($"Compressed file not found: {archivePath}", archivePath);
         }
 
         try
@@ -49,7 +49,7 @@ internal static class MountZipFiles
                     entryName.StartsWith('\\'))
                 {
                     DebugLogger.Log($"[MountZipFiles] Archive contains path traversal entry: '{entryName}'");
-                    return false;
+                    throw new InvalidOperationException($"Archive contains path traversal entry: '{entryName}'");
                 }
 
                 // Additional thorough check: simulate extraction path normalization
@@ -58,19 +58,17 @@ internal static class MountZipFiles
                 if (!simulatedFullPath.StartsWith("D:\\MOCKROOT", StringComparison.Ordinal))
                 {
                     DebugLogger.Log($"[MountZipFiles] Archive entry escapes simulated root: '{entryName}' -> '{simulatedFullPath}'");
-                    return false;
+                    throw new InvalidOperationException($"Archive entry escapes root: '{entryName}'");
                 }
             }
-
-            return true;
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ex is not (FileNotFoundException or InvalidOperationException))
         {
             // Archive is corrupted or in an unsupported format — skip validation.
             // SharpCompress cannot open the archive, so there are no entries to check
             // for path traversal. The caller should notify the user that the file is corrupt.
             DebugLogger.Log($"[MountZipFiles] Skipping path traversal validation — unable to open archive: {archivePath}. Error: {ex.Message}");
-            return false;
+            throw new InvalidOperationException($"Archive is corrupted or unsupported: {archivePath}", ex);
         }
     }
 
@@ -231,11 +229,15 @@ internal static class MountZipFiles
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for EBOOT.BIN: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
-        if (!ValidateZipForPathTraversal(resolvedZipFilePath))
+        try
+        {
+            ValidateZipForPathTraversal(resolvedZipFilePath);
+        }
+        catch (Exception ex)
         {
             var errorMessage = $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
-            logErrors.LogAndForget(null, errorMessage);
+            logErrors.LogAndForget(ex, errorMessage);
             await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(logPath));
             return;
         }
@@ -489,11 +491,15 @@ internal static class MountZipFiles
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for nested file search: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
-        if (!ValidateZipForPathTraversal(resolvedZipFilePath))
+        try
+        {
+            ValidateZipForPathTraversal(resolvedZipFilePath);
+        }
+        catch (Exception ex)
         {
             var errorMessage = $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
-            logErrors.LogAndForget(null, errorMessage);
+            logErrors.LogAndForget(ex, errorMessage);
             await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(logPath));
             return;
         }
@@ -823,11 +829,15 @@ internal static class MountZipFiles
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for ScummVM: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
-        if (!ValidateZipForPathTraversal(resolvedZipFilePath))
+        try
+        {
+            ValidateZipForPathTraversal(resolvedZipFilePath);
+        }
+        catch (Exception ex)
         {
             var errorMessage = $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
-            logErrors.LogAndForget(null, errorMessage);
+            logErrors.LogAndForget(ex, errorMessage);
             await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(logPath));
             return;
         }

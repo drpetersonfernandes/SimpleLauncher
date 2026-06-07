@@ -40,7 +40,7 @@ public static class RetroAchievementsSystemMatcher
         ["virtual boy"] = new RaSystemInfo(28, ["virtual boy", "virtualboy", "vb", "nintendo virtual boy", "nintendo virtualboy", "nintendo vb"]),
         ["pokemon mini"] = new RaSystemInfo(24, ["pokemon mini", "pokémon mini"]),
         ["nintendo dsi"] = new RaSystemInfo(78, ["nintendo dsi", "nintendo ds-i", "ndsi", "dsi", "nintendo ndsi", "nintendo dsi"]),
-        ["famicom disk system"] = new RaSystemInfo(81, ["famicom disk system", "fds", "nintendo famicom disk system", "nintendo fds", "Nintendo Family Computer", "Nintendo Family Computer Disk System", "Nintendo - Family Computer"]),
+        ["famicom disk system"] = new RaSystemInfo(81, ["famicom disk system", "fds", "nintendo famicom disk system", "nintendo fds", "Nintendo Family Computer", "Nintendo Family Computer Disk System", "Nintendo - Family Computer", "Nintendo Famicom Disc System"]),
         ["wii"] = new RaSystemInfo(19, ["wii", "nintendo wii", "Nintendo Wiiware", "Wiiware"]),
         ["wii u"] = new RaSystemInfo(20, ["wii u", "wiiu", "wii-u", "nintendo wii u", "nintendo wiiu", "nintendo wii-u"]),
         ["nintendo 3ds"] = new RaSystemInfo(62, ["nintendo 3ds", "3ds", "nintendo3ds", "nintendo 3ds", "Nintendo - Nintendo 3DS"]),
@@ -153,7 +153,7 @@ public static class RetroAchievementsSystemMatcher
             "Bally Astrocade", "unsupported", "Build Engine", "Elektronika BK-001-411", "PC-Port", "Nintendo Game and Watch",
             "Namco 2x6", "FBN", "J2ME", "NEC PC-88", "CGenius", "NEC PC88", "Fujitsu FM-7", "Fairchild Channel-F", "Exelvision EX100",
             "Enterprise 64-128", "Capcom Medalusion", "Sharp MZ-700", "Gakken Compact Vision", "Gamepark GP32", "Exidy Sorcerer",
-            "Cybiko", "Mophun"
+            "Cybiko", "Mophun", "PEL Varazdin Orao", "NEC PC-9801", "NEC PC-8801", "NEC PC-8001", "NEC PC-6001"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),

@@ -1015,6 +1015,7 @@
     <system:String x:Key="nogamesmatched">Unfortunately, no games matched your search query or the selected button.</system:String>
     <system:String x:Key="NoHighScores">No high scores found for this game.</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">No 'history.xml' file found in the application folder.</system:String>
+    <system:String x:Key="Nohistoryxmlfilefound2">No 'history.dat' or 'history.xml' file found in the application folder.</system:String>
     <system:String x:Key="NoImageIcon">No Image</system:String>
     <system:String x:Key="Noinformationavailableforsystem">No information available for system:</system:String>
     <system:String x:Key="NoLatestMasters">No latest masters found for this game.</system:String>

@@ -1165,14 +1165,14 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void NoHistoryXmlFoundMessageBox()
+    internal static void NoHistoryXmlOrDatFoundMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
         {
-            var nohistoryxmlfilefound = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound") ?? "No 'history.xml' file found in the application folder.";
+            var nohistoryxmlfilefound = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound2") ?? "No 'history.dat' or 'history.xml' file found in the application folder.";
             var doyouwanttoreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
