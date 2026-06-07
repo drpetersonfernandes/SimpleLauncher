@@ -9,11 +9,7 @@ public partial class MainWindow
 {
     private void ResetPaginationButtons()
     {
-        PrevPageButton2.IsEnabled = false;
-        NextPageButton2.IsEnabled = false;
-        _currentPage = 1;
-        Scroller.ScrollToTop();
-        TotalFilesLabel.Content = null;
+        _paginationService.Reset();
     }
 
     private async void PrevPageButtonClickAsync(object sender, RoutedEventArgs e)
@@ -25,14 +21,13 @@ public partial class MainWindow
                 return;
             }
 
-            if (_currentPage <= 1)
+            if (!_paginationService.CanGoPrev())
             {
-                // If already on the first page, no action needed
                 return;
             }
 
             CancelAndRecreateToken();
-            _currentPage--;
+            _paginationService.GoToPreviousPage();
 
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingPrevPage") ?? "Loading previous page...");
             _playSoundEffects.PlayNotificationSound();
@@ -62,15 +57,13 @@ public partial class MainWindow
                 return;
             }
 
-            var totalPages = (int)Math.Ceiling(_totalFiles / (double)_filesPerPage);
-            if (_currentPage >= totalPages)
+            if (!_paginationService.CanGoNext())
             {
-                // If already on the last page, no action needed
                 return;
             }
 
             CancelAndRecreateToken();
-            _currentPage++;
+            _paginationService.GoToNextPage();
 
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingNextPage") ?? "Loading next page...");
             _playSoundEffects.PlayNotificationSound();
@@ -88,11 +81,5 @@ public partial class MainWindow
             // Notify user
             MessageBoxLibrary.NavigationButtonErrorMessageBox();
         }
-    }
-
-    private void UpdatePaginationButtons()
-    {
-        PrevPageButton2.IsEnabled = _currentPage > 1;
-        NextPageButton2.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
     }
 }

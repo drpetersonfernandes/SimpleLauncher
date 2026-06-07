@@ -33,6 +33,7 @@ using SimpleLauncher.Services.LoadingOverlay;
 using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MenuCheckMark;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.Pagination;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
@@ -199,6 +200,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IMenuCheckMarkService, MenuCheckMarkService>();
         serviceCollection.AddSingleton<IUiResetService, UiResetService>();
         serviceCollection.AddSingleton<ISystemConfigurationService, SystemConfigurationService>();
+        serviceCollection.AddSingleton<IPaginationService, PaginationService>();
 
         // ViewModels
         serviceCollection.AddTransient<AboutViewModel>();

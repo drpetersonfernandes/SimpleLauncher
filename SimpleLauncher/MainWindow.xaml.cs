@@ -28,6 +28,7 @@ using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MenuCheckMark;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.Pagination;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
@@ -50,7 +51,7 @@ namespace SimpleLauncher;
 
 using ILoadingState = Services.LoadingInterface.ILoadingState;
 
-public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingState, IMenuCheckMarkHost, IUiResetHost
+public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingState, IMenuCheckMarkHost, IUiResetHost, IPaginationHost
 {
     private CancellationTokenSource _cancellationSource = new();
     private bool _isResortOperation;
@@ -118,11 +119,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    // Define Pagination Related Variables
-    private int _currentPage = 1;
-    private int _filesPerPage;
-    private int _totalFiles;
-    private int _paginationThreshold;
+    // Pagination
+    private readonly IPaginationService _paginationService;
     internal Button NextPageButton2;
     internal Button PrevPageButton2;
 
@@ -199,7 +197,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         IImageLoader imageLoader,
         IMenuCheckMarkService menuCheckMarkService,
         IUiResetService uiResetService,
-        ISystemConfigurationService systemConfigurationService)
+        ISystemConfigurationService systemConfigurationService,
+        IPaginationService paginationService)
     {
         InitializeComponent();
 
@@ -232,7 +231,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         MenuCheckMarkService = menuCheckMarkService;
         UiResetService = uiResetService;
         SystemConfigurationService = systemConfigurationService;
+        _paginationService = paginationService;
 
+        _paginationService.Initialize(this);
         _themeMenuService.Initialize(this);
         _languageMenuService.Initialize(this);
         _loadingOverlayService.Initialize(this);
@@ -252,8 +253,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         MenuCheckMarkService.UpdateFilenameDisplayModeCheckMarks(_settings.FilenameDisplayMode);
         MenuCheckMarkService.UpdateFilenameFontSizeCheckMarks(_settings.FilenameFontSize);
         MenuCheckMarkService.UpdateMachineNameFontSizeCheckMarks(_settings.MachineNameFontSize);
-        _filesPerPage = _settings.GamesPerPage;
-        _paginationThreshold = _settings.GamesPerPage;
+        _paginationService.FilesPerPage = _settings.GamesPerPage;
+        _paginationService.PaginationThreshold = _settings.GamesPerPage;
         ToggleFuzzyMatching.IsChecked = _settings.EnableFuzzyMatching;
 
         // Load _machines and _mameLookup
@@ -712,7 +713,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     {
         // Save application's current state
         _settings.ThumbnailSize = _gameButtonFactory.ImageHeight;
-        _settings.GamesPerPage = _filesPerPage;
+        _settings.GamesPerPage = _paginationService.FilesPerPage;
         _settings.EnableGamePadNavigation = ToggleGamepad.IsChecked;
         _settings.EnableFuzzyMatching = ToggleFuzzyMatching.IsChecked;
 
@@ -800,12 +801,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
     }
 
-    private void AddNoFilesMessage()
-    {
-        _gameListUiService.AddNoFilesMessage();
-        _topLetterNumberMenu.DeselectLetter();
-    }
-
     internal void SetGameButtonsEnabled(bool isEnabled)
     {
         _gameListUiService.SetGameButtonsEnabled(isEnabled);
@@ -823,56 +818,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private List<string> SetPaginationOfListOfFiles(List<string> allFiles)
     {
-        // Count the collection of files (this should be the total before pagination)
-        // If allFiles is already paginated, _totalFiles needs to be set from the unpaginated list.
-        // _totalFiles should be set based on the count of files *before* pagination.
-        // For FAV/RANDOM/Search, _currentSearchResults holds the full list.
-        // For letter/all, the 'allFiles' passed here (before this method's Skip/Take) is the full list for that filter.
-        _totalFiles = allFiles.Count;
-
-        // Display message if there are no files - check BEFORE pagination logic modifies the list
-        if (_totalFiles == 0)
-        {
-            AddNoFilesMessage();
-            PrevPageButton2.IsEnabled = false;
-            NextPageButton2.IsEnabled = false;
-            TotalFilesLabel.Dispatcher.Invoke(() =>
-                TotalFilesLabel.Content = $"{(string)Application.Current.TryFindResource("Displayingfiles0to") ?? "Displaying files 0 to"} 0 {(string)Application.Current.TryFindResource("outof") ?? "out of"} 0 {(string)Application.Current.TryFindResource("total") ?? "total"}"
-            );
-            return allFiles;
-        }
-
-        // Calculate the indices of files displayed on the current page
-        var startIndex = (_currentPage - 1) * _filesPerPage + 1; // +1 because we are dealing with a 1-based index for displaying
-        var endIndex = Math.Min(startIndex + _filesPerPage - 1, _totalFiles); // Actual number of files loaded on this page
-
-        // Pagination related
-        if (_totalFiles > _paginationThreshold)
-        {
-            // Enable pagination and adjust file list based on the current page
-            allFiles = allFiles.Skip((_currentPage - 1) * _filesPerPage).Take(_filesPerPage).ToList();
-
-            // Update or create pagination controls
-            UpdatePaginationButtons();
-        }
-        else
-        {
-            // If total files are not enough for pagination, ensure buttons are disabled.
-            PrevPageButton2.IsEnabled = false;
-            NextPageButton2.IsEnabled = false;
-        }
-
-        // Update the UI to reflect the current pagination status and the indices of files being displayed
-        var displayingfiles0To = (string)Application.Current.TryFindResource("Displayingfiles0to") ?? "Displaying files 0 to";
-        var outOf = (string)Application.Current.TryFindResource("outof") ?? "out of";
-        var total = (string)Application.Current.TryFindResource("total") ?? "total";
-        var displayingfiles = (string)Application.Current.TryFindResource("Displayingfiles") ?? "Displaying files";
-        var to = (string)Application.Current.TryFindResource("to") ?? "to";
-
-        TotalFilesLabel.Dispatcher.Invoke(() =>
-            TotalFilesLabel.Content = _totalFiles == 0 ? $"{displayingfiles0To} 0 {outOf} 0 {total}" : $"{displayingfiles} {(_totalFiles > 0 ? startIndex : 0)} {to} {endIndex} {outOf} {_totalFiles} {total}"
-        );
-        return allFiles;
+        return _paginationService.ApplyPagination(allFiles);
     }
 
     private Task<List<string>> FilterFilesByShowGamesSettingAsync(List<string> files, string selectedSystem, SystemManager selectedConfig)
