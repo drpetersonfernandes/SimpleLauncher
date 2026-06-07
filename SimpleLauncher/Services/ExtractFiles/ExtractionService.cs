@@ -140,7 +140,7 @@ public class ExtractionService : IExtractionService
                     throw new InvalidDataException("The archive file contains no entries.");
                 }
 
-                var estimatedSize = EstimateExtractedSize(archivePath);
+                var estimatedSize = (long)(entries.Where(static e => !e.IsDirectory).Sum(static e => e.Size) * 1.2);
 
                 // Check disk space using the resolved destination folder
                 var rootPath = Path.GetPathRoot(resolvedDestinationFolder);
@@ -495,18 +495,6 @@ public class ExtractionService : IExtractionService
             _logErrors.LogAndForget(ex, $"Error extracting with 7za: {archivePath}");
             return false;
         }
-    }
-
-    private static long EstimateExtractedSize(string archivePath)
-    {
-        long totalSize;
-        using (var archive = ArchiveFactory.OpenArchive(archivePath))
-        {
-            totalSize = archive.Entries.Where(static entry => !entry.IsDirectory).Sum(static entry => entry.Size);
-        }
-
-        // Add a safety margin of 20%
-        return (long)(totalSize * 1.2);
     }
 
     private static string GetDetailedExceptionInfo(Exception ex)

@@ -49,7 +49,7 @@ public class FavoritesManager
 
         // If no files exist, create a new instance
         var defaultManager = new FavoritesManager { _logErrors = logErrors };
-        defaultManager.SaveFavorites();
+        defaultManager.SaveFavoritesAsync();
         return defaultManager; // Return default instance if error occurs
     }
 
@@ -57,7 +57,7 @@ public class FavoritesManager
     /// Saves the provided favorites to the DAT file.
     /// The favorites are ordered by FileName before saving.
     /// </summary>
-    public void SaveFavorites()
+    public Task SaveFavoritesAsync()
     {
         // Notify user outside of any lock to prevent potential deadlock
         Application.Current.Dispatcher.Invoke(static () => (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SavingFavorites") ?? "Saving favorites...", Application.Current.MainWindow as MainWindow));
@@ -82,13 +82,14 @@ public class FavoritesManager
 
         // Serialize and write on a background thread so Thread.Sleep in the
         // retry loop does not block the UI thread.
-        Task.Run(() =>
+        return Task.Run(() =>
         {
             const int maxRetries = 3;
             var retryDelayMs = 500;
             Exception lastException = null;
+            var attempt = 0;
 
-            for (var attempt = 0; attempt < maxRetries; attempt++)
+            while (attempt < maxRetries)
             {
                 try
                 {
@@ -109,16 +110,16 @@ public class FavoritesManager
                 catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
                 {
                     lastException = ex;
+                    attempt++;
 
-                    // If in portable mode and this is the last attempt, try falling back to LocalAppData
-                    if (FileLocation.IsPortableMode && attempt == maxRetries - 1)
+                    // If in portable mode, try falling back to LocalAppData and reset retries
+                    if (FileLocation.IsPortableMode && attempt >= maxRetries)
                     {
                         try
                         {
                             if (FileLocation.TryFallbackToLocalAppData())
                             {
-                                // Retry with new paths (don't count this as an attempt)
-                                attempt--;
+                                attempt = 0;
                                 continue;
                             }
                         }
@@ -128,7 +129,7 @@ public class FavoritesManager
                         }
                     }
 
-                    if (attempt < maxRetries - 1)
+                    if (attempt < maxRetries)
                     {
                         // Attempt to clean up temp file before retrying
                         try

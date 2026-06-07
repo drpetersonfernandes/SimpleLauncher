@@ -381,13 +381,12 @@ public class DownloadManager : IDisposable
     }
 
 
+    private const long DefaultRequiredSpaceBytes = 5L * 1024 * 1024 * 1024; // 5 GB
+
     /// <summary>
     /// Checks if there is enough disk space available in the specified folder.
     /// </summary>
-    /// <param name="folderPath">The folder path to check.</param>
-    /// <param name="requiredSpace">The required space in bytes (default is 5GB).</param>
-    /// <returns>True if enough space is available, false if insufficient, null if cannot be checked.</returns>
-    private static bool? CheckAvailableDiskSpace(string folderPath, long requiredSpace = 5368709120)
+    private static bool? CheckAvailableDiskSpace(string folderPath, long requiredSpace = DefaultRequiredSpaceBytes)
     {
         try
         {

@@ -47,7 +47,7 @@ internal static class ContextMenuFunctions
                 playSoundEffects.PlayNotificationSound();
 
                 // Save the updated favorites list using the injected instance
-                favoritesManager.SaveFavorites();
+                favoritesManager.SaveFavoritesAsync();
 
                 // Dynamic UI Update for both Grid and List views
                 if (gameFileGrid != null) // GridView is active
@@ -107,7 +107,7 @@ internal static class ContextMenuFunctions
             playSoundEffects.PlayTrashSound();
 
             // Save the updated favorites list using the injected instance
-            favoritesManager.SaveFavorites();
+            favoritesManager.SaveFavoritesAsync();
 
             // Dynamic UI Update Logic for both Grid and List views
             if (gameFileGrid != null) // GridView is active

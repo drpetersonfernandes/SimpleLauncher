@@ -295,7 +295,7 @@ public partial class GameLauncher
     private void UpdateStatsAndPlayCountAsync(TimeSpan playTime, LaunchContext context)
     {
         context.Settings.UpdateSystemPlayTime(context.SystemName, playTime);
-        context.Settings.Save();
+        context.Settings.SaveAsync();
 
         var playTimeFormatted = playTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
         var playTimeLabel = (string)Application.Current.TryFindResource("Playtime") ?? "Playtime";

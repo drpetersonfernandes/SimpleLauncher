@@ -54,7 +54,7 @@ public class LanguageMenuService
         _settings.Language = languageCode;
         SetLanguageCheckMarks(languageCode);
         _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingLanguage") ?? "Changing language...", _mainWindow);
-        _settings.Save();
+        _settings.SaveAsync();
         QuitSimpleLauncher.RestartApplication();
     }
 

@@ -302,7 +302,6 @@ public class GamePadController : IDisposable
                             catch (SharpDXException ex) when (ex.HResult == unchecked((int)0x8007001E)) // DIERR_INPUTLOST
                             {
                                 // DirectInput device lost, attempt reconnection
-                                // ErrorLogger?.Invoke(ex, "DirectInput device lost (DIERR_INPUTLOST). Attempting reconnection.");
                                 _directInputController?.Unacquire();
                                 _directInputController?.Dispose();
                                 _directInputController = null;
@@ -333,11 +332,6 @@ public class GamePadController : IDisposable
                             catch (Exception)
                             {
                                 // Catch any other exceptions during DirectInput processing
-                                // Notify developer
-                                // ErrorLogger?.Invoke(ex, $"Unexpected error during DirectInput processing. Attempting reconnection.\n\n" +
-                                //                         $"Exception type: {ex.GetType().Name}\n" +
-                                //                         $"Exception details: {ex.Message}");
-
                                 _directInputController?.Unacquire();
                                 _directInputController?.Dispose();
                                 _directInputController = null;
