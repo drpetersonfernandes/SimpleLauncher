@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameCache;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;

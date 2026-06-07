@@ -6,14 +6,17 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Services.CheckApplicationControlPolicy;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.ExtractFiles;
+using SimpleLauncher.Core.Services.GameLauncher;
+using SimpleLauncher.Core.Services.LoadingInterface;
+using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.ExtractFiles;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Services.GamePad;
-using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.UpdateStatusBar;
@@ -409,19 +412,19 @@ public partial class GameLauncher
         }
         catch (Win32Exception ex)
         {
-            if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
                 MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _logErrors.LogAndForget(ex, "Application control policy blocked launching batch file.");
                 _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
+            else if (CheckApplicationControlPolicy.IsElevationRequired(ex))
             {
                 MessageBoxLibrary.ElevationRequiredMessageBox();
                 _logErrors.LogAndForget(ex, "Elevation required to launch batch file.");
                 _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
+            else if (CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
             {
                 // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
             }
@@ -557,17 +560,17 @@ public partial class GameLauncher
         }
         catch (Win32Exception ex) // Catch Win32Exception specifically
         {
-            if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
                 MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _logErrors.LogAndForget(ex, "Application control policy blocked launching shortcut file.");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
+            else if (CheckApplicationControlPolicy.IsElevationRequired(ex))
             {
                 MessageBoxLibrary.ElevationRequiredMessageBox();
                 _logErrors.LogAndForget(ex, "Elevation required to launch shortcut file.");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
+            else if (CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
             {
                 // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
             }
@@ -686,17 +689,17 @@ public partial class GameLauncher
         }
         catch (Win32Exception ex)
         {
-            if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
                 MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _logErrors.LogAndForget(ex, "Application control policy blocked launching executable.");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
+            else if (CheckApplicationControlPolicy.IsElevationRequired(ex))
             {
                 MessageBoxLibrary.ElevationRequiredMessageBox();
                 _logErrors.LogAndForget(ex, "Elevation required to launch executable.");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
+            else if (CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
             {
                 // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
             }
@@ -1135,17 +1138,17 @@ public partial class GameLauncher
                 }
                 catch (Win32Exception ex) // Catch Win32Exception specifically
                 {
-                    if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+                    if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
                     {
                         MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                         _logErrors.LogAndForget(ex, "Application control policy blocked launching emulator.");
                     }
-                    else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
+                    else if (CheckApplicationControlPolicy.IsElevationRequired(ex))
                     {
                         MessageBoxLibrary.ElevationRequiredMessageBox();
                         _logErrors.LogAndForget(ex, "Elevation required to launch emulator.");
                     }
-                    else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
+                    else if (CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
                     {
                         // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
                     }

@@ -2,8 +2,9 @@ using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.RetroAchievements.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.RetroAchievements.Models;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 

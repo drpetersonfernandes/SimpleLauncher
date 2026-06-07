@@ -2,10 +2,10 @@ using System.IO;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Microsoft.Win32;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.SanitizeInputString;
 using SimpleLauncher.Services.CheckPaths;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher;
 

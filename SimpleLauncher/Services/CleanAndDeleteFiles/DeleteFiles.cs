@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.CheckPaths;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.CleanAndDeleteFiles;
 

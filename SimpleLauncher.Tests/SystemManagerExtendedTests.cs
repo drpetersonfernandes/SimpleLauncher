@@ -1,3 +1,4 @@
+using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
@@ -73,8 +74,8 @@ public class SystemManagerExtendedTests : IDisposable
         {
             Emulators =
             [
-                new Services.SystemManager.Emulator { EmulatorName = "RetroArch" },
-                new Services.SystemManager.Emulator { EmulatorName = "Mesen" }
+                new Emulator { EmulatorName = "RetroArch" },
+                new Emulator { EmulatorName = "Mesen" }
             ]
         };
 
@@ -132,7 +133,7 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void EmulatorDefaultProperties()
     {
-        var emu = new Services.SystemManager.Emulator();
+        var emu = new Emulator();
         Assert.Null(emu.EmulatorName);
         Assert.Null(emu.EmulatorLocation);
         Assert.Null(emu.EmulatorParameters);
@@ -141,7 +142,7 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void EmulatorPropertiesCanBeSet()
     {
-        var emu = new Services.SystemManager.Emulator
+        var emu = new Emulator
         {
             EmulatorName = "RetroArch",
             EmulatorLocation = @"C:\emulators\retroarch.exe",
@@ -156,7 +157,7 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void EmulatorWithSpecialCharactersInPath()
     {
-        var emu = new Services.SystemManager.Emulator
+        var emu = new Emulator
         {
             EmulatorLocation = @"C:\Program Files (x86)\RetroArch\retroarch.exe"
         };
@@ -168,7 +169,7 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void EmulatorWithSpacesInPath()
     {
-        var emu = new Services.SystemManager.Emulator
+        var emu = new Emulator
         {
             EmulatorLocation = @"C:\My Emulators\RetroArch\retroarch.exe"
         };

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using MessagePack;
-using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.MameManager;

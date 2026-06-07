@@ -1,6 +1,6 @@
 using System.Windows;
 using System.Windows.Input;
-using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.UIReset;
 

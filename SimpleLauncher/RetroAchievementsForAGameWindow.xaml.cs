@@ -5,18 +5,17 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.RetroAchievements.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
-using SimpleLauncher.Services.RetroAchievements.Models;
 using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher;
 
-using ILoadingState = Services.LoadingInterface.ILoadingState;
-
-public partial class RetroAchievementsForAGameWindow : ILoadingState
+public partial class RetroAchievementsForAGameWindow : Core.Services.LoadingInterface.ILoadingState
 {
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly ILogErrors _logErrors;

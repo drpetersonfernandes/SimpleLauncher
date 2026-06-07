@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Xml.Linq;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;

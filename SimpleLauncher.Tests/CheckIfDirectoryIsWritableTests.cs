@@ -1,5 +1,5 @@
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.CheckIfDirectoryIsWritable;
-using SimpleLauncher.Services.DebugAndBugReport;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

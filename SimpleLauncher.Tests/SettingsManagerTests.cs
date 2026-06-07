@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 

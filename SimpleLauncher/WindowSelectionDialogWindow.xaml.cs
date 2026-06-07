@@ -1,4 +1,4 @@
-using SimpleLauncher.ViewModels;
+using SimpleLauncher.Core.ViewModels;
 
 namespace SimpleLauncher;
 

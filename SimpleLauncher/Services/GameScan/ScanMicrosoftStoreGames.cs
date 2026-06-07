@@ -5,9 +5,10 @@ using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.GameScan.Models;
+using SimpleLauncher.Core.Services.SanitizeInputString;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GameScan.Models;
-using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 

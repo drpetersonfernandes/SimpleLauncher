@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.IO;
 using System.Xml.Linq;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;

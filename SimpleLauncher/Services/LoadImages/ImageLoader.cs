@@ -1,8 +1,8 @@
 using System.IO;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.CheckPaths;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.LoadImages;

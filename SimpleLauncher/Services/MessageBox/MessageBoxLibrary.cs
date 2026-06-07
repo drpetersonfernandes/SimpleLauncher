@@ -4,8 +4,8 @@ using System.Text;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.QuitOrReinstall;
 
 namespace SimpleLauncher.Services.MessageBox;

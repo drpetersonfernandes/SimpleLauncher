@@ -1,4 +1,5 @@
-using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 using Xunit;
 

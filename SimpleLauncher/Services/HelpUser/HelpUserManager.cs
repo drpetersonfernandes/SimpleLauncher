@@ -1,7 +1,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.HelpUser.Models;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.HelpUser.Models;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.HelpUser;

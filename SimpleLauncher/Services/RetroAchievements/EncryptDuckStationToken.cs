@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
-using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 

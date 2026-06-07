@@ -4,8 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.CheckForUpdates;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.QuitOrReinstall;

@@ -1,6 +1,6 @@
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Tests.TestHelpers;
 

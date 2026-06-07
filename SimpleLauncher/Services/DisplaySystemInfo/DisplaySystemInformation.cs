@@ -3,8 +3,8 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using SimpleLauncher.Core.Services.DisplaySystemInfo.Models;
 using SimpleLauncher.Services.CheckPaths;
-using SimpleLauncher.Services.DisplaySystemInfo.Models;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.DisplaySystemInfo;

@@ -1,7 +1,7 @@
 using System.IO;
 using System.Text.Json;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.SanitizeInputString;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 

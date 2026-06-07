@@ -1,17 +1,11 @@
 #nullable enable
 using System.IO;
 using NAudio.Wave;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.PlaySound;
-
-public interface IPlaySoundEffects
-{
-    void PlayNotificationSound();
-    void PlayShutterSound();
-    void PlayTrashSound();
-    void PlayConfiguredSound(string soundFileName);
-}
 
 public class PlaySoundEffects : IPlaySoundEffects, IDisposable
 {

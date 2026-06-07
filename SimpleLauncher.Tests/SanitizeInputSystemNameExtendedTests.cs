@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.SanitizeInputString;
+using SimpleLauncher.Core.Services.SanitizeInputString;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

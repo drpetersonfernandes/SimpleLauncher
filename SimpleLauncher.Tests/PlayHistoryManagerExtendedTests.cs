@@ -1,3 +1,4 @@
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
@@ -33,7 +34,7 @@ public class PlayHistoryManagerExtendedTests : IDisposable
     [Fact]
     public void PlayHistoryItemDisplayNameReturnsFileName()
     {
-        var item = new Models.PlayHistoryItem
+        var item = new PlayHistoryItem
         {
             FileName = "Super Mario World",
             SystemName = "SNES"
@@ -45,7 +46,7 @@ public class PlayHistoryManagerExtendedTests : IDisposable
     [Fact]
     public void PlayHistoryItemFormattedPlayTimeZeroSeconds()
     {
-        var item = new Models.PlayHistoryItem
+        var item = new PlayHistoryItem
         {
             FileName = "game.zip",
             SystemName = "NES",
@@ -58,7 +59,7 @@ public class PlayHistoryManagerExtendedTests : IDisposable
     [Fact]
     public void PlayHistoryItemFormattedPlayTimeMinutesAndSeconds()
     {
-        var item = new Models.PlayHistoryItem
+        var item = new PlayHistoryItem
         {
             FileName = "game.zip",
             SystemName = "NES",
@@ -71,7 +72,7 @@ public class PlayHistoryManagerExtendedTests : IDisposable
     [Fact]
     public void PlayHistoryItemFormattedPlayTimeHours()
     {
-        var item = new Models.PlayHistoryItem
+        var item = new PlayHistoryItem
         {
             FileName = "game.zip",
             SystemName = "NES",
@@ -84,7 +85,7 @@ public class PlayHistoryManagerExtendedTests : IDisposable
     [Fact]
     public void PlayHistoryItemFormattedPlayTimeLargeValue()
     {
-        var item = new Models.PlayHistoryItem
+        var item = new PlayHistoryItem
         {
             FileName = "game.zip",
             SystemName = "NES",
@@ -97,11 +98,11 @@ public class PlayHistoryManagerExtendedTests : IDisposable
     [Fact]
     public void PlayHistoryItemPropertyChangedFileNameNotRaisedForSimpleSetter()
     {
-        var item = new Models.PlayHistoryItem();
+        var item = new PlayHistoryItem();
         var raised = false;
         item.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(Models.PlayHistoryItem.FileName))
+            if (args.PropertyName == nameof(PlayHistoryItem.FileName))
             {
                 raised = true;
             }
@@ -114,11 +115,11 @@ public class PlayHistoryManagerExtendedTests : IDisposable
     [Fact]
     public void PlayHistoryItemPropertyChangedSystemNameNotRaisedForSimpleSetter()
     {
-        var item = new Models.PlayHistoryItem();
+        var item = new PlayHistoryItem();
         var raised = false;
         item.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(Models.PlayHistoryItem.SystemName))
+            if (args.PropertyName == nameof(PlayHistoryItem.SystemName))
             {
                 raised = true;
             }
@@ -131,11 +132,11 @@ public class PlayHistoryManagerExtendedTests : IDisposable
     [Fact]
     public void PlayHistoryItemPropertyChangedTimesPlayedNotRaisedForSimpleSetter()
     {
-        var item = new Models.PlayHistoryItem();
+        var item = new PlayHistoryItem();
         var raised = false;
         item.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(Models.PlayHistoryItem.TimesPlayed))
+            if (args.PropertyName == nameof(PlayHistoryItem.TimesPlayed))
             {
                 raised = true;
             }
@@ -148,11 +149,11 @@ public class PlayHistoryManagerExtendedTests : IDisposable
     [Fact]
     public void PlayHistoryItemPropertyChangedLastPlayDateNotRaisedForSimpleSetter()
     {
-        var item = new Models.PlayHistoryItem();
+        var item = new PlayHistoryItem();
         var raised = false;
         item.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(Models.PlayHistoryItem.LastPlayDate))
+            if (args.PropertyName == nameof(PlayHistoryItem.LastPlayDate))
             {
                 raised = true;
             }
@@ -165,11 +166,11 @@ public class PlayHistoryManagerExtendedTests : IDisposable
     [Fact]
     public void PlayHistoryItemPropertyChangedLastPlayTimeNotRaisedForSimpleSetter()
     {
-        var item = new Models.PlayHistoryItem();
+        var item = new PlayHistoryItem();
         var raised = false;
         item.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(Models.PlayHistoryItem.LastPlayTime))
+            if (args.PropertyName == nameof(PlayHistoryItem.LastPlayTime))
             {
                 raised = true;
             }
@@ -182,7 +183,7 @@ public class PlayHistoryManagerExtendedTests : IDisposable
     [Fact]
     public void PlayHistoryItemDefaultValues()
     {
-        var item = new Models.PlayHistoryItem();
+        var item = new PlayHistoryItem();
         Assert.Equal(0, item.TotalPlayTime);
         Assert.Equal(0, item.TimesPlayed);
         Assert.Equal("0m 0s", item.FormattedPlayTime);
@@ -194,7 +195,7 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         var manager = new Services.PlayHistory.PlayHistoryManager();
         for (var i = 0; i < 100; i++)
         {
-            manager.PlayHistoryList.Add(new Models.PlayHistoryItem
+            manager.PlayHistoryList.Add(new PlayHistoryItem
             {
                 FileName = $"game{i}.zip",
                 SystemName = "NES",

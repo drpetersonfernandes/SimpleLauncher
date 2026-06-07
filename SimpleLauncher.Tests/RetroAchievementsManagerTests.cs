@@ -1,7 +1,7 @@
 using MessagePack;
-using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.RetroAchievements.Models;
 using SimpleLauncher.Services.RetroAchievements;
-using SimpleLauncher.Services.RetroAchievements.Models;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 

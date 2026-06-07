@@ -1,6 +1,6 @@
 using System.Reflection;
 using System.Text;
-using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;

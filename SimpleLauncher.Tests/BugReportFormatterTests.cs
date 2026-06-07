@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
@@ -66,10 +66,10 @@ public class BugReportFormatterTests
     {
         var level3 = new ArgumentException("Level 3 error");
         var level2 = new InvalidOperationException("Level 2 error", level3);
-        var level1 = new ApplicationException("Level 1 error", level2);
+        var level1 = new InvalidOperationException("Level 1 error", level2);
         var report = BugReportFormatter.BuildReport(level1);
 
-        Assert.Contains("ApplicationException", report);
+        Assert.Contains("InvalidOperationException", report);
         Assert.Contains("Level 1 error", report);
         Assert.Contains("--- Inner Exception ---", report);
         Assert.Contains("InvalidOperationException", report);
@@ -79,7 +79,7 @@ public class BugReportFormatterTests
     [Fact]
     public void BuildReportExceptionWithNullSourceHandlesGracefully()
     {
-        var ex = new Exception("test error");
+        var ex = new InvalidOperationException("test error");
         // Source is null by default for manually created exceptions
         Assert.Null(ex.Source);
 

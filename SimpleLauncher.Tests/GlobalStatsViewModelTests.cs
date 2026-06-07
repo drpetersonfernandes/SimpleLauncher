@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Tests.TestHelpers;
 using SimpleLauncher.ViewModels;

@@ -4,11 +4,12 @@ using System.Net.Http;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.GameScan.Models;
+using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.CheckPaths;
-using SimpleLauncher.Services.GameScan.Models;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Services.GameScan;
 

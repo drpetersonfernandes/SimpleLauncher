@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.MameData;
 

@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using SharpCompress.Archives.Zip;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.QuitOrReinstall;

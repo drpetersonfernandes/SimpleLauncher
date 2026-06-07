@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
@@ -232,7 +233,7 @@ public class SettingsManagerRoundTripTests : IDisposable
     {
         using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
 
-        settings.SystemPlayTimes.Add(new Models.SystemPlayTime
+        settings.SystemPlayTimes.Add(new SystemPlayTime
         {
             SystemName = "NES",
             PlayTimeSeconds = 3600

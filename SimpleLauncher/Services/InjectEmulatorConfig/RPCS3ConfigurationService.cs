@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DebugAndBugReport;
 using YamlDotNet.Serialization;
 

@@ -6,6 +6,8 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using SharpCompress.Archives;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.ExtractFiles;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;

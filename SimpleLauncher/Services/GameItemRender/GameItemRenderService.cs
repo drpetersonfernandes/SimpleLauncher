@@ -1,7 +1,7 @@
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GameItemFactory;

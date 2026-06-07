@@ -2,8 +2,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
+using SimpleLauncher.Core.Services.EasyMode.Models;
 using SimpleLauncher.Services.EasyMode;
-using SimpleLauncher.Services.EasyMode.Models;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

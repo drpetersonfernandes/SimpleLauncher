@@ -1,10 +1,11 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.SanitizeInputString;
+using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.CreateFolders;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.SanitizeInputString;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
@@ -210,7 +211,7 @@ internal partial class EditSystemWindow
             var receiveNotification4 = ReceiveANotificationOnEmulatorError4.SelectedItem is not ComboBoxItem { Content: not null } item4 || item4.Content.ToString() == "true";
             var receiveNotification5 = ReceiveANotificationOnEmulatorError5.SelectedItem is not ComboBoxItem { Content: not null } item5 || item5.Content.ToString() == "true";
 
-            var emulators = new List<Services.SystemManager.Emulator>();
+            var emulators = new List<Emulator>();
             var emulatorNames = new HashSet<string>();
 
             // Add Emulator 1
@@ -222,7 +223,7 @@ internal partial class EditSystemWindow
                     return;
                 }
 
-                emulators.Add(new Services.SystemManager.Emulator
+                emulators.Add(new Emulator
                 {
                     EmulatorName = emulator1NameText,
                     EmulatorLocation = emulator1LocationText,
@@ -259,7 +260,7 @@ internal partial class EditSystemWindow
                     return;
                 }
 
-                emulators.Add(new Services.SystemManager.Emulator
+                emulators.Add(new Emulator
                 {
                     EmulatorName = currentEmulatorName,
                     EmulatorLocation = currentEmulatorLocation,

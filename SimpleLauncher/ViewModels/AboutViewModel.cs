@@ -3,7 +3,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GetApplicationVersion;
 using SimpleLauncher.Services.MessageBox;
 using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;

@@ -5,7 +5,10 @@ using System.Xml.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Models;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.EasyMode.Models;
+using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.AppDataFile;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -501,7 +504,7 @@ public partial class SystemManager
         return SaveSystemConfigurationAsync(systemToSave, selectedSystem.SystemName);
     }
 
-    private static Emulator ConvertEasyModeEmulator(EasyMode.Models.EmulatorConfig emulatorConfig)
+    private static Emulator ConvertEasyModeEmulator(EmulatorConfig emulatorConfig)
     {
         return new Emulator
         {

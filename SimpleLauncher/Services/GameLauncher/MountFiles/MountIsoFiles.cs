@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
@@ -13,7 +15,7 @@ public static class MountIsoFiles
         string selectedSystemName,
         string selectedEmulatorName,
         SystemManager.SystemManager selectedSystemManager,
-        SystemManager.Emulator selectedEmulatorManager,
+        Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
         string logPath,

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SharpDX;
 using SharpDX.DirectInput;
 using SharpDX.XInput;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using WindowsInput;

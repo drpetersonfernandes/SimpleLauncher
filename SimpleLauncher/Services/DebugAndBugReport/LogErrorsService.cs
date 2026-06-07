@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
 
 namespace SimpleLauncher.Services.DebugAndBugReport;

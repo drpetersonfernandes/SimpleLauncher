@@ -1337,4 +1337,8 @@
             <_Parameter1>SimpleLauncher.Tests</_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SimpleLauncher.Core\SimpleLauncher.Core.csproj" />
+    </ItemGroup>
 </Project>

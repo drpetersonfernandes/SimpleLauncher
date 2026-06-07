@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Core.Services.PlaySound;
 
 namespace SimpleLauncher.Services.AudioInput;
 

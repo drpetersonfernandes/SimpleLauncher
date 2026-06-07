@@ -1,9 +1,11 @@
 using System.Windows.Controls;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SystemManager;
-using ILoadingState = SimpleLauncher.Services.LoadingInterface.ILoadingState;
+using ILoadingState = SimpleLauncher.Core.Services.LoadingInterface.ILoadingState;
 
 namespace SimpleLauncher.Models;
 

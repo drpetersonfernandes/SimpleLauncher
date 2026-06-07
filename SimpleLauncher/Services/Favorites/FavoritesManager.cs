@@ -2,9 +2,9 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using MessagePack;
-using SimpleLauncher.Models;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.AppDataFile;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.Favorites;
 
