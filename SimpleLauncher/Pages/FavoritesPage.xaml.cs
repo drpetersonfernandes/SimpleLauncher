@@ -169,7 +169,7 @@ internal partial class FavoritesPage : ILoadingState
             _favoritesManager.FavoriteList.Add(favorite);
         }
 
-        _favoritesManager.SaveFavorites();
+        _favoritesManager.SaveFavoritesAsync();
     }
 
     private string GetCoverImagePath(string systemName, string fileName)

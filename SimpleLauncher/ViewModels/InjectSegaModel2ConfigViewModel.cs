@@ -119,8 +119,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
         _settings.SegaModel2.HoldGears = HoldGears;
         _settings.SegaModel2.UseRawInput = UseRawInput;
         _settings.SegaModel2.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -159,7 +158,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"SEGA Model 2 configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"SEGA Model 2 configuration injection failed for path: {path}");
             return false;
         }
     }

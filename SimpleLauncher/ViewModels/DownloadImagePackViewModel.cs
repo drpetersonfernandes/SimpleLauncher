@@ -24,6 +24,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly DownloadManager _downloadManager;
     private readonly ILogErrors _logErrors;
+    private readonly IServiceScope _scope;
     private EasyModeManager _manager;
     private bool _disposed;
     private int _operationInProgressFlag;
@@ -40,7 +41,8 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     {
         _playSoundEffects = playSoundEffects;
         _logErrors = logErrors;
-        _downloadManager = App.ServiceProvider.GetRequiredService<DownloadManager>();
+        _scope = App.ServiceProvider.CreateScope();
+        _downloadManager = _scope.ServiceProvider.GetRequiredService<DownloadManager>();
         _downloadManager.DownloadProgressChanged += DownloadManager_ProgressChanged;
 
         ImagePacksToDisplay = [];
@@ -571,7 +573,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         if (disposing)
         {
             _downloadManager.DownloadProgressChanged -= DownloadManager_ProgressChanged;
-            _downloadManager.Dispose();
+            _scope.Dispose();
         }
 
         _disposed = true;

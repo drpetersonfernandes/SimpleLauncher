@@ -44,7 +44,7 @@ public partial class SetLinksViewModel : ObservableObject
             ? "https://www.igdb.com/search?q="
             : InfoUrl;
 
-        _settingsManager.Save();
+        _settingsManager.SaveAsync();
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
             (string)Application.Current.TryFindResource("SavingLinkSettings") ?? "Saving link settings...",
@@ -64,7 +64,7 @@ public partial class SetLinksViewModel : ObservableObject
         VideoUrl = _settingsManager.VideoUrl;
         InfoUrl = _settingsManager.InfoUrl;
 
-        _settingsManager.Save();
+        _settingsManager.SaveAsync();
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
             (string)Application.Current.TryFindResource("RevertingLinkSettings") ?? "Reverting link settings...",

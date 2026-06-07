@@ -113,8 +113,7 @@ public partial class InjectStellaConfigViewModel : ObservableObject
         _settings.Stella.TimeMachine = TimeMachine;
         _settings.Stella.ConfirmExit = ConfirmExit;
         _settings.Stella.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -153,7 +152,7 @@ public partial class InjectStellaConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"Stella configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"Stella configuration injection failed for path: {path}");
             return false;
         }
     }

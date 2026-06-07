@@ -35,9 +35,6 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     /// <summary>Event raised when settings have been saved successfully.</summary>
     public event Action SaveCompleted;
 
-    /// <summary>Event raised when the window should be closed.</summary>
-    public event Action CloseRequested;
-
     /// <summary>Event raised to request the emulator executable path from the view.</summary>
     public event Func<string> RequestExePath;
 
@@ -51,20 +48,8 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
         _settings.RaUsername = (Username).Trim();
         _settings.RaApiKey = ApiKey;
         _settings.RaPassword = Password;
-        _settings.Save();
+        _settings.SaveAsync();
 
-        SaveCompleted?.Invoke();
-    }
-
-    [RelayCommand]
-    private void Cancel()
-    {
-        CloseRequested?.Invoke();
-    }
-
-    [RelayCommand]
-    private void OpenControlPanel()
-    {
         try
         {
             Process.Start(new ProcessStartInfo("https://retroachievements.org/controlpanel.php") { UseShellExecute = true });
@@ -74,6 +59,8 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
             _logErrors.LogAndForget(ex, "Error opening RetroAchievements control panel link.");
             MessageBoxLibrary.UnableToOpenLinkMessageBox();
         }
+
+        SaveCompleted?.Invoke();
     }
 
     [RelayCommand]
@@ -107,7 +94,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
                     if (!string.IsNullOrEmpty(token))
                     {
                         _settings.RaToken = token;
-                        _settings.Save();
+                        await _settings.SaveAsync();
                     }
                     else
                     {
@@ -160,6 +147,6 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
         _settings.RaUsername = (Username).Trim();
         _settings.RaApiKey = ApiKey;
         _settings.RaPassword = Password;
-        _settings.Save();
+        _settings.SaveAsync();
     }
 }

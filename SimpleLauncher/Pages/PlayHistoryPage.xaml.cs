@@ -291,7 +291,7 @@ public partial class PlayHistoryPage : ILoadingState
                     {
                         _playHistoryList.Remove(itemToRemove);
                         _playHistoryManager.PlayHistoryList = _playHistoryList;
-                        _playHistoryManager.SavePlayHistory();
+                        _playHistoryManager.SavePlayHistoryAsync();
 
                         DebugLogger.Log("The entry " + itemToRemove + " was removed from the history by user request.");
                     }
@@ -379,7 +379,7 @@ public partial class PlayHistoryPage : ILoadingState
                 {
                     _playHistoryList.Remove(itemToRemove);
                     _playHistoryManager.PlayHistoryList = _playHistoryList;
-                    _playHistoryManager.SavePlayHistory();
+                    await _playHistoryManager.SavePlayHistoryAsync();
                 }
             }
 
@@ -548,7 +548,7 @@ public partial class PlayHistoryPage : ILoadingState
                         _playHistoryList.Remove(item);
 
                     _playHistoryManager.PlayHistoryList = _playHistoryList;
-                    _playHistoryManager.SavePlayHistory();
+                    _playHistoryManager.SavePlayHistoryAsync();
                     e.Handled = true; // Prevent DataGrid from handling Delete key
                     PreviewImage.Source = null;
                 }
@@ -648,7 +648,7 @@ public partial class PlayHistoryPage : ILoadingState
             }
 
             _playHistoryManager.PlayHistoryList = _playHistoryList;
-            _playHistoryManager.SavePlayHistory();
+            _playHistoryManager.SavePlayHistoryAsync();
 
             PreviewImage.Source = null;
         }
@@ -670,7 +670,7 @@ public partial class PlayHistoryPage : ILoadingState
         {
             _playHistoryList.Clear();
             _playHistoryManager.PlayHistoryList = _playHistoryList;
-            _playHistoryManager.SavePlayHistory();
+            _playHistoryManager.SavePlayHistoryAsync();
 
             _playSoundEffects.PlayTrashSound();
 

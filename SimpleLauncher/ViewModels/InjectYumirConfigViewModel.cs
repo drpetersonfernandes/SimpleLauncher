@@ -114,8 +114,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
         _settings.Yumir.PauseWhenUnfocused = YumirPauseWhenUnfocused;
         _settings.Yumir.ForcedAspect = YumirForcedAspect;
         _settings.Yumir.ShowSettingsBeforeLaunch = YumirShowSettingsBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -154,7 +153,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"Yumir configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"Yumir configuration injection failed for path: {path}");
             return false;
         }
     }

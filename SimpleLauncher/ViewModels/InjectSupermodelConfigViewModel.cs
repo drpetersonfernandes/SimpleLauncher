@@ -125,8 +125,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
         _settings.Supermodel.InputSystem = InputSystem;
         _settings.Supermodel.PowerPcFrequency = int.Parse(PowerPcFrequency, CultureInfo.InvariantCulture);
         _settings.Supermodel.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -165,7 +164,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"Supermodel configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"Supermodel configuration injection failed for path: {path}");
             return false;
         }
     }

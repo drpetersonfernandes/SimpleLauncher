@@ -103,7 +103,7 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
             var newThreshold = Math.Clamp(ThresholdValue, MinimumThreshold, MaximumThreshold);
 
             _settings.FuzzyMatchingThreshold = newThreshold;
-            _settings.Save();
+            _settings.SaveAsync();
             (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
                 (string)Application.Current.TryFindResource("SavingFuzzyMatchingSettings") ?? "Saving fuzzy matching settings...",
                 Application.Current.MainWindow as MainWindow);

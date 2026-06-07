@@ -176,8 +176,7 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
         _settings.Xenia.Hid = XeniaHid;
         _settings.Xenia.UserLanguage = XeniaUserLanguage;
         _settings.Xenia.ShowSettingsBeforeLaunch = XeniaShowSettingsBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -216,7 +215,7 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"Xenia configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"Xenia configuration injection failed for path: {path}");
             return false;
         }
     }

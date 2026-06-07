@@ -18,7 +18,7 @@ public class PlayHistoryManager
     [IgnoreMember] private static readonly DataFileLocation FileLocation = new("playhistory.dat");
 
     // This collection will be serialized.
-    [Key(0)] internal ObservableCollection<PlayHistoryItem> PlayHistoryList { get; set; } = [];
+    [Key(0)] public ObservableCollection<PlayHistoryItem> PlayHistoryList { get; set; } = [];
 
     [Key(1)] public int Version { get; set; } = 1;
 
@@ -47,7 +47,7 @@ public class PlayHistoryManager
         if (!File.Exists(FilePath))
         {
             var defaultManager = new PlayHistoryManager { _logErrors = logErrors };
-            defaultManager.SavePlayHistory();
+            defaultManager.SavePlayHistoryAsync();
             return defaultManager;
         }
 
@@ -97,7 +97,7 @@ public class PlayHistoryManager
 
         if (needsSaving)
         {
-            SavePlayHistory();
+            SavePlayHistoryAsync();
         }
     }
 
@@ -214,19 +214,20 @@ public class PlayHistoryManager
     }
 
     /// <summary>
-    /// Saves the provided play history to the MessagePack file.
+    /// Saves the provided play history to the MessagePack file asynchronously.
     /// </summary>
-    internal void SavePlayHistory()
+    internal Task SavePlayHistoryAsync()
     {
         // Serialize and write on a background thread so Thread.Sleep in the
         // retry loop does not block the UI thread.
-        Task.Run(() =>
+        return Task.Run(() =>
         {
             const int maxRetries = 3;
             var retryDelayMs = 500;
             Exception lastException = null;
+            var attempt = 0;
 
-            for (var attempt = 0; attempt < maxRetries; attempt++)
+            while (attempt < maxRetries)
             {
                 try
                 {
@@ -249,16 +250,16 @@ public class PlayHistoryManager
                 catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
                 {
                     lastException = ex;
+                    attempt++;
 
-                    // If in portable mode and this is the last attempt, try falling back to LocalAppData
-                    if (FileLocation.IsPortableMode && attempt == maxRetries - 1)
+                    // If in portable mode, try falling back to LocalAppData and reset retries
+                    if (FileLocation.IsPortableMode && attempt >= maxRetries)
                     {
                         try
                         {
                             if (FileLocation.TryFallbackToLocalAppData())
                             {
-                                // Retry with new paths (don't count this as an attempt)
-                                attempt--;
+                                attempt = 0;
                                 continue;
                             }
                         }
@@ -268,7 +269,7 @@ public class PlayHistoryManager
                         }
                     }
 
-                    if (attempt < maxRetries - 1)
+                    if (attempt < maxRetries)
                     {
                         // Attempt to clean up temp file before retrying
                         try
@@ -368,7 +369,7 @@ public class PlayHistoryManager
                 Application.Current.Dispatcher.Invoke(() => PlayHistoryList.Add(itemToAdd));
             }
 
-            Application.Current.Dispatcher.Invoke(SavePlayHistory);
+            Application.Current.Dispatcher.Invoke(SavePlayHistoryAsync);
         }
         catch (Exception ex)
         {
@@ -402,6 +403,9 @@ public class PlayHistoryManager
             }
         }
 
-        if (needsSave) SavePlayHistory();
+        if (needsSave)
+        {
+            SavePlayHistoryAsync();
+        }
     }
 }

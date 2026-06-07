@@ -107,7 +107,7 @@ public partial class SoundConfigurationViewModel : ObservableObject
     {
         _settings.EnableNotificationSound = EnableNotificationSound;
         _settings.CustomNotificationSoundFile = NotificationSoundFile;
-        _settings.Save();
+        _settings.SaveAsync();
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
             (string)Application.Current.TryFindResource("SavingSoundSettings") ?? "Saving sound settings...",

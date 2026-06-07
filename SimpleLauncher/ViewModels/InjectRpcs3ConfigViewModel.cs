@@ -145,8 +145,7 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
         _settings.Rpcs3.AudioBuffering = Rpcs3AudioBuffering;
         _settings.Rpcs3.StartFullscreen = Rpcs3StartFullscreen;
         _settings.Rpcs3.ShowSettingsBeforeLaunch = Rpcs3ShowSettingsBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -185,7 +184,7 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"RPCS3 configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"RPCS3 configuration injection failed for path: {path}");
             return false;
         }
     }
