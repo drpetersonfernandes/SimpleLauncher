@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher;
 
@@ -52,13 +53,7 @@ public partial class MainWindow
 
     public void LoadOrReloadSystemManager()
     {
-        _systemManagers = SystemConfigurationService.LoadSystemManagers();
-        var sortedSystemNames = _systemManagers.Select(static manager => manager.SystemName).OrderBy(static name => name)
-            .ToList();
-        SystemComboBox.ItemsSource = sortedSystemNames;
-
-        // Re-instantiate factories via the render service
-        _gameItemRenderService.ReloadFactories(_systemManagers, _mameDataService.Machines.ToList());
+        _systemSelectionOrchestrator.LoadOrReloadSystemManager();
     }
 
     private async void EditLinksClickAsync(object sender, RoutedEventArgs e)
@@ -248,6 +243,50 @@ public partial class MainWindow
     private void UpdateButtonAspectRatioCheckMarks(string selectedValue)
     {
         MenuCheckMarkService.UpdateButtonAspectRatioCheckMarks(selectedValue);
+    }
+
+    private async void NavToggleButtonAspectRatioClickAsync(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            CancelAndRecreateToken();
+
+            _playSoundEffects.PlayNotificationSound();
+
+            // Define the array of aspect ratios in the desired order
+            string[] aspectRatios = ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
+
+            // Get the current index of the aspect ratio
+            var currentIndex = Array.IndexOf(aspectRatios, _settings.ButtonAspectRatio);
+
+            // Calculate the next index, wrapping around to 0 if at the end
+            var nextIndex = (currentIndex + 1) % aspectRatios.Length;
+
+            // Get the new aspect ratio
+            var newAspectRatio = aspectRatios[nextIndex];
+
+            // Update the settings
+            _settings.ButtonAspectRatio = newAspectRatio;
+            await _settings.SaveAsync();
+
+            UpdateButtonAspectRatioCheckMarks(newAspectRatio);
+            // Notify user
+            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingButtonAspectRatio") ?? "Toggling button aspect ratio...");
+
+            var (sl, sq) = GetLoadGameFilesParams();
+            SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
+            await Task.Yield(); // Allow UI to render the loading overlay
+            await _gameFileLoadingOrchestrator.LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string errorMessage = "Error in the method NavToggleButtonAspectRatioClickAsync.";
+            _logErrors.LogAndForget(ex, errorMessage);
+
+            // Notify user
+            MessageBoxLibrary.ErrorMessageBox();
+        }
     }
 
     private async void FilenameDisplayMode_Click(object sender, RoutedEventArgs e)

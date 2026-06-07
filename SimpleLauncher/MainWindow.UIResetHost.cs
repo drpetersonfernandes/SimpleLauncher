@@ -50,7 +50,7 @@ public partial class MainWindow
 
     Task IUiResetHost.DisplaySystemSelectionScreenAsync(CancellationToken cancellationToken)
     {
-        return DisplaySystemSelectionScreenAsync(cancellationToken);
+        return _systemSelectionOrchestrator.DisplaySystemSelectionScreenAsync(cancellationToken);
     }
 
     void IUiResetHost.SetLoadingOverlayVisibility(Visibility visibility)

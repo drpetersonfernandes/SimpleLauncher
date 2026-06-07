@@ -5,34 +5,26 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GameItemRender;
 using SimpleLauncher.Services.GameFileWatcher;
-using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
-using SimpleLauncher.Services.HelpUser;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.LaunchTools;
-using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MameData;
 using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MenuCheckMark;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SearchOrchestrator;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.StartupInitialization;
 using SimpleLauncher.Services.SystemConfiguration;
-using SimpleLauncher.Services.SystemImageResolver;
 using SimpleLauncher.Services.ThemeMenu;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.UiHelpers;
@@ -40,9 +32,10 @@ using SimpleLauncher.Services.UIReset;
 using SimpleLauncher.Services.UiOrchestrator;
 using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.Services.UsageStats;
+using SimpleLauncher.Services.GameFileLoadingOrchestrator;
+using SimpleLauncher.Services.SystemSelectionOrchestrator;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
 
@@ -122,21 +115,17 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     internal TrayIconManager TrayIconManager;
     internal PlayHistoryManager PlayHistoryManager { get; }
-    private readonly IConfiguration _configuration;
     private List<SystemManager> _systemManagers;
     private readonly FilterMenu _topLetterNumberMenu;
     private readonly WrapPanel _gameFileGrid;
     private readonly SettingsManager _settings;
     private readonly IGameItemRenderService _gameItemRenderService;
-    private readonly FavoritesManager _favoritesManager;
     private readonly IMameDataService _mameDataService;
     private string _selectedImageFolder;
     private List<string> _selectedRomFolders;
-    private readonly RetroAchievementsService _retroAchievementsService;
 
     // Game cache and filtering are now handled by dedicated services
     private readonly Services.GameCache.IGameCacheService _gameCacheService;
-    private readonly Services.GameFilter.IGameFilterService _gameFilterService;
 
     private readonly UpdateChecker _updateChecker;
     private readonly GamePadController _gamePadController;
@@ -149,22 +138,18 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly LanguageMenuService _languageMenuService;
     private readonly StartupInitializationService _startupInitializationService;
     private readonly GameFileWatcherService _gameFileWatcherService;
-    private readonly IHelpUserService _helpUserService;
-    private readonly IGetListOfFiles _getListOfFiles;
-    private readonly IFindCoverImage _findCoverImage;
-    private readonly IImageLoader _imageLoader;
     private readonly ISearchOrchestratorService _searchOrchestratorService;
-    private readonly ISystemImageResolverService _systemImageResolverService;
     internal readonly MenuActionHandlerService MenuActionHandlerService;
     internal readonly IUpdateStatusBar UpdateStatusBarService;
     internal readonly IMenuCheckMarkService MenuCheckMarkService;
     internal readonly IUiResetService UiResetService;
     internal readonly ISystemConfigurationService SystemConfigurationService;
     internal readonly IUiOrchestrator UiOrchestrator;
+    private readonly ISystemSelectionOrchestrator _systemSelectionOrchestrator;
+    private readonly IGameFileLoadingOrchestrator _gameFileLoadingOrchestrator;
 
     public MainWindow(
         SettingsManager settings,
-        FavoritesManager favoritesManager,
         PlayHistoryManager playHistoryManager,
         UpdateChecker updateChecker,
         GamePadController gamePadController,
@@ -173,35 +158,28 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         Stats stats,
         ILogErrors logErrors,
         GameScannerService gameScannerService,
-        RetroAchievementsService retroAchievementsService,
-        IConfiguration configuration,
         ThemeMenuService themeMenuService,
         LanguageMenuService languageMenuService,
         StartupInitializationService startupInitializationService,
         GameFileWatcherService gameFileWatcherService,
-        IHelpUserService helpUserService,
-        IGetListOfFiles getListOfFiles,
         MenuActionHandlerService menuActionHandlerService,
         IUpdateStatusBar updateStatusBarService,
-        IFindCoverImage findCoverImage,
-        IImageLoader imageLoader,
         IMenuCheckMarkService menuCheckMarkService,
         IUiResetService uiResetService,
         ISystemConfigurationService systemConfigurationService,
         Services.GameCache.IGameCacheService gameCacheService,
-        Services.GameFilter.IGameFilterService gameFilterService,
         IMameDataService mameDataService,
         ISearchOrchestratorService searchOrchestratorService,
-        ISystemImageResolverService systemImageResolverService,
         IUiOrchestrator uiOrchestrator,
-        IGameItemRenderService gameItemRenderService)
+        IGameItemRenderService gameItemRenderService,
+        ISystemSelectionOrchestrator systemSelectionOrchestrator,
+        IGameFileLoadingOrchestrator gameFileLoadingOrchestrator)
     {
         InitializeComponent();
 
         _gamePadController = gamePadController;
         _updateChecker = updateChecker;
         _settings = settings;
-        _favoritesManager = favoritesManager;
         PlayHistoryManager = playHistoryManager;
         _playSoundEffects = playSoundEffects;
         _launchTools = launchTools;
@@ -210,29 +188,25 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _languageMenuService = languageMenuService;
         _startupInitializationService = startupInitializationService;
         _gameFileWatcherService = gameFileWatcherService;
-        _helpUserService = helpUserService;
-        _getListOfFiles = getListOfFiles;
         MenuActionHandlerService = menuActionHandlerService;
         UpdateStatusBarService = updateStatusBarService;
         _stats = stats;
         _logErrors = logErrors;
-        _retroAchievementsService = retroAchievementsService;
-        _configuration = configuration;
-        _findCoverImage = findCoverImage;
-        _imageLoader = imageLoader;
 
         MenuCheckMarkService = menuCheckMarkService;
         UiResetService = uiResetService;
         SystemConfigurationService = systemConfigurationService;
         _gameCacheService = gameCacheService;
-        _gameFilterService = gameFilterService;
         _mameDataService = mameDataService;
         _searchOrchestratorService = searchOrchestratorService;
-        _systemImageResolverService = systemImageResolverService;
         UiOrchestrator = uiOrchestrator;
         _gameItemRenderService = gameItemRenderService;
+        _systemSelectionOrchestrator = systemSelectionOrchestrator;
+        _gameFileLoadingOrchestrator = gameFileLoadingOrchestrator;
 
         UiOrchestrator.Initialize(this);
+        _systemSelectionOrchestrator.Initialize(this);
+        _gameFileLoadingOrchestrator.Initialize(this);
         _themeMenuService.Initialize((IThemeMenuHost)this);
         _languageMenuService.Initialize((ILanguageMenuHost)this);
         MenuActionHandlerService.Initialize(this);
@@ -264,7 +238,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
 
         _gameItemRenderService.Initialize(this);
-        LoadOrReloadSystemManager();
+        _systemSelectionOrchestrator.LoadOrReloadSystemManager();
 
         _topLetterNumberMenu = new FilterMenu(_playSoundEffects);
 
@@ -284,7 +258,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         Deactivated += MainWindow_Deactivated;
 
         // Wire up game file watcher to detect external file changes
-        _gameFileWatcherService.GameFilesChanged += OnGameFilesChanged;
+        _gameFileWatcherService.GameFilesChanged += _gameFileLoadingOrchestrator.OnGameFilesChanged;
 
         // Store the async Loaded handler reference so it can be unsubscribed later
         _asyncLoadedHandler = async void (_, _) =>
@@ -313,7 +287,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     {
         try
         {
-            await DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
+            await _systemSelectionOrchestrator.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
             DebugLogger.Log("DisplaySystemSelectionScreenAsync called.");
         }
         catch (Exception ex)
@@ -350,10 +324,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                         UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FoundNewMicrosoftWindowsGames") ?? "Found new Microsoft Windows games. Refreshing system list.");
 
                         // Reload to get the new system
-                        LoadOrReloadSystemManager();
+                        _systemSelectionOrchestrator.LoadOrReloadSystemManager();
 
                         // After reloading, the system selection screen needs to be updated.
-                        await DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
+                        await _systemSelectionOrchestrator.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
                     }
                 }
                 catch (Exception ex)
@@ -376,8 +350,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                         easyModeWindow.Owner = this;
                         easyModeWindow.ShowDialog();
 
-                        LoadOrReloadSystemManager();
-                        await DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken); // Await this now
+                        _systemSelectionOrchestrator.LoadOrReloadSystemManager();
+                        await _systemSelectionOrchestrator.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken); // Await this now
                     }
                 }
             }
@@ -428,6 +402,18 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in method TopLetterNumberMenu_OnLetterSelected");
+        }
+    }
+
+    private async void SystemComboBoxSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
+    {
+        try
+        {
+            await _systemSelectionOrchestrator.SystemComboBoxSelectionChangedAsync(_cancellationSource.Token);
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in SystemComboBoxSelectionChangedAsync.");
         }
     }
 
@@ -538,7 +524,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games...");
             await Task.Yield(); // Allow UI to render the loading overlay
 
-            await LoadGameFilesAsync(selectedLetter, null, _cancellationSource.Token); // searchQuery is null
+            await _gameFileLoadingOrchestrator.LoadGameFilesAsync(selectedLetter, null, _cancellationSource.Token); // searchQuery is null
         }
         catch (Exception ex)
         {
@@ -571,7 +557,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingFavoriteGamesForSystem") ?? "Loading favorite games for system...");
             await Task.Yield(); // Allow UI to render the loading overlay
 
-            await LoadGameFilesAsync(null, "FAVORITES", _cancellationSource.Token);
+            await _gameFileLoadingOrchestrator.LoadGameFilesAsync(null, "FAVORITES", _cancellationSource.Token);
         }
         catch (Exception ex)
         {
@@ -602,7 +588,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games...");
             await Task.Yield(); // Allow UI to render the loading overlay
 
-            await LoadGameFilesAsync(null, "RANDOM_SELECTION", _cancellationSource.Token);
+            await _gameFileLoadingOrchestrator.LoadGameFilesAsync(null, "RANDOM_SELECTION", _cancellationSource.Token);
 
             // If in list view, select the game in the DataGrid
             if (_settings.ViewMode != "ListView" || GameDataGrid.Items.Count <= 0) return;
@@ -719,34 +705,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _settings.SaveAsync();
     }
 
-    private List<string> GetFavoriteGamesForSelectedSystem(FavoritesManager favoritesManager)
-    {
-        // Use the injected favoritesManager instance directly (no need to load again)
-        var favorites = favoritesManager.FavoriteList;
-
-        var selectedSystem = SystemComboBox.SelectedItem?.ToString();
-        if (string.IsNullOrEmpty(selectedSystem))
-        {
-            return []; // Return an empty list if there is no favorite for that system
-        }
-
-        // Retrieve the system manager for the selected system
-        var selectedManager = _systemManagers.FirstOrDefault(c => string.Equals(c.SystemName, selectedSystem, StringComparison.OrdinalIgnoreCase));
-        if (selectedManager == null)
-        {
-            return []; // Return an empty list if there is no favorite for that system
-        }
-
-        // Filter the favorites and build the full file path for each favorite game
-        var favoriteGamePaths = favorites
-            .Where(fav => fav.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase))
-            .Select(fav => PathHelper.FindFileInSystemFolders(selectedManager, fav.FileName))
-            .Where(static path => !string.IsNullOrEmpty(path))
-            .ToList();
-
-        return favoriteGamePaths;
-    }
-
     private void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem)
@@ -832,7 +790,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             try
             {
                 var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+                await _gameFileLoadingOrchestrator.LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
             }
             finally
             {
@@ -865,41 +823,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
     }
 
-    /// <summary>
-    /// Invalidates the in-memory caches of game file paths, forcing a reload from disk
-    /// or re-evaluation of search results on the next LoadGameFilesAsync call.
-    /// </summary>
-    internal Task InvalidateGameFileCachesAsync()
+    internal Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null, CancellationToken cancellationToken = default)
     {
-        return _gameCacheService.InvalidateAsync(((IMenuActionHost)this).CurrentCancellationToken);
+        return _gameFileLoadingOrchestrator.LoadGameFilesAsync(startLetter, searchQuery, cancellationToken);
     }
 
-    /// <summary>
-    /// Handles file change notifications from the GameFileWatcherService.
-    /// Invalidates the game list cache and reloads the current system's game list.
-    /// </summary>
-    /// <param name="systemName">The system name whose files changed.</param>
-    private async void OnGameFilesChanged(string systemName)
+    internal Task InvalidateGameFileCachesAsync(CancellationToken cancellationToken = default)
     {
-        try
-        {
-            // Only reload if the changed system matches the currently selected system
-            var currentSystem = SystemComboBox.SelectedItem?.ToString();
-            if (!string.Equals(currentSystem, systemName, StringComparison.OrdinalIgnoreCase))
-            {
-                DebugLogger.Log($"[OnGameFilesChanged] Ignoring change for system '{systemName}' (current: '{currentSystem}').");
-                return;
-            }
-
-            DebugLogger.Log($"[OnGameFilesChanged] File change detected for system '{systemName}'. Reloading game list.");
-
-            await InvalidateGameFileCachesAsync();
-            await LoadGameFilesAsync(cancellationToken: ((IMenuActionHost)this).CurrentCancellationToken);
-        }
-        catch (Exception ex)
-        {
-            DebugLogger.Log($"[OnGameFilesChanged] Error reloading game list: {ex.Message}");
-        }
+        return _gameFileLoadingOrchestrator.InvalidateGameFileCachesAsync(cancellationToken);
     }
 
     // IUiOrchestratorHost implementation

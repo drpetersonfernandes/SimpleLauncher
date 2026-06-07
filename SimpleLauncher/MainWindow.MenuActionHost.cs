@@ -20,7 +20,7 @@ public partial class MainWindow : IMenuActionHost
 
     Task IMenuActionHost.LoadGameFilesAsync(string startLetter, string searchQuery, CancellationToken cancellationToken)
     {
-        return LoadGameFilesAsync(startLetter, searchQuery, cancellationToken);
+        return _gameFileLoadingOrchestrator.LoadGameFilesAsync(startLetter, searchQuery, cancellationToken);
     }
 
     (string startLetter, string searchQuery) IMenuActionHost.GetLoadGameFilesParams()
@@ -35,7 +35,7 @@ public partial class MainWindow : IMenuActionHost
 
     void IMenuActionHost.LoadOrReloadSystemManager()
     {
-        LoadOrReloadSystemManager();
+        _systemSelectionOrchestrator.LoadOrReloadSystemManager();
     }
 
     void IMenuActionHost.NavigateToPage(Page page)
@@ -50,7 +50,7 @@ public partial class MainWindow : IMenuActionHost
 
     Task IMenuActionHost.DisplaySystemSelectionScreenAsync(CancellationToken cancellationToken)
     {
-        return DisplaySystemSelectionScreenAsync(cancellationToken);
+        return _systemSelectionOrchestrator.DisplaySystemSelectionScreenAsync(cancellationToken);
     }
 
     void IMenuActionHost.ResetPaginationButtons()

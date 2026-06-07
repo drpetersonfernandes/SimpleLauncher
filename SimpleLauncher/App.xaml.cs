@@ -51,6 +51,8 @@ using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.Services.UIReset;
 using SimpleLauncher.Services.UiOrchestrator;
 using SimpleLauncher.Services.UsageStats;
+using SimpleLauncher.Services.SystemSelectionOrchestrator;
+using SimpleLauncher.Services.GameFileLoadingOrchestrator;
 using SimpleLauncher.ViewModels;
 using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
 
@@ -215,6 +217,8 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<ISystemImageResolverService, SystemImageResolverService>();
         serviceCollection.AddSingleton<IUiOrchestrator, UiOrchestrator>();
         serviceCollection.AddSingleton<IGameItemRenderService, GameItemRenderService>();
+        serviceCollection.AddSingleton<ISystemSelectionOrchestrator, SystemSelectionOrchestrator>();
+        serviceCollection.AddSingleton<IGameFileLoadingOrchestrator, GameFileLoadingOrchestrator>();
 
         // ViewModels
         serviceCollection.AddTransient<AboutViewModel>();

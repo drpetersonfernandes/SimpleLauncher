@@ -33,7 +33,7 @@ public partial class MainWindow
             _playSoundEffects.PlayNotificationSound();
 
             var (sl, sq) = GetLoadGameFilesParams();
-            await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+            await _gameFileLoadingOrchestrator.LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
         }
         catch (Exception ex)
         {
@@ -69,7 +69,7 @@ public partial class MainWindow
             _playSoundEffects.PlayNotificationSound();
 
             var (sl, sq) = GetLoadGameFilesParams();
-            await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+            await _gameFileLoadingOrchestrator.LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
         }
         catch (Exception ex)
         {

@@ -86,7 +86,7 @@ public partial class MainWindow
 
             try
             {
-                await LoadGameFilesAsync(null, result.ValidatedQuery, _cancellationSource.Token);
+                await _gameFileLoadingOrchestrator.LoadGameFilesAsync(null, result.ValidatedQuery, _cancellationSource.Token);
                 SetLoadingState(false);
             }
             catch (Exception ex)

@@ -53,7 +53,7 @@ public partial class MainWindow
         // Unsubscribe and stop game file watcher
         if (_gameFileWatcherService != null)
         {
-            _gameFileWatcherService.GameFilesChanged -= OnGameFilesChanged;
+            _gameFileWatcherService.GameFilesChanged -= _gameFileLoadingOrchestrator.OnGameFilesChanged;
             _gameFileWatcherService.StopWatching();
         }
     }
