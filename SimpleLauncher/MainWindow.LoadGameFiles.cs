@@ -1,7 +1,5 @@
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.UIReset;
@@ -96,68 +94,7 @@ public partial class MainWindow
             allFiles = SetPaginationOfListOfFiles(allFiles);
             cancellationToken.ThrowIfCancellationRequested();
 
-            if (_settings.ViewMode == "GridView")
-            {
-                var buttonBatch = new List<Button>(Math.Min(BatchSize, allFiles.Count));
-
-                foreach (var filePath in allFiles)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-
-                    var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager);
-                    buttonBatch.Add(gameButton);
-
-                    if (buttonBatch.Count >= BatchSize)
-                    {
-                        GameFileGrid.Dispatcher.Invoke(() =>
-                        {
-                            foreach (var btn in buttonBatch)
-                                GameFileGrid.Children.Add(btn);
-                        });
-                        buttonBatch.Clear();
-                    }
-                }
-
-                if (buttonBatch.Count > 0)
-                {
-                    GameFileGrid.Dispatcher.Invoke(() =>
-                    {
-                        foreach (var btn in buttonBatch)
-                            GameFileGrid.Children.Add(btn);
-                    });
-                }
-            }
-            else // ListView
-            {
-                var itemBatch = new List<GameListViewItem>(Math.Min(BatchSize, allFiles.Count));
-
-                foreach (var filePath in allFiles)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-
-                    var gameListViewItem = await _gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
-                    itemBatch.Add(gameListViewItem);
-
-                    if (itemBatch.Count >= BatchSize)
-                    {
-                        await Dispatcher.InvokeAsync(() =>
-                        {
-                            foreach (var item in itemBatch)
-                                GameListItems.Add(item);
-                        });
-                        itemBatch.Clear();
-                    }
-                }
-
-                if (itemBatch.Count > 0)
-                {
-                    await Dispatcher.InvokeAsync(() =>
-                    {
-                        foreach (var item in itemBatch)
-                            GameListItems.Add(item);
-                    });
-                }
-            }
+            await _gameItemRenderService.RenderGameItemsAsync(allFiles, selectedSystem, selectedManager, cancellationToken);
 
             switch (_settings.ViewMode)
             {
@@ -174,12 +111,7 @@ public partial class MainWindow
             DebugLogger.Log("[LoadGameFilesAsync] Operation was canceled.");
             // Clear the UI to prevent showing partial results from the canceled operation.
             // Also clear image sources to prevent memory leaks from BitmapImage references.
-            GameFileGrid.Dispatcher.Invoke(() =>
-            {
-                ClearGameButtonImages(GameFileGrid);
-                GameFileGrid.Children.Clear();
-            });
-            await Dispatcher.InvokeAsync(() => GameListItems.Clear());
+            _gameItemRenderService.ClearRenderedItems();
         }
         catch (Exception ex)
         {

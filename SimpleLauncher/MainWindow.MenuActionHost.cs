@@ -89,7 +89,7 @@ public partial class MainWindow : IMenuActionHost
     // Field setters
     void IMenuActionHost.SetGameButtonImageHeight(int height)
     {
-        _gameButtonFactory.ImageHeight = height;
+        _gameItemRenderService.ImageHeight = height;
     }
 
     void IMenuActionHost.SetFilesPerPage(int count)

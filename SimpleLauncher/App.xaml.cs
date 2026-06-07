@@ -18,6 +18,7 @@ using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GameCache;
 using SimpleLauncher.Services.GameFilter;
+using SimpleLauncher.Services.GameItemRender;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GameLauncher.Handlers;
 using SimpleLauncher.Services.HelpUser;
@@ -213,6 +214,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<ISearchOrchestratorService, SearchOrchestratorService>();
         serviceCollection.AddSingleton<ISystemImageResolverService, SystemImageResolverService>();
         serviceCollection.AddSingleton<IUiOrchestrator, UiOrchestrator>();
+        serviceCollection.AddSingleton<IGameItemRenderService, GameItemRenderService>();
 
         // ViewModels
         serviceCollection.AddTransient<AboutViewModel>();

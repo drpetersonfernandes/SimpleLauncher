@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DisplaySystemInfo;
+using SimpleLauncher.Services.GameItemRender;
 using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.UIReset;
@@ -100,7 +101,7 @@ public partial class MainWindow
                     PlayTime = systemPlayTime != null ? systemPlayTime.FormattedPlayTime : "00:00:00";
 
                     // Display SystemInfo and get the validation result. Game count is now handled inside this method.
-                    var validationResult = await DisplaySystemInformation.DisplaySystemInfoAsync(selectedManager, _gameFileGrid, ((IMenuActionHost)this).CurrentCancellationToken);
+                    var validationResult = await DisplaySystemInformation.DisplaySystemInfoAsync(selectedManager, ((IGameItemRenderHost)this).GameFileGrid, ((IMenuActionHost)this).CurrentCancellationToken);
 
                     // If validation failed, show the message box with aggregated errors
                     if (!validationResult.IsValid)

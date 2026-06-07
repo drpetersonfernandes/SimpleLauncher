@@ -1,7 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GameItemFactory;
 
 namespace SimpleLauncher;
 
@@ -58,9 +57,8 @@ public partial class MainWindow
             .ToList();
         SystemComboBox.ItemsSource = sortedSystemNames;
 
-        // Re-instantiate factories with the updated _systemManagers list
-        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _mameDataService.Machines.ToList(), _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher, _playSoundEffects, _logErrors, _getListOfFiles, _findCoverImage, _imageLoader);
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _mameDataService.Machines.ToList(), _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _getListOfFiles, _findCoverImage, _imageLoader);
+        // Re-instantiate factories via the render service
+        _gameItemRenderService.ReloadFactories(_systemManagers, _mameDataService.Machines.ToList());
     }
 
     private async void EditLinksClickAsync(object sender, RoutedEventArgs e)

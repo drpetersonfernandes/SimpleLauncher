@@ -11,8 +11,7 @@ using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindCoverImage;
-using SimpleLauncher.Services.GameItemFactory;
-using SimpleLauncher.Services.GameLauncher;
+using SimpleLauncher.Services.GameItemRender;
 using SimpleLauncher.Services.GameFileWatcher;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.GameListUI;
@@ -65,8 +64,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private RoutedEventHandler _emergencyButtonClickHandler;
     private readonly RoutedEventHandler _asyncLoadedHandler;
 
-    // Constants for magic numbers
-    private const int BatchSize = 100;
     public event PropertyChangedEventHandler PropertyChanged;
     private string _selectedSystem;
 
@@ -128,10 +125,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly IConfiguration _configuration;
     private List<SystemManager> _systemManagers;
     private readonly FilterMenu _topLetterNumberMenu;
-    private GameListFactory _gameListFactory;
     private readonly WrapPanel _gameFileGrid;
-    private GameButtonFactory _gameButtonFactory;
     private readonly SettingsManager _settings;
+    private readonly IGameItemRenderService _gameItemRenderService;
     private readonly FavoritesManager _favoritesManager;
     private readonly IMameDataService _mameDataService;
     private string _selectedImageFolder;
@@ -144,7 +140,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private readonly UpdateChecker _updateChecker;
     private readonly GamePadController _gamePadController;
-    private readonly GameLauncher _gameLauncher;
     private readonly ILaunchTools _launchTools;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly Stats _stats;
@@ -173,7 +168,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         PlayHistoryManager playHistoryManager,
         UpdateChecker updateChecker,
         GamePadController gamePadController,
-        GameLauncher gameLauncher,
         PlaySoundEffects playSoundEffects,
         ILaunchTools launchTools,
         Stats stats,
@@ -199,7 +193,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         IMameDataService mameDataService,
         ISearchOrchestratorService searchOrchestratorService,
         ISystemImageResolverService systemImageResolverService,
-        IUiOrchestrator uiOrchestrator)
+        IUiOrchestrator uiOrchestrator,
+        IGameItemRenderService gameItemRenderService)
     {
         InitializeComponent();
 
@@ -208,7 +203,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _settings = settings;
         _favoritesManager = favoritesManager;
         PlayHistoryManager = playHistoryManager;
-        _gameLauncher = gameLauncher;
         _playSoundEffects = playSoundEffects;
         _launchTools = launchTools;
         _gameScannerService = gameScannerService;
@@ -236,6 +230,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _searchOrchestratorService = searchOrchestratorService;
         _systemImageResolverService = systemImageResolverService;
         UiOrchestrator = uiOrchestrator;
+        _gameItemRenderService = gameItemRenderService;
 
         UiOrchestrator.Initialize(this);
         _themeMenuService.Initialize((IThemeMenuHost)this);
@@ -268,6 +263,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             throw new InvalidOperationException("GameFileGrid not found");
         }
 
+        _gameItemRenderService.Initialize(this);
         LoadOrReloadSystemManager();
 
         _topLetterNumberMenu = new FilterMenu(_playSoundEffects);
@@ -709,7 +705,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private void SaveApplicationSettings()
     {
         // Save application's current state
-        _settings.ThumbnailSize = _gameButtonFactory.ImageHeight;
+        _settings.ThumbnailSize = _gameItemRenderService.ImageHeight;
         _settings.GamesPerPage = UiOrchestrator.PaginationFilesPerPage;
         _settings.EnableGamePadNavigation = ToggleGamepad.IsChecked;
         _settings.EnableFuzzyMatching = ToggleFuzzyMatching.IsChecked;
@@ -768,8 +764,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
 
         // If it's a real game item, proceed with loading the preview.
-        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _mameDataService.Machines.ToList(), _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _getListOfFiles, _findCoverImage, _imageLoader);
-        gameListViewFactory.HandleSelectionChangedAsync(selectedItem);
+        _gameItemRenderService.HandleSelectionChangedAsync(selectedItem);
     }
 
     private async void GameListDoubleClickOnSelectedItemAsync(object sender, MouseButtonEventArgs e)
@@ -787,8 +782,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 return;
             }
 
-            // Delegate the double-click handling to GameListFactory
-            await _gameListFactory.HandleDoubleClickAsync(selectedItem);
+            // Delegate the double-click handling to the render service
+            await _gameItemRenderService.HandleDoubleClickAsync(selectedItem);
         }
         catch (Exception ex)
         {
@@ -937,8 +932,16 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         CancelAndRecreateToken();
     }
 
-    async Task IUiOrchestratorHost.ResetUiAsync()
+    Task IUiOrchestratorHost.ResetUiAsync()
     {
-        ResetUiAsync();
+        try
+        {
+            ResetUiAsync();
+            return Task.CompletedTask;
+        }
+        catch (Exception exception)
+        {
+            return Task.FromException(exception);
+        }
     }
 }
