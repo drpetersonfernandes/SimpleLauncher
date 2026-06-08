@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+using System.Runtime.Versioning;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Core.Services.RetroAchievements;
@@ -70,6 +71,7 @@ public class EncryptDuckStationToken
         return key;
     }
 
+    [SupportedOSPlatform("windows")]
     private static string GetWindowsMachineGuid()
     {
         try
