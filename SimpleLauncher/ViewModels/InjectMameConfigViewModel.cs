@@ -3,6 +3,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.SettingsManager;
@@ -16,6 +17,7 @@ public partial class InjectMameConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
+    private readonly IDebugLogger _debugLogger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
     private string _systemRomPath;
@@ -38,10 +40,11 @@ public partial class InjectMameConfigViewModel : ObservableObject
     [ObservableProperty] private bool _mameJoystick;
     [ObservableProperty] private bool _mameShowSettingsBeforeLaunch;
 
-    public InjectMameConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public InjectMameConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
     {
         _settings = settings;
         _logErrors = logErrors;
+        _debugLogger = debugLogger;
         _messageBox = messageBox;
     }
 
@@ -173,7 +176,7 @@ public partial class InjectMameConfigViewModel : ObservableObject
 
         try
         {
-            MameConfigurationService.InjectSettings(path, _settings, _logErrors, _systemRomPath, _listOfSecondarySystemFolders);
+            MameConfigurationService.InjectSettings(path, _settings, _logErrors, _debugLogger, _systemRomPath, _listOfSecondarySystemFolders);
             return true;
         }
         catch (InvalidOperationException ex)

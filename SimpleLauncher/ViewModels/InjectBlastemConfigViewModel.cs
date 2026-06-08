@@ -4,6 +4,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.SettingsManager;
@@ -17,6 +18,7 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
+    private readonly IDebugLogger _debugLogger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
@@ -29,10 +31,11 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
     [ObservableProperty] private string _syncSource;
     [ObservableProperty] private bool _showBeforeLaunch;
 
-    public InjectBlastemConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public InjectBlastemConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
     {
         _settings = settings;
         _logErrors = logErrors;
+        _debugLogger = debugLogger;
         _messageBox = messageBox;
     }
 
@@ -149,7 +152,7 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
 
         try
         {
-            BlastemConfigurationService.InjectSettings(path, _settings, _logErrors);
+            BlastemConfigurationService.InjectSettings(path, _settings, _logErrors, _debugLogger);
             return true;
         }
         catch (FileNotFoundException ex)

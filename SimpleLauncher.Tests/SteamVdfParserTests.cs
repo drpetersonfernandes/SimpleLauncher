@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.GameScan;
+using SimpleLauncher.Core.Services.GameScan;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 

@@ -4,6 +4,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.SettingsManager;
@@ -17,6 +18,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
+    private readonly IDebugLogger _debugLogger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
@@ -31,10 +33,11 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     [ObservableProperty] private bool _showBeforeLaunch;
     [ObservableProperty] private bool _audioStretching;
 
-    public InjectAzaharConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public InjectAzaharConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
     {
         _settings = settings;
         _logErrors = logErrors;
+        _debugLogger = debugLogger;
         _messageBox = messageBox;
     }
 
@@ -133,7 +136,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
 
         try
         {
-            AzaharConfigurationService.InjectSettings(path, _settings, _logErrors);
+            AzaharConfigurationService.InjectSettings(path, _settings, _logErrors, _debugLogger);
             return true;
         }
         catch (AzaharPermissionException)

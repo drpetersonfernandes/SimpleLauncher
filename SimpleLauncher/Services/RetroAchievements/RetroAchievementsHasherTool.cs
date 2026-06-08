@@ -101,7 +101,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         }
 
         // Get the best match from the system mappings (this handles fuzzy matching for supported systems)
-        var matchedSystemName = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemName, null);
+        var matchedSystemName = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemName, null, _debugLogger);
 
         // Check if the matched system is in the unsupported list
         if (SystemWithUnknowHashLogic.Contains(matchedSystemName, StringComparer.OrdinalIgnoreCase))
@@ -352,7 +352,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         {
             // Get a "guess" to pre-select in the ComboBox
             _debugLogger.Log($"[GetGameHashForRetroAchievementsAsync] Received systemName: {systemName}");
-            var guess = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemName, null);
+            var guess = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemName, null, _debugLogger);
             _debugLogger.Log($"[GetGameHashForRetroAchievementsAsync] Guess systemName: {guess}");
 
             // Directly show the dialog (already on the UI thread)
@@ -474,7 +474,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
 
                 case "Complex":
                 {
-                    var systemId = RetroAchievementsSystemMatcher.GetSystemId(systemName);
+                    var systemId = RetroAchievementsSystemMatcher.GetSystemId(systemName, _debugLogger);
                     if (systemId > 0)
                     {
                         _debugLogger.Log($"[RA Hasher Tool] Using RAHasher.exe for system '{systemName}' (ID: {systemId})...");
@@ -494,7 +494,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
 
                 case "Dolphin":
                 {
-                    var systemId = RetroAchievementsSystemMatcher.GetSystemId(systemName);
+                    var systemId = RetroAchievementsSystemMatcher.GetSystemId(systemName, _debugLogger);
                     if (systemId <= 0)
                     {
                         extractionErrorMessage = $"Could not find RetroAchievements System ID for '{systemName}'.";

@@ -10,6 +10,7 @@ using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.FindCoverImage;
+using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.WpfServices;
 

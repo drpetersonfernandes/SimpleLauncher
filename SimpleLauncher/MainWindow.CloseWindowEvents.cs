@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 
+
 namespace SimpleLauncher;
 
 public partial class MainWindow

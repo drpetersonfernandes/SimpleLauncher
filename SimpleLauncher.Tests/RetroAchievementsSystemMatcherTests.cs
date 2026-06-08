@@ -1,5 +1,5 @@
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.RetroAchievements;
+using SimpleLauncher.Core.Services.RetroAchievements;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
@@ -12,6 +12,12 @@ public class RetroAchievementsSystemMatcherTests
         {
             return Task.CompletedTask;
         }
+    }
+
+    private sealed class NoOpDebugLogger : IDebugLogger
+    {
+        public void Log(string message) { }
+        public void LogException(Exception ex, string contextMessage = null) { }
     }
 
     [Theory]
@@ -31,16 +37,16 @@ public class RetroAchievementsSystemMatcherTests
     [InlineData("sega dreamcast", "dreamcast")]
     public void GetBestMatchSystemNameKnownAliasReturnsExpectedKey(string input, string expected)
     {
-        var result = RetroAchievementsSystemMatcher.GetBestMatchSystemName(input, new NoOpLogErrors());
+        var result = RetroAchievementsSystemMatcher.GetBestMatchSystemName(input, new NoOpLogErrors(), new NoOpDebugLogger());
         Assert.Equal(expected, result);
     }
 
     [Fact]
     public void GetBestMatchSystemNameNullOrWhitespaceReturnsOriginal()
     {
-        Assert.Null(RetroAchievementsSystemMatcher.GetBestMatchSystemName(null, new NoOpLogErrors()));
-        Assert.Equal("", RetroAchievementsSystemMatcher.GetBestMatchSystemName("", new NoOpLogErrors()));
-        Assert.Equal("   ", RetroAchievementsSystemMatcher.GetBestMatchSystemName("   ", new NoOpLogErrors()));
+        Assert.Null(RetroAchievementsSystemMatcher.GetBestMatchSystemName(null, new NoOpLogErrors(), new NoOpDebugLogger()));
+        Assert.Equal("", RetroAchievementsSystemMatcher.GetBestMatchSystemName("", new NoOpLogErrors(), new NoOpDebugLogger()));
+        Assert.Equal("   ", RetroAchievementsSystemMatcher.GetBestMatchSystemName("   ", new NoOpLogErrors(), new NoOpDebugLogger()));
     }
 
     [Theory]
@@ -95,7 +101,7 @@ public class RetroAchievementsSystemMatcherTests
     [InlineData("playstation", 12)]
     public void GetSystemIdKnownSystemReturnsExpectedId(string input, int expected)
     {
-        var result = RetroAchievementsSystemMatcher.GetSystemId(input);
+        var result = RetroAchievementsSystemMatcher.GetSystemId(input, new NoOpDebugLogger());
         Assert.Equal(expected, result);
     }
 }

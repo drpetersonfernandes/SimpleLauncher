@@ -3,6 +3,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.SettingsManager;
@@ -16,6 +17,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
+    private readonly IDebugLogger _debugLogger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
@@ -36,10 +38,11 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     [ObservableProperty] private bool _redreamFramerate;
     [ObservableProperty] private bool _redreamShowSettingsBeforeLaunch;
 
-    public InjectRedreamConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public InjectRedreamConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
     {
         _settings = settings;
         _logErrors = logErrors;
+        _debugLogger = debugLogger;
         _messageBox = messageBox;
     }
 
@@ -202,7 +205,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
 
         try
         {
-            RedreamConfigurationService.InjectSettings(path, _settings, _logErrors);
+            RedreamConfigurationService.InjectSettings(path, _settings, _logErrors, _debugLogger);
             return true;
         }
         catch (InvalidOperationException ex)

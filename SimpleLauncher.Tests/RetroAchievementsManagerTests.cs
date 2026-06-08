@@ -1,7 +1,7 @@
 using MessagePack;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.RetroAchievements.Models;
-using SimpleLauncher.Services.RetroAchievements;
+using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
@@ -10,6 +10,7 @@ namespace SimpleLauncher.Tests;
 public class RetroAchievementsManagerTests : IDisposable
 {
     private readonly ILogErrors _logErrors = new NoOpLogErrors();
+    private readonly IDebugLogger _debugLogger = new NoOpDebugLogger();
     private readonly string _datFilePath;
 
     private sealed class NoOpLogErrors : ILogErrors
@@ -18,6 +19,12 @@ public class RetroAchievementsManagerTests : IDisposable
         {
             return Task.CompletedTask;
         }
+    }
+
+    private sealed class NoOpDebugLogger : IDebugLogger
+    {
+        public void Log(string message) { }
+        public void LogException(Exception ex, string contextMessage = null) { }
     }
 
     public RetroAchievementsManagerTests()
@@ -60,7 +67,7 @@ public class RetroAchievementsManagerTests : IDisposable
         var bytes = MessagePackSerializer.Serialize(games);
         File.WriteAllBytes(_datFilePath, bytes);
 
-        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors);
+        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors, _debugLogger);
 
         Assert.NotNull(manager);
         Assert.Single(manager.AllGames);
@@ -72,7 +79,7 @@ public class RetroAchievementsManagerTests : IDisposable
     {
         File.WriteAllBytes(_datFilePath, [0xFF, 0xFF, 0xFF, 0xFF, 0xFF]);
 
-        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors);
+        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors, _debugLogger);
 
         Assert.NotNull(manager);
         Assert.Empty(manager.AllGames);
@@ -83,7 +90,7 @@ public class RetroAchievementsManagerTests : IDisposable
     {
         File.WriteAllText(_datFilePath, "<xml><item>test</item></xml>");
 
-        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors);
+        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors, _debugLogger);
 
         Assert.NotNull(manager);
         Assert.Empty(manager.AllGames);
@@ -94,7 +101,7 @@ public class RetroAchievementsManagerTests : IDisposable
     {
         File.WriteAllBytes(_datFilePath, []);
 
-        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors);
+        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors, _debugLogger);
 
         Assert.NotNull(manager);
         Assert.Empty(manager.AllGames);
@@ -109,7 +116,7 @@ public class RetroAchievementsManagerTests : IDisposable
             File.Delete(_datFilePath);
         }
 
-        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors);
+        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors, _debugLogger);
 
         Assert.NotNull(manager);
         Assert.Empty(manager.AllGames);
@@ -137,7 +144,7 @@ public class RetroAchievementsManagerTests : IDisposable
         var bytes = MessagePackSerializer.Serialize(games);
         File.WriteAllBytes(_datFilePath, bytes);
 
-        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors);
+        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors, _debugLogger);
         var result = manager.GetGameInfoByHash("abc123");
 
         Assert.NotNull(result);
@@ -166,7 +173,7 @@ public class RetroAchievementsManagerTests : IDisposable
         var bytes = MessagePackSerializer.Serialize(games);
         File.WriteAllBytes(_datFilePath, bytes);
 
-        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors);
+        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors, _debugLogger);
         var result = manager.GetGameInfoByHash("unknown_hash");
 
         Assert.Null(result);
@@ -194,7 +201,7 @@ public class RetroAchievementsManagerTests : IDisposable
         var bytes = MessagePackSerializer.Serialize(games);
         File.WriteAllBytes(_datFilePath, bytes);
 
-        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors);
+        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors, _debugLogger);
         var result = manager.GetGameInfoByHash("");
 
         Assert.Null(result);
@@ -234,7 +241,7 @@ public class RetroAchievementsManagerTests : IDisposable
         var bytes = MessagePackSerializer.Serialize(games);
         File.WriteAllBytes(_datFilePath, bytes);
 
-        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors);
+        var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors, _debugLogger);
         var result = manager.GetGameInfoByHash("shared_hash");
 
         Assert.NotNull(result);

@@ -1,7 +1,7 @@
 using System.IO;
 using System.Windows;
 using SimpleLauncher.Services.GameLauncher.Models;
-using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using SimpleLauncher.Core.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
@@ -12,11 +12,13 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 public class AzaharConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
+    private readonly IDebugLogger _debugLogger;
     private readonly IMessageBoxLibraryService _messageBox;
 
-    public AzaharConfigHandler(ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public AzaharConfigHandler(ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
     {
         _logErrors = logErrors;
+        _debugLogger = debugLogger;
         _messageBox = messageBox;
     }
 
@@ -45,7 +47,7 @@ public class AzaharConfigHandler : IEmulatorConfigHandler
         {
             try
             {
-                AzaharConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors);
+                AzaharConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
             }
             catch (AzaharPermissionException)
             {

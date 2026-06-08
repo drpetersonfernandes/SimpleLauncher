@@ -20,7 +20,6 @@ using SimpleLauncher.Core.ViewModels;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.EasyMode;
-using SimpleLauncher.Services.ExtractFiles;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GameCache;
@@ -29,12 +28,12 @@ using SimpleLauncher.Services.GameItemRender;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GameLauncher.Handlers;
 using SimpleLauncher.Services.HelpUser;
-using SimpleLauncher.Services.GameLauncher.MountFiles;
+
 using SimpleLauncher.Services.GameLauncher.Strategies;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.GameListUI;
-using SimpleLauncher.Services.GameFileWatcher;
+using SimpleLauncher.Core.Services.GameFileWatcher;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.LaunchTools;
@@ -49,10 +48,12 @@ using SimpleLauncher.Services.Pagination;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
+using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SearchOrchestrator;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.StartupInitialization;
+using SimpleLauncher.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Services.SystemConfiguration;
 using SimpleLauncher.Services.SystemImageResolver;
 using SimpleLauncher.Services.ThemeMenu;
@@ -215,7 +216,8 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton(static sp =>
         {
             var logErrors = sp.GetRequiredService<ILogErrors>();
-            return RetroAchievementsManager.LoadRetroAchievement(logErrors);
+            var debugLogger = sp.GetRequiredService<IDebugLogger>();
+            return RetroAchievementsManager.LoadRetroAchievement(logErrors, debugLogger);
         });
         serviceCollection.AddSingleton<GameScannerService>();
         serviceCollection.AddSingleton<ThemeMenuService>();

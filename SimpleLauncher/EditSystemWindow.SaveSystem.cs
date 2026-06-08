@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.SanitizeInputString;
 using SimpleLauncher.Core.Services.SystemManager;
-using SimpleLauncher.Services.CreateFolders;
+using SimpleLauncher.Core.Services.CreateFolders;
 using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 

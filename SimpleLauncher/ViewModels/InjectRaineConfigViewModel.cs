@@ -3,6 +3,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.SettingsManager;
@@ -16,6 +17,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
+    private readonly IDebugLogger _debugLogger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
     private string _gameFilePath;
@@ -38,10 +40,11 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     [ObservableProperty] private bool _raineMuteMusic;
     [ObservableProperty] private string _raineRomDirectory;
 
-    public InjectRaineConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public InjectRaineConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
     {
         _settings = settings;
         _logErrors = logErrors;
+        _debugLogger = debugLogger;
         _messageBox = messageBox;
     }
 
@@ -183,7 +186,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
 
         try
         {
-            RaineConfigurationService.InjectSettings(path, _settings, _logErrors, _gameFilePath, _systemRomPath, _settings.Raine.RomDirectory);
+            RaineConfigurationService.InjectSettings(path, _settings, _logErrors, _debugLogger, _gameFilePath, _systemRomPath, _settings.Raine.RomDirectory);
             return true;
         }
         catch (InvalidOperationException ex)

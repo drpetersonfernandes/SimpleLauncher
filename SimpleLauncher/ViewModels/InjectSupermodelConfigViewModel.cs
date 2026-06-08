@@ -4,6 +4,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.SettingsManager;
@@ -17,6 +18,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
+    private readonly IDebugLogger _debugLogger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
@@ -36,10 +38,11 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     [ObservableProperty] private string _powerPcFrequency;
     [ObservableProperty] private bool _showBeforeLaunch;
 
-    public InjectSupermodelConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public InjectSupermodelConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
     {
         _settings = settings;
         _logErrors = logErrors;
+        _debugLogger = debugLogger;
         _messageBox = messageBox;
     }
 
@@ -160,7 +163,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
 
         try
         {
-            SupermodelConfigurationService.InjectSettings(path, _settings, _logErrors);
+            SupermodelConfigurationService.InjectSettings(path, _settings, _logErrors, _debugLogger);
             return true;
         }
         catch (InvalidOperationException ex)

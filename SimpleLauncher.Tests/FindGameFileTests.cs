@@ -1,6 +1,5 @@
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
-using SimpleLauncher.Services.GameLauncher.MountFiles;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
@@ -9,6 +8,18 @@ public class FindGameFileTests : IDisposable
 {
     private readonly string _testDirectory;
     private readonly ILogErrors _logErrors = new NoOpLogErrors();
+    private readonly IDebugLogger _debugLogger = new NoOpDebugLogger();
+
+    private sealed class NoOpLogErrors : ILogErrors
+    {
+        public Task LogErrorAsync(Exception? ex, string? contextMessage = null) => Task.CompletedTask;
+    }
+
+    private sealed class NoOpDebugLogger : IDebugLogger
+    {
+        public void Log(string message) { }
+        public void LogException(Exception ex, string contextMessage = null) { }
+    }
 
     public FindGameFileTests()
     {
@@ -258,14 +269,14 @@ public class FindGameFileTests : IDisposable
     [Fact]
     public void FindEbootBin_NullPath_ReturnsNull()
     {
-        var result = FindEbootBin.FindEbootBinRecursive(null, _logErrors);
+        var result = FindEbootBin.FindEbootBinRecursive(null, _logErrors, _debugLogger);
         Assert.Null(result);
     }
 
     [Fact]
     public void FindEbootBin_EmptyPath_ReturnsNull()
     {
-        var result = FindEbootBin.FindEbootBinRecursive("", _logErrors);
+        var result = FindEbootBin.FindEbootBinRecursive("", _logErrors, _debugLogger);
         Assert.Null(result);
     }
 
@@ -275,7 +286,7 @@ public class FindGameFileTests : IDisposable
         var ebootPath = Path.Combine(_testDirectory, "EBOOT.BIN");
         File.WriteAllText(ebootPath, "fake");
 
-        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors);
+        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _debugLogger);
 
         Assert.NotNull(result);
         Assert.Equal(ebootPath, result);
@@ -290,7 +301,7 @@ public class FindGameFileTests : IDisposable
         var ebootPath = Path.Combine(usrDir, "EBOOT.BIN");
         File.WriteAllText(ebootPath, "fake");
 
-        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors);
+        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _debugLogger);
 
         Assert.NotNull(result);
         Assert.Equal(ebootPath, result);
@@ -304,7 +315,7 @@ public class FindGameFileTests : IDisposable
         var ebootPath = Path.Combine(nestedDir, "EBOOT.BIN");
         File.WriteAllText(ebootPath, "fake");
 
-        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors);
+        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _debugLogger);
 
         Assert.NotNull(result);
         Assert.Equal(ebootPath, result);
@@ -313,7 +324,7 @@ public class FindGameFileTests : IDisposable
     [Fact]
     public void FindEbootBin_NotFound_ReturnsNull()
     {
-        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors);
+        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _debugLogger);
         Assert.Null(result);
     }
 
@@ -327,7 +338,7 @@ public class FindGameFileTests : IDisposable
         Directory.CreateDirectory(nestedDir);
         File.WriteAllText(Path.Combine(nestedDir, "EBOOT.BIN"), "nested");
 
-        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors);
+        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _debugLogger);
 
         Assert.NotNull(result);
         Assert.Equal(topEboot, result);
@@ -346,17 +357,9 @@ public class FindGameFileTests : IDisposable
         Directory.CreateDirectory(deepDir);
         File.WriteAllText(Path.Combine(deepDir, "EBOOT.BIN"), "deep");
 
-        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors);
+        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _debugLogger);
 
         Assert.NotNull(result);
         Assert.Equal(ps3Eboot, result);
-    }
-
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
     }
 }

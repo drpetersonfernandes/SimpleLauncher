@@ -373,7 +373,7 @@ public class MountZipFiles : IMountZipFiles
             _debugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} detected. Searching for EBOOT.BIN...");
 
             // Find EBOOT.BIN
-            var ebootBinPath = FindEbootBin.FindEbootBinRecursive(mountDriveRootForChecks, logErrors);
+            var ebootBinPath = FindEbootBin.FindEbootBinRecursive(mountDriveRootForChecks, logErrors, _debugLogger);
 
             if (string.IsNullOrEmpty(ebootBinPath))
             {

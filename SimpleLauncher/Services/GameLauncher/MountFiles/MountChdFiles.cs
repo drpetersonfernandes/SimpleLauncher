@@ -41,7 +41,7 @@ public class MountChdFiles : IMountChdFiles
             _debugLogger.Log($"[MountChdFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
             await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
-            return new MountChdDrive(logErrors);
+            return new MountChdDrive(logErrors, _debugLogger);
         }
 
         if (!DokanValidation.IsDokanInstalled())
@@ -50,7 +50,7 @@ public class MountChdFiles : IMountChdFiles
             _debugLogger.Log($"[MountChdFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
             await messageBox.DokanDriverNotInstalledMessageBox();
-            return new MountChdDrive(logErrors);
+            return new MountChdDrive(logErrors, _debugLogger);
         }
 
         var existingDrives = GetCurrentDriveLetters();
@@ -96,12 +96,12 @@ public class MountChdFiles : IMountChdFiles
 
                 mountProcess.Dispose();
                 await messageBox.ThereWasAnErrorMountingTheFileMessageBox(exitCode);
-                return new MountChdDrive(logErrors);
+                return new MountChdDrive(logErrors, _debugLogger);
             }
 
             var driveRoot = $"{detectedDrive.Value}:\\";
             _debugLogger.Log($"[MountChdFiles.MountAsync] CHD mounted successfully. Drive: {driveRoot}");
-            return new MountChdDrive(mountProcess, driveRoot, detectedDrive.Value.ToString(), logErrors);
+            return new MountChdDrive(mountProcess, driveRoot, detectedDrive.Value.ToString(), logErrors, _debugLogger);
         }
         catch (Exception ex)
         {
@@ -124,7 +124,7 @@ public class MountChdFiles : IMountChdFiles
             mountProcess.Dispose();
 
             await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
-            return new MountChdDrive(logErrors);
+            return new MountChdDrive(logErrors, _debugLogger);
         }
     }
 

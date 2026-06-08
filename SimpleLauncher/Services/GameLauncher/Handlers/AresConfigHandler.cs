@@ -1,7 +1,7 @@
 using System.IO;
 using System.Windows;
 using SimpleLauncher.Services.GameLauncher.Models;
-using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -11,10 +11,12 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 public class AresConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
+    private readonly IDebugLogger _debugLogger;
 
-    public AresConfigHandler(ILogErrors logErrors)
+    public AresConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger)
     {
         _logErrors = logErrors;
+        _debugLogger = debugLogger;
     }
 
     public bool IsMatch(string emulatorName, string emulatorPath)
@@ -44,7 +46,7 @@ public class AresConfigHandler : IEmulatorConfigHandler
             shouldRun = true;
             if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
             {
-                AresConfigurationService.InjectSettings(resolvedEmulatorExePath, context.Settings, _logErrors);
+                AresConfigurationService.InjectSettings(resolvedEmulatorExePath, context.Settings, _logErrors, _debugLogger);
             }
         }
 

@@ -4,6 +4,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.SettingsManager;
@@ -17,6 +18,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
+    private readonly IDebugLogger _debugLogger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
@@ -34,10 +36,11 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     [ObservableProperty] private bool _useRawInput;
     [ObservableProperty] private bool _showBeforeLaunch;
 
-    public InjectSegaModel2ConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public InjectSegaModel2ConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
     {
         _settings = settings;
         _logErrors = logErrors;
+        _debugLogger = debugLogger;
         _messageBox = messageBox;
     }
 
@@ -154,7 +157,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
 
         try
         {
-            SegaModel2ConfigurationService.InjectSettings(path, _settings, _logErrors);
+            SegaModel2ConfigurationService.InjectSettings(path, _settings, _logErrors, _debugLogger);
             return true;
         }
         catch (InvalidOperationException ex)

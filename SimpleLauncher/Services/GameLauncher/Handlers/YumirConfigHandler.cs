@@ -4,17 +4,19 @@ using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Services.GameLauncher.Models;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 public class YumirConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
+    private readonly IDebugLogger _debugLogger;
 
-    public YumirConfigHandler(ILogErrors logErrors)
+    public YumirConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger)
     {
         _logErrors = logErrors;
+        _debugLogger = debugLogger;
     }
 
     public bool IsMatch(string emulatorName, string emulatorPath)
@@ -41,7 +43,7 @@ public class YumirConfigHandler : IEmulatorConfigHandler
         else
         {
             shouldRun = true;
-            if (File.Exists(resolvedExe)) YumirConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors);
+            if (File.Exists(resolvedExe)) YumirConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
         }
 
         return shouldRun;

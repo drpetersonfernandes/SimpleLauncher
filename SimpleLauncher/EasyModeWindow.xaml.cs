@@ -12,7 +12,7 @@ using System.Windows.Controls;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.LoadingInterface;
-using SimpleLauncher.Services.CreateFolders;
+using SimpleLauncher.Core.Services.CreateFolders;
 using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.EasyMode;
 using SimpleLauncher.Core.Interfaces;

@@ -1,7 +1,7 @@
 using System.IO;
 using System.Windows;
 using SimpleLauncher.Services.GameLauncher.Models;
-using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -11,10 +11,12 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 public class MesenConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
+    private readonly IDebugLogger _debugLogger;
 
-    public MesenConfigHandler(ILogErrors logErrors)
+    public MesenConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger)
     {
         _logErrors = logErrors;
+        _debugLogger = debugLogger;
     }
 
     public bool IsMatch(string emulatorName, string emulatorPath)
@@ -43,7 +45,7 @@ public class MesenConfigHandler : IEmulatorConfigHandler
         {
             shouldRun = true;
             if (File.Exists(resolvedExe))
-                MesenConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors);
+                MesenConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
         }
 
         return shouldRun;

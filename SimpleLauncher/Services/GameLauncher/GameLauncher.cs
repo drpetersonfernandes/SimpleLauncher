@@ -11,15 +11,17 @@ using SimpleLauncher.Core.Services.CheckApplicationControlPolicy;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.ExtractFiles;
 using SimpleLauncher.Core.Services.GameLauncher;
+using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Core.Services.LoadingInterface;
 using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
+
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.TrayIcon;
-using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.Services.UsageStats;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -38,6 +40,7 @@ public partial class GameLauncher
     private readonly PlayHistoryManager _playHistoryManager;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IMountZipFiles _mountZipFiles;
+    private readonly IDebugLogger _debugLogger;
     private const int MemoryAccessViolation = -1073741819;
     private const int DepViolation = -1073740791;
 
@@ -51,7 +54,8 @@ public partial class GameLauncher
         IUpdateStatusBar updateStatusBar,
         PlayHistoryManager playHistoryManager,
         IMessageBoxLibraryService messageBoxLibrary,
-        IMountZipFiles mountZipFiles)
+        IMountZipFiles mountZipFiles,
+        IDebugLogger debugLogger)
     {
         _configHandlers = configHandlers;
         _launchStrategies = launchStrategies.OrderBy(static s => s.Priority);
@@ -63,6 +67,7 @@ public partial class GameLauncher
         _playHistoryManager = playHistoryManager;
         _messageBoxLibrary = messageBoxLibrary;
         _mountZipFiles = mountZipFiles;
+        _debugLogger = debugLogger;
     }
 
     internal async Task HandleButtonClickAsync(string filePath,
@@ -1364,7 +1369,7 @@ public partial class GameLauncher
             error.ToString().Contains("Warning: unknown option in INI", StringComparison.OrdinalIgnoreCase))
         {
             DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME unknown option in INI detected. Restoring mame.ini from sample.");
-            var restored = MameConfigurationService.RestoreMameIniFromSample(psi.FileName, _logErrors);
+            var restored = MameConfigurationService.RestoreMameIniFromSample(psi.FileName, _logErrors, _debugLogger);
             if (restored)
             {
                 DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] mame.ini restored successfully. User should retry.");

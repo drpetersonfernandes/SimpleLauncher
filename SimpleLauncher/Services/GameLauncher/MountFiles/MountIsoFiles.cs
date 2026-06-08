@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.DebugAndBugReport;
 
@@ -85,7 +86,7 @@ public class MountIsoFiles : IMountIsoFiles
             _debugLogger.Log($"[MountIsoFiles] Searching for EBOOT.BIN in {mountPath}...");
 
             // Find EBOOT.BIN
-            var ebootBinPath = FindEbootBin.FindEbootBinRecursive(mountPath, logErrors);
+            var ebootBinPath = FindEbootBin.FindEbootBinRecursive(mountPath, logErrors, _debugLogger);
 
             if (string.IsNullOrEmpty(ebootBinPath))
             {

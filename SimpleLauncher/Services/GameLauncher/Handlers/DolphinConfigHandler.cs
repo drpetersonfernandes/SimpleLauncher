@@ -4,17 +4,19 @@ using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Services.GameLauncher.Models;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 public class DolphinConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
+    private readonly IDebugLogger _debugLogger;
 
-    public DolphinConfigHandler(ILogErrors logErrors)
+    public DolphinConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger)
     {
         _logErrors = logErrors;
+        _debugLogger = debugLogger;
     }
 
     public bool IsMatch(string emulatorName, string emulatorPath)
@@ -40,7 +42,7 @@ public class DolphinConfigHandler : IEmulatorConfigHandler
         }
         else if (File.Exists(resolvedExe))
         {
-            DolphinConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors);
+            DolphinConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
         }
 
         return shouldRun;

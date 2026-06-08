@@ -5,17 +5,19 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 public class XeniaConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
+    private readonly IDebugLogger _debugLogger;
 
-    public XeniaConfigHandler(ILogErrors logErrors)
+    public XeniaConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger)
     {
         _logErrors = logErrors;
+        _debugLogger = debugLogger;
     }
 
     public bool IsMatch(string emulatorName, string emulatorPath)
@@ -45,7 +47,7 @@ public class XeniaConfigHandler : IEmulatorConfigHandler
         {
             try
             {
-                XeniaConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors);
+                XeniaConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
             }
             catch (Exception ex)
             {

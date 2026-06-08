@@ -13,7 +13,7 @@ using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 using SimpleLauncher.Services.DisplaySystemInfo;
 using SimpleLauncher.Services.GameCache;
-using SimpleLauncher.Services.GameFileWatcher;
+using SimpleLauncher.Core.Services.GameFileWatcher;
 using SimpleLauncher.Services.GameItemRender;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.LoadImages;

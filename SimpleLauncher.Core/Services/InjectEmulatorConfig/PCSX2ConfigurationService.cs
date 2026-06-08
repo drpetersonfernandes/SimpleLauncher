@@ -1,0 +1,181 @@
+using System.Globalization;
+using System.IO;
+using System.Text;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+
+namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
+
+public static class Pcsx2ConfigurationService
+{
+    public static void InjectSettings(string emulatorPath, Core.Services.SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    {
+        var emuDir = Path.GetDirectoryName(emulatorPath);
+        if (string.IsNullOrEmpty(emuDir))
+            throw new InvalidOperationException("Emulator directory not found.");
+
+        // PCSX2 usually stores config in 'inis' subfolder or root
+        var configPath = Path.Combine(emuDir, "inis", "PCSX2.ini");
+        if (!File.Exists(configPath))
+        {
+            configPath = Path.Combine(emuDir, "PCSX2.ini");
+        }
+
+        if (!File.Exists(configPath))
+        {
+            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "PCSX2", "PCSX2.ini");
+            if (File.Exists(samplePath))
+            {
+                try
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(configPath) ?? throw new InvalidOperationException("Could not create directory for PCSX2.ini"));
+                    File.Copy(samplePath, configPath);
+                    debugLogger.Log($"[PCSX2Config] Created new PCSX2.ini from sample: {configPath}");
+                }
+                catch (Exception ex)
+                {
+                    debugLogger.Log($"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
+                    logErrors.LogAndForget(ex, $"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
+                    throw;
+                }
+            }
+            else
+            {
+                throw new FileNotFoundException("PCSX2.ini not found and sample is missing.", samplePath);
+            }
+        }
+
+        var uiUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "StartFullscreen", settings.Pcsx2.StartFullscreen.ToString().ToLowerInvariant() }
+        };
+
+        var emuCoreUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "EnableCheats", settings.Pcsx2.EnableCheats.ToString().ToLowerInvariant() },
+            { "EnableWideScreenPatches", settings.Pcsx2.EnableWidescreenPatches.ToString().ToLowerInvariant() }
+        };
+
+        var gsUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "Renderer", settings.Pcsx2.Renderer.ToString(CultureInfo.InvariantCulture) },
+            { "upscale_multiplier", settings.Pcsx2.UpscaleMultiplier.ToString(CultureInfo.InvariantCulture) },
+            { "AspectRatio", settings.Pcsx2.AspectRatio },
+            { "VsyncEnable", settings.Pcsx2.Vsync.ToString().ToLowerInvariant() }
+        };
+
+        var audioUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "FinalVolume", settings.Pcsx2.Volume.ToString(CultureInfo.InvariantCulture) }
+        };
+
+        var achUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "Enabled", settings.Pcsx2.AchievementsEnabled.ToString().ToLowerInvariant() },
+            { "Hardcore", settings.Pcsx2.AchievementsHardcore.ToString().ToLowerInvariant() }
+        };
+
+        var lines = File.ReadAllLines(configPath).ToList();
+        var modified = false;
+        var currentSection = "";
+
+        for (var i = 0; i < lines.Count; i++)
+        {
+            var line = lines[i].Trim();
+            if (line.StartsWith('[') && line.EndsWith(']'))
+            {
+                currentSection = line;
+                continue;
+            }
+
+            if (string.IsNullOrWhiteSpace(line) || line.StartsWith(';')) continue;
+
+            var parts = line.Split('=', 2);
+            if (parts.Length < 2) continue;
+
+            var key = parts[0].Trim();
+            var currentUpdates = currentSection switch
+            {
+                "[UI]" => uiUpdates,
+                "[EmuCore]" => emuCoreUpdates,
+                "[EmuCore/GS]" => gsUpdates,
+                "[SPU2/Mixing]" => audioUpdates,
+                "[Achievements]" => achUpdates,
+                _ => null
+            };
+
+            if (currentUpdates != null && currentUpdates.Remove(key, out var newValue))
+            {
+                var newLine = $"{key} = {newValue}";
+                if (lines[i] != newLine)
+                {
+                    lines[i] = newLine;
+                    modified = true;
+                }
+            }
+        }
+
+        // Add missing keys/sections
+        if (uiUpdates.Count > 0)
+        {
+            ApplyUpdatesToSection(lines, "[UI]", uiUpdates, ref modified);
+        }
+
+        if (emuCoreUpdates.Count > 0)
+        {
+            ApplyUpdatesToSection(lines, "[EmuCore]", emuCoreUpdates, ref modified);
+        }
+
+        if (gsUpdates.Count > 0)
+        {
+            ApplyUpdatesToSection(lines, "[EmuCore/GS]", gsUpdates, ref modified);
+        }
+
+        if (audioUpdates.Count > 0)
+        {
+            ApplyUpdatesToSection(lines, "[SPU2/Mixing]", audioUpdates, ref modified);
+        }
+
+        if (achUpdates.Count > 0)
+        {
+            ApplyUpdatesToSection(lines, "[Achievements]", achUpdates, ref modified);
+        }
+
+        if (modified)
+        {
+            try
+            {
+                File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
+                debugLogger.Log("[PCSX2Config] Injected configuration changes..");
+            }
+            catch (Exception ex)
+            {
+                debugLogger.Log($"[PCSX2Config] Failed to inject configuration changes: {ex.Message}");
+                logErrors.LogAndForget(ex, $"[PCSX2Config] Failed to inject configuration changes: {ex.Message}");
+                throw;
+            }
+        }
+    }
+
+    private static void ApplyUpdatesToSection(List<string> lines, string sectionName, Dictionary<string, string> updates, ref bool modified)
+    {
+        var sectionIndex = lines.FindIndex(l => l.Trim().Equals(sectionName, StringComparison.OrdinalIgnoreCase));
+
+        if (sectionIndex == -1)
+        {
+            lines.Add("");
+            lines.Add(sectionName);
+            sectionIndex = lines.Count - 1;
+        }
+
+        var insertIndex = sectionIndex + 1;
+        foreach (var kvp in updates)
+        {
+            lines.Insert(insertIndex++, $"{kvp.Key} = {kvp.Value}");
+        }
+
+        if (updates.Count > 0)
+        {
+            modified = true;
+        }
+    }
+}

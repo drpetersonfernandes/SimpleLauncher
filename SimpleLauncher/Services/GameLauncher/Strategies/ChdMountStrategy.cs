@@ -19,6 +19,7 @@ public class ChdMountStrategy : ILaunchStrategy
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMountChdFiles _mountChdFiles;
+    private readonly IDebugLogger _debugLogger;
 
     private bool _is4Do;
     private bool _isBlastem;
@@ -40,12 +41,13 @@ public class ChdMountStrategy : ILaunchStrategy
     private bool _isXenia;
     private bool _isYabause;
 
-    public ChdMountStrategy(IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IMountChdFiles mountChdFiles)
+    public ChdMountStrategy(IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IMountChdFiles mountChdFiles, IDebugLogger debugLogger)
     {
         _configuration = configuration;
         _logErrors = logErrors;
         _messageBox = messageBox;
         _mountChdFiles = mountChdFiles;
+        _debugLogger = debugLogger;
     }
 
     public int Priority => 10;
@@ -193,7 +195,7 @@ public class ChdMountStrategy : ILaunchStrategy
         if (_isRpcs3)
         {
             // RPCS3 needs the path to EBOOT.BIN
-            gameFilePath = FindEbootBin.FindEbootBinRecursive(mountedDrive.MountedPath, _logErrors);
+            gameFilePath = FindEbootBin.FindEbootBinRecursive(mountedDrive.MountedPath, _logErrors, _debugLogger);
         }
         else if (_isXenia)
         {
@@ -228,7 +230,7 @@ public class ChdMountStrategy : ILaunchStrategy
 
         if (string.IsNullOrEmpty(gameFilePath))
         {
-            DebugLogger.Log($"[ChdMountStrategy] No suitable game file found in mounted CHD at {mountedDrive.MountedPath}");
+            _debugLogger.Log($"[ChdMountStrategy] No suitable game file found in mounted CHD at {mountedDrive.MountedPath}");
             await _logErrors.LogErrorAsync(null, $"No game file found in mounted CHD for emulator '{context.EmulatorName}'");
             await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
             return; // will be handle by the next Strategy

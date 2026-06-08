@@ -68,7 +68,7 @@ public class MountXisoFiles : IMountXisoFiles
             _debugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
             await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
-            return new MountXisoDrive(logErrors);
+            return new MountXisoDrive(logErrors, _debugLogger);
         }
 
         if (!DokanValidation.IsDokanInstalled())
@@ -77,7 +77,7 @@ public class MountXisoFiles : IMountXisoFiles
             _debugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
             await messageBox.DokanDriverNotInstalledMessageBox();
-            return new MountXisoDrive(logErrors);
+            return new MountXisoDrive(logErrors, _debugLogger);
         }
 
         var driveLetter = GetAvailableDriveLetter(logErrors);
@@ -87,7 +87,7 @@ public class MountXisoFiles : IMountXisoFiles
             _debugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
             await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
-            return new MountXisoDrive(logErrors);
+            return new MountXisoDrive(logErrors, _debugLogger);
         }
 
         var driveLetterOnly = $"{driveLetter.Value}:";
@@ -132,11 +132,11 @@ public class MountXisoFiles : IMountXisoFiles
 
                 mountProcess.Dispose();
                 await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
-                return new MountXisoDrive(logErrors);
+                return new MountXisoDrive(logErrors, _debugLogger);
             }
 
             _debugLogger.Log($"[MountXisoFiles.MountAsync] ISO mounted successfully. Path: {defaultXbePath}");
-            return new MountXisoDrive(mountProcess, defaultXbePath, logErrors);
+            return new MountXisoDrive(mountProcess, defaultXbePath, logErrors, _debugLogger);
         }
         catch (Exception ex)
         {
@@ -159,7 +159,7 @@ public class MountXisoFiles : IMountXisoFiles
             mountProcess.Dispose();
 
             await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
-            return new MountXisoDrive(logErrors);
+            return new MountXisoDrive(logErrors, _debugLogger);
         }
     }
 

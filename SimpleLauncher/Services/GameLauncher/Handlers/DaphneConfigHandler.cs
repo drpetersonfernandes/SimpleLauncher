@@ -1,7 +1,7 @@
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.GameLauncher.Models;
-using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 

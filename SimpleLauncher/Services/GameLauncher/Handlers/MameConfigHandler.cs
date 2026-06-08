@@ -1,6 +1,6 @@
 using System.Windows;
 using SimpleLauncher.Services.GameLauncher.Models;
-using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -10,10 +10,12 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 public class MameConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
+    private readonly IDebugLogger _debugLogger;
 
-    public MameConfigHandler(ILogErrors logErrors)
+    public MameConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger)
     {
         _logErrors = logErrors;
+        _debugLogger = debugLogger;
     }
 
     public bool IsMatch(string emulatorName, string emulatorPath)
@@ -43,7 +45,7 @@ public class MameConfigHandler : IEmulatorConfigHandler
         }
         else
         {
-            MameConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, resolvedSystemFolder, listOfSecondarySystemFolders);
+            MameConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger, resolvedSystemFolder, listOfSecondarySystemFolders);
         }
 
         return shouldRun;

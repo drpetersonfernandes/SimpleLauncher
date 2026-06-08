@@ -10,7 +10,7 @@ using SimpleLauncher.Services.GameItemRender;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.MameData;
 using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Services.RetroAchievements;
+using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Services.UpdateStatusBar;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
@@ -31,6 +31,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
     private readonly ILogErrors _logErrors;
     private readonly IUpdateStatusBar _updateStatusBarService;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IDebugLogger _debugLogger;
 
     public GameFileLoadingOrchestrator(
         IGameCacheService gameCacheService,
@@ -44,7 +45,8 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         Core.Services.SettingsManager.SettingsManager settings,
         ILogErrors logErrors,
         IUpdateStatusBar updateStatusBarService,
-        IMessageBoxLibraryService messageBox)
+        IMessageBoxLibraryService messageBox,
+        IDebugLogger debugLogger)
     {
         _gameCacheService = gameCacheService;
         _gameFilterService = gameFilterService;
@@ -58,6 +60,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         _logErrors = logErrors;
         _updateStatusBarService = updateStatusBarService;
         _messageBox = messageBox;
+        _debugLogger = debugLogger;
     }
 
     public void Initialize(IGameFileLoadingHost host)
@@ -227,7 +230,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
             case "RETRO_ACHIEVEMENTS":
                 await _gameCacheService.PopulateFromDiskAsync(selectedManager, _getListOfFiles, token);
 
-                var systemId = RetroAchievementsSystemMatcher.GetSystemId(selectedManager.SystemName);
+                var systemId = RetroAchievementsSystemMatcher.GetSystemId(selectedManager.SystemName, _debugLogger);
                 var threshold = _settings.FuzzyMatchingThreshold;
 
                 try

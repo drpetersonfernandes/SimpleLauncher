@@ -10,7 +10,7 @@ using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.RetroAchievements.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Services.RetroAchievements;
+using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher;

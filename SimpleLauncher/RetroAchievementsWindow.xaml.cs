@@ -9,7 +9,7 @@ using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.LoadingInterface;
 using SimpleLauncher.Core.Services.RetroAchievements.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.RetroAchievements;
+using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.PlaySound;
 

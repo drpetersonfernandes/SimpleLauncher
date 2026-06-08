@@ -19,6 +19,7 @@ using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.TakeScreenshot;
 using SimpleLauncher.WpfServices;
@@ -284,9 +285,10 @@ internal static class ContextMenuFunctions
 
             var raManager = App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
 
-            DebugLogger.Log($"[RA Service] Original system name: {systemManager.SystemName}");
-            var systemName = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemManager.SystemName, logErrors);
-            DebugLogger.Log($"[RA Service] Resolved system name: {systemName}");
+            var debugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();
+            debugLogger.Log($"[RA Service] Original system name: {systemManager.SystemName}");
+            var systemName = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemManager.SystemName, logErrors, debugLogger);
+            debugLogger.Log($"[RA Service] Resolved system name: {systemName}");
 
             // Check if system is supported for RetroAchievements
             var raHasherTool = App.ServiceProvider.GetRequiredService<IRetroAchievementsHasherTool>();
