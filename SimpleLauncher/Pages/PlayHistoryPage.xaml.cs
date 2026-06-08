@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,6 +30,7 @@ using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
 
 namespace SimpleLauncher.Pages;
 
+[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class PlayHistoryPage : ILoadingState
 {
     private readonly PlayHistoryViewModel _viewModel;
@@ -44,7 +46,7 @@ public partial class PlayHistoryPage : ILoadingState
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
     private readonly PlayHistoryManager _playHistoryManager;
-    private CancellationTokenSource _cancellationTokenSource;
+    private CancellationTokenSource? _cancellationTokenSource;
 
     public PlayHistoryPage(List<SystemManager> systemManagers,
         List<MameManager> machines,
@@ -222,14 +224,14 @@ public partial class PlayHistoryPage : ILoadingState
             var result = await _messageBox.GameFileDoesNotExistAskToDeleteMessageBox(fileName);
             if (result == CoreMessageBoxResult.Yes)
             {
-                var itemToRemove = _viewModel.PlayHistoryList.FirstOrDefault(
-                    item => item.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
-                            && item.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+                var itemToRemove = _viewModel.PlayHistoryList.FirstOrDefault(item => item.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
+                                                                                     && item.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
                 if (itemToRemove != null)
                 {
                     _viewModel.RemoveItem(itemToRemove);
                 }
             }
+
             return;
         }
 
@@ -254,7 +256,7 @@ public partial class PlayHistoryPage : ILoadingState
         _viewModel.RefreshAfterGameLaunch();
         PlayHistoryDataGrid.ItemsSource = _viewModel.PlayHistoryList;
 
-        if (selectedItemIdentifier.FileName != null && selectedItemIdentifier.SystemName != null)
+        if (selectedItemIdentifier is (not null, not null))
         {
             var updatedItem = _viewModel.PlayHistoryList.FirstOrDefault(item =>
                 item.FileName.Equals(selectedItemIdentifier.FileName, StringComparison.OrdinalIgnoreCase) &&
@@ -468,12 +470,12 @@ public partial class PlayHistoryPage : ILoadingState
         }
     }
 
-    public void SetLoadingState(bool isLoading, string message = null)
+    public void SetLoadingState(bool isLoading, string? message = null)
     {
         LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
         if (isLoading)
         {
-            LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+            LoadingOverlay.Content = message;
         }
     }
 

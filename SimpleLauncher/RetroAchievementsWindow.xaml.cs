@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -225,14 +224,14 @@ public partial class RetroAchievementsWindow : ILoadingState
         }
     }
 
-    public void SetLoadingState(bool isLoading, string message = null)
+    public void SetLoadingState(bool isLoading, string? message = null)
     {
         Dispatcher.Invoke(() =>
         {
             LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
             if (isLoading)
             {
-                LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+                LoadingOverlay.Content = message;
             }
         });
     }

@@ -1,6 +1,7 @@
 #nullable enable
 
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -19,6 +20,7 @@ using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
 
 namespace SimpleLauncher.ViewModels;
 
+[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class PlayHistoryViewModel : ObservableObject
 {
     private readonly IConfiguration _configuration;
@@ -36,20 +38,15 @@ public partial class PlayHistoryViewModel : ObservableObject
     private const string TimeFormat = "HH:mm:ss";
     private static readonly CultureInfo InvariantCulture = CultureInfo.InvariantCulture;
 
-    [ObservableProperty]
-    private ObservableCollection<PlayHistoryItem> _playHistoryList = [];
+    [ObservableProperty] private ObservableCollection<PlayHistoryItem> _playHistoryList = [];
 
-    [ObservableProperty]
-    private PlayHistoryItem? _selectedItem;
+    [ObservableProperty] private PlayHistoryItem? _selectedItem;
 
-    [ObservableProperty]
-    private Stream? _previewImageSource;
+    [ObservableProperty] private Stream? _previewImageSource;
 
-    [ObservableProperty]
-    private bool _isLoading;
+    [ObservableProperty] private bool _isLoading;
 
-    [ObservableProperty]
-    private string _loadingMessage = string.Empty;
+    [ObservableProperty] private string _loadingMessage = string.Empty;
 
     public PlayHistoryViewModel(
         IConfiguration configuration,
@@ -142,7 +139,7 @@ public partial class PlayHistoryViewModel : ObservableObject
     public void SortByTotalPlayTime()
     {
         var sorted = new ObservableCollection<PlayHistoryItem>(
-            PlayHistoryList.OrderByDescending(item => item.TotalPlayTime)
+            PlayHistoryList.OrderByDescending(static item => item.TotalPlayTime)
         );
         PlayHistoryList = sorted;
     }
@@ -150,7 +147,7 @@ public partial class PlayHistoryViewModel : ObservableObject
     public void SortByTimesPlayed()
     {
         var sorted = new ObservableCollection<PlayHistoryItem>(
-            PlayHistoryList.OrderByDescending(item => item.TimesPlayed)
+            PlayHistoryList.OrderByDescending(static item => item.TimesPlayed)
         );
         PlayHistoryList = sorted;
     }
@@ -232,8 +229,7 @@ public partial class PlayHistoryViewModel : ObservableObject
 
     public SystemManager? GetSystemManager(string systemName)
     {
-        return _systemManagers.FirstOrDefault(
-            manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        return _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
     }
 
     public void RefreshAfterGameLaunch()
@@ -310,8 +306,7 @@ public partial class PlayHistoryViewModel : ObservableObject
     private string GetCoverImagePath(string systemName, string fileName)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var systemManager = _systemManagers.FirstOrDefault(
-            manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
         var defaultCoverImagePath = Path.Combine(baseDirectory, "images", "default.png");
 

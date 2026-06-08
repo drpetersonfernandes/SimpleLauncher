@@ -1,13 +1,12 @@
 #nullable enable
 
 using System.Collections.ObjectModel;
-using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.LoadingInterface;
 using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.RetroAchievements.Models;
 using SimpleLauncher.Core.Services.SettingsManager;
@@ -16,6 +15,7 @@ using SimpleLauncher.Services.PlaySound;
 
 namespace SimpleLauncher.ViewModels;
 
+[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class RetroAchievementsViewModel : ObservableObject
 {
     private readonly ILogErrors _logErrors;
@@ -26,104 +26,72 @@ public partial class RetroAchievementsViewModel : ObservableObject
     private readonly PlaySoundEffects _playSoundEffects;
 
     // Profile tab
-    [ObservableProperty]
-    private string? _profileImageUrl;
+    [ObservableProperty] private string? _profileImageUrl;
 
-    [ObservableProperty]
-    private string _profileUser = string.Empty;
+    [ObservableProperty] private string _profileUser = string.Empty;
 
-    [ObservableProperty]
-    private string _profileMotto = string.Empty;
+    [ObservableProperty] private string _profileMotto = string.Empty;
 
-    [ObservableProperty]
-    private string _profileRichPresence = string.Empty;
+    [ObservableProperty] private string _profileRichPresence = string.Empty;
 
-    [ObservableProperty]
-    private string _profileRank = string.Empty;
+    [ObservableProperty] private string _profileRank = string.Empty;
 
-    [ObservableProperty]
-    private string _profilePoints = string.Empty;
+    [ObservableProperty] private string _profilePoints = string.Empty;
 
-    [ObservableProperty]
-    private string _profileTruePoints = string.Empty;
+    [ObservableProperty] private string _profileTruePoints = string.Empty;
 
-    [ObservableProperty]
-    private string _profileMemberSince = string.Empty;
+    [ObservableProperty] private string _profileMemberSince = string.Empty;
 
-    [ObservableProperty]
-    private string _profileId = string.Empty;
+    [ObservableProperty] private string _profileId = string.Empty;
 
-    [ObservableProperty]
-    private string _profileContributions = string.Empty;
+    [ObservableProperty] private string _profileContributions = string.Empty;
 
-    [ObservableProperty]
-    private string _profileSoftcorePoints = string.Empty;
+    [ObservableProperty] private string _profileSoftcorePoints = string.Empty;
 
-    [ObservableProperty]
-    private string _profilePermissions = string.Empty;
+    [ObservableProperty] private string _profilePermissions = string.Empty;
 
-    [ObservableProperty]
-    private string _profileStatus = string.Empty;
+    [ObservableProperty] private string _profileStatus = string.Empty;
 
-    [ObservableProperty]
-    private string _profileProfileId = string.Empty;
+    [ObservableProperty] private string _profileProfileId = string.Empty;
 
-    [ObservableProperty]
-    private string _profileWallActive = string.Empty;
+    [ObservableProperty] private string _profileWallActive = string.Empty;
 
-    [ObservableProperty]
-    private ObservableCollection<RaRecentlyPlayedGame>? _recentlyPlayedGames;
+    [ObservableProperty] private ObservableCollection<RaRecentlyPlayedGame>? _recentlyPlayedGames;
 
-    [ObservableProperty]
-    private bool _noProfileVisible;
+    [ObservableProperty] private bool _noProfileVisible;
 
-    [ObservableProperty]
-    private string _noProfileMainMessage = string.Empty;
+    [ObservableProperty] private string _noProfileMainMessage = string.Empty;
 
-    [ObservableProperty]
-    private string _noProfileSubMessage = string.Empty;
+    [ObservableProperty] private string _noProfileSubMessage = string.Empty;
 
     // Unlocks tab
-    [ObservableProperty]
-    private ObservableCollection<RaEarnedAchievement>? _unlocks;
+    [ObservableProperty] private ObservableCollection<RaEarnedAchievement>? _unlocks;
 
-    [ObservableProperty]
-    private string _totalUnlocksInRange = "0";
+    [ObservableProperty] private string _totalUnlocksInRange = "0";
 
-    [ObservableProperty]
-    private string _totalPointsEarnedInRange = "0";
+    [ObservableProperty] private string _totalPointsEarnedInRange = "0";
 
-    [ObservableProperty]
-    private bool _noUnlocksVisible;
+    [ObservableProperty] private bool _noUnlocksVisible;
 
-    [ObservableProperty]
-    private string _noUnlocksMessage = string.Empty;
+    [ObservableProperty] private string _noUnlocksMessage = string.Empty;
 
-    [ObservableProperty]
-    private DateTime? _fromDate;
+    [ObservableProperty] private DateTime? _fromDate;
 
-    [ObservableProperty]
-    private DateTime? _toDate;
+    [ObservableProperty] private DateTime? _toDate;
 
-    [ObservableProperty]
-    private bool _fetchUnlocksEnabled = true;
+    [ObservableProperty] private bool _fetchUnlocksEnabled = true;
 
     // User Progress tab
-    [ObservableProperty]
-    private ObservableCollection<RaUserCompletionGame>? _userProgress;
+    [ObservableProperty] private ObservableCollection<RaUserCompletionGame>? _userProgress;
 
-    [ObservableProperty]
-    private bool _noUserProgressVisible;
+    [ObservableProperty] private bool _noUserProgressVisible;
 
-    [ObservableProperty]
-    private string _noUserProgressMainMessage = string.Empty;
+    [ObservableProperty] private string _noUserProgressMainMessage = string.Empty;
 
-    [ObservableProperty]
-    private string _noUserProgressSubMessage = string.Empty;
+    [ObservableProperty] private string _noUserProgressSubMessage = string.Empty;
 
     // Loading state
-    [ObservableProperty]
-    private bool _isLoading;
+    [ObservableProperty] private bool _isLoading;
 
     public RetroAchievementsViewModel(
         ILogErrors logErrors,
@@ -284,7 +252,7 @@ public partial class RetroAchievementsViewModel : ObservableObject
             {
                 Unlocks = new ObservableCollection<RaEarnedAchievement>(unlocks);
                 TotalUnlocksInRange = unlocks.Count.ToString("N0", CultureInfo.InvariantCulture);
-                TotalPointsEarnedInRange = unlocks.Sum(a => a.Points).ToString("N0", CultureInfo.InvariantCulture);
+                TotalPointsEarnedInRange = unlocks.Sum(static a => a.Points).ToString("N0", CultureInfo.InvariantCulture);
                 NoUnlocksVisible = false;
             }
             else
@@ -335,7 +303,7 @@ public partial class RetroAchievementsViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task ResetDatesAsync()
+    private Task ResetDatesAsync()
     {
         FromDate = DateTime.Today.AddMonths(-1);
         ToDate = DateTime.Today;
@@ -345,7 +313,7 @@ public partial class RetroAchievementsViewModel : ObservableObject
         NoUnlocksVisible = true;
         NoUnlocksMessage = _resourceProvider.GetString("RaInfoNoUnlocksFound", "No unlocks found for the selected date range.");
 
-        await LoadUnlocksByDateAsync();
+        return LoadUnlocksByDateAsync();
     }
 
     public async Task LoadUserProgressAsync()

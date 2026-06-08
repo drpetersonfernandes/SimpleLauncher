@@ -1,17 +1,14 @@
 #nullable enable
 
 using System.Collections.ObjectModel;
-using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Runtime.CompilerServices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.CreateFolders;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.LoadingInterface;
 using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.EasyMode;
 using SimpleLauncher.Services.PlaySound;
@@ -19,6 +16,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.ViewModels;
 
+[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class EasyModeViewModel : ObservableObject, IDisposable
 {
     private readonly PlaySoundEffects _playSoundEffects;
@@ -35,70 +33,50 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
     private int _operationInProgressFlag;
 
     // System selection
-    [ObservableProperty]
-    private ObservableCollection<string> _systemNames = [];
+    [ObservableProperty] private ObservableCollection<string> _systemNames = [];
 
-    [ObservableProperty]
-    private int _selectedSystemIndex = -1;
+    [ObservableProperty] private int _selectedSystemIndex = -1;
 
-    [ObservableProperty]
-    private string _systemFolder = string.Empty;
+    [ObservableProperty] private string _systemFolder = string.Empty;
 
     // Download states
-    [ObservableProperty]
-    private bool _isEmulatorDownloaded = true;
+    [ObservableProperty] private bool _isEmulatorDownloaded = true;
 
-    [ObservableProperty]
-    private bool _isCoreDownloaded = true;
+    [ObservableProperty] private bool _isCoreDownloaded = true;
 
-    [ObservableProperty]
-    private bool _isImagePack1Downloaded = true;
+    [ObservableProperty] private bool _isImagePack1Downloaded = true;
 
-    [ObservableProperty]
-    private bool _isImagePack2Downloaded = true;
+    [ObservableProperty] private bool _isImagePack2Downloaded = true;
 
-    [ObservableProperty]
-    private bool _isImagePack3Downloaded = true;
+    [ObservableProperty] private bool _isImagePack3Downloaded = true;
 
-    [ObservableProperty]
-    private bool _isImagePack4Downloaded = true;
+    [ObservableProperty] private bool _isImagePack4Downloaded = true;
 
-    [ObservableProperty]
-    private bool _isImagePack5Downloaded = true;
+    [ObservableProperty] private bool _isImagePack5Downloaded = true;
 
     // Image pack availability
-    [ObservableProperty]
-    private bool _isImagePack1Available;
+    [ObservableProperty] private bool _isImagePack1Available;
 
-    [ObservableProperty]
-    private bool _isImagePack2Available;
+    [ObservableProperty] private bool _isImagePack2Available;
 
-    [ObservableProperty]
-    private bool _isImagePack3Available;
+    [ObservableProperty] private bool _isImagePack3Available;
 
-    [ObservableProperty]
-    private bool _isImagePack4Available;
+    [ObservableProperty] private bool _isImagePack4Available;
 
-    [ObservableProperty]
-    private bool _isImagePack5Available;
+    [ObservableProperty] private bool _isImagePack5Available;
 
     // Operation state
-    [ObservableProperty]
-    private bool _isOperationInProgress;
+    [ObservableProperty] private bool _isOperationInProgress;
 
-    [ObservableProperty]
-    private bool _isAddSystemEnabled;
+    [ObservableProperty] private bool _isAddSystemEnabled;
 
     // Loading state
-    [ObservableProperty]
-    private bool _isLoading;
+    [ObservableProperty] private bool _isLoading;
 
-    [ObservableProperty]
-    private string _loadingMessage = string.Empty;
+    [ObservableProperty] private string _loadingMessage = string.Empty;
 
     // Download progress
-    [ObservableProperty]
-    private string _downloadStatus = string.Empty;
+    [ObservableProperty] private string _downloadStatus = string.Empty;
 
     // Download states tracking
     private readonly Dictionary<string, DownloadButtonState> _downloadStates = new();
@@ -156,9 +134,9 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
             }
 
             var sortedSystemNames = _manager.Systems
-                .Where(system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.EmulatorDownloadLink))
-                .Select(system => system.SystemName)
-                .OrderBy(name => name)
+                .Where(static system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.EmulatorDownloadLink))
+                .Select(static system => system.SystemName)
+                .OrderBy(static name => name)
                 .ToList();
 
             SystemNames = new ObservableCollection<string>(sortedSystemNames);
@@ -179,8 +157,7 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
             return;
         }
 
-        var selectedSystem = _manager.Systems.FirstOrDefault(
-            system => system.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+        var selectedSystem = _manager.Systems.FirstOrDefault(system => system.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
 
         if (selectedSystem == null) return;
 
@@ -423,11 +400,12 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
         }
     }
 
-    private async Task HandleDownloadAndExtractComponentAsync(string downloadType)
+    // ReSharper disable once UnusedParameter.Local
+    private static Task HandleDownloadAndExtractComponentAsync(string downloadType)
     {
         // This method needs to be implemented based on the existing logic in EasyModeWindow
         // The actual download and extraction logic would be called here
-        await Task.CompletedTask;
+        return Task.CompletedTask;
     }
 
     private void DownloadManager_ProgressChanged(object? sender, DownloadProgressEventArgs e)
@@ -489,6 +467,7 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
     {
         if (Interlocked.CompareExchange(ref _operationInProgressFlag, 1, 0) != 0)
             return false;
+
         IsOperationInProgress = true;
         return true;
     }
@@ -508,5 +487,6 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
     {
         _disposed = true;
         _downloadManager.DownloadProgressChanged -= DownloadManager_ProgressChanged;
+        GC.SuppressFinalize(this);
     }
 }

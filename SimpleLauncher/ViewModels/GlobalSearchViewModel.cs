@@ -1,16 +1,14 @@
 #nullable enable
 
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text.RegularExpressions;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.LoadingInterface;
 using SimpleLauncher.Core.Services.SettingsManager;
-using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GetListOfFiles;
@@ -22,6 +20,7 @@ using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher.ViewModels;
 
+[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
@@ -39,32 +38,23 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
     private readonly IResourceProvider _resourceProvider;
     private CancellationTokenSource _cancellationTokenSource;
 
-    [ObservableProperty]
-    private ObservableCollection<SearchResult> _searchResults = [];
+    [ObservableProperty] private ObservableCollection<SearchResult> _searchResults = [];
 
-    [ObservableProperty]
-    private SearchResult? _selectedResult;
+    [ObservableProperty] private SearchResult? _selectedResult;
 
-    [ObservableProperty]
-    private Stream? _previewImageSource;
+    [ObservableProperty] private Stream? _previewImageSource;
 
-    [ObservableProperty]
-    private bool _isLoading;
+    [ObservableProperty] private bool _isLoading;
 
-    [ObservableProperty]
-    private string _loadingMessage = string.Empty;
+    [ObservableProperty] private string _loadingMessage = string.Empty;
 
-    [ObservableProperty]
-    private bool _noResultsVisible;
+    [ObservableProperty] private bool _noResultsVisible;
 
-    [ObservableProperty]
-    private bool _launchButtonEnabled;
+    [ObservableProperty] private bool _launchButtonEnabled;
 
-    [ObservableProperty]
-    private List<string> _systemNames = [];
+    [ObservableProperty] private List<string> _systemNames = [];
 
-    [ObservableProperty]
-    private int _selectedSystemIndex;
+    [ObservableProperty] private int _selectedSystemIndex;
 
     public GlobalSearchViewModel(
         IConfiguration configuration,
@@ -103,7 +93,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
     {
         var allSystemsString = _resourceProvider.GetString("AllSystems", "All Systems");
         var names = new List<string> { allSystemsString };
-        names.AddRange(_systemManagers.Select(sm => sm.SystemName).OrderBy(name => name));
+        names.AddRange(_systemManagers.Select(static sm => sm.SystemName).OrderBy(static name => name));
         SystemNames = names;
         SelectedSystemIndex = 0;
     }
@@ -114,19 +104,16 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
         try
         {
             // Cancel previous search
-            if (_cancellationTokenSource != null)
-            {
-                await _cancellationTokenSource.CancelAsync();
-                _cancellationTokenSource.Dispose();
-            }
+            await _cancellationTokenSource.CancelAsync();
+            _cancellationTokenSource.Dispose();
 
             _cancellationTokenSource = new CancellationTokenSource();
 
             // Validate search terms
             var parsedTerms = ParseSearchTerms(searchTerm);
             var hasMeaningfulKeywords = parsedTerms
-                .Any(t => !t.Equals("and", StringComparison.OrdinalIgnoreCase) &&
-                          !t.Equals("or", StringComparison.OrdinalIgnoreCase));
+                .Any(static t => !t.Equals("and", StringComparison.OrdinalIgnoreCase) &&
+                                 !t.Equals("or", StringComparison.OrdinalIgnoreCase));
 
             if (!hasMeaningfulKeywords)
             {
@@ -259,7 +246,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
                     var filenameMatch = searchFilename &&
                                         MatchesSearchQuery(fileNameWithoutExtension.ToLowerInvariant(), searchTerms);
 
-                    var mameDescriptionMatch = searchMameDescription && _mameLookup != null &&
+                    var mameDescriptionMatch = searchMameDescription &&
                                                _mameLookup.TryGetValue(fileNameWithoutExtension, out var description) &&
                                                MatchesSearchQuery(description.ToLowerInvariant(), searchTerms);
 
@@ -323,13 +310,12 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 
     public SystemManager? GetSystemManager(string systemName)
     {
-        return _systemManagers.FirstOrDefault(
-            manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        return _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
     }
 
     public void CancelSearch()
     {
-        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource.Cancel();
     }
 
     private static List<SearchResult> ScoreResults(List<SearchResult> results, List<string> searchTerms)
@@ -339,8 +325,8 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
             result.Score = CalculateScore(result.FileName.ToLowerInvariant(), searchTerms);
         }
 
-        return results.OrderByDescending(r => r.Score)
-            .ThenBy(r => r.FileName, StringComparer.OrdinalIgnoreCase).ToList();
+        return results.OrderByDescending(static r => r.Score)
+            .ThenBy(static r => r.FileName, StringComparer.OrdinalIgnoreCase).ToList();
     }
 
     private static int CalculateScore(string text, List<string> searchTerms)
@@ -363,14 +349,14 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
         if (text == null) return false;
 
         var keywords = searchTerms
-            .Where(t => !t.Equals("and", StringComparison.OrdinalIgnoreCase) &&
-                        !t.Equals("or", StringComparison.OrdinalIgnoreCase))
+            .Where(static t => !t.Equals("and", StringComparison.OrdinalIgnoreCase) &&
+                               !t.Equals("or", StringComparison.OrdinalIgnoreCase))
             .ToList();
 
         if (keywords.Count == 0) return true;
 
-        var hasAndOperator = searchTerms.Any(t => t.Equals("and", StringComparison.OrdinalIgnoreCase));
-        var hasOrOperator = searchTerms.Any(t => t.Equals("or", StringComparison.OrdinalIgnoreCase));
+        var hasAndOperator = searchTerms.Any(static t => t.Equals("and", StringComparison.OrdinalIgnoreCase));
+        var hasOrOperator = searchTerms.Any(static t => t.Equals("or", StringComparison.OrdinalIgnoreCase));
 
         if (hasAndOperator)
         {
@@ -394,7 +380,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
             terms.Add(match.Value.Trim('"').ToLowerInvariant());
         }
 
-        return terms.Where(t => !string.IsNullOrWhiteSpace(t)).ToList();
+        return terms.Where(static t => !string.IsNullOrWhiteSpace(t)).ToList();
     }
 
     [GeneratedRegex("""[\"](.+?)[\"]|([^ ]+)""", RegexOptions.Compiled)]
@@ -402,6 +388,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 
     public void Dispose()
     {
-        _cancellationTokenSource?.Dispose();
+        _cancellationTokenSource.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

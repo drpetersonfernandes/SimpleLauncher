@@ -716,9 +716,11 @@ public class MenuActionHandlerService
         _playSoundEffects.PlayNotificationSound();
         _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalSearch") ?? "Opening Global Search...");
 
+        if (Application.Current.MainWindow is not MainWindow mainWindow) return;
+
         var globalSearchPage = new Pages.GlobalSearchPage(
             _host.GetSystemManagers(), _host.GetMachines(), _host.GetMameLookup(),
-            _favoritesManager, _settings, Application.Current.MainWindow as MainWindow,
+            _favoritesManager, _settings, mainWindow,
             _gamePadController, _gameLauncher, _playSoundEffects,
             _logErrors, _configuration, _getListOfFiles, _findCoverImage, _imageLoader);
 
@@ -747,7 +749,7 @@ public class MenuActionHandlerService
 
         var favoritesPage = new Pages.FavoritesPage(
             _settings, _host.GetSystemManagers(), _host.GetMachines(), _favoritesManager,
-            Application.Current.MainWindow as MainWindow, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _findCoverImage, _imageLoader);
+            (MainWindow)Application.Current.MainWindow!, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _findCoverImage, _imageLoader);
 
         _host.NavigateToPage(favoritesPage);
     }
@@ -759,9 +761,11 @@ public class MenuActionHandlerService
         _playSoundEffects.PlayNotificationSound();
         _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningPlayHistory") ?? "Opening Play History...");
 
+        if (Application.Current.MainWindow is not MainWindow mainWindow) return;
+
         var playHistoryPage = new Pages.PlayHistoryPage(
             _host.GetSystemManagers(), _host.GetMachines(), _settings,
-            _favoritesManager, _playHistoryManager, Application.Current.MainWindow as MainWindow,
+            _favoritesManager, _playHistoryManager, mainWindow,
             _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _findCoverImage, _imageLoader);
 
         _host.NavigateToPage(playHistoryPage);

@@ -15,9 +15,9 @@ namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 public class MountZipFiles : IMountZipFiles
 {
     private readonly IDebugLogger _debugLogger;
-    private string _preferredMountDriveLetterOnly = "Z";
-    private string _zipMountExecutableName;
-    private string _zipMountExecutableRelativePath;
+    private readonly string _preferredMountDriveLetterOnly;
+    private readonly string _zipMountExecutableName;
+    private readonly string _zipMountExecutableRelativePath;
 
     public string ConfiguredMountDriveRoot => _preferredMountDriveLetterOnly + ":\\";
 
@@ -1020,9 +1020,9 @@ public class MountZipFiles : IMountZipFiles
             };
 
             _debugLogger.Log($"[MountZipFiles] Launching ScummVM with mounted ZIP:\n\n" +
-                            $"Program Location: {psiEmulator.FileName}\n" +
-                            $"Arguments: {psiEmulator.Arguments}\n" +
-                            $"Working Directory: {psiEmulator.WorkingDirectory}");
+                             $"Program Location: {psiEmulator.FileName}\n" +
+                             $"Arguments: {psiEmulator.Arguments}\n" +
+                             $"Working Directory: {psiEmulator.WorkingDirectory}");
 
             // 3. Launch Emulator
             using (var emulatorProcess = new Process())

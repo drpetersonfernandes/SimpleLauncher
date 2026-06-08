@@ -1,20 +1,19 @@
 #nullable enable
 
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.LoadingInterface;
 using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.RetroAchievements.Models;
 using SimpleLauncher.Core.Services.SettingsManager;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.PlaySound;
 
 namespace SimpleLauncher.ViewModels;
 
+[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class RetroAchievementsForAGameViewModel : ObservableObject
 {
     private readonly ILogErrors _logErrors;
@@ -23,104 +22,73 @@ public partial class RetroAchievementsForAGameViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly RetroAchievementsService _raService;
     private readonly PlaySoundEffects _playSoundEffects;
-
     private int _gameId;
     private string _gameTitleForDisplay = string.Empty;
 
     // Game info
-    [ObservableProperty]
-    private string _gameTitle = string.Empty;
+    [ObservableProperty] private string _gameTitle = string.Empty;
 
-    [ObservableProperty]
-    private string _consoleName = string.Empty;
+    [ObservableProperty] private string _consoleName = string.Empty;
 
-    [ObservableProperty]
-    private string? _gameIconUrl;
+    [ObservableProperty] private string? _gameIconUrl;
 
-    [ObservableProperty]
-    private string? _gameTitleImageUrl;
+    [ObservableProperty] private string? _gameTitleImageUrl;
 
-    [ObservableProperty]
-    private string? _gameBoxArtUrl;
+    [ObservableProperty] private string? _gameBoxArtUrl;
 
-    [ObservableProperty]
-    private string? _gamePublisher;
+    [ObservableProperty] private string? _gamePublisher;
 
-    [ObservableProperty]
-    private string? _gameDeveloper;
+    [ObservableProperty] private string? _gameDeveloper;
 
-    [ObservableProperty]
-    private string? _gameGenre;
+    [ObservableProperty] private string? _gameGenre;
 
-    [ObservableProperty]
-    private string? _gameReleased;
+    [ObservableProperty] private string? _gameReleased;
 
-    [ObservableProperty]
-    private bool _isGameInfoLoaded;
+    [ObservableProperty] private bool _isGameInfoLoaded;
 
     // Achievements
-    [ObservableProperty]
-    private ObservableCollection<RaAchievement>? _achievements;
+    [ObservableProperty] private ObservableCollection<RaAchievement>? _achievements;
 
-    [ObservableProperty]
-    private bool _noAchievementsVisible;
+    [ObservableProperty] private bool _noAchievementsVisible;
 
-    [ObservableProperty]
-    private string _noAchievementsMessage = string.Empty;
+    [ObservableProperty] private string _noAchievementsMessage = string.Empty;
 
     // Progress
-    [ObservableProperty]
-    private double _casualCompletion;
+    [ObservableProperty] private double _casualCompletion;
 
-    [ObservableProperty]
-    private double _hardcoreCompletion;
+    [ObservableProperty] private double _hardcoreCompletion;
 
-    [ObservableProperty]
-    private string _casualProgressText = "0%";
+    [ObservableProperty] private string _casualProgressText = "0%";
 
-    [ObservableProperty]
-    private string _hardcoreProgressText = "0%";
+    [ObservableProperty] private string _hardcoreProgressText = "0%";
 
-    [ObservableProperty]
-    private string _earnedAchievements = "0";
+    [ObservableProperty] private string _earnedAchievements = "0";
 
-    [ObservableProperty]
-    private string _totalAchievements = "0";
+    [ObservableProperty] private string _totalAchievements = "0";
 
-    [ObservableProperty]
-    private string _totalPointsEarned = "0";
+    [ObservableProperty] private string _totalPointsEarned = "0";
 
-    [ObservableProperty]
-    private string _truePointsEarned = "0";
+    [ObservableProperty] private string _truePointsEarned = "0";
 
-    [ObservableProperty]
-    private string _highestAwardKind = string.Empty;
+    [ObservableProperty] private string _highestAwardKind = string.Empty;
 
-    [ObservableProperty]
-    private string _highestAwardDate = string.Empty;
+    [ObservableProperty] private string _highestAwardDate = string.Empty;
 
-    [ObservableProperty]
-    private bool _isMastered;
+    [ObservableProperty] private bool _isMastered;
 
     // Rankings
-    [ObservableProperty]
-    private ObservableCollection<RaGameRankAndScore>? _highScores;
+    [ObservableProperty] private ObservableCollection<RaGameRankAndScore>? _highScores;
 
-    [ObservableProperty]
-    private ObservableCollection<RaGameRankAndScore>? _latestMasters;
+    [ObservableProperty] private ObservableCollection<RaGameRankAndScore>? _latestMasters;
 
-    [ObservableProperty]
-    private RaGameRankAndScore? _userRank;
+    [ObservableProperty] private RaGameRankAndScore? _userRank;
 
-    [ObservableProperty]
-    private bool _noRankingVisible;
+    [ObservableProperty] private bool _noRankingVisible;
 
-    [ObservableProperty]
-    private string _noRankingMessage = string.Empty;
+    [ObservableProperty] private string _noRankingMessage = string.Empty;
 
     // Loading state
-    [ObservableProperty]
-    private bool _isLoading;
+    [ObservableProperty] private bool _isLoading;
 
     public RetroAchievementsForAGameViewModel(
         ILogErrors logErrors,
@@ -272,7 +240,10 @@ public partial class RetroAchievementsForAGameViewModel : ObservableObject
             if (latestMasters is { Count: > 0 })
             {
                 for (var i = 0; i < latestMasters.Count; i++)
+                {
                     latestMasters[i].Rank = i + 1;
+                }
+
                 LatestMasters = new ObservableCollection<RaGameRankAndScore>(latestMasters);
             }
 
@@ -281,7 +252,10 @@ public partial class RetroAchievementsForAGameViewModel : ObservableObject
             if (rankings is { Count: > 0 })
             {
                 for (var i = 0; i < rankings.Count; i++)
+                {
                     rankings[i].Rank = i + 1;
+                }
+
                 HighScores = new ObservableCollection<RaGameRankAndScore>(rankings);
             }
 
@@ -327,14 +301,18 @@ public partial class RetroAchievementsForAGameViewModel : ObservableObject
             {
                 var casualText = progress.UserCompletion.Replace("%", "").Trim();
                 if (double.TryParse(casualText, NumberStyles.Float, CultureInfo.InvariantCulture, out var casual))
+                {
                     CasualCompletion = casual;
+                }
             }
 
             if (!string.IsNullOrWhiteSpace(progress.UserCompletionHardcore))
             {
                 var hardcoreText = progress.UserCompletionHardcore.Replace("%", "").Trim();
                 if (double.TryParse(hardcoreText, NumberStyles.Float, CultureInfo.InvariantCulture, out var hardcore))
+                {
                     HardcoreCompletion = hardcore;
+                }
             }
 
             CasualProgressText = $"{CasualCompletion:F1}%";
