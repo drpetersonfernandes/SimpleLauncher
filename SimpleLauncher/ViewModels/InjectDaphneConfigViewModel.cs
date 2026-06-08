@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
@@ -11,6 +12,7 @@ namespace SimpleLauncher.ViewModels;
 public partial class InjectDaphneConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     [ObservableProperty] private bool _daphneFullscreen;
     [ObservableProperty] private bool _daphneBilinear;
@@ -24,6 +26,7 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     public InjectDaphneConfigViewModel(SettingsManager settings)
     {
         _settings = settings;
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
     }
 
     /// <summary>
@@ -85,10 +88,10 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void Save()
+    private async Task SaveAsync()
     {
         SaveSettings();
-        MessageBoxLibrary.DaphnesettingssavedsuccessfullyMessageBox();
+        await _messageBox.DaphnesettingssavedsuccessfullyMessageBox();
         CloseRequested?.Invoke();
     }
 }

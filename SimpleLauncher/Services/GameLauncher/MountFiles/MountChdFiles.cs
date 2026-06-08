@@ -7,7 +7,6 @@ using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
@@ -32,8 +31,9 @@ public static class MountChdFiles
     /// <param name="resolvedChdFilePath">The full path to the CHD file.</param>
     /// <param name="consoleIndex">Optional console index for CHDMounter (1-17).</param>
     /// <param name="logErrors"></param>
+    /// <param name="messageBox"></param>
     /// <returns>A disposable MountChdDrive object that manages the mount process.</returns>
-    public static async Task<MountChdDrive> MountAsync(string resolvedChdFilePath, int? consoleIndex, ILogErrors logErrors)
+    public static async Task<MountChdDrive> MountAsync(string resolvedChdFilePath, int? consoleIndex, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         DebugLogger.Log($"[MountChdFiles.MountAsync] Starting to mount CHD: {resolvedChdFilePath} (ConsoleIndex: {consoleIndex?.ToString(CultureInfo.InvariantCulture) ?? "default"})");
 
@@ -46,7 +46,7 @@ public static class MountChdFiles
             const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
             DebugLogger.Log($"[MountChdFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
             return new MountChdDrive(logErrors);
         }
 
@@ -55,7 +55,7 @@ public static class MountChdFiles
             const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
             DebugLogger.Log($"[MountChdFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            MessageBoxLibrary.DokanDriverNotInstalledMessageBox();
+            await messageBox.DokanDriverNotInstalledMessageBox();
             return new MountChdDrive(logErrors);
         }
 
@@ -102,7 +102,7 @@ public static class MountChdFiles
                 }
 
                 mountProcess.Dispose();
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox(exitCode);
+                await messageBox.ThereWasAnErrorMountingTheFileMessageBox(exitCode);
                 return new MountChdDrive(logErrors);
             }
 
@@ -130,7 +130,7 @@ public static class MountChdFiles
 
             mountProcess.Dispose();
 
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
             return new MountChdDrive(logErrors);
         }
     }
@@ -147,6 +147,7 @@ public static class MountChdFiles
     /// <param name="windowContext">The window context.</param>
     /// <param name="gameLauncher">The game launcher instance.</param>
     /// <param name="logErrors"></param>
+    /// <param name="messageBox"></param>
     public static async Task MountChdFileAndLoadAsync(
         string resolvedChdFilePath,
         string selectedSystemName,
@@ -156,7 +157,8 @@ public static class MountChdFiles
         string rawEmulatorParameters,
         IWindowContext windowContext,
         GameLauncher gameLauncher,
-        ILogErrors logErrors)
+        ILogErrors logErrors,
+        IMessageBoxLibraryService messageBox)
     {
         DebugLogger.Log($"[MountChdFiles] Starting to mount CHD for game loading: {resolvedChdFilePath}");
         DebugLogger.Log($"[MountChdFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
@@ -170,7 +172,7 @@ public static class MountChdFiles
             const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
             DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
             return;
         }
 
@@ -179,7 +181,7 @@ public static class MountChdFiles
             const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
             DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            MessageBoxLibrary.DokanDriverNotInstalledMessageBox();
+            await messageBox.DokanDriverNotInstalledMessageBox();
             return;
         }
 
@@ -228,7 +230,7 @@ public static class MountChdFiles
                 }
 
                 mountProcess.Dispose();
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox(exitCode);
+                await messageBox.ThereWasAnErrorMountingTheFileMessageBox(exitCode);
                 return;
             }
 
@@ -259,7 +261,7 @@ public static class MountChdFiles
                                  $"{exitCodeInfoInCatch}";
             logErrors.LogAndForget(ex, contextMessage);
 
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
         }
         finally
         {
@@ -347,6 +349,7 @@ public static class MountChdFiles
     /// <param name="gameLauncher">The game launcher instance.</param>
     /// <param name="consoleIndex">Optional console index for CHDMounter (1-16). If null, uses /a for auto-detection.</param>
     /// <param name="logErrors"></param>
+    /// <param name="messageBox"></param>
     public static async Task MountChdFileAndLoadWithConsoleIndexAsync(
         string resolvedChdFilePath,
         string selectedSystemName,
@@ -357,7 +360,8 @@ public static class MountChdFiles
         IWindowContext windowContext,
         GameLauncher gameLauncher,
         int? consoleIndex,
-        ILogErrors logErrors)
+        ILogErrors logErrors,
+        IMessageBoxLibraryService messageBox)
     {
         DebugLogger.Log($"[MountChdFiles] Starting to mount CHD with console index for game loading: {resolvedChdFilePath}");
         DebugLogger.Log($"[MountChdFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}, ConsoleIndex: {consoleIndex?.ToString(CultureInfo.InvariantCulture) ?? "auto"}");
@@ -371,7 +375,7 @@ public static class MountChdFiles
             const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
             DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
             return;
         }
 
@@ -380,7 +384,7 @@ public static class MountChdFiles
             const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
             DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            MessageBoxLibrary.DokanDriverNotInstalledMessageBox();
+            await messageBox.DokanDriverNotInstalledMessageBox();
             return;
         }
 
@@ -435,7 +439,7 @@ public static class MountChdFiles
                 }
 
                 mountProcess.Dispose();
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox(exitCode);
+                await messageBox.ThereWasAnErrorMountingTheFileMessageBox(exitCode);
                 return;
             }
 
@@ -466,7 +470,7 @@ public static class MountChdFiles
                                  $"{exitCodeInfoInCatch}";
             logErrors.LogAndForget(ex, contextMessage);
 
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
         }
         finally
         {

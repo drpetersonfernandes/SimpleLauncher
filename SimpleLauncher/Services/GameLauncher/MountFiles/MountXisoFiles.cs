@@ -2,11 +2,11 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
@@ -58,8 +58,9 @@ public static class MountXisoFiles
     /// <param name="resolvedIsoFilePath">The full path to the ISO file.</param>
     /// <param name="logPath">Path to the application's log file for error reporting.</param>
     /// <param name="logErrors"></param>
+    /// <param name="messageBox"></param>
     /// <returns>A disposable MountXisoDrive object that manages the mount process.</returns>
-    public static async Task<MountXisoDrive> MountAsync(string resolvedIsoFilePath, string logPath, ILogErrors logErrors)
+    public static async Task<MountXisoDrive> MountAsync(string resolvedIsoFilePath, string logPath, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         DebugLogger.Log($"[MountXisoFiles.MountAsync] Starting to mount ISO: {resolvedIsoFilePath}");
 
@@ -73,7 +74,7 @@ public static class MountXisoFiles
             var errorMessage = $"{Path.GetFileName(toolRelativePath)} not found. Cannot mount ISO.";
             DebugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
             return new MountXisoDrive(logErrors); // Return failed state
         }
 
@@ -82,7 +83,7 @@ public static class MountXisoFiles
             const string errorMessage = "Dokan driver not found. Cannot mount ISO.";
             DebugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            MessageBoxLibrary.DokanDriverNotInstalledMessageBox();
+            await messageBox.DokanDriverNotInstalledMessageBox();
             return new MountXisoDrive(logErrors); // Return failed state
         }
 
@@ -92,7 +93,7 @@ public static class MountXisoFiles
             const string errorMessage = "No available drive letters found to mount the ISO.";
             DebugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
             return new MountXisoDrive(logErrors); // Return failed state
         }
 
@@ -137,7 +138,7 @@ public static class MountXisoFiles
                 }
 
                 mountProcess.Dispose();
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+                await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
                 return new MountXisoDrive(logErrors); // Return failed state
             }
 
@@ -165,7 +166,7 @@ public static class MountXisoFiles
 
             mountProcess.Dispose();
 
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
             return new MountXisoDrive(logErrors); // Return failed state
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using MessagePack;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Services.MameManager;
 
@@ -16,7 +16,7 @@ public class MameManager
 
     private static readonly string DefaultDatPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.dat");
 
-    public static List<MameManager> LoadFromDat(ILogErrors logErrors, string datPath = null)
+    public static List<MameManager> LoadFromDat(ILogErrors logErrors, string datPath = null, IMessageBoxLibraryService messageBox = null)
     {
         datPath ??= DefaultDatPath;
 
@@ -27,7 +27,10 @@ public class MameManager
             logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ReinstallSimpleLauncherFileMissingMessageBox();
+            if (messageBox != null)
+            {
+                _ = messageBox.ReinstallSimpleLauncherFileMissingMessageBox();
+            }
 
             return []; // return an empty list
         }
@@ -47,7 +50,10 @@ public class MameManager
             logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ReinstallSimpleLauncherFileCorruptedMessageBox();
+            if (messageBox != null)
+            {
+                _ = messageBox.ReinstallSimpleLauncherFileCorruptedMessageBox();
+            }
 
             return []; // return an empty list
         }

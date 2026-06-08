@@ -4,11 +4,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.LoadingInterface;
 using SimpleLauncher.Core.Services.RetroAchievements.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.PlaySound;
@@ -19,6 +19,7 @@ public partial class RetroAchievementsWindow : ILoadingState
 {
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     private readonly SettingsManager _settings;
     private readonly RetroAchievementsService _raService;
@@ -33,6 +34,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         _raService = raService;
         _playSoundEffects = playSoundEffects;
         _logErrors = logErrors;
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         Loaded += RetroAchievementsWindow_Loaded;
 
@@ -83,7 +85,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         _ = LoadUserProfileAsync();
     }
 
-    private void OpenUrlInBrowser(string url)
+    private async void OpenUrlInBrowser(string url)
     {
         try
         {
@@ -93,7 +95,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, $"Error opening URL: {url}");
-            MessageBoxLibrary.UnableToOpenLinkMessageBox();
+            await _messageBox.UnableToOpenLinkMessageBox();
         }
     }
 
@@ -375,7 +377,7 @@ public partial class RetroAchievementsWindow : ILoadingState
 
             if (fromDate > toDate)
             {
-                MessageBoxLibrary.ErrorMessageBox(); // This message box is already on UI thread.
+                await _messageBox.ErrorMessageBox(); // This message box is already on UI thread.
                 return; // Exit without fetching
             }
 

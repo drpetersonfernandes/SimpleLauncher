@@ -9,7 +9,7 @@ using SimpleLauncher.Services.GameFilter;
 using SimpleLauncher.Services.GameItemRender;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.MameData;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.UpdateStatusBar;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -30,6 +30,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
     private readonly SettingsManager.SettingsManager _settings;
     private readonly ILogErrors _logErrors;
     private readonly IUpdateStatusBar _updateStatusBarService;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     public GameFileLoadingOrchestrator(
         IGameCacheService gameCacheService,
@@ -42,7 +43,8 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         IGameItemRenderService gameItemRenderService,
         SettingsManager.SettingsManager settings,
         ILogErrors logErrors,
-        IUpdateStatusBar updateStatusBarService)
+        IUpdateStatusBar updateStatusBarService,
+        IMessageBoxLibraryService messageBox)
     {
         _gameCacheService = gameCacheService;
         _gameFilterService = gameFilterService;
@@ -55,6 +57,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         _settings = settings;
         _logErrors = logErrors;
         _updateStatusBarService = updateStatusBarService;
+        _messageBox = messageBox;
     }
 
     public void Initialize(IGameFileLoadingHost host)
@@ -86,7 +89,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
                 const string contextMessage = "selectedConfig is null.";
                 _logErrors.LogAndForget(null, contextMessage);
 
-                MessageBoxLibrary.InvalidSystemConfigMessageBox();
+                await _messageBox.InvalidSystemConfigMessageBox();
 
                 await _host.DisplaySystemSelectionScreenAsync(cancellationToken);
 
@@ -161,7 +164,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
             const string contextMessage = "Error in the method LoadGameFilesAsync.";
             _logErrors.LogAndForget(ex, contextMessage);
 
-            MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
+            await _messageBox.ErrorMethodLoadGameFilesAsyncMessageBox();
         }
         finally
         {
@@ -233,7 +236,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
                     {
                         allFiles = [];
                         await _gameCacheService.SetSearchResultsAsync(allFiles, token);
-                        await _host.Dispatcher.BeginInvoke(static () => MessageBoxLibrary.ErrorMessageBox());
+                        await _host.Dispatcher.BeginInvoke(() => _messageBox.ErrorMessageBox());
                         break;
                     }
 

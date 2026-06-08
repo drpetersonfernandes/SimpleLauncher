@@ -10,7 +10,6 @@ using SimpleLauncher.Core.Services.CheckForFileLock;
 using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.ExtractFiles;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Interfaces;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
@@ -21,11 +20,13 @@ public class ExtractionService : IExtractionService
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
+    private readonly IDebugLogger _debugLogger;
 
-    public ExtractionService(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary)
+    public ExtractionService(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary, IDebugLogger debugLogger)
     {
         _logErrors = logErrors;
         _messageBoxLibrary = messageBoxLibrary;
+        _debugLogger = debugLogger;
     }
 
     public async Task<(string? gameFilePath, string? tempDirectoryPath)> ExtractToTempAndGetLaunchFileAsync(string archivePath, List<string> fileFormatsToLaunch)
@@ -34,7 +35,7 @@ public class ExtractionService : IExtractionService
 
         if (string.IsNullOrEmpty(pathToExtractionDirectory) || !Directory.Exists(pathToExtractionDirectory))
         {
-            DebugLogger.Log($"[ExtractionService] Extraction failed for {archivePath}. No temp directory created or invalid path returned.");
+            _debugLogger.Log($"[ExtractionService] Extraction failed for {archivePath}. No temp directory created or invalid path returned.");
             return (null, null);
         }
 
@@ -45,7 +46,7 @@ public class ExtractionService : IExtractionService
         }
         else
         {
-            DebugLogger.Log($"[ExtractionService] No suitable game file found in extracted directory {pathToExtractionDirectory}.");
+            _debugLogger.Log($"[ExtractionService] No suitable game file found in extracted directory {pathToExtractionDirectory}.");
             return (null, pathToExtractionDirectory);
         }
     }
@@ -245,11 +246,11 @@ public class ExtractionService : IExtractionService
             // For .7z files, try fallback extraction with 7za executable
             if (extension == ".7z" && !string.IsNullOrEmpty(resolvedDestinationFolder))
             {
-                DebugLogger.Log($"[ExtractionService] SharpCompress failed for .7z file, trying 7za fallback: {archivePath}");
+                _debugLogger.Log($"[ExtractionService] SharpCompress failed for .7z file, trying 7za fallback: {archivePath}");
                 var fallbackSuccess = await ExtractWith7ZipAsync(archivePath, resolvedDestinationFolder);
                 if (fallbackSuccess)
                 {
-                    DebugLogger.Log($"[ExtractionService] 7za fallback extraction succeeded for: {archivePath}");
+                    _debugLogger.Log($"[ExtractionService] 7za fallback extraction succeeded for: {archivePath}");
                     var extractionTrackingFile = Path.Combine(resolvedDestinationFolder, ".extraction_in_progress");
                     if (File.Exists(extractionTrackingFile))
                     {
@@ -259,7 +260,7 @@ public class ExtractionService : IExtractionService
                     return true;
                 }
 
-                DebugLogger.Log($"[ExtractionService] 7za fallback extraction also failed for: {archivePath}");
+                _debugLogger.Log($"[ExtractionService] 7za fallback extraction also failed for: {archivePath}");
             }
 
             if (!string.IsNullOrEmpty(resolvedDestinationFolder)) // Only attempt cleanup if resolution was successful
@@ -400,15 +401,15 @@ public class ExtractionService : IExtractionService
             // For .7z files, try fallback extraction with 7za executable
             if (extension == ".7z" && !string.IsNullOrEmpty(tempDirectory))
             {
-                DebugLogger.Log($"[ExtractionService] SharpCompress failed for .7z file, trying 7za fallback: {archivePath}");
+                _debugLogger.Log($"[ExtractionService] SharpCompress failed for .7z file, trying 7za fallback: {archivePath}");
                 var fallbackSuccess = await ExtractWith7ZipAsync(archivePath, tempDirectory);
                 if (fallbackSuccess)
                 {
-                    DebugLogger.Log($"[ExtractionService] 7za fallback extraction succeeded for: {archivePath}");
+                    _debugLogger.Log($"[ExtractionService] 7za fallback extraction succeeded for: {archivePath}");
                     return tempDirectory;
                 }
 
-                DebugLogger.Log($"[ExtractionService] 7za fallback extraction also failed for: {archivePath}");
+                _debugLogger.Log($"[ExtractionService] 7za fallback extraction also failed for: {archivePath}");
             }
 
             await CleanTempFolder.CleanupTempDirectoryAsync(tempDirectory);
@@ -432,7 +433,7 @@ public class ExtractionService : IExtractionService
 
         if (!File.Exists(exePath))
         {
-            DebugLogger.Log($"[ExtractionService] 7-Zip executable not found at: {exePath}");
+            _debugLogger.Log($"[ExtractionService] 7-Zip executable not found at: {exePath}");
             return false;
         }
 
@@ -461,7 +462,7 @@ public class ExtractionService : IExtractionService
                     errorBuilder.AppendLine(e.Data);
             };
 
-            DebugLogger.Log($"[ExtractionService] Running 7za fallback for: {archivePath}");
+            _debugLogger.Log($"[ExtractionService] Running 7za fallback for: {archivePath}");
             process.Start();
             process.BeginErrorReadLine();
 
@@ -472,7 +473,7 @@ public class ExtractionService : IExtractionService
             }
             catch (OperationCanceledException)
             {
-                DebugLogger.Log("[ExtractionService] 7za extraction timed out after 30 minutes.");
+                _debugLogger.Log("[ExtractionService] 7za extraction timed out after 30 minutes.");
                 try
                 {
                     process.Kill();
@@ -487,16 +488,16 @@ public class ExtractionService : IExtractionService
 
             if (process.ExitCode == 0)
             {
-                DebugLogger.Log($"[ExtractionService] 7za extraction succeeded for: {archivePath}");
+                _debugLogger.Log($"[ExtractionService] 7za extraction succeeded for: {archivePath}");
                 return true;
             }
 
-            DebugLogger.Log($"[ExtractionService] 7za extraction failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
+            _debugLogger.Log($"[ExtractionService] 7za extraction failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
             return false;
         }
         catch (Exception ex)
         {
-            DebugLogger.Log($"[ExtractionService] 7za extraction exception: {ex.Message}");
+            _debugLogger.Log($"[ExtractionService] 7za extraction exception: {ex.Message}");
             _logErrors.LogAndForget(ex, $"Error extracting with 7za: {archivePath}");
             return false;
         }
@@ -522,13 +523,13 @@ public class ExtractionService : IExtractionService
 
     private async Task<string?> ValidateAndFindGameFileAsync(string tempExtractLocation, List<string> fileFormatsToLaunch)
     {
-        DebugLogger.Log($"[ValidateAndFindGameFileAsync] Validating extracted path: {tempExtractLocation}");
+        _debugLogger.Log($"[ValidateAndFindGameFileAsync] Validating extracted path: {tempExtractLocation}");
         if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
         {
             // Notify developer
             var contextMessage = $"Extracted path is invalid: {tempExtractLocation}";
             _logErrors.LogAndForget(null, contextMessage);
-            DebugLogger.Log($"[ValidateAndFindGameFileAsync] Error: {contextMessage}");
+            _debugLogger.Log($"[ValidateAndFindGameFileAsync] Error: {contextMessage}");
 
             // Notify user
             await _messageBoxLibrary.ExtractionFailedMessageBox();
@@ -541,7 +542,7 @@ public class ExtractionService : IExtractionService
         // First, try to find a file matching the specified formats, if any are provided.
         if (fileFormatsToLaunch is { Count: > 0 })
         {
-            DebugLogger.Log($"[ValidateAndFindGameFileAsync] Searching for formats: {string.Join(", ", fileFormatsToLaunch)} in {tempExtractLocation}");
+            _debugLogger.Log($"[ValidateAndFindGameFileAsync] Searching for formats: {string.Join(", ", fileFormatsToLaunch)} in {tempExtractLocation}");
             foreach (var formatToLaunch in fileFormatsToLaunch)
             {
                 try
@@ -556,21 +557,21 @@ public class ExtractionService : IExtractionService
                     if (files.Length > 0)
                     {
                         foundFile = files[0]; // Take the first match
-                        DebugLogger.Log($"[ValidateAndFindGameFileAsync] Found file matching format '{formatToLaunch}': {foundFile}");
+                        _debugLogger.Log($"[ValidateAndFindGameFileAsync] Found file matching format '{formatToLaunch}': {foundFile}");
                         return foundFile;
                     }
                 }
                 catch (Exception ex)
                 {
                     _logErrors.LogAndForget(ex, $"Error searching for file format '{formatToLaunch}' in '{tempExtractLocation}'.");
-                    DebugLogger.Log($"[ValidateAndFindGameFileAsync] Exception searching for {formatToLaunch}: {ex.Message}");
+                    _debugLogger.Log($"[ValidateAndFindGameFileAsync] Exception searching for {formatToLaunch}: {ex.Message}");
                     // Continue to next format or fallback if this one fails
                 }
             }
         }
         else
         {
-            DebugLogger.Log($"[ValidateAndFindGameFileAsync] fileFormatsToLaunch is null or empty. Attempting to find any file in {tempExtractLocation}.");
+            _debugLogger.Log($"[ValidateAndFindGameFileAsync] fileFormatsToLaunch is null or empty. Attempting to find any file in {tempExtractLocation}.");
         }
 
         // If no specific format was found, or no formats were specified, try to find any file.
@@ -582,21 +583,21 @@ public class ExtractionService : IExtractionService
                 if (allFiles.Count > 0)
                 {
                     foundFile = allFiles.First();
-                    DebugLogger.Log($"[ValidateAndFindGameFileAsync] No specific format found/specified, picked first file: {foundFile}");
+                    _debugLogger.Log($"[ValidateAndFindGameFileAsync] No specific format found/specified, picked first file: {foundFile}");
                     return foundFile;
                 }
             }
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, $"Error enumerating all files in {tempExtractLocation} as a fallback.");
-                DebugLogger.Log($"[ValidateAndFindGameFileAsync] Error enumerating all files: {ex.Message}");
+                _debugLogger.Log($"[ValidateAndFindGameFileAsync] Error enumerating all files: {ex.Message}");
             }
         }
 
         // If still no file found after all attempts
         const string notFoundContext = "Could not find a file with any of the specified extensions (or any file at all) after extraction.";
         _logErrors.LogAndForget(new FileNotFoundException(notFoundContext), notFoundContext);
-        DebugLogger.Log($"[ValidateAndFindGameFileAsync] Error: {notFoundContext}");
+        _debugLogger.Log($"[ValidateAndFindGameFileAsync] Error: {notFoundContext}");
 
         await _messageBoxLibrary.CouldNotFindAFileMessageBox(); // This message is now more general.
 

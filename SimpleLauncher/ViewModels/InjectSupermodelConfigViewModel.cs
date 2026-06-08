@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
@@ -18,6 +18,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
     [ObservableProperty] private bool _new3DEngine;
@@ -40,6 +41,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     {
         _settings = settings;
         _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
     }
 
     /// <summary>
@@ -128,7 +130,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
         _settings.SaveAsync();
     }
 
-    private string EnsureEmulatorPath()
+    private async Task<string> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {
@@ -142,7 +144,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.SupermodelEmulatorNotFoundMessageBox();
+        await _messageBox.SupermodelEmulatorNotFoundMessageBox();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -153,7 +155,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
 
     private bool InjectConfig()
     {
-        var path = EnsureEmulatorPath();
+        var path = EnsureEmulatorPathAsync().GetAwaiter().GetResult();
         if (string.IsNullOrEmpty(path))
             throw new OperationCanceledException("User cancelled emulator path selection.");
 
@@ -170,7 +172,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void Run()
+    private async Task RunAsync()
     {
         SaveSettings();
         try
@@ -182,7 +184,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
             }
             else
             {
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBox();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -195,25 +197,25 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectSupermodelConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window);
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
             ShouldRun = true;
         }
     }
 
     [RelayCommand]
-    private void Save()
+    private async Task SaveAsync()
     {
         SaveSettings();
         try
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.SupermodelConfigurationSavedSuccessfullyMessageBox();
+                await _messageBox.SupermodelConfigurationSavedSuccessfullyMessageBox();
                 CloseRequested?.Invoke();
             }
             else
             {
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBox();
                 CloseRequested?.Invoke();
             }
         }
@@ -225,7 +227,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectSupermodelConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 }

@@ -22,7 +22,7 @@ public class DebugViewModelTests : IDisposable
     [Fact]
     public void ConstructorInitializesEmptyLog()
     {
-        var viewModel = new DebugViewModel(new NoOpLogErrors());
+        var viewModel = new DebugViewModel(new NoOpLogErrors(), new NoOpMessageBoxLibraryService());
 
         Assert.Empty(viewModel.LogMessages);
         Assert.Empty(viewModel.LogText);
@@ -33,7 +33,7 @@ public class DebugViewModelTests : IDisposable
     [Fact]
     public void AppendLogMessageAddsMessageWithTimestamp()
     {
-        var viewModel = new DebugViewModel(new NoOpLogErrors());
+        var viewModel = new DebugViewModel(new NoOpLogErrors(), new NoOpMessageBoxLibraryService());
         const string message = "Test message";
 
         viewModel.AppendLogMessage(message);
@@ -49,7 +49,7 @@ public class DebugViewModelTests : IDisposable
     [Fact]
     public void AppendLogMessageAddsMultipleMessages()
     {
-        var viewModel = new DebugViewModel(new NoOpLogErrors());
+        var viewModel = new DebugViewModel(new NoOpLogErrors(), new NoOpMessageBoxLibraryService());
 
         viewModel.AppendLogMessage("Message 1");
         viewModel.AppendLogMessage("Message 2");
@@ -64,7 +64,7 @@ public class DebugViewModelTests : IDisposable
     [Fact]
     public void ClearLogCommandCanExecuteWhenLogHasMessages()
     {
-        var viewModel = new DebugViewModel(new NoOpLogErrors());
+        var viewModel = new DebugViewModel(new NoOpLogErrors(), new NoOpMessageBoxLibraryService());
         viewModel.AppendLogMessage("Test");
 
         var canExecute = viewModel.ClearLogCommand.CanExecute(null);
@@ -75,7 +75,7 @@ public class DebugViewModelTests : IDisposable
     [Fact]
     public void ClearLogCommandCannotExecuteWhenLogIsEmpty()
     {
-        var viewModel = new DebugViewModel(new NoOpLogErrors());
+        var viewModel = new DebugViewModel(new NoOpLogErrors(), new NoOpMessageBoxLibraryService());
 
         var canExecute = viewModel.ClearLogCommand.CanExecute(null);
 
@@ -85,7 +85,7 @@ public class DebugViewModelTests : IDisposable
     [Fact]
     public void ClearLogCommandClearsAllMessages()
     {
-        var viewModel = new DebugViewModel(new NoOpLogErrors());
+        var viewModel = new DebugViewModel(new NoOpLogErrors(), new NoOpMessageBoxLibraryService());
         viewModel.AppendLogMessage("Message 1");
         viewModel.AppendLogMessage("Message 2");
 
@@ -100,7 +100,7 @@ public class DebugViewModelTests : IDisposable
     [Fact]
     public void CopyLogCommandCanExecuteWhenLogHasContent()
     {
-        var viewModel = new DebugViewModel(new NoOpLogErrors());
+        var viewModel = new DebugViewModel(new NoOpLogErrors(), new NoOpMessageBoxLibraryService());
         viewModel.AppendLogMessage("Test");
 
         var canExecute = viewModel.CopyLogCommand.CanExecute(null);
@@ -111,7 +111,7 @@ public class DebugViewModelTests : IDisposable
     [Fact]
     public void CopyLogCommandCannotExecuteWhenLogIsEmpty()
     {
-        var viewModel = new DebugViewModel(new NoOpLogErrors());
+        var viewModel = new DebugViewModel(new NoOpLogErrors(), new NoOpMessageBoxLibraryService());
 
         var canExecute = viewModel.CopyLogCommand.CanExecute(null);
 
@@ -121,7 +121,7 @@ public class DebugViewModelTests : IDisposable
     [Fact]
     public void CopyLogCommandExistsAndCanExecuteWhenLogHasContent()
     {
-        var viewModel = new DebugViewModel(new NoOpLogErrors());
+        var viewModel = new DebugViewModel(new NoOpLogErrors(), new NoOpMessageBoxLibraryService());
         viewModel.AppendLogMessage("Test message for clipboard");
 
         // Verify command exists and CanExecute returns true when there's content
@@ -131,7 +131,7 @@ public class DebugViewModelTests : IDisposable
     [Fact]
     public void LogTextContainsAllMessagesJoined()
     {
-        var viewModel = new DebugViewModel(new NoOpLogErrors());
+        var viewModel = new DebugViewModel(new NoOpLogErrors(), new NoOpMessageBoxLibraryService());
         viewModel.AppendLogMessage("First");
         viewModel.AppendLogMessage("Second");
 
@@ -145,7 +145,7 @@ public class DebugViewModelTests : IDisposable
     [Fact]
     public void PropertyChangedRaisedForCanClearLogWhenMessagesAdded()
     {
-        var viewModel = new DebugViewModel(new NoOpLogErrors());
+        var viewModel = new DebugViewModel(new NoOpLogErrors(), new NoOpMessageBoxLibraryService());
         var propertyChangedRaised = false;
         viewModel.PropertyChanged += (_, e) =>
         {
@@ -163,7 +163,7 @@ public class DebugViewModelTests : IDisposable
     [Fact]
     public void PropertyChangedRaisedForCanCopyLogWhenMessagesAdded()
     {
-        var viewModel = new DebugViewModel(new NoOpLogErrors());
+        var viewModel = new DebugViewModel(new NoOpLogErrors(), new NoOpMessageBoxLibraryService());
         var propertyChangedRaised = false;
         viewModel.PropertyChanged += (_, e) =>
         {
@@ -181,7 +181,7 @@ public class DebugViewModelTests : IDisposable
     [Fact]
     public void PropertyChangedRaisedForLogTextWhenMessagesAdded()
     {
-        var viewModel = new DebugViewModel(new NoOpLogErrors());
+        var viewModel = new DebugViewModel(new NoOpLogErrors(), new NoOpMessageBoxLibraryService());
         var propertyChangedRaised = false;
         viewModel.PropertyChanged += (_, e) =>
         {

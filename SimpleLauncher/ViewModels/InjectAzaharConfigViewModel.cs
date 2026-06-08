@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
@@ -18,6 +18,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
     [ObservableProperty] private string _graphicsApi;
@@ -35,6 +36,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     {
         _settings = settings;
         _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
     }
 
     /// <summary>
@@ -124,7 +126,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         return _emulatorPath;
     }
 
-    private bool InjectConfig()
+    private async Task<bool> InjectConfig()
     {
         var path = EnsureEmulatorPath();
         if (string.IsNullOrEmpty(path))
@@ -137,31 +139,31 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         }
         catch (AzaharPermissionException)
         {
-            MessageBoxLibrary.AzaharConfigurationInjectionPermissionErrorMessageBox();
+            await _messageBox.AzaharConfigurationInjectionPermissionErrorMessageBox();
             throw;
         }
         catch (InvalidOperationException ex)
         {
             _logErrors.LogAndForget(ex, "Azahar injection failed");
-            MessageBoxLibrary.FailedToSaveAzaharConfigurationMessageBox();
+            await _messageBox.FailedToSaveAzaharConfigurationMessageBox();
             return false;
         }
     }
 
     [RelayCommand]
-    private void Run()
+    private async Task RunAsync()
     {
         SaveSettings();
         try
         {
-            if (InjectConfig())
+            if (await InjectConfig())
             {
                 ShouldRun = true;
                 CloseRequested?.Invoke();
             }
             else
             {
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBox();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -179,25 +181,25 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectAzaharConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window);
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
             ShouldRun = true;
         }
     }
 
     [RelayCommand]
-    private void Save()
+    private async Task SaveAsync()
     {
         SaveSettings();
         try
         {
-            if (InjectConfig())
+            if (await InjectConfig())
             {
-                MessageBoxLibrary.AzaharConfigurationSavedSuccessfullyMessageBox();
+                await _messageBox.AzaharConfigurationSavedSuccessfullyMessageBox();
                 CloseRequested?.Invoke();
             }
             else
             {
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBox();
                 CloseRequested?.Invoke();
             }
         }
@@ -209,7 +211,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectAzaharConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 }

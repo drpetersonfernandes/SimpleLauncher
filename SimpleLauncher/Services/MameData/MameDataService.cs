@@ -1,3 +1,4 @@
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.MameData;
@@ -7,9 +8,9 @@ public class MameDataService : IMameDataService
     public IReadOnlyList<MameManager.MameManager> Machines { get; }
     public Dictionary<string, string> Lookup { get; }
 
-    public MameDataService(ILogErrors logErrors)
+    public MameDataService(ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
-        var machines = MameManager.MameManager.LoadFromDat(logErrors);
+        var machines = MameManager.MameManager.LoadFromDat(logErrors, messageBox: messageBox);
         Machines = machines;
 
         Lookup = machines

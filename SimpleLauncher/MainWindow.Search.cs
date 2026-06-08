@@ -1,7 +1,6 @@
 using System.Windows;
 using System.Windows.Input;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.UIReset;
 
 namespace SimpleLauncher;
@@ -23,7 +22,7 @@ public partial class MainWindow
             _logErrors.LogAndForget(ex, errorMessage);
 
             // Notify user
-            MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();
+            await _messageBox.MainWindowSearchEngineErrorMessageBox();
         }
     }
 
@@ -43,7 +42,7 @@ public partial class MainWindow
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();
+            await _messageBox.MainWindowSearchEngineErrorMessageBox();
         }
     }
 
@@ -70,11 +69,11 @@ public partial class MainWindow
             {
                 if (SystemComboBox.SelectedItem == null)
                 {
-                    MessageBoxLibrary.SelectSystemBeforeSearchMessageBox();
+                    await _messageBox.SelectSystemBeforeSearchMessageBox();
                 }
                 else
                 {
-                    MessageBoxLibrary.EnterSearchQueryMessageBox();
+                    await _messageBox.EnterSearchQueryMessageBox();
                 }
 
                 SetLoadingState(false);
@@ -96,7 +95,7 @@ public partial class MainWindow
                 const string contextMessage = "Error during search execution.";
                 _logErrors.LogAndForget(ex, contextMessage);
 
-                MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();
+                await _messageBox.MainWindowSearchEngineErrorMessageBox();
             }
         }
         finally

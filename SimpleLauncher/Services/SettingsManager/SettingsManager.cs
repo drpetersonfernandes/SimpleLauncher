@@ -1,9 +1,8 @@
 using System.Globalization;
 using System.IO;
 using System.Security.Cryptography;
-using System.Windows;
 using System.Xml.Linq;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.AppDataFile;
@@ -16,6 +15,7 @@ public class SettingsManager : IDisposable
 {
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     private readonly DataFileLocation _fileLocation;
     private readonly ReaderWriterLockSlim _settingsLock = new(LockRecursionPolicy.SupportsRecursion);
@@ -134,10 +134,11 @@ public class SettingsManager : IDisposable
         }
     }
 
-    public SettingsManager(IConfiguration configuration, ILogErrors logErrors)
+    public SettingsManager(IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox = null)
     {
         _configuration = configuration;
         _logErrors = logErrors;
+        _messageBox = messageBox;
         _fileLocation = new DataFileLocation(DefaultSettingsFilePath);
 
         VideoUrl = configuration.GetValue<string>("Urls:YouTubeSearch") ?? "https://www.youtube.com/results?search_query=";
@@ -421,7 +422,7 @@ public class SettingsManager : IDisposable
         _settingsLock.EnterReadLock();
         try
         {
-            snapshot = new SettingsManager(_configuration, _logErrors);
+            snapshot = new SettingsManager(_configuration, _logErrors, _messageBox);
             snapshot.CopyFrom(this);
         }
         finally
@@ -429,7 +430,7 @@ public class SettingsManager : IDisposable
             _settingsLock.ExitReadLock();
         }
 
-        return Task.Run(() =>
+        return Task.Run(async () =>
         {
             var tempPath = _fileLocation.TempFilePath;
             const int maxRetries = 3;
@@ -533,7 +534,7 @@ public class SettingsManager : IDisposable
                 // Ignore cleanup errors
             }
 
-            Application.Current.Dispatcher.Invoke(MessageBoxLibrary.FailedToSaveSettingsMessageBox);
+            if (_messageBox != null) await _messageBox.FailedToSaveSettingsMessageBox();
         });
     }
 
@@ -675,7 +676,7 @@ public class SettingsManager : IDisposable
 
     public void ResetToDefaults()
     {
-        CopyFrom(new SettingsManager(_configuration, _logErrors));
+        CopyFrom(new SettingsManager(_configuration, _logErrors, _messageBox));
     }
 
     private void SetDefaultsAndSave()

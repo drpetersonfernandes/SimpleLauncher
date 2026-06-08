@@ -1,5 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
 using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
@@ -10,6 +12,8 @@ public class LanguageMenuService
 {
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly Settings _settings;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly ILogErrors _logErrors;
     private ILanguageMenuHost _host;
 
     private static readonly Dictionary<string, string> NameToCode = new()
@@ -34,10 +38,12 @@ public class LanguageMenuService
         { "LanguageChineseSimplified", "zh-hans" }
     };
 
-    public LanguageMenuService(PlaySoundEffects playSoundEffects, Settings settings)
+    public LanguageMenuService(PlaySoundEffects playSoundEffects, Settings settings, IMessageBoxLibraryService messageBox, ILogErrors logErrors)
     {
         _playSoundEffects = playSoundEffects;
         _settings = settings;
+        _messageBox = messageBox;
+        _logErrors = logErrors;
     }
 
     public void Initialize(ILanguageMenuHost host)
@@ -50,17 +56,24 @@ public class LanguageMenuService
         return NameToCode.GetValueOrDefault(menuItem.Name);
     }
 
-    public void ChangeLanguage(string languageCode)
+    public async void ChangeLanguage(string languageCode)
     {
-        if (string.IsNullOrEmpty(languageCode))
-            return;
+        try
+        {
+            if (string.IsNullOrEmpty(languageCode))
+                return;
 
-        _playSoundEffects.PlayNotificationSound();
-        _settings.Language = languageCode;
-        SetLanguageCheckMarks(languageCode);
-        _host.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingLanguage") ?? "Changing language...");
-        _settings.SaveAsync();
-        QuitSimpleLauncher.RestartApplication();
+            _playSoundEffects.PlayNotificationSound();
+            _settings.Language = languageCode;
+            SetLanguageCheckMarks(languageCode);
+            _host.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingLanguage") ?? "Changing language...");
+            await _settings.SaveAsync();
+            await QuitSimpleLauncher.RestartApplication(_messageBox);
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method ChangeLanguage");
+        }
     }
 
     public void SetLanguageCheckMarks(string languageCode)

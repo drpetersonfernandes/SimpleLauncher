@@ -1,6 +1,5 @@
 using System.Windows;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
@@ -44,7 +43,7 @@ public partial class MainWindow
             _logErrors.LogAndForget(ex, errorMessage);
 
             // Notify user
-            MessageBoxLibrary.NavigationButtonErrorMessageBox();
+            await _messageBox.NavigationButtonErrorMessageBox();
         }
     }
 
@@ -78,7 +77,7 @@ public partial class MainWindow
             _logErrors.LogAndForget(ex, "Error in the NextPageButtonClickAsync method.");
 
             // Notify user
-            MessageBoxLibrary.NavigationButtonErrorMessageBox();
+            await _messageBox.NavigationButtonErrorMessageBox();
         }
     }
 }

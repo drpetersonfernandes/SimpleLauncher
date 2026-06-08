@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
@@ -16,13 +17,13 @@ using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MameManager;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.WpfServices;
 using SimpleLauncher.Services.SettingsManager;
 using ILoadingState = SimpleLauncher.Core.Services.LoadingInterface.ILoadingState;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
+using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
 
 namespace SimpleLauncher.Pages;
 
@@ -43,6 +44,7 @@ internal partial class FavoritesPage : ILoadingState
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IFindCoverImage _findCoverImage;
     private readonly IImageLoader _imageLoader;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     internal FavoritesPage(
         SettingsManager settings,
@@ -72,6 +74,7 @@ internal partial class FavoritesPage : ILoadingState
         _logErrors = logErrors;
         _findCoverImage = findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
         _imageLoader = imageLoader ?? throw new ArgumentNullException(nameof(imageLoader));
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         // Set the ItemsSource immediately to the empty collection
         FavoritesDataGrid.ItemsSource = _favoriteList;
@@ -116,7 +119,7 @@ internal partial class FavoritesPage : ILoadingState
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Error loading favorites data in FavoritesPageLoadedAsync method.");
-                MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox();
+                await _messageBox.ErrorWhileAddingFavoritesMessageBox();
             }
             finally
             {
@@ -194,32 +197,39 @@ internal partial class FavoritesPage : ILoadingState
         }
     }
 
-    private void RemoveFavoriteButton_Click(object sender, RoutedEventArgs e)
+    private async void RemoveFavoriteButton_Click(object sender, RoutedEventArgs e)
     {
-        var selectedItems = FavoritesDataGrid.SelectedItems.Cast<Favorite>().ToList();
-
-        if (selectedItems.Count > 0)
+        try
         {
-            _playSoundEffects.PlayTrashSound();
+            var selectedItems = FavoritesDataGrid.SelectedItems.Cast<Favorite>().ToList();
 
-            foreach (var favorite in selectedItems)
+            if (selectedItems.Count > 0)
             {
-                _favoriteList.Remove(favorite);
+                _playSoundEffects.PlayTrashSound();
+
+                foreach (var favorite in selectedItems)
+                {
+                    _favoriteList.Remove(favorite);
+                }
+
+                UpdateFavoritesManagerList();
+
+                PreviewImage.Source = null;
+                FavoritesDataGrid.ContextMenu = null; // Clear context menu after deletion
             }
-
-            UpdateFavoritesManagerList();
-
-            PreviewImage.Source = null;
-            FavoritesDataGrid.ContextMenu = null; // Clear context menu after deletion
+            else
+            {
+                // Notify user
+                await _messageBox.SelectAFavoriteToRemoveMessageBox();
+            }
         }
-        else
+        catch (Exception ex)
         {
-            // Notify user
-            MessageBoxLibrary.SelectAFavoriteToRemoveMessageBox();
+            _logErrors.LogAndForget(ex, "Error in the method RemoveFavoriteButton_Click.");
         }
     }
 
-    private void FavoritesPrepareForRightClickContextMenu(object sender, MouseButtonEventArgs e)
+    private async void FavoritesPrepareForRightClickContextMenu(object sender, MouseButtonEventArgs e)
     {
         try
         {
@@ -257,7 +267,7 @@ internal partial class FavoritesPage : ILoadingState
             {
                 const string contextMessage = "systemManager is null for the selected favorite";
                 _logErrors.LogAndForget(null, contextMessage);
-                MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+                await _messageBox.RightClickContextMenuErrorMessageBox();
                 return;
             }
 
@@ -265,8 +275,8 @@ internal partial class FavoritesPage : ILoadingState
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
                 // Ask user if they want to delete the favorite
-                var result = MessageBoxLibrary.FavoriteFileDoesNotExistAskToDeleteMessageBox(filePath ?? selectedFavorite.FileName);
-                if (result == System.Windows.MessageBoxResult.Yes)
+                var result = await _messageBox.FavoriteFileDoesNotExistAskToDeleteMessageBox(filePath ?? selectedFavorite.FileName);
+                if (result == CoreMessageBoxResult.Yes)
                 {
                     var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName.Equals(selectedFavorite.FileName, StringComparison.OrdinalIgnoreCase) && fav.SystemName.Equals(systemManager.SystemName, StringComparison.OrdinalIgnoreCase));
 
@@ -287,7 +297,7 @@ internal partial class FavoritesPage : ILoadingState
                 _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+                await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
                 return;
             }
@@ -334,7 +344,7 @@ internal partial class FavoritesPage : ILoadingState
         {
             const string contextMessage = "There was an error in the right-click context menu.";
             _logErrors.LogAndForget(ex, contextMessage);
-            MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+            await _messageBox.RightClickContextMenuErrorMessageBox();
         }
     }
 
@@ -350,7 +360,7 @@ internal partial class FavoritesPage : ILoadingState
             else
             {
                 // Notify user
-                MessageBoxLibrary.SelectAGameToLaunchMessageBox();
+                await _messageBox.SelectAGameToLaunchMessageBox();
             }
         }
         catch (Exception ex)
@@ -360,7 +370,7 @@ internal partial class FavoritesPage : ILoadingState
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 
@@ -376,7 +386,7 @@ internal partial class FavoritesPage : ILoadingState
                 _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+                await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
                 return;
             }
@@ -385,8 +395,8 @@ internal partial class FavoritesPage : ILoadingState
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
                 // Ask user if they want to delete the favorite
-                var result = MessageBoxLibrary.FavoriteFileDoesNotExistAskToDeleteMessageBox(filePath ?? fileName);
-                if (result == System.Windows.MessageBoxResult.Yes)
+                var result = await _messageBox.FavoriteFileDoesNotExistAskToDeleteMessageBox(filePath ?? fileName);
+                if (result == CoreMessageBoxResult.Yes)
                 {
                     var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase) && fav.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
 
@@ -411,7 +421,7 @@ internal partial class FavoritesPage : ILoadingState
                 _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+                await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
                 return;
             }
@@ -428,7 +438,7 @@ internal partial class FavoritesPage : ILoadingState
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 
@@ -457,7 +467,7 @@ internal partial class FavoritesPage : ILoadingState
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 
@@ -488,7 +498,7 @@ internal partial class FavoritesPage : ILoadingState
         }
     }
 
-    private void FavoritesDataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
+    private async void FavoritesDataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
     {
         try
         {
@@ -517,7 +527,7 @@ internal partial class FavoritesPage : ILoadingState
                     else
                     {
                         // Notify user
-                        MessageBoxLibrary.SelectAFavoriteToRemoveMessageBox();
+                        await _messageBox.SelectAFavoriteToRemoveMessageBox();
                     }
 
                     break;

@@ -4,15 +4,15 @@ using System.Globalization;
 using System.IO;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.CheckForUpdates;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.QuitOrReinstall;
 
 public static class QuitSimpleLauncher
 {
-    public static void RestartApplication()
+    public static async Task RestartApplication(IMessageBoxLibraryService messageBox)
     {
         var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
         var processModule = Process.GetCurrentProcess().MainModule;
@@ -36,7 +36,7 @@ public static class QuitSimpleLauncher
             logErrors.LogAndForget(ex, "Failed to start new process during application restart.");
 
             // Notify user
-            MessageBoxLibrary.FailedToRestartMessageBox();
+            await messageBox.FailedToRestartMessageBox();
 
             // Don't shut down the current instance if the new one couldn't start
             return;
@@ -54,7 +54,7 @@ public static class QuitSimpleLauncher
 
     // Downloads a fresh Updater.exe from GitHub first, falling back to the local copy if offline.
     // Then launches the updater and forcefully exits the current process.
-    public static async Task ShutdownForUpdateAsync(string updaterPath)
+    public static async Task ShutdownForUpdateAsync(string updaterPath, IMessageBoxLibraryService messageBox)
     {
         var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
         var appDirectory = Path.GetDirectoryName(updaterPath) ?? AppDomain.CurrentDomain.BaseDirectory;
@@ -85,7 +85,7 @@ public static class QuitSimpleLauncher
         // 2. If neither downloaded nor local file exists, notify and return
         if (!downloaded && !File.Exists(updaterPath))
         {
-            MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
+            await messageBox.UpdaterLaunchFailedMessageBox();
             return;
         }
 
@@ -111,13 +111,13 @@ public static class QuitSimpleLauncher
         {
             logErrors.LogAndForget(ex, "Access denied when starting Updater.exe.");
 
-            MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
+            await messageBox.UpdaterLaunchFailedMessageBox();
         }
         catch (Exception ex)
         {
             logErrors.LogAndForget(ex, "Failed to start updater and shut down.");
 
-            MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
+            await messageBox.UpdaterLaunchFailedMessageBox();
         }
     }
 }

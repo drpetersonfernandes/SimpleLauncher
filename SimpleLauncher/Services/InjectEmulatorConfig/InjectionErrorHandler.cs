@@ -1,15 +1,15 @@
 using System.Windows;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class InjectionErrorHandler
 {
-    public static void HandleRunButtonFailure(ILogErrors logErrors, Exception ex, string emulatorName, string emulatorPath, Window window)
+    public static void HandleRunButtonFailure(ILogErrors logErrors, Exception ex, string emulatorName, string emulatorPath, Window window, IMessageBoxLibraryService messageBox)
     {
         // Notify user
-        ShowGenericInjectionError();
+        ShowGenericInjectionError(messageBox);
 
         // Notify developer
         logErrors.LogAndForget(ex, $"Run button failed for {emulatorName} at path: {emulatorPath}");
@@ -18,10 +18,10 @@ public static class InjectionErrorHandler
         window?.Close();
     }
 
-    public static void HandleSaveButtonFailure(ILogErrors logErrors, Exception ex, string emulatorName, string emulatorPath, Window window)
+    public static void HandleSaveButtonFailure(ILogErrors logErrors, Exception ex, string emulatorName, string emulatorPath, Window window, IMessageBoxLibraryService messageBox)
     {
         // Notify user
-        ShowGenericInjectionError();
+        ShowGenericInjectionError(messageBox);
 
         // Notify developer
         logErrors.LogAndForget(ex, $"Save button failed for {emulatorName} at path: {emulatorPath}");
@@ -30,9 +30,9 @@ public static class InjectionErrorHandler
         window?.Close();
     }
 
-    private static void ShowGenericInjectionError()
+    private static void ShowGenericInjectionError(IMessageBoxLibraryService messageBox)
     {
-        MessageBoxLibrary.InjectionFailedGenericMessageBox();
+        _ = messageBox.InjectionFailedGenericMessageBox();
     }
 
     public static string GetEmulatorName(string emulatorPath, Type windowType)

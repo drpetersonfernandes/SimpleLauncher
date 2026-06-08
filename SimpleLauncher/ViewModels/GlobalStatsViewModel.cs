@@ -5,11 +5,12 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GlobalStats.Models;
 using SimpleLauncher.Services.GetListOfFiles;
-using SimpleLauncher.Services.MessageBox;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
@@ -24,6 +25,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
     private List<SystemManager> _systemManagers;
     private readonly ILogErrors _logErrors;
     private readonly IGetListOfFiles _getListOfFiles;
+    private readonly IMessageBoxLibraryService _messageBox;
     private CancellationTokenSource _cancellationTokenSource;
     private readonly object _processingLock = new();
 
@@ -43,6 +45,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         _logErrors = logErrors;
         _getListOfFiles = getListOfFiles;
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
     }
 
     public void Initialize(List<SystemManager> systemManagers)
@@ -161,12 +164,12 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
     /// <summary>
     /// Event raised when a message box should be shown.
     /// </summary>
-    public event Func<MessageBoxResult> ConfirmSaveReportRequested;
+    public event Func<System.Windows.MessageBoxResult> ConfirmSaveReportRequested;
 
     /// <summary>
     /// Event raised when a message box for cancellation should be shown.
     /// </summary>
-    public event Func<MessageBoxResult> ConfirmCancelRequested;
+    public event Func<System.Windows.MessageBoxResult> ConfirmCancelRequested;
 
     #endregion
 
@@ -196,7 +199,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
             {
                 if (!_forceClose)
                 {
-                    MessageBoxLibrary.OperationCancelledMessageBox();
+                    await _messageBox.OperationCancelledMessageBox();
                 }
 
                 ResetUiAfterProcessing();
@@ -206,7 +209,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
                 _logErrors.LogAndForget(ex, "An error occurred while calculating Global Statistics.");
                 if (!_forceClose)
                 {
-                    MessageBoxLibrary.ErrorCalculatingStatsMessageBox();
+                    await _messageBox.ErrorCalculatingStatsMessageBox();
                 }
 
                 ResetUiAfterProcessing();
@@ -387,17 +390,24 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         BusyOverlayText = Application.Current.TryFindResource("Processingpleasewait") as string ?? "Processing";
     }
 
-    private void DoYouWantToSaveTheReportMessageBox()
+    private async void DoYouWantToSaveTheReportMessageBox()
     {
-        var result = ConfirmSaveReportRequested?.Invoke();
-        if (result == MessageBoxResult.Yes)
+        try
         {
-            SaveReport();
+            var result = ConfirmSaveReportRequested?.Invoke();
+            if (result == System.Windows.MessageBoxResult.Yes)
+            {
+                await SaveReport();
+            }
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in method DoYouWantToSaveTheReportMessageBox");
         }
     }
 
     [RelayCommand(CanExecute = nameof(CanSaveReport))]
-    private void SaveReport()
+    private async Task SaveReport()
     {
         if (_globalStats == null) return;
 
@@ -414,12 +424,12 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
             {
                 var systemStatsList = SystemStats.ToList();
                 File.WriteAllText(saveFileDialog.FileName, GenerateReportText(_globalStats, systemStatsList));
-                MessageBoxLibrary.ReportSavedMessageBox();
+                await _messageBox.ReportSavedMessageBox();
             }
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Failed to save report.");
-                MessageBoxLibrary.FailedSaveReportMessageBox();
+                await _messageBox.FailedSaveReportMessageBox();
             }
         }
     }
@@ -469,7 +479,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
             // Processing is active - ask user to confirm
             e.Cancel = true;
             var result = ConfirmCancelRequested?.Invoke();
-            if (result == MessageBoxResult.Yes)
+            if (result == System.Windows.MessageBoxResult.Yes)
             {
                 _forceClose = true;
                 Cancel();

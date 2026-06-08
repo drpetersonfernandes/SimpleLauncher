@@ -5,8 +5,9 @@ using System.Text.Json;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.PlaySound;
 using Application = System.Windows.Application;
 
@@ -21,6 +22,7 @@ public partial class SupportViewModel : ObservableObject
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ILogErrors _logErrors;
     private readonly IConfiguration _configuration;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     [ObservableProperty] private string _name;
     [ObservableProperty] private string _email;
@@ -33,6 +35,7 @@ public partial class SupportViewModel : ObservableObject
         _httpClientFactory = httpClientFactory;
         _logErrors = logErrors;
         _configuration = configuration;
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
     }
 
     /// <summary>Event raised when the window should be closed.</summary>
@@ -46,19 +49,19 @@ public partial class SupportViewModel : ObservableObject
     {
         if (string.IsNullOrWhiteSpace(Name))
         {
-            MessageBoxLibrary.EnterNameMessageBox();
+            await _messageBox.EnterNameMessageBox();
             return;
         }
 
         if (string.IsNullOrWhiteSpace(Email))
         {
-            MessageBoxLibrary.EnterEmailMessageBox();
+            await _messageBox.EnterEmailMessageBox();
             return;
         }
 
         if (string.IsNullOrWhiteSpace(SupportRequest))
         {
-            MessageBoxLibrary.EnterSupportRequestMessageBox();
+            await _messageBox.EnterSupportRequestMessageBox();
             return;
         }
 
@@ -101,7 +104,7 @@ public partial class SupportViewModel : ObservableObject
 
         if (string.IsNullOrEmpty(apiBaseUrl))
         {
-            MessageBoxLibrary.ApiKeyErrorMessageBox();
+            await _messageBox.ApiKeyErrorMessageBox();
             return;
         }
 
@@ -138,7 +141,7 @@ public partial class SupportViewModel : ObservableObject
 
                     FormCleared?.Invoke();
 
-                    MessageBoxLibrary.SupportRequestSuccessMessageBox();
+                    await _messageBox.SupportRequestSuccessMessageBox();
                 }
                 else
                 {
@@ -147,7 +150,7 @@ public partial class SupportViewModel : ObservableObject
                     var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {errorContent}";
                     _logErrors.LogAndForget(null, contextMessage);
 
-                    MessageBoxLibrary.SupportRequestSendErrorMessageBox();
+                    await _messageBox.SupportRequestSendErrorMessageBox();
                 }
             }
         }
@@ -156,14 +159,14 @@ public partial class SupportViewModel : ObservableObject
             const string contextMessage = "The support request timed out after 15 seconds. Please check your internet connection and try again.";
             _logErrors.LogAndForget(null, contextMessage);
 
-            MessageBoxLibrary.SupportRequestSendErrorMessageBox();
+            await _messageBox.SupportRequestSendErrorMessageBox();
         }
         catch (Exception ex)
         {
             const string contextMessage = "Error sending the Support Request.";
             _logErrors.LogAndForget(ex, contextMessage);
 
-            MessageBoxLibrary.SupportRequestSendErrorMessageBox();
+            await _messageBox.SupportRequestSendErrorMessageBox();
         }
     }
 }

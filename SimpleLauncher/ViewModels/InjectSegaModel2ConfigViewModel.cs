@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
@@ -18,6 +18,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
     [ObservableProperty] private int _resX;
@@ -38,6 +39,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     {
         _settings = settings;
         _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
     }
 
     /// <summary>
@@ -122,7 +124,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
         _settings.SaveAsync();
     }
 
-    private string EnsureEmulatorPath()
+    private async Task<string> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {
@@ -136,7 +138,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.SegaModel2EmulatorNotFoundMessageBox();
+        await _messageBox.SegaModel2EmulatorNotFoundMessageBox();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -147,7 +149,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
 
     private bool InjectConfig()
     {
-        var path = EnsureEmulatorPath();
+        var path = EnsureEmulatorPathAsync().GetAwaiter().GetResult();
         if (string.IsNullOrEmpty(path))
             throw new OperationCanceledException("User cancelled emulator path selection.");
 
@@ -164,7 +166,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void Run()
+    private async Task RunAsync()
     {
         SaveSettings();
         try
@@ -176,7 +178,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
             }
             else
             {
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBox();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -189,25 +191,25 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectSegaModel2ConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window);
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
             ShouldRun = true;
         }
     }
 
     [RelayCommand]
-    private void Save()
+    private async Task SaveAsync()
     {
         SaveSettings();
         try
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.SegaModel2ConfigurationSavedSuccessfullyMessageBox();
+                await _messageBox.SegaModel2ConfigurationSavedSuccessfullyMessageBox();
                 CloseRequested?.Invoke();
             }
             else
             {
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBox();
                 CloseRequested?.Invoke();
             }
         }
@@ -219,7 +221,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectSegaModel2ConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 }

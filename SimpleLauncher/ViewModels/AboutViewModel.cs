@@ -3,9 +3,9 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GetApplicationVersion;
-using SimpleLauncher.Services.MessageBox;
 using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
 
 namespace SimpleLauncher.ViewModels;
@@ -16,11 +16,13 @@ namespace SimpleLauncher.ViewModels;
 public partial class AboutViewModel : ObservableObject
 {
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
     private string _appVersion;
 
-    public AboutViewModel(ILogErrors logErrors)
+    public AboutViewModel(ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         _logErrors = logErrors;
+        _messageBox = messageBox;
         AppVersion = GetApplicationVersion.GetVersion;
     }
 
@@ -91,7 +93,7 @@ public partial class AboutViewModel : ObservableObject
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox();
+            await _messageBox.ErrorCheckingForUpdatesMessageBox();
         }
         finally
         {
@@ -106,7 +108,7 @@ public partial class AboutViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void OpenWebsite(string url)
+    private async Task OpenWebsiteAsync(string url)
     {
         try
         {
@@ -122,7 +124,7 @@ public partial class AboutViewModel : ObservableObject
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.UnableToOpenLinkMessageBox();
+            await _messageBox.UnableToOpenLinkMessageBox();
         }
     }
 }

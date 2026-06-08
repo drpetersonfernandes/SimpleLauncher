@@ -1,7 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.SettingsManager;
 using Application = System.Windows.Application;
 
@@ -14,14 +14,16 @@ public partial class SetLinksViewModel : ObservableObject
 {
     private readonly SettingsManager _settingsManager;
     private readonly IConfiguration _configuration;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     [ObservableProperty] private string _videoUrl;
     [ObservableProperty] private string _infoUrl;
 
-    public SetLinksViewModel(SettingsManager settingsManager, IConfiguration configuration)
+    public SetLinksViewModel(SettingsManager settingsManager, IConfiguration configuration, IMessageBoxLibraryService messageBox)
     {
         _settingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
         _configuration = configuration;
+        _messageBox = messageBox;
 
         _videoUrl = _settingsManager.VideoUrl;
         _infoUrl = _settingsManager.InfoUrl;
@@ -34,7 +36,7 @@ public partial class SetLinksViewModel : ObservableObject
     public event Action CloseRequested;
 
     [RelayCommand]
-    private void Save()
+    private async Task SaveAsync()
     {
         _settingsManager.VideoUrl = string.IsNullOrWhiteSpace(VideoUrl)
             ? "https://www.youtube.com/results?search_query="
@@ -44,18 +46,18 @@ public partial class SetLinksViewModel : ObservableObject
             ? "https://www.igdb.com/search?q="
             : InfoUrl;
 
-        _settingsManager.SaveAsync();
+        await _settingsManager.SaveAsync();
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
             (string)Application.Current.TryFindResource("SavingLinkSettings") ?? "Saving link settings...");
 
-        MessageBoxLibrary.LinksSavedMessageBox();
+        await _messageBox.LinksSavedMessageBox();
 
         SaveCompleted?.Invoke();
     }
 
     [RelayCommand]
-    private void Revert()
+    private async Task RevertAsync()
     {
         _settingsManager.VideoUrl = _configuration.GetValue<string>("Urls:YouTubeSearch") ?? "https://www.youtube.com/results?search_query=";
         _settingsManager.InfoUrl = _configuration.GetValue<string>("Urls:IgdbSearch") ?? "https://www.igdb.com/search?q=";
@@ -63,12 +65,12 @@ public partial class SetLinksViewModel : ObservableObject
         VideoUrl = _settingsManager.VideoUrl;
         InfoUrl = _settingsManager.InfoUrl;
 
-        _settingsManager.SaveAsync();
+        await _settingsManager.SaveAsync();
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
             (string)Application.Current.TryFindResource("RevertingLinkSettings") ?? "Reverting link settings...");
 
-        MessageBoxLibrary.LinksRevertedMessageBox();
+        await _messageBox.LinksRevertedMessageBox();
 
         CloseRequested?.Invoke();
     }

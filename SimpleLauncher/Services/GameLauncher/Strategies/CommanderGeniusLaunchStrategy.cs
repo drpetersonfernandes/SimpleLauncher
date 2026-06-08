@@ -11,7 +11,7 @@ using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.ExtractFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.UpdateStatusBar;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -24,18 +24,20 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors;
     private readonly IUpdateStatusBar _updateStatusBar;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     private static readonly string[] KeenDataExtensions =
     [
         ".CK1", ".CK2", ".CK3", ".CK4", ".CK5", ".CK6"
     ];
 
-    public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, ILogErrors logErrors, IUpdateStatusBar updateStatusBar)
+    public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, ILogErrors logErrors, IUpdateStatusBar updateStatusBar, IMessageBoxLibraryService messageBox)
     {
         _extractionService = extractionService;
         _configuration = configuration;
         _logErrors = logErrors;
         _updateStatusBar = updateStatusBar;
+        _messageBox = messageBox;
     }
 
     public int Priority => 20;
@@ -95,7 +97,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                 {
                     DebugLogger.Log("[CommanderGeniusLaunchStrategy] Emulator executable not found.");
                     LogErrorAsync($"Emulator executable not found: {emulatorLocation}");
-                    MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                     return;
                 }
 
@@ -176,7 +178,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
                     if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
                     {
-                        await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                        await _messageBox.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                     }
                 }
                 catch (Exception ex)
@@ -193,7 +195,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
                     if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
                     {
-                        await MessageBoxLibrary.CouldNotLaunchGameMessageBox(
+                        await _messageBox.CouldNotLaunchGameMessageBox(
                             PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                     }
                 }

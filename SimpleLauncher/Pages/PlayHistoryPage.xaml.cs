@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.CheckPaths;
@@ -17,13 +18,13 @@ using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MameManager;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.WpfServices;
 using SimpleLauncher.Services.SettingsManager;
 using ILoadingState = SimpleLauncher.Core.Services.LoadingInterface.ILoadingState;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
+using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
 
 namespace SimpleLauncher.Pages;
 
@@ -48,6 +49,7 @@ public partial class PlayHistoryPage : ILoadingState
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IFindCoverImage _findCoverImage;
     private readonly IImageLoader _imageLoader;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     public PlayHistoryPage(List<SystemManager> systemManagers,
         List<MameManager> machines,
@@ -78,6 +80,7 @@ public partial class PlayHistoryPage : ILoadingState
         _logErrors = logErrors;
         _findCoverImage = findCoverImage;
         _imageLoader = imageLoader;
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         Loaded += PlayHistoryPageLoadedAsync;
 
@@ -123,7 +126,7 @@ public partial class PlayHistoryPage : ILoadingState
                 _logErrors.LogAndForget(ex, "Error loading play history data in PlayHistoryPageLoadedAsync.");
 
                 // Notify user
-                MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
+                await _messageBox.ErrorLoadingRomHistoryMessageBox();
             }
             finally
             {
@@ -247,7 +250,7 @@ public partial class PlayHistoryPage : ILoadingState
         }
     }
 
-    private void PlayHistoryPrepareForRightClickContext(object sender, MouseButtonEventArgs e)
+    private async void PlayHistoryPrepareForRightClickContext(object sender, MouseButtonEventArgs e)
     {
         try
         {
@@ -267,7 +270,7 @@ public partial class PlayHistoryPage : ILoadingState
                 _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+                await _messageBox.RightClickContextMenuErrorMessageBox();
 
                 return;
             }
@@ -280,7 +283,7 @@ public partial class PlayHistoryPage : ILoadingState
                 _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+                await _messageBox.RightClickContextMenuErrorMessageBox();
 
                 return;
             }
@@ -288,15 +291,15 @@ public partial class PlayHistoryPage : ILoadingState
             if (!File.Exists(selectedItem.FileName))
             {
                 // Show message box asking user if they want to delete the entry
-                var result = MessageBoxLibrary.GameFileDoesNotExistAskToDeleteMessageBox(selectedItem.FileName);
-                if (result == System.Windows.MessageBoxResult.Yes)
+                var result = await _messageBox.GameFileDoesNotExistAskToDeleteMessageBox(selectedItem.FileName);
+                if (result == CoreMessageBoxResult.Yes)
                 {
                     var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName.Equals(selectedItem.FileName, StringComparison.OrdinalIgnoreCase) && item.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
                     if (itemToRemove != null)
                     {
                         _playHistoryList.Remove(itemToRemove);
                         _playHistoryManager.PlayHistoryList = _playHistoryList;
-                        _playHistoryManager.SavePlayHistoryAsync();
+                        _ = _playHistoryManager.SavePlayHistoryAsync();
 
                         DebugLogger.Log("The entry " + itemToRemove + " was removed from the history by user request.");
                     }
@@ -313,7 +316,7 @@ public partial class PlayHistoryPage : ILoadingState
                 _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+                await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
                 return;
             }
@@ -354,7 +357,7 @@ public partial class PlayHistoryPage : ILoadingState
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+            await _messageBox.RightClickContextMenuErrorMessageBox();
         }
     }
 
@@ -368,7 +371,7 @@ public partial class PlayHistoryPage : ILoadingState
             _logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
             return;
         }
@@ -376,8 +379,8 @@ public partial class PlayHistoryPage : ILoadingState
         if (!File.Exists(fileName))
         {
             // Ask user if they want to delete the entry from history
-            var result = MessageBoxLibrary.GameFileDoesNotExistAskToDeleteMessageBox(fileName);
-            if (result == System.Windows.MessageBoxResult.Yes)
+            var result = await _messageBox.GameFileDoesNotExistAskToDeleteMessageBox(fileName);
+            if (result == CoreMessageBoxResult.Yes)
             {
                 var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase) && item.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
                 if (itemToRemove != null)
@@ -399,7 +402,7 @@ public partial class PlayHistoryPage : ILoadingState
             _logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
             return;
         }
@@ -501,7 +504,7 @@ public partial class PlayHistoryPage : ILoadingState
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 
@@ -535,46 +538,53 @@ public partial class PlayHistoryPage : ILoadingState
         }
     }
 
-    private void DeleteHistoryItemWithDelButton(object sender, KeyEventArgs e)
+    private async void DeleteHistoryItemWithDelButton(object sender, KeyEventArgs e)
     {
-        switch (e.Key)
+        try
         {
-            case Key.Delete:
+            switch (e.Key)
             {
-                // Get all selected items
-                var selectedItems = PlayHistoryDataGrid.SelectedItems.Cast<PlayHistoryItem>().ToList();
-
-                if (selectedItems.Count > 0)
+                case Key.Delete:
                 {
-                    _playSoundEffects.PlayTrashSound();
+                    // Get all selected items
+                    var selectedItems = PlayHistoryDataGrid.SelectedItems.Cast<PlayHistoryItem>().ToList();
 
-                    // Remove all selected items
-                    foreach (var item in selectedItems)
-                        _playHistoryList.Remove(item);
+                    if (selectedItems.Count > 0)
+                    {
+                        _playSoundEffects.PlayTrashSound();
 
-                    _playHistoryManager.PlayHistoryList = _playHistoryList;
-                    _playHistoryManager.SavePlayHistoryAsync();
-                    e.Handled = true; // Prevent DataGrid from handling Delete key
+                        // Remove all selected items
+                        foreach (var item in selectedItems)
+                            _playHistoryList.Remove(item);
+
+                        _playHistoryManager.PlayHistoryList = _playHistoryList;
+                        await _playHistoryManager.SavePlayHistoryAsync();
+                        e.Handled = true; // Prevent DataGrid from handling Delete key
+                        PreviewImage.Source = null;
+                    }
+                    else
+                    {
+                        await _messageBox.SelectAHistoryItemToRemoveMessageBox();
+                    }
+
                     PreviewImage.Source = null;
+                    break;
                 }
-                else
-                {
-                    MessageBoxLibrary.SelectAHistoryItemToRemoveMessageBox();
-                }
-
-                PreviewImage.Source = null;
-                break;
+                case Key.Enter when PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem:
+                    _playSoundEffects.PlayNotificationSound();
+                    _ = LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName, this);
+                    e.Handled = true; // Prevent DataGrid from moving selection to next row
+                    break;
+                case Key.Enter:
+                    await _messageBox.SelectAGameToLaunchMessageBox();
+                    break;
+                default:
+                    return;
             }
-            case Key.Enter when PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem:
-                _playSoundEffects.PlayNotificationSound();
-                _ = LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName, this);
-                e.Handled = true; // Prevent DataGrid from moving selection to next row
-                break;
-            case Key.Enter:
-                MessageBoxLibrary.SelectAGameToLaunchMessageBox();
-                break;
-            default:
-                return;
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method DeleteHistoryItemWithDelButton.");
         }
     }
 
@@ -635,58 +645,72 @@ public partial class PlayHistoryPage : ILoadingState
         }
     }
 
-    private void RemoveHistoryItemButton_Click(object sender, RoutedEventArgs e)
+    private async void RemoveHistoryItemButton_Click(object sender, RoutedEventArgs e)
     {
-        // Get all selected items
-        var selectedItems = PlayHistoryDataGrid.SelectedItems.Cast<PlayHistoryItem>().ToList();
-
-        if (selectedItems.Count > 0)
+        try
         {
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingHistoryItem") ?? "Removing history item...");
+            // Get all selected items
+            var selectedItems = PlayHistoryDataGrid.SelectedItems.Cast<PlayHistoryItem>().ToList();
 
-            _playSoundEffects.PlayTrashSound();
-
-            // Remove all selected items
-            foreach (var item in selectedItems)
+            if (selectedItems.Count > 0)
             {
-                _playHistoryList.Remove(item);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingHistoryItem") ?? "Removing history item...");
+
+                _playSoundEffects.PlayTrashSound();
+
+                // Remove all selected items
+                foreach (var item in selectedItems)
+                {
+                    _playHistoryList.Remove(item);
+                }
+
+                _playHistoryManager.PlayHistoryList = _playHistoryList;
+                _ = _playHistoryManager.SavePlayHistoryAsync();
+
+                PreviewImage.Source = null;
+            }
+            else
+            {
+                // Notify the user to select a history item first
+                await _messageBox.SelectAHistoryItemToRemoveMessageBox();
             }
 
-            _playHistoryManager.PlayHistoryList = _playHistoryList;
-            _playHistoryManager.SavePlayHistoryAsync();
-
             PreviewImage.Source = null;
         }
-        else
+        catch (Exception ex)
         {
-            // Notify the user to select a history item first
-            MessageBoxLibrary.SelectAHistoryItemToRemoveMessageBox();
+            _logErrors.LogAndForget(ex, "Error in the method RemoveHistoryItemButton_Click.");
         }
-
-        PreviewImage.Source = null;
     }
 
-    private void RemoveAllHistoryItemButton_Click(object sender, RoutedEventArgs e)
+    private async void RemoveAllHistoryItemButton_Click(object sender, RoutedEventArgs e)
     {
-        var result = MessageBoxLibrary.ReallyWantToRemoveAllPlayHistoryMessageBox();
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingAllHistoryItems") ?? "Removing all history items...");
-
-        if (result == System.Windows.MessageBoxResult.Yes)
+        try
         {
-            _playHistoryList.Clear();
-            _playHistoryManager.PlayHistoryList = _playHistoryList;
-            _playHistoryManager.SavePlayHistoryAsync();
+            var result = await _messageBox.ReallyWantToRemoveAllPlayHistoryMessageBox();
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingAllHistoryItems") ?? "Removing all history items...");
 
-            _playSoundEffects.PlayTrashSound();
+            if (result == CoreMessageBoxResult.Yes)
+            {
+                _playHistoryList.Clear();
+                _playHistoryManager.PlayHistoryList = _playHistoryList;
+                await _playHistoryManager.SavePlayHistoryAsync();
+
+                _playSoundEffects.PlayTrashSound();
+
+                PreviewImage.Source = null;
+            }
+            else
+            {
+                return;
+            }
 
             PreviewImage.Source = null;
         }
-        else
+        catch (Exception ex)
         {
-            return;
+            _logErrors.LogAndForget(ex, "Error in the method RemoveAllHistoryItemButton_Click.");
         }
-
-        PreviewImage.Source = null;
     }
 
     private async void LaunchGameClickAsync(object sender, RoutedEventArgs e)
@@ -702,7 +726,7 @@ public partial class PlayHistoryPage : ILoadingState
             {
                 // Notify user
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingGameFromHistory") ?? "Launching game from history...");
-                MessageBoxLibrary.SelectAGameToLaunchMessageBox();
+                await _messageBox.SelectAGameToLaunchMessageBox();
             }
         }
         catch (Exception ex)
@@ -712,7 +736,7 @@ public partial class PlayHistoryPage : ILoadingState
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 

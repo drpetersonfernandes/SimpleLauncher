@@ -1,10 +1,9 @@
-using System.IO;
 using System.Text.RegularExpressions;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.HelpUser.Models;
 
-namespace SimpleLauncher.Services.HelpUser;
+namespace SimpleLauncher.Core.Services.HelpUser;
 
 public partial class HelpUserManager
 {

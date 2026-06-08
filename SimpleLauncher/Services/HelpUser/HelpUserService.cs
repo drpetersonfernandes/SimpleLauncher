@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-
+using SimpleLauncher.Core.Services.HelpUser;
 
 namespace SimpleLauncher.Services.HelpUser;
 

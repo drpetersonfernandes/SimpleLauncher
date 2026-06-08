@@ -1,8 +1,9 @@
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
 using Application = System.Windows.Application;
@@ -17,6 +18,7 @@ public partial class SoundConfigurationViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     private const string DefaultNotificationSound = "click.mp3";
     private static readonly string AudioFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "audio");
@@ -30,6 +32,7 @@ public partial class SoundConfigurationViewModel : ObservableObject
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         _enableNotificationSound = _settings.EnableNotificationSound;
         _notificationSoundFile = _settings.CustomNotificationSoundFile;
@@ -51,7 +54,7 @@ public partial class SoundConfigurationViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void ChooseSoundFile()
+    private async Task ChooseSoundFile()
     {
         var sourceFilePath = RequestSoundFilePath?.Invoke();
         if (string.IsNullOrEmpty(sourceFilePath)) return;
@@ -74,12 +77,12 @@ public partial class SoundConfigurationViewModel : ObservableObject
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error choosing or copying sound file.");
-            MessageBoxLibrary.ErrorSettingSoundFileMessageBox();
+            await _messageBox.ErrorSettingSoundFileMessageBox();
         }
     }
 
     [RelayCommand]
-    private void PlayCurrentSound()
+    private Task PlayCurrentSound()
     {
         switch (EnableNotificationSound)
         {
@@ -87,12 +90,12 @@ public partial class SoundConfigurationViewModel : ObservableObject
                 _playSoundEffects.PlayConfiguredSound(NotificationSoundFile);
                 break;
             case false:
-                MessageBoxLibrary.NotificationSoundIsDisableMessageBox();
-                break;
+                return _messageBox.NotificationSoundIsDisableMessageBox();
             default:
-                MessageBoxLibrary.NoSoundFileIsSelectedMessageBox();
-                break;
+                return _messageBox.NoSoundFileIsSelectedMessageBox();
         }
+
+        return Task.CompletedTask;
     }
 
     [RelayCommand]
@@ -103,16 +106,16 @@ public partial class SoundConfigurationViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void Save()
+    private async Task Save()
     {
         _settings.EnableNotificationSound = EnableNotificationSound;
         _settings.CustomNotificationSoundFile = NotificationSoundFile;
-        _settings.SaveAsync();
+        await _settings.SaveAsync();
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
             (string)Application.Current.TryFindResource("SavingSoundSettings") ?? "Saving sound settings...");
 
-        MessageBoxLibrary.SettingsSavedSuccessfullyMessageBox();
+        await _messageBox.SettingsSavedSuccessfullyMessageBox();
 
         SaveCompleted?.Invoke();
     }

@@ -2,7 +2,7 @@ using System.IO;
 using System.Windows;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -12,10 +12,12 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 public class AzaharConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
 
-    public AzaharConfigHandler(ILogErrors logErrors)
+    public AzaharConfigHandler(ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         _logErrors = logErrors;
+        _messageBox = messageBox;
     }
 
     public bool IsMatch(string emulatorName, string emulatorPath)
@@ -48,7 +50,7 @@ public class AzaharConfigHandler : IEmulatorConfigHandler
             catch (AzaharPermissionException)
             {
                 // Show permission error message but allow the game to launch
-                MessageBoxLibrary.AzaharConfigurationInjectionPermissionErrorMessageBox();
+                await _messageBox.AzaharConfigurationInjectionPermissionErrorMessageBox();
                 // Return true to allow the game to launch with default settings
             }
         }

@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
@@ -17,6 +17,7 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
     [ObservableProperty] private string _mednafenVideoDriver;
@@ -36,6 +37,7 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
     {
         _settings = settings;
         _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
     }
 
     /// <summary>
@@ -156,7 +158,7 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.MednafenEmulatorNotFoundMessageBox();
+        _messageBox.MednafenEmulatorNotFoundMessageBox().GetAwaiter().GetResult();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -184,7 +186,7 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void Run()
+    private async Task Run()
     {
         SaveSettings();
         try
@@ -196,7 +198,7 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
             }
             else
             {
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBox();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -209,25 +211,25 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectMednafenConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window);
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
             ShouldRun = true;
         }
     }
 
     [RelayCommand]
-    private void Save()
+    private async Task Save()
     {
         SaveSettings();
         try
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.MednafenConfigurationSavedSuccessfullyMessageBox();
+                await _messageBox.MednafenConfigurationSavedSuccessfullyMessageBox();
                 CloseRequested?.Invoke();
             }
             else
             {
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBox();
                 CloseRequested?.Invoke();
             }
         }
@@ -239,7 +241,7 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectMednafenConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 }

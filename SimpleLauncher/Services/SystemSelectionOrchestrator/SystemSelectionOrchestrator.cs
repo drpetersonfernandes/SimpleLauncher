@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
+using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 using SimpleLauncher.Services.DisplaySystemInfo;
 using SimpleLauncher.Services.GameCache;
@@ -17,7 +18,6 @@ using SimpleLauncher.Services.GameItemRender;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MameData;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SystemConfiguration;
 using SimpleLauncher.Services.SystemImageResolver;
@@ -43,6 +43,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
     private readonly IUpdateStatusBar _updateStatusBarService;
     private readonly ISystemConfigurationService _systemConfigurationService;
     private readonly IMameDataService _mameDataService;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     public SystemSelectionOrchestrator(
         SettingsManager.SettingsManager settings,
@@ -58,7 +59,8 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         IGetListOfFiles getListOfFiles,
         IUpdateStatusBar updateStatusBarService,
         ISystemConfigurationService systemConfigurationService,
-        IMameDataService mameDataService)
+        IMameDataService mameDataService,
+        IMessageBoxLibraryService messageBox)
     {
         _settings = settings;
         _systemImageResolverService = systemImageResolverService;
@@ -74,6 +76,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         _updateStatusBarService = updateStatusBarService;
         _systemConfigurationService = systemConfigurationService;
         _mameDataService = mameDataService;
+        _messageBox = messageBox;
     }
 
     public void Initialize(ISystemSelectionHost host)
@@ -269,7 +272,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Error in SystemButtonClickAsync.");
-                MessageBoxLibrary.InvalidSystemConfigMessageBox();
+                await _messageBox.InvalidSystemConfigMessageBox();
                 _host.SortOrderToggleButton.Visibility = Visibility.Collapsed;
 
                 _host.SystemComboBox.SelectedItem = null;
@@ -296,8 +299,8 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
     {
         try
         {
-            var result = MessageBoxLibrary.AreYouSureDoYouWantToDeleteThisSystemMessageBox();
-            if (result != System.Windows.MessageBoxResult.Yes) return;
+            var result = await _messageBox.AreYouSureDoYouWantToDeleteThisSystemMessageBox();
+            if (result != CoreMessageBoxResult.Yes) return;
 
             _playSoundEffects.PlayNotificationSound();
 
@@ -308,7 +311,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
             LoadOrReloadSystemManager();
             await _host.ResetUiAsync();
 
-            MessageBoxLibrary.SystemHasBeenDeletedMessageBox(systemName);
+            await _messageBox.SystemHasBeenDeletedMessageBox(systemName);
         }
         catch (Exception ex)
         {
@@ -384,7 +387,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
                         const string errorMessage = "Selected system or its configuration is null.";
                         _logErrors.LogAndForget(null, errorMessage);
 
-                        MessageBoxLibrary.InvalidSystemConfigMessageBox();
+                        await _messageBox.InvalidSystemConfigMessageBox();
                         _host.SortOrderToggleButton.Visibility = Visibility.Collapsed;
 
                         _host.SystemComboBox.SelectedItem = null;
@@ -425,7 +428,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
                             errorMessages.Append(msg);
                         }
 
-                        MessageBoxLibrary.ListOfErrorsMessageBox(errorMessages);
+                        await _messageBox.ListOfErrorsMessageBox(errorMessages);
                     }
 
                     var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemImageFolder);
@@ -452,7 +455,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
                     const string errorMessage = "Error in the method SystemComboBoxSelectionChangedAsync.";
                     _logErrors.LogAndForget(ex, errorMessage);
 
-                    MessageBoxLibrary.InvalidSystemConfigMessageBox();
+                    await _messageBox.InvalidSystemConfigMessageBox();
 
                     await _gameCacheService.InvalidateAsync(cancellationToken);
                 }

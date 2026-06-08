@@ -5,12 +5,19 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
 public class ChdToCueStrategy : ILaunchStrategy
 {
+    private readonly IMessageBoxLibraryService _messageBox;
+
+    public ChdToCueStrategy(IMessageBoxLibraryService messageBox)
+    {
+        _messageBox = messageBox;
+    }
+
     public int Priority => 25;
 
     public bool IsMatch(LaunchContext context)
@@ -54,7 +61,7 @@ public class ChdToCueStrategy : ILaunchStrategy
 
         if (cuePath == null)
         {
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+            await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
             return;
         }
 

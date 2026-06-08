@@ -5,8 +5,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 
 namespace SimpleLauncher.ViewModels;
@@ -19,15 +19,17 @@ public partial class SupportOptionViewModel : ObservableObject
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     private Exception _exception;
     private string _contextMessage;
 
-    public SupportOptionViewModel(PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors)
+    public SupportOptionViewModel(PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         _playSoundEffects = playSoundEffects;
         _configuration = configuration;
         _logErrors = logErrors;
+        _messageBox = messageBox;
     }
 
     /// <summary>
@@ -77,29 +79,36 @@ public partial class SupportOptionViewModel : ObservableObject
         CloseRequested?.Invoke();
     }
 
-    private void LaunchAiSearch(string baseUrl)
+    private async void LaunchAiSearch(string baseUrl)
     {
         try
         {
-            var query = BuildQuery();
-            var encodedQuery = System.Net.WebUtility.UrlEncode(query);
-            var url = $"{baseUrl}{encodedQuery}";
-
-            Process.Start(new ProcessStartInfo
+            try
             {
-                FileName = url,
-                UseShellExecute = true
-            });
+                var query = BuildQuery();
+                var encodedQuery = System.Net.WebUtility.UrlEncode(query);
+                var url = $"{baseUrl}{encodedQuery}";
+
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                await _messageBox.CouldNotOpenBrowserForAiSupportMessageBox();
+
+                var contextMessage = $"Error in LaunchAiSearch with base URL: {baseUrl}";
+                _logErrors.LogAndForget(ex, contextMessage);
+            }
+
+            CloseRequested?.Invoke();
         }
         catch (Exception ex)
         {
-            MessageBoxLibrary.CouldNotOpenBrowserForAiSupportMessageBox();
-
-            var contextMessage = $"Error in LaunchAiSearch with base URL: {baseUrl}";
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logErrors.LogAndForget(ex, "Error in LaunchAiSearch");
         }
-
-        CloseRequested?.Invoke();
     }
 
     private string BuildQuery()

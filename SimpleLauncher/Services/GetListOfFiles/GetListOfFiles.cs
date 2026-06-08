@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Services.GetListOfFiles;
 
@@ -13,11 +13,13 @@ public class GetListOfFilesService : IGetListOfFiles
 {
     private readonly ILogErrors _logError;
     private readonly IConfiguration _configuration;
+    private readonly IMessageBoxLibraryService _messageBox;
 
-    public GetListOfFilesService(ILogErrors logError, IConfiguration configuration)
+    public GetListOfFilesService(ILogErrors logError, IConfiguration configuration, IMessageBoxLibraryService messageBox)
     {
         _logError = logError;
         _configuration = configuration;
+        _messageBox = messageBox;
     }
 
     public Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions, SystemManager.SystemManager systemManager, CancellationToken cancellationToken = default)
@@ -61,7 +63,7 @@ public class GetListOfFilesService : IGetListOfFiles
                 _logError.LogAndForget(ex, contextMessage);
 
                 var logPath = _configuration.GetValue("LogPath", "error_user.log");
-                MessageBoxLibrary.ErrorFindingGameFilesMessageBox(PathHelper.ResolveRelativeToAppDirectory(logPath));
+                _ = _messageBox.ErrorFindingGameFilesMessageBox(PathHelper.ResolveRelativeToAppDirectory(logPath));
 
                 return new List<string>();
             }

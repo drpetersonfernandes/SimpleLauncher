@@ -30,6 +30,7 @@ public class GameItemRenderService : IGameItemRenderService
     private readonly IFindCoverImage _findCoverImage;
     private readonly IImageLoader _imageLoader;
     private readonly GameListUiService _gameListUiService;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     private IGameItemRenderHost _host;
     private GameButtonFactory _gameButtonFactory;
@@ -47,7 +48,8 @@ public class GameItemRenderService : IGameItemRenderService
         IGetListOfFiles getListOfFiles,
         IFindCoverImage findCoverImage,
         IImageLoader imageLoader,
-        GameListUiService gameListUiService)
+        GameListUiService gameListUiService,
+        IMessageBoxLibraryService messageBox)
     {
         _settings = settings;
         _favoritesManager = favoritesManager;
@@ -61,6 +63,7 @@ public class GameItemRenderService : IGameItemRenderService
         _findCoverImage = findCoverImage;
         _imageLoader = imageLoader;
         _gameListUiService = gameListUiService;
+        _messageBox = messageBox;
     }
 
     public void Initialize(IGameItemRenderHost host)
@@ -103,7 +106,8 @@ public class GameItemRenderService : IGameItemRenderService
             _logErrors,
             _getListOfFiles,
             _findCoverImage,
-            _imageLoader);
+            _imageLoader,
+            _messageBox);
     }
 
     public Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManager.SystemManager systemManager, CancellationToken ct)

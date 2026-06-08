@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
@@ -17,6 +17,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
     [ObservableProperty] private string _redreamCable;
@@ -40,6 +41,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     {
         _settings = settings;
         _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
     }
 
     /// <summary>
@@ -184,7 +186,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.ReDreamEmulatorPathNotFoundMessageBox();
+        _messageBox.ReDreamEmulatorPathNotFoundMessageBox().GetAwaiter().GetResult();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -212,7 +214,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void Run()
+    private async Task Run()
     {
         SaveSettings();
         try
@@ -224,7 +226,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
             }
             else
             {
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBox();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -237,25 +239,25 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRedreamConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window);
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
             ShouldRun = true;
         }
     }
 
     [RelayCommand]
-    private void Save()
+    private async Task Save()
     {
         SaveSettings();
         try
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.ReDreamConfigurationInjectedSuccessfullyMessageBox();
+                await _messageBox.ReDreamConfigurationInjectedSuccessfullyMessageBox();
                 CloseRequested?.Invoke();
             }
             else
             {
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBox();
                 CloseRequested?.Invoke();
             }
         }
@@ -267,7 +269,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRedreamConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 }

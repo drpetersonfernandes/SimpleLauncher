@@ -2,8 +2,8 @@ using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SettingsManager;
 using Application = System.Windows.Application;
@@ -17,6 +17,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     [ObservableProperty] private string _username;
     [ObservableProperty] private string _apiKey;
@@ -26,6 +27,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _logErrors = logErrors;
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         _username = _settings.RaUsername;
         _apiKey = _settings.RaApiKey;
@@ -39,7 +41,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     public event Func<string> RequestExePath;
 
     [RelayCommand]
-    private void Save()
+    private async Task Save()
     {
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
             (string)Application.Current.TryFindResource("SavingRetroAchievementsSettings") ?? "Saving RetroAchievements settings...");
@@ -47,7 +49,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
         _settings.RaUsername = (Username).Trim();
         _settings.RaApiKey = ApiKey;
         _settings.RaPassword = Password;
-        _settings.SaveAsync();
+        await _settings.SaveAsync();
 
         try
         {
@@ -56,7 +58,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error opening RetroAchievements control panel link.");
-            MessageBoxLibrary.UnableToOpenLinkMessageBox();
+            await _messageBox.UnableToOpenLinkMessageBox();
         }
 
         SaveCompleted?.Invoke();
@@ -72,7 +74,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBoxLibrary.EnterUsernamePasswordMessageBox();
+                await _messageBox.EnterUsernamePasswordMessageBox();
                 return;
             }
 
@@ -96,7 +98,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
                     }
                     else
                     {
-                        MessageBoxLibrary.FailedToLoginToRetroAchievementsMessageBox();
+                        await _messageBox.FailedToLoginToRetroAchievementsMessageBox();
                         return;
                     }
                 }
@@ -121,16 +123,16 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
 
                 if (success)
                 {
-                    MessageBoxLibrary.EmulatorConfiguredSuccessfullyMessageBox();
+                    await _messageBox.EmulatorConfiguredSuccessfullyMessageBox();
                 }
                 else
                 {
-                    MessageBoxLibrary.FailedToConfigureTheEmulatorMessageBox();
+                    await _messageBox.FailedToConfigureTheEmulatorMessageBox();
                 }
             }
             catch (Exception ex)
             {
-                MessageBoxLibrary.AnErrorOccurredWhileConfiguringTheEmulatorMessageBox();
+                await _messageBox.AnErrorOccurredWhileConfiguringTheEmulatorMessageBox();
                 _logErrors.LogAndForget(ex, $"Failed to configure {emulatorName}.");
             }
         }

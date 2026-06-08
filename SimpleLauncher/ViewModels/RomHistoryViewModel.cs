@@ -4,9 +4,10 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.RomHistory;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.ViewModels;
 
@@ -16,6 +17,7 @@ namespace SimpleLauncher.ViewModels;
 public partial class RomHistoryViewModel : ObservableObject
 {
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     private string _romName;
     private string _systemName;
@@ -29,6 +31,7 @@ public partial class RomHistoryViewModel : ObservableObject
     public RomHistoryViewModel(ILogErrors logErrors)
     {
         _logErrors = logErrors;
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
     }
 
     /// <summary>
@@ -69,7 +72,7 @@ public partial class RomHistoryViewModel : ObservableObject
                 var nohistoryxmlfilefound2 = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound2") ?? "No 'history.dat' or 'history.xml' file found in the application folder.";
                 HistoryMarkdown = nohistoryxmlfilefound2;
 
-                MessageBoxLibrary.NoHistoryXmlOrDatFoundMessageBox();
+                await _messageBox.NoHistoryXmlOrDatFoundMessageBox();
                 return;
             }
 
@@ -88,18 +91,18 @@ public partial class RomHistoryViewModel : ObservableObject
             }
             else
             {
-                PromptForOnlineSearch();
+                await PromptForOnlineSearch();
             }
         }
         catch (Exception ex)
         {
             const string contextMessage = "An error occurred while loading ROM history.";
             _logErrors.LogAndForget(ex, contextMessage);
-            MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
+            await _messageBox.ErrorLoadingRomHistoryMessageBox();
         }
     }
 
-    private void PromptForOnlineSearch()
+    private async Task PromptForOnlineSearch()
     {
         RomNameText = _romName;
         RomDescriptionText = _searchTerm;
@@ -108,15 +111,15 @@ public partial class RomHistoryViewModel : ObservableObject
         var noRoMhistoryfoundinthelocal2 = (string)Application.Current.TryFindResource("NoROMhistoryfoundinthelocal") ?? "No ROM history found in the local database for the selected file.";
         HistoryMarkdown = noRoMhistoryfoundinthelocal2;
 
-        var result = MessageBoxLibrary.SearchOnlineForRomHistoryMessageBox();
-        if (result == MessageBoxResult.Yes)
+        var result = await _messageBox.SearchOnlineForRomHistoryMessageBox();
+        if (result == Core.Interfaces.MessageBoxResult.Yes)
         {
-            OpenGoogleSearch();
+            await OpenGoogleSearch();
         }
     }
 
     [RelayCommand]
-    private void OpenGoogleSearch()
+    private async Task OpenGoogleSearch()
     {
         var query = !string.IsNullOrEmpty(_searchTerm) ? $"\"{_systemName}\" \"{_searchTerm}\" history" : $"\"{_systemName}\" \"{_romName}\" history";
         var googleSearchUrl = $"https://www.google.com/search?q={Uri.EscapeDataString(query)}";
@@ -129,7 +132,7 @@ public partial class RomHistoryViewModel : ObservableObject
         {
             const string contextMessage = "An error occurred while opening the browser.";
             _logErrors.LogAndForget(ex, contextMessage);
-            MessageBoxLibrary.ErrorOpeningBrowserMessageBox();
+            await _messageBox.ErrorOpeningBrowserMessageBox();
         }
     }
 

@@ -18,7 +18,6 @@ using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadImages;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.TakeScreenshot;
@@ -28,12 +27,13 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
 using WindowScreenshot = SimpleLauncher.Models.WindowScreenshot;
+using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
 
 namespace SimpleLauncher.Services.ContextMenu;
 
 internal static class ContextMenuFunctions
 {
-    internal static void AddToFavorites(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors)
+    internal static async Task AddToFavorites(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         try
         {
@@ -50,7 +50,7 @@ internal static class ContextMenuFunctions
                 playSoundEffects.PlayNotificationSound();
 
                 // Save the updated favorites list using the injected instance
-                favoritesManager.SaveFavoritesAsync();
+                await favoritesManager.SaveFavoritesAsync();
 
                 // Dynamic UI Update for both Grid and List views
                 if (gameFileGrid != null) // GridView is active
@@ -73,12 +73,12 @@ internal static class ContextMenuFunctions
 
                 // Notify user
                 mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FileAddedToFavorites") ?? "File added to favorites.");
-                MessageBoxLibrary.FileAddedToFavoritesMessageBox(fileNameWithExtension);
+                await messageBox.FileAddedToFavoritesMessageBox(fileNameWithExtension);
             }
             else
             {
                 // Notify user
-                MessageBoxLibrary.GameIsAlreadyInFavoritesMessageBox(fileNameWithExtension);
+                await messageBox.GameIsAlreadyInFavoritesMessageBox(fileNameWithExtension);
             }
         }
         catch (Exception ex)
@@ -88,11 +88,11 @@ internal static class ContextMenuFunctions
             logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox();
+            await messageBox.ErrorWhileAddingFavoritesMessageBox();
         }
     }
 
-    public static void RemoveFromFavorites(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors)
+    public static async Task RemoveFromFavorites(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         try
         {
@@ -110,7 +110,7 @@ internal static class ContextMenuFunctions
             playSoundEffects.PlayTrashSound();
 
             // Save the updated favorites list using the injected instance
-            favoritesManager.SaveFavoritesAsync();
+            await favoritesManager.SaveFavoritesAsync();
 
             // Dynamic UI Update Logic for both Grid and List views
             if (gameFileGrid != null) // GridView is active
@@ -134,7 +134,7 @@ internal static class ContextMenuFunctions
 
             // Notify user
             mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FileRemovedFromFavorites") ?? "File removed from favorites.");
-            MessageBoxLibrary.FileRemovedFromFavoritesMessageBox(fileNameWithExtension);
+            await messageBox.FileRemovedFromFavoritesMessageBox(fileNameWithExtension);
         }
         catch (Exception ex)
         {
@@ -143,11 +143,11 @@ internal static class ContextMenuFunctions
             logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ErrorWhileRemovingGameFromFavoriteMessageBox();
+            await messageBox.ErrorWhileRemovingGameFromFavoriteMessageBox();
         }
     }
 
-    public static void OpenVideoLink(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, SettingsManager.SettingsManager settings, MainWindow mainWindow, ILogErrors logErrors)
+    public static async Task OpenVideoLink(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, SettingsManager.SettingsManager settings, MainWindow mainWindow, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         // Attempt to find a matching machine description
         var searchTerm = fileNameWithoutExtension;
@@ -171,7 +171,7 @@ internal static class ContextMenuFunctions
         catch (Win32Exception ex) when (ex.Message.Contains("No hay ninguna aplicación asociada", StringComparison.OrdinalIgnoreCase) || ex.Message.Contains("No application is associated", StringComparison.OrdinalIgnoreCase))
         {
             logErrors.LogAndForget(ex, "Win32Exception: No default application configured for opening web links (Video Link).");
-            MessageBoxLibrary.NoDefaultBrowserConfiguredMessageBox();
+            await messageBox.NoDefaultBrowserConfiguredMessageBox();
         }
         catch (Exception ex)
         {
@@ -181,11 +181,11 @@ internal static class ContextMenuFunctions
 
             // Notify user
             mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ErrorOpeningVideoLink") ?? "Error opening video link.");
-            MessageBoxLibrary.ErrorOpeningVideoLinkMessageBox();
+            await messageBox.ErrorOpeningVideoLinkMessageBox();
         }
     }
 
-    public static void OpenInfoLink(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, SettingsManager.SettingsManager settings, MainWindow mainWindow, ILogErrors logErrors)
+    public static async Task OpenInfoLink(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, SettingsManager.SettingsManager settings, MainWindow mainWindow, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         // Attempt to find a matching machine description
         var searchTerm = fileNameWithoutExtension;
@@ -209,7 +209,7 @@ internal static class ContextMenuFunctions
         catch (Win32Exception ex) when (ex.Message.Contains("No hay ninguna aplicación asociada", StringComparison.OrdinalIgnoreCase) || ex.Message.Contains("No application is associated", StringComparison.OrdinalIgnoreCase))
         {
             logErrors.LogAndForget(ex, "Win32Exception: No default application configured for opening web links (Info Link).");
-            MessageBoxLibrary.NoDefaultBrowserConfiguredMessageBox();
+            await messageBox.NoDefaultBrowserConfiguredMessageBox();
         }
         catch (Exception ex)
         {
@@ -219,11 +219,11 @@ internal static class ContextMenuFunctions
 
             // Notify user
             mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ErrorOpeningInfoLink") ?? "Error opening info link.");
-            MessageBoxLibrary.ProblemOpeningInfoLinkMessageBox();
+            await messageBox.ProblemOpeningInfoLinkMessageBox();
         }
     }
 
-    public static void OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, MainWindow mainWindow, ILogErrors logErrors)
+    public static async Task OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, MainWindow mainWindow, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         var romName = fileNameWithoutExtension.ToLowerInvariant();
 
@@ -249,11 +249,11 @@ internal static class ContextMenuFunctions
 
             // Notify user
             mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ErrorOpeningROMHistory") ?? "Error opening ROM history.");
-            MessageBoxLibrary.CouldNotOpenHistoryWindowMessageBox();
+            await messageBox.CouldNotOpenHistoryWindowMessageBox();
         }
     }
 
-    public static async Task OpenRetroAchievementsWindowAsync(string filePath, string fileNameWithoutExtension, SystemManager.SystemManager systemManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogErrors logErrors)
+    public static async Task OpenRetroAchievementsWindowAsync(string filePath, string fileNameWithoutExtension, SystemManager.SystemManager systemManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         string tempExtractionPath = null;
         try
@@ -262,7 +262,7 @@ internal static class ContextMenuFunctions
 
             if (string.IsNullOrWhiteSpace(settings.RaApiKey) || string.IsNullOrWhiteSpace(settings.RaUsername))
             {
-                MessageBoxLibrary.AddRaLoginMessageBox();
+                await messageBox.AddRaLoginMessageBox();
                 playSoundEffects.PlayNotificationSound();
 
                 Application.Current.Dispatcher.Invoke(() =>
@@ -293,8 +293,8 @@ internal static class ContextMenuFunctions
             {
                 DebugLogger.Log($"[RA Service] System '{systemManager.SystemName}' is not supported for RetroAchievements.");
 
-                var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
-                if (messageBoxResult == System.Windows.MessageBoxResult.Yes)
+                var messageBoxResult = await messageBox.GameNotSupportedByRetroAchievementsMessageBox();
+                if (messageBoxResult == CoreMessageBoxResult.Yes)
                 {
                     playSoundEffects.PlayNotificationSound();
 
@@ -317,7 +317,7 @@ internal static class ContextMenuFunctions
             // Disable Hash calculation for systems that Group Files by Folder
             if (systemManager.GroupByFolder)
             {
-                MessageBoxLibrary.SimpleLauncherDoesNotSupportRaHashOfSystemGroupedByFolderMessageBox();
+                await messageBox.SimpleLauncherDoesNotSupportRaHashOfSystemGroupedByFolderMessageBox();
                 DebugLogger.Log("[RA Service] 'Simple Launcher' does not support RetroAchievements hash of systems Grouped by Folder.");
                 DebugLogger.Log("[RA Service] Please edit the system settings and disable the 'Group Files by Folder' option.");
                 return;
@@ -328,7 +328,7 @@ internal static class ContextMenuFunctions
                 DebugLogger.Log($"[RA Service] File not found at {filePath}");
                 logErrors.LogAndForget(null, $"[RA Service] File not found at {filePath}");
 
-                MessageBoxLibrary.CouldNotFindAFileMessageBox();
+                await messageBox.CouldNotFindAFileMessageBox();
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
@@ -342,7 +342,7 @@ internal static class ContextMenuFunctions
             {
                 DebugLogger.Log("[RA Service] FileNameWithoutExtension is null or empty.");
                 logErrors.LogAndForget(null, "[RA Service] FileNameWithoutExtension is null or empty.");
-                MessageBoxLibrary.ErrorMessageBox();
+                await messageBox.ErrorMessageBox();
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
@@ -357,8 +357,8 @@ internal static class ContextMenuFunctions
                 DebugLogger.Log("[RA Service] SystemName is null or empty.");
                 logErrors.LogAndForget(null, "[RA Service] SystemName is null or empty.");
 
-                var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
-                if (messageBoxResult == System.Windows.MessageBoxResult.Yes)
+                var messageBoxResult = await messageBox.GameNotSupportedByRetroAchievementsMessageBox();
+                if (messageBoxResult == CoreMessageBoxResult.Yes)
                 {
                     playSoundEffects.PlayNotificationSound();
 
@@ -415,8 +415,8 @@ internal static class ContextMenuFunctions
                 // Check if the failure was due to "system not supported"
                 if (raHashResult.ExtractionErrorMessage?.Contains("not supported for RetroAchievements hashing", StringComparison.OrdinalIgnoreCase) == true)
                 {
-                    var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
-                    if (messageBoxResult == System.Windows.MessageBoxResult.Yes)
+                    var messageBoxResult = await messageBox.GameNotSupportedByRetroAchievementsMessageBox();
+                    if (messageBoxResult == CoreMessageBoxResult.Yes)
                     {
                         playSoundEffects.PlayNotificationSound();
 
@@ -436,7 +436,7 @@ internal static class ContextMenuFunctions
                 // Check if the failure was due to an actual extraction issue (and not just "system not supported")
                 else if (!raHashResult.IsExtractionSuccessful)
                 {
-                    MessageBoxLibrary.ExtractionFailedMessageBox(); // Inform user about extraction failure
+                    await messageBox.ExtractionFailedMessageBox(); // Inform user about extraction failure
 
                     Application.Current.Dispatcher.Invoke(() =>
                     {
@@ -445,8 +445,8 @@ internal static class ContextMenuFunctions
                 }
                 else // A generic hashing failure not covered by the above
                 {
-                    var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
-                    if (messageBoxResult == System.Windows.MessageBoxResult.Yes)
+                    var messageBoxResult = await messageBox.GameNotSupportedByRetroAchievementsMessageBox();
+                    if (messageBoxResult == CoreMessageBoxResult.Yes)
                     {
                         playSoundEffects.PlayNotificationSound();
 
@@ -505,8 +505,8 @@ internal static class ContextMenuFunctions
                     mainWindow.UpdateStatusBarService.UpdateContent($"No match found for hash: {hash}");
                 });
 
-                var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
-                if (messageBoxResult == System.Windows.MessageBoxResult.Yes)
+                var messageBoxResult = await messageBox.GameNotSupportedByRetroAchievementsMessageBox();
+                if (messageBoxResult == CoreMessageBoxResult.Yes)
                 {
                     playSoundEffects.PlayNotificationSound();
 
@@ -523,7 +523,7 @@ internal static class ContextMenuFunctions
         {
             logErrors.LogAndForget(ex, $"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
             DebugLogger.Log($"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
-            MessageBoxLibrary.CouldNotOpenAchievementsWindowMessageBox();
+            await messageBox.CouldNotOpenAchievementsWindowMessageBox();
         }
         finally
         {
@@ -539,7 +539,7 @@ internal static class ContextMenuFunctions
         }
     }
 
-    public static void OpenCover(string systemName, string fileNameWithoutExtension, SystemManager.SystemManager systemManager, MainWindow mainWindow)
+    public static Task OpenCover(string systemName, string fileNameWithoutExtension, SystemManager.SystemManager systemManager, MainWindow mainWindow, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var systemImageFolder = systemManager.SystemImageFolder;
@@ -566,10 +566,10 @@ internal static class ContextMenuFunctions
         else
         {
             // Notify user
-            MessageBoxLibrary.ThereIsNoCoverMessageBox();
+            return messageBox.ThereIsNoCoverMessageBox();
         }
 
-        return;
+        return Task.CompletedTask;
 
         // Function to search for the file in a given directory
         bool TryFindImage(string directory, out string foundPath)
@@ -593,7 +593,7 @@ internal static class ContextMenuFunctions
         }
     }
 
-    public static void OpenTitleSnapshot(string systemName, string fileNameWithoutExtension)
+    public static Task OpenTitleSnapshot(string systemName, string fileNameWithoutExtension, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningTitleSnapshot") ?? "Opening title snapshot...");
@@ -608,15 +608,15 @@ internal static class ContextMenuFunctions
             var imageViewerWindow = App.ServiceProvider.GetRequiredService<ImageViewerWindow>();
             imageViewerWindow.LoadImagePath(titleSnapshotPath);
             imageViewerWindow.Show();
-            return;
+            return Task.CompletedTask;
         }
 
         // Notify user
-        MessageBoxLibrary.ThereIsNoTitleSnapshotMessageBox();
+        return messageBox.ThereIsNoTitleSnapshotMessageBox();
     }
 
 // Use fileNameWithoutExtension
-    public static void OpenGameplaySnapshot(string systemName, string fileNameWithoutExtension)
+    public static Task OpenGameplaySnapshot(string systemName, string fileNameWithoutExtension, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningGameplaySnapshot") ?? "Opening gameplay snapshot...");
@@ -631,15 +631,15 @@ internal static class ContextMenuFunctions
             var imageViewerWindow = App.ServiceProvider.GetRequiredService<ImageViewerWindow>();
             imageViewerWindow.LoadImagePath(gameplaySnapshotPath);
             imageViewerWindow.Show();
-            return;
+            return Task.CompletedTask;
         }
 
         // Notify user
-        MessageBoxLibrary.ThereIsNoGameplaySnapshotMessageBox();
+        return messageBox.ThereIsNoGameplaySnapshotMessageBox();
     }
 
 // Use fileNameWithoutExtension
-    public static void OpenCart(string systemName, string fileNameWithoutExtension)
+    public static Task OpenCart(string systemName, string fileNameWithoutExtension, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningCartImage") ?? "Opening cart image...");
@@ -654,15 +654,15 @@ internal static class ContextMenuFunctions
             var imageViewerWindow = App.ServiceProvider.GetRequiredService<ImageViewerWindow>();
             imageViewerWindow.LoadImagePath(cartPath);
             imageViewerWindow.Show();
-            return;
+            return Task.CompletedTask;
         }
 
         // Notify user
-        MessageBoxLibrary.ThereIsNoCartMessageBox();
+        return messageBox.ThereIsNoCartMessageBox();
     }
 
 // Use fileNameWithoutExtension
-    public static void PlayVideo(string systemName, string fileNameWithoutExtension)
+    public static Task PlayVideo(string systemName, string fileNameWithoutExtension, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("PlayingVideo") ?? "Playing video...");
@@ -679,15 +679,15 @@ internal static class ContextMenuFunctions
                 FileName = videoPath,
                 UseShellExecute = true
             });
-            return;
+            return Task.CompletedTask;
         }
 
         // Notify user
-        MessageBoxLibrary.ThereIsNoVideoFileMessageBox();
+        return messageBox.ThereIsNoVideoFileMessageBox();
     }
 
 // Use fileNameWithoutExtension
-    public static void OpenManual(string systemName, string fileNameWithoutExtension, ILogErrors logErrors)
+    public static async Task OpenManual(string systemName, string fileNameWithoutExtension, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningManual") ?? "Opening manual...");
@@ -717,7 +717,7 @@ internal static class ContextMenuFunctions
                 logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.NoPdfViewerInstalledMessageBox();
+                await messageBox.NoPdfViewerInstalledMessageBox();
 
                 return;
             }
@@ -728,18 +728,18 @@ internal static class ContextMenuFunctions
                 logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotOpenManualMessageBox();
+                await messageBox.CouldNotOpenManualMessageBox();
 
                 return;
             }
         }
 
         // Notify user
-        MessageBoxLibrary.ThereIsNoManualMessageBox();
+        await messageBox.ThereIsNoManualMessageBox();
     }
 
 // Use fileNameWithoutExtension
-    public static void OpenWalkthrough(string systemName, string fileNameWithoutExtension, ILogErrors logErrors)
+    public static async Task OpenWalkthrough(string systemName, string fileNameWithoutExtension, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningWalkthrough") ?? "Opening walkthrough...");
@@ -770,7 +770,7 @@ internal static class ContextMenuFunctions
                 logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.NoPdfViewerInstalledMessageBox();
+                await messageBox.NoPdfViewerInstalledMessageBox();
 
                 return;
             }
@@ -781,18 +781,18 @@ internal static class ContextMenuFunctions
                 logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotOpenWalkthroughMessageBox();
+                await messageBox.CouldNotOpenWalkthroughMessageBox();
 
                 return;
             }
         }
 
         // Notify user
-        MessageBoxLibrary.ThereIsNoWalkthroughMessageBox();
+        await messageBox.ThereIsNoWalkthroughMessageBox();
     }
 
 // Use fileNameWithoutExtension
-    public static void OpenCabinet(string systemName, string fileNameWithoutExtension)
+    public static Task OpenCabinet(string systemName, string fileNameWithoutExtension, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningCabinetImage") ?? "Opening cabinet image...");
@@ -807,15 +807,15 @@ internal static class ContextMenuFunctions
             var imageViewerWindow = App.ServiceProvider.GetRequiredService<ImageViewerWindow>();
             imageViewerWindow.LoadImagePath(cabinetPath);
             imageViewerWindow.Show();
-            return;
+            return Task.CompletedTask;
         }
 
         // Notify user
-        MessageBoxLibrary.ThereIsNoCabinetMessageBox();
+        return messageBox.ThereIsNoCabinetMessageBox();
     }
 
 // Use fileNameWithoutExtension
-    public static void OpenFlyer(string systemName, string fileNameWithoutExtension)
+    public static Task OpenFlyer(string systemName, string fileNameWithoutExtension, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningFlyerImage") ?? "Opening flyer image...");
@@ -830,15 +830,15 @@ internal static class ContextMenuFunctions
             var imageViewerWindow = App.ServiceProvider.GetRequiredService<ImageViewerWindow>();
             imageViewerWindow.LoadImagePath(flyerPath);
             imageViewerWindow.Show();
-            return;
+            return Task.CompletedTask;
         }
 
         // Notify user
-        MessageBoxLibrary.ThereIsNoFlyerMessageBox();
+        return messageBox.ThereIsNoFlyerMessageBox();
     }
 
 // Use fileNameWithoutExtension
-    public static void OpenPcb(string systemName, string fileNameWithoutExtension)
+    public static Task OpenPcb(string systemName, string fileNameWithoutExtension, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningPCBImage") ?? "Opening PCB image...");
@@ -853,14 +853,14 @@ internal static class ContextMenuFunctions
             var imageViewerWindow = App.ServiceProvider.GetRequiredService<ImageViewerWindow>();
             imageViewerWindow.LoadImagePath(pcbPath);
             imageViewerWindow.Show();
-            return;
+            return Task.CompletedTask;
         }
 
         // Notify user
-        MessageBoxLibrary.ThereIsNoPcbMessageBox();
+        return messageBox.ThereIsNoPcbMessageBox();
     }
 
-    public static async Task TakeScreenshotOfSelectedWindowAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher.GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogErrors logErrors)
+    public static async Task TakeScreenshotOfSelectedWindowAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher.GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TakingScreenshot") ?? "Taking screenshot...");
         try
@@ -939,7 +939,7 @@ internal static class ContextMenuFunctions
             {
                 // Timeout - no new windows appeared
                 DebugLogger.Log($"[Screenshot] Timeout after {stopwatch.Elapsed.TotalSeconds:F1}s. No new windows detected.");
-                MessageBoxLibrary.GameLaunchTimeoutMessageBox();
+                await messageBox.GameLaunchTimeoutMessageBox();
                 return;
             }
 
@@ -982,7 +982,7 @@ internal static class ContextMenuFunctions
                 if (width <= 0 || height <= 0)
                 {
                     // Notify the user that they can't screenshot a minimized window.
-                    MessageBoxLibrary.CannotScreenshotMinimizedWindowMessageBox();
+                    await messageBox.CannotScreenshotMinimizedWindowMessageBox();
                     DebugLogger.Log("Cannot take a screenshot of a minimized window.");
 
                     return; // Exit the method gracefully
@@ -1065,11 +1065,11 @@ internal static class ContextMenuFunctions
             }
 
             // Notify user
-            MessageBoxLibrary.CouldNotSaveScreenshotMessageBox();
+            await messageBox.CouldNotSaveScreenshotMessageBox();
         }
     }
 
-    public static async Task DeleteGameAsync(string filePath, string fileNameWithExtension, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors)
+    public static async Task DeleteGameAsync(string filePath, string fileNameWithExtension, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("DeletingGame") ?? "Deleting game...");
         if (File.Exists(filePath))
@@ -1084,7 +1084,7 @@ internal static class ContextMenuFunctions
                 await mainWindow.InvalidateGameFileCachesAsync();
 
                 // Notify user
-                MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(fileNameWithExtension);
+                await messageBox.FileSuccessfullyDeletedMessageBox(fileNameWithExtension);
 
                 // Reload the current Game List to reflect the deletion
                 try
@@ -1105,7 +1105,7 @@ internal static class ContextMenuFunctions
                 logErrors.LogAndForget(ex, errorMessage);
 
                 // Notify user
-                MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
+                await messageBox.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
             }
         }
         else
@@ -1115,11 +1115,11 @@ internal static class ContextMenuFunctions
             logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
+            await messageBox.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
         }
     }
 
-    public static async Task DeleteCoverImageAsync(string fileNameWithoutExtension, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager contextSettings, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IFindCoverImage findCoverImage)
+    public static async Task DeleteCoverImageAsync(string fileNameWithoutExtension, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager contextSettings, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IFindCoverImage findCoverImage, IMessageBoxLibraryService messageBox)
     {
         mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("DeletingCoverImage") ?? "Deleting cover image...");
         var coverPath = findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, contextSettings);
@@ -1138,7 +1138,7 @@ internal static class ContextMenuFunctions
             if (!File.Exists(coverPath))
             {
                 // Notify user
-                MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(coverPath);
+                await messageBox.FileSuccessfullyDeletedMessageBox(coverPath);
 
                 // Reload the current Game List
                 await mainWindow.LoadGameFilesAsync();
@@ -1151,7 +1151,7 @@ internal static class ContextMenuFunctions
             logErrors.LogAndForget(ex, errorMessage);
 
             // Notify user
-            MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(coverPath);
+            await messageBox.FileCouldNotBeDeletedMessageBox(coverPath);
         }
     }
 }

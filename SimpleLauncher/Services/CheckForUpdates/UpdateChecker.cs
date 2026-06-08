@@ -253,7 +253,7 @@ public partial class UpdateChecker
 
             logWindow.Log("Launching Updater.exe (auto-downloads from GitHub if needed)...");
             await Task.Delay(500);
-            await QuitSimpleLauncher.ShutdownForUpdateAsync(updaterExePath);
+            await QuitSimpleLauncher.ShutdownForUpdateAsync(updaterExePath, _messageBoxLibrary);
             // If we reach here, ShutdownForUpdateAsync returned without killing the process
             // (the update failed — an error was already shown to the user)
             logWindow.Log("Updater.exe launch failed.");

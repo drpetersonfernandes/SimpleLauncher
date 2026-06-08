@@ -5,13 +5,13 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.LoadImages;
 
-public class ImageLoader(ILogErrors logErrors, IConfiguration configuration) : IImageLoader
+public class ImageLoader(ILogErrors logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBox) : IImageLoader
 {
     private readonly ILogErrors _logErrors = logErrors;
+    private readonly IMessageBoxLibraryService _messageBox = messageBox;
 
     private readonly string _defaultImagePath = Path.Combine(
         AppDomain.CurrentDomain.BaseDirectory,
@@ -54,7 +54,7 @@ public class ImageLoader(ILogErrors logErrors, IConfiguration configuration) : I
         {
             const string contextMessage = "Failed to load global default image: images\\default.png.";
             _logErrors.LogAndForget(ex, contextMessage);
-            MessageBoxLibrary.DefaultImageNotFoundMessageBox();
+            await _messageBox.DefaultImageNotFoundMessageBox();
             return (null, true);
         }
     }

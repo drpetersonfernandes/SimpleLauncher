@@ -1,6 +1,7 @@
+using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.SettingsManager;
 using Application = System.Windows.Application;
 
@@ -12,13 +13,15 @@ namespace SimpleLauncher.ViewModels;
 public partial class SetGamepadDeadZoneViewModel : ObservableObject
 {
     private readonly SettingsManager _settingsManager;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     private double _deadZoneX;
     private double _deadZoneY;
 
-    public SetGamepadDeadZoneViewModel(SettingsManager settingsManager)
+    public SetGamepadDeadZoneViewModel(SettingsManager settingsManager, IMessageBoxLibraryService messageBox)
     {
         _settingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
+        _messageBox = messageBox;
 
         _deadZoneX = _settingsManager.DeadZoneX;
         _deadZoneY = _settingsManager.DeadZoneY;
@@ -51,10 +54,10 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
     }
 
     /// <summary>Gets the X-axis dead zone formatted for display.</summary>
-    public string DeadZoneXText => _deadZoneX.ToString("F2");
+    public string DeadZoneXText => _deadZoneX.ToString("F2", CultureInfo.InvariantCulture);
 
     /// <summary>Gets the Y-axis dead zone formatted for display.</summary>
-    public string DeadZoneYText => _deadZoneY.ToString("F2");
+    public string DeadZoneYText => _deadZoneY.ToString("F2", CultureInfo.InvariantCulture);
 
     /// <summary>Event raised when settings have been saved.</summary>
     public event Action SaveCompleted;
@@ -63,16 +66,16 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
     public event Action CloseRequested;
 
     [RelayCommand]
-    private void Save()
+    private async Task SaveAsync()
     {
         _settingsManager.DeadZoneX = (float)DeadZoneX;
         _settingsManager.DeadZoneY = (float)DeadZoneY;
-        _settingsManager.SaveAsync();
+        await _settingsManager.SaveAsync();
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
             (string)Application.Current.TryFindResource("SavingGamepadDeadZoneSettings") ?? "Saving gamepad dead zone settings...");
 
-        MessageBoxLibrary.DeadZonesSavedMessageBox();
+        await _messageBox.DeadZonesSavedMessageBox();
 
         SaveCompleted?.Invoke();
     }

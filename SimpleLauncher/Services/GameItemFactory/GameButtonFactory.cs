@@ -7,6 +7,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
@@ -19,7 +20,6 @@ using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.LoadImages;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.WpfServices;
 using Image = System.Windows.Controls.Image;
@@ -60,6 +60,7 @@ internal partial class GameButtonFactory(
     private readonly IGetListOfFiles _getListOfFiles = getListOfFiles ?? throw new ArgumentNullException(nameof(getListOfFiles));
     private readonly IFindCoverImage _findCoverImage = findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
     private readonly IImageLoader _imageLoader = imageLoader ?? throw new ArgumentNullException(nameof(imageLoader));
+    private readonly IMessageBoxLibraryService _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
     private Button _button;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
@@ -343,7 +344,7 @@ internal partial class GameButtonFactory(
 
                     try
                     {
-                        await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, _mainWindow, _playSoundEffects, context.LoadingStateProvider, _logErrors);
+                        await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, _mainWindow, _playSoundEffects, context.LoadingStateProvider, _logErrors, _messageBox);
                     }
                     catch (Exception ex)
                     {
@@ -351,7 +352,7 @@ internal partial class GameButtonFactory(
                         _logErrors.LogAndForget(ex, $"Error opening achievements for {fileNameWithoutExtension}");
 
                         // Notify user
-                        MessageBoxLibrary.CouldNotOpenAchievementsWindowMessageBox();
+                        await _messageBox.CouldNotOpenAchievementsWindowMessageBox();
                     }
                     finally
                     {
@@ -393,7 +394,7 @@ internal partial class GameButtonFactory(
             };
             videoLinkButton.Content = videoLinkImage;
 
-            videoLinkButton.Click += (_, e) =>
+            videoLinkButton.Click += async (_, e) =>
             {
                 try
                 {
@@ -405,7 +406,7 @@ internal partial class GameButtonFactory(
                     context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, _mainWindow, _logErrors);
+                        await ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, _mainWindow, _logErrors, _messageBox);
                     }
                     catch (Exception ex)
                     {
@@ -413,7 +414,7 @@ internal partial class GameButtonFactory(
                         _logErrors.LogAndForget(ex, $"Error opening video link for {fileNameWithoutExtension}");
 
                         // Notify user
-                        MessageBoxLibrary.ErrorOpeningVideoLinkMessageBox();
+                        await _messageBox.ErrorOpeningVideoLinkMessageBox();
                     }
                     finally
                     {
@@ -455,7 +456,7 @@ internal partial class GameButtonFactory(
             };
             infoLinkButton.Content = infoLinkImage;
 
-            infoLinkButton.Click += (_, e) =>
+            infoLinkButton.Click += async (_, e) =>
             {
                 try
                 {
@@ -467,7 +468,7 @@ internal partial class GameButtonFactory(
                     context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        ContextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, _mainWindow, _logErrors);
+                        await ContextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, _mainWindow, _logErrors, _messageBox);
                     }
                     catch (Exception ex)
                     {
@@ -475,7 +476,7 @@ internal partial class GameButtonFactory(
                         _logErrors.LogAndForget(ex, $"Error opening info link for {fileNameWithoutExtension}");
 
                         // Notify user
-                        MessageBoxLibrary.ProblemOpeningInfoLinkMessageBox();
+                        await _messageBox.ProblemOpeningInfoLinkMessageBox();
                     }
                     finally
                     {
@@ -585,7 +586,7 @@ internal partial class GameButtonFactory(
                 if (_emulatorComboBox == null)
                 {
                     _logErrors.LogAndForget(null, "[CreateGameButtonAsync] _emulatorComboBox is null.");
-                    MessageBoxLibrary.EmulatorNameIsRequiredMessageBox();
+                    await _messageBox.EmulatorNameIsRequiredMessageBox();
                     _mainWindow?.SetGameButtonsEnabled(true);
                     return;
                 }
@@ -597,7 +598,7 @@ internal partial class GameButtonFactory(
                     _logErrors.LogAndForget(null, "[CreateGameButtonAsync] selectedEmulatorName is null or empty.");
 
                     // Notify user
-                    MessageBoxLibrary.EmulatorNameIsRequiredMessageBox();
+                    await _messageBox.EmulatorNameIsRequiredMessageBox();
 
                     _mainWindow?.SetGameButtonsEnabled(true); // Re-enable buttons on error
                     return;

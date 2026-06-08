@@ -5,7 +5,7 @@ using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.SanitizeInputString;
 using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.CreateFolders;
-using SimpleLauncher.Services.MessageBox;
+using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
@@ -29,7 +29,7 @@ internal partial class EditSystemWindow
             if (SanitizeInputSystemName.ContainsInvalidCharacters(systemNameText, out var invalidChars))
             {
                 var invalidCharsStr = string.Join(", ", invalidChars.Select(static c => $"'{c}'"));
-                MessageBoxLibrary.InvalidSystemNameCharactersMessageBox(invalidCharsStr);
+                await _messageBox.InvalidSystemNameCharactersMessageBox(invalidCharsStr);
                 MarkInvalid(SystemNameTextBox, false);
                 return;
             }
@@ -81,11 +81,14 @@ internal partial class EditSystemWindow
                 isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid, isEmulator5LocationValid);
 
             // Validate SystemName (now with sanitized value)
-            if (ValidateSystemName(systemNameText)) return;
+            if (await ValidateSystemName(systemNameText)) return;
 
             // Validate SystemFolder (uses the potentially prefixed value)
             var firstFolder = allSystemFolders.FirstOrDefault() ?? string.Empty;
-            if (ValidateSystemFolder(systemNameText, ref firstFolder)) return;
+            var systemFolderResult = await ValidateSystemFolder(systemNameText, firstFolder);
+            if (systemFolderResult.IsValid) return;
+
+            firstFolder = systemFolderResult.FolderText;
 
             if (allSystemFolders.Count > 0)
             {
@@ -97,7 +100,10 @@ internal partial class EditSystemWindow
             }
 
             // Validate SystemImageFolder (uses the potentially prefixed value)
-            if (ValidateSystemImageFolder(systemNameText, ref varSystemImageFolderText)) return;
+            var imageFolderResult = await ValidateSystemImageFolder(systemNameText, varSystemImageFolderText);
+            if (imageFolderResult.IsValid) return;
+
+            varSystemImageFolderText = imageFolderResult.FolderText;
 
             var extractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem != null &&
                                           bool.Parse((ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)
@@ -108,7 +114,8 @@ internal partial class EditSystemWindow
             var disableRecursiveSearch = (DisableRecursiveSearchComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString()
                 ?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false;
 
-            if (ValidateFormatToSearch(formatToSearchText, extractFileBeforeLaunch, out var formatsToSearch))
+            var formatSearchResult = await ValidateFormatToSearch(formatToSearchText, extractFileBeforeLaunch);
+            if (formatSearchResult.IsValid)
             {
                 MarkInvalid(FormatToSearchTextBox, false); // Invalid state
                 return;
@@ -118,48 +125,53 @@ internal partial class EditSystemWindow
                 MarkValid(FormatToSearchTextBox); // Valid state
             }
 
-            if (ValidateFormatToLaunch(formatToLaunchText, extractFileBeforeLaunch, out var formatsToLaunch))
+            var formatsToSearch = formatSearchResult.Formats;
+
+            var formatLaunchResult = await ValidateFormatToLaunch(formatToLaunchText, extractFileBeforeLaunch);
+            if (formatLaunchResult.IsValid)
             {
                 return;
             }
 
-            if (ValidateEmulator1Name(emulator1NameText))
+            var formatsToLaunch = formatLaunchResult.Formats;
+
+            if (await ValidateEmulator1Name(emulator1NameText))
             {
                 return;
             }
 
-            if (ValidateEmulator1Location(emulator1LocationText, formatsToSearch))
+            if (await ValidateEmulator1Location(emulator1LocationText, formatsToSearch))
             {
                 MarkInvalid(Emulator1PathTextBox, false);
                 return;
             }
 
-            if (ValidateEmulator2Location(emulator2NameText, emulator2LocationText, formatsToSearch))
+            if (await ValidateEmulator2Location(emulator2NameText, emulator2LocationText, formatsToSearch))
             {
                 MarkInvalid(Emulator2PathTextBox, false);
                 return;
             }
 
-            if (ValidateEmulator3Location(emulator3NameText, emulator3LocationText, formatsToSearch))
+            if (await ValidateEmulator3Location(emulator3NameText, emulator3LocationText, formatsToSearch))
             {
                 MarkInvalid(Emulator3PathTextBox, false);
                 return;
             }
 
-            if (ValidateEmulator4Location(emulator4NameText, emulator4LocationText, formatsToSearch))
+            if (await ValidateEmulator4Location(emulator4NameText, emulator4LocationText, formatsToSearch))
             {
                 MarkInvalid(Emulator4PathTextBox, false);
                 return;
             }
 
-            if (ValidateEmulator5Location(emulator5NameText, emulator5LocationText, formatsToSearch))
+            if (await ValidateEmulator5Location(emulator5NameText, emulator5LocationText, formatsToSearch))
             {
                 MarkInvalid(Emulator5PathTextBox, false);
                 return;
             }
 
             // Check if any of the *location* paths are invalid after prefixing/validation
-            if (CheckPaths(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid,
+            if (await CheckPaths(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid,
                     isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid,
                     isEmulator5LocationValid)) return;
 
@@ -187,8 +199,8 @@ internal partial class EditSystemWindow
 
                 if (!hasMameOrDosBoxEmulator)
                 {
-                    var result = MessageBoxLibrary.GroupByFolderWarningMessageBox();
-                    if (result == MessageBoxResult.No)
+                    var result = await _messageBox.GroupByFolderWarningMessageBox();
+                    if (result == CoreMessageBoxResult.No)
                     {
                         return; // User chose not to save, so abort.
                     }
@@ -219,7 +231,7 @@ internal partial class EditSystemWindow
             {
                 if (!emulatorNames.Add(emulator1NameText))
                 {
-                    MessageBoxLibrary.EmulatorNameMustBeUniqueMessageBox(emulator1NameText);
+                    await _messageBox.EmulatorNameMustBeUniqueMessageBox(emulator1NameText);
                     return;
                 }
 
@@ -247,7 +259,7 @@ internal partial class EditSystemWindow
                 {
                     if (string.IsNullOrEmpty(currentEmulatorName))
                     {
-                        MessageBoxLibrary.EmulatorNameRequiredMessageBox(i + 2); // Pass emulator number (2-5)
+                        await _messageBox.EmulatorNameRequiredMessageBox(i + 2); // Pass emulator number (2-5)
                         return;
                     }
                 }
@@ -256,7 +268,7 @@ internal partial class EditSystemWindow
 
                 if (!emulatorNames.Add(currentEmulatorName))
                 {
-                    MessageBoxLibrary.EmulatorNameMustBeUniqueMessageBox(currentEmulatorName);
+                    await _messageBox.EmulatorNameMustBeUniqueMessageBox(currentEmulatorName);
                     return;
                 }
 
@@ -295,19 +307,19 @@ internal partial class EditSystemWindow
                 LoadSystemDetails(systemNameText); // This will load the saved values (including %BASEFOLDER%) back into UI
 
                 // Notify user
-                MessageBoxLibrary.SystemSavedSuccessfullyMessageBox();
+                await _messageBox.SystemSavedSuccessfullyMessageBox();
 
                 // Create folders based on the resolved paths
                 var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? string.Empty);
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(varSystemImageFolderText);
-                CreateDefaultSystemFolders.CreateFolders(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logErrors);
+                await CreateDefaultSystemFolders.CreateFolders(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logErrors, _messageBox);
 
                 _originalSystemName = systemNameText; // Update original name after successful save & UI refresh
             }
             catch (InvalidOperationException ex)
             {
                 // Notify user
-                MessageBoxLibrary.SaveSystemFailedMessageBox(ex.InnerException?.Message);
+                await _messageBox.SaveSystemFailedMessageBox(ex.InnerException?.Message);
             }
             catch (Exception ex)
             {
@@ -316,7 +328,7 @@ internal partial class EditSystemWindow
                 _logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.SaveSystemFailedMessageBox("An unexpected error occurred.");
+                await _messageBox.SaveSystemFailedMessageBox("An unexpected error occurred.");
             }
             finally
             {

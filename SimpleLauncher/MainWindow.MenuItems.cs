@@ -1,7 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher;
 
@@ -285,7 +284,7 @@ public partial class MainWindow
             _logErrors.LogAndForget(ex, errorMessage);
 
             // Notify user
-            MessageBoxLibrary.ErrorMessageBox();
+            await _messageBox.ErrorMessageBox();
         }
     }
 

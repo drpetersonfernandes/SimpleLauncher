@@ -1,9 +1,9 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.ViewModels;
 
@@ -13,12 +13,14 @@ namespace SimpleLauncher.ViewModels;
 public partial class DebugViewModel : ObservableObject
 {
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
     private readonly object _logLock = new();
     private string _logText = string.Empty;
 
-    public DebugViewModel(ILogErrors logErrors)
+    public DebugViewModel(ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         _logErrors = logErrors;
+        _messageBox = messageBox;
     }
 
     /// <summary>
@@ -77,7 +79,7 @@ public partial class DebugViewModel : ObservableObject
     }
 
     [RelayCommand(CanExecute = nameof(CanCopyLog))]
-    private void CopyLog()
+    private async Task CopyLogAsync()
     {
         try
         {
@@ -92,7 +94,7 @@ public partial class DebugViewModel : ObservableObject
             _logErrors.LogAndForget(ex, "Error copying log");
 
             // Notify user
-            MessageBoxLibrary.FailedToCopyLogContentMessageBox();
+            await _messageBox.FailedToCopyLogContentMessageBox();
             DebugLogger.Log("Failed to copy log content.");
         }
     }

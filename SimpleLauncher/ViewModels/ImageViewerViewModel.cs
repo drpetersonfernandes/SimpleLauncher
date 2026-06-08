@@ -1,8 +1,8 @@
 using System.IO;
 using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.ViewModels;
 
@@ -12,12 +12,14 @@ namespace SimpleLauncher.ViewModels;
 public class ImageViewerViewModel : ObservableObject
 {
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
     private BitmapSource _imageSource;
     private string _errorMessage;
 
-    public ImageViewerViewModel(ILogErrors logErrors)
+    public ImageViewerViewModel(ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         _logErrors = logErrors;
+        _messageBox = messageBox;
     }
 
     /// <summary>
@@ -42,7 +44,7 @@ public class ImageViewerViewModel : ObservableObject
     /// Loads an image from a file path.
     /// </summary>
     /// <param name="imagePath">The path to the image file.</param>
-    public void LoadImageFromPath(string imagePath)
+    public async void LoadImageFromPath(string imagePath)
     {
         try
         {
@@ -65,7 +67,7 @@ public class ImageViewerViewModel : ObservableObject
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ImageViewerErrorMessageBox();
+            await _messageBox.ImageViewerErrorMessageBox();
 
             ImageSource = null;
         }

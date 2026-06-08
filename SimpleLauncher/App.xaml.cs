@@ -19,6 +19,7 @@ using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.ViewModels;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
+using SimpleLauncher.Services.EasyMode;
 using SimpleLauncher.Services.ExtractFiles;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindCoverImage;
@@ -88,7 +89,8 @@ public partial class App : IDisposable
         var tempDir = Path.GetTempPath();
         if (baseDir.StartsWith(tempDir, StringComparison.OrdinalIgnoreCase))
         {
-            MessageBoxLibrary.PleaseExtractApplicationFirstMessageBox();
+            var messageBox = ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+            _ = messageBox.PleaseExtractApplicationFirstMessageBox();
             Shutdown();
             return;
         }
@@ -171,7 +173,8 @@ public partial class App : IDisposable
         {
             var config = provider.GetRequiredService<IConfiguration>();
             var logErrors = provider.GetRequiredService<ILogErrors>();
-            var sm = new SettingsManager(config, logErrors);
+            var messageBox = provider.GetRequiredService<IMessageBoxLibraryService>();
+            var sm = new SettingsManager(config, logErrors, messageBox);
             sm.Load();
             return sm;
         });
@@ -183,6 +186,7 @@ public partial class App : IDisposable
         serviceCollection.AddScoped<DownloadManager>();
         serviceCollection.AddSingleton<GameLauncher>();
         serviceCollection.AddSingleton<ILaunchTools, LaunchTools>();
+        serviceCollection.AddSingleton<IDebugLogger, DebugLoggerAdapter>();
         serviceCollection.AddSingleton<IExtractionService, ExtractionService>();
         serviceCollection.AddSingleton<RetroAchievementsService>();
         serviceCollection.AddSingleton(static sp =>
@@ -292,6 +296,7 @@ public partial class App : IDisposable
         serviceCollection.AddTransient<UpdateLogWindow>();
         serviceCollection.AddTransient<SetFuzzyMatchingWindow>();
         serviceCollection.AddTransient<DownloadImagePackWindow>();
+        serviceCollection.AddTransient<EasyModeManager>();
         serviceCollection.AddTransient<EasyModeWindow>();
         serviceCollection.AddTransient<RetroAchievementsWindow>();
         serviceCollection.AddTransient<RetroAchievementsForAGameWindow>();
@@ -405,7 +410,8 @@ public partial class App : IDisposable
             {
                 ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to create or acquire single instance mutex.");
 
-                MessageBoxLibrary.FailedToStartSimpleLauncherMessageBox();
+                var messageBox = ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+                _ = messageBox.FailedToStartSimpleLauncherMessageBox();
 
                 _singleInstanceMutex?.Dispose();
                 Shutdown();
@@ -416,7 +422,8 @@ public partial class App : IDisposable
             {
                 ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to create or acquire single instance mutex.");
 
-                MessageBoxLibrary.FailedToStartSimpleLauncherMessageBox();
+                var messageBox = ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+                _ = messageBox.FailedToStartSimpleLauncherMessageBox();
 
                 _singleInstanceMutex?.Dispose();
                 Shutdown();

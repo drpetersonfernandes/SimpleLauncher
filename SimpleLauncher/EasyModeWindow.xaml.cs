@@ -5,6 +5,7 @@ using System.Windows.Navigation;
 using Microsoft.Win32;
 using Application = System.Windows.Application;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
@@ -12,10 +13,9 @@ using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.LoadingInterface;
 using SimpleLauncher.Services.CreateFolders;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.EasyMode;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.PlaySound;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
@@ -25,6 +25,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 {
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IDebugLogger _debugLogger;
+    private readonly EasyModeManager _easyModeManager;
     private EasyModeManager _manager;
     private readonly IConfiguration _configuration;
 
@@ -261,7 +264,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         });
     }
 
-    public EasyModeWindow(PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, DownloadManager downloadManager)
+    public EasyModeWindow(PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, DownloadManager downloadManager, EasyModeManager easyModeManager, IDebugLogger debugLogger)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -269,6 +272,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         _configuration = configuration;
         _playSoundEffects = playSoundEffects;
         _logErrors = logErrors;
+        _easyModeManager = easyModeManager;
+        _debugLogger = debugLogger;
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         // Set DataContext for XAML bindings to work
         DataContext = this;
@@ -307,13 +313,13 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         SetLoadingState(true, (string)Application.Current.TryFindResource("Loadingconfiguration") ?? "Loading configuration...");
         await Task.Yield(); // Allow UI to render the loading overlay
 
-        _manager = await EasyModeManager.LoadAsync();
+        _manager = await _easyModeManager.LoadAsync();
 
         SetLoadingState(false);
 
         if (_manager is not { Systems.Count: > 0 })
         {
-            MessageBoxLibrary.EasyModeUnavailableMessageBox();
+            await _messageBox.EasyModeUnavailableMessageBox();
             SystemNameDropdown.IsEnabled = false;
             SystemFolderTextBox.IsEnabled = false;
             DownloadEmulatorButton.IsEnabled = false;
@@ -891,7 +897,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     DownloadStatus = $"{componentName} {hasbeensuccessfullydownloadedandinstalled}";
 
                     // Notify user
-                    MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
+                    await _messageBox.DownloadAndExtrationWereSuccessfulMessageBox();
 
                     StopDownloadButton.IsEnabled = false;
                     // Mark as successfully downloaded
@@ -916,7 +922,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     }
                     else if (_downloadManager.IsFileLockedDuringDownload) // Specific check for file lock during download
                     {
-                        await MessageBoxLibrary.ShowDownloadFileLockedMessageBoxAsync(_downloadManager.TempFolder);
+                        await _messageBox.ShowDownloadFileLockedMessageBoxAsync(_downloadManager.TempFolder);
                         EndOperation();
                     }
                     else if (_downloadManager.IsDownloadCompleted) // This means download was completed, but something went wrong *after* (e.g., during cleanup or a very late error)
@@ -925,7 +931,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                         DownloadStatus = $"{errorFailedtoextract} {componentName}.";
                         EndOperation();
                         SetDownloadState(type, DownloadButtonState.Failed); // Re-enable on extraction failure
-                        await MessageBoxLibrary.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
+                        await _messageBox.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
                     }
                     else // Generic download failure (not user cancelled, not file locked, not extraction failure)
                     {
@@ -966,14 +972,14 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 if (_downloadManager.IsFileLockedDuringDownload)
                 {
                     EndOperation();
-                    await MessageBoxLibrary.ShowDownloadFileLockedMessageBoxAsync(_downloadManager.TempFolder);
+                    await _messageBox.ShowDownloadFileLockedMessageBoxAsync(_downloadManager.TempFolder);
                 }
 
                 // If download was completed, the exception was likely during extraction.
                 else if (_downloadManager.IsDownloadCompleted)
                 {
                     EndOperation();
-                    await MessageBoxLibrary.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
+                    await _messageBox.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
                 }
                 else // Exception was during download
                 {
@@ -998,26 +1004,23 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     }
 
-    private static Task ShowDownloadErrorDialogAsync(string type, EasyModeSystemConfig selectedSystem)
+    private Task ShowDownloadErrorDialogAsync(string type, EasyModeSystemConfig selectedSystem)
     {
         switch (type)
         {
             case EasyModeManager.DownloadType.Emulator:
-                return MessageBoxLibrary.ShowEmulatorDownloadErrorMessageBoxAsync(selectedSystem);
+                return _messageBox.ShowEmulatorDownloadErrorMessageBoxAsync(selectedSystem);
             case EasyModeManager.DownloadType.Core:
-                return MessageBoxLibrary.ShowCoreDownloadErrorMessageBoxAsync(selectedSystem);
+                return _messageBox.ShowCoreDownloadErrorMessageBoxAsync(selectedSystem);
             case EasyModeManager.DownloadType.ImagePack1:
             case EasyModeManager.DownloadType.ImagePack2:
             case EasyModeManager.DownloadType.ImagePack3:
             case EasyModeManager.DownloadType.ImagePack4:
             case EasyModeManager.DownloadType.ImagePack5:
-                return MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
+                return _messageBox.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
             default:
-                MessageBoxLibrary.DownloadExtractionFailedMessageBox();
-                break;
+                return _messageBox.DownloadExtractionFailedMessageBox();
         }
-
-        return Task.CompletedTask;
     }
 
     private void DownloadManager_ProgressChanged(object sender, DownloadProgressEventArgs e)
@@ -1119,12 +1122,12 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolderRaw);
                     var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderRaw);
 
-                    CreateDefaultSystemFolders.CreateFolders(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logErrors);
+                    await CreateDefaultSystemFolders.CreateFolders(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logErrors, _messageBox);
 
                     var systemhasbeensuccessfullyadded = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
                     DownloadStatus = systemhasbeensuccessfullyadded;
 
-                    MessageBoxLibrary.SystemAddedMessageBox(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
+                    await _messageBox.SystemAddedMessageBox(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
 
                     Close();
                 }
@@ -1133,7 +1136,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     var errorFailedtoaddsystem = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
                     DownloadStatus = $"{errorFailedtoaddsystem} {ex.Message}";
 
-                    MessageBoxLibrary.AddSystemFailedMessageBox(ex.Message);
+                    await _messageBox.AddSystemFailedMessageBox(ex.Message);
                 }
                 catch (Exception ex)
                 {
@@ -1143,7 +1146,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     const string contextMessage = "Unexpected error adding system.";
                     _logErrors.LogAndForget(ex, contextMessage);
 
-                    MessageBoxLibrary.AddSystemFailedMessageBox();
+                    await _messageBox.AddSystemFailedMessageBox();
                 }
                 finally
                 {
@@ -1249,7 +1252,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     }
 
-    private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+    private async void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
     {
         try
         {
@@ -1266,7 +1269,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             _logErrors.LogAndForget(ex, "Error opening the download link.");
 
             // Notify user
-            MessageBoxLibrary.CouldNotOpenTheDownloadLinkMessageBox();
+            await _messageBox.CouldNotOpenTheDownloadLinkMessageBox();
         }
     }
 
@@ -1289,7 +1292,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         LoadingOverlay.Visibility = Visibility.Collapsed;
         MainContentGrid?.IsEnabled = true;
 
-        DebugLogger.Log("[Emergency] User forced overlay dismissal in EasyModeWindow.");
+        _debugLogger.Log("[Emergency] User forced overlay dismissal in EasyModeWindow.");
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 }

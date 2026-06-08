@@ -7,10 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.DownloadService.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.EasyMode;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.PlaySound;
 using Application = System.Windows.Application;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -26,6 +25,9 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     private readonly DownloadManager _downloadManager;
     private readonly ILogErrors _logErrors;
     private readonly IServiceScope _scope;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IDebugLogger _debugLogger;
+    private readonly EasyModeManager _easyModeManager;
     private EasyModeManager _manager;
     private bool _disposed;
     private int _operationInProgressFlag;
@@ -38,10 +40,13 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     private string _loadingMessage;
     private bool _isSystemDropdownEnabled = true;
 
-    public DownloadImagePackViewModel(PlaySoundEffects playSoundEffects, ILogErrors logErrors)
+    public DownloadImagePackViewModel(PlaySoundEffects playSoundEffects, ILogErrors logErrors, IDebugLogger debugLogger, EasyModeManager easyModeManager)
     {
         _playSoundEffects = playSoundEffects;
         _logErrors = logErrors;
+        _debugLogger = debugLogger;
+        _easyModeManager = easyModeManager;
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
         _scope = App.ServiceProvider.CreateScope();
         _downloadManager = _scope.ServiceProvider.GetRequiredService<DownloadManager>();
         _downloadManager.DownloadProgressChanged += DownloadManager_ProgressChanged;
@@ -163,13 +168,13 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         IsLoading = true;
         await Task.Yield();
 
-        _manager = await EasyModeManager.LoadAsync();
+        _manager = await _easyModeManager.LoadAsync();
 
         IsLoading = false;
 
         if (_manager is not { Systems.Count: > 0 })
         {
-            MessageBoxLibrary.ImagePackDownloaderUnavailableMessageBox();
+            await _messageBox.ImagePackDownloaderUnavailableMessageBox();
             IsSystemDropdownEnabled = false;
             return;
         }
@@ -382,7 +387,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                 var hasbeensuccessfullydownloadedandinstalled = (string)Application.Current.TryFindResource("hasbeensuccessfullydownloadedandinstalled") ?? "has been successfully downloaded and installed.";
                 StatusMessage = $"{componentName} {hasbeensuccessfullydownloadedandinstalled}";
 
-                MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
+                await _messageBox.DownloadAndExtrationWereSuccessfulMessageBox();
 
                 IsStopEnabled = false;
                 EndOperation();
@@ -405,7 +410,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                 {
                     var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
                     StatusMessage = $"{errorFailedtoextract} {componentName}.";
-                    await MessageBoxLibrary.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
+                    await _messageBox.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
                     EndOperation();
                     item.State = DownloadButtonState.Failed;
                 }
@@ -414,7 +419,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                     var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
                     StatusMessage = $"{errorFailedtoextract} {componentName}.";
 
-                    await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
+                    await _messageBox.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
                     if (_disposed) return;
 
                     EndOperation();
@@ -441,12 +446,12 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
             if (_downloadManager.IsDownloadCompleted)
             {
-                await MessageBoxLibrary.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
+                await _messageBox.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
                 EndOperation();
             }
             else
             {
-                await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
+                await _messageBox.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
                 EndOperation();
             }
 
@@ -505,7 +510,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     }
 
     [RelayCommand]
-    private void HyperlinkNavigate(string url)
+    private async Task HyperlinkNavigate(string url)
     {
         try
         {
@@ -517,7 +522,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         {
             _logErrors.LogAndForget(ex, "Error opening the download link.");
 
-            MessageBoxLibrary.CouldNotOpenTheDownloadLinkMessageBox();
+            await _messageBox.CouldNotOpenTheDownloadLinkMessageBox();
         }
     }
 
@@ -534,7 +539,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
         IsLoading = false;
 
-        DebugLogger.Log("[Emergency] User forced overlay dismissal in DownloadImagePackWindow.");
+        _debugLogger.Log("[Emergency] User forced overlay dismissal in DownloadImagePackWindow.");
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 

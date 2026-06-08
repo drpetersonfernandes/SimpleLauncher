@@ -1,12 +1,12 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
@@ -17,6 +17,7 @@ public class ChdMountStrategy : ILaunchStrategy
 {
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     private bool _is4Do;
     private bool _isBlastem;
@@ -38,10 +39,11 @@ public class ChdMountStrategy : ILaunchStrategy
     private bool _isXenia;
     private bool _isYabause;
 
-    public ChdMountStrategy(IConfiguration configuration, ILogErrors logErrors)
+    public ChdMountStrategy(IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         _configuration = configuration;
         _logErrors = logErrors;
+        _messageBox = messageBox;
     }
 
     public int Priority => 10;
@@ -178,7 +180,7 @@ public class ChdMountStrategy : ILaunchStrategy
         // Get the console index for CHDMounter based on system and emulator
         var consoleIndex = MountChdFiles.GetConsoleIndexFromSystemName(context.SystemName, context.EmulatorName, _logErrors);
 
-        await using var mountedDrive = await MountChdFiles.MountAsync(context.ResolvedFilePath, consoleIndex, _logErrors);
+        await using var mountedDrive = await MountChdFiles.MountAsync(context.ResolvedFilePath, consoleIndex, _logErrors, _messageBox);
 
         if (!mountedDrive.IsMounted)
         {
@@ -226,7 +228,7 @@ public class ChdMountStrategy : ILaunchStrategy
         {
             DebugLogger.Log($"[ChdMountStrategy] No suitable game file found in mounted CHD at {mountedDrive.MountedPath}");
             await _logErrors.LogErrorAsync(null, $"No game file found in mounted CHD for emulator '{context.EmulatorName}'");
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
+            await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
             return; // will be handle by the next Strategy
         }
 

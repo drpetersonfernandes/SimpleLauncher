@@ -1,14 +1,14 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.CreateFolders;
 
 public static class CreateDefaultSystemFolders
 {
-    public static void CreateFolders(string systemName, string systemFolder, string systemImageFolder, IConfiguration configuration, ILogErrors logErrors)
+    public static async Task CreateFolders(string systemName, string systemFolder, string systemImageFolder, IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var additionalFolders = configuration.GetValue<string[]>("AdditionalFolders") ??
@@ -32,7 +32,7 @@ public static class CreateDefaultSystemFolders
                     logErrors.LogAndForget(ex, "Error creating the primary system folder.");
 
                     // Notify user
-                    MessageBoxLibrary.FolderCreationFailedMessageBox();
+                    await messageBox.FolderCreationFailedMessageBox();
                 }
             }
 
@@ -48,7 +48,7 @@ public static class CreateDefaultSystemFolders
                     logErrors.LogAndForget(ex, "Error creating the primary image folder.");
 
                     // Notify user
-                    MessageBoxLibrary.FolderCreationFailedMessageBox();
+                    await messageBox.FolderCreationFailedMessageBox();
                 }
             }
 
@@ -70,7 +70,7 @@ public static class CreateDefaultSystemFolders
                     logErrors.LogAndForget(ex, $"Error creating the {folder} folder.");
 
                     // Notify user
-                    MessageBoxLibrary.FolderCreationFailedMessageBox();
+                    await messageBox.FolderCreationFailedMessageBox();
                 }
             }
         }
@@ -81,7 +81,7 @@ public static class CreateDefaultSystemFolders
             logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.FolderCreationFailedMessageBox();
+            await messageBox.FolderCreationFailedMessageBox();
 
             throw;
         }

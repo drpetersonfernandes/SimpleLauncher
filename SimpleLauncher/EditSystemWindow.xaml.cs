@@ -13,12 +13,12 @@ using Microsoft.Win32;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.CheckApplicationControlPolicy;
+using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.LoadingInterface;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.HelpUser;
 using SimpleLauncher.Services.LoadImages;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
 using SimpleLauncher.Services.SettingsManager;
@@ -40,6 +40,7 @@ internal partial class EditSystemWindow : ILoadingState
     private string _originalSystemName;
     private readonly IConfiguration _configuration;
     private readonly string _preSelectedSystemName;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, IHelpUserService helpUserService, IImageLoader imageLoader, string preSelectedSystemName = null)
     {
@@ -53,6 +54,7 @@ internal partial class EditSystemWindow : ILoadingState
         _helpUserService = helpUserService;
         _imageLoader = imageLoader;
         _preSelectedSystemName = preSelectedSystemName;
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         ApplyExpanderSettings();
 
@@ -106,7 +108,7 @@ internal partial class EditSystemWindow : ILoadingState
             if (systems == null)
             {
                 // Notify user on UI thread
-                MessageBoxLibrary.SystemXmlNotFoundMessageBox();
+                await _messageBox.SystemXmlNotFoundMessageBox();
                 QuitSimpleLauncher.SimpleQuitApplication(); // Or just Close();
             }
             else
@@ -283,24 +285,31 @@ internal partial class EditSystemWindow : ILoadingState
         ((HelpUserService)_helpUserService).UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox.Text.Trim());
     }
 
-    private void AddSystemButton_Click(object sender, RoutedEventArgs e)
+    private async void AddSystemButton_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        _originalSystemName = null;
+        try
+        {
+            _playSoundEffects.PlayNotificationSound();
+            _originalSystemName = null;
 
-        EnableFields();
-        ClearFields();
-        SystemNameDropdown.SelectedItem = null;
-        ClearFieldsForNoSelection();
-        EnableFields();
+            EnableFields();
+            ClearFields();
+            SystemNameDropdown.SelectedItem = null;
+            ClearFieldsForNoSelection();
+            EnableFields();
 
-        HelpUserTextBlock.Document.Blocks.Clear();
+            HelpUserTextBlock.Document.Blocks.Clear();
 
-        SaveSystemButton.IsEnabled = true;
-        DeleteSystemButton.IsEnabled = false;
+            SaveSystemButton.IsEnabled = true;
+            DeleteSystemButton.IsEnabled = false;
 
-        // Notify user
-        MessageBoxLibrary.YouCanAddANewSystemMessageBox();
+            // Notify user
+            await _messageBox.YouCanAddANewSystemMessageBox();
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method AddSystemButton_Click.");
+        }
     }
 
     private void EnableFields()
@@ -552,14 +561,14 @@ internal partial class EditSystemWindow : ILoadingState
             if (SystemNameDropdown.SelectedItem == null)
             {
                 // Notify user
-                MessageBoxLibrary.SelectASystemToDeleteMessageBox();
+                await _messageBox.SelectASystemToDeleteMessageBox();
                 return;
             }
 
             var selectedSystemName = SystemNameDropdown.SelectedItem.ToString();
 
-            var result = MessageBoxLibrary.AreYouSureDoYouWantToDeleteThisSystemMessageBox();
-            if (result != System.Windows.MessageBoxResult.Yes) return;
+            var result = await _messageBox.AreYouSureDoYouWantToDeleteThisSystemMessageBox();
+            if (result != CoreMessageBoxResult.Yes) return;
 
             SystemManager.DeleteSystemAsync(selectedSystemName);
             _playSoundEffects.PlayNotificationSound();
@@ -571,7 +580,7 @@ internal partial class EditSystemWindow : ILoadingState
             }
 
             // Notify user
-            MessageBoxLibrary.SystemHasBeenDeletedMessageBox(selectedSystemName);
+            await _messageBox.SystemHasBeenDeletedMessageBox(selectedSystemName);
         }
         catch (Exception ex)
         {
@@ -610,37 +619,44 @@ internal partial class EditSystemWindow : ILoadingState
         }
     }
 
-    private void HelpLink_Click(object sender, RoutedEventArgs e)
+    private async void HelpLink_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        var searchUrl = _configuration.GetValue<string>("WikiParametersUrl") ?? "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters/";
         try
         {
-            Process.Start(new ProcessStartInfo
+            _playSoundEffects.PlayNotificationSound();
+            var searchUrl = _configuration.GetValue<string>("WikiParametersUrl") ?? "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters/";
+            try
             {
-                FileName = searchUrl,
-                UseShellExecute = true
-            });
-        }
-        catch (Win32Exception ex) // Catch Win32Exception specifically
-        {
-            if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
-            {
-                // Specific message for application control policy blocking links
-                MessageBoxLibrary.ApplicationControlPolicyBlockedManualLinkMessageBox(searchUrl);
-                _logErrors.LogAndForget(ex, "Application control policy blocked opening HelpLink.");
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = searchUrl,
+                    UseShellExecute = true
+                });
             }
-            else
+            catch (Win32Exception ex) // Catch Win32Exception specifically
             {
-                // Existing error handling for other Win32Exceptions
+                if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+                {
+                    // Specific message for application control policy blocking links
+                    await _messageBox.ApplicationControlPolicyBlockedManualLinkMessageBox(searchUrl);
+                    _logErrors.LogAndForget(ex, "Application control policy blocked opening HelpLink.");
+                }
+                else
+                {
+                    // Existing error handling for other Win32Exceptions
+                    _logErrors.LogAndForget(ex, "Error in method HelpLink_Click");
+                    await _messageBox.ErrorOpeningUrlMessageBox();
+                }
+            }
+            catch (Exception ex)
+            {
                 _logErrors.LogAndForget(ex, "Error in method HelpLink_Click");
-                MessageBoxLibrary.ErrorOpeningUrlMessageBox();
+                await _messageBox.ErrorOpeningUrlMessageBox();
             }
         }
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in method HelpLink_Click");
-            MessageBoxLibrary.ErrorOpeningUrlMessageBox();
         }
     }
 
@@ -687,7 +703,7 @@ internal partial class EditSystemWindow : ILoadingState
             var systemName = SystemNameTextBox.Text.Trim();
             if (string.IsNullOrEmpty(systemName))
             {
-                MessageBoxLibrary.SystemNameRequiredBeforeChoosingImageMessageBox();
+                await _messageBox.SystemNameRequiredBeforeChoosingImageMessageBox();
                 return;
             }
 
@@ -704,7 +720,7 @@ internal partial class EditSystemWindow : ILoadingState
             var extension = Path.GetExtension(sourceFilePath).ToLowerInvariant();
             if (extension != ".png" && extension != ".jpg" && extension != ".jpeg")
             {
-                MessageBoxLibrary.InvalidImageFormatMessageBox();
+                await _messageBox.InvalidImageFormatMessageBox();
                 return;
             }
 
@@ -739,7 +755,7 @@ internal partial class EditSystemWindow : ILoadingState
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Error copying system image.");
-                MessageBoxLibrary.FailedToCopySystemImageMessageBox(ex.Message);
+                await _messageBox.FailedToCopySystemImageMessageBox(ex.Message);
             }
         }
         catch (Exception ex)
@@ -885,7 +901,7 @@ internal partial class EditSystemWindow : ILoadingState
         if (string.IsNullOrWhiteSpace(emulatorName))
         {
             var enterEmulatorNameMsg = (string)Application.Current.TryFindResource("ParameterResolverEnterEmulatorName") ?? "Please enter an emulator name first.";
-            MessageBoxLibrary.WarningMessageBox(enterEmulatorNameMsg);
+            await _messageBox.WarningMessageBox(enterEmulatorNameMsg);
             return;
         }
 
@@ -937,7 +953,7 @@ internal partial class EditSystemWindow : ILoadingState
                     dialogMessage += $"\n\nExplanation: {explanation}";
                 }
 
-                var applyResult = MessageBoxLibrary.CustomQuestionMessageBox(successTitle, dialogMessage);
+                var applyResult = await _messageBox.CustomQuestionMessageBox(successTitle, dialogMessage);
 
                 if (applyResult)
                 {
@@ -949,13 +965,13 @@ internal partial class EditSystemWindow : ILoadingState
             {
                 var apiException = new InvalidOperationException($"ParameterResolver API returned {(int)response.StatusCode}: {responseBody}");
                 _logErrors.LogAndForget(apiException, "ParameterResolver API error");
-                MessageBoxLibrary.CustomErrorMessageBox(errorMessage, errorTitle);
+                await _messageBox.CustomErrorMessageBox(errorMessage, errorTitle);
             }
         }
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error calling ParameterResolver API");
-            MessageBoxLibrary.CustomErrorMessageBox(errorMessage, errorTitle);
+            await _messageBox.CustomErrorMessageBox(errorMessage, errorTitle);
         }
         finally
         {

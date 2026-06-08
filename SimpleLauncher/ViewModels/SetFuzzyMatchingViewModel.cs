@@ -1,8 +1,8 @@
 using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
 using Application = System.Windows.Application;
 
@@ -15,6 +15,7 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     private double _thresholdValue;
 
@@ -23,10 +24,11 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
     public const double MaximumThreshold = 0.95;
     public const double TickFrequency = 0.05;
 
-    public SetFuzzyMatchingViewModel(SettingsManager settings, ILogErrors logErrors)
+    public SetFuzzyMatchingViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _logErrors = logErrors;
+        _messageBox = messageBox;
 
         // Initialize values from settings
         _thresholdValue = Math.Max(MinimumThreshold, Math.Min(MaximumThreshold, _settings.FuzzyMatchingThreshold));
@@ -90,7 +92,7 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
     public event Action CancelRequested;
 
     [RelayCommand(CanExecute = nameof(CanSave))]
-    private void Save()
+    private async Task SaveAsync()
     {
         try
         {
@@ -103,7 +105,7 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
             var newThreshold = Math.Clamp(ThresholdValue, MinimumThreshold, MaximumThreshold);
 
             _settings.FuzzyMatchingThreshold = newThreshold;
-            _settings.SaveAsync();
+            await _settings.SaveAsync();
             (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
                 (string)Application.Current.TryFindResource("SavingFuzzyMatchingSettings") ?? "Saving fuzzy matching settings...");
 
@@ -116,7 +118,7 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify the user
-            MessageBoxLibrary.FuzzyMatchingErrorFailToSetThresholdMessageBox();
+            await _messageBox.FuzzyMatchingErrorFailToSetThresholdMessageBox();
             // Do not close the window on error
         }
     }

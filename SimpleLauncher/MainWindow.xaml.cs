@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.LaunchTools;
 using SimpleLauncher.Models;
@@ -17,7 +18,6 @@ using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MenuCheckMark;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.MenuOrchestrator;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.SettingsManager;
@@ -117,6 +117,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, Core.Serv
 
     private readonly ILaunchTools _launchTools;
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMenuOrchestrator _menuOrchestrator;
     private readonly IApplicationLifecycleService _lifecycle;
     private readonly IAudioInputService _audioInput;
@@ -145,6 +146,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, Core.Serv
         PlayHistoryManager = playHistoryManager;
         _launchTools = launchTools;
         _logErrors = logErrors;
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
         UpdateStatusBarService = updateStatusBarService;
 
         _gameBrowser = gameBrowser;
@@ -290,8 +292,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, Core.Serv
                 // If still no systems, show the Easy Mode prompt.
                 if (_systemManagers == null || _systemManagers.Count == 0)
                 {
-                    var result = MessageBoxLibrary.FirstRunWelcomeMessageBox();
-                    if (result == MessageBoxResult.Yes)
+                    var result = (System.Windows.MessageBoxResult)(int)await _messageBox.FirstRunWelcomeMessageBox();
+                    if (result == System.Windows.MessageBoxResult.Yes)
                     {
                         var easyModeWindow = App.ServiceProvider.GetRequiredService<EasyModeWindow>();
                         easyModeWindow.Owner = this;
@@ -554,7 +556,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, Core.Serv
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in ShowSystemFeelingLuckyClickAsync.");
-            MessageBoxLibrary.ErrorMessageBox();
+            await _messageBox.ErrorMessageBox();
         }
     }
 

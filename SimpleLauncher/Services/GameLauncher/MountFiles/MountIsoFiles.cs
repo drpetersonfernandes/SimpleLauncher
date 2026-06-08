@@ -5,7 +5,6 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
@@ -21,7 +20,8 @@ public static class MountIsoFiles
         IWindowContext windowContext,
         string logPath,
         GameLauncher gameLauncher,
-        ILogErrors logErrors)
+        ILogErrors logErrors,
+        IMessageBoxLibraryService messageBox)
     {
         DebugLogger.Log($"[MountIsoFiles] Starting to mount ISO using PowerShell: {resolvedIsoFilePath}");
         DebugLogger.Log($"[MountIsoFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
@@ -35,7 +35,7 @@ public static class MountIsoFiles
             logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
 
             return;
         }
@@ -43,13 +43,13 @@ public static class MountIsoFiles
         try
         {
             // 1. Mount ISO and get drive letter
-            var mountedDriveLetter = await ExecutePowerShellMountCommandAsync(resolvedIsoFilePath, logErrors);
+            var mountedDriveLetter = await ExecutePowerShellMountCommandAsync(resolvedIsoFilePath, logErrors, messageBox);
 
             if (string.IsNullOrEmpty(mountedDriveLetter))
             {
                 // Error already logged by ExecutePowerShellMountCommandAsync
                 // User already notified by ExecutePowerShellMountCommandAsync or will be here
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+                await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
                 return;
             }
 
@@ -66,7 +66,7 @@ public static class MountIsoFiles
                 logErrors.LogAndForget(null, errorMessage);
 
                 // Notify user
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+                await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
 
                 // The finally block will attempt to dismount.
                 return;
@@ -89,7 +89,7 @@ public static class MountIsoFiles
                 logErrors.LogAndForget(new FileNotFoundException(errorMessage), errorMessage);
 
                 // Notify user
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+                await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
 
                 return;
             }
@@ -111,7 +111,7 @@ public static class MountIsoFiles
             logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
         }
         finally
         {
@@ -119,7 +119,7 @@ public static class MountIsoFiles
             if (!string.IsNullOrEmpty(resolvedIsoFilePath))
             {
                 DebugLogger.Log($"[MountIsoFiles] Attempting to dismount ISO: {resolvedIsoFilePath}");
-                await ExecutePowerShellDismountCommandAsync(resolvedIsoFilePath, logErrors);
+                await ExecutePowerShellDismountCommandAsync(resolvedIsoFilePath, logErrors, messageBox);
 
                 if (!string.IsNullOrEmpty(mountPath))
                 {
@@ -158,7 +158,7 @@ public static class MountIsoFiles
         return false;
     }
 
-    internal static async Task<string> ExecutePowerShellMountCommandAsync(string isoPath, ILogErrors logErrors)
+    internal static async Task<string> ExecutePowerShellMountCommandAsync(string isoPath, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         var escapedIsoPath = isoPath.Replace("'", "''"); // Escape single quotes for PowerShell
         var command = $"$isoPath = '{escapedIsoPath}'; " +
@@ -208,7 +208,7 @@ public static class MountIsoFiles
                 // Check for execution policy restrictions
                 if (IsExecutionPolicyRestricted(errors))
                 {
-                    MessageBoxLibrary.UnabletomountIsOfileMessageBox();
+                    await messageBox.UnabletomountIsOfileMessageBox();
 
                     return null;
                 }
@@ -241,7 +241,7 @@ public static class MountIsoFiles
             var errorOutput = errorBuilder.ToString().Trim();
             if (IsExecutionPolicyRestricted(errorOutput))
             {
-                MessageBoxLibrary.UnabletomountIsOfileMessageBox();
+                await messageBox.UnabletomountIsOfileMessageBox();
             }
 
             // Notify developer
@@ -267,7 +267,7 @@ public static class MountIsoFiles
             // Check if the exception message indicates execution policy restrictions
             if (IsExecutionPolicyRestricted(ex.Message))
             {
-                MessageBoxLibrary.UnabletomountIsOfileMessageBox();
+                await messageBox.UnabletomountIsOfileMessageBox();
             }
 
             // Notify developer
@@ -279,7 +279,7 @@ public static class MountIsoFiles
         }
     }
 
-    internal static async Task ExecutePowerShellDismountCommandAsync(string isoPath, ILogErrors logErrors)
+    internal static async Task ExecutePowerShellDismountCommandAsync(string isoPath, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         var escapedIsoPath = isoPath.Replace("'", "''");
         var command = $"Dismount-DiskImage -ImagePath '{escapedIsoPath}' -ErrorAction SilentlyContinue";
@@ -319,7 +319,7 @@ public static class MountIsoFiles
                 // Check for execution policy restrictions
                 if (IsExecutionPolicyRestricted(errors))
                 {
-                    MessageBoxLibrary.UnabletoDismountIsOfileMessageBox();
+                    await messageBox.UnabletoDismountIsOfileMessageBox();
                 }
 
                 var warningMessage = $"PowerShell dismount command for ISO {isoPath} finished with Exit Code: {process.ExitCode} or reported errors (ErrorAction SilentlyContinue was used).\nErrors: {errors}";
@@ -336,7 +336,7 @@ public static class MountIsoFiles
             var errorOutput = errorBuilder.ToString().Trim();
             if (IsExecutionPolicyRestricted(errorOutput))
             {
-                MessageBoxLibrary.UnabletoDismountIsOfileMessageBox();
+                await messageBox.UnabletoDismountIsOfileMessageBox();
             }
 
             // Notify developer
@@ -361,7 +361,7 @@ public static class MountIsoFiles
             // Check if the exception message indicates execution policy restrictions
             if (IsExecutionPolicyRestricted(ex.Message))
             {
-                MessageBoxLibrary.UnabletoDismountIsOfileMessageBox();
+                await messageBox.UnabletoDismountIsOfileMessageBox();
             }
 
             // Notify developer

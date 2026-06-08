@@ -10,7 +10,6 @@ using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.LoadImages;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.WpfServices;
@@ -34,7 +33,8 @@ public class GameListFactory(
     ILogErrors logErrors,
     IGetListOfFiles getListOfFiles,
     IFindCoverImage findCoverImage,
-    IImageLoader imageLoader)
+    IImageLoader imageLoader,
+    IMessageBoxLibraryService messageBox)
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox;
     private readonly ComboBox _systemComboBox = systemComboBox;
@@ -52,6 +52,7 @@ public class GameListFactory(
     private readonly IGetListOfFiles _getListOfFiles = getListOfFiles;
     private readonly IFindCoverImage _findCoverImage = findCoverImage;
     private readonly IImageLoader _imageLoader = imageLoader;
+    private readonly IMessageBoxLibraryService _messageBox = messageBox;
 
     public Task<GameListViewItem> CreateGameListViewItemAsync(string entityPath, string systemName, SystemManager.SystemManager systemManager)
     {
@@ -287,7 +288,7 @@ public class GameListFactory(
         return machine?.Description ?? string.Empty;
     }
 
-    public Task HandleDoubleClickAsync(GameListViewItem selectedItem)
+    public async Task HandleDoubleClickAsync(GameListViewItem selectedItem)
     {
         if (selectedItem == null)
         {
@@ -295,9 +296,9 @@ public class GameListFactory(
             _logErrors.LogAndForget(null, "selectedItem is null.");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
-            return Task.CompletedTask;
+            return;
         }
 
         var filePath = selectedItem.FilePath;
@@ -311,9 +312,9 @@ public class GameListFactory(
             _logErrors.LogAndForget(null, "[HandleDoubleClickAsync] filepath is null or empty.");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
-            return Task.CompletedTask;
+            return;
         }
 
         if (string.IsNullOrEmpty(selectedEmulatorName))
@@ -322,9 +323,9 @@ public class GameListFactory(
             _logErrors.LogAndForget(null, "[HandleDoubleClickAsync] selectedEmulatorName is null or empty.");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
-            return Task.CompletedTask;
+            return;
         }
 
         if (string.IsNullOrEmpty(selectedSystemName))
@@ -333,9 +334,9 @@ public class GameListFactory(
             _logErrors.LogAndForget(null, "[HandleDoubleClickAsync] selectedSystemName is null or empty.");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
-            return Task.CompletedTask;
+            return;
         }
 
         if (selectedSystemManager == null)
@@ -344,11 +345,11 @@ public class GameListFactory(
             _logErrors.LogAndForget(null, "[HandleDoubleClickAsync] selectedSystemManager is null.");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
-            return Task.CompletedTask;
+            return;
         }
 
-        return _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController, null);
+        await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController, null);
     }
 }

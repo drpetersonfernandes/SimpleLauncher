@@ -5,10 +5,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.RetroAchievements.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SettingsManager;
@@ -19,6 +19,7 @@ public partial class RetroAchievementsForAGameWindow : Core.Services.LoadingInte
 {
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     private int _gameId;
     private string _gameTitleForDisplay;
@@ -35,6 +36,7 @@ public partial class RetroAchievementsForAGameWindow : Core.Services.LoadingInte
         _raService = raService;
         _playSoundEffects = playSoundEffects;
         _logErrors = logErrors;
+        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         Loaded += AchievementsWindow_Loaded;
 
@@ -218,7 +220,7 @@ public partial class RetroAchievementsForAGameWindow : Core.Services.LoadingInte
         return char.ToUpper(input[0], CultureInfo.InvariantCulture) + input[1..];
     }
 
-    private void OpenUrlInBrowser(string url)
+    private async void OpenUrlInBrowser(string url)
     {
         try
         {
@@ -228,7 +230,7 @@ public partial class RetroAchievementsForAGameWindow : Core.Services.LoadingInte
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, $"Error opening URL: {url}");
-            MessageBoxLibrary.UnableToOpenLinkMessageBox();
+            await _messageBox.UnableToOpenLinkMessageBox();
         }
     }
 
@@ -247,25 +249,32 @@ public partial class RetroAchievementsForAGameWindow : Core.Services.LoadingInte
         OpenUrlInBrowser(url);
     }
 
-    private void GameImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    private async void GameImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
-        if (sender is Image clickedImage)
+        try
         {
-            if (clickedImage.Source is BitmapImage bitmapImage && bitmapImage.UriSource != null)
+            if (sender is Image clickedImage)
             {
-                _playSoundEffects.PlayNotificationSound();
-                OpenRaImageViewer(bitmapImage.UriSource); // Use the new RetroAchievementsImageViewerWindow
+                if (clickedImage.Source is BitmapImage bitmapImage && bitmapImage.UriSource != null)
+                {
+                    _playSoundEffects.PlayNotificationSound();
+                    OpenRaImageViewer(bitmapImage.UriSource); // Use the new RetroAchievementsImageViewerWindow
+                }
+                else
+                {
+                    // Log and potentially inform the user if the image source is not a valid URI
+                    _logErrors.LogAndForget(null, "Clicked image has no valid URI source to display in viewer.");
+                    await _messageBox.ErrorMessageBox(); // Generic error for the user
+                }
             }
-            else
-            {
-                // Log and potentially inform the user if the image source is not a valid URI
-                _logErrors.LogAndForget(null, "Clicked image has no valid URI source to display in viewer.");
-                MessageBoxLibrary.ErrorMessageBox(); // Generic error for the user
-            }
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method GameImage_MouseLeftButtonDown.");
         }
     }
 
-    private void OpenRaImageViewer(Uri imageUri)
+    private async void OpenRaImageViewer(Uri imageUri)
     {
         try
         {
@@ -278,7 +287,7 @@ public partial class RetroAchievementsForAGameWindow : Core.Services.LoadingInte
         {
             _logErrors.LogAndForget(ex, $"Failed to open RetroAchievements image viewer for URI: {imageUri}");
             DebugLogger.Log($"Failed to open RetroAchievements image viewer for URI: {imageUri}");
-            MessageBoxLibrary.ErrorMessageBox();
+            await _messageBox.ErrorMessageBox();
         }
     }
 
@@ -989,7 +998,7 @@ public partial class RetroAchievementsForAGameWindow : Core.Services.LoadingInte
 
             if (fromDate > toDate)
             {
-                MessageBoxLibrary.ErrorMessageBox();
+                await _messageBox.ErrorMessageBox();
                 return; // Exit without fetching
             }
 
