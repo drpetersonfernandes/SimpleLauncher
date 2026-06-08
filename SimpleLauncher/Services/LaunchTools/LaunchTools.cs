@@ -4,9 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.LaunchTools;
-using SimpleLauncher.Services.MessageBox;
 using Application = System.Windows.Application;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
@@ -16,30 +16,32 @@ public class LaunchTools : ILaunchTools
 {
     private readonly ILogErrors _logErrors;
     private readonly IConfiguration _configuration;
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
 
-    public LaunchTools(ILogErrors logErrors, IConfiguration configuration)
+    public LaunchTools(ILogErrors logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBoxLibrary)
     {
         _logErrors = logErrors;
         _configuration = configuration;
+        _messageBoxLibrary = messageBoxLibrary;
     }
 
     /// <summary>
     /// Launches an external executable with optional arguments and working directory.
     /// Handles basic file existence checks and generic launch exceptions.
     /// </summary>
-    private void LaunchExternalTool(string toolPath, string arguments = null, string workingDirectory = null)
+    private async Task LaunchExternalTool(string toolPath, string arguments = null, string workingDirectory = null)
     {
         if (string.IsNullOrEmpty(toolPath))
         {
             _logErrors.LogAndForget(null, "Tool path cannot be null or empty.");
-            MessageBoxLibrary.SelectedToolNotFoundMessageBox();
+            await _messageBoxLibrary.SelectedToolNotFoundMessageBox();
             return;
         }
 
         if (!File.Exists(toolPath))
         {
             _logErrors.LogAndForget(null, $"External tool not found: {toolPath}");
-            MessageBoxLibrary.SelectedToolNotFoundMessageBox();
+            await _messageBoxLibrary.SelectedToolNotFoundMessageBox();
             return;
         }
 
@@ -70,7 +72,7 @@ public class LaunchTools : ILaunchTools
             // 5 = Access Denied (sometimes returned if UAC is disabled but user lacks rights).
             // 0x800704C7 = HRESULT for Operation Cancelled.
             // We do NOT log these to the developer API as they are expected user actions.
-            MessageBoxLibrary.ToolLaunchWasCanceledByUserMessageBox();
+            await _messageBoxLibrary.ToolLaunchWasCanceledByUserMessageBox();
         }
         catch (Exception ex)
         {
@@ -81,11 +83,11 @@ public class LaunchTools : ILaunchTools
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ErrorLaunchingToolMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            await _messageBoxLibrary.ErrorLaunchingToolMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
         }
     }
 
-    private static string GetToolExecutablePath(string toolFolder, string baseName, bool useArchSubfolders = false)
+    private async Task<string> GetToolExecutablePath(string toolFolder, string baseName, bool useArchSubfolders = false)
     {
         var architecture = RuntimeInformation.ProcessArchitecture;
         var archPath = architecture switch
@@ -98,32 +100,32 @@ public class LaunchTools : ILaunchTools
         if (archPath == null)
         {
             var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
+            await _messageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
             return null;
         }
 
         return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", toolFolder, archPath);
     }
 
-    public void CreateBatchFilesForXbox360XblaGames()
+    public async Task CreateBatchFilesForXbox360XblaGames()
     {
-        var toolPath = GetToolExecutablePath("CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames");
+        var toolPath = await GetToolExecutablePath("CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames");
         if (toolPath == null) return;
 
-        LaunchExternalTool(toolPath);
+        await LaunchExternalTool(toolPath);
     }
 
-    public void CreateBatchFilesForWindowsGames()
+    public async Task CreateBatchFilesForWindowsGames()
     {
-        var toolPath = GetToolExecutablePath("CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames");
+        var toolPath = await GetToolExecutablePath("CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames");
         if (toolPath == null) return;
 
-        LaunchExternalTool(toolPath);
+        await LaunchExternalTool(toolPath);
     }
 
-    public void FindRomCoverLaunch(string selectedImageFolder, string selectedRomFolder)
+    public async Task FindRomCoverLaunch(string selectedImageFolder, string selectedRomFolder)
     {
-        var toolPath = GetToolExecutablePath("FindRomCover", "FindRomCover");
+        var toolPath = await GetToolExecutablePath("FindRomCover", "FindRomCover");
         if (toolPath == null) return;
 
         var arguments = string.Empty;
@@ -137,28 +139,28 @@ public class LaunchTools : ILaunchTools
             arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
         }
 
-        LaunchExternalTool(toolPath, arguments, workingDirectory);
+        await LaunchExternalTool(toolPath, arguments, workingDirectory);
     }
 
-    public void CreateBatchFilesForPs3Games()
+    public async Task CreateBatchFilesForPs3Games()
     {
-        var toolPath = GetToolExecutablePath("CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games");
+        var toolPath = await GetToolExecutablePath("CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games");
         if (toolPath == null) return;
 
-        LaunchExternalTool(toolPath);
+        await LaunchExternalTool(toolPath);
     }
 
-    public void BatchConvertIsoToXiso()
+    public async Task BatchConvertIsoToXiso()
     {
-        var toolPath = GetToolExecutablePath("BatchConvertIsoToXiso", "BatchConvertIsoToXiso");
+        var toolPath = await GetToolExecutablePath("BatchConvertIsoToXiso", "BatchConvertIsoToXiso");
         if (toolPath == null) return;
 
-        LaunchExternalTool(toolPath);
+        await LaunchExternalTool(toolPath);
     }
 
-    public void BatchConvertToChd(string selectedRomFolder)
+    public async Task BatchConvertToChd(string selectedRomFolder)
     {
-        var toolPath = GetToolExecutablePath("BatchConvertToCHD", "BatchConvertToCHD");
+        var toolPath = await GetToolExecutablePath("BatchConvertToCHD", "BatchConvertToCHD");
         if (toolPath == null) return;
 
         var arguments = string.Empty;
@@ -171,44 +173,44 @@ public class LaunchTools : ILaunchTools
             arguments = $"\"{absoluteRomFolder}\"";
         }
 
-        LaunchExternalTool(toolPath, arguments, workingDirectory);
+        await LaunchExternalTool(toolPath, arguments, workingDirectory);
     }
 
-    public void BatchConvertToCompressedFile()
+    public async Task BatchConvertToCompressedFile()
     {
-        var toolPath = GetToolExecutablePath("BatchConvertToCompressedFile", "BatchConvertToCompressedFile");
+        var toolPath = await GetToolExecutablePath("BatchConvertToCompressedFile", "BatchConvertToCompressedFile");
         if (toolPath == null) return;
 
-        LaunchExternalTool(toolPath);
+        await LaunchExternalTool(toolPath);
     }
 
-    public void BatchConvertToRvz()
+    public async Task BatchConvertToRvz()
     {
-        var toolPath = GetToolExecutablePath("BatchConvertToRVZ", "BatchConvertToRVZ");
+        var toolPath = await GetToolExecutablePath("BatchConvertToRVZ", "BatchConvertToRVZ");
         if (toolPath == null) return;
 
-        LaunchExternalTool(toolPath);
+        await LaunchExternalTool(toolPath);
     }
 
-    public void CreateBatchFilesForScummVmGames()
+    public async Task CreateBatchFilesForScummVmGames()
     {
-        var toolPath = GetToolExecutablePath("CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames");
+        var toolPath = await GetToolExecutablePath("CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames");
         if (toolPath == null) return;
 
-        LaunchExternalTool(toolPath);
+        await LaunchExternalTool(toolPath);
     }
 
-    public void RomValidator()
+    public async Task RomValidator()
     {
-        var toolPath = GetToolExecutablePath("RomValidator", "RomValidator");
+        var toolPath = await GetToolExecutablePath("RomValidator", "RomValidator");
         if (toolPath == null) return;
 
-        LaunchExternalTool(toolPath);
+        await LaunchExternalTool(toolPath);
     }
 
-    public void GameCoverScraper(string selectedImageFolder, string selectedRomFolder)
+    public async Task GameCoverScraper(string selectedImageFolder, string selectedRomFolder)
     {
-        var toolPath = GetToolExecutablePath("GameCoverScraper", "GameCoverScraper", true);
+        var toolPath = await GetToolExecutablePath("GameCoverScraper", "GameCoverScraper", true);
         if (toolPath == null) return;
 
         var arguments = string.Empty;
@@ -222,12 +224,12 @@ public class LaunchTools : ILaunchTools
             arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
         }
 
-        LaunchExternalTool(toolPath, arguments, workingDirectory);
+        await LaunchExternalTool(toolPath, arguments, workingDirectory);
     }
 
-    public void RetroGameCoverDownloader(string selectedImageFolder, string selectedRomFolder)
+    public async Task RetroGameCoverDownloader(string selectedImageFolder, string selectedRomFolder)
     {
-        var toolPath = GetToolExecutablePath("RetroGameCoverDownloader", "RetroGameCoverDownloader");
+        var toolPath = await GetToolExecutablePath("RetroGameCoverDownloader", "RetroGameCoverDownloader");
         if (toolPath == null) return;
 
         var arguments = string.Empty;
@@ -241,6 +243,6 @@ public class LaunchTools : ILaunchTools
             arguments = $"\"{absoluteRomFolder}\" \"{absoluteImageFolder}\"";
         }
 
-        LaunchExternalTool(toolPath, arguments, workingDirectory);
+        await LaunchExternalTool(toolPath, arguments, workingDirectory);
     }
 }

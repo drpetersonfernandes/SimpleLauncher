@@ -46,7 +46,7 @@ public interface IMenuOrchestrator
     Task HandleFilenameFontSize(string size);
     Task HandleMachineNameFontSize(string size);
     void HandleSoundConfiguration();
-    void HandleShowRetroAchievementsSettings();
+    Task HandleShowRetroAchievementsSettings();
     Task HandleToggleRetroAchievementButton(bool isChecked);
     Task HandleToggleVideoLinkButton(bool isChecked);
     Task HandleToggleInfoLinkButton(bool isChecked);

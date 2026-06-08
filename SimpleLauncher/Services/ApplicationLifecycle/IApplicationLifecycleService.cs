@@ -5,7 +5,7 @@ namespace SimpleLauncher.Services.ApplicationLifecycle;
 
 public interface IApplicationLifecycleService
 {
-    void InitializeStartup(IStartupInitializationHost host);
+    Task InitializeStartupAsync(IStartupInitializationHost host);
     Task SilentCheckForUpdatesAsync(Window mainWindow);
     Task ReportUsageAsync();
     void MigratePlayHistory(List<SystemManager.SystemManager> systemManagers);

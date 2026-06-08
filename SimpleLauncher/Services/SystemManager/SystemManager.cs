@@ -1,5 +1,4 @@
 using System.IO;
-using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
@@ -11,8 +10,8 @@ using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.EasyMode.Models;
 using SimpleLauncher.Core.Services.SystemManager;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.SystemManager;
 
@@ -33,6 +32,14 @@ public partial class SystemManager
     public List<Emulator> Emulators { get; init; }
     public bool GroupByFolder { get; init; }
     public bool DisableRecursiveSearch { get; init; }
+
+    // ReSharper disable once NotAccessedField.Local
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
+
+    public SystemManager(IMessageBoxLibraryService messageBoxLibrary = null)
+    {
+        _messageBoxLibrary = messageBoxLibrary;
+    }
 
     /// <summary>
     /// Gets the path to system.xml, determining the location based on portable mode availability.
@@ -97,7 +104,7 @@ public partial class SystemManager
         }
     }
 
-    public static List<SystemManager> LoadSystemManagers(IConfiguration configuration, ILogErrors logErrors = null)
+    public static List<SystemManager> LoadSystemManagers(IConfiguration configuration, ILogErrors logErrors = null, IMessageBoxLibraryService messageBoxLibrary = null)
     {
         lock (XmlLock)
         {
@@ -132,7 +139,10 @@ public partial class SystemManager
                             logErrors?.LogAndForget(createEx, contextMessage);
 
                             // Notify user
-                            MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                            if (messageBoxLibrary != null)
+                            {
+                                _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBox(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                            }
 
                             return []; // Return an empty list
                         }
@@ -217,7 +227,10 @@ public partial class SystemManager
                 catch (IOException ex)
                 {
                     logErrors?.LogAndForget(ex, "The file 'system.xml' is locked.");
-                    MessageBoxLibrary.FileSystemXmlIsLockedMessageBox();
+                    if (messageBoxLibrary != null)
+                    {
+                        _ = messageBoxLibrary.FileSystemXmlIsLockedMessageBox();
+                    }
                 }
 
                 if (doc?.Root == null)
@@ -261,7 +274,10 @@ public partial class SystemManager
                 foreach (var error in invalidManagers.Values)
                 {
                     // Notify user
-                    MessageBoxLibrary.InvalidSystemConfigurationMessageBox(error);
+                    if (messageBoxLibrary != null)
+                    {
+                        _ = messageBoxLibrary.InvalidSystemConfigurationMessageBox(error);
+                    }
                 }
 
                 // Save the cleaned, sorted, and reformatted document back to disk.
@@ -293,7 +309,10 @@ public partial class SystemManager
                 logErrors?.LogAndForget(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                if (messageBoxLibrary != null)
+                {
+                    _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBox(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                }
 
                 return []; // Return an empty list
             }
@@ -450,7 +469,7 @@ public partial class SystemManager
                     var mostRecentBackupFile = backupFiles.MaxBy(File.GetLastWriteTime);
 
                     // Notify user and ask to restore
-                    var restoreResult = MessageBoxLibrary.WouldYouLikeToRestoreTheLastBackupMessageBox();
+                    var restoreResult = messageBoxLibrary != null ? messageBoxLibrary.WouldYouLikeToRestoreTheLastBackupMessageBox().GetAwaiter().GetResult() : MessageBoxResult.No;
                     if (restoreResult == MessageBoxResult.Yes)
                     {
                         try
@@ -467,7 +486,10 @@ public partial class SystemManager
                             logErrors?.LogAndForget(ex, contextMessage);
 
                             // Notify user
-                            MessageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBox();
+                            if (messageBoxLibrary != null)
+                            {
+                                _ = messageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBox();
+                            }
                             // backupRestored remains false, proceed to create empty file
                         }
                     }

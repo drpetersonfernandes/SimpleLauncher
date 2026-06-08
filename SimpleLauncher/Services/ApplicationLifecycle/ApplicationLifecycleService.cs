@@ -29,9 +29,9 @@ public class ApplicationLifecycleService : IApplicationLifecycleService
         _gameFileWatcherService = gameFileWatcherService;
     }
 
-    public void InitializeStartup(IStartupInitializationHost host)
+    public Task InitializeStartupAsync(IStartupInitializationHost host)
     {
-        _startupInitializationService.Initialize(host);
+        return _startupInitializationService.InitializeAsync(host);
     }
 
     public Task SilentCheckForUpdatesAsync(Window mainWindow)

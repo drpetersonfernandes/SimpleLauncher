@@ -310,9 +310,16 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, Core.Serv
         }
     }
 
-    private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+    private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
-        _lifecycle.InitializeStartup((IStartupInitializationHost)this);
+        try
+        {
+            await _lifecycle.InitializeStartupAsync((IStartupInitializationHost)this);
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method MainWindow_Loaded.");
+        }
     }
 
     private void MainWindow_Activated(object sender, EventArgs e)

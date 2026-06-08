@@ -494,9 +494,16 @@ public partial class MainWindow
         _menuOrchestrator.HandleSoundConfiguration();
     }
 
-    private void ShowRetroAchievementsSettingsWindow_Click(object sender, RoutedEventArgs e)
+    private async void ShowRetroAchievementsSettingsWindow_Click(object sender, RoutedEventArgs e)
     {
-        _menuOrchestrator.HandleShowRetroAchievementsSettings();
+        try
+        {
+            await _menuOrchestrator.HandleShowRetroAchievementsSettings();
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method ShowRetroAchievementsSettingsWindow_Click.");
+        }
     }
 
     private async void ToggleRetroAchievementButton_Click(object sender, RoutedEventArgs e)

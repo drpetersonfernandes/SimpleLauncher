@@ -1,8 +1,8 @@
 using System.IO;
 using System.Text.RegularExpressions;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.HelpUser.Models;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.HelpUser;
 
@@ -10,18 +10,20 @@ public partial class HelpUserManager
 {
     private const string FilePath = "parameters.md";
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
 
     // Regex to match Markdown H2 headers: ## System Name
     private static readonly Regex HeaderRegex = MyRegex();
 
     public List<SystemHelper> Systems { get; private set; } = [];
 
-    public HelpUserManager(ILogErrors logErrors)
+    public HelpUserManager(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary)
     {
         _logErrors = logErrors;
+        _messageBoxLibrary = messageBoxLibrary;
     }
 
-    public void Load()
+    public async Task LoadAsync()
     {
         try
         {
@@ -32,7 +34,7 @@ public partial class HelpUserManager
                 _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.FileParametersMdIsMissingMessageBox();
+                await _messageBoxLibrary.FileParametersMdIsMissingMessageBox();
 
                 return;
             }
@@ -49,7 +51,7 @@ public partial class HelpUserManager
                 _logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.FailedToLoadParametersMdMessageBox();
+                await _messageBoxLibrary.FailedToLoadParametersMdMessageBox();
 
                 return;
             }
@@ -61,7 +63,7 @@ public partial class HelpUserManager
                 _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.FileParametersMdIsEmptyMessageBox();
+                await _messageBoxLibrary.FileParametersMdIsEmptyMessageBox();
 
                 return;
             }
@@ -75,7 +77,7 @@ public partial class HelpUserManager
                 _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.NoSystemInParametersMdMessageBox();
+                await _messageBoxLibrary.NoSystemInParametersMdMessageBox();
 
                 return;
             }
@@ -89,7 +91,7 @@ public partial class HelpUserManager
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ErrorWhileLoadingParametersMdMessageBox();
+            await _messageBoxLibrary.ErrorWhileLoadingParametersMdMessageBox();
         }
     }
 

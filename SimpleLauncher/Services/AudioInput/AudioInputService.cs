@@ -38,12 +38,12 @@ public class AudioInputService : IAudioInputService, IDisposable
 
     public void StartGamepad()
     {
-        _gamePadController.Start();
+        _ = _gamePadController.Start();
     }
 
     public void StopGamepad()
     {
-        _gamePadController.Stop();
+        _ = _gamePadController.Stop();
     }
 
     public void SetGamepadDeadZone(float deadZoneX, float deadZoneY)

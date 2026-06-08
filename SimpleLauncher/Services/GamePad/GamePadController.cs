@@ -1,4 +1,3 @@
-using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SharpDX;
@@ -7,7 +6,7 @@ using SharpDX.XInput;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using WindowsInput;
 using DeviceType = SharpDX.DirectInput.DeviceType;
 
@@ -19,6 +18,7 @@ public class GamePadController : IDisposable
     private readonly Lock _stateLock = new();
     private readonly Timer _timer;
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private bool _isDisposed;
 
     // Add an Action for error logging
@@ -59,9 +59,10 @@ public class GamePadController : IDisposable
     private const int DirectInputLeftThumbStickScalingFactor = 7;
     private const int DirectInputRightThumbStickScalingFactor = 1;
 
-    public GamePadController(ILogErrors logErrors)
+    public GamePadController(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary)
     {
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
+        _messageBoxLibrary = messageBoxLibrary ?? throw new ArgumentNullException(nameof(messageBoxLibrary));
 
         // Initialize Xbox Controller using XInput
         _xinputController = new Controller(UserIndex.One);
@@ -97,8 +98,9 @@ public class GamePadController : IDisposable
         _timer = new Timer(_ => UpdateAsync(), null, Timeout.Infinite, Timeout.Infinite);
     }
 
-    internal void Start()
+    internal Task Start()
     {
+        Exception startException = null;
         lock (_stateLock)
         {
             // Enforce proper disposal semantics: do not allow restarting a disposed instance.
@@ -119,18 +121,22 @@ public class GamePadController : IDisposable
                 ErrorLogger?.Invoke(ex, $"Error in GamePadController Start method.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}");
-
-                // Notify user
-                Application.Current.Dispatcher.Invoke(static () =>
-                {
-                    MessageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
-                });
+                startException = ex;
             }
         }
+
+        // Notify user (outside lock to allow async/await)
+        if (startException != null)
+        {
+            return _messageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+        }
+
+        return Task.CompletedTask;
     }
 
-    internal void Stop()
+    internal Task Stop()
     {
+        Exception stopException = null;
         lock (_stateLock)
         {
             try
@@ -145,14 +151,17 @@ public class GamePadController : IDisposable
                 ErrorLogger?.Invoke(ex, $"Error in GamePadController Stop method.\n\n" +
                                         $"Exception type: {ex.GetType().Name}\n" +
                                         $"Exception details: {ex.Message}");
-
-                // Notify user
-                Application.Current.Dispatcher.Invoke(static () =>
-                {
-                    MessageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
-                });
+                stopException = ex;
             }
         }
+
+        // Notify user (outside lock to allow async/await)
+        if (stopException != null)
+        {
+            return _messageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+        }
+
+        return Task.CompletedTask;
     }
 
     public void Dispose()
@@ -368,10 +377,7 @@ public class GamePadController : IDisposable
                                                     $"Exception details: {ex.Message}");
 
                             // Notify user
-                            Application.Current.Dispatcher.Invoke(static () =>
-                            {
-                                MessageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
-                            });
+                            _ = _messageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
                         }
 
                         // Attempt reconnection as a recovery step

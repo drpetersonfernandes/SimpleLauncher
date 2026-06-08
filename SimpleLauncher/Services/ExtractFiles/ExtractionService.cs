@@ -11,7 +11,7 @@ using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.ExtractFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.ExtractFiles;
@@ -20,10 +20,12 @@ public class ExtractionService : IExtractionService
 {
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
     private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
 
-    public ExtractionService(ILogErrors logErrors)
+    public ExtractionService(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary)
     {
         _logErrors = logErrors;
+        _messageBoxLibrary = messageBoxLibrary;
     }
 
     public async Task<(string? gameFilePath, string? tempDirectoryPath)> ExtractToTempAndGetLaunchFileAsync(string archivePath, List<string> fileFormatsToLaunch)
@@ -57,7 +59,7 @@ public class ExtractionService : IExtractionService
             _logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.DownloadedFileIsMissingMessageBox();
+            await _messageBoxLibrary.DownloadedFileIsMissingMessageBox();
 
             return false;
         }
@@ -72,7 +74,7 @@ public class ExtractionService : IExtractionService
             _logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ExtractionFailedMessageBox();
+            await _messageBoxLibrary.ExtractionFailedMessageBox();
 
             return false;
         }
@@ -95,7 +97,7 @@ public class ExtractionService : IExtractionService
                 _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user, passing the directory of the locked archive
-                MessageBoxLibrary.FileIsLockedMessageBox(Path.GetDirectoryName(archivePath));
+                await _messageBoxLibrary.FileIsLockedMessageBox(Path.GetDirectoryName(archivePath));
 
                 return false;
             }
@@ -111,7 +113,7 @@ public class ExtractionService : IExtractionService
             _logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.FileNeedToBeCompressedMessageBox();
+            await _messageBoxLibrary.FileNeedToBeCompressedMessageBox();
 
             return false;
         }
@@ -133,7 +135,7 @@ public class ExtractionService : IExtractionService
             var extractionTrackingFile = Path.Combine(resolvedDestinationFolder, ".extraction_in_progress");
             await File.WriteAllTextAsync(extractionTrackingFile, DateTime.Now.ToString(CultureInfo.InvariantCulture));
 
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
                 using var archive = ArchiveFactory.OpenArchive(archivePath);
                 var entries = archive.Entries.ToList();
@@ -159,7 +161,7 @@ public class ExtractionService : IExtractionService
                             _logErrors.LogAndForget(null, contextMessage);
 
                             // Notify user
-                            MessageBoxLibrary.DiskSpaceErrorMessageBox();
+                            await _messageBoxLibrary.DiskSpaceErrorMessageBox();
 
                             throw new IOException("Insufficient disk space.");
                         }
@@ -170,7 +172,7 @@ public class ExtractionService : IExtractionService
                         _logErrors.LogAndForget(ex, $"Unable to check disk space for path {resolvedDestinationFolder}: {ex.Message}");
 
                         // Notify user
-                        MessageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
+                        await _messageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
 
                         throw new IOException($"Unable to check disk space for path {resolvedDestinationFolder}", ex);
                     }
@@ -193,7 +195,7 @@ public class ExtractionService : IExtractionService
                         if (fullDestPath != null && fullResolvedDestFolder != null && !fullDestPath.StartsWith(fullResolvedDestFolder, StringComparison.OrdinalIgnoreCase))
                         {
                             // Notify user
-                            MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
+                            await _messageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
                             throw new SecurityException($"Potentially dangerous zip entry path: {entry.Key}");
                         }
                     }
@@ -216,8 +218,8 @@ public class ExtractionService : IExtractionService
                             Directory.CreateDirectory(directory);
                         }
 
-                        using (var entryStream = entry.OpenEntryStream())
-                        using (var fileStream = File.Create(destinationPath))
+                        await using (var entryStream = entry.OpenEntryStream())
+                        await using (var fileStream = File.Create(destinationPath))
                         {
                             entryStream.CopyTo(fileStream);
                         }
@@ -283,7 +285,7 @@ public class ExtractionService : IExtractionService
             _logErrors.LogAndForget(ex, $"Error extracting the file: {archivePath}\n{exceptionDetails}");
 
             // Notify user
-            MessageBoxLibrary.ExtractionFailedMessageBox();
+            await _messageBoxLibrary.ExtractionFailedMessageBox();
 
             return false;
         }
@@ -298,7 +300,7 @@ public class ExtractionService : IExtractionService
             _logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ExtractionFailedMessageBox();
+            await _messageBoxLibrary.ExtractionFailedMessageBox();
 
             return null;
         }
@@ -307,7 +309,7 @@ public class ExtractionService : IExtractionService
         if (extension != ".7z" && extension != ".zip" && extension != ".rar")
         {
             // Notify user
-            MessageBoxLibrary.FileNeedToBeCompressedMessageBox();
+            await _messageBoxLibrary.FileNeedToBeCompressedMessageBox();
 
             return null;
         }
@@ -323,7 +325,7 @@ public class ExtractionService : IExtractionService
                 _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.ExtractionFailedMessageBox();
+                await _messageBoxLibrary.ExtractionFailedMessageBox();
 
                 return null;
             }
@@ -416,7 +418,7 @@ public class ExtractionService : IExtractionService
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ExtractionFailedMessageBox();
+            await _messageBoxLibrary.ExtractionFailedMessageBox();
 
             return null;
         }
@@ -518,7 +520,7 @@ public class ExtractionService : IExtractionService
         return sb.ToString();
     }
 
-    private Task<string?> ValidateAndFindGameFileAsync(string tempExtractLocation, List<string> fileFormatsToLaunch)
+    private async Task<string?> ValidateAndFindGameFileAsync(string tempExtractLocation, List<string> fileFormatsToLaunch)
     {
         DebugLogger.Log($"[ValidateAndFindGameFileAsync] Validating extracted path: {tempExtractLocation}");
         if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
@@ -529,9 +531,9 @@ public class ExtractionService : IExtractionService
             DebugLogger.Log($"[ValidateAndFindGameFileAsync] Error: {contextMessage}");
 
             // Notify user
-            MessageBoxLibrary.ExtractionFailedMessageBox();
+            await _messageBoxLibrary.ExtractionFailedMessageBox();
 
-            return Task.FromResult<string?>(null);
+            return null;
         }
 
         string? foundFile = null;
@@ -555,7 +557,7 @@ public class ExtractionService : IExtractionService
                     {
                         foundFile = files[0]; // Take the first match
                         DebugLogger.Log($"[ValidateAndFindGameFileAsync] Found file matching format '{formatToLaunch}': {foundFile}");
-                        return Task.FromResult<string?>(foundFile);
+                        return foundFile;
                     }
                 }
                 catch (Exception ex)
@@ -581,7 +583,7 @@ public class ExtractionService : IExtractionService
                 {
                     foundFile = allFiles.First();
                     DebugLogger.Log($"[ValidateAndFindGameFileAsync] No specific format found/specified, picked first file: {foundFile}");
-                    return Task.FromResult<string?>(foundFile);
+                    return foundFile;
                 }
             }
             catch (Exception ex)
@@ -596,8 +598,8 @@ public class ExtractionService : IExtractionService
         _logErrors.LogAndForget(new FileNotFoundException(notFoundContext), notFoundContext);
         DebugLogger.Log($"[ValidateAndFindGameFileAsync] Error: {notFoundContext}");
 
-        MessageBoxLibrary.CouldNotFindAFileMessageBox(); // This message is now more general.
+        await _messageBoxLibrary.CouldNotFindAFileMessageBox(); // This message is now more general.
 
-        return Task.FromResult<string?>(null);
+        return null;
     }
 }

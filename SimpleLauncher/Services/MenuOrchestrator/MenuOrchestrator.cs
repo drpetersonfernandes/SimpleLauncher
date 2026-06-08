@@ -66,7 +66,7 @@ public class MenuOrchestrator : IMenuOrchestrator
 
     public void HandleToggleGamepad(bool isChecked)
     {
-        _menuActionHandler.HandleToggleGamepad(isChecked);
+        _ = _menuActionHandler.HandleToggleGamepad(isChecked);
     }
 
     public void HandleSetGamepadDeadZone()
@@ -91,7 +91,7 @@ public class MenuOrchestrator : IMenuOrchestrator
 
     public void HandleDonate()
     {
-        _menuActionHandler.HandleDonate();
+        _ = _menuActionHandler.HandleDonate();
     }
 
     public void HandleAbout()
@@ -181,7 +181,7 @@ public class MenuOrchestrator : IMenuOrchestrator
 
     public void HandleChangeViewMode(object sender)
     {
-        _menuActionHandler.HandleChangeViewMode(sender);
+        _ = _menuActionHandler.HandleChangeViewMode(sender);
     }
 
     public Task HandleFilenameDisplayMode(string mode)
@@ -206,12 +206,12 @@ public class MenuOrchestrator : IMenuOrchestrator
 
     public void HandleSoundConfiguration()
     {
-        _menuActionHandler.HandleSoundConfiguration();
+        _ = _menuActionHandler.HandleSoundConfiguration();
     }
 
-    public void HandleShowRetroAchievementsSettings()
+    public Task HandleShowRetroAchievementsSettings()
     {
-        _menuActionHandler.HandleShowRetroAchievementsSettings();
+        return _menuActionHandler.HandleShowRetroAchievementsSettings();
     }
 
     public Task HandleToggleRetroAchievementButton(bool isChecked)

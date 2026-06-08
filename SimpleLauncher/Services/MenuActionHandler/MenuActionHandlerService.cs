@@ -13,7 +13,6 @@ using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.MenuCheckMark;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.UpdateStatusBar;
@@ -41,6 +40,7 @@ public class MenuActionHandlerService
     private readonly IFindCoverImage _findCoverImage;
     private readonly IImageLoader _imageLoader;
     private readonly IMenuCheckMarkService _menuCheckMarkService;
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
 
     private IMenuActionHost _host;
     private readonly IUpdateStatusBar _updateStatusBar;
@@ -64,6 +64,7 @@ public class MenuActionHandlerService
         IFindCoverImage findCoverImage,
         IImageLoader imageLoader,
         IMenuCheckMarkService menuCheckMarkService,
+        IMessageBoxLibraryService messageBoxLibrary,
         IUpdateStatusBar updateStatusBar)
     {
         _settings = settings;
@@ -82,6 +83,7 @@ public class MenuActionHandlerService
         _findCoverImage = findCoverImage;
         _imageLoader = imageLoader;
         _menuCheckMarkService = menuCheckMarkService;
+        _messageBoxLibrary = messageBoxLibrary;
         _updateStatusBar = updateStatusBar;
 
         _emulatorConfigWindowFactory = new Dictionary<string, Action>(StringComparer.OrdinalIgnoreCase)
@@ -393,19 +395,19 @@ public class MenuActionHandlerService
 
     // ---- Toggle Gamepad ----
 
-    public void HandleToggleGamepad(bool isChecked)
+    public async Task HandleToggleGamepad(bool isChecked)
     {
         try
         {
             _playSoundEffects.PlayNotificationSound();
 
             _settings.EnableGamePadNavigation = isChecked;
-            _settings.SaveAsync();
+            await _settings.SaveAsync();
 
             if (isChecked)
-                _gamePadController.Start();
+                await _gamePadController.Start();
             else
-                _gamePadController.Stop();
+                await _gamePadController.Stop();
 
             _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingGamepadNavigation") ?? "Toggling gamepad navigation...");
         }
@@ -413,7 +415,7 @@ public class MenuActionHandlerService
         {
             const string contextMessage = "Failed to toggle gamepad.";
             _logErrors.LogAndForget(ex, contextMessage);
-            MessageBoxLibrary.ToggleGamepadFailureMessageBox();
+            await _messageBoxLibrary.ToggleGamepadFailureMessageBox();
         }
     }
 
@@ -432,12 +434,12 @@ public class MenuActionHandlerService
 
         if (_settings.EnableGamePadNavigation)
         {
-            _gamePadController.Stop();
-            _gamePadController.Start();
+            _ = _gamePadController.Stop();
+            _ = _gamePadController.Start();
         }
         else
         {
-            _gamePadController.Stop();
+            _ = _gamePadController.Stop();
         }
     }
 
@@ -468,7 +470,7 @@ public class MenuActionHandlerService
             {
                 const string contextMessage = "Failed to toggle fuzzy matching.";
                 _logErrors.LogAndForget(ex, contextMessage);
-                MessageBoxLibrary.ToggleFuzzyMatchingFailureMessageBox();
+                await _messageBoxLibrary.ToggleFuzzyMatchingFailureMessageBox();
             }
         }
         catch (Exception ex)
@@ -515,7 +517,7 @@ public class MenuActionHandlerService
         supportRequestWindow.ShowDialog();
     }
 
-    public void HandleDonate()
+    public async Task HandleDonate()
     {
         try
         {
@@ -533,7 +535,7 @@ public class MenuActionHandlerService
         {
             const string contextMessage = "Unable to open the Donation Link from the menu.";
             _logErrors.LogAndForget(ex, contextMessage);
-            MessageBoxLibrary.ErrorOpeningDonationLinkMessageBox();
+            await _messageBoxLibrary.ErrorOpeningDonationLinkMessageBox();
         }
     }
 
@@ -614,7 +616,7 @@ public class MenuActionHandlerService
             {
                 const string errorMessage = "Error in method ButtonSizeClickAsync.";
                 _logErrors.LogAndForget(ex, errorMessage);
-                MessageBoxLibrary.ErrorMessageBox();
+                await _messageBoxLibrary.ErrorMessageBox();
             }
         }
         catch (Exception ex)
@@ -650,7 +652,7 @@ public class MenuActionHandlerService
             {
                 const string contextMessage = "Error in method ButtonAspectRatioClickAsync";
                 _logErrors.LogAndForget(ex, contextMessage);
-                MessageBoxLibrary.ErrorMessageBox();
+                await _messageBoxLibrary.ErrorMessageBox();
             }
         }
         catch (Exception ex)
@@ -671,7 +673,7 @@ public class MenuActionHandlerService
             {
                 if (newPage is 1000 or 10000 or 1000000)
                 {
-                    if (MessageBoxLibrary.WarnUserAboutMemoryConsumptionMessageBox() == System.Windows.MessageBoxResult.No)
+                    if (await _messageBoxLibrary.WarnUserAboutMemoryConsumptionMessageBox() == Core.Interfaces.MessageBoxResult.No)
                     {
                         return;
                     }
@@ -977,7 +979,7 @@ public class MenuActionHandlerService
         }
     }
 
-    public void HandleChangeViewMode(object sender)
+    public async Task HandleChangeViewMode(object sender)
     {
         try
         {
@@ -1007,13 +1009,13 @@ public class MenuActionHandlerService
                     break;
             }
 
-            _settings.SaveAsync();
+            await _settings.SaveAsync();
         }
         catch (Exception ex)
         {
             const string errorMessage = "Error while using the method ChangeViewMode_Click.";
             _logErrors.LogAndForget(ex, errorMessage);
-            MessageBoxLibrary.ErrorChangingViewModeMessageBox();
+            await _messageBoxLibrary.ErrorChangingViewModeMessageBox();
         }
     }
 
@@ -1047,7 +1049,7 @@ public class MenuActionHandlerService
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Error in method FilenameDisplayMode_Click.");
-                MessageBoxLibrary.ErrorMessageBox();
+                await _messageBoxLibrary.ErrorMessageBox();
             }
         }
         catch (Exception ex)
@@ -1084,7 +1086,7 @@ public class MenuActionHandlerService
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Error in method DisplayMachineName_Click.");
-                MessageBoxLibrary.ErrorMessageBox();
+                await _messageBoxLibrary.ErrorMessageBox();
             }
         }
         catch (Exception ex)
@@ -1123,7 +1125,7 @@ public class MenuActionHandlerService
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Error in method FilenameFontSize_Click.");
-                MessageBoxLibrary.ErrorMessageBox();
+                await _messageBoxLibrary.ErrorMessageBox();
             }
         }
         catch (Exception ex)
@@ -1162,7 +1164,7 @@ public class MenuActionHandlerService
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Error in method MachineNameFontSize_Click.");
-                MessageBoxLibrary.ErrorMessageBox();
+                await _messageBoxLibrary.ErrorMessageBox();
             }
         }
         catch (Exception ex)
@@ -1173,7 +1175,7 @@ public class MenuActionHandlerService
 
     // ---- Sound Configuration ----
 
-    public void HandleSoundConfiguration()
+    public async Task HandleSoundConfiguration()
     {
         try
         {
@@ -1187,13 +1189,13 @@ public class MenuActionHandlerService
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error opening Sound Configuration window.");
-            MessageBoxLibrary.CouldNotOpenSoundConfigurationWindowMessageBox();
+            await _messageBoxLibrary.CouldNotOpenSoundConfigurationWindowMessageBox();
         }
     }
 
     // ---- RetroAchievements Settings ----
 
-    public void HandleShowRetroAchievementsSettings()
+    public async Task HandleShowRetroAchievementsSettings()
     {
         try
         {
@@ -1207,13 +1209,13 @@ public class MenuActionHandlerService
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error opening RetroAchievements settings window.");
-            MessageBoxLibrary.ErrorMessageBox();
+            await _messageBoxLibrary.ErrorMessageBox();
         }
     }
 
     // ---- Overlay Button Toggles ----
 
-    public Task HandleToggleRetroAchievementButton(bool isChecked)
+    public async Task HandleToggleRetroAchievementButton(bool isChecked)
     {
         _host.CancelAndRecreateToken();
 
@@ -1223,7 +1225,7 @@ public class MenuActionHandlerService
             _playSoundEffects.PlayNotificationSound();
 
             _settings.OverlayRetroAchievementButton = isChecked;
-            _settings.SaveAsync();
+            await _settings.SaveAsync();
 
             var (sl, sq) = _host.GetLoadGameFilesParams();
             _ = _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
@@ -1231,13 +1233,11 @@ public class MenuActionHandlerService
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error toggling RetroAchievements overlay button.");
-            MessageBoxLibrary.ErrorMessageBox();
+            await _messageBoxLibrary.ErrorMessageBox();
         }
-
-        return Task.CompletedTask;
     }
 
-    public Task HandleToggleVideoLinkButton(bool isChecked)
+    public async Task HandleToggleVideoLinkButton(bool isChecked)
     {
         _host.CancelAndRecreateToken();
 
@@ -1247,7 +1247,7 @@ public class MenuActionHandlerService
             _playSoundEffects.PlayNotificationSound();
 
             _settings.OverlayOpenVideoButton = isChecked;
-            _settings.SaveAsync();
+            await _settings.SaveAsync();
 
             var (sl, sq) = _host.GetLoadGameFilesParams();
             _ = _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
@@ -1255,13 +1255,11 @@ public class MenuActionHandlerService
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error toggling video link overlay button.");
-            MessageBoxLibrary.ErrorMessageBox();
+            await _messageBoxLibrary.ErrorMessageBox();
         }
-
-        return Task.CompletedTask;
     }
 
-    public Task HandleToggleInfoLinkButton(bool isChecked)
+    public async Task HandleToggleInfoLinkButton(bool isChecked)
     {
         _host.CancelAndRecreateToken();
 
@@ -1271,7 +1269,7 @@ public class MenuActionHandlerService
             _playSoundEffects.PlayNotificationSound();
 
             _settings.OverlayOpenInfoButton = isChecked;
-            _settings.SaveAsync();
+            await _settings.SaveAsync();
 
             var (sl, sq) = _host.GetLoadGameFilesParams();
             _ = _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
@@ -1279,10 +1277,8 @@ public class MenuActionHandlerService
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error toggling info link overlay button.");
-            MessageBoxLibrary.ErrorMessageBox();
+            await _messageBoxLibrary.ErrorMessageBox();
         }
-
-        return Task.CompletedTask;
     }
 
     // ---- Language ----

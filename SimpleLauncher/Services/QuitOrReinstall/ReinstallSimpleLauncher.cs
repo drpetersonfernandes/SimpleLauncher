@@ -4,8 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.QuitOrReinstall;
 
@@ -15,111 +15,120 @@ public static class ReinstallSimpleLauncher
     {
         try
         {
-            var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-            var updaterPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Updater.exe");
-
-            if (File.Exists(updaterPath))
+            var messageBoxLibrary = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+            try
             {
-                try
+                var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+                var updaterPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Updater.exe");
+
+                if (File.Exists(updaterPath))
                 {
-                    var startInfo = new ProcessStartInfo(updaterPath)
+                    try
                     {
-                        Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
-                        UseShellExecute = true,
-                        WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
-                    };
-                    Process.Start(startInfo);
+                        var startInfo = new ProcessStartInfo(updaterPath)
+                        {
+                            Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
+                            UseShellExecute = true,
+                            WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
+                        };
+                        Process.Start(startInfo);
 
-                    ShutdownApplication();
+                        ShutdownApplication();
+                    }
+                    catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
+                    {
+                        // Log the access denied error
+                        logErrors.LogAndForget(ex, "Access denied when starting Updater.exe.");
+
+                        // Notify user that update failed
+                        await messageBoxLibrary.UpdaterLaunchFailedMessageBox();
+                    }
                 }
-                catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
+                else
                 {
-                    // Log the access denied error
-                    logErrors.LogAndForget(ex, "Access denied when starting Updater.exe.");
+                    try
+                    {
+                        var updateChecker = App.ServiceProvider.GetRequiredService<CheckForUpdates.UpdateChecker>();
 
-                    // Notify user that update failed
-                    MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
+                        // 1. Get the URL from GitHub
+                        var (updaterZipUrl, _) = await updateChecker.GetLatestUpdaterInfoAsync();
+
+                        if (string.IsNullOrEmpty(updaterZipUrl))
+                        {
+                            await messageBoxLibrary.CouldNotFindUpdaterOnGitHubMessageBox();
+                            return;
+                        }
+
+                        // 2. Download the updater file into memory
+                        using var memoryStream = new MemoryStream();
+                        await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
+
+                        // 3. Extract the contents to the application directory
+                        var extractionSuccess = CheckForUpdates.UpdateChecker.ExtractAllFromZip(memoryStream, AppDomain.CurrentDomain.BaseDirectory, null, App.ServiceProvider.GetRequiredService<ILogErrors>());
+
+                        if (!extractionSuccess)
+                        {
+                            // Notify user
+                            await messageBoxLibrary.InstallUpdateManuallyMessageBox();
+
+                            return;
+                        }
+
+                        // 4. Verify Updater.exe now exists and launches it
+                        if (File.Exists(updaterPath))
+                        {
+                            try
+                            {
+                                var startInfo = new ProcessStartInfo(updaterPath)
+                                {
+                                    Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
+                                    UseShellExecute = true,
+                                    WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
+                                };
+                                Process.Start(startInfo);
+
+                                ShutdownApplication();
+                            }
+                            catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
+                            {
+                                // Log the access denied error
+                                logErrors.LogAndForget(ex, "Access denied when starting Updater.exe after download.");
+
+                                // Notify user that update failed
+                                await messageBoxLibrary.UpdaterLaunchFailedMessageBox();
+                            }
+                        }
+                        else
+                        {
+                            // Notify user
+                            await messageBoxLibrary.InstallUpdateManuallyMessageBox();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Notify developer
+                        logErrors.LogAndForget(ex, "Failed to download and reinstall the updater.");
+
+                        // Notify user
+                        await messageBoxLibrary.InstallUpdateManuallyMessageBox();
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                try
-                {
-                    var updateChecker = App.ServiceProvider.GetRequiredService<CheckForUpdates.UpdateChecker>();
+                var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
 
-                    // 1. Get the URL from GitHub
-                    var (updaterZipUrl, _) = await updateChecker.GetLatestUpdaterInfoAsync();
+                // Notify developer
+                logErrors.LogAndForget(ex, "Failed to reinstall SimpleLauncher.");
 
-                    if (string.IsNullOrEmpty(updaterZipUrl))
-                    {
-                        MessageBoxLibrary.CouldNotFindUpdaterOnGitHubMessageBox();
-                        return;
-                    }
-
-                    // 2. Download the updater file into memory
-                    using var memoryStream = new MemoryStream();
-                    await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
-
-                    // 3. Extract the contents to the application directory
-                    var extractionSuccess = CheckForUpdates.UpdateChecker.ExtractAllFromZip(memoryStream, AppDomain.CurrentDomain.BaseDirectory, null, App.ServiceProvider.GetRequiredService<ILogErrors>());
-
-                    if (!extractionSuccess)
-                    {
-                        // Notify user
-                        MessageBoxLibrary.InstallUpdateManuallyMessageBox();
-
-                        return;
-                    }
-
-                    // 4. Verify Updater.exe now exists and launches it
-                    if (File.Exists(updaterPath))
-                    {
-                        try
-                        {
-                            var startInfo = new ProcessStartInfo(updaterPath)
-                            {
-                                Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
-                                UseShellExecute = true,
-                                WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
-                            };
-                            Process.Start(startInfo);
-
-                            ShutdownApplication();
-                        }
-                        catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
-                        {
-                            // Log the access denied error
-                            logErrors.LogAndForget(ex, "Access denied when starting Updater.exe after download.");
-
-                            // Notify user that update failed
-                            MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
-                        }
-                    }
-                    else
-                    {
-                        // Notify user
-                        MessageBoxLibrary.InstallUpdateManuallyMessageBox();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    logErrors.LogAndForget(ex, "Failed to download and reinstall the updater.");
-
-                    // Notify user
-                    MessageBoxLibrary.InstallUpdateManuallyMessageBox();
-                }
+                // Notify user
+                await messageBoxLibrary.InstallUpdateManuallyMessageBox();
             }
         }
         catch (Exception ex)
         {
             var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-
-            // Notify developer
-            logErrors.LogAndForget(ex, "Failed to reinstall SimpleLauncher.");
-
-            // Notify user
-            MessageBoxLibrary.InstallUpdateManuallyMessageBox();
+            logErrors.LogAndForget(ex, "Error in the method StartUpdaterAndShutdown.");
         }
     }
 

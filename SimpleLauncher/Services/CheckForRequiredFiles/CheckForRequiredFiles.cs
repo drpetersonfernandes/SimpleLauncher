@@ -1,13 +1,20 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.CheckForRequiredFiles;
 
-public static class CheckForRequiredFiles
+public class CheckForRequiredFiles
 {
-    public static void CheckFiles(IConfiguration configuration, ILogErrors logErrors)
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
+
+    public CheckForRequiredFiles(IMessageBoxLibraryService messageBoxLibrary)
+    {
+        _messageBoxLibrary = messageBoxLibrary;
+    }
+
+    public async Task CheckFiles(IConfiguration configuration, ILogErrors logErrors)
     {
         var baseDirectory = AppContext.BaseDirectory;
         var requiredFiles = configuration.GetValue<string[]>("RequiredFiles") ??
@@ -34,7 +41,7 @@ public static class CheckForRequiredFiles
             }
 
             var fileList = string.Join(Environment.NewLine, missingFiles);
-            MessageBoxLibrary.HandleMissingRequiredFilesMessageBox(fileList);
+            await _messageBoxLibrary.HandleMissingRequiredFilesMessageBox(fileList);
         }
         catch (Exception ex)
         {

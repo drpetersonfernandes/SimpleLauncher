@@ -16,13 +16,13 @@ public partial class HelpUserService : IHelpUserService
     private readonly HelpUserManager _manager;
     private readonly ILogErrors _logErrors;
 
-    public HelpUserService(ILogErrors logErrors)
+    public HelpUserService(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary)
     {
         _logErrors = logErrors;
-        _manager = new HelpUserManager(logErrors);
+        _manager = new HelpUserManager(logErrors, messageBoxLibrary);
         try
         {
-            _manager.Load(); // Load parameters.md
+            _ = _manager.LoadAsync(); // Load parameters.md
         }
         catch (Exception ex)
         {

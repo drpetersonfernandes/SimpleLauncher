@@ -9,13 +9,16 @@ using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GameScan.Models;
 using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Services.GameScan;
 
 public class GameScannerService
 {
     private readonly ILogErrors _logErrors;
+
+    // ReSharper disable once NotAccessedField.Local
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IConfiguration _configuration;
     private const string WindowsSystemName = "Microsoft Windows";
 
@@ -41,9 +44,10 @@ public class GameScannerService
 
     private static bool _timeoutMessageShown;
 
-    public GameScannerService(ILogErrors logErrors)
+    public GameScannerService(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary)
     {
         _logErrors = logErrors;
+        _messageBoxLibrary = messageBoxLibrary;
         _configuration = App.ServiceProvider.GetRequiredService<IConfiguration>();
     }
 
@@ -227,7 +231,8 @@ public class GameScannerService
                     if (attempt == 1 && !_timeoutMessageShown)
                     {
                         _timeoutMessageShown = true;
-                        MessageBoxLibrary.ShowImageDownloadTimeoutMessageBox();
+                        var messageBoxLibrary = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+                        await messageBoxLibrary.ShowImageDownloadTimeoutMessageBox();
                     }
                 }
             }

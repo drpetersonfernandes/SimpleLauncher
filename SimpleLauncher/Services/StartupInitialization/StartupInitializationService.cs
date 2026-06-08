@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.LanguageMenu;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.ThemeMenu;
 using CheckDirWritable = SimpleLauncher.Core.Services.CheckIfDirectoryIsWritable.CheckIfDirectoryIsWritable;
 using RequiredFiles = SimpleLauncher.Services.CheckForRequiredFiles.CheckForRequiredFiles;
@@ -21,6 +21,8 @@ public class StartupInitializationService
     private readonly ILogErrors _logErrors;
     private readonly ThemeMenuService _themeMenuService;
     private readonly LanguageMenuService _languageMenuService;
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
+    private readonly RequiredFiles _requiredFiles;
     private IStartupInitializationHost _host;
 
     public StartupInitializationService(
@@ -29,7 +31,8 @@ public class StartupInitializationService
         GamePad.GamePadController gamePadController,
         ILogErrors logErrors,
         ThemeMenuService themeMenuService,
-        LanguageMenuService languageMenuService)
+        LanguageMenuService languageMenuService,
+        IMessageBoxLibraryService messageBoxLibrary)
     {
         _configuration = configuration;
         _settings = settings;
@@ -37,16 +40,18 @@ public class StartupInitializationService
         _logErrors = logErrors;
         _themeMenuService = themeMenuService;
         _languageMenuService = languageMenuService;
+        _messageBoxLibrary = messageBoxLibrary;
+        _requiredFiles = new RequiredFiles(messageBoxLibrary);
     }
 
-    public void Initialize(IStartupInitializationHost host)
+    public async Task InitializeAsync(IStartupInitializationHost host)
     {
         _host = host;
 
         InitializeStatusBarTimer();
         ApplyInitialThemeAndLanguage();
         InitializeUiState();
-        CheckWriteAccess();
+        await CheckWriteAccess();
         InitializePagination();
         InitializeTrayIcon();
         CheckRequiredFiles();
@@ -91,11 +96,11 @@ public class StartupInitializationService
         DebugLogger.Log("ViewMode was set.");
     }
 
-    private void CheckWriteAccess()
+    private async Task CheckWriteAccess()
     {
         if (!CheckDirWritable.IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory, _logErrors))
         {
-            MessageBoxLibrary.MoveToWritableFolderMessageBox();
+            await _messageBoxLibrary.MoveToWritableFolderMessageBox();
             DebugLogger.Log("Application does not have write access.");
         }
     }
@@ -112,10 +117,17 @@ public class StartupInitializationService
         DebugLogger.Log("TrayIconManager was initialized.");
     }
 
-    private void CheckRequiredFiles()
+    private async void CheckRequiredFiles()
     {
-        RequiredFiles.CheckFiles(_configuration, _logErrors);
-        DebugLogger.Log("Required files were checked.");
+        try
+        {
+            await _requiredFiles.CheckFiles(_configuration, _logErrors);
+            DebugLogger.Log("Required files were checked.");
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method CheckRequiredFiles.");
+        }
     }
 
     private void InitializeOverlayButtons()
@@ -131,11 +143,11 @@ public class StartupInitializationService
         _gamePadController.ErrorLogger = (ex, msg) => { _logErrors.LogAndForget(ex, msg); };
         if (_settings.EnableGamePadNavigation)
         {
-            _gamePadController.Start();
+            _ = _gamePadController.Start();
         }
         else
         {
-            _gamePadController.Stop();
+            _ = _gamePadController.Stop();
         }
 
         _gamePadController.DeadZoneX = _settings.DeadZoneX;

@@ -229,6 +229,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IDispatcherService, WpfDispatcherService>();
         serviceCollection.AddSingleton<IFilePickerService, WpfFilePickerService>();
         serviceCollection.AddSingleton<IApplicationLifetime, WpfApplicationLifetime>();
+        serviceCollection.AddSingleton<IMessageBoxLibraryService, MessageBoxLibraryService>();
         serviceCollection.AddSingleton<IUiOrchestrator, UiOrchestrator>();
         serviceCollection.AddSingleton<IGameItemRenderService, GameItemRenderService>();
         serviceCollection.AddSingleton<ISystemSelectionOrchestrator, SystemSelectionOrchestrator>();
@@ -635,7 +636,7 @@ public partial class App : IDisposable
         {
             var gamePadController = ServiceProvider.GetRequiredService<GamePadController>();
             // Dispose gamepad resources
-            gamePadController?.Stop();
+            _ = gamePadController?.Stop();
             gamePadController?.Dispose();
         }
         catch (InvalidOperationException ex)
