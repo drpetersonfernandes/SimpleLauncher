@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.ViewModels;
 
@@ -14,13 +13,15 @@ public partial class DebugViewModel : ObservableObject
 {
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IDebugLogger _debugLogger;
     private readonly object _logLock = new();
     private string _logText = string.Empty;
 
-    public DebugViewModel(ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public DebugViewModel(ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
     {
         _logErrors = logErrors;
         _messageBox = messageBox;
+        _debugLogger = debugLogger;
     }
 
     /// <summary>
@@ -95,7 +96,7 @@ public partial class DebugViewModel : ObservableObject
 
             // Notify user
             await _messageBox.FailedToCopyLogContentMessageBox();
-            DebugLogger.Log("Failed to copy log content.");
+            _debugLogger.Log("Failed to copy log content.");
         }
     }
 }

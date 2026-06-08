@@ -20,7 +20,7 @@ using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MenuCheckMark;
 using SimpleLauncher.Services.MenuOrchestrator;
 using SimpleLauncher.Services.PlayHistory;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.StartupInitialization;
 using SimpleLauncher.Services.SystemConfiguration;
 using SimpleLauncher.Services.ThemeMenu;

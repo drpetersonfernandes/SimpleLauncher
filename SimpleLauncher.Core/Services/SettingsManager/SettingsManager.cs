@@ -1,21 +1,21 @@
 using System.Globalization;
 using System.IO;
-using System.Security.Cryptography;
 using System.Xml.Linq;
 using SimpleLauncher.Core.Interfaces;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.AppDataFile;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.SettingsManager.EmulatorSettings;
+using SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
 
-namespace SimpleLauncher.Services.SettingsManager;
+namespace SimpleLauncher.Core.Services.SettingsManager;
 
 public class SettingsManager : IDisposable
 {
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly ICredentialProtector _credentialProtector;
 
     private readonly DataFileLocation _fileLocation;
     private readonly ReaderWriterLockSlim _settingsLock = new(LockRecursionPolicy.SupportsRecursion);
@@ -101,15 +101,13 @@ public class SettingsManager : IDisposable
     private const string DefaultNotificationSoundFileName = "click.mp3";
     private const string EncryptedPrefix = "DPAPI:";
 
-    private static string EncryptString(string plainText)
+    private string EncryptString(string plainText)
     {
         if (string.IsNullOrEmpty(plainText)) return plainText;
 
         try
         {
-            var plainBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-            var encryptedBytes = ProtectedData.Protect(plainBytes, null, DataProtectionScope.CurrentUser);
-            return EncryptedPrefix + Convert.ToBase64String(encryptedBytes);
+            return _credentialProtector.Protect(plainText);
         }
         catch
         {
@@ -117,27 +115,38 @@ public class SettingsManager : IDisposable
         }
     }
 
-    private static string DecryptString(string storedValue)
+    private string DecryptString(string storedValue)
     {
-        if (string.IsNullOrEmpty(storedValue) || !storedValue.StartsWith(EncryptedPrefix, StringComparison.Ordinal)) return storedValue;
+        if (string.IsNullOrEmpty(storedValue)) return storedValue;
+
+        if (storedValue.StartsWith(EncryptedPrefix, StringComparison.Ordinal))
+        {
+            var legacyValue = storedValue[EncryptedPrefix.Length..];
+            try
+            {
+                return _credentialProtector.Unprotect(legacyValue);
+            }
+            catch
+            {
+                return legacyValue;
+            }
+        }
 
         try
         {
-            var base64 = storedValue[EncryptedPrefix.Length..];
-            var encryptedBytes = Convert.FromBase64String(base64);
-            var plainBytes = ProtectedData.Unprotect(encryptedBytes, null, DataProtectionScope.CurrentUser);
-            return System.Text.Encoding.UTF8.GetString(plainBytes);
+            return _credentialProtector.Unprotect(storedValue);
         }
         catch
         {
-            return storedValue[EncryptedPrefix.Length..];
+            return storedValue;
         }
     }
 
-    public SettingsManager(IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox = null)
+    public SettingsManager(IConfiguration configuration, ILogErrors logErrors, ICredentialProtector credentialProtector, IMessageBoxLibraryService messageBox = null)
     {
         _configuration = configuration;
         _logErrors = logErrors;
+        _credentialProtector = credentialProtector;
         _messageBox = messageBox;
         _fileLocation = new DataFileLocation(DefaultSettingsFilePath);
 
@@ -422,7 +431,7 @@ public class SettingsManager : IDisposable
         _settingsLock.EnterReadLock();
         try
         {
-            snapshot = new SettingsManager(_configuration, _logErrors, _messageBox);
+            snapshot = new SettingsManager(_configuration, _logErrors, _credentialProtector, _messageBox);
             snapshot.CopyFrom(this);
         }
         finally
@@ -568,8 +577,8 @@ public class SettingsManager : IDisposable
                 new XElement("CustomNotificationSoundFile", s.CustomNotificationSoundFile),
                 new XElement("RaUsername", s.RaUsername),
                 new XElement("RaApiKey", s.RaApiKey),
-                new XElement("RaPassword", EncryptString(s.RaPassword)),
-                new XElement("RaToken", EncryptString(s.RaToken)),
+                new XElement("RaPassword", s.EncryptString(s.RaPassword)),
+                new XElement("RaToken", s.EncryptString(s.RaToken)),
                 new XElement("OverlayRetroAchievementButton", s.OverlayRetroAchievementButton),
                 new XElement("OverlayOpenVideoButton", s.OverlayOpenVideoButton),
                 new XElement("OverlayOpenInfoButton", s.OverlayOpenInfoButton),
@@ -676,7 +685,7 @@ public class SettingsManager : IDisposable
 
     public void ResetToDefaults()
     {
-        CopyFrom(new SettingsManager(_configuration, _logErrors, _messageBox));
+        CopyFrom(new SettingsManager(_configuration, _logErrors, _credentialProtector, _messageBox));
     }
 
     private void SetDefaultsAndSave()

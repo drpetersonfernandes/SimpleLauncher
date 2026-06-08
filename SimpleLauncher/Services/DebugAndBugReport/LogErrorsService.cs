@@ -4,8 +4,8 @@ using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
-using System.Windows;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
@@ -17,22 +17,30 @@ public class LogErrorsService : ILogErrors
     private static readonly SemaphoreSlim LogFileLock = new(1, 1);
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IConfiguration _configuration;
+    private readonly IDebugLogger _debugLogger;
+    private readonly IDispatcherService _dispatcher;
 
-    public LogErrorsService(IHttpClientFactory httpClientFactory, IConfiguration configuration)
+    public LogErrorsService(
+        IHttpClientFactory httpClientFactory,
+        IConfiguration configuration,
+        IDebugLogger debugLogger,
+        IDispatcherService dispatcher)
     {
         _httpClientFactory = httpClientFactory;
         _configuration = configuration;
+        _debugLogger = debugLogger;
+        _dispatcher = dispatcher;
     }
 
     public async Task LogErrorAsync(Exception ex, string contextMessage = null)
     {
         if (ex != null)
         {
-            DebugLogger.LogException(ex, contextMessage);
+            _debugLogger.LogException(ex, contextMessage);
         }
         else if (!string.IsNullOrWhiteSpace(contextMessage))
         {
-            DebugLogger.Log(contextMessage);
+            _debugLogger.Log(contextMessage);
         }
 
         var errorLogPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPathForAdmin") ?? "error.log");
@@ -42,19 +50,15 @@ public class LogErrorsService : ILogErrors
         await LogFileLock.WaitAsync();
         try
         {
-            // Append the error message to the general log
             if (errorLogPath != null)
             {
                 await File.AppendAllTextAsync(errorLogPath, errorMessage);
 
-                // Append the error message to the user-specific log
                 var userErrorMessage = errorMessage + "--------------------------------------------------------------------------------------------------------------\n\n\n";
                 if (userLogPath != null) await File.AppendAllTextAsync(userLogPath, userErrorMessage);
 
-                // Attempt to send the error log content to the API only if enabled
                 if (await SendLogToApiAsync(ex, errorMessage))
                 {
-                    // If the log was successfully sent, delete the general log file to clean up.
                     if (File.Exists(errorLogPath))
                     {
                         try
@@ -64,7 +68,7 @@ public class LogErrorsService : ILogErrors
                         catch (Exception ex2)
                         {
                             WriteLocalErrorLog(ex2, "Error deleting the ErrorLog.");
-                            Application.Current.Dispatcher.Invoke(() => { DebugLogger.LogException(ex2, "Error deleting the ErrorLog"); });
+                            _dispatcher.Invoke(() => _debugLogger.LogException(ex2, "Error deleting the ErrorLog"));
                         }
                     }
                 }
@@ -82,7 +86,6 @@ public class LogErrorsService : ILogErrors
 
     private async Task<bool> SendLogToApiAsync(Exception ex, string logContent)
     {
-        // Check the API key
         var apiKey = _configuration.GetValue<string>("ApiKey") ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
         if (string.IsNullOrEmpty(apiKey))
         {
@@ -115,36 +118,30 @@ public class LogErrorsService : ILogErrors
 
             var jsonContent = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
 
-            // Use a CancellationToken with a 30-second timeout to prevent indefinite hangs
             using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
             var apiUrl = _configuration.GetValue<string>("BugReportApiUrl") ?? "https://www.purelogiccode.com/bugreport/api/send-bug-report";
             using var response = await httpClient.PostAsync(apiUrl, jsonContent, cts.Token);
 
-            DebugLogger.Log($"The ErrorLog was successfully sent. API response: {response.StatusCode}");
+            _debugLogger.Log($"The ErrorLog was successfully sent. API response: {response.StatusCode}");
 
             return response.IsSuccessStatusCode;
         }
         catch (OperationCanceledException)
         {
-            // Request timed out - log locally and don't crash
             WriteLocalErrorLog(new TimeoutException("The request to the bug report API timed out after 30 seconds."), "Error sending the ErrorLog to the API: timeout.");
-            DebugLogger.Log("The ErrorLog request timed out after 30 seconds.");
+            _debugLogger.Log("The ErrorLog request timed out after 30 seconds.");
 
             return false;
         }
         catch (Exception sendEx)
         {
             WriteLocalErrorLog(sendEx, "Error sending the ErrorLog to the API.");
-            DebugLogger.LogException(sendEx, "There was an error sending the ErrorLog");
+            _debugLogger.LogException(sendEx, "There was an error sending the ErrorLog");
 
-            // If sending fails, don't disable logging, just return false
             return false;
         }
     }
 
-    /// <summary>
-    /// Builds a comprehensive stack trace including all inner exceptions.
-    /// </summary>
     private static string BuildStackTrace(Exception exception)
     {
         if (exception == null)
@@ -183,10 +180,7 @@ public class LogErrorsService : ILogErrors
         return sb.ToString();
     }
 
-    /// <summary>
-    /// Gets user information (machine name as a basic identifier).
-    /// </summary>
-    private static string GetUserInfo()
+    private string GetUserInfo()
     {
         try
         {
@@ -194,14 +188,11 @@ public class LogErrorsService : ILogErrors
         }
         catch (Exception ex)
         {
-            DebugLogger.LogException(ex, "Failed to get user info for bug report.");
+            _debugLogger.LogException(ex, "Failed to get user info for bug report.");
             return null;
         }
     }
 
-    /// <summary>
-    /// Gets the environment name (Debug/Release).
-    /// </summary>
     private static string GetEnvironmentName()
     {
 #if DEBUG
@@ -211,9 +202,6 @@ public class LogErrorsService : ILogErrors
 #endif
     }
 
-    /// <summary>
-    /// Writes a critical error to a local log file when API logging is not available.
-    /// </summary>
     private void WriteLocalErrorLog(Exception ex, string contextMessage)
     {
         var criticalLogPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPathCritical") ?? "critical_error.log");
@@ -226,7 +214,7 @@ public class LogErrorsService : ILogErrors
         }
         catch (Exception ex2)
         {
-            DebugLogger.LogException(ex2, "There was an error writing the local ErrorLog");
+            _debugLogger.LogException(ex2, "There was an error writing the local ErrorLog");
         }
     }
 }

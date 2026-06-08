@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.RomHistory;
@@ -18,6 +17,7 @@ public partial class RomHistoryViewModel : ObservableObject
 {
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IResourceProvider _resourceProvider;
 
     private string _romName;
     private string _systemName;
@@ -28,10 +28,11 @@ public partial class RomHistoryViewModel : ObservableObject
     [ObservableProperty] private string _historyMarkdown;
     [ObservableProperty] private Visibility _descriptionVisibility = Visibility.Collapsed;
 
-    public RomHistoryViewModel(ILogErrors logErrors)
+    public RomHistoryViewModel(ILogErrors logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _logErrors = logErrors;
-        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+        _messageBox = messageBox;
+        _resourceProvider = resourceProvider;
     }
 
     /// <summary>
@@ -54,7 +55,7 @@ public partial class RomHistoryViewModel : ObservableObject
     public async Task LoadRomHistoryAsync()
     {
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-            (string)Application.Current.TryFindResource("LoadingROMHistory") ?? "Loading ROM history...");
+            _resourceProvider.GetString("LoadingROMHistory", "Loading ROM history..."));
 
         try
         {
@@ -69,7 +70,7 @@ public partial class RomHistoryViewModel : ObservableObject
                 const string contextMessage = "'history.dat' and 'history.xml' are both missing.";
                 _logErrors.LogAndForget(null, contextMessage);
 
-                var nohistoryxmlfilefound2 = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound2") ?? "No 'history.dat' or 'history.xml' file found in the application folder.";
+                var nohistoryxmlfilefound2 = _resourceProvider.GetString("Nohistoryxmlfilefound2", "No 'history.dat' or 'history.xml' file found in the application folder.");
                 HistoryMarkdown = nohistoryxmlfilefound2;
 
                 await _messageBox.NoHistoryXmlOrDatFoundMessageBox();
@@ -85,7 +86,7 @@ public partial class RomHistoryViewModel : ObservableObject
 
             if (entry != null)
             {
-                var notextavailable2 = (string)Application.Current.TryFindResource("Notextavailable") ?? "No text available.";
+                var notextavailable2 = _resourceProvider.GetString("Notextavailable", "No text available.");
                 var historyText = entry.Element("text")?.Value ?? notextavailable2;
                 HistoryMarkdown = ConvertUrlsToMarkdown(historyText);
             }
@@ -108,7 +109,7 @@ public partial class RomHistoryViewModel : ObservableObject
         RomDescriptionText = _searchTerm;
         DescriptionVisibility = Visibility.Visible;
 
-        var noRoMhistoryfoundinthelocal2 = (string)Application.Current.TryFindResource("NoROMhistoryfoundinthelocal") ?? "No ROM history found in the local database for the selected file.";
+        var noRoMhistoryfoundinthelocal2 = _resourceProvider.GetString("NoROMhistoryfoundinthelocal", "No ROM history found in the local database for the selected file.");
         HistoryMarkdown = noRoMhistoryfoundinthelocal2;
 
         var result = await _messageBox.SearchOnlineForRomHistoryMessageBox();

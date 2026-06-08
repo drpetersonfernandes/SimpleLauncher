@@ -5,7 +5,6 @@ using System.Text.Json;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.PlaySound;
@@ -23,19 +22,21 @@ public partial class SupportViewModel : ObservableObject
     private readonly ILogErrors _logErrors;
     private readonly IConfiguration _configuration;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IResourceProvider _resourceProvider;
 
     [ObservableProperty] private string _name;
     [ObservableProperty] private string _email;
     [ObservableProperty] private string _supportRequest;
     [ObservableProperty] private bool _isLoading;
 
-    public SupportViewModel(PlaySoundEffects playSoundEffects, IHttpClientFactory httpClientFactory, ILogErrors logErrors, IConfiguration configuration)
+    public SupportViewModel(PlaySoundEffects playSoundEffects, IHttpClientFactory httpClientFactory, ILogErrors logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _playSoundEffects = playSoundEffects;
         _httpClientFactory = httpClientFactory;
         _logErrors = logErrors;
         _configuration = configuration;
-        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+        _messageBox = messageBox;
+        _resourceProvider = resourceProvider;
     }
 
     /// <summary>Event raised when the window should be closed.</summary>
@@ -78,7 +79,7 @@ public partial class SupportViewModel : ObservableObject
             await SendSupportRequestToApiAsync(fullMessageBuilder.ToString());
 
             (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-                (string)Application.Current.TryFindResource("SendingSupportRequest") ?? "Sending support request...");
+                _resourceProvider.GetString("SendingSupportRequest", "Sending support request..."));
         }
         catch (Exception ex)
         {

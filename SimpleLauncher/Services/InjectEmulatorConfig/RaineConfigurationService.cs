@@ -10,7 +10,7 @@ public static class RaineConfigurationService
 {
     public static void InjectSettings(
         string emulatorPath,
-        SettingsManager.SettingsManager settings,
+        Core.Services.SettingsManager.SettingsManager settings,
         ILogErrors logErrors,
         string gameFilePath = null,
         string systemRomPath = null,

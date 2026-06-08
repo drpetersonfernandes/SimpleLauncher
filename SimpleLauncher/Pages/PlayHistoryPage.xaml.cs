@@ -21,7 +21,7 @@ using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.WpfServices;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Services.SettingsManager;
 using ILoadingState = SimpleLauncher.Core.Services.LoadingInterface.ILoadingState;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;

@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.ViewModels;
@@ -12,11 +13,13 @@ namespace SimpleLauncher.ViewModels;
 public class UpdateHistoryViewModel : ObservableObject
 {
     private readonly ILogErrors _logErrors;
+    private readonly IResourceProvider _resourceProvider;
     private string _markdownContent;
 
-    public UpdateHistoryViewModel(ILogErrors logErrors)
+    public UpdateHistoryViewModel(ILogErrors logErrors, IResourceProvider resourceProvider)
     {
         _logErrors = logErrors;
+        _resourceProvider = resourceProvider;
         LoadWhatsNewContent();
     }
 
@@ -35,7 +38,7 @@ public class UpdateHistoryViewModel : ObservableObject
 
         try
         {
-            var defaultContent = (string)Application.Current.TryFindResource("WhatsNewFileNotFound") ?? "# 'whatsnew.md' not found. The update history file could not be found.";
+            var defaultContent = _resourceProvider.GetString("WhatsNewFileNotFound", "# 'whatsnew.md' not found. The update history file could not be found.");
             MarkdownContent = File.Exists(filePath) ? File.ReadAllText(filePath) : defaultContent;
         }
         catch (Exception ex)
@@ -43,7 +46,7 @@ public class UpdateHistoryViewModel : ObservableObject
             const string contextMessage = "Failed to load 'whatsnew.md'.";
             _logErrors.LogAndForget(ex, contextMessage);
 
-            MarkdownContent = (string)Application.Current.TryFindResource("UpdateHistoryLoadError") ?? "Error. Could not load the update history. The error has been logged.";
+            MarkdownContent = _resourceProvider.GetString("UpdateHistoryLoadError", "Error. Could not load the update history. The error has been logged.");
         }
     }
 

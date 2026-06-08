@@ -2,7 +2,6 @@ using System.Diagnostics;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GetApplicationVersion;
@@ -17,12 +16,14 @@ public partial class AboutViewModel : ObservableObject
 {
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly UpdateChecker _updateChecker;
     private string _appVersion;
 
-    public AboutViewModel(ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public AboutViewModel(ILogErrors logErrors, IMessageBoxLibraryService messageBox, UpdateChecker updateChecker)
     {
         _logErrors = logErrors;
         _messageBox = messageBox;
+        _updateChecker = updateChecker;
         AppVersion = GetApplicationVersion.GetVersion;
     }
 
@@ -82,7 +83,7 @@ public partial class AboutViewModel : ObservableObject
 
         try
         {
-            var updateChecker = App.ServiceProvider.GetRequiredService<UpdateChecker>();
+            var updateChecker = _updateChecker;
             var ownerWindow = GetOwnerWindow?.Invoke();
             await updateChecker.ManualCheckForUpdatesAsync(ownerWindow);
         }

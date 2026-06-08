@@ -7,9 +7,9 @@ namespace SimpleLauncher.Services.GameFilter;
 public class GameFilterService : IGameFilterService
 {
     private readonly IFindCoverImage _findCoverImage;
-    private readonly SettingsManager.SettingsManager _settings;
+    private readonly Core.Services.SettingsManager.SettingsManager _settings;
 
-    public GameFilterService(IFindCoverImage findCoverImage, SettingsManager.SettingsManager settings)
+    public GameFilterService(IFindCoverImage findCoverImage, Core.Services.SettingsManager.SettingsManager settings)
     {
         _findCoverImage = findCoverImage;
         _settings = settings;

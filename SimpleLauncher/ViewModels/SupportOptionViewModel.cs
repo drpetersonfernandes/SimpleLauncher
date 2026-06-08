@@ -4,7 +4,6 @@ using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.PlaySound;
@@ -20,16 +19,18 @@ public partial class SupportOptionViewModel : ObservableObject
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly SupportWindow _supportWindow;
 
     private Exception _exception;
     private string _contextMessage;
 
-    public SupportOptionViewModel(PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public SupportOptionViewModel(PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox, SupportWindow supportWindow)
     {
         _playSoundEffects = playSoundEffects;
         _configuration = configuration;
         _logErrors = logErrors;
         _messageBox = messageBox;
+        _supportWindow = supportWindow;
     }
 
     /// <summary>
@@ -49,7 +50,7 @@ public partial class SupportOptionViewModel : ObservableObject
     {
         _playSoundEffects?.PlayNotificationSound();
 
-        var supportRequestWindow = App.ServiceProvider.GetRequiredService<SupportWindow>();
+        var supportRequestWindow = _supportWindow;
         supportRequestWindow.Show();
 
         CloseRequested?.Invoke();

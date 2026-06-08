@@ -7,7 +7,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class DolphinConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
+    public static void InjectSettings(string emulatorPath, Core.Services.SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -47,7 +47,7 @@ public static class DolphinConfigurationService
         }
     }
 
-    private static void InjectIntoConfigFile(string configPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
+    private static void InjectIntoConfigFile(string configPath, Core.Services.SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var configDir = Path.GetDirectoryName(configPath);
 

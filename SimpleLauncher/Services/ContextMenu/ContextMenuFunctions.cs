@@ -147,7 +147,7 @@ internal static class ContextMenuFunctions
         }
     }
 
-    public static async Task OpenVideoLink(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, SettingsManager.SettingsManager settings, MainWindow mainWindow, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public static async Task OpenVideoLink(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, Core.Services.SettingsManager.SettingsManager settings, MainWindow mainWindow, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         // Attempt to find a matching machine description
         var searchTerm = fileNameWithoutExtension;
@@ -185,7 +185,7 @@ internal static class ContextMenuFunctions
         }
     }
 
-    public static async Task OpenInfoLink(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, SettingsManager.SettingsManager settings, MainWindow mainWindow, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public static async Task OpenInfoLink(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, Core.Services.SettingsManager.SettingsManager settings, MainWindow mainWindow, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         // Attempt to find a matching machine description
         var searchTerm = fileNameWithoutExtension;
@@ -258,7 +258,7 @@ internal static class ContextMenuFunctions
         string tempExtractionPath = null;
         try
         {
-            var settings = App.ServiceProvider.GetRequiredService<SettingsManager.SettingsManager>();
+            var settings = App.ServiceProvider.GetRequiredService<Core.Services.SettingsManager.SettingsManager>();
 
             if (string.IsNullOrWhiteSpace(settings.RaApiKey) || string.IsNullOrWhiteSpace(settings.RaUsername))
             {
@@ -289,7 +289,8 @@ internal static class ContextMenuFunctions
             DebugLogger.Log($"[RA Service] Resolved system name: {systemName}");
 
             // Check if system is supported for RetroAchievements
-            if (!RetroAchievementsHasherTool.IsSystemSupportedForHashing(systemManager.SystemName))
+            var raHasherTool = App.ServiceProvider.GetRequiredService<IRetroAchievementsHasherTool>();
+            if (!raHasherTool.IsSystemSupportedForHashing(systemManager.SystemName))
             {
                 DebugLogger.Log($"[RA Service] System '{systemManager.SystemName}' is not supported for RetroAchievements.");
 
@@ -391,7 +392,7 @@ internal static class ContextMenuFunctions
             await Task.Delay(100);
 
             // --- Delegate hashing logic to RetroAchievementsHasherTool ---
-            var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch, loadingStateProvider, logErrors);
+            var raHashResult = await raHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch, loadingStateProvider, logErrors);
 
             if (raHashResult.ExtractionErrorMessage == "System selection cancelled by user.")
             {
@@ -860,7 +861,7 @@ internal static class ContextMenuFunctions
         return messageBox.ThereIsNoPcbMessageBox();
     }
 
-    public static async Task TakeScreenshotOfSelectedWindowAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher.GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public static async Task TakeScreenshotOfSelectedWindowAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, Core.Services.SettingsManager.SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher.GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TakingScreenshot") ?? "Taking screenshot...");
         try
@@ -1119,7 +1120,7 @@ internal static class ContextMenuFunctions
         }
     }
 
-    public static async Task DeleteCoverImageAsync(string fileNameWithoutExtension, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager contextSettings, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IFindCoverImage findCoverImage, IMessageBoxLibraryService messageBox)
+    public static async Task DeleteCoverImageAsync(string fileNameWithoutExtension, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, Core.Services.SettingsManager.SettingsManager contextSettings, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IFindCoverImage findCoverImage, IMessageBoxLibraryService messageBox)
     {
         mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("DeletingCoverImage") ?? "Deleting cover image...");
         var coverPath = findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, contextSettings);

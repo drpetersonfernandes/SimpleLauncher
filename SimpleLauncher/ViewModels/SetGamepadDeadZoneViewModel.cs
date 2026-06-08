@@ -2,7 +2,7 @@ using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Services.SettingsManager;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher.ViewModels;
@@ -14,14 +14,16 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
 {
     private readonly SettingsManager _settingsManager;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IResourceProvider _resourceProvider;
 
     private double _deadZoneX;
     private double _deadZoneY;
 
-    public SetGamepadDeadZoneViewModel(SettingsManager settingsManager, IMessageBoxLibraryService messageBox)
+    public SetGamepadDeadZoneViewModel(SettingsManager settingsManager, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _settingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
         _messageBox = messageBox;
+        _resourceProvider = resourceProvider;
 
         _deadZoneX = _settingsManager.DeadZoneX;
         _deadZoneY = _settingsManager.DeadZoneY;
@@ -73,7 +75,7 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
         await _settingsManager.SaveAsync();
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-            (string)Application.Current.TryFindResource("SavingGamepadDeadZoneSettings") ?? "Saving gamepad dead zone settings...");
+            _resourceProvider.GetString("SavingGamepadDeadZoneSettings", "Saving gamepad dead zone settings..."));
 
         await _messageBox.DeadZonesSavedMessageBox();
 
@@ -91,7 +93,7 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
         DeadZoneY = SettingsManager.DefaultDeadZoneY;
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-            (string)Application.Current.TryFindResource("RevertingGamepadDeadZoneSettings") ?? "Reverting gamepad dead zone settings...");
+            _resourceProvider.GetString("RevertingGamepadDeadZoneSettings", "Reverting gamepad dead zone settings..."));
 
         CloseRequested?.Invoke();
     }

@@ -1,11 +1,10 @@
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Services.SettingsManager;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher.ViewModels;
@@ -19,6 +18,7 @@ public partial class SoundConfigurationViewModel : ObservableObject
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IResourceProvider _resourceProvider;
 
     private const string DefaultNotificationSound = "click.mp3";
     private static readonly string AudioFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "audio");
@@ -27,12 +27,13 @@ public partial class SoundConfigurationViewModel : ObservableObject
     [ObservableProperty] private string _notificationSoundFile;
     [ObservableProperty] private bool _isSoundControlsEnabled;
 
-    public SoundConfigurationViewModel(SettingsManager settings, PlaySoundEffects playSoundEffects, ILogErrors logErrors)
+    public SoundConfigurationViewModel(SettingsManager settings, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
-        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+        _messageBox = messageBox;
+        _resourceProvider = resourceProvider;
 
         _enableNotificationSound = _settings.EnableNotificationSound;
         _notificationSoundFile = _settings.CustomNotificationSoundFile;
@@ -113,7 +114,7 @@ public partial class SoundConfigurationViewModel : ObservableObject
         await _settings.SaveAsync();
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-            (string)Application.Current.TryFindResource("SavingSoundSettings") ?? "Saving sound settings...");
+            _resourceProvider.GetString("SavingSoundSettings", "Saving sound settings..."));
 
         await _messageBox.SettingsSavedSuccessfullyMessageBox();
 

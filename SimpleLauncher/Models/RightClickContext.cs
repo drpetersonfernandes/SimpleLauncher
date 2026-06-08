@@ -20,7 +20,7 @@ public class RightClickContext(
     SystemManager selectedSystemManager,
     List<Services.MameManager.MameManager> machines,
     FavoritesManager favoritesManager,
-    Services.SettingsManager.SettingsManager settings,
+    Core.Services.SettingsManager.SettingsManager settings,
     ComboBox emulatorComboBox,
     Favorite selectedFavorite,
     Emulator emulatorManager,
@@ -55,7 +55,7 @@ public class RightClickContext(
     public FavoritesManager FavoritesManager { get; } = favoritesManager;
 
     /// <summary>Gets the application settings manager.</summary>
-    public Services.SettingsManager.SettingsManager Settings { get; } = settings;
+    public Core.Services.SettingsManager.SettingsManager Settings { get; } = settings;
 
     /// <summary>Gets the emulator combo box control.</summary>
     public ComboBox EmulatorComboBox { get; } = emulatorComboBox;

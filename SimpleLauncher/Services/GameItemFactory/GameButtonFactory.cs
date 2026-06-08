@@ -21,6 +21,7 @@ using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.WpfServices;
 using Image = System.Windows.Controls.Image;
 
@@ -33,7 +34,7 @@ internal partial class GameButtonFactory(
     ComboBox systemComboBox,
     List<SystemManager.SystemManager> systemManagers,
     List<MameManager.MameManager> machines,
-    SettingsManager.SettingsManager settings,
+    Core.Services.SettingsManager.SettingsManager settings,
     FavoritesManager favoritesManager,
     WrapPanel gameFileGrid,
     MainWindow mainWindow,
@@ -49,7 +50,7 @@ internal partial class GameButtonFactory(
     private readonly ComboBox _systemComboBox = systemComboBox ?? throw new ArgumentNullException(nameof(systemComboBox));
     private readonly List<SystemManager.SystemManager> _systemManagers = systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
     private readonly List<MameManager.MameManager> _machines = machines ?? throw new ArgumentNullException(nameof(machines));
-    private readonly SettingsManager.SettingsManager _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+    private readonly Core.Services.SettingsManager.SettingsManager _settings = settings ?? throw new ArgumentNullException(nameof(settings));
     private readonly FavoritesManager _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
     private readonly WrapPanel _gameFileGrid = gameFileGrid ?? throw new ArgumentNullException(nameof(gameFileGrid));
     private readonly MainWindow _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
@@ -298,7 +299,8 @@ internal partial class GameButtonFactory(
         double currentVerticalOffset = 5; // Initial top margin for the first button
 
         // Only show RetroAchievements icon for supported systems
-        var isSystemSupportedForRa = RetroAchievements.RetroAchievementsHasherTool.IsSystemSupportedForHashing(selectedSystemManager.SystemName);
+        var raHasherTool = App.ServiceProvider.GetRequiredService<IRetroAchievementsHasherTool>();
+        var isSystemSupportedForRa = raHasherTool.IsSystemSupportedForHashing(selectedSystemManager.SystemName);
 
         if (_settings.OverlayRetroAchievementButton && isSystemSupportedForRa)
         {

@@ -51,7 +51,7 @@ using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SearchOrchestrator;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.StartupInitialization;
 using SimpleLauncher.Services.SystemConfiguration;
 using SimpleLauncher.Services.SystemImageResolver;
@@ -170,12 +170,14 @@ public partial class App : IDisposable
         // Register Managers as singletons
         // Register Managers as singletons
         serviceCollection.AddSingleton<ILogErrors, LogErrorsService>();
+        serviceCollection.AddSingleton<ICredentialProtector, WindowsCredentialProtector>();
         serviceCollection.AddSingleton(static provider =>
         {
             var config = provider.GetRequiredService<IConfiguration>();
             var logErrors = provider.GetRequiredService<ILogErrors>();
             var messageBox = provider.GetRequiredService<IMessageBoxLibraryService>();
-            var sm = new SettingsManager(config, logErrors, messageBox);
+            var credentialProtector = provider.GetRequiredService<ICredentialProtector>();
+            var sm = new SettingsManager(config, logErrors, credentialProtector, messageBox);
             sm.Load();
             return sm;
         });
@@ -239,6 +241,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IMessageBoxLibraryService, MessageBoxLibraryService>();
         serviceCollection.AddSingleton<IUiOrchestrator, UiOrchestrator>();
         serviceCollection.AddSingleton<IGameItemRenderService, GameItemRenderService>();
+        serviceCollection.AddSingleton<IRetroAchievementsHasherTool, RetroAchievementsHasherTool>();
         serviceCollection.AddSingleton<ISystemSelectionOrchestrator, SystemSelectionOrchestrator>();
         serviceCollection.AddSingleton<IGameFileLoadingOrchestrator, GameFileLoadingOrchestrator>();
 

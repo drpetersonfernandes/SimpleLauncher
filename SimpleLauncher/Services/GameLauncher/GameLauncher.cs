@@ -66,7 +66,7 @@ public partial class GameLauncher
         string selectedEmulatorName,
         string selectedSystemName,
         SystemManager.SystemManager selectedSystemManager,
-        SettingsManager.SettingsManager settings,
+        Core.Services.SettingsManager.SettingsManager settings,
         IWindowContext windowContext,
         GamePadController gamePadController,
         ILoadingState loadingStateProvider)

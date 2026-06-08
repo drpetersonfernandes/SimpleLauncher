@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Services.SettingsManager;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher.ViewModels;
@@ -16,6 +16,7 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IResourceProvider _resourceProvider;
 
     private double _thresholdValue;
 
@@ -24,11 +25,12 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
     public const double MaximumThreshold = 0.95;
     public const double TickFrequency = 0.05;
 
-    public SetFuzzyMatchingViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public SetFuzzyMatchingViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _logErrors = logErrors;
         _messageBox = messageBox;
+        _resourceProvider = resourceProvider;
 
         // Initialize values from settings
         _thresholdValue = Math.Max(MinimumThreshold, Math.Min(MaximumThreshold, _settings.FuzzyMatchingThreshold));
@@ -107,7 +109,7 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
             _settings.FuzzyMatchingThreshold = newThreshold;
             await _settings.SaveAsync();
             (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-                (string)Application.Current.TryFindResource("SavingFuzzyMatchingSettings") ?? "Saving fuzzy matching settings...");
+                _resourceProvider.GetString("SavingFuzzyMatchingSettings", "Saving fuzzy matching settings..."));
 
             SaveCompleted?.Invoke();
         }

@@ -10,6 +10,7 @@ public class SettingsManagerTests : IDisposable
     private readonly string _testDirectory;
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors = new NoOpLogErrors();
+    private readonly NoOpCredentialProtector _credentialProtector = new();
 
     public SettingsManagerTests()
     {
@@ -45,138 +46,138 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultThumbnailSizeIs250()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Equal(250, settings.ThumbnailSize);
     }
 
     [Fact]
     public void DefaultGamesPerPageIs200()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Equal(200, settings.GamesPerPage);
     }
 
     [Fact]
     public void DefaultShowGamesIsShowAll()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("ShowAll", settings.ShowGames);
     }
 
     [Fact]
     public void DefaultViewModeIsGridView()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("GridView", settings.ViewMode);
     }
 
     [Fact]
     public void DefaultBaseThemeIsDark()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("Dark", settings.BaseTheme);
     }
 
     [Fact]
     public void DefaultAccentColorIsBlue()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("Blue", settings.AccentColor);
     }
 
     [Fact]
     public void DefaultLanguageIsEn()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("en", settings.Language);
     }
 
     [Fact]
     public void DefaultDeadZoneXIsCorrect()
     {
-        Assert.Equal(0.05f, Services.SettingsManager.SettingsManager.DefaultDeadZoneX);
+        Assert.Equal(0.05f, Core.Services.SettingsManager.SettingsManager.DefaultDeadZoneX);
     }
 
     [Fact]
     public void DefaultDeadZoneYIsCorrect()
     {
-        Assert.Equal(0.02f, Services.SettingsManager.SettingsManager.DefaultDeadZoneY);
+        Assert.Equal(0.02f, Core.Services.SettingsManager.SettingsManager.DefaultDeadZoneY);
     }
 
     [Fact]
     public void DefaultEnableFuzzyMatchingIsTrue()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.True(settings.EnableFuzzyMatching);
     }
 
     [Fact]
     public void DefaultFuzzyMatchingThresholdIs080()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Equal(0.80, settings.FuzzyMatchingThreshold);
     }
 
     [Fact]
     public void DefaultEnableNotificationSoundIsTrue()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.True(settings.EnableNotificationSound);
     }
 
     [Fact]
     public void DefaultButtonAspectRatioIsSquare()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("Square", settings.ButtonAspectRatio);
     }
 
     [Fact]
     public void DefaultFilenameDisplayModeIsOriginal()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("Original", settings.FilenameDisplayMode);
     }
 
     [Fact]
     public void DefaultFilenameFontSizeIsNormal()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("Normal", settings.FilenameFontSize);
     }
 
     [Fact]
     public void DefaultMachineNameFontSizeIsNormal()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("Normal", settings.MachineNameFontSize);
     }
 
     [Fact]
     public void DefaultStyleVariantIsDefault()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("Default", settings.StyleVariant);
     }
 
     [Fact]
     public void DefaultOverlayOpenVideoButtonIsTrue()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.True(settings.OverlayOpenVideoButton);
     }
 
     [Fact]
     public void DefaultAdditionalSystemFoldersExpandedIsTrue()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.True(settings.AdditionalSystemFoldersExpanded);
     }
 
     [Fact]
     public void DefaultEmulatorExpandedStatesAreTrue()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.True(settings.Emulator1Expanded);
         Assert.True(settings.Emulator2Expanded);
         Assert.True(settings.Emulator3Expanded);
@@ -187,7 +188,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void SettingsCanBeModified()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
 
         settings.ThumbnailSize = 500;
         settings.GamesPerPage = 1000;
@@ -213,7 +214,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultDuckStationSettingsAreCorrect()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.False(settings.DuckStation.StartFullscreen);
         Assert.True(settings.DuckStation.PauseOnFocusLoss);
         Assert.True(settings.DuckStation.SaveStateOnExit);
@@ -227,7 +228,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultRetroArchSettingsAreCorrect()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.False(settings.RetroArch.Fullscreen);
         Assert.Equal("gl", settings.RetroArch.VideoDriver);
         Assert.True(settings.RetroArch.Vsync);
@@ -239,21 +240,21 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void SystemPlayTimesDefaultIsEmpty()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Empty(settings.SystemPlayTimes);
     }
 
     [Fact]
     public void VideoUrlDefaultsFromConfiguration()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("https://www.youtube.com/results?search_query=", settings.VideoUrl);
     }
 
     [Fact]
     public void InfoUrlDefaultsFromConfiguration()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
+        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("https://www.igdb.com/search?q=", settings.InfoUrl);
     }
 

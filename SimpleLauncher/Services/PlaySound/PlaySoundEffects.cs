@@ -14,13 +14,13 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     private const string TrashSoundFile = "trash.mp3";
 
     private static readonly Lock Lock = new();
-    private readonly SettingsManager.SettingsManager _settingsManager;
+    private readonly Core.Services.SettingsManager.SettingsManager _settingsManager;
     private readonly ILogErrors _logErrors;
 
     private WaveOutEvent? _waveOut;
     private Mp3FileReader? _reader;
 
-    public PlaySoundEffects(SettingsManager.SettingsManager settings, ILogErrors logErrors)
+    public PlaySoundEffects(Core.Services.SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         _settingsManager = settings ?? throw new ArgumentNullException(nameof(settings));
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));

@@ -2,11 +2,10 @@ using System.IO;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
@@ -33,11 +32,11 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
     [ObservableProperty] private bool _rpcs3StartFullscreen;
     [ObservableProperty] private bool _rpcs3ShowSettingsBeforeLaunch;
 
-    public InjectRpcs3ConfigViewModel(SettingsManager settings)
+    public InjectRpcs3ConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         _settings = settings;
-        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+        _logErrors = logErrors;
+        _messageBox = messageBox;
     }
 
     /// <summary>

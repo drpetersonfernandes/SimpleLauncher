@@ -10,7 +10,7 @@ public static class DaphneConfigurationService
     /// </summary>
     /// <param name="settings">The application settings manager.</param>
     /// <returns>A string containing command-line arguments.</returns>
-    public static string BuildArguments(SettingsManager.SettingsManager settings)
+    public static string BuildArguments(Core.Services.SettingsManager.SettingsManager settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
 

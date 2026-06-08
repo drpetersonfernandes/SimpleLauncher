@@ -27,7 +27,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
     private readonly RetroAchievementsService _retroAchievementsService;
     private readonly IFindCoverImage _findCoverImage;
     private readonly IGameItemRenderService _gameItemRenderService;
-    private readonly SettingsManager.SettingsManager _settings;
+    private readonly Core.Services.SettingsManager.SettingsManager _settings;
     private readonly ILogErrors _logErrors;
     private readonly IUpdateStatusBar _updateStatusBarService;
     private readonly IMessageBoxLibraryService _messageBox;
@@ -41,7 +41,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         RetroAchievementsService retroAchievementsService,
         IFindCoverImage findCoverImage,
         IGameItemRenderService gameItemRenderService,
-        SettingsManager.SettingsManager settings,
+        Core.Services.SettingsManager.SettingsManager settings,
         ILogErrors logErrors,
         IUpdateStatusBar updateStatusBarService,
         IMessageBoxLibraryService messageBox)

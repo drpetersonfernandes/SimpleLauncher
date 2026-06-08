@@ -10,6 +10,7 @@ using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.FindCoverImage;
+using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.WpfServices;
 
 namespace SimpleLauncher.Services.ContextMenu;
@@ -192,7 +193,8 @@ public static class ContextMenu
         };
 
         // View Achievements Context Menu - Only add for supported systems
-        var isSystemSupportedForRa = RetroAchievements.RetroAchievementsHasherTool.IsSystemSupportedForHashing(context.SelectedSystemManager.SystemName);
+        var raHasherTool = App.ServiceProvider.GetRequiredService<IRetroAchievementsHasherTool>();
+        var isSystemSupportedForRa = raHasherTool.IsSystemSupportedForHashing(context.SelectedSystemManager.SystemName);
         MenuItem viewAchievementsItem = null;
         if (isSystemSupportedForRa)
         {

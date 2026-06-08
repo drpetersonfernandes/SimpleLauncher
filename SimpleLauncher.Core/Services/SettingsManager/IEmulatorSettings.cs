@@ -1,6 +1,6 @@
 using System.Xml.Linq;
 
-namespace SimpleLauncher.Services.SettingsManager;
+namespace SimpleLauncher.Core.Services.SettingsManager;
 
 public interface IEmulatorSettings
 {

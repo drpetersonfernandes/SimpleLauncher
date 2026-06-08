@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameFilter;
+using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
@@ -19,7 +20,7 @@ public class GameFilterServiceTests
     {
         var configuration = new ConfigurationBuilder().Build();
         var findCoverImage = new FindCoverImageNoOp();
-        var settings = new Services.SettingsManager.SettingsManager(configuration, new NoOpLogErrors())
+        var settings = new Core.Services.SettingsManager.SettingsManager(configuration, new NoOpLogErrors(), new NoOpCredentialProtector())
         {
             ShowGames = showGames,
             EnableFuzzyMatching = enableFuzzy
@@ -205,7 +206,7 @@ public class GameFilterServiceTests
 
     private class FindCoverImageNoOp : Services.FindCoverImage.IFindCoverImage
     {
-        public string FindCoverImagePath(string fileNameWithoutExtension, string systemName, Services.SystemManager.SystemManager systemManager, Services.SettingsManager.SettingsManager settings)
+        public string FindCoverImagePath(string fileNameWithoutExtension, string systemName, Services.SystemManager.SystemManager systemManager, Core.Services.SettingsManager.SettingsManager settings)
         {
             return "default.png";
         }

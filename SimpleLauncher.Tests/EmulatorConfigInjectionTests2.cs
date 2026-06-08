@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Tomlyn;
 using Tomlyn.Model;
@@ -14,6 +14,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     private readonly string _testDirectory;
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors = new NoOpLogErrors();
+    private readonly NoOpCredentialProtector _credentialProtector = new();
 
     public EmulatorConfigInjectionTests2()
     {
@@ -63,7 +64,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
 
     private SettingsManager CreateSettingsManager()
     {
-        return new SettingsManager(_configuration, _logErrors);
+        return new SettingsManager(_configuration, _logErrors, _credentialProtector);
     }
 
     [Fact]

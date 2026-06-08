@@ -22,7 +22,7 @@ public class GameListFactory(
     ComboBox systemComboBox,
     List<SystemManager.SystemManager> systemManagers,
     List<MameManager.MameManager> machines,
-    SettingsManager.SettingsManager settings,
+    Core.Services.SettingsManager.SettingsManager settings,
     FavoritesManager favoritesManager,
     PlayHistoryManager playHistoryManager,
     MainWindow mainWindow,
@@ -40,7 +40,7 @@ public class GameListFactory(
     private readonly ComboBox _systemComboBox = systemComboBox;
     private readonly List<SystemManager.SystemManager> _systemManagers = systemManagers;
     private readonly List<MameManager.MameManager> _machines = machines;
-    private readonly SettingsManager.SettingsManager _settings = settings;
+    private readonly Core.Services.SettingsManager.SettingsManager _settings = settings;
     private readonly FavoritesManager _favoritesManager = favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager = playHistoryManager;
     private readonly MainWindow _mainWindow = mainWindow;

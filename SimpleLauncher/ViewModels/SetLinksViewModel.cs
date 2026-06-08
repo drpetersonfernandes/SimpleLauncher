@@ -2,7 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Services.SettingsManager;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher.ViewModels;
@@ -15,15 +15,17 @@ public partial class SetLinksViewModel : ObservableObject
     private readonly SettingsManager _settingsManager;
     private readonly IConfiguration _configuration;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IResourceProvider _resourceProvider;
 
     [ObservableProperty] private string _videoUrl;
     [ObservableProperty] private string _infoUrl;
 
-    public SetLinksViewModel(SettingsManager settingsManager, IConfiguration configuration, IMessageBoxLibraryService messageBox)
+    public SetLinksViewModel(SettingsManager settingsManager, IConfiguration configuration, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _settingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
         _configuration = configuration;
         _messageBox = messageBox;
+        _resourceProvider = resourceProvider;
 
         _videoUrl = _settingsManager.VideoUrl;
         _infoUrl = _settingsManager.InfoUrl;
@@ -49,7 +51,7 @@ public partial class SetLinksViewModel : ObservableObject
         await _settingsManager.SaveAsync();
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-            (string)Application.Current.TryFindResource("SavingLinkSettings") ?? "Saving link settings...");
+            _resourceProvider.GetString("SavingLinkSettings", "Saving link settings..."));
 
         await _messageBox.LinksSavedMessageBox();
 
@@ -68,7 +70,7 @@ public partial class SetLinksViewModel : ObservableObject
         await _settingsManager.SaveAsync();
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-            (string)Application.Current.TryFindResource("RevertingLinkSettings") ?? "Reverting link settings...");
+            _resourceProvider.GetString("RevertingLinkSettings", "Reverting link settings..."));
 
         await _messageBox.LinksRevertedMessageBox();
 

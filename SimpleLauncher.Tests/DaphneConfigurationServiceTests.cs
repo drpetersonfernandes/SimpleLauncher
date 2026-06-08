@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
@@ -11,6 +11,7 @@ public class DaphneConfigurationServiceTests : IDisposable
 {
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors = new NoOpLogErrors();
+    private readonly NoOpCredentialProtector _credentialProtector = new();
 
     public DaphneConfigurationServiceTests()
     {
@@ -33,7 +34,7 @@ public class DaphneConfigurationServiceTests : IDisposable
 
     private SettingsManager CreateSettingsManager()
     {
-        return new SettingsManager(_configuration, _logErrors);
+        return new SettingsManager(_configuration, _logErrors, _credentialProtector);
     }
 
     [Fact]

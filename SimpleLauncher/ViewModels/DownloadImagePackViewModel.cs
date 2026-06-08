@@ -28,6 +28,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IDebugLogger _debugLogger;
     private readonly EasyModeManager _easyModeManager;
+    private readonly IResourceProvider _resourceProvider;
     private EasyModeManager _manager;
     private bool _disposed;
     private int _operationInProgressFlag;
@@ -40,14 +41,15 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     private string _loadingMessage;
     private bool _isSystemDropdownEnabled = true;
 
-    public DownloadImagePackViewModel(PlaySoundEffects playSoundEffects, ILogErrors logErrors, IDebugLogger debugLogger, EasyModeManager easyModeManager)
+    public DownloadImagePackViewModel(PlaySoundEffects playSoundEffects, ILogErrors logErrors, IDebugLogger debugLogger, EasyModeManager easyModeManager, IMessageBoxLibraryService messageBox, IServiceScopeFactory scopeFactory, IResourceProvider resourceProvider)
     {
         _playSoundEffects = playSoundEffects;
         _logErrors = logErrors;
         _debugLogger = debugLogger;
         _easyModeManager = easyModeManager;
-        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
-        _scope = App.ServiceProvider.CreateScope();
+        _messageBox = messageBox;
+        _resourceProvider = resourceProvider;
+        _scope = scopeFactory.CreateScope();
         _downloadManager = _scope.ServiceProvider.GetRequiredService<DownloadManager>();
         _downloadManager.DownloadProgressChanged += DownloadManager_ProgressChanged;
 
@@ -164,7 +166,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     /// </summary>
     public async Task InitializeAsync()
     {
-        LoadingMessage = (string)Application.Current.TryFindResource("Loadingconfiguration") ?? "Loading configuration...";
+        LoadingMessage = _resourceProvider.GetString("Loadingconfiguration", "Loading configuration...");
         IsLoading = true;
         await Task.Yield();
 
@@ -223,15 +225,15 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         if (selectedSystem == null) return;
 
         AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
-            (string)Application.Current.TryFindResource("ImagePack1") ?? "Image Pack 1");
+            _resourceProvider.GetString("ImagePack1", "Image Pack 1"));
         AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
-            (string)Application.Current.TryFindResource("ImagePack2") ?? "Image Pack 2");
+            _resourceProvider.GetString("ImagePack2", "Image Pack 2"));
         AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
-            (string)Application.Current.TryFindResource("ImagePack3") ?? "Image Pack 3");
+            _resourceProvider.GetString("ImagePack3", "Image Pack 3"));
         AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
-            (string)Application.Current.TryFindResource("ImagePack4") ?? "Image Pack 4");
+            _resourceProvider.GetString("ImagePack4", "Image Pack 4"));
         AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
-            (string)Application.Current.TryFindResource("ImagePack5") ?? "Image Pack 5");
+            _resourceProvider.GetString("ImagePack5", "Image Pack 5"));
     }
 
     private void AddImagePackItemIfValid(string downloadLink, string extractPath, string displayName)
@@ -319,7 +321,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
         if (string.IsNullOrEmpty(downloadUrl))
         {
-            var errorNodownloadUrLfor = (string)Application.Current.TryFindResource("ErrorNodownloadURLfor") ?? "Error: No download URL for";
+            var errorNodownloadUrLfor = _resourceProvider.GetString("ErrorNodownloadURLfor", "Error: No download URL for");
             if (_disposed) return;
 
             StatusMessage = $"{errorNodownloadUrLfor} {componentName}";
@@ -330,7 +332,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
         if (string.IsNullOrEmpty(destinationPath))
         {
-            var errorInvalidDestinationPath = (string)Application.Current.TryFindResource("ErrorInvalidDestinationPath") ?? "Error: Invalid destination path for";
+            var errorInvalidDestinationPath = _resourceProvider.GetString("ErrorInvalidDestinationPath", "Error: Invalid destination path for");
             if (_disposed) return;
 
             StatusMessage = $"{errorInvalidDestinationPath} {componentName}";
@@ -343,7 +345,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
         try
         {
-            var preparingtodownload = (string)Application.Current.TryFindResource("Preparingtodownload") ?? "Preparing to download";
+            var preparingtodownload = _resourceProvider.GetString("Preparingtodownload", "Preparing to download");
             if (_disposed) return;
 
             StatusMessage = $"{preparingtodownload} {componentName}...";
@@ -355,7 +357,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
             var success = false;
 
-            var downloading = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
+            var downloading = _resourceProvider.GetString("Downloading", "Downloading");
             if (_disposed) return;
 
             StatusMessage = $"{downloading} {componentName}...";
@@ -366,7 +368,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
             if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
             {
-                var extracting = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
+                var extracting = _resourceProvider.GetString("Extracting", "Extracting");
                 if (_disposed) return;
 
                 StatusMessage = $"{extracting} {componentName}...";
@@ -384,7 +386,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
             if (success)
             {
-                var hasbeensuccessfullydownloadedandinstalled = (string)Application.Current.TryFindResource("hasbeensuccessfullydownloadedandinstalled") ?? "has been successfully downloaded and installed.";
+                var hasbeensuccessfullydownloadedandinstalled = _resourceProvider.GetString("hasbeensuccessfullydownloadedandinstalled", "has been successfully downloaded and installed.");
                 StatusMessage = $"{componentName} {hasbeensuccessfullydownloadedandinstalled}";
 
                 await _messageBox.DownloadAndExtrationWereSuccessfulMessageBox();
@@ -399,8 +401,8 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
                 if (_downloadManager.IsUserCancellation)
                 {
-                    var downloadof = (string)Application.Current.TryFindResource("Downloadof") ?? "Download of";
-                    var wascanceled = (string)Application.Current.TryFindResource("wascanceled") ?? "was canceled.";
+                    var downloadof = _resourceProvider.GetString("Downloadof", "Download of");
+                    var wascanceled = _resourceProvider.GetString("wascanceled", "was canceled.");
                     StatusMessage = $"{downloadof} {componentName} {wascanceled}";
                     IsStopEnabled = false;
                     EndOperation();
@@ -408,7 +410,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                 }
                 else if (_downloadManager.IsDownloadCompleted)
                 {
-                    var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
+                    var errorFailedtoextract = _resourceProvider.GetString("ErrorFailedtoextract", "Error: Failed to extract");
                     StatusMessage = $"{errorFailedtoextract} {componentName}.";
                     await _messageBox.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
                     EndOperation();
@@ -416,7 +418,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                 }
                 else
                 {
-                    var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
+                    var errorFailedtoextract = _resourceProvider.GetString("ErrorFailedtoextract", "Error: Failed to extract");
                     StatusMessage = $"{errorFailedtoextract} {componentName}.";
 
                     await _messageBox.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
@@ -433,8 +435,8 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         {
             if (_disposed) return;
 
-            var errorduring2 = (string)Application.Current.TryFindResource("Errorduring") ?? "Error during";
-            var downloadprocess2 = (string)Application.Current.TryFindResource("downloadprocess") ?? "download process.";
+            var errorduring2 = _resourceProvider.GetString("Errorduring", "Error during");
+            var downloadprocess2 = _resourceProvider.GetString("downloadprocess", "download process.");
             StatusMessage = $"{errorduring2} {componentName} {downloadprocess2}";
 
             if (!(ex is IOException ioEx && (ioEx.Message.Contains("Insufficient disk space") || ioEx.Message.Contains("Cannot check disk space"))))
@@ -493,7 +495,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         IsStopEnabled = false;
         ProgressPercentage = 0;
 
-        var downloadcanceled2 = (string)Application.Current.TryFindResource("Downloadcanceled") ?? "Download canceled";
+        var downloadcanceled2 = _resourceProvider.GetString("Downloadcanceled", "Download canceled");
         StatusMessage = downloadcanceled2;
 
         foreach (var item in ImagePacksToDisplay)

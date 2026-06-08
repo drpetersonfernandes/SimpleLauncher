@@ -30,7 +30,7 @@ namespace SimpleLauncher.Services.SystemSelectionOrchestrator;
 public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
 {
     private ISystemSelectionHost _host;
-    private readonly SettingsManager.SettingsManager _settings;
+    private readonly Core.Services.SettingsManager.SettingsManager _settings;
     private readonly ISystemImageResolverService _systemImageResolverService;
     private readonly IImageLoader _imageLoader;
     private readonly PlaySoundEffects _playSoundEffects;
@@ -48,7 +48,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
 
     public SystemSelectionOrchestrator(
-        SettingsManager.SettingsManager settings,
+        Core.Services.SettingsManager.SettingsManager settings,
         ISystemImageResolverService systemImageResolverService,
         IImageLoader imageLoader,
         PlaySoundEffects playSoundEffects,

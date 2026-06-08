@@ -2,11 +2,10 @@ using System.IO;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
@@ -36,11 +35,11 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     [ObservableProperty] private int _duckStationOutputVolume;
     [ObservableProperty] private bool _duckStationShowSettingsBeforeLaunch;
 
-    public InjectDuckStationConfigViewModel(SettingsManager settings)
+    public InjectDuckStationConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         _settings = settings;
-        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+        _logErrors = logErrors;
+        _messageBox = messageBox;
     }
 
     /// <summary>

@@ -9,7 +9,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static partial class MameConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, string systemRomPath = null, string[] listOfSecondaryRomPath = null)
+    public static void InjectSettings(string emulatorPath, Core.Services.SettingsManager.SettingsManager settings, ILogErrors logErrors, string systemRomPath = null, string[] listOfSecondaryRomPath = null)
     {
         if (string.IsNullOrWhiteSpace(emulatorPath))
             throw new ArgumentException(@"Emulator path cannot be null or empty.", nameof(emulatorPath));

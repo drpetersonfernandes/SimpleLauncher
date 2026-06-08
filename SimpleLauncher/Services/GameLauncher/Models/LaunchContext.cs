@@ -13,7 +13,7 @@ public class LaunchContext
     public SystemManager.SystemManager SystemManager { get; set; }
     public Emulator EmulatorManager { get; set; }
     public string Parameters { get; set; }
-    public SettingsManager.SettingsManager Settings { get; set; }
+    public Core.Services.SettingsManager.SettingsManager Settings { get; set; }
     public IWindowContext WindowContext { get; set; }
     public ILoadingState LoadingState { get; set; }
 }

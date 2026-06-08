@@ -14,7 +14,7 @@ public class FindCoverImage(IConfiguration configuration, ILogErrors logErrors) 
     private const double PrefixScale = 0.1;
     private const int MaxPrefixLength = 4;
 
-    public string FindCoverImagePath(string fileNameWithoutExtension, string systemName, SystemManager.SystemManager systemManager, SettingsManager.SettingsManager settings)
+    public string FindCoverImagePath(string fileNameWithoutExtension, string systemName, SystemManager.SystemManager systemManager, Core.Services.SettingsManager.SettingsManager settings)
     {
         var applicationPath = AppDomain.CurrentDomain.BaseDirectory;
         var imageExtensions = _configuration.GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];

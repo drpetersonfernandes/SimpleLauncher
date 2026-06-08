@@ -8,9 +8,9 @@ public class SystemImageResolverService : ISystemImageResolverService
 {
     private readonly IConfiguration _configuration;
     private readonly IFindCoverImage _findCoverImage;
-    private readonly SettingsManager.SettingsManager _settings;
+    private readonly Core.Services.SettingsManager.SettingsManager _settings;
 
-    public SystemImageResolverService(IConfiguration configuration, IFindCoverImage findCoverImage, SettingsManager.SettingsManager settings)
+    public SystemImageResolverService(IConfiguration configuration, IFindCoverImage findCoverImage, Core.Services.SettingsManager.SettingsManager settings)
     {
         _configuration = configuration;
         _findCoverImage = findCoverImage;

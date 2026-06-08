@@ -1,7 +1,7 @@
 using System.Xml.Linq;
 using SimpleLauncher.Core.Services.SettingsManager;
 
-namespace SimpleLauncher.Services.SettingsManager.EmulatorSettings;
+namespace SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
 
 public class StellaSettings : IEmulatorSettings
 {

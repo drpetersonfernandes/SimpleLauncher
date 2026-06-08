@@ -5,7 +5,6 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
@@ -26,6 +25,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
     private readonly ILogErrors _logErrors;
     private readonly IGetListOfFiles _getListOfFiles;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IResourceProvider _resourceProvider;
     private CancellationTokenSource _cancellationTokenSource;
     private readonly object _processingLock = new();
 
@@ -40,12 +40,13 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
     private bool _isStartButtonVisible = true;
     private bool _forceClose;
 
-    public GlobalStatsViewModel(IConfiguration configuration, ILogErrors logErrors, IGetListOfFiles getListOfFiles)
+    public GlobalStatsViewModel(IConfiguration configuration, ILogErrors logErrors, IGetListOfFiles getListOfFiles, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         _logErrors = logErrors;
         _getListOfFiles = getListOfFiles;
-        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+        _messageBox = messageBox;
+        _resourceProvider = resourceProvider;
     }
 
     public void Initialize(List<SystemManager> systemManagers)
@@ -53,8 +54,8 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         _systemManagers = systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
 
         // Initialize info text
-        InfoText = Application.Current?.TryFindResource("GlobalStatsExplanation") as string ?? string.Empty;
-        BusyOverlayText = Application.Current?.TryFindResource("Processingpleasewait") as string ?? "Processing";
+        InfoText = _resourceProvider.GetString("GlobalStatsExplanation", string.Empty);
+        BusyOverlayText = _resourceProvider.GetString("Processingpleasewait", "Processing");
     }
 
     #region Properties
@@ -246,14 +247,14 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         {
             SystemStats = new ObservableCollection<SystemStatsData>(systemStatsList);
 
-            var explanation = Application.Current.TryFindResource("GlobalStatsExplanation") as string ?? "Statistics calculated:";
-            var totalSystemsText = Application.Current.TryFindResource("TotalSystems") as string ?? "Total Systems:";
-            var totalEmulatorsText = Application.Current.TryFindResource("TotalEmulators") as string ?? "Total Emulators:";
-            var totalGamesText = Application.Current.TryFindResource("TotalGames") as string ?? "Total Games:";
-            var totalImagesText = Application.Current.TryFindResource("TotalImages") as string ?? "Total Matched Images:";
-            var totalSystemsWithMissingImagesText = Application.Current.TryFindResource("TotalSystemsWithMissingImages") as string ?? "Systems with Missing Images:";
-            var appFolderText = Application.Current.TryFindResource("ApplicationFolder") as string ?? "Folder:";
-            var totalDiskSizeText = Application.Current.TryFindResource("TotalDiskSize") as string ?? "Disk Size:";
+            var explanation = _resourceProvider.GetString("GlobalStatsExplanation", "Statistics calculated:");
+            var totalSystemsText = _resourceProvider.GetString("TotalSystems", "Total Systems:");
+            var totalEmulatorsText = _resourceProvider.GetString("TotalEmulators", "Total Emulators:");
+            var totalGamesText = _resourceProvider.GetString("TotalGames", "Total Games:");
+            var totalImagesText = _resourceProvider.GetString("TotalImages", "Total Matched Images:");
+            var totalSystemsWithMissingImagesText = _resourceProvider.GetString("TotalSystemsWithMissingImages", "Systems with Missing Images:");
+            var appFolderText = _resourceProvider.GetString("ApplicationFolder", "Folder:");
+            var totalDiskSizeText = _resourceProvider.GetString("TotalDiskSize", "Disk Size:");
 
             var statsText = $"{totalSystemsText} {_globalStats.TotalSystems}\n" +
                             $"{totalEmulatorsText} {_globalStats.TotalEmulators}\n" +
@@ -295,8 +296,8 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         {
             var results = new List<SystemStatsData>();
             var imageExtensions = _configuration.GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
-            var processingText = (string)Application.Current.TryFindResource("Processingpleasewait") ?? "Processing";
-            var processingSystemText = (string)Application.Current.TryFindResource("ProcessingSystem") ?? "Processing system";
+            var processingText = _resourceProvider.GetString("Processingpleasewait", "Processing");
+            var processingSystemText = _resourceProvider.GetString("ProcessingSystem", "Processing system");
 
             foreach (var systemManager in _systemManagers)
             {
@@ -386,8 +387,8 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         IsStartButtonVisible = true;
         IsSaveButtonVisible = false;
         SystemStats.Clear();
-        InfoText = Application.Current.TryFindResource("GlobalStatsExplanation") as string ?? string.Empty;
-        BusyOverlayText = Application.Current.TryFindResource("Processingpleasewait") as string ?? "Processing";
+        InfoText = _resourceProvider.GetString("GlobalStatsExplanation", string.Empty);
+        BusyOverlayText = _resourceProvider.GetString("Processingpleasewait", "Processing");
     }
 
     private async void DoYouWantToSaveTheReportMessageBox()
@@ -434,15 +435,15 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         }
     }
 
-    private static string GenerateReportText(GlobalStatsData globalStats, IEnumerable<SystemStatsData> systemStats)
+    private string GenerateReportText(GlobalStatsData globalStats, IEnumerable<SystemStatsData> systemStats)
     {
-        var titleText = Application.Current.TryFindResource("GlobalStatsReportTitle") as string ?? "Global Stats Report";
-        var totalSystemsText = Application.Current.TryFindResource("TotalSystems") as string ?? "Total Systems:";
-        var totalGamesText = Application.Current.TryFindResource("TotalGames") as string ?? "Total Games:";
-        var totalDiskSizeText = Application.Current.TryFindResource("TotalDiskSize") as string ?? "Disk Size:";
-        var systemSpecificsText = Application.Current.TryFindResource("SystemSpecifics") as string ?? "System Specifics:";
-        var gamesText = Application.Current.TryFindResource("Games") as string ?? "Games";
-        var imagesText = Application.Current.TryFindResource("Images") as string ?? "Images";
+        var titleText = _resourceProvider.GetString("GlobalStatsReportTitle", "Global Stats Report");
+        var totalSystemsText = _resourceProvider.GetString("TotalSystems", "Total Systems:");
+        var totalGamesText = _resourceProvider.GetString("TotalGames", "Total Games:");
+        var totalDiskSizeText = _resourceProvider.GetString("TotalDiskSize", "Disk Size:");
+        var systemSpecificsText = _resourceProvider.GetString("SystemSpecifics", "System Specifics:");
+        var gamesText = _resourceProvider.GetString("Games", "Games");
+        var imagesText = _resourceProvider.GetString("Images", "Images");
 
         var report = $"{titleText}\n-------------------\n" +
                      $"{totalSystemsText} {globalStats.TotalSystems}\n" +
@@ -459,7 +460,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         if (_cancellationTokenSource is { IsCancellationRequested: false })
         {
             _cancellationTokenSource.Cancel();
-            BusyOverlayText = Application.Current.TryFindResource("CancellingPleasewait") as string ?? "Cancelling...";
+            BusyOverlayText = _resourceProvider.GetString("CancellingPleasewait", "Cancelling...");
             IsCancelOverlayVisible = false;
         }
     }

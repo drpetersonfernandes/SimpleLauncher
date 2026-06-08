@@ -17,7 +17,7 @@ using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
 using SimpleLauncher.Services.UpdateStatusBar;
-using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
+using Settings = SimpleLauncher.Core.Services.SettingsManager.SettingsManager;
 
 namespace SimpleLauncher.Services.MenuActionHandler;
 

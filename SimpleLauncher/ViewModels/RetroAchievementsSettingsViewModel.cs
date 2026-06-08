@@ -1,11 +1,10 @@
 using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.RetroAchievements;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Services.SettingsManager;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher.ViewModels;
@@ -18,16 +17,20 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly RetroAchievementsService _raService;
+    private readonly IResourceProvider _resourceProvider;
 
     [ObservableProperty] private string _username;
     [ObservableProperty] private string _apiKey;
     [ObservableProperty] private string _password;
 
-    public RetroAchievementsSettingsViewModel(SettingsManager settings, ILogErrors logErrors)
+    public RetroAchievementsSettingsViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, RetroAchievementsService raService, IResourceProvider resourceProvider)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _logErrors = logErrors;
-        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+        _messageBox = messageBox;
+        _raService = raService;
+        _resourceProvider = resourceProvider;
 
         _username = _settings.RaUsername;
         _apiKey = _settings.RaApiKey;
@@ -44,7 +47,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     private async Task Save()
     {
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-            (string)Application.Current.TryFindResource("SavingRetroAchievementsSettings") ?? "Saving RetroAchievements settings...");
+            _resourceProvider.GetString("SavingRetroAchievementsSettings", "Saving RetroAchievements settings..."));
 
         _settings.RaUsername = (Username).Trim();
         _settings.RaApiKey = ApiKey;
@@ -86,9 +89,9 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
                 if (string.IsNullOrEmpty(token) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
                 {
                     (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-                        (string)Application.Current.TryFindResource("RaStatusLoggingIn") ?? "Logging in to RetroAchievements...");
+                        _resourceProvider.GetString("RaStatusLoggingIn", "Logging in to RetroAchievements..."));
 
-                    var raService = App.ServiceProvider.GetRequiredService<RetroAchievementsService>();
+                    var raService = _raService;
                     token = await raService.GetSessionTokenAsync(username, password);
 
                     if (!string.IsNullOrEmpty(token))

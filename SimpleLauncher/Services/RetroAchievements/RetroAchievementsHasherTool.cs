@@ -1,14 +1,12 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.ExtractFiles;
 using SimpleLauncher.Core.Services.LoadingInterface;
 using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.RetroAchievements.Models;
 using SimpleLauncher.Services.Converters;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 
@@ -16,8 +14,24 @@ namespace SimpleLauncher.Services.RetroAchievements;
 /// A helper class to execute the external RAHasher.exe tool for generating game file hashes,
 /// and to encapsulate various RetroAchievements hashing logic.
 /// </summary>
-internal static class RetroAchievementsHasherTool
+internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
 {
+    private readonly IDebugLogger _debugLogger;
+    private readonly IExtractionService _extractionService;
+    private readonly Func<SystemSelectionWindow> _systemSelectionWindowFactory;
+    private readonly Func<Window> _mainWindowFactory;
+
+    public RetroAchievementsHasherTool(
+        IDebugLogger debugLogger,
+        IExtractionService extractionService,
+        Func<SystemSelectionWindow> systemSelectionWindowFactory,
+        Func<Window> mainWindowFactory)
+    {
+        _debugLogger = debugLogger;
+        _extractionService = extractionService;
+        _systemSelectionWindowFactory = systemSelectionWindowFactory;
+        _mainWindowFactory = mainWindowFactory;
+    }
     private static readonly string HasherPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "RAHasher", "RAHasher.exe");
 
     private static readonly List<string> SystemWithSimpleHashLogic =
@@ -70,7 +84,7 @@ internal static class RetroAchievementsHasherTool
     /// </summary>
     /// <param name="systemName">The system name to check.</param>
     /// <returns>True if the system is supported for RetroAchievements hashing; otherwise, false.</returns>
-    public static bool IsSystemSupportedForHashing(string systemName)
+    public bool IsSystemSupportedForHashing(string systemName)
     {
         if (string.IsNullOrWhiteSpace(systemName))
             return false;
@@ -229,19 +243,18 @@ internal static class RetroAchievementsHasherTool
     /// <param name="systemId">The RetroAchievements console ID.</param>
     /// <param name="logErrors"></param>
     /// <returns>The calculated hash as a string, or null if an error occurs.</returns>
-    private static async Task<string> GetHashAsync(string filePath, int systemId, ILogErrors logErrors)
+    private async Task<string> GetHashAsync(string filePath, int systemId, ILogErrors logErrors)
     {
         if (!File.Exists(HasherPath))
         {
-            DebugLogger.Log($"[RAHasher] RAHasher.exe not found at {HasherPath}");
-            // Removed MessageBoxLibrary.RaHasherNotFoundMessageBox(); as per refactoring plan.
+            _debugLogger.Log($"[RAHasher] RAHasher.exe not found at {HasherPath}");
             logErrors.LogAndForget(null, $"[RAHasher] RAHasher.exe not found at {HasherPath}");
             return null;
         }
 
         if (!File.Exists(filePath))
         {
-            DebugLogger.Log($"[RAHasher] File to hash not found: {filePath}");
+            _debugLogger.Log($"[RAHasher] File to hash not found: {filePath}");
             logErrors.LogAndForget(null, $"[RAHasher] File to hash not found: {filePath}");
             return null;
         }
@@ -282,7 +295,7 @@ internal static class RetroAchievementsHasherTool
                 var potentialHash = line.Trim();
                 if (potentialHash.Length == 32 && potentialHash.All(static c => "0123456789abcdefABCDEF".Contains(c)))
                 {
-                    DebugLogger.Log($"[RAHasher] Successfully parsed hash '{potentialHash}' for '{Path.GetFileName(filePath)}' (System ID: {systemId}). Exit code was {process.ExitCode}.");
+                    _debugLogger.Log($"[RAHasher] Successfully parsed hash '{potentialHash}' for '{Path.GetFileName(filePath)}' (System ID: {systemId}). Exit code was {process.ExitCode}.");
                     return potentialHash.ToLowerInvariant();
                 }
             }
@@ -290,22 +303,22 @@ internal static class RetroAchievementsHasherTool
             // If no hash was found in the output, then a non-zero exit code is a genuine error.
             if (process.ExitCode != 0)
             {
-                DebugLogger.Log($"[RAHasher] Error executing RAHasher.exe. No hash found in output. Exit code: {process.ExitCode}");
-                DebugLogger.Log($"[RAHasher] Stderr: {error}");
-                DebugLogger.Log($"[RAHasher] Stdout: {output}");
+                _debugLogger.Log($"[RAHasher] Error executing RAHasher.exe. No hash found in output. Exit code: {process.ExitCode}");
+                _debugLogger.Log($"[RAHasher] Stderr: {error}");
+                _debugLogger.Log($"[RAHasher] Stdout: {output}");
                 logErrors.LogAndForget(null, $"[RAHasher] RAHasher.exe failed for {filePath}. Exit code: {process.ExitCode}. Stderr: {error}");
                 return null;
             }
 
             // This case handles when exit code is 0 but output is empty or unparseable.
-            DebugLogger.Log($"[RAHasher] Could not parse a valid hash from RAHasher output, despite exit code 0: {output}");
+            _debugLogger.Log($"[RAHasher] Could not parse a valid hash from RAHasher output, despite exit code 0: {output}");
             logErrors.LogAndForget(null, $"[RAHasher] Could not parse hash from RAHasher output for {filePath}. Output: {output}");
             return null;
         }
         catch (OperationCanceledException)
         {
             // This means the WaitForExitAsync or ReadToEndAsync timed out
-            DebugLogger.Log($"[RAHasher] RAHasher.exe timed out (60s) for '{Path.GetFileName(filePath)}'.");
+            _debugLogger.Log($"[RAHasher] RAHasher.exe timed out (60s) for '{Path.GetFileName(filePath)}'.");
             if (!process.HasExited)
             {
                 try
@@ -328,7 +341,7 @@ internal static class RetroAchievementsHasherTool
         }
     }
 
-    public static async Task<RaHashResult> GetGameHashForRetroAchievementsAsync(string filePath, string systemName, List<string> fileFormatsToLaunch, ILoadingState loadingState, ILogErrors logErrors)
+    public async Task<RaHashResult> GetGameHashForRetroAchievementsAsync(string filePath, string systemName, List<string> fileFormatsToLaunch, ILoadingState loadingState, ILogErrors logErrors)
     {
         // 1. Try to get a 100% certain match
         var confirmedSystem = RetroAchievementsSystemMatcher.GetExactAliasMatch(systemName);
@@ -337,21 +350,21 @@ internal static class RetroAchievementsHasherTool
         if (confirmedSystem == null)
         {
             // Get a "guess" to pre-select in the ComboBox
-            DebugLogger.Log($"[GetGameHashForRetroAchievementsAsync] Received systemName: {systemName}");
+            _debugLogger.Log($"[GetGameHashForRetroAchievementsAsync] Received systemName: {systemName}");
             var guess = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemName, null);
-            DebugLogger.Log($"[GetGameHashForRetroAchievementsAsync] Guess systemName: {guess}");
+            _debugLogger.Log($"[GetGameHashForRetroAchievementsAsync] Guess systemName: {guess}");
 
             // Directly show the dialog (already on the UI thread)
-            var win = App.ServiceProvider.GetRequiredService<SystemSelectionWindow>();
-            win.Owner = Application.Current.MainWindow;
+            var win = _systemSelectionWindowFactory();
+            win.Owner = _mainWindowFactory();
             win.Initialize(guess);
             var userSelectedSystem = win.ShowDialog() == true ? win.SelectedSystem : null;
 
-            DebugLogger.Log($"[GetGameHashForRetroAchievementsAsync] UserSelectedSystem: {userSelectedSystem}");
+            _debugLogger.Log($"[GetGameHashForRetroAchievementsAsync] UserSelectedSystem: {userSelectedSystem}");
 
             if (string.IsNullOrEmpty(userSelectedSystem))
             {
-                DebugLogger.Log("[GetGameHashForRetroAchievementsAsync] User did not choose a system. Returning null.");
+                _debugLogger.Log("[GetGameHashForRetroAchievementsAsync] User did not choose a system. Returning null.");
                 return new RaHashResult(null, null, false, "System selection cancelled by user.");
             }
 
@@ -372,14 +385,14 @@ internal static class RetroAchievementsHasherTool
 
         if (!File.Exists(filePath))
         {
-            DebugLogger.Log($"[RA Hasher Tool] File not found at {filePath}");
+            _debugLogger.Log($"[RA Hasher Tool] File not found at {filePath}");
             logErrors.LogAndForget(null, $"[RA Hasher Tool] File not found at {filePath}");
             return new RaHashResult(null, null, false, "Game file not found.");
         }
 
         if (string.IsNullOrWhiteSpace(systemName))
         {
-            DebugLogger.Log("[RA Hasher Tool] SystemName is null or empty.");
+            _debugLogger.Log("[RA Hasher Tool] SystemName is null or empty.");
             logErrors.LogAndForget(null, "[RA Hasher Tool] SystemName is null or empty.");
             return new RaHashResult(null, null, false, "System name is missing.");
         }
@@ -418,7 +431,7 @@ internal static class RetroAchievementsHasherTool
         }
         else
         {
-            DebugLogger.Log($"[RA Hasher Tool] System '{systemName}' is not explicitly supported for RetroAchievements hashing.");
+            _debugLogger.Log($"[RA Hasher Tool] System '{systemName}' is not explicitly supported for RetroAchievements hashing.");
             logErrors.LogAndForget(null, $"[RA Hasher Tool] System '{systemName}' is not explicitly supported for RetroAchievements hashing. This is expected for systems in the 'UnknowHashLogic' list.");
             return new RaHashResult(null, null, false, $"System '{systemName}' is not supported for RetroAchievements hashing.");
         }
@@ -430,9 +443,8 @@ internal static class RetroAchievementsHasherTool
 
         if (isCompressed && requiresExtraction)
         {
-            DebugLogger.Log($"[RA Hasher Tool] Compressed file detected for hashing: {filePath}. Extracting...");
-            var extractionService = App.ServiceProvider.GetRequiredService<IExtractionService>();
-            var (extractedGameFilePath, extractedTempDirPath) = await extractionService.ExtractToTempAndGetLaunchFileAsync(filePath, fileFormatsToLaunch);
+            _debugLogger.Log($"[RA Hasher Tool] Compressed file detected for hashing: {filePath}. Extracting...");
+            var (extractedGameFilePath, extractedTempDirPath) = await _extractionService.ExtractToTempAndGetLaunchFileAsync(filePath, fileFormatsToLaunch);
             tempExtractionPath = extractedTempDirPath;
 
             if (string.IsNullOrEmpty(extractedGameFilePath))
@@ -440,7 +452,7 @@ internal static class RetroAchievementsHasherTool
                 isExtractionSuccessful = false;
                 extractionErrorMessage = $"Failed to extract or find a suitable file in archive for hashing: {filePath}.";
                 logErrors.LogAndForget(null, $"[RA Hasher Tool] {extractionErrorMessage}");
-                DebugLogger.Log($"[RA Hasher Tool] {extractionErrorMessage}");
+                _debugLogger.Log($"[RA Hasher Tool] {extractionErrorMessage}");
                 return new RaHashResult(null, tempExtractionPath, isExtractionSuccessful, extractionErrorMessage);
             }
 
@@ -455,7 +467,7 @@ internal static class RetroAchievementsHasherTool
                 case "Simple":
                 {
                     hash = await RetroAchievementsFileHasher.CalculateStandardMd5Async(fileToProcess, logErrors);
-                    DebugLogger.Log($"[RA Hasher Tool] Calculated simple hash: {hash}");
+                    _debugLogger.Log($"[RA Hasher Tool] Calculated simple hash: {hash}");
                     break;
                 }
 
@@ -464,13 +476,13 @@ internal static class RetroAchievementsHasherTool
                     var systemId = RetroAchievementsSystemMatcher.GetSystemId(systemName);
                     if (systemId > 0)
                     {
-                        DebugLogger.Log($"[RA Hasher Tool] Using RAHasher.exe for system '{systemName}' (ID: {systemId})...");
+                        _debugLogger.Log($"[RA Hasher Tool] Using RAHasher.exe for system '{systemName}' (ID: {systemId})...");
                         // Use fileToProcess (the extracted file) instead of filePath (the zip)
                         hash = await GetHashAsync(fileToProcess, systemId, logErrors);
                     }
                     else
                     {
-                        DebugLogger.Log($"[RA Hasher Tool] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe.");
+                        _debugLogger.Log($"[RA Hasher Tool] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe.");
                         logErrors.LogAndForget(null, $"[RA Hasher Tool] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe.");
                         isExtractionSuccessful = false; // Treat as a hashing failure
                         extractionErrorMessage = $"Could not find RetroAchievements System ID for '{systemName}'.";
@@ -502,7 +514,7 @@ internal static class RetroAchievementsHasherTool
                             fileExt.Equals(".ciso", StringComparison.OrdinalIgnoreCase) ||
                             fileExt.Equals(".wia", StringComparison.OrdinalIgnoreCase))
                         {
-                            DebugLogger.Log($"[RA Hasher Tool] {fileExt.ToUpperInvariant()} detected. Converting to ISO for hashing: {fileToProcess}");
+                            _debugLogger.Log($"[RA Hasher Tool] {fileExt.ToUpperInvariant()} detected. Converting to ISO for hashing: {fileToProcess}");
                             tempIsoPath = await ConvertDiscImageToIso.ConvertToIsoAsync(fileToProcess);
                             if (!string.IsNullOrEmpty(tempIsoPath))
                             {
@@ -517,9 +529,9 @@ internal static class RetroAchievementsHasherTool
 
                         if (isExtractionSuccessful)
                         {
-                            DebugLogger.Log($"[RA Hasher Tool] Using RAHasher.exe for system '{systemName}' (ID: {systemId}) on '{Path.GetFileName(fileToProcess)}'...");
+                            _debugLogger.Log($"[RA Hasher Tool] Using RAHasher.exe for system '{systemName}' (ID: {systemId}) on '{Path.GetFileName(fileToProcess)}'...");
                             hash = await GetHashAsync(fileToProcess, systemId, logErrors);
-                            DebugLogger.Log($"[RA Hasher Tool] RAHasher result: {hash}");
+                            _debugLogger.Log($"[RA Hasher Tool] RAHasher result: {hash}");
                         }
                     }
                     finally
@@ -544,30 +556,30 @@ internal static class RetroAchievementsHasherTool
                 case "HashFileName":
                 {
                     hash = RetroAchievementsFileHasher.CalculateFilenameHash(fileToProcess, logErrors);
-                    DebugLogger.Log($"[RA Hasher Tool] Calculated hash for filename: {hash}");
+                    _debugLogger.Log($"[RA Hasher Tool] Calculated hash for filename: {hash}");
                     break;
                 }
 
                 case "HashWithByteSwapping":
                 {
-                    DebugLogger.Log($"[RA Hasher Tool] Calculating N64 hash for '{Path.GetFileName(fileToProcess)}'...");
+                    _debugLogger.Log($"[RA Hasher Tool] Calculating N64 hash for '{Path.GetFileName(fileToProcess)}'...");
                     hash = await RetroAchievementsFileHasher.CalculateN64HashAsync(fileToProcess, logErrors);
-                    DebugLogger.Log($"[RA Hasher Tool] Calculated N64 hash: {hash}");
+                    _debugLogger.Log($"[RA Hasher Tool] Calculated N64 hash: {hash}");
                     break;
                 }
 
                 case "HashWithHeaderCheck":
                 {
-                    DebugLogger.Log($"[RA Hasher Tool] Calculating header-based hash for system '{systemName}' on file '{Path.GetFileName(fileToProcess)}'...");
+                    _debugLogger.Log($"[RA Hasher Tool] Calculating header-based hash for system '{systemName}' on file '{Path.GetFileName(fileToProcess)}'...");
                     hash = await RetroAchievementsFileHasher.CalculateHeaderBasedMd5Async(fileToProcess, systemName, logErrors);
-                    DebugLogger.Log($"[RA Hasher Tool] Calculated header-based hash: {hash}");
+                    _debugLogger.Log($"[RA Hasher Tool] Calculated header-based hash: {hash}");
                     break;
                 }
                 case "HashWithLineEndingNormalization":
                 {
-                    DebugLogger.Log($"[RA Hasher Tool] Calculating Arduboy hash for '{Path.GetFileName(fileToProcess)}'...");
+                    _debugLogger.Log($"[RA Hasher Tool] Calculating Arduboy hash for '{Path.GetFileName(fileToProcess)}'...");
                     hash = await RetroAchievementsFileHasher.CalculateArduboyHashAsync(fileToProcess, logErrors);
-                    DebugLogger.Log($"[RA Hasher Tool] Calculated Arduboy hash: {hash}");
+                    _debugLogger.Log($"[RA Hasher Tool] Calculated Arduboy hash: {hash}");
                     break;
                 }
             }
@@ -575,7 +587,7 @@ internal static class RetroAchievementsHasherTool
         catch (Exception ex)
         {
             logErrors.LogAndForget(ex, $"[RA Hasher Tool] An error occurred during hash calculation for {filePath} (System: {systemName}).");
-            DebugLogger.Log($"[RA Hasher Tool] An error occurred during hash calculation for {filePath} (System: {systemName}).");
+            _debugLogger.Log($"[RA Hasher Tool] An error occurred during hash calculation for {filePath} (System: {systemName}).");
             return new RaHashResult(null, tempExtractionPath, false, $"Error during hash calculation: {ex.Message}");
         }
         finally

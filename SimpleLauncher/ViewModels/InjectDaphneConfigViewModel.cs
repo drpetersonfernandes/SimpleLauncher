@@ -1,8 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
@@ -23,10 +22,10 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     [ObservableProperty] private bool _daphneUseOverlays;
     [ObservableProperty] private bool _daphneShowSettingsBeforeLaunch;
 
-    public InjectDaphneConfigViewModel(SettingsManager settings)
+    public InjectDaphneConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox)
     {
         _settings = settings;
-        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+        _messageBox = messageBox;
     }
 
     /// <summary>

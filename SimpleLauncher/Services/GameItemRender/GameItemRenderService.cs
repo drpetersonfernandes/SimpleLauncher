@@ -18,7 +18,7 @@ public class GameItemRenderService : IGameItemRenderService
 {
     private const int BatchSize = 100;
 
-    private readonly SettingsManager.SettingsManager _settings;
+    private readonly Core.Services.SettingsManager.SettingsManager _settings;
     private readonly FavoritesManager _favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager;
     private readonly GamePadController _gamePadController;
@@ -37,7 +37,7 @@ public class GameItemRenderService : IGameItemRenderService
     private GameListFactory _gameListFactory;
 
     public GameItemRenderService(
-        SettingsManager.SettingsManager settings,
+        Core.Services.SettingsManager.SettingsManager settings,
         FavoritesManager favoritesManager,
         PlayHistoryManager playHistoryManager,
         GamePadController gamePadController,

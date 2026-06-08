@@ -8,7 +8,7 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.ThemeMenu;
 using CheckDirWritable = SimpleLauncher.Core.Services.CheckIfDirectoryIsWritable.CheckIfDirectoryIsWritable;
 using RequiredFiles = SimpleLauncher.Services.CheckForRequiredFiles.CheckForRequiredFiles;
-using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
+using Settings = SimpleLauncher.Core.Services.SettingsManager.SettingsManager;
 using TrayIconManager = SimpleLauncher.Services.TrayIcon.TrayIconManager;
 
 namespace SimpleLauncher.Services.StartupInitialization;
