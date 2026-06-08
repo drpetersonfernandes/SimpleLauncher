@@ -1,5 +1,4 @@
 using System.Xml.Linq;
-using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
 

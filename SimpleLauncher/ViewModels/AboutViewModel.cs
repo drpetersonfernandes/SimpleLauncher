@@ -83,9 +83,8 @@ public partial class AboutViewModel : ObservableObject
 
         try
         {
-            var updateChecker = _updateChecker;
             var ownerWindow = GetOwnerWindow?.Invoke();
-            await updateChecker.ManualCheckForUpdatesAsync(ownerWindow);
+            await _updateChecker.ManualCheckForUpdatesAsync(ownerWindow);
         }
         catch (Exception ex)
         {

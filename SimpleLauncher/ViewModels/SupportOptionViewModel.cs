@@ -50,8 +50,7 @@ public partial class SupportOptionViewModel : ObservableObject
     {
         _playSoundEffects?.PlayNotificationSound();
 
-        var supportRequestWindow = _supportWindow;
-        supportRequestWindow.Show();
+        _supportWindow.Show();
 
         CloseRequested?.Invoke();
     }

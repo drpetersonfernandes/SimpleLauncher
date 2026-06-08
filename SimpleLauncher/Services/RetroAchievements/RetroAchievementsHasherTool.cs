@@ -32,6 +32,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         _systemSelectionWindowFactory = systemSelectionWindowFactory;
         _mainWindowFactory = mainWindowFactory;
     }
+
     private static readonly string HasherPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "RAHasher", "RAHasher.exe");
 
     private static readonly List<string> SystemWithSimpleHashLogic =

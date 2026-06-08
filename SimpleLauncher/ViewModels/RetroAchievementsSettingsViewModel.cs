@@ -91,8 +91,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
                     (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
                         _resourceProvider.GetString("RaStatusLoggingIn", "Logging in to RetroAchievements..."));
 
-                    var raService = _raService;
-                    token = await raService.GetSessionTokenAsync(username, password);
+                    token = await _raService.GetSessionTokenAsync(username, password);
 
                     if (!string.IsNullOrEmpty(token))
                     {

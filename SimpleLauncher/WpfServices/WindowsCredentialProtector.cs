@@ -9,7 +9,7 @@ namespace SimpleLauncher.WpfServices;
 /// </summary>
 public class WindowsCredentialProtector : ICredentialProtector
 {
-    private static readonly byte[] Entropy = Encoding.UTF8.GetBytes("SimpleLauncher.Salt");
+    private static readonly byte[] Entropy = "SimpleLauncher.Salt"u8.ToArray();
 
     public string Protect(string plaintext)
     {
