@@ -182,6 +182,7 @@ public partial class App : IDisposable
             return sm;
         });
         serviceCollection.AddSingleton<UpdateChecker>();
+        serviceCollection.AddSingleton(static sp => new Lazy<UpdateChecker>(sp.GetRequiredService<UpdateChecker>));
         serviceCollection.AddSingleton<QuitSimpleLauncher>();
         serviceCollection.AddSingleton<ReinstallSimpleLauncher>();
         serviceCollection.AddSingleton<Stats>();
@@ -192,6 +193,13 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<GameLauncher>();
         serviceCollection.AddSingleton<ILaunchTools, LaunchTools>();
         serviceCollection.AddSingleton<IDebugLogger, DebugLoggerAdapter>();
+        serviceCollection.AddSingleton<IDeleteFilesService, DeleteFilesService>();
+        serviceCollection.AddSingleton<ICleanTempFolderService, CleanTempFolderService>();
+        serviceCollection.AddSingleton<ICleanSimpleLauncherFolderService, CleanSimpleLauncherFolderService>();
+        serviceCollection.AddSingleton<IMountXisoFiles, MountXisoFiles>();
+        serviceCollection.AddSingleton<IMountChdFiles, MountChdFiles>();
+        serviceCollection.AddSingleton<IMountIsoFiles, MountIsoFiles>();
+        serviceCollection.AddSingleton<IMountZipFiles, MountZipFiles>();
         serviceCollection.AddSingleton<IExtractionService, ExtractionService>();
         serviceCollection.AddSingleton<RetroAchievementsService>();
         serviceCollection.AddSingleton(static sp =>
@@ -381,11 +389,11 @@ public partial class App : IDisposable
         DebugLogger.Initialize(isDebugMode);
 
         // Delete temp folders and unneeded files
-        _ = Task.Run(static () =>
+        _ = Task.Run(() =>
         {
             try
             {
-                CleanSimpleLauncherFolder.CleanupTrash();
+                ServiceProvider.GetRequiredService<ICleanSimpleLauncherFolderService>().CleanupTrash();
             }
             catch (Exception ex)
             {
@@ -484,9 +492,6 @@ public partial class App : IDisposable
         var settingsManager = ServiceProvider.GetRequiredService<SettingsManager>();
         ApplyTheme(settingsManager.BaseTheme, settingsManager.AccentColor);
         ApplyLanguage(settingsManager.Language);
-
-        // --- Initialize services that need configuration ---
-        MountZipFiles.Configure(configuration, ServiceProvider.GetRequiredService<ILogErrors>());
 
         // Manually create and show the MainWindow using DI
         var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
@@ -634,7 +639,7 @@ public partial class App : IDisposable
         // Kill any lingering CHDMounter processes as a safety net
         try
         {
-            MountChdFiles.KillAllChdMounterProcesses(ServiceProvider.GetRequiredService<ILogErrors>());
+            ServiceProvider.GetRequiredService<IMountChdFiles>().KillAllChdMounterProcesses(ServiceProvider.GetRequiredService<ILogErrors>());
         }
         catch (InvalidOperationException ex)
         {

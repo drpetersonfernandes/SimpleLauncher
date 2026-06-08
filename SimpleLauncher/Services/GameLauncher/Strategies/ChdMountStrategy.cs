@@ -18,6 +18,7 @@ public class ChdMountStrategy : ILaunchStrategy
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IMountChdFiles _mountChdFiles;
 
     private bool _is4Do;
     private bool _isBlastem;
@@ -39,11 +40,12 @@ public class ChdMountStrategy : ILaunchStrategy
     private bool _isXenia;
     private bool _isYabause;
 
-    public ChdMountStrategy(IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public ChdMountStrategy(IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IMountChdFiles mountChdFiles)
     {
         _configuration = configuration;
         _logErrors = logErrors;
         _messageBox = messageBox;
+        _mountChdFiles = mountChdFiles;
     }
 
     public int Priority => 10;
@@ -178,9 +180,9 @@ public class ChdMountStrategy : ILaunchStrategy
         var logPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
 
         // Get the console index for CHDMounter based on system and emulator
-        var consoleIndex = MountChdFiles.GetConsoleIndexFromSystemName(context.SystemName, context.EmulatorName, _logErrors);
+        var consoleIndex = _mountChdFiles.GetConsoleIndexFromSystemName(context.SystemName, context.EmulatorName, _logErrors);
 
-        await using var mountedDrive = await MountChdFiles.MountAsync(context.ResolvedFilePath, consoleIndex, _logErrors, _messageBox);
+        await using var mountedDrive = await _mountChdFiles.MountAsync(context.ResolvedFilePath, consoleIndex, _logErrors, _messageBox);
 
         if (!mountedDrive.IsMounted)
         {

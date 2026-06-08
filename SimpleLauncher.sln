@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlToBinaryConverter", "Too
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLauncher.Core", "SimpleLauncher.Core\SimpleLauncher.Core.csproj", "{426BA02D-B7A9-4AFA-B504-3A2F36923B43}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLauncher.Avalonia", "SimpleLauncher.Avalonia\SimpleLauncher.Avalonia.csproj", "{2D3DA579-F10A-40FA-A718-BE45676A4022}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -139,6 +141,18 @@ Global
 		{426BA02D-B7A9-4AFA-B504-3A2F36923B43}.Release|x64.Build.0 = Release|Any CPU
 		{426BA02D-B7A9-4AFA-B504-3A2F36923B43}.Release|x86.ActiveCfg = Release|Any CPU
 		{426BA02D-B7A9-4AFA-B504-3A2F36923B43}.Release|x86.Build.0 = Release|Any CPU
+		{2D3DA579-F10A-40FA-A718-BE45676A4022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D3DA579-F10A-40FA-A718-BE45676A4022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D3DA579-F10A-40FA-A718-BE45676A4022}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2D3DA579-F10A-40FA-A718-BE45676A4022}.Debug|x64.Build.0 = Debug|Any CPU
+		{2D3DA579-F10A-40FA-A718-BE45676A4022}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2D3DA579-F10A-40FA-A718-BE45676A4022}.Debug|x86.Build.0 = Debug|Any CPU
+		{2D3DA579-F10A-40FA-A718-BE45676A4022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D3DA579-F10A-40FA-A718-BE45676A4022}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D3DA579-F10A-40FA-A718-BE45676A4022}.Release|x64.ActiveCfg = Release|Any CPU
+		{2D3DA579-F10A-40FA-A718-BE45676A4022}.Release|x64.Build.0 = Release|Any CPU
+		{2D3DA579-F10A-40FA-A718-BE45676A4022}.Release|x86.ActiveCfg = Release|Any CPU
+		{2D3DA579-F10A-40FA-A718-BE45676A4022}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

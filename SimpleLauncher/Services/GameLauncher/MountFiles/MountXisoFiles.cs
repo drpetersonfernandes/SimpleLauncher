@@ -6,12 +6,18 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
-public static class MountXisoFiles
+public class MountXisoFiles : IMountXisoFiles
 {
+    private readonly IDebugLogger _debugLogger;
+
+    public MountXisoFiles(IDebugLogger debugLogger)
+    {
+        _debugLogger = debugLogger;
+    }
+
     private static string GetToolPath()
     {
         var exeName = RuntimeInformation.OSArchitecture == Architecture.Arm64
@@ -21,15 +27,10 @@ public static class MountXisoFiles
         return Path.Combine("tools", "SimpleXisoDrive", exeName);
     }
 
-    /// <summary>
-    /// Finds an available drive letter from Z: down to D:.
-    /// </summary>
-    /// <returns>An available character for a drive letter, or null if none are available.</returns>
-    private static char? GetAvailableDriveLetter(ILogErrors logErrors)
+    private char? GetAvailableDriveLetter(ILogErrors logErrors)
     {
         try
         {
-            // Use Environment.GetLogicalDrives() to avoid hanging on disconnected network drives
             var existingDrives = Environment.GetLogicalDrives()
                 .Select(static d => char.ToUpper(d[0], CultureInfo.InvariantCulture))
                 .ToHashSet();
@@ -46,55 +47,47 @@ public static class MountXisoFiles
         }
         catch (Exception ex)
         {
-            DebugLogger.Log($"[MountXisoFiles.GetAvailableDriveLetter] Error enumerating drives: {ex.Message}");
+            _debugLogger.Log($"[MountXisoFiles.GetAvailableDriveLetter] Error enumerating drives: {ex.Message}");
             logErrors.LogAndForget(ex, "Error enumerating available drive letters.");
             return null;
         }
     }
 
-    /// <summary>
-    /// Mounts an Xbox ISO file to an available drive letter.
-    /// </summary>
-    /// <param name="resolvedIsoFilePath">The full path to the ISO file.</param>
-    /// <param name="logPath">Path to the application's log file for error reporting.</param>
-    /// <param name="logErrors"></param>
-    /// <param name="messageBox"></param>
-    /// <returns>A disposable MountXisoDrive object that manages the mount process.</returns>
-    public static async Task<MountXisoDrive> MountAsync(string resolvedIsoFilePath, string logPath, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public async Task<MountXisoDrive> MountAsync(string resolvedIsoFilePath, string logPath, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
-        DebugLogger.Log($"[MountXisoFiles.MountAsync] Starting to mount ISO: {resolvedIsoFilePath}");
+        _debugLogger.Log($"[MountXisoFiles.MountAsync] Starting to mount ISO: {resolvedIsoFilePath}");
 
         var toolRelativePath = GetToolPath();
         var resolvedToolPath = PathHelper.ResolveRelativeToAppDirectory(toolRelativePath);
 
-        DebugLogger.Log($"[MountXisoFiles.MountAsync] Path to tool: {resolvedToolPath}");
+        _debugLogger.Log($"[MountXisoFiles.MountAsync] Path to tool: {resolvedToolPath}");
 
         if (string.IsNullOrWhiteSpace(resolvedToolPath) || !File.Exists(resolvedToolPath))
         {
             var errorMessage = $"{Path.GetFileName(toolRelativePath)} not found. Cannot mount ISO.";
-            DebugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
+            _debugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
             await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
-            return new MountXisoDrive(logErrors); // Return failed state
+            return new MountXisoDrive(logErrors);
         }
 
         if (!DokanValidation.IsDokanInstalled())
         {
             const string errorMessage = "Dokan driver not found. Cannot mount ISO.";
-            DebugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
+            _debugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
             await messageBox.DokanDriverNotInstalledMessageBox();
-            return new MountXisoDrive(logErrors); // Return failed state
+            return new MountXisoDrive(logErrors);
         }
 
         var driveLetter = GetAvailableDriveLetter(logErrors);
         if (driveLetter == null)
         {
             const string errorMessage = "No available drive letters found to mount the ISO.";
-            DebugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
+            _debugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
             await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
-            return new MountXisoDrive(logErrors); // Return failed state
+            return new MountXisoDrive(logErrors);
         }
 
         var driveLetterOnly = $"{driveLetter.Value}:";
@@ -113,8 +106,8 @@ public static class MountXisoFiles
             WorkingDirectory = Path.GetDirectoryName(resolvedToolPath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
 
-        DebugLogger.Log($"[MountXisoFiles.MountAsync] Attempting to mount on drive {driveLetter.Value}:");
-        DebugLogger.Log($"[MountXisoFiles.MountAsync] Arguments: {psiMount.Arguments}");
+        _debugLogger.Log($"[MountXisoFiles.MountAsync] Attempting to mount on drive {driveLetter.Value}:");
+        _debugLogger.Log($"[MountXisoFiles.MountAsync] Arguments: {psiMount.Arguments}");
 
         var mountProcess = new Process { StartInfo = psiMount, EnableRaisingEvents = true };
         var toolName = Path.GetFileName(toolRelativePath);
@@ -126,7 +119,7 @@ public static class MountXisoFiles
                 throw new InvalidOperationException($"Failed to start the {toolName} process.");
             }
 
-            DebugLogger.Log($"[MountXisoFiles.MountAsync] {toolName} process started (ID: {mountProcess.Id}).");
+            _debugLogger.Log($"[MountXisoFiles.MountAsync] {toolName} process started (ID: {mountProcess.Id}).");
 
             var mountSuccessful = await WaitForDriveMountAsync(defaultXbePath, driveRoot, mountProcess, toolName, mountProcess.Id, logErrors);
 
@@ -139,16 +132,15 @@ public static class MountXisoFiles
 
                 mountProcess.Dispose();
                 await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
-                return new MountXisoDrive(logErrors); // Return failed state
+                return new MountXisoDrive(logErrors);
             }
 
-            DebugLogger.Log($"[MountXisoFiles.MountAsync] ISO mounted successfully. Path: {defaultXbePath}");
-            // Success: return the disposable object which owns the process
+            _debugLogger.Log($"[MountXisoFiles.MountAsync] ISO mounted successfully. Path: {defaultXbePath}");
             return new MountXisoDrive(mountProcess, defaultXbePath, logErrors);
         }
         catch (Exception ex)
         {
-            DebugLogger.Log($"[MountXisoFiles.MountAsync] Exception during mounting: {ex}");
+            _debugLogger.Log($"[MountXisoFiles.MountAsync] Exception during mounting: {ex}");
             var contextMessage = $"Error during ISO mount process for {resolvedIsoFilePath}.\nException: {ex.Message}";
             logErrors.LogAndForget(ex, contextMessage);
 
@@ -167,34 +159,34 @@ public static class MountXisoFiles
             mountProcess.Dispose();
 
             await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
-            return new MountXisoDrive(logErrors); // Return failed state
+            return new MountXisoDrive(logErrors);
         }
     }
 
-    private static async Task<bool> WaitForDriveMountAsync(string defaultXbePath, string driveRoot, Process mountProcess, string toolName, int processId, ILogErrors logErrors)
+    private async Task<bool> WaitForDriveMountAsync(string defaultXbePath, string driveRoot, Process mountProcess, string toolName, int processId, ILogErrors logErrors)
     {
-        const int maxRetries = 240; // 2 minutes with 500 ms intervals
+        const int maxRetries = 240;
         const int pollIntervalMs = 500;
         var retryCount = 0;
 
-        DebugLogger.Log($"[MountXisoFiles.WaitForDriveMountAsync] Polling for '{defaultXbePath}' to appear (max {maxRetries * pollIntervalMs / 1000}s)...");
+        _debugLogger.Log($"[MountXisoFiles.WaitForDriveMountAsync] Polling for '{defaultXbePath}' to appear (max {maxRetries * pollIntervalMs / 1000}s)...");
 
         while (retryCount < maxRetries)
         {
             if (File.Exists(defaultXbePath))
             {
-                DebugLogger.Log($"[MountXisoFiles.WaitForDriveMountAsync] Found '{defaultXbePath}' after {retryCount * pollIntervalMs / 1000.0:F1} seconds. Mount successful!");
+                _debugLogger.Log($"[MountXisoFiles.WaitForDriveMountAsync] Found '{defaultXbePath}' after {retryCount * pollIntervalMs / 1000.0:F1} seconds. Mount successful!");
                 return true;
             }
 
             if (Directory.Exists(driveRoot))
             {
-                DebugLogger.Log($"[MountXisoFiles.WaitForDriveMountAsync] {driveRoot} drive exists after {retryCount * pollIntervalMs / 1000.0:F1} seconds, but '{defaultXbePath}' not found. Continuing to poll...");
+                _debugLogger.Log($"[MountXisoFiles.WaitForDriveMountAsync] {driveRoot} drive exists after {retryCount * pollIntervalMs / 1000.0:F1} seconds, but '{defaultXbePath}' not found. Continuing to poll...");
             }
 
             if (mountProcess.HasExited)
             {
-                DebugLogger.Log($"[MountXisoFiles.WaitForDriveMountAsync] Mount process {toolName} (ID: {processId}) exited prematurely during polling. Exit Code: {mountProcess.ExitCode}.");
+                _debugLogger.Log($"[MountXisoFiles.WaitForDriveMountAsync] Mount process {toolName} (ID: {processId}) exited prematurely during polling. Exit Code: {mountProcess.ExitCode}.");
                 var contextMessage = $"Failed to mount ISO. The mounting tool '{toolName}' exited prematurely with code {mountProcess.ExitCode}.";
                 logErrors.LogAndForget(null, contextMessage);
                 return false;
@@ -204,7 +196,7 @@ public static class MountXisoFiles
             await Task.Delay(pollIntervalMs);
         }
 
-        DebugLogger.Log($"[MountXisoFiles.WaitForDriveMountAsync] Timed out waiting for '{defaultXbePath}' after {maxRetries * pollIntervalMs / 1000} seconds.");
+        _debugLogger.Log($"[MountXisoFiles.WaitForDriveMountAsync] Timed out waiting for '{defaultXbePath}' after {maxRetries * pollIntervalMs / 1000} seconds.");
         var timeoutContextMessage = $"Timed out waiting for the ISO to mount to '{driveRoot}'.";
         logErrors.LogAndForget(null, timeoutContextMessage);
         return false;

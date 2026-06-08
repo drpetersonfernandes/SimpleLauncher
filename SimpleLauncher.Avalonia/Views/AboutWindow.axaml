@@ -1,0 +1,36 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="SimpleLauncher.Avalonia.Views.AboutWindow"
+        x:DataType="x:String"
+        Title="About SimpleLauncher"
+        Width="400" Height="300"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+    
+    <Border Background="#1e1e2e" Padding="20">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="15">
+            <TextBlock Text="SimpleLauncher" 
+                       FontSize="24" FontWeight="Bold" 
+                       Foreground="#cdd6f4"
+                       HorizontalAlignment="Center"/>
+            <TextBlock Text="Version 1.0.0" 
+                       FontSize="14" 
+                       Foreground="#a6adc8"
+                       HorizontalAlignment="Center"/>
+            <TextBlock Text="A simple game launcher for retro games" 
+                       FontSize="12" 
+                       Foreground="#6c7086"
+                       HorizontalAlignment="Center"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"/>
+            <TextBlock Text="Built with Avalonia UI" 
+                       FontSize="10" 
+                       Foreground="#45475a"
+                       HorizontalAlignment="Center"/>
+            <Button Content="OK" 
+                    HorizontalAlignment="Center"
+                    Width="80"
+                    Click="OnOkClick"/>
+        </StackPanel>
+    </Border>
+</Window>

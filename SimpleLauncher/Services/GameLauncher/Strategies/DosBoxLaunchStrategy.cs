@@ -19,16 +19,20 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IMountChdFiles _mountChdFiles;
+    private readonly IMountIsoFiles _mountIsoFiles;
 
     private static readonly string[] PriorityGameFormats = [".conf", ".bat", ".exe", ".com"];
     private static readonly List<string> ExtractionFormats = ["conf", "bat", "exe", "com"];
 
-    public DosBoxLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public DosBoxLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IMountChdFiles mountChdFiles, IMountIsoFiles mountIsoFiles)
     {
         _extractionService = extractionService;
         _configuration = configuration;
         _logErrors = logErrors;
         _messageBox = messageBox;
+        _mountChdFiles = mountChdFiles;
+        _mountIsoFiles = mountIsoFiles;
     }
 
     public int Priority => 25;
@@ -241,7 +245,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         try
         {
             // 1. Mount ISO via PowerShell to scan for executables
-            var driveLetter = await MountIsoFiles.ExecutePowerShellMountCommandAsync(context.ResolvedFilePath, _logErrors, _messageBox);
+            var driveLetter = await _mountIsoFiles.ExecutePowerShellMountCommandAsync(context.ResolvedFilePath, _logErrors, _messageBox);
             if (string.IsNullOrEmpty(driveLetter))
             {
                 DebugLogger.Log("[DosBoxLaunchStrategy] Failed to mount ISO via PowerShell.");
@@ -252,7 +256,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             mountPath = $"{driveLetter}:\\";
             DebugLogger.Log($"[DosBoxLaunchStrategy] ISO mounted to {mountPath} for scanning");
 
-            if (!await MountIsoFiles.WaitForDirectoryToExistAsync(mountPath, 10000, 200, _logErrors))
+            if (!await _mountIsoFiles.WaitForDirectoryToExistAsync(mountPath, 10000, 200, _logErrors))
             {
                 DebugLogger.Log($"[DosBoxLaunchStrategy] Mount path {mountPath} did not become available.");
                 await _messageBox.ThereWasAnErrorMountingTheFileMessageBox();
@@ -301,7 +305,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             if (!string.IsNullOrEmpty(context.ResolvedFilePath))
             {
                 DebugLogger.Log($"[DosBoxLaunchStrategy] Dismounting PowerShell ISO mount after scanning: {context.ResolvedFilePath}");
-                await MountIsoFiles.ExecutePowerShellDismountCommandAsync(context.ResolvedFilePath, _logErrors, _messageBox);
+                await _mountIsoFiles.ExecutePowerShellDismountCommandAsync(context.ResolvedFilePath, _logErrors, _messageBox);
             }
         }
 
@@ -384,7 +388,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
     {
         try
         {
-            await using var mountedDrive = await MountChdFiles.MountAsync(context.ResolvedFilePath, 19, _logErrors, _messageBox);
+            await using var mountedDrive = await _mountChdFiles.MountAsync(context.ResolvedFilePath, 19, _logErrors, _messageBox);
 
             if (!mountedDrive.IsMounted)
             {

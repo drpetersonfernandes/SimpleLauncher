@@ -11,11 +11,7 @@
                       GlowBrush="Black">
     <Grid>
         <TextBox Text="{Binding LogText, Mode=OneWay}"
-                 IsReadOnly="True"
-                 VerticalScrollBarVisibility="Auto"
                  HorizontalScrollBarVisibility="Auto"
-                 TextWrapping="Wrap"
-                 AcceptsReturn="True"
                  Style="{StaticResource LogTextBoxStyle}" />
     </Grid>
 </controls:MetroWindow>

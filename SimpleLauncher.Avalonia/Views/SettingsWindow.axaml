@@ -1,0 +1,48 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="SimpleLauncher.Avalonia.Views.SettingsWindow"
+        x:DataType="x:String"
+        Title="Settings"
+        Width="600" Height="500"
+        WindowStartupLocation="CenterOwner">
+    
+    <Border Background="#1e1e2e" Padding="20">
+        <DockPanel>
+            <!-- Header -->
+            <TextBlock DockPanel.Dock="Top" 
+                       Text="Settings" 
+                       FontSize="20" FontWeight="Bold" 
+                       Foreground="#cdd6f4"
+                       Margin="0,0,0,15"/>
+            
+            <!-- Buttons -->
+            <StackPanel DockPanel.Dock="Bottom" 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Right" 
+                        Spacing="10"
+                        Margin="0,15,0,0">
+                <Button Content="Save" 
+                        Width="80"
+                        Click="OnSaveClick"/>
+                <Button Content="Cancel" 
+                        Width="80"
+                        Click="OnCancelClick"/>
+            </StackPanel>
+            
+            <!-- Content -->
+            <ScrollViewer>
+                <StackPanel Spacing="15">
+                    <Border Background="#45475a" CornerRadius="8" Padding="15">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="General Settings" 
+                                       FontSize="16" FontWeight="Bold" 
+                                       Foreground="#cdd6f4"/>
+                            <TextBlock Text="Settings options will appear here" 
+                                       Foreground="#a6adc8"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </Border>
+</Window>

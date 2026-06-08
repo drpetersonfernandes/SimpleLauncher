@@ -19,17 +19,20 @@ public class LogErrorsService : ILogErrors
     private readonly IConfiguration _configuration;
     private readonly IDebugLogger _debugLogger;
     private readonly IDispatcherService _dispatcher;
+    private readonly IDeleteFilesService _deleteFilesService;
 
     public LogErrorsService(
         IHttpClientFactory httpClientFactory,
         IConfiguration configuration,
         IDebugLogger debugLogger,
-        IDispatcherService dispatcher)
+        IDispatcherService dispatcher,
+        IDeleteFilesService deleteFilesService)
     {
         _httpClientFactory = httpClientFactory;
         _configuration = configuration;
         _debugLogger = debugLogger;
         _dispatcher = dispatcher;
+        _deleteFilesService = deleteFilesService;
     }
 
     public async Task LogErrorAsync(Exception ex, string contextMessage = null)
@@ -63,7 +66,7 @@ public class LogErrorsService : ILogErrors
                     {
                         try
                         {
-                            DeleteFiles.TryDeleteFile(errorLogPath);
+                            _deleteFilesService.TryDeleteFile(errorLogPath);
                         }
                         catch (Exception ex2)
                         {

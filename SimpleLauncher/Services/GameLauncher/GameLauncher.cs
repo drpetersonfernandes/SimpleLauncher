@@ -37,6 +37,7 @@ public partial class GameLauncher
     private readonly IUpdateStatusBar _updateStatusBar;
     private readonly PlayHistoryManager _playHistoryManager;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
+    private readonly IMountZipFiles _mountZipFiles;
     private const int MemoryAccessViolation = -1073741819;
     private const int DepViolation = -1073740791;
 
@@ -49,7 +50,8 @@ public partial class GameLauncher
         ILogErrors logErrors,
         IUpdateStatusBar updateStatusBar,
         PlayHistoryManager playHistoryManager,
-        IMessageBoxLibraryService messageBoxLibrary)
+        IMessageBoxLibraryService messageBoxLibrary,
+        IMountZipFiles mountZipFiles)
     {
         _configHandlers = configHandlers;
         _launchStrategies = launchStrategies.OrderBy(static s => s.Priority);
@@ -60,6 +62,7 @@ public partial class GameLauncher
         _updateStatusBar = updateStatusBar;
         _playHistoryManager = playHistoryManager;
         _messageBoxLibrary = messageBoxLibrary;
+        _mountZipFiles = mountZipFiles;
     }
 
     internal async Task HandleButtonClickAsync(string filePath,
@@ -789,7 +792,7 @@ public partial class GameLauncher
         var isMountedXbe = Path.GetFileName(resolvedFilePath).Equals("default.xbe", StringComparison.OrdinalIgnoreCase);
 
         // Check if the file to launch is a mounted ZIP file, which will not be extracted
-        var isMountedZip = resolvedFilePath.StartsWith(MountZipFiles.ConfiguredMountDriveRoot, StringComparison.OrdinalIgnoreCase);
+        var isMountedZip = resolvedFilePath.StartsWith(_mountZipFiles.ConfiguredMountDriveRoot, StringComparison.OrdinalIgnoreCase);
 
         // Check if it's a file we just converted to temp
         var isTempConvertedFile = resolvedFilePath.Contains(Path.Combine(Path.GetTempPath(), "SimpleLauncher"), StringComparison.OrdinalIgnoreCase);

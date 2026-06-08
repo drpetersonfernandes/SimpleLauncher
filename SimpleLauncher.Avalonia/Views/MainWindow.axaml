@@ -1,0 +1,70 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Avalonia"
+        x:Class="SimpleLauncher.Avalonia.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="{Binding Title}"
+        MinWidth="1050" MinHeight="650"
+        Width="1200" Height="800"
+        WindowStartupLocation="CenterScreen">
+    
+    <Design.DataContext>
+        <x:Type TypeName="vm:MainWindowViewModel"/>
+    </Design.DataContext>
+    
+    <DockPanel>
+        <!-- Menu Bar -->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Options">
+                <MenuItem Header="Language" />
+                <MenuItem Header="Theme" />
+                <Separator/>
+                <MenuItem Header="Exit" />
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Grid View" />
+                <MenuItem Header="List View" />
+            </MenuItem>
+            <MenuItem Header="Tools">
+                <MenuItem Header="Easy Mode" />
+                <MenuItem Header="Global Search" />
+                <MenuItem Header="Play History" />
+                <MenuItem Header="Favorites" />
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About" />
+                <MenuItem Header="Check for Updates" />
+            </MenuItem>
+        </Menu>
+        
+        <!-- Status Bar -->
+        <Border DockPanel.Dock="Bottom" Background="#1e1e2e" Padding="5,2">
+            <TextBlock Text="Ready" Foreground="#a6adc8" FontSize="12"/>
+        </Border>
+        
+        <!-- Main Content Area -->
+        <Border Background="#313244" Padding="10">
+            <ScrollViewer>
+                <StackPanel Spacing="10">
+                    <!-- System Selection -->
+                    <Border Background="#45475a" CornerRadius="8" Padding="15">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="System Selection" FontSize="16" FontWeight="Bold" Foreground="#cdd6f4"/>
+                            <TextBlock Text="Select a system to view games" Foreground="#a6adc8"/>
+                            <!-- TODO: Add system selection combo box -->
+                        </StackPanel>
+                    </Border>
+                    
+                    <!-- Game Grid Area -->
+                    <Border Background="#45475a" CornerRadius="8" Padding="15" MinHeight="400">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="Games" FontSize="16" FontWeight="Bold" Foreground="#cdd6f4"/>
+                            <TextBlock Text="Game grid will appear here" Foreground="#a6adc8"/>
+                            <!-- TODO: Add game grid/list -->
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </DockPanel>
+</Window>

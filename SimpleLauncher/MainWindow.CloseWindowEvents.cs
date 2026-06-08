@@ -78,7 +78,7 @@ public partial class MainWindow
         try
         {
             // Kill any lingering CHDMounter processes as a safety net
-            MountChdFiles.KillAllChdMounterProcesses(App.ServiceProvider.GetRequiredService<ILogErrors>());
+            App.ServiceProvider.GetRequiredService<IMountChdFiles>().KillAllChdMounterProcesses(App.ServiceProvider.GetRequiredService<ILogErrors>());
 
             // Stop and release the status bar timer
             if (StatusBarTimer != null)

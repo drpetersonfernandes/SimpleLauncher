@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="SimpleLauncher.Avalonia.Views.GlobalSearchView"
+             x:DataType="x:String">
+    
+    <Border Background="#313244" Padding="15">
+        <DockPanel>
+            <!-- Header -->
+            <Border DockPanel.Dock="Top" Background="#45475a" CornerRadius="8" Padding="15" Margin="0,0,0,15">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Global Search" 
+                               FontSize="20" FontWeight="Bold" 
+                               Foreground="#cdd6f4"/>
+                    <TextBlock Text="Search for games across all systems" 
+                               Foreground="#a6adc8"/>
+                </StackPanel>
+            </Border>
+            
+            <!-- Search Box -->
+            <Border DockPanel.Dock="Top" Margin="0,0,0,15">
+                <TextBox Watermark="Search for games..." 
+                         FontSize="14"
+                         CornerRadius="8"/>
+            </Border>
+            
+            <!-- Results -->
+            <ScrollViewer>
+                <StackPanel Spacing="10">
+                    <Border Background="#45475a" CornerRadius="8" Padding="15">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="Enter a search term to find games" 
+                                       Foreground="#6c7086"
+                                       HorizontalAlignment="Center"
+                                       FontSize="14"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </Border>
+</UserControl>
