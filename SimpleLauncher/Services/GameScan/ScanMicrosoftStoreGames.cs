@@ -16,7 +16,7 @@ internal static partial class ScanMicrosoftStoreGames
 {
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
 
-    public static async Task ScanMicrosoftStoreGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath)
+    public static async Task ScanMicrosoftStoreGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath)
     {
         try
         {
@@ -224,7 +224,7 @@ internal static partial class ScanMicrosoftStoreGames
 
                     if (!string.IsNullOrEmpty(game.InstallLocation) && Directory.Exists(game.InstallLocation))
                     {
-                        await TryExtractStoreIconAsync(logErrors, game.Name, game.InstallLocation, game.LogoRelativePath, sanitizedGameName, windowsImagesPath);
+                        await TryExtractStoreIconAsync(gameScannerService, logErrors, game.Name, game.InstallLocation, game.LogoRelativePath, sanitizedGameName, windowsImagesPath);
                     }
                 }
             }
@@ -315,7 +315,7 @@ internal static partial class ScanMicrosoftStoreGames
         }
     }
 
-    private static async Task TryExtractStoreIconAsync(ILogErrors logErrors, string gameName, string installPath, string logoRelativePath, string sanitizedGameName, string windowsImagesPath)
+    private static async Task TryExtractStoreIconAsync(GameScannerService gameScannerService, ILogErrors logErrors, string gameName, string installPath, string logoRelativePath, string sanitizedGameName, string windowsImagesPath)
     {
         // Ensure the destination directory exists
         if (!Directory.Exists(windowsImagesPath))
@@ -333,7 +333,7 @@ internal static partial class ScanMicrosoftStoreGames
         }
 
         // 1. Try API first
-        if (await GameScannerService.TryDownloadImageFromApiAsync(gameName, destPath, logErrors))
+        if (await gameScannerService.TryDownloadImageFromApiAsync(gameName, destPath, logErrors))
         {
             return;
         }
@@ -537,7 +537,7 @@ internal static partial class ScanMicrosoftStoreGames
             }
 
             // 4. Final fallback to extracting icon from an EXE in the install folder
-            await GameScannerService.ExtractIconFromGameFolderAsync(logErrors, installPath, sanitizedGameName, windowsImagesPath);
+            await gameScannerService.ExtractIconFromGameFolderAsync(logErrors, installPath, sanitizedGameName, windowsImagesPath);
         }
         catch (Exception ex)
         {

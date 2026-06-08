@@ -29,7 +29,7 @@ public static partial class ScanRockstarGames
         new() { TitleId = "gtasaunreal", Name = "GTA San Andreas Definitive Edition", Exe = "Gameface/Binaries/Win64/SanAndreas.exe" }
     ];
 
-    public static async Task ScanRockstarGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public static async Task ScanRockstarGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -79,7 +79,7 @@ public static partial class ScanRockstarGames
                                 if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
                                 {
                                     var exePath = Path.Combine(installLocation, gameDef.Exe);
-                                    await GameScannerService.FindAndSaveGameImageAsync(logErrors, gameDef.Name, installLocation, sanitizedGameName, windowsImagesPath, exePath);
+                                    await gameScannerService.FindAndSaveGameImageAsync(logErrors, gameDef.Name, installLocation, sanitizedGameName, windowsImagesPath, exePath);
                                 }
                             }
                         }

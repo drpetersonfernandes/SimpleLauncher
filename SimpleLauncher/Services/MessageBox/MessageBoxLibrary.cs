@@ -12,6 +12,16 @@ namespace SimpleLauncher.Services.MessageBox;
 
 internal static class MessageBoxLibrary
 {
+    private static void ReinstallAndShutdown()
+    {
+        App.ServiceProvider.GetRequiredService<ReinstallSimpleLauncher>().StartUpdaterAndShutdown();
+    }
+
+    private static void QuitApplication()
+    {
+        App.ServiceProvider.GetRequiredService<QuitSimpleLauncher>().SimpleQuitApplication();
+    }
+
     internal static void TakeScreenShotMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
@@ -372,7 +382,7 @@ internal static class MessageBoxLibrary
 
             if (reinstall == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
             else
             {
@@ -668,7 +678,7 @@ internal static class MessageBoxLibrary
 
             if (reinstall == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
             else
             {
@@ -870,7 +880,7 @@ internal static class MessageBoxLibrary
 
             if (result == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
         }
     }
@@ -891,7 +901,7 @@ internal static class MessageBoxLibrary
 
             if (result == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
         }
     }
@@ -925,7 +935,7 @@ internal static class MessageBoxLibrary
 
             if (result == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
         }
     }
@@ -946,7 +956,7 @@ internal static class MessageBoxLibrary
 
             if (result == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
         }
     }
@@ -967,7 +977,7 @@ internal static class MessageBoxLibrary
 
             if (result == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
         }
     }
@@ -988,7 +998,7 @@ internal static class MessageBoxLibrary
 
             if (result == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
         }
     }
@@ -1009,7 +1019,7 @@ internal static class MessageBoxLibrary
 
             if (result == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
         }
     }
@@ -1030,7 +1040,7 @@ internal static class MessageBoxLibrary
 
             if (result == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
         }
     }
@@ -1051,7 +1061,7 @@ internal static class MessageBoxLibrary
 
             if (result == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
         }
     }
@@ -1094,7 +1104,7 @@ internal static class MessageBoxLibrary
 
             if (result == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
             else
             {
@@ -1103,7 +1113,7 @@ internal static class MessageBoxLibrary
                 System.Windows.MessageBox.Show($"{pleasereinstallSimpleLaunchermanually}\n\n" +
                                                $"{theapplicationwillshutdown}", error, MessageBoxButton.OK, MessageBoxImage.Error);
 
-                QuitSimpleLauncher.SimpleQuitApplication();
+                QuitApplication();
             }
         }
     }
@@ -1129,7 +1139,7 @@ internal static class MessageBoxLibrary
 
             if (result == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
         }
     }
@@ -1181,7 +1191,7 @@ internal static class MessageBoxLibrary
 
             if (result == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
         }
     }
@@ -1239,7 +1249,7 @@ internal static class MessageBoxLibrary
                 }
             }
 
-            QuitSimpleLauncher.SimpleQuitApplication();
+            QuitApplication();
         }
     }
 
@@ -1412,7 +1422,7 @@ internal static class MessageBoxLibrary
 
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
             else
             {
@@ -2892,7 +2902,7 @@ internal static class MessageBoxLibrary
 
             if (reinstall == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
             else
             {
@@ -2900,7 +2910,7 @@ internal static class MessageBoxLibrary
                 var theapplicationwillshutdown = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
                 System.Windows.MessageBox.Show($"{pleasereinstallSimpleLauncher}\n\n{theapplicationwillshutdown}", missingRequiredFiles, MessageBoxButton.OK, MessageBoxImage.Error);
 
-                QuitSimpleLauncher.SimpleQuitApplication();
+                QuitApplication();
             }
         }
     }
@@ -2923,7 +2933,7 @@ internal static class MessageBoxLibrary
 
             if (result == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
             else
             {
@@ -2933,7 +2943,7 @@ internal static class MessageBoxLibrary
                 System.Windows.MessageBox.Show($"{manualReinstallSuggestion}\n\n" +
                                                $"{applicationWillShutdown}", apiConfigErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
 
-                QuitSimpleLauncher.SimpleQuitApplication();
+                QuitApplication();
             }
         }
     }
@@ -3557,7 +3567,7 @@ internal static class MessageBoxLibrary
 
             if (reinstall == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
             else
             {
@@ -3584,7 +3594,7 @@ internal static class MessageBoxLibrary
 
             if (reinstall == MessageBoxResult.Yes)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                ReinstallAndShutdown();
             }
             else
             {

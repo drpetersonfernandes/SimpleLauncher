@@ -14,6 +14,7 @@ public class LanguageMenuService
     private readonly Settings _settings;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly ILogErrors _logErrors;
+    private readonly QuitSimpleLauncher _quitSimpleLauncher;
     private ILanguageMenuHost _host;
 
     private static readonly Dictionary<string, string> NameToCode = new()
@@ -38,12 +39,13 @@ public class LanguageMenuService
         { "LanguageChineseSimplified", "zh-hans" }
     };
 
-    public LanguageMenuService(PlaySoundEffects playSoundEffects, Settings settings, IMessageBoxLibraryService messageBox, ILogErrors logErrors)
+    public LanguageMenuService(PlaySoundEffects playSoundEffects, Settings settings, IMessageBoxLibraryService messageBox, ILogErrors logErrors, QuitSimpleLauncher quitSimpleLauncher)
     {
         _playSoundEffects = playSoundEffects;
         _settings = settings;
         _messageBox = messageBox;
         _logErrors = logErrors;
+        _quitSimpleLauncher = quitSimpleLauncher;
     }
 
     public void Initialize(ILanguageMenuHost host)
@@ -68,7 +70,7 @@ public class LanguageMenuService
             SetLanguageCheckMarks(languageCode);
             _host.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingLanguage") ?? "Changing language...");
             await _settings.SaveAsync();
-            await QuitSimpleLauncher.RestartApplication(_messageBox);
+            await _quitSimpleLauncher.RestartApplication(_messageBox);
         }
         catch (Exception ex)
         {

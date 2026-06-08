@@ -2,23 +2,34 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.QuitOrReinstall;
 
-public static class ReinstallSimpleLauncher
+public class ReinstallSimpleLauncher
 {
-    public static async void StartUpdaterAndShutdown()
+    private readonly ILogErrors _logErrors;
+    private readonly IApplicationLifetime _applicationLifetime;
+    private readonly IDispatcherService _dispatcherService;
+    private readonly IServiceProvider _serviceProvider;
+
+    public ReinstallSimpleLauncher(ILogErrors logErrors, IApplicationLifetime applicationLifetime, IDispatcherService dispatcherService, IServiceProvider serviceProvider)
+    {
+        _logErrors = logErrors;
+        _applicationLifetime = applicationLifetime;
+        _dispatcherService = dispatcherService;
+        _serviceProvider = serviceProvider;
+    }
+
+    public async void StartUpdaterAndShutdown()
     {
         try
         {
-            var messageBoxLibrary = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+            var messageBoxLibrary = _serviceProvider.GetRequiredService<IMessageBoxLibraryService>();
             try
             {
-                var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
                 var updaterPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Updater.exe");
 
                 if (File.Exists(updaterPath))
@@ -38,7 +49,7 @@ public static class ReinstallSimpleLauncher
                     catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
                     {
                         // Log the access denied error
-                        logErrors.LogAndForget(ex, "Access denied when starting Updater.exe.");
+                        _logErrors.LogAndForget(ex, "Access denied when starting Updater.exe.");
 
                         // Notify user that update failed
                         await messageBoxLibrary.UpdaterLaunchFailedMessageBox();
@@ -48,7 +59,7 @@ public static class ReinstallSimpleLauncher
                 {
                     try
                     {
-                        var updateChecker = App.ServiceProvider.GetRequiredService<CheckForUpdates.UpdateChecker>();
+                        var updateChecker = _serviceProvider.GetRequiredService<CheckForUpdates.UpdateChecker>();
 
                         // 1. Get the URL from GitHub
                         var (updaterZipUrl, _) = await updateChecker.GetLatestUpdaterInfoAsync();
@@ -64,7 +75,7 @@ public static class ReinstallSimpleLauncher
                         await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
 
                         // 3. Extract the contents to the application directory
-                        var extractionSuccess = CheckForUpdates.UpdateChecker.ExtractAllFromZip(memoryStream, AppDomain.CurrentDomain.BaseDirectory, null, App.ServiceProvider.GetRequiredService<ILogErrors>());
+                        var extractionSuccess = CheckForUpdates.UpdateChecker.ExtractAllFromZip(memoryStream, AppDomain.CurrentDomain.BaseDirectory, null, _logErrors);
 
                         if (!extractionSuccess)
                         {
@@ -92,7 +103,7 @@ public static class ReinstallSimpleLauncher
                             catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
                             {
                                 // Log the access denied error
-                                logErrors.LogAndForget(ex, "Access denied when starting Updater.exe after download.");
+                                _logErrors.LogAndForget(ex, "Access denied when starting Updater.exe after download.");
 
                                 // Notify user that update failed
                                 await messageBoxLibrary.UpdaterLaunchFailedMessageBox();
@@ -107,7 +118,7 @@ public static class ReinstallSimpleLauncher
                     catch (Exception ex)
                     {
                         // Notify developer
-                        logErrors.LogAndForget(ex, "Failed to download and reinstall the updater.");
+                        _logErrors.LogAndForget(ex, "Failed to download and reinstall the updater.");
 
                         // Notify user
                         await messageBoxLibrary.InstallUpdateManuallyMessageBox();
@@ -116,10 +127,8 @@ public static class ReinstallSimpleLauncher
             }
             catch (Exception ex)
             {
-                var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-
                 // Notify developer
-                logErrors.LogAndForget(ex, "Failed to reinstall SimpleLauncher.");
+                _logErrors.LogAndForget(ex, "Failed to reinstall SimpleLauncher.");
 
                 // Notify user
                 await messageBoxLibrary.InstallUpdateManuallyMessageBox();
@@ -127,17 +136,16 @@ public static class ReinstallSimpleLauncher
         }
         catch (Exception ex)
         {
-            var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-            logErrors.LogAndForget(ex, "Error in the method StartUpdaterAndShutdown.");
+            _logErrors.LogAndForget(ex, "Error in the method StartUpdaterAndShutdown.");
         }
     }
 
-    private static void ShutdownApplication()
+    private void ShutdownApplication()
     {
         // Use Dispatcher to ensure shutdown happens on the UI thread.
-        Application.Current.Dispatcher.Invoke(static () =>
+        _dispatcherService.Invoke(() =>
         {
-            Application.Current.Shutdown();
+            _applicationLifetime.Shutdown();
             Process.GetCurrentProcess().Kill();
             Environment.Exit(0);
         });

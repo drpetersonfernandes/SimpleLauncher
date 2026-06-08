@@ -48,6 +48,7 @@ using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.Pagination;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.QuitOrReinstall;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SearchOrchestrator;
 using SimpleLauncher.Services.SettingsManager;
@@ -179,6 +180,8 @@ public partial class App : IDisposable
             return sm;
         });
         serviceCollection.AddSingleton<UpdateChecker>();
+        serviceCollection.AddSingleton<QuitSimpleLauncher>();
+        serviceCollection.AddSingleton<ReinstallSimpleLauncher>();
         serviceCollection.AddSingleton<Stats>();
         serviceCollection.AddSingleton<PlaySoundEffects>();
         serviceCollection.AddSingleton<IPlaySoundEffects>(static sp => sp.GetRequiredService<PlaySoundEffects>());

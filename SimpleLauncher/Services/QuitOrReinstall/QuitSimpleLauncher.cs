@@ -2,19 +2,29 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.CheckForUpdates;
 
 namespace SimpleLauncher.Services.QuitOrReinstall;
 
-public static class QuitSimpleLauncher
+public class QuitSimpleLauncher
 {
-    public static async Task RestartApplication(IMessageBoxLibraryService messageBox)
+    private readonly ILogErrors _logErrors;
+    private readonly IApplicationLifetime _applicationLifetime;
+    private readonly IDispatcherService _dispatcherService;
+    private readonly Lazy<UpdateChecker> _updateChecker;
+
+    public QuitSimpleLauncher(ILogErrors logErrors, IApplicationLifetime applicationLifetime, IDispatcherService dispatcherService, Lazy<UpdateChecker> updateChecker)
     {
-        var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+        _logErrors = logErrors;
+        _applicationLifetime = applicationLifetime;
+        _dispatcherService = dispatcherService;
+        _updateChecker = updateChecker;
+    }
+
+    public async Task RestartApplication(IMessageBoxLibraryService messageBox)
+    {
         var processModule = Process.GetCurrentProcess().MainModule;
         if (processModule == null) return;
 
@@ -33,7 +43,7 @@ public static class QuitSimpleLauncher
         catch (Exception ex)
         {
             // Notify developer
-            logErrors.LogAndForget(ex, "Failed to start new process during application restart.");
+            _logErrors.LogAndForget(ex, "Failed to start new process during application restart.");
 
             // Notify user
             await messageBox.FailedToRestartMessageBox();
@@ -44,33 +54,32 @@ public static class QuitSimpleLauncher
 
 
         // Shutdown the current instance
-        Application.Current.Shutdown();
+        _applicationLifetime.Shutdown();
     }
 
-    public static void SimpleQuitApplication()
+    public void SimpleQuitApplication()
     {
-        Application.Current.Shutdown();
+        _applicationLifetime.Shutdown();
     }
 
     // Downloads a fresh Updater.exe from GitHub first, falling back to the local copy if offline.
     // Then launches the updater and forcefully exits the current process.
-    public static async Task ShutdownForUpdateAsync(string updaterPath, IMessageBoxLibraryService messageBox)
+    public async Task ShutdownForUpdateAsync(string updaterPath, IMessageBoxLibraryService messageBox)
     {
-        var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
         var appDirectory = Path.GetDirectoryName(updaterPath) ?? AppDomain.CurrentDomain.BaseDirectory;
 
         // 1. Try to download a fresh Updater.exe from GitHub (overwrites any existing copy)
         var downloaded = false;
         try
         {
-            var updateChecker = App.ServiceProvider.GetRequiredService<UpdateChecker>();
+            var updateChecker = _updateChecker.Value;
             var (updaterZipUrl, _) = await updateChecker.GetLatestUpdaterInfoAsync();
 
             if (!string.IsNullOrEmpty(updaterZipUrl))
             {
                 using var memoryStream = new MemoryStream();
                 await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
-                UpdateChecker.ExtractAllFromZip(memoryStream, appDirectory, null, App.ServiceProvider.GetRequiredService<ILogErrors>());
+                UpdateChecker.ExtractAllFromZip(memoryStream, appDirectory, null, _logErrors);
                 if (File.Exists(updaterPath))
                 {
                     downloaded = true;
@@ -100,22 +109,22 @@ public static class QuitSimpleLauncher
             };
             Process.Start(startInfo);
 
-            Application.Current.Dispatcher.Invoke(static () =>
+            _dispatcherService.Invoke(() =>
             {
-                Application.Current.Shutdown();
+                _applicationLifetime.Shutdown();
                 Process.GetCurrentProcess().Kill();
                 Environment.Exit(0);
             });
         }
         catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
         {
-            logErrors.LogAndForget(ex, "Access denied when starting Updater.exe.");
+            _logErrors.LogAndForget(ex, "Access denied when starting Updater.exe.");
 
             await messageBox.UpdaterLaunchFailedMessageBox();
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, "Failed to start updater and shut down.");
+            _logErrors.LogAndForget(ex, "Failed to start updater and shut down.");
 
             await messageBox.UpdaterLaunchFailedMessageBox();
         }

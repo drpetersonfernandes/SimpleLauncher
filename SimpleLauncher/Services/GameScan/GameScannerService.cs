@@ -3,12 +3,10 @@ using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GameScan.Models;
 using SimpleLauncher.Core.Services.SystemManager;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Services.GameScan;
@@ -16,10 +14,10 @@ namespace SimpleLauncher.Services.GameScan;
 public class GameScannerService
 {
     private readonly ILogErrors _logErrors;
-
-    // ReSharper disable once NotAccessedField.Local
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IConfiguration _configuration;
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IDebugLogger _debugLogger;
     private const string WindowsSystemName = "Microsoft Windows";
 
     internal static readonly HashSet<string> IgnoredGameNames = new(StringComparer.OrdinalIgnoreCase)
@@ -42,13 +40,15 @@ public class GameScannerService
 
     internal bool WasNewSystemCreated { get; private set; }
 
-    private static bool _timeoutMessageShown;
+    private bool _timeoutMessageShown;
 
-    public GameScannerService(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary)
+    public GameScannerService(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary, IConfiguration configuration, IHttpClientFactory httpClientFactory, IDebugLogger debugLogger)
     {
         _logErrors = logErrors;
         _messageBoxLibrary = messageBoxLibrary;
-        _configuration = App.ServiceProvider.GetRequiredService<IConfiguration>();
+        _configuration = configuration;
+        _httpClientFactory = httpClientFactory;
+        _debugLogger = debugLogger;
     }
 
     internal async Task ScanForStoreGamesAsync()
@@ -63,22 +63,22 @@ public class GameScannerService
 
             var tasks = new List<Task>
             {
-                ScanSteamGames.ScanSteamGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanEpicGames.ScanEpicGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanAmazonGames.ScanAmazonGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanBattleNetGames.ScanBattleNetGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanGogGames.ScanGogGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanHumbleGames.ScanHumbleGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanItchioGames.ScanItchioGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanRockstarGames.ScanRockstarGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanUplayGames.ScanUplayGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanEaGames.ScanEaGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanMicrosoftStoreGames.ScanMicrosoftStoreGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath)
+                ScanSteamGames.ScanSteamGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
+                ScanEpicGames.ScanEpicGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
+                ScanAmazonGames.ScanAmazonGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
+                ScanBattleNetGames.ScanBattleNetGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
+                ScanGogGames.ScanGogGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
+                ScanHumbleGames.ScanHumbleGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
+                ScanItchioGames.ScanItchioGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
+                ScanRockstarGames.ScanRockstarGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
+                ScanUplayGames.ScanUplayGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
+                ScanEaGames.ScanEaGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
+                ScanMicrosoftStoreGames.ScanMicrosoftStoreGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath)
             };
 
             await Task.WhenAll(tasks);
 
-            DebugLogger.Log("[GameScannerService] All store game scans completed.");
+            _debugLogger.Log("[GameScannerService] All store game scans completed.");
         }
         catch (Exception ex)
         {
@@ -105,13 +105,13 @@ public class GameScannerService
                 var resolvedRomsPath = PathHelper.ResolveRelativeToAppDirectory(existingRomsPath);
                 var resolvedImagesPath = PathHelper.ResolveRelativeToAppDirectory(existingImagesPath);
 
-                DebugLogger.Log($"[GameScannerService] Using existing '{WindowsSystemName}' system paths: ROMs='{resolvedRomsPath}', Images='{resolvedImagesPath}'");
+                _debugLogger.Log($"[GameScannerService] Using existing '{WindowsSystemName}' system paths: ROMs='{resolvedRomsPath}', Images='{resolvedImagesPath}'");
 
                 return (resolvedRomsPath, resolvedImagesPath, false);
             }
 
             // System doesn't exist, create it with default paths
-            DebugLogger.Log($"[GameScannerService] '{WindowsSystemName}' system not found. Creating it now.");
+            _debugLogger.Log($"[GameScannerService] '{WindowsSystemName}' system not found. Creating it now.");
 
             var defaultRomsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", "Microsoft Windows");
             var defaultImagesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "Microsoft Windows");
@@ -143,7 +143,7 @@ public class GameScannerService
             Directory.CreateDirectory(defaultRomsPath);
             Directory.CreateDirectory(defaultImagesPath);
 
-            DebugLogger.Log($"[GameScannerService] Created new '{WindowsSystemName}' system with default paths: ROMs='{defaultRomsPath}', Images='{defaultImagesPath}'");
+            _debugLogger.Log($"[GameScannerService] Created new '{WindowsSystemName}' system with default paths: ROMs='{defaultRomsPath}', Images='{defaultImagesPath}'");
 
             return (defaultRomsPath, defaultImagesPath, true);
         }
@@ -159,7 +159,7 @@ public class GameScannerService
         }
     }
 
-    internal static async Task<bool> TryDownloadImageFromApiAsync(string gameName, string destinationPath, ILogErrors logErrors)
+    internal async Task<bool> TryDownloadImageFromApiAsync(string gameName, string destinationPath, ILogErrors logErrors)
     {
         if (string.IsNullOrWhiteSpace(gameName)) return false;
 
@@ -168,8 +168,7 @@ public class GameScannerService
         {
             try
             {
-                var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
-                using var client = httpClientFactory.CreateClient("GameImageClient");
+                using var client = _httpClientFactory.CreateClient("GameImageClient");
 
                 var encodedGameName = WebUtility.UrlEncode(gameName);
                 var response = await client.GetAsync($"api/v1/games/search?name={encodedGameName}");
@@ -178,7 +177,7 @@ public class GameScannerService
                 {
                     if (response.StatusCode != HttpStatusCode.NotFound)
                     {
-                        DebugLogger.Log($"[GameScannerService] API query for '{gameName}' failed with status: {response.StatusCode}");
+                        _debugLogger.Log($"[GameScannerService] API query for '{gameName}' failed with status: {response.StatusCode}");
                     }
 
                     return false;
@@ -192,21 +191,21 @@ public class GameScannerService
                     // HttpClient supports absolute URLs directly, even when BaseAddress is configured
                     var imageBytes = await client.GetByteArrayAsync(apiResponse.ImageUrl);
                     await File.WriteAllBytesAsync(destinationPath, imageBytes);
-                    DebugLogger.Log($"[GameScannerService] Successfully downloaded image for '{gameName}' from API.");
+                    _debugLogger.Log($"[GameScannerService] Successfully downloaded image for '{gameName}' from API.");
                     return true;
                 }
             }
             catch (OperationCanceledException) when (attempt == 0)
             {
                 // Timeout on first attempt - wait and retry
-                DebugLogger.Log($"[GameScannerService] Image download timeout for '{gameName}', retrying in 5 seconds...");
+                _debugLogger.Log($"[GameScannerService] Image download timeout for '{gameName}', retrying in 5 seconds...");
                 await Task.Delay(5000);
             }
             catch (HttpRequestException ex) when (attempt == 0)
             {
                 // Network error on first attempt - wait and retry
                 var innerMessage = ex.InnerException?.Message ?? "none";
-                DebugLogger.Log($"[GameScannerService] Image download network error for '{gameName}': {ex.Message}. Inner: {innerMessage}. Retrying in 5 seconds...");
+                _debugLogger.Log($"[GameScannerService] Image download network error for '{gameName}': {ex.Message}. Inner: {innerMessage}. Retrying in 5 seconds...");
                 await Task.Delay(5000);
             }
             catch (Exception ex)
@@ -220,7 +219,7 @@ public class GameScannerService
                 };
                 var innerDetails = GetInnerExceptionDetails(ex);
                 var logMessage = $"[GameScannerService] Image download failed for '{gameName}' after retry ({errorType}: {ex.Message}).{innerDetails} Falling back to icon extraction.";
-                DebugLogger.Log(logMessage);
+                _debugLogger.Log(logMessage);
 
                 // Log persistent network errors to help identify API issues, but don't spam logs
                 if (ex is HttpRequestException or OperationCanceledException)
@@ -231,8 +230,7 @@ public class GameScannerService
                     if (attempt == 1 && !_timeoutMessageShown)
                     {
                         _timeoutMessageShown = true;
-                        var messageBoxLibrary = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
-                        await messageBoxLibrary.ShowImageDownloadTimeoutMessageBox();
+                        await _messageBoxLibrary.ShowImageDownloadTimeoutMessageBox();
                     }
                 }
             }
@@ -241,7 +239,7 @@ public class GameScannerService
         return false;
     }
 
-    internal static async Task FindAndSaveGameImageAsync(ILogErrors logErrors, string originalGameName, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string specificExePath = null)
+    internal async Task FindAndSaveGameImageAsync(ILogErrors logErrors, string originalGameName, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string specificExePath = null)
     {
         try
         {
@@ -268,7 +266,7 @@ public class GameScannerService
     }
 
     // This is the final fallback for special cases like Steam/Microsoft Store
-    internal static async Task ExtractIconFromGameFolderAsync(ILogErrors logErrors, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string specificExePath = null)
+    internal async Task ExtractIconFromGameFolderAsync(ILogErrors logErrors, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string specificExePath = null)
     {
         try
         {

@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.LaunchTools;
-using Application = System.Windows.Application;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.LaunchTools;
@@ -17,12 +16,14 @@ public class LaunchTools : ILaunchTools
     private readonly ILogErrors _logErrors;
     private readonly IConfiguration _configuration;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
+    private readonly IResourceProvider _resourceProvider;
 
-    public LaunchTools(ILogErrors logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBoxLibrary)
+    public LaunchTools(ILogErrors logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider)
     {
         _logErrors = logErrors;
         _configuration = configuration;
         _messageBoxLibrary = messageBoxLibrary;
+        _resourceProvider = resourceProvider;
     }
 
     /// <summary>
@@ -99,7 +100,7 @@ public class LaunchTools : ILaunchTools
 
         if (archPath == null)
         {
-            var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
+            var msg = _resourceProvider.GetString("AppNotAvailableForArch", "This application is not available for {0}");
             await _messageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
             return null;
         }

@@ -15,6 +15,7 @@ using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.MenuCheckMark;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.QuitOrReinstall;
 using SimpleLauncher.Services.UpdateStatusBar;
 using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
 
@@ -41,6 +42,7 @@ public class MenuActionHandlerService
     private readonly IImageLoader _imageLoader;
     private readonly IMenuCheckMarkService _menuCheckMarkService;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
+    private readonly QuitSimpleLauncher _quitSimpleLauncher;
 
     private IMenuActionHost _host;
     private readonly IUpdateStatusBar _updateStatusBar;
@@ -65,7 +67,8 @@ public class MenuActionHandlerService
         IImageLoader imageLoader,
         IMenuCheckMarkService menuCheckMarkService,
         IMessageBoxLibraryService messageBoxLibrary,
-        IUpdateStatusBar updateStatusBar)
+        IUpdateStatusBar updateStatusBar,
+        QuitSimpleLauncher quitSimpleLauncher)
     {
         _settings = settings;
         _playSoundEffects = playSoundEffects;
@@ -85,6 +88,7 @@ public class MenuActionHandlerService
         _menuCheckMarkService = menuCheckMarkService;
         _messageBoxLibrary = messageBoxLibrary;
         _updateStatusBar = updateStatusBar;
+        _quitSimpleLauncher = quitSimpleLauncher;
 
         _emulatorConfigWindowFactory = new Dictionary<string, Action>(StringComparer.OrdinalIgnoreCase)
         {
@@ -301,7 +305,7 @@ public class MenuActionHandlerService
                 ? selectedSystem
                 : null;
 
-            var editSystemWindow = new EditSystemWindow(_settings, _playSoundEffects, _configuration, _logErrors, _helpUserService, _imageLoader, systemToPreselect)
+            var editSystemWindow = new EditSystemWindow(_settings, _playSoundEffects, _configuration, _logErrors, _helpUserService, _imageLoader, _messageBoxLibrary, _quitSimpleLauncher, systemToPreselect)
             {
                 Owner = Application.Current.MainWindow
             };

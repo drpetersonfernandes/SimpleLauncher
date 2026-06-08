@@ -2,9 +2,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Hardcodet.Wpf.TaskbarNotification;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.QuitOrReinstall;
 
 namespace SimpleLauncher.Services.TrayIcon;
 
@@ -15,6 +15,7 @@ public class TrayIconManager : IDisposable
     private readonly System.Windows.Controls.ContextMenu _trayMenu;
     private readonly Window _mainWindow;
     private readonly ILogErrors _logErrors;
+    private readonly IApplicationLifetime _applicationLifetime;
 
     private readonly RoutedEventHandler _onOpenHandler;
     private readonly RoutedEventHandler _onMinimizeToTrayHandler;
@@ -22,11 +23,12 @@ public class TrayIconManager : IDisposable
     private readonly RoutedEventHandler _onOpenDebugWindowHandler;
     private readonly RoutedEventHandler _trayMouseDoubleClickHandler;
 
-    public TrayIconManager(Window mainWindow, ILogErrors logErrors)
+    public TrayIconManager(Window mainWindow, ILogErrors logErrors, IApplicationLifetime applicationLifetime)
     {
         _instance = this;
         _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
+        _applicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
 
         // Initialize delegates with correct types
         _onOpenHandler = OnOpen;
@@ -167,7 +169,7 @@ public class TrayIconManager : IDisposable
     private void OnExit(object sender, RoutedEventArgs e)
     {
         _taskbarIcon.Visibility = Visibility.Collapsed;
-        QuitSimpleLauncher.SimpleQuitApplication();
+        _applicationLifetime.Shutdown();
     }
 
     public static void ShowTrayMessage(string message)

@@ -42,7 +42,7 @@ public static partial class ScanBattleNetGames
         new() { InternalId = "Warcraft III", Name = "Warcraft III", IsClassic = true, Exe = "Warcraft III.exe", ProductId = "W3" }
     ];
 
-    public static async Task ScanBattleNetGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public static async Task ScanBattleNetGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -97,7 +97,7 @@ public static partial class ScanBattleNetGames
 
                                 if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
                                 {
-                                    await GameScannerService.FindAndSaveGameImageAsync(logErrors, def.Name, installLocation, sanitizedGameName, windowsImagesPath);
+                                    await gameScannerService.FindAndSaveGameImageAsync(logErrors, def.Name, installLocation, sanitizedGameName, windowsImagesPath);
                                 }
                             }
                         }
@@ -115,7 +115,7 @@ public static partial class ScanBattleNetGames
                                 var exePath = Path.Combine(installLocation, def.Exe);
                                 var batContent = $"@echo off\r\ncd /d \"{installLocation}\"\r\nstart \"\" \"{def.Exe}\"";
                                 await File.WriteAllTextAsync(shortcutPath, batContent);
-                                await GameScannerService.FindAndSaveGameImageAsync(logErrors, def.Name, installLocation, sanitizedGameName, windowsImagesPath, exePath);
+                                await gameScannerService.FindAndSaveGameImageAsync(logErrors, def.Name, installLocation, sanitizedGameName, windowsImagesPath, exePath);
                             }
                         }
                     }

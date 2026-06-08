@@ -1,6 +1,6 @@
 using System.IO;
 using System.Net.Http;
-using System.Windows;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
@@ -31,6 +31,8 @@ public class DownloadManager : IDisposable
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IExtractionService _extractionService;
     private readonly ILogErrors _logErrors;
+    private readonly IResourceProvider _resourceProvider;
+    private readonly IDispatcherService _dispatcherService;
     private CancellationTokenSource _cancellationTokenSource;
     private readonly object _lock = new();
     private bool _disposed;
@@ -38,11 +40,13 @@ public class DownloadManager : IDisposable
     /// <summary>
     /// Initializes a new instance of the DownloadManager.
     /// </summary>
-    public DownloadManager(IHttpClientFactory httpClientFactory, IExtractionService extractionService, ILogErrors logErrors)
+    public DownloadManager(IHttpClientFactory httpClientFactory, IExtractionService extractionService, ILogErrors logErrors, IResourceProvider resourceProvider, IDispatcherService dispatcherService)
     {
         _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
         _extractionService = extractionService ?? throw new ArgumentNullException(nameof(extractionService));
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
+        _resourceProvider = resourceProvider ?? throw new ArgumentNullException(nameof(resourceProvider));
+        _dispatcherService = dispatcherService ?? throw new ArgumentNullException(nameof(dispatcherService));
 
         // Initialize temp folder
         TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
@@ -266,7 +270,7 @@ public class DownloadManager : IDisposable
     {
         try
         {
-            await Application.Current.Dispatcher.InvokeAsync(() =>
+            await _dispatcherService.InvokeAsync(() =>
             {
                 OnProgressChanged(new DownloadProgressEventArgs
                 {
@@ -280,7 +284,7 @@ public class DownloadManager : IDisposable
 
             if (result)
             {
-                await Application.Current.Dispatcher.InvokeAsync(() =>
+                await _dispatcherService.InvokeAsync(() =>
                 {
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
@@ -291,7 +295,7 @@ public class DownloadManager : IDisposable
             }
             else
             {
-                await Application.Current.Dispatcher.InvokeAsync(() =>
+                await _dispatcherService.InvokeAsync(() =>
                 {
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
@@ -305,7 +309,7 @@ public class DownloadManager : IDisposable
         }
         catch (Exception ex)
         {
-            await Application.Current.Dispatcher.InvokeAsync(() =>
+            await _dispatcherService.InvokeAsync(() =>
             {
                 OnProgressChanged(new DownloadProgressEventArgs
                 {
@@ -409,9 +413,9 @@ public class DownloadManager : IDisposable
     /// <param name="resourceKey">The resource key.</param>
     /// <param name="defaultValue">The default value if the resource is not found.</param>
     /// <returns>The localized string or the default value.</returns>
-    private static string GetResourceString(string resourceKey, string defaultValue)
+    private string GetResourceString(string resourceKey, string defaultValue)
     {
-        return (string)Application.Current.TryFindResource(resourceKey) ?? defaultValue;
+        return _resourceProvider.GetString(resourceKey, defaultValue);
     }
 
     /// <summary>

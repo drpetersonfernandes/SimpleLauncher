@@ -7,7 +7,7 @@ namespace SimpleLauncher.Services.GameScan;
 
 public class ScanEaGames
 {
-    public static async Task ScanEaGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public static async Task ScanEaGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -34,7 +34,7 @@ public class ScanEaGames
                     var shortcutContent = $"[InternetShortcut]\nURL=origin2://game/launch?offerIds={contentId}";
                     await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                    await GameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, installDir, sanitizedGameName, windowsImagesPath);
+                    await gameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, installDir, sanitizedGameName, windowsImagesPath);
                 }
                 catch (Exception ex)
                 {

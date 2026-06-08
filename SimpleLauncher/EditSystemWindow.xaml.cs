@@ -41,8 +41,9 @@ internal partial class EditSystemWindow : ILoadingState
     private readonly IConfiguration _configuration;
     private readonly string _preSelectedSystemName;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly QuitSimpleLauncher _quitSimpleLauncher;
 
-    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, IHelpUserService helpUserService, IImageLoader imageLoader, string preSelectedSystemName = null)
+    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, IHelpUserService helpUserService, IImageLoader imageLoader, IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, string preSelectedSystemName = null)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -54,7 +55,8 @@ internal partial class EditSystemWindow : ILoadingState
         _helpUserService = helpUserService;
         _imageLoader = imageLoader;
         _preSelectedSystemName = preSelectedSystemName;
-        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+        _messageBox = messageBox;
+        _quitSimpleLauncher = quitSimpleLauncher;
 
         ApplyExpanderSettings();
 
@@ -109,7 +111,7 @@ internal partial class EditSystemWindow : ILoadingState
             {
                 // Notify user on UI thread
                 await _messageBox.SystemXmlNotFoundMessageBox();
-                QuitSimpleLauncher.SimpleQuitApplication(); // Or just Close();
+                _quitSimpleLauncher.SimpleQuitApplication(); // Or just Close();
             }
             else
             {

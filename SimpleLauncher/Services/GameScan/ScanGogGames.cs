@@ -9,7 +9,7 @@ namespace SimpleLauncher.Services.GameScan;
 
 internal static class ScanGogGames
 {
-    public static async Task ScanGogGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public static async Task ScanGogGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -102,7 +102,7 @@ internal static class ScanGogGames
                             await File.WriteAllTextAsync(batPath, batContent);
                         }
 
-                        await GameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath, mainExePath);
+                        await gameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath, mainExePath);
                     }
                     catch (Exception ex)
                     {

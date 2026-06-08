@@ -22,6 +22,7 @@ public class StartupInitializationService
     private readonly ThemeMenuService _themeMenuService;
     private readonly LanguageMenuService _languageMenuService;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
+    private readonly IApplicationLifetime _applicationLifetime;
     private readonly RequiredFiles _requiredFiles;
     private IStartupInitializationHost _host;
 
@@ -32,7 +33,8 @@ public class StartupInitializationService
         ILogErrors logErrors,
         ThemeMenuService themeMenuService,
         LanguageMenuService languageMenuService,
-        IMessageBoxLibraryService messageBoxLibrary)
+        IMessageBoxLibraryService messageBoxLibrary,
+        IApplicationLifetime applicationLifetime)
     {
         _configuration = configuration;
         _settings = settings;
@@ -41,6 +43,7 @@ public class StartupInitializationService
         _themeMenuService = themeMenuService;
         _languageMenuService = languageMenuService;
         _messageBoxLibrary = messageBoxLibrary;
+        _applicationLifetime = applicationLifetime;
         _requiredFiles = new RequiredFiles(messageBoxLibrary);
     }
 
@@ -113,7 +116,7 @@ public class StartupInitializationService
 
     private void InitializeTrayIcon()
     {
-        _host.SetTrayIconManager(new TrayIconManager(_host.HostWindow, _logErrors));
+        _host.SetTrayIconManager(new TrayIconManager(_host.HostWindow, _logErrors, _applicationLifetime));
         DebugLogger.Log("TrayIconManager was initialized.");
     }
 

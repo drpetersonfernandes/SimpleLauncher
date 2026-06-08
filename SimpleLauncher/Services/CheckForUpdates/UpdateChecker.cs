@@ -9,7 +9,6 @@ using System.Windows;
 using SharpCompress.Archives.Zip;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.QuitOrReinstall;
 using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
@@ -23,6 +22,10 @@ public partial class UpdateChecker
     private readonly HttpClient _httpClient;
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
+    private readonly IResourceProvider _resourceProvider;
+    private readonly IDebugLogger _debugLogger;
+    private readonly QuitSimpleLauncher _quitSimpleLauncher;
+    private readonly IServiceProvider _serviceProvider;
 
     private static string CurrentRuntimeIdentifier
     {
@@ -39,12 +42,16 @@ public partial class UpdateChecker
         }
     }
 
-    public UpdateChecker(IHttpClientFactory httpClientFactory, ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary)
+    public UpdateChecker(IHttpClientFactory httpClientFactory, ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider, IDebugLogger debugLogger, QuitSimpleLauncher quitSimpleLauncher, IServiceProvider serviceProvider)
     {
         ArgumentNullException.ThrowIfNull(httpClientFactory);
         _httpClient = httpClientFactory.CreateClient("UpdateCheckerClient");
         _logErrors = logErrors;
         _messageBoxLibrary = messageBoxLibrary;
+        _resourceProvider = resourceProvider;
+        _debugLogger = debugLogger;
+        _quitSimpleLauncher = quitSimpleLauncher;
+        _serviceProvider = serviceProvider;
     }
 
     private string CurrentVersion
@@ -60,7 +67,7 @@ public partial class UpdateChecker
                 // Notify developer
                 _logErrors.LogAndForget(ex, "Error getting CurrentVersion.");
 
-                return (string)Application.Current.TryFindResource("UnknownString") ?? "Unknown";
+                return _resourceProvider.GetString("UnknownString", "Unknown");
             }
         }
     }
@@ -84,7 +91,7 @@ public partial class UpdateChecker
                 var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
                 if (response.IsSuccessStatusCode)
                 {
-                    DebugLogger.Log("Check for Updates Success");
+                    _debugLogger.Log("Check for Updates Success");
 
                     var content = await response.Content.ReadAsStringAsync();
                     var (latestVersion, _, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
@@ -133,7 +140,7 @@ public partial class UpdateChecker
                 var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
                 if (response.IsSuccessStatusCode)
                 {
-                    DebugLogger.Log("Check for Updates Success");
+                    _debugLogger.Log("Check for Updates Success");
 
                     var content = await response.Content.ReadAsStringAsync();
                     var (latestVersion, releasePackageAssetUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
@@ -242,7 +249,7 @@ public partial class UpdateChecker
                 return;
             }
 
-            logWindow = App.ServiceProvider.GetRequiredService<UpdateLogWindow>();
+            logWindow = _serviceProvider.GetRequiredService<UpdateLogWindow>();
             logWindow.Show();
             logWindow.Log("Starting update process...");
 
@@ -253,7 +260,7 @@ public partial class UpdateChecker
 
             logWindow.Log("Launching Updater.exe (auto-downloads from GitHub if needed)...");
             await Task.Delay(500);
-            await QuitSimpleLauncher.ShutdownForUpdateAsync(updaterExePath, _messageBoxLibrary);
+            await _quitSimpleLauncher.ShutdownForUpdateAsync(updaterExePath, _messageBoxLibrary);
             // If we reach here, ShutdownForUpdateAsync returned without killing the process
             // (the update failed — an error was already shown to the user)
             logWindow.Log("Updater.exe launch failed.");
@@ -476,7 +483,7 @@ public partial class UpdateChecker
             var expectedReleaseFileName = $"release_{rawVersionStringFromTag}_{runtimeIdentifier}.zip";
             var expectedUpdaterFileName = $"updater_{runtimeIdentifier}.zip";
 
-            DebugLogger.Log($"Searching for assets: '{expectedReleaseFileName}' and '{expectedUpdaterFileName}'");
+            _debugLogger.Log($"Searching for assets: '{expectedReleaseFileName}' and '{expectedUpdaterFileName}'");
 
             if (root.TryGetProperty("assets", out var assetsElement) && assetsElement.ValueKind == JsonValueKind.Array)
             {

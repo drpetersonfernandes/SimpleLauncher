@@ -7,7 +7,7 @@ namespace SimpleLauncher.Services.GameScan;
 
 public class ScanUplayGames
 {
-    public static async Task ScanUplayGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public static async Task ScanUplayGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -49,7 +49,7 @@ public class ScanUplayGames
                             fullExePath = gameExe;
                         }
 
-                        await GameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, installDir, sanitizedGameName, windowsImagesPath, fullExePath);
+                        await gameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, installDir, sanitizedGameName, windowsImagesPath, fullExePath);
                     }
                     catch (Exception ex)
                     {

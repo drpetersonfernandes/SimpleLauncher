@@ -8,7 +8,7 @@ namespace SimpleLauncher.Services.GameScan;
 
 public class ScanAmazonGames
 {
-    public static async Task ScanAmazonGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public static async Task ScanAmazonGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -48,7 +48,7 @@ public class ScanAmazonGames
                         var shortcutContent = $"[InternetShortcut]\nURL=amazon-games://play/{gameId}";
                         await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                        await GameScannerService.FindAndSaveGameImageAsync(logErrors, title, installDir, sanitizedGameName, windowsImagesPath);
+                        await gameScannerService.FindAndSaveGameImageAsync(logErrors, title, installDir, sanitizedGameName, windowsImagesPath);
                     }
                 }
                 catch (Exception ex)

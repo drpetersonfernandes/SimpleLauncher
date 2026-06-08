@@ -11,7 +11,7 @@ namespace SimpleLauncher.Services.GameScan;
 
 internal static class ScanSteamGames
 {
-    internal static async Task ScanSteamGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    internal static async Task ScanSteamGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         var libraryPaths = new List<string>();
 
@@ -120,7 +120,7 @@ internal static class ScanSteamGames
 
                 foreach (var manifestFile in manifestFiles)
                 {
-                    await ProcessSteamManifestAsync(manifestFile, libraryPath, steamPath, logErrors, windowsRomsPath, windowsImagesPath, ignoredGameNames);
+                    await ProcessSteamManifestAsync(gameScannerService, manifestFile, libraryPath, steamPath, logErrors, windowsRomsPath, windowsImagesPath, ignoredGameNames);
                 }
             }
 
@@ -147,7 +147,7 @@ internal static class ScanSteamGames
                 foreach (var modDir in modDirectories)
                 {
                     // Pass windowsImagesPath here
-                    await ProcessSourceModAsync(modDir, windowsRomsPath, windowsImagesPath, logErrors);
+                    await ProcessSourceModAsync(gameScannerService, modDir, windowsRomsPath, windowsImagesPath, logErrors);
                 }
             }
         }
@@ -157,7 +157,7 @@ internal static class ScanSteamGames
         }
     }
 
-    private static async Task ProcessSteamManifestAsync(string manifestFile, string libraryPath, string steamPath, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    private static async Task ProcessSteamManifestAsync(GameScannerService gameScannerService, string manifestFile, string libraryPath, string steamPath, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -177,7 +177,7 @@ internal static class ScanSteamGames
                     var shortcutContent = $"[InternetShortcut]\nURL=steam://run/{appId}";
                     await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                    await TryCopySteamArtworkAsync(logErrors, steamPath, appId, gameName, sanitizedGameName, gameInstallPath, windowsImagesPath);
+                    await TryCopySteamArtworkAsync(gameScannerService, logErrors, steamPath, appId, gameName, sanitizedGameName, gameInstallPath, windowsImagesPath);
                 }
             }
         }
@@ -187,7 +187,7 @@ internal static class ScanSteamGames
         }
     }
 
-    private static async Task ProcessSourceModAsync(string modDir, string windowsRomsPath, string windowsImagesPath, ILogErrors logErrors)
+    private static async Task ProcessSourceModAsync(GameScannerService gameScannerService, string modDir, string windowsRomsPath, string windowsImagesPath, ILogErrors logErrors)
     {
         try
         {
@@ -262,7 +262,7 @@ internal static class ScanSteamGames
 
                 if (!File.Exists(destArtworkPath))
                 {
-                    await GameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, modDir, sanitizedGameName, windowsImagesPath);
+                    await gameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, modDir, sanitizedGameName, windowsImagesPath);
                 }
             }
 
@@ -290,13 +290,13 @@ internal static class ScanSteamGames
         }
     }
 
-    private static async Task TryCopySteamArtworkAsync(ILogErrors logErrors, string steamPath, string appId, string gameName, string sanitizedGameName, string gameInstallPath, string windowsImagesPath)
+    private static async Task TryCopySteamArtworkAsync(GameScannerService gameScannerService, ILogErrors logErrors, string steamPath, string appId, string gameName, string sanitizedGameName, string gameInstallPath, string windowsImagesPath)
     {
         var destArtworkPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
         if (File.Exists(destArtworkPath)) return;
 
         // 1. Try API first
-        if (await GameScannerService.TryDownloadImageFromApiAsync(gameName, destArtworkPath, logErrors))
+        if (await gameScannerService.TryDownloadImageFromApiAsync(gameName, destArtworkPath, logErrors))
         {
             return;
         }
@@ -333,6 +333,6 @@ internal static class ScanSteamGames
         }
 
         // 3. Fallback to EXE icon if no artwork was found
-        await GameScannerService.ExtractIconFromGameFolderAsync(logErrors, gameInstallPath, sanitizedGameName, windowsImagesPath);
+        await gameScannerService.ExtractIconFromGameFolderAsync(logErrors, gameInstallPath, sanitizedGameName, windowsImagesPath);
     }
 }

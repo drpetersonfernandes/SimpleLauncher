@@ -8,7 +8,7 @@ public static class ScanItchioGames
 {
     private static readonly char[] Separator = ['='];
 
-    public static async Task ScanItchioGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public static async Task ScanItchioGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -104,7 +104,7 @@ public static class ScanItchioGames
                         var batContent = $"@echo off\r\ncd /d \"{Path.GetDirectoryName(launchExe)}\"\r\nstart \"\" \"{Path.GetFileName(launchExe)}\"";
                         await File.WriteAllTextAsync(batPath, batContent);
 
-                        await GameScannerService.FindAndSaveGameImageAsync(logErrors, prettyName, gameDir, sanitizedGameName, windowsImagesPath, launchExe);
+                        await gameScannerService.FindAndSaveGameImageAsync(logErrors, prettyName, gameDir, sanitizedGameName, windowsImagesPath, launchExe);
                     }
                 }
                 catch (Exception ex)

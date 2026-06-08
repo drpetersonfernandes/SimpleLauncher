@@ -1,11 +1,9 @@
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SharpDX;
 using SharpDX.DirectInput;
 using SharpDX.XInput;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Interfaces;
 using WindowsInput;
 using DeviceType = SharpDX.DirectInput.DeviceType;
@@ -19,6 +17,8 @@ public class GamePadController : IDisposable
     private readonly Timer _timer;
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
+    private readonly IConfiguration _configuration;
+    private readonly IDebugLogger _debugLogger;
     private bool _isDisposed;
 
     // Add an Action for error logging
@@ -59,10 +59,12 @@ public class GamePadController : IDisposable
     private const int DirectInputLeftThumbStickScalingFactor = 7;
     private const int DirectInputRightThumbStickScalingFactor = 1;
 
-    public GamePadController(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary)
+    public GamePadController(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary, IConfiguration configuration, IDebugLogger debugLogger)
     {
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _messageBoxLibrary = messageBoxLibrary ?? throw new ArgumentNullException(nameof(messageBoxLibrary));
+        _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
 
         // Initialize Xbox Controller using XInput
         _xinputController = new Controller(UserIndex.One);
@@ -128,7 +130,7 @@ public class GamePadController : IDisposable
         // Notify user (outside lock to allow async/await)
         if (startException != null)
         {
-            return _messageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+            return _messageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
 
         return Task.CompletedTask;
@@ -158,7 +160,7 @@ public class GamePadController : IDisposable
         // Notify user (outside lock to allow async/await)
         if (stopException != null)
         {
-            return _messageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+            return _messageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
 
         return Task.CompletedTask;
@@ -366,7 +368,7 @@ public class GamePadController : IDisposable
                         // We will log it for debugging but not report it as a critical error to the user or developer.
                         if (ex.Message.Contains("User Interface Privacy Isolation (UIPI)", StringComparison.OrdinalIgnoreCase))
                         {
-                            DebugLogger.Log($"[GamePadController] UIPI blocked input simulation: {ex.Message}");
+                            _debugLogger.Log($"[GamePadController] UIPI blocked input simulation: {ex.Message}");
                             // Do not call ErrorLogger or show a message box. This is an expected OS behavior.
                         }
                         else
@@ -377,7 +379,7 @@ public class GamePadController : IDisposable
                                                     $"Exception details: {ex.Message}");
 
                             // Notify user
-                            _ = _messageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                            _ = _messageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
                         }
 
                         // Attempt reconnection as a recovery step

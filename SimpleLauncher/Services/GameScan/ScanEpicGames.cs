@@ -8,7 +8,7 @@ namespace SimpleLauncher.Services.GameScan;
 
 public static class ScanEpicGames
 {
-    public static async Task ScanEpicGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public static async Task ScanEpicGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -72,7 +72,7 @@ public static class ScanEpicGames
 
                             if (ignoredGameNames.Contains(displayName)) continue;
 
-                            await CreateEpicShortcutAsync(logErrors, displayName, app.AppName, app.InstallLocation, launchExe, windowsRomsPath, windowsImagesPath);
+                            await CreateEpicShortcutAsync(gameScannerService, logErrors, displayName, app.AppName, app.InstallLocation, launchExe, windowsRomsPath, windowsImagesPath);
                         }
 
                         return; // Successfully processed via DAT file
@@ -137,7 +137,7 @@ public static class ScanEpicGames
                         var installLoc = root.TryGetProperty("InstallLocation", out var il) ? il.GetString() : "";
                         var launchExe = root.TryGetProperty("LaunchExecutable", out var le) ? le.GetString() : "";
 
-                        await CreateEpicShortcutAsync(logErrors, displayName, appName, installLoc, launchExe, windowsRomsPath, windowsImagesPath);
+                        await CreateEpicShortcutAsync(gameScannerService, logErrors, displayName, appName, installLoc, launchExe, windowsRomsPath, windowsImagesPath);
                     }
                     catch (Exception ex)
                     {
@@ -152,7 +152,7 @@ public static class ScanEpicGames
         }
     }
 
-    private static async Task CreateEpicShortcutAsync(ILogErrors logErrors, string displayName, string appName, string installLocation, string launchExecutable, string windowsRomsPath, string windowsImagesPath)
+    private static async Task CreateEpicShortcutAsync(GameScannerService gameScannerService, ILogErrors logErrors, string displayName, string appName, string installLocation, string launchExecutable, string windowsRomsPath, string windowsImagesPath)
     {
         var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(displayName);
         var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
@@ -166,11 +166,11 @@ public static class ScanEpicGames
             case false when !string.IsNullOrEmpty(launchExecutable):
             {
                 var fullExePath = Path.Combine(installLocation, launchExecutable);
-                await GameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath, fullExePath);
+                await gameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath, fullExePath);
                 break;
             }
             case false:
-                await GameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath);
+                await gameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath);
                 break;
         }
     }

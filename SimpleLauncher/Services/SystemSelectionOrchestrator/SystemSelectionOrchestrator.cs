@@ -19,6 +19,7 @@ using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MameData;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.QuitOrReinstall;
 using SimpleLauncher.Services.SystemConfiguration;
 using SimpleLauncher.Services.SystemImageResolver;
 using SimpleLauncher.Services.UIReset;
@@ -44,6 +45,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
     private readonly ISystemConfigurationService _systemConfigurationService;
     private readonly IMameDataService _mameDataService;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly QuitSimpleLauncher _quitSimpleLauncher;
 
     public SystemSelectionOrchestrator(
         SettingsManager.SettingsManager settings,
@@ -60,7 +62,8 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         IUpdateStatusBar updateStatusBarService,
         ISystemConfigurationService systemConfigurationService,
         IMameDataService mameDataService,
-        IMessageBoxLibraryService messageBox)
+        IMessageBoxLibraryService messageBox,
+        QuitSimpleLauncher quitSimpleLauncher)
     {
         _settings = settings;
         _systemImageResolverService = systemImageResolverService;
@@ -77,6 +80,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         _systemConfigurationService = systemConfigurationService;
         _mameDataService = mameDataService;
         _messageBox = messageBox;
+        _quitSimpleLauncher = quitSimpleLauncher;
     }
 
     public void Initialize(ISystemSelectionHost host)
@@ -326,7 +330,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
             _playSoundEffects.PlayNotificationSound();
             _updateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...");
 
-            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _logErrors, _helpUserService, _imageLoader, systemName)
+            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _logErrors, _helpUserService, _imageLoader, _messageBox, _quitSimpleLauncher, systemName)
             {
                 Owner = Application.Current.MainWindow
             };

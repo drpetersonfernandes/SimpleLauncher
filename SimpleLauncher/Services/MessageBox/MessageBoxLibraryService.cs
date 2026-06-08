@@ -17,10 +17,14 @@ namespace SimpleLauncher.Services.MessageBox;
 public class MessageBoxLibraryService : IMessageBoxLibraryService
 {
     private readonly IMessageDialogService _messageDialog;
+    private readonly ReinstallSimpleLauncher _reinstallSimpleLauncher;
+    private readonly QuitSimpleLauncher _quitSimpleLauncher;
 
-    public MessageBoxLibraryService(IMessageDialogService messageDialog)
+    public MessageBoxLibraryService(IMessageDialogService messageDialog, ReinstallSimpleLauncher reinstallSimpleLauncher, QuitSimpleLauncher quitSimpleLauncher)
     {
         _messageDialog = messageDialog;
+        _reinstallSimpleLauncher = reinstallSimpleLauncher;
+        _quitSimpleLauncher = quitSimpleLauncher;
     }
 
     public Task TakeScreenShotMessageBox()
@@ -240,7 +244,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (reinstall)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
         else
         {
@@ -446,7 +450,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (reinstall)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
         else
         {
@@ -570,7 +574,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (result)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
     }
 
@@ -585,7 +589,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (result)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
     }
 
@@ -605,7 +609,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (result)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
     }
 
@@ -620,7 +624,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (result)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
     }
 
@@ -635,7 +639,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (result)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
     }
 
@@ -650,7 +654,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (result)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
     }
 
@@ -665,7 +669,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (result)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
     }
 
@@ -680,7 +684,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (result)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
     }
 
@@ -695,7 +699,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (result)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
     }
 
@@ -726,7 +730,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
             if (result)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                _reinstallSimpleLauncher.StartUpdaterAndShutdown();
             }
             else
             {
@@ -735,7 +739,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 await _messageDialog.ShowErrorAsync($"{pleasereinstallSimpleLaunchermanually}\n\n" +
                                                     $"{theapplicationwillshutdown}", error);
 
-                QuitSimpleLauncher.SimpleQuitApplication();
+                _quitSimpleLauncher.SimpleQuitApplication();
             }
         }
     }
@@ -756,7 +760,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
             if (result)
             {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                _reinstallSimpleLauncher.StartUpdaterAndShutdown();
             }
         }
     }
@@ -791,7 +795,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (result)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
     }
 
@@ -837,7 +841,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
         }
 
-        QuitSimpleLauncher.SimpleQuitApplication();
+        _quitSimpleLauncher.SimpleQuitApplication();
     }
 
     public async Task WouldYouLikeToOpenTheLogMessageBox(string logPath)
@@ -980,7 +984,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (messageBoxResult)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
         else
         {
@@ -1936,7 +1940,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (reinstall)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
         else
         {
@@ -1944,7 +1948,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             var theapplicationwillshutdown = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
             await _messageDialog.ShowErrorAsync($"{pleasereinstallSimpleLauncher}\n\n{theapplicationwillshutdown}", missingRequiredFiles);
 
-            QuitSimpleLauncher.SimpleQuitApplication();
+            _quitSimpleLauncher.SimpleQuitApplication();
         }
     }
 
@@ -1961,7 +1965,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (result)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
         else
         {
@@ -1971,7 +1975,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             await _messageDialog.ShowErrorAsync($"{manualReinstallSuggestion}\n\n" +
                                                 $"{applicationWillShutdown}", apiConfigErrorTitle);
 
-            QuitSimpleLauncher.SimpleQuitApplication();
+            _quitSimpleLauncher.SimpleQuitApplication();
         }
     }
 
@@ -2365,7 +2369,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (reinstall)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
         else
         {
@@ -2386,7 +2390,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (reinstall)
         {
-            ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            _reinstallSimpleLauncher.StartUpdaterAndShutdown();
         }
         else
         {
