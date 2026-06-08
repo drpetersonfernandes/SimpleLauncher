@@ -6,9 +6,9 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 
-namespace SimpleLauncher.Services.LoadImages;
+namespace SimpleLauncher.WpfServices;
 
-public class ImageLoader(ILogErrors logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBox) : IImageLoader
+public class WpfImageLoader(ILogErrors logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBox) : IImageLoader
 {
     private readonly ILogErrors _logErrors = logErrors;
     private readonly IMessageBoxLibraryService _messageBox = messageBox;

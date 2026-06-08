@@ -231,7 +231,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IGetListOfFiles, GetListOfFilesService>();
         serviceCollection.AddSingleton<IUpdateStatusBar, UpdateStatusBarService>();
         serviceCollection.AddSingleton<IFindCoverImage, FindCoverImage>();
-        serviceCollection.AddSingleton<IImageLoader, ImageLoader>();
+        serviceCollection.AddSingleton<IImageLoader, WpfImageLoader>();
         serviceCollection.AddSingleton<IMenuCheckMarkService, MenuCheckMarkService>();
         serviceCollection.AddSingleton<IUiResetService, UiResetService>();
         serviceCollection.AddSingleton<ISystemConfigurationService, SystemConfigurationService>();
