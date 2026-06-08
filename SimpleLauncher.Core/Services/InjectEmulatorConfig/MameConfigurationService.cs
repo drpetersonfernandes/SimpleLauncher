@@ -1,4 +1,3 @@
-using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using SimpleLauncher.Core.Services.CheckPaths;
@@ -11,7 +10,7 @@ public static partial class MameConfigurationService
     public static void InjectSettings(string emulatorPath, Core.Services.SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger, string systemRomPath = null, string[] listOfSecondaryRomPath = null)
     {
         if (string.IsNullOrWhiteSpace(emulatorPath))
-            throw new ArgumentException(@"Emulator path cannot be null or empty.", nameof(emulatorPath));
+            throw new ArgumentException("Emulator path cannot be null or empty.", nameof(emulatorPath));
 
         ArgumentNullException.ThrowIfNull(settings);
 

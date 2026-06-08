@@ -21,7 +21,6 @@ using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.WpfServices;
 using Image = System.Windows.Controls.Image;

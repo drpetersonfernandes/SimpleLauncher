@@ -12,13 +12,21 @@ public class FindGameFileTests : IDisposable
 
     private sealed class NoOpLogErrors : ILogErrors
     {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null) => Task.CompletedTask;
+        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
+        {
+            return Task.CompletedTask;
+        }
     }
 
     private sealed class NoOpDebugLogger : IDebugLogger
     {
-        public void Log(string message) { }
-        public void LogException(Exception ex, string contextMessage = null) { }
+        public void Log(string message)
+        {
+        }
+
+        public void LogException(Exception ex, string? contextMessage = null)
+        {
+        }
     }
 
     public FindGameFileTests()
@@ -44,28 +52,28 @@ public class FindGameFileTests : IDisposable
 
     // FindDefaultXex tests
     [Fact]
-    public void FindDefaultXex_NullPath_ReturnsNull()
+    public void FindDefaultXexNullPathReturnsNull()
     {
         var result = FindDefaultXex.Find(null, _logErrors);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindDefaultXex_EmptyPath_ReturnsNull()
+    public void FindDefaultXexEmptyPathReturnsNull()
     {
         var result = FindDefaultXex.Find("", _logErrors);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindDefaultXex_NonExistentDirectory_ReturnsNull()
+    public void FindDefaultXexNonExistentDirectoryReturnsNull()
     {
         var result = FindDefaultXex.Find(@"C:\nonexistent\dir", _logErrors);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindDefaultXex_FileExists_ReturnsPath()
+    public void FindDefaultXexFileExistsReturnsPath()
     {
         var xexPath = Path.Combine(_testDirectory, "default.xex");
         File.WriteAllText(xexPath, "fake");
@@ -77,7 +85,7 @@ public class FindGameFileTests : IDisposable
     }
 
     [Fact]
-    public void FindDefaultXex_FileDoesNotExist_ReturnsNull()
+    public void FindDefaultXexFileDoesNotExistReturnsNull()
     {
         var result = FindDefaultXex.Find(_testDirectory, _logErrors);
         Assert.Null(result);
@@ -85,28 +93,28 @@ public class FindGameFileTests : IDisposable
 
     // FindDefaultXbe tests
     [Fact]
-    public void FindDefaultXbe_NullPath_ReturnsNull()
+    public void FindDefaultXbeNullPathReturnsNull()
     {
         var result = FindDefaultXbe.Find(null, _logErrors);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindDefaultXbe_EmptyPath_ReturnsNull()
+    public void FindDefaultXbeEmptyPathReturnsNull()
     {
         var result = FindDefaultXbe.Find("", _logErrors);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindDefaultXbe_NonExistentDirectory_ReturnsNull()
+    public void FindDefaultXbeNonExistentDirectoryReturnsNull()
     {
         var result = FindDefaultXbe.Find(@"C:\nonexistent\dir", _logErrors);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindDefaultXbe_FileExists_ReturnsPath()
+    public void FindDefaultXbeFileExistsReturnsPath()
     {
         var xbePath = Path.Combine(_testDirectory, "default.xbe");
         File.WriteAllText(xbePath, "fake");
@@ -118,7 +126,7 @@ public class FindGameFileTests : IDisposable
     }
 
     [Fact]
-    public void FindDefaultXbe_FileDoesNotExist_ReturnsNull()
+    public void FindDefaultXbeFileDoesNotExistReturnsNull()
     {
         var result = FindDefaultXbe.Find(_testDirectory, _logErrors);
         Assert.Null(result);
@@ -126,28 +134,28 @@ public class FindGameFileTests : IDisposable
 
     // FindCueFile tests
     [Fact]
-    public void FindCueFile_NullPath_ReturnsNull()
+    public void FindCueFileNullPathReturnsNull()
     {
         var result = FindCueFile.Find(null, _logErrors);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindCueFile_EmptyPath_ReturnsNull()
+    public void FindCueFileEmptyPathReturnsNull()
     {
         var result = FindCueFile.Find("", _logErrors);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindCueFile_NonExistentDirectory_ReturnsNull()
+    public void FindCueFileNonExistentDirectoryReturnsNull()
     {
         var result = FindCueFile.Find(@"C:\nonexistent\dir", _logErrors);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindCueFile_FileExists_ReturnsPath()
+    public void FindCueFileFileExistsReturnsPath()
     {
         var cuePath = Path.Combine(_testDirectory, "game.cue");
         File.WriteAllText(cuePath, "fake");
@@ -159,7 +167,7 @@ public class FindGameFileTests : IDisposable
     }
 
     [Fact]
-    public void FindCueFile_MultipleCueFiles_ReturnsFirst()
+    public void FindCueFileMultipleCueFilesReturnsFirst()
     {
         var cue1 = Path.Combine(_testDirectory, "disc1.cue");
         var cue2 = Path.Combine(_testDirectory, "disc2.cue");
@@ -173,7 +181,7 @@ public class FindGameFileTests : IDisposable
     }
 
     [Fact]
-    public void FindCueFile_NoCueFiles_ReturnsNull()
+    public void FindCueFileNoCueFilesReturnsNull()
     {
         File.WriteAllText(Path.Combine(_testDirectory, "game.bin"), "fake");
 
@@ -183,28 +191,28 @@ public class FindGameFileTests : IDisposable
 
     // FindBinFile tests
     [Fact]
-    public void FindBinFile_NullPath_ReturnsNull()
+    public void FindBinFileNullPathReturnsNull()
     {
         var result = FindBinFile.Find(null, _logErrors);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindBinFile_EmptyPath_ReturnsNull()
+    public void FindBinFileEmptyPathReturnsNull()
     {
         var result = FindBinFile.Find("", _logErrors);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindBinFile_NonExistentDirectory_ReturnsNull()
+    public void FindBinFileNonExistentDirectoryReturnsNull()
     {
         var result = FindBinFile.Find(@"C:\nonexistent\dir", _logErrors);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindBinFile_FileExists_ReturnsPath()
+    public void FindBinFileFileExistsReturnsPath()
     {
         var binPath = Path.Combine(_testDirectory, "game.bin");
         File.WriteAllText(binPath, "fake");
@@ -216,7 +224,7 @@ public class FindGameFileTests : IDisposable
     }
 
     [Fact]
-    public void FindBinFile_NoBinFiles_ReturnsNull()
+    public void FindBinFileNoBinFilesReturnsNull()
     {
         File.WriteAllText(Path.Combine(_testDirectory, "game.cue"), "fake");
 
@@ -226,28 +234,28 @@ public class FindGameFileTests : IDisposable
 
     // FindImageIso tests
     [Fact]
-    public void FindImageIso_NullPath_ReturnsNull()
+    public void FindImageIsoNullPathReturnsNull()
     {
         var result = FindImageIso.Find(null, _logErrors);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindImageIso_EmptyPath_ReturnsNull()
+    public void FindImageIsoEmptyPathReturnsNull()
     {
         var result = FindImageIso.Find("", _logErrors);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindImageIso_NonExistentDirectory_ReturnsNull()
+    public void FindImageIsoNonExistentDirectoryReturnsNull()
     {
         var result = FindImageIso.Find(@"C:\nonexistent\dir", _logErrors);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindImageIso_FileExists_ReturnsPath()
+    public void FindImageIsoFileExistsReturnsPath()
     {
         var isoPath = Path.Combine(_testDirectory, "image.iso");
         File.WriteAllText(isoPath, "fake");
@@ -259,7 +267,7 @@ public class FindGameFileTests : IDisposable
     }
 
     [Fact]
-    public void FindImageIso_FileDoesNotExist_ReturnsNull()
+    public void FindImageIsoFileDoesNotExistReturnsNull()
     {
         var result = FindImageIso.Find(_testDirectory, _logErrors);
         Assert.Null(result);
@@ -267,21 +275,21 @@ public class FindGameFileTests : IDisposable
 
     // FindEbootBin tests
     [Fact]
-    public void FindEbootBin_NullPath_ReturnsNull()
+    public void FindEbootBinNullPathReturnsNull()
     {
         var result = FindEbootBin.FindEbootBinRecursive(null, _logErrors, _debugLogger);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindEbootBin_EmptyPath_ReturnsNull()
+    public void FindEbootBinEmptyPathReturnsNull()
     {
         var result = FindEbootBin.FindEbootBinRecursive("", _logErrors, _debugLogger);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindEbootBin_InTopDirectory_ReturnsPath()
+    public void FindEbootBinInTopDirectoryReturnsPath()
     {
         var ebootPath = Path.Combine(_testDirectory, "EBOOT.BIN");
         File.WriteAllText(ebootPath, "fake");
@@ -293,7 +301,7 @@ public class FindGameFileTests : IDisposable
     }
 
     [Fact]
-    public void FindEbootBin_InPS3GameUsrDir_ReturnsPath()
+    public void FindEbootBinInPs3GameUsrDirReturnsPath()
     {
         var ps3GameDir = Path.Combine(_testDirectory, "PS3_GAME");
         var usrDir = Path.Combine(ps3GameDir, "USRDIR");
@@ -308,7 +316,7 @@ public class FindGameFileTests : IDisposable
     }
 
     [Fact]
-    public void FindEbootBin_InNestedDirectory_ReturnsPath()
+    public void FindEbootBinInNestedDirectoryReturnsPath()
     {
         var nestedDir = Path.Combine(_testDirectory, "subdir", "deep");
         Directory.CreateDirectory(nestedDir);
@@ -322,14 +330,14 @@ public class FindGameFileTests : IDisposable
     }
 
     [Fact]
-    public void FindEbootBin_NotFound_ReturnsNull()
+    public void FindEbootBinNotFoundReturnsNull()
     {
         var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _debugLogger);
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindEbootBin_PrefersTopDirectoryOverNested()
+    public void FindEbootBinPrefersTopDirectoryOverNested()
     {
         var topEboot = Path.Combine(_testDirectory, "EBOOT.BIN");
         File.WriteAllText(topEboot, "top");
@@ -345,7 +353,7 @@ public class FindGameFileTests : IDisposable
     }
 
     [Fact]
-    public void FindEbootBin_PrefersPS3StructureOverFullRecursive()
+    public void FindEbootBinPrefersPs3StructureOverFullRecursive()
     {
         var ps3GameDir = Path.Combine(_testDirectory, "PS3_GAME");
         var usrDir = Path.Combine(ps3GameDir, "USRDIR");

@@ -169,6 +169,7 @@ public class DeleteFilesService : IDeleteFilesService
             catch (IOException)
             {
                 if (i == MaxDeleteRetries - 1) return;
+
                 Thread.Sleep(DeleteRetryDelayMs);
             }
             catch (UnauthorizedAccessException)
@@ -179,10 +180,14 @@ public class DeleteFilesService : IDeleteFilesService
                     {
                         if (Process.GetProcessesByName("Updater").Length != 0) return;
                     }
-                    catch { }
+                    catch
+                    {
+                        // ignored
+                    }
                 }
 
                 if (i == MaxDeleteRetries - 1) return;
+
                 Thread.Sleep(DeleteRetryDelayMs);
             }
             catch

@@ -7,22 +7,22 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.LoadingInterface;
-using SimpleLauncher.Core.Services.RetroAchievements.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.ViewModels;
+
+#nullable enable
 
 namespace SimpleLauncher;
 
 public partial class RetroAchievementsWindow : ILoadingState
 {
+    private readonly RetroAchievementsViewModel _viewModel;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
-
-    private readonly SettingsManager _settings;
-    private readonly RetroAchievementsService _raService;
 
     public RetroAchievementsWindow(PlaySoundEffects playSoundEffects, ILogErrors logErrors, SettingsManager settings, RetroAchievementsService raService)
     {
@@ -30,11 +30,19 @@ public partial class RetroAchievementsWindow : ILoadingState
         App.ApplyThemeToWindow(this);
         Owner = Application.Current.MainWindow;
 
-        _settings = settings;
-        _raService = raService;
         _playSoundEffects = playSoundEffects;
         _logErrors = logErrors;
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+
+        _viewModel = new RetroAchievementsViewModel(
+            logErrors,
+            _messageBox,
+            App.ServiceProvider.GetRequiredService<IResourceProvider>(),
+            settings,
+            raService,
+            playSoundEffects);
+
+        DataContext = _viewModel;
 
         Loaded += RetroAchievementsWindow_Loaded;
 
@@ -54,24 +62,25 @@ public partial class RetroAchievementsWindow : ILoadingState
         {
             if (selectedTab is not { IsSelected: true }) return;
 
-            // Use Tag instead of Header for language-independent tab identification
             var tag = selectedTab.Tag?.ToString();
-
             switch (tag)
             {
                 case "MyProfile":
                     _playSoundEffects.PlayNotificationSound();
-                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingUserProfile") ?? "Loading user profile...");
+                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent(
+                        (string)Application.Current.TryFindResource("LoadingUserProfile") ?? "Loading user profile...");
                     _ = LoadUserProfileAsync();
                     break;
                 case "Unlocks":
                     _playSoundEffects.PlayNotificationSound();
-                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingUserUnlocks") ?? "Loading user unlocks...");
+                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent(
+                        (string)Application.Current.TryFindResource("LoadingUserUnlocks") ?? "Loading user unlocks...");
                     _ = LoadUnlocksByDateAsync();
                     break;
                 case "UserProgress":
                     _playSoundEffects.PlayNotificationSound();
-                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingUserCompletionProgress") ?? "Loading user completion progress...");
+                    (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent(
+                        (string)Application.Current.TryFindResource("LoadingUserCompletionProgress") ?? "Loading user completion progress...");
                     _ = LoadUserProgressAsync();
                     break;
             }
@@ -80,9 +89,88 @@ public partial class RetroAchievementsWindow : ILoadingState
 
     private void RetroAchievementsWindow_Loaded(object sender, RoutedEventArgs e)
     {
-        // Force load the first tab's data
-        // The SelectionChanged event might not fire if the first tab is already selected
         _ = LoadUserProfileAsync();
+    }
+
+    private async Task LoadUserProfileAsync()
+    {
+        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent(
+            (string)Application.Current.TryFindResource("FetchingUserProfile") ?? "Fetching user profile...");
+        SetLoadingState(true);
+
+        await _viewModel.LoadUserProfileAsync();
+
+        // Update WPF-specific UI (profile image as BitmapImage)
+        if (_viewModel.ProfileImageUrl != null)
+        {
+            UserProfilePic.Source = new BitmapImage(new Uri(_viewModel.ProfileImageUrl));
+        }
+        else
+        {
+            UserProfilePic.Source = null;
+        }
+
+        // Bind recently played games
+        UserProfileRecentlyPlayed.ItemsSource = _viewModel.RecentlyPlayedGames;
+
+        SetLoadingState(false);
+    }
+
+    private async Task LoadUnlocksByDateAsync()
+    {
+        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent(
+            (string)Application.Current.TryFindResource("FetchingEarnedAchievementsByDate") ?? "Fetching earned achievements by date...");
+        SetLoadingState(true);
+
+        await _viewModel.LoadUnlocksByDateAsync();
+
+        // Bind unlocks data
+        UnlocksDataGrid.ItemsSource = _viewModel.Unlocks;
+
+        SetLoadingState(false);
+    }
+
+    private async void FetchUnlocksClickAsync(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await _viewModel.FetchUnlocksCommand.ExecuteAsync(null);
+            UnlocksDataGrid.ItemsSource = _viewModel.Unlocks;
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Failed to fetch unlocks by date");
+        }
+    }
+
+    private async void ResetDatesClickAsync(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent(
+                (string)Application.Current.TryFindResource("ResettingDatesAndFetchingUnlocks") ?? "Resetting dates and fetching unlocks...");
+
+            await _viewModel.ResetDatesCommand.ExecuteAsync(null);
+            UnlocksDataGrid.ItemsSource = _viewModel.Unlocks;
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Failed to reset date range");
+        }
+    }
+
+    private async Task LoadUserProgressAsync()
+    {
+        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent(
+            (string)Application.Current.TryFindResource("FetchingUserCompletionProgress") ?? "Fetching user completion progress...");
+        SetLoadingState(true);
+
+        await _viewModel.LoadUserProgressAsync();
+
+        // Bind user progress data
+        UserProgressDataGrid.ItemsSource = _viewModel.UserProgress;
+
+        SetLoadingState(false);
     }
 
     private async void OpenUrlInBrowser(string url)
@@ -101,24 +189,11 @@ public partial class RetroAchievementsWindow : ILoadingState
 
     private void ViewProfileOnRaButton_Click(object sender, RoutedEventArgs e)
     {
-        if (!string.IsNullOrWhiteSpace(_settings.RaUsername))
+        var url = _viewModel.GetProfileUrl();
+        if (!string.IsNullOrWhiteSpace(url))
         {
-            var url = $"https://retroachievements.org/user/{Uri.EscapeDataString(_settings.RaUsername)}";
             OpenUrlInBrowser(url);
         }
-    }
-
-    private static string GetPermissionDescription(int permissions)
-    {
-        return permissions switch
-        {
-            0 => (string)Application.Current.TryFindResource("RaPermissionUnregistered") ?? "Unregistered",
-            1 => (string)Application.Current.TryFindResource("RaPermissionRegistered") ?? "Registered",
-            2 => (string)Application.Current.TryFindResource("RaPermissionJuniorDeveloper") ?? "Junior Developer",
-            3 => (string)Application.Current.TryFindResource("RaPermissionDeveloper") ?? "Developer",
-            4 => (string)Application.Current.TryFindResource("RaPermissionAdmin") ?? "Admin",
-            _ => $"{(string)Application.Current.TryFindResource("RaStatusUnknown") ?? "Unknown"} ({permissions})"
-        };
     }
 
     private void OpenRaSettings_Click(object sender, RoutedEventArgs e)
@@ -128,7 +203,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         _playSoundEffects.PlayNotificationSound();
         settingsWindow.ShowDialog();
 
-        // Reload current tab using Tag instead of Header
+        // Reload current tab
         if (TabControl.SelectedItem is TabItem selectedTab)
         {
             var tag = selectedTab.Tag?.ToString();
@@ -147,336 +222,6 @@ public partial class RetroAchievementsWindow : ILoadingState
                     _ = LoadUserProgressAsync();
                     break;
             }
-        }
-    }
-
-    private async Task LoadUserProfileAsync()
-    {
-        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingUserProfile") ?? "Fetching user profile...");
-        SetLoadingState(true);
-
-        NoProfileOverlay.Visibility = Visibility.Collapsed; // Hide overlay initially
-        UserProfileRecentlyPlayed.ItemsSource = null; // Clear previous data
-
-        if (string.IsNullOrWhiteSpace(_settings.RaUsername) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
-        {
-            NoProfileOverlay.Visibility = Visibility.Visible;
-            NoProfileMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorCredentialsNotSetShort") ?? "RetroAchievements username or API key is not set.";
-            NoProfileSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoConfigureCredentials") ?? "Please configure your credentials in the RetroAchievements settings.";
-            SetLoadingState(false);
-            return;
-        }
-
-        try
-        {
-            // Fetch main user profile
-            DebugLogger.Log($"[RA Window] Fetching user profile for {_settings.RaUsername}...");
-            var userProfile = await _raService.GetUserProfileAsync(_settings.RaUsername, _settings.RaApiKey);
-
-            if (userProfile == null)
-            {
-                DebugLogger.Log($"[RA Window] GetUserProfileAsync returned null for user {_settings.RaUsername}");
-            }
-
-            // Fetch detailed recently played games separately (max 50 games)
-            DebugLogger.Log($"[RA Window] Fetching recently played games for {_settings.RaUsername}...");
-            var recentlyPlayedGames = await _raService.GetUserRecentlyPlayedGamesAsync(_settings.RaUsername, _settings.RaApiKey, 50);
-
-            if (recentlyPlayedGames == null)
-            {
-                DebugLogger.Log($"[RA Window] GetUserRecentlyPlayedGamesAsync returned null for user {_settings.RaUsername}");
-            }
-
-            if (userProfile != null)
-            {
-                // Basic profile info
-                if (!string.IsNullOrEmpty(userProfile.UserPic))
-                {
-                    UserProfilePic.Source = new BitmapImage(new Uri($"https://retroachievements.org{userProfile.UserPic}"));
-                }
-                else
-                {
-                    UserProfilePic.Source = null; // Clear image if not available
-                }
-
-                UserProfileUser.Text = userProfile.User;
-                UserProfileMotto.Text = string.IsNullOrWhiteSpace(userProfile.Motto) ? (string)Application.Current.TryFindResource("RaInfoNoMotto") ?? "No motto set" : userProfile.Motto;
-
-                // Current activity
-                UserProfileRichPresence.Text = string.IsNullOrWhiteSpace(userProfile.RichPresenceMsg)
-                    ? (string)Application.Current.TryFindResource("RaInfoNotCurrentlyPlaying") ?? "Not currently playing"
-                    : userProfile.RichPresenceMsg;
-
-                // Statistics
-                var rankFormat = (string)Application.Current.TryFindResource("RaInfoRankFormat") ?? "#{0}";
-                RankValue.Text = string.IsNullOrWhiteSpace(userProfile.Rank) ? (string)Application.Current.TryFindResource("RaStatusNotApplicable") ?? "N/A" : string.Format(CultureInfo.InvariantCulture, rankFormat, userProfile.Rank);
-                PointsValue.Text = userProfile.TotalPoints.ToString("N0", CultureInfo.InvariantCulture);
-                TruePointsValue.Text = userProfile.TotalTruePoints.ToString("N0", CultureInfo.InvariantCulture);
-
-                // Format MemberSince date
-                if (DateTime.TryParse(userProfile.MemberSince, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var memberSinceDate))
-                {
-                    UserProfileMemberSince.Text = memberSinceDate.ToLocalTime().ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
-                }
-                else
-                {
-                    UserProfileMemberSince.Text = string.IsNullOrWhiteSpace(userProfile.MemberSince) ? (string)Application.Current.TryFindResource("RaStatusUnknown") ?? "Unknown" : userProfile.MemberSince;
-                }
-
-                // Additional details
-                UserProfileId.Text = userProfile.Id.ToString(CultureInfo.InvariantCulture);
-                var contributionsFormat = (string)Application.Current.TryFindResource("RaInfoContributionsFormat") ?? "{0} contributions ({1:N0} points)";
-                UserProfileContributions.Text = string.Format(CultureInfo.InvariantCulture, contributionsFormat, userProfile.ContribCount, userProfile.ContribYield);
-                UserProfileSoftcorePoints.Text = userProfile.TotalSoftcorePoints.ToString("N0", CultureInfo.InvariantCulture);
-                UserProfilePermissions.Text = GetPermissionDescription(userProfile.Permissions);
-                UserProfileStatus.Text = userProfile.Untracked == 1 ? (string)Application.Current.TryFindResource("RaStatusUntracked") ?? "Untracked" : (string)Application.Current.TryFindResource("RaStatusTracked") ?? "Tracked";
-                UserProfileProfileId.Text = string.IsNullOrWhiteSpace(userProfile.Uuid) ? (string)Application.Current.TryFindResource("RaStatusNotApplicable") ?? "N/A" : userProfile.Uuid;
-                UserProfileWallActive.Text = userProfile.UserWallActive ? (string)Application.Current.TryFindResource("RaGenericYes") ?? "Yes" : (string)Application.Current.TryFindResource("RaGenericNo") ?? "No";
-
-                switch (recentlyPlayedGames)
-                {
-                    // Recently played - use the detailed list from GetUserRecentlyPlayedGamesAsync
-                    case { Count: > 0 }:
-                        // Ensure full URLs are used (handled in model)
-                        UserProfileRecentlyPlayed.ItemsSource = recentlyPlayedGames;
-                        break;
-                    case null:
-                        // If recentlyPlayedGames is null, it indicates an API failure for this specific call
-                        DebugLogger.Log($"[RA Window] Failed to load recently played games for user {_settings.RaUsername}. API returned null.");
-                        UserProfileRecentlyPlayed.ItemsSource = null; // Ensure it's cleared
-                        // Optionally, add a message to the ListBox itself or a small text below it.
-                        // For now, just clear it and log.
-                        break;
-                    // recentlyPlayedGames is not null but empty
-                    default:
-                        UserProfileRecentlyPlayed.ItemsSource = null; // No recently played games
-                        break;
-                }
-
-                NoProfileOverlay.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                // If userProfile is null, something went wrong with the main profile fetch
-                NoProfileOverlay.Visibility = Visibility.Visible;
-                // Update messages for general API failure
-                NoProfileMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorFailedToLoadUserProfile") ?? "Failed to load user profile.";
-                NoProfileSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoCheckCredentials") ?? "Please check your RetroAchievements credentials or try again later.";
-            }
-        }
-        catch (RaUnauthorizedException)
-        {
-            NoProfileOverlay.Visibility = Visibility.Visible;
-            NoProfileMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorUnauthorized") ?? "RetroAchievements credentials invalid. Please check your username and API key in settings.";
-            NoProfileSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoConfigureCredentials") ?? "Please configure your credentials in the RetroAchievements settings.";
-        }
-        catch (Exception ex)
-        {
-            NoProfileOverlay.Visibility = Visibility.Visible;
-            // Update messages for exception
-            NoProfileMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUserProfile") ?? "An error occurred while loading user profile.";
-            NoProfileSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoCheckConnection") ?? "Please try again or check your internet connection.";
-            _logErrors.LogAndForget(ex, $"Failed to load user profile for {_settings.RaUsername}");
-        }
-        finally
-        {
-            SetLoadingState(false);
-        }
-    }
-
-    private async Task LoadUnlocksByDateAsync()
-    {
-        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingEarnedAchievementsByDate") ?? "Fetching earned achievements by date...");
-        SetLoadingState(true);
-
-        FetchUnlocksButton.IsEnabled = false; // Disable button during fetch
-        NoUnlocksOverlay.Visibility = Visibility.Collapsed; // Hide overlay initially
-        UnlocksDataGrid.ItemsSource = null; // Clear previous data
-        TotalUnlocksInRangeText.Text = "0";
-        TotalPointsEarnedInRangeText.Text = "0";
-
-        if (string.IsNullOrWhiteSpace(_settings.RaUsername) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
-        {
-            // Display specific message for missing credentials
-            NoUnlocksOverlay.Visibility = Visibility.Visible;
-            NoUnlocksMessage.Text = (string)Application.Current.TryFindResource("RaErrorCredentialsNotSet") ?? "RetroAchievements username or API key is not set. Configure in settings.";
-            SetLoadingState(false);
-            FetchUnlocksButton.IsEnabled = true; // Re-enable button
-            return;
-        }
-
-        // Set default dates if not already set
-        if (FromDatePicker.SelectedDate == null)
-        {
-            FromDatePicker.SelectedDate = DateTime.Today.AddMonths(-1); // Default to last month
-        }
-
-        if (ToDatePicker.SelectedDate == null)
-        {
-            ToDatePicker.SelectedDate = DateTime.Today; // Default to today
-        }
-
-        var fromDate = FromDatePicker.SelectedDate ?? DateTime.Today.AddMonths(-1);
-        var toDate = ToDatePicker.SelectedDate ?? DateTime.Today;
-
-        try
-        {
-            DebugLogger.Log($"[RA Window] Fetching unlocks for {_settings.RaUsername} from {fromDate:yyyy-MM-dd} to {toDate:yyyy-MM-dd}...");
-            var unlocks = await _raService.GetAchievementsEarnedBetweenAsync(_settings.RaUsername, _settings.RaApiKey, fromDate, toDate);
-
-            DebugLogger.Log($"[RA Window] GetAchievementsEarnedBetweenAsync returned {unlocks?.Count ?? 0} unlocks.");
-
-            if (unlocks is { Count: > 0 })
-            {
-                UnlocksDataGrid.ItemsSource = unlocks;
-                TotalUnlocksInRangeText.Text = unlocks.Count.ToString("N0", CultureInfo.InvariantCulture);
-                TotalPointsEarnedInRangeText.Text = unlocks.Sum(static a => a.Points).ToString("N0", CultureInfo.InvariantCulture);
-                NoUnlocksOverlay.Visibility = Visibility.Collapsed; // Hide overlay if data is present
-            }
-            else
-            {
-                UnlocksDataGrid.ItemsSource = null;
-                TotalUnlocksInRangeText.Text = "0";
-                TotalPointsEarnedInRangeText.Text = "0";
-                NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay if no data
-                // If unlocks is null, it indicates an API failure (since credentials were provided)
-                NoUnlocksMessage.Text = unlocks == null
-                    ? (string)Application.Current.TryFindResource("RaErrorFailedToLoadUnlocks") ?? "Failed to load unlocks. Please check your RetroAchievements credentials or try again later."
-                    : (string)Application.Current.TryFindResource("RaInfoNoUnlocksFound") ?? "No unlocks found for the selected date range.";
-            }
-        }
-        catch (RaUnauthorizedException)
-        {
-            NoUnlocksOverlay.Visibility = Visibility.Visible;
-            NoUnlocksMessage.Text = (string)Application.Current.TryFindResource("RaErrorUnauthorized") ?? "RetroAchievements credentials invalid. Please check your username and API key in settings.";
-        }
-        catch (Exception ex)
-        {
-            UnlocksDataGrid.ItemsSource = null;
-            TotalUnlocksInRangeText.Text = "0";
-            TotalPointsEarnedInRangeText.Text = "0";
-            NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay on error
-            NoUnlocksMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUnlocks") ?? "An error occurred while loading unlocks. Please try again.";
-            _logErrors.LogAndForget(ex, $"Failed to load unlocks by date for user {_settings.RaUsername}");
-            DebugLogger.Log($"[RA Window] Failed to load unlocks by date for user {_settings.RaUsername}: {ex.Message}");
-        }
-        finally
-        {
-            SetLoadingState(false);
-            FetchUnlocksButton.IsEnabled = true; // Re-enable button
-        }
-    }
-
-    private async void FetchUnlocksClickAsync(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            // Validate dates before fetching
-            var fromDate = FromDatePicker.SelectedDate ?? DateTime.Today.AddMonths(-1);
-            var toDate = ToDatePicker.SelectedDate ?? DateTime.Today;
-
-            if (fromDate > toDate)
-            {
-                await _messageBox.ErrorMessageBox(); // This message box is already on UI thread.
-                return; // Exit without fetching
-            }
-
-            // Proceed with loading
-            await LoadUnlocksByDateAsync();
-        }
-        catch (Exception ex)
-        {
-            _logErrors.LogAndForget(ex, "Failed to fetch unlocks by date");
-            DebugLogger.Log($"[RA Window] Failed to fetch unlocks by date for user {_settings.RaUsername}: {ex.Message}");
-        }
-    }
-
-    private async void ResetDatesClickAsync(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            FromDatePicker.SelectedDate = DateTime.Today.AddMonths(-1);
-            ToDatePicker.SelectedDate = DateTime.Today;
-            // Optionally clear the grid and summary to reflect reset
-            UnlocksDataGrid.ItemsSource = null;
-            TotalUnlocksInRangeText.Text = "0";
-            TotalPointsEarnedInRangeText.Text = "0";
-            NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay when cleared
-            NoUnlocksMessage.Text = (string)Application.Current.TryFindResource("RaInfoNoUnlocksFound") ?? "No unlocks found for the selected date range."; // Reset message
-
-            // Notify user
-            (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ResettingDatesAndFetchingUnlocks") ?? "Resetting dates and fetching unlocks...");
-
-            await LoadUnlocksByDateAsync(); // Automatically fetch for the new date range
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            _logErrors.LogAndForget(ex, "Failed to reset date range");
-            DebugLogger.Log($"[RA Window] Failed to reset date range for user {_settings.RaUsername}: {ex.Message}");
-        }
-    }
-
-    private async Task LoadUserProgressAsync()
-    {
-        (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FetchingUserCompletionProgress") ?? "Fetching user completion progress...");
-        SetLoadingState(true);
-
-        NoUserProgressOverlay.Visibility = Visibility.Collapsed;
-        UserProgressDataGrid.ItemsSource = null; // Clear previous data
-
-        if (string.IsNullOrWhiteSpace(_settings.RaUsername) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
-        {
-            NoUserProgressOverlay.Visibility = Visibility.Visible;
-            NoUserProgressMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorCredentialsNotSetShort") ?? "RetroAchievements username or API key is not set.";
-            NoUserProgressSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoConfigureCredentials") ?? "Please configure your credentials in the RetroAchievements settings.";
-            SetLoadingState(false);
-            return;
-        }
-
-        try
-        {
-            var userProgressList = await _raService.GetUserCompletionProgressAsync(_settings.RaUsername, _settings.RaApiKey);
-
-            if (userProgressList is { Count: > 0 })
-            {
-                UserProgressDataGrid.ItemsSource = userProgressList;
-                NoUserProgressOverlay.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                UserProgressDataGrid.ItemsSource = null;
-                NoUserProgressOverlay.Visibility = Visibility.Visible;
-                // If userProgressList is null, it indicates an API failure (since credentials were provided)
-                if (userProgressList == null)
-                {
-                    NoUserProgressMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorFailedToLoadUserProgress") ?? "Failed to load user completion progress.";
-                    NoUserProgressSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoCheckCredentials") ?? "Please check your RetroAchievements credentials or try again later.";
-                }
-                else // userProgressList is not null but empty
-                {
-                    NoUserProgressMainMessage.Text = (string)Application.Current.TryFindResource("RaInfoNoUserProgressFound") ?? "No user completion progress found.";
-                    NoUserProgressSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoNoUserProgressSubMessage") ?? "This could be because you haven't played any games yet.";
-                }
-            }
-        }
-        catch (RaUnauthorizedException)
-        {
-            NoUserProgressOverlay.Visibility = Visibility.Visible;
-            NoUserProgressMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorUnauthorized") ?? "RetroAchievements credentials invalid. Please check your username and API key in settings.";
-            NoUserProgressSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoConfigureCredentials") ?? "Please configure your credentials in the RetroAchievements settings.";
-        }
-        catch (Exception ex)
-        {
-            NoUserProgressOverlay.Visibility = Visibility.Visible;
-            NoUserProgressMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUserProgress") ?? "An error occurred while loading user completion progress.";
-            NoUserProgressSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoCheckConnection") ?? "Please try again or check your internet connection.";
-            _logErrors.LogAndForget(ex, $"Failed to load user completion progress for user {_settings.RaUsername}");
-            DebugLogger.Log($"[RA Window] Failed to load user completion progress for user {_settings.RaUsername}: {ex.Message}");
-        }
-        finally
-        {
-            SetLoadingState(false);
         }
     }
 

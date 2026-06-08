@@ -1,5 +1,4 @@
 using System.Globalization;
-using System.IO;
 using System.Text;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 
@@ -13,6 +12,7 @@ public static class AzaharConfigurationService
     /// <param name="emulatorPath">Path to the Azahar executable.</param>
     /// <param name="settings">The settings manager containing Azahar configuration.</param>
     /// <param name="logErrors"></param>
+    /// <param name="debugLogger"></param>
     /// <returns>True if injection was successful, false if it failed due to permissions but the game can still launch.</returns>
     /// <exception cref="InvalidOperationException">Thrown when emulator directory is not found.</exception>
     /// <exception cref="FileNotFoundException">Thrown when config file and sample are both missing.</exception>

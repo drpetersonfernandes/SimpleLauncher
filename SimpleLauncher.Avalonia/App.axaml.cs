@@ -41,7 +41,7 @@ public class App : Application
         // Configuration
         var configuration = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddJsonFile("appsettings.json", true, true)
             .Build();
         services.AddSingleton<IConfiguration>(configuration);
 

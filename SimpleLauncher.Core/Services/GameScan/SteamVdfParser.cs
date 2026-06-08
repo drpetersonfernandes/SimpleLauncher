@@ -1,4 +1,3 @@
-using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
@@ -110,7 +109,7 @@ public static partial class SteamVdfParser
         // character (like \D in a path), we treat the backslash as a literal.
         return value
             .Replace("\\\"", "\"")
-            .Replace("\\\\", "\\")
+            .Replace(@"\\", "\\")
             .Replace("\\n", "\n")
             .Replace("\\t", "\t");
     }

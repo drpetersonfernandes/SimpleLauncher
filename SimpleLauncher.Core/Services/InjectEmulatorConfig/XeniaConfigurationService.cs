@@ -1,4 +1,3 @@
-using System.IO;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using Tomlyn;
 using Tomlyn.Model;

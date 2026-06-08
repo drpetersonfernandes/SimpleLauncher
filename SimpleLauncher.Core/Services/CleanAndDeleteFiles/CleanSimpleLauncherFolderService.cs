@@ -234,7 +234,7 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
         }
     }
 
-    private void CleanupArchitectureSpecificFolders()
+    private static void CleanupArchitectureSpecificFolders()
     {
         var currentArchitecture = RuntimeInformation.OSArchitecture;
 

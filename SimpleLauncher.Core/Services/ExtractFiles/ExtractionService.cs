@@ -1,7 +1,6 @@
 #nullable enable
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
@@ -9,7 +8,6 @@ using SharpCompress.Archives;
 using FileLock = SimpleLauncher.Core.Services.CheckForFileLock.CheckForFileLock;
 using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.ExtractFiles;
 using SimpleLauncher.Core.Interfaces;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 

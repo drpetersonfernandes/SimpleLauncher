@@ -23,8 +23,13 @@ public class RetroAchievementsManagerTests : IDisposable
 
     private sealed class NoOpDebugLogger : IDebugLogger
     {
-        public void Log(string message) { }
-        public void LogException(Exception ex, string contextMessage = null) { }
+        public void Log(string message)
+        {
+        }
+
+        public void LogException(Exception ex, string? contextMessage = null)
+        {
+        }
     }
 
     public RetroAchievementsManagerTests()

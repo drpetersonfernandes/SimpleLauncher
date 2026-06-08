@@ -1,5 +1,3 @@
-using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -20,36 +17,34 @@ using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.ViewModels;
 using SimpleLauncher.WpfServices;
 using SimpleLauncher.Core.Services.SettingsManager;
 using ILoadingState = SimpleLauncher.Core.Services.LoadingInterface.ILoadingState;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
 
-namespace SimpleLauncher.Pages;
+#nullable enable
 
-using ILoadingState = ILoadingState;
+namespace SimpleLauncher.Pages;
 
 public partial class PlayHistoryPage : ILoadingState
 {
-    private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors;
-    private CancellationTokenSource _cancellationTokenSource;
-    private const string TimeFormat = "HH:mm:ss";
-    private static readonly CultureInfo InvariantCulture = CultureInfo.InvariantCulture;
-    private readonly PlayHistoryManager _playHistoryManager;
-    private ObservableCollection<PlayHistoryItem> _playHistoryList;
-    private readonly SettingsManager _settings;
-    private readonly List<SystemManager> _systemManagers;
-    private readonly List<MameManager> _machines;
+    private readonly PlayHistoryViewModel _viewModel;
     private readonly MainWindow _mainWindow;
-    private readonly FavoritesManager _favoritesManager;
     private readonly GamePadController _gamePadController;
     private readonly GameLauncher _gameLauncher;
-    private readonly PlaySoundEffects _playSoundEffects;
-    private readonly IFindCoverImage _findCoverImage;
-    private readonly IImageLoader _imageLoader;
+    private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IFindCoverImage _findCoverImage;
+    private readonly List<MameManager> _machines;
+    private readonly FavoritesManager _favoritesManager;
+    private readonly SettingsManager _settings;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly IConfiguration _configuration;
+    private readonly PlayHistoryManager _playHistoryManager;
+    private CancellationTokenSource _cancellationTokenSource;
 
     public PlayHistoryPage(List<SystemManager> systemManagers,
         List<MameManager> machines,
@@ -67,29 +62,40 @@ public partial class PlayHistoryPage : ILoadingState
     {
         InitializeComponent();
 
-        _systemManagers = systemManagers;
-        _machines = machines;
-        _settings = settings;
-        _favoritesManager = favoritesManager;
-        _playHistoryManager = playHistoryManager;
-        _mainWindow = mainWindow;
-        _gamePadController = gamePadController;
-        _gameLauncher = gameLauncher;
-        _playSoundEffects = playSoundEffects;
+        _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
+        _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
+        _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
+        _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
         _configuration = configuration;
         _logErrors = logErrors;
-        _findCoverImage = findCoverImage;
-        _imageLoader = imageLoader;
+        _findCoverImage = findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
+        _machines = machines ?? throw new ArgumentNullException(nameof(machines));
+        _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
+        _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+        _playHistoryManager = playHistoryManager ?? throw new ArgumentNullException(nameof(playHistoryManager));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
-        Loaded += PlayHistoryPageLoadedAsync;
+        _viewModel = new PlayHistoryViewModel(
+            configuration,
+            logErrors,
+            playHistoryManager,
+            settings,
+            systemManagers,
+            machines,
+            playSoundEffects,
+            findCoverImage,
+            imageLoader,
+            _messageBox,
+            App.ServiceProvider.GetRequiredService<IResourceProvider>());
 
+        DataContext = _viewModel;
+
+        Loaded += PlayHistoryPageLoadedAsync;
         Unloaded += PlayHistoryPage_Unloaded;
     }
 
     private void PlayHistoryPage_Unloaded(object sender, RoutedEventArgs e)
     {
-        // Cancel any pending background tasks
         _cancellationTokenSource?.Cancel();
         _cancellationTokenSource?.Dispose();
         _cancellationTokenSource = null;
@@ -106,147 +112,14 @@ public partial class PlayHistoryPage : ILoadingState
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;
             }
 
-            SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingHistory") ?? "Loading history...");
-            await Task.Yield(); // Allow the UI to render the loading overlay
+            await _viewModel.LoadHistoryAsync();
 
-            try
-            {
-                // Step 1: Load and process all history data in a background thread
-                var processedHistory = await LoadAndProcessHistoryAsync();
-
-                // Step 2: Populate the UI collection on the UI thread
-                _playHistoryList = new ObservableCollection<PlayHistoryItem>(processedHistory);
-
-                // Step 3: Sort the data now that it's in the collection and bind to DataGrid
-                SortByDate();
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                _logErrors.LogAndForget(ex, "Error loading play history data in PlayHistoryPageLoadedAsync.");
-
-                // Notify user
-                await _messageBox.ErrorLoadingRomHistoryMessageBox();
-            }
-            finally
-            {
-                SetLoadingState(false);
-            }
+            // Bind to DataGrid
+            PlayHistoryDataGrid.ItemsSource = _viewModel.PlayHistoryList;
         }
         catch (Exception ex)
         {
-            // Notify developer
             _logErrors.LogAndForget(ex, "Error in the PlayHistoryPageLoadedAsync method.");
-        }
-    }
-
-    private Task<List<PlayHistoryItem>> LoadAndProcessHistoryAsync()
-    {
-        return Task.Run(() =>
-        {
-            var processedList = new List<PlayHistoryItem>();
-            foreach (var historyItemConfig in _playHistoryManager.PlayHistoryList)
-            {
-                var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
-                var machineDescription = machine?.Description ?? string.Empty;
-                var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
-                var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? (string)Application.Current.TryFindResource("UnknownString") ?? "Unknown";
-                var coverImagePath = GetCoverImagePath(historyItemConfig.SystemName, historyItemConfig.FileName);
-
-                var playHistoryItem = new PlayHistoryItem
-                {
-                    FileName = historyItemConfig.FileName,
-                    SystemName = historyItemConfig.SystemName,
-                    TotalPlayTime = historyItemConfig.TotalPlayTime,
-                    TimesPlayed = historyItemConfig.TimesPlayed,
-                    LastPlayDate = historyItemConfig.LastPlayDate,
-                    LastPlayTime = historyItemConfig.LastPlayTime,
-                    MachineDescription = machineDescription,
-                    DefaultEmulator = defaultEmulator,
-                    CoverImage = coverImagePath
-                };
-                processedList.Add(playHistoryItem);
-            }
-
-            return processedList;
-        });
-    }
-
-    private void SortByDate()
-    {
-        var sorted = new ObservableCollection<PlayHistoryItem>(
-            _playHistoryList.OrderByDescending(item =>
-                TryParseDateTime(item.LastPlayDate, item.LastPlayTime))
-        );
-        _playHistoryList = sorted;
-        PlayHistoryDataGrid.ItemsSource = _playHistoryList;
-    }
-
-    private DateTime TryParseDateTime(string dateStr, string timeStr)
-    {
-        try
-        {
-            // Try ISO 8601 format first (culture-invariant, unambiguous: yyyy-MM-dd HH:mm:ss)
-            if (DateTime.TryParseExact($"{dateStr} {timeStr}", "yyyy-MM-dd HH:mm:ss",
-                    InvariantCulture, DateTimeStyles.None, out var result))
-            {
-                return result;
-            }
-
-            // Try explicit unambiguous formats using InvariantCulture only.
-            // We avoid current culture parsing to prevent incorrect interpretation
-            // when users switch OS region settings (e.g., US vs UK date formats).
-            string[] dateFormats =
-            [
-                "yyyy/MM/dd", "yyyy.MM.dd", "dd.MM.yyyy",
-                "MM/dd/yyyy", "dd/MM/yyyy", "dd-MM-yyyy",
-                "d", "D"
-            ];
-            foreach (var df in dateFormats)
-            {
-                if (!DateTime.TryParseExact($"{dateStr} {timeStr}",
-                        $"{df} {TimeFormat}", InvariantCulture, DateTimeStyles.None, out result)) continue;
-
-                return result;
-            }
-
-            // Fallback: Try with InvariantCulture (assumes US format for ambiguous dates)
-            if (DateTime.TryParse($"{dateStr} {timeStr}", InvariantCulture, DateTimeStyles.None, out result))
-            {
-                return result;
-            }
-
-            // If all parsing attempts fail, return DateTime.MinValue
-            // This will put unparseable dates at the end of the sorted list
-            return DateTime.MinValue;
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            _logErrors.LogAndForget(ex, "Error parsing date and time.\n" +
-                                        $"dateStr: {dateStr}\n" +
-                                        $"timeStr: {timeStr}");
-
-            // In case of any exception, return a reasonable default
-            return DateTime.MinValue;
-        }
-    }
-
-    private string GetCoverImagePath(string systemName, string fileName)
-    {
-        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-        var defaultCoverImagePath = Path.Combine(baseDirectory, "images", "default.png");
-
-        if (systemManager == null)
-        {
-            return defaultCoverImagePath;
-        }
-        else
-        {
-            // Use FindCoverImage which already handles system-specific paths and fuzzy matching
-            return _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager, _settings);
         }
     }
 
@@ -254,55 +127,35 @@ public partial class PlayHistoryPage : ILoadingState
     {
         try
         {
-            // Check if click was on an actual row with data
             var clickedElement = e.OriginalSource as FrameworkElement;
             if (clickedElement?.DataContext is not PlayHistoryItem selectedItem)
             {
-                // Click was on empty space or header, don't show context menu
                 PlayHistoryDataGrid.ContextMenu = null;
                 return;
             }
 
             if (selectedItem.FileName == null)
             {
-                // Notify developer
-                const string contextMessage = "History item filename is null";
-                _logErrors.LogAndForget(null, contextMessage);
-
-                // Notify user
+                _logErrors.LogAndForget(null, "History item filename is null");
                 await _messageBox.RightClickContextMenuErrorMessageBox();
-
                 return;
             }
 
-            var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
+            var systemManager = _viewModel.GetSystemManager(selectedItem.SystemName);
             if (systemManager == null)
             {
-                // Notify developer
-                const string contextMessage = "systemManager is null";
-                _logErrors.LogAndForget(null, contextMessage);
-
-                // Notify user
+                _logErrors.LogAndForget(null, "systemManager is null");
                 await _messageBox.RightClickContextMenuErrorMessageBox();
-
                 return;
             }
 
             if (!File.Exists(selectedItem.FileName))
             {
-                // Show message box asking user if they want to delete the entry
                 var result = await _messageBox.GameFileDoesNotExistAskToDeleteMessageBox(selectedItem.FileName);
                 if (result == CoreMessageBoxResult.Yes)
                 {
-                    var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName.Equals(selectedItem.FileName, StringComparison.OrdinalIgnoreCase) && item.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
-                    if (itemToRemove != null)
-                    {
-                        _playHistoryList.Remove(itemToRemove);
-                        _playHistoryManager.PlayHistoryList = _playHistoryList;
-                        _ = _playHistoryManager.SavePlayHistoryAsync();
-
-                        DebugLogger.Log("The entry " + itemToRemove + " was removed from the history by user request.");
-                    }
+                    _viewModel.RemoveItem(selectedItem);
+                    DebugLogger.Log($"The entry {selectedItem} was removed from the history by user request.");
                 }
 
                 return;
@@ -311,13 +164,9 @@ public partial class PlayHistoryPage : ILoadingState
             var emulatorManager = systemManager.Emulators.FirstOrDefault();
             if (emulatorManager == null)
             {
-                // Notify developer
-                const string contextMessage = "emulatorManager is null.";
-                _logErrors.LogAndForget(null, contextMessage);
-
-                // Notify user
-                await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
-
+                _logErrors.LogAndForget(null, "emulatorManager is null.");
+                await _messageBox.CouldNotLaunchThisGameMessageBox(
+                    PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
             }
 
@@ -352,136 +201,69 @@ public partial class PlayHistoryPage : ILoadingState
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string contextMessage = "There was an error in the method PlayHistoryPrepareForRightClickContext.";
-            _logErrors.LogAndForget(ex, contextMessage);
-
-            // Notify user
+            _logErrors.LogAndForget(ex, "There was an error in the method PlayHistoryPrepareForRightClickContext.");
             await _messageBox.RightClickContextMenuErrorMessageBox();
         }
     }
 
-    private async Task LaunchGameFromHistoryAsync(string fileName, string selectedSystemName, ILoadingState loadingStateProvider)
+    private async Task LaunchGameFromHistoryAsync(string fileName, string selectedSystemName)
     {
-        var selectedSystemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+        var selectedSystemManager = _viewModel.GetSystemManager(selectedSystemName);
         if (selectedSystemManager == null)
         {
-            // Notify developer
-            const string contextMessage = "[LaunchGameFromHistoryAsync] systemManager is null.";
-            _logErrors.LogAndForget(null, contextMessage);
-
-            // Notify user
-            await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
-
+            _logErrors.LogAndForget(null, "[LaunchGameFromHistoryAsync] systemManager is null.");
+            await _messageBox.CouldNotLaunchThisGameMessageBox(
+                PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
             return;
         }
 
         if (!File.Exists(fileName))
         {
-            // Ask user if they want to delete the entry from history
             var result = await _messageBox.GameFileDoesNotExistAskToDeleteMessageBox(fileName);
             if (result == CoreMessageBoxResult.Yes)
             {
-                var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase) && item.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+                var itemToRemove = _viewModel.PlayHistoryList.FirstOrDefault(
+                    item => item.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
+                            && item.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
                 if (itemToRemove != null)
                 {
-                    _playHistoryList.Remove(itemToRemove);
-                    _playHistoryManager.PlayHistoryList = _playHistoryList;
-                    await _playHistoryManager.SavePlayHistoryAsync();
+                    _viewModel.RemoveItem(itemToRemove);
                 }
             }
-
             return;
         }
 
         var emulatorManager = selectedSystemManager.Emulators.FirstOrDefault();
         if (emulatorManager == null)
         {
-            // Notify developer
-            const string contextMessage = "[LaunchGameFromHistoryAsync] emulatorManager is null.";
-            _logErrors.LogAndForget(null, contextMessage);
-
-            // Notify user
-            await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
-
+            _logErrors.LogAndForget(null, "[LaunchGameFromHistoryAsync] emulatorManager is null.");
+            await _messageBox.CouldNotLaunchThisGameMessageBox(
+                PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
             return;
         }
 
+        // Store current selection for restore after refresh
+        var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selected
+            ? (selected.FileName, selected.SystemName)
+            : (FileName: (string?)null, SystemName: (string?)null);
+
         var selectedEmulatorName = emulatorManager.EmulatorName;
+        await _gameLauncher.HandleButtonClickAsync(fileName, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController, this);
 
-        // Store currently selected item's identifier to restore selection after refresh
-        // Use a non-nullable tuple with nullable elements
-        var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
-            ? (selectedItem.FileName, selectedItem.SystemName)
-            : (FileName: null, SystemName: null); // Use null elements if nothing is selected
+        // Refresh data and restore selection
+        _viewModel.RefreshAfterGameLaunch();
+        PlayHistoryDataGrid.ItemsSource = _viewModel.PlayHistoryList;
 
-        await _gameLauncher.HandleButtonClickAsync(fileName, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController, loadingStateProvider);
-
-        RefreshPlayHistoryData(selectedItemIdentifier); // Restore selection after refresh
-    }
-
-    private void RefreshPlayHistoryData((string FileName, string SystemName) previousSelectedItemIdentifier = default)
-    {
-        try
+        if (selectedItemIdentifier.FileName != null && selectedItemIdentifier.SystemName != null)
         {
-            if (_playHistoryManager == null)
+            var updatedItem = _viewModel.PlayHistoryList.FirstOrDefault(item =>
+                item.FileName.Equals(selectedItemIdentifier.FileName, StringComparison.OrdinalIgnoreCase) &&
+                item.SystemName.Equals(selectedItemIdentifier.SystemName, StringComparison.OrdinalIgnoreCase));
+            if (updatedItem != null)
             {
-                DebugLogger.Log("PlayHistoryManager is null in RefreshPlayHistoryData");
-                return;
+                PlayHistoryDataGrid.SelectedItem = updatedItem;
+                PlayHistoryDataGrid.ScrollIntoView(updatedItem);
             }
-
-            var newPlayHistoryList = new ObservableCollection<PlayHistoryItem>();
-
-            foreach (var historyItemConfig in _playHistoryManager.PlayHistoryList)
-            {
-                var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
-                var machineDescription = machine?.Description ?? string.Empty;
-                var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
-                var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? (string)Application.Current.TryFindResource("UnknownString") ?? "Unknown";
-                var coverImagePath = GetCoverImagePath(historyItemConfig.SystemName, historyItemConfig.FileName);
-
-                var playHistoryItem = new PlayHistoryItem
-                {
-                    FileName = historyItemConfig.FileName,
-                    SystemName = historyItemConfig.SystemName,
-                    TotalPlayTime = historyItemConfig.TotalPlayTime,
-                    TimesPlayed = historyItemConfig.TimesPlayed,
-                    LastPlayDate = historyItemConfig.LastPlayDate,
-                    LastPlayTime = historyItemConfig.LastPlayTime,
-                    MachineDescription = machineDescription,
-                    DefaultEmulator = defaultEmulator,
-                    CoverImage = coverImagePath
-                };
-                newPlayHistoryList.Add(playHistoryItem);
-            }
-
-            _playHistoryList = newPlayHistoryList;
-
-            SortByDate();
-
-            if (previousSelectedItemIdentifier.FileName == null || previousSelectedItemIdentifier.SystemName == null)
-            {
-                return;
-            }
-
-            var (prevFileName, prevSystemName) = previousSelectedItemIdentifier;
-            var updatedItem = _playHistoryList.FirstOrDefault(item =>
-                item.FileName.Equals(prevFileName, StringComparison.OrdinalIgnoreCase) &&
-                item.SystemName.Equals(prevSystemName, StringComparison.OrdinalIgnoreCase));
-
-            if (updatedItem == null)
-            {
-                return;
-            }
-
-            PlayHistoryDataGrid.SelectedItem = updatedItem;
-            PlayHistoryDataGrid.ScrollIntoView(updatedItem);
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "Error refreshing play history data.";
-            _logErrors.LogAndForget(ex, contextMessage);
         }
     }
 
@@ -489,51 +271,39 @@ public partial class PlayHistoryPage : ILoadingState
     {
         try
         {
-            if (PlayHistoryDataGrid.SelectedItem is not PlayHistoryItem selectedItem)
-            {
-                return;
-            }
+            if (PlayHistoryDataGrid.SelectedItem is not PlayHistoryItem selectedItem) return;
 
             _playSoundEffects.PlayNotificationSound();
-            await LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName, this);
+            await LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName);
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string contextMessage = "Error in the method MouseDoubleClick.";
-            _logErrors.LogAndForget(ex, contextMessage);
-
-            // Notify user
-            await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            _logErrors.LogAndForget(ex, "Error in the method MouseDoubleClick.");
+            await _messageBox.CouldNotLaunchThisGameMessageBox(
+                PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 
-    private async void SetPreviewImageOnSelectionChangedAsync(object sender, SelectionChangedEventArgs e) // Changed to async void
+    private async void SetPreviewImageOnSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
     {
         try
         {
             if (PlayHistoryDataGrid.SelectedItem is not PlayHistoryItem selectedItem)
             {
-                PreviewImage.Source = null; // Clear preview if nothing is selected
+                PreviewImage.Source = null;
                 return;
             }
 
-            var imagePath = selectedItem.CoverImage;
-            var (imageStream, _) = await _imageLoader.LoadImageAsync(imagePath); // <--- Changed to await
+            await _viewModel.UpdatePreviewImageAsync(selectedItem.CoverImage);
 
-            // Race condition check: Only assign if the selected item hasn't changed
             if (PlayHistoryDataGrid.SelectedItem == selectedItem)
             {
-                PreviewImage.Source = imageStream.ToBitmapImage();
+                PreviewImage.Source = _viewModel.PreviewImageSource?.ToBitmapImage();
             }
         }
         catch (Exception ex)
         {
-            // This catch block handles exceptions *not* caught by ImageLoader.LoadImageAsync
-            // (which should be rare, as ImageLoader catches most file/loading issues).
-            PreviewImage.Source = null; // Ensure image is cleared on error
-
-            // Notify developer
+            PreviewImage.Source = null;
             _logErrors.LogAndForget(ex, "Error in the SetPreviewImageOnSelectionChangedAsync method.");
         }
     }
@@ -546,20 +316,12 @@ public partial class PlayHistoryPage : ILoadingState
             {
                 case Key.Delete:
                 {
-                    // Get all selected items
                     var selectedItems = PlayHistoryDataGrid.SelectedItems.Cast<PlayHistoryItem>().ToList();
-
                     if (selectedItems.Count > 0)
                     {
                         _playSoundEffects.PlayTrashSound();
-
-                        // Remove all selected items
-                        foreach (var item in selectedItems)
-                            _playHistoryList.Remove(item);
-
-                        _playHistoryManager.PlayHistoryList = _playHistoryList;
-                        await _playHistoryManager.SavePlayHistoryAsync();
-                        e.Handled = true; // Prevent DataGrid from handling Delete key
+                        _viewModel.RemoveItems(selectedItems);
+                        e.Handled = true;
                         PreviewImage.Source = null;
                     }
                     else
@@ -572,14 +334,12 @@ public partial class PlayHistoryPage : ILoadingState
                 }
                 case Key.Enter when PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem:
                     _playSoundEffects.PlayNotificationSound();
-                    _ = LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName, this);
-                    e.Handled = true; // Prevent DataGrid from moving selection to next row
+                    _ = LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName);
+                    e.Handled = true;
                     break;
                 case Key.Enter:
                     await _messageBox.SelectAGameToLaunchMessageBox();
                     break;
-                default:
-                    return;
             }
         }
         catch (Exception ex)
@@ -588,90 +348,78 @@ public partial class PlayHistoryPage : ILoadingState
         }
     }
 
-    private void SortByDate_Click(object sender, RoutedEventArgs e)
+    private void RestoreSelectionAfterSort((string? FileName, string? SystemName) selectedItemIdentifier)
     {
-        // Capture current selection identifier before sorting
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...");
-        // Use a non-nullable tuple with nullable elements
-        var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
-            ? (selectedItem.FileName, selectedItem.SystemName)
-            : (FileName: null, SystemName: null);
-
-        _playSoundEffects.PlayNotificationSound();
-        SortByDate();
-
         if (selectedItemIdentifier.FileName == null || selectedItemIdentifier.SystemName == null) return;
 
-        var (prevFileName, prevSystemName) = selectedItemIdentifier;
-        var updatedItem = _playHistoryList.FirstOrDefault(item =>
-            item.FileName.Equals(prevFileName, StringComparison.OrdinalIgnoreCase) &&
-            item.SystemName.Equals(prevSystemName, StringComparison.OrdinalIgnoreCase));
+        var updatedItem = _viewModel.PlayHistoryList.FirstOrDefault(item =>
+            item.FileName.Equals(selectedItemIdentifier.FileName, StringComparison.OrdinalIgnoreCase) &&
+            item.SystemName.Equals(selectedItemIdentifier.SystemName, StringComparison.OrdinalIgnoreCase));
 
-        if (updatedItem == null) return;
+        if (updatedItem != null)
+        {
+            PlayHistoryDataGrid.SelectedItem = updatedItem;
+            PlayHistoryDataGrid.ScrollIntoView(updatedItem);
+        }
+    }
 
-        PlayHistoryDataGrid.SelectedItem = updatedItem;
-        PlayHistoryDataGrid.ScrollIntoView(updatedItem);
+    private (string? FileName, string? SystemName) GetSelectedIdentifier()
+    {
+        return PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
+            ? (selectedItem.FileName, selectedItem.SystemName)
+            : (FileName: (string?)null, SystemName: (string?)null);
+    }
+
+    private void SortByDate_Click(object sender, RoutedEventArgs e)
+    {
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...");
+        var identifier = GetSelectedIdentifier();
+
+        _playSoundEffects.PlayNotificationSound();
+        _viewModel.SortByDate();
+        PlayHistoryDataGrid.ItemsSource = _viewModel.PlayHistoryList;
+
+        RestoreSelectionAfterSort(identifier);
     }
 
     private void SortByTotalPlayTime_Click(object sender, RoutedEventArgs e)
     {
-        // Capture current selection identifier before sorting
         _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...");
-        // Use a non-nullable tuple with nullable elements
-        var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
-            ? (selectedItem.FileName, selectedItem.SystemName)
-            : (FileName: null, SystemName: null);
-
-        var sorted = new ObservableCollection<PlayHistoryItem>(
-            _playHistoryList.OrderByDescending(static item => item.TotalPlayTime)
-        );
-        _playHistoryList = sorted;
-        PlayHistoryDataGrid.ItemsSource = _playHistoryList;
+        var identifier = GetSelectedIdentifier();
 
         _playSoundEffects.PlayNotificationSound();
+        _viewModel.SortByTotalPlayTime();
+        PlayHistoryDataGrid.ItemsSource = _viewModel.PlayHistoryList;
 
-        if (selectedItemIdentifier.FileName == null || selectedItemIdentifier.SystemName == null) return;
+        RestoreSelectionAfterSort(identifier);
+    }
 
-        {
-            var (prevFileName, prevSystemName) = selectedItemIdentifier;
-            var updatedItem = _playHistoryList.FirstOrDefault(item =>
-                item.FileName.Equals(prevFileName, StringComparison.OrdinalIgnoreCase) &&
-                item.SystemName.Equals(prevSystemName, StringComparison.OrdinalIgnoreCase));
+    private void SortByTimesPlayed_Click(object sender, RoutedEventArgs e)
+    {
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...");
+        var identifier = GetSelectedIdentifier();
 
-            if (updatedItem == null) return;
+        _playSoundEffects.PlayNotificationSound();
+        _viewModel.SortByTimesPlayed();
+        PlayHistoryDataGrid.ItemsSource = _viewModel.PlayHistoryList;
 
-            PlayHistoryDataGrid.SelectedItem = updatedItem;
-            PlayHistoryDataGrid.ScrollIntoView(updatedItem);
-        }
+        RestoreSelectionAfterSort(identifier);
     }
 
     private async void RemoveHistoryItemButton_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            // Get all selected items
             var selectedItems = PlayHistoryDataGrid.SelectedItems.Cast<PlayHistoryItem>().ToList();
-
             if (selectedItems.Count > 0)
             {
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingHistoryItem") ?? "Removing history item...");
-
                 _playSoundEffects.PlayTrashSound();
-
-                // Remove all selected items
-                foreach (var item in selectedItems)
-                {
-                    _playHistoryList.Remove(item);
-                }
-
-                _playHistoryManager.PlayHistoryList = _playHistoryList;
-                _ = _playHistoryManager.SavePlayHistoryAsync();
-
+                _viewModel.RemoveItems(selectedItems);
                 PreviewImage.Source = null;
             }
             else
             {
-                // Notify the user to select a history item first
                 await _messageBox.SelectAHistoryItemToRemoveMessageBox();
             }
 
@@ -687,24 +435,8 @@ public partial class PlayHistoryPage : ILoadingState
     {
         try
         {
-            var result = await _messageBox.ReallyWantToRemoveAllPlayHistoryMessageBox();
             _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingAllHistoryItems") ?? "Removing all history items...");
-
-            if (result == CoreMessageBoxResult.Yes)
-            {
-                _playHistoryList.Clear();
-                _playHistoryManager.PlayHistoryList = _playHistoryList;
-                await _playHistoryManager.SavePlayHistoryAsync();
-
-                _playSoundEffects.PlayTrashSound();
-
-                PreviewImage.Source = null;
-            }
-            else
-            {
-                return;
-            }
-
+            await _viewModel.RemoveAllCommand.ExecuteAsync(null);
             PreviewImage.Source = null;
         }
         catch (Exception ex)
@@ -720,57 +452,19 @@ public partial class PlayHistoryPage : ILoadingState
             if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
             {
                 _playSoundEffects.PlayNotificationSound();
-                await LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName, this);
+                await LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName);
             }
             else
             {
-                // Notify user
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingGameFromHistory") ?? "Launching game from history...");
                 await _messageBox.SelectAGameToLaunchMessageBox();
             }
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string contextMessage = "Error in the LaunchGameClickAsync method.";
-            _logErrors.LogAndForget(ex, contextMessage);
-
-            // Notify user
-            await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
-        }
-    }
-
-    private void SortByTimesPlayed_Click(object sender, RoutedEventArgs e)
-    {
-        // Capture current selection identifier before sorting
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...");
-        // Use a non-nullable tuple with nullable elements
-        var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
-            ? (selectedItem.FileName, selectedItem.SystemName)
-            : (FileName: null, SystemName: null);
-
-        var sorted = new ObservableCollection<PlayHistoryItem>(
-            _playHistoryList.OrderByDescending(static item => item.TimesPlayed)
-        );
-        _playHistoryList = sorted;
-        PlayHistoryDataGrid.ItemsSource = _playHistoryList;
-
-        _playSoundEffects.PlayNotificationSound();
-
-        // Restore selection based on identifier
-        // Check if the identifier tuple has non-null elements
-        if (selectedItemIdentifier.FileName == null || selectedItemIdentifier.SystemName == null) return;
-
-        {
-            var (prevFileName, prevSystemName) = selectedItemIdentifier;
-            var updatedItem = _playHistoryList.FirstOrDefault(item =>
-                item.FileName.Equals(prevFileName, StringComparison.OrdinalIgnoreCase) &&
-                item.SystemName.Equals(prevSystemName, StringComparison.OrdinalIgnoreCase));
-
-            if (updatedItem == null) return;
-
-            PlayHistoryDataGrid.SelectedItem = updatedItem;
-            PlayHistoryDataGrid.ScrollIntoView(updatedItem);
+            _logErrors.LogAndForget(ex, "Error in the LaunchGameClickAsync method.");
+            await _messageBox.CouldNotLaunchThisGameMessageBox(
+                PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 

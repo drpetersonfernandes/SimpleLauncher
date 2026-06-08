@@ -1,4 +1,3 @@
-using System.IO;
 using MessagePack;
 using SimpleLauncher.Core.Services.AppDataFile;
 using SimpleLauncher.Core.Services.DebugAndBugReport;

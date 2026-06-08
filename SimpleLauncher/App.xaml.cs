@@ -28,7 +28,6 @@ using SimpleLauncher.Services.GameItemRender;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GameLauncher.Handlers;
 using SimpleLauncher.Services.HelpUser;
-
 using SimpleLauncher.Services.GameLauncher.Strategies;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
@@ -37,7 +36,6 @@ using SimpleLauncher.Core.Services.GameFileWatcher;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.LaunchTools;
-using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.LoadingOverlay;
 using SimpleLauncher.WpfServices;
 using SimpleLauncher.Services.MameData;
@@ -391,7 +389,7 @@ public partial class App : IDisposable
         DebugLogger.Initialize(isDebugMode);
 
         // Delete temp folders and unneeded files
-        _ = Task.Run(() =>
+        _ = Task.Run(static () =>
         {
             try
             {

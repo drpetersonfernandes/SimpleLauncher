@@ -1,6 +1,5 @@
 using System.IO.Compression;
 using System.Reflection;
-using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 using Xunit;
 

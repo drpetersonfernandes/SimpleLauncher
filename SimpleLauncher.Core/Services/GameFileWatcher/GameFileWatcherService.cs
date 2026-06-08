@@ -1,4 +1,3 @@
-using System.IO;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 

@@ -159,6 +159,7 @@ public static class RetroAchievementsSystemMatcher
     /// </summary>
     /// <param name="inputSystemName">The system name to match</param>
     /// <param name="logErrors"></param>
+    /// <param name="debugLogger"></param>
     /// <returns>The normalized RetroAchievements system name, or the original if no match found</returns>
     public static string GetBestMatchSystemName(string inputSystemName, ILogErrors logErrors, IDebugLogger debugLogger)
     {
@@ -200,6 +201,7 @@ public static class RetroAchievementsSystemMatcher
     /// Gets the RetroAchievements Console ID for a given system name.
     /// </summary>
     /// <param name="inputSystemName">The system name to look up.</param>
+    /// <param name="debugLogger"></param>
     /// <returns>The console ID, or -1 if not found.</returns>
     public static int GetSystemId(string inputSystemName, IDebugLogger debugLogger)
     {
