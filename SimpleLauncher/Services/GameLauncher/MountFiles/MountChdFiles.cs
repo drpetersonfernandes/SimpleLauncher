@@ -132,11 +132,11 @@ public class MountChdFiles : IMountChdFiles
         string resolvedChdFilePath,
         string selectedSystemName,
         string selectedEmulatorName,
-        SystemManager.SystemManager selectedSystemManager,
+        ISystemManager selectedSystemManager,
         Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         IWindowContext windowContext,
-        GameLauncher gameLauncher,
+        ILauncherService gameLauncher,
         ILogErrors logErrors,
         IMessageBoxLibraryService messageBox)
     {
@@ -317,11 +317,11 @@ public class MountChdFiles : IMountChdFiles
         string resolvedChdFilePath,
         string selectedSystemName,
         string selectedEmulatorName,
-        SystemManager.SystemManager selectedSystemManager,
+        ISystemManager selectedSystemManager,
         Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         IWindowContext windowContext,
-        GameLauncher gameLauncher,
+        ILauncherService gameLauncher,
         int? consoleIndex,
         ILogErrors logErrors,
         IMessageBoxLibraryService messageBox)

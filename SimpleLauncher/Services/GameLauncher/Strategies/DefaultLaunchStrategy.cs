@@ -1,5 +1,6 @@
 using System.IO;
-using SimpleLauncher.Services.GameLauncher.Models;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
@@ -12,7 +13,7 @@ public class DefaultLaunchStrategy : ILaunchStrategy
         return true;
     }
 
-    public Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
+    public Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
         var ext = Path.GetExtension(context.ResolvedFilePath).ToUpperInvariant();
 

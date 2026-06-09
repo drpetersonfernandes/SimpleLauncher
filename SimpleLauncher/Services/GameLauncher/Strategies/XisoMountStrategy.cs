@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GameLauncher.Models;
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 
 
@@ -38,7 +38,7 @@ public class XisoMountStrategy : ILaunchStrategy
                Path.GetExtension(context.ResolvedFilePath).Equals(".iso", StringComparison.OrdinalIgnoreCase);
     }
 
-    public async Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
+    public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
         await using var mountedDrive = await _mountXisoFiles.MountAsync(context.ResolvedFilePath, PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"), _logErrors, _messageBox);
         if (mountedDrive.IsMounted)

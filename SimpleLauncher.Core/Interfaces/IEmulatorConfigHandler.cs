@@ -1,6 +1,6 @@
-using SimpleLauncher.Services.GameLauncher.Models;
+using SimpleLauncher.Core.Models;
 
-namespace SimpleLauncher.Services.GameLauncher;
+namespace SimpleLauncher.Core.Interfaces;
 
 public interface IEmulatorConfigHandler
 {

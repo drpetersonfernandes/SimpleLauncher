@@ -1,0 +1,93 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Avalonia.ViewModels"
+        x:Class="SimpleLauncher.Avalonia.Views.SetGamepadDeadZoneWindow"
+        x:DataType="vm:AvaloniaSetGamepadDeadZoneViewModel"
+        Title="Set Gamepad Dead Zone"
+        Width="600" Height="480"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*,Auto">
+        <!-- Explanation -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                   Margin="10,20,10,10"
+                   Text="You can define custom gamepad dead zone values."
+                   TextWrapping="Wrap"
+                   HorizontalAlignment="Left"
+                   TextAlignment="Justify" />
+
+        <!-- Dead Zone Explanation -->
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                Margin="10,0,10,10"
+                BorderThickness="1" BorderBrush="Gray" CornerRadius="4" Padding="10">
+            <StackPanel Spacing="5">
+                <TextBlock Text="Dead Zone Explanation" FontWeight="Bold" />
+                <TextBlock Text="The dead zone is the area around the center of the analog stick where movement is not registered."
+                           TextWrapping="Wrap" />
+                <TextBlock Text="Higher values = larger dead zone (less sensitive)"
+                           TextWrapping="Wrap" />
+                <TextBlock Text="Lower values = smaller dead zone (more sensitive)"
+                           TextWrapping="Wrap" />
+                <TextBlock Text="Setting it too low may cause drift"
+                           TextWrapping="Wrap" />
+                <TextBlock Text="Setting it too high may make controls feel unresponsive"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+        </Border>
+
+        <!-- DeadZoneX -->
+        <TextBlock Grid.Row="2" Grid.Column="0"
+                   Margin="10"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Text="Dead Zone X:" />
+        <Slider Grid.Row="2" Grid.Column="1"
+                Margin="10"
+                Width="200"
+                Minimum="0" Maximum="0.3"
+                SmallChange="0.01" LargeChange="0.05"
+                TickFrequency="0.01"
+                HorizontalAlignment="Center"
+                IsSnapToTickEnabled="True"
+                Value="{Binding DeadZoneX, Mode=TwoWay}" />
+        <TextBlock Grid.Row="2" Grid.Column="2"
+                   Margin="10"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Text="{Binding DeadZoneXText}" />
+
+        <!-- DeadZoneY -->
+        <TextBlock Grid.Row="3" Grid.Column="0"
+                   Margin="10"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Text="Dead Zone Y:" />
+        <Slider Grid.Row="3" Grid.Column="1"
+                Margin="10"
+                Width="200"
+                Minimum="0" Maximum="0.3"
+                SmallChange="0.01" LargeChange="0.05"
+                TickFrequency="0.01"
+                HorizontalAlignment="Center"
+                IsSnapToTickEnabled="True"
+                Value="{Binding DeadZoneY, Mode=TwoWay}" />
+        <TextBlock Grid.Row="3" Grid.Column="2"
+                   Margin="10"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Text="{Binding DeadZoneYText}" />
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,20,0,10">
+            <Button Content="Save Dead Zone"
+                    Command="{Binding SaveCommand}"
+                    Width="120" Margin="0,0,5,0" />
+            <Button Content="Revert to Defaults"
+                    Command="{Binding RevertCommand}"
+                    Width="120" Margin="5,0,0,0" />
+        </StackPanel>
+    </Grid>
+</Window>

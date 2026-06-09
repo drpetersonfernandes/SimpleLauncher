@@ -1,6 +1,7 @@
 using System.Windows;
 using SimpleLauncher.Core.Services.CheckPaths;
-using SimpleLauncher.Services.GameLauncher.Models;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.InjectEmulatorConfig;

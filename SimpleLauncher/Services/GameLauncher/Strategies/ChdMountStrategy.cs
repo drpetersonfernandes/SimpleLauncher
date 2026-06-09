@@ -4,7 +4,7 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
-using SimpleLauncher.Services.GameLauncher.Models;
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
@@ -173,7 +173,7 @@ public class ChdMountStrategy : ILaunchStrategy
                      (context.EmulatorManager?.EmulatorLocation?.Contains("yabause.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
-    public async Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
+    public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
         string gameFilePath;
         ResolveEmulatorFlags(context);

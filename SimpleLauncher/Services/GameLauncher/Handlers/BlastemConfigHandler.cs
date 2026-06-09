@@ -1,7 +1,8 @@
 using System.IO;
 using System.Windows;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GameLauncher.Models;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;

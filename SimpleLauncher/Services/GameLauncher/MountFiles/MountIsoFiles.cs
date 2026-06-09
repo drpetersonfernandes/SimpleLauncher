@@ -21,12 +21,12 @@ public class MountIsoFiles : IMountIsoFiles
         string resolvedIsoFilePath,
         string selectedSystemName,
         string selectedEmulatorName,
-        SystemManager.SystemManager selectedSystemManager,
+        ISystemManager selectedSystemManager,
         Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         IWindowContext windowContext,
         string logPath,
-        GameLauncher gameLauncher,
+        ILauncherService gameLauncher,
         ILogErrors logErrors,
         IMessageBoxLibraryService messageBox)
     {

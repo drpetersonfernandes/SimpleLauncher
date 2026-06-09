@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GameLauncher.Models;
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
@@ -43,7 +43,7 @@ public class PbpToCueStrategy : ILaunchStrategy
         }
     }
 
-    public async Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
+    public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
         var convertingMsg = (string)Application.Current.TryFindResource("ConvertingPbpToCue") ?? "Converting PBP to CUE/BIN...";
         context.LoadingState.SetLoadingState(true, convertingMsg);

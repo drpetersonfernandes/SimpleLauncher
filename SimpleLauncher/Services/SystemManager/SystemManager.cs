@@ -15,7 +15,7 @@ using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.SystemManager;
 
-public partial class SystemManager
+public partial class SystemManager : ISystemManager
 {
     private static readonly object XmlLock = new();
 

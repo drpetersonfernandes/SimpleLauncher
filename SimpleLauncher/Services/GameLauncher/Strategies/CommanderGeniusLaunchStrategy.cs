@@ -10,7 +10,7 @@ using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.ExtractFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GameLauncher.Models;
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.UpdateStatusBar;
@@ -55,7 +55,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         return ext is ".ZIP" or ".7Z" or ".RAR";
     }
 
-    public async Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
+    public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
         string extractionDir = null;
 

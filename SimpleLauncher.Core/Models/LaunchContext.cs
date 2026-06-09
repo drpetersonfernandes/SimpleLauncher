@@ -1,8 +1,9 @@
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.LoadingInterface;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Core.Services.SystemManager;
 
-namespace SimpleLauncher.Services.GameLauncher.Models;
+namespace SimpleLauncher.Core.Models;
 
 public class LaunchContext
 {
@@ -10,10 +11,10 @@ public class LaunchContext
     public string ResolvedFilePath { get; set; }
     public string EmulatorName { get; set; }
     public string SystemName { get; set; }
-    public SystemManager.SystemManager SystemManager { get; set; }
+    public ISystemManager SystemManager { get; set; }
     public Emulator EmulatorManager { get; set; }
     public string Parameters { get; set; }
-    public Core.Services.SettingsManager.SettingsManager Settings { get; set; }
+    public SettingsManager Settings { get; set; }
     public IWindowContext WindowContext { get; set; }
     public ILoadingState LoadingState { get; set; }
 }

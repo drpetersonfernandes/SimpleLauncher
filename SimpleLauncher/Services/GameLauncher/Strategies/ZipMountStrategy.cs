@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GameLauncher.Models;
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 
 
@@ -50,7 +50,7 @@ public class ZipMountStrategy : ILaunchStrategy
                context.SystemName.Contains("xbla", StringComparison.OrdinalIgnoreCase);
     }
 
-    public Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
+    public Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
         var log = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
         if (context.EmulatorName.Contains("RPCS3"))

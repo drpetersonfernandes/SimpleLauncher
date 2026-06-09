@@ -8,7 +8,7 @@ using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.ExtractFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GameLauncher.Models;
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 
 
@@ -54,7 +54,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         return ext is ".ZIP" or ".7Z" or ".RAR" or ".ISO" or ".CHD";
     }
 
-    public async Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
+    public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
         var ext = Path.GetExtension(context.ResolvedFilePath).ToUpperInvariant();
         switch (ext)
@@ -238,7 +238,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         return confPath;
     }
 
-    private async Task ExecuteIsoAsync(LaunchContext context, GameLauncher launcher)
+    private async Task ExecuteIsoAsync(LaunchContext context, ILauncherService launcher)
     {
         string mountPath;
         string selectedFile;
@@ -385,7 +385,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         return launchParameters;
     }
 
-    private async Task ExecuteChdAsync(LaunchContext context, GameLauncher launcher)
+    private async Task ExecuteChdAsync(LaunchContext context, ILauncherService launcher)
     {
         try
         {

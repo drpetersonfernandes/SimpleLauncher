@@ -1,0 +1,67 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Avalonia.ViewModels"
+        x:Class="SimpleLauncher.Avalonia.Views.GlobalStatsWindow"
+        x:DataType="vm:AvaloniaGlobalStatsViewModel"
+        Title="Global Stats"
+        Width="1000" Height="700"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+        <!-- Explanation Text -->
+        <TextBlock Grid.Row="0" Margin="10,20,10,10" TextWrapping="Wrap" Text="{Binding InfoText}" />
+
+        <!-- Start Button -->
+        <StackPanel Grid.Row="1" Margin="10" HorizontalAlignment="Center" IsVisible="{Binding IsStartButtonVisible}">
+            <Button Width="110"
+                    Command="{Binding StartCommand}"
+                    Content="Start Process"
+                    ToolTip="Start calculating global statistics" />
+        </StackPanel>
+
+        <!-- Stats Grid -->
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="10">
+            <DataGrid ItemsSource="{Binding SystemStats}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      GridLinesVisibility="All"
+                      BorderThickness="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="*" />
+                    <DataGridTextColumn Header="ROM Count" Binding="{Binding NumberOfFiles}" Width="Auto" />
+                    <DataGridTextColumn Header="Matched Images" Binding="{Binding NumberOfImages}" Width="Auto" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+
+        <!-- Save Report Button -->
+        <StackPanel Grid.Row="3" Margin="10,10,10,20" HorizontalAlignment="Center" IsVisible="{Binding IsSaveButtonVisible}">
+            <Button Width="110"
+                    Command="{Binding SaveReportCommand}"
+                    Content="Save Report"
+                    ToolTip="Save statistics report to file" />
+        </StackPanel>
+
+        <!-- Busy Overlay -->
+        <Border Grid.Row="0" Grid.RowSpan="4" ZIndex="100"
+                IsVisible="{Binding IsBusyOverlayVisible}"
+                Background="#80000000">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
+                <TextBlock Text="{Binding BusyOverlayText}" HorizontalAlignment="Center" Foreground="White" FontSize="16" />
+                <ProgressBar IsIndeterminate="True" Width="200" />
+            </StackPanel>
+        </Border>
+
+        <!-- Cancel Button Overlay -->
+        <Border Grid.Row="0" Grid.RowSpan="4" ZIndex="101"
+                IsVisible="{Binding IsCancelOverlayVisible}">
+            <Button VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Margin="0,170,0,0"
+                    Width="110"
+                    Command="{Binding CancelCommand}"
+                    Content="Cancel"
+                    ToolTip="Cancel processing" />
+        </Border>
+    </Grid>
+</Window>
