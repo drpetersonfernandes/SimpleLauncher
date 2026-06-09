@@ -96,11 +96,27 @@ public class App : Application
         services.AddTransient<AvaloniaImageViewerViewModel>();
         services.AddTransient<AvaloniaRetroAchievementsViewModel>();
         services.AddTransient<AvaloniaRetroAchievementsForAGameViewModel>();
+        services.AddTransient<DosBoxFileSelectionViewModel>();
+        services.AddTransient<SystemSelectionViewModel>();
+        services.AddTransient<WindowSelectionDialogViewModel>();
+        services.AddTransient<UpdateLogViewModel>();
+        services.AddTransient<UpdateHistoryViewModel>();
+        services.AddTransient<AvaloniaSetFuzzyMatchingViewModel>();
+        services.AddTransient<AvaloniaDebugViewModel>();
+        services.AddTransient<AvaloniaRomHistoryViewModel>();
 
         // Windows
         services.AddTransient<ImageViewerWindow>();
         services.AddTransient<FlashOverlayWindow>();
         services.AddTransient<RetroAchievementsWindow>();
         services.AddTransient<RetroAchievementsForAGameWindow>();
+        services.AddTransient<DosBoxFileSelectionWindow>();
+        services.AddTransient<SystemSelectionWindow>();
+        services.AddTransient<WindowSelectionDialogWindow>();
+        services.AddTransient<UpdateLogWindow>();
+        services.AddTransient<UpdateHistoryWindow>();
+        services.AddTransient<SetFuzzyMatchingWindow>();
+        services.AddTransient<DebugWindow>();
+        services.AddTransient<RomHistoryWindow>();
     }
 }

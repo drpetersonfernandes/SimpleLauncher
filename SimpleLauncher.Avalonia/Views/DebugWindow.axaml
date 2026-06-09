@@ -1,0 +1,32 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Avalonia.ViewModels"
+        x:Class="SimpleLauncher.Avalonia.Views.DebugWindow"
+        x:DataType="vm:AvaloniaDebugViewModel"
+        Title="Debugger"
+        Height="400" Width="800"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <TextBox x:Name="LogTextBox"
+                 Grid.Row="0"
+                 IsReadOnly="True"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                 TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 Margin="5"
+                 Background="Black"
+                 Foreground="Lime"
+                 CaretBrush="Lime"
+                 FontFamily="Consolas"
+                 FontSize="12"
+                 Text="{Binding LogText, Mode=OneWay}" />
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button Content="Clear Log" Margin="5,0" Command="{Binding ClearLogCommand}" />
+            <Button Content="Copy Log" Margin="5,0" Command="{Binding CopyLogCommand}" />
+        </StackPanel>
+    </Grid>
+</Window>

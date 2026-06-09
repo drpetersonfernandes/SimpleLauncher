@@ -1,0 +1,25 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Core.ViewModels"
+        x:Class="SimpleLauncher.Avalonia.Views.UpdateHistoryWindow"
+        x:DataType="vm:UpdateHistoryViewModel"
+        Title="Update History"
+        Width="800" Height="700"
+        MinWidth="700" MinHeight="550"
+        WindowStartupLocation="CenterOwner"
+        CanResize="True">
+
+    <Grid>
+        <TextBox Text="{Binding MarkdownContent, Mode=OneWay}"
+                 IsReadOnly="True"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 Background="#1e1e2e"
+                 Foreground="#cdd6f4"
+                 FontFamily="Consolas,Monospace"
+                 FontSize="13"
+                 BorderThickness="0"
+                 Margin="10" />
+    </Grid>
+</Window>

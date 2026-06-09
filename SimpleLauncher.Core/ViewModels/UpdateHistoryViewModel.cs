@@ -1,14 +1,10 @@
 using System.Diagnostics;
-using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 
-namespace SimpleLauncher.ViewModels;
+namespace SimpleLauncher.Core.ViewModels;
 
-/// <summary>
-/// ViewModel for the UpdateHistoryWindow.
-/// </summary>
 public class UpdateHistoryViewModel : ObservableObject
 {
     private readonly ILogErrors _logErrors;
@@ -22,9 +18,6 @@ public class UpdateHistoryViewModel : ObservableObject
         LoadWhatsNewContent();
     }
 
-    /// <summary>
-    /// Gets or sets the markdown content to display.
-    /// </summary>
     public string MarkdownContent
     {
         get => _markdownContent;
@@ -49,9 +42,6 @@ public class UpdateHistoryViewModel : ObservableObject
         }
     }
 
-    /// <summary>
-    /// Handles hyperlink navigation requests.
-    /// </summary>
     public void OnHyperlinkRequestNavigate(Uri uri)
     {
         try

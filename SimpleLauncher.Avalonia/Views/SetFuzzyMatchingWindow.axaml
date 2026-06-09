@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Avalonia.ViewModels"
+        x:Class="SimpleLauncher.Avalonia.Views.SetFuzzyMatchingWindow"
+        x:DataType="vm:AvaloniaSetFuzzyMatchingViewModel"
+        Title="Set Fuzzy Matching Threshold"
+        Height="350" Width="500"
+        WindowStartupLocation="CenterOwner"
+        CanResize="True">
+
+    <Grid Margin="15" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*">
+
+        <!-- Current Threshold -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Current Threshold:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,0" />
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CurrentThresholdText}" VerticalAlignment="Center" />
+
+        <!-- New Threshold Input (Slider) -->
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="New Threshold:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,0" />
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <Slider Value="{Binding ThresholdValue}"
+                    Minimum="{Binding Minimum}"
+                    Maximum="{Binding Maximum}"
+                    TickFrequency="{Binding TickFrequencyValue}"
+                    IsSnapToTickEnabled="True"
+                    Width="200" />
+            <TextBlock Text="{Binding ThresholdPercentage}" Margin="10" VerticalAlignment="Center" />
+        </StackPanel>
+
+        <!-- Description -->
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="Adjust the slider to set the fuzzy matching threshold." TextWrapping="Wrap" FontStyle="Italic" />
+
+        <!-- Threshold Explanation -->
+        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="10,20,10,0">
+            <Run Text="Low Threshold (e.g. 70%): " FontWeight="Bold" />
+            <Run Text="More matches, but may include false positives." />
+        </TextBlock>
+        <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="10,10,10,10">
+            <Run Text="High Threshold (e.g. 95%): " FontWeight="Bold" />
+            <Run Text="Fewer matches, but more accurate results." />
+        </TextBlock>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,10,10">
+            <Button Content="OK"
+                    Command="{Binding SaveCommand}"
+                    Padding="10" Margin="0,0,10,0"
+                    MinWidth="80" />
+            <Button Content="Cancel"
+                    Command="{Binding CancelCommand}"
+                    Padding="10"
+                    MinWidth="80" />
+        </StackPanel>
+    </Grid>
+</Window>

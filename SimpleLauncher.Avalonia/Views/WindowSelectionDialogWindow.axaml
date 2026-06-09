@@ -1,0 +1,31 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Core.ViewModels"
+        xmlns:models="using:SimpleLauncher.Core.Services.TakeScreenshot.Models"
+        x:Class="SimpleLauncher.Avalonia.Views.WindowSelectionDialogWindow"
+        x:DataType="vm:WindowSelectionDialogViewModel"
+        Title="Select a Window"
+        Width="500" Height="450"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+
+    <Grid Margin="10">
+        <ListBox ItemsSource="{Binding WindowItems}"
+                 SelectedItem="{Binding SelectedItem}"
+                 Margin="10"
+                 Padding="5"
+                 VerticalAlignment="Stretch"
+                 HorizontalAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="models:WindowItem">
+                    <StackPanel>
+                        <TextBlock Text="{Binding Title}"
+                                   Margin="5,2,5,2"
+                                   FontSize="14" />
+                        <Separator Margin="5,2" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>

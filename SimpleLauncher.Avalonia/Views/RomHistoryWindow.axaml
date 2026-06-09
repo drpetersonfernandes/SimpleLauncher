@@ -1,0 +1,47 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Avalonia.ViewModels"
+        x:Class="SimpleLauncher.Avalonia.Views.RomHistoryWindow"
+        x:DataType="vm:AvaloniaRomHistoryViewModel"
+        Title="ROM History"
+        Width="1000" Height="600"
+        WindowStartupLocation="CenterOwner"
+        CanResize="True">
+
+    <Grid Margin="10" RowDefinitions="Auto,Auto,*">
+
+        <TextBox Grid.Row="0"
+                 IsReadOnly="True"
+                 FontWeight="Bold"
+                 FontSize="16"
+                 Margin="0"
+                 HorizontalAlignment="Center"
+                 Background="Transparent"
+                 BorderThickness="0"
+                 Text="{Binding RomNameText}" />
+
+        <TextBox Grid.Row="1"
+                 IsReadOnly="True"
+                 FontWeight="Bold"
+                 FontSize="16"
+                 Margin="0"
+                 HorizontalAlignment="Center"
+                 Background="Transparent"
+                 BorderThickness="0"
+                 Text="{Binding RomDescriptionText}"
+                 IsVisible="{Binding IsDescriptionVisible}" />
+
+        <TextBox Grid.Row="2"
+                 Margin="0,20,0,0"
+                 IsReadOnly="True"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 Background="#1e1e2e"
+                 Foreground="#cdd6f4"
+                 FontFamily="Consolas,Monospace"
+                 FontSize="13"
+                 BorderThickness="0"
+                 Text="{Binding HistoryMarkdown}" />
+    </Grid>
+</Window>

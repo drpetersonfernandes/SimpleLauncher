@@ -1,0 +1,59 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Core.ViewModels"
+        xmlns:models="using:SimpleLauncher.Core.Models"
+        x:Class="SimpleLauncher.Avalonia.Views.DosBoxFileSelectionWindow"
+        x:DataType="vm:DosBoxFileSelectionViewModel"
+        Title="Select a File"
+        Width="650" Height="480"
+        MinWidth="450" MinHeight="300"
+        WindowStartupLocation="CenterOwner"
+        CanResize="True">
+
+    <Grid Margin="10" RowDefinitions="Auto,*,Auto">
+
+        <TextBlock Grid.Row="0"
+                   Text="Select the file you want to launch:"
+                   Margin="10,5,10,10"
+                   FontSize="14"
+                   TextWrapping="Wrap" />
+
+        <ListBox x:Name="FileListBox"
+                 Grid.Row="1"
+                 ItemsSource="{Binding FileItems}"
+                 SelectedItem="{Binding SelectedItem}"
+                 DoubleTapped="OnFileListBoxDoubleTapped"
+                 Margin="10,0"
+                 Padding="5"
+                 VerticalAlignment="Stretch"
+                 HorizontalAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="models:DosBoxFileItem">
+                    <StackPanel>
+                        <TextBlock Text="{Binding DisplayName}"
+                                   Margin="5,2,5,2"
+                                   FontSize="14"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding RelativePath}"
+                                   Margin="5,0,5,2"
+                                   FontSize="11"
+                                   Foreground="#a6adc8" />
+                        <Separator Margin="5,2" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,15,10,5">
+            <Button Content="Cancel"
+                    Margin="5,0"
+                    Command="{Binding CancelCommand}"
+                    MinWidth="75" />
+            <Button Content="Launch"
+                    Margin="5,0"
+                    Command="{Binding LaunchCommand}"
+                    MinWidth="75"
+                    IsEnabled="{Binding IsLaunchEnabled}" />
+        </StackPanel>
+    </Grid>
+</Window>
