@@ -21,4 +21,9 @@
         <PackageReference Include="Tomlyn" Version="2.5.0" />
         <PackageReference Include="YamlDotNet" Version="18.0.0" />
     </ItemGroup>
+    <ItemGroup>
+        <Content Include="Resources\strings.*.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 </Project>

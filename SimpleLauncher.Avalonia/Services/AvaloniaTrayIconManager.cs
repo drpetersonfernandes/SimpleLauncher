@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Avalonia.Controls;
 using SimpleLauncher.Avalonia.Views;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
@@ -5,6 +6,7 @@ using IApplicationLifetime = SimpleLauncher.Core.Interfaces.IApplicationLifetime
 
 namespace SimpleLauncher.Avalonia.Services;
 
+[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public class AvaloniaTrayIconManager : IDisposable
 {
     private static AvaloniaTrayIconManager? _instance;

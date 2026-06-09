@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLauncher.Core", "Simp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLauncher.Avalonia", "SimpleLauncher.Avalonia\SimpleLauncher.Avalonia.csproj", "{2D3DA579-F10A-40FA-A718-BE45676A4022}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLauncher.XamlToJsonConverter", "SimpleLauncher.XamlToJsonConverter\SimpleLauncher.XamlToJsonConverter.csproj", "{36301142-DE71-4106-A7ED-9C8C4B5EE3A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,18 @@ Global
 		{2D3DA579-F10A-40FA-A718-BE45676A4022}.Release|x64.Build.0 = Release|Any CPU
 		{2D3DA579-F10A-40FA-A718-BE45676A4022}.Release|x86.ActiveCfg = Release|Any CPU
 		{2D3DA579-F10A-40FA-A718-BE45676A4022}.Release|x86.Build.0 = Release|Any CPU
+		{36301142-DE71-4106-A7ED-9C8C4B5EE3A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36301142-DE71-4106-A7ED-9C8C4B5EE3A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36301142-DE71-4106-A7ED-9C8C4B5EE3A3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{36301142-DE71-4106-A7ED-9C8C4B5EE3A3}.Debug|x64.Build.0 = Debug|Any CPU
+		{36301142-DE71-4106-A7ED-9C8C4B5EE3A3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{36301142-DE71-4106-A7ED-9C8C4B5EE3A3}.Debug|x86.Build.0 = Debug|Any CPU
+		{36301142-DE71-4106-A7ED-9C8C4B5EE3A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36301142-DE71-4106-A7ED-9C8C4B5EE3A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36301142-DE71-4106-A7ED-9C8C4B5EE3A3}.Release|x64.ActiveCfg = Release|Any CPU
+		{36301142-DE71-4106-A7ED-9C8C4B5EE3A3}.Release|x64.Build.0 = Release|Any CPU
+		{36301142-DE71-4106-A7ED-9C8C4B5EE3A3}.Release|x86.ActiveCfg = Release|Any CPU
+		{36301142-DE71-4106-A7ED-9C8C4B5EE3A3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
