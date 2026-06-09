@@ -1,38 +1,151 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:SimpleLauncher.Avalonia"
+             xmlns:models="using:SimpleLauncher.Core.Models"
              x:Class="SimpleLauncher.Avalonia.Views.PlayHistoryView"
-             x:DataType="x:String">
+             x:DataType="vm:PlayHistoryViewModel">
     
     <Border Background="#313244" Padding="15">
         <DockPanel>
             <!-- Header -->
             <Border DockPanel.Dock="Top" Background="#45475a" CornerRadius="8" Padding="15" Margin="0,0,0,15">
-                <StackPanel Spacing="10">
-                    <TextBlock Text="Play History" 
-                               FontSize="20" FontWeight="Bold" 
-                               Foreground="#cdd6f4"/>
-                    <TextBlock Text="View your recent game sessions" 
-                               Foreground="#a6adc8"/>
-                </StackPanel>
+                <Grid ColumnDefinitions="*,Auto">
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="Play History" 
+                                   FontSize="20" FontWeight="Bold" 
+                                   Foreground="#cdd6f4"/>
+                        <TextBlock Text="View your recent game sessions" 
+                                   Foreground="#a6adc8"/>
+                    </StackPanel>
+                    
+                    <!-- Action Buttons -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                        <Button Content="Sort by Date" 
+                                Command="{Binding SortByDateCommand}"
+                                Padding="10,5"
+                                FontSize="11"/>
+                        <Button Content="Sort by Play Time" 
+                                Command="{Binding SortByPlayTimeCommand}"
+                                Padding="10,5"
+                                FontSize="11"/>
+                        <Button Content="Sort by Times Played" 
+                                Command="{Binding SortByTimesPlayedCommand}"
+                                Padding="10,5"
+                                FontSize="11"/>
+                        <Separator/>
+                        <Button Content="Launch" 
+                                Command="{Binding LaunchGameCommand}"
+                                IsEnabled="{Binding SelectedItem, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                Padding="10,5"/>
+                        <Button Content="Remove" 
+                                Command="{Binding RemoveSelectedCommand}"
+                                IsEnabled="{Binding SelectedItem, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                Padding="10,5"
+                                Background="#f38ba8"/>
+                        <Button Content="Clear All" 
+                                Command="{Binding RemoveAllCommand}"
+                                Padding="10,5"
+                                Background="#f38ba8"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            
+            <!-- Sort Mode Indicator -->
+            <Border DockPanel.Dock="Top" Margin="0,0,0,10">
+                <TextBlock Text="{Binding CurrentSortMode, StringFormat='Sorted by: {0}'}" 
+                           Foreground="#6c7086" 
+                           FontSize="11"/>
             </Border>
             
             <!-- Content -->
-            <ScrollViewer>
-                <StackPanel Spacing="10">
-                    <Border Background="#45475a" CornerRadius="8" Padding="15">
-                        <StackPanel Spacing="10">
-                            <TextBlock Text="No play history yet" 
-                                       Foreground="#6c7086"
-                                       HorizontalAlignment="Center"
-                                       FontSize="14"/>
-                            <TextBlock Text="Games you play will appear here" 
-                                       Foreground="#45475a"
-                                       HorizontalAlignment="Center"
-                                       FontSize="12"/>
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-            </ScrollViewer>
+            <Panel>
+                <!-- Loading Overlay -->
+                <Border IsVisible="{Binding IsLoading}" 
+                        Background="#80000000" 
+                        ZIndex="100">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                        <ProgressBar IsIndeterminate="True" Width="200"/>
+                        <TextBlock Text="{Binding LoadingMessage}" Foreground="#cdd6f4" FontSize="14"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Empty State -->
+                <Border IsVisible="{Binding IsEmpty}" 
+                        Background="#45475a" CornerRadius="8" Padding="30"
+                        VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel Spacing="10" HorizontalAlignment="Center">
+                        <TextBlock Text="&#xE81C;" FontFamily="Segoe Fluent Icons" 
+                                   FontSize="48" Foreground="#6c7086"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="No play history yet" 
+                                   Foreground="#6c7086"
+                                   HorizontalAlignment="Center"
+                                   FontSize="16"/>
+                        <TextBlock Text="Games you play will appear here" 
+                                   Foreground="#45475a"
+                                   HorizontalAlignment="Center"
+                                   FontSize="12"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- History List -->
+                <ListBox ItemsSource="{Binding PlayHistoryList}"
+                         SelectedItem="{Binding SelectedItem}"
+                         IsVisible="{Binding !IsEmpty}"
+                         Background="Transparent"
+                         BorderThickness="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="models:PlayHistoryItem">
+                            <Border Background="#45475a" 
+                                    CornerRadius="8" 
+                                    Padding="15" 
+                                    Margin="0,2">
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <!-- Cover Image -->
+                                    <Border Background="#585b70" 
+                                            CornerRadius="4" 
+                                            Width="60" Height="60">
+                                        <Image Source="{Binding CoverImage}" 
+                                               Stretch="Uniform"/>
+                                    </Border>
+                                    
+                                    <!-- Info -->
+                                    <StackPanel Grid.Column="1" Margin="15,0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding DisplayName}" 
+                                                   Foreground="#cdd6f4" 
+                                                   FontSize="14"
+                                                   TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Text="{Binding SystemName}" 
+                                                   Foreground="#a6adc8" 
+                                                   FontSize="12"
+                                                   Margin="0,5,0,0"/>
+                                        <StackPanel Orientation="Horizontal" Spacing="15" Margin="0,5,0,0">
+                                            <TextBlock Text="{Binding FormattedPlayTime}" 
+                                                       Foreground="#6c7086" 
+                                                       FontSize="11"/>
+                                            <TextBlock Text="{Binding TimesPlayed, StringFormat='{}{0} plays'}" 
+                                                       Foreground="#6c7086" 
+                                                       FontSize="11"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    
+                                    <!-- Last Played -->
+                                    <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                        <TextBlock Text="{Binding LastPlayDate}" 
+                                                   Foreground="#a6adc8"
+                                                   FontSize="11"
+                                                   HorizontalAlignment="Right"/>
+                                        <TextBlock Text="{Binding LastPlayTime}" 
+                                                   Foreground="#6c7086"
+                                                   FontSize="10"
+                                                   HorizontalAlignment="Right"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Panel>
         </DockPanel>
     </Border>
 </UserControl>

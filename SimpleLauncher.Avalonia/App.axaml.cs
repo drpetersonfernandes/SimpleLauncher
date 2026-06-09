@@ -63,5 +63,8 @@ public class App : Application
 
         // ViewModels
         services.AddTransient<MainWindowViewModel>();
+        services.AddTransient<FavoritesViewModel>();
+        services.AddTransient<GlobalSearchViewModel>();
+        services.AddTransient<PlayHistoryViewModel>();
     }
 }

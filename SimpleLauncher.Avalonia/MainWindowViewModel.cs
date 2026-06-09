@@ -20,12 +20,18 @@ public partial class MainWindowViewModel : ObservableObject
         SettingsManager settings,
         IMessageDialogService messageDialog,
         IResourceProvider resources,
-        IConfiguration configuration)
+        IConfiguration configuration,
+        FavoritesViewModel favoritesViewModel,
+        GlobalSearchViewModel globalSearchViewModel,
+        PlayHistoryViewModel playHistoryViewModel)
     {
         _settings = settings;
         _messageDialog = messageDialog;
         _resources = resources;
         _configuration = configuration;
+        FavoritesVm = favoritesViewModel;
+        GlobalSearchVm = globalSearchViewModel;
+        PlayHistoryVm = playHistoryViewModel;
 
         // Load initial state from settings
         ViewMode = _settings.ViewMode ?? "GridView";
@@ -98,6 +104,14 @@ public partial class MainWindowViewModel : ObservableObject
 
     [ObservableProperty] private string? _selectedLetterFilter;
 
+    // ── Sub-page ViewModels (for DataContext binding) ────────────
+
+    public FavoritesViewModel FavoritesVm { get; }
+
+    public GlobalSearchViewModel GlobalSearchVm { get; }
+
+    public PlayHistoryViewModel PlayHistoryVm { get; }
+
     // ── Commands ────────────────────────────────────────────────
 
     [RelayCommand]
@@ -144,14 +158,19 @@ public partial class MainWindowViewModel : ObservableObject
     {
         IsSubPageActive = false;
         CurrentSubPage = null;
+        StatusText = "Ready";
     }
 
     [RelayCommand]
     private Task SearchAsync()
     {
-        // TODO: Implement search functionality
-        StatusText = $"Searching for '{SearchText}'...";
-        return Task.CompletedTask;
+        if (string.IsNullOrWhiteSpace(SearchText))
+            return Task.CompletedTask;
+
+        // Navigate to global search with the search text
+        GlobalSearchVm.SearchText = SearchText;
+        GoToGlobalSearch();
+        return GlobalSearchVm.SearchCommand.ExecuteAsync(null);
     }
 
     [RelayCommand]
@@ -179,27 +198,29 @@ public partial class MainWindowViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void GoToFavorites()
+    private Task GoToFavorites()
     {
-        // TODO: Navigate to favorites view
         IsSubPageActive = true;
+        CurrentSubPage = FavoritesVm;
         StatusText = "Favorites";
+        return FavoritesVm.LoadFavoritesAsync();
     }
 
     [RelayCommand]
     private void GoToGlobalSearch()
     {
-        // TODO: Navigate to global search view
         IsSubPageActive = true;
+        CurrentSubPage = GlobalSearchVm;
         StatusText = "Global Search";
     }
 
     [RelayCommand]
-    private void GoToPlayHistory()
+    private Task GoToPlayHistory()
     {
-        // TODO: Navigate to play history view
         IsSubPageActive = true;
+        CurrentSubPage = PlayHistoryVm;
         StatusText = "Play History";
+        return PlayHistoryVm.LoadHistoryAsync();
     }
 
     [RelayCommand]
