@@ -1,0 +1,204 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Avalonia.ViewModels"
+        x:Class="SimpleLauncher.Avalonia.Views.RetroAchievementsWindow"
+        x:DataType="vm:AvaloniaRetroAchievementsViewModel"
+        Title="RetroAchievements"
+        Width="1200" MinWidth="800"
+        Height="600" MinHeight="550"
+        WindowStartupLocation="CenterScreen">
+    <Design.DataContext>
+        <x:Type TypeName="vm:AvaloniaRetroAchievementsViewModel"/>
+    </Design.DataContext>
+
+    <Border Background="#1e1e2e">
+        <Grid>
+            <TabControl Margin="10,0,10,10" x:Name="TabControl" SelectionChanged="TabControl_SelectionChanged">
+
+                <!-- Tab 1: My Profile -->
+                <TabItem Header="My Profile" Tag="MyProfile">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
+                        <Panel>
+                            <StackPanel x:Name="UserProfilePanel" IsVisible="{Binding !NoProfileVisible}">
+                                <!-- User Header with Avatar -->
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                                    <Border BorderBrush="#45475a" BorderThickness="1" Width="90" Height="90" CornerRadius="5">
+                                        <Image x:Name="UserProfilePic" Stretch="Uniform" />
+                                    </Border>
+                                    <StackPanel VerticalAlignment="Center" Margin="15,0,0,0">
+                                        <TextBlock Text="{Binding ProfileUser}" FontSize="22" FontWeight="Bold" Foreground="#cdd6f4" />
+                                        <TextBlock Text="{Binding ProfileMotto}" FontStyle="Italic" TextWrapping="Wrap" Margin="0,5,0,0" FontSize="14" Foreground="#a6adc8" />
+                                        <Button Content="View Profile on RA" Margin="0,10,0,0" Click="ViewProfileOnRaButton_Click" Padding="10,5" />
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <!-- Current Activity -->
+                                <Border Background="#585b70" Margin="0,0,0,20" Padding="15" CornerRadius="5">
+                                    <StackPanel>
+                                        <TextBlock Text="Currently Playing" FontWeight="Bold" Foreground="#cdd6f4" FontSize="16" />
+                                        <TextBlock Text="{Binding ProfileRichPresence}" TextWrapping="Wrap" Foreground="#cdd6f4" Margin="0,5,0,0" FontSize="14" />
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- User Statistics Grid -->
+                                <Grid Margin="0,0,0,25" ColumnDefinitions="*,*,*">
+                                    <Border Grid.Column="0" BorderBrush="#45475a" BorderThickness="1" Padding="10" Margin="0,0,5,0" CornerRadius="3">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding ProfilePoints}" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#a6e3a1" />
+                                            <TextBlock Text="Points" HorizontalAlignment="Center" Foreground="#cdd6f4" FontSize="12" />
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Grid.Column="1" BorderBrush="#45475a" BorderThickness="1" Padding="10" Margin="5,0,5,0" CornerRadius="3">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding ProfileTruePoints}" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#a6e3a1" />
+                                            <TextBlock Text="TruePoints" HorizontalAlignment="Center" Foreground="#cdd6f4" FontSize="12" />
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Grid.Column="2" BorderBrush="#45475a" BorderThickness="1" Padding="10" Margin="5,0,0,0" CornerRadius="3">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding ProfileRank}" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#a6e3a1" />
+                                            <TextBlock Text="Rank" HorizontalAlignment="Center" Foreground="#cdd6f4" FontSize="12" />
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+
+                                <!-- Detailed User Information -->
+                                <TextBlock Text="User Details" FontWeight="Bold" FontSize="18" Margin="0,0,0,15" Foreground="#cdd6f4" />
+                                <Grid Margin="0,0,0,25" ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Member Since" FontWeight="Bold" Margin="0,0,10,8" Foreground="#cdd6f4" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ProfileMemberSince}" Margin="0,0,0,8" Foreground="#a6adc8" />
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="User ID" FontWeight="Bold" Margin="0,0,10,8" Foreground="#cdd6f4" />
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ProfileId}" Margin="0,0,0,8" Foreground="#a6adc8" />
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Contributions" FontWeight="Bold" Margin="0,0,10,8" Foreground="#cdd6f4" />
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ProfileContributions}" Margin="0,0,0,8" Foreground="#a6adc8" />
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Softcore Points" FontWeight="Bold" Margin="0,0,10,8" Foreground="#cdd6f4" />
+                                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding ProfileSoftcorePoints}" Margin="0,0,0,8" Foreground="#a6adc8" />
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Permissions" FontWeight="Bold" Margin="0,0,10,8" Foreground="#cdd6f4" />
+                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding ProfilePermissions}" Margin="0,0,0,8" Foreground="#a6adc8" />
+                                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Status" FontWeight="Bold" Margin="0,0,10,8" Foreground="#cdd6f4" />
+                                    <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding ProfileStatus}" Margin="0,0,0,8" Foreground="#a6adc8" />
+                                    <TextBlock Grid.Row="6" Grid.Column="0" Text="Profile ID" FontWeight="Bold" Margin="0,0,10,8" Foreground="#cdd6f4" />
+                                    <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding ProfileProfileId}" Margin="0,0,0,8" Foreground="#a6adc8" />
+                                    <TextBlock Grid.Row="7" Grid.Column="0" Text="Wall Active" FontWeight="Bold" Margin="0,0,10,8" Foreground="#cdd6f4" />
+                                    <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding ProfileWallActive}" Margin="0,0,0,8" Foreground="#a6adc8" />
+                                </Grid>
+
+                                <!-- Recently Played Section -->
+                                <TextBlock Text="Recently Played Games" FontWeight="Bold" Margin="0,15,0,10" FontSize="18" Foreground="#cdd6f4" />
+                                <ListBox ItemsSource="{Binding RecentlyPlayedGames}" BorderThickness="1" BorderBrush="#45475a" Background="#1e1e2e" MinHeight="100">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Margin="5,2">
+                                                <TextBlock Text="{Binding Title}" FontWeight="SemiBold" Foreground="#cdd6f4" FontSize="14" Width="250" TextTrimming="CharacterEllipsis" />
+                                                <TextBlock Text="{Binding ConsoleName}" FontSize="12" Foreground="#a6adc8" Width="150" TextTrimming="CharacterEllipsis" Margin="10,0,0,0" />
+                                                <TextBlock Text="{Binding LastPlayed}" FontSize="12" Foreground="#a6adc8" Margin="10,0,0,0" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+
+                            <!-- No Profile Overlay -->
+                            <Grid IsVisible="{Binding NoProfileVisible}" Background="#1e1e2e">
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock Text="{Binding NoProfileMainMessage}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" TextWrapping="Wrap" TextAlignment="Center" Foreground="#cdd6f4" />
+                                    <TextBlock Text="{Binding NoProfileSubMessage}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Foreground="#a6adc8" Margin="0,10,0,0" TextWrapping="Wrap" TextAlignment="Center" />
+                                    <Button Content="Open RA Settings" Margin="0,15,0,0" Click="OpenRaSettings_Click" Padding="10,5" />
+                                </StackPanel>
+                            </Grid>
+                        </Panel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <!-- Tab 2: Unlocks by Date -->
+                <TabItem Header="Unlocks" Tag="Unlocks">
+                    <Grid RowDefinitions="Auto,Auto,*">
+
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10,15,10,15">
+                            <TextBlock Text="From" VerticalAlignment="Center" Margin="0,0,5,0" FontSize="14" Foreground="#cdd6f4" />
+                            <DatePicker SelectedDate="{Binding FromDate}" Width="140" />
+                            <TextBlock Text="To" VerticalAlignment="Center" Margin="15,0,5,0" FontSize="14" Foreground="#cdd6f4" />
+                            <DatePicker SelectedDate="{Binding ToDate}" Width="140" />
+                            <Button Content="Fetch Unlocks" Command="{Binding FetchUnlocksCommand}" Margin="15,0,0,0" Padding="10,5" IsEnabled="{Binding FetchUnlocksEnabled}" />
+                            <Button Content="Reset Dates" Command="{Binding ResetDatesCommand}" Margin="10,0,0,0" Padding="10,5" />
+                        </StackPanel>
+
+                        <Grid Grid.Row="1" Margin="10,0,10,15">
+                            <Border Padding="15" BorderBrush="#585b70" BorderThickness="1" CornerRadius="5">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBlock Text="Total Unlocks in Range: " FontWeight="Bold" FontSize="16" Foreground="#cdd6f4" />
+                                        <TextBlock Text="{Binding TotalUnlocksInRange}" FontWeight="Bold" FontSize="16" Foreground="#a6e3a1" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                                        <TextBlock Text="Total Points Earned in Range: " FontWeight="Bold" FontSize="16" Foreground="#cdd6f4" />
+                                        <TextBlock Text="{Binding TotalPointsEarnedInRange}" FontWeight="Bold" FontSize="16" Foreground="#a6e3a1" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                        <Panel Grid.Row="2">
+                            <DataGrid ItemsSource="{Binding Unlocks}" AutoGenerateColumns="False" IsReadOnly="True" Margin="10,0,10,10"
+                                      HeadersVisibility="Column" GridLinesVisibility="Horizontal" RowDetailsVisibilityMode="Collapsed"
+                                      Background="#1e1e2e" BorderBrush="#585b70" BorderThickness="1">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Game Title" Binding="{Binding GameTitle}" Width="*" />
+                                    <DataGridTextColumn Header="Achievement" Binding="{Binding Title}" Width="2*" />
+                                    <DataGridTextColumn Header="Points" Binding="{Binding Points}" Width="Auto" />
+                                    <DataGridTextColumn Header="True Ratio" Binding="{Binding TrueRatio, StringFormat='{}{0}%'}" Width="Auto" />
+                                    <DataGridTextColumn Header="Unlocked Date" Binding="{Binding UnlockedDateDisplay}" Width="Auto" />
+                                    <DataGridTextColumn Header="Mode" Binding="{Binding ModeDisplay}" Width="Auto" />
+                                    <DataGridTextColumn Header="Console" Binding="{Binding ConsoleName}" Width="Auto" />
+                                    <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="Auto" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <Grid IsVisible="{Binding NoUnlocksVisible}" Background="#1e1e2e">
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock Text="{Binding NoUnlocksMessage}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="#cdd6f4" TextWrapping="Wrap" TextAlignment="Center" />
+                                    <Button Content="Open RA Settings" Margin="0,15,0,0" Click="OpenRaSettings_Click" Padding="10,5" />
+                                </StackPanel>
+                            </Grid>
+                        </Panel>
+                    </Grid>
+                </TabItem>
+
+                <!-- Tab 3: User Progress -->
+                <TabItem Header="User Progress" Tag="UserProgress">
+                    <Panel>
+                        <DataGrid ItemsSource="{Binding UserProgress}" AutoGenerateColumns="False" IsReadOnly="True" Margin="10,10,10,10"
+                                  HeadersVisibility="Column" GridLinesVisibility="Horizontal" RowDetailsVisibilityMode="Collapsed"
+                                  Background="#1e1e2e" BorderBrush="#585b70" BorderThickness="1">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Game Title" Binding="{Binding Title}" Width="2*" />
+                                <DataGridTextColumn Header="Console" Binding="{Binding ConsoleName}" Width="*" />
+                                <DataGridTextColumn Header="Casual" Binding="{Binding CompletionDisplay}" Width="Auto" />
+                                <DataGridTextColumn Header="Hardcore" Binding="{Binding HardcoreCompletionDisplay}" Width="Auto" />
+                                <DataGridTextColumn Header="Most Recent Award" Binding="{Binding MostRecentAwardedDateDisplay}" Width="Auto" />
+                                <DataGridTextColumn Header="Highest Award" Binding="{Binding HighestAwardKindDisplay}" Width="Auto" />
+                                <DataGridTextColumn Header="Highest Award Date" Binding="{Binding HighestAwardDateDisplay}" Width="Auto" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <Grid IsVisible="{Binding NoUserProgressVisible}" Background="#1e1e2e">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock Text="{Binding NoUserProgressMainMessage}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" TextWrapping="Wrap" TextAlignment="Center" Foreground="#cdd6f4" />
+                                <TextBlock Text="{Binding NoUserProgressSubMessage}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Foreground="#a6adc8" Margin="0,10,0,0" TextWrapping="Wrap" TextAlignment="Center" />
+                                <Button Content="Open RA Settings" Margin="0,15,0,0" Click="OpenRaSettings_Click" Padding="10,5" />
+                            </StackPanel>
+                        </Grid>
+                    </Panel>
+                </TabItem>
+            </TabControl>
+
+            <!-- Loading Overlay -->
+            <Panel IsVisible="{Binding IsLoading}" Background="#80000000" ZIndex="100">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
+                    <TextBlock Text="Loading..." FontSize="18" Foreground="#cdd6f4" HorizontalAlignment="Center" />
+                    <ProgressBar IsIndeterminate="True" Width="200" />
+                </StackPanel>
+            </Panel>
+        </Grid>
+    </Border>
+</Window>

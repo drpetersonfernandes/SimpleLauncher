@@ -1,0 +1,12 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Avalonia.ViewModels"
+        x:Class="SimpleLauncher.Avalonia.Views.ImageViewerWindow"
+        x:DataType="vm:AvaloniaImageViewerViewModel"
+        Title="Image Viewer"
+        Width="800" Height="600"
+        WindowStartupLocation="CenterScreen">
+    <Border Background="#1e1e2e">
+        <Image Source="{Binding ImageSource}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </Border>
+</Window>

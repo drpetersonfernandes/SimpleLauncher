@@ -4,7 +4,13 @@ using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
+using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.RetroAchievements;
+using SimpleLauncher.Core.ViewModels;
 using SimpleLauncher.Avalonia.Services;
+using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Avalonia.Views;
 using IApplicationLifetime = SimpleLauncher.Core.Interfaces.IApplicationLifetime;
 
@@ -47,13 +53,30 @@ public class App : Application
 
         // Core services
         services.AddMemoryCache();
-        services.AddHttpClient();
+        services.AddHttpClient("LogErrorsClient");
 
         // SettingsManager (from Core)
         services.AddSingleton<SimpleLauncher.Core.Services.SettingsManager.SettingsManager>();
 
+        // Logging and debugging
+        services.AddSingleton<IDebugLogger, AvaloniaDebugLogger>();
+        services.AddSingleton<ILogErrors, LogErrorsService>();
+
+        // Sound effects (no-op for Avalonia until cross-platform audio is implemented)
+        services.AddSingleton<IPlaySoundEffects, NoOpPlaySoundEffects>();
+
+        // RetroAchievements services
+        services.AddSingleton<RetroAchievementsManager>(static sp =>
+        {
+            var logErrors = sp.GetRequiredService<ILogErrors>();
+            var debugLogger = sp.GetRequiredService<IDebugLogger>();
+            return RetroAchievementsManager.LoadRetroAchievement(logErrors, debugLogger);
+        });
+        services.AddSingleton<RetroAchievementsService>();
+
         // Platform services (Avalonia implementations)
         services.AddSingleton<IDispatcherService, AvaloniaDispatcherService>();
+        services.AddSingleton<IDeleteFilesService, DeleteFilesService>();
         services.AddSingleton<IMessageDialogService, AvaloniaMessageDialogService>();
         services.AddSingleton<IResourceProvider, AvaloniaResourceProvider>();
         services.AddSingleton<IApplicationLifetime, AvaloniaApplicationLifetime>();
@@ -69,5 +92,15 @@ public class App : Application
         services.AddTransient<SettingsViewModel>();
         services.AddTransient<EasyModeViewModel>();
         services.AddTransient<EditSystemViewModel>();
+        services.AddTransient<FlashOverlayViewModel>();
+        services.AddTransient<AvaloniaImageViewerViewModel>();
+        services.AddTransient<AvaloniaRetroAchievementsViewModel>();
+        services.AddTransient<AvaloniaRetroAchievementsForAGameViewModel>();
+
+        // Windows
+        services.AddTransient<ImageViewerWindow>();
+        services.AddTransient<FlashOverlayWindow>();
+        services.AddTransient<RetroAchievementsWindow>();
+        services.AddTransient<RetroAchievementsForAGameWindow>();
     }
 }

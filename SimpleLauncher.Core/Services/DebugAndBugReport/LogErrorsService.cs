@@ -1,6 +1,4 @@
 using System.Globalization;
-using System.IO;
-using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
@@ -8,9 +6,8 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
 
-namespace SimpleLauncher.Services.DebugAndBugReport;
+namespace SimpleLauncher.Core.Services.DebugAndBugReport;
 
 public class LogErrorsService : ILogErrors
 {
