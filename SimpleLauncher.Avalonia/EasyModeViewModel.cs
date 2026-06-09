@@ -1,10 +1,13 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Xml.Serialization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Core.Services.SystemManager;
 
 namespace SimpleLauncher.Avalonia;
 
@@ -15,17 +18,21 @@ public partial class EasyModeViewModel : ObservableObject
     private readonly IMessageDialogService _messageDialog;
     private readonly IFilePickerService _filePicker;
     private readonly SettingsManager _settings;
+    private readonly ISystemConfigurationWriterService _systemConfigWriter;
+    private List<EasyModeSystemConfig> _easyModeSystems = [];
 
     public EasyModeViewModel(
         IConfiguration configuration,
         IMessageDialogService messageDialog,
         IFilePickerService filePicker,
-        SettingsManager settings)
+        SettingsManager settings,
+        ISystemConfigurationWriterService systemConfigWriter)
     {
         _configuration = configuration;
         _messageDialog = messageDialog;
         _filePicker = filePicker;
         _settings = settings;
+        _systemConfigWriter = systemConfigWriter;
     }
 
     // ── System Selection ────────────────────────────────────────
@@ -171,10 +178,52 @@ public partial class EasyModeViewModel : ObservableObject
             return;
         }
 
-        // TODO: Implement system addition
-        // This would call SystemManager.AddOrUpdateSystemFromEasyModeAsync()
+        try
+        {
+            var easyModeSystem = _easyModeSystems.FirstOrDefault(s =>
+                s.SystemName.Equals(SelectedSystemName, StringComparison.OrdinalIgnoreCase));
 
-        await _messageDialog.ShowInfoAsync($"System '{SelectedSystemName}' added successfully!", "Add System");
+            if (easyModeSystem == null)
+            {
+                await _messageDialog.ShowErrorAsync($"System configuration not found for '{SelectedSystemName}'.", "Error");
+                return;
+            }
+
+            var systemConfig = new SystemManagerConfig
+            {
+                SystemName = easyModeSystem.SystemName,
+                SystemFolders = [SystemFolder],
+                SystemImageFolder = easyModeSystem.SystemImageFolder,
+                FileFormatsToSearch = easyModeSystem.FileFormatsToSearch,
+                ExtractFileBeforeLaunch = easyModeSystem.ExtractFileBeforeLaunch,
+                FileFormatsToLaunch = easyModeSystem.FileFormatsToLaunch,
+                GroupByFolder = false,
+                DisableRecursiveSearch = false,
+                Emulators =
+                [
+                    new Emulator
+                    {
+                        EmulatorName = easyModeSystem.Emulators.Emulator.EmulatorName,
+                        EmulatorLocation = easyModeSystem.Emulators.Emulator.EmulatorLocation,
+                        EmulatorParameters = easyModeSystem.Emulators.Emulator.EmulatorParameters,
+                        ReceiveANotificationOnEmulatorError = true,
+                        ImagePackDownloadLink = easyModeSystem.Emulators.Emulator.ImagePackDownloadLink,
+                        ImagePackDownloadLink2 = easyModeSystem.Emulators.Emulator.ImagePackDownloadLink2,
+                        ImagePackDownloadLink3 = easyModeSystem.Emulators.Emulator.ImagePackDownloadLink3,
+                        ImagePackDownloadLink4 = easyModeSystem.Emulators.Emulator.ImagePackDownloadLink4,
+                        ImagePackDownloadLink5 = easyModeSystem.Emulators.Emulator.ImagePackDownloadLink5,
+                        ImagePackDownloadExtractPath = easyModeSystem.Emulators.Emulator.ImagePackDownloadExtractPath
+                    }
+                ]
+            };
+
+            await _systemConfigWriter.SaveSystemAsync(systemConfig);
+            await _messageDialog.ShowInfoAsync($"System '{SelectedSystemName}' added successfully!", "Add System");
+        }
+        catch (Exception ex)
+        {
+            await _messageDialog.ShowErrorAsync($"Failed to add system: {ex.Message}", "Error");
+        }
     }
 
     // ── Public Methods ──────────────────────────────────────────
@@ -186,17 +235,41 @@ public partial class EasyModeViewModel : ObservableObject
 
         try
         {
-            // TODO: Load system names from EasyModeManager
-            // For now, use a placeholder list
-            SystemNames =
-            [
-                "Nintendo Entertainment System",
-                "Super Nintendo",
-                "Sega Genesis",
-                "PlayStation",
-                "Nintendo 64",
-                "Game Boy Advance"
-            ];
+            var xmlFile = Environment.OSVersion.Platform == PlatformID.Win32NT
+                ? "easymode.xml"
+                : "easymode.xml";
+
+            var xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFile);
+
+            if (!File.Exists(xmlFilePath))
+            {
+                // Try alternative path
+                xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Services", "EasyMode", "Samples", xmlFile);
+            }
+
+            if (File.Exists(xmlFilePath))
+            {
+                var serializer = new XmlSerializer(typeof(EasyModeXmlRoot));
+                using var stream = new FileStream(xmlFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                var root = (EasyModeXmlRoot)serializer.Deserialize(stream);
+                _easyModeSystems = root?.Systems ?? [];
+
+                SystemNames = new ObservableCollection<string>(
+                    _easyModeSystems.Select(s => s.SystemName).OrderBy(n => n));
+            }
+            else
+            {
+                // Fallback: show common systems
+                SystemNames =
+                [
+                    "Nintendo Entertainment System",
+                    "Super Nintendo",
+                    "Sega Genesis",
+                    "PlayStation",
+                    "Nintendo 64",
+                    "Game Boy Advance"
+                ];
+            }
         }
         catch (Exception ex)
         {
@@ -244,4 +317,11 @@ public partial class EasyModeViewModel : ObservableObject
                              !string.IsNullOrEmpty(SystemFolder) &&
                              !IsOperationInProgress;
     }
+}
+
+[XmlRoot("EasyMode")]
+public class EasyModeXmlRoot
+{
+    [XmlElement("EasyModeSystemConfig")]
+    public List<EasyModeSystemConfig> Systems { get; set; } = [];
 }

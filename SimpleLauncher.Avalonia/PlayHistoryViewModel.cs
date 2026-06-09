@@ -3,6 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.SettingsManager;
@@ -17,19 +19,25 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMessageDialogService _messageDialog;
     private readonly SettingsManager _settings;
+    private readonly GameLauncherService _gameLauncher;
+    private readonly IFindCoverImageService _findCoverImage;
 
     public PlayHistoryViewModel(
         IConfiguration configuration,
         IImageLoader imageLoader,
         IMessageBoxLibraryService messageBox,
         IMessageDialogService messageDialog,
-        SettingsManager settings)
+        SettingsManager settings,
+        GameLauncherService gameLauncher,
+        IFindCoverImageService findCoverImage)
     {
         _configuration = configuration;
         _imageLoader = imageLoader;
         _messageBox = messageBox;
         _messageDialog = messageDialog;
         _settings = settings;
+        _gameLauncher = gameLauncher;
+        _findCoverImage = findCoverImage;
     }
 
     // ── Collections ─────────────────────────────────────────────
@@ -100,8 +108,37 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
             return;
         }
 
-        // TODO: Implement game launching
-        await _messageDialog.ShowInfoAsync("Game launching will be implemented soon.", "Launch Game");
+        // Find the system manager for this history item
+        var systemConfigService = App.ServiceProvider.GetRequiredService<ICoreSystemConfigurationService>();
+        var systemManagers = systemConfigService.LoadSystemManagers();
+        var systemManager = systemManagers.FirstOrDefault(s =>
+            s.SystemName.Equals(SelectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
+
+        if (systemManager == null)
+        {
+            await _messageDialog.ShowErrorAsync($"System '{SelectedItem.SystemName}' not found.", "Launch Error");
+            return;
+        }
+
+        var emulatorName = SelectedItem.DefaultEmulator ?? systemManager.Emulators.FirstOrDefault()?.EmulatorName;
+        if (string.IsNullOrEmpty(emulatorName))
+        {
+            await _messageDialog.ShowErrorAsync("No emulator configured for this system.", "Launch Error");
+            return;
+        }
+
+        var playTime = await _gameLauncher.LaunchGameAsync(SelectedItem.FileName, emulatorName, systemManager, _settings);
+
+        // Update play history
+        if (playTime.TotalSeconds > 5)
+        {
+            SelectedItem.TotalPlayTime += (long)playTime.TotalSeconds;
+            SelectedItem.TimesPlayed++;
+            SelectedItem.LastPlayDate = DateTime.Now.ToString("yyyy-MM-dd");
+            SelectedItem.LastPlayTime = DateTime.Now.ToString("HH:mm:ss");
+            await SavePlayHistoryAsync();
+            SortByDate();
+        }
     }
 
     [RelayCommand]
@@ -146,6 +183,23 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
             }
 
             var history = await LoadHistoryFromFileAsync(historyPath);
+
+            // Populate cover images
+            var systemConfigService = App.ServiceProvider.GetRequiredService<ICoreSystemConfigurationService>();
+            var systemManagers = systemConfigService.LoadSystemManagers();
+
+            foreach (var item in history)
+            {
+                var systemManager = systemManagers.FirstOrDefault(s =>
+                    s.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
+
+                if (systemManager != null)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(item.FileName);
+                    item.CoverImage = _findCoverImage.FindCoverImagePath(fileName, item.SystemName, systemManager.SystemImageFolder);
+                }
+            }
+
             PlayHistoryList = new ObservableCollection<PlayHistoryItem>(history);
             IsEmpty = PlayHistoryList.Count == 0;
             SortByDate();

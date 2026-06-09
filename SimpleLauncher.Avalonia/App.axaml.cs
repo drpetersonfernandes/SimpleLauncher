@@ -14,6 +14,9 @@ using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.SanitizeInputString;
+using SimpleLauncher.Core.Services.SystemConfiguration;
+using SimpleLauncher.Core.Services.GetListOfFiles;
+using SimpleLauncher.Core.Services.FindCoverImage;
 using SimpleLauncher.Core.ViewModels;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.ViewModels;
@@ -126,6 +129,19 @@ public class App : Application, IDisposable
         services.AddSingleton<IBugReportFormatter, BugReportFormatterService>();
         services.AddSingleton<IFileFinderService, FileFinderService>();
         services.AddSingleton<IFormatFileSizeService, FormatFileSizeService>();
+
+        // Game loading pipeline services
+        services.AddSingleton<ICoreSystemConfigurationService, SystemConfigurationService>();
+        services.AddSingleton<ISystemConfigurationWriterService, SystemConfigurationWriterService>();
+        services.AddSingleton<IGetListOfFilesService, GetListOfFilesService>();
+        services.AddSingleton<IFindCoverImageService>(sp =>
+        {
+            var config = sp.GetRequiredService<IConfiguration>();
+            var logErrors = sp.GetRequiredService<ILogErrors>();
+            var settings = sp.GetRequiredService<SimpleLauncher.Core.Services.SettingsManager.SettingsManager>();
+            return new FindCoverImageService(config, logErrors, settings.EnableFuzzyMatching, settings.FuzzyMatchingThreshold);
+        });
+        services.AddSingleton<GameLauncherService>();
 
         // ViewModels
         services.AddTransient<MainWindowViewModel>();

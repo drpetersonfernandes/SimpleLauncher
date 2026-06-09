@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:SimpleLauncher.Avalonia"
+             xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
              x:Class="SimpleLauncher.Avalonia.Views.GlobalSearchView"
              x:DataType="vm:GlobalSearchViewModel">
     
@@ -94,7 +95,8 @@
                          SelectedItem="{Binding SelectedResult}"
                          IsVisible="{Binding HasResults}"
                          Background="Transparent"
-                         BorderThickness="0">
+                         BorderThickness="0"
+                         DoubleTapped="OnSearchResultDoubleTapped">
                     <ListBox.ItemTemplate>
                         <DataTemplate x:DataType="vm:SearchResultItem">
                             <Border Background="#45475a" 
@@ -106,7 +108,7 @@
                                     <Border Background="#585b70" 
                                             CornerRadius="4" 
                                             Width="60" Height="60">
-                                        <Image Source="{Binding CoverImage}" 
+                                        <Image Source="{Binding CoverImage, Converter={StaticResource ImageUrlConverter}}" 
                                                Stretch="Uniform"/>
                                     </Border>
                                     

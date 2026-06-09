@@ -1,6 +1,7 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:SimpleLauncher.Avalonia"
+        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
         x:Class="SimpleLauncher.Avalonia.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Title="{Binding Title}"
@@ -28,25 +29,29 @@
                     <MenuItem Header="中文" />
                 </MenuItem>
                 <MenuItem Header="Theme">
-                    <MenuItem Header="Light" />
-                    <MenuItem Header="Dark" />
-                    <MenuItem Header="Midnight" />
+                    <MenuItem Header="Light" Command="{Binding SetThemeCommand}" CommandParameter="Light"/>
+                    <MenuItem Header="Dark" Command="{Binding SetThemeCommand}" CommandParameter="Dark"/>
+                    <MenuItem Header="Midnight" Command="{Binding SetThemeCommand}" CommandParameter="Midnight"/>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="Exit" />
+                <MenuItem Header="Settings" Command="{Binding OpenSettingsCommand}"/>
+                <Separator/>
+                <MenuItem Header="Exit" Command="{Binding ExitApplicationCommand}"/>
             </MenuItem>
             <MenuItem Header="View">
                 <MenuItem Header="Grid View" Command="{Binding ToggleViewModeCommand}" />
                 <MenuItem Header="List View" Command="{Binding ToggleViewModeCommand}" />
             </MenuItem>
             <MenuItem Header="Tools">
-                <MenuItem Header="Easy Mode" />
+                <MenuItem Header="Easy Mode" Command="{Binding OpenEasyModeCommand}"/>
+                <MenuItem Header="Edit System" Command="{Binding OpenEditSystemCommand}"/>
+                <Separator/>
                 <MenuItem Header="Global Search" Command="{Binding GoToGlobalSearchCommand}" />
                 <MenuItem Header="Play History" Command="{Binding GoToPlayHistoryCommand}" />
                 <MenuItem Header="Favorites" Command="{Binding GoToFavoritesCommand}" />
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem Header="About" />
+                <MenuItem Header="About" Command="{Binding OpenAboutCommand}"/>
                 <MenuItem Header="Check for Updates" />
             </MenuItem>
         </Menu>
@@ -183,9 +188,24 @@
                     
                     <!-- Letter/Number Filter -->
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" MaxHeight="40">
-                        <StackPanel Orientation="Horizontal" Spacing="2">
-                            <!-- Will be populated dynamically -->
-                        </StackPanel>
+                        <ItemsControl ItemsSource="{Binding LetterFilters}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" Spacing="2"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="x:String">
+                                    <Button Content="{Binding}"
+                                            Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).SelectLetterFilterCommand}"
+                                            CommandParameter="{Binding}"
+                                            MinWidth="28" Height="28"
+                                            Padding="4,2"
+                                            FontSize="11"
+                                            FontWeight="SemiBold"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </ScrollViewer>
                 </StackPanel>
             </Border>
@@ -218,33 +238,49 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate x:DataType="vm:GameItemViewModel">
-                                    <Border Background="{DynamicResource ThemeCardBackgroundBrush}" 
-                                            CornerRadius="8" 
-                                            Padding="10" 
-                                            Margin="5"
-                                            Width="200"
-                                            Cursor="Hand">
-                                        <StackPanel Spacing="5">
-                                            <!-- Cover Image -->
-                                            <Border Background="{DynamicResource ThemeSurfaceHoverBrush}" 
-                                                    CornerRadius="4" 
-                                                    Height="150">
-                                                <Image Source="{Binding CoverImagePath}" 
-                                                       Stretch="Uniform"/>
-                                            </Border>
-                                            <!-- Game Name -->
-                                            <TextBlock Text="{Binding MachineName}" 
-                                                       Foreground="{DynamicResource ThemeForegroundBrush}" 
-                                                       FontSize="12"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       MaxLines="2"/>
-                                            <!-- Favorite Indicator -->
-                                            <TextBlock Text="&#xE734;" FontFamily="Segoe Fluent Icons"
-                                                       Foreground="{DynamicResource ThemeWarningBrush}"
-                                                       IsVisible="{Binding IsFavorite}"
-                                                       FontSize="14"/>
-                                        </StackPanel>
-                                    </Border>
+                                    <Button Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).LaunchGameCommand}"
+                                            CommandParameter="{Binding}"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Padding="0"
+                                            Cursor="Hand"
+                                            Margin="5">
+                                        <Button.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Header="Launch" Command="{Binding $parent[Button].((vm:MainWindowViewModel)DataContext).LaunchGameCommand}" CommandParameter="{Binding}"/>
+                                                    <Separator/>
+                                                    <MenuItem Header="Add to Favorites" Command="{Binding $parent[Button].((vm:MainWindowViewModel)DataContext).AddFavoriteCommand}" CommandParameter="{Binding}"/>
+                                                    <MenuItem Header="Remove from Favorites" Command="{Binding $parent[Button].((vm:MainWindowViewModel)DataContext).RemoveFavoriteCommand}" CommandParameter="{Binding}"/>
+                                                    <Separator/>
+                                                    <MenuItem Header="Open Folder" Command="{Binding $parent[Button].((vm:MainWindowViewModel)DataContext).OpenGameFolderCommand}" CommandParameter="{Binding}"/>
+                                                </ContextMenu>
+                                            </Button.ContextMenu>
+                                        <Border Background="{DynamicResource ThemeCardBackgroundBrush}" 
+                                                CornerRadius="8" 
+                                                Padding="10" 
+                                                Width="200">
+                                            <StackPanel Spacing="5">
+                                                <!-- Cover Image -->
+                                                <Border Background="{DynamicResource ThemeSurfaceHoverBrush}" 
+                                                        CornerRadius="4" 
+                                                        Height="150">
+                                                    <Image Source="{Binding CoverImagePath, Converter={StaticResource ImageUrlConverter}}" 
+                                                           Stretch="Uniform"/>
+                                                </Border>
+                                                <!-- Game Name -->
+                                                <TextBlock Text="{Binding MachineName}" 
+                                                           Foreground="{DynamicResource ThemeForegroundBrush}" 
+                                                           FontSize="12"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           MaxLines="2"/>
+                                                <!-- Favorite Indicator -->
+                                                <TextBlock Text="&#xE734;" FontFamily="Segoe Fluent Icons"
+                                                           Foreground="{DynamicResource ThemeWarningBrush}"
+                                                           IsVisible="{Binding IsFavorite}"
+                                                           FontSize="14"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </Button>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
@@ -258,7 +294,8 @@
                                   BorderThickness="0"
                                   Background="{DynamicResource ThemeSurfaceBrush}"
                                   Foreground="{DynamicResource ThemeForegroundBrush}"
-                                  Margin="10">
+                                  Margin="10"
+                                  DoubleTapped="OnGameGridDoubleTapped">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="*"/>
                                 <DataGridTextColumn Header="Machine" Binding="{Binding MachineName}" Width="200"/>

@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Core.Services.SystemManager;
 
 namespace SimpleLauncher.Avalonia;
 
@@ -15,17 +16,23 @@ public partial class EditSystemViewModel : ObservableObject
     private readonly IMessageDialogService _messageDialog;
     private readonly IFilePickerService _filePicker;
     private readonly SettingsManager _settings;
+    private readonly ICoreSystemConfigurationService _systemConfigReader;
+    private readonly ISystemConfigurationWriterService _systemConfigWriter;
 
     public EditSystemViewModel(
         IConfiguration configuration,
         IMessageDialogService messageDialog,
         IFilePickerService filePicker,
-        SettingsManager settings)
+        SettingsManager settings,
+        ICoreSystemConfigurationService systemConfigReader,
+        ISystemConfigurationWriterService systemConfigWriter)
     {
         _configuration = configuration;
         _messageDialog = messageDialog;
         _filePicker = filePicker;
         _settings = settings;
+        _systemConfigReader = systemConfigReader;
+        _systemConfigWriter = systemConfigWriter;
     }
 
     // ── System Info ─────────────────────────────────────────────
@@ -94,7 +101,6 @@ public partial class EditSystemViewModel : ObservableObject
     [RelayCommand]
     private async Task AddEmulatorAsync()
     {
-        // TODO: Show emulator selection dialog
         var emulator = new EmulatorItem
         {
             Name = "Emulator " + (Emulators.Count + 1),
@@ -103,6 +109,18 @@ public partial class EditSystemViewModel : ObservableObject
         };
         Emulators.Add(emulator);
         SelectedEmulator = emulator;
+    }
+
+    [RelayCommand]
+    private async Task BrowseEmulatorLocationAsync()
+    {
+        if (SelectedEmulator == null) return;
+
+        var path = await _filePicker.OpenFileAsync("Select Emulator Executable", "Executables|*.exe|All files|*.*");
+        if (!string.IsNullOrEmpty(path))
+        {
+            SelectedEmulator.Location = path;
+        }
     }
 
     [RelayCommand]
@@ -130,8 +148,52 @@ public partial class EditSystemViewModel : ObservableObject
             return;
         }
 
-        // TODO: Save system configuration
-        await _messageDialog.ShowInfoAsync($"System '{SystemName}' saved successfully!", "Save System");
+        if (string.IsNullOrEmpty(SystemImageFolder))
+        {
+            await _messageDialog.ShowInfoAsync("Image folder is required.", "Save System");
+            return;
+        }
+
+        if (FileFormatsToSearch.Count == 0)
+        {
+            await _messageDialog.ShowInfoAsync("At least one file format to search is required.", "Save System");
+            return;
+        }
+
+        if (Emulators.Count == 0)
+        {
+            await _messageDialog.ShowInfoAsync("At least one emulator is required.", "Save System");
+            return;
+        }
+
+        try
+        {
+            var systemConfig = new SystemManagerConfig
+            {
+                SystemName = SystemName,
+                SystemFolders = SystemFolders.ToList(),
+                SystemImageFolder = SystemImageFolder,
+                FileFormatsToSearch = FileFormatsToSearch.ToList(),
+                ExtractFileBeforeLaunch = ExtractFileBeforeLaunch,
+                FileFormatsToLaunch = FileFormatsToLaunch.ToList(),
+                GroupByFolder = GroupByFolder,
+                DisableRecursiveSearch = DisableRecursiveSearch,
+                Emulators = Emulators.Select(e => new Emulator
+                {
+                    EmulatorName = e.Name,
+                    EmulatorLocation = e.Location,
+                    EmulatorParameters = e.Parameters,
+                    ReceiveANotificationOnEmulatorError = true
+                }).ToList()
+            };
+
+            await _systemConfigWriter.SaveSystemAsync(systemConfig, IsNewSystem ? null : SystemName);
+            await _messageDialog.ShowInfoAsync($"System '{SystemName}' saved successfully!", "Save System");
+        }
+        catch (Exception ex)
+        {
+            await _messageDialog.ShowErrorAsync($"Failed to save system: {ex.Message}", "Save Error");
+        }
     }
 
     [RelayCommand]
@@ -150,8 +212,34 @@ public partial class EditSystemViewModel : ObservableObject
 
         try
         {
-            // TODO: Load system from SystemManager
-            SystemName = systemName;
+            var systemManagers = _systemConfigReader.LoadSystemManagers();
+            var system = systemManagers.FirstOrDefault(s =>
+                s.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+
+            if (system == null)
+            {
+                SystemName = systemName;
+                return Task.CompletedTask;
+            }
+
+            SystemName = system.SystemName;
+            SystemFolders = new ObservableCollection<string>(system.SystemFolders);
+            SystemImageFolder = system.SystemImageFolder;
+            FileFormatsToSearch = new ObservableCollection<string>(system.FileFormatsToSearch);
+            ExtractFileBeforeLaunch = system.ExtractFileBeforeLaunch;
+            FileFormatsToLaunch = new ObservableCollection<string>(system.FileFormatsToLaunch);
+            GroupByFolder = system.GroupByFolder;
+            DisableRecursiveSearch = system.DisableRecursiveSearch;
+
+            Emulators = new ObservableCollection<EmulatorItem>(system.Emulators.Select(e => new EmulatorItem
+            {
+                Name = e.EmulatorName,
+                Location = e.EmulatorLocation,
+                Parameters = e.EmulatorParameters
+            }));
+
+            if (Emulators.Count > 0)
+                SelectedEmulator = Emulators[0];
         }
         finally
         {

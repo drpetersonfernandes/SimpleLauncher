@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:SimpleLauncher.Avalonia"
              xmlns:models="using:SimpleLauncher.Core.Models"
+             xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
              x:Class="SimpleLauncher.Avalonia.Views.PlayHistoryView"
              x:DataType="vm:PlayHistoryViewModel">
     
@@ -93,7 +94,8 @@
                          SelectedItem="{Binding SelectedItem}"
                          IsVisible="{Binding !IsEmpty}"
                          Background="Transparent"
-                         BorderThickness="0">
+                         BorderThickness="0"
+                         DoubleTapped="OnHistoryDoubleTapped">
                     <ListBox.ItemTemplate>
                         <DataTemplate x:DataType="models:PlayHistoryItem">
                             <Border Background="#45475a" 
@@ -105,7 +107,7 @@
                                     <Border Background="#585b70" 
                                             CornerRadius="4" 
                                             Width="60" Height="60">
-                                        <Image Source="{Binding CoverImage}" 
+                                        <Image Source="{Binding CoverImage, Converter={StaticResource ImageUrlConverter}}" 
                                                Stretch="Uniform"/>
                                     </Border>
                                     

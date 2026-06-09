@@ -3,7 +3,9 @@ using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Avalonia;
@@ -16,6 +18,10 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMessageDialogService _messageDialog;
     private readonly SettingsManager _settings;
+    private readonly GameLauncherService _gameLauncher;
+    private readonly ICoreSystemConfigurationService _systemConfigService;
+    private readonly IGetListOfFilesService _getListOfFiles;
+    private readonly IFindCoverImageService _findCoverImage;
     private CancellationTokenSource? _searchCts;
 
     public GlobalSearchViewModel(
@@ -23,13 +29,21 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
         IImageLoader imageLoader,
         IMessageBoxLibraryService messageBox,
         IMessageDialogService messageDialog,
-        SettingsManager settings)
+        SettingsManager settings,
+        GameLauncherService gameLauncher,
+        ICoreSystemConfigurationService systemConfigService,
+        IGetListOfFilesService getListOfFiles,
+        IFindCoverImageService findCoverImage)
     {
         _configuration = configuration;
         _imageLoader = imageLoader;
         _messageBox = messageBox;
         _messageDialog = messageDialog;
         _settings = settings;
+        _gameLauncher = gameLauncher;
+        _systemConfigService = systemConfigService;
+        _getListOfFiles = getListOfFiles;
+        _findCoverImage = findCoverImage;
     }
 
     // ── Search Results ──────────────────────────────────────────
@@ -73,6 +87,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 
         _searchCts?.Cancel();
         _searchCts = new CancellationTokenSource();
+        var ct = _searchCts.Token;
 
         IsSearching = true;
         SearchStatus = "Searching...";
@@ -82,10 +97,58 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 
         try
         {
-            // TODO: Implement actual search across systems
-            // For now, show a placeholder message
-            SearchStatus = "Search functionality will be implemented when SystemManager is available in Core.";
-            NoResults = true;
+            var systemManagers = _systemConfigService.LoadSystemManagers();
+            var results = new List<SearchResultItem>();
+            var searchLower = SearchText.ToLowerInvariant();
+
+            foreach (var system in systemManagers)
+            {
+                ct.ThrowIfCancellationRequested();
+
+                foreach (var folder in system.SystemFolders)
+                {
+                    ct.ThrowIfCancellationRequested();
+
+                    var resolvedFolder = PathHelper.ResolveRelativeToAppDirectory(folder);
+                    if (string.IsNullOrEmpty(resolvedFolder) || !Directory.Exists(resolvedFolder))
+                        continue;
+
+                    var files = await _getListOfFiles.GetFilesAsync(
+                        resolvedFolder,
+                        system.FileFormatsToSearch,
+                        system.DisableRecursiveSearch,
+                        system.GroupByFolder,
+                        ct);
+
+                    foreach (var file in files)
+                    {
+                        var fileName = Path.GetFileNameWithoutExtension(file);
+                        if (fileName != null && fileName.Contains(searchLower, StringComparison.OrdinalIgnoreCase))
+                        {
+                            var coverImage = _findCoverImage.FindCoverImagePath(fileName, system.SystemName, system.SystemImageFolder);
+
+                            results.Add(new SearchResultItem
+                            {
+                                FileName = fileName,
+                                FileNameWithExtension = Path.GetFileName(file),
+                                MachineName = fileName,
+                                FolderName = Path.GetDirectoryName(file) ?? string.Empty,
+                                FilePath = file,
+                                SystemName = system.SystemName,
+                                DefaultEmulator = system.Emulators.FirstOrDefault()?.EmulatorName,
+                                CoverImage = coverImage
+                            });
+                        }
+                    }
+                }
+            }
+
+            SearchResults = new ObservableCollection<SearchResultItem>(results);
+            HasResults = results.Count > 0;
+            NoResults = results.Count == 0;
+            SearchStatus = results.Count > 0
+                ? $"Found {results.Count} result(s) for '{SearchText}'"
+                : $"No results found for '{SearchText}'";
         }
         catch (OperationCanceledException)
         {
@@ -119,8 +182,25 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
             return;
         }
 
-        // TODO: Implement game launching
-        await _messageDialog.ShowInfoAsync("Game launching will be implemented soon.", "Launch Game");
+        // Find the system manager for this search result
+        var systemManagers = _systemConfigService.LoadSystemManagers();
+        var systemManager = systemManagers.FirstOrDefault(s =>
+            s.SystemName.Equals(SelectedResult.SystemName, StringComparison.OrdinalIgnoreCase));
+
+        if (systemManager == null)
+        {
+            await _messageDialog.ShowErrorAsync($"System '{SelectedResult.SystemName}' not found.", "Launch Error");
+            return;
+        }
+
+        var emulatorName = SelectedResult.DefaultEmulator ?? systemManager.Emulators.FirstOrDefault()?.EmulatorName;
+        if (string.IsNullOrEmpty(emulatorName))
+        {
+            await _messageDialog.ShowErrorAsync("No emulator configured for this system.", "Launch Error");
+            return;
+        }
+
+        await _gameLauncher.LaunchGameAsync(SelectedResult.FilePath, emulatorName, systemManager, _settings);
     }
 
     // ── Public Methods ──────────────────────────────────────────

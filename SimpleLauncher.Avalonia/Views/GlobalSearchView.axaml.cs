@@ -17,4 +17,13 @@ public partial class GlobalSearchView : UserControl
             vm.SearchCommand.Execute(null);
         }
     }
+
+    private void OnSearchResultDoubleTapped(object? sender, TappedEventArgs e)
+    {
+        if (DataContext is not GlobalSearchViewModel viewModel) return;
+        if (sender is not ListBox listBox) return;
+        if (listBox.SelectedItem is not SearchResultItem) return;
+
+        _ = viewModel.LaunchGameCommand.ExecuteAsync(null);
+    }
 }

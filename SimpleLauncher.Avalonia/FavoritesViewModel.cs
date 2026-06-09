@@ -3,6 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.SettingsManager;
@@ -17,19 +19,25 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMessageDialogService _messageDialog;
     private readonly SettingsManager _settings;
+    private readonly GameLauncherService _gameLauncher;
+    private readonly IFindCoverImageService _findCoverImage;
 
     public FavoritesViewModel(
         IConfiguration configuration,
         IImageLoader imageLoader,
         IMessageBoxLibraryService messageBox,
         IMessageDialogService messageDialog,
-        SettingsManager settings)
+        SettingsManager settings,
+        GameLauncherService gameLauncher,
+        IFindCoverImageService findCoverImage)
     {
         _configuration = configuration;
         _imageLoader = imageLoader;
         _messageBox = messageBox;
         _messageDialog = messageDialog;
         _settings = settings;
+        _gameLauncher = gameLauncher;
+        _findCoverImage = findCoverImage;
     }
 
     // ── Collections ─────────────────────────────────────────────
@@ -86,8 +94,26 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
             return;
         }
 
-        // TODO: Implement game launching
-        await _messageDialog.ShowInfoAsync("Game launching will be implemented soon.", "Launch Game");
+        // Find the system manager for this favorite
+        var systemConfigService = App.ServiceProvider.GetRequiredService<ICoreSystemConfigurationService>();
+        var systemManagers = systemConfigService.LoadSystemManagers();
+        var systemManager = systemManagers.FirstOrDefault(s =>
+            s.SystemName.Equals(SelectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
+
+        if (systemManager == null)
+        {
+            await _messageDialog.ShowErrorAsync($"System '{SelectedFavorite.SystemName}' not found.", "Launch Error");
+            return;
+        }
+
+        var emulatorName = SelectedFavorite.DefaultEmulator ?? systemManager.Emulators.FirstOrDefault()?.EmulatorName;
+        if (string.IsNullOrEmpty(emulatorName))
+        {
+            await _messageDialog.ShowErrorAsync("No emulator configured for this system.", "Launch Error");
+            return;
+        }
+
+        await _gameLauncher.LaunchGameAsync(SelectedFavorite.FileName, emulatorName, systemManager, _settings);
     }
 
     // ── Public Methods ──────────────────────────────────────────
@@ -108,6 +134,23 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
             }
 
             var favorites = await LoadFavoritesFromFileAsync(favoritesPath);
+
+            // Populate cover images
+            var systemConfigService = App.ServiceProvider.GetRequiredService<ICoreSystemConfigurationService>();
+            var systemManagers = systemConfigService.LoadSystemManagers();
+
+            foreach (var fav in favorites)
+            {
+                var systemManager = systemManagers.FirstOrDefault(s =>
+                    s.SystemName.Equals(fav.SystemName, StringComparison.OrdinalIgnoreCase));
+
+                if (systemManager != null)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(fav.FileName);
+                    fav.CoverImage = _findCoverImage.FindCoverImagePath(fileName, fav.SystemName, systemManager.SystemImageFolder);
+                }
+            }
+
             Favorites = new ObservableCollection<Favorite>(favorites);
             IsEmpty = Favorites.Count == 0;
         }
