@@ -4,7 +4,7 @@
         x:Class="SimpleLauncher.Avalonia.Views.MessageDialog"
         x:DataType="views:MessageDialog"
         Title="SimpleLauncher"
-        Width="400" Height="200"
+        Width="420" Height="200"
         WindowStartupLocation="CenterOwner"
         CanResize="False">
     
@@ -16,26 +16,44 @@
                         HorizontalAlignment="Center" 
                         Spacing="10"
                         Margin="0,15,0,0">
+                <Button Content="Yes" 
+                        Width="80"
+                        IsDefault="True"
+                        Click="OnYesClick"
+                        IsVisible="{Binding ShowYesNo}"/>
+                <Button Content="No" 
+                        Width="80"
+                        IsCancel="True"
+                        Click="OnNoClick"
+                        IsVisible="{Binding ShowYesNo}"/>
                 <Button Content="OK" 
                         Width="80"
                         IsDefault="True"
-                        Click="OnOkClick"/>
+                        Click="OnOkClick"
+                        IsVisible="{Binding ShowOkCancel}"/>
                 <Button Content="Cancel" 
                         Width="80"
                         IsCancel="True"
                         Click="OnCancelClick"
-                        IsVisible="{Binding ShowCancel}"/>
+                        IsVisible="{Binding ShowOkCancel}"/>
             </StackPanel>
             
-            <!-- Message -->
-            <StackPanel HorizontalAlignment="Center" 
+            <!-- Icon + Message -->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
-                        Spacing="10">
+                        Spacing="15">
+                <TextBlock Text="{Binding IconGlyph}" 
+                           FontSize="28"
+                           VerticalAlignment="Center"
+                           IsVisible="{Binding ShowIcon}"/>
                 <TextBlock Text="{Binding Message}" 
                            FontSize="14" 
                            Foreground="#cdd6f4"
                            TextWrapping="Wrap"
-                           TextAlignment="Center"/>
+                           TextAlignment="Center"
+                           VerticalAlignment="Center"
+                           MaxWidth="300"/>
             </StackPanel>
         </DockPanel>
     </Border>

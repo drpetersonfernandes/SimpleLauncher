@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Avalonia.Controls.ApplicationLifetimes;
 using IApplicationLifetime = SimpleLauncher.Core.Interfaces.IApplicationLifetime;
 
@@ -15,7 +16,11 @@ public class AvaloniaApplicationLifetime : IApplicationLifetime
 
     public void Restart()
     {
-        // TODO: Implement restart logic
+        var executablePath = Environment.ProcessPath;
+        if (!string.IsNullOrEmpty(executablePath))
+        {
+            Process.Start(executablePath);
+        }
         Shutdown();
     }
 }

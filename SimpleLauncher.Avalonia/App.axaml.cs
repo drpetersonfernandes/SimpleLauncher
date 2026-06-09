@@ -55,6 +55,8 @@ public class App : Application
         services.AddSingleton<IResourceProvider, AvaloniaResourceProvider>();
         services.AddSingleton<IApplicationLifetime, AvaloniaApplicationLifetime>();
         services.AddSingleton<IFilePickerService, AvaloniaFilePickerService>();
+        services.AddSingleton<IImageLoader, AvaloniaImageLoader>();
+        services.AddSingleton<IMessageBoxLibraryService, AvaloniaMessageBoxLibraryService>();
 
         // ViewModels
         services.AddTransient<MainWindowViewModel>();
