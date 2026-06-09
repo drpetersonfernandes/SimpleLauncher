@@ -21,6 +21,7 @@ public class AvaloniaApplicationLifetime : IApplicationLifetime
         {
             Process.Start(executablePath);
         }
+
         Shutdown();
     }
 }

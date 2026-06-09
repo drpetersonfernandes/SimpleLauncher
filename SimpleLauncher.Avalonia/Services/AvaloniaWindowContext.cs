@@ -17,10 +17,11 @@ public class AvaloniaWindowContext : IWindowContext
     {
         get
         {
-            if (_window.TryGetPlatformHandle()?.Handle is IntPtr handle)
+            if (_window.TryGetPlatformHandle()?.Handle is { } handle)
             {
                 return handle;
             }
+
             return IntPtr.Zero;
         }
     }

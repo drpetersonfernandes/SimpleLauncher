@@ -16,20 +16,33 @@
         <!-- Menu Bar -->
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Options">
-                <MenuItem Header="Language" />
-                <MenuItem Header="Theme" />
+                <MenuItem Header="Language">
+                    <MenuItem Header="English" />
+                    <MenuItem Header="Español" />
+                    <MenuItem Header="Deutsch" />
+                    <MenuItem Header="Français" />
+                    <MenuItem Header="Português" />
+                    <MenuItem Header="日本語" />
+                    <MenuItem Header="한국어" />
+                    <MenuItem Header="中文" />
+                </MenuItem>
+                <MenuItem Header="Theme">
+                    <MenuItem Header="Light" />
+                    <MenuItem Header="Dark" />
+                    <MenuItem Header="Midnight" />
+                </MenuItem>
                 <Separator/>
                 <MenuItem Header="Exit" />
             </MenuItem>
             <MenuItem Header="View">
-                <MenuItem Header="Grid View" />
-                <MenuItem Header="List View" />
+                <MenuItem Header="Grid View" Command="{Binding ToggleViewModeCommand}" />
+                <MenuItem Header="List View" Command="{Binding ToggleViewModeCommand}" />
             </MenuItem>
             <MenuItem Header="Tools">
                 <MenuItem Header="Easy Mode" />
-                <MenuItem Header="Global Search" />
-                <MenuItem Header="Play History" />
-                <MenuItem Header="Favorites" />
+                <MenuItem Header="Global Search" Command="{Binding GoToGlobalSearchCommand}" />
+                <MenuItem Header="Play History" Command="{Binding GoToPlayHistoryCommand}" />
+                <MenuItem Header="Favorites" Command="{Binding GoToFavoritesCommand}" />
             </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="About" />
@@ -37,34 +50,217 @@
             </MenuItem>
         </Menu>
         
+        <!-- Left Navigation Panel -->
+        <Border DockPanel.Dock="Left" Background="#181825" Width="60" Padding="5">
+            <StackPanel Spacing="5" VerticalAlignment="Top">
+                <!-- Home -->
+                <Button Content="&#xE80F;" FontFamily="Segoe Fluent Icons" 
+                        Width="50" Height="50" FontSize="20"
+                        Command="{Binding NavigateHomeCommand}"
+                        ToolTip.Tip="Home"/>
+                <!-- Favorites -->
+                <Button Content="&#xE734;" FontFamily="Segoe Fluent Icons" 
+                        Width="50" Height="50" FontSize="20"
+                        Command="{Binding GoToFavoritesCommand}"
+                        ToolTip.Tip="Favorites"/>
+                <!-- Global Search -->
+                <Button Content="&#xE721;" FontFamily="Segoe Fluent Icons" 
+                        Width="50" Height="50" FontSize="20"
+                        Command="{Binding GoToGlobalSearchCommand}"
+                        ToolTip.Tip="Global Search"/>
+                <!-- Play History -->
+                <Button Content="&#xE81C;" FontFamily="Segoe Fluent Icons" 
+                        Width="50" Height="50" FontSize="20"
+                        Command="{Binding GoToPlayHistoryCommand}"
+                        ToolTip.Tip="Play History"/>
+                <Separator Margin="5"/>
+                <!-- Toggle View -->
+                <Button Content="&#xE8A9;" FontFamily="Segoe Fluent Icons" 
+                        Width="50" Height="50" FontSize="20"
+                        Command="{Binding ToggleViewModeCommand}"
+                        ToolTip.Tip="Toggle View"/>
+                <!-- Zoom In -->
+                <Button Content="&#xE710;" FontFamily="Segoe Fluent Icons" 
+                        Width="50" Height="50" FontSize="20"
+                        Command="{Binding ZoomInCommand}"
+                        ToolTip.Tip="Zoom In"/>
+                <!-- Zoom Out -->
+                <Button Content="&#xE711;" FontFamily="Segoe Fluent Icons" 
+                        Width="50" Height="50" FontSize="20"
+                        Command="{Binding ZoomOutCommand}"
+                        ToolTip.Tip="Zoom Out"/>
+            </StackPanel>
+        </Border>
+        
         <!-- Status Bar -->
-        <Border DockPanel.Dock="Bottom" Background="#1e1e2e" Padding="5,2">
-            <TextBlock Text="Ready" Foreground="#a6adc8" FontSize="12"/>
+        <Border DockPanel.Dock="Bottom" Background="#1e1e2e" Padding="10,5">
+            <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+                <!-- Status Text -->
+                <TextBlock Grid.Column="0" Text="{Binding StatusText}" 
+                           Foreground="#a6adc8" FontSize="12" VerticalAlignment="Center"/>
+                
+                <!-- Pagination -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                    <Button Content="&#xE76B;" FontFamily="Segoe Fluent Icons"
+                            Command="{Binding PreviousPageCommand}"
+                            IsEnabled="{Binding HasPreviousPage}"
+                            Width="30" Height="30"/>
+                    <TextBlock Text="{Binding CurrentPage, StringFormat='Page {0}'}" 
+                               Foreground="#a6adc8" FontSize="12" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding TotalPages, StringFormat='of {0}'}" 
+                               Foreground="#a6adc8" FontSize="12" VerticalAlignment="Center"/>
+                    <Button Content="&#xE76C;" FontFamily="Segoe Fluent Icons"
+                            Command="{Binding NextPageCommand}"
+                            IsEnabled="{Binding HasNextPage}"
+                            Width="30" Height="30"/>
+                </StackPanel>
+                
+                <!-- Total Games -->
+                <TextBlock Grid.Column="3" Text="{Binding TotalGames, StringFormat='{}{0} games'}" 
+                           Foreground="#a6adc8" FontSize="12" VerticalAlignment="Center" Margin="10,0"/>
+            </Grid>
         </Border>
         
         <!-- Main Content Area -->
-        <Border Background="#313244" Padding="10">
-            <ScrollViewer>
+        <DockPanel>
+            <!-- System Selection Area -->
+            <Border DockPanel.Dock="Top" Background="#313244" Padding="10">
                 <StackPanel Spacing="10">
-                    <!-- System Selection -->
-                    <Border Background="#45475a" CornerRadius="8" Padding="15">
-                        <StackPanel Spacing="10">
-                            <TextBlock Text="System Selection" FontSize="16" FontWeight="Bold" Foreground="#cdd6f4"/>
-                            <TextBlock Text="Select a system to view games" Foreground="#a6adc8"/>
-                            <!-- TODO: Add system selection combo box -->
-                        </StackPanel>
-                    </Border>
+                    <!-- System and Emulator Selection -->
+                    <Grid ColumnDefinitions="Auto,*,Auto,*,Auto,Auto,Auto" RowDefinitions="Auto">
+                        <!-- System Label -->
+                        <TextBlock Grid.Column="0" Text="System:" Foreground="#cdd6f4" 
+                                   FontSize="14" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        
+                        <!-- System ComboBox -->
+                        <ComboBox Grid.Column="1" 
+                                  ItemsSource="{Binding Systems}"
+                                  SelectedItem="{Binding SelectedSystem}"
+                                  MinWidth="200"
+                                  PlaceholderText="Select a system"/>
+                        
+                        <!-- Emulator Label -->
+                        <TextBlock Grid.Column="2" Text="Emulator:" Foreground="#cdd6f4" 
+                                   FontSize="14" VerticalAlignment="Center" Margin="10,0,10,0"/>
+                        
+                        <!-- Emulator ComboBox -->
+                        <ComboBox Grid.Column="3" 
+                                  ItemsSource="{Binding Emulators}"
+                                  SelectedItem="{Binding SelectedEmulator}"
+                                  MinWidth="200"
+                                  PlaceholderText="Select an emulator"/>
+                        
+                        <!-- Search Box -->
+                        <TextBox Grid.Column="4" 
+                                 Text="{Binding SearchText}"
+                                 PlaceholderText="Search games..."
+                                 Width="200" Margin="10,0"/>
+                        
+                        <!-- Search Button -->
+                        <Button Grid.Column="5" Content="&#xE721;" FontFamily="Segoe Fluent Icons"
+                                Command="{Binding SearchCommand}"
+                                Width="35" Height="35" Margin="0,0,10,0"/>
+                        
+                        <!-- Feeling Lucky Button -->
+                        <Button Grid.Column="6" Content="&#xE734;" FontFamily="Segoe Fluent Icons"
+                                Command="{Binding FeelingLuckyCommand}"
+                                Width="35" Height="35"
+                                ToolTip.Tip="Feeling Lucky"/>
+                    </Grid>
                     
-                    <!-- Game Grid Area -->
-                    <Border Background="#45475a" CornerRadius="8" Padding="15" MinHeight="400">
-                        <StackPanel Spacing="10">
-                            <TextBlock Text="Games" FontSize="16" FontWeight="Bold" Foreground="#cdd6f4"/>
-                            <TextBlock Text="Game grid will appear here" Foreground="#a6adc8"/>
-                            <!-- TODO: Add game grid/list -->
+                    <!-- Letter/Number Filter -->
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" MaxHeight="40">
+                        <StackPanel Orientation="Horizontal" Spacing="2">
+                            <!-- Will be populated dynamically -->
                         </StackPanel>
-                    </Border>
+                    </ScrollViewer>
                 </StackPanel>
-            </ScrollViewer>
-        </Border>
+            </Border>
+            
+            <!-- Game Content Area -->
+            <Panel>
+                <!-- Main Game View -->
+                <ScrollViewer IsVisible="{Binding !IsSubPageActive}">
+                    <Panel>
+                        <!-- Loading Overlay -->
+                        <Border IsVisible="{Binding IsLoading}" 
+                                Background="#80000000" 
+                                ZIndex="100">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                                <ProgressBar IsIndeterminate="True" Width="200"/>
+                                <TextBlock Text="Loading games..." Foreground="#cdd6f4" FontSize="14"/>
+                            </StackPanel>
+                        </Border>
+                        
+                        <!-- Game Grid View -->
+                        <ItemsControl ItemsSource="{Binding Games}" 
+                                      IsVisible="{Binding IsGridView}"
+                                      Margin="10">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:GameItemViewModel">
+                                    <Border Background="#45475a" 
+                                            CornerRadius="8" 
+                                            Padding="10" 
+                                            Margin="5"
+                                            Width="200"
+                                            Cursor="Hand">
+                                        <StackPanel Spacing="5">
+                                            <!-- Cover Image -->
+                                            <Border Background="#585b70" 
+                                                    CornerRadius="4" 
+                                                    Height="150">
+                                                <Image Source="{Binding CoverImagePath}" 
+                                                       Stretch="Uniform"
+                                                       />
+                                            </Border>
+                                            <!-- Game Name -->
+                                            <TextBlock Text="{Binding MachineName}" 
+                                                       Foreground="#cdd6f4" 
+                                                       FontSize="12"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       MaxLines="2"/>
+                                            <!-- Favorite Indicator -->
+                                            <TextBlock Text="&#xE734;" FontFamily="Segoe Fluent Icons"
+                                                       Foreground="#f9e2af"
+                                                       IsVisible="{Binding IsFavorite}"
+                                                       FontSize="14"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        
+                        <!-- Game List View -->
+                        <DataGrid ItemsSource="{Binding Games}"
+                                  IsVisible="{Binding IsListView}"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  GridLinesVisibility="Horizontal"
+                                  BorderThickness="0"
+                                  Background="#313244"
+                                  Foreground="#cdd6f4"
+                                  Margin="10">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="*"/>
+                                <DataGridTextColumn Header="Machine" Binding="{Binding MachineName}" Width="200"/>
+                                <DataGridTextColumn Header="Folder" Binding="{Binding FolderPath}" Width="250"/>
+                                <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="100"/>
+                                <DataGridTextColumn Header="Play Time" Binding="{Binding PlayTime}" Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Panel>
+                </ScrollViewer>
+                
+                <!-- Sub-page View -->
+                <ContentControl Content="{Binding CurrentSubPage}"
+                                IsVisible="{Binding IsSubPageActive}"
+                                Margin="10"/>
+            </Panel>
+        </DockPanel>
     </DockPanel>
 </Window>

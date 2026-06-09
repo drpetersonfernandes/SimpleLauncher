@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using SimpleLauncher.Core.Interfaces;
@@ -13,6 +12,7 @@ public class AvaloniaResourceProvider : IResourceProvider
         {
             return FindResource(key) ?? key;
         }
+
         return Dispatcher.UIThread.Invoke(() => FindResource(key) ?? key);
     }
 
@@ -22,6 +22,7 @@ public class AvaloniaResourceProvider : IResourceProvider
         {
             return FindResource(key) ?? defaultValue;
         }
+
         return Dispatcher.UIThread.Invoke(() => FindResource(key) ?? defaultValue);
     }
 
@@ -33,6 +34,7 @@ public class AvaloniaResourceProvider : IResourceProvider
             {
                 return value as string;
             }
+
             return null;
         }
         catch

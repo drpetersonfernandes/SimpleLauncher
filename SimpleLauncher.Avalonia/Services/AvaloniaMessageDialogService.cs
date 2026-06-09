@@ -44,8 +44,6 @@ public class AvaloniaMessageDialogService : IMessageDialogService
                     dialog.ShowOkCancel = true;
                     break;
                 case MessageBoxButton.YesNo:
-                    dialog.ShowYesNo = true;
-                    break;
                 case MessageBoxButton.YesNoCancel:
                     dialog.ShowYesNo = true;
                     break;
@@ -85,8 +83,8 @@ public class AvaloniaMessageDialogService : IMessageDialogService
         return result == MessageBoxResult.Yes;
     }
 
-    public async Task<MessageBoxResult> ShowAsync(string message, string title, MessageBoxButton buttons, MessageBoxImage icon)
+    public Task<MessageBoxResult> ShowAsync(string message, string title, MessageBoxButton buttons, MessageBoxImage icon)
     {
-        return await ShowDialogAsync(message, title, buttons, icon);
+        return ShowDialogAsync(message, title, buttons, icon);
     }
 }

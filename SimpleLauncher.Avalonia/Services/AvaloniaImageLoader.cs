@@ -30,10 +30,7 @@ public class AvaloniaImageLoader : IImageLoader
         try
         {
             var imageBytes = await Task.Run(() => LoadImageBytes(imagePath));
-            if (imageBytes == null)
-            {
-                return await LoadDefaultImageAsync();
-            }
+
             return (new MemoryStream(imageBytes), false);
         }
         catch (NotSupportedException)
@@ -53,10 +50,7 @@ public class AvaloniaImageLoader : IImageLoader
         try
         {
             var imageBytes = await Task.Run(() => LoadImageBytes(_defaultImagePath));
-            if (imageBytes == null)
-            {
-                return (null, true);
-            }
+
             return (new MemoryStream(imageBytes), true);
         }
         catch (Exception ex)
@@ -68,7 +62,7 @@ public class AvaloniaImageLoader : IImageLoader
         }
     }
 
-    public byte[]? LoadImageBytes(string filePath)
+    public byte[] LoadImageBytes(string filePath)
     {
         var longPath = PathHelper.GetLongPath(filePath);
 

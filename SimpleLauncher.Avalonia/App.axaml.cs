@@ -49,6 +49,9 @@ public class App : Application
         services.AddMemoryCache();
         services.AddHttpClient();
 
+        // SettingsManager (from Core)
+        services.AddSingleton<SimpleLauncher.Core.Services.SettingsManager.SettingsManager>();
+
         // Platform services (Avalonia implementations)
         services.AddSingleton<IDispatcherService, AvaloniaDispatcherService>();
         services.AddSingleton<IMessageDialogService, AvaloniaMessageDialogService>();

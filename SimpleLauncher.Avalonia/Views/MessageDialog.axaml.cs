@@ -43,12 +43,15 @@ public partial class MessageDialog : Window
         Close();
     }
 
-    public static string GetIconGlyph(MessageBoxImage icon) => icon switch
+    public static string GetIconGlyph(MessageBoxImage icon)
     {
-        MessageBoxImage.Information => "\u2139",
-        MessageBoxImage.Warning => "\u26A0",
-        MessageBoxImage.Error => "\u2716",
-        MessageBoxImage.Question => "\u2753",
-        _ => string.Empty
-    };
+        return icon switch
+        {
+            MessageBoxImage.Information => "\u2139",
+            MessageBoxImage.Warning => "\u26A0",
+            MessageBoxImage.Error => "\u2716",
+            MessageBoxImage.Question => "\u2753",
+            _ => string.Empty
+        };
+    }
 }
