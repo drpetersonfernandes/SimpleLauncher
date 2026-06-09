@@ -1,35 +1,68 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="SimpleLauncher.Avalonia.Views.AboutWindow"
-        x:DataType="x:String"
         Title="About SimpleLauncher"
-        Width="400" Height="300"
+        Width="450" Height="400"
         WindowStartupLocation="CenterOwner"
         CanResize="False">
     
-    <Border Background="#1e1e2e" Padding="20">
+    <Border Background="#1e1e2e" Padding="25">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="15">
+            <!-- App Icon/Logo -->
+            <Border Background="#45475a" 
+                    CornerRadius="12" 
+                    Width="80" Height="80"
+                    HorizontalAlignment="Center">
+                <TextBlock Text="SL" 
+                           FontSize="32" FontWeight="Bold"
+                           Foreground="#cdd6f4"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </Border>
+            
+            <!-- App Name -->
             <TextBlock Text="SimpleLauncher" 
                        FontSize="24" FontWeight="Bold" 
                        Foreground="#cdd6f4"
                        HorizontalAlignment="Center"/>
-            <TextBlock Text="Version 1.0.0" 
+            
+            <!-- Version -->
+            <TextBlock x:Name="VersionText"
                        FontSize="14" 
                        Foreground="#a6adc8"
                        HorizontalAlignment="Center"/>
+            
+            <!-- Description -->
             <TextBlock Text="A simple game launcher for retro games" 
                        FontSize="12" 
                        Foreground="#6c7086"
                        HorizontalAlignment="Center"
                        TextWrapping="Wrap"
                        TextAlignment="Center"/>
+            
+            <!-- Platform Info -->
             <TextBlock Text="Built with Avalonia UI" 
-                       FontSize="10" 
+                       FontSize="11" 
                        Foreground="#45475a"
                        HorizontalAlignment="Center"/>
+            
+            <!-- Links -->
+            <StackPanel Spacing="10" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <Button Content="GitHub Repository" 
+                        HorizontalAlignment="Center"
+                        Padding="15,5"
+                        Click="OnGitHubClick"/>
+                <Button Content="Report a Bug" 
+                        HorizontalAlignment="Center"
+                        Padding="15,5"
+                        Click="OnReportBugClick"/>
+            </StackPanel>
+            
+            <!-- OK Button -->
             <Button Content="OK" 
                     HorizontalAlignment="Center"
                     Width="80"
+                    Margin="0,10,0,0"
                     Click="OnOkClick"/>
         </StackPanel>
     </Border>
