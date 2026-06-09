@@ -4,5 +4,98 @@
              RequestedThemeVariant="Dark">
     <Application.Styles>
         <FluentTheme />
+        
+        <!-- Custom Styles -->
+        <Style Selector="Button.navbutton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundSecondaryBrush}"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="{DynamicResource ThemeAccentBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ThemeIdealForegroundBrush}"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="MinHeight" Value="35"/>
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="CornerRadius" Value="4"/>
+        </Style>
+        
+        <Style Selector="Button.secondary">
+            <Setter Property="Background" Value="{DynamicResource ThemeSurfaceAltBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="MinHeight" Value="35"/>
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="CornerRadius" Value="4"/>
+        </Style>
+        
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="{DynamicResource ThemeCardBackgroundBrush}"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="15"/>
+        </Style>
+        
+        <Style Selector="TextBlock.sectionheader">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}"/>
+        </Style>
+        
+        <Style Selector="TextBlock.label">
+            <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundSecondaryBrush}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
     </Application.Styles>
+    
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- Default Theme Colors (will be overridden by theme service) -->
+            <SolidColorBrush x:Key="ThemeBackgroundBrush" Color="#1e1e2e"/>
+            <SolidColorBrush x:Key="ThemeSurfaceBrush" Color="#313244"/>
+            <SolidColorBrush x:Key="ThemeSurfaceAltBrush" Color="#45475a"/>
+            <SolidColorBrush x:Key="ThemeSurfaceHoverBrush" Color="#585b70"/>
+            <SolidColorBrush x:Key="ThemeForegroundBrush" Color="#cdd6f4"/>
+            <SolidColorBrush x:Key="ThemeForegroundSecondaryBrush" Color="#a6adc8"/>
+            <SolidColorBrush x:Key="ThemeForegroundMutedBrush" Color="#6c7086"/>
+            <SolidColorBrush x:Key="ThemeAccentBrush" Color="#5B9BD5"/>
+            <SolidColorBrush x:Key="ThemeAccentLightBrush" Color="#89BDE8"/>
+            <SolidColorBrush x:Key="ThemeAccentDarkBrush" Color="#4878A8"/>
+            <SolidColorBrush x:Key="ThemeIdealForegroundBrush" Color="White"/>
+            <SolidColorBrush x:Key="ThemeBorderBrush" Color="#585b70"/>
+            <SolidColorBrush x:Key="ThemeDividerBrush" Color="#313244"/>
+            <SolidColorBrush x:Key="ThemeSuccessBrush" Color="#a6e3a1"/>
+            <SolidColorBrush x:Key="ThemeWarningBrush" Color="#f9e2af"/>
+            <SolidColorBrush x:Key="ThemeErrorBrush" Color="#f38ba8"/>
+            <SolidColorBrush x:Key="ThemeNavBackgroundBrush" Color="#181825"/>
+            <SolidColorBrush x:Key="ThemeStatusBarBackgroundBrush" Color="#1e1e2e"/>
+            <SolidColorBrush x:Key="ThemeCardBackgroundBrush" Color="#45475a"/>
+            <SolidColorBrush x:Key="ThemeCardHoverBrush" Color="#585b70"/>
+            <SolidColorBrush x:Key="ThemeOverlayBrush" Color="#80000000"/>
+            
+            <!-- Log/Debug brushes -->
+            <SolidColorBrush x:Key="LogBackground" Color="Black"/>
+            <SolidColorBrush x:Key="LogForeground" Color="Lime"/>
+            
+            <!-- Stats brushes -->
+            <SolidColorBrush x:Key="StatsEqualBrush" Color="LightGreen"/>
+            <SolidColorBrush x:Key="StatsNotEqualBrush" Color="LightCoral"/>
+            
+            <!-- Loading Overlay -->
+            <SolidColorBrush x:Key="OverlayBackgroundBrush" Color="#7F000000"/>
+            <SolidColorBrush x:Key="EmergencyButtonBackgroundBrush" Color="#CC000000"/>
+            
+            <!-- Accent color name resources -->
+            <x:String x:Key="Maroon">Maroon</x:String>
+            <x:String x:Key="OliveDrab">Olive Drab</x:String>
+            <x:String x:Key="Plum">Plum</x:String>
+            <x:String x:Key="SkyBlue">Sky Blue</x:String>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

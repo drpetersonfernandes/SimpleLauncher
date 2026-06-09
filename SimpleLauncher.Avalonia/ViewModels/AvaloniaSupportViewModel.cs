@@ -1,5 +1,4 @@
 using System.Globalization;
-using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -116,8 +115,7 @@ public partial class AvaloniaSupportViewModel : ObservableObject
 
         try
         {
-            var httpClient = _httpClientFactory?.CreateClient("SupportWindowClient");
-            if (httpClient != null)
+            var httpClient = _httpClientFactory.CreateClient("SupportWindowClient");
             {
                 httpClient.DefaultRequestHeaders.Add("X-API-KEY", apiKey);
 

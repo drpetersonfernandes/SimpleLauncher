@@ -26,7 +26,7 @@
                  Margin="10"
                  HorizontalAlignment="Stretch"
                  Text="{Binding VideoUrl}"
-                 Watermark="https://www.youtube.com/results?search_query=" />
+                  PlaceholderText="https://www.youtube.com/results?search_query=" />
 
         <!-- Info Link -->
         <TextBlock Grid.Row="2" Grid.Column="0"
@@ -36,7 +36,7 @@
         <TextBox Grid.Row="2" Grid.Column="1"
                  Margin="10"
                  Text="{Binding InfoUrl}"
-                 Watermark="https://www.igdb.com/search?q=" />
+                  PlaceholderText="https://www.igdb.com/search?q=" />
 
         <!-- Buttons -->
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"

@@ -1,4 +1,3 @@
-using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.LoadingInterface;
 using SimpleLauncher.Core.Services.SystemManager;
 

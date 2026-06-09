@@ -13,8 +13,8 @@ public partial class SupportWindow : Window
     public SupportWindow(AvaloniaSupportViewModel viewModel) : this()
     {
         DataContext = viewModel;
-        viewModel.CloseRequested += () => Close();
-        viewModel.FormCleared += () =>
+        viewModel.CloseRequested += Close;
+        viewModel.FormCleared += static () =>
         {
             // Form fields are cleared via binding in the ViewModel
         };

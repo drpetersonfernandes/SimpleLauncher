@@ -22,5 +22,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\SimpleLauncher\SimpleLauncher.csproj" />
+        <ProjectReference Include="..\SimpleLauncher.Core\SimpleLauncher.Core.csproj" />
     </ItemGroup>
 </Project>

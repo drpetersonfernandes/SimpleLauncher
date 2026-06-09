@@ -13,7 +13,7 @@ public partial class SetLinksWindow : Window
     public SetLinksWindow(AvaloniaSetLinksViewModel viewModel) : this()
     {
         DataContext = viewModel;
-        viewModel.SaveCompleted += () => Close();
-        viewModel.CloseRequested += () => Close();
+        viewModel.SaveCompleted += Close;
+        viewModel.CloseRequested += Close;
     }
 }

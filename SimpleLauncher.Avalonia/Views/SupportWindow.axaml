@@ -18,13 +18,13 @@
             <!-- Name -->
             <StackPanel Grid.Row="1" Margin="10,0,10,10" Orientation="Horizontal">
                 <TextBlock Text="Name:" Width="95" VerticalAlignment="Center" />
-                <TextBox Width="270" Text="{Binding Name}" Watermark="Your name" />
+                <TextBox Width="270" Text="{Binding Name}" PlaceholderText="Your name" />
             </StackPanel>
 
             <!-- Email -->
             <StackPanel Grid.Row="2" Margin="10,0,10,20" Orientation="Horizontal">
                 <TextBlock Text="Email:" Width="95" VerticalAlignment="Center" />
-                <TextBox Width="270" Text="{Binding Email}" Watermark="your@email.com" />
+                <TextBox Width="270" Text="{Binding Email}" PlaceholderText="your@email.com" />
             </StackPanel>
 
             <!-- Support Request -->
@@ -33,9 +33,9 @@
                      Margin="10,0,10,20"
                      AcceptsReturn="True"
                      TextWrapping="Wrap"
-                     VerticalScrollBarVisibility="Auto"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
                      Text="{Binding SupportRequest}"
-                     Watermark="Describe your issue..." />
+                     PlaceholderText="Describe your issue..." />
 
             <!-- Buttons -->
             <StackPanel Grid.Row="4" Margin="10,0,10,20"

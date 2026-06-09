@@ -11,11 +11,16 @@ using ControlzEx.Theming;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.CheckForFileLock;
+using SimpleLauncher.Core.Services.CheckIfDirectoryIsWritable;
 using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.DownloadService;
 using SimpleLauncher.Core.Services.ExtractFiles;
+using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Core.Services.LaunchTools;
 using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.SanitizeInputString;
 using SimpleLauncher.Core.ViewModels;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
@@ -252,6 +257,15 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IRetroAchievementsHasherTool, RetroAchievementsHasherTool>();
         serviceCollection.AddSingleton<ISystemSelectionOrchestrator, SystemSelectionOrchestrator>();
         serviceCollection.AddSingleton<IGameFileLoadingOrchestrator, GameFileLoadingOrchestrator>();
+
+        // Core service implementations
+        serviceCollection.AddSingleton<IWindowsVersionService, WindowsVersionService>();
+        serviceCollection.AddSingleton<IDirectoryValidationService, DirectoryValidationService>();
+        serviceCollection.AddSingleton<IFileLockService, FileLockService>();
+        serviceCollection.AddSingleton<IInputSanitizerService, InputSanitizerService>();
+        serviceCollection.AddSingleton<IBugReportFormatter, BugReportFormatterService>();
+        serviceCollection.AddSingleton<IFileFinderService, FileFinderService>();
+        serviceCollection.AddSingleton<IFormatFileSizeService, FormatFileSizeService>();
 
         // Facade services
         serviceCollection.AddSingleton<Services.AudioInput.IAudioInputService, Services.AudioInput.AudioInputService>();

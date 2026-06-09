@@ -1,0 +1,95 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Avalonia.ViewModels"
+        x:Class="SimpleLauncher.Avalonia.Views.InjectDaphneConfigWindow"
+        x:DataType="vm:AvaloniaInjectDaphneConfigViewModel"
+        Title="Daphne Configuration"
+        Width="700" Height="500"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="10" RowDefinitions="*,Auto">
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="10">
+                <!-- Video Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Video" FontWeight="Bold" FontSize="14" />
+
+                        <CheckBox IsChecked="{Binding DaphneFullscreen}"
+                                  Content="Fullscreen"
+                                  ToolTip.Tip="Launch in fullscreen mode" />
+
+                        <CheckBox IsChecked="{Binding DaphneBilinear}"
+                                  Content="Bilinear Filtering"
+                                  ToolTip.Tip="Enable bilinear filtering" />
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Resolution X:" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1"
+                                     Text="{Binding DaphneResX}"
+                                     PlaceholderText="e.g. 1920"
+                                     ToolTip.Tip="Enter horizontal resolution" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Resolution Y:" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1"
+                                     Text="{Binding DaphneResY}"
+                                     PlaceholderText="e.g. 1080"
+                                     ToolTip.Tip="Enter vertical resolution" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Audio Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Audio" FontWeight="Bold" FontSize="14" />
+
+                        <CheckBox IsChecked="{Binding DaphneEnableSound}"
+                                  Content="Enable Sound"
+                                  ToolTip.Tip="Enable audio output" />
+                    </StackPanel>
+                </Border>
+
+                <!-- General Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="General" FontWeight="Bold" FontSize="14" />
+
+                        <CheckBox IsChecked="{Binding DaphneDisableCrosshairs}"
+                                  Content="Disable Crosshairs"
+                                  ToolTip.Tip="Disable crosshair display" />
+
+                        <CheckBox IsChecked="{Binding DaphneUseOverlays}"
+                                  Content="Use Overlays"
+                                  ToolTip.Tip="Enable overlay display" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Important Setting -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10" BorderBrush="#FFCC00">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="IMPORTANT SETTING" FontWeight="Bold" FontSize="14" Foreground="#FFCC00" />
+                        <CheckBox IsChecked="{Binding DaphneShowSettingsBeforeLaunch}"
+                                  Content="Show settings before launch"
+                                  ToolTip.Tip="Show the emulator settings window before launching a game" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0" Spacing="10">
+            <Button Content="Save"
+                    Command="{Binding SaveCommand}"
+                    Width="100"
+                    ToolTip.Tip="Save configuration" />
+            <Button Content="Cancel"
+                    Command="{Binding CancelCommand}"
+                    IsCancel="True"
+                    Width="100"
+                    ToolTip.Tip="Cancel" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -16,7 +16,7 @@
             <Button Width="110"
                     Command="{Binding StartCommand}"
                     Content="Start Process"
-                    ToolTip="Start calculating global statistics" />
+                    ToolTip.Tip="Start calculating global statistics" />
         </StackPanel>
 
         <!-- Stats Grid -->
@@ -39,7 +39,7 @@
             <Button Width="110"
                     Command="{Binding SaveReportCommand}"
                     Content="Save Report"
-                    ToolTip="Save statistics report to file" />
+                    ToolTip.Tip="Save statistics report to file" />
         </StackPanel>
 
         <!-- Busy Overlay -->
@@ -61,7 +61,7 @@
                     Width="110"
                     Command="{Binding CancelCommand}"
                     Content="Cancel"
-                    ToolTip="Cancel processing" />
+                    ToolTip.Tip="Cancel processing" />
         </Border>
     </Grid>
 </Window>

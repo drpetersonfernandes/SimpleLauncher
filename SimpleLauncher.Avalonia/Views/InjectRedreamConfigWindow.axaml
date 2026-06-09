@@ -1,0 +1,175 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Avalonia.ViewModels"
+        x:Class="SimpleLauncher.Avalonia.Views.InjectRedreamConfigWindow"
+        x:DataType="vm:AvaloniaInjectRedreamConfigViewModel"
+        Title="Redream Configuration"
+        Width="700" Height="700"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="10" RowDefinitions="*,Auto">
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="10">
+                <!-- Video Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Video" FontWeight="Bold" FontSize="14" />
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Cable:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding CableOptions}"
+                                      SelectedItem="{Binding RedreamCable}"
+                                      ToolTip.Tip="Select the video cable type" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Broadcast:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding BroadcastOptions}"
+                                      SelectedItem="{Binding RedreamBroadcast}"
+                                      ToolTip.Tip="Select the broadcast standard" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Aspect Ratio:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AspectOptions}"
+                                      SelectedItem="{Binding RedreamAspect}"
+                                      ToolTip.Tip="Select the aspect ratio" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Resolution:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding ResOptions}"
+                                      SelectedItem="{Binding RedreamRes}"
+                                      ToolTip.Tip="Select the internal resolution multiplier" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Renderer:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding RendererOptions}"
+                                      SelectedItem="{Binding RedreamRenderer}"
+                                      ToolTip.Tip="Select the renderer" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Fullscreen Mode:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding FullmodeOptions}"
+                                      SelectedItem="{Binding RedreamFullmode}"
+                                      ToolTip.Tip="Select the fullscreen mode" />
+                        </Grid>
+
+                        <CheckBox IsChecked="{Binding RedreamVsync}"
+                                  Content="VSync"
+                                  ToolTip.Tip="Enable vertical sync" />
+
+                        <CheckBox IsChecked="{Binding RedreamFrameskip}"
+                                  Content="Frameskip"
+                                  ToolTip.Tip="Enable frame skipping" />
+
+                        <CheckBox IsChecked="{Binding RedreamFramerate}"
+                                  Content="Framerate"
+                                  ToolTip.Tip="Show framerate counter" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Display Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Display" FontWeight="Bold" FontSize="14" />
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Width:" VerticalAlignment="Center" />
+                            <NumericUpDown Grid.Column="1"
+                                           Value="{Binding RedreamWidth}"
+                                           Minimum="320" Maximum="7680"
+                                           ToolTip.Tip="Set the window width" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Height:" VerticalAlignment="Center" />
+                            <NumericUpDown Grid.Column="1"
+                                           Value="{Binding RedreamHeight}"
+                                           Minimum="240" Maximum="4320"
+                                           ToolTip.Tip="Set the window height" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- System Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="System" FontWeight="Bold" FontSize="14" />
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Language:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding LanguageOptions}"
+                                      SelectedItem="{Binding RedreamLanguage}"
+                                      ToolTip.Tip="Select the system language" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Region:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding RegionOptions}"
+                                      SelectedItem="{Binding RedreamRegion}"
+                                      ToolTip.Tip="Select the system region" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="Auto,*">
+                            <TextBlock Text="Volume:" VerticalAlignment="Center" />
+                            <Slider Grid.Column="1"
+                                    Value="{Binding RedreamVolume}"
+                                    Minimum="0" Maximum="100"
+                                    TickFrequency="10" IsSnapToTickEnabled="True"
+                                    ToolTip.Tip="Set the audio volume" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="Auto,*">
+                            <TextBlock Text="Latency:" VerticalAlignment="Center" />
+                            <Slider Grid.Column="1"
+                                    Value="{Binding RedreamLatency}"
+                                    Minimum="0" Maximum="10"
+                                    TickFrequency="1" IsSnapToTickEnabled="True"
+                                    ToolTip.Tip="Set the audio latency" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Important Setting -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10" BorderBrush="#FFCC00">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="IMPORTANT SETTING" FontWeight="Bold" FontSize="14" Foreground="#FFCC00" />
+                        <CheckBox IsChecked="{Binding RedreamShowSettingsBeforeLaunch}"
+                                  Content="Show settings before launch"
+                                  ToolTip.Tip="Show the emulator settings window before launching a game" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0" Spacing="10">
+            <Button Content="Save"
+                    Command="{Binding SaveCommand}"
+                    Width="100"
+                    ToolTip.Tip="Save configuration" />
+            <Button Content="Run"
+                    Command="{Binding RunCommand}"
+                    IsVisible="{Binding IsLauncherMode}"
+                    IsDefault="True"
+                    Width="100"
+                    ToolTip.Tip="Save and run" />
+            <Button Content="Cancel"
+                    Command="{Binding CancelCommand}"
+                    IsCancel="True"
+                    Width="100"
+                    ToolTip.Tip="Cancel" />
+        </StackPanel>
+    </Grid>
+</Window>

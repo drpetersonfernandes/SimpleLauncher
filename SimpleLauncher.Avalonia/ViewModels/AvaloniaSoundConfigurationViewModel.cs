@@ -1,4 +1,4 @@
-using System.IO;
+using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Interfaces;
@@ -8,6 +8,7 @@ using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Avalonia.ViewModels;
 
+[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class AvaloniaSoundConfigurationViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
@@ -21,7 +22,7 @@ public partial class AvaloniaSoundConfigurationViewModel : ObservableObject
     private static readonly string AudioFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "audio");
 
     [ObservableProperty] private bool _enableNotificationSound;
-    [ObservableProperty] private string _notificationSoundFile = string.Empty;
+    [ObservableProperty] private string _notificationSoundFile;
     [ObservableProperty] private bool _isSoundControlsEnabled;
 
     public AvaloniaSoundConfigurationViewModel(

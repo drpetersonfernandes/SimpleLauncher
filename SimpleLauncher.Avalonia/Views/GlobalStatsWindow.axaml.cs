@@ -13,6 +13,6 @@ public partial class GlobalStatsWindow : Window
     public GlobalStatsWindow(AvaloniaGlobalStatsViewModel viewModel) : this()
     {
         DataContext = viewModel;
-        viewModel.CloseRequested += () => Close();
+        viewModel.CloseRequested += Close;
     }
 }

@@ -1,0 +1,123 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Avalonia.ViewModels"
+        x:Class="SimpleLauncher.Avalonia.Views.InjectMesenConfigWindow"
+        x:DataType="vm:AvaloniaInjectMesenConfigViewModel"
+        Title="Mesen Configuration"
+        Width="700" Height="600"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="10" RowDefinitions="*,Auto">
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="10">
+                <!-- Video Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Video" FontWeight="Bold" FontSize="14" />
+
+                        <CheckBox IsChecked="{Binding Fullscreen}"
+                                  Content="Fullscreen"
+                                  ToolTip.Tip="Run in fullscreen mode" />
+
+                        <CheckBox IsChecked="{Binding Vsync}"
+                                  Content="VSync"
+                                  ToolTip.Tip="Enable vertical sync" />
+
+                        <CheckBox IsChecked="{Binding Bilinear}"
+                                  Content="Bilinear Filtering"
+                                  ToolTip.Tip="Enable bilinear filtering" />
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Aspect Ratio:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AspectRatioOptions}"
+                                      SelectedItem="{Binding AspectRatio}"
+                                      ToolTip.Tip="Select the aspect ratio" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Video Filter:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding VideoFilterOptions}"
+                                      SelectedItem="{Binding VideoFilter}"
+                                      ToolTip.Tip="Select the video filter" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Audio Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Audio" FontWeight="Bold" FontSize="14" />
+
+                        <CheckBox IsChecked="{Binding EnableAudio}"
+                                  Content="Enable Audio"
+                                  ToolTip.Tip="Enable audio output" />
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Master Volume:" VerticalAlignment="Center" />
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                                <Slider Minimum="0" Maximum="100"
+                                        Value="{Binding MasterVolume}"
+                                        Width="200"
+                                        ToolTip.Tip="Adjust master volume" />
+                                <TextBlock Text="{Binding MasterVolume}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- General Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="General" FontWeight="Bold" FontSize="14" />
+
+                        <CheckBox IsChecked="{Binding Rewind}"
+                                  Content="Rewind"
+                                  ToolTip.Tip="Enable rewind support" />
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Run Ahead:" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1"
+                                     Text="{Binding RunAhead}"
+                                     ToolTip.Tip="Enter the number of frames for run-ahead" />
+                        </Grid>
+
+                        <CheckBox IsChecked="{Binding PauseInBackground}"
+                                  Content="Pause in Background"
+                                  ToolTip.Tip="Pause emulation when window loses focus" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Important Setting -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10" BorderBrush="#FFCC00">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="IMPORTANT SETTING" FontWeight="Bold" FontSize="14" Foreground="#FFCC00" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
+                                  Content="Show settings before launch"
+                                  ToolTip.Tip="Show the emulator settings window before launching a game" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0" Spacing="10">
+            <Button Content="Save"
+                    Command="{Binding SaveCommand}"
+                    Width="100"
+                    ToolTip.Tip="Save configuration" />
+            <Button Content="Run"
+                    Command="{Binding RunCommand}"
+                    IsVisible="{Binding IsLauncherMode}"
+                    IsDefault="True"
+                    Width="100"
+                    ToolTip.Tip="Save and run" />
+            <Button Content="Cancel"
+                    Command="{Binding CancelCommand}"
+                    IsCancel="True"
+                    Width="100"
+                    ToolTip.Tip="Cancel" />
+        </StackPanel>
+    </Grid>
+</Window>

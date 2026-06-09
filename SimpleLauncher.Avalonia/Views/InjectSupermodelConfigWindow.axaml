@@ -1,0 +1,157 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Avalonia.ViewModels"
+        x:Class="SimpleLauncher.Avalonia.Views.InjectSupermodelConfigWindow"
+        x:DataType="vm:AvaloniaInjectSupermodelConfigViewModel"
+        Title="Supermodel Configuration"
+        Width="700" Height="700"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="10" RowDefinitions="*,Auto">
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="10">
+                <!-- Engine Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Engine" FontWeight="Bold" FontSize="14" />
+
+                        <CheckBox IsChecked="{Binding New3DEngine}"
+                                  Content="New 3D Engine"
+                                  ToolTip.Tip="Enable the new 3D rendering engine" />
+
+                        <CheckBox IsChecked="{Binding QuadRendering}"
+                                  Content="Quad Rendering"
+                                  ToolTip.Tip="Enable quad rendering" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Video Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Video" FontWeight="Bold" FontSize="14" />
+
+                        <CheckBox IsChecked="{Binding Fullscreen}"
+                                  Content="Fullscreen"
+                                  ToolTip.Tip="Run in fullscreen mode" />
+
+                        <CheckBox IsChecked="{Binding Vsync}"
+                                  Content="VSync"
+                                  ToolTip.Tip="Enable vertical sync" />
+
+                        <CheckBox IsChecked="{Binding WideScreen}"
+                                  Content="Wide Screen"
+                                  ToolTip.Tip="Enable widescreen mode" />
+
+                        <CheckBox IsChecked="{Binding Stretch}"
+                                  Content="Stretch"
+                                  ToolTip.Tip="Stretch display to fill screen" />
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Resolution X:" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1"
+                                     Text="{Binding ResX}"
+                                     ToolTip.Tip="Horizontal resolution" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Resolution Y:" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1"
+                                     Text="{Binding ResY}"
+                                     ToolTip.Tip="Vertical resolution" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Audio Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Audio" FontWeight="Bold" FontSize="14" />
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Music Volume:" />
+                            <Slider Minimum="0" Maximum="100"
+                                    Value="{Binding MusicVolume}"
+                                    TickFrequency="1" IsSnapToTickEnabled="False"
+                                    ToolTip.Tip="Adjust music volume (0 to 100)" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Sound Volume:" />
+                            <Slider Minimum="0" Maximum="100"
+                                    Value="{Binding SoundVolume}"
+                                    TickFrequency="1" IsSnapToTickEnabled="False"
+                                    ToolTip.Tip="Adjust sound volume (0 to 100)" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Input Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Input" FontWeight="Bold" FontSize="14" />
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Input System:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding InputSystemOptions}"
+                                      SelectedItem="{Binding InputSystem}"
+                                      ToolTip.Tip="Select the input system" />
+                        </Grid>
+
+                        <CheckBox IsChecked="{Binding Throttle}"
+                                  Content="Throttle"
+                                  ToolTip.Tip="Enable throttle" />
+
+                        <CheckBox IsChecked="{Binding MultiThreaded}"
+                                  Content="Multi-Threaded"
+                                  ToolTip.Tip="Enable multi-threaded rendering" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Performance Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Performance" FontWeight="Bold" FontSize="14" />
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="PPC Frequency:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding PpcFrequencyOptions}"
+                                      SelectedItem="{Binding PowerPcFrequency}"
+                                      ToolTip.Tip="Select the PowerPC frequency" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Important Setting -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10" BorderBrush="#FFCC00">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="IMPORTANT SETTING" FontWeight="Bold" FontSize="14" Foreground="#FFCC00" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
+                                  Content="Show settings before launch"
+                                  ToolTip.Tip="Show the emulator settings window before launching a game" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0" Spacing="10">
+            <Button Content="Save"
+                    Command="{Binding SaveCommand}"
+                    Width="100"
+                    ToolTip.Tip="Save configuration" />
+            <Button Content="Run"
+                    Command="{Binding RunCommand}"
+                    IsVisible="{Binding IsLauncherMode}"
+                    IsDefault="True"
+                    Width="100"
+                    ToolTip.Tip="Save and run" />
+            <Button Content="Cancel"
+                    Command="{Binding CancelCommand}"
+                    IsCancel="True"
+                    Width="100"
+                    ToolTip.Tip="Cancel" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -13,6 +13,7 @@ public static class ServiceProviderMock
 {
     private static readonly Lock Lock = new();
     private static IServiceProvider? _originalProvider;
+    private static PropertyInfo? _cachedProperty;
 
     /// <summary>
     /// Installs a minimal mock <see cref="IServiceProvider"/> into <see cref="App.ServiceProvider"/>
@@ -23,7 +24,7 @@ public static class ServiceProviderMock
     {
         lock (Lock)
         {
-            var property = typeof(App).GetProperty("ServiceProvider", BindingFlags.Public | BindingFlags.Static);
+            var property = GetServiceProviderProperty();
             if (property == null)
             {
                 throw new InvalidOperationException("Could not find App.ServiceProvider property via reflection.");
@@ -43,7 +44,7 @@ public static class ServiceProviderMock
     {
         lock (Lock)
         {
-            var property = typeof(App).GetProperty("ServiceProvider", BindingFlags.Public | BindingFlags.Static);
+            var property = GetServiceProviderProperty();
             if (property == null)
             {
                 throw new InvalidOperationException("Could not find App.ServiceProvider property via reflection.");
@@ -52,6 +53,28 @@ public static class ServiceProviderMock
             property.SetValue(null, _originalProvider);
             _originalProvider = null;
         }
+    }
+
+    private static PropertyInfo? GetServiceProviderProperty()
+    {
+        if (_cachedProperty != null) return _cachedProperty;
+
+        // Try WPF App first
+        var wpfAppType = Type.GetType("SimpleLauncher.App, SimpleLauncher");
+        if (wpfAppType != null)
+        {
+            _cachedProperty = wpfAppType.GetProperty("ServiceProvider", BindingFlags.Public | BindingFlags.Static);
+            if (_cachedProperty != null) return _cachedProperty;
+        }
+
+        // Try Avalonia App
+        var avaloniaAppType = Type.GetType("SimpleLauncher.Avalonia.App, SimpleLauncher.Avalonia");
+        if (avaloniaAppType != null)
+        {
+            _cachedProperty = avaloniaAppType.GetProperty("ServiceProvider", BindingFlags.Public | BindingFlags.Static);
+        }
+
+        return _cachedProperty;
     }
 
     private sealed class MockServiceProvider : IServiceProvider

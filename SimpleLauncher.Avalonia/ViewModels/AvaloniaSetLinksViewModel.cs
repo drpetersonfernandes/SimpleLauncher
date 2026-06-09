@@ -12,8 +12,8 @@ public partial class AvaloniaSetLinksViewModel : ObservableObject
     private readonly IConfiguration _configuration;
     private readonly IMessageBoxLibraryService _messageBox;
 
-    [ObservableProperty] private string _videoUrl = string.Empty;
-    [ObservableProperty] private string _infoUrl = string.Empty;
+    [ObservableProperty] private string _videoUrl;
+    [ObservableProperty] private string _infoUrl;
 
     public AvaloniaSetLinksViewModel(SettingsManager settingsManager, IConfiguration configuration, IMessageBoxLibraryService messageBox)
     {

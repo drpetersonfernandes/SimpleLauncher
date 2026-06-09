@@ -1,0 +1,124 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Avalonia.ViewModels"
+        x:Class="SimpleLauncher.Avalonia.Views.InjectMednafenConfigWindow"
+        x:DataType="vm:AvaloniaInjectMednafenConfigViewModel"
+        Title="Mednafen Configuration"
+        Width="700" Height="600"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="10" RowDefinitions="*,Auto">
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="10">
+                <!-- Video Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Video" FontWeight="Bold" FontSize="14" />
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Video Driver:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding VideoDriverOptions}"
+                                      SelectedItem="{Binding MednafenVideoDriver}"
+                                      ToolTip.Tip="Select the video driver" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Stretch:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding StretchOptions}"
+                                      SelectedItem="{Binding MednafenStretch}"
+                                      ToolTip.Tip="Select the stretch mode" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Shader:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding ShaderOptions}"
+                                      SelectedItem="{Binding MednafenShader}"
+                                      ToolTip.Tip="Select the shader effect" />
+                        </Grid>
+
+                        <CheckBox IsChecked="{Binding MednafenFullscreen}"
+                                  Content="Fullscreen"
+                                  ToolTip.Tip="Run in fullscreen mode" />
+
+                        <CheckBox IsChecked="{Binding MednafenVsync}"
+                                  Content="VSync"
+                                  ToolTip.Tip="Enable vertical sync" />
+
+                        <CheckBox IsChecked="{Binding MednafenBilinear}"
+                                  Content="Bilinear Filtering"
+                                  ToolTip.Tip="Enable bilinear filtering" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Audio Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Audio" FontWeight="Bold" FontSize="14" />
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Scanlines:" VerticalAlignment="Center" />
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                                <Slider Minimum="0" Maximum="100"
+                                        Value="{Binding MednafenScanlines}"
+                                        Width="200"
+                                        ToolTip.Tip="Adjust scanline intensity" />
+                                <TextBlock Text="{Binding MednafenScanlines}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Volume:" VerticalAlignment="Center" />
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                                <Slider Minimum="0" Maximum="100"
+                                        Value="{Binding MednafenVolume}"
+                                        Width="200"
+                                        ToolTip.Tip="Adjust audio volume" />
+                                <TextBlock Text="{Binding MednafenVolume}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Grid>
+
+                        <CheckBox IsChecked="{Binding MednafenCheats}"
+                                  Content="Cheats"
+                                  ToolTip.Tip="Enable cheat support" />
+
+                        <CheckBox IsChecked="{Binding MednafenRewind}"
+                                  Content="Rewind"
+                                  ToolTip.Tip="Enable rewind support" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Important Setting -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10" BorderBrush="#FFCC00">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="IMPORTANT SETTING" FontWeight="Bold" FontSize="14" Foreground="#FFCC00" />
+                        <CheckBox IsChecked="{Binding MednafenShowSettingsBeforeLaunch}"
+                                  Content="Show settings before launch"
+                                  ToolTip.Tip="Show the emulator settings window before launching a game" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0" Spacing="10">
+            <Button Content="Save"
+                    Command="{Binding SaveCommand}"
+                    Width="100"
+                    ToolTip.Tip="Save configuration" />
+            <Button Content="Run"
+                    Command="{Binding RunCommand}"
+                    IsVisible="{Binding IsLauncherMode}"
+                    IsDefault="True"
+                    Width="100"
+                    ToolTip.Tip="Save and run" />
+            <Button Content="Cancel"
+                    Command="{Binding CancelCommand}"
+                    IsCancel="True"
+                    Width="100"
+                    ToolTip.Tip="Cancel" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -13,7 +13,7 @@ public partial class SoundConfigurationWindow : Window
     public SoundConfigurationWindow(AvaloniaSoundConfigurationViewModel viewModel) : this()
     {
         DataContext = viewModel;
-        viewModel.SaveCompleted += () => Close();
-        viewModel.CloseRequested += () => Close();
+        viewModel.SaveCompleted += Close;
+        viewModel.CloseRequested += Close;
     }
 }

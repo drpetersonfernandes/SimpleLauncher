@@ -13,7 +13,7 @@ public partial class SetGamepadDeadZoneWindow : Window
     public SetGamepadDeadZoneWindow(AvaloniaSetGamepadDeadZoneViewModel viewModel) : this()
     {
         DataContext = viewModel;
-        viewModel.SaveCompleted += () => Close();
-        viewModel.CloseRequested += () => Close();
+        viewModel.SaveCompleted += Close;
+        viewModel.CloseRequested += Close;
     }
 }

@@ -12,7 +12,7 @@
         <!-- Enable Sound Checkbox -->
         <CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                   Content="Enable Notification Sound"
-                  ToolTip="Enable or disable notification sounds"
+                  ToolTip.Tip="Enable or disable notification sounds"
                   Margin="0,0,0,10"
                   IsChecked="{Binding EnableNotificationSound}" />
 
@@ -23,13 +23,13 @@
         <TextBox Grid.Row="1" Grid.Column="1"
                  IsReadOnly="True"
                  Text="{Binding NotificationSoundFile}"
-                 ToolTip="Choose a sound file for notifications"
+                  ToolTip.Tip="Choose a sound file for notifications"
                  Margin="5,0,5,0"
                  VerticalAlignment="Center"
                  IsEnabled="{Binding IsSoundControlsEnabled}" />
         <Button Grid.Row="1" Grid.Column="2"
                 Content="Choose File"
-                ToolTip="Choose a sound file"
+                ToolTip.Tip="Choose a sound file"
                 Command="{Binding ChooseSoundFileCommand}"
                 VerticalAlignment="Center"
                 Width="100"
@@ -38,7 +38,7 @@
         <!-- Play Button -->
         <Button Grid.Row="2" Grid.Column="1"
                 Content="Play Current Sound"
-                ToolTip="Play the current notification sound"
+                ToolTip.Tip="Play the current notification sound"
                 Command="{Binding PlayCurrentSoundCommand}"
                 Margin="5,10,5,0"
                 HorizontalAlignment="Left"
@@ -48,7 +48,7 @@
         <!-- Reset Button -->
         <Button Grid.Row="3" Grid.Column="1"
                 Content="Reset to Default"
-                ToolTip="Reset sound settings to default"
+                ToolTip.Tip="Reset sound settings to default"
                 Command="{Binding ResetToDefaultCommand}"
                 Margin="5,10,5,0"
                 HorizontalAlignment="Left"
@@ -60,12 +60,12 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button Content="Save"
-                    ToolTip="Save sound settings"
+                    ToolTip.Tip="Save sound settings"
                     Command="{Binding SaveCommand}"
                     IsDefault="True"
                     Width="100" Margin="0,0,10,0" />
             <Button Content="Cancel"
-                    ToolTip="Cancel and close"
+                    ToolTip.Tip="Cancel and close"
                     Command="{Binding CancelCommand}"
                     IsCancel="True"
                     Width="100" />

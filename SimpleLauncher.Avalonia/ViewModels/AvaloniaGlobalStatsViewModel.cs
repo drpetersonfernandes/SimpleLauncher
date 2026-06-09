@@ -1,15 +1,11 @@
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GlobalStats.Models;
-using SimpleLauncher.Core.Services.SystemManager;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Avalonia.ViewModels;
@@ -215,7 +211,7 @@ public partial class AvaloniaGlobalStatsViewModel : ObservableObject, IDisposabl
                         .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
                         .Select(Path.GetFileNameWithoutExtension);
 
-                    numberOfImages = imageFiles.Count(romFileBaseNames.Contains);
+                    numberOfImages = imageFiles.Count(f => f != null && romFileBaseNames.Contains(f));
                 }
 
                 results.Add(new SystemStatsData
@@ -227,7 +223,7 @@ public partial class AvaloniaGlobalStatsViewModel : ObservableObject, IDisposabl
                 });
             }
 
-            return results.OrderBy(s => s.SystemName).ToList();
+            return results.OrderBy(static s => s.SystemName).ToList();
         }, cancellationToken);
     }
 
@@ -241,7 +237,7 @@ public partial class AvaloniaGlobalStatsViewModel : ObservableObject, IDisposabl
             cancellationToken.ThrowIfCancellationRequested();
             try
             {
-                var pattern = ext.StartsWith("*.") ? ext : $"*.{ext}";
+                var pattern = ext.StartsWith("*.", StringComparison.Ordinal) ? ext : $"*.{ext}";
                 result.AddRange(Directory.EnumerateFiles(path, pattern, searchOption));
             }
             catch
@@ -258,11 +254,11 @@ public partial class AvaloniaGlobalStatsViewModel : ObservableObject, IDisposabl
         return new GlobalStatsData
         {
             TotalSystems = systemStats.Count,
-            TotalEmulators = _systemManagers.Sum(c => c.Emulators.Count),
-            TotalGames = systemStats.Sum(s => s.NumberOfFiles),
-            TotalImages = systemStats.Sum(s => s.NumberOfImages),
-            TotalDiskSize = systemStats.Sum(s => s.TotalDiskSize),
-            TotalSystemsWithMissingImages = systemStats.Count(s => s.NumberOfFiles > s.NumberOfImages)
+            TotalEmulators = _systemManagers.Sum(static c => c.Emulators.Count),
+            TotalGames = systemStats.Sum(static s => s.NumberOfFiles),
+            TotalImages = systemStats.Sum(static s => s.NumberOfImages),
+            TotalDiskSize = systemStats.Sum(static s => s.TotalDiskSize),
+            TotalSystemsWithMissingImages = systemStats.Count(static s => s.NumberOfFiles > s.NumberOfImages)
         };
     }
 

@@ -5,19 +5,20 @@
         x:DataType="vm:SettingsViewModel"
         Title="Settings"
         Width="600" Height="650"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource ThemeBackgroundBrush}">
     
     <Design.DataContext>
         <x:Type TypeName="vm:SettingsViewModel"/>
     </Design.DataContext>
     
-    <Border Background="#1e1e2e" Padding="20">
+    <Border Background="{DynamicResource ThemeBackgroundBrush}" Padding="20">
         <DockPanel>
             <!-- Header -->
             <TextBlock DockPanel.Dock="Top" 
                        Text="Settings" 
                        FontSize="20" FontWeight="Bold" 
-                       Foreground="#cdd6f4"
+                       Foreground="{DynamicResource ThemeForegroundBrush}"
                        Margin="0,0,0,15"/>
             
             <!-- Buttons -->
@@ -27,10 +28,10 @@
                         Spacing="10"
                         Margin="0,15,0,0">
                 <Button Content="Save" 
-                        Width="80"
+                        Classes="primary"
                         Command="{Binding SaveCommand}"/>
                 <Button Content="Cancel" 
-                        Width="80"
+                        Classes="secondary"
                         Command="{Binding CancelCommand}"/>
             </StackPanel>
             
@@ -38,16 +39,16 @@
             <ScrollViewer>
                 <StackPanel Spacing="15">
                     <!-- General Settings -->
-                    <Border Background="#45475a" CornerRadius="8" Padding="15">
+                    <Border Classes="card">
                         <StackPanel Spacing="10">
                             <TextBlock Text="General" 
-                                       FontSize="16" FontWeight="Bold" 
-                                       Foreground="#cdd6f4"/>
+                                       Classes="sectionheader"/>
                             
                             <!-- Language -->
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock Text="Language:" Foreground="#a6adc8" 
-                                           VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="Language:" 
+                                           Classes="label" 
+                                           Width="120"/>
                                 <ComboBox ItemsSource="{Binding Languages}"
                                           SelectedItem="{Binding SelectedLanguage}"
                                           MinWidth="150"/>
@@ -55,8 +56,9 @@
                             
                             <!-- Theme -->
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock Text="Theme:" Foreground="#a6adc8" 
-                                           VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="Theme:" 
+                                           Classes="label" 
+                                           Width="120"/>
                                 <ComboBox ItemsSource="{Binding BaseThemes}"
                                           SelectedItem="{Binding SelectedBaseTheme}"
                                           MinWidth="150"/>
@@ -64,8 +66,9 @@
                             
                             <!-- Accent Color -->
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock Text="Accent Color:" Foreground="#a6adc8" 
-                                           VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="Accent Color:" 
+                                           Classes="label" 
+                                           Width="120"/>
                                 <ComboBox ItemsSource="{Binding AccentColors}"
                                           SelectedItem="{Binding SelectedAccentColor}"
                                           MinWidth="150"/>
@@ -74,16 +77,16 @@
                     </Border>
                     
                     <!-- View Settings -->
-                    <Border Background="#45475a" CornerRadius="8" Padding="15">
+                    <Border Classes="card">
                         <StackPanel Spacing="10">
                             <TextBlock Text="View" 
-                                       FontSize="16" FontWeight="Bold" 
-                                       Foreground="#cdd6f4"/>
+                                       Classes="sectionheader"/>
                             
                             <!-- Thumbnail Size -->
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock Text="Thumbnail Size:" Foreground="#a6adc8" 
-                                           VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="Thumbnail Size:" 
+                                           Classes="label" 
+                                           Width="120"/>
                                 <ComboBox ItemsSource="{Binding ThumbnailSizes}"
                                           SelectedItem="{Binding ThumbnailSize}"
                                           MinWidth="150"/>
@@ -91,8 +94,9 @@
                             
                             <!-- Games Per Page -->
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock Text="Games Per Page:" Foreground="#a6adc8" 
-                                           VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="Games Per Page:" 
+                                           Classes="label" 
+                                           Width="120"/>
                                 <ComboBox ItemsSource="{Binding GamesPerPageOptions}"
                                           SelectedItem="{Binding GamesPerPage}"
                                           MinWidth="150"/>
@@ -100,8 +104,9 @@
                             
                             <!-- View Mode -->
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock Text="View Mode:" Foreground="#a6adc8" 
-                                           VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="View Mode:" 
+                                           Classes="label" 
+                                           Width="120"/>
                                 <ComboBox ItemsSource="{Binding ViewModes}"
                                           SelectedItem="{Binding SelectedViewMode}"
                                           MinWidth="150"/>
@@ -109,8 +114,9 @@
                             
                             <!-- Button Aspect Ratio -->
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock Text="Button Shape:" Foreground="#a6adc8" 
-                                           VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="Button Shape:" 
+                                           Classes="label" 
+                                           Width="120"/>
                                 <ComboBox ItemsSource="{Binding ButtonAspectRatios}"
                                           SelectedItem="{Binding SelectedButtonAspectRatio}"
                                           MinWidth="150"/>
@@ -119,16 +125,16 @@
                     </Border>
                     
                     <!-- Filename Display -->
-                    <Border Background="#45475a" CornerRadius="8" Padding="15">
+                    <Border Classes="card">
                         <StackPanel Spacing="10">
                             <TextBlock Text="Filename Display" 
-                                       FontSize="16" FontWeight="Bold" 
-                                       Foreground="#cdd6f4"/>
+                                       Classes="sectionheader"/>
                             
                             <!-- Display Mode -->
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock Text="Display Mode:" Foreground="#a6adc8" 
-                                           VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="Display Mode:" 
+                                           Classes="label" 
+                                           Width="120"/>
                                 <ComboBox ItemsSource="{Binding FilenameDisplayModes}"
                                           SelectedItem="{Binding SelectedFilenameDisplayMode}"
                                           MinWidth="150"/>
@@ -136,8 +142,9 @@
                             
                             <!-- Filename Font Size -->
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock Text="Filename Font:" Foreground="#a6adc8" 
-                                           VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="Filename Font:" 
+                                           Classes="label" 
+                                           Width="120"/>
                                 <ComboBox ItemsSource="{Binding FontSizes}"
                                           SelectedItem="{Binding SelectedFilenameFontSize}"
                                           MinWidth="150"/>
@@ -145,8 +152,9 @@
                             
                             <!-- Machine Name Font Size -->
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock Text="Machine Name Font:" Foreground="#a6adc8" 
-                                           VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="Machine Name Font:" 
+                                           Classes="label" 
+                                           Width="120"/>
                                 <ComboBox ItemsSource="{Binding FontSizes}"
                                           SelectedItem="{Binding SelectedMachineNameFontSize}"
                                           MinWidth="150"/>
@@ -155,20 +163,19 @@
                     </Border>
                     
                     <!-- Gamepad Settings -->
-                    <Border Background="#45475a" CornerRadius="8" Padding="15">
+                    <Border Classes="card">
                         <StackPanel Spacing="10">
                             <TextBlock Text="Gamepad" 
-                                       FontSize="16" FontWeight="Bold" 
-                                       Foreground="#cdd6f4"/>
+                                       Classes="sectionheader"/>
                             
                             <CheckBox Content="Enable Gamepad Navigation" 
                                       IsChecked="{Binding EnableGamePadNavigation}"
-                                      Foreground="#a6adc8"/>
+                                      Foreground="{DynamicResource ThemeForegroundSecondaryBrush}"/>
                             
                             <StackPanel Orientation="Horizontal" Spacing="20">
                                 <StackPanel Orientation="Horizontal" Spacing="10">
-                                    <TextBlock Text="Dead Zone X:" Foreground="#a6adc8" 
-                                               VerticalAlignment="Center"/>
+                                    <TextBlock Text="Dead Zone X:" 
+                                               Classes="label"/>
                                     <NumericUpDown Value="{Binding DeadZoneX}"
                                                    Minimum="0" Maximum="1" Increment="0.01"
                                                    FormatString="F2"
@@ -176,8 +183,8 @@
                                 </StackPanel>
                                 
                                 <StackPanel Orientation="Horizontal" Spacing="10">
-                                    <TextBlock Text="Dead Zone Y:" Foreground="#a6adc8" 
-                                               VerticalAlignment="Center"/>
+                                    <TextBlock Text="Dead Zone Y:" 
+                                               Classes="label"/>
                                     <NumericUpDown Value="{Binding DeadZoneY}"
                                                    Minimum="0" Maximum="1" Increment="0.01"
                                                    FormatString="F2"
@@ -188,37 +195,37 @@
                     </Border>
                     
                     <!-- Sound Settings -->
-                    <Border Background="#45475a" CornerRadius="8" Padding="15">
+                    <Border Classes="card">
                         <StackPanel Spacing="10">
                             <TextBlock Text="Sound" 
-                                       FontSize="16" FontWeight="Bold" 
-                                       Foreground="#cdd6f4"/>
+                                       Classes="sectionheader"/>
                             
                             <CheckBox Content="Enable Notification Sound" 
                                       IsChecked="{Binding EnableNotificationSound}"
-                                      Foreground="#a6adc8"/>
+                                      Foreground="{DynamicResource ThemeForegroundSecondaryBrush}"/>
                         </StackPanel>
                     </Border>
                     
                     <!-- RetroAchievements Settings -->
-                    <Border Background="#45475a" CornerRadius="8" Padding="15">
+                    <Border Classes="card">
                         <StackPanel Spacing="10">
                             <TextBlock Text="RetroAchievements" 
-                                       FontSize="16" FontWeight="Bold" 
-                                       Foreground="#cdd6f4"/>
+                                       Classes="sectionheader"/>
                             
                             <!-- Username -->
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock Text="Username:" Foreground="#a6adc8" 
-                                           VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="Username:" 
+                                           Classes="label" 
+                                           Width="120"/>
                                 <TextBox Text="{Binding RaUsername}"
                                          MinWidth="200"/>
                             </StackPanel>
                             
                             <!-- API Key -->
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock Text="API Key:" Foreground="#a6adc8" 
-                                           VerticalAlignment="Center" Width="120"/>
+                                <TextBlock Text="API Key:" 
+                                           Classes="label" 
+                                           Width="120"/>
                                 <TextBox Text="{Binding RaApiKey}"
                                          PasswordChar="*"
                                          MinWidth="200"/>

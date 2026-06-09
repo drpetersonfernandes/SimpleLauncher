@@ -1,0 +1,151 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SimpleLauncher.Avalonia.ViewModels"
+        x:Class="SimpleLauncher.Avalonia.Views.InjectDuckStationConfigWindow"
+        x:DataType="vm:AvaloniaInjectDuckStationConfigViewModel"
+        Title="DuckStation Configuration"
+        Width="700" Height="800"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="10" RowDefinitions="*,Auto">
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="10">
+                <!-- General Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="General" FontWeight="Bold" FontSize="14" />
+
+                        <CheckBox IsChecked="{Binding StartFullscreen}"
+                                  Content="Start Fullscreen"
+                                  ToolTip.Tip="Launch in fullscreen mode" />
+
+                        <CheckBox IsChecked="{Binding PauseOnFocusLoss}"
+                                  Content="Pause on Focus Loss"
+                                  ToolTip.Tip="Pause emulation when window loses focus" />
+
+                        <CheckBox IsChecked="{Binding SaveStateOnExit}"
+                                  Content="Save State on Exit"
+                                  ToolTip.Tip="Automatically save state when closing" />
+
+                        <CheckBox IsChecked="{Binding RewindEnable}"
+                                  Content="Rewind"
+                                  ToolTip.Tip="Enable rewind support" />
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Run-ahead Frame Count:" />
+                            <Slider Minimum="0" Maximum="8"
+                                    Value="{Binding RunaheadFrameCount}"
+                                    TickFrequency="1" IsSnapToTickEnabled="True"
+                                    ToolTip.Tip="Number of frames to run ahead (0 to 8)" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Video / GPU Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Video / GPU" FontWeight="Bold" FontSize="14" />
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Renderer:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding RendererOptions}"
+                                      SelectedItem="{Binding Renderer}"
+                                      ToolTip.Tip="Select the GPU renderer" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Resolution Scale:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding ResolutionScaleOptions}"
+                                      SelectedValue="{Binding ResolutionScale}"
+                                      SelectedValueBinding="{Binding Tag}"
+                                      ToolTip.Tip="Select the internal resolution scale">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Display}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Texture Filter:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding TextureFilterOptions}"
+                                      SelectedItem="{Binding TextureFilter}"
+                                      ToolTip.Tip="Select the texture filtering mode" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <TextBlock Text="Aspect Ratio:" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AspectRatioOptions}"
+                                      SelectedItem="{Binding AspectRatio}"
+                                      ToolTip.Tip="Select the aspect ratio" />
+                        </Grid>
+
+                        <CheckBox IsChecked="{Binding WidescreenHack}"
+                                  Content="Widescreen Hack"
+                                  ToolTip.Tip="Enable widescreen hack" />
+
+                        <CheckBox IsChecked="{Binding PgxpEnable}"
+                                  Content="PGXP"
+                                  ToolTip.Tip="Enable Parallel/Precision Geometry Transform Pipeline" />
+
+                        <CheckBox IsChecked="{Binding Vsync}"
+                                  Content="VSync"
+                                  ToolTip.Tip="Enable vertical sync" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Audio Section -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Audio" FontWeight="Bold" FontSize="14" />
+
+                        <CheckBox IsChecked="{Binding OutputMuted}"
+                                  Content="Mute"
+                                  ToolTip.Tip="Mute audio output" />
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Volume:" />
+                            <Slider Minimum="0" Maximum="100"
+                                    Value="{Binding OutputVolume}"
+                                    ToolTip.Tip="Adjust volume (0 to 100)" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Important Setting -->
+                <Border BorderThickness="1" CornerRadius="4" Padding="10" BorderBrush="#FFCC00">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="IMPORTANT SETTING" FontWeight="Bold" FontSize="14" Foreground="#FFCC00" />
+                        <CheckBox IsChecked="{Binding ShowSettingsBeforeLaunch}"
+                                  Content="Show settings before launch"
+                                  ToolTip.Tip="Show the emulator settings window before launching a game" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0" Spacing="10">
+            <Button Content="Save"
+                    Command="{Binding SaveCommand}"
+                    Width="100"
+                    ToolTip.Tip="Save configuration" />
+            <Button Content="Run"
+                    Command="{Binding RunCommand}"
+                    IsVisible="{Binding IsLauncherMode}"
+                    IsDefault="True"
+                    Width="100"
+                    ToolTip.Tip="Save and run" />
+            <Button Content="Cancel"
+                    Command="{Binding CancelCommand}"
+                    IsCancel="True"
+                    Width="100"
+                    ToolTip.Tip="Cancel" />
+        </StackPanel>
+    </Grid>
+</Window>

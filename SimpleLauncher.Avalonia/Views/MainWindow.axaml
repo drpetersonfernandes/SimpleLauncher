@@ -6,7 +6,8 @@
         Title="{Binding Title}"
         MinWidth="1050" MinHeight="650"
         Width="1200" Height="800"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource ThemeBackgroundBrush}">
     
     <Design.DataContext>
         <x:Type TypeName="vm:MainWindowViewModel"/>
@@ -51,53 +52,58 @@
         </Menu>
         
         <!-- Left Navigation Panel -->
-        <Border DockPanel.Dock="Left" Background="#181825" Width="60" Padding="5">
+        <Border DockPanel.Dock="Left" 
+                Background="{DynamicResource ThemeNavBackgroundBrush}" 
+                Width="60" Padding="5">
             <StackPanel Spacing="5" VerticalAlignment="Top">
                 <!-- Home -->
                 <Button Content="&#xE80F;" FontFamily="Segoe Fluent Icons" 
-                        Width="50" Height="50" FontSize="20"
+                        Classes="navbutton"
                         Command="{Binding NavigateHomeCommand}"
                         ToolTip.Tip="Home"/>
                 <!-- Favorites -->
                 <Button Content="&#xE734;" FontFamily="Segoe Fluent Icons" 
-                        Width="50" Height="50" FontSize="20"
+                        Classes="navbutton"
                         Command="{Binding GoToFavoritesCommand}"
                         ToolTip.Tip="Favorites"/>
                 <!-- Global Search -->
                 <Button Content="&#xE721;" FontFamily="Segoe Fluent Icons" 
-                        Width="50" Height="50" FontSize="20"
+                        Classes="navbutton"
                         Command="{Binding GoToGlobalSearchCommand}"
                         ToolTip.Tip="Global Search"/>
                 <!-- Play History -->
                 <Button Content="&#xE81C;" FontFamily="Segoe Fluent Icons" 
-                        Width="50" Height="50" FontSize="20"
+                        Classes="navbutton"
                         Command="{Binding GoToPlayHistoryCommand}"
                         ToolTip.Tip="Play History"/>
                 <Separator Margin="5"/>
                 <!-- Toggle View -->
                 <Button Content="&#xE8A9;" FontFamily="Segoe Fluent Icons" 
-                        Width="50" Height="50" FontSize="20"
+                        Classes="navbutton"
                         Command="{Binding ToggleViewModeCommand}"
                         ToolTip.Tip="Toggle View"/>
                 <!-- Zoom In -->
                 <Button Content="&#xE710;" FontFamily="Segoe Fluent Icons" 
-                        Width="50" Height="50" FontSize="20"
+                        Classes="navbutton"
                         Command="{Binding ZoomInCommand}"
                         ToolTip.Tip="Zoom In"/>
                 <!-- Zoom Out -->
                 <Button Content="&#xE711;" FontFamily="Segoe Fluent Icons" 
-                        Width="50" Height="50" FontSize="20"
+                        Classes="navbutton"
                         Command="{Binding ZoomOutCommand}"
                         ToolTip.Tip="Zoom Out"/>
             </StackPanel>
         </Border>
         
         <!-- Status Bar -->
-        <Border DockPanel.Dock="Bottom" Background="#1e1e2e" Padding="10,5">
+        <Border DockPanel.Dock="Bottom" 
+                Background="{DynamicResource ThemeStatusBarBackgroundBrush}" 
+                Padding="10,5">
             <Grid ColumnDefinitions="Auto,*,Auto,Auto">
                 <!-- Status Text -->
                 <TextBlock Grid.Column="0" Text="{Binding StatusText}" 
-                           Foreground="#a6adc8" FontSize="12" VerticalAlignment="Center"/>
+                           Foreground="{DynamicResource ThemeForegroundSecondaryBrush}" 
+                           FontSize="12" VerticalAlignment="Center"/>
                 
                 <!-- Pagination -->
                 <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
@@ -106,9 +112,11 @@
                             IsEnabled="{Binding HasPreviousPage}"
                             Width="30" Height="30"/>
                     <TextBlock Text="{Binding CurrentPage, StringFormat='Page {0}'}" 
-                               Foreground="#a6adc8" FontSize="12" VerticalAlignment="Center"/>
+                               Foreground="{DynamicResource ThemeForegroundSecondaryBrush}" 
+                               FontSize="12" VerticalAlignment="Center"/>
                     <TextBlock Text="{Binding TotalPages, StringFormat='of {0}'}" 
-                               Foreground="#a6adc8" FontSize="12" VerticalAlignment="Center"/>
+                               Foreground="{DynamicResource ThemeForegroundSecondaryBrush}" 
+                               FontSize="12" VerticalAlignment="Center"/>
                     <Button Content="&#xE76C;" FontFamily="Segoe Fluent Icons"
                             Command="{Binding NextPageCommand}"
                             IsEnabled="{Binding HasNextPage}"
@@ -117,19 +125,23 @@
                 
                 <!-- Total Games -->
                 <TextBlock Grid.Column="3" Text="{Binding TotalGames, StringFormat='{}{0} games'}" 
-                           Foreground="#a6adc8" FontSize="12" VerticalAlignment="Center" Margin="10,0"/>
+                           Foreground="{DynamicResource ThemeForegroundSecondaryBrush}" 
+                           FontSize="12" VerticalAlignment="Center" Margin="10,0"/>
             </Grid>
         </Border>
         
         <!-- Main Content Area -->
         <DockPanel>
             <!-- System Selection Area -->
-            <Border DockPanel.Dock="Top" Background="#313244" Padding="10">
+            <Border DockPanel.Dock="Top" 
+                    Background="{DynamicResource ThemeSurfaceBrush}" 
+                    Padding="10">
                 <StackPanel Spacing="10">
                     <!-- System and Emulator Selection -->
                     <Grid ColumnDefinitions="Auto,*,Auto,*,Auto,Auto,Auto" RowDefinitions="Auto">
                         <!-- System Label -->
-                        <TextBlock Grid.Column="0" Text="System:" Foreground="#cdd6f4" 
+                        <TextBlock Grid.Column="0" Text="System:" 
+                                   Foreground="{DynamicResource ThemeForegroundBrush}" 
                                    FontSize="14" VerticalAlignment="Center" Margin="0,0,10,0"/>
                         
                         <!-- System ComboBox -->
@@ -140,7 +152,8 @@
                                   PlaceholderText="Select a system"/>
                         
                         <!-- Emulator Label -->
-                        <TextBlock Grid.Column="2" Text="Emulator:" Foreground="#cdd6f4" 
+                        <TextBlock Grid.Column="2" Text="Emulator:" 
+                                   Foreground="{DynamicResource ThemeForegroundBrush}" 
                                    FontSize="14" VerticalAlignment="Center" Margin="10,0,10,0"/>
                         
                         <!-- Emulator ComboBox -->
@@ -184,11 +197,13 @@
                     <Panel>
                         <!-- Loading Overlay -->
                         <Border IsVisible="{Binding IsLoading}" 
-                                Background="#80000000" 
+                                Background="{DynamicResource ThemeOverlayBrush}" 
                                 ZIndex="100">
                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
                                 <ProgressBar IsIndeterminate="True" Width="200"/>
-                                <TextBlock Text="Loading games..." Foreground="#cdd6f4" FontSize="14"/>
+                                <TextBlock Text="Loading games..." 
+                                           Foreground="{DynamicResource ThemeForegroundBrush}" 
+                                           FontSize="14"/>
                             </StackPanel>
                         </Border>
                         
@@ -203,7 +218,7 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate x:DataType="vm:GameItemViewModel">
-                                    <Border Background="#45475a" 
+                                    <Border Background="{DynamicResource ThemeCardBackgroundBrush}" 
                                             CornerRadius="8" 
                                             Padding="10" 
                                             Margin="5"
@@ -211,22 +226,21 @@
                                             Cursor="Hand">
                                         <StackPanel Spacing="5">
                                             <!-- Cover Image -->
-                                            <Border Background="#585b70" 
+                                            <Border Background="{DynamicResource ThemeSurfaceHoverBrush}" 
                                                     CornerRadius="4" 
                                                     Height="150">
                                                 <Image Source="{Binding CoverImagePath}" 
-                                                       Stretch="Uniform"
-                                                       />
+                                                       Stretch="Uniform"/>
                                             </Border>
                                             <!-- Game Name -->
                                             <TextBlock Text="{Binding MachineName}" 
-                                                       Foreground="#cdd6f4" 
+                                                       Foreground="{DynamicResource ThemeForegroundBrush}" 
                                                        FontSize="12"
                                                        TextTrimming="CharacterEllipsis"
                                                        MaxLines="2"/>
                                             <!-- Favorite Indicator -->
                                             <TextBlock Text="&#xE734;" FontFamily="Segoe Fluent Icons"
-                                                       Foreground="#f9e2af"
+                                                       Foreground="{DynamicResource ThemeWarningBrush}"
                                                        IsVisible="{Binding IsFavorite}"
                                                        FontSize="14"/>
                                         </StackPanel>
@@ -242,8 +256,8 @@
                                   IsReadOnly="True"
                                   GridLinesVisibility="Horizontal"
                                   BorderThickness="0"
-                                  Background="#313244"
-                                  Foreground="#cdd6f4"
+                                  Background="{DynamicResource ThemeSurfaceBrush}"
+                                  Foreground="{DynamicResource ThemeForegroundBrush}"
                                   Margin="10">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="*"/>
