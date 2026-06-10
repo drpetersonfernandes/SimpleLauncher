@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Avalonia.ViewModels;
 
 namespace SimpleLauncher.Avalonia.Views;
@@ -7,6 +8,8 @@ namespace SimpleLauncher.Avalonia.Views;
 public partial class RomHistoryWindow : Window
 {
     private readonly AvaloniaRomHistoryViewModel _viewModel;
+
+    public RomHistoryWindow() : this(App.ServiceProvider.GetRequiredService<AvaloniaRomHistoryViewModel>()) { }
 
     public RomHistoryWindow(AvaloniaRomHistoryViewModel viewModel)
     {

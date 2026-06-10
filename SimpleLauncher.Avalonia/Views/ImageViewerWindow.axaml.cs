@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Avalonia.ViewModels;
 
 namespace SimpleLauncher.Avalonia.Views;
@@ -6,6 +7,8 @@ namespace SimpleLauncher.Avalonia.Views;
 public partial class ImageViewerWindow : Window
 {
     private readonly AvaloniaImageViewerViewModel _viewModel;
+
+    public ImageViewerWindow() : this(App.ServiceProvider.GetRequiredService<AvaloniaImageViewerViewModel>()) { }
 
     public ImageViewerWindow(AvaloniaImageViewerViewModel viewModel)
     {

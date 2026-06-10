@@ -13,6 +13,8 @@ public partial class RetroAchievementsForAGameWindow : Window, IDisposable
     private readonly AvaloniaRetroAchievementsForAGameViewModel _viewModel;
     private readonly HttpClient _httpClient = new();
 
+    public RetroAchievementsForAGameWindow() : this(App.ServiceProvider.GetRequiredService<AvaloniaRetroAchievementsForAGameViewModel>()) { }
+
     public RetroAchievementsForAGameWindow(AvaloniaRetroAchievementsForAGameViewModel viewModel)
     {
         InitializeComponent();

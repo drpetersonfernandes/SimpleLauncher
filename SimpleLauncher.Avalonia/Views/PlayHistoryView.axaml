@@ -2,7 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:SimpleLauncher.Avalonia"
              xmlns:models="using:SimpleLauncher.Core.Models"
-             xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
              x:Class="SimpleLauncher.Avalonia.Views.PlayHistoryView"
              x:DataType="vm:PlayHistoryViewModel">
     

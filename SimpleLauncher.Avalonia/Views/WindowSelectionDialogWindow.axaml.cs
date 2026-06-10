@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.ViewModels;
 
 namespace SimpleLauncher.Avalonia.Views;
@@ -7,6 +8,8 @@ namespace SimpleLauncher.Avalonia.Views;
 public partial class WindowSelectionDialogWindow : Window
 {
     private readonly WindowSelectionDialogViewModel _viewModel;
+
+    public WindowSelectionDialogWindow() : this(App.ServiceProvider.GetRequiredService<WindowSelectionDialogViewModel>()) { }
 
     public WindowSelectionDialogWindow(WindowSelectionDialogViewModel viewModel)
     {

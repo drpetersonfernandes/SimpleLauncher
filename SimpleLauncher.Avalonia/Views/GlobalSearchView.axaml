@@ -1,7 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:SimpleLauncher.Avalonia"
-             xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
              x:Class="SimpleLauncher.Avalonia.Views.GlobalSearchView"
              x:DataType="vm:GlobalSearchViewModel">
     
@@ -75,8 +74,8 @@
                     </StackPanel>
                 </Border>
                 
-                <!-- Initial State -->
-                <Border IsVisible="{Binding !HasResults}" 
+                <!-- Initial State (before any search) -->
+                <Border IsVisible="{Binding !HasSearched}" 
                         Background="#45475a" CornerRadius="8" Padding="30"
                         VerticalAlignment="Center" HorizontalAlignment="Center">
                     <StackPanel Spacing="10" HorizontalAlignment="Center">

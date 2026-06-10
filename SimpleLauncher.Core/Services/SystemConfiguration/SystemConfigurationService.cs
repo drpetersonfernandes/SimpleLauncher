@@ -1,15 +1,16 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.AppDataFile;
-using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.SystemManager;
 
 namespace SimpleLauncher.Core.Services.SystemConfiguration;
 
+[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class SystemConfigurationService : ICoreSystemConfigurationService
 {
     private readonly IConfiguration _configuration;
@@ -56,7 +57,7 @@ public partial class SystemConfigurationService : ICoreSystemConfigurationServic
                 }
 
                 var systemManagers = new List<SystemManagerConfig>();
-                XDocument doc = null;
+                XDocument doc;
 
                 try
                 {
@@ -119,7 +120,7 @@ public partial class SystemConfigurationService : ICoreSystemConfigurationServic
                     return [];
                 }
 
-                if (doc?.Root == null)
+                if (doc.Root == null)
                 {
                     return systemManagers.Cast<ISystemManager>().ToList();
                 }
@@ -260,10 +261,14 @@ public partial class SystemConfigurationService : ICoreSystemConfigurationServic
             throw new InvalidOperationException($"System '{systemName}': 'File Extension To Launch' should have at least one value when 'Extract File Before Launch' is true.");
 
         if (!bool.TryParse(sysConfigElement.Element("GroupByFolder")?.Value, out var groupByFolder))
+        {
             groupByFolder = false;
+        }
 
         if (!bool.TryParse(sysConfigElement.Element("DisableRecursiveSearch")?.Value, out var disableRecursiveSearch))
+        {
             disableRecursiveSearch = false;
+        }
 
         var emulators = new List<Emulator>();
         var emulatorElements = sysConfigElement.Element("Emulators")?.Elements("Emulator").ToList();
@@ -280,7 +285,9 @@ public partial class SystemConfigurationService : ICoreSystemConfigurationServic
             if (emulatorElement.Element("ReceiveANotificationOnEmulatorError") != null)
             {
                 if (!bool.TryParse(emulatorElement.Element("ReceiveANotificationOnEmulatorError")?.Value, out receiveNotification))
+                {
                     receiveNotification = true;
+                }
             }
 
             emulators.Add(new Emulator

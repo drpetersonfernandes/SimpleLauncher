@@ -7,7 +7,6 @@ public partial class EasyModeWindow : Window
     public EasyModeWindow()
     {
         InitializeComponent();
-        DataContext = App.ServiceProvider.GetService(typeof(EasyModeViewModel));
 
         // Load systems when window opens
         Loaded += async (_, _) =>

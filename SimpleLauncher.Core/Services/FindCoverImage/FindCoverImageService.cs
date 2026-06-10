@@ -1,4 +1,4 @@
-using System.IO;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckPaths;
@@ -6,6 +6,7 @@ using SimpleLauncher.Core.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Core.Services.FindCoverImage;
 
+[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public class FindCoverImageService : IFindCoverImageService
 {
     private readonly IConfiguration _configuration;
@@ -118,6 +119,7 @@ public class FindCoverImageService : IFindCoverImageService
             for (var j = start; j <= end; j++)
             {
                 if (s2Matches[j] || s1[i] != s2[j]) continue;
+
                 s1Matches[i] = true;
                 s2Matches[j] = true;
                 matches++;
@@ -132,8 +134,17 @@ public class FindCoverImageService : IFindCoverImageService
         for (var i = 0; i < len1; i++)
         {
             if (!s1Matches[i]) continue;
-            while (!s2Matches[k]) k++;
-            if (s1[i] != s2[k]) transpositions++;
+
+            while (!s2Matches[k])
+            {
+                k++;
+            }
+
+            if (s1[i] != s2[k])
+            {
+                transpositions++;
+            }
+
             k++;
         }
 
@@ -142,7 +153,10 @@ public class FindCoverImageService : IFindCoverImageService
         var prefix = 0;
         for (var i = 0; i < Math.Min(MaxPrefixLength, Math.Min(len1, len2)); i++)
         {
-            if (s1[i] == s2[i]) prefix++;
+            if (s1[i] == s2[i])
+            {
+                prefix++;
+            }
             else break;
         }
 

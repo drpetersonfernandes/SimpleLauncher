@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Avalonia.ViewModels;
 
 namespace SimpleLauncher.Avalonia.Views;
@@ -9,6 +10,8 @@ namespace SimpleLauncher.Avalonia.Views;
 public partial class DebugWindow : Window
 {
     private readonly AvaloniaDebugViewModel _viewModel;
+
+    public DebugWindow() : this(App.ServiceProvider.GetRequiredService<AvaloniaDebugViewModel>()) { }
 
     public DebugWindow(AvaloniaDebugViewModel viewModel)
     {

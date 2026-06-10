@@ -43,9 +43,31 @@ public partial class EasyModeViewModel : ObservableObject
 
     [ObservableProperty] private string _selectedSystemName = string.Empty;
 
+    partial void OnSelectedSystemIndexChanged(int value)
+    {
+        if (value >= 0 && value < _easyModeSystems.Count)
+        {
+            SelectedSystemName = _easyModeSystems[value].SystemName;
+            SystemImageFolder = _easyModeSystems[value].SystemImageFolder;
+        }
+        else
+        {
+            SelectedSystemName = string.Empty;
+            SystemImageFolder = string.Empty;
+        }
+
+        ResetDownloadStates();
+        UpdateAddSystemEnabled();
+    }
+
     // ── Paths ───────────────────────────────────────────────────
 
     [ObservableProperty] private string _systemFolder = string.Empty;
+
+    partial void OnSystemFolderChanged(string value)
+    {
+        UpdateAddSystemEnabled();
+    }
 
     [ObservableProperty] private string _systemImageFolder = string.Empty;
 
@@ -235,9 +257,7 @@ public partial class EasyModeViewModel : ObservableObject
 
         try
         {
-            var xmlFile = Environment.OSVersion.Platform == PlatformID.Win32NT
-                ? "easymode.xml"
-                : "easymode.xml";
+            const string xmlFile = "easymode.xml";
 
             var xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFile);
 
@@ -250,12 +270,12 @@ public partial class EasyModeViewModel : ObservableObject
             if (File.Exists(xmlFilePath))
             {
                 var serializer = new XmlSerializer(typeof(EasyModeXmlRoot));
-                using var stream = new FileStream(xmlFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                var root = (EasyModeXmlRoot)serializer.Deserialize(stream);
+                await using var stream = new FileStream(xmlFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                var root = (EasyModeXmlRoot?)serializer.Deserialize(stream);
                 _easyModeSystems = root?.Systems ?? [];
 
                 SystemNames = new ObservableCollection<string>(
-                    _easyModeSystems.Select(s => s.SystemName).OrderBy(n => n));
+                    _easyModeSystems.Select(static s => s.SystemName).OrderBy(static n => n));
             }
             else
             {
@@ -316,6 +336,18 @@ public partial class EasyModeViewModel : ObservableObject
         IsAddSystemEnabled = !string.IsNullOrEmpty(SelectedSystemName) &&
                              !string.IsNullOrEmpty(SystemFolder) &&
                              !IsOperationInProgress;
+    }
+
+    private void ResetDownloadStates()
+    {
+        IsEmulatorDownloaded = false;
+        IsCoreDownloaded = false;
+        IsImagePack1Downloaded = false;
+        IsImagePack2Downloaded = false;
+        IsImagePack3Downloaded = false;
+        IsImagePack4Downloaded = false;
+        IsImagePack5Downloaded = false;
+        DownloadStatus = string.Empty;
     }
 }
 

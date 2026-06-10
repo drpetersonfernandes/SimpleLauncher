@@ -1,16 +1,15 @@
 using System.Diagnostics;
-using System.IO;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.LoadingInterface;
 using SimpleLauncher.Core.Services.SettingsManager;
-using SimpleLauncher.Core.Services.SystemManager;
 
 namespace SimpleLauncher.Avalonia.Services;
 
+[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public class GameLauncherService
 {
     private readonly ILogErrors _logErrors;
@@ -193,16 +192,18 @@ public class GameLauncherService
             {
                 var errorMsg = $"Emulator exited with code {process.ExitCode}.";
                 if (error.Length > 0)
+                {
                     errorMsg += $"\n\nError output:\n{error}";
+                }
 
-                _logErrors?.LogAndForget(null, errorMsg);
+                _logErrors.LogAndForget(null, errorMsg);
             }
 
             return DateTime.Now - startTime;
         }
         catch (Exception ex)
         {
-            _logErrors?.LogAndForget(ex, $"Error launching game: {filePath}");
+            _logErrors.LogAndForget(ex, $"Error launching game: {filePath}");
             await _messageDialog.ShowErrorAsync($"Failed to launch game:\n{ex.Message}", "Launch Error");
             return DateTime.Now - startTime;
         }

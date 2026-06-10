@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Avalonia;
@@ -113,7 +114,14 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
             return;
         }
 
-        await _gameLauncher.LaunchGameAsync(SelectedFavorite.FileName, emulatorName, systemManager, _settings);
+        var resolvedPath = PathHelper.FindFileInSystemFolders(systemManager.SystemFolders.ToList(), SelectedFavorite.FileName);
+        if (string.IsNullOrEmpty(resolvedPath))
+        {
+            await _messageDialog.ShowErrorAsync($"Could not find game file '{SelectedFavorite.FileName}' in system folders.", "Launch Error");
+            return;
+        }
+
+        await _gameLauncher.LaunchGameAsync(resolvedPath, emulatorName, systemManager, _settings);
     }
 
     // ── Public Methods ──────────────────────────────────────────
@@ -148,6 +156,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
                 {
                     var fileName = Path.GetFileNameWithoutExtension(fav.FileName);
                     fav.CoverImage = _findCoverImage.FindCoverImagePath(fileName, fav.SystemName, systemManager.SystemImageFolder);
+                    fav.DefaultEmulator ??= systemManager.Emulators.FirstOrDefault()?.EmulatorName;
                 }
             }
 

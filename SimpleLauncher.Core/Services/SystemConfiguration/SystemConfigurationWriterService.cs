@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +9,7 @@ using SimpleLauncher.Core.Services.SystemManager;
 
 namespace SimpleLauncher.Core.Services.SystemConfiguration;
 
+[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public class SystemConfigurationWriterService : ISystemConfigurationWriterService
 {
     private readonly IConfiguration _configuration;
@@ -23,7 +24,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
         _fileLocation = new DataFileLocation(configuration, "SystemXmlPath", "system.xml");
     }
 
-    public async Task SaveSystemAsync(ISystemManager systemConfig, string? originalSystemName = null)
+    public async Task SaveSystemAsync(ISystemManager systemConfig, string originalSystemName = null)
     {
         try
         {
@@ -87,7 +88,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                     // Save with retry logic
                     const int maxRetries = 3;
                     var retryDelayMs = 500;
-                    Exception? lastException = null;
+                    Exception lastException = null;
 
                     for (var attempt = 0; attempt < maxRetries; attempt++)
                     {
@@ -110,6 +111,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                                     xmlDoc.Declaration ??= new XDeclaration("1.0", "utf-8", null);
                                     xmlDoc.Save(writer);
                                 }
+
                                 xmlBytes = ms.ToArray();
                             }
 
@@ -130,7 +132,10 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                                     var tempPath = systemXmlPath + ".tmp";
                                     if (File.Exists(tempPath)) File.Delete(tempPath);
                                 }
-                                catch { /* ignore cleanup errors */ }
+                                catch
+                                {
+                                    /* ignore cleanup errors */
+                                }
 
                                 Thread.Sleep(retryDelayMs);
                                 retryDelayMs *= 2;
@@ -240,6 +245,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
             foldersElement = new XElement("SystemFolders");
             existingSystem.Element("SystemName")?.AddAfterSelf(foldersElement);
         }
+
         foldersElement.ReplaceNodes(config.SystemFolders.Select(static f => new XElement("SystemFolder", f)));
 
         existingSystem.SetElementValue("SystemImageFolder", config.SystemImageFolder);

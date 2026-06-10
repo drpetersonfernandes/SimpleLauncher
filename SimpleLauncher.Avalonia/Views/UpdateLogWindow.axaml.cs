@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.ViewModels;
 
 namespace SimpleLauncher.Avalonia.Views;
@@ -8,6 +9,8 @@ namespace SimpleLauncher.Avalonia.Views;
 public partial class UpdateLogWindow : Window
 {
     private readonly UpdateLogViewModel _viewModel;
+
+    public UpdateLogWindow() : this(App.ServiceProvider.GetRequiredService<UpdateLogViewModel>()) { }
 
     public UpdateLogWindow(UpdateLogViewModel viewModel)
     {

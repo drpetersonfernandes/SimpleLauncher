@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
@@ -14,7 +15,7 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia;
 
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
-public partial class MainWindowViewModel : ObservableObject
+public partial class MainWindowViewModel : ObservableObject, IDisposable
 {
     private readonly SettingsManager _settings;
     private readonly IMessageDialogService _messageDialog;
@@ -29,8 +30,7 @@ public partial class MainWindowViewModel : ObservableObject
     private readonly ILogErrors _logErrors;
     private readonly IThemeService _themeService;
     private readonly IApplicationLifetime _appLifetime;
-
-    private List<Core.Interfaces.ISystemManager> _systemManagers = [];
+    private List<ISystemManager> _systemManagers = [];
     private List<string> _allGameFiles = [];
     private CancellationTokenSource? _loadCts;
 
@@ -169,8 +169,8 @@ public partial class MainWindowViewModel : ObservableObject
             _systemManagers = _systemConfigService.LoadSystemManagers();
 
             var systemNames = _systemManagers
-                .Select(s => s.SystemName)
-                .OrderBy(n => n, StringComparer.OrdinalIgnoreCase)
+                .Select(static s => s.SystemName)
+                .OrderBy(static n => n, StringComparer.OrdinalIgnoreCase)
                 .ToList();
 
             await _dispatcher.InvokeAsync(() =>
@@ -229,7 +229,7 @@ public partial class MainWindowViewModel : ObservableObject
 
             // Populate emulators
             var emulatorNames = selectedManager.Emulators
-                .Select(e => e.EmulatorName)
+                .Select(static e => e.EmulatorName)
                 .ToList();
 
             await _dispatcher.InvokeAsync(() =>
@@ -265,7 +265,7 @@ public partial class MainWindowViewModel : ObservableObject
 
     // ── Game File Loading ───────────────────────────────────────
 
-    private async Task LoadGamesAsync(Core.Interfaces.ISystemManager systemManager, CancellationToken ct)
+    private async Task LoadGamesAsync(ISystemManager systemManager, CancellationToken ct)
     {
         var allFiles = new List<string>();
 
@@ -293,14 +293,11 @@ public partial class MainWindowViewModel : ObservableObject
         foreach (var file in allFiles)
         {
             var fileName = Path.GetFileName(file);
-            if (!uniqueFiles.ContainsKey(fileName))
-            {
-                uniqueFiles[fileName] = file;
-            }
+            uniqueFiles.TryAdd(fileName, file);
         }
 
         _allGameFiles = uniqueFiles.Values
-            .OrderBy(f => Path.GetFileNameWithoutExtension(f), StringComparer.OrdinalIgnoreCase)
+            .OrderBy(static f => Path.GetFileNameWithoutExtension(f), StringComparer.OrdinalIgnoreCase)
             .ToList();
 
         TotalGames = _allGameFiles.Count;
@@ -312,7 +309,7 @@ public partial class MainWindowViewModel : ObservableObject
 
     // ── Filter and Pagination ───────────────────────────────────
 
-    private async Task ApplyFilterAndPaginationAsync(Core.Interfaces.ISystemManager systemManager, CancellationToken ct)
+    private async Task ApplyFilterAndPaginationAsync(ISystemManager systemManager, CancellationToken ct)
     {
         var filteredFiles = _allGameFiles;
 
@@ -337,8 +334,15 @@ public partial class MainWindowViewModel : ObservableObject
         TotalGames = filteredFiles.Count;
         TotalPages = Math.Max(1, (int)Math.Ceiling((double)filteredFiles.Count / GamesPerPage));
 
-        if (CurrentPage > TotalPages) CurrentPage = TotalPages;
-        if (CurrentPage < 1) CurrentPage = 1;
+        if (CurrentPage > TotalPages)
+        {
+            CurrentPage = TotalPages;
+        }
+
+        if (CurrentPage < 1)
+        {
+            CurrentPage = 1;
+        }
 
         HasPreviousPage = CurrentPage > 1;
         HasNextPage = CurrentPage < TotalPages;
@@ -367,7 +371,7 @@ public partial class MainWindowViewModel : ObservableObject
                 FolderPath = Path.GetDirectoryName(filePath) ?? string.Empty,
                 CoverImagePath = coverImagePath,
                 FilePath = filePath,
-                IsFavorite = favoritePaths.Contains(filePath, StringComparer.OrdinalIgnoreCase)
+                IsFavorite = favoritePaths.Contains(filePath)
             });
         }
 
@@ -386,6 +390,7 @@ public partial class MainWindowViewModel : ObservableObject
         {
             filters.Add(c.ToString());
         }
+
         filters.Add("#");
 
         LetterFilters = new ObservableCollection<string>(filters);
@@ -394,6 +399,7 @@ public partial class MainWindowViewModel : ObservableObject
 
     partial void OnSelectedLetterFilterChanged(string? value)
     {
+        _ = value; // Handled via SelectedSystem binding
         if (_systemManagers.Count == 0) return;
 
         var selectedManager = _systemManagers.FirstOrDefault(s =>
@@ -553,6 +559,7 @@ public partial class MainWindowViewModel : ObservableObject
     private void SetTheme(string? theme)
     {
         if (string.IsNullOrEmpty(theme)) return;
+
         _settings.BaseTheme = theme;
         _themeService.ApplyTheme(theme, _settings.AccentColor);
     }
@@ -561,6 +568,7 @@ public partial class MainWindowViewModel : ObservableObject
     private void SetAccentColor(string? color)
     {
         if (string.IsNullOrEmpty(color)) return;
+
         _settings.AccentColor = color;
         _themeService.ApplyTheme(_settings.BaseTheme, color);
     }
@@ -686,12 +694,12 @@ public partial class MainWindowViewModel : ObservableObject
         try
         {
             var favoritesPath = GetFavoritesPath();
-            var favorites = new List<SimpleLauncher.Core.Models.Favorite>();
+            var favorites = new List<Core.Models.Favorite>();
 
             if (File.Exists(favoritesPath))
             {
                 var bytes = await File.ReadAllBytesAsync(favoritesPath);
-                favorites = MessagePack.MessagePackSerializer.Deserialize<List<SimpleLauncher.Core.Models.Favorite>>(bytes);
+                favorites = MessagePack.MessagePackSerializer.Deserialize<List<Core.Models.Favorite>>(bytes);
             }
 
             // Check if already a favorite
@@ -701,7 +709,7 @@ public partial class MainWindowViewModel : ObservableObject
                 return;
             }
 
-            favorites.Add(new SimpleLauncher.Core.Models.Favorite
+            favorites.Add(new Core.Models.Favorite
             {
                 FileName = game.FilePath,
                 SystemName = SelectedSystem
@@ -734,7 +742,7 @@ public partial class MainWindowViewModel : ObservableObject
             if (!File.Exists(favoritesPath)) return;
 
             var bytes = await File.ReadAllBytesAsync(favoritesPath);
-            var favorites = MessagePack.MessagePackSerializer.Deserialize<List<SimpleLauncher.Core.Models.Favorite>>(bytes);
+            var favorites = MessagePack.MessagePackSerializer.Deserialize<List<Core.Models.Favorite>>(bytes);
 
             var removed = favorites.RemoveAll(f => f.FileName.Equals(game.FilePath, StringComparison.OrdinalIgnoreCase));
             if (removed > 0)
@@ -757,12 +765,12 @@ public partial class MainWindowViewModel : ObservableObject
         try
         {
             var historyPath = GetPlayHistoryPath();
-            var history = new List<SimpleLauncher.Core.Models.PlayHistoryItem>();
+            var history = new List<Core.Models.PlayHistoryItem>();
 
             if (File.Exists(historyPath))
             {
                 var bytes = await File.ReadAllBytesAsync(historyPath);
-                history = MessagePack.MessagePackSerializer.Deserialize<List<SimpleLauncher.Core.Models.PlayHistoryItem>>(bytes);
+                history = MessagePack.MessagePackSerializer.Deserialize<List<Core.Models.PlayHistoryItem>>(bytes);
             }
 
             var existing = history.FirstOrDefault(h =>
@@ -773,19 +781,19 @@ public partial class MainWindowViewModel : ObservableObject
             {
                 existing.TotalPlayTime += (long)playTime.TotalSeconds;
                 existing.TimesPlayed++;
-                existing.LastPlayDate = DateTime.Now.ToString("yyyy-MM-dd");
-                existing.LastPlayTime = DateTime.Now.ToString("HH:mm:ss");
+                existing.LastPlayDate = DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                existing.LastPlayTime = DateTime.Now.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
             }
             else
             {
-                history.Add(new SimpleLauncher.Core.Models.PlayHistoryItem
+                history.Add(new Core.Models.PlayHistoryItem
                 {
                     FileName = filePath,
                     SystemName = systemName,
                     TotalPlayTime = (long)playTime.TotalSeconds,
                     TimesPlayed = 1,
-                    LastPlayDate = DateTime.Now.ToString("yyyy-MM-dd"),
-                    LastPlayTime = DateTime.Now.ToString("HH:mm:ss")
+                    LastPlayDate = DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+                    LastPlayTime = DateTime.Now.ToString("HH:mm:ss", CultureInfo.InvariantCulture)
                 });
             }
 
@@ -798,7 +806,7 @@ public partial class MainWindowViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            _logErrors?.LogAndForget(ex, "Error recording play history.");
+            _logErrors.LogAndForget(ex, "Error recording play history.");
         }
     }
 
@@ -823,13 +831,19 @@ public partial class MainWindowViewModel : ObservableObject
                 return new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
             var bytes = await File.ReadAllBytesAsync(favoritesPath);
-            var favorites = MessagePack.MessagePackSerializer.Deserialize<List<SimpleLauncher.Core.Models.Favorite>>(bytes);
-            return new HashSet<string>(favorites.Select(f => f.FileName), StringComparer.OrdinalIgnoreCase);
+            var favorites = MessagePack.MessagePackSerializer.Deserialize<List<Core.Models.Favorite>>(bytes);
+            return new HashSet<string>(favorites.Select(static f => f.FileName), StringComparer.OrdinalIgnoreCase);
         }
         catch
         {
             return new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         }
+    }
+
+    public void Dispose()
+    {
+        _loadCts?.Dispose();
+        GC.SuppressFinalize(this);
     }
 }
 

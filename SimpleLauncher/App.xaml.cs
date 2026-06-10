@@ -254,7 +254,14 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IMessageBoxLibraryService, MessageBoxLibraryService>();
         serviceCollection.AddSingleton<IUiOrchestrator, UiOrchestrator>();
         serviceCollection.AddSingleton<IGameItemRenderService, GameItemRenderService>();
-        serviceCollection.AddSingleton<IRetroAchievementsHasherTool, RetroAchievementsHasherTool>();
+        serviceCollection.AddSingleton<IRetroAchievementsHasherTool, RetroAchievementsHasherTool>(sp =>
+        {
+            var debugLogger = sp.GetRequiredService<IDebugLogger>();
+            var extractionService = sp.GetRequiredService<IExtractionService>();
+            Func<SystemSelectionWindow> systemSelectionWindowFactory = () => new SystemSelectionWindow(sp.GetRequiredService<SystemSelectionViewModel>());
+            Func<Window> mainWindowFactory = () => Application.Current.MainWindow;
+            return new RetroAchievementsHasherTool(debugLogger, extractionService, systemSelectionWindowFactory, mainWindowFactory);
+        });
         serviceCollection.AddSingleton<ISystemSelectionOrchestrator, SystemSelectionOrchestrator>();
         serviceCollection.AddSingleton<IGameFileLoadingOrchestrator, GameFileLoadingOrchestrator>();
 

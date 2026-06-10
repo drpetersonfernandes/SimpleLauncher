@@ -1,7 +1,6 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:SimpleLauncher.Avalonia"
-        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
         x:Class="SimpleLauncher.Avalonia.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Title="{Binding Title}"
@@ -264,7 +263,7 @@
                                                 <Border Background="{DynamicResource ThemeSurfaceHoverBrush}" 
                                                         CornerRadius="4" 
                                                         Height="150">
-                                                    <Image Source="{Binding CoverImagePath, Converter={StaticResource ImageUrlConverter}}" 
+                                                    <Image Source="{Binding CoverImagePath, Converter={StaticResource ImageUrlConverter}, TargetNullValue={x:Null}}" 
                                                            Stretch="Uniform"/>
                                                 </Border>
                                                 <!-- Game Name -->

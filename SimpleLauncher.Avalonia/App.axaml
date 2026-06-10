@@ -1,6 +1,8 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
+             xmlns:views="using:SimpleLauncher.Avalonia.Views"
+             xmlns:vm="using:SimpleLauncher.Avalonia"
              x:Class="SimpleLauncher.Avalonia.App"
              RequestedThemeVariant="Dark">
     <Application.Styles>
@@ -57,6 +59,17 @@
     
     <Application.Resources>
         <ResourceDictionary>
+            <!-- DataTemplates for sub-page ViewModel → View resolution -->
+            <DataTemplate DataType="{x:Type vm:FavoritesViewModel}" x:Key="FavoritesViewTemplate">
+                <views:FavoritesView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:GlobalSearchViewModel}" x:Key="GlobalSearchViewTemplate">
+                <views:GlobalSearchView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:PlayHistoryViewModel}" x:Key="PlayHistoryViewTemplate">
+                <views:PlayHistoryView/>
+            </DataTemplate>
+            
             <!-- Converters -->
             <converters:ImageUrlConverter x:Key="ImageUrlConverter"/>
             

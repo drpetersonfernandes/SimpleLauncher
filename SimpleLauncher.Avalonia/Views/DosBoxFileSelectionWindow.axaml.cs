@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.ViewModels;
 
 namespace SimpleLauncher.Avalonia.Views;
@@ -8,6 +9,8 @@ namespace SimpleLauncher.Avalonia.Views;
 public partial class DosBoxFileSelectionWindow : Window
 {
     private readonly DosBoxFileSelectionViewModel _viewModel;
+
+    public DosBoxFileSelectionWindow() : this(App.ServiceProvider.GetRequiredService<DosBoxFileSelectionViewModel>()) { }
 
     public DosBoxFileSelectionWindow(DosBoxFileSelectionViewModel viewModel)
     {

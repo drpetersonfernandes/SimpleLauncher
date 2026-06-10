@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.ViewModels;
 
 namespace SimpleLauncher.Avalonia.Views;
@@ -7,6 +8,8 @@ namespace SimpleLauncher.Avalonia.Views;
 public partial class FlashOverlayWindow : Window
 {
     private readonly FlashOverlayViewModel _viewModel;
+
+    public FlashOverlayWindow() : this(App.ServiceProvider.GetRequiredService<FlashOverlayViewModel>()) { }
 
     public FlashOverlayWindow(FlashOverlayViewModel viewModel)
     {

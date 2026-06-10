@@ -134,7 +134,7 @@ public class App : Application, IDisposable
         services.AddSingleton<ICoreSystemConfigurationService, SystemConfigurationService>();
         services.AddSingleton<ISystemConfigurationWriterService, SystemConfigurationWriterService>();
         services.AddSingleton<IGetListOfFilesService, GetListOfFilesService>();
-        services.AddSingleton<IFindCoverImageService>(sp =>
+        services.AddSingleton<IFindCoverImageService>(static sp =>
         {
             var config = sp.GetRequiredService<IConfiguration>();
             var logErrors = sp.GetRequiredService<ILogErrors>();

@@ -178,7 +178,7 @@ public partial class EditSystemViewModel : ObservableObject
                 FileFormatsToLaunch = FileFormatsToLaunch.ToList(),
                 GroupByFolder = GroupByFolder,
                 DisableRecursiveSearch = DisableRecursiveSearch,
-                Emulators = Emulators.Select(e => new Emulator
+                Emulators = Emulators.Select(static e => new Emulator
                 {
                     EmulatorName = e.Name,
                     EmulatorLocation = e.Location,
@@ -231,7 +231,7 @@ public partial class EditSystemViewModel : ObservableObject
             GroupByFolder = system.GroupByFolder;
             DisableRecursiveSearch = system.DisableRecursiveSearch;
 
-            Emulators = new ObservableCollection<EmulatorItem>(system.Emulators.Select(e => new EmulatorItem
+            Emulators = new ObservableCollection<EmulatorItem>(system.Emulators.Select(static e => new EmulatorItem
             {
                 Name = e.EmulatorName,
                 Location = e.EmulatorLocation,
@@ -239,7 +239,9 @@ public partial class EditSystemViewModel : ObservableObject
             }));
 
             if (Emulators.Count > 0)
+            {
                 SelectedEmulator = Emulators[0];
+            }
         }
         finally
         {

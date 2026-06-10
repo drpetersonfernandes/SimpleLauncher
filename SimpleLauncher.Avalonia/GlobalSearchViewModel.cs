@@ -64,6 +64,8 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 
     [ObservableProperty] private bool _hasResults;
 
+    [ObservableProperty] private bool _hasSearched;
+
     // ── Preview Image ───────────────────────────────────────────
 
     [ObservableProperty] private Stream? _previewImageSource;
@@ -123,7 +125,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
                     foreach (var file in files)
                     {
                         var fileName = Path.GetFileNameWithoutExtension(file);
-                        if (fileName != null && fileName.Contains(searchLower, StringComparison.OrdinalIgnoreCase))
+                        if (fileName.Contains(searchLower, StringComparison.OrdinalIgnoreCase))
                         {
                             var coverImage = _findCoverImage.FindCoverImagePath(fileName, system.SystemName, system.SystemImageFolder);
 
@@ -146,6 +148,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
             SearchResults = new ObservableCollection<SearchResultItem>(results);
             HasResults = results.Count > 0;
             NoResults = results.Count == 0;
+            HasSearched = true;
             SearchStatus = results.Count > 0
                 ? $"Found {results.Count} result(s) for '{SearchText}'"
                 : $"No results found for '{SearchText}'";
