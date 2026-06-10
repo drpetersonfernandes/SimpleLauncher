@@ -11,7 +11,6 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.SettingsManager;
-using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
@@ -30,7 +29,7 @@ public partial class PlayHistoryViewModel : ObservableObject
     private readonly List<SystemManager> _systemManagers;
     private readonly List<MameManager> _machines;
     private readonly PlaySoundEffects _playSoundEffects;
-    private readonly IFindCoverImage _findCoverImage;
+    private readonly IFindCoverImageService _findCoverImage;
     private readonly IImageLoader _imageLoader;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
@@ -56,7 +55,7 @@ public partial class PlayHistoryViewModel : ObservableObject
         List<SystemManager> systemManagers,
         List<MameManager> machines,
         PlaySoundEffects playSoundEffects,
-        IFindCoverImage findCoverImage,
+        IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         IMessageBoxLibraryService messageBox,
         IResourceProvider resourceProvider)
@@ -315,6 +314,6 @@ public partial class PlayHistoryViewModel : ObservableObject
             return defaultCoverImagePath;
         }
 
-        return _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager, _settings);
+        return _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager.SystemImageFolder);
     }
 }

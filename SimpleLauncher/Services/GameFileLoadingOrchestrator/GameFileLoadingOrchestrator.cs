@@ -1,31 +1,32 @@
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.FindCoverImage;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GameCache;
 using SimpleLauncher.Services.GameFilter;
 using SimpleLauncher.Services.GameItemRender;
-using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.MameData;
-using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Services.UpdateStatusBar;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameFileLoadingOrchestrator;
 
+[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
 {
     private IGameFileLoadingHost _host;
     private readonly IGameCacheService _gameCacheService;
     private readonly IGameFilterService _gameFilterService;
     private readonly IMameDataService _mameDataService;
-    private readonly IGetListOfFiles _getListOfFiles;
+    private readonly IGetListOfFilesService _getListOfFiles;
     private readonly FavoritesManager _favoritesManager;
     private readonly RetroAchievementsService _retroAchievementsService;
-    private readonly IFindCoverImage _findCoverImage;
+    private readonly IFindCoverImageService _findCoverImage;
     private readonly IGameItemRenderService _gameItemRenderService;
     private readonly Core.Services.SettingsManager.SettingsManager _settings;
     private readonly ILogErrors _logErrors;
@@ -37,10 +38,10 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         IGameCacheService gameCacheService,
         IGameFilterService gameFilterService,
         IMameDataService mameDataService,
-        IGetListOfFiles getListOfFiles,
+        IGetListOfFilesService getListOfFiles,
         FavoritesManager favoritesManager,
         RetroAchievementsService retroAchievementsService,
-        IFindCoverImage findCoverImage,
+        IFindCoverImageService findCoverImage,
         IGameItemRenderService gameItemRenderService,
         Core.Services.SettingsManager.SettingsManager settings,
         ILogErrors logErrors,
@@ -268,7 +269,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
                                 raTitle.Contains(fileName, StringComparison.OrdinalIgnoreCase))
                                 return true;
 
-                            var similarity = _findCoverImage.CalculateJaroWinklerSimilarity(fileName, raTitle);
+                            var similarity = FindCoverImageService.CalculateJaroWinklerSimilarity(fileName, raTitle);
                             return similarity >= threshold;
                         });
                     }).ToList();
@@ -321,7 +322,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
                             var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
                             if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
 
-                            var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager, token);
+                            var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch, selectedManager.GroupByFolder, token);
                             foreach (var file in filesInFolder)
                             {
                                 uniqueFiles.TryAdd(Path.GetFileName(file), file);
@@ -345,7 +346,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
                             var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
                             if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
 
-                            var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager, token);
+                            var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch, selectedManager.GroupByFolder, token);
                             foreach (var file in filesInFolder)
                             {
                                 uniqueFiles.TryAdd(Path.GetFileName(file), file);

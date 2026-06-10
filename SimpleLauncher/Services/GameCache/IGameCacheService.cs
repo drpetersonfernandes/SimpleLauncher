@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.GetListOfFiles;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Services.GameCache;
 
@@ -12,7 +12,7 @@ public interface IGameCacheService
 
     Task SetAllGamesAsync(List<string> games, string systemName, CancellationToken ct);
     Task SetSearchResultsAsync(List<string> results, CancellationToken ct);
-    Task PopulateFromDiskAsync(SystemManager.SystemManager config, IGetListOfFiles fileService, CancellationToken ct);
+    Task PopulateFromDiskAsync(SystemManager.SystemManager config, IGetListOfFilesService fileService, CancellationToken ct);
 
     Task<(List<string> allGames, List<string> searchResults)> GetResortSourceAsync(
         bool hasActiveFilter, CancellationToken ct);

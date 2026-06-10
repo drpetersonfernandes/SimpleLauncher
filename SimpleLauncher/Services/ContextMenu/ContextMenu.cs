@@ -9,7 +9,6 @@ using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.WpfServices;
 
@@ -17,18 +16,18 @@ namespace SimpleLauncher.Services.ContextMenu;
 
 public static class ContextMenu
 {
-    public static System.Windows.Controls.ContextMenu AddRightClickReturnContextMenu(RightClickContext context, ILogErrors logErrors, IFindCoverImage findCoverImage)
+    public static System.Windows.Controls.ContextMenu AddRightClickReturnContextMenu(RightClickContext context, ILogErrors logErrors, IFindCoverImageService findCoverImage)
     {
         return CreateMenu(context, logErrors, findCoverImage);
     }
 
-    public static Button AddRightClickReturnButton(RightClickContext context, ILogErrors logErrors, IFindCoverImage findCoverImage)
+    public static Button AddRightClickReturnButton(RightClickContext context, ILogErrors logErrors, IFindCoverImageService findCoverImage)
     {
         context.Button.ContextMenu = CreateMenu(context, logErrors, findCoverImage);
         return context.Button;
     }
 
-    private static System.Windows.Controls.ContextMenu CreateMenu(RightClickContext context, ILogErrors logErrors, IFindCoverImage findCoverImage)
+    private static System.Windows.Controls.ContextMenu CreateMenu(RightClickContext context, ILogErrors logErrors, IFindCoverImageService findCoverImage)
     {
         var messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
         var contextMenu = new System.Windows.Controls.ContextMenu();

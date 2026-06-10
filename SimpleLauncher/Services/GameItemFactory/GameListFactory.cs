@@ -6,9 +6,7 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GamePad;
-using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
@@ -31,8 +29,8 @@ public class GameListFactory(
     PlaySoundEffects playSoundEffects,
     IConfiguration configuration,
     ILogErrors logErrors,
-    IGetListOfFiles getListOfFiles,
-    IFindCoverImage findCoverImage,
+    IGetListOfFilesService getListOfFiles,
+    IFindCoverImageService findCoverImage,
     IImageLoader imageLoader,
     IMessageBoxLibraryService messageBox)
 {
@@ -49,8 +47,8 @@ public class GameListFactory(
     private readonly PlaySoundEffects _playSoundEffects = playSoundEffects;
     private readonly IConfiguration _configuration = configuration;
     private readonly ILogErrors _logErrors = logErrors;
-    private readonly IGetListOfFiles _getListOfFiles = getListOfFiles;
-    private readonly IFindCoverImage _findCoverImage = findCoverImage;
+    private readonly IGetListOfFilesService _getListOfFiles = getListOfFiles;
+    private readonly IFindCoverImageService _findCoverImage = findCoverImage;
     private readonly IImageLoader _imageLoader = imageLoader;
     private readonly IMessageBoxLibraryService _messageBox = messageBox;
 
@@ -211,25 +209,25 @@ public class GameListFactory(
                 if (isDirectory) // GroupByFolder is true
                 {
                     // First, try to find an image with the same name as the folder name.
-                    previewImagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemManager, _settings);
+                    previewImagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemManager.SystemImageFolder);
 
                     // If the found path is a default image, try the fallback logic.
                     if (previewImagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
                     {
                         // Fallback to current logic: look inside the folder for a file to use as a name.
-                        var filesInFolder = await _getListOfFiles.GetFilesAsync(filePath, systemManager.FileFormatsToSearch, systemManager);
+                        var filesInFolder = await _getListOfFiles.GetFilesAsync(filePath, systemManager.FileFormatsToSearch, systemManager.DisableRecursiveSearch, systemManager.GroupByFolder);
                         if (filesInFolder.Count != 0)
                         {
                             var representativeFileName = Path.GetFileNameWithoutExtension(filesInFolder.First());
                             // Now search again with the new name.
-                            previewImagePath = _findCoverImage.FindCoverImagePath(representativeFileName, selectedSystem, systemManager, _settings);
+                            previewImagePath = _findCoverImage.FindCoverImagePath(representativeFileName, selectedSystem, systemManager.SystemImageFolder);
                         }
                     }
                 }
                 else
                 {
                     // This is the logic for non-grouped files, which remains the same.
-                    previewImagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemManager, _settings);
+                    previewImagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemManager.SystemImageFolder);
                 }
 
                 _mainWindow.PreviewImage.Source = null; // Clear existing image before loading new one

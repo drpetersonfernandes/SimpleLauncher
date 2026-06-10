@@ -1,16 +1,19 @@
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.FindCoverImage;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.FindCoverImage;
 
 namespace SimpleLauncher.Services.SystemImageResolver;
 
+[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public class SystemImageResolverService : ISystemImageResolverService
 {
     private readonly IConfiguration _configuration;
-    private readonly IFindCoverImage _findCoverImage;
+    private readonly IFindCoverImageService _findCoverImage;
     private readonly Core.Services.SettingsManager.SettingsManager _settings;
 
-    public SystemImageResolverService(IConfiguration configuration, IFindCoverImage findCoverImage, Core.Services.SettingsManager.SettingsManager settings)
+    public SystemImageResolverService(IConfiguration configuration, IFindCoverImageService findCoverImage, Core.Services.SettingsManager.SettingsManager settings)
     {
         _configuration = configuration;
         _findCoverImage = findCoverImage;
@@ -52,7 +55,7 @@ public class SystemImageResolverService : ISystemImageResolverService
                 if (string.IsNullOrEmpty(fileWithoutExt)) continue;
 
                 var lowerFileName = fileWithoutExt.ToLowerInvariant();
-                var similarity = _findCoverImage.CalculateJaroWinklerSimilarity(lowerSystemName, lowerFileName);
+                var similarity = FindCoverImageService.CalculateJaroWinklerSimilarity(lowerSystemName, lowerFileName);
 
                 if (!(similarity > highestSimilarity)) continue;
 

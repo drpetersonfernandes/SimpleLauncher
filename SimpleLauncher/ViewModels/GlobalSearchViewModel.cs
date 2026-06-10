@@ -10,8 +10,6 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindCoverImage;
-using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.GlobalSearch.Models;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.PlaySound;
@@ -31,8 +29,8 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
     private readonly Dictionary<string, string> _mameLookup;
     private readonly FavoritesManager _favoritesManager;
     private readonly PlaySoundEffects _playSoundEffects;
-    private readonly IGetListOfFiles _getListOfFiles;
-    private readonly IFindCoverImage _findCoverImage;
+    private readonly IGetListOfFilesService _getListOfFiles;
+    private readonly IFindCoverImageService _findCoverImage;
     private readonly IImageLoader _imageLoader;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
@@ -65,8 +63,8 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
         Dictionary<string, string> mameLookup,
         FavoritesManager favoritesManager,
         PlaySoundEffects playSoundEffects,
-        IGetListOfFiles getListOfFiles,
-        IFindCoverImage findCoverImage,
+        IGetListOfFilesService getListOfFiles,
+        IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         IMessageBoxLibraryService messageBox,
         IResourceProvider resourceProvider)
@@ -237,7 +235,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
                 }
 
                 var matchedFilesList = await _getListOfFiles.GetFilesAsync(
-                    systemFolderPath, systemManager.FileFormatsToSearch, effectiveSystemManager, token);
+                    systemFolderPath, systemManager.FileFormatsToSearch, effectiveSystemManager.DisableRecursiveSearch, effectiveSystemManager.GroupByFolder, token);
 
                 var filesInSystemFolder = matchedFilesList.Where(file =>
                 {
@@ -279,7 +277,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
                         SystemName = systemManager.SystemName,
                         EmulatorManager = systemManager.Emulators.FirstOrDefault(),
                         CoverImage = _findCoverImage.FindCoverImagePath(
-                            Path.GetFileNameWithoutExtension(filePath), systemManager.SystemName, systemManager, _settings)
+                            Path.GetFileNameWithoutExtension(filePath), systemManager.SystemName, systemManager.SystemImageFolder)
                     });
                 }
             }

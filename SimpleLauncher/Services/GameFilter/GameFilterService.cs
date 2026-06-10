@@ -1,15 +1,15 @@
 using System.IO;
-using SimpleLauncher.Services.FindCoverImage;
+using SimpleLauncher.Core.Interfaces;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameFilter;
 
 public class GameFilterService : IGameFilterService
 {
-    private readonly IFindCoverImage _findCoverImage;
+    private readonly IFindCoverImageService _findCoverImage;
     private readonly Core.Services.SettingsManager.SettingsManager _settings;
 
-    public GameFilterService(IFindCoverImage findCoverImage, Core.Services.SettingsManager.SettingsManager settings)
+    public GameFilterService(IFindCoverImageService findCoverImage, Core.Services.SettingsManager.SettingsManager settings)
     {
         _findCoverImage = findCoverImage;
         _settings = settings;
@@ -26,7 +26,7 @@ public class GameFilterService : IGameFilterService
         foreach (var filePath in files)
         {
             var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
-            var imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, config, _settings);
+            var imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, config.SystemImageFolder);
 
             bool isDefaultImage;
             if (string.IsNullOrEmpty(imagePath) || imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))

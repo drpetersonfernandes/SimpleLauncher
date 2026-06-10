@@ -9,10 +9,8 @@ using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GamePad;
-using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.GlobalSearch.Models;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MameManager;
@@ -36,7 +34,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
     private readonly GameLauncher _gameLauncher;
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
-    private readonly IFindCoverImage _findCoverImage;
+    private readonly IFindCoverImageService _findCoverImage;
     private readonly List<MameManager> _machines;
     private readonly FavoritesManager _favoritesManager;
     private readonly PlaySoundEffects _playSoundEffects;
@@ -55,8 +53,8 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         PlaySoundEffects playSoundEffects,
         ILogErrors logErrors,
         IConfiguration configuration,
-        IGetListOfFiles getListOfFiles,
-        IFindCoverImage findCoverImage,
+        IGetListOfFilesService getListOfFiles,
+        IFindCoverImageService findCoverImage,
         IImageLoader imageLoader)
     {
         InitializeComponent();

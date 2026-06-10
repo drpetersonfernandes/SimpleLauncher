@@ -4,11 +4,9 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.GamePad;
-using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 
@@ -26,8 +24,8 @@ public class GameItemRenderService : IGameItemRenderService
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors;
-    private readonly IGetListOfFiles _getListOfFiles;
-    private readonly IFindCoverImage _findCoverImage;
+    private readonly IGetListOfFilesService _getListOfFiles;
+    private readonly IFindCoverImageService _findCoverImage;
     private readonly IImageLoader _imageLoader;
     private readonly GameListUiService _gameListUiService;
     private readonly IMessageBoxLibraryService _messageBox;
@@ -45,8 +43,8 @@ public class GameItemRenderService : IGameItemRenderService
         PlaySoundEffects playSoundEffects,
         IConfiguration configuration,
         ILogErrors logErrors,
-        IGetListOfFiles getListOfFiles,
-        IFindCoverImage findCoverImage,
+        IGetListOfFilesService getListOfFiles,
+        IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         GameListUiService gameListUiService,
         IMessageBoxLibraryService messageBox)

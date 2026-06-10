@@ -1,10 +1,10 @@
-using SimpleLauncher.Services.GetListOfFiles;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Tests.TestHelpers;
 
-public class NoOpGetListOfFiles : IGetListOfFiles
+public class NoOpGetListOfFiles : IGetListOfFilesService
 {
-    public Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions, Services.SystemManager.SystemManager systemManager, CancellationToken cancellationToken = default)
+    public Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions, bool disableRecursiveSearch, bool groupByFolder, CancellationToken cancellationToken = default)
     {
         return Task.FromResult(new List<string>());
     }

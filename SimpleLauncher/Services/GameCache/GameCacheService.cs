@@ -1,7 +1,7 @@
 using System.IO;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GetListOfFiles;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameCache;
@@ -106,7 +106,7 @@ public class GameCacheService : IGameCacheService, IDisposable
         }
     }
 
-    public async Task PopulateFromDiskAsync(SystemManager.SystemManager config, IGetListOfFiles fileService, CancellationToken ct)
+    public async Task PopulateFromDiskAsync(SystemManager.SystemManager config, IGetListOfFilesService fileService, CancellationToken ct)
     {
         await _lock.WaitAsync(ct);
         try
@@ -130,7 +130,7 @@ public class GameCacheService : IGameCacheService, IDisposable
                     !Directory.Exists(resolvedPath) ||
                     config.FileFormatsToSearch == null) continue;
 
-                var filesInFolder = await fileService.GetFilesAsync(resolvedPath, config.FileFormatsToSearch, config, ct);
+                var filesInFolder = await fileService.GetFilesAsync(resolvedPath, config.FileFormatsToSearch, config.DisableRecursiveSearch, config.GroupByFolder, ct);
                 foreach (var file in filesInFolder)
                 {
                     uniqueFiles.TryAdd(Path.GetFileName(file), file);

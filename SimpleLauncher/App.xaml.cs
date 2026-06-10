@@ -26,7 +26,6 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.EasyMode;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GameCache;
 using SimpleLauncher.Services.GameFilter;
 using SimpleLauncher.Services.GameItemRender;
@@ -38,7 +37,8 @@ using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Core.Services.GameFileWatcher;
-using SimpleLauncher.Services.GetListOfFiles;
+using SimpleLauncher.Core.Services.GetListOfFiles;
+using SimpleLauncher.Core.Services.FindCoverImage;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.LaunchTools;
 using SimpleLauncher.Services.LoadingOverlay;
@@ -231,9 +231,15 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<GameFileWatcherService>();
         serviceCollection.AddSingleton<MenuActionHandlerService>();
         serviceCollection.AddSingleton<IHelpUserService, HelpUserService>();
-        serviceCollection.AddSingleton<IGetListOfFiles, GetListOfFilesService>();
+        serviceCollection.AddSingleton<IGetListOfFilesService, GetListOfFilesService>();
         serviceCollection.AddSingleton<IUpdateStatusBar, UpdateStatusBarService>();
-        serviceCollection.AddSingleton<IFindCoverImage, FindCoverImage>();
+        serviceCollection.AddSingleton<IFindCoverImageService>(static sp =>
+        {
+            var configuration = sp.GetRequiredService<IConfiguration>();
+            var logErrors = sp.GetRequiredService<ILogErrors>();
+            var settings = sp.GetRequiredService<SettingsManager>();
+            return new FindCoverImageService(configuration, logErrors, settings.EnableFuzzyMatching, settings.FuzzyMatchingThreshold);
+        });
         serviceCollection.AddSingleton<IImageLoader, WpfImageLoader>();
         serviceCollection.AddSingleton<IMenuCheckMarkService, MenuCheckMarkService>();
         serviceCollection.AddSingleton<IUiResetService, UiResetService>();
@@ -254,13 +260,21 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IMessageBoxLibraryService, MessageBoxLibraryService>();
         serviceCollection.AddSingleton<IUiOrchestrator, UiOrchestrator>();
         serviceCollection.AddSingleton<IGameItemRenderService, GameItemRenderService>();
-        serviceCollection.AddSingleton<IRetroAchievementsHasherTool, RetroAchievementsHasherTool>(sp =>
+        serviceCollection.AddSingleton<IRetroAchievementsHasherTool, RetroAchievementsHasherTool>(static sp =>
         {
             var debugLogger = sp.GetRequiredService<IDebugLogger>();
             var extractionService = sp.GetRequiredService<IExtractionService>();
-            Func<SystemSelectionWindow> systemSelectionWindowFactory = () => new SystemSelectionWindow(sp.GetRequiredService<SystemSelectionViewModel>());
-            Func<Window> mainWindowFactory = () => Application.Current.MainWindow;
-            return new RetroAchievementsHasherTool(debugLogger, extractionService, systemSelectionWindowFactory, mainWindowFactory);
+            return new RetroAchievementsHasherTool(debugLogger, extractionService, SystemSelectionWindowFactory, MainWindowFactory);
+
+            SystemSelectionWindow SystemSelectionWindowFactory()
+            {
+                return new SystemSelectionWindow(sp.GetRequiredService<SystemSelectionViewModel>());
+            }
+
+            static Window MainWindowFactory()
+            {
+                return Current.MainWindow;
+            }
         });
         serviceCollection.AddSingleton<ISystemSelectionOrchestrator, SystemSelectionOrchestrator>();
         serviceCollection.AddSingleton<IGameFileLoadingOrchestrator, GameFileLoadingOrchestrator>();

@@ -11,7 +11,6 @@ using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadImages;
@@ -39,7 +38,7 @@ public partial class PlayHistoryPage : ILoadingState
     private readonly GameLauncher _gameLauncher;
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
-    private readonly IFindCoverImage _findCoverImage;
+    private readonly IFindCoverImageService _findCoverImage;
     private readonly List<MameManager> _machines;
     private readonly FavoritesManager _favoritesManager;
     private readonly SettingsManager _settings;
@@ -59,7 +58,7 @@ public partial class PlayHistoryPage : ILoadingState
         PlaySoundEffects playSoundEffects,
         IConfiguration configuration,
         ILogErrors logErrors,
-        IFindCoverImage findCoverImage,
+        IFindCoverImageService findCoverImage,
         IImageLoader imageLoader)
     {
         InitializeComponent();

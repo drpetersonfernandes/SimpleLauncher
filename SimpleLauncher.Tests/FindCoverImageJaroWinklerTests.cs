@@ -1,100 +1,80 @@
-using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.FindCoverImage;
-using SimpleLauncher.Tests.TestHelpers;
+using SimpleLauncher.Core.Services.FindCoverImage;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
 public class FindCoverImageJaroWinklerTests
 {
-    private readonly FindCoverImage _findCoverImage;
-
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
-
-    public FindCoverImageJaroWinklerTests()
-    {
-        ServiceProviderMock.Install();
-        var configuration = new ConfigurationBuilder().Build();
-        _findCoverImage = new FindCoverImage(configuration, new NoOpLogErrors());
-    }
-
     // Jaro-Winkler Similarity Tests
 
     [Fact]
     public void JaroWinklerIdenticalStringsReturns1()
     {
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity("hello", "hello");
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("hello", "hello");
         Assert.Equal(1.0, result, 10);
     }
 
     [Fact]
     public void JaroWinklerEmptyStringsReturns1()
     {
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity("", "");
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("", "");
         Assert.Equal(1.0, result, 10);
     }
 
     [Fact]
     public void JaroWinklerBothNullReturns1()
     {
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity(null, null);
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity(null, null);
         Assert.Equal(1.0, result, 10);
     }
 
     [Fact]
     public void JaroWinklerOneEmptyOneNullReturns1()
     {
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity("", null);
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("", null);
         Assert.Equal(1.0, result, 10);
     }
 
     [Fact]
     public void JaroWinklerOneEmptyReturns0()
     {
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity("hello", "");
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("hello", "");
         Assert.Equal(0.0, result, 10);
     }
 
     [Fact]
     public void JaroWinklerOneNullReturns0()
     {
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity("hello", null);
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("hello", null);
         Assert.Equal(0.0, result, 10);
     }
 
     [Fact]
     public void JaroWinklerCompletelyDifferentReturnsLow()
     {
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity("abc", "xyz");
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("abc", "xyz");
         Assert.True(result < 0.5);
     }
 
     [Fact]
     public void JaroWinklerSimilarStringsReturnsHigh()
     {
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity("mario", "marion");
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("mario", "marion");
         Assert.True(result > 0.9);
     }
 
     [Fact]
     public void JaroWinklerIsCaseInsensitive()
     {
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity("HELLO", "hello");
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("HELLO", "hello");
         Assert.Equal(1.0, result, 10);
     }
 
     [Fact]
     public void JaroWinklerPrefixBonusApplied()
     {
-        var noPrefix = _findCoverImage.CalculateJaroWinklerSimilarity("abcde", "abcxy");
-        var withPrefix = _findCoverImage.CalculateJaroWinklerSimilarity("abcde", "abcxy");
+        var noPrefix = FindCoverImageService.CalculateJaroWinklerSimilarity("abcde", "abcxy");
+        var withPrefix = FindCoverImageService.CalculateJaroWinklerSimilarity("abcde", "abcxy");
         // Both should be equal since prefix is the same
         Assert.Equal(noPrefix, withPrefix, 10);
     }
@@ -102,29 +82,29 @@ public class FindCoverImageJaroWinklerTests
     [Fact]
     public void JaroWinklerSingleCharacterMatch()
     {
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity("a", "a");
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("a", "a");
         Assert.Equal(0.0, result, 10);
     }
 
     [Fact]
     public void JaroWinklerSingleCharacterMismatch()
     {
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity("a", "b");
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("a", "b");
         Assert.Equal(0.0, result, 10);
     }
 
     [Fact]
     public void JaroWinklerTranspositions()
     {
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity("martha", "marhta");
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("martha", "marhta");
         Assert.True(result > 0.9);
     }
 
     [Fact]
     public void JaroWinklerSymmetric()
     {
-        var r1 = _findCoverImage.CalculateJaroWinklerSimilarity("hello", "world");
-        var r2 = _findCoverImage.CalculateJaroWinklerSimilarity("world", "hello");
+        var r1 = FindCoverImageService.CalculateJaroWinklerSimilarity("hello", "world");
+        var r2 = FindCoverImageService.CalculateJaroWinklerSimilarity("world", "hello");
         Assert.Equal(r1, r2, 10);
     }
 
@@ -133,27 +113,27 @@ public class FindCoverImageJaroWinklerTests
     {
         const string s1 = "super mario bros world edition";
         const string s2 = "super mario bros world edition";
-        Assert.Equal(1.0, _findCoverImage.CalculateJaroWinklerSimilarity(s1, s2), 10);
+        Assert.Equal(1.0, FindCoverImageService.CalculateJaroWinklerSimilarity(s1, s2), 10);
     }
 
     [Fact]
     public void JaroWinklerGameNames()
     {
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity("street fighter ii", "street fighter ii turbo");
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("street fighter ii", "street fighter ii turbo");
         Assert.True(result > 0.85);
     }
 
     [Fact]
     public void JaroWinklerWithNumbers()
     {
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity("game123", "game124");
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("game123", "game124");
         Assert.True(result > 0.9);
     }
 
     [Fact]
     public void JaroWinklerWithSpecialChars()
     {
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity("mega-man x", "mega-man x");
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("mega-man x", "mega-man x");
         Assert.Equal(1.0, result, 10);
     }
 
@@ -161,14 +141,14 @@ public class FindCoverImageJaroWinklerTests
     public void JaroWinklerMaxLengthPrefixIs4()
     {
         // The algorithm uses MaxPrefixLength = 4
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity("abcdefgh", "abcdeXYZ");
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("abcdefgh", "abcdeXYZ");
         Assert.True(result > 0.5);
     }
 
     [Fact]
     public void JaroWinklerReturnsBetween0And1()
     {
-        var result = _findCoverImage.CalculateJaroWinklerSimilarity("test", "testing");
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("test", "testing");
         Assert.InRange(result, 0.0, 1.0);
     }
 }

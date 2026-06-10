@@ -16,9 +16,7 @@ using SimpleLauncher.Models;
 using SimpleLauncher.Services.ContextMenu;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GamePad;
-using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
@@ -42,8 +40,8 @@ internal partial class GameButtonFactory(
     GameLauncher.GameLauncher gameLauncher,
     PlaySoundEffects playSoundEffects,
     ILogErrors logErrors,
-    IGetListOfFiles getListOfFiles,
-    IFindCoverImage findCoverImage,
+    IGetListOfFilesService getListOfFiles,
+    IFindCoverImageService findCoverImage,
     IImageLoader imageLoader)
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox ?? throw new ArgumentNullException(nameof(emulatorComboBox));
@@ -58,8 +56,8 @@ internal partial class GameButtonFactory(
     private readonly GameLauncher.GameLauncher _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
     private readonly PlaySoundEffects _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
     private readonly ILogErrors _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
-    private readonly IGetListOfFiles _getListOfFiles = getListOfFiles ?? throw new ArgumentNullException(nameof(getListOfFiles));
-    private readonly IFindCoverImage _findCoverImage = findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
+    private readonly IGetListOfFilesService _getListOfFiles = getListOfFiles ?? throw new ArgumentNullException(nameof(getListOfFiles));
+    private readonly IFindCoverImageService _findCoverImage = findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
     private readonly IImageLoader _imageLoader = imageLoader ?? throw new ArgumentNullException(nameof(imageLoader));
     private readonly IMessageBoxLibraryService _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
@@ -91,25 +89,25 @@ internal partial class GameButtonFactory(
         if (isDirectory) // GroupByFolder is true
         {
             // First, try to find an image with the same name as the folder name.
-            imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings);
+            imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager.SystemImageFolder);
 
             // If the found path is a default image, try the fallback logic.
             if (imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
             {
                 // Fallback to current logic: look inside the folder for a file to use as a name.
-                var filesInFolder = await _getListOfFiles.GetFilesAsync(entityPath, selectedSystemManager.FileFormatsToSearch, selectedSystemManager);
+                var filesInFolder = await _getListOfFiles.GetFilesAsync(entityPath, selectedSystemManager.FileFormatsToSearch, selectedSystemManager.DisableRecursiveSearch, selectedSystemManager.GroupByFolder);
                 if (filesInFolder.Count != 0)
                 {
                     var representativeFileName = Path.GetFileNameWithoutExtension(filesInFolder.First());
                     // Now search again with the new name. This will become the final imagePath.
-                    imagePath = _findCoverImage.FindCoverImagePath(representativeFileName, selectedSystemName, selectedSystemManager, _settings);
+                    imagePath = _findCoverImage.FindCoverImagePath(representativeFileName, selectedSystemName, selectedSystemManager.SystemImageFolder);
                 }
             }
         }
         else
         {
             // This is the logic for non-grouped files, which remains the same.
-            imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings);
+            imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager.SystemImageFolder);
         }
 
         var (imageStream, isDefaultImage) = await _imageLoader.LoadImageAsync(imagePath);

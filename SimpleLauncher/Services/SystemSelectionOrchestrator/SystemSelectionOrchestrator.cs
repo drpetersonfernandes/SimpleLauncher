@@ -15,7 +15,6 @@ using SimpleLauncher.Services.DisplaySystemInfo;
 using SimpleLauncher.Services.GameCache;
 using SimpleLauncher.Core.Services.GameFileWatcher;
 using SimpleLauncher.Services.GameItemRender;
-using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MameData;
 using SimpleLauncher.Services.PlaySound;
@@ -40,7 +39,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
     private readonly IConfiguration _configuration;
     private readonly IHelpUserService _helpUserService;
     private readonly IGameItemRenderService _gameItemRenderService;
-    private readonly IGetListOfFiles _getListOfFiles;
+    private readonly IGetListOfFilesService _getListOfFiles;
     private readonly IUpdateStatusBar _updateStatusBarService;
     private readonly ISystemConfigurationService _systemConfigurationService;
     private readonly IMameDataService _mameDataService;
@@ -58,7 +57,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         IConfiguration configuration,
         IHelpUserService helpUserService,
         IGameItemRenderService gameItemRenderService,
-        IGetListOfFiles getListOfFiles,
+        IGetListOfFilesService getListOfFiles,
         IUpdateStatusBar updateStatusBarService,
         ISystemConfigurationService systemConfigurationService,
         IMameDataService mameDataService,
@@ -488,7 +487,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
             var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
             if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedManager.FileFormatsToSearch == null) continue;
 
-            var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager, cancellationToken);
+            var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch, selectedManager.GroupByFolder, cancellationToken);
             foreach (var file in filesInFolder)
             {
                 uniqueFilesForSystem.TryAdd(Path.GetFileName(file), file);

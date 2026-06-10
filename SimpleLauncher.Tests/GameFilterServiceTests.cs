@@ -204,9 +204,9 @@ public class GameFilterServiceTests
         Assert.Single(result);
     }
 
-    private class FindCoverImageNoOp : Services.FindCoverImage.IFindCoverImage
+    private class FindCoverImageNoOp : Core.Interfaces.IFindCoverImageService
     {
-        public string FindCoverImagePath(string fileNameWithoutExtension, string systemName, Services.SystemManager.SystemManager systemManager, Core.Services.SettingsManager.SettingsManager settings)
+        public string FindCoverImagePath(string fileNameWithoutExtension, string systemName, string systemImageFolder)
         {
             return "default.png";
         }

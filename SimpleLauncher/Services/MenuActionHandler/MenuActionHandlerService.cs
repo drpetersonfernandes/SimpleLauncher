@@ -8,10 +8,8 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
-using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.MenuCheckMark;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
@@ -37,8 +35,8 @@ public class MenuActionHandlerService
     private readonly PlayHistoryManager _playHistoryManager;
     private readonly IServiceProvider _serviceProvider;
     private readonly IHelpUserService _helpUserService;
-    private readonly IGetListOfFiles _getListOfFiles;
-    private readonly IFindCoverImage _findCoverImage;
+    private readonly IGetListOfFilesService _getListOfFiles;
+    private readonly IFindCoverImageService _findCoverImage;
     private readonly IImageLoader _imageLoader;
     private readonly IMenuCheckMarkService _menuCheckMarkService;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
@@ -61,9 +59,9 @@ public class MenuActionHandlerService
         FavoritesManager favoritesManager,
         PlayHistoryManager playHistoryManager,
         IHelpUserService helpUserService,
-        IGetListOfFiles getListOfFiles,
+        IGetListOfFilesService getListOfFiles,
         IServiceProvider serviceProvider,
-        IFindCoverImage findCoverImage,
+        IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         IMenuCheckMarkService menuCheckMarkService,
         IMessageBoxLibraryService messageBoxLibrary,

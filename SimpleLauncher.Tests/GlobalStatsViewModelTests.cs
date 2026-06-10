@@ -1,8 +1,7 @@
 using System.ComponentModel;
-using System.Windows;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Tests.TestHelpers;
 using SimpleLauncher.ViewModels;
 using Xunit;
@@ -13,7 +12,7 @@ public class GlobalStatsViewModelTests : IDisposable
 {
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors = new NoOpLogErrors();
-    private readonly IGetListOfFiles _getListOfFiles = new NoOpGetListOfFiles();
+    private readonly IGetListOfFilesService _getListOfFiles = new NoOpGetListOfFiles();
 
     public GlobalStatsViewModelTests()
     {
@@ -210,9 +209,9 @@ public class GlobalStatsViewModelTests : IDisposable
         return;
 
         // Verify event can be subscribed to
-        static MessageBoxResult Handler()
+        static System.Windows.MessageBoxResult Handler()
         {
-            return MessageBoxResult.Yes;
+            return System.Windows.MessageBoxResult.Yes;
         }
     }
 
@@ -230,9 +229,9 @@ public class GlobalStatsViewModelTests : IDisposable
         return;
 
         // Verify event can be subscribed to
-        static MessageBoxResult Handler()
+        static System.Windows.MessageBoxResult Handler()
         {
-            return MessageBoxResult.Yes;
+            return System.Windows.MessageBoxResult.Yes;
         }
     }
 

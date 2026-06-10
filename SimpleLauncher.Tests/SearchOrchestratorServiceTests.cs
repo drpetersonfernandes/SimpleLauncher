@@ -123,7 +123,7 @@ public class SearchOrchestratorServiceTests
             return Task.FromResult((new List<string>(), new List<string>()));
         }
 
-        public Task PopulateFromDiskAsync(Services.SystemManager.SystemManager config, Services.GetListOfFiles.IGetListOfFiles fileService, CancellationToken ct)
+        public Task PopulateFromDiskAsync(Services.SystemManager.SystemManager config, Core.Interfaces.IGetListOfFilesService fileService, CancellationToken ct)
         {
             return Task.CompletedTask;
         }

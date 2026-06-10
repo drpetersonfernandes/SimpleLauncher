@@ -1,6 +1,7 @@
 #nullable enable
 
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -11,7 +12,6 @@ using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.LoadingInterface;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.PlaySound;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -20,6 +20,7 @@ using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
 
 namespace SimpleLauncher.ViewModels;
 
+[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class FavoritesViewModel : ObservableObject
 {
     private readonly IConfiguration _configuration;
@@ -29,7 +30,7 @@ public partial class FavoritesViewModel : ObservableObject
     private readonly List<SystemManager> _systemManagers;
     private readonly List<MameManager> _machines;
     private readonly PlaySoundEffects _playSoundEffects;
-    private readonly IFindCoverImage _findCoverImage;
+    private readonly IFindCoverImageService _findCoverImage;
     private readonly IImageLoader _imageLoader;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
@@ -52,7 +53,7 @@ public partial class FavoritesViewModel : ObservableObject
         List<SystemManager> systemManagers,
         List<MameManager> machines,
         PlaySoundEffects playSoundEffects,
-        IFindCoverImage findCoverImage,
+        IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         IMessageBoxLibraryService messageBox,
         IResourceProvider resourceProvider)
@@ -280,7 +281,7 @@ public partial class FavoritesViewModel : ObservableObject
             return defaultImagePath;
         }
 
-        return _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager, _settings);
+        return _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager.SystemImageFolder);
     }
 
     public SystemManager? GetSystemManager(string systemName)
