@@ -3,19 +3,18 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Models;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.SettingsManager;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
-using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
+using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
 
 namespace SimpleLauncher.ViewModels;
 

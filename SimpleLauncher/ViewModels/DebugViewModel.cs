@@ -1,8 +1,8 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.ViewModels;
 

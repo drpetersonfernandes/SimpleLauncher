@@ -1,4 +1,4 @@
-using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
+using SimpleLauncher.Services.CleanAndDeleteFiles;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

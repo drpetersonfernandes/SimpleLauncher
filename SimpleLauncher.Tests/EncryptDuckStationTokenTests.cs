@@ -1,4 +1,4 @@
-using SimpleLauncher.Core.Services.RetroAchievements;
+using SimpleLauncher.Services.RetroAchievements;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

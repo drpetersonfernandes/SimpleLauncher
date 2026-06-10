@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.ViewModels;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 

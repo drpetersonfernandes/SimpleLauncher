@@ -1,4 +1,4 @@
-using SimpleLauncher.Core.Services.CheckPaths;
+using SimpleLauncher.Services.CheckPaths;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

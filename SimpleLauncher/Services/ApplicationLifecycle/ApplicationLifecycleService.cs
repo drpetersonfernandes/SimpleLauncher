@@ -1,6 +1,6 @@
 using System.Windows;
 using SimpleLauncher.Services.CheckForUpdates;
-using SimpleLauncher.Core.Services.GameFileWatcher;
+using SimpleLauncher.Services.GameFileWatcher;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.StartupInitialization;
 using SimpleLauncher.Services.UsageStats;

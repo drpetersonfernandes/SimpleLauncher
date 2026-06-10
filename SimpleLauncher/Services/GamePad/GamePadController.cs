@@ -2,11 +2,11 @@ using Microsoft.Extensions.Configuration;
 using SharpDX;
 using SharpDX.DirectInput;
 using SharpDX.XInput;
-using SimpleLauncher.Core.Services.CheckPaths;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
 using WindowsInput;
 using DeviceType = SharpDX.DirectInput.DeviceType;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GamePad;
 

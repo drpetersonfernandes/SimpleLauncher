@@ -2,7 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using SimpleLauncher.Models;
-using Settings = SimpleLauncher.Core.Services.SettingsManager.SettingsManager;
+using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
 
 namespace SimpleLauncher.Services.GameListUI;
 

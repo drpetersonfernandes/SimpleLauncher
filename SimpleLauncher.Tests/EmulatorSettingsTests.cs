@@ -1,6 +1,6 @@
-using SimpleLauncher.Core.Services.SettingsManager;
-using SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
 using System.Xml.Linq;
+using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.SettingsManager.EmulatorSettings;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

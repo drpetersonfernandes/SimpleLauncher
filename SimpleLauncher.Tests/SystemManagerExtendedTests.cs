@@ -1,4 +1,4 @@
-using SimpleLauncher.Core.Services.SystemManager;
+using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
@@ -34,7 +34,7 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void SystemManagerDefaultProperties()
     {
-        var sm = new Services.SystemManager.SystemManager();
+        var sm = new SystemManager();
         Assert.Null(sm.SystemName);
         Assert.Null(sm.SystemImageFolder);
         Assert.Null(sm.SystemFolders);
@@ -45,7 +45,7 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void SystemManagerPropertiesCanBeSet()
     {
-        var sm = new Services.SystemManager.SystemManager
+        var sm = new SystemManager
         {
             SystemName = "NES",
             SystemFolders = [@"C:\roms\NES"],
@@ -63,14 +63,14 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void SystemManagerEmulatorsListDefaultIsNull()
     {
-        var sm = new Services.SystemManager.SystemManager();
+        var sm = new SystemManager();
         Assert.Null(sm.Emulators);
     }
 
     [Fact]
     public void SystemManagerEmulatorsCanBeSet()
     {
-        var sm = new Services.SystemManager.SystemManager
+        var sm = new SystemManager
         {
             Emulators =
             [
@@ -87,7 +87,7 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void SystemManagerFileFormatsCanBeSet()
     {
-        var sm = new Services.SystemManager.SystemManager
+        var sm = new SystemManager
         {
             FileFormatsToSearch = ["nes", "fds", "unf"],
             FileFormatsToLaunch = ["nes", "fds"]
@@ -100,7 +100,7 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void SystemManagerDisableRecursiveSearch()
     {
-        var sm = new Services.SystemManager.SystemManager
+        var sm = new SystemManager
         {
             DisableRecursiveSearch = true
         };
@@ -111,7 +111,7 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void SystemManagerGroupByFolder()
     {
-        var sm = new Services.SystemManager.SystemManager
+        var sm = new SystemManager
         {
             GroupByFolder = true
         };
@@ -122,7 +122,7 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void SystemManagerSystemFoldersCanBeSet()
     {
-        var sm = new Services.SystemManager.SystemManager
+        var sm = new SystemManager
         {
             SystemFolders = ["C:\\roms\\NES", "D:\\roms\\NES"]
         };

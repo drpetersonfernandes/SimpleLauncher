@@ -1,5 +1,5 @@
 using System.Xml;
-using SimpleLauncher.Core.Services.RomHistory;
+using SimpleLauncher.Services.RomHistory;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

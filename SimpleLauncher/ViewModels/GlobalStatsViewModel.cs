@@ -1,15 +1,14 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.GlobalStats.Models;
-using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.GlobalStats.Models;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher.ViewModels;

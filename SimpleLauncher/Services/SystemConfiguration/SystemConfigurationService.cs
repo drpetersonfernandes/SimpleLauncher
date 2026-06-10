@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.SystemConfiguration;
 

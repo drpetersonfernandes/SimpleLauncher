@@ -1,4 +1,3 @@
-using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.SystemManager;
 using Xunit;
 

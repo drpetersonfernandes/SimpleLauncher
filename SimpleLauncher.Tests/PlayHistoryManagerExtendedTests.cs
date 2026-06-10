@@ -1,4 +1,4 @@
-using SimpleLauncher.Core.Models;
+using SimpleLauncher.Models;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 

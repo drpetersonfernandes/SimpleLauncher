@@ -1,6 +1,6 @@
 using System.Text;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Models;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Tests.TestHelpers;
 

@@ -1,4 +1,3 @@
-using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Automation;
@@ -7,13 +6,13 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
-using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
+using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SimpleLauncher.Services.DisplaySystemInfo;
 using SimpleLauncher.Services.GameCache;
-using SimpleLauncher.Core.Services.GameFileWatcher;
+using SimpleLauncher.Services.GameFileWatcher;
 using SimpleLauncher.Services.GameItemRender;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MameData;
@@ -29,7 +28,7 @@ namespace SimpleLauncher.Services.SystemSelectionOrchestrator;
 public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
 {
     private ISystemSelectionHost _host;
-    private readonly Core.Services.SettingsManager.SettingsManager _settings;
+    private readonly SettingsManager.SettingsManager _settings;
     private readonly ISystemImageResolverService _systemImageResolverService;
     private readonly IImageLoader _imageLoader;
     private readonly PlaySoundEffects _playSoundEffects;
@@ -47,7 +46,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
 
     public SystemSelectionOrchestrator(
-        Core.Services.SettingsManager.SettingsManager settings,
+        SettingsManager.SettingsManager settings,
         ISystemImageResolverService systemImageResolverService,
         IImageLoader imageLoader,
         PlaySoundEffects playSoundEffects,

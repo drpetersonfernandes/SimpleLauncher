@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
-using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.WpfServices;
 

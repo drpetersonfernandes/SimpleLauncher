@@ -1,8 +1,6 @@
 #nullable enable
-using System.IO;
 using NAudio.Wave;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.PlaySound;
 
@@ -13,14 +11,14 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     private const string TrashSoundFile = "trash.mp3";
 
     private static readonly Lock Lock = new();
-    private readonly Core.Services.SettingsManager.SettingsManager _settingsManager;
+    private readonly SettingsManager.SettingsManager _settingsManager;
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
 
     private WaveOutEvent? _waveOut;
     private Mp3FileReader? _reader;
 
-    public PlaySoundEffects(Core.Services.SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public PlaySoundEffects(SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
     {
         _settingsManager = settings ?? throw new ArgumentNullException(nameof(settings));
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));

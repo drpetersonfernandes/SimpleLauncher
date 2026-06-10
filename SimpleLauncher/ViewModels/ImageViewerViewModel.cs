@@ -1,8 +1,7 @@
-using System.IO;
 using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.ViewModels;
 

@@ -1,10 +1,10 @@
 using System.Windows;
-using SimpleLauncher.Core.Services.CheckPaths;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Models;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.InjectEmulatorConfig;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Models;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.InjectEmulatorConfig;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 

@@ -5,13 +5,12 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.RetroAchievements;
-using SimpleLauncher.Core.Services.RetroAchievements.Models;
-using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.RetroAchievements;
+using SimpleLauncher.Services.RetroAchievements.Models;
+using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 

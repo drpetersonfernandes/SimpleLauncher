@@ -59,12 +59,12 @@ public class ImageUrlConverter : IValueConverter
             renderTarget.Freeze();
 
             var bitmapImage = new BitmapImage();
-            using (var stream = new System.IO.MemoryStream())
+            using (var stream = new MemoryStream())
             {
                 var encoder = new PngBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(renderTarget));
                 encoder.Save(stream);
-                stream.Seek(0, System.IO.SeekOrigin.Begin);
+                stream.Seek(0, SeekOrigin.Begin);
 
                 bitmapImage.BeginInit();
                 bitmapImage.CacheOption = BitmapCacheOption.OnLoad;

@@ -1,10 +1,10 @@
-using System.IO;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Microsoft.Win32;
-using SimpleLauncher.Core.Services.CheckPaths;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.SanitizeInputString;
+using SimpleLauncher.Services.CheckPaths;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.SanitizeInputString;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 

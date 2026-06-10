@@ -1,11 +1,9 @@
 using System.Diagnostics;
-using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GamePad;
@@ -15,7 +13,8 @@ using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
 using SimpleLauncher.Services.UpdateStatusBar;
-using Settings = SimpleLauncher.Core.Services.SettingsManager.SettingsManager;
+using MessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
+using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
 
 namespace SimpleLauncher.Services.MenuActionHandler;
 
@@ -675,7 +674,7 @@ public class MenuActionHandlerService
             {
                 if (newPage is 1000 or 10000 or 1000000)
                 {
-                    if (await _messageBoxLibrary.WarnUserAboutMemoryConsumptionMessageBox() == Core.Interfaces.MessageBoxResult.No)
+                    if (await _messageBoxLibrary.WarnUserAboutMemoryConsumptionMessageBox() == MessageBoxResult.No)
                     {
                         return;
                     }

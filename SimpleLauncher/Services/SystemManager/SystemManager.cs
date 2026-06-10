@@ -1,17 +1,14 @@
-using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.AppDataFile;
-using SimpleLauncher.Core.Services.CheckPaths;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.EasyMode.Models;
-using SimpleLauncher.Core.Services.SystemManager;
-using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Models;
+using SimpleLauncher.Services.AppDataFile;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.EasyMode.Models;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.SystemManager;
 

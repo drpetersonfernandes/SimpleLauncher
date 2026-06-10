@@ -1,8 +1,8 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.SettingsManager;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher.ViewModels;

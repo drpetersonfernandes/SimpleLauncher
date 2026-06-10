@@ -1,5 +1,3 @@
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-
 namespace SimpleLauncher.Services.DebugAndBugReport;
 
 public class DebugLoggerAdapter : IDebugLogger

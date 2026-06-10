@@ -1,5 +1,5 @@
 using System.Windows;
-using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.WpfServices;
 

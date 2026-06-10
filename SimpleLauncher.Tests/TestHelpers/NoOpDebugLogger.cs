@@ -1,4 +1,4 @@
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Tests.TestHelpers;
 

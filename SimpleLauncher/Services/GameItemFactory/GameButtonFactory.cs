@@ -1,4 +1,3 @@
-using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Automation;
@@ -8,10 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.GameItemFactory;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.ContextMenu;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -32,7 +28,7 @@ internal partial class GameButtonFactory(
     ComboBox systemComboBox,
     List<SystemManager.SystemManager> systemManagers,
     List<MameManager.MameManager> machines,
-    Core.Services.SettingsManager.SettingsManager settings,
+    SettingsManager.SettingsManager settings,
     FavoritesManager favoritesManager,
     WrapPanel gameFileGrid,
     MainWindow mainWindow,
@@ -48,7 +44,7 @@ internal partial class GameButtonFactory(
     private readonly ComboBox _systemComboBox = systemComboBox ?? throw new ArgumentNullException(nameof(systemComboBox));
     private readonly List<SystemManager.SystemManager> _systemManagers = systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
     private readonly List<MameManager.MameManager> _machines = machines ?? throw new ArgumentNullException(nameof(machines));
-    private readonly Core.Services.SettingsManager.SettingsManager _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+    private readonly SettingsManager.SettingsManager _settings = settings ?? throw new ArgumentNullException(nameof(settings));
     private readonly FavoritesManager _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
     private readonly WrapPanel _gameFileGrid = gameFileGrid ?? throw new ArgumentNullException(nameof(gameFileGrid));
     private readonly MainWindow _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));

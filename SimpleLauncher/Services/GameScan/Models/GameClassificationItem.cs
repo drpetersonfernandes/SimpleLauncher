@@ -1,0 +1,10 @@
+namespace SimpleLauncher.Services.GameScan.Models;
+
+public class GameClassificationItem
+{
+    public string Name { get; set; } = "";
+    public string AppId { get; set; }
+    public string InstallLocation { get; set; }
+    public string PackageFamilyName { get; set; }
+    public string LogoRelativePath { get; set; }
+}

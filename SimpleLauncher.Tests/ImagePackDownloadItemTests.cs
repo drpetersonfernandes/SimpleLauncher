@@ -1,5 +1,5 @@
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.DownloadService.Models;
+using SimpleLauncher.Models;
+using SimpleLauncher.Services.DownloadService.Models;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

@@ -1,6 +1,6 @@
-using SimpleLauncher.Core.Services.GameScan;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
+using SteamVdfParser = SimpleLauncher.Services.GameScan.SteamVdfParser;
 
 namespace SimpleLauncher.Tests;
 

@@ -1,6 +1,5 @@
-using System.IO;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.SanitizeInputString;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 

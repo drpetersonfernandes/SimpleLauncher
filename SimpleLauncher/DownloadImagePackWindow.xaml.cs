@@ -1,6 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;

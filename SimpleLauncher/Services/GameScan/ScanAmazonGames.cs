@@ -1,8 +1,6 @@
-using System.IO;
 using Microsoft.Data.Sqlite;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.SanitizeInputString;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 

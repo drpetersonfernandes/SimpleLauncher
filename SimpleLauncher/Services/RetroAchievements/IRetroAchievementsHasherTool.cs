@@ -1,6 +1,6 @@
-using SimpleLauncher.Core.Services.LoadingInterface;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.RetroAchievements.Models;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.LoadingInterface;
+using SimpleLauncher.Services.RetroAchievements.Models;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 

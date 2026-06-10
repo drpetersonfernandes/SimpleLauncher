@@ -1,13 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
@@ -17,13 +14,13 @@ using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.ViewModels;
 using SimpleLauncher.WpfServices;
-using SimpleLauncher.Core.Services.SettingsManager;
-using ILoadingState = SimpleLauncher.Core.Services.LoadingInterface.ILoadingState;
-using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
-using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
+using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
+using ILoadingState = SimpleLauncher.Services.LoadingInterface.ILoadingState;
 
 #nullable enable
 

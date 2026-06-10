@@ -1,5 +1,3 @@
-using System.IO;
-using System.Net.Http;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -8,10 +6,10 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using SharpCompress.Archives.Zip;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.QuitOrReinstall;
-using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
+using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
 
 namespace SimpleLauncher.Services.CheckForUpdates;
 

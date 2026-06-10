@@ -1,28 +1,24 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.CheckApplicationControlPolicy;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.ExtractFiles;
-using SimpleLauncher.Core.Services.GameLauncher;
-using SimpleLauncher.Core.Services.LoadingInterface;
-using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.TrayIcon;
-using SimpleLauncher.Core.Services.InjectEmulatorConfig;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Models;
+using SimpleLauncher.Services.ExtractFiles;
+using SimpleLauncher.Services.LoadingInterface;
+using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.Services.UsageStats;
-using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
+using MameConfigurationService = SimpleLauncher.Services.InjectEmulatorConfig.MameConfigurationService;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher;
 
@@ -72,7 +68,7 @@ public partial class GameLauncher : ILauncherService
         string selectedEmulatorName,
         string selectedSystemName,
         ISystemManager selectedSystemManager,
-        Core.Services.SettingsManager.SettingsManager settings,
+        SettingsManager.SettingsManager settings,
         IWindowContext windowContext,
         GamePadController gamePadController,
         ILoadingState loadingStateProvider)
@@ -415,19 +411,19 @@ public partial class GameLauncher : ILauncherService
         }
         catch (Win32Exception ex)
         {
-            if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
                 await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _logErrors.LogAndForget(ex, "Application control policy blocked launching batch file.");
                 _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
             }
-            else if (CheckApplicationControlPolicy.IsElevationRequired(ex))
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
             {
                 await _messageBoxLibrary.ElevationRequiredMessageBox();
                 _logErrors.LogAndForget(ex, "Elevation required to launch batch file.");
                 _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
             }
-            else if (CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
             {
                 // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
             }
@@ -563,17 +559,17 @@ public partial class GameLauncher : ILauncherService
         }
         catch (Win32Exception ex) // Catch Win32Exception specifically
         {
-            if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
                 await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _logErrors.LogAndForget(ex, "Application control policy blocked launching shortcut file.");
             }
-            else if (CheckApplicationControlPolicy.IsElevationRequired(ex))
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
             {
                 await _messageBoxLibrary.ElevationRequiredMessageBox();
                 _logErrors.LogAndForget(ex, "Elevation required to launch shortcut file.");
             }
-            else if (CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
             {
                 // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
             }
@@ -692,17 +688,17 @@ public partial class GameLauncher : ILauncherService
         }
         catch (Win32Exception ex)
         {
-            if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
                 await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _logErrors.LogAndForget(ex, "Application control policy blocked launching executable.");
             }
-            else if (CheckApplicationControlPolicy.IsElevationRequired(ex))
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
             {
                 await _messageBoxLibrary.ElevationRequiredMessageBox();
                 _logErrors.LogAndForget(ex, "Elevation required to launch executable.");
             }
-            else if (CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
             {
                 // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
             }
@@ -1141,17 +1137,17 @@ public partial class GameLauncher : ILauncherService
                 }
                 catch (Win32Exception ex) // Catch Win32Exception specifically
                 {
-                    if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+                    if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
                     {
                         await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                         _logErrors.LogAndForget(ex, "Application control policy blocked launching emulator.");
                     }
-                    else if (CheckApplicationControlPolicy.IsElevationRequired(ex))
+                    else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
                     {
                         await _messageBoxLibrary.ElevationRequiredMessageBox();
                         _logErrors.LogAndForget(ex, "Elevation required to launch emulator.");
                     }
-                    else if (CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
+                    else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
                     {
                         // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
                     }

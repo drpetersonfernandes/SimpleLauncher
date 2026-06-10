@@ -1,5 +1,5 @@
 using System.Windows;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.UIReset;
 

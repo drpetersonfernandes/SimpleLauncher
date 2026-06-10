@@ -1,12 +1,12 @@
 using System.Diagnostics;
-using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.RomHistory;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.RomHistory;
+using MessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
 
 namespace SimpleLauncher.ViewModels;
 
@@ -113,7 +113,7 @@ public partial class RomHistoryViewModel : ObservableObject
         HistoryMarkdown = noRoMhistoryfoundinthelocal2;
 
         var result = await _messageBox.SearchOnlineForRomHistoryMessageBox();
-        if (result == Core.Interfaces.MessageBoxResult.Yes)
+        if (result == MessageBoxResult.Yes)
         {
             await OpenGoogleSearch();
         }

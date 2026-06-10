@@ -1,18 +1,16 @@
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Windows;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.FindCoverImage;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
+using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GameCache;
 using SimpleLauncher.Services.GameFilter;
 using SimpleLauncher.Services.GameItemRender;
 using SimpleLauncher.Services.MameData;
-using SimpleLauncher.Core.Services.RetroAchievements;
+using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.UpdateStatusBar;
-using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameFileLoadingOrchestrator;
 
@@ -28,7 +26,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
     private readonly RetroAchievementsService _retroAchievementsService;
     private readonly IFindCoverImageService _findCoverImage;
     private readonly IGameItemRenderService _gameItemRenderService;
-    private readonly Core.Services.SettingsManager.SettingsManager _settings;
+    private readonly SettingsManager.SettingsManager _settings;
     private readonly ILogErrors _logErrors;
     private readonly IUpdateStatusBar _updateStatusBarService;
     private readonly IMessageBoxLibraryService _messageBox;
@@ -43,7 +41,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         RetroAchievementsService retroAchievementsService,
         IFindCoverImageService findCoverImage,
         IGameItemRenderService gameItemRenderService,
-        Core.Services.SettingsManager.SettingsManager settings,
+        SettingsManager.SettingsManager settings,
         ILogErrors logErrors,
         IUpdateStatusBar updateStatusBarService,
         IMessageBoxLibraryService messageBox,

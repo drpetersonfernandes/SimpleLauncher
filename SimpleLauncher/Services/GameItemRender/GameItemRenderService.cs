@@ -1,8 +1,8 @@
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.GameListUI;
@@ -16,7 +16,7 @@ public class GameItemRenderService : IGameItemRenderService
 {
     private const int BatchSize = 100;
 
-    private readonly Core.Services.SettingsManager.SettingsManager _settings;
+    private readonly SettingsManager.SettingsManager _settings;
     private readonly FavoritesManager _favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager;
     private readonly GamePadController _gamePadController;
@@ -35,7 +35,7 @@ public class GameItemRenderService : IGameItemRenderService
     private GameListFactory _gameListFactory;
 
     public GameItemRenderService(
-        Core.Services.SettingsManager.SettingsManager settings,
+        SettingsManager.SettingsManager settings,
         FavoritesManager favoritesManager,
         PlayHistoryManager playHistoryManager,
         GamePadController gamePadController,

@@ -4,8 +4,8 @@ using System.Text;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Models;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.QuitOrReinstall;
 
 namespace SimpleLauncher.Services.MessageBox;
@@ -2457,7 +2457,7 @@ internal static class MessageBoxLibrary
 
         void ShowMessage()
         {
-            var batchFileName = System.IO.Path.GetFileName(batchFilePath);
+            var batchFileName = Path.GetFileName(batchFilePath);
             var batchfilefailed = (string)Application.Current.TryFindResource("Batchfilefailed") ?? "The batch file failed to run.";
             var batchNameMessage = $"{batchfilefailed}\n\n{batchFileName}";
             var errorMessage = !string.IsNullOrEmpty(errorDetail)

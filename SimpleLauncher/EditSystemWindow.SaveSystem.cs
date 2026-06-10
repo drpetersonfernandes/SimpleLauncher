@@ -1,12 +1,11 @@
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.SanitizeInputString;
-using SimpleLauncher.Core.Services.SystemManager;
-using SimpleLauncher.Core.Services.CreateFolders;
-using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
-using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
+using SimpleLauncher.Services.CreateFolders;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.SanitizeInputString;
+using SimpleLauncher.Services.SystemManager;
+using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 
@@ -284,7 +283,7 @@ internal partial class EditSystemWindow
             var isUpdate = !string.IsNullOrEmpty(_originalSystemName) && SystemNameDropdown.SelectedItem != null && _originalSystemName.Equals(SystemNameDropdown.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase);
             var originalSystemNameToUse = isUpdate ? _originalSystemName : systemNameText;
 
-            var systemToSave = new Services.SystemManager.SystemManager
+            var systemToSave = new SystemManager
             {
                 SystemName = systemNameText,
                 SystemFolders = allSystemFolders,
@@ -300,7 +299,7 @@ internal partial class EditSystemWindow
             try
             {
                 SaveSystemButton.IsEnabled = false;
-                await Services.SystemManager.SystemManager.SaveSystemConfigurationAsync(systemToSave, originalSystemNameToUse);
+                await SystemManager.SaveSystemConfigurationAsync(systemToSave, originalSystemNameToUse);
 
                 await LoadSystemsAsync();
                 SystemNameDropdown.SelectedItem = systemNameText;

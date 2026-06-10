@@ -1,17 +1,16 @@
 using System.Globalization;
-using System.IO;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.WpfServices;
-using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameItemFactory;
 
@@ -20,7 +19,7 @@ public class GameListFactory(
     ComboBox systemComboBox,
     List<SystemManager.SystemManager> systemManagers,
     List<MameManager.MameManager> machines,
-    Core.Services.SettingsManager.SettingsManager settings,
+    SettingsManager.SettingsManager settings,
     FavoritesManager favoritesManager,
     PlayHistoryManager playHistoryManager,
     MainWindow mainWindow,
@@ -38,7 +37,7 @@ public class GameListFactory(
     private readonly ComboBox _systemComboBox = systemComboBox;
     private readonly List<SystemManager.SystemManager> _systemManagers = systemManagers;
     private readonly List<MameManager.MameManager> _machines = machines;
-    private readonly Core.Services.SettingsManager.SettingsManager _settings = settings;
+    private readonly SettingsManager.SettingsManager _settings = settings;
     private readonly FavoritesManager _favoritesManager = favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager = playHistoryManager;
     private readonly MainWindow _mainWindow = mainWindow;

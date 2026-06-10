@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 
 

@@ -1,11 +1,8 @@
-using System.IO;
-using System.Net.Http;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.DownloadService;
-using SimpleLauncher.Core.Services.ExtractFiles;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Models;
+using SimpleLauncher.Services.CleanAndDeleteFiles;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.ExtractFiles;
 
 namespace SimpleLauncher.Services.DownloadService;
 

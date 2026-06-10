@@ -1,0 +1,159 @@
+using System.Text.RegularExpressions;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.HelpUser.Models;
+
+namespace SimpleLauncher.Services.HelpUser;
+
+public partial class HelpUserManager
+{
+    private const string FilePath = "parameters.md";
+    private readonly ILogErrors _logErrors;
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
+
+    // Regex to match Markdown H2 headers: ## System Name
+    private static readonly Regex HeaderRegex = MyRegex();
+
+    public List<SystemHelper> Systems { get; private set; } = [];
+
+    public HelpUserManager(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary)
+    {
+        _logErrors = logErrors;
+        _messageBoxLibrary = messageBoxLibrary;
+    }
+
+    public async Task LoadAsync()
+    {
+        try
+        {
+            if (!File.Exists(FilePath))
+            {
+                // Notify developer
+                const string contextMessage = "The file 'parameters.md' is missing.";
+                _logErrors.LogAndForget(null, contextMessage);
+
+                // Notify user
+                await _messageBoxLibrary.FileParametersMdIsMissingMessageBox();
+
+                return;
+            }
+
+            string markdownContent;
+            try
+            {
+                markdownContent = File.ReadAllText(FilePath);
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                const string contextMessage = "Unable to load 'parameters.md'. The file may be corrupted or in use.";
+                _logErrors.LogAndForget(ex, contextMessage);
+
+                // Notify user
+                await _messageBoxLibrary.FailedToLoadParametersMdMessageBox();
+
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(markdownContent))
+            {
+                // Notify developer
+                const string contextMessage = "The file 'parameters.md' is empty.";
+                _logErrors.LogAndForget(null, contextMessage);
+
+                // Notify user
+                await _messageBoxLibrary.FileParametersMdIsEmptyMessageBox();
+
+                return;
+            }
+
+            var parsedSystems = ParseMarkdown(markdownContent);
+
+            if (parsedSystems.Count == 0)
+            {
+                // Notify developer
+                const string contextMessage = "No valid systems found in 'parameters.md' after processing.";
+                _logErrors.LogAndForget(null, contextMessage);
+
+                // Notify user
+                await _messageBoxLibrary.NoSystemInParametersMdMessageBox();
+
+                return;
+            }
+
+            Systems = parsedSystems;
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Unexpected error while loading 'parameters.md'.";
+            _logErrors.LogAndForget(ex, contextMessage);
+
+            // Notify user
+            await _messageBoxLibrary.ErrorWhileLoadingParametersMdMessageBox();
+        }
+    }
+
+    /// <summary>
+    /// Parses the Markdown content and extracts system information.
+    /// </summary>
+    /// <param name="markdownContent">The raw Markdown content.</param>
+    /// <returns>A list of SystemHelper objects parsed from the Markdown.</returns>
+    private static List<SystemHelper> ParseMarkdown(string markdownContent)
+    {
+        var systems = new List<SystemHelper>();
+        var matches = HeaderRegex.Matches(markdownContent);
+
+        for (var i = 0; i < matches.Count; i++)
+        {
+            var currentMatch = matches[i];
+            var systemName = currentMatch.Groups[1].Value.Trim();
+
+            // Skip the title header (e.g., "# List of Parameters to use in the 'system.xml'")
+            // or any H2 that appears to be a title/instruction rather than a system
+            if (systemName.StartsWith("List of Parameters", StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            // Calculate the content range for this system
+            var contentStart = currentMatch.Index + currentMatch.Length;
+            var contentEnd = i < matches.Count - 1
+                ? matches[i + 1].Index
+                : markdownContent.Length;
+            var contentLength = contentEnd - contentStart;
+
+            if (contentLength > 0)
+            {
+                var content = markdownContent.Substring(contentStart, contentLength).Trim();
+
+                if (!string.IsNullOrWhiteSpace(content))
+                {
+                    systems.Add(new SystemHelper
+                    {
+                        SystemName = systemName,
+                        SystemHelperText = NormalizeText(content)
+                    });
+                }
+            }
+        }
+
+        return systems;
+    }
+
+    private static string NormalizeText(string text)
+    {
+        if (string.IsNullOrEmpty(text)) return string.Empty;
+
+        // First, normalize all line endings to \n
+        text = text.Replace("\r\n", "\n").Replace("\r", "\n");
+
+        // Split by normalized line endings and process
+        return string.Join(Environment.NewLine,
+            text.Split('\n')
+                .Select(static line => line.TrimStart()));
+    }
+
+    [GeneratedRegex(@"^##\s+(.+)$", RegexOptions.Multiline | RegexOptions.Compiled)]
+    private static partial Regex MyRegex();
+}

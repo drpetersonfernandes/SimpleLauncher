@@ -1,6 +1,6 @@
 using System.Windows;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
@@ -39,7 +39,7 @@ public static class InjectionErrorHandler
     {
         if (!string.IsNullOrEmpty(emulatorPath))
         {
-            var fileName = System.IO.Path.GetFileNameWithoutExtension(emulatorPath);
+            var fileName = Path.GetFileNameWithoutExtension(emulatorPath);
             if (!string.IsNullOrEmpty(fileName))
                 return fileName;
         }

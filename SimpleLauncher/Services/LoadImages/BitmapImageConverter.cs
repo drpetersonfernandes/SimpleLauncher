@@ -1,6 +1,5 @@
 #nullable enable
 
-using System.IO;
 using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher.Services.LoadImages;

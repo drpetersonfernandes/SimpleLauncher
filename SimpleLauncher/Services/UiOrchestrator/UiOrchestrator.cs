@@ -23,7 +23,7 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
     private readonly PlaySoundEffects _playSoundEffects;
 
     // ReSharper disable once NotAccessedField.Local
-    private readonly Core.Services.SettingsManager.SettingsManager _settings;
+    private readonly SettingsManager.SettingsManager _settings;
 
     public UiOrchestrator(
         LoadingOverlayService loadingOverlayService,
@@ -32,7 +32,7 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
         IUiResetService uiResetService,
         IUpdateStatusBar updateStatusBarService,
         PlaySoundEffects playSoundEffects,
-        Core.Services.SettingsManager.SettingsManager settings)
+        SettingsManager.SettingsManager settings)
     {
         _loadingOverlayService = loadingOverlayService;
         _gameListUiService = gameListUiService;

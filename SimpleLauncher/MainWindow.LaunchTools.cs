@@ -1,5 +1,4 @@
 using System.Windows;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DebugAndBugReport;
 using Application = System.Windows.Application;
 

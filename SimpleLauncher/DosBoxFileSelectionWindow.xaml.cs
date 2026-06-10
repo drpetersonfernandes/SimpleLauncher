@@ -1,4 +1,4 @@
-using SimpleLauncher.Core.ViewModels;
+using DosBoxFileSelectionViewModel = SimpleLauncher.ViewModels.DosBoxFileSelectionViewModel;
 
 namespace SimpleLauncher;
 

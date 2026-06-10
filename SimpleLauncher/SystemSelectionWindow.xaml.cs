@@ -1,4 +1,4 @@
-using SimpleLauncher.Core.ViewModels;
+using SystemSelectionViewModel = SimpleLauncher.ViewModels.SystemSelectionViewModel;
 
 namespace SimpleLauncher;
 

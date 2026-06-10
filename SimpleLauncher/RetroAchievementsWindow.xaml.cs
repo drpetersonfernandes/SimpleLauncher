@@ -3,13 +3,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.LoadingInterface;
-using SimpleLauncher.Core.Services.RetroAchievements;
-using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.RetroAchievements;
+using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.ViewModels;
 
 #nullable enable

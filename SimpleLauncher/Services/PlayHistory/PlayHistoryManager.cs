@@ -1,12 +1,11 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.IO;
 using System.Windows;
 using MessagePack;
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.AppDataFile;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
+using SimpleLauncher.Models;
+using SimpleLauncher.Services.AppDataFile;
+using SimpleLauncher.Services.DebugAndBugReport;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.PlayHistory;
 

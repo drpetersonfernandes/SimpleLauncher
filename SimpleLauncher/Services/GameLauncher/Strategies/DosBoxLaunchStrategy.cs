@@ -1,15 +1,13 @@
-using System.IO;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.CheckPaths;
-using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.ExtractFiles;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Models;
+using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Models;
+using SimpleLauncher.Services.ExtractFiles;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;

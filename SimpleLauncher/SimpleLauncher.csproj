@@ -1339,6 +1339,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SimpleLauncher.Core\SimpleLauncher.Core.csproj" />
+        <Using Include="System.IO" />
+        <Using Include="System.Net.Http" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="resources\strings.*.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 </Project>

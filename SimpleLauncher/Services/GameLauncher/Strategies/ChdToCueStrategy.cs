@@ -1,11 +1,10 @@
-using System.IO;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Services.CheckPaths;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Interfaces;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 

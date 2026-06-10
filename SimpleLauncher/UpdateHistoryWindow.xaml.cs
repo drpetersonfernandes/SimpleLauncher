@@ -1,6 +1,6 @@
 using System.Windows.Documents;
 using System.Windows.Navigation;
-using SimpleLauncher.Core.ViewModels;
+using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 

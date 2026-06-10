@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Models;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
@@ -47,7 +48,7 @@ public class SettingsManagerRoundTripTests : IDisposable
     [Fact]
     public void SettingsManagerAllPropertiesCanBeModified()
     {
-        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
 
         settings.ThumbnailSize = 300;
         Assert.Equal(300, settings.ThumbnailSize);
@@ -74,7 +75,7 @@ public class SettingsManagerRoundTripTests : IDisposable
     [Fact]
     public void SettingsManagerBooleanProperties()
     {
-        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
 
         settings.EnableFuzzyMatching = false;
         Assert.False(settings.EnableFuzzyMatching);
@@ -92,7 +93,7 @@ public class SettingsManagerRoundTripTests : IDisposable
     [Fact]
     public void SettingsManagerEmulatorExpandedStates()
     {
-        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
 
         settings.Emulator1Expanded = false;
         Assert.False(settings.Emulator1Expanded);
@@ -113,7 +114,7 @@ public class SettingsManagerRoundTripTests : IDisposable
     [Fact]
     public void SettingsManagerDuckStationSettingsModifiable()
     {
-        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
 
         settings.DuckStation.StartFullscreen = true;
         settings.DuckStation.Renderer = "Vulkan";
@@ -129,7 +130,7 @@ public class SettingsManagerRoundTripTests : IDisposable
     [Fact]
     public void SettingsManagerRetroArchSettingsModifiable()
     {
-        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
 
         settings.RetroArch.Fullscreen = true;
         settings.RetroArch.VideoDriver = "vulkan";
@@ -145,7 +146,7 @@ public class SettingsManagerRoundTripTests : IDisposable
     [Fact]
     public void SettingsManagerFuzzyMatchingThresholdRange()
     {
-        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
 
         settings.FuzzyMatchingThreshold = 0.0;
         Assert.Equal(0.0, settings.FuzzyMatchingThreshold);
@@ -160,7 +161,7 @@ public class SettingsManagerRoundTripTests : IDisposable
     [Fact]
     public void SettingsManagerThumbnailSizeRange()
     {
-        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
 
         settings.ThumbnailSize = 50;
         Assert.Equal(50, settings.ThumbnailSize);
@@ -175,7 +176,7 @@ public class SettingsManagerRoundTripTests : IDisposable
     [Fact]
     public void SettingsManagerStyleVariant()
     {
-        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
 
         settings.StyleVariant = "Compact";
         Assert.Equal("Compact", settings.StyleVariant);
@@ -187,7 +188,7 @@ public class SettingsManagerRoundTripTests : IDisposable
     [Fact]
     public void SettingsManagerFilenameDisplayMode()
     {
-        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
 
         settings.FilenameDisplayMode = "CleanUp";
         Assert.Equal("CleanUp", settings.FilenameDisplayMode);
@@ -202,7 +203,7 @@ public class SettingsManagerRoundTripTests : IDisposable
     [Fact]
     public void SettingsManagerFilenameFontSize()
     {
-        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
 
         settings.FilenameFontSize = "Small";
         Assert.Equal("Small", settings.FilenameFontSize);
@@ -217,7 +218,7 @@ public class SettingsManagerRoundTripTests : IDisposable
     [Fact]
     public void SettingsManagerButtonAspectRatio()
     {
-        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
 
         settings.ButtonAspectRatio = "Wider";
         Assert.Equal("Wider", settings.ButtonAspectRatio);
@@ -232,7 +233,7 @@ public class SettingsManagerRoundTripTests : IDisposable
     [Fact]
     public void SettingsManagerSystemPlayTimesCanBeAdded()
     {
-        using var settings = new Core.Services.SettingsManager.SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
 
         settings.SystemPlayTimes.Add(new SystemPlayTime
         {

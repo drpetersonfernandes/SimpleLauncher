@@ -1,18 +1,17 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.DownloadService.Models;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Models;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
+using SimpleLauncher.Services.DownloadService.Models;
 using SimpleLauncher.Services.EasyMode;
-using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.PlaySound;
 using Application = System.Windows.Application;
-using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.ViewModels;
 

@@ -1,7 +1,6 @@
-using System.IO;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Services.CheckPaths;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Services.DebugAndBugReport;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 

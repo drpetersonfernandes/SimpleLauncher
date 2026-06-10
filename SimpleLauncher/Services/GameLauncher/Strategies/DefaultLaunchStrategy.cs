@@ -1,6 +1,5 @@
-using System.IO;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Models;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 

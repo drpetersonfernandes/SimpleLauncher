@@ -4,13 +4,13 @@ using System.Text;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Models;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.QuitOrReinstall;
-using CoreMessageBoxResult = SimpleLauncher.Core.Interfaces.MessageBoxResult;
-using CoreMessageBoxButton = SimpleLauncher.Core.Interfaces.MessageBoxButton;
-using CoreMessageBoxImage = SimpleLauncher.Core.Interfaces.MessageBoxImage;
+using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
+using CoreMessageBoxButton = SimpleLauncher.Interfaces.MessageBoxButton;
+using CoreMessageBoxImage = SimpleLauncher.Interfaces.MessageBoxImage;
 
 namespace SimpleLauncher.Services.MessageBox;
 
@@ -1687,7 +1687,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public async Task BatchFileFailedMessageBox(string batchFilePath, string errorDetail, string logPath, int? exitCode = null)
     {
-        var batchFileName = System.IO.Path.GetFileName(batchFilePath);
+        var batchFileName = Path.GetFileName(batchFilePath);
         var batchfilefailed = (string)Application.Current.TryFindResource("Batchfilefailed") ?? "The batch file failed to run.";
         var batchNameMessage = $"{batchfilefailed}\n\n{batchFileName}";
         var errorMessage = !string.IsNullOrEmpty(errorDetail)

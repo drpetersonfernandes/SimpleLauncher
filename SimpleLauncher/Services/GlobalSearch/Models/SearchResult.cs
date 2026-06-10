@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using SimpleLauncher.Core.Services.SystemManager;
+using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Services.GlobalSearch.Models;
 

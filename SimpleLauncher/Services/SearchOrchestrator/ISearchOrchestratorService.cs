@@ -1,5 +1,3 @@
-using SimpleLauncher.Core.Services.SearchOrchestrator;
-
 namespace SimpleLauncher.Services.SearchOrchestrator;
 
 public interface ISearchOrchestratorService

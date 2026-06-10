@@ -1,12 +1,10 @@
-using System.IO;
 using System.Windows;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Models;
+using BlastemConfigurationService = SimpleLauncher.Services.InjectEmulatorConfig.BlastemConfigurationService;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 

@@ -1,6 +1,6 @@
 using System.Windows;
 using System.Windows.Media.Animation;
-using SimpleLauncher.Core.ViewModels;
+using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 

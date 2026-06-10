@@ -1,12 +1,10 @@
-using System.IO;
-using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Models;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.EasyMode;
 

@@ -1,5 +1,5 @@
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.RetroAchievements;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.RetroAchievements;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

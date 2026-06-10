@@ -6,9 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.LaunchTools;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.AudioInput;
 using SimpleLauncher.Services.ApplicationLifecycle;
@@ -16,11 +14,13 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameBrowser;
 using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.LanguageMenu;
+using SimpleLauncher.Services.LaunchTools;
+using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MenuCheckMark;
 using SimpleLauncher.Services.MenuOrchestrator;
 using SimpleLauncher.Services.PlayHistory;
-using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.StartupInitialization;
 using SimpleLauncher.Services.SystemConfiguration;
 using SimpleLauncher.Services.ThemeMenu;
@@ -35,7 +35,7 @@ using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 
-public partial class MainWindow : INotifyPropertyChanged, IDisposable, Core.Services.LoadingInterface.ILoadingState, IMenuCheckMarkHost, IUiResetHost, IUiOrchestratorHost, IStartupInitializationHost, IThemeMenuHost, ILanguageMenuHost, IStatusBarHost
+public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingState, IMenuCheckMarkHost, IUiResetHost, IUiOrchestratorHost, IStartupInitializationHost, IThemeMenuHost, ILanguageMenuHost, IStatusBarHost
 {
     private CancellationTokenSource _cancellationSource = new();
     private bool _isResortOperation;

@@ -1,7 +1,6 @@
 using System.Reflection;
 using System.Xml.Linq;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
@@ -146,14 +145,14 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     [Fact]
-    public void SystemExists_ReturnsFalse_WhenXmlFileDoesNotExist()
+    public void SystemExistsReturnsFalseWhenXmlFileDoesNotExist()
     {
         var result = SystemManager.SystemExists("Arcade", _configuration);
         Assert.False(result);
     }
 
     [Fact]
-    public void SystemExists_ReturnsTrue_WhenSystemIsInXml()
+    public void SystemExistsReturnsTrueWhenSystemIsInXml()
     {
         File.WriteAllText(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
@@ -163,7 +162,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     [Fact]
-    public void SystemExists_ReturnsFalse_WhenSystemIsNotInXml()
+    public void SystemExistsReturnsFalseWhenSystemIsNotInXml()
     {
         File.WriteAllText(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
@@ -173,7 +172,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     [Fact]
-    public void SystemExists_IsCaseInsensitive()
+    public void SystemExistsIsCaseInsensitive()
     {
         File.WriteAllText(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
@@ -183,7 +182,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     [Fact]
-    public void LoadSystemManagers_ReturnsEmptyList_WhenXmlFileDoesNotExist()
+    public void LoadSystemManagersReturnsEmptyListWhenXmlFileDoesNotExist()
     {
         var result = SystemManager.LoadSystemManagers(_configuration);
         Assert.NotNull(result);
@@ -191,14 +190,14 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     [Fact]
-    public void LoadSystemManagers_CreatesXmlFile_WhenFileDoesNotExist()
+    public void LoadSystemManagersCreatesXmlFileWhenFileDoesNotExist()
     {
         SystemManager.LoadSystemManagers(_configuration);
         Assert.True(File.Exists(_systemXmlPath));
     }
 
     [Fact]
-    public void LoadSystemManagers_LoadsSingleSystem_Correctly()
+    public void LoadSystemManagersLoadsSingleSystemCorrectly()
     {
         ResetSystemXmlStaticState();
         File.WriteAllText(_systemXmlPath, BuildValidSystemXml());
@@ -223,7 +222,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     [Fact]
-    public void LoadSystemManagers_LoadsMultipleSystems_Correctly()
+    public void LoadSystemManagersLoadsMultipleSystemsCorrectly()
     {
         ResetSystemXmlStaticState();
         File.WriteAllText(_systemXmlPath, BuildMultiSystemXml());
@@ -249,7 +248,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     [Fact]
-    public async Task SaveSystemConfigurationAsync_AddsNewSystem()
+    public async Task SaveSystemConfigurationAsyncAddsNewSystem()
     {
         var system = new SystemManager
         {
@@ -290,7 +289,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     [Fact]
-    public async Task SaveSystemConfigurationAsync_AddsSystemAlongsideExisting()
+    public async Task SaveSystemConfigurationAsyncAddsSystemAlongsideExisting()
     {
         File.WriteAllText(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
@@ -325,7 +324,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     [Fact]
-    public async Task SaveSystemConfigurationAsync_UpdatesExistingSystem()
+    public async Task SaveSystemConfigurationAsyncUpdatesExistingSystem()
     {
         File.WriteAllText(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
@@ -364,7 +363,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     [Fact]
-    public async Task SaveSystemConfigurationAsync_RenamesSystem()
+    public async Task SaveSystemConfigurationAsyncRenamesSystem()
     {
         File.WriteAllText(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
@@ -399,7 +398,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     [Fact]
-    public async Task DeleteSystemAsync_RemovesSystem()
+    public async Task DeleteSystemAsyncRemovesSystem()
     {
         File.WriteAllText(_systemXmlPath, BuildMultiSystemXml());
         ResetSystemXmlStaticState();
@@ -417,7 +416,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     [Fact]
-    public async Task DeleteSystemAsync_DoesNothing_WhenSystemNotFound()
+    public async Task DeleteSystemAsyncDoesNothingWhenSystemNotFound()
     {
         File.WriteAllText(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();

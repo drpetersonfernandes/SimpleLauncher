@@ -1,15 +1,14 @@
-using System.IO;
-using SimpleLauncher.Core.Interfaces;
-using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
+using SimpleLauncher.Interfaces;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameFilter;
 
 public class GameFilterService : IGameFilterService
 {
     private readonly IFindCoverImageService _findCoverImage;
-    private readonly Core.Services.SettingsManager.SettingsManager _settings;
+    private readonly SettingsManager.SettingsManager _settings;
 
-    public GameFilterService(IFindCoverImageService findCoverImage, Core.Services.SettingsManager.SettingsManager settings)
+    public GameFilterService(IFindCoverImageService findCoverImage, SettingsManager.SettingsManager settings)
     {
         _findCoverImage = findCoverImage;
         _settings = settings;

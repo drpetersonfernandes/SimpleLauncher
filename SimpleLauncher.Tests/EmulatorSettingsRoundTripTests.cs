@@ -1,5 +1,5 @@
 using System.Xml.Linq;
-using SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
+using SimpleLauncher.Services.SettingsManager.EmulatorSettings;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

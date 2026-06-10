@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
-using SimpleLauncher.Core.Services.LoadingInterface;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;

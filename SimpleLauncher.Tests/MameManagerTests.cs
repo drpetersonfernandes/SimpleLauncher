@@ -1,5 +1,5 @@
 using MessagePack;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;

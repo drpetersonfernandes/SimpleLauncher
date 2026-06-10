@@ -1,14 +1,13 @@
 using System.Windows;
 using System.Windows.Threading;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.LanguageMenu;
-using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.ThemeMenu;
-using CheckDirWritable = SimpleLauncher.Core.Services.CheckIfDirectoryIsWritable.CheckIfDirectoryIsWritable;
+using CheckDirWritable = SimpleLauncher.Services.CheckIfDirectoryIsWritable.CheckIfDirectoryIsWritable;
 using RequiredFiles = SimpleLauncher.Services.CheckForRequiredFiles.CheckForRequiredFiles;
-using Settings = SimpleLauncher.Core.Services.SettingsManager.SettingsManager;
+using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
 using TrayIconManager = SimpleLauncher.Services.TrayIcon.TrayIconManager;
 
 namespace SimpleLauncher.Services.StartupInitialization;

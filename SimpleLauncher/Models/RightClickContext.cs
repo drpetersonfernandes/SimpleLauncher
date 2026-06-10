@@ -1,11 +1,10 @@
 using System.Windows.Controls;
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.SystemManager;
-using ILoadingState = SimpleLauncher.Core.Services.LoadingInterface.ILoadingState;
+using ILoadingState = SimpleLauncher.Services.LoadingInterface.ILoadingState;
 
 namespace SimpleLauncher.Models;
 
@@ -20,7 +19,7 @@ public class RightClickContext(
     SystemManager selectedSystemManager,
     List<Services.MameManager.MameManager> machines,
     FavoritesManager favoritesManager,
-    Core.Services.SettingsManager.SettingsManager settings,
+    SettingsManager settings,
     ComboBox emulatorComboBox,
     Favorite selectedFavorite,
     Emulator emulatorManager,
@@ -55,7 +54,7 @@ public class RightClickContext(
     public FavoritesManager FavoritesManager { get; } = favoritesManager;
 
     /// <summary>Gets the application settings manager.</summary>
-    public Core.Services.SettingsManager.SettingsManager Settings { get; } = settings;
+    public SettingsManager Settings { get; } = settings;
 
     /// <summary>Gets the emulator combo box control.</summary>
     public ComboBox EmulatorComboBox { get; } = emulatorComboBox;

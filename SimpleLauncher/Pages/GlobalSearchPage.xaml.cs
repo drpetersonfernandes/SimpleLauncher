@@ -3,9 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.SystemManager;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
@@ -15,11 +13,12 @@ using SimpleLauncher.Services.GlobalSearch.Models;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.ViewModels;
 using SimpleLauncher.WpfServices;
-using SimpleLauncher.Core.Services.SettingsManager;
-using ILoadingState = SimpleLauncher.Core.Services.LoadingInterface.ILoadingState;
-using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
+using ILoadingState = SimpleLauncher.Services.LoadingInterface.ILoadingState;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 #nullable enable

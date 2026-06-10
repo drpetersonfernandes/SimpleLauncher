@@ -1,7 +1,7 @@
 #nullable enable
 
 using Microsoft.Win32;
-using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.WpfServices;
 

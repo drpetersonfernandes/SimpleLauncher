@@ -1,5 +1,5 @@
-using SimpleLauncher.Core.Services.GameLauncher;
 using Xunit;
+using ValidateBatchFile = SimpleLauncher.Services.GameLauncher.ValidateBatchFile;
 
 namespace SimpleLauncher.Tests;
 
@@ -29,14 +29,14 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     [Fact]
-    public void ValidateBatchFileContents_NonExistentFile_ReturnsEmptyList()
+    public void ValidateBatchFileContentsNonExistentFileReturnsEmptyList()
     {
         var result = ValidateBatchFile.ValidateBatchFileContents(@"C:\nonexistent\file.bat");
         Assert.Empty(result);
     }
 
     [Fact]
-    public void ValidateBatchFileContents_EmptyFile_ReturnsEmptyList()
+    public void ValidateBatchFileContentsEmptyFileReturnsEmptyList()
     {
         var batchFile = Path.Combine(_testDirectory, "empty.bat");
         File.WriteAllText(batchFile, "");
@@ -46,7 +46,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     [Fact]
-    public void ValidateBatchFileContents_ValidPaths_ReturnsEmptyList()
+    public void ValidateBatchFileContentsValidPathsReturnsEmptyList()
     {
         var batchFile = Path.Combine(_testDirectory, "valid.bat");
         File.WriteAllText(batchFile, "@echo off\necho hello\n");
@@ -56,7 +56,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     [Fact]
-    public void ValidateBatchFileContents_MissingPaths_ReturnsMissingPaths()
+    public void ValidateBatchFileContentsMissingPathsReturnsMissingPaths()
     {
         var batchFile = Path.Combine(_testDirectory, "missing.bat");
         File.WriteAllText(batchFile, "@echo off\n\"C:\\nonexistent\\game.exe\" --arg\n");
@@ -66,7 +66,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     [Fact]
-    public void ValidateBatchFileContents_RemLinesAreSkipped()
+    public void ValidateBatchFileContentsRemLinesAreSkipped()
     {
         var batchFile = Path.Combine(_testDirectory, "rem.bat");
         File.WriteAllText(batchFile, "rem \"C:\\nonexistent\\file.exe\"\n:: also a comment\n");
@@ -76,7 +76,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     [Fact]
-    public void ValidateBatchFileContents_CommentsWithHashAreSkipped()
+    public void ValidateBatchFileContentsCommentsWithHashAreSkipped()
     {
         var batchFile = Path.Combine(_testDirectory, "comment.bat");
         File.WriteAllText(batchFile, "# \"C:\\nonexistent\\file.exe\"\n");
@@ -86,14 +86,14 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     [Fact]
-    public void FindInvalidQuotedPathsSimple_NonExistentFile_ReturnsEmptyList()
+    public void FindInvalidQuotedPathsSimpleNonExistentFileReturnsEmptyList()
     {
         var result = ValidateBatchFile.FindInvalidQuotedPathsSimple(@"C:\nonexistent\file.bat");
         Assert.Empty(result);
     }
 
     [Fact]
-    public void FindInvalidQuotedPathsSimple_EmptyFile_ReturnsEmptyList()
+    public void FindInvalidQuotedPathsSimpleEmptyFileReturnsEmptyList()
     {
         var batchFile = Path.Combine(_testDirectory, "empty2.bat");
         File.WriteAllText(batchFile, "");
@@ -103,7 +103,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     [Fact]
-    public void FindInvalidQuotedPathsSimple_MissingDrivePath_ReturnsPath()
+    public void FindInvalidQuotedPathsSimpleMissingDrivePathReturnsPath()
     {
         var batchFile = Path.Combine(_testDirectory, "drive.bat");
         File.WriteAllText(batchFile, "\"C:\\nonexistent\\path\\file.exe\"\n");
@@ -114,7 +114,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     [Fact]
-    public void FindInvalidQuotedPathsSimple_ValidExistingPath_ReturnsEmpty()
+    public void FindInvalidQuotedPathsSimpleValidExistingPathReturnsEmpty()
     {
         var existingDir = Path.Combine(_testDirectory, "existing");
         Directory.CreateDirectory(existingDir);
@@ -127,7 +127,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     [Fact]
-    public void FindInvalidQuotedPathsSimple_UncPath_IsDetectedAsPath()
+    public void FindInvalidQuotedPathsSimpleUncPathIsDetectedAsPath()
     {
         var batchFile = Path.Combine(_testDirectory, "unc.bat");
         File.WriteAllText(batchFile, "\"\\\\server\\share\\file.exe\"\n");
@@ -137,7 +137,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     [Fact]
-    public void FindInvalidQuotedPathsSimple_NonPathText_IsIgnored()
+    public void FindInvalidQuotedPathsSimpleNonPathTextIsIgnored()
     {
         var batchFile = Path.Combine(_testDirectory, "nonpath.bat");
         File.WriteAllText(batchFile, "\"just some text\"\n");
@@ -147,7 +147,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     [Fact]
-    public void FindInvalidQuotedPathsSimple_MultipleQuotedPaths_FindsAll()
+    public void FindInvalidQuotedPathsSimpleMultipleQuotedPathsFindsAll()
     {
         var batchFile = Path.Combine(_testDirectory, "multi.bat");
         File.WriteAllText(batchFile, "\"C:\\missing1\\a.exe\" \"D:\\missing2\\b.exe\"\n");

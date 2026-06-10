@@ -1,11 +1,12 @@
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Core.Services.InjectEmulatorConfig;
-using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Tomlyn;
 using Tomlyn.Model;
 using Xunit;
+using MameConfigurationService = SimpleLauncher.Services.InjectEmulatorConfig.MameConfigurationService;
 
 namespace SimpleLauncher.Tests;
 
@@ -249,7 +250,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     [Fact]
-    public void FlycastDisabledOptions_UsesNoValues()
+    public void FlycastDisabledOptionsUsesNoValues()
     {
         CopySampleToEmuDir("Flycast", "Flycast", "emu.cfg");
 
@@ -346,7 +347,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     [Fact]
-    public void SupermodelInvalidInputSystem_DefaultsToXinput()
+    public void SupermodelInvalidInputSystemDefaultsToXinput()
     {
         CopySampleToEmuDir("Supermodel", "Supermodel", "Supermodel.ini");
 

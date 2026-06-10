@@ -1,6 +1,8 @@
+using SimpleLauncher.Interfaces;
+
 namespace SimpleLauncher.WpfServices;
 
-public class WpfMessageDialogService : Core.Interfaces.IMessageDialogService
+public class WpfMessageDialogService : IMessageDialogService
 {
     public Task ShowInfoAsync(string message, string title = "")
     {
@@ -32,7 +34,7 @@ public class WpfMessageDialogService : Core.Interfaces.IMessageDialogService
         return Task.FromResult(result == 6); // Yes
     }
 
-    public Task<Core.Interfaces.MessageBoxResult> ShowAsync(string message, string title, Core.Interfaces.MessageBoxButton buttons, Core.Interfaces.MessageBoxImage icon)
+    public Task<MessageBoxResult> ShowAsync(string message, string title, MessageBoxButton buttons, MessageBoxImage icon)
     {
         var wpfButtons = (int)buttons;
         var wpfIcon = (int)icon;
@@ -41,11 +43,11 @@ public class WpfMessageDialogService : Core.Interfaces.IMessageDialogService
 
         var mappedResult = result switch
         {
-            1 => Core.Interfaces.MessageBoxResult.Ok,
-            2 => Core.Interfaces.MessageBoxResult.Cancel,
-            6 => Core.Interfaces.MessageBoxResult.Yes,
-            7 => Core.Interfaces.MessageBoxResult.No,
-            _ => Core.Interfaces.MessageBoxResult.None
+            1 => MessageBoxResult.Ok,
+            2 => MessageBoxResult.Cancel,
+            6 => MessageBoxResult.Yes,
+            7 => MessageBoxResult.No,
+            _ => MessageBoxResult.None
         };
 
         return Task.FromResult(mappedResult);

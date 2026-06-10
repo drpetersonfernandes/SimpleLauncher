@@ -1,6 +1,6 @@
 using System.IO.Compression;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.CheckForUpdates;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 

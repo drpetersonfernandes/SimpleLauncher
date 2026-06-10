@@ -1,3 +1,4 @@
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.SearchOrchestrator;
 using Xunit;
 
@@ -123,7 +124,7 @@ public class SearchOrchestratorServiceTests
             return Task.FromResult((new List<string>(), new List<string>()));
         }
 
-        public Task PopulateFromDiskAsync(Services.SystemManager.SystemManager config, Core.Interfaces.IGetListOfFilesService fileService, CancellationToken ct)
+        public Task PopulateFromDiskAsync(Services.SystemManager.SystemManager config, IGetListOfFilesService fileService, CancellationToken ct)
         {
             return Task.CompletedTask;
         }
