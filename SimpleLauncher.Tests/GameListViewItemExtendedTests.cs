@@ -83,13 +83,13 @@ public class GameListViewItemExtendedTests
     }
 
     [Fact]
-    public void AllStringPropertiesDefaultToNull()
+    public void AllStringPropertiesDefaultToEmpty()
     {
         var item = new GameListViewItem();
-        Assert.Null(item.FilePath);
-        Assert.Null(item.FolderPath);
-        Assert.Null(item.FileName);
-        Assert.Null(item.MachineDescription);
+        Assert.Equal("", item.FilePath);
+        Assert.Equal("", item.FolderPath);
+        Assert.Equal("", item.FileName);
+        Assert.Equal("", item.MachineDescription);
     }
 
     [Fact]

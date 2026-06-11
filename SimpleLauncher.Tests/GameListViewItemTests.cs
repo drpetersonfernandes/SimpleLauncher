@@ -10,11 +10,11 @@ public class GameListViewItemTests
     {
         var item = new GameListViewItem();
 
-        Assert.Null(item.FilePath);
-        Assert.Null(item.FolderPath);
-        Assert.Null(item.FileName);
+        Assert.Equal("", item.FilePath);
+        Assert.Equal("", item.FolderPath);
+        Assert.Equal("", item.FileName);
         Assert.False(item.IsFavorite);
-        Assert.Null(item.MachineDescription);
+        Assert.Equal("", item.MachineDescription);
         Assert.Equal("0", item.TimesPlayed);
         Assert.Equal("0m 0s", item.PlayTime);
         Assert.False(item.HasAchievements);

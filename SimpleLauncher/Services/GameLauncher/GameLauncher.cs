@@ -1136,7 +1136,6 @@ public partial class GameLauncher : ILauncherService
                     {
                         // Notify user
                         await _messageBoxLibrary.InvalidOperationExceptionMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-                        // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
                     }
                 }
                 catch (Win32Exception ex) // Catch Win32Exception specifically
@@ -1186,7 +1185,6 @@ public partial class GameLauncher : ILauncherService
                         {
                             // Notify user
                             await _messageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-                            // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
                         }
                     }
                 }
@@ -1220,7 +1218,6 @@ public partial class GameLauncher : ILauncherService
                     {
                         // Notify user
                         await _messageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-                        // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
                     }
                 }
             }
@@ -1387,7 +1384,6 @@ public partial class GameLauncher : ILauncherService
         if (emulatorManager.ReceiveANotificationOnEmulatorError)
         {
             await _messageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-            // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, null, contextMessage, _playSoundEffects);
         }
     }
 
@@ -1428,13 +1424,6 @@ public partial class GameLauncher : ILauncherService
                              $"Emulator output: {output}\n" +
                              $"Emulator error: {error}\n";
         _logErrors.LogAndForget(null, contextMessage);
-
-        // if (emulatorManager.ReceiveANotificationOnEmulatorError)
-        // {
-        //     // Notify user
-        //     return _messageBoxLibrary.CouldNotLaunchGameDueToDepViolationMessageBox();
-        //     // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, null, contextMessage, _playSoundEffects);
-        // }
 
         return Task.CompletedTask;
     }

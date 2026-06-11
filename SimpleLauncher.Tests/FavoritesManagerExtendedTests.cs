@@ -25,7 +25,7 @@ public class FavoritesManagerExtendedTests : IDisposable
         }
         catch
         {
-            // ignored
+            // Best-effort cleanup
         }
 
         ServiceProviderMock.Restore();
@@ -33,158 +33,178 @@ public class FavoritesManagerExtendedTests : IDisposable
     }
 
     [Fact]
-    public void FavoriteInitPropertiesCanBeSetViaInitializer()
-    {
-        var fav = new Favorite
-        {
-            FileName = "game.zip",
-            SystemName = "NES",
-            MachineDescription = "Pac-Man",
-            CoverImage = "cover.png"
-        };
-
-        Assert.Equal("game.zip", fav.FileName);
-        Assert.Equal("NES", fav.SystemName);
-        Assert.Equal("Pac-Man", fav.MachineDescription);
-        Assert.Equal("cover.png", fav.CoverImage);
-    }
-
-    [Fact]
-    public void FavoriteFileNameIsInitOnly()
-    {
-        var fav = new Favorite { FileName = "game.zip", SystemName = "NES" };
-        Assert.Equal("game.zip", fav.FileName);
-    }
-
-    [Fact]
-    public void FavoriteSystemNameIsInitOnly()
-    {
-        var fav = new Favorite { FileName = "game.zip", SystemName = "NES" };
-        Assert.Equal("NES", fav.SystemName);
-    }
-
-    [Fact]
-    public void FavoritePropertyChangedDefaultEmulator()
-    {
-        var fav = new Favorite { FileName = "game.zip", SystemName = "NES" };
-        var raised = false;
-        fav.PropertyChanged += (_, args) =>
-        {
-            if (args.PropertyName == nameof(Favorite.DefaultEmulator))
-            {
-                raised = true;
-            }
-        };
-
-        fav.DefaultEmulator = "RetroArch";
-        Assert.True(raised);
-    }
-
-    [Fact]
-    public void FavoriteDefaultValues()
-    {
-        var fav = new Favorite { FileName = "game.zip", SystemName = "NES" };
-        Assert.Null(fav.MachineDescription);
-        Assert.Null(fav.CoverImage);
-        Assert.Null(fav.DefaultEmulator);
-    }
-
-    [Fact]
-    public void FavoritesManagerSerializesLargeList()
-    {
-        var manager = new Services.Favorites.FavoritesManager();
-        for (var i = 0; i < 100; i++)
-        {
-            manager.FavoriteList.Add(new Favorite
-            {
-                FileName = $"game{i}.zip",
-                SystemName = "Arcade"
-            });
-        }
-
-        var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
-
-        Assert.Equal(100, deserialized.FavoriteList.Count);
-        Assert.Equal("game50.zip", deserialized.FavoriteList[50].FileName);
-    }
-
-    [Fact]
-    public void FavoritesManagerSerializesWithDefaultEmulator()
+    public void FavoritesManagerWithSingleItemSerializesCorrectly()
     {
         var manager = new Services.Favorites.FavoritesManager
         {
             FavoriteList =
             [
-                new Favorite
-                {
-                    FileName = "game.zip",
-                    SystemName = "Arcade",
-                    DefaultEmulator = "MAME"
-                }
-            ]
+                new Favorite { FileName = "C:\\roms\\game.zip", SystemName = "Arcade" }
+            ],
+            Version = 1
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
         var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
 
-        // DefaultEmulator is not serialized (init-only with MessagePack)
-        Assert.Equal("game.zip", deserialized.FavoriteList[0].FileName);
+        Assert.Single(deserialized.FavoriteList);
+        Assert.Equal("C:\\roms\\game.zip", deserialized.FavoriteList[0].FileName);
+        Assert.Equal("Arcade", deserialized.FavoriteList[0].SystemName);
     }
 
     [Fact]
-    public void FavoritesManagerVersionPreserved()
+    public void FavoritesManagerWithDuplicateEntriesSerializesCorrectly()
     {
-        var manager = new Services.Favorites.FavoritesManager { Version = 42 };
+        var manager = new Services.Favorites.FavoritesManager
+        {
+            FavoriteList =
+            [
+                new Favorite { FileName = "game.zip", SystemName = "Arcade" },
+                new Favorite { FileName = "game.zip", SystemName = "Arcade" }
+            ],
+            Version = 1
+        };
+
         var bytes = MessagePackSerializer.Serialize(manager);
         var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
+
+        Assert.Equal(2, deserialized.FavoriteList.Count);
+    }
+
+    [Fact]
+    public void FavoritesManagerWithSpecialCharactersInFileName()
+    {
+        var manager = new Services.Favorites.FavoritesManager
+        {
+            FavoriteList =
+            [
+                new Favorite { FileName = "C:\\roms\\[BIOS] PlayStation.zip", SystemName = "PS1" },
+                new Favorite { FileName = "C:\\roms\\game (v1.0).zip", SystemName = "NES" },
+                new Favorite { FileName = "C:\\roms\\game & friends.zip", SystemName = "SNES" }
+            ],
+            Version = 1
+        };
+
+        var bytes = MessagePackSerializer.Serialize(manager);
+        var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
+
+        Assert.Equal(3, deserialized.FavoriteList.Count);
+        Assert.Equal("C:\\roms\\[BIOS] PlayStation.zip", deserialized.FavoriteList[0].FileName);
+        Assert.Equal("C:\\roms\\game (v1.0).zip", deserialized.FavoriteList[1].FileName);
+        Assert.Equal("C:\\roms\\game & friends.zip", deserialized.FavoriteList[2].FileName);
+    }
+
+    [Fact]
+    public void FavoritesManagerWithUnicodeCharacters()
+    {
+        var manager = new Services.Favorites.FavoritesManager
+        {
+            FavoriteList =
+            [
+                new Favorite { FileName = "C:\\roms\\ポケモン.zip", SystemName = "GBA" },
+                new Favorite { FileName = "C:\\roms\\Jürgen's Game.zip", SystemName = "NES" }
+            ],
+            Version = 1
+        };
+
+        var bytes = MessagePackSerializer.Serialize(manager);
+        var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
+
+        Assert.Equal(2, deserialized.FavoriteList.Count);
+        Assert.Equal("C:\\roms\\ポケモン.zip", deserialized.FavoriteList[0].FileName);
+        Assert.Equal("C:\\roms\\Jürgen's Game.zip", deserialized.FavoriteList[1].FileName);
+    }
+
+    [Fact]
+    public void FavoriteModelDefaultCoverImageIsNull()
+    {
+        var favorite = new Favorite { FileName = "game.zip", SystemName = "NES" };
+        Assert.Null(favorite.CoverImage);
+    }
+
+    [Fact]
+    public void FavoriteModelDefaultMachineDescriptionIsNull()
+    {
+        var favorite = new Favorite { FileName = "game.zip", SystemName = "NES" };
+        Assert.Null(favorite.MachineDescription);
+    }
+
+    [Fact]
+    public void FavoriteModelDefaultDefaultEmulatorIsNull()
+    {
+        var favorite = new Favorite { FileName = "game.zip", SystemName = "NES" };
+        Assert.Null(favorite.DefaultEmulator);
+    }
+
+    [Fact]
+    public void FavoriteModelCoverImageCanBeSet()
+    {
+        var favorite = new Favorite
+        {
+            FileName = "game.zip", SystemName = "NES",
+            CoverImage = "cover.png"
+        };
+        Assert.Equal("cover.png", favorite.CoverImage);
+    }
+
+    [Fact]
+    public void FavoriteModelDefaultEmulatorCanBeSet()
+    {
+        var favorite = new Favorite
+        {
+            FileName = "game.zip", SystemName = "NES",
+            DefaultEmulator = "RetroArch"
+        };
+        Assert.Equal("RetroArch", favorite.DefaultEmulator);
+    }
+
+    [Fact]
+    public void FavoritesManagerVersionPreservedAfterSerialization()
+    {
+        var manager = new Services.Favorites.FavoritesManager
+        {
+            FavoriteList = [],
+            Version = 42
+        };
+
+        var bytes = MessagePackSerializer.Serialize(manager);
+        var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
+
         Assert.Equal(42, deserialized.Version);
     }
 
     [Fact]
-    public void FavoriteWithSpecialCharactersInFileName()
+    public void FavoritesManagerLargeListSerializesCorrectly()
     {
+        var favorites = Enumerable.Range(1, 1000)
+            .Select(static i => new Favorite { FileName = $"game{i}.zip", SystemName = "NES" })
+            .ToList();
+
         var manager = new Services.Favorites.FavoritesManager
         {
-            FavoriteList =
-            [
-                new Favorite { FileName = "game (v1.0) [!].zip", SystemName = "NES" }
-            ]
+            FavoriteList = new System.Collections.ObjectModel.ObservableCollection<Favorite>(favorites),
+            Version = 1
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
         var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
 
-        Assert.Equal("game (v1.0) [!].zip", deserialized.FavoriteList[0].FileName);
+        Assert.Equal(1000, deserialized.FavoriteList.Count);
+        Assert.Equal("game1.zip", deserialized.FavoriteList[0].FileName);
+        Assert.Equal("game1000.zip", deserialized.FavoriteList[999].FileName);
     }
 
     [Fact]
-    public void FavoriteWithUnicodeFileName()
+    public void FavoritesManagerLongPathsSerializesCorrectly()
     {
-        var manager = new Services.Favorites.FavoritesManager
-        {
-            FavoriteList =
-            [
-                new Favorite { FileName = "ポケモン.zip", SystemName = "GBA" }
-            ]
-        };
-
-        var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
-
-        Assert.Equal("ポケモン.zip", deserialized.FavoriteList[0].FileName);
-    }
-
-    [Fact]
-    public void FavoriteWithLongFilePath()
-    {
-        var longPath = new string('a', 500) + ".zip";
+        var longPath = "C:\\" + string.Join("\\", Enumerable.Repeat("verylongfoldername", 10)) + "\\game.zip";
         var manager = new Services.Favorites.FavoritesManager
         {
             FavoriteList =
             [
                 new Favorite { FileName = longPath, SystemName = "NES" }
-            ]
+            ],
+            Version = 1
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);

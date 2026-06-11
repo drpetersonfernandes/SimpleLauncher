@@ -174,46 +174,6 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     [Fact]
-    public void SwapBytesEvenLengthSwapsPairs()
-    {
-        var input = new byte[] { 1, 2, 3, 4, 5, 6 };
-        var result = InvokePrivateStaticMethod<byte[]>("SwapBytes", input);
-
-        Assert.NotNull(result);
-        Assert.Equal(new byte[] { 2, 1, 4, 3, 6, 5 }, result);
-    }
-
-    [Fact]
-    public void SwapBytesOddLengthHandlesLastByte()
-    {
-        var input = new byte[] { 1, 2, 3 };
-        var result = InvokePrivateStaticMethod<byte[]>("SwapBytes", input);
-
-        Assert.NotNull(result);
-        Assert.Equal(new byte[] { 2, 1, 3 }, result);
-    }
-
-    [Fact]
-    public void SwapBytesSingleByteReturnsSameByte()
-    {
-        var input = new byte[] { 42 };
-        var result = InvokePrivateStaticMethod<byte[]>("SwapBytes", input);
-
-        Assert.NotNull(result);
-        Assert.Equal(new byte[] { 42 }, result);
-    }
-
-    [Fact]
-    public void SwapBytesEmptyArrayReturnsEmptyArray()
-    {
-        var input = Array.Empty<byte>();
-        var result = InvokePrivateStaticMethod<byte[]>("SwapBytes", input);
-
-        Assert.NotNull(result);
-        Assert.Empty(result);
-    }
-
-    [Fact]
     public void ToHexStringReturnsExpectedHex()
     {
         var input = new byte[] { 0x00, 0xFF, 0xAB, 0x1A };

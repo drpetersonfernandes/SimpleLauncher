@@ -1,0 +1,350 @@
+@startuml 04-UI-Layer
+
+title Simple Launcher — UI Layer (Windows, Pages, ViewModels)
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam nodesep 40
+skinparam ranksep 25
+skinparam padding 3
+skinparam defaultFontSize 10
+
+' =============================================
+' MAIN WINDOW
+' =============================================
+package "Main Hub" #D6EAF8 {
+    class MainWindow <<Window>> {
+        -_settingsManager : SettingsManager
+        -_playHistoryManager : PlayHistoryManager
+        -_systemManagers : List<SystemManager>
+        +DataContext : object
+        +Initialize()
+        +DisplayGamesAsync()
+    }
+
+    class FavoritesPage <<Page>> {
+    }
+    class GlobalSearchPage <<Page>> {
+    }
+    class PlayHistoryPage <<Page>> {
+    }
+}
+
+' =============================================
+' CORE WINDOWS
+' =============================================
+package "Core Windows" #E8F4FD {
+    class EditSystemWindow <<Window>> {
+    }
+    class EasyModeWindow <<Window>> {
+    }
+    class AboutWindow <<Window>> {
+    }
+    class DebugWindow <<Window>> {
+    }
+    class SupportWindow <<Window>> {
+    }
+    class SystemSelectionWindow <<Window>> {
+    }
+}
+
+' =============================================
+' GAME/ROM WINDOWS
+' =============================================
+package "Game/ROM Windows" #D5F5E3 {
+    class DosBoxFileSelectionWindow <<Window>> {
+    }
+    class DownloadImagePackWindow <<Window>> {
+    }
+    class FlashOverlayWindow <<Window>> {
+    }
+    class GlobalStatsWindow <<Window>> {
+    }
+    class ImageViewerWindow <<Window>> {
+    }
+    class RetroAchievementsWindow <<Window>> {
+    }
+    class RetroAchievementsForAGameWindow <<Window>> {
+    }
+    class RetroAchievementsSettingsWindow <<Window>> {
+    }
+    class RomHistoryWindow <<Window>> {
+    }
+    class WindowSelectionDialogWindow <<Window>> {
+    }
+}
+
+' =============================================
+' SETTINGS WINDOWS
+' =============================================
+package "Settings Windows" #FEF9E7 {
+    class SetFuzzyMatchingWindow <<Window>> {
+    }
+    class SetGamepadDeadZoneWindow <<Window>> {
+    }
+    class SetLinksWindow <<Window>> {
+    }
+    class SoundConfigurationWindow <<Window>> {
+    }
+    class UpdateHistoryWindow <<Window>> {
+    }
+    class UpdateLogWindow <<Window>> {
+    }
+}
+
+' =============================================
+' INJECT CONFIG WINDOWS
+' =============================================
+package "Inject Config Windows (21)" #FDEDEC {
+    class InjectAresConfigWindow <<Window>> {
+    }
+    class InjectAzaharConfigWindow <<Window>> {
+    }
+    class InjectBlastemConfigWindow <<Window>> {
+    }
+    class InjectCemuConfigWindow <<Window>> {
+    }
+    class InjectDaphneConfigWindow <<Window>> {
+    }
+    class InjectDolphinConfigWindow <<Window>> {
+    }
+    class InjectDuckStationConfigWindow <<Window>> {
+    }
+    class InjectFlycastConfigWindow <<Window>> {
+    }
+    class InjectMameConfigWindow <<Window>> {
+    }
+    class InjectMednafenConfigWindow <<Window>> {
+    }
+    class InjectMesenConfigWindow <<Window>> {
+    }
+    class InjectPCSX2ConfigWindow <<Window>> {
+    }
+    class InjectRaineConfigWindow <<Window>> {
+    }
+    class InjectRedreamConfigWindow <<Window>> {
+    }
+    class InjectRetroArchConfigWindow <<Window>> {
+    }
+    class InjectRPCS3ConfigWindow <<Window>> {
+    }
+    class InjectSegaModel2ConfigWindow <<Window>> {
+    }
+    class InjectStellaConfigWindow <<Window>> {
+    }
+    class InjectSupermodelConfigWindow <<Window>> {
+    }
+    class InjectXeniaConfigWindow <<Window>> {
+    }
+    class InjectYumirConfigWindow <<Window>> {
+    }
+}
+
+' =============================================
+' VIEWMODELS
+' =============================================
+package "Core ViewModels" #F5EEF8 {
+    class AboutViewModel {
+    }
+    class DebugViewModel {
+    }
+    class SupportViewModel {
+    }
+    class GlobalStatsViewModel {
+    }
+    class SystemSelectionViewModel {
+    }
+    class ImageViewerViewModel {
+    }
+    class DownloadImagePackViewModel {
+    }
+    class FlashOverlayViewModel {
+    }
+    class RomHistoryViewModel {
+    }
+    class WindowSelectionDialogViewModel {
+    }
+}
+
+package "Game ViewModels" #E8F8F5 {
+    class FavoritesViewModel {
+        -_favoritesManager : FavoritesManager
+        -_settings : SettingsManager
+        -_coverImageService : IFindCoverImageService
+        -_imageLoader : IImageLoader
+        -_sound : PlaySoundEffects
+    }
+    class PlayHistoryViewModel {
+        -_historyManager : PlayHistoryManager
+        -_settings : SettingsManager
+        -_coverImageService : IFindCoverImageService
+        -_imageLoader : IImageLoader
+    }
+    class GlobalSearchViewModel {
+        -_searchService : ISearchOrchestratorService
+        -_settings : SettingsManager
+    }
+    class GameButtonViewModel {
+        +FileName : string
+        +CoverImagePath : string
+        +IsFavorite : bool
+        +ToggleFavoriteCommand : ICommand
+    }
+    class DosBoxFileSelectionViewModel {
+    }
+}
+
+package "Settings ViewModels" #FFF3E0 {
+    class SetFuzzyMatchingViewModel {
+    }
+    class SetGamepadDeadZoneViewModel {
+    }
+    class SetLinksViewModel {
+    }
+    class SoundConfigurationViewModel {
+    }
+    class UpdateHistoryViewModel {
+    }
+    class UpdateLogViewModel {
+    }
+}
+
+package "RetroAchievements ViewModels" #FEF9E7 {
+    class RetroAchievementsViewModel {
+    }
+    class RetroAchievementsForAGameViewModel {
+    }
+    class RetroAchievementsSettingsViewModel {
+    }
+}
+
+package "Inject Config VMs (21)" #F0F0F0 {
+    class InjectAresConfigViewModel {
+    }
+    class InjectAzaharConfigViewModel {
+    }
+    class InjectBlastemConfigViewModel {
+    }
+    class InjectCemuConfigViewModel {
+    }
+    class InjectDaphneConfigViewModel {
+    }
+    class InjectDolphinConfigViewModel {
+    }
+    class InjectDuckStationConfigViewModel {
+    }
+    class InjectFlycastConfigViewModel {
+    }
+    class InjectMameConfigViewModel {
+    }
+    class InjectMednafenConfigViewModel {
+    }
+    class InjectMesenConfigViewModel {
+    }
+    class InjectPCSX2ConfigViewModel {
+    }
+    class InjectRaineConfigViewModel {
+    }
+    class InjectRedreamConfigViewModel {
+    }
+    class InjectRetroArchConfigViewModel {
+    }
+    class InjectRPCS3ConfigViewModel {
+    }
+    class InjectSegaModel2ConfigViewModel {
+    }
+    class InjectStellaConfigViewModel {
+    }
+    class InjectSupermodelConfigViewModel {
+    }
+    class InjectXeniaConfigViewModel {
+    }
+    class InjectYumirConfigViewModel {
+    }
+}
+
+' =============================================
+' RELATIONSHIPS
+' =============================================
+
+' MainWindow hosts Pages
+MainWindow o-- FavoritesPage
+MainWindow o-- GlobalSearchPage
+MainWindow o-- PlayHistoryPage
+
+' Pages -> ViewModels
+FavoritesPage ..> FavoritesViewModel
+GlobalSearchPage ..> GlobalSearchViewModel
+PlayHistoryPage ..> PlayHistoryViewModel
+
+' Core Windows -> ViewModels
+AboutWindow ..> AboutViewModel
+DebugWindow ..> DebugViewModel
+SupportWindow ..> SupportViewModel
+EasyModeWindow ..> EasyModeManager
+SystemSelectionWindow ..> SystemSelectionViewModel
+ImageViewerWindow ..> ImageViewerViewModel
+DownloadImagePackWindow ..> DownloadImagePackViewModel
+FlashOverlayWindow ..> FlashOverlayViewModel
+GlobalStatsWindow ..> GlobalStatsViewModel
+RomHistoryWindow ..> RomHistoryViewModel
+DosBoxFileSelectionWindow ..> DosBoxFileSelectionViewModel
+WindowSelectionDialogWindow ..> WindowSelectionDialogViewModel
+
+' Settings Windows -> ViewModels
+SetFuzzyMatchingWindow ..> SetFuzzyMatchingViewModel
+SetGamepadDeadZoneWindow ..> SetGamepadDeadZoneViewModel
+SetLinksWindow ..> SetLinksViewModel
+SoundConfigurationWindow ..> SoundConfigurationViewModel
+UpdateHistoryWindow ..> UpdateHistoryViewModel
+UpdateLogWindow ..> UpdateLogViewModel
+
+' RetroAchievements Windows -> ViewModels
+RetroAchievementsWindow ..> RetroAchievementsViewModel
+RetroAchievementsForAGameWindow ..> RetroAchievementsForAGameViewModel
+RetroAchievementsSettingsWindow ..> RetroAchievementsSettingsViewModel
+
+' Inject Config Windows -> ViewModels
+InjectAresConfigWindow ..> InjectAresConfigViewModel
+InjectAzaharConfigWindow ..> InjectAzaharConfigViewModel
+InjectBlastemConfigWindow ..> InjectBlastemConfigViewModel
+InjectCemuConfigWindow ..> InjectCemuConfigViewModel
+InjectDaphneConfigWindow ..> InjectDaphneConfigViewModel
+InjectDolphinConfigWindow ..> InjectDolphinConfigViewModel
+InjectDuckStationConfigWindow ..> InjectDuckStationConfigViewModel
+InjectFlycastConfigWindow ..> InjectFlycastConfigViewModel
+InjectMameConfigWindow ..> InjectMameConfigViewModel
+InjectMednafenConfigWindow ..> InjectMednafenConfigViewModel
+InjectMesenConfigWindow ..> InjectMesenConfigViewModel
+InjectPCSX2ConfigWindow ..> InjectPCSX2ConfigViewModel
+InjectRaineConfigWindow ..> InjectRaineConfigViewModel
+InjectRedreamConfigWindow ..> InjectRedreamConfigViewModel
+InjectRetroArchConfigWindow ..> InjectRetroArchConfigViewModel
+InjectRPCS3ConfigWindow ..> InjectRPCS3ConfigViewModel
+InjectSegaModel2ConfigWindow ..> InjectSegaModel2ConfigViewModel
+InjectStellaConfigWindow ..> InjectStellaConfigViewModel
+InjectSupermodelConfigWindow ..> InjectSupermodelConfigViewModel
+InjectXeniaConfigWindow ..> InjectXeniaConfigViewModel
+InjectYumirConfigWindow ..> InjectYumirConfigViewModel
+
+' ViewModel dependencies
+FavoritesViewModel o-- FavoritesManager
+FavoritesViewModel o-- SettingsManager
+FavoritesViewModel o-- IFindCoverImageService
+FavoritesViewModel o-- IImageLoader
+FavoritesViewModel o-- PlaySoundEffects
+
+PlayHistoryViewModel o-- PlayHistoryManager
+PlayHistoryViewModel o-- SettingsManager
+PlayHistoryViewModel o-- IFindCoverImageService
+PlayHistoryViewModel o-- IImageLoader
+
+GlobalSearchViewModel o-- ISearchOrchestratorService
+GlobalSearchViewModel o-- SettingsManager
+
+GameButtonViewModel o-- IFindCoverImageService
+
+' EditSystemWindow uses SystemManager
+EditSystemWindow ..> SystemManager
+
+@enduml

@@ -1,0 +1,334 @@
+@startuml 02-Launch-Pipeline
+
+title Simple Launcher — Launch Pipeline
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 30
+skinparam padding 3
+skinparam defaultFontSize 11
+
+' =============================================
+' LAUNCH PIPELINE INTERFACES
+' =============================================
+package "Interfaces" #F2F3F4 {
+    interface ILauncherService {
+        +HandleButtonClickAsync()
+    }
+    interface ILaunchStrategy {
+        +Priority : int
+        +CanLaunch(context : LaunchContext) : bool
+        +LaunchAsync(context : LaunchContext) : Task
+    }
+    interface IEmulatorConfigHandler {
+        +CanHandle(emulator : Emulator) : bool
+        +HandleAsync(context : LaunchContext) : Task
+    }
+    interface IExtractionService {
+        +ExtractAsync(filePath : string, outputDir : string) : Task
+    }
+    interface IMountZipFiles {
+        +MountAsync(zipPath : string) : Task<string>
+    }
+    interface IMountChdFiles {
+        +MountAsync(chdPath : string) : Task<string>
+    }
+    interface IMountIsoFiles {
+        +MountAsync(isoPath : string) : Task<string>
+    }
+    interface IMountXisoFiles {
+        +MountAsync(xisoPath : string) : Task<string>
+    }
+    interface ILogErrors {
+        +LogExceptionAsync(ex : Exception, context : string)
+    }
+    interface IUpdateStatusBar {
+        +UpdateStatus(text : string)
+    }
+}
+
+' =============================================
+' MODELS
+' =============================================
+package "Models" #FDEBD0 {
+    class LaunchContext {
+        +FilePath : string
+        +ResolvedFilePath : string
+        +EmulatorName : string
+        +SystemName : string
+        +SystemManager : ISystemManager
+        +EmulatorManager : Emulator
+        +Parameters : string
+        +Settings : SettingsManager
+        +WindowContext : IWindowContext
+        +LoadingState : ILoadingState
+    }
+
+    class Emulator {
+        +EmulatorName : string
+        +EmulatorLocation : string
+        +EmulatorParameters : string
+        +ConfigHandler : string
+    }
+
+    class SystemManager {
+        +SystemName : string
+        +SystemFolder : string
+        +Emulators : List<Emulator>
+    }
+}
+
+' =============================================
+' GAME LAUNCHER
+' =============================================
+package "Game Launcher" #FADBD8 {
+    class GameLauncher <<Singleton>> {
+        -_strategies : IEnumerable<ILaunchStrategy>
+        -_handlers : IEnumerable<IEmulatorConfigHandler>
+        -_extraction : IExtractionService
+        -_mountZip : IMountZipFiles
+        -_history : PlayHistoryManager
+        -_statusBar : IUpdateStatusBar
+        -_errors : ILogErrors
+        +HandleButtonClickAsync(context : LaunchContext)
+    }
+}
+
+' =============================================
+' LAUNCH STRATEGIES
+' =============================================
+package "Launch Strategies (8)" #FFF3E0 {
+    class DefaultLaunchStrategy {
+        +Priority : int = 0
+        +CanLaunch(context) : bool
+        +LaunchAsync(context) : Task
+    }
+    class ChdMountStrategy {
+        +Priority : int = 10
+        +CanLaunch(context) : bool
+        +LaunchAsync(context) : Task
+    }
+    class ChdToCueStrategy {
+        +Priority : int = 20
+        +CanLaunch(context) : bool
+        +LaunchAsync(context) : Task
+    }
+    class ZipMountStrategy {
+        +Priority : int = 30
+        +CanLaunch(context) : bool
+        +LaunchAsync(context) : Task
+    }
+    class XisoMountStrategy {
+        +Priority : int = 40
+        +CanLaunch(context) : bool
+        +LaunchAsync(context) : Task
+    }
+    class PbpToCueStrategy {
+        +Priority : int = 50
+        +CanLaunch(context) : bool
+        +LaunchAsync(context) : Task
+    }
+    class DosBoxLaunchStrategy {
+        +Priority : int = 60
+        +CanLaunch(context) : bool
+        +LaunchAsync(context) : Task
+    }
+    class CommanderGeniusLaunchStrategy {
+        +Priority : int = 70
+        +CanLaunch(context) : bool
+        +LaunchAsync(context) : Task
+    }
+}
+
+' =============================================
+' EMULATOR CONFIG HANDLERS
+' =============================================
+package "Emulator Config Handlers (21)" #E8F8F5 {
+    class AresConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class AzaharConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class BlastemConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class CemuConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class DaphneConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class DolphinConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class DuckStationConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class FlycastConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class MameConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class MednafenConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class MesenConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class Pcsx2ConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class RaineConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class RedreamConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class RetroArchConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class Rpcs3ConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class SegaModel2ConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class StellaConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class SupermodelConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class XeniaConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+    class YumirConfigHandler {
+        +CanHandle(emulator) : bool
+        +HandleAsync(context) : Task
+    }
+}
+
+' =============================================
+' MOUNT SERVICES
+' =============================================
+package "Mount Services" #FDEDEC {
+    class MountZipFiles {
+        +MountAsync(zipPath) : Task<string>
+    }
+    class MountChdFiles {
+        +MountAsync(chdPath) : Task<string>
+    }
+    class MountIsoFiles {
+        +MountAsync(isoPath) : Task<string>
+    }
+    class MountXisoFiles {
+        +MountAsync(xisoPath) : Task<string>
+    }
+}
+
+' =============================================
+' CONVERTERS
+' =============================================
+package "Format Converters" #FEF9E7 {
+    class ChdToIsoConverter {
+        +ConvertAsync(chdPath) : Task<string>
+    }
+    class ChdToCueBinConverter {
+        +ConvertAsync(chdPath) : Task<string>
+    }
+    class PbpToCueBinConverter {
+        +ConvertAsync(pbpPath) : Task<string>
+    }
+    class DiscImageToIsoConverter {
+        +ConvertAsync(imagePath) : Task<string>
+    }
+}
+
+' =============================================
+' RELATIONSHIPS
+' =============================================
+
+' GameLauncher implements ILauncherService
+GameLauncher ..|> ILauncherService
+
+' GameLauncher depends on
+GameLauncher o-- "many" ILaunchStrategy : strategies
+GameLauncher o-- "many" IEmulatorConfigHandler : handlers
+GameLauncher o-- IExtractionService
+GameLauncher o-- IMountZipFiles
+GameLauncher o-- ILogErrors
+GameLauncher o-- IUpdateStatusBar
+GameLauncher ..> LaunchContext : creates
+
+' Strategy implementations
+DefaultLaunchStrategy ..|> ILaunchStrategy
+ChdMountStrategy ..|> ILaunchStrategy
+ChdToCueStrategy ..|> ILaunchStrategy
+ZipMountStrategy ..|> ILaunchStrategy
+XisoMountStrategy ..|> ILaunchStrategy
+PbpToCueStrategy ..|> ILaunchStrategy
+DosBoxLaunchStrategy ..|> ILaunchStrategy
+CommanderGeniusLaunchStrategy ..|> ILaunchStrategy
+
+' Handler implementations
+AresConfigHandler ..|> IEmulatorConfigHandler
+AzaharConfigHandler ..|> IEmulatorConfigHandler
+BlastemConfigHandler ..|> IEmulatorConfigHandler
+CemuConfigHandler ..|> IEmulatorConfigHandler
+DaphneConfigHandler ..|> IEmulatorConfigHandler
+DolphinConfigHandler ..|> IEmulatorConfigHandler
+DuckStationConfigHandler ..|> IEmulatorConfigHandler
+FlycastConfigHandler ..|> IEmulatorConfigHandler
+MameConfigHandler ..|> IEmulatorConfigHandler
+MednafenConfigHandler ..|> IEmulatorConfigHandler
+MesenConfigHandler ..|> IEmulatorConfigHandler
+Pcsx2ConfigHandler ..|> IEmulatorConfigHandler
+RaineConfigHandler ..|> IEmulatorConfigHandler
+RedreamConfigHandler ..|> IEmulatorConfigHandler
+RetroArchConfigHandler ..|> IEmulatorConfigHandler
+Rpcs3ConfigHandler ..|> IEmulatorConfigHandler
+SegaModel2ConfigHandler ..|> IEmulatorConfigHandler
+StellaConfigHandler ..|> IEmulatorConfigHandler
+SupermodelConfigHandler ..|> IEmulatorConfigHandler
+XeniaConfigHandler ..|> IEmulatorConfigHandler
+YumirConfigHandler ..|> IEmulatorConfigHandler
+
+' Mount service implementations
+MountZipFiles ..|> IMountZipFiles
+MountChdFiles ..|> IMountChdFiles
+MountIsoFiles ..|> IMountIsoFiles
+MountXisoFiles ..|> IMountXisoFiles
+
+' LaunchContext aggregation
+LaunchContext o-- SystemManager
+LaunchContext o-- Emulator
+
+' Converters use mount services
+ChdToIsoConverter ..> MountIsoFiles : produces ISO
+ChdToCueBinConverter ..> MountChdFiles : reads CHD
+PbpToCueBinConverter ..> MountChdFiles : similar
+
+@enduml

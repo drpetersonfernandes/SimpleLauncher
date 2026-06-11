@@ -995,6 +995,6 @@ internal partial class EditSystemWindow : ILoadingState
         if (string.IsNullOrWhiteSpace(text))
             return null;
 
-        return text.Split([',', '|', ';'], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+        return text.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
     }
 }

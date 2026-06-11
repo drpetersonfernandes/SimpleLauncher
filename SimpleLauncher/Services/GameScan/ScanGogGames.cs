@@ -85,13 +85,6 @@ internal static class ScanGogGames
 
                         var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(displayName);
 
-                        // Option A: Launch via Galaxy Protocol (Standard)
-                        // Note: 'launch' actually starts the game, 'openGameView' only shows the UI.
-                        // var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
-                        // var shortcutContent = $"[InternetShortcut]\nURL=goggalaxy://launch/{gameId}";
-                        // await File.WriteAllTextAsync(shortcutPath, shortcutContent);
-
-
                         // Option B: Direct Launch (Bypasses Galaxy)
                         if (!string.IsNullOrEmpty(mainExePath) && File.Exists(mainExePath))
                         {

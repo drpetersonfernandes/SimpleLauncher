@@ -1,4 +1,8 @@
 using SimpleLauncher.Models;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.Favorites;
+using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
@@ -42,17 +46,17 @@ public class RightClickContextTests
     }
 
     [Fact]
-    public void ButtonPropertyIsMutable()
+    public void ConstructorSetsFavoritesManager()
     {
         var context = CreateContext();
-        Assert.Null(context.Button);
+        Assert.NotNull(context.FavoritesManager);
     }
 
     [Fact]
-    public void ConstructorWithNullOptionalParametersDoesNotThrow()
+    public void ConstructorSetsSettings()
     {
-        var exception = Record.Exception(static () => CreateContext());
-        Assert.Null(exception);
+        var context = CreateContext();
+        Assert.NotNull(context.Settings);
     }
 
     private static RightClickContext CreateContext(
@@ -62,13 +66,21 @@ public class RightClickContextTests
         string selectedSystemName = "NES",
         List<Services.MameManager.MameManager>? machines = null)
     {
+        var configuration = new Microsoft.Extensions.Configuration.ConfigurationBuilder().Build();
+        var logErrors = new NoOpLogErrors();
+        var credentialProtector = new NoOpCredentialProtector();
+        var settings = new SettingsManager(configuration, logErrors, credentialProtector);
+        var favoritesManager = new FavoritesManager();
+
         return new RightClickContext(
             filePath,
             fileNameWithExtension,
             fileNameWithoutExtension,
             selectedSystemName,
             new Services.SystemManager.SystemManager { SystemName = selectedSystemName },
-            machines,
+            machines ?? [],
+            favoritesManager,
+            settings,
             null,
             null,
             null,
@@ -76,7 +88,21 @@ public class RightClickContextTests
             null,
             null,
             null,
-            null,
-            null);
+            loadingStateProvider: new NoOpLoadingState());
+    }
+
+    private sealed class NoOpLogErrors : ILogErrors
+    {
+        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
+        {
+            return Task.CompletedTask;
+        }
+    }
+
+    private sealed class NoOpLoadingState : SimpleLauncher.Services.LoadingInterface.ILoadingState
+    {
+        public void SetLoadingState(bool isLoading, string? message = null)
+        {
+        }
     }
 }

@@ -1,0 +1,274 @@
+@startuml 01-Core-Architecture
+
+title Simple Launcher — Core Architecture
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 30
+skinparam padding 3
+skinparam defaultFontSize 11
+
+' =============================================
+' APPLICATION CORE
+' =============================================
+package "Application Core" #D6EAF8 {
+    class App <<Application>> {
+        +{static} ServiceProvider : IServiceProvider
+        +OnStartup(e : StartupEventArgs) : void
+        +OnExit(e : ExitEventArgs) : void
+    }
+}
+
+' =============================================
+' HOST INTERFACES (implemented by MainWindow)
+' =============================================
+package "Host Interfaces" #F2F3F4 {
+    interface IUiOrchestratorHost {
+        +Scroller : ScrollViewer
+        +GameFileGrid : WrapPanel
+        +PreviewImage : Image
+        +LoadingOverlay : Grid
+    }
+    interface IGameFileLoadingHost {
+        +DisplayGamesAsync()
+    }
+    interface ISystemSelectionHost {
+        +DisplaySystemSelectionScreenAsync()
+    }
+    interface IGameItemRenderHost {
+        +RenderGameItems()
+    }
+    interface IMenuActionHost {
+        +CurrentCancellationToken : CancellationToken
+        +SystemManagers : List<SystemManager>
+    }
+    interface IMenuCheckMarkHost {
+        +UpdateCheckMarks()
+    }
+    interface IUiResetHost {
+        +ResetUIState()
+    }
+    interface IStatusBarHost {
+        +StatusLabel : Label
+    }
+    interface IThemeMenuHost {
+        +ApplyTheme()
+    }
+    interface ILanguageMenuHost {
+        +ApplyLanguage()
+    }
+    interface ILoadingState {
+        +ShowLoading()
+        +HideLoading()
+    }
+    interface IStartupInitializationHost {
+        +InitializeStartupAsync()
+    }
+}
+
+' =============================================
+' MAIN WINDOW
+' =============================================
+package "Main Window" #E8F4FD {
+    class MainWindow <<Window>> {
+        -_settingsManager : SettingsManager
+        -_playHistoryManager : PlayHistoryManager
+        -_systemManagers : List<SystemManager>
+        +DataContext : object
+        +Initialize()
+        +DisplayGamesAsync()
+    }
+}
+
+' =============================================
+' ORCHESTRATORS
+' =============================================
+package "Orchestrators" #D5F5E3 {
+    class UiOrchestrator <<Singleton>> {
+        -_loadingOverlay : LoadingOverlayService
+        -_gameListUi : GameListUiService
+        -_pagination : IPaginationService
+        -_settings : SettingsManager
+        +Initialize(host : IUiOrchestratorHost)
+        +UpdateUIState()
+    }
+
+    class GameBrowserService <<Singleton>> {
+        -_fileLoading : IGameFileLoadingOrchestrator
+        -_systemSelection : ISystemSelectionOrchestrator
+        -_itemRender : IGameItemRenderService
+        -_cache : IGameCacheService
+        -_scanner : GameScannerService
+        +Initialize()
+        +DisplaySystemSelectionScreenAsync()
+        +LoadGameFilesAsync()
+    }
+
+    class MenuOrchestrator <<Singleton>> {
+        -_actionHandler : MenuActionHandler
+        -_checkMark : MenuCheckMarkService
+        -_theme : ThemeMenuService
+        -_language : LanguageMenuService
+        +Initialize()
+        +HandleMenuAction()
+    }
+
+    class ApplicationLifecycleService <<Singleton>> {
+        -_updateChecker : UpdateCheckerService
+        -_usageStats : UsageStatsService
+        -_startupInit : StartupInitializationService
+        +InitializeStartupAsync()
+        +SilentCheckForUpdatesAsync()
+    }
+
+    class SystemSelectionOrchestrator {
+        +Initialize(host : ISystemSelectionHost)
+        +DisplaySystemSelectionScreenAsync()
+    }
+
+    class GameFileLoadingOrchestrator {
+        +Initialize(host : IGameFileLoadingHost)
+        +LoadGameFilesAsync(system : SystemManager)
+    }
+}
+
+' =============================================
+' MANAGERS
+' =============================================
+package "Managers" #D4EFDF {
+    class SettingsManager <<Singleton>> {
+        +Load()
+        +Save()
+        +GetEmulatorSettings(emulator : string)
+    }
+
+    class SystemManager {
+        +SystemName : string
+        +SystemFolder : string
+        +Emulators : List<Emulator>
+    }
+
+    class FavoritesManager <<Singleton>> {
+        +LoadFavorites()
+        +SaveFavorites()
+        +AddFavorite(fav : Favorite)
+    }
+
+    class PlayHistoryManager <<Singleton>> {
+        +LoadPlayHistory()
+        +SavePlayHistory()
+        +AddPlayHistoryItem(item : PlayHistoryItem)
+    }
+}
+
+' =============================================
+' KEY SERVICE INTERFACES
+' =============================================
+package "Service Interfaces" #FEF9E7 {
+    interface ILauncherService {
+        +HandleButtonClickAsync()
+    }
+    interface ISystemManager {
+        +SystemName : string
+        +SystemFolder : string
+    }
+    interface IGameBrowserService {
+        +Initialize()
+        +DisplaySystemSelectionScreenAsync()
+    }
+    interface IUiOrchestrator {
+        +Initialize(host : IUiOrchestratorHost)
+    }
+    interface IMenuOrchestrator {
+        +Initialize()
+    }
+    interface IApplicationLifecycleService {
+        +InitializeStartupAsync()
+    }
+    interface ILogErrors {
+        +LogExceptionAsync(ex : Exception, context : string)
+    }
+    interface IUpdateStatusBar {
+        +UpdateStatus(text : string)
+    }
+    interface IUiResetService {
+        +ResetFilters()
+    }
+    interface ISystemConfigurationService {
+        +LoadSystemsAsync() : List<SystemManager>
+    }
+    interface IAudioInputService {
+        +StartGamePad()
+        +StopGamePad()
+    }
+    interface ILaunchTools {
+        +LaunchExternalTool(toolName : string)
+    }
+}
+
+' =============================================
+' RELATIONSHIPS
+' =============================================
+
+' App creates MainWindow
+App ..> MainWindow : creates
+App ..> SettingsManager : resolves
+App ..> PlayHistoryManager : resolves
+
+' MainWindow aggregates services via DI
+MainWindow o-- SettingsManager : injects
+MainWindow o-- PlayHistoryManager : injects
+MainWindow o-- ILaunchTools : injects
+MainWindow o-- ILogErrors : injects
+MainWindow o-- IUpdateStatusBar : injects
+MainWindow o-- IUiResetService : injects
+MainWindow o-- ISystemConfigurationService : injects
+MainWindow o-- IUiOrchestrator : injects
+MainWindow o-- IGameBrowserService : injects
+MainWindow o-- IMenuOrchestrator : injects
+MainWindow o-- IApplicationLifecycleService : injects
+MainWindow o-- IAudioInputService : injects
+
+' MainWindow implements host interfaces
+MainWindow ..|> IUiOrchestratorHost
+MainWindow ..|> IGameFileLoadingHost
+MainWindow ..|> ISystemSelectionHost
+MainWindow ..|> IGameItemRenderHost
+MainWindow ..|> IMenuActionHost
+MainWindow ..|> IMenuCheckMarkHost
+MainWindow ..|> IUiResetHost
+MainWindow ..|> IStatusBarHost
+MainWindow ..|> IThemeMenuHost
+MainWindow ..|> ILanguageMenuHost
+MainWindow ..|> ILoadingState
+MainWindow ..|> IStartupInitializationHost
+
+' Orchestrators
+MainWindow ..> UiOrchestrator : delegates
+MainWindow ..> GameBrowserService : delegates
+MainWindow ..> MenuOrchestrator : delegates
+MainWindow ..> ApplicationLifecycleService : delegates
+
+UiOrchestrator ..|> IUiOrchestrator
+GameBrowserService ..|> IGameBrowserService
+MenuOrchestrator ..|> IMenuOrchestrator
+ApplicationLifecycleService ..|> IApplicationLifecycleService
+
+' Orchestrator dependencies
+UiOrchestrator o-- SettingsManager
+GameBrowserService o-- SystemSelectionOrchestrator
+GameBrowserService o-- GameFileLoadingOrchestrator
+MenuOrchestrator o-- MenuActionHandler
+MenuOrchestrator o-- ThemeMenuService
+MenuOrchestrator o-- LanguageMenuService
+ApplicationLifecycleService o-- UpdateCheckerService
+ApplicationLifecycleService o-- StartupInitializationService
+
+' Manager compositions
+SettingsManager *-- "21" EmulatorSettings : owns
+SystemManager *-- "many" Emulator : owns
+FavoritesManager *-- "many" Favorite : owns
+PlayHistoryManager *-- "many" PlayHistoryItem : owns
+
+@enduml

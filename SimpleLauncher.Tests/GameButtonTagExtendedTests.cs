@@ -13,10 +13,10 @@ public class GameButtonTagExtendedTests
     }
 
     [Fact]
-    public void GameButtonTagDefaultKeyIsNull()
+    public void GameButtonTagDefaultKeyIsEmpty()
     {
         var tag = new GameButtonTag();
-        Assert.Null(tag.Key);
+        Assert.Equal("", tag.Key);
     }
 
     [Fact]

@@ -1,0 +1,1107 @@
+@startuml SimpleLauncher Architecture
+
+title Simple Launcher — Software Architecture Map
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam nodesep 60
+skinparam ranksep 40
+skinparam padding 3
+skinparam defaultFontSize 11
+
+' =============================================
+' COLOR DEFINITIONS
+' =============================================
+package "Application Core" <<Rectangle>> #D6EAF8 {
+}
+package "UI (Windows & Pages)" <<Rectangle>> #E8F4FD {
+}
+package "Orchestrators" <<Rectangle>> #D5F5E3 {
+}
+package "Services" <<Rectangle>> #FEF9E7 {
+}
+package "Managers" <<Rectangle>> #D4EFDF {
+}
+package "Models" <<Rectangle>> #FDEBD0 {
+}
+package "ViewModels" <<Rectangle>> #F5EEF8 {
+}
+package "Interfaces" <<Rectangle>> #F2F3F4 {
+}
+package "WPF Platform" <<Rectangle>> #FADBD8 {
+}
+package "Launch Pipeline" <<Rectangle>> #FADBD8 {
+}
+
+' =============================================
+' APPLICATION CORE
+' =============================================
+package "Application Core" #D6EAF8 {
+    class App <<Application>> {
+        +{static} ServiceProvider : IServiceProvider
+        +OnStartup(e : StartupEventArgs) : void
+        +OnExit(e : ExitEventArgs) : void
+    }
+}
+
+' =============================================
+' UI LAYER
+' =============================================
+package "UI (Windows & Pages)" #E8F4FD {
+    class MainWindow <<Window>> {
+        -_settingsManager : SettingsManager
+        -_playHistoryManager : PlayHistoryManager
+        -_systemManagers : List<SystemManager>
+        +DataContext : object
+        +Initialize()
+        +DisplayGamesAsync()
+    }
+
+    class FavoritesPage <<Page>> {
+    }
+    class GlobalSearchPage <<Page>> {
+    }
+    class PlayHistoryPage <<Page>> {
+    }
+
+    class EditSystemWindow <<Window>> {
+    }
+    class EasyModeWindow <<Window>> {
+    }
+    class AboutWindow <<Window>> {
+    }
+    class DebugWindow <<Window>> {
+    }
+    class SupportWindow <<Window>> {
+    }
+    class SetLinksWindow <<Window>> {
+    }
+    class SoundConfigurationWindow <<Window>> {
+    }
+    class ImageViewerWindow <<Window>> {
+    }
+    class RomHistoryWindow <<Window>> {
+    }
+    class GlobalStatsWindow <<Window>> {
+    }
+    class SystemSelectionWindow <<Window>> {
+    }
+    class DownloadImagePackWindow <<Window>> {
+    }
+    class RetroAchievementsWindow <<Window>> {
+    }
+    class RetroAchievementsSettingsWindow <<Window>> {
+    }
+    class RetroAchievementsForAGameWindow <<Window>> {
+    }
+    class SetFuzzyMatchingWindow <<Window>> {
+    }
+    class SetGamepadDeadZoneWindow <<Window>> {
+    }
+    class FlashOverlayWindow <<Window>> {
+    }
+    class UpdateHistoryWindow <<Window>> {
+    }
+    class UpdateLogWindow <<Window>> {
+    }
+    class DosBoxFileSelectionWindow <<Window>> {
+    }
+    class WindowSelectionDialogWindow <<Window>> {
+    }
+
+    package "Inject Config Windows (21)" <<Frame>> #F0F0F0 {
+        class InjectAresConfigWindow <<Window>> {
+        }
+        class InjectDuckStationConfigWindow <<Window>> {
+        }
+        class InjectRetroArchConfigWindow <<Window>> {
+        }
+        class InjectPCSX2ConfigWindow <<Window>> {
+        }
+        class InjectDolphinConfigWindow <<Window>> {
+        }
+        class InjectRPCS3ConfigWindow <<Window>> {
+        }
+        class InjectXeniaConfigWindow <<Window>> {
+        }
+        class "...14 more" <<note>> {
+        }
+    }
+}
+
+' =============================================
+' HOST INTERFACES (implemented by MainWindow)
+' =============================================
+package "Interfaces" #F2F3F4 {
+    interface IUiOrchestratorHost {
+        +Scroller : ScrollViewer
+        +GameFileGrid : WrapPanel
+        +PreviewImage : Image
+        +LoadingOverlay : Grid
+    }
+    interface IGameFileLoadingHost {
+        +DisplayGamesAsync()
+    }
+    interface ISystemSelectionHost {
+        +DisplaySystemSelectionScreenAsync()
+    }
+    interface IGameItemRenderHost {
+        +RenderGameItems()
+    }
+    interface IMenuActionHost {
+        +CurrentCancellationToken : CancellationToken
+        +SystemManagers : List<SystemManager>
+    }
+    interface IMenuCheckMarkHost {
+        +UpdateCheckMarks()
+    }
+    interface IUiResetHost {
+        +ResetUIState()
+    }
+    interface IStatusBarHost {
+        +StatusLabel : Label
+    }
+    interface IThemeMenuHost {
+        +ApplyTheme()
+    }
+    interface ILanguageMenuHost {
+        +ApplyLanguage()
+    }
+    interface ILoadingState {
+        +ShowLoading()
+        +HideLoading()
+    }
+    interface IStartupInitializationHost {
+        +InitializeStartupAsync()
+    }
+    interface IWindowContext {
+        +GetWindowHandle() : IntPtr
+    }
+    interface ILauncherService {
+        +HandleButtonClickAsync()
+    }
+    interface ILaunchStrategy {
+        +Priority : int
+        +CanLaunch(context : LaunchContext) : bool
+        +LaunchAsync(context : LaunchContext) : Task
+    }
+    interface IEmulatorConfigHandler {
+        +CanHandle(emulator : Emulator) : bool
+        +HandleAsync(context : LaunchContext) : Task
+    }
+    interface ISystemManager {
+        +SystemName : string
+        +SystemFolder : string
+        +SystemImageFolder : string
+        +FileFormatsToSearch : List<string>
+    }
+    interface IEmulator {
+        +EmulatorName : string
+        +EmulatorLocation : string
+        +EmulatorParameters : string
+    }
+    interface IGameBrowserService {
+        +Initialize()
+        +DisplaySystemSelectionScreenAsync()
+        +LoadGameFilesAsync()
+    }
+    interface IUiOrchestrator {
+        +Initialize(host : IUiOrchestratorHost)
+        +UpdateUIState()
+    }
+    interface IMenuOrchestrator {
+        +Initialize()
+        +HandleMenuAction()
+    }
+    interface IApplicationLifecycleService {
+        +InitializeStartupAsync()
+        +SilentCheckForUpdatesAsync()
+    }
+    interface IAudioInputService {
+        +StartGamePad()
+        +StopGamePad()
+    }
+    interface ILogErrors {
+        +LogExceptionAsync(ex : Exception, context : string)
+    }
+    interface IUpdateStatusBar {
+        +Initialize(host : IStatusBarHost)
+        +UpdateStatus(text : string)
+    }
+    interface IUiResetService {
+        +Initialize(host : IUiResetHost)
+        +ResetFilters()
+    }
+    interface ISystemConfigurationService {
+        +LoadSystemsAsync() : List<SystemManager>
+        +SaveSystemAsync(system : SystemManager)
+    }
+    interface IMessageDialogService {
+        +ShowMessageAsync(message : string, title : string)
+    }
+    interface IResourceProvider {
+        +GetString(key : string) : string
+    }
+    interface IDispatcherService {
+        +InvokeAsync(action : Action)
+    }
+    interface IFilePickerService {
+        +PickFileAsync(filter : string) : string
+        +PickFolderAsync() : string
+    }
+    interface IApplicationLifetime {
+        +Shutdown()
+        +Restart()
+    }
+    interface IImageLoader {
+        +LoadImageAsync(path : string) : BitmapImage
+    }
+    interface ICredentialProtector {
+        +Protect(data : string) : string
+        +Unprotect(protectedData : string) : string
+    }
+    interface IPaginationService {
+        +GetPage<T>(items : List<T>, page : int, pageSize : int) : List<T>
+    }
+    interface IGameCacheService {
+        +GetCachedFiles() : List<string>
+        +CacheFiles(files : List<string>)
+    }
+    interface IGameFilterService {
+        +FilterGames(files : List<string>, filters : List<string>) : List<string>
+    }
+    interface IFindCoverImageService {
+        +FindCoverImageAsync(systemName : string, fileName : string) : string
+    }
+    interface IMameDataService {
+        +GetMachineDescription(romName : string) : string
+    }
+    interface ISearchOrchestratorService {
+        +SearchAsync(query : string) : List<SearchResult>
+    }
+    interface ISystemImageResolverService {
+        +GetSystemImage(systemName : string) : string
+    }
+    interface IGameItemRenderService {
+        +RenderGameItems(items : List<GameListViewItem>)
+    }
+    interface IExtractionService {
+        +ExtractAsync(filePath : string, outputDir : string) : Task
+    }
+    interface IMountZipFiles {
+        +MountAsync(zipPath : string) : Task<string>
+    }
+    interface IMountChdFiles {
+        +MountAsync(chdPath : string) : Task<string>
+    }
+    interface IMountIsoFiles {
+        +MountAsync(isoPath : string) : Task<string>
+    }
+    interface IMountXisoFiles {
+        +MountAsync(xisoPath : string) : Task<string>
+    }
+    interface IMessageBoxLibraryService {
+        +ShowAsync(messageKey : string, title : string) : Task
+    }
+    interface IGamePadController {
+        +Start()
+        +Stop()
+        +ButtonPressed : event
+    }
+    interface IPlaySoundEffects {
+        +PlayClickSound()
+        +PlayNavigationSound()
+    }
+    interface IWindowsVersionService {
+        +GetWindowsVersion() : Version
+    }
+    interface IDirectoryValidationService {
+        +IsDirectoryWritable(path : string) : bool
+    }
+    interface IFileLockService {
+        +IsFileLocked(path : string) : bool
+    }
+    interface IInputSanitizerService {
+        +Sanitize(input : string) : string
+    }
+    interface IBugReportFormatter {
+        +FormatReport(ex : Exception) : string
+    }
+    interface IFileFinderService {
+        +FindFile(searchPath : string, pattern : string) : string
+    }
+    interface IFormatFileSizeService {
+        +FormatSize(bytes : long) : string
+    }
+    interface IHelpUserService {
+        +GetHelpText(systemName : string) : string
+    }
+    interface IDebugLogger {
+        +Log(message : string, level : LogLevel)
+    }
+    interface ISystemSelectionOrchestrator {
+        +Initialize(host : ISystemSelectionHost)
+        +DisplaySystemSelectionScreenAsync()
+    }
+    interface IGameFileLoadingOrchestrator {
+        +Initialize(host : IGameFileLoadingHost)
+        +LoadGameFilesAsync(system : SystemManager)
+    }
+    interface ILaunchTools {
+        +LaunchExternalTool(toolName : string)
+    }
+}
+
+' =============================================
+' ORCHESTRATORS
+' =============================================
+package "Orchestrators" #D5F5E3 {
+    class UiOrchestrator <<Singleton>> {
+        -_loadingOverlay : LoadingOverlayService
+        -_gameListUi : GameListUiService
+        -_pagination : IPaginationService
+        -_uiReset : IUiResetService
+        -_statusBar : IUpdateStatusBar
+        -_sound : PlaySoundEffects
+        -_settings : SettingsManager
+        +Initialize(host : IUiOrchestratorHost)
+        +UpdateUIState()
+    }
+
+    class GameBrowserService <<Singleton>> {
+        -_fileLoading : IGameFileLoadingOrchestrator
+        -_systemSelection : ISystemSelectionOrchestrator
+        -_itemRender : IGameItemRenderService
+        -_cache : IGameCacheService
+        -_mameData : IMameDataService
+        -_scanner : GameScannerService
+        -_search : ISearchOrchestratorService
+        +Initialize()
+        +DisplaySystemSelectionScreenAsync()
+        +LoadGameFilesAsync()
+    }
+
+    class MenuOrchestrator <<Singleton>> {
+        -_actionHandler : MenuActionHandler
+        -_checkMark : MenuCheckMarkService
+        -_theme : ThemeMenuService
+        -_language : LanguageMenuService
+        +Initialize()
+        +HandleMenuAction()
+    }
+
+    class ApplicationLifecycleService <<Singleton>> {
+        -_updateChecker : UpdateCheckerService
+        -_usageStats : UsageStatsService
+        -_startupInit : StartupInitializationService
+        +InitializeStartupAsync()
+        +SilentCheckForUpdatesAsync()
+    }
+
+    class SystemSelectionOrchestrator {
+        +Initialize(host : ISystemSelectionHost)
+        +DisplaySystemSelectionScreenAsync()
+    }
+
+    class GameFileLoadingOrchestrator {
+        +Initialize(host : IGameFileLoadingHost)
+        +LoadGameFilesAsync(system : SystemManager)
+    }
+
+    class SearchOrchestratorService {
+        +SearchAsync(query : string) : List<SearchResult>
+    }
+}
+
+' =============================================
+' MANAGERS
+' =============================================
+package "Managers" #D4EFDF {
+    class SettingsManager <<Singleton>> {
+        -_emulatorSettings : Dictionary<string, EmulatorSettings>
+        -_playTimes : List<SystemPlayTime>
+        +Load()
+        +Save()
+        +GetEmulatorSettings(emulator : string) : EmulatorSettings
+    }
+
+    class SystemManager {
+        +SystemName : string
+        +SystemFolder : string
+        +SystemImageFolder : string
+        +FileFormatsToSearch : List<string>
+        +ExtractFileBeforeLaunch : bool
+        +FileFormatsToLaunch : List<string>
+        +Emulators : List<Emulator>
+    }
+
+    class Emulator {
+        +EmulatorName : string
+        +EmulatorLocation : string
+        +EmulatorParameters : string
+        +ConfigHandler : string
+    }
+
+    class FavoritesManager <<Singleton>> {
+        -_favorites : ObservableCollection<Favorite>
+        +LoadFavorites()
+        +SaveFavorites()
+        +AddFavorite(fav : Favorite)
+        +RemoveFavorite(fav : Favorite)
+    }
+
+    class PlayHistoryManager <<Singleton>> {
+        -_history : ObservableCollection<PlayHistoryItem>
+        +LoadPlayHistory()
+        +SavePlayHistory()
+        +AddPlayHistoryItem(item : PlayHistoryItem)
+        +GetPlayHistory() : List<PlayHistoryItem>
+    }
+
+    class MameManager {
+        +Machines : List<MameMachine>
+        +GetMachineDescription(romName : string) : string
+    }
+
+    class EasyModeManager {
+        +GetSystemConfigs() : List<EasyModeSystemConfig>
+        +DownloadEmulator(config : EasyModeSystemConfig)
+    }
+
+    class GameScannerService {
+        +ScanForInstalledGames() : List<InstalledGame>
+        +ScanSteamGames() : List<InstalledGame>
+        +ScanEpicGames() : List<InstalledGame>
+        +ScanGogGames() : List<InstalledGame>
+    }
+}
+
+' =============================================
+' MODELS
+' =============================================
+package "Models" #FDEBD0 {
+    class Favorite {
+        +FileName : string
+        +SystemName : string
+        +MachineDescription : string
+        +CoverImage : string
+        +DefaultEmulator : string
+    }
+
+    class PlayHistoryItem {
+        +FileName : string
+        +SystemName : string
+        +TotalPlayTime : TimeSpan
+        +TimesPlayed : int
+        +LastPlayDate : DateTime
+        +MachineDescription : string
+        +CoverImage : string
+        +DefaultEmulator : string
+    }
+
+    class EasyModeSystemConfig {
+        +SystemName : string
+        +SystemFolder : string
+        +SystemImageFolder : string
+        +FileFormatsToSearch : List<string>
+        +ExtractFileBeforeLaunch : bool
+        +FileFormatsToLaunch : List<string>
+        +Emulators : List<EmulatorConfig>
+    }
+
+    class LaunchContext {
+        +FilePath : string
+        +ResolvedFilePath : string
+        +EmulatorName : string
+        +SystemName : string
+        +SystemManager : ISystemManager
+        +EmulatorManager : Emulator
+        +Parameters : string
+        +Settings : SettingsManager
+        +WindowContext : IWindowContext
+        +LoadingState : ILoadingState
+    }
+
+    class GameListViewItem {
+        +DisplayName : string
+        +FilePath : string
+        +CoverImagePath : string
+        +IsFavorite : bool
+    }
+
+    class SystemPlayTime {
+        +SystemName : string
+        +PlayTimeSeconds : long
+    }
+
+    class GameButtonTag {
+        +FileName : string
+        +SystemName : string
+    }
+
+    class RightClickContext {
+        +FilePath : string
+        +SystemName : string
+        +EmulatorName : string
+    }
+
+    class DownloadProgressEventArgs {
+        +BytesReceived : long
+        +TotalBytes : long
+        +ProgressPercentage : double
+    }
+
+    class DosBoxFileItem {
+        +FileName : string
+        +FilePath : string
+    }
+
+    class ParameterResolverResult {
+        +ResolvedParameters : string
+        +ResolvedPath : string
+    }
+}
+
+' =============================================
+' VIEWMODELS
+' =============================================
+package "ViewModels" #F5EEF8 {
+    class FavoritesViewModel {
+        -_favoritesManager : FavoritesManager
+        -_settings : SettingsManager
+        -_systemManagers : List<SystemManager>
+        -_coverImageService : IFindCoverImageService
+        -_imageLoader : IImageLoader
+        -_sound : PlaySoundEffects
+    }
+
+    class PlayHistoryViewModel {
+        -_historyManager : PlayHistoryManager
+        -_settings : SettingsManager
+        -_systemManagers : List<SystemManager>
+        -_coverImageService : IFindCoverImageService
+        -_imageLoader : IImageLoader
+    }
+
+    class GlobalSearchViewModel {
+        -_searchService : ISearchOrchestratorService
+        -_settings : SettingsManager
+    }
+
+    class GameButtonViewModel {
+        +FileName : string
+        +CoverImagePath : string
+        +IsFavorite : bool
+        +ToggleFavoriteCommand : ICommand
+    }
+
+    class AboutViewModel {
+    }
+    class DebugViewModel {
+    }
+    class SupportViewModel {
+    }
+    class GlobalStatsViewModel {
+    }
+    class SetFuzzyMatchingViewModel {
+    }
+    class SetGamepadDeadZoneViewModel {
+    }
+    class SetLinksViewModel {
+    }
+    class SoundConfigurationViewModel {
+    }
+    class ImageViewerViewModel {
+    }
+    class DownloadImagePackViewModel {
+    }
+    class FlashOverlayViewModel {
+    }
+    class RetroAchievementsViewModel {
+    }
+    class RomHistoryViewModel {
+    }
+    class SystemSelectionViewModel {
+    }
+
+    package "Inject Config VMs (21)" <<Frame>> #F0F0F0 {
+        class InjectAresConfigViewModel {
+        }
+        class InjectDuckStationConfigViewModel {
+        }
+        class InjectRetroArchConfigViewModel {
+        }
+        class InjectPCSX2ConfigViewModel {
+        }
+        class "...17 more" <<note>> {
+        }
+    }
+}
+
+' =============================================
+' LAUNCH PIPELINE (Strategy + Handler Pattern)
+' =============================================
+package "Launch Pipeline" #FADBD8 {
+    class GameLauncher <<Singleton>> {
+        -_strategies : IEnumerable<ILaunchStrategy>
+        -_handlers : IEnumerable<IEmulatorConfigHandler>
+        -_extraction : IExtractionService
+        -_mountZip : IMountZipFiles
+        -_history : PlayHistoryManager
+        -_statusBar : IUpdateStatusBar
+        -_errors : ILogErrors
+        +HandleButtonClickAsync(context : LaunchContext)
+    }
+
+    package "Launch Strategies (8)" <<Frame>> #FFF3E0 {
+        class DefaultLaunchStrategy {
+        }
+        class ChdMountStrategy {
+        }
+        class ChdToCueStrategy {
+        }
+        class ZipMountStrategy {
+        }
+        class XisoMountStrategy {
+        }
+        class PbpToCueStrategy {
+        }
+        class DosBoxLaunchStrategy {
+        }
+        class CommanderGeniusLaunchStrategy {
+        }
+    }
+
+    package "Emulator Config Handlers (21)" <<Frame>> #FFF3E0 {
+        class AresConfigHandler {
+        }
+        class AzaharConfigHandler {
+        }
+        class BlastemConfigHandler {
+        }
+        class CemuConfigHandler {
+        }
+        class DaphneConfigHandler {
+        }
+        class DolphinConfigHandler {
+        }
+        class DuckStationConfigHandler {
+        }
+        class FlycastConfigHandler {
+        }
+        class MameConfigHandler {
+        }
+        class MednafenConfigHandler {
+        }
+        class MesenConfigHandler {
+        }
+        class Pcsx2ConfigHandler {
+        }
+        class RaineConfigHandler {
+        }
+        class RedreamConfigHandler {
+        }
+        class RetroArchConfigHandler {
+        }
+        class Rpcs3ConfigHandler {
+        }
+        class SegaModel2ConfigHandler {
+        }
+        class StellaConfigHandler {
+        }
+        class SupermodelConfigHandler {
+        }
+        class XeniaConfigHandler {
+        }
+        class YumirConfigHandler {
+        }
+    }
+
+    package "Mount Services (4)" <<Frame>> #FFF3E0 {
+        class MountZipFiles {
+        }
+        class MountChdFiles {
+        }
+        class MountIsoFiles {
+        }
+        class MountXisoFiles {
+        }
+    }
+
+    package "Converters (4)" <<Frame>> #FFF3E0 {
+        class ChdToIsoConverter {
+        }
+        class ChdToCueBinConverter {
+        }
+        class PbpToCueBinConverter {
+        }
+        class DiscImageToIsoConverter {
+        }
+    }
+}
+
+' =============================================
+' CROSS-CUTTING SERVICES
+' =============================================
+package "Services" #FEF9E7 {
+    class LogErrorsService {
+        +LogExceptionAsync(ex : Exception, context : string)
+    }
+    class MessageBoxLibraryService {
+        +ShowAsync(messageKey : string, title : string)
+    }
+    class UpdateCheckerService {
+        +CheckForUpdatesAsync() : UpdateInfo
+    }
+    class UsageStatsService {
+        +ReportUsageAsync()
+    }
+    class DownloadManager {
+        +DownloadFileAsync(url : string, dest : string)
+    }
+    class FormatFileSizeService {
+        +FormatSize(bytes : long) : string
+    }
+    class PathHelper {
+        +{static} ValidatePath(path : string) : bool
+    }
+    class InputSanitizerService {
+        +Sanitize(input : string) : string
+    }
+    class BugReportFormatterService {
+        +FormatReport(ex : Exception) : string
+    }
+    class FindCoverImageService {
+        +FindCoverImageAsync(systemName : string, fileName : string) : string
+    }
+    class GetListOfFilesService {
+        +GetFiles(folder : string, extensions : List<string>) : List<string>
+    }
+    class GameCacheService {
+        +GetCachedFiles() : List<string>
+        +CacheFiles(files : List<string>)
+    }
+    class GameFilterService {
+        +FilterGames(files : List<string>, filters : List<string>) : List<string>
+    }
+    class PaginationService {
+        +GetPage<T>(items : List<T>, page : int, pageSize : int) : List<T>
+    }
+    class MameDataService {
+        +GetMachineDescription(romName : string) : string
+    }
+    class SystemImageResolverService {
+        +GetSystemImage(systemName : string) : string
+    }
+    class GameItemRenderService {
+        +RenderGameItems(items : List<GameListViewItem>)
+    }
+    class PlaySoundEffects {
+        +PlayClickSound()
+        +PlayNavigationSound()
+    }
+    class GamePadController {
+        +Start()
+        +Stop()
+    }
+    class AudioInputService {
+        +StartGamePad()
+        +StopGamePad()
+    }
+    class TrayIconManager {
+        +ShowTrayIcon()
+        +HideTrayIcon()
+    }
+    class ThemeMenuService {
+        +ApplyTheme(themeName : string)
+    }
+    class LanguageMenuService {
+        +ApplyLanguage(langCode : string)
+    }
+    class MenuActionHandler {
+        +HandleAction(action : string)
+    }
+    class MenuCheckMarkService {
+        +UpdateCheckMarks()
+    }
+    class LoadingOverlayService {
+        +Show()
+        +Hide()
+    }
+    class GameListUiService {
+        +UpdateGameList(items : List<GameListViewItem>)
+    }
+    class UiResetService {
+        +ResetFilters()
+    }
+    class UpdateStatusBarService {
+        +UpdateStatus(text : string)
+    }
+    class StartupInitializationService {
+        +InitializeAsync()
+    }
+    class GameFileWatcherService {
+        +StartWatching(path : string)
+        +StopWatching()
+    }
+    class RetroAchievementsService {
+        +GetUserProgress(username : string) : UserProgress
+        +GetGameAchievements(gameId : int) : List<Achievement>
+    }
+    class RetroAchievementsHasherTool {
+        +HashRomAsync(romPath : string, systemId : int) : string
+    }
+    class RetroAchievementsSystemMatcher {
+        +MatchSystem(systemId : int) : string
+    }
+    class WindowsVersionService {
+        +GetWindowsVersion() : Version
+    }
+    class DirectoryValidationService {
+        +IsDirectoryWritable(path : string) : bool
+    }
+    class FileLockService {
+        +IsFileLocked(path : string) : bool
+    }
+    class ExtractionService {
+        +ExtractAsync(filePath : string, outputDir : string) : Task
+    }
+    class HelpUserService {
+        +GetHelpText(systemName : string) : string
+    }
+}
+
+' =============================================
+' WPF PLATFORM IMPLEMENTATIONS
+' =============================================
+package "WPF Platform" #FADBD8 {
+    class WpfMessageDialogService {
+    }
+    class WpfResourceProvider {
+    }
+    class WpfDispatcherService {
+    }
+    class WpfFilePickerService {
+    }
+    class WpfApplicationLifetime {
+    }
+    class WpfImageLoader {
+    }
+    class WindowsCredentialProtector {
+    }
+    class WpfWindowContext {
+    }
+}
+
+' =============================================
+' RELATIONSHIPS
+' =============================================
+
+' --- App creates MainWindow ---
+App ..> MainWindow : creates
+App ..> SettingsManager : resolves
+App ..> PlayHistoryManager : resolves
+
+' --- MainWindow aggregates services via DI ---
+MainWindow o-- SettingsManager : injects
+MainWindow o-- PlayHistoryManager : injects
+MainWindow o-- ILaunchTools : injects
+MainWindow o-- ILogErrors : injects
+MainWindow o-- IUpdateStatusBar : injects
+MainWindow o-- IUiResetService : injects
+MainWindow o-- ISystemConfigurationService : injects
+MainWindow o-- IUiOrchestrator : injects
+MainWindow o-- IGameBrowserService : injects
+MainWindow o-- IMenuOrchestrator : injects
+MainWindow o-- IApplicationLifecycleService : injects
+MainWindow o-- IAudioInputService : injects
+
+' --- MainWindow implements host interfaces ---
+MainWindow ..|> IUiOrchestratorHost
+MainWindow ..|> IGameFileLoadingHost
+MainWindow ..|> ISystemSelectionHost
+MainWindow ..|> IGameItemRenderHost
+MainWindow ..|> IMenuActionHost
+MainWindow ..|> IMenuCheckMarkHost
+MainWindow ..|> IUiResetHost
+MainWindow ..|> IStatusBarHost
+MainWindow ..|> IThemeMenuHost
+MainWindow ..|> ILanguageMenuHost
+MainWindow ..|> ILoadingState
+MainWindow ..|> IStartupInitializationHost
+
+' --- MainWindow hosts Pages ---
+MainWindow o-- FavoritesPage
+MainWindow o-- GlobalSearchPage
+MainWindow o-- PlayHistoryPage
+
+' --- Orchestrators ---
+MainWindow ..> UiOrchestrator : delegates UI state
+MainWindow ..> GameBrowserService : delegates browsing
+MainWindow ..> MenuOrchestrator : delegates menus
+MainWindow ..> ApplicationLifecycleService : delegates lifecycle
+
+UiOrchestrator o-- LoadingOverlayService
+UiOrchestrator o-- GameListUiService
+UiOrchestrator o-- IPaginationService
+UiOrchestrator o-- IUiResetService
+UiOrchestrator o-- IUpdateStatusBar
+UiOrchestrator o-- PlaySoundEffects
+UiOrchestrator o-- SettingsManager
+
+GameBrowserService o-- IGameFileLoadingOrchestrator
+GameBrowserService o-- ISystemSelectionOrchestrator
+GameBrowserService o-- IGameItemRenderService
+GameBrowserService o-- IGameCacheService
+GameBrowserService o-- IMameDataService
+GameBrowserService o-- GameScannerService
+GameBrowserService o-- ISearchOrchestratorService
+
+MenuOrchestrator o-- MenuActionHandler
+MenuOrchestrator o-- MenuCheckMarkService
+MenuOrchestrator o-- ThemeMenuService
+MenuOrchestrator o-- LanguageMenuService
+
+ApplicationLifecycleService o-- UpdateCheckerService
+ApplicationLifecycleService o-- UsageStatsService
+ApplicationLifecycleService o-- StartupInitializationService
+
+' --- Manager compositions ---
+SettingsManager *-- "21" EmulatorSettings : owns
+SettingsManager *-- "many" SystemPlayTime : owns
+
+SystemManager *-- "many" Emulator : owns
+
+FavoritesManager *-- "many" Favorite : owns
+PlayHistoryManager *-- "many" PlayHistoryItem : owns
+
+' --- Launch Pipeline ---
+GameLauncher ..|> ILauncherService
+GameLauncher o-- "many" ILaunchStrategy : strategies
+GameLauncher o-- "many" IEmulatorConfigHandler : handlers
+GameLauncher o-- IExtractionService
+GameLauncher o-- IMountZipFiles
+GameLauncher o-- PlayHistoryManager
+GameLauncher o-- IUpdateStatusBar
+GameLauncher o-- ILogErrors
+
+DefaultLaunchStrategy ..|> ILaunchStrategy
+ChdMountStrategy ..|> ILaunchStrategy
+ChdToCueStrategy ..|> ILaunchStrategy
+ZipMountStrategy ..|> ILaunchStrategy
+XisoMountStrategy ..|> ILaunchStrategy
+PbpToCueStrategy ..|> ILaunchStrategy
+DosBoxLaunchStrategy ..|> ILaunchStrategy
+CommanderGeniusLaunchStrategy ..|> ILaunchStrategy
+
+AresConfigHandler ..|> IEmulatorConfigHandler
+DuckStationConfigHandler ..|> IEmulatorConfigHandler
+RetroArchConfigHandler ..|> IEmulatorConfigHandler
+Pcsx2ConfigHandler ..|> IEmulatorConfigHandler
+DolphinConfigHandler ..|> IEmulatorConfigHandler
+Rpcs3ConfigHandler ..|> IEmulatorConfigHandler
+XeniaConfigHandler ..|> IEmulatorConfigHandler
+
+MountZipFiles ..|> IMountZipFiles
+MountChdFiles ..|> IMountChdFiles
+MountIsoFiles ..|> IMountIsoFiles
+MountXisoFiles ..|> IMountXisoFiles
+
+' --- LaunchContext aggregation ---
+LaunchContext o-- ISystemManager
+LaunchContext o-- Emulator
+LaunchContext o-- SettingsManager
+LaunchContext o-- IWindowContext
+LaunchContext o-- ILoadingState
+
+' --- ViewModel dependencies ---
+FavoritesViewModel o-- FavoritesManager
+FavoritesViewModel o-- SettingsManager
+FavoritesViewModel o-- IFindCoverImageService
+FavoritesViewModel o-- IImageLoader
+FavoritesViewModel o-- PlaySoundEffects
+
+PlayHistoryViewModel o-- PlayHistoryManager
+PlayHistoryViewModel o-- SettingsManager
+PlayHistoryViewModel o-- IFindCoverImageService
+PlayHistoryViewModel o-- IImageLoader
+
+GlobalSearchViewModel o-- ISearchOrchestratorService
+GlobalSearchViewModel o-- SettingsManager
+
+GameButtonViewModel o-- IFindCoverImageService
+
+' --- WPF Platform implementations ---
+WpfMessageDialogService ..|> IMessageDialogService
+WpfResourceProvider ..|> IResourceProvider
+WpfDispatcherService ..|> IDispatcherService
+WpfFilePickerService ..|> IFilePickerService
+WpfApplicationLifetime ..|> IApplicationLifetime
+WpfImageLoader ..|> IImageLoader
+WindowsCredentialProtector ..|> ICredentialProtector
+WpfWindowContext ..|> IWindowContext
+
+' --- Pages depend on ViewModels ---
+FavoritesPage ..> FavoritesViewModel
+GlobalSearchPage ..> GlobalSearchViewModel
+PlayHistoryPage ..> PlayHistoryViewModel
+
+' --- Service implementations ---
+LogErrorsService ..|> ILogErrors
+MessageBoxLibraryService ..|> IMessageBoxLibraryService
+UpdateStatusBarService ..|> IUpdateStatusBar
+UiResetService ..|> IUiResetService
+SystemConfigurationService ..|> ISystemConfigurationService
+PaginationService ..|> IPaginationService
+GameCacheService ..|> IGameCacheService
+GameFilterService ..|> IGameFilterService
+FindCoverImageService ..|> IFindCoverImageService
+MameDataService ..|> IMameDataService
+SearchOrchestratorService ..|> ISearchOrchestratorService
+SystemImageResolverService ..|> ISystemImageResolverService
+GameItemRenderService ..|> IGameItemRenderService
+ExtractionService ..|> IExtractionService
+GamePadController ..|> IGamePadController
+PlaySoundEffects ..|> IPlaySoundEffects
+WindowsVersionService ..|> IWindowsVersionService
+DirectoryValidationService ..|> IDirectoryValidationService
+FileLockService ..|> IFileLockService
+InputSanitizerService ..|> IInputSanitizerService
+BugReportFormatterService ..|> IBugReportFormatter
+GetListOfFilesService ..|> IGetListOfFilesService
+FormatFileSizeService ..|> IFormatFileSizeService
+HelpUserService ..|> IHelpUserService
+SystemSelectionOrchestrator ..|> ISystemSelectionOrchestrator
+GameFileLoadingOrchestrator ..|> IGameFileLoadingOrchestrator
+AudioInputService ..|> IAudioInputService
+LaunchTools ..|> ILaunchTools
+
+' --- Cross-service dependencies ---
+GameLauncher ..> LaunchContext : creates
+GameLauncher ..> PlayHistoryManager : records play time
+GameLauncher ..> IUpdateStatusBar : updates status
+GameLauncher ..> ILogErrors : logs errors
+
+FavoritesManager ..> ILogErrors : logs errors
+PlayHistoryManager ..> ILogErrors : logs errors
+SettingsManager ..> ILogErrors : logs errors
+
+FindCoverImageService ..> GameCacheService : uses cache
+GameFileLoadingOrchestrator ..> GetListOfFilesService : enumerates files
+GameFileLoadingOrchestrator ..> GameFilterService : filters games
+GameFileLoadingOrchestrator ..> GameCacheService : caches results
+
+' --- Game scanning ---
+GameScannerService ..> EasyModeManager : reads configs
+EasyModeManager ..> EasyModeSystemConfig : loads
+
+' --- Inject Config Windows -> Config ViewModels ---
+InjectAresConfigWindow ..> InjectAresConfigViewModel
+InjectDuckStationConfigWindow ..> InjectDuckStationConfigViewModel
+InjectRetroArchConfigWindow ..> InjectRetroArchConfigViewModel
+InjectPCSX2ConfigWindow ..> InjectPCSX2ConfigViewModel
+InjectDolphinConfigWindow ..> InjectDolphinConfigViewModel
+InjectRPCS3ConfigWindow ..> InjectRPCS3ConfigViewModel
+InjectXeniaConfigWindow ..> InjectXeniaConfigViewModel
+
+@enduml

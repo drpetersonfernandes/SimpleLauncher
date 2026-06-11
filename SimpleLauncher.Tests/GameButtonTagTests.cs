@@ -11,7 +11,7 @@ public class GameButtonTagTests
         var tag = new GameButtonTag();
 
         Assert.False(tag.IsDefaultImage);
-        Assert.Null(tag.Key);
+        Assert.Equal("", tag.Key);
     }
 
     [Fact]

@@ -21,13 +21,13 @@ public class DosBoxFileItemTests
     }
 
     [Fact]
-    public void PropertiesDefaultToNull()
+    public void PropertiesDefaultToEmptyString()
     {
         var item = new DosBoxFileItem();
 
-        Assert.Null(item.FullPath);
-        Assert.Null(item.DisplayName);
-        Assert.Null(item.RelativePath);
+        Assert.Equal("", item.FullPath);
+        Assert.Equal("", item.DisplayName);
+        Assert.Equal("", item.RelativePath);
     }
 
     [Fact]

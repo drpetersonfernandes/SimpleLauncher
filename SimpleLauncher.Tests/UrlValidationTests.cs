@@ -176,36 +176,48 @@ public partial class UrlValidationTests
 
     private static async Task<string?> CheckUrlAsync(string url)
     {
-        try
+        const int maxRetries = 2;
+        for (var attempt = 0; attempt <= maxRetries; attempt++)
         {
-            using var headRequest = new HttpRequestMessage(HttpMethod.Head, url);
-            using var headResponse = await HttpClient.SendAsync(headRequest);
+            try
+            {
+                using var headRequest = new HttpRequestMessage(HttpMethod.Head, url);
+                using var headResponse = await HttpClient.SendAsync(headRequest);
 
-            if (headResponse.IsSuccessStatusCode)
-                return null;
+                if (headResponse.IsSuccessStatusCode)
+                    return null;
 
-            // Some servers block HEAD or return non-success codes for it.
-            // Fall back to GET (headers only) for a more accurate check.
-            using var getRequest = new HttpRequestMessage(HttpMethod.Get, url);
-            using var getResponse = await HttpClient.SendAsync(getRequest, HttpCompletionOption.ResponseHeadersRead);
-            if (getResponse.IsSuccessStatusCode)
-                return null;
+                // Some servers block HEAD or return non-success codes for it.
+                // Fall back to GET (headers only) for a more accurate check.
+                using var getRequest = new HttpRequestMessage(HttpMethod.Get, url);
+                using var getResponse = await HttpClient.SendAsync(getRequest, HttpCompletionOption.ResponseHeadersRead);
+                if (getResponse.IsSuccessStatusCode)
+                    return null;
 
-            // Many servers block automated requests with 403 but work fine in browsers.
-            // Treat 403 as acceptable for URL validation.
-            if ((int)getResponse.StatusCode == 403)
-                return null;
+                // Many servers block automated requests with 403 but work fine in browsers.
+                // Treat 403 as acceptable for URL validation.
+                if ((int)getResponse.StatusCode == 403)
+                    return null;
 
-            return $"{url} -> HTTP {(int)getResponse.StatusCode}";
+                return $"{url} -> HTTP {(int)getResponse.StatusCode}";
+            }
+            catch (TaskCanceledException)
+            {
+                if (attempt < maxRetries)
+                {
+                    await Task.Delay(2000);
+                    continue;
+                }
+
+                return $"{url} -> Timeout";
+            }
+            catch (Exception ex)
+            {
+                return $"{url} -> {ex.GetType().Name}: {ex.Message}";
+            }
         }
-        catch (TaskCanceledException)
-        {
-            return $"{url} -> Timeout";
-        }
-        catch (Exception ex)
-        {
-            return $"{url} -> {ex.GetType().Name}: {ex.Message}";
-        }
+
+        return null;
     }
 
     [GeneratedRegex(@"\((https?://[^)\s]+)\)", RegexOptions.IgnoreCase, "pt-BR")]

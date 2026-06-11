@@ -1,3 +1,4 @@
+using MessagePack;
 using SimpleLauncher.Models;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
@@ -11,7 +12,7 @@ public class PlayHistoryManagerExtendedTests : IDisposable
     public PlayHistoryManagerExtendedTests()
     {
         ServiceProviderMock.Install();
-        _testDirectory = Path.Combine(Path.GetTempPath(), $"SL_PHExtTest_{Guid.NewGuid():N}");
+        _testDirectory = Path.Combine(Path.GetTempPath(), $"SL_HistoryExtTest_{Guid.NewGuid():N}");
         Directory.CreateDirectory(_testDirectory);
     }
 
@@ -24,7 +25,7 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         }
         catch
         {
-            // ignored
+            // Best-effort cleanup
         }
 
         ServiceProviderMock.Restore();
@@ -32,15 +33,27 @@ public class PlayHistoryManagerExtendedTests : IDisposable
     }
 
     [Fact]
-    public void PlayHistoryItemDisplayNameReturnsFileName()
+    public void PlayHistoryItemDisplayNameReturnsFileNameWithoutPath()
     {
         var item = new PlayHistoryItem
         {
-            FileName = "Super Mario World",
-            SystemName = "SNES"
+            FileName = "C:\\roms\\game.zip",
+            SystemName = "NES"
         };
 
-        Assert.Equal("Super Mario World", item.DisplayName);
+        Assert.Equal("game.zip", item.DisplayName);
+    }
+
+    [Fact]
+    public void PlayHistoryItemDisplayNameHandlesJustFileName()
+    {
+        var item = new PlayHistoryItem
+        {
+            FileName = "game.zip",
+            SystemName = "NES"
+        };
+
+        Assert.Equal("game.zip", item.DisplayName);
     }
 
     [Fact]
@@ -57,20 +70,33 @@ public class PlayHistoryManagerExtendedTests : IDisposable
     }
 
     [Fact]
+    public void PlayHistoryItemFormattedPlayTimeSecondsOnly()
+    {
+        var item = new PlayHistoryItem
+        {
+            FileName = "game.zip",
+            SystemName = "NES",
+            TotalPlayTime = 45
+        };
+
+        Assert.Equal("0m 45s", item.FormattedPlayTime);
+    }
+
+    [Fact]
     public void PlayHistoryItemFormattedPlayTimeMinutesAndSeconds()
     {
         var item = new PlayHistoryItem
         {
             FileName = "game.zip",
             SystemName = "NES",
-            TotalPlayTime = 125 // 2m 5s
+            TotalPlayTime = 150 // 2m 30s
         };
 
-        Assert.Equal("2m 5s", item.FormattedPlayTime);
+        Assert.Equal("2m 30s", item.FormattedPlayTime);
     }
 
     [Fact]
-    public void PlayHistoryItemFormattedPlayTimeHours()
+    public void PlayHistoryItemFormattedPlayTimeHoursMinutesSeconds()
     {
         var item = new PlayHistoryItem
         {
@@ -96,118 +122,190 @@ public class PlayHistoryManagerExtendedTests : IDisposable
     }
 
     [Fact]
-    public void PlayHistoryItemPropertyChangedFileNameNotRaisedForSimpleSetter()
+    public void PlayHistoryManagerWithSingleItemSerializesCorrectly()
     {
-        var item = new PlayHistoryItem();
-        var raised = false;
-        item.PropertyChanged += (_, args) =>
+        var manager = new Services.PlayHistory.PlayHistoryManager
         {
-            if (args.PropertyName == nameof(PlayHistoryItem.FileName))
-            {
-                raised = true;
-            }
+            PlayHistoryList =
+            [
+                new PlayHistoryItem
+                {
+                    FileName = "game.zip",
+                    SystemName = "Arcade",
+                    TotalPlayTime = 600,
+                    TimesPlayed = 3,
+                    LastPlayDate = "2024-06-15",
+                    LastPlayTime = "20:30:00"
+                }
+            ],
+            Version = 1
         };
 
-        item.FileName = "new.zip";
-        Assert.False(raised);
+        var bytes = MessagePackSerializer.Serialize(manager);
+        var deserialized = MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(bytes);
+
+        Assert.Single(deserialized.PlayHistoryList);
+        Assert.Equal(600, deserialized.PlayHistoryList[0].TotalPlayTime);
+        Assert.Equal(3, deserialized.PlayHistoryList[0].TimesPlayed);
+        Assert.Equal("2024-06-15", deserialized.PlayHistoryList[0].LastPlayDate);
+        Assert.Equal("20:30:00", deserialized.PlayHistoryList[0].LastPlayTime);
     }
 
     [Fact]
-    public void PlayHistoryItemPropertyChangedSystemNameNotRaisedForSimpleSetter()
+    public void PlayHistoryManagerWithSpecialCharactersInFileName()
     {
-        var item = new PlayHistoryItem();
-        var raised = false;
-        item.PropertyChanged += (_, args) =>
+        var manager = new Services.PlayHistory.PlayHistoryManager
         {
-            if (args.PropertyName == nameof(PlayHistoryItem.SystemName))
-            {
-                raised = true;
-            }
+            PlayHistoryList =
+            [
+                new PlayHistoryItem { FileName = "C:\\roms\\[BIOS] Test.zip", SystemName = "PS1", TotalPlayTime = 100, TimesPlayed = 1 },
+                new PlayHistoryItem { FileName = "C:\\roms\\game (v2.0).zip", SystemName = "NES", TotalPlayTime = 200, TimesPlayed = 2 }
+            ],
+            Version = 1
         };
 
-        item.SystemName = "SNES";
-        Assert.False(raised);
+        var bytes = MessagePackSerializer.Serialize(manager);
+        var deserialized = MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(bytes);
+
+        Assert.Equal(2, deserialized.PlayHistoryList.Count);
+        Assert.Equal("C:\\roms\\[BIOS] Test.zip", deserialized.PlayHistoryList[0].FileName);
+        Assert.Equal("C:\\roms\\game (v2.0).zip", deserialized.PlayHistoryList[1].FileName);
     }
 
     [Fact]
-    public void PlayHistoryItemPropertyChangedTimesPlayedNotRaisedForSimpleSetter()
+    public void PlayHistoryManagerWithUnicodeCharacters()
     {
-        var item = new PlayHistoryItem();
-        var raised = false;
-        item.PropertyChanged += (_, args) =>
+        var manager = new Services.PlayHistory.PlayHistoryManager
         {
-            if (args.PropertyName == nameof(PlayHistoryItem.TimesPlayed))
-            {
-                raised = true;
-            }
+            PlayHistoryList =
+            [
+                new PlayHistoryItem { FileName = "C:\\roms\\ポケモン.zip", SystemName = "GBA", TotalPlayTime = 300, TimesPlayed = 5 }
+            ],
+            Version = 1
         };
 
-        item.TimesPlayed = 5;
-        Assert.False(raised);
+        var bytes = MessagePackSerializer.Serialize(manager);
+        var deserialized = MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(bytes);
+
+        Assert.Equal("C:\\roms\\ポケモン.zip", deserialized.PlayHistoryList[0].FileName);
     }
 
     [Fact]
-    public void PlayHistoryItemPropertyChangedLastPlayDateNotRaisedForSimpleSetter()
+    public void PlayHistoryManagerVersionPreservedAfterSerialization()
     {
-        var item = new PlayHistoryItem();
-        var raised = false;
-        item.PropertyChanged += (_, args) =>
+        var manager = new Services.PlayHistory.PlayHistoryManager
         {
-            if (args.PropertyName == nameof(PlayHistoryItem.LastPlayDate))
-            {
-                raised = true;
-            }
+            PlayHistoryList = [],
+            Version = 99
         };
 
-        item.LastPlayDate = "2024-01-01";
-        Assert.False(raised);
+        var bytes = MessagePackSerializer.Serialize(manager);
+        var deserialized = MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(bytes);
+
+        Assert.Equal(99, deserialized.Version);
     }
 
     [Fact]
-    public void PlayHistoryItemPropertyChangedLastPlayTimeNotRaisedForSimpleSetter()
+    public void PlayHistoryManagerLargeListSerializesCorrectly()
     {
-        var item = new PlayHistoryItem();
-        var raised = false;
-        item.PropertyChanged += (_, args) =>
-        {
-            if (args.PropertyName == nameof(PlayHistoryItem.LastPlayTime))
-            {
-                raised = true;
-            }
-        };
-
-        item.LastPlayTime = "12:00:00";
-        Assert.False(raised);
-    }
-
-    [Fact]
-    public void PlayHistoryItemDefaultValues()
-    {
-        var item = new PlayHistoryItem();
-        Assert.Equal(0, item.TotalPlayTime);
-        Assert.Equal(0, item.TimesPlayed);
-        Assert.Equal("0m 0s", item.FormattedPlayTime);
-    }
-
-    [Fact]
-    public void PlayHistoryManagerSerializesLargeList()
-    {
-        var manager = new Services.PlayHistory.PlayHistoryManager();
-        for (var i = 0; i < 100; i++)
-        {
-            manager.PlayHistoryList.Add(new PlayHistoryItem
+        var items = Enumerable.Range(1, 1000)
+            .Select(static i => new PlayHistoryItem
             {
                 FileName = $"game{i}.zip",
                 SystemName = "NES",
-                TotalPlayTime = i * 60,
-                TimesPlayed = i
-            });
-        }
+                TotalPlayTime = i * 10,
+                TimesPlayed = i,
+                LastPlayDate = "2024-01-01",
+                LastPlayTime = "12:00:00"
+            })
+            .ToList();
 
-        var bytes = MessagePack.MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePack.MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(bytes);
+        var manager = new Services.PlayHistory.PlayHistoryManager
+        {
+            PlayHistoryList = new System.Collections.ObjectModel.ObservableCollection<PlayHistoryItem>(items),
+            Version = 1
+        };
 
-        Assert.Equal(100, deserialized.PlayHistoryList.Count);
-        Assert.Equal("game50.zip", deserialized.PlayHistoryList[50].FileName);
+        var bytes = MessagePackSerializer.Serialize(manager);
+        var deserialized = MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(bytes);
+
+        Assert.Equal(1000, deserialized.PlayHistoryList.Count);
+        Assert.Equal(10, deserialized.PlayHistoryList[0].TotalPlayTime);
+        Assert.Equal(10000, deserialized.PlayHistoryList[999].TotalPlayTime);
+    }
+
+    [Fact]
+    public void PlayHistoryItemZeroTimesPlayed()
+    {
+        var item = new PlayHistoryItem
+        {
+            FileName = "game.zip",
+            SystemName = "NES",
+            TotalPlayTime = 0,
+            TimesPlayed = 0
+        };
+
+        Assert.Equal(0, item.TimesPlayed);
+        Assert.Equal(0, item.TotalPlayTime);
+    }
+
+    [Fact]
+    public void PlayHistoryItemEmptyDateAndTime()
+    {
+        var item = new PlayHistoryItem
+        {
+            FileName = "game.zip",
+            SystemName = "NES",
+            LastPlayDate = "",
+            LastPlayTime = ""
+        };
+
+        Assert.Equal("", item.LastPlayDate);
+        Assert.Equal("", item.LastPlayTime);
+    }
+
+    [Fact]
+    public void PlayHistoryManagerPreservesOrder()
+    {
+        var manager = new Services.PlayHistory.PlayHistoryManager
+        {
+            PlayHistoryList =
+            [
+                new PlayHistoryItem { FileName = "first.zip", SystemName = "NES", TotalPlayTime = 100, TimesPlayed = 1 },
+                new PlayHistoryItem { FileName = "second.zip", SystemName = "SNES", TotalPlayTime = 200, TimesPlayed = 2 },
+                new PlayHistoryItem { FileName = "third.zip", SystemName = "GBA", TotalPlayTime = 300, TimesPlayed = 3 }
+            ],
+            Version = 1
+        };
+
+        var bytes = MessagePackSerializer.Serialize(manager);
+        var deserialized = MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(bytes);
+
+        Assert.Equal("first.zip", deserialized.PlayHistoryList[0].FileName);
+        Assert.Equal("second.zip", deserialized.PlayHistoryList[1].FileName);
+        Assert.Equal("third.zip", deserialized.PlayHistoryList[2].FileName);
+    }
+
+    [Fact]
+    public void PlayHistoryItemPropertyChangedOnTotalPlayTime()
+    {
+        var item = new PlayHistoryItem
+        {
+            FileName = "game.zip",
+            SystemName = "NES",
+            TotalPlayTime = 100
+        };
+
+        var propertyChanged = false;
+        item.PropertyChanged += (_, args) =>
+        {
+            if (args.PropertyName == nameof(PlayHistoryItem.TotalPlayTime))
+            {
+                propertyChanged = true;
+            }
+        };
+
+        item.TotalPlayTime = 200;
+        Assert.True(propertyChanged);
     }
 }

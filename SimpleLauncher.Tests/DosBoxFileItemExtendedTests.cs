@@ -6,24 +6,24 @@ namespace SimpleLauncher.Tests;
 public class DosBoxFileItemExtendedTests
 {
     [Fact]
-    public void DosBoxFileItemDefaultFullPathIsNull()
+    public void DosBoxFileItemDefaultFullPathIsEmpty()
     {
         var item = new DosBoxFileItem();
-        Assert.Null(item.FullPath);
+        Assert.Equal("", item.FullPath);
     }
 
     [Fact]
-    public void DosBoxFileItemDefaultDisplayNameIsNull()
+    public void DosBoxFileItemDefaultDisplayNameIsEmpty()
     {
         var item = new DosBoxFileItem();
-        Assert.Null(item.DisplayName);
+        Assert.Equal("", item.DisplayName);
     }
 
     [Fact]
-    public void DosBoxFileItemDefaultRelativePathIsNull()
+    public void DosBoxFileItemDefaultRelativePathIsEmpty()
     {
         var item = new DosBoxFileItem();
-        Assert.Null(item.RelativePath);
+        Assert.Equal("", item.RelativePath);
     }
 
     [Fact]
