@@ -5,23 +5,36 @@ using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 
+public interface IRetroAchievementsFileHasher
+{
+    Task<string> CalculateStandardMd5Async(string filePath);
+    string CalculateFilenameHash(string filePath);
+    Task<string> CalculateHeaderBasedMd5Async(string filePath, string systemName);
+    Task<string> CalculateArduboyHashAsync(string filePath);
+    Task<string> CalculateN64HashAsync(string filePath);
+}
+
 /// <summary>
 /// Provides methods for hashing ROM files according to RetroAchievements' specifications.
 /// </summary>
-public static class RetroAchievementsFileHasher
+public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
 {
-    /// <summary>
-    /// Calculates the MD5 hash of the entire file.
-    /// </summary>
-    public static Task<string> CalculateStandardMd5Async(string filePath, ILogErrors logErrors)
+    private readonly ILogErrors _logErrors;
+
+    public RetroAchievementsFileHasher(ILogErrors logErrors)
     {
-        return CalculateMd5WithOffsetAsync(filePath, 0, logErrors);
+        _logErrors = logErrors;
     }
 
     /// <summary>
-    /// Calculates the MD5 hash of a file, starting from a specific offset.
+    /// Calculates the MD5 hash of the entire file.
     /// </summary>
-    private static async Task<string> CalculateMd5WithOffsetAsync(string filePath, long offset, ILogErrors logErrors)
+    public Task<string> CalculateStandardMd5Async(string filePath)
+    {
+        return CalculateMd5WithOffsetAsync(filePath, 0);
+    }
+
+    private async Task<string> CalculateMd5WithOffsetAsync(string filePath, long offset)
     {
         try
         {
@@ -38,7 +51,7 @@ public static class RetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"Failed to calculate MD5 for {filePath} with offset {offset}");
+            _logErrors.LogAndForget(ex, $"Failed to calculate MD5 for {filePath} with offset {offset}");
             return null;
         }
     }
@@ -46,7 +59,7 @@ public static class RetroAchievementsFileHasher
     /// <summary>
     /// Calculates the hash for Arcade games by hashing the filename without its extension.
     /// </summary>
-    public static string CalculateFilenameHash(string filePath, ILogErrors logErrors)
+    public string CalculateFilenameHash(string filePath)
     {
         try
         {
@@ -57,7 +70,7 @@ public static class RetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"Failed to calculate Arcade hash for {filePath}");
+            _logErrors.LogAndForget(ex, $"Failed to calculate Arcade hash for {filePath}");
             return null;
         }
     }
@@ -85,9 +98,8 @@ public static class RetroAchievementsFileHasher
     /// </summary>
     /// <param name="filePath">The full path to the game file.</param>
     /// <param name="systemName">The normalized RetroAchievements system name.</param>
-    /// <param name="logErrors"></param>
     /// <returns>The calculated hash as a string, or null if an error occurs.</returns>
-    public static async Task<string> CalculateHeaderBasedMd5Async(string filePath, string systemName, ILogErrors logErrors)
+    public async Task<string> CalculateHeaderBasedMd5Async(string filePath, string systemName)
     {
         long offset = 0;
         try
@@ -95,7 +107,7 @@ public static class RetroAchievementsFileHasher
             var fileInfo = new FileInfo(filePath);
             if (!fileInfo.Exists)
             {
-                logErrors.LogAndForget(null, $"[RA File Hasher] File not found for header-based hashing: {filePath}");
+                _logErrors.LogAndForget(null, $"[RA File Hasher] File not found for header-based hashing: {filePath}");
                 return null;
             }
 
@@ -163,15 +175,15 @@ public static class RetroAchievementsFileHasher
                 default:
                     // Fallback for any unexpected system name, hash the whole file.
                     offset = 0;
-                    logErrors.LogAndForget(null, $"[RA File Hasher] CalculateHeaderBasedMd5Async called with an unsupported or unexpected system: {systemName}. Hashing entire file.");
+                    _logErrors.LogAndForget(null, $"[RA File Hasher] CalculateHeaderBasedMd5Async called with an unsupported or unexpected system: {systemName}. Hashing entire file.");
                     break;
             }
 
-            return await CalculateMd5WithOffsetAsync(filePath, offset, logErrors);
+            return await CalculateMd5WithOffsetAsync(filePath, offset);
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"Failed to calculate header-based MD5 for {filePath} (System: {systemName})");
+            _logErrors.LogAndForget(ex, $"Failed to calculate header-based MD5 for {filePath} (System: {systemName})");
             return null;
         }
     }
@@ -179,7 +191,7 @@ public static class RetroAchievementsFileHasher
     /// <summary>
     /// Calculates the hash for Arduboy files by normalizing line endings.
     /// </summary>
-    public static async Task<string> CalculateArduboyHashAsync(string filePath, ILogErrors logErrors)
+    public async Task<string> CalculateArduboyHashAsync(string filePath)
     {
         try
         {
@@ -191,7 +203,7 @@ public static class RetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"Failed to calculate Arduboy hash for {filePath}");
+            _logErrors.LogAndForget(ex, $"Failed to calculate Arduboy hash for {filePath}");
             return null;
         }
     }
@@ -201,7 +213,7 @@ public static class RetroAchievementsFileHasher
     /// .z64 (Big Endian) is hashed directly.
     /// .v64 (Byte Swapped) and .n64 (Little Endian) are byte-swapped to Big Endian before hashing.
     /// </summary>
-    public static async Task<string> CalculateN64HashAsync(string filePath, ILogErrors logErrors)
+    public async Task<string> CalculateN64HashAsync(string filePath)
     {
         var extension = Path.GetExtension(filePath).ToLowerInvariant();
         try
@@ -209,22 +221,22 @@ public static class RetroAchievementsFileHasher
             switch (extension)
             {
                 case ".z64": // Big Endian (standard)
-                    return await CalculateStandardMd5Async(filePath, logErrors);
+                    return await CalculateStandardMd5Async(filePath);
 
                 case ".v64": // Byte-swapped
                 case ".n64": // Little-endian
                 {
-                    return await CalculateByteSwappedMd5Async(filePath, logErrors);
+                    return await CalculateByteSwappedMd5Async(filePath);
                 }
 
                 default:
                     // Fallback for unknown extensions like .rom, treat as standard.
-                    return await CalculateStandardMd5Async(filePath, logErrors);
+                    return await CalculateStandardMd5Async(filePath);
             }
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"Failed to calculate N64 hash for {filePath}");
+            _logErrors.LogAndForget(ex, $"Failed to calculate N64 hash for {filePath}");
             return null;
         }
     }
@@ -232,7 +244,7 @@ public static class RetroAchievementsFileHasher
     /// <summary>
     /// Calculates the MD5 hash of a file with byte-swapping, streaming to avoid loading the entire file into memory.
     /// </summary>
-    private static async Task<string> CalculateByteSwappedMd5Async(string filePath, ILogErrors logErrors)
+    private async Task<string> CalculateByteSwappedMd5Async(string filePath)
     {
         try
         {
@@ -266,7 +278,7 @@ public static class RetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"Failed to calculate byte-swapped MD5 for {filePath}");
+            _logErrors.LogAndForget(ex, $"Failed to calculate byte-swapped MD5 for {filePath}");
             return null;
         }
     }

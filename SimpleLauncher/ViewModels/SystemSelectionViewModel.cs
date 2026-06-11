@@ -10,11 +10,17 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class SystemSelectionViewModel : ObservableObject
 {
+    private readonly IRetroAchievementsSystemMatcher _systemMatcher;
     private string _selectedSystem;
+
+    public SystemSelectionViewModel(IRetroAchievementsSystemMatcher systemMatcher)
+    {
+        _systemMatcher = systemMatcher;
+    }
 
     public void Initialize(string currentGuess)
     {
-        var systems = RetroAchievementsSystemMatcher.GetSupportedSystemNames();
+        var systems = _systemMatcher.GetSupportedSystemNames();
         Systems = new ObservableCollection<string>(systems);
 
         // Try to pre-select the guess if it exists in the list

@@ -31,6 +31,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
     private readonly IUpdateStatusBar _updateStatusBarService;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IDebugLogger _debugLogger;
+    private readonly IRetroAchievementsSystemMatcher _systemMatcher;
 
     public GameFileLoadingOrchestrator(
         IGameCacheService gameCacheService,
@@ -45,7 +46,8 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         ILogErrors logErrors,
         IUpdateStatusBar updateStatusBarService,
         IMessageBoxLibraryService messageBox,
-        IDebugLogger debugLogger)
+        IDebugLogger debugLogger,
+        IRetroAchievementsSystemMatcher systemMatcher)
     {
         _gameCacheService = gameCacheService;
         _gameFilterService = gameFilterService;
@@ -60,6 +62,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         _updateStatusBarService = updateStatusBarService;
         _messageBox = messageBox;
         _debugLogger = debugLogger;
+        _systemMatcher = systemMatcher;
     }
 
     public void Initialize(IGameFileLoadingHost host)
@@ -229,7 +232,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
             case "RETRO_ACHIEVEMENTS":
                 await _gameCacheService.PopulateFromDiskAsync(selectedManager, _getListOfFiles, token);
 
-                var systemId = RetroAchievementsSystemMatcher.GetSystemId(selectedManager.SystemName, _debugLogger);
+                var systemId = _systemMatcher.GetSystemId(selectedManager.SystemName);
                 var threshold = _settings.FuzzyMatchingThreshold;
 
                 try

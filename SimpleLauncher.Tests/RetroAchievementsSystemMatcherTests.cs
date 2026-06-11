@@ -25,6 +25,8 @@ public class RetroAchievementsSystemMatcherTests
         }
     }
 
+    private readonly RetroAchievementsSystemMatcher _matcher = new(new NoOpLogErrors(), new NoOpDebugLogger());
+
     [Theory]
     [InlineData("snes", "super nintendo entertainment system")]
     [InlineData("SNES", "super nintendo entertainment system")]
@@ -42,16 +44,16 @@ public class RetroAchievementsSystemMatcherTests
     [InlineData("sega dreamcast", "dreamcast")]
     public void GetBestMatchSystemNameKnownAliasReturnsExpectedKey(string input, string expected)
     {
-        var result = RetroAchievementsSystemMatcher.GetBestMatchSystemName(input, new NoOpLogErrors(), new NoOpDebugLogger());
+        var result = _matcher.GetBestMatchSystemName(input);
         Assert.Equal(expected, result);
     }
 
     [Fact]
     public void GetBestMatchSystemNameNullOrWhitespaceReturnsOriginal()
     {
-        Assert.Null(RetroAchievementsSystemMatcher.GetBestMatchSystemName(null, new NoOpLogErrors(), new NoOpDebugLogger()));
-        Assert.Equal("", RetroAchievementsSystemMatcher.GetBestMatchSystemName("", new NoOpLogErrors(), new NoOpDebugLogger()));
-        Assert.Equal("   ", RetroAchievementsSystemMatcher.GetBestMatchSystemName("   ", new NoOpLogErrors(), new NoOpDebugLogger()));
+        Assert.Null(_matcher.GetBestMatchSystemName(null));
+        Assert.Equal("", _matcher.GetBestMatchSystemName(""));
+        Assert.Equal("   ", _matcher.GetBestMatchSystemName("   "));
     }
 
     [Theory]
@@ -61,14 +63,14 @@ public class RetroAchievementsSystemMatcherTests
     [InlineData("unknown console xyz", false)]
     public void IsOfficialSystemNameReturnsExpected(string name, bool expected)
     {
-        var result = RetroAchievementsSystemMatcher.IsOfficialSystemName(name);
+        var result = _matcher.IsOfficialSystemName(name);
         Assert.Equal(expected, result);
     }
 
     [Fact]
     public void GetSupportedSystemNamesReturnsNonEmptyList()
     {
-        var result = RetroAchievementsSystemMatcher.GetSupportedSystemNames();
+        var result = _matcher.GetSupportedSystemNames();
         Assert.NotEmpty(result);
         Assert.Equal(result.Count, result.Distinct(StringComparer.OrdinalIgnoreCase).Count());
     }
@@ -79,14 +81,14 @@ public class RetroAchievementsSystemMatcherTests
     [InlineData("n64", "nintendo 64")]
     public void GetExactAliasMatchReturnsExpected(string input, string expected)
     {
-        var result = RetroAchievementsSystemMatcher.GetExactAliasMatch(input);
+        var result = _matcher.GetExactAliasMatch(input);
         Assert.Equal(expected, result);
     }
 
     [Fact]
     public void GetExactAliasMatchUnknownReturnsNull()
     {
-        var result = RetroAchievementsSystemMatcher.GetExactAliasMatch("unknown");
+        var result = _matcher.GetExactAliasMatch("unknown");
         Assert.Null(result);
     }
 
@@ -96,7 +98,7 @@ public class RetroAchievementsSystemMatcherTests
     [InlineData("nintendo 64", true)]
     public void IsSystemInMappingsReturnsExpected(string input, bool expected)
     {
-        var result = RetroAchievementsSystemMatcher.IsSystemInMappings(input);
+        var result = _matcher.IsSystemInMappings(input);
         Assert.Equal(expected, result);
     }
 
@@ -106,7 +108,7 @@ public class RetroAchievementsSystemMatcherTests
     [InlineData("playstation", 12)]
     public void GetSystemIdKnownSystemReturnsExpectedId(string input, int expected)
     {
-        var result = RetroAchievementsSystemMatcher.GetSystemId(input, new NoOpDebugLogger());
+        var result = _matcher.GetSystemId(input);
         Assert.Equal(expected, result);
     }
 }

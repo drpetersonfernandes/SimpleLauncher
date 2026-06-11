@@ -2,11 +2,31 @@ using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 
+public interface IRetroAchievementsSystemMatcher
+{
+    string GetBestMatchSystemName(string inputSystemName);
+    bool IsOfficialSystemName(string systemName);
+    List<string> GetSupportedSystemNames();
+    int GetSystemId(string inputSystemName);
+    string GetExactAliasMatch(string inputSystemName);
+    bool IsSystemInMappings(string systemName);
+}
+
 /// <summary>
 /// Provides fuzzy matching for RetroAchievements system names to ensure proper hash method selection.
 /// </summary>
-public static class RetroAchievementsSystemMatcher
+public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
 {
+    private readonly ILogErrors _logErrors;
+    private readonly IDebugLogger _debugLogger;
+    private readonly HashSet<string> _loggedUnmatchedSystems = new(StringComparer.OrdinalIgnoreCase);
+
+    public RetroAchievementsSystemMatcher(ILogErrors logErrors, IDebugLogger debugLogger)
+    {
+        _logErrors = logErrors;
+        _debugLogger = debugLogger;
+    }
+
     /// <summary>
     /// Holds information about a RetroAchievements system, including its ID and name aliases.
     /// </summary>
@@ -21,9 +41,6 @@ public static class RetroAchievementsSystemMatcher
             Aliases = aliases;
         }
     }
-
-    // Track which unmatched system names have already been logged to avoid duplicate API reports
-    private static readonly HashSet<string> LoggedUnmatchedSystems = new(StringComparer.OrdinalIgnoreCase);
 
     // Define system name mappings with their official RA Console ID and fuzzy matching patterns.
     private static readonly Dictionary<string, RaSystemInfo> SystemMappings = new()
@@ -158,10 +175,8 @@ public static class RetroAchievementsSystemMatcher
     /// Finds the best matching RetroAchievements system name using fuzzy matching.
     /// </summary>
     /// <param name="inputSystemName">The system name to match</param>
-    /// <param name="logErrors"></param>
-    /// <param name="debugLogger"></param>
     /// <returns>The normalized RetroAchievements system name, or the original if no match found</returns>
-    public static string GetBestMatchSystemName(string inputSystemName, ILogErrors logErrors, IDebugLogger debugLogger)
+    public string GetBestMatchSystemName(string inputSystemName)
     {
         if (string.IsNullOrWhiteSpace(inputSystemName))
             return inputSystemName;
@@ -178,21 +193,21 @@ public static class RetroAchievementsSystemMatcher
         }
 
         // No match found, log it once per unique system name for future improvement
-        if (LoggedUnmatchedSystems.Add(inputSystemName))
+        if (_loggedUnmatchedSystems.Add(inputSystemName))
         {
-            debugLogger?.Log($"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
-            logErrors?.LogAndForget(null, $"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
+            _debugLogger?.Log($"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
+            _logErrors?.LogAndForget(null, $"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
         }
 
         return normalizedInput;
     }
 
-    public static bool IsOfficialSystemName(string systemName)
+    public bool IsOfficialSystemName(string systemName)
     {
         return SystemMappings.ContainsKey(systemName.ToLowerInvariant());
     }
 
-    public static List<string> GetSupportedSystemNames()
+    public List<string> GetSupportedSystemNames()
     {
         return SystemMappings.Keys.OrderBy(static s => s).ToList();
     }
@@ -201,17 +216,16 @@ public static class RetroAchievementsSystemMatcher
     /// Gets the RetroAchievements Console ID for a given system name.
     /// </summary>
     /// <param name="inputSystemName">The system name to look up.</param>
-    /// <param name="debugLogger"></param>
     /// <returns>The console ID, or -1 if not found.</returns>
-    public static int GetSystemId(string inputSystemName, IDebugLogger debugLogger)
+    public int GetSystemId(string inputSystemName)
     {
-        debugLogger.Log($"[GetSystemId] Looking up system ID for '{inputSystemName}'");
-        var bestMatch = GetBestMatchSystemName(inputSystemName, null, debugLogger);
-        debugLogger.Log($"[GetSystemId] Best match: '{bestMatch}'");
+        _debugLogger.Log($"[GetSystemId] Looking up system ID for '{inputSystemName}'");
+        var bestMatch = GetBestMatchSystemName(inputSystemName);
+        _debugLogger.Log($"[GetSystemId] Best match: '{bestMatch}'");
         return SystemMappings.TryGetValue(bestMatch, out var systemInfo) ? systemInfo.Id : -1;
     }
 
-    public static string GetExactAliasMatch(string inputSystemName)
+    public string GetExactAliasMatch(string inputSystemName)
     {
         if (string.IsNullOrWhiteSpace(inputSystemName)) return null;
 
@@ -234,7 +248,7 @@ public static class RetroAchievementsSystemMatcher
     /// </summary>
     /// <param name="systemName">The system name to check.</param>
     /// <returns>True if the system exists in SystemMappings; otherwise, false.</returns>
-    public static bool IsSystemInMappings(string systemName)
+    public bool IsSystemInMappings(string systemName)
     {
         if (string.IsNullOrWhiteSpace(systemName))
             return false;
@@ -258,7 +272,7 @@ public static class RetroAchievementsSystemMatcher
         }
 
         // Try fuzzy matching as a last resort
-        var bestMatch = GetBestMatchSystemName(systemName, null, null);
+        var bestMatch = GetBestMatchSystemName(systemName);
         return SystemMappings.ContainsKey(bestMatch);
     }
 }

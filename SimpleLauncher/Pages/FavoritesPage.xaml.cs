@@ -40,6 +40,7 @@ internal partial class FavoritesPage : ILoadingState
     private readonly IConfiguration _configuration;
     private readonly IContextMenuFunctions _contextMenuFunctions;
     private readonly IDebugLogger _debugLogger;
+    private readonly IContextMenuService _contextMenuService;
 
     internal FavoritesPage(
         SettingsManager settings,
@@ -55,7 +56,8 @@ internal partial class FavoritesPage : ILoadingState
         IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         IContextMenuFunctions contextMenuFunctions,
-        IDebugLogger debugLogger)
+        IDebugLogger debugLogger,
+        IContextMenuService contextMenuService)
     {
         InitializeComponent();
 
@@ -71,6 +73,7 @@ internal partial class FavoritesPage : ILoadingState
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
         _contextMenuFunctions = contextMenuFunctions ?? throw new ArgumentNullException(nameof(contextMenuFunctions));
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _contextMenuService = contextMenuService ?? throw new ArgumentNullException(nameof(contextMenuService));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         _viewModel = new FavoritesViewModel(
@@ -222,7 +225,7 @@ internal partial class FavoritesPage : ILoadingState
                 this
             );
 
-            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, _findCoverImage, _contextMenuFunctions);
+            var contextMenu = _contextMenuService.AddRightClickReturnContextMenu(context, _findCoverImage, _contextMenuFunctions);
             if (contextMenu != null)
             {
                 // Close the previous context menu before assigning a new one to prevent leaks.

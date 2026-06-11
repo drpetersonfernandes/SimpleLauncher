@@ -290,7 +290,8 @@ public class ContextMenuFunctions : IContextMenuFunctions
 
             var debugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();
             debugLogger.Log($"[RA Service] Original system name: {systemManager.SystemName}");
-            var systemName = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemManager.SystemName, logErrors, debugLogger);
+            var systemMatcher = App.ServiceProvider.GetRequiredService<IRetroAchievementsSystemMatcher>();
+            var systemName = systemMatcher.GetBestMatchSystemName(systemManager.SystemName);
             debugLogger.Log($"[RA Service] Resolved system name: {systemName}");
 
             // Check if system is supported for RetroAchievements

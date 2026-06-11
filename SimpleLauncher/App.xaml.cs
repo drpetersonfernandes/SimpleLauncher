@@ -207,6 +207,10 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IMountZipFiles, MountZipFiles>();
         serviceCollection.AddSingleton<IExtractionService, ExtractionService>();
         serviceCollection.AddSingleton<RetroAchievementsService>();
+        serviceCollection.AddSingleton<IRetroAchievementsEmulatorConfiguratorService, RetroAchievementsEmulatorConfiguratorService>();
+        serviceCollection.AddSingleton<IRetroAchievementsSystemMatcher, RetroAchievementsSystemMatcher>();
+        serviceCollection.AddSingleton<IRetroAchievementsFileHasher, RetroAchievementsFileHasher>();
+        serviceCollection.AddSingleton<IContextMenuService, ContextMenuService>();
         serviceCollection.AddSingleton(static sp =>
         {
             var logErrors = sp.GetRequiredService<ILogErrors>();
@@ -267,7 +271,9 @@ public partial class App : IDisposable
         {
             var debugLogger = sp.GetRequiredService<IDebugLogger>();
             var extractionService = sp.GetRequiredService<IExtractionService>();
-            return new RetroAchievementsHasherTool(debugLogger, extractionService, SystemSelectionWindowFactory, MainWindowFactory);
+            var systemMatcher = sp.GetRequiredService<IRetroAchievementsSystemMatcher>();
+            var fileHasher = sp.GetRequiredService<IRetroAchievementsFileHasher>();
+            return new RetroAchievementsHasherTool(debugLogger, extractionService, SystemSelectionWindowFactory, MainWindowFactory, systemMatcher, fileHasher);
 
             SystemSelectionWindow SystemSelectionWindowFactory()
             {

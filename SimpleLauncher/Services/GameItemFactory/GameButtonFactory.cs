@@ -41,7 +41,8 @@ internal partial class GameButtonFactory(
     IMessageBoxLibraryService messageBox,
     IRetroAchievementsHasherTool raHasherTool,
     IContextMenuFunctions contextMenuFunctions,
-    IDebugLogger debugLogger)
+    IDebugLogger debugLogger,
+    IContextMenuService contextMenuService)
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox ?? throw new ArgumentNullException(nameof(emulatorComboBox));
     private readonly ComboBox _systemComboBox = systemComboBox ?? throw new ArgumentNullException(nameof(systemComboBox));
@@ -62,6 +63,7 @@ internal partial class GameButtonFactory(
     private readonly IRetroAchievementsHasherTool _raHasherTool = raHasherTool ?? throw new ArgumentNullException(nameof(raHasherTool));
     private readonly IContextMenuFunctions _contextMenuFunctions = contextMenuFunctions ?? throw new ArgumentNullException(nameof(contextMenuFunctions));
     private readonly IDebugLogger _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+    private readonly IContextMenuService _contextMenuService = contextMenuService ?? throw new ArgumentNullException(nameof(contextMenuService));
 
     private Button _button;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
@@ -505,7 +507,7 @@ internal partial class GameButtonFactory(
             // No need to update currentVerticalOffset here as it's the last button.
         }
 
-        var contextMenu = ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, _findCoverImage, _contextMenuFunctions);
+        var contextMenu = _contextMenuService.AddRightClickReturnContextMenu(context, _findCoverImage, _contextMenuFunctions);
 
         // Create the kebab menu button
         var kebabButton = new Button

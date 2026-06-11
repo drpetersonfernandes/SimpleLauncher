@@ -19,20 +19,20 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly RetroAchievementsService _raService;
     private readonly IResourceProvider _resourceProvider;
-    private readonly IDebugLogger _debugLogger;
+    private readonly IRetroAchievementsEmulatorConfiguratorService _configurator;
 
     [ObservableProperty] private string _username;
     [ObservableProperty] private string _apiKey;
     [ObservableProperty] private string _password;
 
-    public RetroAchievementsSettingsViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, RetroAchievementsService raService, IResourceProvider resourceProvider, IDebugLogger debugLogger)
+    public RetroAchievementsSettingsViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, RetroAchievementsService raService, IResourceProvider resourceProvider, IRetroAchievementsEmulatorConfiguratorService configurator)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _logErrors = logErrors;
         _messageBox = messageBox;
         _raService = raService;
         _resourceProvider = resourceProvider;
-        _debugLogger = debugLogger;
+        _configurator = configurator;
 
         _username = _settings.RaUsername;
         _apiKey = _settings.RaApiKey;
@@ -116,13 +116,13 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
             {
                 switch (emulatorName)
                 {
-                    case "RetroArch": success = RetroAchievementsEmulatorConfiguratorService.ConfigureRetroArch(exePath, username, password, _logErrors); break;
-                    case "PCSX2": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePcsx2(exePath, username, token, _logErrors); break;
-                    case "DuckStation": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDuckStation(exePath, username, token, _logErrors); break;
-                    case "PPSSPP": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePpspp(exePath, username, token, _logErrors); break;
-                    case "Dolphin": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDolphin(exePath, username, token, _logErrors, _debugLogger); break;
-                    case "Flycast": success = RetroAchievementsEmulatorConfiguratorService.ConfigureFlycast(exePath, username, token, _logErrors); break;
-                    case "BizHawk": success = RetroAchievementsEmulatorConfiguratorService.ConfigureBizHawk(exePath, username, token, _logErrors); break;
+                    case "RetroArch": success = _configurator.ConfigureRetroArch(exePath, username, password); break;
+                    case "PCSX2": success = _configurator.ConfigurePcsx2(exePath, username, token); break;
+                    case "DuckStation": success = _configurator.ConfigureDuckStation(exePath, username, token); break;
+                    case "PPSSPP": success = _configurator.ConfigurePpspp(exePath, username, token); break;
+                    case "Dolphin": success = _configurator.ConfigureDolphin(exePath, username, token); break;
+                    case "Flycast": success = _configurator.ConfigureFlycast(exePath, username, token); break;
+                    case "BizHawk": success = _configurator.ConfigureBizHawk(exePath, username, token); break;
                 }
 
                 if (success)

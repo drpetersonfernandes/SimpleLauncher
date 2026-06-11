@@ -42,6 +42,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
     private readonly SettingsManager _settings;
     private readonly IContextMenuFunctions _contextMenuFunctions;
     private readonly IDebugLogger _debugLogger;
+    private readonly IContextMenuService _contextMenuService;
 
     public GlobalSearchPage(
         List<SystemManager> systemManagers,
@@ -59,7 +60,8 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         IContextMenuFunctions contextMenuFunctions,
-        IDebugLogger debugLogger)
+        IDebugLogger debugLogger,
+        IContextMenuService contextMenuService)
     {
         InitializeComponent();
 
@@ -75,6 +77,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _contextMenuFunctions = contextMenuFunctions ?? throw new ArgumentNullException(nameof(contextMenuFunctions));
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _contextMenuService = contextMenuService ?? throw new ArgumentNullException(nameof(contextMenuService));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         _viewModel = new GlobalSearchViewModel(
@@ -258,7 +261,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
                 this
             );
 
-            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, _findCoverImage, _contextMenuFunctions);
+            var contextMenu = _contextMenuService.AddRightClickReturnContextMenu(context, _findCoverImage, _contextMenuFunctions);
             if (contextMenu != null)
             {
                 ResultsDataGrid.ContextMenu = contextMenu;

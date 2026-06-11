@@ -19,6 +19,8 @@ public class RetroAchievementsFileHasherTests : IDisposable
         }
     }
 
+    private readonly RetroAchievementsFileHasher _hasher = new(new NoOpLogErrors());
+
     public RetroAchievementsFileHasherTests()
     {
         ServiceProviderMock.Install();
@@ -68,7 +70,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
         var content = "Hello World"u8.ToArray();
         var filePath = CreateTempFile("test.bin", content);
 
-        var result = await RetroAchievementsFileHasher.CalculateStandardMd5Async(filePath, new NoOpLogErrors());
+        var result = await _hasher.CalculateStandardMd5Async(filePath);
 
         Assert.Equal("b10a8db164e0754105b7a99be72e3fe5", result);
     }
@@ -78,7 +80,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     {
         var filePath = CreateTempFile("empty.bin", []);
 
-        var result = await RetroAchievementsFileHasher.CalculateStandardMd5Async(filePath, new NoOpLogErrors());
+        var result = await _hasher.CalculateStandardMd5Async(filePath);
 
         Assert.Equal("d41d8cd98f00b204e9800998ecf8427e", result);
     }
@@ -86,7 +88,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     [Fact]
     public void CalculateFilenameHashReturnsExpectedHash()
     {
-        var result = RetroAchievementsFileHasher.CalculateFilenameHash(@"C:\roms\game.zip", new NoOpLogErrors());
+        var result = _hasher.CalculateFilenameHash(@"C:\roms\game.zip");
 
         Assert.NotNull(result);
         Assert.Equal(32, result.Length);
@@ -95,8 +97,8 @@ public class RetroAchievementsFileHasherTests : IDisposable
     [Fact]
     public void CalculateFilenameHashSameFilenameWithoutExtensionProducesSameHash()
     {
-        var hash1 = RetroAchievementsFileHasher.CalculateFilenameHash(@"C:\folder\mygame.zip", new NoOpLogErrors());
-        var hash2 = RetroAchievementsFileHasher.CalculateFilenameHash(@"D:\other\mygame.7z", new NoOpLogErrors());
+        var hash1 = _hasher.CalculateFilenameHash(@"C:\folder\mygame.zip");
+        var hash2 = _hasher.CalculateFilenameHash(@"D:\other\mygame.7z");
 
         Assert.Equal(hash1, hash2);
     }
@@ -104,8 +106,8 @@ public class RetroAchievementsFileHasherTests : IDisposable
     [Fact]
     public void CalculateFilenameHashDifferentFilenamesProduceDifferentHashes()
     {
-        var hash1 = RetroAchievementsFileHasher.CalculateFilenameHash(@"C:\game1.zip", new NoOpLogErrors());
-        var hash2 = RetroAchievementsFileHasher.CalculateFilenameHash(@"C:\game2.zip", new NoOpLogErrors());
+        var hash1 = _hasher.CalculateFilenameHash(@"C:\game1.zip");
+        var hash2 = _hasher.CalculateFilenameHash(@"C:\game2.zip");
 
         Assert.NotEqual(hash1, hash2);
     }
@@ -116,8 +118,8 @@ public class RetroAchievementsFileHasherTests : IDisposable
         var filePath1 = CreateTempFile("arduboy_crlf.hex", "hello\r\nworld\n");
         var filePath2 = CreateTempFile("arduboy_lf.hex", "hello\nworld\n");
 
-        var hash1 = await RetroAchievementsFileHasher.CalculateArduboyHashAsync(filePath1, new NoOpLogErrors());
-        var hash2 = await RetroAchievementsFileHasher.CalculateArduboyHashAsync(filePath2, new NoOpLogErrors());
+        var hash1 = await _hasher.CalculateArduboyHashAsync(filePath1);
+        var hash2 = await _hasher.CalculateArduboyHashAsync(filePath2);
 
         Assert.NotNull(hash1);
         Assert.NotNull(hash2);
@@ -130,8 +132,8 @@ public class RetroAchievementsFileHasherTests : IDisposable
         var content = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
         var filePath = CreateTempFile("game.z64", content);
 
-        var n64Hash = await RetroAchievementsFileHasher.CalculateN64HashAsync(filePath, new NoOpLogErrors());
-        var standardHash = await RetroAchievementsFileHasher.CalculateStandardMd5Async(filePath, new NoOpLogErrors());
+        var n64Hash = await _hasher.CalculateN64HashAsync(filePath);
+        var standardHash = await _hasher.CalculateStandardMd5Async(filePath);
 
         Assert.Equal(standardHash, n64Hash);
     }
@@ -142,7 +144,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
         var content = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
         var filePath = CreateTempFile("game.v64", content);
 
-        var result = await RetroAchievementsFileHasher.CalculateN64HashAsync(filePath, new NoOpLogErrors());
+        var result = await _hasher.CalculateN64HashAsync(filePath);
 
         Assert.NotNull(result);
         Assert.Equal(32, result.Length);
@@ -154,7 +156,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
         var content = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
         var filePath = CreateTempFile("game.n64", content);
 
-        var result = await RetroAchievementsFileHasher.CalculateN64HashAsync(filePath, new NoOpLogErrors());
+        var result = await _hasher.CalculateN64HashAsync(filePath);
 
         Assert.NotNull(result);
         Assert.Equal(32, result.Length);
@@ -167,8 +169,8 @@ public class RetroAchievementsFileHasherTests : IDisposable
         var filePath1 = CreateTempFile("game.v64", content);
         var filePath2 = CreateTempFile("game.n64", content);
 
-        var hash1 = await RetroAchievementsFileHasher.CalculateN64HashAsync(filePath1, new NoOpLogErrors());
-        var hash2 = await RetroAchievementsFileHasher.CalculateN64HashAsync(filePath2, new NoOpLogErrors());
+        var hash1 = await _hasher.CalculateN64HashAsync(filePath1);
+        var hash2 = await _hasher.CalculateN64HashAsync(filePath2);
 
         Assert.Equal(hash1, hash2);
     }

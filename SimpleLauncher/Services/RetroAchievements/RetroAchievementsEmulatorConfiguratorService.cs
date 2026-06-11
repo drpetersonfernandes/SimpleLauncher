@@ -5,12 +5,32 @@ using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 
-public static class RetroAchievementsEmulatorConfiguratorService
+public interface IRetroAchievementsEmulatorConfiguratorService
 {
+    bool ConfigureRetroArch(string exePath, string username, string password);
+    bool ConfigurePcsx2(string exePath, string username, string token);
+    bool ConfigureDuckStation(string exePath, string username, string token);
+    bool ConfigurePpspp(string exePath, string username, string token);
+    bool ConfigureDolphin(string exePath, string username, string token);
+    bool ConfigureFlycast(string exePath, string username, string token);
+    bool ConfigureBizHawk(string exePath, string username, string token);
+}
+
+public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEmulatorConfiguratorService
+{
+    private readonly ILogErrors _logErrors;
+    private readonly IDebugLogger _debugLogger;
+
+    public RetroAchievementsEmulatorConfiguratorService(ILogErrors logErrors, IDebugLogger debugLogger)
+    {
+        _logErrors = logErrors;
+        _debugLogger = debugLogger;
+    }
+
     /// <summary>
     /// Restores a sample configuration file from the samples folder if the target config is missing.
     /// </summary>
-    private static bool RestoreConfigFromSample(string emulatorFolderName, string targetConfigPath, ILogErrors logErrors)
+    private bool RestoreConfigFromSample(string emulatorFolderName, string targetConfigPath)
     {
         // Treat missing or 0-byte files as candidates for restoration
         if (File.Exists(targetConfigPath) && new FileInfo(targetConfigPath).Length > 0) return true;
@@ -31,13 +51,13 @@ public static class RetroAchievementsEmulatorConfiguratorService
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"Failed to restore {emulatorFolderName} config from sample: {samplePath} -> {targetConfigPath}");
+            _logErrors.LogAndForget(ex, $"Failed to restore {emulatorFolderName} config from sample: {samplePath} -> {targetConfigPath}");
             return false;
         }
     }
 
     // RetroArch
-    public static bool ConfigureRetroArch(string exePath, string username, string password, ILogErrors logErrors)
+    public bool ConfigureRetroArch(string exePath, string username, string password)
     {
         var exeDir = Path.GetDirectoryName(exePath);
         if (exeDir != null)
@@ -45,9 +65,9 @@ public static class RetroAchievementsEmulatorConfiguratorService
             var configPath = Path.Combine(exeDir, "retroarch.cfg");
 
             // Restore from sample if missing
-            if (!RestoreConfigFromSample("retroarch", configPath, logErrors))
+            if (!RestoreConfigFromSample("retroarch", configPath))
             {
-                logErrors.LogAndForget(null, $"RetroArch config not found and no sample available at {configPath}");
+                _logErrors.LogAndForget(null, $"RetroArch config not found and no sample available at {configPath}");
                 return false;
             }
 
@@ -59,14 +79,14 @@ public static class RetroAchievementsEmulatorConfiguratorService
                 { "cheevos_hardcore_mode_enable", "true" }
             };
 
-            return UpdateSimpleIniFile(configPath, settingsToUpdate, " = ", logErrors);
+            return UpdateSimpleIniFile(configPath, settingsToUpdate, " = ");
         }
 
         return false;
     }
 
     // PCSX2
-    public static bool ConfigurePcsx2(string exePath, string username, string token, ILogErrors logErrors)
+    public bool ConfigurePcsx2(string exePath, string username, string token)
     {
         var exeDir = Path.GetDirectoryName(exePath);
         var configDir = exeDir != null && Directory.Exists(Path.Combine(exeDir, "inis"))
@@ -76,9 +96,9 @@ public static class RetroAchievementsEmulatorConfiguratorService
         var configPath = Path.Combine(configDir, "PCSX2.ini");
 
         // Restore from sample if missing
-        if (!RestoreConfigFromSample("pcsx2", configPath, logErrors))
+        if (!RestoreConfigFromSample("pcsx2", configPath))
         {
-            logErrors.LogAndForget(null, $"PCSX2 config not found and no sample available at {configPath}");
+            _logErrors.LogAndForget(null, $"PCSX2 config not found and no sample available at {configPath}");
             return false;
         }
 
@@ -90,11 +110,11 @@ public static class RetroAchievementsEmulatorConfiguratorService
             { "Hardcore", "true" }
         };
 
-        return UpdateIniFile(configPath, "Achievements", settingsToUpdate, logErrors);
+        return UpdateIniFile(configPath, "Achievements", settingsToUpdate);
     }
 
     // DuckStation
-    public static bool ConfigureDuckStation(string exePath, string username, string token, ILogErrors logErrors)
+    public bool ConfigureDuckStation(string exePath, string username, string token)
     {
         var exeDir = Path.GetDirectoryName(exePath);
         var isPortable = exeDir != null && File.Exists(Path.Combine(exeDir, "portable.txt"));
@@ -104,9 +124,9 @@ public static class RetroAchievementsEmulatorConfiguratorService
             var configPath = Path.Combine(configDir, "settings.ini");
 
             // Restore from sample if missing
-            if (!RestoreConfigFromSample("duckstation", configPath, logErrors))
+            if (!RestoreConfigFromSample("duckstation", configPath))
             {
-                logErrors.LogAndForget(null, $"DuckStation config not found and no sample available at {configPath}");
+                _logErrors.LogAndForget(null, $"DuckStation config not found and no sample available at {configPath}");
                 return false;
             }
 
@@ -116,7 +136,7 @@ public static class RetroAchievementsEmulatorConfiguratorService
             // Validate encryption succeeded
             if (string.IsNullOrEmpty(encryptedToken))
             {
-                logErrors.LogAndForget(null, "Failed to encrypt DuckStation token - cannot configure emulator");
+                _logErrors.LogAndForget(null, "Failed to encrypt DuckStation token - cannot configure emulator");
                 return false;
             }
 
@@ -141,14 +161,14 @@ public static class RetroAchievementsEmulatorConfiguratorService
                 { "Username", username },
                 { "Token", encryptedToken }
             };
-            return UpdateIniFile(configPath, "Cheevos", settingsToUpdate, logErrors);
+            return UpdateIniFile(configPath, "Cheevos", settingsToUpdate);
         }
 
         return false;
     }
 
     // PPSSPP
-    public static bool ConfigurePpspp(string exePath, string username, string token, ILogErrors logErrors)
+    public bool ConfigurePpspp(string exePath, string username, string token)
     {
         var exeDir = Path.GetDirectoryName(exePath);
         if (exeDir != null)
@@ -157,9 +177,9 @@ public static class RetroAchievementsEmulatorConfiguratorService
             var configPath = Path.Combine(configDir, "ppsspp.ini");
 
             // Restore from sample if missing
-            if (!RestoreConfigFromSample("ppsspp", configPath, logErrors))
+            if (!RestoreConfigFromSample("ppsspp", configPath))
             {
-                logErrors.LogAndForget(null, $"PPSSPP config not found and no sample available at {configPath}");
+                _logErrors.LogAndForget(null, $"PPSSPP config not found and no sample available at {configPath}");
                 return false;
             }
 
@@ -171,7 +191,7 @@ public static class RetroAchievementsEmulatorConfiguratorService
                 { "AchievementsUserName", username }
             };
 
-            var iniUpdated = UpdateIniFile(configPath, "Achievements", settingsToUpdate, logErrors);
+            var iniUpdated = UpdateIniFile(configPath, "Achievements", settingsToUpdate);
 
             // 2. Save the session key to the separate .dat file
             try
@@ -182,7 +202,7 @@ public static class RetroAchievementsEmulatorConfiguratorService
             }
             catch (Exception ex)
             {
-                logErrors.LogAndForget(ex, $"Failed to create PPSSPP session file at {configDir}");
+                _logErrors.LogAndForget(ex, $"Failed to create PPSSPP session file at {configDir}");
                 return false;
             }
         }
@@ -191,7 +211,7 @@ public static class RetroAchievementsEmulatorConfiguratorService
     }
 
     // Dolphin
-    public static bool ConfigureDolphin(string exePath, string username, string token, ILogErrors logErrors, IDebugLogger debugLogger)
+    public bool ConfigureDolphin(string exePath, string username, string token)
     {
         var exeDir = Path.GetDirectoryName(exePath);
         string configDir;
@@ -211,10 +231,10 @@ public static class RetroAchievementsEmulatorConfiguratorService
         try
         {
             // Restore from sample if missing (before creating empty file)
-            if (!RestoreConfigFromSample("dolphin", configPath, logErrors))
+            if (!RestoreConfigFromSample("dolphin", configPath))
             {
                 // If no sample, create directory and empty file as fallback
-                debugLogger.Log($"[RA Configurator] No sample found for Dolphin, creating empty config at {configPath}");
+                _debugLogger.Log($"[RA Configurator] No sample found for Dolphin, creating empty config at {configPath}");
             }
 
             if (!Directory.Exists(configDir)) Directory.CreateDirectory(configDir);
@@ -222,7 +242,7 @@ public static class RetroAchievementsEmulatorConfiguratorService
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"Failed to prepare Dolphin config path at {configDir}");
+            _logErrors.LogAndForget(ex, $"Failed to prepare Dolphin config path at {configDir}");
             return false;
         }
 
@@ -241,11 +261,11 @@ public static class RetroAchievementsEmulatorConfiguratorService
             { "ApiToken", token }
         };
 
-        return UpdateIniFile(configPath, "Achievements", settingsToUpdate, logErrors);
+        return UpdateIniFile(configPath, "Achievements", settingsToUpdate);
     }
 
     // Flycast
-    public static bool ConfigureFlycast(string exePath, string username, string token, ILogErrors logErrors)
+    public bool ConfigureFlycast(string exePath, string username, string token)
     {
         var exeDir = Path.GetDirectoryName(exePath);
         if (exeDir != null)
@@ -253,14 +273,14 @@ public static class RetroAchievementsEmulatorConfiguratorService
             var configPath = Path.Combine(exeDir, "emu.cfg");
 
             // Try portable path first, then appdata
-            if (!File.Exists(configPath) && !RestoreConfigFromSample("flycast", configPath, logErrors))
+            if (!File.Exists(configPath) && !RestoreConfigFromSample("flycast", configPath))
             {
                 configPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "flycast", "emu.cfg");
 
                 // Try restoring to appdata if portable failed
-                if (!RestoreConfigFromSample("flycast", configPath, logErrors))
+                if (!RestoreConfigFromSample("flycast", configPath))
                 {
-                    logErrors.LogAndForget(null, "Flycast config not found and no sample available");
+                    _logErrors.LogAndForget(null, "Flycast config not found and no sample available");
                     return false;
                 }
             }
@@ -273,14 +293,14 @@ public static class RetroAchievementsEmulatorConfiguratorService
                 { "UserName", username }
             };
 
-            return UpdateIniFile(configPath, "achievements", settingsToUpdate, logErrors);
+            return UpdateIniFile(configPath, "achievements", settingsToUpdate);
         }
 
         return false;
     }
 
     // BizHawk
-    public static bool ConfigureBizHawk(string exePath, string username, string token, ILogErrors logErrors)
+    public bool ConfigureBizHawk(string exePath, string username, string token)
     {
         var exeDir = Path.GetDirectoryName(exePath);
         if (exeDir != null)
@@ -288,9 +308,9 @@ public static class RetroAchievementsEmulatorConfiguratorService
             var configPath = Path.Combine(exeDir, "config.ini");
 
             // Restore from sample if missing
-            if (!RestoreConfigFromSample("bizhawk", configPath, logErrors))
+            if (!RestoreConfigFromSample("bizhawk", configPath))
             {
-                logErrors.LogAndForget(null, $"BizHawk config not found and no sample available at {configPath}");
+                _logErrors.LogAndForget(null, $"BizHawk config not found and no sample available at {configPath}");
                 return false;
             }
 
@@ -318,7 +338,7 @@ public static class RetroAchievementsEmulatorConfiguratorService
             }
             catch (Exception ex)
             {
-                logErrors.LogAndForget(ex, $"Failed to configure BizHawk at {configPath}");
+                _logErrors.LogAndForget(ex, $"Failed to configure BizHawk at {configPath}");
                 return false;
             }
         }
@@ -327,7 +347,7 @@ public static class RetroAchievementsEmulatorConfiguratorService
     }
 
     // Helper for simple INI files
-    private static bool UpdateSimpleIniFile(string filePath, Dictionary<string, string> settingsToUpdate, string separator, ILogErrors logErrors)
+    private bool UpdateSimpleIniFile(string filePath, Dictionary<string, string> settingsToUpdate, string separator)
     {
         try
         {
@@ -361,7 +381,7 @@ public static class RetroAchievementsEmulatorConfiguratorService
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"Failed to update simple INI file: {filePath}");
+            _logErrors.LogAndForget(ex, $"Failed to update simple INI file: {filePath}");
             return false;
         }
 
@@ -387,7 +407,7 @@ public static class RetroAchievementsEmulatorConfiguratorService
     }
 
     // Helper for standard INI files with [Sections]
-    private static bool UpdateIniFile(string filePath, string section, Dictionary<string, string> settingsToUpdate, ILogErrors logErrors)
+    private bool UpdateIniFile(string filePath, string section, Dictionary<string, string> settingsToUpdate)
     {
         try
         {
@@ -459,7 +479,7 @@ public static class RetroAchievementsEmulatorConfiguratorService
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"Failed to update INI file: {filePath}");
+            _logErrors.LogAndForget(ex, $"Failed to update INI file: {filePath}");
             return false;
         }
     }

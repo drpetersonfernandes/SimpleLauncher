@@ -720,11 +720,12 @@ public class MenuActionHandlerService
         if (Application.Current.MainWindow is not MainWindow mainWindow) return;
 
         var contextMenuFunctions = _serviceProvider.GetRequiredService<IContextMenuFunctions>();
+        var contextMenuService = _serviceProvider.GetRequiredService<IContextMenuService>();
         var globalSearchPage = new Pages.GlobalSearchPage(
             _host.GetSystemManagers(), _host.GetMachines(), _host.GetMameLookup(),
             _favoritesManager, _settings, mainWindow,
             _gamePadController, _gameLauncher, _playSoundEffects,
-            _logErrors, _configuration, _getListOfFiles, _findCoverImage, _imageLoader, contextMenuFunctions, _debugLogger);
+            _logErrors, _configuration, _getListOfFiles, _findCoverImage, _imageLoader, contextMenuFunctions, _debugLogger, contextMenuService);
 
         _host.NavigateToPage(globalSearchPage);
     }
@@ -750,9 +751,10 @@ public class MenuActionHandlerService
         _playSoundEffects.PlayNotificationSound();
 
         var contextMenuFunctions = _serviceProvider.GetRequiredService<IContextMenuFunctions>();
+        var contextMenuService = _serviceProvider.GetRequiredService<IContextMenuService>();
         var favoritesPage = new Pages.FavoritesPage(
             _settings, _host.GetSystemManagers(), _host.GetMachines(), _favoritesManager,
-            (MainWindow)Application.Current.MainWindow, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _findCoverImage, _imageLoader, contextMenuFunctions, _debugLogger);
+            (MainWindow)Application.Current.MainWindow, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _findCoverImage, _imageLoader, contextMenuFunctions, _debugLogger, contextMenuService);
 
         _host.NavigateToPage(favoritesPage);
     }
@@ -767,10 +769,11 @@ public class MenuActionHandlerService
         if (Application.Current.MainWindow is not MainWindow mainWindow) return;
 
         var contextMenuFunctions = _serviceProvider.GetRequiredService<IContextMenuFunctions>();
+        var contextMenuService = _serviceProvider.GetRequiredService<IContextMenuService>();
         var playHistoryPage = new Pages.PlayHistoryPage(
             _host.GetSystemManagers(), _host.GetMachines(), _settings,
             _favoritesManager, _playHistoryManager, mainWindow,
-            _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _findCoverImage, _imageLoader, contextMenuFunctions, _debugLogger);
+            _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _findCoverImage, _imageLoader, contextMenuFunctions, _debugLogger, contextMenuService);
 
         _host.NavigateToPage(playHistoryPage);
     }

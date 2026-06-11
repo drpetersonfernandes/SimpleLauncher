@@ -34,6 +34,7 @@ public class GameItemRenderService : IGameItemRenderService
     private readonly IRetroAchievementsHasherTool _raHasherTool;
     private readonly IContextMenuFunctions _contextMenuFunctions;
     private readonly IDebugLogger _debugLogger;
+    private readonly IContextMenuService _contextMenuService;
 
     private IGameItemRenderHost _host;
     private GameButtonFactory _gameButtonFactory;
@@ -55,7 +56,8 @@ public class GameItemRenderService : IGameItemRenderService
         IMessageBoxLibraryService messageBox,
         IRetroAchievementsHasherTool raHasherTool,
         IContextMenuFunctions contextMenuFunctions,
-        IDebugLogger debugLogger)
+        IDebugLogger debugLogger,
+        IContextMenuService contextMenuService)
     {
         _settings = settings;
         _favoritesManager = favoritesManager;
@@ -73,6 +75,7 @@ public class GameItemRenderService : IGameItemRenderService
         _raHasherTool = raHasherTool;
         _contextMenuFunctions = contextMenuFunctions;
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _contextMenuService = contextMenuService ?? throw new ArgumentNullException(nameof(contextMenuService));
     }
 
     public void Initialize(IGameItemRenderHost host)
@@ -101,7 +104,8 @@ public class GameItemRenderService : IGameItemRenderService
             _messageBox,
             _raHasherTool,
             _contextMenuFunctions,
-            _debugLogger);
+            _debugLogger,
+            _contextMenuService);
 
         _gameListFactory = new GameListFactory(
             _host.EmulatorComboBox,

@@ -45,6 +45,7 @@ public partial class PlayHistoryPage : ILoadingState
     private readonly PlayHistoryManager _playHistoryManager;
     private readonly IContextMenuFunctions _contextMenuFunctions;
     private readonly IDebugLogger _debugLogger;
+    private readonly IContextMenuService _contextMenuService;
     private CancellationTokenSource? _cancellationTokenSource;
 
     public PlayHistoryPage(List<SystemManager> systemManagers,
@@ -61,7 +62,8 @@ public partial class PlayHistoryPage : ILoadingState
         IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         IContextMenuFunctions contextMenuFunctions,
-        IDebugLogger debugLogger)
+        IDebugLogger debugLogger,
+        IContextMenuService contextMenuService)
     {
         InitializeComponent();
 
@@ -78,6 +80,7 @@ public partial class PlayHistoryPage : ILoadingState
         _playHistoryManager = playHistoryManager ?? throw new ArgumentNullException(nameof(playHistoryManager));
         _contextMenuFunctions = contextMenuFunctions ?? throw new ArgumentNullException(nameof(contextMenuFunctions));
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _contextMenuService = contextMenuService ?? throw new ArgumentNullException(nameof(contextMenuService));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         _viewModel = new PlayHistoryViewModel(
@@ -199,7 +202,7 @@ public partial class PlayHistoryPage : ILoadingState
                 this
             );
 
-            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, _findCoverImage, _contextMenuFunctions);
+            var contextMenu = _contextMenuService.AddRightClickReturnContextMenu(context, _findCoverImage, _contextMenuFunctions);
             if (contextMenu != null)
             {
                 PlayHistoryDataGrid.ContextMenu = contextMenu;

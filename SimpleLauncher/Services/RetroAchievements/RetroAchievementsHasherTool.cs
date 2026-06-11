@@ -18,17 +18,23 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
     private readonly IExtractionService _extractionService;
     private readonly Func<SystemSelectionWindow> _systemSelectionWindowFactory;
     private readonly Func<Window> _mainWindowFactory;
+    private readonly IRetroAchievementsSystemMatcher _systemMatcher;
+    private readonly IRetroAchievementsFileHasher _fileHasher;
 
     public RetroAchievementsHasherTool(
         IDebugLogger debugLogger,
         IExtractionService extractionService,
         Func<SystemSelectionWindow> systemSelectionWindowFactory,
-        Func<Window> mainWindowFactory)
+        Func<Window> mainWindowFactory,
+        IRetroAchievementsSystemMatcher systemMatcher,
+        IRetroAchievementsFileHasher fileHasher)
     {
         _debugLogger = debugLogger;
         _extractionService = extractionService;
         _systemSelectionWindowFactory = systemSelectionWindowFactory;
         _mainWindowFactory = mainWindowFactory;
+        _systemMatcher = systemMatcher;
+        _fileHasher = fileHasher;
     }
 
     private static readonly string HasherPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "RAHasher", "RAHasher.exe");
@@ -99,7 +105,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         }
 
         // Get the best match from the system mappings (this handles fuzzy matching for supported systems)
-        var matchedSystemName = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemName, null, _debugLogger);
+        var matchedSystemName = _systemMatcher.GetBestMatchSystemName(systemName);
 
         // Check if the matched system is in the unsupported list
         if (SystemWithUnknowHashLogic.Contains(matchedSystemName, StringComparer.OrdinalIgnoreCase))
@@ -107,7 +113,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
 
         // Check if the system exists in the SystemMappings dictionary
         // This ensures all systems defined in RetroAchievementsSystemMatcher are considered supported
-        if (RetroAchievementsSystemMatcher.IsSystemInMappings(systemName))
+        if (_systemMatcher.IsSystemInMappings(systemName))
             return true;
 
         // Check if the matched system is in any of the supported lists
@@ -343,14 +349,14 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
     public async Task<RaHashResult> GetGameHashForRetroAchievementsAsync(string filePath, string systemName, List<string> fileFormatsToLaunch, ILoadingState loadingState, ILogErrors logErrors)
     {
         // 1. Try to get a 100% certain match
-        var confirmedSystem = RetroAchievementsSystemMatcher.GetExactAliasMatch(systemName);
+        var confirmedSystem = _systemMatcher.GetExactAliasMatch(systemName);
 
         // 2. If not 100% certain, ask the user
         if (confirmedSystem == null)
         {
             // Get a "guess" to pre-select in the ComboBox
             _debugLogger.Log($"[GetGameHashForRetroAchievementsAsync] Received systemName: {systemName}");
-            var guess = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemName, null, _debugLogger);
+            var guess = _systemMatcher.GetBestMatchSystemName(systemName);
             _debugLogger.Log($"[GetGameHashForRetroAchievementsAsync] Guess systemName: {guess}");
 
             // Directly show the dialog (already on the UI thread)
@@ -465,14 +471,14 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
             {
                 case "Simple":
                 {
-                    hash = await RetroAchievementsFileHasher.CalculateStandardMd5Async(fileToProcess, logErrors);
+                    hash = await _fileHasher.CalculateStandardMd5Async(fileToProcess);
                     _debugLogger.Log($"[RA Hasher Tool] Calculated simple hash: {hash}");
                     break;
                 }
 
                 case "Complex":
                 {
-                    var systemId = RetroAchievementsSystemMatcher.GetSystemId(systemName, _debugLogger);
+                    var systemId = _systemMatcher.GetSystemId(systemName);
                     if (systemId > 0)
                     {
                         _debugLogger.Log($"[RA Hasher Tool] Using RAHasher.exe for system '{systemName}' (ID: {systemId})...");
@@ -492,7 +498,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
 
                 case "Dolphin":
                 {
-                    var systemId = RetroAchievementsSystemMatcher.GetSystemId(systemName, _debugLogger);
+                    var systemId = _systemMatcher.GetSystemId(systemName);
                     if (systemId <= 0)
                     {
                         extractionErrorMessage = $"Could not find RetroAchievements System ID for '{systemName}'.";
@@ -554,7 +560,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
 
                 case "HashFileName":
                 {
-                    hash = RetroAchievementsFileHasher.CalculateFilenameHash(fileToProcess, logErrors);
+                    hash = _fileHasher.CalculateFilenameHash(fileToProcess);
                     _debugLogger.Log($"[RA Hasher Tool] Calculated hash for filename: {hash}");
                     break;
                 }
@@ -562,7 +568,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
                 case "HashWithByteSwapping":
                 {
                     _debugLogger.Log($"[RA Hasher Tool] Calculating N64 hash for '{Path.GetFileName(fileToProcess)}'...");
-                    hash = await RetroAchievementsFileHasher.CalculateN64HashAsync(fileToProcess, logErrors);
+                    hash = await _fileHasher.CalculateN64HashAsync(fileToProcess);
                     _debugLogger.Log($"[RA Hasher Tool] Calculated N64 hash: {hash}");
                     break;
                 }
@@ -570,14 +576,14 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
                 case "HashWithHeaderCheck":
                 {
                     _debugLogger.Log($"[RA Hasher Tool] Calculating header-based hash for system '{systemName}' on file '{Path.GetFileName(fileToProcess)}'...");
-                    hash = await RetroAchievementsFileHasher.CalculateHeaderBasedMd5Async(fileToProcess, systemName, logErrors);
+                    hash = await _fileHasher.CalculateHeaderBasedMd5Async(fileToProcess, systemName);
                     _debugLogger.Log($"[RA Hasher Tool] Calculated header-based hash: {hash}");
                     break;
                 }
                 case "HashWithLineEndingNormalization":
                 {
                     _debugLogger.Log($"[RA Hasher Tool] Calculating Arduboy hash for '{Path.GetFileName(fileToProcess)}'...");
-                    hash = await RetroAchievementsFileHasher.CalculateArduboyHashAsync(fileToProcess, logErrors);
+                    hash = await _fileHasher.CalculateArduboyHashAsync(fileToProcess);
                     _debugLogger.Log($"[RA Hasher Tool] Calculated Arduboy hash: {hash}");
                     break;
                 }
