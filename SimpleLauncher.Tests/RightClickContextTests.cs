@@ -99,7 +99,7 @@ public class RightClickContextTests
         }
     }
 
-    private sealed class NoOpLoadingState : SimpleLauncher.Services.LoadingInterface.ILoadingState
+    private sealed class NoOpLoadingState : Services.LoadingInterface.ILoadingState
     {
         public void SetLoadingState(bool isLoading, string? message = null)
         {
