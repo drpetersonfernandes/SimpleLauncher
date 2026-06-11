@@ -73,7 +73,7 @@ public static partial class PathHelper
     {
         if (string.IsNullOrWhiteSpace(parameters))
         {
-            return string.Empty;
+            return "";
         }
 
         var pathTokenRegex = MyRegex();
@@ -82,7 +82,7 @@ public static partial class PathHelper
         {
             if (match is not { Success: true })
             {
-                return string.Empty;
+                return "";
             }
 
             var originalToken = match.Value;
@@ -111,7 +111,7 @@ public static partial class PathHelper
 
             if (processedToken.Contains("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase))
             {
-                var resolvedSystemFolderPaths = string.Empty;
+                var resolvedSystemFolderPaths = "";
                 if (systemFolders is { Count: > 0 })
                 {
                     var resolvedFolders = systemFolders
@@ -176,7 +176,7 @@ public static partial class PathHelper
     {
         if (string.IsNullOrWhiteSpace(path))
         {
-            return string.Empty;
+            return "";
         }
 
         return Path.GetFullPath(path);
@@ -199,7 +199,7 @@ public static partial class PathHelper
         }
         else if (Path.IsPathRooted(path))
         {
-            basePath = string.Empty;
+            basePath = "";
         }
         else
         {
@@ -234,11 +234,11 @@ public static partial class PathHelper
 
         if (string.IsNullOrEmpty(resolvedPath1))
         {
-            return string.Empty;
+            return "";
         }
 
         var combinedPath = Path.Combine(resolvedPath1, path2);
-        return ResolveRelativeToAppDirectory(combinedPath) ?? string.Empty;
+        return ResolveRelativeToAppDirectory(combinedPath) ?? "";
     }
 
     public static string GetFileNameWithoutExtension(string path)
@@ -255,22 +255,24 @@ public static partial class PathHelper
     {
         if (string.IsNullOrEmpty(pathTokenValue))
         {
-            return string.Empty;
+            return "";
         }
 
         return pathTokenValue.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
     }
 
-    public static string GetLongPath(string? path)
+    public static string? GetLongPath(string? path)
     {
+        if (path == null) return null;
+
         if (string.IsNullOrWhiteSpace(path) ||
             path.StartsWith(@"\\?\", StringComparison.OrdinalIgnoreCase) ||
             path.StartsWith(@"\\.\", StringComparison.OrdinalIgnoreCase))
         {
-            if (path != null) return path;
+            return path;
         }
 
-        if (path != null && path.StartsWith(@"\\", StringComparison.Ordinal))
+        if (path.StartsWith(@"\\", StringComparison.Ordinal))
         {
             return @"\\?\UNC\" + path[2..];
         }

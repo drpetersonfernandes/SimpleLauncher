@@ -13,52 +13,52 @@ public class EnvironmentInfo
     /// <summary>
     /// Gets or sets the date and time when the environment information was collected.
     /// </summary>
-    public string Date { get; set; } = string.Empty;
+    public string Date { get; set; } = "";
 
     /// <summary>
     /// Gets or sets the name of the application.
     /// </summary>
-    public string ApplicationName { get; set; } = string.Empty;
+    public string ApplicationName { get; set; } = "";
 
     /// <summary>
     /// Gets or sets the version of the application.
     /// </summary>
-    public string ApplicationVersion { get; set; } = string.Empty;
+    public string ApplicationVersion { get; set; } = "";
 
     /// <summary>
     /// Gets or sets the operating system version string.
     /// </summary>
-    public string OsVersion { get; set; } = string.Empty;
+    public string OsVersion { get; set; } = "";
 
     /// <summary>
     /// Gets or sets the processor architecture (e.g., x64, Arm64).
     /// </summary>
-    public string Architecture { get; set; } = string.Empty;
+    public string Architecture { get; set; } = "";
 
     /// <summary>
     /// Gets or sets the process bitness (32-bit or 64-bit).
     /// </summary>
-    public string Bitness { get; set; } = string.Empty;
+    public string Bitness { get; set; } = "";
 
     /// <summary>
     /// Gets or sets the Windows version information.
     /// </summary>
-    public string WindowsVersion { get; set; } = string.Empty;
+    public string WindowsVersion { get; set; } = "";
 
     /// <summary>
     /// Gets or sets the number of processors available on the machine.
     /// </summary>
-    public string ProcessorCount { get; set; } = string.Empty;
+    public string ProcessorCount { get; set; } = "";
 
     /// <summary>
     /// Gets or sets the base directory of the application.
     /// </summary>
-    public string BaseDirectory { get; set; } = string.Empty;
+    public string BaseDirectory { get; set; } = "";
 
     /// <summary>
     /// Gets or sets the path to the system's temporary folder.
     /// </summary>
-    public string TempPath { get; set; } = string.Empty;
+    public string TempPath { get; set; } = "";
 
     /// <summary>
     /// Collects all environment information

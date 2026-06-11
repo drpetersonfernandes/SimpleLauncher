@@ -1,5 +1,7 @@
 using System.IO.Compression;
 using System.Reflection;
+using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 using Xunit;
 
@@ -9,9 +11,18 @@ public class MountZipFilesTests
 {
     private static void InvokeValidateZipForPathTraversal(string zipPath)
     {
-        var method = typeof(MountZipFiles).GetMethod("ValidateZipForPathTraversal", BindingFlags.NonPublic | BindingFlags.Static);
+        var method = typeof(MountZipFiles).GetMethod("ValidateZipForPathTraversal", BindingFlags.NonPublic | BindingFlags.Instance);
         Assert.NotNull(method);
-        method.Invoke(null, [zipPath]);
+        var instance = CreateMountZipFilesInstance();
+        method.Invoke(instance, [zipPath]);
+    }
+
+    private static MountZipFiles CreateMountZipFilesInstance()
+    {
+        var debugLogger = new NoOpDebugLogger();
+        var configuration = new ConfigurationBuilder().Build();
+        var constructor = typeof(MountZipFiles).GetConstructors(BindingFlags.Instance | BindingFlags.Public).First();
+        return (MountZipFiles)constructor.Invoke([configuration, debugLogger]);
     }
 
     private static string CreateTestZip(string[] entryNames)
@@ -137,6 +148,17 @@ public class MountZipFilesTests
         finally
         {
             File.Delete(zipPath);
+        }
+    }
+
+    private sealed class NoOpDebugLogger : IDebugLogger
+    {
+        public void Log(string message)
+        {
+        }
+
+        public void LogException(Exception ex, string? contextMessage = null)
+        {
         }
     }
 }

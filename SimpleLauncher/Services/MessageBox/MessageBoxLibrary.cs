@@ -2462,10 +2462,10 @@ internal static class MessageBoxLibrary
             var batchNameMessage = $"{batchfilefailed}\n\n{batchFileName}";
             var errorMessage = !string.IsNullOrEmpty(errorDetail)
                 ? $"Error: {errorDetail}\n\n"
-                : string.Empty;
+                : "";
             var exitCodeMessage = exitCode.HasValue
                 ? $"Exit code: {exitCode.Value}\n\n"
-                : string.Empty;
+                : "";
             var explanation = exitCode is < 0
                 ? (string)Application.Current.TryFindResource("Theprogramlaunchedbythisbatch") ?? "The program launched by this batch file may have crashed or been terminated unexpectedly. Negative exit codes typically indicate system-level failures."
                 : (string)Application.Current.TryFindResource("Batchfilefailedexplanation") ?? "This usually means a path referenced inside the batch file no longer exists or is incorrect.";

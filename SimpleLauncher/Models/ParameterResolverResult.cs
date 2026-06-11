@@ -8,7 +8,7 @@ public class ParameterResolverResult
     /// <summary>
     /// Gets or sets the suggested CLI parameter string for the emulator.
     /// </summary>
-    public string SuggestedParameter { get; set; } = string.Empty;
+    public string SuggestedParameter { get; set; } = "";
 
     /// <summary>
     /// Gets or sets a human-readable explanation of why this parameter was chosen.

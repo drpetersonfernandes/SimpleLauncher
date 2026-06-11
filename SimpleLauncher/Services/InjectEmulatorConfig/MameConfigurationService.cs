@@ -9,9 +9,7 @@ public static partial class MameConfigurationService
 {
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger, string systemRomPath = null, string[] listOfSecondaryRomPath = null)
     {
-        if (string.IsNullOrWhiteSpace(emulatorPath))
-            throw new ArgumentException(@"Emulator path cannot be null or empty.", nameof(emulatorPath));
-
+        ArgumentException.ThrowIfNullOrWhiteSpace(emulatorPath);
         ArgumentNullException.ThrowIfNull(settings);
 
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -312,8 +310,8 @@ public static partial class MameConfigurationService
     private static string RemoveQuotes(string value)
     {
         return string.IsNullOrWhiteSpace(value)
-            ? string.Empty
-            : value.Replace("\"", string.Empty).Trim();
+            ? ""
+            : value.Replace("\"", "").Trim();
     }
 
     /// <summary>
@@ -323,7 +321,7 @@ public static partial class MameConfigurationService
     private static string NormalizePath(string path)
     {
         if (string.IsNullOrEmpty(path))
-            return string.Empty;
+            return "";
 
         return path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
     }

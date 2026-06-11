@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -8,6 +9,7 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+[SuppressMessage("ReSharper", "NullableWarningSuppressionIsUsed")]
 public class GlobalStatsViewModelTests : IDisposable
 {
     private readonly IConfiguration _configuration;

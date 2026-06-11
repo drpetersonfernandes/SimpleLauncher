@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Nodes;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -12,6 +13,7 @@ using BlastemConfigurationService = SimpleLauncher.Services.InjectEmulatorConfig
 
 namespace SimpleLauncher.Tests;
 
+[SuppressMessage("ReSharper", "NullableWarningSuppressionIsUsed")]
 public class EmulatorConfigInjectionTests : IDisposable
 {
     private readonly string _testDirectory;

@@ -8,10 +8,10 @@ namespace SimpleLauncher.Services.MameManager;
 public class MameManager
 {
     [Key(0)]
-    public string MachineName { get; set; } = string.Empty;
+    public string MachineName { get; set; } = "";
 
     [Key(1)]
-    public string Description { get; set; } = string.Empty;
+    public string Description { get; set; } = "";
 
     private static readonly string DefaultDatPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.dat");
 

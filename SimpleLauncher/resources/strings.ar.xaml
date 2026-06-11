@@ -1011,6 +1011,7 @@
     <system:String x:Key="nogamesmatched">للأسف، لم تطابق أي ألعاب استعلام البحث الخاص بك أو الزر المحدد.</system:String>
     <system:String x:Key="NoHighScores">لا توجد أعلى نقاط لهذه اللعبة.</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">لم يتم العثور على ملف 'history.xml' في مجلد التطبيق.</system:String>
+    <system:String x:Key="Nohistoryxmlfilefound2">لم يتم العثور على ملف 'history.dat' أو 'history.xml' في مجلد التطبيق.</system:String>
     <system:String x:Key="NoImageIcon">لا توجد صورة</system:String>
     <system:String x:Key="Noinformationavailableforsystem">لا توجد معلومات متاحة للنظام:</system:String>
     <system:String x:Key="NoLatestMasters">لا يوجد من أتموا اللعبة حديثًا.</system:String>

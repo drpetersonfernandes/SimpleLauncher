@@ -74,7 +74,7 @@ public class GameListUiService
             _host.GameListItems.Add(new GameListViewItem
             {
                 FileName = noGamesMatched,
-                MachineDescription = string.Empty
+                MachineDescription = ""
             });
         }
     }

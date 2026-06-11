@@ -96,7 +96,7 @@ public partial class GitHubService
             using var jsonDoc = JsonDocument.Parse(jsonResponse);
             var root = jsonDoc.RootElement;
 
-            var versionTag = root.GetProperty("tag_name").GetString() ?? string.Empty;
+            var versionTag = root.GetProperty("tag_name").GetString() ?? "";
 
             // Validate version tag format
             if (string.IsNullOrWhiteSpace(versionTag))

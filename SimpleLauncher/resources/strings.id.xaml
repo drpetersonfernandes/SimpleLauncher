@@ -1011,6 +1011,7 @@
     <system:String x:Key="nogamesmatched">Sayangnya, tidak ada game yang cocok dengan kueri pencarian Anda atau tombol yang dipilih.</system:String>
     <system:String x:Key="NoHighScores">Tidak ada skor tinggi ditemukan untuk game ini.</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">File 'history.xml' tidak ditemukan di folder aplikasi.</system:String>
+    <system:String x:Key="Nohistoryxmlfilefound2">Tidak ada file 'history.dat' atau 'history.xml' ditemukan di folder aplikasi.</system:String>
     <system:String x:Key="NoImageIcon">Tanpa Gambar</system:String>
     <system:String x:Key="Noinformationavailableforsystem">Tidak ada informasi yang tersedia untuk sistem:</system:String>
     <system:String x:Key="NoLatestMasters">Tidak ada master terbaru ditemukan untuk game ini.</system:String>

@@ -12,7 +12,7 @@ public class GameCacheService : IGameCacheService, IDisposable
     private List<string> _allGamesForCurrentSystem = [];
     private List<string> _currentSearchResults = [];
 
-    public string SelectedSystem { get; private set; } = string.Empty;
+    public string SelectedSystem { get; private set; } = "";
 
     public GameCacheService(ILogErrors logErrors)
     {

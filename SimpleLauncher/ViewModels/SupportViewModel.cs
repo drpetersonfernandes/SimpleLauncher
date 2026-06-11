@@ -135,9 +135,9 @@ public partial class SupportViewModel : ObservableObject
 
                 if (response.IsSuccessStatusCode)
                 {
-                    Name = string.Empty;
-                    Email = string.Empty;
-                    SupportRequest = string.Empty;
+                    Name = "";
+                    Email = "";
+                    SupportRequest = "";
 
                     FormCleared?.Invoke();
 

@@ -36,7 +36,7 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
 
     [ObservableProperty] private int _selectedSystemIndex = -1;
 
-    [ObservableProperty] private string _systemFolder = string.Empty;
+    [ObservableProperty] private string _systemFolder = "";
 
     // Download states
     [ObservableProperty] private bool _isEmulatorDownloaded = true;
@@ -72,10 +72,10 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
     // Loading state
     [ObservableProperty] private bool _isLoading;
 
-    [ObservableProperty] private string _loadingMessage = string.Empty;
+    [ObservableProperty] private string _loadingMessage = "";
 
     // Download progress
-    [ObservableProperty] private string _downloadStatus = string.Empty;
+    [ObservableProperty] private string _downloadStatus = "";
 
     // Download states tracking
     private readonly Dictionary<string, DownloadButtonState> _downloadStates = new();
@@ -152,7 +152,7 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
         if (string.IsNullOrEmpty(selectedSystemName) || _manager?.Systems == null)
         {
             ResetDownloadStates();
-            SystemFolder = string.Empty;
+            SystemFolder = "";
             return;
         }
 
@@ -209,7 +209,7 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
         SetDownloadState(EasyModeManager.DownloadType.ImagePack5,
             string.IsNullOrEmpty(emulator?.ImagePackDownloadLink5) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
 
-        SystemFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.SystemFolder) ?? string.Empty;
+        SystemFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.SystemFolder) ?? "";
         UpdateAddSystemButtonState();
     }
 
@@ -375,27 +375,36 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
     }
 
     [RelayCommand]
-    private async Task AddSystemAsync()
+    private Task AddSystemAsync()
     {
-        _playSoundEffects.PlayNotificationSound();
-        if (_disposed || !TryStartOperation()) return;
-
         try
         {
-            IsLoading = true;
-            LoadingMessage = _resourceProvider.GetString("AddingSystem", "Adding system...");
+            _playSoundEffects.PlayNotificationSound();
+            if (_disposed || !TryStartOperation()) return Task.CompletedTask;
 
-            // Implementation depends on EasyModeManager.AddSystemAsync
-            // This would need to be called from the code-behind with the selected system
+            try
+            {
+                IsLoading = true;
+                LoadingMessage = _resourceProvider.GetString("AddingSystem", "Adding system...");
+
+                // Implementation depends on EasyModeManager.AddSystemAsync
+                // This would need to be called from the code-behind with the selected system
+            }
+            catch (Exception ex)
+            {
+                if (!_disposed) _logErrors.LogAndForget(ex, "Error adding system.");
+            }
+            finally
+            {
+                IsLoading = false;
+                EndOperation();
+            }
+
+            return Task.CompletedTask;
         }
-        catch (Exception ex)
+        catch (Exception exception)
         {
-            if (!_disposed) _logErrors.LogAndForget(ex, "Error adding system.");
-        }
-        finally
-        {
-            IsLoading = false;
-            EndOperation();
+            return Task.FromException(exception);
         }
     }
 

@@ -63,12 +63,12 @@ public class LogErrorsService : ILogErrors
                     {
                         try
                         {
-                            _deleteFilesService.TryDeleteFile(errorLogPath);
+                            await _deleteFilesService.TryDeleteFileAsync(errorLogPath);
                         }
                         catch (Exception ex2)
                         {
                             WriteLocalErrorLog(ex2, "Error deleting the ErrorLog.");
-                            _dispatcher.Invoke(() => _debugLogger.LogException(ex2, "Error deleting the ErrorLog"));
+                            await _dispatcher.InvokeAsync(() => _debugLogger.LogException(ex2, "Error deleting the ErrorLog"));
                         }
                     }
                 }

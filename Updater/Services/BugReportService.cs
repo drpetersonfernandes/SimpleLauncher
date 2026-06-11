@@ -142,26 +142,33 @@ public static class BugReportService
     /// <param name="exception">The exception to include in the report</param>
     /// <param name="additionalInfo">Additional context information</param>
     /// <returns>A BugReportRequest with all details populated</returns>
-    private static async Task<BugReportRequest> CreateBugReportRequestAsync(Exception exception, string? additionalInfo)
+    private static Task<BugReportRequest> CreateBugReportRequestAsync(Exception exception, string? additionalInfo)
     {
-        var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-        var assemblyName = assembly.GetName().Name ?? "Updater";
-        var version = assembly.GetName().Version?.ToString() ?? "Unknown";
-
-        var environmentInfo = EnvironmentInfo.Collect();
-
-        var message = BuildMessage(environmentInfo, exception, additionalInfo);
-        var stackTrace = BuildFullStackTrace(exception);
-
-        return new BugReportRequest
+        try
         {
-            Message = message,
-            ApplicationName = assemblyName,
-            Version = version,
-            UserInfo = GetUserInfo(),
-            Environment = GetEnvironmentName(),
-            StackTrace = stackTrace
-        };
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            var assemblyName = assembly.GetName().Name ?? "Updater";
+            var version = assembly.GetName().Version?.ToString() ?? "Unknown";
+
+            var environmentInfo = EnvironmentInfo.Collect();
+
+            var message = BuildMessage(environmentInfo, exception, additionalInfo);
+            var stackTrace = BuildFullStackTrace(exception);
+
+            return Task.FromResult(new BugReportRequest
+            {
+                Message = message,
+                ApplicationName = assemblyName,
+                Version = version,
+                UserInfo = GetUserInfo(),
+                Environment = GetEnvironmentName(),
+                StackTrace = stackTrace
+            });
+        }
+        catch (Exception exception1)
+        {
+            return Task.FromException<BugReportRequest>(exception1);
+        }
     }
 
     /// <summary>

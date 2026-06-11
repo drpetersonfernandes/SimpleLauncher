@@ -50,7 +50,7 @@ public partial class DebugWindow
         // Use Dispatcher to ensure UI update happens on the UI thread
         Dispatcher.Invoke(() =>
         {
-            _viewModel?.AppendLogMessage(message);
+            _viewModel.AppendLogMessage(message);
         });
     }
 

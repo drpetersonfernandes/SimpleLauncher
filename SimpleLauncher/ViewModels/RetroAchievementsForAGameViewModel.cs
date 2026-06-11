@@ -23,12 +23,12 @@ public partial class RetroAchievementsForAGameViewModel : ObservableObject
     private readonly RetroAchievementsService _raService;
     private readonly PlaySoundEffects _playSoundEffects;
     private int _gameId;
-    private string _gameTitleForDisplay = string.Empty;
+    private string _gameTitleForDisplay = "";
 
     // Game info
-    [ObservableProperty] private string _gameTitle = string.Empty;
+    [ObservableProperty] private string _gameTitle = "";
 
-    [ObservableProperty] private string _consoleName = string.Empty;
+    [ObservableProperty] private string _consoleName = "";
 
     [ObservableProperty] private string? _gameIconUrl;
 
@@ -51,7 +51,7 @@ public partial class RetroAchievementsForAGameViewModel : ObservableObject
 
     [ObservableProperty] private bool _noAchievementsVisible;
 
-    [ObservableProperty] private string _noAchievementsMessage = string.Empty;
+    [ObservableProperty] private string _noAchievementsMessage = "";
 
     // Progress
     [ObservableProperty] private double _casualCompletion;
@@ -70,9 +70,9 @@ public partial class RetroAchievementsForAGameViewModel : ObservableObject
 
     [ObservableProperty] private string _truePointsEarned = "0";
 
-    [ObservableProperty] private string _highestAwardKind = string.Empty;
+    [ObservableProperty] private string _highestAwardKind = "";
 
-    [ObservableProperty] private string _highestAwardDate = string.Empty;
+    [ObservableProperty] private string _highestAwardDate = "";
 
     [ObservableProperty] private bool _isMastered;
 
@@ -85,7 +85,7 @@ public partial class RetroAchievementsForAGameViewModel : ObservableObject
 
     [ObservableProperty] private bool _noRankingVisible;
 
-    [ObservableProperty] private string _noRankingMessage = string.Empty;
+    [ObservableProperty] private string _noRankingMessage = "";
 
     // Loading state
     [ObservableProperty] private bool _isLoading;
@@ -129,7 +129,7 @@ public partial class RetroAchievementsForAGameViewModel : ObservableObject
 
         try
         {
-            var (progress, achievements) = await _raService.GetGameInfoAndUserProgressAsync(_gameId, _settings.RaUsername!, _settings.RaApiKey!);
+            var (progress, achievements) = await _raService.GetGameInfoAndUserProgressAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
 
             if (progress != null && achievements is { Count: > 0 })
             {
@@ -183,7 +183,7 @@ public partial class RetroAchievementsForAGameViewModel : ObservableObject
 
         try
         {
-            var gameInfo = await _raService.GetGameExtendedAsync(_gameId, _settings.RaUsername!, _settings.RaApiKey!);
+            var gameInfo = await _raService.GetGameExtendedAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
             if (gameInfo != null)
             {
                 GameIconUrl = !string.IsNullOrEmpty(gameInfo.ImageIcon)
@@ -236,7 +236,7 @@ public partial class RetroAchievementsForAGameViewModel : ObservableObject
         try
         {
             // Load Latest Masters (latestMasters=true)
-            var latestMasters = await _raService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername!, _settings.RaApiKey!, true);
+            var latestMasters = await _raService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey, true);
             if (latestMasters is { Count: > 0 })
             {
                 for (var i = 0; i < latestMasters.Count; i++)
@@ -248,7 +248,7 @@ public partial class RetroAchievementsForAGameViewModel : ObservableObject
             }
 
             // Load High Scores (default)
-            var rankings = await _raService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername!, _settings.RaApiKey!);
+            var rankings = await _raService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
             if (rankings is { Count: > 0 })
             {
                 for (var i = 0; i < rankings.Count; i++)
@@ -280,7 +280,7 @@ public partial class RetroAchievementsForAGameViewModel : ObservableObject
 
     public string GetProfileUrl()
     {
-        return $"https://retroachievements.org/user/{Uri.EscapeDataString(_settings.RaUsername ?? string.Empty)}";
+        return $"https://retroachievements.org/user/{Uri.EscapeDataString(_settings.RaUsername ?? "")}";
     }
 
     public string GetGameUrl()

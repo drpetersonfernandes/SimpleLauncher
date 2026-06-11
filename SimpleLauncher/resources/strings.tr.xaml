@@ -1011,6 +1011,7 @@
     <system:String x:Key="nogamesmatched">Maalesef, aramanız veya seçtiğiniz buton ile eşleşen bir oyun bulunamadı.</system:String>
     <system:String x:Key="NoHighScores">Bu oyun için yüksek skor bulunamadı.</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">'history.xml' dosyası uygulama klasöründe bulunamadı.</system:String>
+    <system:String x:Key="Nohistoryxmlfilefound2">Uygulama klasöründe 'history.dat' veya 'history.xml' dosyası bulunamadı.</system:String>
     <system:String x:Key="NoImageIcon">Resim Yok</system:String>
     <system:String x:Key="Noinformationavailableforsystem">Sistem için kullanılabilir bilgi yok:</system:String>
     <system:String x:Key="NoLatestMasters">Bu oyun için en son ustalar bulunamadı.</system:String>

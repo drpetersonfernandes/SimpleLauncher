@@ -636,7 +636,7 @@ internal partial class GameButtonFactory(
         return _settings.FilenameDisplayMode switch
         {
             "CleanUp" => CleanUpFileName(fileNameWithoutExtension),
-            "NoFilename" => string.Empty,
+            "NoFilename" => "",
             _ => fileNameWithoutExtension
         };
     }

@@ -252,7 +252,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
         existingSystem.Element("FileFormatsToSearch")?.ReplaceNodes(config.FileFormatsToSearch.Select(static f => new XElement("FormatToSearch", f)));
         existingSystem.SetElementValue("GroupByFolder", config.GroupByFolder);
         existingSystem.SetElementValue("DisableRecursiveSearch", config.DisableRecursiveSearch);
-        existingSystem.SetElementValue("ExtractFileBeforeLaunch", config.ExtractFileBeforeLaunch ? (object)true : null);
+        existingSystem.SetElementValue("ExtractFileBeforeLaunch", config.ExtractFileBeforeLaunch ? true : null);
         existingSystem.Element("FileFormatsToLaunch")?.ReplaceNodes(config.FileFormatsToLaunch.Select(static f => new XElement("FormatToLaunch", f)));
 
         existingSystem.Element("Emulators")?.Remove();

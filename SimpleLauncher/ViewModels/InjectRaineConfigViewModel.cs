@@ -124,12 +124,12 @@ public partial class InjectRaineConfigViewModel : ObservableObject
         RaineShowSettingsBeforeLaunch = _settings.Raine.ShowSettingsBeforeLaunch;
         RaineShowFps = _settings.Raine.ShowFps;
         RaineFrameSkip = _settings.Raine.FrameSkip;
-        RaineNeoCdBios = _settings.Raine.NeoCdBios ?? string.Empty;
+        RaineNeoCdBios = _settings.Raine.NeoCdBios ?? "";
         RaineMusicVolume = _settings.Raine.MusicVolume;
         RaineSfxVolume = _settings.Raine.SfxVolume;
         RaineMuteSfx = _settings.Raine.MuteSfx;
         RaineMuteMusic = _settings.Raine.MuteMusic;
-        RaineRomDirectory = _settings.Raine.RomDirectory ?? string.Empty;
+        RaineRomDirectory = _settings.Raine.RomDirectory ?? "";
     }
 
     private void SaveSettings()

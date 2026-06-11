@@ -42,7 +42,7 @@ public partial class FavoritesViewModel : ObservableObject
 
     [ObservableProperty] private bool _isLoading;
 
-    [ObservableProperty] private string _loadingMessage = string.Empty;
+    [ObservableProperty] private string _loadingMessage = "";
 
     public FavoritesViewModel(
         IConfiguration configuration,
@@ -91,7 +91,7 @@ public partial class FavoritesViewModel : ObservableObject
                     var machine = machinesSnapshot.FirstOrDefault(m =>
                         m.MachineName.Equals(Path.GetFileNameWithoutExtension(favoriteConfigItem.FileName), StringComparison.OrdinalIgnoreCase));
 
-                    var machineDescription = machine?.Description ?? string.Empty;
+                    var machineDescription = machine?.Description ?? "";
 
                     var systemManager = systemManagersSnapshot.FirstOrDefault(manager =>
                         manager.SystemName.Equals(favoriteConfigItem.SystemName, StringComparison.OrdinalIgnoreCase));

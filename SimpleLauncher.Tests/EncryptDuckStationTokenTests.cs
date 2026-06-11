@@ -9,28 +9,28 @@ public class EncryptDuckStationTokenTests
     public void EncryptDuckStationTokenMethodNullTokenReturnsEmpty()
     {
         var result = EncryptDuckStationToken.EncryptDuckStationTokenMethod(null, "user", true, null);
-        Assert.Equal(string.Empty, result);
+        Assert.Equal("", result);
     }
 
     [Fact]
     public void EncryptDuckStationTokenMethodNullUsernameReturnsEmpty()
     {
         var result = EncryptDuckStationToken.EncryptDuckStationTokenMethod("token", null, true, null);
-        Assert.Equal(string.Empty, result);
+        Assert.Equal("", result);
     }
 
     [Fact]
     public void EncryptDuckStationTokenMethodEmptyTokenReturnsEmpty()
     {
         var result = EncryptDuckStationToken.EncryptDuckStationTokenMethod("", "user", true, null);
-        Assert.Equal(string.Empty, result);
+        Assert.Equal("", result);
     }
 
     [Fact]
     public void EncryptDuckStationTokenMethodEmptyUsernameReturnsEmpty()
     {
         var result = EncryptDuckStationToken.EncryptDuckStationTokenMethod("token", "", true, null);
-        Assert.Equal(string.Empty, result);
+        Assert.Equal("", result);
     }
 
     [Fact]

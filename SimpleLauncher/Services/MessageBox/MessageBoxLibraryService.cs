@@ -593,9 +593,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
-    public async Task<CoreMessageBoxResult> CouldNotLoadHelpUserXmlMessageBox()
+    public Task<CoreMessageBoxResult> CouldNotLoadHelpUserXmlMessageBox()
     {
-        return CoreMessageBoxResult.No;
+        return Task.FromResult(CoreMessageBoxResult.No);
     }
 
     public async Task FailedToLoadHelpUserXmlMessageBox()
@@ -1268,9 +1268,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message, pleaseselectaitem);
     }
 
-    public async Task<CoreMessageBoxResult> ReallyWantToRemoveAllPlayHistoryMessageBox()
+    public Task<CoreMessageBoxResult> ReallyWantToRemoveAllPlayHistoryMessageBox()
     {
-        return CoreMessageBoxResult.No;
+        return Task.FromResult(CoreMessageBoxResult.No);
     }
 
     public Task SystemAddedMessageBox(string systemName, string resolvedSystemFolder, string resolvedSystemImageFolder)
@@ -1321,14 +1321,14 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                             $"{thefilehasbeenremovedfromthelist}", info);
     }
 
-    public async Task<CoreMessageBoxResult> GameFileDoesNotExistAskToDeleteMessageBox(string filePath)
+    public Task<CoreMessageBoxResult> GameFileDoesNotExistAskToDeleteMessageBox(string filePath)
     {
-        return CoreMessageBoxResult.No;
+        return Task.FromResult(CoreMessageBoxResult.No);
     }
 
-    public async Task<CoreMessageBoxResult> FavoriteFileDoesNotExistAskToDeleteMessageBox(string filePath)
+    public Task<CoreMessageBoxResult> FavoriteFileDoesNotExistAskToDeleteMessageBox(string filePath)
     {
-        return CoreMessageBoxResult.No;
+        return Task.FromResult(CoreMessageBoxResult.No);
     }
 
     public Task CouldNotOpenHistoryWindowMessageBox()
@@ -1622,7 +1622,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public async Task InvalidOperationExceptionMessageBox(string logPath)
     {
-        var simpleLaunchercouldnotlaunch = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "Simple Launcher could not launch the game.";
+        var simpleLaunchercouldnotlaunch = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch the selected game.";
         var makesuretheRoMorIsOyouretrying = (string)Application.Current.TryFindResource("MakesuretheROMorISOyouretrying") ?? "Make sure the ROM or ISO you're trying to run is not corrupted.";
         var ifyouaretryingtorunRetroarchensurethattheBios = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarchensurethattheBIOS") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core are installed.";
         var alsomakesureyouarecallingtheemulator = (string)Application.Current.TryFindResource("Alsomakesureyouarecallingtheemulator") ?? "Also, make sure you are calling the emulator with the correct parameter.";
@@ -1692,10 +1692,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var batchNameMessage = $"{batchfilefailed}\n\n{batchFileName}";
         var errorMessage = !string.IsNullOrEmpty(errorDetail)
             ? $"Error: {errorDetail}\n\n"
-            : string.Empty;
+            : "";
         var exitCodeMessage = exitCode.HasValue
             ? $"Exit code: {exitCode.Value}\n\n"
-            : string.Empty;
+            : "";
         var explanation = exitCode is < 0
             ? (string)Application.Current.TryFindResource("Theprogramlaunchedbythisbatch") ?? "The program launched by this batch file may have crashed or been terminated unexpectedly. Negative exit codes typically indicate system-level failures."
             : (string)Application.Current.TryFindResource("Batchfilefailedexplanation") ?? "This usually means a path referenced inside the batch file no longer exists or is incorrect.";
@@ -1772,9 +1772,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{pleaseeditthissystemtofix}", error);
     }
 
-    public async Task<CoreMessageBoxResult> SearchOnlineForRomHistoryMessageBox()
+    public Task<CoreMessageBoxResult> SearchOnlineForRomHistoryMessageBox()
     {
-        return CoreMessageBoxResult.No;
+        return Task.FromResult(CoreMessageBoxResult.No);
     }
 
     public Task SystemHasBeenDeletedMessageBox(string selectedSystemName)
@@ -1785,9 +1785,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync($"{system} '{selectedSystemName}' {hasbeendeleted}", info);
     }
 
-    public async Task<CoreMessageBoxResult> AreYouSureDoYouWantToDeleteThisSystemMessageBox()
+    public Task<CoreMessageBoxResult> AreYouSureDoYouWantToDeleteThisSystemMessageBox()
     {
-        return CoreMessageBoxResult.No;
+        return Task.FromResult(CoreMessageBoxResult.No);
     }
 
     public Task ThereWasAnErrorDeletingTheGameMessageBox()
@@ -1808,19 +1808,19 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
-    public async Task<CoreMessageBoxResult> AreYouSureYouWantToDeleteTheGameMessageBox(string fileNameWithExtension)
+    public Task<CoreMessageBoxResult> AreYouSureYouWantToDeleteTheGameMessageBox(string fileNameWithExtension)
     {
-        return CoreMessageBoxResult.No;
+        return Task.FromResult(CoreMessageBoxResult.No);
     }
 
-    public async Task<CoreMessageBoxResult> AreYouSureYouWantToDeleteTheCoverImageMessageBox(string fileNameWithoutExtension)
+    public Task<CoreMessageBoxResult> AreYouSureYouWantToDeleteTheCoverImageMessageBox(string fileNameWithoutExtension)
     {
-        return CoreMessageBoxResult.No;
+        return Task.FromResult(CoreMessageBoxResult.No);
     }
 
-    public async Task<CoreMessageBoxResult> WoulYouLikeToSaveAReportMessageBox()
+    public Task<CoreMessageBoxResult> WoulYouLikeToSaveAReportMessageBox()
     {
-        return CoreMessageBoxResult.No;
+        return Task.FromResult(CoreMessageBoxResult.No);
     }
 
     public Task SimpleLauncherWasUnableToRestoreBackupMessageBox()
@@ -1830,9 +1830,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(simpleLauncherwasunabletorestore, error);
     }
 
-    public async Task<CoreMessageBoxResult> WouldYouLikeToRestoreTheLastBackupMessageBox()
+    public Task<CoreMessageBoxResult> WouldYouLikeToRestoreTheLastBackupMessageBox()
     {
-        return CoreMessageBoxResult.No;
+        return Task.FromResult(CoreMessageBoxResult.No);
     }
 
     public Task FailedToLoadLanguageResourceMessageBox()
@@ -1924,9 +1924,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(failedtorestarttheapplication, restartError);
     }
 
-    public async Task<CoreMessageBoxResult> DoYouWantToUpdateMessageBox(string currentVersion, string latestVersion)
+    public Task<CoreMessageBoxResult> DoYouWantToUpdateMessageBox(string currentVersion, string latestVersion)
     {
-        return CoreMessageBoxResult.No;
+        return Task.FromResult(CoreMessageBoxResult.No);
     }
 
     public async Task HandleMissingRequiredFilesMessageBox(string fileList)
@@ -2226,9 +2226,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync($"{couldNotOpenAchievementsWindow}\n\n{theErrorWasReported}", error);
     }
 
-    public async Task<CoreMessageBoxResult> GameNotSupportedByRetroAchievementsMessageBox()
+    public Task<CoreMessageBoxResult> GameNotSupportedByRetroAchievementsMessageBox()
     {
-        return CoreMessageBoxResult.No;
+        return Task.FromResult(CoreMessageBoxResult.No);
     }
 
     public Task GameLaunchTimeoutMessageBox()
@@ -2268,14 +2268,14 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message, title);
     }
 
-    public async Task<CoreMessageBoxResult> GroupByFolderWarningMessageBox()
+    public Task<CoreMessageBoxResult> GroupByFolderWarningMessageBox()
     {
-        return CoreMessageBoxResult.No;
+        return Task.FromResult(CoreMessageBoxResult.No);
     }
 
-    public async Task<CoreMessageBoxResult> FirstRunWelcomeMessageBox()
+    public Task<CoreMessageBoxResult> FirstRunWelcomeMessageBox()
     {
-        return CoreMessageBoxResult.No;
+        return Task.FromResult(CoreMessageBoxResult.No);
     }
 
     public Task Emulator1LocationRequiredMessageBox()
@@ -2401,12 +2401,14 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
-    public async Task ShowExtractionFailedMessageBoxAsync(string tempFolderPath)
+    public Task ShowExtractionFailedMessageBoxAsync(string tempFolderPath)
     {
+        return Task.CompletedTask;
     }
 
-    public async Task ShowDownloadFileLockedMessageBoxAsync(string tempFolderPath)
+    public Task ShowDownloadFileLockedMessageBoxAsync(string tempFolderPath)
     {
+        return Task.CompletedTask;
     }
 
     public async Task ShowCustomMessageBox(string message, string launchError, string logPath)
@@ -3312,8 +3314,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(errorMessage, errorTitle);
     }
 
-    public async Task ShowImageDownloadTimeoutMessageBox()
+    public Task ShowImageDownloadTimeoutMessageBox()
     {
+        return Task.CompletedTask;
     }
 
     public Task SystemNameRequiredBeforeChoosingImageMessageBox()

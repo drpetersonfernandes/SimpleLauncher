@@ -78,7 +78,7 @@ internal partial class EditSystemWindow
                 UpdateSystemImagePreview();
 
                 // Load system folders
-                SystemFolderTextBox.Text = selectedSystem.PrimarySystemFolder ?? string.Empty;
+                SystemFolderTextBox.Text = selectedSystem.PrimarySystemFolder ?? "";
                 AdditionalFoldersListBox.Items.Clear();
                 foreach (var folder in selectedSystem.SystemFolders.Skip(1))
                 {
@@ -154,10 +154,10 @@ internal partial class EditSystemWindow
     {
         if (emulator != null)
         {
-            nameTextBox.Text = emulator.EmulatorName ?? string.Empty;
+            nameTextBox.Text = emulator.EmulatorName ?? "";
             // Load the saved string directly into the UI, including %BASEFOLDER% if present
-            pathTextBox.Text = emulator.EmulatorLocation ?? string.Empty;
-            paramsTextBox.Text = emulator.EmulatorParameters ?? string.Empty;
+            pathTextBox.Text = emulator.EmulatorLocation ?? "";
+            paramsTextBox.Text = emulator.EmulatorParameters ?? "";
 
             if (!string.IsNullOrEmpty(nameTextBox.Text))
             {

@@ -282,7 +282,7 @@ public class GameListFactory(
     private string GetMachineDescription(string fileName)
     {
         var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileName, StringComparison.OrdinalIgnoreCase));
-        return machine?.Description ?? string.Empty;
+        return machine?.Description ?? "";
     }
 
     public async Task HandleDoubleClickAsync(GameListViewItem selectedItem)

@@ -98,14 +98,14 @@ public class PathHelperTests
     public void ResolveRelativeToCurrentWorkingDirectoryEmptyStringReturnsEmpty()
     {
         var result = PathHelper.ResolveRelativeToCurrentWorkingDirectory("");
-        Assert.Equal(string.Empty, result);
+        Assert.Equal("", result);
     }
 
     [Fact]
     public void ResolveRelativeToCurrentWorkingDirectoryNullReturnsEmpty()
     {
         var result = PathHelper.ResolveRelativeToCurrentWorkingDirectory(null);
-        Assert.Equal(string.Empty, result);
+        Assert.Equal("", result);
     }
 
     [Fact]

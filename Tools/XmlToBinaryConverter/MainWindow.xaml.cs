@@ -39,8 +39,8 @@ public partial class MainWindow
             return;
 
         // Clear paths when switching conversion type
-        InputFilePathTextBox.Text = string.Empty;
-        OutputFilePathTextBox.Text = string.Empty;
+        InputFilePathTextBox.Text = "";
+        OutputFilePathTextBox.Text = "";
         StatusMessageTextBlock.Text = "Ready to convert";
     }
 

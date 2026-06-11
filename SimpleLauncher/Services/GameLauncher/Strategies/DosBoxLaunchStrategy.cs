@@ -163,7 +163,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
     internal static bool IsDosBoxEmulator(LaunchContext context)
     {
         var name = context.EmulatorName;
-        var path = context.EmulatorManager?.EmulatorLocation ?? string.Empty;
+        var path = context.EmulatorManager?.EmulatorLocation ?? "";
 
         return name.Contains("DOSBox", StringComparison.OrdinalIgnoreCase) ||
                name.Contains("DOSBox-X", StringComparison.OrdinalIgnoreCase) ||
@@ -370,7 +370,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
 
     private static string BuildLaunchParameters(string parameters)
     {
-        var launchParameters = parameters ?? string.Empty;
+        var launchParameters = parameters ?? "";
         if (!launchParameters.Contains("-conf", StringComparison.OrdinalIgnoreCase))
         {
             launchParameters = string.IsNullOrWhiteSpace(launchParameters)

@@ -282,8 +282,8 @@ public partial class GameLauncher : ILauncherService
         // Add the GroupByFolder check
         if (context.SystemManager.GroupByFolder)
         {
-            var emulatorName = context.EmulatorName ?? string.Empty;
-            var emulatorLocation = context.EmulatorManager?.EmulatorLocation ?? string.Empty;
+            var emulatorName = context.EmulatorName ?? "";
+            var emulatorLocation = context.EmulatorManager?.EmulatorLocation ?? "";
 
             var isMame = emulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
                          emulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
@@ -576,8 +576,9 @@ public partial class GameLauncher : ILauncherService
             else
             {
                 // Existing error handling for other Win32Exceptions
-                var fileContent = File.Exists(PathHelper.GetLongPath(resolvedFilePath))
-                    ? $"\nFile Content:\n{await File.ReadAllTextAsync(PathHelper.GetLongPath(resolvedFilePath))}"
+                var longPathForContent = PathHelper.GetLongPath(resolvedFilePath);
+                var fileContent = longPathForContent != null && File.Exists(longPathForContent)
+                    ? $"\nFile Content:\n{await File.ReadAllTextAsync(longPathForContent)}"
                     : "\nFile does not exist.";
                 var errorDetail = $"Exception launching the shortcut file.\n" +
                                   $"Shortcut file: {resolvedFilePath}\n" +

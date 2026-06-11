@@ -58,10 +58,10 @@ public class SettingsManager : IDisposable
     public const float DefaultDeadZoneY = 0.02f;
     public bool EnableNotificationSound { get; set; } = true;
     public string CustomNotificationSoundFile { get; set; } = DefaultNotificationSoundFileName;
-    public string RaUsername { get; set; } = string.Empty;
-    public string RaApiKey { get; set; } = string.Empty;
-    public string RaPassword { get; set; } = string.Empty;
-    public string RaToken { get; set; } = string.Empty;
+    public string RaUsername { get; set; } = "";
+    public string RaApiKey { get; set; } = "";
+    public string RaPassword { get; set; } = "";
+    public string RaToken { get; set; } = "";
     public bool OverlayRetroAchievementButton { get; set; }
     public bool OverlayOpenVideoButton { get; set; } = true;
     public bool OverlayOpenInfoButton { get; set; }
@@ -477,7 +477,7 @@ public class SettingsManager : IDisposable
                         throw new InvalidOperationException("Generated settings XML is empty.");
                     }
 
-                    File.WriteAllBytes(tempPath, xmlBytes);
+                    await File.WriteAllBytesAsync(tempPath, xmlBytes);
                     File.Move(tempPath, _fileLocation.FilePath, true);
                     return;
                 }

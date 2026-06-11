@@ -81,7 +81,7 @@ public class ApiConnectivityTests
         if (url.Contains("simplelauncher/stats"))
         {
             // Usage stats call (empty body, matching Stats.CallApiAsync behavior)
-            content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+            content = new StringContent("", Encoding.UTF8, "application/json");
         }
         else
         {

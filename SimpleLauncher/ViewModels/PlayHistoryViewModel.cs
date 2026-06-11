@@ -44,7 +44,7 @@ public partial class PlayHistoryViewModel : ObservableObject
 
     [ObservableProperty] private bool _isLoading;
 
-    [ObservableProperty] private string _loadingMessage = string.Empty;
+    [ObservableProperty] private string _loadingMessage = "";
 
     public PlayHistoryViewModel(
         IConfiguration configuration,
@@ -88,7 +88,7 @@ public partial class PlayHistoryViewModel : ObservableObject
                 {
                     var machine = _machines.FirstOrDefault(m =>
                         m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
-                    var machineDescription = machine?.Description ?? string.Empty;
+                    var machineDescription = machine?.Description ?? "";
                     var systemManager = _systemManagers.FirstOrDefault(config =>
                         config.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
                     var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName
@@ -237,7 +237,7 @@ public partial class PlayHistoryViewModel : ObservableObject
         {
             var machine = _machines.FirstOrDefault(m =>
                 m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
-            var machineDescription = machine?.Description ?? string.Empty;
+            var machineDescription = machine?.Description ?? "";
             var systemManager = _systemManagers.FirstOrDefault(manager =>
                 manager.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
             var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName

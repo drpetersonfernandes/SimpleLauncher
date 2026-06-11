@@ -9,16 +9,16 @@ public record RaGameInfo
     public int Id { get; set; }
 
     [Key(1)]
-    public string Title { get; set; } = string.Empty;
+    public string Title { get; set; } = "";
 
     [Key(2)]
     public int ConsoleId { get; set; }
 
     [Key(3)]
-    public string ConsoleName { get; set; } = string.Empty;
+    public string ConsoleName { get; set; } = "";
 
     [Key(4)]
-    public string ImageIcon { get; set; } = string.Empty;
+    public string ImageIcon { get; set; } = "";
 
     [Key(5)]
     public int NumAchievements { get; set; }
@@ -27,7 +27,7 @@ public record RaGameInfo
     public int Points { get; set; }
 
     [Key(7)]
-    public string DateModified { get; set; } = string.Empty;
+    public string DateModified { get; set; } = "";
 
     [Key(8)]
     public List<string> Hashes { get; set; } = [];

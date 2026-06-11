@@ -45,6 +45,6 @@ internal partial class GlobalStatsWindow : IDisposable
 
     public void Dispose()
     {
-        _viewModel?.Dispose();
+        _viewModel.Dispose();
     }
 }

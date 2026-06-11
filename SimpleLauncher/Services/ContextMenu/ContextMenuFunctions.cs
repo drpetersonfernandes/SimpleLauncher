@@ -1075,7 +1075,7 @@ internal static class ContextMenuFunctions
         {
             try
             {
-                DeleteFiles.TryDeleteFile(filePath);
+                await DeleteFiles.TryDeleteFileAsync(filePath);
 
                 playSoundEffects.PlayTrashSound();
 
@@ -1129,7 +1129,7 @@ internal static class ContextMenuFunctions
 
             if ((Path.GetFileNameWithoutExtension(coverPath) == fileNameWithoutExtension) & (Path.GetFileNameWithoutExtension(coverPath) != "default"))
             {
-                DeleteFiles.TryDeleteFile(coverPath);
+                await DeleteFiles.TryDeleteFileAsync(coverPath);
             }
 
             await Task.Delay(400);

@@ -1011,6 +1011,7 @@
     <system:String x:Key="nogamesmatched">안타깝게도 검색 또는 선택한 버튼과 일치하는 게임이 없습니다.</system:String>
     <system:String x:Key="NoHighScores">이 게임에 대한 최고 점수를 찾을 수 없습니다.</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">'history.xml' 파일이 애플리케이션 폴더에 없습니다.</system:String>
+    <system:String x:Key="Nohistoryxmlfilefound2">애플리케이션 폴더에서 'history.dat' 또는 'history.xml' 파일을 찾을 수 없습니다.</system:String>
     <system:String x:Key="NoImageIcon">이미지 없음</system:String>
     <system:String x:Key="Noinformationavailableforsystem">시스템에 대한 정보가 제공되지 않았습니다:</system:String>
     <system:String x:Key="NoLatestMasters">이 게임에 대한 최신 마스터를 찾을 수 없습니다.</system:String>

@@ -746,7 +746,7 @@ public class MenuActionHandlerService
 
         var favoritesPage = new Pages.FavoritesPage(
             _settings, _host.GetSystemManagers(), _host.GetMachines(), _favoritesManager,
-            (MainWindow)Application.Current.MainWindow!, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _findCoverImage, _imageLoader);
+            (MainWindow)Application.Current.MainWindow, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _findCoverImage, _imageLoader);
 
         _host.NavigateToPage(favoritesPage);
     }

@@ -33,17 +33,17 @@ public partial class EditSystemViewModel : ObservableObject
     [ObservableProperty] private int _selectedSystemIndex = -1;
 
     // System fields
-    [ObservableProperty] private string _systemName = string.Empty;
+    [ObservableProperty] private string _systemName = "";
 
-    [ObservableProperty] private string _systemFolder = string.Empty;
+    [ObservableProperty] private string _systemFolder = "";
 
-    [ObservableProperty] private string _systemImageFolder = string.Empty;
+    [ObservableProperty] private string _systemImageFolder = "";
 
     [ObservableProperty] private ObservableCollection<string> _additionalFolders = [];
 
-    [ObservableProperty] private string _formatsToSearch = string.Empty;
+    [ObservableProperty] private string _formatsToSearch = "";
 
-    [ObservableProperty] private string _formatsToLaunch = string.Empty;
+    [ObservableProperty] private string _formatsToLaunch = "";
 
     [ObservableProperty] private bool _extractFileBeforeLaunch;
 
@@ -52,35 +52,35 @@ public partial class EditSystemViewModel : ObservableObject
     [ObservableProperty] private bool _disableRecursiveSearch;
 
     // Emulator fields (5 emulators)
-    [ObservableProperty] private string _emulator1Name = string.Empty;
+    [ObservableProperty] private string _emulator1Name = "";
 
-    [ObservableProperty] private string _emulator1Path = string.Empty;
+    [ObservableProperty] private string _emulator1Path = "";
 
-    [ObservableProperty] private string _emulator1Parameters = string.Empty;
+    [ObservableProperty] private string _emulator1Parameters = "";
 
-    [ObservableProperty] private string _emulator2Name = string.Empty;
+    [ObservableProperty] private string _emulator2Name = "";
 
-    [ObservableProperty] private string _emulator2Path = string.Empty;
+    [ObservableProperty] private string _emulator2Path = "";
 
-    [ObservableProperty] private string _emulator2Parameters = string.Empty;
+    [ObservableProperty] private string _emulator2Parameters = "";
 
-    [ObservableProperty] private string _emulator3Name = string.Empty;
+    [ObservableProperty] private string _emulator3Name = "";
 
-    [ObservableProperty] private string _emulator3Path = string.Empty;
+    [ObservableProperty] private string _emulator3Path = "";
 
-    [ObservableProperty] private string _emulator3Parameters = string.Empty;
+    [ObservableProperty] private string _emulator3Parameters = "";
 
-    [ObservableProperty] private string _emulator4Name = string.Empty;
+    [ObservableProperty] private string _emulator4Name = "";
 
-    [ObservableProperty] private string _emulator4Path = string.Empty;
+    [ObservableProperty] private string _emulator4Path = "";
 
-    [ObservableProperty] private string _emulator4Parameters = string.Empty;
+    [ObservableProperty] private string _emulator4Parameters = "";
 
-    [ObservableProperty] private string _emulator5Name = string.Empty;
+    [ObservableProperty] private string _emulator5Name = "";
 
-    [ObservableProperty] private string _emulator5Path = string.Empty;
+    [ObservableProperty] private string _emulator5Path = "";
 
-    [ObservableProperty] private string _emulator5Parameters = string.Empty;
+    [ObservableProperty] private string _emulator5Parameters = "";
 
     // Button states
     [ObservableProperty] private bool _isSaveEnabled;
@@ -92,7 +92,7 @@ public partial class EditSystemViewModel : ObservableObject
     // Loading state
     [ObservableProperty] private bool _isLoading;
 
-    [ObservableProperty] private string _loadingMessage = string.Empty;
+    [ObservableProperty] private string _loadingMessage = "";
 
     public EditSystemViewModel(
         SettingsManager settings,
@@ -164,8 +164,8 @@ public partial class EditSystemViewModel : ObservableObject
 
         _originalSystemName = system.SystemName;
         SystemName = system.SystemName;
-        SystemFolder = system.PrimarySystemFolder ?? string.Empty;
-        SystemImageFolder = system.SystemImageFolder ?? string.Empty;
+        SystemFolder = system.PrimarySystemFolder ?? "";
+        SystemImageFolder = system.SystemImageFolder ?? "";
         AdditionalFolders = new ObservableCollection<string>(system.SystemFolders?.Skip(1) ?? []);
         FormatsToSearch = string.Join(",", system.FileFormatsToSearch ?? []);
         FormatsToLaunch = string.Join(",", system.FileFormatsToLaunch ?? []);
@@ -175,21 +175,21 @@ public partial class EditSystemViewModel : ObservableObject
 
         // Load emulators
         var emulators = system.Emulators?.Take(5).ToList() ?? [];
-        Emulator1Name = emulators.Count > 0 ? emulators[0].EmulatorName : string.Empty;
-        Emulator1Path = emulators.Count > 0 ? emulators[0].EmulatorLocation : string.Empty;
-        Emulator1Parameters = emulators.Count > 0 ? emulators[0].EmulatorParameters : string.Empty;
-        Emulator2Name = emulators.Count > 1 ? emulators[1].EmulatorName : string.Empty;
-        Emulator2Path = emulators.Count > 1 ? emulators[1].EmulatorLocation : string.Empty;
-        Emulator2Parameters = emulators.Count > 1 ? emulators[1].EmulatorParameters : string.Empty;
-        Emulator3Name = emulators.Count > 2 ? emulators[2].EmulatorName : string.Empty;
-        Emulator3Path = emulators.Count > 2 ? emulators[2].EmulatorLocation : string.Empty;
-        Emulator3Parameters = emulators.Count > 2 ? emulators[2].EmulatorParameters : string.Empty;
-        Emulator4Name = emulators.Count > 3 ? emulators[3].EmulatorName : string.Empty;
-        Emulator4Path = emulators.Count > 3 ? emulators[3].EmulatorLocation : string.Empty;
-        Emulator4Parameters = emulators.Count > 3 ? emulators[3].EmulatorParameters : string.Empty;
-        Emulator5Name = emulators.Count > 4 ? emulators[4].EmulatorName : string.Empty;
-        Emulator5Path = emulators.Count > 4 ? emulators[4].EmulatorLocation : string.Empty;
-        Emulator5Parameters = emulators.Count > 4 ? emulators[4].EmulatorParameters : string.Empty;
+        Emulator1Name = emulators.Count > 0 ? emulators[0].EmulatorName : "";
+        Emulator1Path = emulators.Count > 0 ? emulators[0].EmulatorLocation : "";
+        Emulator1Parameters = emulators.Count > 0 ? emulators[0].EmulatorParameters : "";
+        Emulator2Name = emulators.Count > 1 ? emulators[1].EmulatorName : "";
+        Emulator2Path = emulators.Count > 1 ? emulators[1].EmulatorLocation : "";
+        Emulator2Parameters = emulators.Count > 1 ? emulators[1].EmulatorParameters : "";
+        Emulator3Name = emulators.Count > 2 ? emulators[2].EmulatorName : "";
+        Emulator3Path = emulators.Count > 2 ? emulators[2].EmulatorLocation : "";
+        Emulator3Parameters = emulators.Count > 2 ? emulators[2].EmulatorParameters : "";
+        Emulator4Name = emulators.Count > 3 ? emulators[3].EmulatorName : "";
+        Emulator4Path = emulators.Count > 3 ? emulators[3].EmulatorLocation : "";
+        Emulator4Parameters = emulators.Count > 3 ? emulators[3].EmulatorParameters : "";
+        Emulator5Name = emulators.Count > 4 ? emulators[4].EmulatorName : "";
+        Emulator5Path = emulators.Count > 4 ? emulators[4].EmulatorLocation : "";
+        Emulator5Parameters = emulators.Count > 4 ? emulators[4].EmulatorParameters : "";
 
         IsSaveEnabled = true;
         IsDeleteEnabled = true;
@@ -265,29 +265,29 @@ public partial class EditSystemViewModel : ObservableObject
 
     private void ClearFields()
     {
-        SystemName = string.Empty;
-        SystemFolder = string.Empty;
-        SystemImageFolder = string.Empty;
+        SystemName = "";
+        SystemFolder = "";
+        SystemImageFolder = "";
         AdditionalFolders = [];
-        FormatsToSearch = string.Empty;
-        FormatsToLaunch = string.Empty;
+        FormatsToSearch = "";
+        FormatsToLaunch = "";
         ExtractFileBeforeLaunch = false;
         GroupByFolder = false;
         DisableRecursiveSearch = false;
-        Emulator1Name = string.Empty;
-        Emulator1Path = string.Empty;
-        Emulator1Parameters = string.Empty;
-        Emulator2Name = string.Empty;
-        Emulator2Path = string.Empty;
-        Emulator2Parameters = string.Empty;
-        Emulator3Name = string.Empty;
-        Emulator3Path = string.Empty;
-        Emulator3Parameters = string.Empty;
-        Emulator4Name = string.Empty;
-        Emulator4Path = string.Empty;
-        Emulator4Parameters = string.Empty;
-        Emulator5Name = string.Empty;
-        Emulator5Path = string.Empty;
-        Emulator5Parameters = string.Empty;
+        Emulator1Name = "";
+        Emulator1Path = "";
+        Emulator1Parameters = "";
+        Emulator2Name = "";
+        Emulator2Path = "";
+        Emulator2Parameters = "";
+        Emulator3Name = "";
+        Emulator3Path = "";
+        Emulator3Parameters = "";
+        Emulator4Name = "";
+        Emulator4Path = "";
+        Emulator4Parameters = "";
+        Emulator5Name = "";
+        Emulator5Path = "";
+        Emulator5Parameters = "";
     }
 }

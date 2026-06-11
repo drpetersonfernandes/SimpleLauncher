@@ -1011,6 +1011,7 @@
     <system:String x:Key="nogamesmatched">很遗憾，没有符合您搜索或选择的按钮的游戏。</system:String>
     <system:String x:Key="NoHighScores">此游戏未找到高分。</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">在应用程序目录中未找到文件“history.xml”。</system:String>
+    <system:String x:Key="Nohistoryxmlfilefound2">未在应用程序文件夹中找到 'history.dat' 或 'history.xml' 文件。</system:String>
     <system:String x:Key="NoImageIcon">无图像</system:String>
     <system:String x:Key="Noinformationavailableforsystem">没有可用的系统信息：</system:String>
     <system:String x:Key="NoLatestMasters">此游戏未找到最新大师。</system:String>

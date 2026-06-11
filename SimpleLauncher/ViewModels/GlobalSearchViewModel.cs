@@ -43,7 +43,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 
     [ObservableProperty] private bool _isLoading;
 
-    [ObservableProperty] private string _loadingMessage = string.Empty;
+    [ObservableProperty] private string _loadingMessage = "";
 
     [ObservableProperty] private bool _noResultsVisible;
 
@@ -272,7 +272,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
                         FileNameWithExtension = Path.GetFileName(filePath),
                         FolderName = Path.GetDirectoryName(filePath)?.Split(Path.DirectorySeparatorChar).LastOrDefault(),
                         FilePath = filePath,
-                        MachineName = machine?.Description ?? string.Empty,
+                        MachineName = machine?.Description ?? "",
                         SystemName = systemManager.SystemName,
                         EmulatorManager = systemManager.Emulators.FirstOrDefault(),
                         CoverImage = _findCoverImage.FindCoverImagePath(

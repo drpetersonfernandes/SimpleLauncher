@@ -291,7 +291,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     [Fact]
     public async Task SaveSystemConfigurationAsyncAddsSystemAlongsideExisting()
     {
-        File.WriteAllText(_systemXmlPath, BuildValidSystemXml());
+        await File.WriteAllTextAsync(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
 
         var newSystem = new SystemManager
@@ -326,7 +326,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     [Fact]
     public async Task SaveSystemConfigurationAsyncUpdatesExistingSystem()
     {
-        File.WriteAllText(_systemXmlPath, BuildValidSystemXml());
+        await File.WriteAllTextAsync(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
 
         var updatedSystem = new SystemManager
@@ -365,7 +365,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     [Fact]
     public async Task SaveSystemConfigurationAsyncRenamesSystem()
     {
-        File.WriteAllText(_systemXmlPath, BuildValidSystemXml());
+        await File.WriteAllTextAsync(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
 
         var renamedSystem = new SystemManager
@@ -400,7 +400,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     [Fact]
     public async Task DeleteSystemAsyncRemovesSystem()
     {
-        File.WriteAllText(_systemXmlPath, BuildMultiSystemXml());
+        await File.WriteAllTextAsync(_systemXmlPath, BuildMultiSystemXml());
         ResetSystemXmlStaticState();
 
         SystemManager.DeleteSystemAsync("Arcade");
@@ -418,7 +418,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     [Fact]
     public async Task DeleteSystemAsyncDoesNothingWhenSystemNotFound()
     {
-        File.WriteAllText(_systemXmlPath, BuildValidSystemXml());
+        await File.WriteAllTextAsync(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
 
         SystemManager.DeleteSystemAsync("NonExistent");

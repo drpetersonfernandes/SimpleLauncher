@@ -208,7 +208,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     private string _currentDownloadType;
 
     // Backing field for DownloadStatus property
-    private string _downloadStatus = string.Empty;
+    private string _downloadStatus = "";
 
     private string DownloadStatus
     {
@@ -400,7 +400,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             SetDownloadState(EasyModeManager.DownloadType.ImagePack5, DownloadButtonState.Downloaded);
 
             UpdateAddSystemButtonState();
-            SystemFolderTextBox.Text = string.Empty;
+            SystemFolderTextBox.Text = "";
             return;
         }
 
@@ -454,7 +454,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         SetDownloadState(EasyModeManager.DownloadType.ImagePack5, string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
 
         // Resolve path for display in the textbox
-        SystemFolderTextBox.Text = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.SystemFolder) ?? string.Empty;
+        SystemFolderTextBox.Text = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.SystemFolder) ?? "";
 
         UpdateAddSystemButtonState();
     }

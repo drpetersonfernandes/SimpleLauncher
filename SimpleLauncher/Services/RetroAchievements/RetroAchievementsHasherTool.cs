@@ -266,7 +266,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
             RedirectStandardError = true,
             UseShellExecute = false,
             CreateNoWindow = true,
-            WorkingDirectory = Path.GetDirectoryName(HasherPath) ?? string.Empty
+            WorkingDirectory = Path.GetDirectoryName(HasherPath) ?? ""
         };
         using var process = new Process();
 

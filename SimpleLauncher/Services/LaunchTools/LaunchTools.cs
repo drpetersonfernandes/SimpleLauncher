@@ -49,7 +49,7 @@ public class LaunchTools : ILaunchTools
             var psi = new ProcessStartInfo
             {
                 FileName = toolPath,
-                Arguments = arguments ?? string.Empty,
+                Arguments = arguments ?? "",
                 UseShellExecute = true
             };
 
@@ -127,7 +127,7 @@ public class LaunchTools : ILaunchTools
         var toolPath = await GetToolExecutablePath("FindRomCover", "FindRomCover");
         if (toolPath == null) return;
 
-        var arguments = string.Empty;
+        var arguments = "";
         var workingDirectory = Path.GetDirectoryName(toolPath);
 
         var absoluteImageFolder = !string.IsNullOrEmpty(selectedImageFolder) ? PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder) : null;
@@ -162,7 +162,7 @@ public class LaunchTools : ILaunchTools
         var toolPath = await GetToolExecutablePath("BatchConvertToCHD", "BatchConvertToCHD");
         if (toolPath == null) return;
 
-        var arguments = string.Empty;
+        var arguments = "";
         var workingDirectory = Path.GetDirectoryName(toolPath);
 
         var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder) ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder) : null;
@@ -212,7 +212,7 @@ public class LaunchTools : ILaunchTools
         var toolPath = await GetToolExecutablePath("GameCoverScraper", "GameCoverScraper", true);
         if (toolPath == null) return;
 
-        var arguments = string.Empty;
+        var arguments = "";
         var workingDirectory = Path.GetDirectoryName(toolPath);
 
         var absoluteImageFolder = !string.IsNullOrEmpty(selectedImageFolder) ? PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder) : null;
@@ -231,7 +231,7 @@ public class LaunchTools : ILaunchTools
         var toolPath = await GetToolExecutablePath("RetroGameCoverDownloader", "RetroGameCoverDownloader");
         if (toolPath == null) return;
 
-        var arguments = string.Empty;
+        var arguments = "";
         var workingDirectory = Path.GetDirectoryName(toolPath);
 
         var absoluteImageFolder = !string.IsNullOrEmpty(selectedImageFolder) ? PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder) : null;

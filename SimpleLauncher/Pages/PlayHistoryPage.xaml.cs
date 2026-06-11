@@ -243,7 +243,7 @@ public partial class PlayHistoryPage : ILoadingState
         // Store current selection for restore after refresh
         var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selected
             ? (selected.FileName, selected.SystemName)
-            : (FileName: (string?)null, SystemName: (string?)null);
+            : (FileName: null, SystemName: null);
 
         var selectedEmulatorName = emulatorManager.EmulatorName;
         await _gameLauncher.HandleButtonClickAsync(fileName, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController, this);
@@ -365,7 +365,7 @@ public partial class PlayHistoryPage : ILoadingState
     {
         return PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
             ? (selectedItem.FileName, selectedItem.SystemName)
-            : (FileName: (string?)null, SystemName: (string?)null);
+            : (FileName: null, SystemName: null);
     }
 
     private void SortByDate_Click(object sender, RoutedEventArgs e)

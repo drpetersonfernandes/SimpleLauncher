@@ -1011,6 +1011,7 @@
     <system:String x:Key="nogamesmatched">Rất tiếc, không có trò chơi nào phù hợp với tìm kiếm của bạn hoặc nút đã chọn.</system:String>
     <system:String x:Key="NoHighScores">Không tìm thấy điểm cao nào cho trò chơi này.</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">Không tìm thấy tệp 'history.xml' trong thư mục ứng dụng.</system:String>
+    <system:String x:Key="Nohistoryxmlfilefound2">Không tìm thấy tệp 'history.dat' hoặc 'history.xml' trong thư mục ứng dụng.</system:String>
     <system:String x:Key="NoImageIcon">Không có hình ảnh</system:String>
     <system:String x:Key="Noinformationavailableforsystem">Không có thông tin nào cho hệ thống:</system:String>
     <system:String x:Key="NoLatestMasters">Không tìm thấy master mới nhất nào cho trò chơi này.</system:String>

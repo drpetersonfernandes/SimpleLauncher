@@ -52,7 +52,7 @@ internal partial class EditSystemWindow
             emulator5LocationText = MaybeAddBaseFolderPrefix(emulator5LocationText);
 
             // --- Update UI with processed values ---
-            SystemFolderTextBox.Text = allSystemFolders.FirstOrDefault() ?? string.Empty;
+            SystemFolderTextBox.Text = allSystemFolders.FirstOrDefault() ?? "";
             AdditionalFoldersListBox.Items.Clear();
             foreach (var folder in allSystemFolders.Skip(1))
             {
@@ -83,7 +83,7 @@ internal partial class EditSystemWindow
             if (await ValidateSystemName(systemNameText)) return;
 
             // Validate SystemFolder (uses the potentially prefixed value)
-            var firstFolder = allSystemFolders.FirstOrDefault() ?? string.Empty;
+            var firstFolder = allSystemFolders.FirstOrDefault() ?? "";
             var systemFolderResult = await ValidateSystemFolder(systemNameText, firstFolder);
             if (systemFolderResult.IsValid) return;
 
@@ -309,7 +309,7 @@ internal partial class EditSystemWindow
                 await _messageBox.SystemSavedSuccessfullyMessageBox();
 
                 // Create folders based on the resolved paths
-                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? string.Empty);
+                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? "");
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(varSystemImageFolderText);
                 await CreateDefaultSystemFolders.CreateFolders(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logErrors, _messageBox);
 

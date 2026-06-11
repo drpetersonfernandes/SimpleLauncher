@@ -122,7 +122,7 @@ public partial class DetectMissingResourceStringsTests
             foreach (Match match in regex.Matches(content))
             {
                 var key = match.Groups[1].Value;
-                var value = match.Groups[2].Success ? match.Groups[2].Value : string.Empty;
+                var value = match.Groups[2].Success ? match.Groups[2].Value : "";
                 result[key] = value;
             }
         }

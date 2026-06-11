@@ -91,7 +91,7 @@ public class SearchOrchestratorServiceTests
     private class GameCacheServiceForTest : Services.GameCache.IGameCacheService
     {
         public bool SearchResultsCleared { get; set; }
-        public string SelectedSystem { get; set; } = string.Empty;
+        public string SelectedSystem { get; set; } = "";
 
         public Task<List<string>> GetAllGamesAsync(CancellationToken ct)
         {

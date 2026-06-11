@@ -27,41 +27,41 @@ public partial class RetroAchievementsViewModel : ObservableObject
     // Profile tab
     [ObservableProperty] private string? _profileImageUrl;
 
-    [ObservableProperty] private string _profileUser = string.Empty;
+    [ObservableProperty] private string _profileUser = "";
 
-    [ObservableProperty] private string _profileMotto = string.Empty;
+    [ObservableProperty] private string _profileMotto = "";
 
-    [ObservableProperty] private string _profileRichPresence = string.Empty;
+    [ObservableProperty] private string _profileRichPresence = "";
 
-    [ObservableProperty] private string _profileRank = string.Empty;
+    [ObservableProperty] private string _profileRank = "";
 
-    [ObservableProperty] private string _profilePoints = string.Empty;
+    [ObservableProperty] private string _profilePoints = "";
 
-    [ObservableProperty] private string _profileTruePoints = string.Empty;
+    [ObservableProperty] private string _profileTruePoints = "";
 
-    [ObservableProperty] private string _profileMemberSince = string.Empty;
+    [ObservableProperty] private string _profileMemberSince = "";
 
-    [ObservableProperty] private string _profileId = string.Empty;
+    [ObservableProperty] private string _profileId = "";
 
-    [ObservableProperty] private string _profileContributions = string.Empty;
+    [ObservableProperty] private string _profileContributions = "";
 
-    [ObservableProperty] private string _profileSoftcorePoints = string.Empty;
+    [ObservableProperty] private string _profileSoftcorePoints = "";
 
-    [ObservableProperty] private string _profilePermissions = string.Empty;
+    [ObservableProperty] private string _profilePermissions = "";
 
-    [ObservableProperty] private string _profileStatus = string.Empty;
+    [ObservableProperty] private string _profileStatus = "";
 
-    [ObservableProperty] private string _profileProfileId = string.Empty;
+    [ObservableProperty] private string _profileProfileId = "";
 
-    [ObservableProperty] private string _profileWallActive = string.Empty;
+    [ObservableProperty] private string _profileWallActive = "";
 
     [ObservableProperty] private ObservableCollection<RaRecentlyPlayedGame>? _recentlyPlayedGames;
 
     [ObservableProperty] private bool _noProfileVisible;
 
-    [ObservableProperty] private string _noProfileMainMessage = string.Empty;
+    [ObservableProperty] private string _noProfileMainMessage = "";
 
-    [ObservableProperty] private string _noProfileSubMessage = string.Empty;
+    [ObservableProperty] private string _noProfileSubMessage = "";
 
     // Unlocks tab
     [ObservableProperty] private ObservableCollection<RaEarnedAchievement>? _unlocks;
@@ -72,7 +72,7 @@ public partial class RetroAchievementsViewModel : ObservableObject
 
     [ObservableProperty] private bool _noUnlocksVisible;
 
-    [ObservableProperty] private string _noUnlocksMessage = string.Empty;
+    [ObservableProperty] private string _noUnlocksMessage = "";
 
     [ObservableProperty] private DateTime? _fromDate;
 
@@ -85,9 +85,9 @@ public partial class RetroAchievementsViewModel : ObservableObject
 
     [ObservableProperty] private bool _noUserProgressVisible;
 
-    [ObservableProperty] private string _noUserProgressMainMessage = string.Empty;
+    [ObservableProperty] private string _noUserProgressMainMessage = "";
 
-    [ObservableProperty] private string _noUserProgressSubMessage = string.Empty;
+    [ObservableProperty] private string _noUserProgressSubMessage = "";
 
     // Loading state
     [ObservableProperty] private bool _isLoading;
@@ -376,7 +376,7 @@ public partial class RetroAchievementsViewModel : ObservableObject
 
     public string GetProfileUrl()
     {
-        return $"https://retroachievements.org/user/{Uri.EscapeDataString(_settings.RaUsername ?? string.Empty)}";
+        return $"https://retroachievements.org/user/{Uri.EscapeDataString(_settings.RaUsername ?? "")}";
     }
 
     private string GetPermissionDescription(int permissions)

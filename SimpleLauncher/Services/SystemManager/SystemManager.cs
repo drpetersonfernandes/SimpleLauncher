@@ -411,8 +411,8 @@ public partial class SystemManager : ISystemManager
                 if (string.IsNullOrEmpty(emulatorName))
                     throw new InvalidOperationException($"System '{systemName}': An 'Emulator Name' should not be empty or null.");
 
-                var emulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value ?? string.Empty; // can be empty
-                var emulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value ?? string.Empty; // can be empty
+                var emulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value ?? ""; // can be empty
+                var emulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value ?? ""; // can be empty
 
                 // Parse the ReceiveANotificationOnEmulatorError value with default = true
                 // If the element is missing or parsing fails, it defaults to true.
@@ -431,12 +431,12 @@ public partial class SystemManager : ISystemManager
                     EmulatorLocation = emulatorLocation, // Store the raw string
                     EmulatorParameters = emulatorParameters, // Store the raw string
                     ReceiveANotificationOnEmulatorError = receiveNotification,
-                    ImagePackDownloadLink = emulatorElement.Element("ImagePackDownloadLink")?.Value ?? string.Empty,
-                    ImagePackDownloadLink2 = emulatorElement.Element("ImagePackDownloadLink2")?.Value ?? string.Empty,
-                    ImagePackDownloadLink3 = emulatorElement.Element("ImagePackDownloadLink3")?.Value ?? string.Empty,
-                    ImagePackDownloadLink4 = emulatorElement.Element("ImagePackDownloadLink4")?.Value ?? string.Empty,
-                    ImagePackDownloadLink5 = emulatorElement.Element("ImagePackDownloadLink5")?.Value ?? string.Empty,
-                    ImagePackDownloadExtractPath = emulatorElement.Element("ImagePackDownloadExtractPath")?.Value ?? string.Empty
+                    ImagePackDownloadLink = emulatorElement.Element("ImagePackDownloadLink")?.Value ?? "",
+                    ImagePackDownloadLink2 = emulatorElement.Element("ImagePackDownloadLink2")?.Value ?? "",
+                    ImagePackDownloadLink3 = emulatorElement.Element("ImagePackDownloadLink3")?.Value ?? "",
+                    ImagePackDownloadLink4 = emulatorElement.Element("ImagePackDownloadLink4")?.Value ?? "",
+                    ImagePackDownloadLink5 = emulatorElement.Element("ImagePackDownloadLink5")?.Value ?? "",
+                    ImagePackDownloadExtractPath = emulatorElement.Element("ImagePackDownloadExtractPath")?.Value ?? ""
                 });
             }
 
@@ -820,7 +820,7 @@ public partial class SystemManager : ISystemManager
         existingSystem.Element("FileFormatsToSearch")?.ReplaceNodes(config.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format)));
         existingSystem.SetElementValue("GroupByFolder", config.GroupByFolder);
         existingSystem.SetElementValue("DisableRecursiveSearch", config.DisableRecursiveSearch);
-        existingSystem.SetElementValue("ExtractFileBeforeLaunch", config.ExtractFileBeforeLaunch ? (object)true : null);
+        existingSystem.SetElementValue("ExtractFileBeforeLaunch", config.ExtractFileBeforeLaunch ? true : null);
         existingSystem.Element("FileFormatsToLaunch")?.ReplaceNodes(config.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format)));
 
         existingSystem.Element("Emulators")?.Remove();

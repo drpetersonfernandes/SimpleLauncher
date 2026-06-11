@@ -9,7 +9,7 @@ public class EncryptDuckStationToken
 {
     public static string EncryptDuckStationTokenMethod(string token, string username, bool isPortable, ILogErrors logErrors)
     {
-        if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(username)) return string.Empty;
+        if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(username)) return "";
 
         try
         {
@@ -40,7 +40,7 @@ public class EncryptDuckStationToken
         catch (Exception ex)
         {
             logErrors.LogAndForget(ex, "Failed to encrypt DuckStation token.");
-            return string.Empty;
+            return "";
         }
     }
 

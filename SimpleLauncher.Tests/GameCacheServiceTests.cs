@@ -184,7 +184,7 @@ public class GameCacheServiceTests : IDisposable
     [Fact]
     public void SelectedSystemDefaultsToEmpty()
     {
-        Assert.Equal(string.Empty, _cache.SelectedSystem);
+        Assert.Equal("", _cache.SelectedSystem);
     }
 
     [Fact]

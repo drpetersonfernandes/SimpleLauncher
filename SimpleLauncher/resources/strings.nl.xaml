@@ -1011,6 +1011,7 @@
     <system:String x:Key="nogamesmatched">Helaas, er zijn geen spellen die overeenkomen met uw zoekopdracht of geselecteerde knop.</system:String>
     <system:String x:Key="NoHighScores">Geen hoge scores gevonden voor dit spel.</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">Het bestand 'history.xml' is niet gevonden in de applicatiemap.</system:String>
+    <system:String x:Key="Nohistoryxmlfilefound2">Geen 'history.dat'- of 'history.xml'-bestand gevonden in de applicatiemap.</system:String>
     <system:String x:Key="NoImageIcon">Geen afbeelding</system:String>
     <system:String x:Key="Noinformationavailableforsystem">Geen informatie beschikbaar voor het systeem:</system:String>
     <system:String x:Key="NoLatestMasters">Geen nieuwste masters gevonden voor dit spel.</system:String>

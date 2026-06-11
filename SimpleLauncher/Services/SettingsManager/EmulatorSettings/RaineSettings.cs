@@ -16,12 +16,12 @@ public class RaineSettings : IEmulatorSettings
     public bool ShowSettingsBeforeLaunch { get; set; }
     public bool ShowFps { get; set; }
     public int FrameSkip { get; set; }
-    public string NeoCdBios { get; set; } = string.Empty;
+    public string NeoCdBios { get; set; } = "";
     public int MusicVolume { get; set; } = 60;
     public int SfxVolume { get; set; } = 60;
     public bool MuteSfx { get; set; }
     public bool MuteMusic { get; set; }
-    public string RomDirectory { get; set; } = string.Empty;
+    public string RomDirectory { get; set; } = "";
 
     public void LoadFromXml(XElement settings)
     {
@@ -36,12 +36,12 @@ public class RaineSettings : IEmulatorSettings
         ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
         ShowFps = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowFps), false);
         FrameSkip = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(FrameSkip), 0);
-        NeoCdBios = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(NeoCdBios), string.Empty);
+        NeoCdBios = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(NeoCdBios), "");
         MusicVolume = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(MusicVolume), 60);
         SfxVolume = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(SfxVolume), 60);
         MuteSfx = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(MuteSfx), false);
         MuteMusic = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(MuteMusic), false);
-        RomDirectory = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(RomDirectory), string.Empty);
+        RomDirectory = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(RomDirectory), "");
     }
 
     public XElement ToXElement()

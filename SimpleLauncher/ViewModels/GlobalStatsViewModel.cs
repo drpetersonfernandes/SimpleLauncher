@@ -29,8 +29,8 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
 
     private ObservableCollection<SystemStatsData> _systemStats = [];
     private GlobalStatsData _globalStats;
-    private string _infoText = string.Empty;
-    private string _busyOverlayText = string.Empty;
+    private string _infoText = "";
+    private string _busyOverlayText = "";
     private bool _isProcessing;
     private bool _isBusyOverlayVisible;
     private bool _isCancelOverlayVisible;
@@ -52,7 +52,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         _systemManagers = systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
 
         // Initialize info text
-        InfoText = _resourceProvider.GetString("GlobalStatsExplanation", string.Empty);
+        InfoText = _resourceProvider.GetString("GlobalStatsExplanation", "");
         BusyOverlayText = _resourceProvider.GetString("Processingpleasewait", "Processing");
     }
 
@@ -327,7 +327,10 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
                     try
                     {
                         var longPath = PathHelper.GetLongPath(file);
-                        totalDiskSize += new FileInfo(longPath).Length;
+                        if (longPath != null)
+                        {
+                            totalDiskSize += new FileInfo(longPath).Length;
+                        }
                     }
                     catch
                     {
@@ -385,7 +388,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         IsStartButtonVisible = true;
         IsSaveButtonVisible = false;
         SystemStats.Clear();
-        InfoText = _resourceProvider.GetString("GlobalStatsExplanation", string.Empty);
+        InfoText = _resourceProvider.GetString("GlobalStatsExplanation", "");
         BusyOverlayText = _resourceProvider.GetString("Processingpleasewait", "Processing");
     }
 
@@ -422,7 +425,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
             try
             {
                 var systemStatsList = SystemStats.ToList();
-                File.WriteAllText(saveFileDialog.FileName, GenerateReportText(_globalStats, systemStatsList));
+                await File.WriteAllTextAsync(saveFileDialog.FileName, GenerateReportText(_globalStats, systemStatsList));
                 await _messageBox.ReportSavedMessageBox();
             }
             catch (Exception ex)

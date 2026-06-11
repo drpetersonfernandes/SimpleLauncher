@@ -228,7 +228,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
         var input = Array.Empty<byte>();
         var result = InvokePrivateStaticMethod<string>("ToHexString", input);
 
-        Assert.Equal(string.Empty, result);
+        Assert.Equal("", result);
     }
 
     private static T? InvokePrivateStaticMethod<T>(string methodName, params object[] parameters)

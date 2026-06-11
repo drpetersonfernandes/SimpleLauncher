@@ -14,7 +14,7 @@ public class WindowsCredentialProtector : ICredentialProtector
     public string Protect(string plaintext)
     {
         if (string.IsNullOrEmpty(plaintext))
-            return string.Empty;
+            return "";
 
         var plaintextBytes = Encoding.UTF8.GetBytes(plaintext);
         var protectedBytes = ProtectedData.Protect(plaintextBytes, Entropy, DataProtectionScope.CurrentUser);
@@ -24,7 +24,7 @@ public class WindowsCredentialProtector : ICredentialProtector
     public string Unprotect(string protectedData)
     {
         if (string.IsNullOrEmpty(protectedData))
-            return string.Empty;
+            return "";
 
         try
         {
@@ -35,7 +35,7 @@ public class WindowsCredentialProtector : ICredentialProtector
         catch (CryptographicException)
         {
             // Data may be corrupted or from a different user/machine
-            return string.Empty;
+            return "";
         }
     }
 }

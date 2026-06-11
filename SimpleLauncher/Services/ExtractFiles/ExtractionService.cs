@@ -217,10 +217,10 @@ public class ExtractionService : IExtractionService
                             Directory.CreateDirectory(directory);
                         }
 
-                        await using (var entryStream = entry.OpenEntryStream())
+                        await using (var entryStream = await entry.OpenEntryStreamAsync())
                         await using (var fileStream = File.Create(destinationPath))
                         {
-                            entryStream.CopyTo(fileStream);
+                            await entryStream.CopyToAsync(fileStream);
                         }
 
                         // Preserve file time if available
@@ -234,7 +234,7 @@ public class ExtractionService : IExtractionService
 
             if (File.Exists(extractionTrackingFile))
             {
-                DeleteFiles.TryDeleteFile(extractionTrackingFile);
+                await DeleteFiles.TryDeleteFileAsync(extractionTrackingFile);
             }
 
             return true;
@@ -252,7 +252,7 @@ public class ExtractionService : IExtractionService
                     var extractionTrackingFile = Path.Combine(resolvedDestinationFolder, ".extraction_in_progress");
                     if (File.Exists(extractionTrackingFile))
                     {
-                        DeleteFiles.TryDeleteFile(extractionTrackingFile);
+                        await DeleteFiles.TryDeleteFileAsync(extractionTrackingFile);
                     }
 
                     return true;

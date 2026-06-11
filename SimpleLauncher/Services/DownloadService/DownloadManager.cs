@@ -242,7 +242,7 @@ public class DownloadManager : IDisposable
             if (ex.Message.Contains("being used by another process", StringComparison.OrdinalIgnoreCase))
             {
                 IsFileLockedDuringDownload = true;
-                DeleteFiles.TryDeleteFile(downloadFilePath);
+                await DeleteFiles.TryDeleteFileAsync(downloadFilePath);
                 return null;
             }
 
@@ -250,7 +250,7 @@ public class DownloadManager : IDisposable
             _logErrors.LogAndForget(ex, $"Download error for {downloadUrl}");
 
             // Cleanup on failure
-            DeleteFiles.TryDeleteFile(downloadFilePath);
+            await DeleteFiles.TryDeleteFileAsync(downloadFilePath);
         }
 
         return null;

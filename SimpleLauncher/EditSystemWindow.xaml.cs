@@ -482,17 +482,17 @@ internal partial class EditSystemWindow : ILoadingState
     // Clears fields when no system is selected, without affecting SystemNameDropdown itself.
     private void ClearFieldsForNoSelection()
     {
-        SystemNameTextBox.Text = string.Empty;
+        SystemNameTextBox.Text = "";
         MarkValid(SystemNameTextBox);
 
-        SystemFolderTextBox.Text = string.Empty;
+        SystemFolderTextBox.Text = "";
         MarkValid(SystemFolderTextBox);
         AdditionalFoldersListBox.Items.Clear();
 
-        SystemImageFolderTextBox.Text = string.Empty;
+        SystemImageFolderTextBox.Text = "";
         MarkValid(SystemImageFolderTextBox);
 
-        FormatToSearchTextBox.Text = string.Empty;
+        FormatToSearchTextBox.Text = "";
         MarkValid(FormatToSearchTextBox);
 
         ExtractFileBeforeLaunchComboBox.SelectedItem = null;
@@ -501,7 +501,7 @@ internal partial class EditSystemWindow : ILoadingState
 
         DisableRecursiveSearchComboBox.SelectedItem = null;
 
-        FormatToLaunchTextBox.Text = string.Empty;
+        FormatToLaunchTextBox.Text = "";
         MarkValid(FormatToLaunchTextBox);
 
         ClearAllEmulatorFieldsInternal();
@@ -510,43 +510,43 @@ internal partial class EditSystemWindow : ILoadingState
 
     private void ClearAllEmulatorFieldsInternal()
     {
-        Emulator1NameTextBox.Text = string.Empty;
+        Emulator1NameTextBox.Text = "";
         MarkValid(Emulator1NameTextBox);
-        Emulator1PathTextBox.Text = string.Empty;
+        Emulator1PathTextBox.Text = "";
         MarkValid(Emulator1PathTextBox);
-        Emulator1ParametersTextBox.Text = string.Empty;
+        Emulator1ParametersTextBox.Text = "";
         MarkValid(Emulator1ParametersTextBox);
         ReceiveANotificationOnEmulatorError1.SelectedItem = null;
 
-        Emulator2NameTextBox.Text = string.Empty;
+        Emulator2NameTextBox.Text = "";
         MarkValid(Emulator2NameTextBox);
-        Emulator2PathTextBox.Text = string.Empty;
+        Emulator2PathTextBox.Text = "";
         MarkValid(Emulator2PathTextBox);
-        Emulator2ParametersTextBox.Text = string.Empty;
+        Emulator2ParametersTextBox.Text = "";
         MarkValid(Emulator2ParametersTextBox);
         ReceiveANotificationOnEmulatorError2.SelectedItem = null;
 
-        Emulator3NameTextBox.Text = string.Empty;
+        Emulator3NameTextBox.Text = "";
         MarkValid(Emulator3NameTextBox);
-        Emulator3PathTextBox.Text = string.Empty;
+        Emulator3PathTextBox.Text = "";
         MarkValid(Emulator3PathTextBox);
-        Emulator3ParametersTextBox.Text = string.Empty;
+        Emulator3ParametersTextBox.Text = "";
         MarkValid(Emulator3ParametersTextBox);
         ReceiveANotificationOnEmulatorError3.SelectedItem = null;
 
-        Emulator4NameTextBox.Text = string.Empty;
+        Emulator4NameTextBox.Text = "";
         MarkValid(Emulator4NameTextBox);
-        Emulator4PathTextBox.Text = string.Empty;
+        Emulator4PathTextBox.Text = "";
         MarkValid(Emulator4PathTextBox);
-        Emulator4ParametersTextBox.Text = string.Empty;
+        Emulator4ParametersTextBox.Text = "";
         MarkValid(Emulator4ParametersTextBox);
         ReceiveANotificationOnEmulatorError4.SelectedItem = null;
 
-        Emulator5NameTextBox.Text = string.Empty;
+        Emulator5NameTextBox.Text = "";
         MarkValid(Emulator5NameTextBox);
-        Emulator5PathTextBox.Text = string.Empty;
+        Emulator5PathTextBox.Text = "";
         MarkValid(Emulator5PathTextBox);
-        Emulator5ParametersTextBox.Text = string.Empty;
+        Emulator5ParametersTextBox.Text = "";
         MarkValid(Emulator5ParametersTextBox);
         ReceiveANotificationOnEmulatorError5.SelectedItem = null;
     }
@@ -943,8 +943,8 @@ internal partial class EditSystemWindow : ILoadingState
             if (response.IsSuccessStatusCode)
             {
                 var result = JsonSerializer.Deserialize<ParameterResolverResult>(responseBody, JsonOptions);
-                var suggestedParam = result?.SuggestedParameter ?? string.Empty;
-                var explanation = result?.Explanation ?? string.Empty;
+                var suggestedParam = result?.SuggestedParameter ?? "";
+                var explanation = result?.Explanation ?? "";
 
                 var dialogMessage = $"{confirmMessage}\n\n{suggestedParam}";
                 if (!string.IsNullOrEmpty(explanation))

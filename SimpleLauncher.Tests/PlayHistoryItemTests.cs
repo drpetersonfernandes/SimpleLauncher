@@ -38,7 +38,7 @@ public class PlayHistoryItemTests
             SystemName = "Arcade"
         };
 
-        Assert.Equal(string.Empty, item.DisplayName);
+        Assert.Equal("", item.DisplayName);
     }
 
     [Fact]
@@ -50,7 +50,7 @@ public class PlayHistoryItemTests
             SystemName = "Arcade"
         };
 
-        Assert.Equal(string.Empty, item.DisplayName);
+        Assert.Equal("", item.DisplayName);
     }
 
     [Fact]

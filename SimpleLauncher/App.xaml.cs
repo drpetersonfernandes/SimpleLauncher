@@ -67,7 +67,6 @@ namespace SimpleLauncher;
 public partial class App : IDisposable
 {
     public static IServiceProvider ServiceProvider { get; private set; }
-
     private Mutex _singleInstanceMutex;
     private bool _isFirstInstance;
     private const string UniqueMutexIdentifier = "A8E2B9C1-F5D7-4E0A-8B3C-6D1E9F0A7B4C";
@@ -455,7 +454,7 @@ public partial class App : IDisposable
                 var messageBox = ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
                 _ = messageBox.FailedToStartSimpleLauncherMessageBox();
 
-                _singleInstanceMutex?.Dispose();
+                _singleInstanceMutex.Dispose();
                 Shutdown();
 
                 return;
@@ -467,7 +466,7 @@ public partial class App : IDisposable
                 var messageBox = ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
                 _ = messageBox.FailedToStartSimpleLauncherMessageBox();
 
-                _singleInstanceMutex?.Dispose();
+                _singleInstanceMutex.Dispose();
                 Shutdown();
 
                 return;
@@ -493,7 +492,7 @@ public partial class App : IDisposable
                     RestoreExistingWindow();
                 }
 
-                _singleInstanceMutex?.Dispose();
+                _singleInstanceMutex.Dispose();
                 Shutdown();
 
                 return; // Stop further startup logic
@@ -602,22 +601,19 @@ public partial class App : IDisposable
                 contextMessage = $"[RenderingEngineFailure] {contextMessage} | HResult=0x88980406 (UCEERR_RENDERTHREADFAILURE). Commonly triggered by GPU driver issues or WPF per-pixel transparency.";
             }
 
-            var logErrors = ServiceProvider?.GetRequiredService<ILogErrors>();
-            if (logErrors != null)
+            var logErrors = ServiceProvider.GetRequiredService<ILogErrors>();
+            // Fire-and-forget pattern with proper exception handling
+            _ = Task.Run(async () =>
             {
-                // Fire-and-forget pattern with proper exception handling
-                _ = Task.Run(async () =>
+                try
                 {
-                    try
-                    {
-                        await logErrors.LogErrorAsync(ex, contextMessage);
-                    }
-                    catch (Exception fireForgetEx)
-                    {
-                        DebugLogger.LogException(fireForgetEx, $"Failed to forward exception to bug report API (fire-and-forget): {contextMessage}");
-                    }
-                });
-            }
+                    await logErrors.LogErrorAsync(ex, contextMessage);
+                }
+                catch (Exception fireForgetEx)
+                {
+                    DebugLogger.LogException(fireForgetEx, $"Failed to forward exception to bug report API (fire-and-forget): {contextMessage}");
+                }
+            });
         }
         catch (HttpRequestException reportEx)
         {
@@ -682,8 +678,8 @@ public partial class App : IDisposable
         {
             var gamePadController = ServiceProvider.GetRequiredService<GamePadController>();
             // Dispose gamepad resources
-            _ = gamePadController?.Stop();
-            gamePadController?.Dispose();
+            _ = gamePadController.Stop();
+            gamePadController.Dispose();
         }
         catch (InvalidOperationException ex)
         {
@@ -699,7 +695,7 @@ public partial class App : IDisposable
         // Release the mutex if this was the first instance and the mutex was successfully created
         // The new instance (started with --restarting) didn't acquire the mutex, so _isFirstInstance will be false,
         // and it won't try to release it.
-        if (_singleInstanceMutex != null && _isFirstInstance)
+        if (_isFirstInstance)
         {
             try
             {
@@ -1011,8 +1007,8 @@ public partial class App : IDisposable
 
     public void Dispose()
     {
-        _instanceSignal?.Dispose();
-        _singleInstanceMutex?.Dispose();
+        _instanceSignal.Dispose();
+        _singleInstanceMutex.Dispose();
         GC.SuppressFinalize(this);
     }
 
@@ -1021,7 +1017,6 @@ public partial class App : IDisposable
         while (true)
         {
             var signal = _instanceSignal;
-            if (signal == null) break;
 
             try
             {

@@ -1011,6 +1011,7 @@
     <system:String x:Key="nogamesmatched">検索条件または選択されたボタンに一致するゲームがありません。</system:String>
     <system:String x:Key="NoHighScores">このゲームのハイスコアは見つかりませんでした。</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">アプリケーションフォルダ内に 'history.xml' ファイルが見つかりませんでした。</system:String>
+    <system:String x:Key="Nohistoryxmlfilefound2">アプリケーションフォルダーに 'history.dat' または 'history.xml' ファイルが見つかりません。</system:String>
     <system:String x:Key="NoImageIcon">画像なし</system:String>
     <system:String x:Key="Noinformationavailableforsystem">このシステムに関する情報はありません：</system:String>
     <system:String x:Key="NoLatestMasters">このゲームの最新マスターは見つかりませんでした。</system:String>

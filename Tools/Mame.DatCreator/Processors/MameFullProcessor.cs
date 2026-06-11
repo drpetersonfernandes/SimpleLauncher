@@ -21,8 +21,8 @@ public static class MameFullProcessor
             {
                 machines.Add(new MachineInfo
                 {
-                    MachineName = m.Attribute("name")?.Value ?? string.Empty,
-                    Description = m.Element("description")?.Value ?? string.Empty
+                    MachineName = m.Attribute("name")?.Value ?? "",
+                    Description = m.Element("description")?.Value ?? ""
                 });
             }
 

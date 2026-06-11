@@ -20,9 +20,9 @@ public partial class SupportWindow : ILoadingState
         _viewModel.CloseRequested += Close;
         _viewModel.FormCleared += () =>
         {
-            NameTextBox.Text = string.Empty;
-            EmailTextBox.Text = string.Empty;
-            SupportTextBox.Text = string.Empty;
+            NameTextBox.Text = "";
+            EmailTextBox.Text = "";
+            SupportTextBox.Text = "";
         };
 
         Loaded += (_, _) =>

@@ -1011,6 +1011,7 @@
     <system:String x:Key="nogamesmatched">দুঃখিত, আপনার অনুসন্ধান বা নির্বাচিত বোতামে কোনো গেম মেলেনি</system:String>
     <system:String x:Key="NoHighScores">এই গেমের কোনো হাই স্কোর নেই।</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">অ্যাপ্লিকেশন ফোল্ডারে 'history.xml' ফাইল পাওয়া যায়নি।</system:String>
+    <system:String x:Key="Nohistoryxmlfilefound2">অ্যাপ্লিকেশন ফোল্ডারে কোনো 'history.dat' অথবা 'history.xml' ফাইল পাওয়া যায়নি।</system:String>
     <system:String x:Key="NoImageIcon">কোনো ছবি নেই</system:String>
     <system:String x:Key="Noinformationavailableforsystem">সিস্টেমের জন্য কোনো তথ্য নেই।</system:String>
     <system:String x:Key="NoLatestMasters">সাম্প্রতিক কোনো মাস্টার নেই।</system:String>

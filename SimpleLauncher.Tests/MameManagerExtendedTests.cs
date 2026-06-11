@@ -8,14 +8,14 @@ public class MameManagerExtendedTests
     public void MameManagerDefaultMachineNameIsNull()
     {
         var manager = new Services.MameManager.MameManager();
-        Assert.Equal(string.Empty, manager.MachineName);
+        Assert.Equal("", manager.MachineName);
     }
 
     [Fact]
     public void MameManagerDefaultDescriptionIsNull()
     {
         var manager = new Services.MameManager.MameManager();
-        Assert.Equal(string.Empty, manager.Description);
+        Assert.Equal("", manager.Description);
     }
 
     [Fact]

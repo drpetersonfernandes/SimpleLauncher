@@ -6,6 +6,7 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <inheritdoc />
 /// <summary>
 /// Simulates the update extraction logic used by SimpleLauncher.
 /// A test ZIP is created in memory, extracted via the real UpdateChecker
@@ -118,7 +119,7 @@ public class UpdateSimulationTests : IDisposable
         Assert.Equal("1.0.0.0", InvokeNormalizeVersion("v1.0"));
         Assert.Equal("10.20.30.40", InvokeNormalizeVersion("10.20.30.40"));
         Assert.Equal("0.0.0.0", InvokeNormalizeVersion(""));
-        Assert.Equal("0.0.0.0", InvokeNormalizeVersion(string.Empty));
+        Assert.Equal("0.0.0.0", InvokeNormalizeVersion(""));
     }
 
     [Fact]
@@ -269,7 +270,9 @@ public class UpdateSimulationTests : IDisposable
     {
         var constructor = typeof(UpdateChecker).GetConstructors(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).First();
         var factory = new MockHttpClientFactory();
-        return (UpdateChecker)constructor.Invoke([factory, new NoOpLogErrors()]);
+        var logErrors = new NoOpLogErrors();
+        var debugLogger = new NoOpDebugLogger();
+        return (UpdateChecker)constructor.Invoke([factory, logErrors, null, null, debugLogger, null, null]);
     }
 
     private sealed class MockHttpClientFactory : IHttpClientFactory
@@ -285,6 +288,17 @@ public class UpdateSimulationTests : IDisposable
         public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
         {
             return Task.CompletedTask;
+        }
+    }
+
+    private sealed class NoOpDebugLogger : IDebugLogger
+    {
+        public void Log(string message)
+        {
+        }
+
+        public void LogException(Exception ex, string? contextMessage = null)
+        {
         }
     }
 }

@@ -56,7 +56,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
     /// Gets the file name portion of the game path for display.
     /// </summary>
     [IgnoreMember]
-    public string DisplayName => !string.IsNullOrEmpty(FileName) ? Path.GetFileName(FileName) : string.Empty;
+    public string DisplayName => !string.IsNullOrEmpty(FileName) ? Path.GetFileName(FileName) : "";
 
     /// <summary>
     /// Gets or sets the path to the cover image for this game.

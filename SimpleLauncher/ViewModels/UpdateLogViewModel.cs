@@ -7,7 +7,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public class UpdateLogViewModel : ObservableObject
 {
-    private string _logText = string.Empty;
+    private string _logText = "";
 
     /// <summary>
     /// Gets the log text content.

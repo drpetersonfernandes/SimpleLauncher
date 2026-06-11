@@ -28,21 +28,21 @@ public class StatsNormalizeEmulatorNameTests
     public void NormalizeEmulatorNameEmptyReturnsEmpty()
     {
         var result = NormalizeEmulatorName("");
-        Assert.Equal(string.Empty, result);
+        Assert.Equal("", result);
     }
 
     [Fact]
     public void NormalizeEmulatorNameNullReturnsEmpty()
     {
         var result = NormalizeEmulatorName(null);
-        Assert.Equal(string.Empty, result);
+        Assert.Equal("", result);
     }
 
     [Fact]
     public void NormalizeEmulatorNameWhitespaceReturnsEmpty()
     {
         var result = NormalizeEmulatorName("   ");
-        Assert.Equal(string.Empty, result);
+        Assert.Equal("", result);
     }
 
     [Fact]
@@ -75,7 +75,7 @@ public class StatsNormalizeEmulatorNameTests
 
     private static string NormalizeEmulatorName(string? input)
     {
-        if (string.IsNullOrWhiteSpace(input)) return string.Empty;
+        if (string.IsNullOrWhiteSpace(input)) return "";
 
         return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(input.ToLowerInvariant());
     }

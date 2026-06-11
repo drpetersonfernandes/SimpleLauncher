@@ -108,7 +108,7 @@ public class QuitSimpleLauncher
             };
             Process.Start(startInfo);
 
-            _dispatcherService.Invoke(() =>
+            await _dispatcherService.InvokeAsync(() =>
             {
                 _applicationLifetime.Shutdown();
                 Process.GetCurrentProcess().Kill();

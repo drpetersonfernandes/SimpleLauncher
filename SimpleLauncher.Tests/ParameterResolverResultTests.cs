@@ -9,7 +9,7 @@ public class ParameterResolverResultTests
     public void DefaultSuggestedParameterIsEmpty()
     {
         var result = new ParameterResolverResult();
-        Assert.Equal(string.Empty, result.SuggestedParameter);
+        Assert.Equal("", result.SuggestedParameter);
     }
 
     [Fact]

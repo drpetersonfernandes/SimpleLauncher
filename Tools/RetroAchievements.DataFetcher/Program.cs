@@ -237,10 +237,10 @@ file static class Program
         }
 
         Console.Write("Username: ");
-        settings.Username = Console.ReadLine()?.Trim() ?? string.Empty;
+        settings.Username = Console.ReadLine()?.Trim() ?? "";
 
         Console.Write("Web API Key: ");
-        settings.WebApiKey = Console.ReadLine()?.Trim() ?? string.Empty;
+        settings.WebApiKey = Console.ReadLine()?.Trim() ?? "";
 
         if (string.IsNullOrWhiteSpace(settings.Username) || string.IsNullOrWhiteSpace(settings.WebApiKey))
         {

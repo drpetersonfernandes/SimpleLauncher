@@ -15,7 +15,7 @@ public partial class DebugViewModel : ObservableObject
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IDebugLogger _debugLogger;
     private readonly object _logLock = new();
-    private string _logText = string.Empty;
+    private string _logText = "";
 
     public DebugViewModel(ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
     {
@@ -71,7 +71,7 @@ public partial class DebugViewModel : ObservableObject
         lock (_logLock)
         {
             LogMessages.Clear();
-            LogText = string.Empty;
+            LogText = "";
             OnPropertyChanged(nameof(CanClearLog));
             OnPropertyChanged(nameof(CanCopyLog));
             ClearLogCommand.NotifyCanExecuteChanged();

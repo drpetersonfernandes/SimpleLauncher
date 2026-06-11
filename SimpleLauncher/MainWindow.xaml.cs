@@ -160,9 +160,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
         UiOrchestrator.Initialize(this);
         _gameBrowser.Initialize(this, this, this);
-        _menuOrchestrator.Initialize(this, this, (IThemeMenuHost)this, (ILanguageMenuHost)this);
+        _menuOrchestrator.Initialize(this, this, this, this);
         UiResetService.Initialize(this);
-        UpdateStatusBarService.Initialize((IStatusBarHost)this);
+        UpdateStatusBarService.Initialize(this);
 
         DataContext = this;
 
@@ -316,7 +316,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     {
         try
         {
-            await _lifecycle.InitializeStartupAsync((IStartupInitializationHost)this);
+            await _lifecycle.InitializeStartupAsync(this);
         }
         catch (Exception ex)
         {

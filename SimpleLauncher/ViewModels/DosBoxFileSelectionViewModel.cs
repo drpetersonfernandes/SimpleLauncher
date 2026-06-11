@@ -95,7 +95,7 @@ public partial class DosBoxFileSelectionViewModel : ObservableObject
     {
         var dir = Path.GetDirectoryName(fullPath);
         if (string.IsNullOrEmpty(dir) || dir.Equals(baseDirectory, StringComparison.OrdinalIgnoreCase))
-            return string.Empty;
+            return "";
 
         var relative = dir.Length > baseDirectory.Length
             ? dir[(baseDirectory.Length + 1)..]

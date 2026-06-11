@@ -41,7 +41,7 @@ public partial class HelpUserManager
             string markdownContent;
             try
             {
-                markdownContent = File.ReadAllText(FilePath);
+                markdownContent = await File.ReadAllTextAsync(FilePath);
             }
             catch (Exception ex)
             {
@@ -143,7 +143,7 @@ public partial class HelpUserManager
 
     private static string NormalizeText(string text)
     {
-        if (string.IsNullOrEmpty(text)) return string.Empty;
+        if (string.IsNullOrEmpty(text)) return "";
 
         // First, normalize all line endings to \n
         text = text.Replace("\r\n", "\n").Replace("\r", "\n");

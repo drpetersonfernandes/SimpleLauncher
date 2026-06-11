@@ -1011,6 +1011,7 @@
     <system:String x:Key="nogamesmatched">Purtroppo, nessun gioco corrisponde alla tua ricerca o al pulsante selezionato.</system:String>
     <system:String x:Key="NoHighScores">Nessun punteggio alto trovato per questo gioco.</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">Il file 'history.xml' non è stato trovato nella cartella dell'applicazione.</system:String>
+    <system:String x:Key="Nohistoryxmlfilefound2">Nessun file 'history.dat' o 'history.xml' trovato nella cartella dell'applicazione.</system:String>
     <system:String x:Key="NoImageIcon">Nessuna immagine</system:String>
     <system:String x:Key="Noinformationavailableforsystem">Nessuna informazione disponibile per il sistema:</system:String>
     <system:String x:Key="NoLatestMasters">Nessun ultimo maestro trovato per questo gioco.</system:String>

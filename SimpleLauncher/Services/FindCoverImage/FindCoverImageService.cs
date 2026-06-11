@@ -33,11 +33,11 @@ public class FindCoverImageService : IFindCoverImageService
         string resolvedImageFolder;
         if (string.IsNullOrEmpty(systemImageFolder))
         {
-            resolvedImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName ?? string.Empty);
+            resolvedImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName ?? "");
         }
         else
         {
-            resolvedImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolder) ?? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName ?? string.Empty);
+            resolvedImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolder) ?? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName ?? "");
         }
 
         if (!string.IsNullOrEmpty(resolvedImageFolder) && Directory.Exists(resolvedImageFolder))

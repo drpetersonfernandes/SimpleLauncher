@@ -192,7 +192,7 @@ public class GeminiTranslationService
             throw new InvalidOperationException("Unable to extract text from Gemini response.");
         }
 
-        return textElement.GetString() ?? string.Empty;
+        return textElement.GetString() ?? "";
     }
 
     private static Dictionary<string, string> ParseTranslations(string text, List<string> expectedKeys)
@@ -224,7 +224,7 @@ public class GeminiTranslationService
         // Fill any missing translations with empty string
         foreach (var key in remainingKeys)
         {
-            result[key] = string.Empty;
+            result[key] = "";
         }
 
         return result;

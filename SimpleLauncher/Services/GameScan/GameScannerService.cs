@@ -319,7 +319,8 @@ public class GameScannerService
             {
                 try
                 {
-                    return new FileInfo(PathHelper.GetLongPath(f)).Length;
+                    var longPath = PathHelper.GetLongPath(f);
+                    return longPath != null ? new FileInfo(longPath).Length : 0L;
                 }
                 catch
                 {
@@ -332,7 +333,7 @@ public class GameScannerService
     private static string GetInnerExceptionDetails(Exception ex)
     {
         var inner = ex.InnerException;
-        if (inner == null) return string.Empty;
+        if (inner == null) return "";
 
         var details = " Inner exceptions:";
         var current = inner;

@@ -1011,6 +1011,7 @@
     <system:String x:Key="nogamesmatched">К сожалению, ни одна игра не соответствует вашему запросу или выбранной кнопке.</system:String>
     <system:String x:Key="NoHighScores">Высокие баллы для этой игры не найдены.</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">Файл 'history.xml' не найден в папке приложения.</system:String>
+    <system:String x:Key="Nohistoryxmlfilefound2">Файл 'history.dat' или 'history.xml' не найден в папке приложения.</system:String>
     <system:String x:Key="NoImageIcon">Нет изображения</system:String>
     <system:String x:Key="Noinformationavailableforsystem">Нет информации о системе:</system:String>
     <system:String x:Key="NoLatestMasters">Последние мастера для этой игры не найдены.</system:String>

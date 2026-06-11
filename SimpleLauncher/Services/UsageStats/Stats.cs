@@ -122,7 +122,7 @@ public class Stats
                 else
                 {
                     // For general usage calls, send an empty body.
-                    jsonContent = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+                    jsonContent = new StringContent("", Encoding.UTF8, "application/json");
                 }
 
                 // Use a CancellationToken with a 20-second timeout to prevent indefinite hangs
@@ -145,7 +145,7 @@ public class Stats
                                      $"Status Code: '{response.StatusCode}'.\n" +
                                      $"Response Body: '{errorContent}'\n" +
                                      $"CallType: {callType}" +
-                                     (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
+                                     (callType == "emulator" ? $", EmulatorName: {emulatorName}" : "");
                 _logErrors.LogAndForget(new HttpRequestException($"Stats API error: {response.StatusCode}"), contextMessage);
             }
 
@@ -157,7 +157,7 @@ public class Stats
             var contextMessage = $"Stats API request timed out after 15 seconds.\n" +
                                  $"Stats API URL: '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
-                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
+                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : "");
             _logErrors.LogAndForget(null, contextMessage);
 
             return false;
@@ -168,7 +168,7 @@ public class Stats
             // Log network/HTTP request errors
             var contextMessage = $"Error communicating with the Stats API at '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
-                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
+                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : "");
             _logErrors.LogAndForget(ex, contextMessage);
 
             return false;
@@ -179,7 +179,7 @@ public class Stats
             // Log any other unexpected errors
             var contextMessage = $"Unexpected error while using Stats API at '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
-                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
+                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : "");
             _logErrors.LogAndForget(ex, contextMessage);
 
             return false;
@@ -193,7 +193,7 @@ public class Stats
     /// <returns>The normalized string.</returns>
     private static string NormalizeEmulatorName(string input)
     {
-        if (string.IsNullOrWhiteSpace(input)) return string.Empty;
+        if (string.IsNullOrWhiteSpace(input)) return "";
         // Use CultureInfo.InvariantCulture to ensure consistent title casing regardless of user's locale
         return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(input.ToLowerInvariant());
     }
