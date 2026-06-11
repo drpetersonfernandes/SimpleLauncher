@@ -12,11 +12,13 @@ public class DuckStationConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
+    private readonly IServiceScopeFactory _scopeFactory;
 
-    public DuckStationConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger)
+    public DuckStationConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
         _debugLogger = debugLogger;
+        _scopeFactory = scopeFactory;
     }
 
     public bool IsMatch(string emulatorName, string emulatorPath)
@@ -37,7 +39,7 @@ public class DuckStationConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
-                        var win = App.ServiceProvider.GetRequiredService<InjectDuckStationConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectDuckStationConfigWindow>();
                         win.Owner = (Window)context.WindowContext.PlatformWindow;
                         win.Initialize(resolvedExe);
                         win.ShowDialog();

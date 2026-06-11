@@ -12,11 +12,13 @@ public class FlycastConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
+    private readonly IServiceScopeFactory _scopeFactory;
 
-    public FlycastConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger)
+    public FlycastConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
         _debugLogger = debugLogger;
+        _scopeFactory = scopeFactory;
     }
 
     public bool IsMatch(string emulatorName, string emulatorPath)
@@ -36,7 +38,7 @@ public class FlycastConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
-                        var win = App.ServiceProvider.GetRequiredService<InjectFlycastConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectFlycastConfigWindow>();
                         win.Owner = (Window)context.WindowContext.PlatformWindow;
                         win.Initialize(resolvedExe);
                         win.ShowDialog();

@@ -9,6 +9,7 @@ using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.RetroAchievements;
 
 namespace SimpleLauncher.Services.GameItemRender;
 
@@ -29,6 +30,7 @@ public class GameItemRenderService : IGameItemRenderService
     private readonly IImageLoader _imageLoader;
     private readonly GameListUiService _gameListUiService;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IRetroAchievementsHasherTool _raHasherTool;
 
     private IGameItemRenderHost _host;
     private GameButtonFactory _gameButtonFactory;
@@ -47,7 +49,8 @@ public class GameItemRenderService : IGameItemRenderService
         IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         GameListUiService gameListUiService,
-        IMessageBoxLibraryService messageBox)
+        IMessageBoxLibraryService messageBox,
+        IRetroAchievementsHasherTool raHasherTool)
     {
         _settings = settings;
         _favoritesManager = favoritesManager;
@@ -62,6 +65,7 @@ public class GameItemRenderService : IGameItemRenderService
         _imageLoader = imageLoader;
         _gameListUiService = gameListUiService;
         _messageBox = messageBox;
+        _raHasherTool = raHasherTool;
     }
 
     public void Initialize(IGameItemRenderHost host)
@@ -86,7 +90,9 @@ public class GameItemRenderService : IGameItemRenderService
             _logErrors,
             _getListOfFiles,
             _findCoverImage,
-            _imageLoader);
+            _imageLoader,
+            _messageBox,
+            _raHasherTool);
 
         _gameListFactory = new GameListFactory(
             _host.EmulatorComboBox,

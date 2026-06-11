@@ -13,12 +13,14 @@ public class AzaharConfigHandler : IEmulatorConfigHandler
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IServiceScopeFactory _scopeFactory;
 
-    public AzaharConfigHandler(ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
+    public AzaharConfigHandler(ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
         _debugLogger = debugLogger;
         _messageBox = messageBox;
+        _scopeFactory = scopeFactory;
     }
 
     public bool IsMatch(string emulatorName, string emulatorPath)
@@ -38,7 +40,7 @@ public class AzaharConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
-                        var win = App.ServiceProvider.GetRequiredService<InjectAzaharConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectAzaharConfigWindow>();
                         win.Owner = (Window)context.WindowContext.PlatformWindow;
                         win.Initialize(resolvedExe);
                         win.ShowDialog();

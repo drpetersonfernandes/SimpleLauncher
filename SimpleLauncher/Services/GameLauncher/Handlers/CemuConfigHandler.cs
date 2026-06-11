@@ -12,11 +12,13 @@ public class CemuConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
+    private readonly IServiceScopeFactory _scopeFactory;
 
-    public CemuConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger)
+    public CemuConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
         _debugLogger = debugLogger;
+        _scopeFactory = scopeFactory;
     }
 
     public bool IsMatch(string emulatorName, string emulatorPath)
@@ -36,7 +38,7 @@ public class CemuConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
-                        var win = App.ServiceProvider.GetRequiredService<InjectCemuConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectCemuConfigWindow>();
                         win.Owner = (Window)context.WindowContext.PlatformWindow;
                         win.Initialize(resolvedExe);
                         win.ShowDialog();

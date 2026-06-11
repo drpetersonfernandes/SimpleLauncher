@@ -12,11 +12,13 @@ public class RaineConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
+    private readonly IServiceScopeFactory _scopeFactory;
 
-    public RaineConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger)
+    public RaineConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
         _debugLogger = debugLogger;
+        _scopeFactory = scopeFactory;
     }
 
     public bool IsMatch(string emulatorName, string emulatorPath)
@@ -43,7 +45,7 @@ public class RaineConfigHandler : IEmulatorConfigHandler
                         if (context.WindowContext != null)
                             await context.WindowContext.Dispatcher.InvokeAsync(() =>
                             {
-                                var win = App.ServiceProvider.GetRequiredService<InjectRaineConfigWindow>();
+                                var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectRaineConfigWindow>();
                                 win.Owner = (Window)context.WindowContext.PlatformWindow;
                                 win.Initialize(resolvedExe, true, context.ResolvedFilePath, resolvedSystemFolder);
                                 win.ShowDialog();

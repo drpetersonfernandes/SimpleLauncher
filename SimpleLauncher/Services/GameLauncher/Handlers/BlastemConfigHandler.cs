@@ -12,11 +12,13 @@ public class BlastemConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
+    private readonly IServiceScopeFactory _scopeFactory;
 
-    public BlastemConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger)
+    public BlastemConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
         _debugLogger = debugLogger;
+        _scopeFactory = scopeFactory;
     }
 
     public bool IsMatch(string emulatorName, string emulatorPath)
@@ -66,7 +68,7 @@ public class BlastemConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
-                        var win = App.ServiceProvider.GetRequiredService<InjectBlastemConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectBlastemConfigWindow>();
                         win.Owner = (Window)context.WindowContext.PlatformWindow;
                         win.Initialize(resolvedExe);
                         win.ShowDialog();

@@ -6,7 +6,6 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.ContextMenu;
@@ -38,7 +37,9 @@ internal partial class GameButtonFactory(
     ILogErrors logErrors,
     IGetListOfFilesService getListOfFiles,
     IFindCoverImageService findCoverImage,
-    IImageLoader imageLoader)
+    IImageLoader imageLoader,
+    IMessageBoxLibraryService messageBox,
+    IRetroAchievementsHasherTool raHasherTool)
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox ?? throw new ArgumentNullException(nameof(emulatorComboBox));
     private readonly ComboBox _systemComboBox = systemComboBox ?? throw new ArgumentNullException(nameof(systemComboBox));
@@ -55,7 +56,8 @@ internal partial class GameButtonFactory(
     private readonly IGetListOfFilesService _getListOfFiles = getListOfFiles ?? throw new ArgumentNullException(nameof(getListOfFiles));
     private readonly IFindCoverImageService _findCoverImage = findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
     private readonly IImageLoader _imageLoader = imageLoader ?? throw new ArgumentNullException(nameof(imageLoader));
-    private readonly IMessageBoxLibraryService _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+    private readonly IMessageBoxLibraryService _messageBox = messageBox ?? throw new ArgumentNullException(nameof(messageBox));
+    private readonly IRetroAchievementsHasherTool _raHasherTool = raHasherTool ?? throw new ArgumentNullException(nameof(raHasherTool));
 
     private Button _button;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
@@ -303,8 +305,7 @@ internal partial class GameButtonFactory(
         double currentVerticalOffset = 5; // Initial top margin for the first button
 
         // Only show RetroAchievements icon for supported systems
-        var raHasherTool = App.ServiceProvider.GetRequiredService<IRetroAchievementsHasherTool>();
-        var isSystemSupportedForRa = raHasherTool.IsSystemSupportedForHashing(selectedSystemManager.SystemName);
+        var isSystemSupportedForRa = _raHasherTool.IsSystemSupportedForHashing(selectedSystemManager.SystemName);
 
         if (_settings.OverlayRetroAchievementButton && isSystemSupportedForRa)
         {

@@ -542,7 +542,7 @@ public partial class SystemManager : ISystemManager
         };
     }
 
-    public static async Task SaveSystemConfigurationAsync(SystemManager systemConfig, string originalSystemName = null, ILogErrors logErrors = null)
+    public static async Task SaveSystemConfigurationAsync(SystemManager systemConfig, string originalSystemName = null, ILogErrors logErrors = null, IConfiguration configuration = null)
     {
         try
         {
@@ -550,7 +550,7 @@ public partial class SystemManager : ISystemManager
             {
                 lock (XmlLock)
                 {
-                    var systemXmlPath = GetSystemXmlPath(App.ServiceProvider.GetRequiredService<IConfiguration>());
+                    var systemXmlPath = GetSystemXmlPath(configuration ?? App.ServiceProvider.GetRequiredService<IConfiguration>());
                     XDocument xmlDoc;
                     try
                     {
@@ -750,7 +750,7 @@ public partial class SystemManager : ISystemManager
         }
     }
 
-    public static async Task DeleteSystemAsync(string systemNameToDelete, ILogErrors logErrors = null)
+    public static async Task DeleteSystemAsync(string systemNameToDelete, ILogErrors logErrors = null, IConfiguration configuration = null)
     {
         try
         {
@@ -758,7 +758,7 @@ public partial class SystemManager : ISystemManager
             {
                 lock (XmlLock)
                 {
-                    var systemXmlPath = GetSystemXmlPath(App.ServiceProvider.GetRequiredService<IConfiguration>());
+                    var systemXmlPath = GetSystemXmlPath(configuration ?? App.ServiceProvider.GetRequiredService<IConfiguration>());
                     if (!File.Exists(systemXmlPath)) return;
 
                     XDocument xmlDoc;

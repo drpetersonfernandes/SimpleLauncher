@@ -12,11 +12,13 @@ public class AresConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
+    private readonly IServiceScopeFactory _scopeFactory;
 
-    public AresConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger)
+    public AresConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
         _debugLogger = debugLogger;
+        _scopeFactory = scopeFactory;
     }
 
     public bool IsMatch(string emulatorName, string emulatorPath)
@@ -37,7 +39,7 @@ public class AresConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
-                        var aresWindow = App.ServiceProvider.GetRequiredService<InjectAresConfigWindow>();
+                        var aresWindow = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectAresConfigWindow>();
                         aresWindow.Owner = (Window)context.WindowContext.PlatformWindow;
                         aresWindow.Initialize(resolvedEmulatorExePath);
                         aresWindow.ShowDialog();

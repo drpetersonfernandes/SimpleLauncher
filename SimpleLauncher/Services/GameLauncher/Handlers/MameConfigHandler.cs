@@ -12,11 +12,13 @@ public class MameConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
+    private readonly IServiceScopeFactory _scopeFactory;
 
-    public MameConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger)
+    public MameConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
         _debugLogger = debugLogger;
+        _scopeFactory = scopeFactory;
     }
 
     public bool IsMatch(string emulatorName, string emulatorPath)
@@ -42,7 +44,7 @@ public class MameConfigHandler : IEmulatorConfigHandler
                     if (context.WindowContext != null)
                         await context.WindowContext.Dispatcher.InvokeAsync(() =>
                         {
-                            var win = App.ServiceProvider.GetRequiredService<InjectMameConfigWindow>();
+                            var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectMameConfigWindow>();
                             win.Owner = (Window)context.WindowContext.PlatformWindow;
                             win.Initialize(resolvedExe, true, resolvedSystemFolder, listOfSecondarySystemFolders);
                             win.ShowDialog();

@@ -8,6 +8,13 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 public class DaphneConfigHandler : IEmulatorConfigHandler
 {
+    private readonly IServiceScopeFactory _scopeFactory;
+
+    public DaphneConfigHandler(IServiceScopeFactory scopeFactory)
+    {
+        _scopeFactory = scopeFactory;
+    }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Daphne", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("daphne.exe", StringComparison.OrdinalIgnoreCase) ?? false);
@@ -21,7 +28,7 @@ public class DaphneConfigHandler : IEmulatorConfigHandler
             if (context.WindowContext != null)
                 await context.WindowContext.Dispatcher.InvokeAsync(() =>
                 {
-                    var win = App.ServiceProvider.GetRequiredService<InjectDaphneConfigWindow>();
+                    var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectDaphneConfigWindow>();
                     win.Owner = (Window)context.WindowContext.PlatformWindow;
                     win.Initialize();
                     win.ShowDialog();
