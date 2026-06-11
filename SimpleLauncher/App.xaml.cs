@@ -227,6 +227,20 @@ public partial class App : IDisposable
             var debugLogger = sp.GetRequiredService<IDebugLogger>();
             return RetroAchievementsManager.LoadRetroAchievement(logErrors, debugLogger);
         });
+        // Game platform scanners
+        serviceCollection.AddSingleton<ISteamVdfParser, SteamVdfParser>();
+        serviceCollection.AddSingleton<IIconExtractor, IconExtractor>();
+        serviceCollection.AddSingleton<IGamePlatformScanner, ScanSteamGames>();
+        serviceCollection.AddSingleton<IGamePlatformScanner, ScanEpicGames>();
+        serviceCollection.AddSingleton<IGamePlatformScanner, ScanAmazonGames>();
+        serviceCollection.AddSingleton<IGamePlatformScanner, ScanBattleNetGames>();
+        serviceCollection.AddSingleton<IGamePlatformScanner, ScanGogGames>();
+        serviceCollection.AddSingleton<IGamePlatformScanner, ScanHumbleGames>();
+        serviceCollection.AddSingleton<IGamePlatformScanner, ScanItchioGames>();
+        serviceCollection.AddSingleton<IGamePlatformScanner, ScanRockstarGames>();
+        serviceCollection.AddSingleton<IGamePlatformScanner, ScanUplayGames>();
+        serviceCollection.AddSingleton<IGamePlatformScanner, ScanEaGames>();
+        serviceCollection.AddSingleton<IGamePlatformScanner, ScanMicrosoftStoreGames>();
         serviceCollection.AddSingleton<GameScannerService>();
         serviceCollection.AddSingleton<ThemeMenuService>();
         serviceCollection.AddSingleton<LanguageMenuService>();

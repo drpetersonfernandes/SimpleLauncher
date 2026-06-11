@@ -16,6 +16,8 @@ public class GameScannerService
     private readonly IConfiguration _configuration;
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IDebugLogger _debugLogger;
+    private readonly IEnumerable<IGamePlatformScanner> _scanners;
+    private readonly IIconExtractor _iconExtractor;
     private const string WindowsSystemName = "Microsoft Windows";
 
     internal static readonly HashSet<string> IgnoredGameNames = new(StringComparer.OrdinalIgnoreCase)
@@ -40,13 +42,15 @@ public class GameScannerService
 
     private bool _timeoutMessageShown;
 
-    public GameScannerService(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary, IConfiguration configuration, IHttpClientFactory httpClientFactory, IDebugLogger debugLogger)
+    public GameScannerService(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary, IConfiguration configuration, IHttpClientFactory httpClientFactory, IDebugLogger debugLogger, IEnumerable<IGamePlatformScanner> scanners, IIconExtractor iconExtractor)
     {
         _logErrors = logErrors;
         _messageBoxLibrary = messageBoxLibrary;
         _configuration = configuration;
         _httpClientFactory = httpClientFactory;
         _debugLogger = debugLogger;
+        _scanners = scanners;
+        _iconExtractor = iconExtractor;
     }
 
     internal async Task ScanForStoreGamesAsync()
@@ -59,20 +63,7 @@ public class GameScannerService
             _windowsImagesPath = pathResult.ImagesPath;
             WasNewSystemCreated = pathResult.WasNewSystemCreated;
 
-            var tasks = new List<Task>
-            {
-                ScanSteamGames.ScanSteamGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanEpicGames.ScanEpicGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanAmazonGames.ScanAmazonGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanBattleNetGames.ScanBattleNetGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanGogGames.ScanGogGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanHumbleGames.ScanHumbleGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanItchioGames.ScanItchioGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanRockstarGames.ScanRockstarGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanUplayGames.ScanUplayGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanEaGames.ScanEaGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanMicrosoftStoreGames.ScanMicrosoftStoreGamesAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath)
-            };
+            var tasks = _scanners.Select(s => s.ScanAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames)).ToList();
 
             await Task.WhenAll(tasks);
 
@@ -254,7 +245,7 @@ public class GameScannerService
             var mainExe = FindMainExecutable(gameInstallPath, sanitizedGameName, specificExePath);
             if (mainExe != null)
             {
-                IconExtractor.SaveIconFromExe(mainExe, imagePath, logErrors);
+                _iconExtractor.SaveIconFromExe(mainExe, imagePath, logErrors);
             }
         }
         catch (Exception ex)
@@ -274,7 +265,7 @@ public class GameScannerService
             var mainExe = FindMainExecutable(gameInstallPath, sanitizedGameName, specificExePath);
             if (mainExe != null)
             {
-                IconExtractor.SaveIconFromExe(mainExe, iconPath, logErrors);
+                _iconExtractor.SaveIconFromExe(mainExe, iconPath, logErrors);
             }
         }
         catch (Exception ex)

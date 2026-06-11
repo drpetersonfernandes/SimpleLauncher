@@ -1,6 +1,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 
@@ -9,7 +10,7 @@ namespace SimpleLauncher.Services.GameScan;
 /// <summary>
 /// A utility class to extract icons from executable files.
 /// </summary>
-public static class IconExtractor
+public class IconExtractor : IIconExtractor
 {
     [DllImport("shell32.dll", CharSet = CharSet.Auto)]
     private static extern IntPtr ExtractIcon(IntPtr hInst, string lpszExeFileName, int nIconIndex);
@@ -24,7 +25,7 @@ public static class IconExtractor
     /// <param name="exePath">The path to the executable file.</param>
     /// <param name="savePath">The path where the PNG icon should be saved.</param>
     /// <param name="logErrors"></param>
-    public static void SaveIconFromExe(string exePath, string savePath, ILogErrors logErrors)
+    public void SaveIconFromExe(string exePath, string savePath, ILogErrors logErrors)
     {
         if (!File.Exists(exePath) || !savePath.EndsWith(".png", StringComparison.OrdinalIgnoreCase)) return;
 

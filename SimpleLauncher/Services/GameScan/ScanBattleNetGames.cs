@@ -1,12 +1,13 @@
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameScan.Models;
 using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 
-public static partial class ScanBattleNetGames
+public partial class ScanBattleNetGames : IGamePlatformScanner
 {
     // Mapping from InternalId (found in registry) to Readable Name and Executable (for icons)
     private static readonly List<BNetAppDef> AppDefinitions =
@@ -41,7 +42,7 @@ public static partial class ScanBattleNetGames
         new() { InternalId = "Warcraft III", Name = "Warcraft III", IsClassic = true, Exe = "Warcraft III.exe", ProductId = "W3" }
     ];
 
-    public static async Task ScanBattleNetGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {

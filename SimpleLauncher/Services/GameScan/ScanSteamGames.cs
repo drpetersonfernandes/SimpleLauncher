@@ -1,18 +1,25 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 
-internal static class ScanSteamGames
+internal class ScanSteamGames : IGamePlatformScanner
 {
-    private static readonly IDebugLogger DebugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();
+    private readonly IDebugLogger _debugLogger;
+    private readonly ISteamVdfParser _vdfParser;
 
-    internal static async Task ScanSteamGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public ScanSteamGames(IDebugLogger debugLogger, ISteamVdfParser vdfParser)
+    {
+        _debugLogger = debugLogger;
+        _vdfParser = vdfParser;
+    }
+
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         var libraryPaths = new List<string>();
 
@@ -38,7 +45,7 @@ internal static class ScanSteamGames
 
             if (string.IsNullOrEmpty(steamPath))
             {
-                DebugLogger.Log("[GameScannerService] Steam installation not found.");
+                _debugLogger.Log("[GameScannerService] Steam installation not found.");
                 return;
             }
 
@@ -54,7 +61,7 @@ internal static class ScanSteamGames
             {
                 try
                 {
-                    var vdfData = SteamVdfParser.Parse(libraryFoldersVdf, logErrors);
+                    var vdfData = _vdfParser.Parse(libraryFoldersVdf, logErrors);
 
                     // Handle new VDF format (numeric keys at root or inside "libraryfolders")
                     var rootNode = vdfData.TryGetValue("libraryfolders", out var value)
@@ -158,11 +165,11 @@ internal static class ScanSteamGames
         }
     }
 
-    private static async Task ProcessSteamManifestAsync(GameScannerService gameScannerService, string manifestFile, string libraryPath, string steamPath, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    private async Task ProcessSteamManifestAsync(GameScannerService gameScannerService, string manifestFile, string libraryPath, string steamPath, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
-            var appData = SteamVdfParser.Parse(manifestFile, logErrors);
+            var appData = _vdfParser.Parse(manifestFile, logErrors);
             if (appData.TryGetValue("AppState", out var appState) && appState is Dictionary<string, object> appStateDict)
             {
                 if (appStateDict.TryGetValue("name", out var nameObj) && nameObj is string gameName &&
@@ -188,7 +195,7 @@ internal static class ScanSteamGames
         }
     }
 
-    private static async Task ProcessSourceModAsync(GameScannerService gameScannerService, string modDir, string windowsRomsPath, string windowsImagesPath, ILogErrors logErrors)
+    private async Task ProcessSourceModAsync(GameScannerService gameScannerService, string modDir, string windowsRomsPath, string windowsImagesPath, ILogErrors logErrors)
     {
         try
         {
@@ -196,7 +203,7 @@ internal static class ScanSteamGames
             if (!File.Exists(gameInfoPath)) return;
 
             // 1. Parse gameinfo.txt using the existing VDF parser
-            var vdfData = SteamVdfParser.Parse(gameInfoPath, logErrors);
+            var vdfData = _vdfParser.Parse(gameInfoPath, logErrors);
 
             string gameName = null;
             string baseAppId = null;
@@ -228,7 +235,7 @@ internal static class ScanSteamGames
 
             if (string.IsNullOrEmpty(baseAppId))
             {
-                DebugLogger.Log($"[GameScannerService] Could not resolve Base AppID for mod: {gameName}. Skipping.");
+                _debugLogger.Log($"[GameScannerService] Could not resolve Base AppID for mod: {gameName}. Skipping.");
                 return;
             }
 
@@ -267,7 +274,7 @@ internal static class ScanSteamGames
                 }
             }
 
-            DebugLogger.Log($"[GameScannerService] Created shortcut for Source Mod: {gameName}");
+            _debugLogger.Log($"[GameScannerService] Created shortcut for Source Mod: {gameName}");
         }
         catch (Exception ex)
         {

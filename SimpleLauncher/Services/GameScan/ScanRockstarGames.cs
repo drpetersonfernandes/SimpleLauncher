@@ -1,12 +1,13 @@
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameScan.Models;
 using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 
-public static partial class ScanRockstarGames
+public partial class ScanRockstarGames : IGamePlatformScanner
 {
     // Mapping from TitleId to Name and Executable
     private static readonly List<RockstarGameDef> Games =
@@ -28,7 +29,7 @@ public static partial class ScanRockstarGames
         new() { TitleId = "gtasaunreal", Name = "GTA San Andreas Definitive Edition", Exe = "Gameface/Binaries/Win64/SanAndreas.exe" }
     ];
 
-    public static async Task ScanRockstarGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {

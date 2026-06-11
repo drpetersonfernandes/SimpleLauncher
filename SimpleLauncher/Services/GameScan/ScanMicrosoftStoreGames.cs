@@ -2,19 +2,26 @@ using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameScan.Models;
 using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 
-internal static partial class ScanMicrosoftStoreGames
+internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
 {
-    private static readonly IDebugLogger DebugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();
+    private readonly IDebugLogger _debugLogger;
+    private readonly IHttpClientFactory _httpClientFactory;
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
 
-    public static async Task ScanMicrosoftStoreGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath)
+    public ScanMicrosoftStoreGames(IDebugLogger debugLogger, IHttpClientFactory httpClientFactory)
+    {
+        _debugLogger = debugLogger;
+        _httpClientFactory = httpClientFactory;
+    }
+
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -95,7 +102,7 @@ internal static partial class ScanMicrosoftStoreGames
                 using var process = Process.Start(startInfo);
                 if (process == null)
                 {
-                    DebugLogger.Log("[ScanMicrosoftStoreGames] PowerShell process returned null (likely blocked by policy). Skipping Microsoft Store scan.");
+                    _debugLogger.Log("[ScanMicrosoftStoreGames] PowerShell process returned null (likely blocked by policy). Skipping Microsoft Store scan.");
                     return;
                 }
 
@@ -106,18 +113,18 @@ internal static partial class ScanMicrosoftStoreGames
             }
             catch (OperationCanceledException)
             {
-                DebugLogger.Log("[ScanMicrosoftStoreGames] PowerShell scan timed out after 30 seconds. Skipping Microsoft Store scan.");
+                _debugLogger.Log("[ScanMicrosoftStoreGames] PowerShell scan timed out after 30 seconds. Skipping Microsoft Store scan.");
                 return;
             }
             catch (System.ComponentModel.Win32Exception ex) when (ex.NativeErrorCode is 5 or 2 or 126)
             {
                 // 5 = Access Denied (AppLocker/WDAC), 2 = File Not Found, 126 = Module Not Found
-                DebugLogger.Log($"[ScanMicrosoftStoreGames] PowerShell blocked or unavailable (Win32 error {ex.NativeErrorCode}). Skipping Microsoft Store scan.");
+                _debugLogger.Log($"[ScanMicrosoftStoreGames] PowerShell blocked or unavailable (Win32 error {ex.NativeErrorCode}). Skipping Microsoft Store scan.");
                 return;
             }
             catch (Exception ex)
             {
-                DebugLogger.Log($"[ScanMicrosoftStoreGames] Failed to execute PowerShell: {ex.Message}. Skipping Microsoft Store scan.");
+                _debugLogger.Log($"[ScanMicrosoftStoreGames] Failed to execute PowerShell: {ex.Message}. Skipping Microsoft Store scan.");
                 return;
             }
 
@@ -126,12 +133,12 @@ internal static partial class ScanMicrosoftStoreGames
                 // Check for execution policy restrictions - skip silently if restricted
                 if (IsExecutionPolicyRestricted(errorOutput))
                 {
-                    DebugLogger.Log("[ScanMicrosoftStoreGames] PowerShell execution policy restrictions detected. Skipping Microsoft Store games scan.");
+                    _debugLogger.Log("[ScanMicrosoftStoreGames] PowerShell execution policy restrictions detected. Skipping Microsoft Store games scan.");
                     return;
                 }
 
                 // Log warning but don't crash, PS might emit non-fatal errors to stderr
-                DebugLogger.Log($"[ScanMicrosoftStoreGames] PowerShell warning/error: {errorOutput}");
+                _debugLogger.Log($"[ScanMicrosoftStoreGames] PowerShell warning/error: {errorOutput}");
             }
 
             if (string.IsNullOrWhiteSpace(output)) return;
@@ -194,21 +201,21 @@ internal static partial class ScanMicrosoftStoreGames
 
             if (allInstalledApps.Count == 0)
             {
-                DebugLogger.Log("[ScanMicrosoftStoreGames] No Microsoft Store apps found.");
+                _debugLogger.Log("[ScanMicrosoftStoreGames] No Microsoft Store apps found.");
                 return;
             }
 
-            DebugLogger.Log($"[ScanMicrosoftStoreGames] Found {allInstalledApps.Count} Microsoft Store apps. Sending to classification API...");
+            _debugLogger.Log($"[ScanMicrosoftStoreGames] Found {allInstalledApps.Count} Microsoft Store apps. Sending to classification API...");
             foreach (var app in allInstalledApps)
             {
-                DebugLogger.Log($"[ScanMicrosoftStoreGames]   -> Sending: Name=\"{app.Name}\" (Normalized=\"{app.Name.Trim().ToUpperInvariant()}\") AppId=\"{app.AppId}\"");
+                _debugLogger.Log($"[ScanMicrosoftStoreGames]   -> Sending: Name=\"{app.Name}\" (Normalized=\"{app.Name.Trim().ToUpperInvariant()}\") AppId=\"{app.AppId}\"");
             }
 
             var confirmedGames = await ClassifyGamesViaApiAsync(allInstalledApps, logErrors);
 
             if (confirmedGames is { Count: > 0 })
             {
-                DebugLogger.Log($"[ScanMicrosoftStoreGames] API returned {confirmedGames.Count} confirmed games.");
+                _debugLogger.Log($"[ScanMicrosoftStoreGames] API returned {confirmedGames.Count} confirmed games.");
 
                 Directory.CreateDirectory(windowsRomsPath);
 
@@ -228,7 +235,7 @@ internal static partial class ScanMicrosoftStoreGames
             }
             else
             {
-                DebugLogger.Log("[ScanMicrosoftStoreGames] API returned no confirmed games. The admin may need to curate the game list via the dashboard.");
+                _debugLogger.Log("[ScanMicrosoftStoreGames] API returned no confirmed games. The admin may need to curate the game list via the dashboard.");
             }
         }
         catch (Exception ex)
@@ -237,12 +244,11 @@ internal static partial class ScanMicrosoftStoreGames
         }
     }
 
-    private static async Task<List<StoreAppInfo>> ClassifyGamesViaApiAsync(List<StoreAppInfo> installedApps, ILogErrors logErrors)
+    private async Task<List<StoreAppInfo>> ClassifyGamesViaApiAsync(List<StoreAppInfo> installedApps, ILogErrors logErrors)
     {
         try
         {
-            var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
-            using var client = httpClientFactory.CreateClient("GameClassificationClient");
+            using var client = _httpClientFactory.CreateClient("GameClassificationClient");
 
             var requestBody = new
             {
@@ -264,7 +270,7 @@ internal static partial class ScanMicrosoftStoreGames
 
             if (!response.IsSuccessStatusCode)
             {
-                DebugLogger.Log($"[ScanMicrosoftStoreGames] Game classification API returned status: {response.StatusCode}");
+                _debugLogger.Log($"[ScanMicrosoftStoreGames] Game classification API returned status: {response.StatusCode}");
                 await logErrors.LogErrorAsync(null, $"Game classification API failed with status {response.StatusCode}. Returning empty game list.");
                 return [];
             }
@@ -274,14 +280,14 @@ internal static partial class ScanMicrosoftStoreGames
 
             if (apiResponse?.Games == null)
             {
-                DebugLogger.Log("[ScanMicrosoftStoreGames] Game classification API returned null games list.");
+                _debugLogger.Log("[ScanMicrosoftStoreGames] Game classification API returned null games list.");
                 return [];
             }
 
-            DebugLogger.Log($"[ScanMicrosoftStoreGames] API deserialized games count: {apiResponse.Games.Count}");
+            _debugLogger.Log($"[ScanMicrosoftStoreGames] API deserialized games count: {apiResponse.Games.Count}");
             foreach (var g in apiResponse.Games)
             {
-                DebugLogger.Log($"[ScanMicrosoftStoreGames]   <- Received game: Name=\"{g.Name}\" AppId=\"{g.AppId}\"");
+                _debugLogger.Log($"[ScanMicrosoftStoreGames]   <- Received game: Name=\"{g.Name}\" AppId=\"{g.AppId}\"");
             }
 
             var confirmedGames = apiResponse.Games.Select(static g => new StoreAppInfo
@@ -297,17 +303,17 @@ internal static partial class ScanMicrosoftStoreGames
         }
         catch (OperationCanceledException)
         {
-            DebugLogger.Log("[ScanMicrosoftStoreGames] Game classification API request timed out. Returning empty game list.");
+            _debugLogger.Log("[ScanMicrosoftStoreGames] Game classification API request timed out. Returning empty game list.");
             return [];
         }
         catch (HttpRequestException ex)
         {
-            DebugLogger.Log($"[ScanMicrosoftStoreGames] Game classification API network error: {ex.Message}. Returning empty game list.");
+            _debugLogger.Log($"[ScanMicrosoftStoreGames] Game classification API network error: {ex.Message}. Returning empty game list.");
             return [];
         }
         catch (Exception ex)
         {
-            DebugLogger.Log($"[ScanMicrosoftStoreGames] Game classification API error: {ex.Message}. Returning empty game list.");
+            _debugLogger.Log($"[ScanMicrosoftStoreGames] Game classification API error: {ex.Message}. Returning empty game list.");
             await logErrors.LogErrorAsync(ex, "Failed to classify games via API.");
             return [];
         }

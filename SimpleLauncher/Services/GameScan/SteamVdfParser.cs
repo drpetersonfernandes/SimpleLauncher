@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.RegularExpressions;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.GameScan;
@@ -7,12 +8,12 @@ namespace SimpleLauncher.Services.GameScan;
 /// <summary>
 /// A simple parser for Valve's KeyValue (VDF) file format.
 /// </summary>
-public static partial class SteamVdfParser
+public partial class SteamVdfParser : ISteamVdfParser
 {
     // Improved regex to handle escaped quotes within strings: "some \"value\" here"
     private static readonly Regex TokenRegex = MyRegex();
 
-    public static Dictionary<string, object> Parse(string filePath, ILogErrors logErrors = null, IDebugLogger debugLogger = null)
+    public Dictionary<string, object> Parse(string filePath, ILogErrors logErrors = null, IDebugLogger debugLogger = null)
     {
         try
         {

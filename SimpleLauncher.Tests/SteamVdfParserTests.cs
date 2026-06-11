@@ -1,12 +1,13 @@
 using SimpleLauncher.Tests.TestHelpers;
+using SimpleLauncher.Services.GameScan;
 using Xunit;
-using SteamVdfParser = SimpleLauncher.Services.GameScan.SteamVdfParser;
 
 namespace SimpleLauncher.Tests;
 
 public class SteamVdfParserTests : IDisposable
 {
     private readonly string _testDirectory;
+    private readonly SteamVdfParser _parser = new();
 
     public SteamVdfParserTests()
     {
@@ -43,7 +44,7 @@ public class SteamVdfParserTests : IDisposable
             }
             """);
 
-        var result = SteamVdfParser.Parse(filePath);
+        var result = _parser.Parse(filePath);
 
         Assert.NotNull(result);
         Assert.True(result.ContainsKey("AppState"));
@@ -67,7 +68,7 @@ public class SteamVdfParserTests : IDisposable
             }
             """);
 
-        var result = SteamVdfParser.Parse(filePath);
+        var result = _parser.Parse(filePath);
 
         var root = (Dictionary<string, object>)result["root"];
         var level1 = (Dictionary<string, object>)root["level1"];
@@ -81,7 +82,7 @@ public class SteamVdfParserTests : IDisposable
             "key"		"some \"quoted\" value"
             """);
 
-        var result = SteamVdfParser.Parse(filePath);
+        var result = _parser.Parse(filePath);
 
         Assert.Equal("some \"quoted\" value", result["key"].ToString());
     }
@@ -94,7 +95,7 @@ public class SteamVdfParserTests : IDisposable
             "key"		"path\\of\\file"
             """);
 
-        var result = SteamVdfParser.Parse(filePath);
+        var result = _parser.Parse(filePath);
 
         Assert.Equal("path\\of\\file", result["key"].ToString());
     }
@@ -106,7 +107,7 @@ public class SteamVdfParserTests : IDisposable
             "installdir"		"C:\\games\\Steam"
             """);
 
-        var result = SteamVdfParser.Parse(filePath);
+        var result = _parser.Parse(filePath);
 
         Assert.Equal("C:\\games\\Steam", result["installdir"].ToString());
     }
@@ -117,7 +118,7 @@ public class SteamVdfParserTests : IDisposable
         var filePath = Path.Combine(_testDirectory, "empty.vdf");
         File.WriteAllText(filePath, "");
 
-        var result = SteamVdfParser.Parse(filePath);
+        var result = _parser.Parse(filePath);
 
         Assert.NotNull(result);
         Assert.Empty(result);
@@ -128,7 +129,7 @@ public class SteamVdfParserTests : IDisposable
     {
         var filePath = Path.Combine(_testDirectory, "nonexistent.vdf");
 
-        var result = SteamVdfParser.Parse(filePath);
+        var result = _parser.Parse(filePath);
 
         Assert.NotNull(result);
         Assert.Empty(result);
@@ -144,7 +145,7 @@ public class SteamVdfParserTests : IDisposable
             "key2"		"value2"
             """);
 
-        var result = SteamVdfParser.Parse(filePath);
+        var result = _parser.Parse(filePath);
 
         Assert.Equal("value1", result["key1"].ToString());
         Assert.Equal("value2", result["key2"].ToString());
@@ -161,7 +162,7 @@ public class SteamVdfParserTests : IDisposable
             }
             """);
 
-        var result = SteamVdfParser.Parse(filePath);
+        var result = _parser.Parse(filePath);
 
         var appState = (Dictionary<string, object>)result["AppState"];
         Assert.True(appState.ContainsKey("AppID"));
@@ -176,7 +177,7 @@ public class SteamVdfParserTests : IDisposable
             "key"		"line1\\nline2"
             """);
 
-        var result = SteamVdfParser.Parse(filePath);
+        var result = _parser.Parse(filePath);
 
         Assert.Equal("line1\nline2", result["key"].ToString());
     }
@@ -188,7 +189,7 @@ public class SteamVdfParserTests : IDisposable
             "key"		"col1\\tcol2"
             """);
 
-        var result = SteamVdfParser.Parse(filePath);
+        var result = _parser.Parse(filePath);
 
         Assert.Equal("col1\tcol2", result["key"].ToString());
     }

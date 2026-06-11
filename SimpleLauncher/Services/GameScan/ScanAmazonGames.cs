@@ -1,19 +1,20 @@
 using Microsoft.Data.Sqlite;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 
-public class ScanAmazonGames
+public class ScanAmazonGames : IGamePlatformScanner
 {
-    private static IDebugLogger _debugLogger;
+    private readonly IDebugLogger _debugLogger;
 
     public ScanAmazonGames(IDebugLogger debugLogger)
     {
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
     }
 
-    public static async Task ScanAmazonGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
