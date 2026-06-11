@@ -595,7 +595,12 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task<CoreMessageBoxResult> CouldNotLoadHelpUserXmlMessageBox()
     {
-        return Task.FromResult(CoreMessageBoxResult.No);
+        var simpleLaunchercouldnotloadhelpuserxml = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotloadhelpuserxml") ?? "'Simple Launcher' could not load 'helpuser.xml'.";
+        var doyouwanttoautomaticreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+        return _messageDialog.ShowAsync($"{simpleLaunchercouldnotloadhelpuserxml}\n\n" +
+                                        $"{doyouwanttoautomaticreinstallSimpleLauncher}", error, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
     public async Task FailedToLoadHelpUserXmlMessageBox()
@@ -1270,7 +1275,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task<CoreMessageBoxResult> ReallyWantToRemoveAllPlayHistoryMessageBox()
     {
-        return Task.FromResult(CoreMessageBoxResult.No);
+        var message = (string)Application.Current.TryFindResource("AreYouSureYouWantToRemoveAllHistory") ?? "Are you sure you want to remove all play history?";
+        var confirmation = (string)Application.Current.TryFindResource("Confirmation") ?? "Confirmation";
+        return _messageDialog.ShowAsync(message, confirmation, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
     public Task SystemAddedMessageBox(string systemName, string resolvedSystemFolder, string resolvedSystemImageFolder)
@@ -1323,12 +1330,30 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task<CoreMessageBoxResult> GameFileDoesNotExistAskToDeleteMessageBox(string filePath)
     {
-        return Task.FromResult(CoreMessageBoxResult.No);
+        var thegamefiledoesnotexist = (string)Application.Current.TryFindResource("Thegamefiledoesnotexist") ?? "The game file does not exist!";
+        var filepathis = (string)Application.Current.TryFindResource("FilePathIs") ?? "File path:";
+        var doYouWantToDeleteThisEntry = (string)Application.Current.TryFindResource("DoYouWantToDeleteThisEntry") ?? "Do you want to delete this entry from the play history?";
+        var clickNoToKeepTheEntry = (string)Application.Current.TryFindResource("ClickNoToKeepTheEntry") ?? "Click 'No' to keep the entry in the list.";
+        var gameNotAvailable = (string)Application.Current.TryFindResource("GameNotAvailable") ?? "Game Not Available";
+        var message = $"{thegamefiledoesnotexist}\n\n" +
+                      $"{filepathis}\n{filePath}\n\n" +
+                      $"{doYouWantToDeleteThisEntry}\n" +
+                      $"{clickNoToKeepTheEntry}";
+        return _messageDialog.ShowAsync(message, gameNotAvailable, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
     public Task<CoreMessageBoxResult> FavoriteFileDoesNotExistAskToDeleteMessageBox(string filePath)
     {
-        return Task.FromResult(CoreMessageBoxResult.No);
+        var thegamefiledoesnotexist = (string)Application.Current.TryFindResource("Thegamefiledoesnotexist") ?? "The game file does not exist!";
+        var filepathis = (string)Application.Current.TryFindResource("FilePathIs") ?? "File path:";
+        var doYouWantToDeleteThisFavorite = (string)Application.Current.TryFindResource("DoYouWantToDeleteThisFavorite") ?? "Do you want to delete this favorite from the list?";
+        var clickNoToKeepTheFavorite = (string)Application.Current.TryFindResource("ClickNoToKeepTheFavorite") ?? "Click 'No' to keep the favorite in the list.";
+        var gameNotAvailable = (string)Application.Current.TryFindResource("GameNotAvailable") ?? "Game Not Available";
+        var message = $"{thegamefiledoesnotexist}\n\n" +
+                      $"{filepathis}\n{filePath}\n\n" +
+                      $"{doYouWantToDeleteThisFavorite}\n" +
+                      $"{clickNoToKeepTheFavorite}";
+        return _messageDialog.ShowAsync(message, gameNotAvailable, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
     public Task CouldNotOpenHistoryWindowMessageBox()
@@ -1731,15 +1756,15 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task<bool> BatchFilePathsMissingMessageBox(List<string> missingPaths)
     {
-        try
-        {
-            const bool result = false;
-            return Task.FromResult(result);
-        }
-        catch (Exception exception)
-        {
-            return Task.FromException<bool>(exception);
-        }
+        var batchfilepathsmissing = (string)Application.Current.TryFindResource("Batchfilepathsmissing") ?? "The batch file references paths that do not exist:";
+        var batchfilepathsmissingexplanation = (string)Application.Current.TryFindResource("Batchfilepathsmissingexplanation") ?? "This may cause the batch file to fail. Not all paths may be detected — this is a best-effort check.";
+        var doyouwanttocontinueanyway = (string)Application.Current.TryFindResource("Doyouwanttocontinueanyway") ?? "Do you want to continue anyway?";
+        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+
+        var pathsList = string.Join("\n", missingPaths.Select(static p => $"  - {p}"));
+        var message = $"{batchfilepathsmissing}\n\n{pathsList}\n\n{batchfilepathsmissingexplanation}\n\n{doyouwanttocontinueanyway}";
+
+        return _messageDialog.ShowYesNoAsync(message, warning);
     }
 
     public Task ElevationRequiredMessageBox()
@@ -1774,7 +1799,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task<CoreMessageBoxResult> SearchOnlineForRomHistoryMessageBox()
     {
-        return Task.FromResult(CoreMessageBoxResult.No);
+        var thereisnoRoMhistoryinthelocaldatabase = (string)Application.Current.TryFindResource("ThereisnoROMhistoryinthelocaldatabase") ?? "There is no ROM history in the local database for this file.";
+        var doyouwanttosearchonline = (string)Application.Current.TryFindResource("Doyouwanttosearchonline") ?? "Do you want to search online for the ROM history?";
+        var rOmHistoryNotFound = (string)Application.Current.TryFindResource("ROMHistorynotfound") ?? "ROM History not found";
+        return _messageDialog.ShowAsync($"{thereisnoRoMhistoryinthelocaldatabase}\n\n" +
+                                        $"{doyouwanttosearchonline}", rOmHistoryNotFound, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
     public Task SystemHasBeenDeletedMessageBox(string selectedSystemName)
@@ -1787,7 +1816,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task<CoreMessageBoxResult> AreYouSureDoYouWantToDeleteThisSystemMessageBox()
     {
-        return Task.FromResult(CoreMessageBoxResult.No);
+        var areyousureyouwanttodeletethis = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethis") ?? "Are you sure you want to delete this system?";
+        var confirmation = (string)Application.Current.TryFindResource("Confirmation") ?? "Confirmation";
+        return _messageDialog.ShowAsync(areyousureyouwanttodeletethis, confirmation, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
     public Task ThereWasAnErrorDeletingTheGameMessageBox()
@@ -1810,17 +1841,27 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task<CoreMessageBoxResult> AreYouSureYouWantToDeleteTheGameMessageBox(string fileNameWithExtension)
     {
-        return Task.FromResult(CoreMessageBoxResult.No);
+        var areyousureyouwanttodeletethefile = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ?? "Are you sure you want to delete the file";
+        var thisactionwilldelete = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
+        var confirmDeletion = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
+        return _messageDialog.ShowAsync($"{areyousureyouwanttodeletethefile} '{fileNameWithExtension}'?\n\n" +
+                                        $"{thisactionwilldelete}", confirmDeletion, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
     public Task<CoreMessageBoxResult> AreYouSureYouWantToDeleteTheCoverImageMessageBox(string fileNameWithoutExtension)
     {
-        return Task.FromResult(CoreMessageBoxResult.No);
+        var areyousureyouwanttodeletethecoverimageof = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethecoverimageof") ?? "Are you sure you want to delete the cover image of";
+        var thisactionwilldelete = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
+        var confirmDeletion = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
+        return _messageDialog.ShowAsync($"{areyousureyouwanttodeletethecoverimageof} '{fileNameWithoutExtension}'?\n\n" +
+                                        $"{thisactionwilldelete}", confirmDeletion, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
     public Task<CoreMessageBoxResult> WouldYouLikeToSaveAReportMessageBox()
     {
-        return Task.FromResult(CoreMessageBoxResult.No);
+        var wouldyouliketosaveareport = (string)Application.Current.TryFindResource("Wouldyouliketosaveareport") ?? "Would you like to save a report with the results?";
+        var saveReport = (string)Application.Current.TryFindResource("SaveReport") ?? "Save Report";
+        return _messageDialog.ShowAsync(wouldyouliketosaveareport, saveReport, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
     public Task SimpleLauncherWasUnableToRestoreBackupMessageBox()
@@ -1832,7 +1873,13 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task<CoreMessageBoxResult> WouldYouLikeToRestoreTheLastBackupMessageBox()
     {
-        return Task.FromResult(CoreMessageBoxResult.No);
+        var icouldnotfindthefilesystemxml = (string)Application.Current.TryFindResource("Icouldnotfindthefilesystemxml") ?? "I could not find the file 'system.xml', which is required to start the application.";
+        var butIfoundabackupfile = (string)Application.Current.TryFindResource("ButIfoundabackupfile") ?? "But I found a backup file.";
+        var wouldyouliketorestore = (string)Application.Current.TryFindResource("Wouldyouliketorestore") ?? "Would you like to restore the last backup?";
+        var restoreBackup = (string)Application.Current.TryFindResource("RestoreBackup") ?? "Restore Backup?";
+        return _messageDialog.ShowAsync($"{icouldnotfindthefilesystemxml}\n\n" +
+                                        $"{butIfoundabackupfile}\n\n" +
+                                        $"{wouldyouliketorestore}", restoreBackup, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
     public Task FailedToLoadLanguageResourceMessageBox()
@@ -1926,7 +1973,15 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task<CoreMessageBoxResult> DoYouWantToUpdateMessageBox(string currentVersion, string latestVersion)
     {
-        return Task.FromResult(CoreMessageBoxResult.No);
+        var thereIsAsoftwareUpdateAvailable = (string)Application.Current.TryFindResource("Thereisasoftwareupdateavailable") ?? "There is a software update available.";
+        var theCurrentVersionIs = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
+        var theUpdateVersionIs = (string)Application.Current.TryFindResource("Theupdateversionis") ?? "The update version is";
+        var doYouWantToDownloadAndInstall = (string)Application.Current.TryFindResource("Doyouwanttodownloadandinstall") ?? "Do you want to download and install the latest version automatically?";
+        var updateAvailable = (string)Application.Current.TryFindResource("UpdateAvailable") ?? "Update Available";
+        return _messageDialog.ShowAsync($"{thereIsAsoftwareUpdateAvailable}\n" +
+                                        $"{theCurrentVersionIs} {currentVersion}\n" +
+                                        $"{theUpdateVersionIs} {latestVersion}\n\n" +
+                                        $"{doYouWantToDownloadAndInstall}", updateAvailable, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Information);
     }
 
     public async Task HandleMissingRequiredFilesMessageBox(string fileList)
@@ -2228,7 +2283,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task<CoreMessageBoxResult> GameNotSupportedByRetroAchievementsMessageBox()
     {
-        return Task.FromResult(CoreMessageBoxResult.No);
+        var message1 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotcalculate") ?? "'Simple Launcher' could not calculate the hash value of this game or this game is not yet supported by RetroAchievements.";
+        var message2 = (string)Application.Current.TryFindResource("DoyouwanttoopentheglobalRetroAchievements") ?? "Do you want to open the global RetroAchievements window?";
+        var title = (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements";
+        return _messageDialog.ShowAsync($"{message1}\n\n" +
+                                        $"{message2}", title, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
     public Task GameLaunchTimeoutMessageBox()
@@ -2270,12 +2329,20 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task<CoreMessageBoxResult> GroupByFolderWarningMessageBox()
     {
-        return Task.FromResult(CoreMessageBoxResult.No);
+        var message = (string)Application.Current.TryFindResource("YouhaveenabledGroupFilesbyFolderbuthave") ?? "You have enabled 'Group Files by Folder' but have configured neither a MAME nor a DOSBox emulator. This option is only compatible with MAME (Software List CHDs) or DOSBox (uncompressed game folders). Are you sure you want to save these settings?";
+        var title = (string)Application.Current.TryFindResource("ConfigurationWarning") ?? "Configuration Warning";
+        return _messageDialog.ShowAsync(message, title, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Warning);
     }
 
     public Task<CoreMessageBoxResult> FirstRunWelcomeMessageBox()
     {
-        return Task.FromResult(CoreMessageBoxResult.No);
+        var welcomeToSimpleLauncher = (string)Application.Current.TryFindResource("WelcomeToSimpleLauncher") ?? "Welcome to 'Simple Launcher'!";
+        var noSystemsFound = (string)Application.Current.TryFindResource("NoSystemsFound") ?? "No systems were found in your configuration.";
+        var easyModeGuide = (string)Application.Current.TryFindResource("DoyouwanttoaddyourfirstsystemusingtheEasyMode") ?? "Do you want to add your first system using the Easy Mode?";
+        var welcome = (string)Application.Current.TryFindResource("Welcome") ?? "Welcome";
+        return _messageDialog.ShowAsync($"{welcomeToSimpleLauncher}\n\n" +
+                                        $"{noSystemsFound}\n\n" +
+                                        $"{easyModeGuide}", welcome, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
     public Task Emulator1LocationRequiredMessageBox()
@@ -2401,14 +2468,58 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
-    public Task ShowExtractionFailedMessageBoxAsync(string tempFolderPath)
+    public async Task ShowExtractionFailedMessageBoxAsync(string tempFolderPath)
     {
-        return Task.CompletedTask;
+        var extractionFailedTitle = (string)Application.Current.TryFindResource("ExtractionFailedTitle") ?? "Extraction Failed";
+        var extractionFailedMessage = (string)Application.Current.TryFindResource("ExtractionFailedMessage") ?? "The file was downloaded successfully, but automatic extraction failed. This can happen if an antivirus program is scanning or locking the file.";
+        var openTempFolderQuestion = (string)Application.Current.TryFindResource("OpenTempFolderQuestion") ?? "Would you like to open the temporary folder to inspect the file?";
+        var result = await _messageDialog.ShowYesNoAsync($"{extractionFailedMessage}\n\n{openTempFolderQuestion}", extractionFailedTitle);
+
+        if (result)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = tempFolderPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                var errorOpeningFolderTitle = (string)Application.Current.TryFindResource("ErrorOpeningFolderTitle") ?? "Error Opening Folder";
+                var errorOpeningFolderMessage = (string)Application.Current.TryFindResource("ErrorOpeningFolderMessage") ?? "Could not open the temporary folder.";
+                await _messageDialog.ShowErrorAsync(errorOpeningFolderMessage, errorOpeningFolderTitle);
+                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to open temp folder: {tempFolderPath}");
+            }
+        }
     }
 
-    public Task ShowDownloadFileLockedMessageBoxAsync(string tempFolderPath)
+    public async Task ShowDownloadFileLockedMessageBoxAsync(string tempFolderPath)
     {
-        return Task.CompletedTask;
+        var downloadFailedTitle = (string)Application.Current.TryFindResource("DownloadFailedTitle") ?? "Download Failed";
+        var downloadFileLockedMessage = (string)Application.Current.TryFindResource("DownloadFileLockedMessage") ?? "The download could not be completed because the temporary file is locked by another process (e.g., antivirus software).";
+        var openTempFolderQuestion = (string)Application.Current.TryFindResource("OpenTempFolderQuestion") ?? "Would you like to open the temporary folder to inspect the file?";
+        var result = await _messageDialog.ShowYesNoAsync($"{downloadFileLockedMessage}\n\n{openTempFolderQuestion}", downloadFailedTitle);
+
+        if (result)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = tempFolderPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                var errorOpeningFolderTitle = (string)Application.Current.TryFindResource("ErrorOpeningFolderTitle") ?? "Error Opening Folder";
+                var errorOpeningFolderMessage = (string)Application.Current.TryFindResource("ErrorOpeningFolderMessage") ?? "Could not open the temporary folder.";
+                await _messageDialog.ShowErrorAsync(errorOpeningFolderMessage, errorOpeningFolderTitle);
+                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to open temp folder: {tempFolderPath}");
+            }
+        }
     }
 
     public async Task ShowCustomMessageBox(string message, string launchError, string logPath)
@@ -3316,7 +3427,14 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task ShowImageDownloadTimeoutMessageBox()
     {
-        return Task.CompletedTask;
+        var simpleLauncherCouldNotDownloadImages = (string)Application.Current.TryFindResource("SimpleLauncherCouldNotDownloadImages") ?? "Simple Launcher could not download images due to access issues to Cloudflare servers.";
+        var thisMayBeDueToCountryFirewallRestrictions = (string)Application.Current.TryFindResource("ThisMayBeDueToCountryFirewallRestrictions") ?? "This may be due to country firewall restrictions.";
+        var pleaseTryAgainBehindAVpn = (string)Application.Current.TryFindResource("PleaseTryAgainBehindAVpn") ?? "Please try again behind a VPN.";
+        var imageDownloadError = (string)Application.Current.TryFindResource("ImageDownloadError") ?? "Image Download Error";
+
+        return _messageDialog.ShowWarningAsync($"{simpleLauncherCouldNotDownloadImages}\n\n" +
+                                               $"{thisMayBeDueToCountryFirewallRestrictions}\n\n" +
+                                               $"{pleaseTryAgainBehindAVpn}", imageDownloadError);
     }
 
     public Task SystemNameRequiredBeforeChoosingImageMessageBox()

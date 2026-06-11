@@ -18,7 +18,11 @@ public class WpfApplicationLifetime(ILogErrors logErrors) : IApplicationLifetime
     {
         try
         {
-            _ = Process.Start(Application.ResourceAssembly.Location);
+            if (Environment.ProcessPath != null)
+            {
+                _ = Process.Start(Environment.ProcessPath);
+            }
+
             Application.Current.Shutdown();
         }
         catch (Exception ex)
