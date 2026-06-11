@@ -20,13 +20,14 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IDebugLogger _debugLogger;
 
     private int _gameId;
     private string _gameTitleForDisplay;
     private readonly SettingsManager _settings;
     private readonly RetroAchievementsService _raService;
 
-    public RetroAchievementsForAGameWindow(ILogErrors logErrors, PlaySoundEffects playSoundEffects, SettingsManager settings, RetroAchievementsService raService)
+    public RetroAchievementsForAGameWindow(ILogErrors logErrors, PlaySoundEffects playSoundEffects, SettingsManager settings, RetroAchievementsService raService, IDebugLogger debugLogger)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -36,6 +37,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         _raService = raService;
         _playSoundEffects = playSoundEffects;
         _logErrors = logErrors;
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         Loaded += AchievementsWindow_Loaded;
@@ -286,7 +288,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, $"Failed to open RetroAchievements image viewer for URI: {imageUri}");
-            DebugLogger.Log($"Failed to open RetroAchievements image viewer for URI: {imageUri}");
+            _debugLogger.Log($"Failed to open RetroAchievements image viewer for URI: {imageUri}");
             await _messageBox.ErrorMessageBox();
         }
     }
@@ -860,7 +862,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                         break;
                     case null:
                         // If recentlyPlayedGames is null, it indicates an API failure for this specific call
-                        DebugLogger.Log($"[RA Window] Failed to load recently played games for user {_settings.RaUsername}. API returned null.");
+                        _debugLogger.Log($"[RA Window] Failed to load recently played games for user {_settings.RaUsername}. API returned null.");
                         UserProfileRecentlyPlayed.ItemsSource = null; // Ensure it's cleared
                         // Optionally, add a message to the ListBox itself or a small text below it.
                         // For now, just clear it and log.
@@ -978,7 +980,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
             NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay on error
             NoUnlocksMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUnlocks") ?? "An error occurred while loading unlocks. Please try again.";
             _logErrors.LogAndForget(ex, $"Failed to load unlocks by date for user {_settings.RaUsername}");
-            DebugLogger.Log($"[RA Window] Failed to load unlocks by date for user {_settings.RaUsername}: {ex.Message}");
+            _debugLogger.Log($"[RA Window] Failed to load unlocks by date for user {_settings.RaUsername}: {ex.Message}");
         }
         finally
         {
@@ -1008,7 +1010,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Failed to fetch unlocks by date");
-            DebugLogger.Log($"[RA Window] Failed to fetch unlocks by date for user {_settings.RaUsername}: {ex.Message}");
+            _debugLogger.Log($"[RA Window] Failed to fetch unlocks by date for user {_settings.RaUsername}: {ex.Message}");
         }
     }
 
@@ -1034,7 +1036,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         {
             // Notify developer
             _logErrors.LogAndForget(ex, "Failed to reset date range");
-            DebugLogger.Log($"[RA Window] Failed to reset date range for user {_settings.RaUsername}: {ex.Message}");
+            _debugLogger.Log($"[RA Window] Failed to reset date range for user {_settings.RaUsername}: {ex.Message}");
         }
     }
 
@@ -1097,7 +1099,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
             NoUserProgressMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUserProgress") ?? "An error occurred while loading user completion progress.";
             NoUserProgressSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoCheckConnection") ?? "Please try again or check your internet connection.";
             _logErrors.LogAndForget(ex, $"Failed to load user completion progress for user {_settings.RaUsername}");
-            DebugLogger.Log($"[RA Window] Failed to load user completion progress for user {_settings.RaUsername}: {ex.Message}");
+            _debugLogger.Log($"[RA Window] Failed to load user completion progress for user {_settings.RaUsername}: {ex.Message}");
         }
         finally
         {
@@ -1111,7 +1113,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         _playSoundEffects.PlayNotificationSound();
         LoadingOverlay.Visibility = Visibility.Collapsed;
 
-        DebugLogger.Log("[Emergency] User forced overlay dismissal in RetroAchievements Window.");
+        _debugLogger.Log("[Emergency] User forced overlay dismissal in RetroAchievements Window.");
         (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 }

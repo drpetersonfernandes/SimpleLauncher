@@ -9,6 +9,7 @@ namespace SimpleLauncher.Services.Converters;
 public static class ConvertChdToIso
 {
     private static readonly string TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
+    private static readonly IDebugLogger DebugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();
 
     /// <summary>
     /// Converts a CHD file to a temporary ISO using chdman.exe.

@@ -39,7 +39,9 @@ internal partial class GameButtonFactory(
     IFindCoverImageService findCoverImage,
     IImageLoader imageLoader,
     IMessageBoxLibraryService messageBox,
-    IRetroAchievementsHasherTool raHasherTool)
+    IRetroAchievementsHasherTool raHasherTool,
+    IContextMenuFunctions contextMenuFunctions,
+    IDebugLogger debugLogger)
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox ?? throw new ArgumentNullException(nameof(emulatorComboBox));
     private readonly ComboBox _systemComboBox = systemComboBox ?? throw new ArgumentNullException(nameof(systemComboBox));
@@ -58,6 +60,8 @@ internal partial class GameButtonFactory(
     private readonly IImageLoader _imageLoader = imageLoader ?? throw new ArgumentNullException(nameof(imageLoader));
     private readonly IMessageBoxLibraryService _messageBox = messageBox ?? throw new ArgumentNullException(nameof(messageBox));
     private readonly IRetroAchievementsHasherTool _raHasherTool = raHasherTool ?? throw new ArgumentNullException(nameof(raHasherTool));
+    private readonly IContextMenuFunctions _contextMenuFunctions = contextMenuFunctions ?? throw new ArgumentNullException(nameof(contextMenuFunctions));
+    private readonly IDebugLogger _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
 
     private Button _button;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
@@ -351,7 +355,7 @@ internal partial class GameButtonFactory(
 
                     try
                     {
-                        await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, mainWindow, playSound, context.LoadingStateProvider, logErrors, messageBox);
+                        await _contextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, mainWindow, playSound, context.LoadingStateProvider, logErrors, messageBox);
                     }
                     catch (Exception ex)
                     {
@@ -369,7 +373,7 @@ internal partial class GameButtonFactory(
                 catch (Exception ex)
                 {
                     logErrors.LogAndForget(ex, "Error opening Retro Achievements Window.");
-                    DebugLogger.Log($"Error opening Retro Achievements Window: {ex.Message}");
+                    _debugLogger.Log($"Error opening Retro Achievements Window: {ex.Message}");
                 }
             };
 
@@ -413,7 +417,7 @@ internal partial class GameButtonFactory(
                     context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        await ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, machines, settings, mainWindow, logErrors, messageBox);
+                        await _contextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, machines, settings, mainWindow, logErrors, messageBox);
                     }
                     catch (Exception ex)
                     {
@@ -431,7 +435,7 @@ internal partial class GameButtonFactory(
                 catch (Exception ex)
                 {
                     logErrors.LogAndForget(ex, "Error opening the video Link.");
-                    DebugLogger.Log($"Error opening the video link: {ex.Message}");
+                    _debugLogger.Log($"Error opening the video link: {ex.Message}");
                 }
             };
 
@@ -475,7 +479,7 @@ internal partial class GameButtonFactory(
                     context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        await ContextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, machines, settings, mainWindow, logErrors, messageBox);
+                        await _contextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, machines, settings, mainWindow, logErrors, messageBox);
                     }
                     catch (Exception ex)
                     {
@@ -493,7 +497,7 @@ internal partial class GameButtonFactory(
                 catch (Exception ex)
                 {
                     logErrors.LogAndForget(ex, "Error opening the info Link.");
-                    DebugLogger.Log($"Error opening the info link: {ex.Message}");
+                    _debugLogger.Log($"Error opening the info link: {ex.Message}");
                 }
             };
 
@@ -501,7 +505,7 @@ internal partial class GameButtonFactory(
             // No need to update currentVerticalOffset here as it's the last button.
         }
 
-        var contextMenu = ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, _findCoverImage);
+        var contextMenu = ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, _findCoverImage, _contextMenuFunctions);
 
         // Create the kebab menu button
         var kebabButton = new Button
@@ -636,7 +640,7 @@ internal partial class GameButtonFactory(
             catch (Exception ex)
             {
                 logErrors.LogAndForget(ex, $"[CreateGameButtonAsync] Error launching the game. entityPath: {entityPath}, systemName: {systemName}");
-                DebugLogger.Log($"Error launching the game: {ex.Message}");
+                _debugLogger.Log($"Error launching the game: {ex.Message}");
             }
         };
 

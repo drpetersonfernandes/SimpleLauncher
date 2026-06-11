@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.SanitizeInputString;
@@ -9,6 +10,8 @@ namespace SimpleLauncher.Services.GameScan;
 
 internal static class ScanSteamGames
 {
+    private static readonly IDebugLogger DebugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();
+
     internal static async Task ScanSteamGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         var libraryPaths = new List<string>();

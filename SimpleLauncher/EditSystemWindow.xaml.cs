@@ -38,8 +38,9 @@ internal partial class EditSystemWindow : ILoadingState
     private readonly string _preSelectedSystemName;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
+    private readonly IDebugLogger _debugLogger;
 
-    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, IHelpUserService helpUserService, IImageLoader imageLoader, IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, string preSelectedSystemName = null)
+    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, IHelpUserService helpUserService, IImageLoader imageLoader, IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, IDebugLogger debugLogger, string preSelectedSystemName = null)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -53,6 +54,7 @@ internal partial class EditSystemWindow : ILoadingState
         _preSelectedSystemName = preSelectedSystemName;
         _messageBox = messageBox;
         _quitSimpleLauncher = quitSimpleLauncher;
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
 
         ApplyExpanderSettings();
 
@@ -582,7 +584,7 @@ internal partial class EditSystemWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            DebugLogger.Log($"Error in method DeleteSystemButton_Click: {ex.Message}");
+            _debugLogger.Log($"Error in method DeleteSystemButton_Click: {ex.Message}");
             _logErrors.LogAndForget(ex, "Error in method DeleteSystemButton_Click");
         }
     }
@@ -690,7 +692,7 @@ internal partial class EditSystemWindow : ILoadingState
         LoadingOverlay.Visibility = Visibility.Collapsed;
         MainContentGrid?.IsEnabled = true;
 
-        DebugLogger.Log("[Emergency] User forced overlay dismissal in EditSystemWindow.");
+        _debugLogger.Log("[Emergency] User forced overlay dismissal in EditSystemWindow.");
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 

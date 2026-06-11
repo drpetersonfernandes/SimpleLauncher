@@ -11,6 +11,8 @@ namespace SimpleLauncher.Services.UsageStats;
 
 public class ApplicationStats
 {
+    private static readonly IDebugLogger DebugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();
+
     public static async Task CallApplicationStatsAsync(IConfiguration configuration, ILogErrors logErrors)
     {
         try

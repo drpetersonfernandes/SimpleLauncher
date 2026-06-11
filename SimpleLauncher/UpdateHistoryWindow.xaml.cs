@@ -9,13 +9,15 @@ namespace SimpleLauncher;
 public partial class UpdateHistoryWindow
 {
     private readonly UpdateHistoryViewModel _viewModel;
+    private readonly IDebugLogger _debugLogger;
 
-    public UpdateHistoryWindow(UpdateHistoryViewModel viewModel)
+    public UpdateHistoryWindow(UpdateHistoryViewModel viewModel, IDebugLogger debugLogger)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
         _viewModel = viewModel;
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
 
         DataContext = _viewModel;
 
@@ -32,7 +34,7 @@ public partial class UpdateHistoryWindow
         }
         catch (Exception ex)
         {
-            DebugLogger.LogException(ex, "Error initializing UpdateHistoryWindow.");
+            _debugLogger.LogException(ex, "Error initializing UpdateHistoryWindow.");
         }
     }
 

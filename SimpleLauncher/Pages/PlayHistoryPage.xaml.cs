@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
+using SimpleLauncher.Services.ContextMenu;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameLauncher;
@@ -42,6 +43,8 @@ public partial class PlayHistoryPage : ILoadingState
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
     private readonly PlayHistoryManager _playHistoryManager;
+    private readonly IContextMenuFunctions _contextMenuFunctions;
+    private readonly IDebugLogger _debugLogger;
     private CancellationTokenSource? _cancellationTokenSource;
 
     public PlayHistoryPage(List<SystemManager> systemManagers,
@@ -56,7 +59,9 @@ public partial class PlayHistoryPage : ILoadingState
         IConfiguration configuration,
         ILogErrors logErrors,
         IFindCoverImageService findCoverImage,
-        IImageLoader imageLoader)
+        IImageLoader imageLoader,
+        IContextMenuFunctions contextMenuFunctions,
+        IDebugLogger debugLogger)
     {
         InitializeComponent();
 
@@ -71,6 +76,8 @@ public partial class PlayHistoryPage : ILoadingState
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _playHistoryManager = playHistoryManager ?? throw new ArgumentNullException(nameof(playHistoryManager));
+        _contextMenuFunctions = contextMenuFunctions ?? throw new ArgumentNullException(nameof(contextMenuFunctions));
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         _viewModel = new PlayHistoryViewModel(
@@ -155,7 +162,7 @@ public partial class PlayHistoryPage : ILoadingState
                 if (result == CoreMessageBoxResult.Yes)
                 {
                     _viewModel.RemoveItem(selectedItem);
-                    DebugLogger.Log($"The entry {selectedItem} was removed from the history by user request.");
+                    _debugLogger.Log($"The entry {selectedItem} was removed from the history by user request.");
                 }
 
                 return;
@@ -192,7 +199,7 @@ public partial class PlayHistoryPage : ILoadingState
                 this
             );
 
-            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, _findCoverImage);
+            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, _findCoverImage, _contextMenuFunctions);
             if (contextMenu != null)
             {
                 PlayHistoryDataGrid.ContextMenu = contextMenu;
@@ -483,7 +490,7 @@ public partial class PlayHistoryPage : ILoadingState
         _cancellationTokenSource?.Cancel();
         LoadingOverlay.Visibility = Visibility.Collapsed;
 
-        DebugLogger.Log("[Emergency] User forced overlay dismissal in PlayHistoryPage.");
+        _debugLogger.Log("[Emergency] User forced overlay dismissal in PlayHistoryPage.");
         _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 }

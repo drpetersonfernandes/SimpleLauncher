@@ -17,10 +17,21 @@ public class GameCacheServiceTests : IDisposable
         }
     }
 
+    private sealed class NoOpDebugLogger : IDebugLogger
+    {
+        public void Log(string message)
+        {
+        }
+
+        public void LogException(Exception ex, string? contextMessage = null)
+        {
+        }
+    }
+
     public GameCacheServiceTests()
     {
         ServiceProviderMock.Install();
-        _cache = new GameCacheService(new NoOpLogErrors());
+        _cache = new GameCacheService(new NoOpLogErrors(), new NoOpDebugLogger());
     }
 
     public void Dispose()
@@ -197,7 +208,7 @@ public class GameCacheServiceTests : IDisposable
     [Fact]
     public void DisposeDoesNotThrow()
     {
-        var cache = new GameCacheService(new NoOpLogErrors());
+        var cache = new GameCacheService(new NoOpLogErrors(), new NoOpDebugLogger());
         var exception = Record.Exception(cache.Dispose);
         Assert.Null(exception);
     }

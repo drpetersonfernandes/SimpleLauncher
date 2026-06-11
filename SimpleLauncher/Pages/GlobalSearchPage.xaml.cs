@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
+using SimpleLauncher.Services.ContextMenu;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameLauncher;
@@ -39,6 +40,8 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
     private readonly SettingsManager _settings;
+    private readonly IContextMenuFunctions _contextMenuFunctions;
+    private readonly IDebugLogger _debugLogger;
 
     public GlobalSearchPage(
         List<SystemManager> systemManagers,
@@ -54,7 +57,9 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         IConfiguration configuration,
         IGetListOfFilesService getListOfFiles,
         IFindCoverImageService findCoverImage,
-        IImageLoader imageLoader)
+        IImageLoader imageLoader,
+        IContextMenuFunctions contextMenuFunctions,
+        IDebugLogger debugLogger)
     {
         InitializeComponent();
 
@@ -68,6 +73,8 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         _machines = machines ?? throw new ArgumentNullException(nameof(machines));
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+        _contextMenuFunctions = contextMenuFunctions ?? throw new ArgumentNullException(nameof(contextMenuFunctions));
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         _viewModel = new GlobalSearchViewModel(
@@ -251,7 +258,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
                 this
             );
 
-            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, _findCoverImage);
+            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, _findCoverImage, _contextMenuFunctions);
             if (contextMenu != null)
             {
                 ResultsDataGrid.ContextMenu = contextMenu;
@@ -327,7 +334,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         _viewModel.CancelSearch();
         LoadingOverlay.Visibility = Visibility.Collapsed;
 
-        DebugLogger.Log("[Emergency] User forced overlay dismissal in GlobalSearchPage.");
+        _debugLogger.Log("[Emergency] User forced overlay dismissal in GlobalSearchPage.");
         _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 

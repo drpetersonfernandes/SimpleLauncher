@@ -5,6 +5,13 @@ namespace SimpleLauncher.Services.TakeScreenshot;
 
 public static partial class WindowScreenshot
 {
+    private static IDebugLogger _debugLogger;
+
+    public static void Initialize(IDebugLogger debugLogger)
+    {
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+    }
+
     [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static partial bool GetWindowRect(IntPtr hWnd, out SimpleLauncher.Models.WindowScreenshot.Rectangle lpRectangle);
@@ -34,7 +41,7 @@ public static partial class WindowScreenshot
         // Check if the window is minimized (iconic)
         if (IsIconic(hWnd))
         {
-            DebugLogger.Log($"[WindowScreenshot] Window {hWnd} is iconic (minimized). Cannot get client area.");
+            _debugLogger.Log($"[WindowScreenshot] Window {hWnd} is iconic (minimized). Cannot get client area.");
             return false; // Indicate failure for minimized windows
         }
 
@@ -48,7 +55,7 @@ public static partial class WindowScreenshot
         var clientTopLeft = new SimpleLauncher.Models.WindowScreenshot.Point { X = localClientRect.Left, Y = localClientRect.Top };
         if (!ClientToScreen(hWnd, ref clientTopLeft))
         {
-            DebugLogger.Log($"[WindowScreenshot] ClientToScreen failed for window {hWnd}.");
+            _debugLogger.Log($"[WindowScreenshot] ClientToScreen failed for window {hWnd}.");
             return false;
         }
 

@@ -8,6 +8,7 @@ namespace SimpleLauncher.Services.Converters;
 
 public static class ConvertChdToCueBin
 {
+    private static readonly IDebugLogger DebugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();
     private static readonly string TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
     /// <summary>

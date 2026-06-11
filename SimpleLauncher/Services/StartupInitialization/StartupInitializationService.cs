@@ -22,6 +22,7 @@ public class StartupInitializationService
     private readonly LanguageMenuService _languageMenuService;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IApplicationLifetime _applicationLifetime;
+    private readonly IDebugLogger _debugLogger;
     private readonly RequiredFiles _requiredFiles;
     private IStartupInitializationHost _host;
 
@@ -33,7 +34,8 @@ public class StartupInitializationService
         ThemeMenuService themeMenuService,
         LanguageMenuService languageMenuService,
         IMessageBoxLibraryService messageBoxLibrary,
-        IApplicationLifetime applicationLifetime)
+        IApplicationLifetime applicationLifetime,
+        IDebugLogger debugLogger)
     {
         _configuration = configuration;
         _settings = settings;
@@ -43,6 +45,7 @@ public class StartupInitializationService
         _languageMenuService = languageMenuService;
         _messageBoxLibrary = messageBoxLibrary;
         _applicationLifetime = applicationLifetime;
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
         _requiredFiles = new RequiredFiles(messageBoxLibrary);
     }
 
@@ -74,17 +77,17 @@ public class StartupInitializationService
             _host.StatusBarTimer.Stop();
         };
 
-        DebugLogger.Log("StatusBarTimer was initialized.");
+        _debugLogger.Log("StatusBarTimer was initialized.");
     }
 
     private void ApplyInitialThemeAndLanguage()
     {
         _languageMenuService.SetLanguageCheckMarks(_settings.Language);
-        DebugLogger.Log("Language and menu was set.");
+        _debugLogger.Log("Language and menu was set.");
 
         App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
         _themeMenuService.SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
-        DebugLogger.Log("Theme was set.");
+        _debugLogger.Log("Theme was set.");
     }
 
     private void InitializeUiState()
@@ -92,10 +95,10 @@ public class StartupInitializationService
         var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
         _host.SelectedSystem = nosystemselected;
         _host.PlayTime = "00:00:00";
-        DebugLogger.Log("SelectedSystem and PlayTime was set.");
+        _debugLogger.Log("SelectedSystem and PlayTime was set.");
 
         _host.SetViewMode(_settings.ViewMode);
-        DebugLogger.Log("ViewMode was set.");
+        _debugLogger.Log("ViewMode was set.");
     }
 
     private async Task CheckWriteAccess()
@@ -103,20 +106,20 @@ public class StartupInitializationService
         if (!CheckDirWritable.IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory, _logErrors))
         {
             await _messageBoxLibrary.MoveToWritableFolderMessageBox();
-            DebugLogger.Log("Application does not have write access.");
+            _debugLogger.Log("Application does not have write access.");
         }
     }
 
     private void InitializePagination()
     {
         _host.SetPaginationButtonsDefault();
-        DebugLogger.Log("Pagination was set.");
+        _debugLogger.Log("Pagination was set.");
     }
 
     private void InitializeTrayIcon()
     {
-        _host.SetTrayIconManager(new TrayIconManager(_host.HostWindow, _logErrors, _applicationLifetime));
-        DebugLogger.Log("TrayIconManager was initialized.");
+        _host.SetTrayIconManager(new TrayIconManager(_host.HostWindow, _logErrors, _applicationLifetime, _debugLogger));
+        _debugLogger.Log("TrayIconManager was initialized.");
     }
 
     private async Task CheckRequiredFiles()
@@ -124,7 +127,7 @@ public class StartupInitializationService
         try
         {
             await _requiredFiles.CheckFiles(_configuration, _logErrors);
-            DebugLogger.Log("Required files were checked.");
+            _debugLogger.Log("Required files were checked.");
         }
         catch (Exception ex)
         {
@@ -137,7 +140,7 @@ public class StartupInitializationService
         _host.RetroAchievementButton.IsChecked = _settings.OverlayRetroAchievementButton;
         _host.VideoLinkButton.IsChecked = _settings.OverlayOpenVideoButton;
         _host.InfoLinkButton.IsChecked = _settings.OverlayOpenInfoButton;
-        DebugLogger.Log("Overlay buttons were set.");
+        _debugLogger.Log("Overlay buttons were set.");
     }
 
     private void InitializeGamePad()
@@ -154,6 +157,6 @@ public class StartupInitializationService
 
         _gamePadController.DeadZoneX = _settings.DeadZoneX;
         _gamePadController.DeadZoneY = _settings.DeadZoneY;
-        DebugLogger.Log("GamePadController was initialized.");
+        _debugLogger.Log("GamePadController was initialized.");
     }
 }

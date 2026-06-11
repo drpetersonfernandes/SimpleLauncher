@@ -15,6 +15,7 @@ public class TrayIconManager : IDisposable
     private readonly Window _mainWindow;
     private readonly ILogErrors _logErrors;
     private readonly IApplicationLifetime _applicationLifetime;
+    private readonly IDebugLogger _debugLogger;
 
     private readonly RoutedEventHandler _onOpenHandler;
     private readonly RoutedEventHandler _onMinimizeToTrayHandler;
@@ -22,12 +23,13 @@ public class TrayIconManager : IDisposable
     private readonly RoutedEventHandler _onOpenDebugWindowHandler;
     private readonly RoutedEventHandler _trayMouseDoubleClickHandler;
 
-    public TrayIconManager(Window mainWindow, ILogErrors logErrors, IApplicationLifetime applicationLifetime)
+    public TrayIconManager(Window mainWindow, ILogErrors logErrors, IApplicationLifetime applicationLifetime, IDebugLogger debugLogger)
     {
         _instance = this;
         _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _applicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
 
         // Initialize delegates with correct types
         _onOpenHandler = OnOpen;
@@ -140,9 +142,6 @@ public class TrayIconManager : IDisposable
     {
         try
         {
-            // Initialize debug mode if it wasn't already enabled,
-            DebugLogger.Initialize(true);
-
             // Initialize DebugWindow if it doesn't exist yet
             DebugWindow.Initialize();
 
@@ -154,7 +153,7 @@ public class TrayIconManager : IDisposable
             DebugWindow.Instance.Activate();
 
             // Log that the debug window was opened from tray
-            DebugLogger.Log("Debug window opened from tray menu");
+            _debugLogger.Log("Debug window opened from tray menu");
         }
         catch (Exception ex)
         {

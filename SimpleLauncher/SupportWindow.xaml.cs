@@ -9,12 +9,14 @@ namespace SimpleLauncher;
 public partial class SupportWindow : ILoadingState
 {
     private readonly SupportViewModel _viewModel;
+    private readonly IDebugLogger _debugLogger;
 
-    public SupportWindow(SupportViewModel viewModel)
+    public SupportWindow(SupportViewModel viewModel, IDebugLogger debugLogger)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
         _viewModel = viewModel;
 
         _viewModel.CloseRequested += Close;
@@ -57,7 +59,7 @@ public partial class SupportWindow : ILoadingState
         LoadingOverlay.Visibility = Visibility.Collapsed;
         MainContentGrid?.IsEnabled = true;
 
-        DebugLogger.Log("[Emergency] User forced overlay dismissal in SupportWindow.");
+        _debugLogger.Log("[Emergency] User forced overlay dismissal in SupportWindow.");
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 }

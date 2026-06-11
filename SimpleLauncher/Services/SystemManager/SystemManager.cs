@@ -33,10 +33,12 @@ public partial class SystemManager : ISystemManager
 
     // ReSharper disable once NotAccessedField.Local
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
+    private static IDebugLogger _debugLogger;
 
-    public SystemManager(IMessageBoxLibraryService messageBoxLibrary = null)
+    public SystemManager(IMessageBoxLibraryService messageBoxLibrary = null, IDebugLogger debugLogger = null)
     {
         _messageBoxLibrary = messageBoxLibrary;
+        _debugLogger = debugLogger;
     }
 
     /// <summary>
@@ -97,7 +99,7 @@ public partial class SystemManager : ISystemManager
             catch (Exception ex) // Catch XmlException, IOException, etc.
             {
                 // If file is corrupt or locked, we can't check.
-                DebugLogger.Log($"[SystemManager.SystemExists] Could not check system.xml: {ex.Message}");
+                _debugLogger.Log($"[SystemManager.SystemExists] Could not check system.xml: {ex.Message}");
                 return false;
             }
         }
@@ -212,14 +214,14 @@ public partial class SystemManager : ISystemManager
 
                                 invalidManagers[structuralErrorKey] += $"- {sysName} (Unrecoverable XML block)\n";
 
-                                DebugLogger.Log($"Failed to validate system configuration for '{sysName}'");
+                                _debugLogger.Log($"Failed to validate system configuration for '{sysName}'");
                                 logErrors?.LogAndForget(innerEx, $"Failed to validate system configuration for '{sysName}'");
                             }
                         }
                     }
                     catch (Exception fatalEx)
                     {
-                        DebugLogger.Log($"Failed to perform regex recovery on system.xml: {fatalEx.Message}");
+                        _debugLogger.Log($"Failed to perform regex recovery on system.xml: {fatalEx.Message}");
                         logErrors?.LogAndForget(fatalEx, "Failed to perform regex recovery on system.xml.");
                     }
                 }
@@ -745,7 +747,7 @@ public partial class SystemManager : ISystemManager
         }
         catch (Exception ex)
         {
-            DebugLogger.Log($"Error saving system configuration: {ex.Message}");
+            _debugLogger.Log($"Error saving system configuration: {ex.Message}");
             logErrors?.LogAndForget(ex, "Error saving system configuration.");
         }
     }
@@ -785,7 +787,7 @@ public partial class SystemManager : ISystemManager
         }
         catch (Exception ex)
         {
-            DebugLogger.Log($"Error deleting system '{systemNameToDelete}': {ex.Message}");
+            _debugLogger.Log($"Error deleting system '{systemNameToDelete}': {ex.Message}");
             logErrors?.LogAndForget(ex, $"Error deleting system '{systemNameToDelete}'.");
         }
     }

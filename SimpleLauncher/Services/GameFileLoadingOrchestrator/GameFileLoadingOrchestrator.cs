@@ -158,7 +158,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         }
         catch (OperationCanceledException)
         {
-            DebugLogger.Log("[LoadGameFilesAsync] Operation was canceled.");
+            _debugLogger.Log("[LoadGameFilesAsync] Operation was canceled.");
             _gameItemRenderService.ClearRenderedItems();
         }
         catch (Exception ex)
@@ -186,18 +186,18 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
             var currentSystem = _host.SystemComboBox.SelectedItem?.ToString();
             if (!string.Equals(currentSystem, systemName, StringComparison.OrdinalIgnoreCase))
             {
-                DebugLogger.Log($"[OnGameFilesChanged] Ignoring change for system '{systemName}' (current: '{currentSystem}').");
+                _debugLogger.Log($"[OnGameFilesChanged] Ignoring change for system '{systemName}' (current: '{currentSystem}').");
                 return;
             }
 
-            DebugLogger.Log($"[OnGameFilesChanged] File change detected for system '{systemName}'. Reloading game list.");
+            _debugLogger.Log($"[OnGameFilesChanged] File change detected for system '{systemName}'. Reloading game list.");
 
             await InvalidateGameFileCachesAsync();
             await LoadGameFilesAsync(cancellationToken: CancellationToken.None);
         }
         catch (Exception ex)
         {
-            DebugLogger.Log($"[OnGameFilesChanged] Error reloading game list: {ex.Message}");
+            _debugLogger.Log($"[OnGameFilesChanged] Error reloading game list: {ex.Message}");
         }
     }
 
@@ -211,7 +211,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
 
             if (sourceList.Count > 0)
             {
-                DebugLogger.Log($"[BuildListOfAllFilesToLoad] Re-sorting existing list. Count: {sourceList.Count}");
+                _debugLogger.Log($"[BuildListOfAllFilesToLoad] Re-sorting existing list. Count: {sourceList.Count}");
                 return sourceList;
             }
         }
@@ -277,7 +277,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
                 catch (Exception ex)
                 {
                     allFiles = [];
-                    DebugLogger.Log($"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
+                    _debugLogger.Log($"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
                     _logErrors.LogAndForget(ex, $"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
                 }
 
@@ -309,7 +309,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
                     if (isPopulated)
                     {
                         allFiles = await _gameCacheService.GetAllGamesAsync(token);
-                        DebugLogger.Log($"[BuildListOfAllFilesToLoad] Reusing cached list for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
+                        _debugLogger.Log($"[BuildListOfAllFilesToLoad] Reusing cached list for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
                     }
                     else
                     {
@@ -329,7 +329,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
 
                         allFiles = uniqueFiles.Values.ToList();
                         await _gameCacheService.SetAllGamesAsync(allFiles, selectedManager.SystemName, token);
-                        DebugLogger.Log($"[BuildListOfAllFilesToLoad] Populated cache for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
+                        _debugLogger.Log($"[BuildListOfAllFilesToLoad] Populated cache for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
                     }
                 }
                 else

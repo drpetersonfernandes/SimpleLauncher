@@ -1,5 +1,6 @@
 using System.Windows.Documents;
 using System.Windows.Navigation;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
@@ -7,12 +8,14 @@ namespace SimpleLauncher;
 public partial class RomHistoryWindow
 {
     private readonly RequestNavigateEventHandler _requestNavigateHandler;
+    private readonly IDebugLogger _debugLogger;
 
-    public RomHistoryWindow(RomHistoryViewModel viewModel)
+    public RomHistoryWindow(RomHistoryViewModel viewModel, IDebugLogger debugLogger)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
         _requestNavigateHandler = OnHyperlinkRequestNavigate;
 
         Loaded += (_, _) =>
@@ -33,7 +36,7 @@ public partial class RomHistoryWindow
             }
             catch (Exception ex)
             {
-                Services.DebugAndBugReport.DebugLogger.Log($"Error loading ROM history: {ex.Message}");
+                _debugLogger.Log($"Error loading ROM history: {ex.Message}");
             }
         };
 
@@ -45,7 +48,7 @@ public partial class RomHistoryWindow
         ((RomHistoryViewModel)DataContext).Initialize(romName, systemName, searchTerm);
     }
 
-    private static void OnHyperlinkRequestNavigate(object sender, RequestNavigateEventArgs e)
+    private void OnHyperlinkRequestNavigate(object sender, RequestNavigateEventArgs e)
     {
         try
         {
@@ -57,7 +60,7 @@ public partial class RomHistoryWindow
         }
         catch (Exception ex)
         {
-            Services.DebugAndBugReport.DebugLogger.Log($"Failed to open link: {e.Uri} - {ex.Message}");
+            _debugLogger.Log($"Failed to open link: {e.Uri} - {ex.Message}");
         }
 
         e.Handled = true;

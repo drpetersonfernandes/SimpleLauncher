@@ -2,6 +2,7 @@ using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
+using SimpleLauncher.Services.ContextMenu;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameItemFactory;
@@ -31,6 +32,8 @@ public class GameItemRenderService : IGameItemRenderService
     private readonly GameListUiService _gameListUiService;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IRetroAchievementsHasherTool _raHasherTool;
+    private readonly IContextMenuFunctions _contextMenuFunctions;
+    private readonly IDebugLogger _debugLogger;
 
     private IGameItemRenderHost _host;
     private GameButtonFactory _gameButtonFactory;
@@ -50,7 +53,9 @@ public class GameItemRenderService : IGameItemRenderService
         IImageLoader imageLoader,
         GameListUiService gameListUiService,
         IMessageBoxLibraryService messageBox,
-        IRetroAchievementsHasherTool raHasherTool)
+        IRetroAchievementsHasherTool raHasherTool,
+        IContextMenuFunctions contextMenuFunctions,
+        IDebugLogger debugLogger)
     {
         _settings = settings;
         _favoritesManager = favoritesManager;
@@ -66,6 +71,8 @@ public class GameItemRenderService : IGameItemRenderService
         _gameListUiService = gameListUiService;
         _messageBox = messageBox;
         _raHasherTool = raHasherTool;
+        _contextMenuFunctions = contextMenuFunctions;
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
     }
 
     public void Initialize(IGameItemRenderHost host)
@@ -92,7 +99,9 @@ public class GameItemRenderService : IGameItemRenderService
             _findCoverImage,
             _imageLoader,
             _messageBox,
-            _raHasherTool);
+            _raHasherTool,
+            _contextMenuFunctions,
+            _debugLogger);
 
         _gameListFactory = new GameListFactory(
             _host.EmulatorComboBox,

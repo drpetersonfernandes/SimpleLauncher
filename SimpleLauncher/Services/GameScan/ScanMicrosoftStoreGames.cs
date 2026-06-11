@@ -11,6 +11,7 @@ namespace SimpleLauncher.Services.GameScan;
 
 internal static partial class ScanMicrosoftStoreGames
 {
+    private static readonly IDebugLogger DebugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
 
     public static async Task ScanMicrosoftStoreGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath)

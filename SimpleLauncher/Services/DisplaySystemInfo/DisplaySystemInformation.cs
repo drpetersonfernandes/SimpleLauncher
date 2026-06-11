@@ -9,9 +9,9 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.DisplaySystemInfo;
 
-public static class DisplaySystemInformation
+public class DisplaySystemInformation : IDisplaySystemInformation
 {
-    public static async Task<SystemValidationResult> DisplaySystemInfoAsync(SystemManager.SystemManager selectedManager, WrapPanel gameFileGrid, CancellationToken cancellationToken = default)
+    public async Task<SystemValidationResult> DisplaySystemInfoAsync(SystemManager.SystemManager selectedManager, WrapPanel gameFileGrid, CancellationToken cancellationToken = default)
     {
         // Clear image sources first to prevent memory leaks from BitmapImage references
         ClearGameButtonImages(gameFileGrid);
@@ -106,7 +106,7 @@ public static class DisplaySystemInformation
         return validationResult;
     }
 
-    private static SystemValidationResult ValidateSystemConfiguration(SystemManager.SystemManager selectedManager)
+    public SystemValidationResult ValidateSystemConfiguration(SystemManager.SystemManager selectedManager)
     {
         var result = new SystemValidationResult();
 

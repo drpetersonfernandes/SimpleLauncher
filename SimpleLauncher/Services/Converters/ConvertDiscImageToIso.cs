@@ -8,6 +8,8 @@ namespace SimpleLauncher.Services.Converters;
 
 public static class ConvertDiscImageToIso
 {
+    private static readonly IDebugLogger DebugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();
+
     /// <summary>
     /// Converts a disc image file (RVZ, WBFS, GCZ, CISO, WIA) to a temporary ISO using DolphinTool.exe.
     /// </summary>

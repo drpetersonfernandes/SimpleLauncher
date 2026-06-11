@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.ContextMenu;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GamePad;
@@ -40,6 +41,7 @@ public class MenuActionHandlerService
     private readonly IMenuCheckMarkService _menuCheckMarkService;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
+    private readonly IDebugLogger _debugLogger;
 
     private IMenuActionHost _host;
     private readonly IUpdateStatusBar _updateStatusBar;
@@ -65,7 +67,8 @@ public class MenuActionHandlerService
         IMenuCheckMarkService menuCheckMarkService,
         IMessageBoxLibraryService messageBoxLibrary,
         IUpdateStatusBar updateStatusBar,
-        QuitSimpleLauncher quitSimpleLauncher)
+        QuitSimpleLauncher quitSimpleLauncher,
+        IDebugLogger debugLogger)
     {
         _settings = settings;
         _playSoundEffects = playSoundEffects;
@@ -86,6 +89,7 @@ public class MenuActionHandlerService
         _messageBoxLibrary = messageBoxLibrary;
         _updateStatusBar = updateStatusBar;
         _quitSimpleLauncher = quitSimpleLauncher;
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
 
         _emulatorConfigWindowFactory = new Dictionary<string, Action>(StringComparer.OrdinalIgnoreCase)
         {
@@ -302,7 +306,7 @@ public class MenuActionHandlerService
                 ? selectedSystem
                 : null;
 
-            var editSystemWindow = new EditSystemWindow(_settings, _playSoundEffects, _configuration, _logErrors, _helpUserService, _imageLoader, _messageBoxLibrary, _quitSimpleLauncher, systemToPreselect)
+            var editSystemWindow = new EditSystemWindow(_settings, _playSoundEffects, _configuration, _logErrors, _helpUserService, _imageLoader, _messageBoxLibrary, _quitSimpleLauncher, _debugLogger, systemToPreselect)
             {
                 Owner = Application.Current.MainWindow
             };
@@ -715,11 +719,12 @@ public class MenuActionHandlerService
 
         if (Application.Current.MainWindow is not MainWindow mainWindow) return;
 
+        var contextMenuFunctions = _serviceProvider.GetRequiredService<IContextMenuFunctions>();
         var globalSearchPage = new Pages.GlobalSearchPage(
             _host.GetSystemManagers(), _host.GetMachines(), _host.GetMameLookup(),
             _favoritesManager, _settings, mainWindow,
             _gamePadController, _gameLauncher, _playSoundEffects,
-            _logErrors, _configuration, _getListOfFiles, _findCoverImage, _imageLoader);
+            _logErrors, _configuration, _getListOfFiles, _findCoverImage, _imageLoader, contextMenuFunctions, _debugLogger);
 
         _host.NavigateToPage(globalSearchPage);
     }
@@ -744,9 +749,10 @@ public class MenuActionHandlerService
         _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFavorites") ?? "Opening Favorites...");
         _playSoundEffects.PlayNotificationSound();
 
+        var contextMenuFunctions = _serviceProvider.GetRequiredService<IContextMenuFunctions>();
         var favoritesPage = new Pages.FavoritesPage(
             _settings, _host.GetSystemManagers(), _host.GetMachines(), _favoritesManager,
-            (MainWindow)Application.Current.MainWindow, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _findCoverImage, _imageLoader);
+            (MainWindow)Application.Current.MainWindow, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _findCoverImage, _imageLoader, contextMenuFunctions, _debugLogger);
 
         _host.NavigateToPage(favoritesPage);
     }
@@ -760,10 +766,11 @@ public class MenuActionHandlerService
 
         if (Application.Current.MainWindow is not MainWindow mainWindow) return;
 
+        var contextMenuFunctions = _serviceProvider.GetRequiredService<IContextMenuFunctions>();
         var playHistoryPage = new Pages.PlayHistoryPage(
             _host.GetSystemManagers(), _host.GetMachines(), _settings,
             _favoritesManager, _playHistoryManager, mainWindow,
-            _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _findCoverImage, _imageLoader);
+            _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _findCoverImage, _imageLoader, contextMenuFunctions, _debugLogger);
 
         _host.NavigateToPage(playHistoryPage);
     }
@@ -1355,7 +1362,7 @@ public class MenuActionHandlerService
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in SortOrderToggleButtonClickAsync.");
-            DebugLogger.Log("Error in SortOrderToggleButtonClickAsync.");
+            _debugLogger.Log("Error in SortOrderToggleButtonClickAsync.");
         }
     }
 }

@@ -11,10 +11,12 @@ namespace SimpleLauncher.Services.GameLauncher.Strategies;
 public class PbpToCueStrategy : ILaunchStrategy
 {
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IDebugLogger _debugLogger;
 
-    public PbpToCueStrategy(IMessageBoxLibraryService messageBox)
+    public PbpToCueStrategy(IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
     {
         _messageBox = messageBox;
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
     }
 
     public int Priority => 15; // Higher priority than Default (999) but lower than CHD (10) to handle specific case
@@ -93,11 +95,11 @@ public class PbpToCueStrategy : ILaunchStrategy
                         if (File.Exists(disc1BinPath)) File.Delete(disc1BinPath);
                     }
 
-                    DebugLogger.Log($"Cleaned up temporary PBP conversion files: {baseFileName}");
+                    _debugLogger.Log($"Cleaned up temporary PBP conversion files: {baseFileName}");
                 }
                 catch (Exception ex)
                 {
-                    DebugLogger.Log($"Failed to cleanup PBP temp files: {ex.Message}");
+                    _debugLogger.Log($"Failed to cleanup PBP temp files: {ex.Message}");
                 }
             }
         }

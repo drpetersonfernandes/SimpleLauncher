@@ -44,6 +44,8 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
     private readonly IMameDataService _mameDataService;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
+    private readonly IDisplaySystemInformation _displaySystemInformation;
+    private readonly IDebugLogger _debugLogger;
 
     public SystemSelectionOrchestrator(
         SettingsManager.SettingsManager settings,
@@ -61,7 +63,9 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         ISystemConfigurationService systemConfigurationService,
         IMameDataService mameDataService,
         IMessageBoxLibraryService messageBox,
-        QuitSimpleLauncher quitSimpleLauncher)
+        QuitSimpleLauncher quitSimpleLauncher,
+        IDisplaySystemInformation displaySystemInformation,
+        IDebugLogger debugLogger)
     {
         _settings = settings;
         _systemImageResolverService = systemImageResolverService;
@@ -79,6 +83,8 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         _mameDataService = mameDataService;
         _messageBox = messageBox;
         _quitSimpleLauncher = quitSimpleLauncher;
+        _displaySystemInformation = displaySystemInformation;
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
     }
 
     public void Initialize(ISystemSelectionHost host)
@@ -328,7 +334,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
             _playSoundEffects.PlayNotificationSound();
             _updateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...");
 
-            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _logErrors, _helpUserService, _imageLoader, _messageBox, _quitSimpleLauncher, systemName)
+            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _logErrors, _helpUserService, _imageLoader, _messageBox, _quitSimpleLauncher, _debugLogger, systemName)
             {
                 Owner = Application.Current.MainWindow
             };
@@ -420,7 +426,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
                     var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
                     _host.PlayTime = systemPlayTime != null ? systemPlayTime.FormattedPlayTime : "00:00:00";
 
-                    var validationResult = await DisplaySystemInformation.DisplaySystemInfoAsync(selectedManager, _host.GameFileGrid, cancellationToken);
+                    var validationResult = await _displaySystemInformation.DisplaySystemInfoAsync(selectedManager, _host.GameFileGrid, cancellationToken);
 
                     if (!validationResult.IsValid)
                     {

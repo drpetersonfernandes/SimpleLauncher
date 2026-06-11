@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.Converters;
@@ -8,6 +9,7 @@ namespace SimpleLauncher.Services.Converters;
 public static class ConvertPbpToCueBin
 {
     private static readonly string TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
+    private static readonly IDebugLogger DebugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();
 
     /// <summary>
     /// Converts a PBP file to a temporary Cue/Bin using psxpackager.exe.

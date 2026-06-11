@@ -3,50 +3,33 @@ using System.Globalization;
 
 namespace SimpleLauncher.Services.DebugAndBugReport;
 
-public static class DebugLogger
+public class DebugLogger : IDebugLogger
 {
-    private static bool _isDebugMode;
-    private static DebugWindow _logWindowInstance;
+    private readonly bool _isDebugMode;
+    private readonly DebugWindow _logWindowInstance;
 
-    /// <summary>
-    /// Initializes the DebugLogger based on whether debug mode is enabled.
-    /// </summary>
-    /// <param name="isDebugModeEnabled">True if the application is running in debug mode (e.g., via command-line argument).</param>
-    public static void Initialize(bool isDebugModeEnabled)
+    public DebugLogger(bool isDebugModeEnabled)
     {
         _isDebugMode = isDebugModeEnabled;
 
         if (!_isDebugMode) return;
 
-        // Initialize and show the DebugWindow
         DebugWindow.Initialize();
-
-        _logWindowInstance = DebugWindow.Instance; // Store the instance reference
-        Log("Debug logging initialized."); // Log the initialization
+        _logWindowInstance = DebugWindow.Instance;
+        Log("Debug logging initialized.");
     }
 
-    /// <summary>
-    /// Logs a debug message.
-    /// </summary>
-    /// <param name="message">The debug message.</param>
-    public static void Log(string message)
+    public void Log(string message)
     {
-        // Always write to Debug output, regardless of _isDebugMode
         Debug.WriteLine($"[DEBUG] {DateTime.Now:HH:mm:ss.fff} - {message}");
 
         if (_isDebugMode && _logWindowInstance != null)
         {
-            // Append message to the DebugWindow on the UI thread
             _logWindowInstance.AppendLogMessage(message);
         }
     }
 
-    /// <summary>
-    /// Logs an exception details. The message is only displayed if debug mode is enabled.
-    /// </summary>
-    /// <param name="ex">The exception to log.</param>
-    /// <param name="contextMessage">An optional context message.</param>
-    public static void LogException(Exception ex, string contextMessage = null)
+    public void LogException(Exception ex, string contextMessage = null)
     {
         if (ex == null)
         {

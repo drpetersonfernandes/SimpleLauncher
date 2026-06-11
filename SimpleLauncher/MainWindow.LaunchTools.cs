@@ -41,7 +41,7 @@ public partial class MainWindow
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
             await _launchTools.BatchConvertToChd(_selectedRomFolders?.FirstOrDefault());
-            DebugLogger.Log($"Called BatchConvertToCHD with args: {_selectedRomFolders?.FirstOrDefault()}");
+            _debugLogger.Log($"Called BatchConvertToCHD with args: {_selectedRomFolders?.FirstOrDefault()}");
         }
         catch (Exception ex)
         {

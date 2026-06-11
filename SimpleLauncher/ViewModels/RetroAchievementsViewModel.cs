@@ -19,6 +19,7 @@ public partial class RetroAchievementsViewModel : ObservableObject
     private readonly IResourceProvider _resourceProvider;
     private readonly SettingsManager _settings;
     private readonly RetroAchievementsService _raService;
+    private readonly IDebugLogger _debugLogger;
 
     // Profile tab
     [ObservableProperty] private string? _profileImageUrl;
@@ -93,13 +94,15 @@ public partial class RetroAchievementsViewModel : ObservableObject
         IMessageBoxLibraryService messageBox,
         IResourceProvider resourceProvider,
         SettingsManager settings,
-        RetroAchievementsService raService)
+        RetroAchievementsService raService,
+        IDebugLogger debugLogger)
     {
         _logErrors = logErrors;
         _messageBox = messageBox;
         _resourceProvider = resourceProvider;
         _settings = settings;
         _raService = raService;
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
 
         // Set default dates
         FromDate = DateTime.Today.AddMonths(-1);
@@ -123,10 +126,10 @@ public partial class RetroAchievementsViewModel : ObservableObject
 
         try
         {
-            DebugLogger.Log($"[RA VM] Fetching user profile for {_settings.RaUsername}...");
+            _debugLogger.Log($"[RA VM] Fetching user profile for {_settings.RaUsername}...");
             var userProfile = await _raService.GetUserProfileAsync(_settings.RaUsername, _settings.RaApiKey);
 
-            DebugLogger.Log($"[RA VM] Fetching recently played games for {_settings.RaUsername}...");
+            _debugLogger.Log($"[RA VM] Fetching recently played games for {_settings.RaUsername}...");
             var recentlyPlayedGames = await _raService.GetUserRecentlyPlayedGamesAsync(_settings.RaUsername, _settings.RaApiKey, 50);
 
             if (userProfile != null)
@@ -238,7 +241,7 @@ public partial class RetroAchievementsViewModel : ObservableObject
 
         try
         {
-            DebugLogger.Log($"[RA VM] Fetching unlocks for {_settings.RaUsername} from {fromDate:yyyy-MM-dd} to {toDate:yyyy-MM-dd}...");
+            _debugLogger.Log($"[RA VM] Fetching unlocks for {_settings.RaUsername} from {fromDate:yyyy-MM-dd} to {toDate:yyyy-MM-dd}...");
             var unlocks = await _raService.GetAchievementsEarnedBetweenAsync(_settings.RaUsername, _settings.RaApiKey, fromDate, toDate);
 
             if (unlocks is { Count: > 0 })

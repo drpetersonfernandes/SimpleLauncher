@@ -56,7 +56,7 @@ public class XeniaConfigHandler : IEmulatorConfigHandler
                 catch (Exception ex)
                 {
                     // Log error but allow game to launch with default Xenia settings
-                    DebugLogger.Log($"[XeniaConfigHandler] Failed to inject settings: {ex.Message}");
+                    _debugLogger.Log($"[XeniaConfigHandler] Failed to inject settings: {ex.Message}");
                 }
             }
 

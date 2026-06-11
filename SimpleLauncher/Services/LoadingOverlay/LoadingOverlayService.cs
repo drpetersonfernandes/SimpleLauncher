@@ -1,4 +1,5 @@
 using System.Windows;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.PlaySound;
 
 namespace SimpleLauncher.Services.LoadingOverlay;
@@ -9,10 +10,12 @@ public class LoadingOverlayService
     private int _loadingOperationsCount;
     private readonly object _loadingStateLock = new();
     private readonly PlaySoundEffects _playSoundEffects;
+    private readonly IDebugLogger _debugLogger;
 
-    public LoadingOverlayService(PlaySoundEffects playSoundEffects)
+    public LoadingOverlayService(PlaySoundEffects playSoundEffects, IDebugLogger debugLogger)
     {
         _playSoundEffects = playSoundEffects;
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
     }
 
     public void Initialize(ILoadingOverlayHost host)
@@ -41,7 +44,7 @@ public class LoadingOverlayService
                 }
                 else
                 {
-                    DebugAndBugReport.DebugLogger.Log("[SetLoadingState] Warning: Attempted to decrement loading count when already at 0");
+                    _debugLogger.Log("[SetLoadingState] Warning: Attempted to decrement loading count when already at 0");
                 }
             }
 
@@ -89,6 +92,6 @@ public class LoadingOverlayService
 
         _ = host.ResetUiAsync();
         host.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
-        DebugAndBugReport.DebugLogger.Log("[Emergency] User forced overlay dismissal via Return button.");
+        _debugLogger.Log("[Emergency] User forced overlay dismissal via Return button.");
     }
 }

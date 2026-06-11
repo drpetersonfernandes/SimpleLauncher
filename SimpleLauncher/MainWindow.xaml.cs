@@ -10,6 +10,7 @@ using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.AudioInput;
 using SimpleLauncher.Services.ApplicationLifecycle;
+using SimpleLauncher.Services.ContextMenu;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameBrowser;
 using SimpleLauncher.Services.GameListUI;
@@ -121,6 +122,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly IMenuOrchestrator _menuOrchestrator;
     private readonly IApplicationLifecycleService _lifecycle;
     private readonly IAudioInputService _audioInput;
+    private readonly IContextMenuFunctions _contextMenuFunctions;
+    private readonly IDebugLogger _debugLogger;
     internal readonly IUpdateStatusBar UpdateStatusBarService;
     internal readonly IUiResetService UiResetService;
     internal readonly ISystemConfigurationService SystemConfigurationService;
@@ -138,7 +141,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         IGameBrowserService gameBrowser,
         IMenuOrchestrator menuOrchestrator,
         IApplicationLifecycleService lifecycle,
-        IAudioInputService audioInput)
+        IAudioInputService audioInput,
+        IContextMenuFunctions contextMenuFunctions,
+        IDebugLogger debugLogger)
     {
         InitializeComponent();
 
@@ -153,6 +158,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _menuOrchestrator = menuOrchestrator;
         _lifecycle = lifecycle;
         _audioInput = audioInput;
+        _contextMenuFunctions = contextMenuFunctions;
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
 
         UiResetService = uiResetService;
         SystemConfigurationService = systemConfigurationService;
@@ -237,25 +244,25 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         try
         {
             await _gameBrowser.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
-            DebugLogger.Log("DisplaySystemSelectionScreenAsync called.");
+            _debugLogger.Log("DisplaySystemSelectionScreenAsync called.");
         }
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in the DisplaySystemSelectionScreenAsync method.");
-            DebugLogger.Log($"Error in the DisplaySystemSelectionScreenAsync method: {ex.Message}");
+            _debugLogger.Log($"Error in the DisplaySystemSelectionScreenAsync method: {ex.Message}");
         }
 
         try
         {
             await _lifecycle.SilentCheckForUpdatesAsync(this);
-            DebugLogger.Log("Silent check for updates was done.");
+            _debugLogger.Log("Silent check for updates was done.");
             await _lifecycle.ReportUsageAsync();
-            DebugLogger.Log("Stats API call was done.");
+            _debugLogger.Log("Stats API call was done.");
         }
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in the Loaded event.");
-            DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
+            _debugLogger.Log($"Error in the Loaded event: {ex.Message}");
         }
 
         try
@@ -308,7 +315,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in the Loaded event's first-run logic.");
-            DebugLogger.Log($"Error in the Loaded event's first-run logic: {ex.Message}");
+            _debugLogger.Log($"Error in the Loaded event's first-run logic: {ex.Message}");
         }
     }
 
@@ -317,7 +324,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         if (_wasControllerRunningBeforeDeactivation)
         {
             _audioInput.StartGamepad();
-            DebugLogger.Log("Gamepad controller restarted on window activation.");
+            _debugLogger.Log("Gamepad controller restarted on window activation.");
         }
 
         _wasControllerRunningBeforeDeactivation = false; // Reset flag
@@ -329,7 +336,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         {
             _wasControllerRunningBeforeDeactivation = true;
             _audioInput.StopGamepad();
-            DebugLogger.Log("Gamepad controller temporarily stopped on window deactivation.");
+            _debugLogger.Log("Gamepad controller temporarily stopped on window deactivation.");
         }
         else
         {
@@ -745,7 +752,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 this
             );
 
-            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, findCoverImage);
+            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, findCoverImage, _contextMenuFunctions);
             if (contextMenu != null)
             {
                 // Close the previous context menu before assigning a new one to prevent leaks.
@@ -814,7 +821,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in SortOrderToggleButtonClickAsync.");
-            DebugLogger.Log("Error in SortOrderToggleButtonClickAsync.");
+            _debugLogger.Log("Error in SortOrderToggleButtonClickAsync.");
         }
     }
 

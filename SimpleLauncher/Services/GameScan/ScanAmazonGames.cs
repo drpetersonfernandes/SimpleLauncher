@@ -6,6 +6,13 @@ namespace SimpleLauncher.Services.GameScan;
 
 public class ScanAmazonGames
 {
+    private static IDebugLogger _debugLogger;
+
+    public ScanAmazonGames(IDebugLogger debugLogger)
+    {
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+    }
+
     public static async Task ScanAmazonGamesAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
@@ -58,7 +65,7 @@ public class ScanAmazonGames
         catch (Exception ex)
         {
             // Log but don't crash if SQLite is missing or DB is locked
-            DebugLogger.Log($"[ScanAmazonGames] Error scanning Amazon games: {ex.Message}");
+            _debugLogger.Log($"[ScanAmazonGames] Error scanning Amazon games: {ex.Message}");
             await logErrors.LogErrorAsync(ex, "Error scanning Amazon games.");
         }
     }

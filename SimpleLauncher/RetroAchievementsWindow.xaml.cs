@@ -21,8 +21,9 @@ public partial class RetroAchievementsWindow : ILoadingState
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IDebugLogger _debugLogger;
 
-    public RetroAchievementsWindow(PlaySoundEffects playSoundEffects, ILogErrors logErrors, SettingsManager settings, RetroAchievementsService raService)
+    public RetroAchievementsWindow(PlaySoundEffects playSoundEffects, ILogErrors logErrors, IDebugLogger debugLogger, SettingsManager settings, RetroAchievementsService raService)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -30,6 +31,7 @@ public partial class RetroAchievementsWindow : ILoadingState
 
         _playSoundEffects = playSoundEffects;
         _logErrors = logErrors;
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         _viewModel = new RetroAchievementsViewModel(
@@ -37,7 +39,8 @@ public partial class RetroAchievementsWindow : ILoadingState
             _messageBox,
             App.ServiceProvider.GetRequiredService<IResourceProvider>(),
             settings,
-            raService);
+            raService,
+            debugLogger);
 
         DataContext = _viewModel;
 
@@ -239,7 +242,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         _playSoundEffects.PlayNotificationSound();
         LoadingOverlay.Visibility = Visibility.Collapsed;
 
-        DebugLogger.Log("[Emergency] User forced overlay dismissal in RetroAchievements Window.");
+        _debugLogger.Log("[Emergency] User forced overlay dismissal in RetroAchievements Window.");
         (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 }

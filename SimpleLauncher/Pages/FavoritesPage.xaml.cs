@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
+using SimpleLauncher.Services.ContextMenu;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameLauncher;
@@ -37,6 +38,8 @@ internal partial class FavoritesPage : ILoadingState
     private readonly SettingsManager _settings;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
+    private readonly IContextMenuFunctions _contextMenuFunctions;
+    private readonly IDebugLogger _debugLogger;
 
     internal FavoritesPage(
         SettingsManager settings,
@@ -50,7 +53,9 @@ internal partial class FavoritesPage : ILoadingState
         IConfiguration configuration,
         ILogErrors logErrors,
         IFindCoverImageService findCoverImage,
-        IImageLoader imageLoader)
+        IImageLoader imageLoader,
+        IContextMenuFunctions contextMenuFunctions,
+        IDebugLogger debugLogger)
     {
         InitializeComponent();
 
@@ -64,6 +69,8 @@ internal partial class FavoritesPage : ILoadingState
         _findCoverImage = findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
         _machines = machines ?? throw new ArgumentNullException(nameof(machines));
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
+        _contextMenuFunctions = contextMenuFunctions ?? throw new ArgumentNullException(nameof(contextMenuFunctions));
+        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         _viewModel = new FavoritesViewModel(
@@ -215,7 +222,7 @@ internal partial class FavoritesPage : ILoadingState
                 this
             );
 
-            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, _findCoverImage);
+            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, _findCoverImage, _contextMenuFunctions);
             if (contextMenu != null)
             {
                 // Close the previous context menu before assigning a new one to prevent leaks.
@@ -409,7 +416,7 @@ internal partial class FavoritesPage : ILoadingState
         _playSoundEffects.PlayNotificationSound();
         LoadingOverlay.Visibility = Visibility.Collapsed;
 
-        DebugLogger.Log("[Emergency] User forced overlay dismissal in FavoritesPage.");
+        _debugLogger.Log("[Emergency] User forced overlay dismissal in FavoritesPage.");
         _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 }
