@@ -45,57 +45,60 @@ public class PbpToCueStrategy : ILaunchStrategy
     public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
         var convertingMsg = (string)Application.Current.TryFindResource("ConvertingPbpToCue") ?? "Converting PBP to CUE/BIN...";
-        context.LoadingState.SetLoadingState(true, convertingMsg);
+        if (context.LoadingState != null)
+        {
+            context.LoadingState.SetLoadingState(true, convertingMsg);
 
-        string cuePath;
-        try
-        {
-            cuePath = await Converters.ConvertPbpToCueBin.ConvertPbpToCueBinAsync(context.ResolvedFilePath);
-        }
-        finally
-        {
-            // Always end conversion loading state before launching
-            context.LoadingState.SetLoadingState(false);
-        }
-
-        if (cuePath == null)
-        {
-            await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
-            return;
-        }
-
-        try
-        {
-            await launcher.LaunchRegularEmulatorAsync(cuePath, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.WindowContext, context.LoadingState);
-        }
-        finally
-        {
-            // CLEANUP: Delete the temporary .cue and .bin files
-            // Also handle potential _disc1 suffix that psxpackager may add
+            string cuePath;
             try
             {
-                var tempFolder = Path.GetDirectoryName(cuePath);
-                var baseFileName = Path.GetFileNameWithoutExtension(cuePath);
-
-                // Delete the main .cue and .bin files
-                if (File.Exists(cuePath)) File.Delete(cuePath);
-                var binPath = Path.ChangeExtension(cuePath, ".bin");
-                if (File.Exists(binPath)) File.Delete(binPath);
-
-                // Also delete potential _disc1 variants
-                if (!string.IsNullOrEmpty(tempFolder))
-                {
-                    var disc1CuePath = Path.Combine(tempFolder, $"{baseFileName}_disc1.cue");
-                    var disc1BinPath = Path.Combine(tempFolder, $"{baseFileName}_disc1.bin");
-                    if (File.Exists(disc1CuePath)) File.Delete(disc1CuePath);
-                    if (File.Exists(disc1BinPath)) File.Delete(disc1BinPath);
-                }
-
-                DebugLogger.Log($"Cleaned up temporary PBP conversion files: {baseFileName}");
+                cuePath = await Converters.ConvertPbpToCueBin.ConvertPbpToCueBinAsync(context.ResolvedFilePath);
             }
-            catch (Exception ex)
+            finally
             {
-                DebugLogger.Log($"Failed to cleanup PBP temp files: {ex.Message}");
+                // Always end conversion loading state before launching
+                context.LoadingState.SetLoadingState(false);
+            }
+
+            if (cuePath == null)
+            {
+                await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                return;
+            }
+
+            try
+            {
+                await launcher.LaunchRegularEmulatorAsync(cuePath, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.WindowContext, context.LoadingState);
+            }
+            finally
+            {
+                // CLEANUP: Delete the temporary .cue and .bin files
+                // Also handle potential _disc1 suffix that psxpackager may add
+                try
+                {
+                    var tempFolder = Path.GetDirectoryName(cuePath);
+                    var baseFileName = Path.GetFileNameWithoutExtension(cuePath);
+
+                    // Delete the main .cue and .bin files
+                    if (File.Exists(cuePath)) File.Delete(cuePath);
+                    var binPath = Path.ChangeExtension(cuePath, ".bin");
+                    if (File.Exists(binPath)) File.Delete(binPath);
+
+                    // Also delete potential _disc1 variants
+                    if (!string.IsNullOrEmpty(tempFolder))
+                    {
+                        var disc1CuePath = Path.Combine(tempFolder, $"{baseFileName}_disc1.cue");
+                        var disc1BinPath = Path.Combine(tempFolder, $"{baseFileName}_disc1.bin");
+                        if (File.Exists(disc1CuePath)) File.Delete(disc1CuePath);
+                        if (File.Exists(disc1BinPath)) File.Delete(disc1BinPath);
+                    }
+
+                    DebugLogger.Log($"Cleaned up temporary PBP conversion files: {baseFileName}");
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"Failed to cleanup PBP temp files: {ex.Message}");
+                }
             }
         }
     }

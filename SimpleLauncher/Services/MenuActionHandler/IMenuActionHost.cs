@@ -7,7 +7,7 @@ public interface IMenuActionHost
     void SetLoadingState(bool isLoading, string message = null);
     Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null, CancellationToken cancellationToken = default);
     (string startLetter, string searchQuery) GetLoadGameFilesParams();
-    void ResetUiAsync();
+    Task ResetUiAsync();
     void LoadOrReloadSystemManager();
     void NavigateToPage(object page);
     void NavigateBackToMainContent();

@@ -26,26 +26,32 @@ public class StellaConfigHandler : IEmulatorConfigHandler
 
     public async Task<bool> HandleConfigurationAsync(LaunchContext context)
     {
-        var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
-        var shouldRun = false;
-
-        if (context.Settings.Stella.ShowSettingsBeforeLaunch)
+        if (context.EmulatorManager != null)
         {
-            await context.WindowContext.Dispatcher.InvokeAsync(() =>
+            var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
+            var shouldRun = false;
+
+            if (context.Settings != null && context.Settings.Stella.ShowSettingsBeforeLaunch)
             {
-                var win = App.ServiceProvider.GetRequiredService<InjectStellaConfigWindow>();
-                win.Owner = (Window)context.WindowContext.PlatformWindow;
-                win.Initialize(resolvedExe);
-                win.ShowDialog();
-                shouldRun = win.ShouldRun;
-            });
-        }
-        else
-        {
-            shouldRun = true;
-            if (File.Exists(resolvedExe)) StellaConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
+                if (context.WindowContext != null)
+                    await context.WindowContext.Dispatcher.InvokeAsync(() =>
+                    {
+                        var win = App.ServiceProvider.GetRequiredService<InjectStellaConfigWindow>();
+                        win.Owner = (Window)context.WindowContext.PlatformWindow;
+                        win.Initialize(resolvedExe);
+                        win.ShowDialog();
+                        shouldRun = win.ShouldRun;
+                    });
+            }
+            else
+            {
+                shouldRun = true;
+                if (File.Exists(resolvedExe)) StellaConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
+            }
+
+            return shouldRun;
         }
 
-        return shouldRun;
+        return false;
     }
 }

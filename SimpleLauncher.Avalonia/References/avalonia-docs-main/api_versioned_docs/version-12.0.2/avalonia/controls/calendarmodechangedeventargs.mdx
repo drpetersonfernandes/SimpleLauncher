@@ -1,0 +1,147 @@
+---
+title: 'CalendarModeChangedEventArgs'
+hide_title: true
+slug: '/avalonia/controls/calendarmodechangedeventargs'
+uid: 'Avalonia.Controls.CalendarModeChangedEventArgs'
+commentId: 'T:Avalonia.Controls.CalendarModeChangedEventArgs'
+docset: 'avalonia-docs'
+packageId: 'Avalonia'
+assembly: 'Avalonia.Controls'
+apiKind: 'Class'
+generatedBy: 'dotnet-apiref'
+namespace: 'Avalonia.Controls'
+tfms:
+  - 'net10.0'
+---
+
+import ApiRefPage from '@site/src/components/apiref/ApiRefPage';
+
+<ApiRefPage>
+
+<h1 className="apiref-page__title">CalendarModeChangedEventArgs Class</h1>
+
+## Definition
+
+<div className="apiref-page__definition-meta">
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Namespace:</span> <a href="./">Avalonia.Controls</a>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Assembly:</span> <code>Avalonia.Controls</code>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Package:</span> <code>Avalonia</code>
+</div>
+</div>
+
+<div className="apiref-page__lead">
+
+Provides data for the
+[Avalonia.Controls.Calendar.DisplayModeChanged](xref:Avalonia.Controls.Calendar.DisplayModeChanged)
+event.
+
+</div>
+
+<div className="apiref-page__signature">
+
+```csharp
+public class CalendarModeChangedEventArgs
+```
+
+</div>
+
+<div className="apiref-page__relations">
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Inheritance:</span> EventArgs <span className="apiref-page__relation-separator">-&gt;</span> <a href="../interactivity/routedeventargs">RoutedEventArgs</a> <span className="apiref-page__relation-separator">-&gt;</span> CalendarModeChangedEventArgs
+</div>
+</div>
+
+## Constructors
+
+| Name | Description |
+| --- | --- |
+| [CalendarModeChangedEventArgs](#uid-555abe2383) | Initializes a new instance of the [Avalonia.Controls.CalendarModeChangedEventArgs](xref:Avalonia.Controls.CalendarModeChangedEventArgs) class. |
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-555abe2383"></span>
+
+### CalendarModeChangedEventArgs Constructor
+
+Initializes a new instance of the
+[Avalonia.Controls.CalendarModeChangedEventArgs](xref:Avalonia.Controls.CalendarModeChangedEventArgs)
+class.
+
+```csharp
+public CalendarModeChangedEventArgs(Avalonia.Controls.CalendarMode oldMode, Avalonia.Controls.CalendarMode newMode)
+```
+
+#### Parameters
+
+`oldMode` [Avalonia.Controls.CalendarMode](xref:Avalonia.Controls.CalendarMode)
+
+The previous mode.
+
+
+`newMode` [Avalonia.Controls.CalendarMode](xref:Avalonia.Controls.CalendarMode)
+
+The new mode.
+
+
+</section>
+
+## Properties
+
+| Name | Description |
+| --- | --- |
+| [NewMode](#uid-1b6ee3050e) | Gets the new mode of the [Avalonia.Controls.Calendar](xref:Avalonia.Controls.Calendar). |
+| [OldMode](#uid-0cc76188db) | Gets the previous mode of the [Avalonia.Controls.Calendar](xref:Avalonia.Controls.Calendar). |
+| [Handled](../interactivity/routedeventargs.mdx#uid-204d2af354) | Gets or sets a value indicating whether the routed event has already been handled. Inherited from [RoutedEventArgs](../interactivity/routedeventargs.mdx). |
+| [Route](../interactivity/routedeventargs.mdx#uid-751be73db9) | Gets or sets the routing strategy (direct, bubbling, or tunneling) of the routed event. Inherited from [RoutedEventArgs](../interactivity/routedeventargs.mdx). |
+| [RoutedEvent](../interactivity/routedeventargs.mdx#uid-4e102999d9) | Gets or sets the routed event associated with these event args. Inherited from [RoutedEventArgs](../interactivity/routedeventargs.mdx). |
+| [Source](../interactivity/routedeventargs.mdx#uid-4385b523d5) | Gets or sets the source object that raised the routed event. Inherited from [RoutedEventArgs](../interactivity/routedeventargs.mdx). |
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-1b6ee3050e"></span>
+
+### NewMode Property
+
+Gets the new mode of the
+[Avalonia.Controls.Calendar](xref:Avalonia.Controls.Calendar).
+
+```csharp
+public Avalonia.Controls.CalendarMode NewMode { get; set; }
+```
+
+#### Value
+
+A [Avalonia.Controls.CalendarMode](xref:Avalonia.Controls.CalendarMode)
+the new mode.
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-0cc76188db"></span>
+
+### OldMode Property
+
+Gets the previous mode of the
+[Avalonia.Controls.Calendar](xref:Avalonia.Controls.Calendar).
+
+```csharp
+public Avalonia.Controls.CalendarMode OldMode { get; set; }
+```
+
+#### Value
+
+A [Avalonia.Controls.CalendarMode](xref:Avalonia.Controls.CalendarMode) representing
+the previous mode.
+
+
+</section>
+
+</ApiRefPage>
+

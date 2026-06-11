@@ -5,6 +5,7 @@ namespace SimpleLauncher;
 
 public partial class DebugWindow
 {
+    private static readonly object InstanceLock = new();
     private DebugViewModel _viewModel;
 
     // Private constructor to enforce singleton-like access via DebugLogger
@@ -25,22 +26,25 @@ public partial class DebugWindow
     // Method to create and show the window (called by DebugLogger)
     internal static void Initialize()
     {
-        if (Instance == null)
+        lock (InstanceLock)
         {
-            Instance = new DebugWindow
+            if (Instance == null)
             {
-                _viewModel = App.ServiceProvider.GetRequiredService<DebugViewModel>()
-            };
+                Instance = new DebugWindow
+                {
+                    _viewModel = App.ServiceProvider.GetRequiredService<DebugViewModel>()
+                };
 
-            Instance.DataContext = Instance._viewModel;
+                Instance.DataContext = Instance._viewModel;
 
-            Instance.Show();
-        }
-        else
-        {
-            // If already initialized, just ensure it's visible and brought to front
-            Instance.Show();
-            Instance.Activate();
+                Instance.Show();
+            }
+            else
+            {
+                // If already initialized, just ensure it's visible and brought to the front
+                Instance.Show();
+                Instance.Activate();
+            }
         }
     }
 
@@ -56,6 +60,9 @@ public partial class DebugWindow
 
     private static void LogWindow_Closed(object sender, EventArgs e)
     {
-        Instance = null;
+        lock (InstanceLock)
+        {
+            Instance = null;
+        }
     }
 }

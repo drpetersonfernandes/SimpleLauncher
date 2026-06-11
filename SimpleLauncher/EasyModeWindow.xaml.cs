@@ -896,7 +896,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     DownloadStatus = $"{componentName} {hasbeensuccessfullydownloadedandinstalled}";
 
                     // Notify user
-                    await _messageBox.DownloadAndExtrationWereSuccessfulMessageBox();
+                    await _messageBox.DownloadAndExtractionWereSuccessfulMessageBox();
 
                     StopDownloadButton.IsEnabled = false;
                     // Mark as successfully downloaded
@@ -1276,8 +1276,10 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         if (_disposed) return;
 
+        _downloadManager.DownloadProgressChanged -= DownloadManager_ProgressChanged;
         _downloadManager?.Dispose();
         _manager?.Dispose();
+        _easyModeManager?.Dispose();
 
         _disposed = true;
     }

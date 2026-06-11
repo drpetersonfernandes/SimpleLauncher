@@ -37,8 +37,7 @@ public partial class RetroAchievementsWindow : ILoadingState
             _messageBox,
             App.ServiceProvider.GetRequiredService<IResourceProvider>(),
             settings,
-            raService,
-            playSoundEffects);
+            raService);
 
         DataContext = _viewModel;
 

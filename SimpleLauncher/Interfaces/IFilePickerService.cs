@@ -1,4 +1,5 @@
 #nullable enable
+
 namespace SimpleLauncher.Interfaces;
 
 public interface IFilePickerService

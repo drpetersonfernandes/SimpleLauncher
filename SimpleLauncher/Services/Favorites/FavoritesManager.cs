@@ -48,7 +48,13 @@ public class FavoritesManager
 
         // If no files exist, create a new instance
         var defaultManager = new FavoritesManager { _logErrors = logErrors };
-        defaultManager.SaveFavoritesAsync();
+        _ = defaultManager.SaveFavoritesAsync().ContinueWith(static (task, state) =>
+        {
+            if (task.IsFaulted)
+            {
+                ((ILogErrors)state)?.LogAndForget(task.Exception, "Error saving default favorites.");
+            }
+        }, logErrors, TaskContinuationOptions.OnlyOnFaulted);
         return defaultManager; // Return default instance if error occurs
     }
 
@@ -61,22 +67,19 @@ public class FavoritesManager
         // Notify user outside of any lock to prevent potential deadlock
         Application.Current.Dispatcher.Invoke(static () => (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SavingFavorites") ?? "Saving favorites..."));
 
-        // Snapshot the ordered list inside the lock, then clear/repopulate outside
-        // to avoid ObservableCollection firing CollectionChanged while holding the lock.
-        List<Favorite> orderedFavorites;
+        // Snapshot the ordered list inside the lock, then clear/repopulate inside
+        // the same lock to prevent another thread from seeing an empty/partial list.
         lock (ListLock)
         {
-            orderedFavorites = FavoriteList
+            var orderedFavorites = FavoriteList
                 .OrderBy(static fav => fav.FileName, StringComparer.OrdinalIgnoreCase)
                 .ToList();
-        }
 
-        // Clear and repopulate outside the lock so CollectionChanged handlers
-        // (which may touch the UI or even re-enter ListLock) cannot deadlock.
-        FavoriteList.Clear();
-        foreach (var fav in orderedFavorites)
-        {
-            FavoriteList.Add(fav);
+            FavoriteList.Clear();
+            foreach (var fav in orderedFavorites)
+            {
+                FavoriteList.Add(fav);
+            }
         }
 
         // Serialize and write on a background thread so Thread.Sleep in the

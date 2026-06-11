@@ -64,8 +64,8 @@ public partial class PlayHistoryPage : ILoadingState
         _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
         _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
-        _configuration = configuration;
-        _logErrors = logErrors;
+        _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _findCoverImage = findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
         _machines = machines ?? throw new ArgumentNullException(nameof(machines));
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
@@ -87,6 +87,8 @@ public partial class PlayHistoryPage : ILoadingState
             App.ServiceProvider.GetRequiredService<IResourceProvider>());
 
         DataContext = _viewModel;
+
+        _cancellationTokenSource = new CancellationTokenSource();
 
         Loaded += PlayHistoryPageLoadedAsync;
         Unloaded += PlayHistoryPage_Unloaded;

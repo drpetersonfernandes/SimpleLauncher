@@ -27,6 +27,7 @@ public partial class SystemManager : ISystemManager
     public bool ExtractFileBeforeLaunch { get; init; }
     public List<string> FileFormatsToLaunch { get; init; }
     public List<Emulator> Emulators { get; init; }
+    IReadOnlyList<IEmulator> ISystemManager.Emulators => Emulators?.Cast<IEmulator>().ToList();
     public bool GroupByFolder { get; init; }
     public bool DisableRecursiveSearch { get; init; }
 
@@ -46,7 +47,8 @@ public partial class SystemManager : ISystemManager
     /// <returns>The full path to system.xml.</returns>
     private static string GetSystemXmlPath(IConfiguration configuration)
     {
-        if (_fileLocation == null)
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+        if (Volatile.Read(ref _fileLocation) == null)
         {
             lock (FileLocationLock)
             {
@@ -748,7 +750,7 @@ public partial class SystemManager : ISystemManager
         }
     }
 
-    public static async void DeleteSystemAsync(string systemNameToDelete, ILogErrors logErrors = null)
+    public static async Task DeleteSystemAsync(string systemNameToDelete, ILogErrors logErrors = null)
     {
         try
         {

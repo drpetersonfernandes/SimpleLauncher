@@ -1,0 +1,153 @@
+---
+title: 'TreeDataGridRowsPresenter'
+hide_title: true
+slug: '/avalonia/controls/primitives/treedatagridrowspresenter'
+uid: 'Avalonia.Controls.Primitives.TreeDataGridRowsPresenter'
+commentId: 'T:Avalonia.Controls.Primitives.TreeDataGridRowsPresenter'
+docset: 'avalonia-docs'
+packageId: 'Avalonia.Controls.TreeDataGrid'
+assembly: 'Avalonia.Controls.TreeDataGrid'
+apiKind: 'Class'
+generatedBy: 'dotnet-apiref'
+namespace: 'Avalonia.Controls.Primitives'
+tfms:
+  - 'net8.0'
+---
+
+import ApiRefPage from '@site/src/components/apiref/ApiRefPage';
+
+<ApiRefPage>
+
+<h1 className="apiref-page__title">TreeDataGridRowsPresenter Class</h1>
+
+## Definition
+
+<div className="apiref-page__definition-meta">
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Namespace:</span> <a href="./">Avalonia.Controls.Primitives</a>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Assembly:</span> <code>Avalonia.Controls.TreeDataGrid</code>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Package:</span> <code>Avalonia.Controls.TreeDataGrid</code>
+</div>
+</div>
+
+<div className="apiref-page__lead">
+
+Presents and manages rows in a [Avalonia.Controls.TreeDataGrid](xref:Avalonia.Controls.TreeDataGrid) control.
+
+</div>
+
+<div className="apiref-page__signature">
+
+```csharp
+public class TreeDataGridRowsPresenter
+```
+
+</div>
+
+<div className="apiref-page__relations">
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Inheritance:</span> TreeDataGridPresenterBase&lt;ITreeDataGridRowModel&gt; <span className="apiref-page__relation-separator">-&gt;</span> TreeDataGridRowsPresenter
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Implements:</span> <a href="../../logicaltree/ichildindexprovider">IChildIndexProvider</a>
+</div>
+</div>
+
+## Remarks
+
+[TreeDataGridRowsPresenter](xref:Avalonia.Controls.Primitives.TreeDataGridRowsPresenter) is responsible for creating, recycling, and arranging rows
+vertically in a [TreeDataGrid](xref:Avalonia.Controls.TreeDataGrid). It handles the virtualization of rows, ensuring that only
+visible rows are realized in the visual tree to improve performance.
+
+This presenter is typically used within a [Avalonia.Controls.TreeDataGrid](xref:Avalonia.Controls.TreeDataGrid) control template to
+display the rows for that control.
+
+## Constructors
+
+| Name | Description |
+| --- | --- |
+| [TreeDataGridRowsPresenter](#uid-abd761e263) | No summary available. |
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-abd761e263"></span>
+
+### TreeDataGridRowsPresenter Constructor
+
+```csharp
+public TreeDataGridRowsPresenter()
+```
+
+</section>
+
+## Properties
+
+| Name | Description |
+| --- | --- |
+| [Columns](#uid-f3ea4bfbff) | Gets or sets the columns collection used to define the structure of rows. |
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-f3ea4bfbff"></span>
+
+### Columns Property
+
+Gets or sets the columns collection used to define the structure of rows.
+
+```csharp
+public Avalonia.Controls.TreeDataGridColumns Columns { get; set; }
+```
+
+</section>
+
+## Fields
+
+| Name | Description |
+| --- | --- |
+| [ColumnsProperty](#uid-97bf443459) | Defines the [Avalonia.Controls.Primitives.TreeDataGridRowsPresenter.Columns](xref:Avalonia.Controls.Primitives.TreeDataGridRowsPresenter.Columns) property. |
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-97bf443459"></span>
+
+### ColumnsProperty Field
+
+Defines the [Avalonia.Controls.Primitives.TreeDataGridRowsPresenter.Columns](xref:Avalonia.Controls.Primitives.TreeDataGridRowsPresenter.Columns) property.
+
+```csharp
+public Avalonia.DirectProperty<Avalonia.Controls.Primitives.TreeDataGridRowsPresenter, Avalonia.Controls.TreeDataGridColumns> ColumnsProperty
+```
+
+</section>
+
+## Events
+
+| Name | Description |
+| --- | --- |
+| [ChildIndexChanged](#uid-5c03449208) | Occurs when the index of a child element in the presenter changes. |
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-5c03449208"></span>
+
+### ChildIndexChanged Event
+
+Occurs when the index of a child element in the presenter changes.
+
+```csharp
+public event EventHandler<Avalonia.LogicalTree.ChildIndexChangedEventArgs> ChildIndexChanged
+```
+
+#### Remarks
+
+This event is raised when rows are realized, unrealized, or when their indices change
+due to insertions or removals.
+
+</section>
+
+</ApiRefPage>
+

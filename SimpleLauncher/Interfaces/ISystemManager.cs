@@ -1,5 +1,3 @@
-using SimpleLauncher.Services.SystemManager;
-
 namespace SimpleLauncher.Interfaces;
 
 public interface ISystemManager
@@ -11,7 +9,7 @@ public interface ISystemManager
     List<string> FileFormatsToSearch { get; }
     bool ExtractFileBeforeLaunch { get; }
     List<string> FileFormatsToLaunch { get; }
-    List<Emulator> Emulators { get; }
+    IReadOnlyList<IEmulator> Emulators { get; }
     bool GroupByFolder { get; }
     bool DisableRecursiveSearch { get; }
 }

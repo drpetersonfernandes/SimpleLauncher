@@ -608,7 +608,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         {
             NoGameInfoOverlay.Visibility = Visibility.Visible;
             NoGameInfoMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingGameInfo") ?? "An error occurred while loading game info. Please try again.";
-            await _logErrors.LogErrorAsync(ex, $"Failed to load extended game info for game ID: {_gameId}");
+            _logErrors.LogAndForget(ex, $"Failed to load extended game info for game ID: {_gameId}");
         }
         finally
         {

@@ -1,3 +1,5 @@
+#nullable enable
+
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -11,17 +13,17 @@ public class GameListViewItem : INotifyPropertyChanged
     /// <summary>
     /// Gets the full file path of the game ROM.
     /// </summary>
-    public string FilePath { get; init; }
+    public string FilePath { get; init; } = "";
 
     /// <summary>
     /// Gets the folder path containing the game ROM.
     /// </summary>
-    public string FolderPath { get; init; }
+    public string FolderPath { get; init; } = "";
 
     /// <summary>
-    /// Gets or sets the right-click context menu for this item.
+    /// Gets the system name associated with this game.
     /// </summary>
-    public System.Windows.Controls.ContextMenu ContextMenu { get; set; }
+    public string SystemName { get; init; } = "";
 
     /// <summary>
     /// Gets or sets whether this game is marked as a favorite.
@@ -45,7 +47,7 @@ public class GameListViewItem : INotifyPropertyChanged
     {
         get;
         init;
-    }
+    } = "";
 
     /// <summary>
     /// Gets or sets the machine description from the ROM database.
@@ -60,7 +62,7 @@ public class GameListViewItem : INotifyPropertyChanged
             field = value;
             OnPropertyChanged();
         }
-    }
+    } = "";
 
     /// <summary>
     /// Gets or sets the number of times this game has been played.
@@ -137,9 +139,9 @@ public class GameListViewItem : INotifyPropertyChanged
         }
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

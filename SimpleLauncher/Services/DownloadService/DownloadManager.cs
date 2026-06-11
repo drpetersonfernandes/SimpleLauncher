@@ -59,7 +59,8 @@ public class DownloadManager : IDisposable
         }
 
         // Get HttpClient from the factory
-        _httpClient = _httpClientFactory?.CreateClient("DownloadClient");
+        _httpClient = _httpClientFactory.CreateClient("DownloadClient")
+                      ?? throw new InvalidOperationException("IHttpClientFactory.CreateClient returned null for 'DownloadClient'.");
 
         // Initialize cancellation token source
         _cancellationTokenSource = new CancellationTokenSource();
@@ -453,6 +454,8 @@ public class DownloadManager : IDisposable
         }
 
         cts?.Dispose();
+
+        _httpClient?.Dispose();
 
         GC.SuppressFinalize(this);
     }

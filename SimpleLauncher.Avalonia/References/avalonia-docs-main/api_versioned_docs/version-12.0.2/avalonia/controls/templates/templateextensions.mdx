@@ -1,0 +1,123 @@
+---
+title: 'TemplateExtensions'
+hide_title: true
+slug: '/avalonia/controls/templates/templateextensions'
+uid: 'Avalonia.Controls.Templates.TemplateExtensions'
+commentId: 'T:Avalonia.Controls.Templates.TemplateExtensions'
+docset: 'avalonia-docs'
+packageId: 'Avalonia'
+assembly: 'Avalonia.Controls'
+apiKind: 'Class'
+generatedBy: 'dotnet-apiref'
+namespace: 'Avalonia.Controls.Templates'
+tfms:
+  - 'net10.0'
+---
+
+import ApiRefPage from '@site/src/components/apiref/ApiRefPage';
+
+<ApiRefPage>
+
+<h1 className="apiref-page__title">TemplateExtensions Class</h1>
+
+## Definition
+
+<div className="apiref-page__definition-meta">
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Namespace:</span> <a href="./">Avalonia.Controls.Templates</a>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Assembly:</span> <code>Avalonia.Controls</code>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Package:</span> <code>Avalonia</code>
+</div>
+</div>
+
+<div className="apiref-page__lead">
+
+Contains extension methods for [Avalonia.Controls.Primitives.TemplatedControl](xref:Avalonia.Controls.Primitives.TemplatedControl).
+
+</div>
+
+<div className="apiref-page__signature">
+
+```csharp
+public class TemplateExtensions
+```
+
+</div>
+
+<div className="apiref-page__relations">
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Inheritance:</span> object <span className="apiref-page__relation-separator">-&gt;</span> TemplateExtensions
+</div>
+</div>
+
+## Methods
+
+| Name | Description |
+| --- | --- |
+| [GetTemplateChildren](#uid-3536dbe017) | Gets the list of all control descendants that are part of the template of a [Avalonia.Controls.Primitives.TemplatedControl](xref:Avalonia.Controls.Primitives.TemplatedControl), i.e. their [Avalonia.StyledElement.TemplatedParent](xref:Avalonia.StyledElement.TemplatedParent) is `control`. |
+| [GetTemplateDescendants](#uid-c22a68a8a8) | Gets the list of all visual descendants that are part of the template of a [Avalonia.Controls.Primitives.TemplatedControl](xref:Avalonia.Controls.Primitives.TemplatedControl), i.e. their [Avalonia.StyledElement.TemplatedParent](xref:Avalonia.StyledElement.TemplatedParent) is `control`. |
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-3536dbe017"></span>
+
+### GetTemplateChildren Method
+
+Gets the list of all control descendants that are part of the template of a [Avalonia.Controls.Primitives.TemplatedControl](xref:Avalonia.Controls.Primitives.TemplatedControl),
+i.e. their [Avalonia.StyledElement.TemplatedParent](xref:Avalonia.StyledElement.TemplatedParent) is `control`.
+
+```csharp
+public System.Collections.Generic.IEnumerable<Avalonia.Controls.Control> GetTemplateChildren(Avalonia.Controls.Primitives.TemplatedControl control)
+```
+
+#### Parameters
+
+`control` [Avalonia.Controls.Primitives.TemplatedControl](xref:Avalonia.Controls.Primitives.TemplatedControl)
+
+The control whose descendants will be returned.
+
+
+#### Returns
+
+System.Collections.Generic.IEnumerable&lt;[Avalonia.Controls.Control](xref:Avalonia.Controls.Control)&gt;
+
+An enumeration of [Avalonia.Controls.Control](xref:Avalonia.Controls.Control) objects.
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-c22a68a8a8"></span>
+
+### GetTemplateDescendants Method
+
+Gets the list of all visual descendants that are part of the template of a [Avalonia.Controls.Primitives.TemplatedControl](xref:Avalonia.Controls.Primitives.TemplatedControl),
+i.e. their [Avalonia.StyledElement.TemplatedParent](xref:Avalonia.StyledElement.TemplatedParent) is `control`.
+
+```csharp
+public System.Collections.Generic.IEnumerable<Avalonia.Visual> GetTemplateDescendants(Avalonia.Controls.Primitives.TemplatedControl control)
+```
+
+#### Parameters
+
+`control` [Avalonia.Controls.Primitives.TemplatedControl](xref:Avalonia.Controls.Primitives.TemplatedControl)
+
+The control whose descendants will be returned.
+
+
+#### Returns
+
+System.Collections.Generic.IEnumerable&lt;[Avalonia.Visual](xref:Avalonia.Visual)&gt;
+
+An enumeration of [Avalonia.Visual](xref:Avalonia.Visual) objects.
+
+
+</section>
+
+</ApiRefPage>
+

@@ -20,7 +20,7 @@ using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
 namespace SimpleLauncher.ViewModels;
 
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
-public partial class FavoritesViewModel : ObservableObject
+public partial class FavoritesViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors;
@@ -39,6 +39,11 @@ public partial class FavoritesViewModel : ObservableObject
     [ObservableProperty] private Favorite? _selectedFavorite;
 
     [ObservableProperty] private Stream? _previewImageSource;
+
+    partial void OnPreviewImageSourceChanging(Stream? value)
+    {
+        value?.Dispose();
+    }
 
     [ObservableProperty] private bool _isLoading;
 
@@ -140,14 +145,7 @@ public partial class FavoritesViewModel : ObservableObject
 
             _playSoundEffects.PlayTrashSound();
 
-            var selectedItems = SelectedFavorite != null
-                ? new List<Favorite> { SelectedFavorite }
-                : new List<Favorite>();
-
-            foreach (var favorite in selectedItems)
-            {
-                Favorites.Remove(favorite);
-            }
+            Favorites.Remove(SelectedFavorite);
 
             UpdateFavoritesManagerList();
 
@@ -286,5 +284,12 @@ public partial class FavoritesViewModel : ObservableObject
     public SystemManager? GetSystemManager(string systemName)
     {
         return _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+    }
+
+    public void Dispose()
+    {
+        PreviewImageSource?.Dispose();
+        PreviewImageSource = null;
+        GC.SuppressFinalize(this);
     }
 }

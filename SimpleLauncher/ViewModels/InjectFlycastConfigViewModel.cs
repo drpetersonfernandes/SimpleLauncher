@@ -86,7 +86,7 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
         _settings.Flycast.Width = Width;
         _settings.Flycast.Height = Height;
         _settings.Flycast.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
     private async Task<string> EnsureEmulatorPath()

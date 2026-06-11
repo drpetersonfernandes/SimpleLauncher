@@ -258,7 +258,7 @@ internal partial class EditSystemWindow
         return false; // Validation passed
     }
 
-    private async Task<(bool IsValid, List<string> Formats)> ValidateFormatToLaunch(string formatToLaunchText, bool extractFileBeforeLaunch)
+    private async Task<(bool IsFailed, List<string> Formats)> ValidateFormatToLaunch(string formatToLaunchText, bool extractFileBeforeLaunch)
     {
         var formatsToLaunch = formatToLaunchText.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
             .Select(static format => format.Trim())
@@ -277,7 +277,7 @@ internal partial class EditSystemWindow
         return (false, formatsToLaunch); // Return false to indicate validation passed
     }
 
-    private async Task<(bool IsValid, List<string> Formats)> ValidateFormatToSearch(string formatToSearchText, bool extractFileBeforeLaunch)
+    private async Task<(bool IsFailed, List<string> Formats)> ValidateFormatToSearch(string formatToSearchText, bool extractFileBeforeLaunch)
     {
         var formatsToSearch = formatToSearchText.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
             .Select(static format => format.Trim())
@@ -303,7 +303,7 @@ internal partial class EditSystemWindow
         return (false, formatsToSearch);
     }
 
-    private async Task<(bool IsValid, string FolderText)> ValidateSystemImageFolder(string systemNameText, string systemImageFolderText)
+    private async Task<(bool IsFailed, string FolderText)> ValidateSystemImageFolder(string systemNameText, string systemImageFolderText)
     {
         var defaultPattern = Path.Combine(".", "images", systemNameText);
         var prefixedDefaultPattern = Path.Combine("%BASEFOLDER%", "images", systemNameText);
@@ -347,7 +347,7 @@ internal partial class EditSystemWindow
         return (false, systemImageFolderText);
     }
 
-    private async Task<(bool IsValid, string FolderText)> ValidateSystemFolder(string systemNameText, string systemFolderText)
+    private async Task<(bool IsFailed, string FolderText)> ValidateSystemFolder(string systemNameText, string systemFolderText)
     {
         var defaultPattern = Path.Combine(".", "roms", systemNameText);
         var prefixedDefaultPattern = Path.Combine("%BASEFOLDER%", "roms", systemNameText);

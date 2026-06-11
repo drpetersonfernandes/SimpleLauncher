@@ -27,28 +27,40 @@ public class RaineConfigHandler : IEmulatorConfigHandler
 
     public async Task<bool> HandleConfigurationAsync(LaunchContext context)
     {
-        var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
-        var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(context.SystemManager.PrimarySystemFolder);
-        var resolvedRaineRomDirectory = PathHelper.ResolveRelativeToAppDirectory(context.Settings.Raine.RomDirectory);
-        var shouldRun = true;
-
-        if (context.Settings.Raine.ShowSettingsBeforeLaunch)
+        if (context.EmulatorManager != null)
         {
-            await context.WindowContext.Dispatcher.InvokeAsync(() =>
+            var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
+            if (context.SystemManager != null)
             {
-                var win = App.ServiceProvider.GetRequiredService<InjectRaineConfigWindow>();
-                win.Owner = (Window)context.WindowContext.PlatformWindow;
-                win.Initialize(resolvedExe, true, context.ResolvedFilePath, resolvedSystemFolder);
-                win.ShowDialog();
-                shouldRun = win.ShouldRun;
-            });
-        }
-        else if (File.Exists(resolvedExe))
-        {
-            // Pass the resolved RaineRomDirectory to the service
-            RaineConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger, context.ResolvedFilePath, resolvedSystemFolder, resolvedRaineRomDirectory);
+                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(context.SystemManager.PrimarySystemFolder);
+                if (context.Settings != null)
+                {
+                    var resolvedRaineRomDirectory = PathHelper.ResolveRelativeToAppDirectory(context.Settings.Raine.RomDirectory);
+                    var shouldRun = true;
+
+                    if (context.Settings.Raine.ShowSettingsBeforeLaunch)
+                    {
+                        if (context.WindowContext != null)
+                            await context.WindowContext.Dispatcher.InvokeAsync(() =>
+                            {
+                                var win = App.ServiceProvider.GetRequiredService<InjectRaineConfigWindow>();
+                                win.Owner = (Window)context.WindowContext.PlatformWindow;
+                                win.Initialize(resolvedExe, true, context.ResolvedFilePath, resolvedSystemFolder);
+                                win.ShowDialog();
+                                shouldRun = win.ShouldRun;
+                            });
+                    }
+                    else if (File.Exists(resolvedExe))
+                    {
+                        // Pass the resolved RaineRomDirectory to the service
+                        RaineConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger, context.ResolvedFilePath, resolvedSystemFolder, resolvedRaineRomDirectory);
+                    }
+
+                    return shouldRun;
+                }
+            }
         }
 
-        return shouldRun;
+        return false;
     }
 }

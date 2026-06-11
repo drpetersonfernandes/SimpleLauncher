@@ -1,3 +1,5 @@
+#nullable enable
+
 namespace SimpleLauncher.Interfaces;
 
 /// <summary>
@@ -16,6 +18,6 @@ public interface ICredentialProtector
     /// Unprotects (decrypts) the specified protected data.
     /// </summary>
     /// <param name="protectedData">The protected (encrypted) data as a Base64-encoded string.</param>
-    /// <returns>The unprotected (decrypted) plaintext data.</returns>
-    string Unprotect(string protectedData);
+    /// <returns>The unprotected (decrypted) plaintext data, or null if decryption fails.</returns>
+    string? Unprotect(string protectedData);
 }

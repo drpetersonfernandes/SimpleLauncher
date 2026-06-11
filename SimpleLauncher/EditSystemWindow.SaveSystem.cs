@@ -79,13 +79,16 @@ internal partial class EditSystemWindow
             HandleValidationAlerts(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid,
                 isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid, isEmulator5LocationValid);
 
+            // Early return if any path is invalid — don't proceed with saving
+            if (!isSystemFolderValid || !isSystemImageFolderValid) return;
+
             // Validate SystemName (now with sanitized value)
             if (await ValidateSystemName(systemNameText)) return;
 
             // Validate SystemFolder (uses the potentially prefixed value)
             var firstFolder = allSystemFolders.FirstOrDefault() ?? "";
             var systemFolderResult = await ValidateSystemFolder(systemNameText, firstFolder);
-            if (systemFolderResult.IsValid) return;
+            if (systemFolderResult.IsFailed) return;
 
             firstFolder = systemFolderResult.FolderText;
 
@@ -100,7 +103,7 @@ internal partial class EditSystemWindow
 
             // Validate SystemImageFolder (uses the potentially prefixed value)
             var imageFolderResult = await ValidateSystemImageFolder(systemNameText, varSystemImageFolderText);
-            if (imageFolderResult.IsValid) return;
+            if (imageFolderResult.IsFailed) return;
 
             varSystemImageFolderText = imageFolderResult.FolderText;
 
@@ -114,7 +117,7 @@ internal partial class EditSystemWindow
                 ?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false;
 
             var formatSearchResult = await ValidateFormatToSearch(formatToSearchText, extractFileBeforeLaunch);
-            if (formatSearchResult.IsValid)
+            if (formatSearchResult.IsFailed)
             {
                 MarkInvalid(FormatToSearchTextBox, false); // Invalid state
                 return;
@@ -127,7 +130,7 @@ internal partial class EditSystemWindow
             var formatsToSearch = formatSearchResult.Formats;
 
             var formatLaunchResult = await ValidateFormatToLaunch(formatToLaunchText, extractFileBeforeLaunch);
-            if (formatLaunchResult.IsValid)
+            if (formatLaunchResult.IsFailed)
             {
                 return;
             }

@@ -77,7 +77,7 @@ public partial class GameLauncher : ILauncherService
         var context = new LaunchContext
         {
             FilePath = filePath,
-            ResolvedFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath),
+            ResolvedFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath) ?? filePath,
             EmulatorName = selectedEmulatorName,
             SystemName = selectedSystemName,
             SystemManager = selectedSystemManager,
@@ -108,7 +108,7 @@ public partial class GameLauncher : ILauncherService
             }
 
             // 3. Resolve Emulator Manager
-            context.EmulatorManager = context.SystemManager.Emulators.FirstOrDefault(e => e.EmulatorName.Equals(context.EmulatorName, StringComparison.OrdinalIgnoreCase));
+            context.EmulatorManager = context.SystemManager.Emulators.FirstOrDefault(e => e.EmulatorName.Equals(context.EmulatorName, StringComparison.OrdinalIgnoreCase)) as Emulator;
             if (context.EmulatorManager == null)
             {
                 await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
@@ -280,9 +280,9 @@ public partial class GameLauncher : ILauncherService
         }
 
         // Add the GroupByFolder check
-        if (context.SystemManager.GroupByFolder)
+        if (context.SystemManager is { GroupByFolder: true })
         {
-            var emulatorName = context.EmulatorName ?? "";
+            var emulatorName = context.EmulatorName;
             var emulatorLocation = context.EmulatorManager?.EmulatorLocation ?? "";
 
             var isMame = emulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
@@ -304,11 +304,14 @@ public partial class GameLauncher : ILauncherService
 
     private void UpdateStatsAndPlayCountAsync(TimeSpan playTime, LaunchContext context)
     {
-        context.Settings.UpdateSystemPlayTime(context.SystemName, playTime);
-        context.Settings.SaveAsync();
+        if (context.Settings != null)
+        {
+            context.Settings.UpdateSystemPlayTime(context.SystemName, playTime);
+            context.Settings.SaveAsync();
+        }
 
         var playTimeFormatted = playTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
-        var playTimeLabel = (string)Application.Current.TryFindResource("Playtime") ?? "Playtime";
+        var playTimeLabel = Application.Current.TryFindResource("Playtime") as string ?? "Playtime";
 
         TrayIconManager.ShowTrayMessage($"{playTimeLabel}: {playTimeFormatted}");
         _updateStatusBar.UpdateContent("");

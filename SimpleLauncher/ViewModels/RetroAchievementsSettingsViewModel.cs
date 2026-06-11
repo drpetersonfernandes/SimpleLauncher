@@ -151,6 +151,6 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
         _settings.RaUsername = (Username).Trim();
         _settings.RaApiKey = ApiKey;
         _settings.RaPassword = Password;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 }

@@ -28,33 +28,39 @@ public class XeniaConfigHandler : IEmulatorConfigHandler
 
     public async Task<bool> HandleConfigurationAsync(LaunchContext context)
     {
-        var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
-        var shouldRun = true;
-
-        if (context.Settings.Xenia.ShowSettingsBeforeLaunch)
+        if (context.EmulatorManager != null)
         {
-            await context.WindowContext.Dispatcher.InvokeAsync(() =>
+            var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
+            var shouldRun = true;
+
+            if (context.Settings != null && context.Settings.Xenia.ShowSettingsBeforeLaunch)
             {
-                var win = App.ServiceProvider.GetRequiredService<InjectXeniaConfigWindow>();
-                win.Owner = (Window)context.WindowContext.PlatformWindow;
-                win.Initialize(resolvedExe);
-                win.ShowDialog();
-                shouldRun = win.ShouldRun;
-            });
-        }
-        else if (File.Exists(resolvedExe))
-        {
-            try
-            {
-                XeniaConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
+                if (context.WindowContext != null)
+                    await context.WindowContext.Dispatcher.InvokeAsync(() =>
+                    {
+                        var win = App.ServiceProvider.GetRequiredService<InjectXeniaConfigWindow>();
+                        win.Owner = (Window)context.WindowContext.PlatformWindow;
+                        win.Initialize(resolvedExe);
+                        win.ShowDialog();
+                        shouldRun = win.ShouldRun;
+                    });
             }
-            catch (Exception ex)
+            else if (File.Exists(resolvedExe))
             {
-                // Log error but allow game to launch with default Xenia settings
-                DebugLogger.Log($"[XeniaConfigHandler] Failed to inject settings: {ex.Message}");
+                try
+                {
+                    XeniaConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
+                }
+                catch (Exception ex)
+                {
+                    // Log error but allow game to launch with default Xenia settings
+                    DebugLogger.Log($"[XeniaConfigHandler] Failed to inject settings: {ex.Message}");
+                }
             }
+
+            return shouldRun;
         }
 
-        return shouldRun;
+        return false;
     }
 }

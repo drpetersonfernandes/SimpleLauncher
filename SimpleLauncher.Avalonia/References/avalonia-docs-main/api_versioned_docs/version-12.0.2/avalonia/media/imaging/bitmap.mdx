@@ -1,0 +1,467 @@
+---
+title: 'Bitmap'
+hide_title: true
+slug: '/avalonia/media/imaging/bitmap'
+uid: 'Avalonia.Media.Imaging.Bitmap'
+commentId: 'T:Avalonia.Media.Imaging.Bitmap'
+docset: 'avalonia-docs'
+packageId: 'Avalonia'
+assembly: 'Avalonia.Base'
+apiKind: 'Class'
+generatedBy: 'dotnet-apiref'
+namespace: 'Avalonia.Media.Imaging'
+tfms:
+  - 'net10.0'
+---
+
+import ApiRefPage from '@site/src/components/apiref/ApiRefPage';
+
+<ApiRefPage>
+
+<h1 className="apiref-page__title">Bitmap Class</h1>
+
+## Definition
+
+<div className="apiref-page__definition-meta">
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Namespace:</span> <a href="./">Avalonia.Media.Imaging</a>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Assembly:</span> <code>Avalonia.Base</code>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Package:</span> <code>Avalonia</code>
+</div>
+</div>
+
+<div className="apiref-page__lead">
+
+Holds a bitmap image.
+
+</div>
+
+<div className="apiref-page__signature">
+
+```csharp
+public class Bitmap
+```
+
+</div>
+
+<div className="apiref-page__relations">
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Inheritance:</span> object <span className="apiref-page__relation-separator">-&gt;</span> Bitmap
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Derived types:</span> <a href="rendertargetbitmap">RenderTargetBitmap</a>, <a href="writeablebitmap">WriteableBitmap</a>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Implements:</span> <a href="../iimage">IImage</a>, <a href="../iimagebrushsource">IImageBrushSource</a>, IBitmap, IDisposable
+</div>
+</div>
+
+## Constructors
+
+| Name | Description |
+| --- | --- |
+| [Bitmap (3 overloads)](#uid-78682079b3) | Initializes a new instance of the [Avalonia.Media.Imaging.Bitmap](xref:Avalonia.Media.Imaging.Bitmap) class. |
+
+<span id="uid-78682079b3"></span>
+
+### Bitmap overloads
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-955107a8da"></span>
+
+#### Bitmap Constructor
+
+Initializes a new instance of the [Avalonia.Media.Imaging.Bitmap](xref:Avalonia.Media.Imaging.Bitmap) class.
+
+```csharp
+public Bitmap(Avalonia.Platform.PixelFormat format, Avalonia.Platform.AlphaFormat alphaFormat, IntPtr data, Avalonia.PixelSize size, Avalonia.Vector dpi, int stride)
+```
+
+##### Parameters
+
+`format` [Avalonia.Platform.PixelFormat](xref:Avalonia.Platform.PixelFormat)
+
+The pixel format.
+
+
+`alphaFormat` [Avalonia.Platform.AlphaFormat](xref:Avalonia.Platform.AlphaFormat)
+
+The alpha format.
+
+
+`data` IntPtr
+
+The pointer to the source bytes.
+
+
+`size` [Avalonia.PixelSize](xref:Avalonia.PixelSize)
+
+The size of the bitmap in device pixels.
+
+
+`dpi` [Avalonia.Vector](xref:Avalonia.Vector)
+
+The DPI of the bitmap.
+
+
+`stride` int
+
+The number of bytes per row.
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-785aa3f525"></span>
+
+#### Bitmap Constructor
+
+Initializes a new instance of the [Avalonia.Media.Imaging.Bitmap](xref:Avalonia.Media.Imaging.Bitmap) class.
+
+```csharp
+public Bitmap(System.IO.Stream stream)
+```
+
+##### Parameters
+
+`stream` System.IO.Stream
+
+The stream to read the bitmap from.
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-93ed605b16"></span>
+
+#### Bitmap Constructor
+
+Initializes a new instance of the [Avalonia.Media.Imaging.Bitmap](xref:Avalonia.Media.Imaging.Bitmap) class.
+
+```csharp
+public Bitmap(string fileName)
+```
+
+##### Parameters
+
+`fileName` string
+
+The filename of the bitmap.
+
+
+</section>
+
+## Methods
+
+| Name | Description |
+| --- | --- |
+| [CopyPixels (2 overloads)](#uid-c2cad1a858) | No summary available. |
+| [CreateScaledBitmap](#uid-6635fbb23b) | Creates a Bitmap scaled to a specified size from the current bitmap. |
+| [DecodeToHeight](#uid-d4e2c90246) | Loads a Bitmap from a stream and decodes at the desired height. Aspect ratio is maintained. This is more efficient than loading and then resizing. |
+| [DecodeToWidth](#uid-16369c08f6) | Loads a Bitmap from a stream and decodes at the desired width. Aspect ratio is maintained. This is more efficient than loading and then resizing. |
+| [Dispose](#uid-104e904648) | No summary available. |
+| [Save (2 overloads)](#uid-2db10525bf) | No summary available. |
+
+<span id="uid-c2cad1a858"></span>
+
+### CopyPixels overloads
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-08f8359fef"></span>
+
+#### CopyPixels Method
+
+```csharp
+public void CopyPixels(Avalonia.PixelRect sourceRect, IntPtr buffer, int bufferSize, int stride)
+```
+
+##### Parameters
+
+`sourceRect` [Avalonia.PixelRect](xref:Avalonia.PixelRect)
+
+
+`buffer` IntPtr
+
+
+`bufferSize` int
+
+
+`stride` int
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-9832292efe"></span>
+
+#### CopyPixels Method
+
+Copies pixels to the target buffer and transcodes the pixel and alpha format if needed.
+
+```csharp
+public void CopyPixels(Avalonia.Platform.ILockedFramebuffer buffer)
+```
+
+##### Parameters
+
+`buffer` [Avalonia.Platform.ILockedFramebuffer](xref:Avalonia.Platform.ILockedFramebuffer)
+
+The target buffer.
+
+
+##### Exceptions
+
+- [NotSupportedException](xref:System.NotSupportedException)
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-6635fbb23b"></span>
+
+### CreateScaledBitmap Method
+
+Creates a Bitmap scaled to a specified size from the current bitmap.
+
+```csharp
+public Avalonia.Media.Imaging.Bitmap CreateScaledBitmap(Avalonia.PixelSize destinationSize, Avalonia.Media.Imaging.BitmapInterpolationMode interpolationMode)
+```
+
+#### Parameters
+
+`destinationSize` [Avalonia.PixelSize](xref:Avalonia.PixelSize)
+
+The destination size.
+
+
+`interpolationMode` [Avalonia.Media.Imaging.BitmapInterpolationMode](xref:Avalonia.Media.Imaging.BitmapInterpolationMode)
+
+The [Avalonia.Media.Imaging.BitmapInterpolationMode](xref:Avalonia.Media.Imaging.BitmapInterpolationMode) to use should any scaling be required.
+
+
+#### Returns
+
+[Avalonia.Media.Imaging.Bitmap](xref:Avalonia.Media.Imaging.Bitmap)
+
+An instance of the [Avalonia.Media.Imaging.Bitmap](xref:Avalonia.Media.Imaging.Bitmap) class.
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-d4e2c90246"></span>
+
+### DecodeToHeight Method
+
+Loads a Bitmap from a stream and decodes at the desired height. Aspect ratio is maintained.
+This is more efficient than loading and then resizing.
+
+```csharp
+public Avalonia.Media.Imaging.Bitmap DecodeToHeight(System.IO.Stream stream, int height, Avalonia.Media.Imaging.BitmapInterpolationMode interpolationMode)
+```
+
+#### Parameters
+
+`stream` System.IO.Stream
+
+The stream to read the bitmap from. This can be any supported image format.
+
+
+`height` int
+
+The desired height of the resulting bitmap.
+
+
+`interpolationMode` [Avalonia.Media.Imaging.BitmapInterpolationMode](xref:Avalonia.Media.Imaging.BitmapInterpolationMode)
+
+The [Avalonia.Media.Imaging.BitmapInterpolationMode](xref:Avalonia.Media.Imaging.BitmapInterpolationMode) to use should any scaling be required.
+
+
+#### Returns
+
+[Avalonia.Media.Imaging.Bitmap](xref:Avalonia.Media.Imaging.Bitmap)
+
+An instance of the [Avalonia.Media.Imaging.Bitmap](xref:Avalonia.Media.Imaging.Bitmap) class.
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-16369c08f6"></span>
+
+### DecodeToWidth Method
+
+Loads a Bitmap from a stream and decodes at the desired width. Aspect ratio is maintained.
+This is more efficient than loading and then resizing.
+
+```csharp
+public Avalonia.Media.Imaging.Bitmap DecodeToWidth(System.IO.Stream stream, int width, Avalonia.Media.Imaging.BitmapInterpolationMode interpolationMode)
+```
+
+#### Parameters
+
+`stream` System.IO.Stream
+
+The stream to read the bitmap from. This can be any supported image format.
+
+
+`width` int
+
+The desired width of the resulting bitmap.
+
+
+`interpolationMode` [Avalonia.Media.Imaging.BitmapInterpolationMode](xref:Avalonia.Media.Imaging.BitmapInterpolationMode)
+
+The [Avalonia.Media.Imaging.BitmapInterpolationMode](xref:Avalonia.Media.Imaging.BitmapInterpolationMode) to use should any scaling be required.
+
+
+#### Returns
+
+[Avalonia.Media.Imaging.Bitmap](xref:Avalonia.Media.Imaging.Bitmap)
+
+An instance of the [Avalonia.Media.Imaging.Bitmap](xref:Avalonia.Media.Imaging.Bitmap) class.
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-104e904648"></span>
+
+### Dispose Method
+
+```csharp
+public void Dispose()
+```
+
+</section>
+
+<span id="uid-2db10525bf"></span>
+
+### Save overloads
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-848ab5dd51"></span>
+
+#### Save Method
+
+```csharp
+public void Save(System.IO.Stream stream, Nullable<int> quality)
+```
+
+##### Parameters
+
+`stream` System.IO.Stream
+
+
+`quality` Nullable&lt;int&gt;
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-dade950b8f"></span>
+
+#### Save Method
+
+```csharp
+public void Save(string fileName, Nullable<int> quality)
+```
+
+##### Parameters
+
+`fileName` string
+
+
+`quality` Nullable&lt;int&gt;
+
+
+</section>
+
+## Properties
+
+| Name | Description |
+| --- | --- |
+| [AlphaFormat](#uid-13f16f356b) | No summary available. |
+| [Dpi](#uid-636caa890c) | No summary available. |
+| [Format](#uid-bf4fc074f6) | No summary available. |
+| [PixelSize](#uid-81acc3099d) | No summary available. |
+| [Size](#uid-c8d851e15e) | Gets the size of the image, in device independent pixels. |
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-13f16f356b"></span>
+
+### AlphaFormat Property
+
+```csharp
+public Nullable<Avalonia.Platform.AlphaFormat> AlphaFormat { get; set; }
+```
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-636caa890c"></span>
+
+### Dpi Property
+
+```csharp
+public Avalonia.Vector Dpi { get; set; }
+```
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-bf4fc074f6"></span>
+
+### Format Property
+
+```csharp
+public Nullable<Avalonia.Platform.PixelFormat> Format { get; set; }
+```
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-81acc3099d"></span>
+
+### PixelSize Property
+
+```csharp
+public Avalonia.PixelSize PixelSize { get; set; }
+```
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-c8d851e15e"></span>
+
+### Size Property
+
+Gets the size of the image, in device independent pixels.
+
+```csharp
+public Avalonia.Size Size { get; set; }
+```
+
+</section>
+
+</ApiRefPage>
+

@@ -9,6 +9,7 @@ public partial class SystemSelectionWindow
     public SystemSelectionWindow(SystemSelectionViewModel viewModel)
     {
         InitializeComponent();
+        App.ApplyThemeToWindow(this);
 
         _viewModel = viewModel;
         _viewModel.DialogResultRequested += result =>

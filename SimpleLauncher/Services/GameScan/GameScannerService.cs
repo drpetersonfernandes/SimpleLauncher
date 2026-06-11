@@ -222,7 +222,7 @@ public class GameScannerService
                 // Log persistent network errors to help identify API issues, but don't spam logs
                 if (ex is HttpRequestException or OperationCanceledException)
                 {
-                    logErrors?.LogErrorAsync(ex, $"Failed to download image for '{gameName}' from API after retry.");
+                    logErrors?.LogAndForget(ex, $"Failed to download image for '{gameName}' from API after retry.");
 
                     // Show message box for timeout/network errors on final attempt (attempt == 1)
                     if (attempt == 1 && !_timeoutMessageShown)

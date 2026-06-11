@@ -214,10 +214,7 @@ public static class RetroAchievementsFileHasher
                 case ".v64": // Byte-swapped
                 case ".n64": // Little-endian
                 {
-                    var fileBytes = await File.ReadAllBytesAsync(filePath);
-                    var swappedBytes = SwapBytes(fileBytes);
-                    var hashBytes = MD5.HashData(swappedBytes);
-                    return ToHexString(hashBytes);
+                    return await CalculateByteSwappedMd5Async(filePath, logErrors);
                 }
 
                 default:
@@ -233,26 +230,45 @@ public static class RetroAchievementsFileHasher
     }
 
     /// <summary>
-    /// Swaps every pair of bytes in a byte array. (e.g., 01 02 03 04 -> 02 01 04 03).
+    /// Calculates the MD5 hash of a file with byte-swapping, streaming to avoid loading the entire file into memory.
     /// </summary>
-    private static byte[] SwapBytes(byte[] bytes)
+    private static async Task<string> CalculateByteSwappedMd5Async(string filePath, ILogErrors logErrors)
     {
-        var swapped = new byte[bytes.Length];
-        for (var i = 0; i < bytes.Length; i += 2)
+        try
         {
-            if (i + 1 < bytes.Length)
-            {
-                swapped[i] = bytes[i + 1];
-                swapped[i + 1] = bytes[i];
-            }
-            else
-            {
-                // Handle odd length, just copy the last byte
-                swapped[i] = bytes[i];
-            }
-        }
+            using var md5 = MD5.Create();
+            await using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            var buffer = new byte[81920]; // 80 KB buffer
+            int bytesRead;
 
-        return swapped;
+            while ((bytesRead = await stream.ReadAsync(buffer)) > 0)
+            {
+                // Ensure even count for pair swapping
+                var processCount = bytesRead % 2 == 0 ? bytesRead : bytesRead - 1;
+
+                // Swap adjacent bytes in-place within the buffer
+                for (var i = 0; i < processCount; i += 2)
+                {
+                    (buffer[i], buffer[i + 1]) = (buffer[i + 1], buffer[i]);
+                }
+
+                md5.TransformBlock(buffer, 0, processCount, null, 0);
+
+                // If there was an odd trailing byte, hash it as-is
+                if (bytesRead != processCount)
+                {
+                    md5.TransformBlock(buffer, processCount, 1, null, 0);
+                }
+            }
+
+            md5.TransformFinalBlock([], 0, 0);
+            return ToHexString(md5.Hash);
+        }
+        catch (Exception ex)
+        {
+            logErrors.LogAndForget(ex, $"Failed to calculate byte-swapped MD5 for {filePath}");
+            return null;
+        }
     }
 
     /// <summary>

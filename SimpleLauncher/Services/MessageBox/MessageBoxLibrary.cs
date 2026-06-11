@@ -1683,7 +1683,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void DownloadAndExtrationWereSuccessfulMessageBox()
+    internal static void DownloadAndExtractionWereSuccessfulMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -2657,7 +2657,7 @@ internal static class MessageBoxLibrary
         });
     }
 
-    internal static MessageBoxResult WoulYouLikeToSaveAReportMessageBox()
+    internal static MessageBoxResult WouldYouLikeToSaveAReportMessageBox()
     {
         return Application.Current.Dispatcher.Invoke(static () =>
         {
@@ -3927,7 +3927,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void MamEconfigurationinjectedsuccessfullyMessageBox()
+    internal static void MameConfigurationInjectedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3992,7 +3992,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void RetroArchconfigurationinjectedsuccessfullyMessageBox()
+    internal static void RetroArchConfigurationInjectedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;

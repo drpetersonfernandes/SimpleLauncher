@@ -20,7 +20,7 @@ public partial class InjectMameConfigWindow
         DataContext = _viewModel;
     }
 
-    public void Initialize(string emulatorPath = null, string systemRomPath = null, bool isLauncherMode = true, string[] listOfSecondaryRomPaths = null)
+    public void Initialize(string emulatorPath = null, bool isLauncherMode = true, string systemRomPath = null, string[] listOfSecondaryRomPaths = null)
     {
         _viewModel.Initialize(emulatorPath, isLauncherMode, systemRomPath, listOfSecondaryRomPaths);
 

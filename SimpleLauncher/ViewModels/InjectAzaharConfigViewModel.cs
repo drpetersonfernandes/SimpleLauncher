@@ -92,9 +92,21 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
 
     private void SaveSettings()
     {
-        _settings.Azahar.GraphicsApi = int.Parse(GraphicsApi, CultureInfo.InvariantCulture);
-        _settings.Azahar.ResolutionFactor = int.Parse(Resolution, CultureInfo.InvariantCulture);
-        _settings.Azahar.LayoutOption = int.Parse(Layout, CultureInfo.InvariantCulture);
+        if (int.TryParse(GraphicsApi, CultureInfo.InvariantCulture, out var graphicsApi))
+        {
+            _settings.Azahar.GraphicsApi = graphicsApi;
+        }
+
+        if (int.TryParse(Resolution, CultureInfo.InvariantCulture, out var resolution))
+        {
+            _settings.Azahar.ResolutionFactor = resolution;
+        }
+
+        if (int.TryParse(Layout, CultureInfo.InvariantCulture, out var layout))
+        {
+            _settings.Azahar.LayoutOption = layout;
+        }
+
         _settings.Azahar.Fullscreen = Fullscreen;
         _settings.Azahar.UseVsync = Vsync;
         _settings.Azahar.AsyncShaderCompilation = AsyncShader;

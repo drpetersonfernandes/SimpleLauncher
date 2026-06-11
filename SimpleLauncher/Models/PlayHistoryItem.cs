@@ -26,7 +26,19 @@ public class PlayHistoryItem : INotifyPropertyChanged
     /// Gets or sets the total play time in seconds.
     /// </summary>
     [Key(2)]
-    public long TotalPlayTime { get; set; }
+    public long TotalPlayTime
+    {
+        get => field;
+        set
+        {
+            if (field != value)
+            {
+                field = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(FormattedPlayTime));
+            }
+        }
+    }
 
     /// <summary>
     /// Gets or sets the number of times this game has been played.

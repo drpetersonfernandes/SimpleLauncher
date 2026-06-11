@@ -94,7 +94,7 @@ public interface IMessageBoxLibraryService
     Task LinksRevertedMessageBox();
     Task MainWindowSearchEngineErrorMessageBox();
     Task DownloadExtractionFailedMessageBox();
-    Task DownloadAndExtrationWereSuccessfulMessageBox();
+    Task DownloadAndExtractionWereSuccessfulMessageBox();
     Task ShowEmulatorDownloadErrorMessageBoxAsync(EasyModeSystemConfig selectedSystem);
     Task ShowCoreDownloadErrorMessageBoxAsync(EasyModeSystemConfig selectedSystem);
     Task ShowImagePackDownloadErrorMessageBoxAsync(EasyModeSystemConfig selectedSystem);
@@ -145,7 +145,7 @@ public interface IMessageBoxLibraryService
     Task ThereWasAnErrorDeletingTheCoverImageMessageBox();
     Task<MessageBoxResult> AreYouSureYouWantToDeleteTheGameMessageBox(string fileNameWithExtension);
     Task<MessageBoxResult> AreYouSureYouWantToDeleteTheCoverImageMessageBox(string fileNameWithoutExtension);
-    Task<MessageBoxResult> WoulYouLikeToSaveAReportMessageBox();
+    Task<MessageBoxResult> WouldYouLikeToSaveAReportMessageBox();
     Task SimpleLauncherWasUnableToRestoreBackupMessageBox();
     Task<MessageBoxResult> WouldYouLikeToRestoreTheLastBackupMessageBox();
     Task FailedToLoadLanguageResourceMessageBox();
@@ -221,12 +221,12 @@ public interface IMessageBoxLibraryService
     Task FailedToLoginToRetroAchievementsMessageBox();
     Task FileSystemXmlIsLockedMessageBox();
     Task FailedToInjectMameConfigurationMessageBox();
-    Task MamEconfigurationinjectedsuccessfullyMessageBox();
+    Task MameConfigurationInjectedSuccessfullyMessageBox();
     Task FailedtoinjectMamEconfiguration2MessageBox();
     Task MameEmulatorPathNotFoundMessageBox();
     Task RetroArchemulatorpathnotfoundMessageBox();
     Task FailedtoinjectRetroArchconfigurationMessageBox();
-    Task RetroArchconfigurationinjectedsuccessfullyMessageBox();
+    Task RetroArchConfigurationInjectedSuccessfullyMessageBox();
     Task FailedtoinjectRetroArchconfiguration2MessageBox();
     Task XeniaemulatorpathnotfoundMessageBox();
     Task FailedtoinjectXeniaconfigurationMessageBox();
@@ -237,7 +237,7 @@ public interface IMessageBoxLibraryService
     Task DaphnesettingssavedsuccessfullyMessageBox();
     Task Pcsx2SettingssavedMessageBox();
     Task SettingsSavedMessageBox();
-    Task CemuemulatornotfoundMessageBox();
+    Task CemuEmulatorNotFoundMessageBox();
     Task FailedtoinjectAresconfigurationMessageBox();
     Task CemuConfigurationSavedMessageBox();
     Task FlycastEmulatorNotFoundMessageBox();

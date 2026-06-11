@@ -59,8 +59,8 @@ internal partial class FavoritesPage : ILoadingState
         _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
         _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
-        _configuration = configuration;
-        _logErrors = logErrors;
+        _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _findCoverImage = findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
         _machines = machines ?? throw new ArgumentNullException(nameof(machines));
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
@@ -218,6 +218,12 @@ internal partial class FavoritesPage : ILoadingState
             var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, _findCoverImage);
             if (contextMenu != null)
             {
+                // Close the previous context menu before assigning a new one to prevent leaks.
+                if (FavoritesDataGrid.ContextMenu is { IsOpen: true } oldMenu)
+                {
+                    oldMenu.IsOpen = false;
+                }
+
                 FavoritesDataGrid.ContextMenu = contextMenu;
                 contextMenu.IsOpen = true;
             }
@@ -376,7 +382,7 @@ internal partial class FavoritesPage : ILoadingState
                     if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
                     {
                         _playSoundEffects.PlayNotificationSound();
-                        _ = LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName);
+                        await LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName);
                     }
 
                     break;

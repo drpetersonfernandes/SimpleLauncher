@@ -24,7 +24,7 @@ public partial class MainWindow : IGameFileLoadingHost
 
     List<SystemManager> IGameFileLoadingHost.GetSystemManagers()
     {
-        return _systemManagers;
+        return _systemManagers?.ToList() ?? [];
     }
 
     Task IGameFileLoadingHost.DisplaySystemSelectionScreenAsync(CancellationToken cancellationToken)

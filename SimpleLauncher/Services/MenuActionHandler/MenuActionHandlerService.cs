@@ -100,7 +100,7 @@ public class MenuActionHandlerService
             {
                 var w = serviceProvider.GetRequiredService<InjectMameConfigWindow>();
                 w.Owner = Application.Current.MainWindow;
-                w.Initialize(null, null, false);
+                w.Initialize(null, false);
                 w.ShowDialog();
             },
             ["RetroArch"] = () =>
@@ -281,7 +281,7 @@ public class MenuActionHandlerService
             easyModeWindow.ShowDialog();
 
             _host.LoadOrReloadSystemManager();
-            _host.ResetUiAsync();
+            _ = _host.ResetUiAsync();
         }
         catch (Exception ex)
         {
@@ -309,7 +309,7 @@ public class MenuActionHandlerService
             editSystemWindow.ShowDialog();
 
             _host.LoadOrReloadSystemManager();
-            _host.ResetUiAsync();
+            _ = _host.ResetUiAsync();
         }
         catch (Exception ex)
         {
@@ -326,7 +326,7 @@ public class MenuActionHandlerService
             _playSoundEffects.PlayNotificationSound();
             _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningImagePackDownloader") ?? "Opening Image Pack Downloader...");
 
-            _host.ResetUiAsync();
+            _ = _host.ResetUiAsync();
 
             var downloadImagePack = _serviceProvider.GetRequiredService<DownloadImagePackWindow>();
             downloadImagePack.Owner = Application.Current.MainWindow;
@@ -352,7 +352,7 @@ public class MenuActionHandlerService
                 await _gameScannerService.ScanForStoreGamesAsync();
                 await Task.Delay(2000, _host.CurrentCancellationToken);
                 _host.LoadOrReloadSystemManager();
-                _host.ResetUiAsync();
+                await _host.ResetUiAsync();
             }
             catch (Exception ex)
             {
@@ -786,7 +786,7 @@ public class MenuActionHandlerService
     {
         _playSoundEffects.PlayNotificationSound();
         _host.NavigateBackToMainContent();
-        _host.ResetUiAsync();
+        _ = _host.ResetUiAsync();
     }
 
     // ---- System Favorites ----

@@ -1,0 +1,121 @@
+---
+title: 'LegendItemClickedEventArgs'
+hide_title: true
+slug: '/avalonia/controls/charts/legenditemclickedeventargs'
+uid: 'Avalonia.Controls.Charts.LegendItemClickedEventArgs'
+commentId: 'T:Avalonia.Controls.Charts.LegendItemClickedEventArgs'
+docset: 'avalonia-docs'
+packageId: 'Avalonia.Controls.Charts'
+assembly: 'Avalonia.Controls.Charts'
+apiKind: 'Class'
+generatedBy: 'dotnet-apiref'
+namespace: 'Avalonia.Controls.Charts'
+tfms:
+  - 'net9.0'
+---
+
+import ApiRefPage from '@site/src/components/apiref/ApiRefPage';
+
+<ApiRefPage>
+
+<h1 className="apiref-page__title">LegendItemClickedEventArgs Class</h1>
+
+## Definition
+
+<div className="apiref-page__definition-meta">
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Namespace:</span> <a href="./">Avalonia.Controls.Charts</a>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Assembly:</span> <code>Avalonia.Controls.Charts</code>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Package:</span> <code>Avalonia.Controls.Charts</code>
+</div>
+</div>
+
+<div className="apiref-page__lead">
+
+Provides data for the [Avalonia.Controls.Charts.ChartBase.LegendItemClicked](xref:Avalonia.Controls.Charts.ChartBase.LegendItemClicked) event.
+
+</div>
+
+<div className="apiref-page__signature">
+
+```csharp
+public class LegendItemClickedEventArgs
+```
+
+</div>
+
+<div className="apiref-page__relations">
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Inheritance:</span> EventArgs <span className="apiref-page__relation-separator">-&gt;</span> LegendItemClickedEventArgs
+</div>
+</div>
+
+## Constructors
+
+| Name | Description |
+| --- | --- |
+| [LegendItemClickedEventArgs](#uid-403fc2ebc9) | Initializes a new instance of the [Avalonia.Controls.Charts.LegendItemClickedEventArgs](xref:Avalonia.Controls.Charts.LegendItemClickedEventArgs) class. |
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-403fc2ebc9"></span>
+
+### LegendItemClickedEventArgs Constructor
+
+Initializes a new instance of the [Avalonia.Controls.Charts.LegendItemClickedEventArgs](xref:Avalonia.Controls.Charts.LegendItemClickedEventArgs) class.
+
+```csharp
+public LegendItemClickedEventArgs(Avalonia.Controls.Charts.ChartLegendItem item, bool isNowVisible)
+```
+
+#### Parameters
+
+`item` [Avalonia.Controls.Charts.ChartLegendItem](xref:Avalonia.Controls.Charts.ChartLegendItem)
+
+
+`isNowVisible` bool
+
+
+</section>
+
+## Properties
+
+| Name | Description |
+| --- | --- |
+| [IsNowVisible](#uid-674ebeadc8) | Gets whether the associated series or indicator is now visible after the toggle. |
+| [Item](#uid-0540932a9a) | Gets the legend item that was clicked. |
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-674ebeadc8"></span>
+
+### IsNowVisible Property
+
+Gets whether the associated series or indicator is now visible after the toggle.
+
+```csharp
+public bool IsNowVisible { get; set; }
+```
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-0540932a9a"></span>
+
+### Item Property
+
+Gets the legend item that was clicked.
+
+```csharp
+public Avalonia.Controls.Charts.ChartLegendItem Item { get; set; }
+```
+
+</section>
+
+</ApiRefPage>
+

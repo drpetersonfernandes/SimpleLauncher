@@ -125,9 +125,13 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
         _settings.Supermodel.Throttle = Throttle;
         _settings.Supermodel.MultiThreaded = MultiThreaded;
         _settings.Supermodel.InputSystem = InputSystem;
-        _settings.Supermodel.PowerPcFrequency = int.Parse(PowerPcFrequency, CultureInfo.InvariantCulture);
+        if (int.TryParse(PowerPcFrequency, CultureInfo.InvariantCulture, out var powerPcFrequency))
+        {
+            _settings.Supermodel.PowerPcFrequency = powerPcFrequency;
+        }
+
         _settings.Supermodel.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
     private async Task<string> EnsureEmulatorPathAsync()

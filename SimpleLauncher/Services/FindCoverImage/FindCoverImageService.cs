@@ -93,11 +93,6 @@ public class FindCoverImageService : IFindCoverImageService
         return GlobalDefaultImagePath;
     }
 
-    double IFindCoverImageService.CalculateJaroWinklerSimilarity(string s1, string s2)
-    {
-        return CalculateJaroWinklerSimilarity(s1, s2);
-    }
-
     public static double CalculateJaroWinklerSimilarity(string s1, string s2)
     {
         if (string.IsNullOrEmpty(s1) || string.IsNullOrEmpty(s2))

@@ -27,29 +27,35 @@ public class AresConfigHandler : IEmulatorConfigHandler
 
     public async Task<bool> HandleConfigurationAsync(LaunchContext context)
     {
-        var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
-        var shouldRun = false;
+        if (context.EmulatorManager != null)
+        {
+            var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
+            var shouldRun = false;
 
-        if (context.Settings.Ares.ShowSettingsBeforeLaunch)
-        {
-            await context.WindowContext.Dispatcher.InvokeAsync(() =>
+            if (context.Settings != null && context.Settings.Ares.ShowSettingsBeforeLaunch)
             {
-                var aresWindow = App.ServiceProvider.GetRequiredService<InjectAresConfigWindow>();
-                aresWindow.Owner = (Window)context.WindowContext.PlatformWindow;
-                aresWindow.Initialize(resolvedEmulatorExePath);
-                aresWindow.ShowDialog();
-                shouldRun = aresWindow.ShouldRun;
-            });
-        }
-        else
-        {
-            shouldRun = true;
-            if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
-            {
-                AresConfigurationService.InjectSettings(resolvedEmulatorExePath, context.Settings, _logErrors, _debugLogger);
+                if (context.WindowContext != null)
+                    await context.WindowContext.Dispatcher.InvokeAsync(() =>
+                    {
+                        var aresWindow = App.ServiceProvider.GetRequiredService<InjectAresConfigWindow>();
+                        aresWindow.Owner = (Window)context.WindowContext.PlatformWindow;
+                        aresWindow.Initialize(resolvedEmulatorExePath);
+                        aresWindow.ShowDialog();
+                        shouldRun = aresWindow.ShouldRun;
+                    });
             }
+            else
+            {
+                shouldRun = true;
+                if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                {
+                    AresConfigurationService.InjectSettings(resolvedEmulatorExePath, context.Settings, _logErrors, _debugLogger);
+                }
+            }
+
+            return shouldRun;
         }
 
-        return shouldRun;
+        return false;
     }
 }

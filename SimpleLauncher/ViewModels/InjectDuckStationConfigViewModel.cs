@@ -146,7 +146,7 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
         _settings.DuckStation.OutputMuted = DuckStationOutputMuted;
         _settings.DuckStation.OutputVolume = DuckStationOutputVolume;
         _settings.DuckStation.ShowSettingsBeforeLaunch = DuckStationShowSettingsBeforeLaunch;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
     private async Task<string> EnsureEmulatorPath()

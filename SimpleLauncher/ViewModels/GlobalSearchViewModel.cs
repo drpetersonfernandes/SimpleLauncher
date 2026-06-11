@@ -41,6 +41,11 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 
     [ObservableProperty] private Stream? _previewImageSource;
 
+    partial void OnPreviewImageSourceChanging(Stream? value)
+    {
+        value?.Dispose();
+    }
+
     [ObservableProperty] private bool _isLoading;
 
     [ObservableProperty] private string _loadingMessage = "";
@@ -386,6 +391,8 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
     public void Dispose()
     {
         _cancellationTokenSource.Dispose();
+        PreviewImageSource?.Dispose();
+        PreviewImageSource = null;
         GC.SuppressFinalize(this);
     }
 }

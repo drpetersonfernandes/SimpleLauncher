@@ -27,29 +27,35 @@ public class RedreamConfigHandler : IEmulatorConfigHandler
 
     public async Task<bool> HandleConfigurationAsync(LaunchContext context)
     {
-        var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
-        var shouldRun = false;
+        if (context.EmulatorManager != null)
+        {
+            var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
+            var shouldRun = false;
 
-        if (context.Settings.Redream.ShowSettingsBeforeLaunch)
-        {
-            await context.WindowContext.Dispatcher.InvokeAsync(() =>
+            if (context.Settings != null && context.Settings.Redream.ShowSettingsBeforeLaunch)
             {
-                var win = App.ServiceProvider.GetRequiredService<InjectRedreamConfigWindow>();
-                win.Owner = (Window)context.WindowContext.PlatformWindow;
-                win.Initialize(resolvedExe);
-                win.ShowDialog();
-                shouldRun = win.ShouldRun;
-            });
-        }
-        else
-        {
-            shouldRun = true;
-            if (File.Exists(resolvedExe))
-            {
-                RedreamConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
+                if (context.WindowContext != null)
+                    await context.WindowContext.Dispatcher.InvokeAsync(() =>
+                    {
+                        var win = App.ServiceProvider.GetRequiredService<InjectRedreamConfigWindow>();
+                        win.Owner = (Window)context.WindowContext.PlatformWindow;
+                        win.Initialize(resolvedExe);
+                        win.ShowDialog();
+                        shouldRun = win.ShouldRun;
+                    });
             }
+            else
+            {
+                shouldRun = true;
+                if (File.Exists(resolvedExe))
+                {
+                    RedreamConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
+                }
+            }
+
+            return shouldRun;
         }
 
-        return shouldRun;
+        return false;
     }
 }

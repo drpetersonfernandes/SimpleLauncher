@@ -16,16 +16,17 @@ public class DaphneConfigHandler : IEmulatorConfigHandler
     public async Task<bool> HandleConfigurationAsync(LaunchContext context)
     {
         var shouldRun = true;
-        if (context.Settings.Daphne.ShowSettingsBeforeLaunch)
+        if (context.Settings != null && context.Settings.Daphne.ShowSettingsBeforeLaunch)
         {
-            await context.WindowContext.Dispatcher.InvokeAsync(() =>
-            {
-                var win = App.ServiceProvider.GetRequiredService<InjectDaphneConfigWindow>();
-                win.Owner = (Window)context.WindowContext.PlatformWindow;
-                win.Initialize();
-                win.ShowDialog();
-                shouldRun = win.ShouldRun;
-            });
+            if (context.WindowContext != null)
+                await context.WindowContext.Dispatcher.InvokeAsync(() =>
+                {
+                    var win = App.ServiceProvider.GetRequiredService<InjectDaphneConfigWindow>();
+                    win.Owner = (Window)context.WindowContext.PlatformWindow;
+                    win.Initialize();
+                    win.ShowDialog();
+                    shouldRun = win.ShouldRun;
+                });
         }
 
         if (shouldRun)

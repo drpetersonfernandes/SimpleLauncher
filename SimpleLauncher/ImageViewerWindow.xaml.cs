@@ -21,7 +21,7 @@ public partial class ImageViewerWindow
     /// <param name="imagePath">The path to the image file.</param>
     public void LoadImagePath(string imagePath)
     {
-        _viewModel.LoadImageFromPath(imagePath);
+        _ = _viewModel.LoadImageFromPath(imagePath);
     }
 
     /// <summary>

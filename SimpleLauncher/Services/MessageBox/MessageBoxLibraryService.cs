@@ -1154,7 +1154,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{temporarilydisableyourantivirus}", error);
     }
 
-    public Task DownloadAndExtrationWereSuccessfulMessageBox()
+    public Task DownloadAndExtractionWereSuccessfulMessageBox()
     {
         var downloadandextractioncompletedsuccessfully = (string)Application.Current.TryFindResource("Downloadandextractioncompletedsuccessfully") ?? "Download and extraction completed successfully.";
         var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
@@ -1818,7 +1818,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.FromResult(CoreMessageBoxResult.No);
     }
 
-    public Task<CoreMessageBoxResult> WoulYouLikeToSaveAReportMessageBox()
+    public Task<CoreMessageBoxResult> WouldYouLikeToSaveAReportMessageBox()
     {
         return Task.FromResult(CoreMessageBoxResult.No);
     }
@@ -2571,7 +2571,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message1, message2);
     }
 
-    public Task MamEconfigurationinjectedsuccessfullyMessageBox()
+    public Task MameConfigurationInjectedSuccessfullyMessageBox()
     {
         var message1 = (string)Application.Current.TryFindResource("MAMEconfigurationinjectedsuccessfully") ?? "MAME configuration injected successfully.";
         var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
@@ -2606,7 +2606,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message1, message2);
     }
 
-    public Task RetroArchconfigurationinjectedsuccessfullyMessageBox()
+    public Task RetroArchConfigurationInjectedSuccessfullyMessageBox()
     {
         var message1 = (string)Application.Current.TryFindResource("RetroArchconfigurationinjectedsuccessfully") ?? "RetroArch configuration injected successfully.";
         var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
@@ -2683,7 +2683,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
-    public Task CemuemulatornotfoundMessageBox()
+    public Task CemuEmulatorNotFoundMessageBox()
     {
         var message1 = (string)Application.Current.TryFindResource("Cemuemulatornotfound") ?? "Cemu emulator not found. Please locate 'Cemu.exe'.";
         var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";

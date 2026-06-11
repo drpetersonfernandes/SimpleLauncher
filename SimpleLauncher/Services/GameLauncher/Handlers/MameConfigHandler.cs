@@ -28,27 +28,36 @@ public class MameConfigHandler : IEmulatorConfigHandler
 
     public async Task<bool> HandleConfigurationAsync(LaunchContext context)
     {
-        var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
-        var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(context.SystemManager.PrimarySystemFolder);
-        var listOfSecondarySystemFolders = context.SystemManager.SystemFolders.ToArray();
-
-        var shouldRun = true;
-        if (context.Settings.Mame.ShowSettingsBeforeLaunch)
+        if (context.EmulatorManager != null)
         {
-            await context.WindowContext.Dispatcher.InvokeAsync(() =>
+            var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
+            if (context.SystemManager != null)
             {
-                var win = App.ServiceProvider.GetRequiredService<InjectMameConfigWindow>();
-                win.Owner = (Window)context.WindowContext.PlatformWindow;
-                win.Initialize(resolvedExe, resolvedSystemFolder, true, listOfSecondarySystemFolders);
-                win.ShowDialog();
-                shouldRun = win.ShouldRun;
-            });
-        }
-        else
-        {
-            MameConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger, resolvedSystemFolder, listOfSecondarySystemFolders);
+                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(context.SystemManager.PrimarySystemFolder);
+                var listOfSecondarySystemFolders = context.SystemManager.SystemFolders.ToArray();
+
+                var shouldRun = true;
+                if (context.Settings != null && context.Settings.Mame.ShowSettingsBeforeLaunch)
+                {
+                    if (context.WindowContext != null)
+                        await context.WindowContext.Dispatcher.InvokeAsync(() =>
+                        {
+                            var win = App.ServiceProvider.GetRequiredService<InjectMameConfigWindow>();
+                            win.Owner = (Window)context.WindowContext.PlatformWindow;
+                            win.Initialize(resolvedExe, true, resolvedSystemFolder, listOfSecondarySystemFolders);
+                            win.ShowDialog();
+                            shouldRun = win.ShouldRun;
+                        });
+                }
+                else
+                {
+                    MameConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger, resolvedSystemFolder, listOfSecondarySystemFolders);
+                }
+
+                return shouldRun;
+            }
         }
 
-        return shouldRun;
+        return false;
     }
 }

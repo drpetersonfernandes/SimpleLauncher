@@ -29,7 +29,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     private readonly EasyModeManager _easyModeManager;
     private readonly IResourceProvider _resourceProvider;
     private EasyModeManager _manager;
-    private bool _disposed;
+    private volatile bool _disposed;
     private int _operationInProgressFlag;
 
     private bool _isOperationInProgress;
@@ -388,7 +388,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                 var hasbeensuccessfullydownloadedandinstalled = _resourceProvider.GetString("hasbeensuccessfullydownloadedandinstalled", "has been successfully downloaded and installed.");
                 StatusMessage = $"{componentName} {hasbeensuccessfullydownloadedandinstalled}";
 
-                await _messageBox.DownloadAndExtrationWereSuccessfulMessageBox();
+                await _messageBox.DownloadAndExtractionWereSuccessfulMessageBox();
 
                 IsStopEnabled = false;
                 EndOperation();
@@ -461,8 +461,6 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
             IsStopEnabled = false;
             item.State = DownloadButtonState.Failed;
         }
-
-        EndOperation();
     }
 
     private EasyModeSystemConfig GetSelectedSystem()

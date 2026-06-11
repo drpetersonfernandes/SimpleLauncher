@@ -160,10 +160,10 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
         _settings.RetroArch.CheevosHardcore = CheevosHardcore;
         _settings.RetroArch.DiscordAllow = DiscordAllow;
         _settings.RetroArch.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
-    private string EnsureEmulatorPath()
+    private async Task<string> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {
@@ -177,7 +177,7 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        _messageBox.RetroArchemulatorpathnotfoundMessageBox().GetAwaiter().GetResult();
+        await _messageBox.RetroArchemulatorpathnotfoundMessageBox();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -186,9 +186,9 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
         return _emulatorPath;
     }
 
-    private bool InjectConfig()
+    private async Task<bool> InjectConfigAsync()
     {
-        var path = EnsureEmulatorPath();
+        var path = await EnsureEmulatorPathAsync();
         if (string.IsNullOrEmpty(path))
             throw new OperationCanceledException("User cancelled emulator path selection.");
 
@@ -205,12 +205,12 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task Run()
+    private async Task RunAsync()
     {
         SaveSettings();
         try
         {
-            if (InjectConfig())
+            if (await InjectConfigAsync())
             {
                 ShouldRun = true;
                 CloseRequested?.Invoke();
@@ -236,14 +236,14 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task Save()
+    private async Task SaveAsync()
     {
         SaveSettings();
         try
         {
-            if (InjectConfig())
+            if (await InjectConfigAsync())
             {
-                await _messageBox.RetroArchconfigurationinjectedsuccessfullyMessageBox();
+                await _messageBox.RetroArchConfigurationInjectedSuccessfullyMessageBox();
                 CloseRequested?.Invoke();
             }
             else

@@ -1,0 +1,239 @@
+---
+title: 'GeoJsonFeature'
+hide_title: true
+slug: '/avalonia/controls/charts/geojsonfeature'
+uid: 'Avalonia.Controls.Charts.GeoJsonFeature'
+commentId: 'T:Avalonia.Controls.Charts.GeoJsonFeature'
+docset: 'avalonia-docs'
+packageId: 'Avalonia.Controls.Charts'
+assembly: 'Avalonia.Controls.Charts'
+apiKind: 'Class'
+generatedBy: 'dotnet-apiref'
+namespace: 'Avalonia.Controls.Charts'
+tfms:
+  - 'net9.0'
+---
+
+import ApiRefPage from '@site/src/components/apiref/ApiRefPage';
+
+<ApiRefPage>
+
+<h1 className="apiref-page__title">GeoJsonFeature Class</h1>
+
+## Definition
+
+<div className="apiref-page__definition-meta">
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Namespace:</span> <a href="./">Avalonia.Controls.Charts</a>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Assembly:</span> <code>Avalonia.Controls.Charts</code>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Package:</span> <code>Avalonia.Controls.Charts</code>
+</div>
+</div>
+
+<div className="apiref-page__lead">
+
+Represents a parsed GeoJSON feature with its identifier and polygon paths.
+
+</div>
+
+<div className="apiref-page__signature">
+
+```csharp
+public class GeoJsonFeature
+```
+
+</div>
+
+<div className="apiref-page__relations">
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Inheritance:</span> object <span className="apiref-page__relation-separator">-&gt;</span> GeoJsonFeature
+</div>
+</div>
+
+## Constructors
+
+| Name | Description |
+| --- | --- |
+| [GeoJsonFeature (2 overloads)](#uid-79a381d261) | No summary available. |
+
+<span id="uid-79a381d261"></span>
+
+### GeoJsonFeature overloads
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-e415c8a02c"></span>
+
+#### GeoJsonFeature Constructor
+
+```csharp
+public GeoJsonFeature(string id, System.Collections.Generic.List<System.Collections.Generic.List<Avalonia.Point>> paths, System.Collections.Generic.Dictionary<string, object> properties)
+```
+
+##### Parameters
+
+`id` string
+
+
+`paths` System.Collections.Generic.List&lt;System.Collections.Generic.List&lt;[Avalonia.Point](xref:Avalonia.Point)&gt;&gt;
+
+
+`properties` System.Collections.Generic.Dictionary&lt;string, object&gt;
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-13827d3b07"></span>
+
+#### GeoJsonFeature Constructor
+
+```csharp
+public GeoJsonFeature(string id, System.Collections.Generic.List<System.Collections.Generic.List<System.Collections.Generic.List<Avalonia.Point>>> polygons, System.Collections.Generic.Dictionary<string, object> properties)
+```
+
+##### Parameters
+
+`id` string
+
+
+`polygons` System.Collections.Generic.List&lt;System.Collections.Generic.List&lt;System.Collections.Generic.List&lt;[Avalonia.Point](xref:Avalonia.Point)&gt;&gt;&gt;
+
+
+`properties` System.Collections.Generic.Dictionary&lt;string, object&gt;
+
+
+</section>
+
+## Methods
+
+| Name | Description |
+| --- | --- |
+| [Contains](#uid-15968f86ff) | Determines whether the viewport point is inside the feature's GeoJSON polygons. |
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-15968f86ff"></span>
+
+### Contains Method
+
+Determines whether the viewport point is inside the feature's GeoJSON polygons.
+
+```csharp
+public bool Contains(Avalonia.Point point)
+```
+
+#### Parameters
+
+`point` [Avalonia.Point](xref:Avalonia.Point)
+
+
+#### Returns
+
+bool
+
+
+</section>
+
+## Properties
+
+| Name | Description |
+| --- | --- |
+| [Bounds](#uid-cfcaaeb396) | Gets the bounding box of the feature in viewport coordinates (0-200, 0-100). |
+| [Centroid](#uid-474a42fc05) | Gets the pre-calculated centroid of the feature (normalized to 0-200 x 0-100 viewport). |
+| [Geometry](#uid-7da7f4c1ed) | Gets the pre-calculated geometry for this feature (normalized to 0-200 x 0-100 viewport). |
+| [Id](#uid-b1273034b0) | Gets the unique identifier of the feature. |
+| [Paths](#uid-dc07695354) | Gets the list of polygon paths defining the feature shape. |
+| [Properties](#uid-6eebb18146) | Gets the collection of properties from GeoJSON. |
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-cfcaaeb396"></span>
+
+### Bounds Property
+
+Gets the bounding box of the feature in viewport coordinates (0-200, 0-100).
+
+```csharp
+public Avalonia.Rect Bounds { get; set; }
+```
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-474a42fc05"></span>
+
+### Centroid Property
+
+Gets the pre-calculated centroid of the feature (normalized to 0-200 x 0-100 viewport).
+
+```csharp
+public Avalonia.Point Centroid { get; set; }
+```
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-7da7f4c1ed"></span>
+
+### Geometry Property
+
+Gets the pre-calculated geometry for this feature (normalized to 0-200 x 0-100 viewport).
+
+```csharp
+public Avalonia.Media.Geometry Geometry { get; set; }
+```
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-b1273034b0"></span>
+
+### Id Property
+
+Gets the unique identifier of the feature.
+
+```csharp
+public string Id { get; set; }
+```
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-dc07695354"></span>
+
+### Paths Property
+
+Gets the list of polygon paths defining the feature shape.
+
+```csharp
+public System.Collections.Generic.List<System.Collections.Generic.List<Avalonia.Point>> Paths { get; set; }
+```
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-6eebb18146"></span>
+
+### Properties Property
+
+Gets the collection of properties from GeoJSON.
+
+```csharp
+public System.Collections.Generic.Dictionary<string, object> Properties { get; set; }
+```
+
+</section>
+
+</ApiRefPage>
+

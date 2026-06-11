@@ -119,7 +119,11 @@ public partial class InjectAresConfigViewModel : ObservableObject
         _settings.Ares.VideoDriver = VideoDriver;
         _settings.Ares.Exclusive = Exclusive;
         _settings.Ares.Shader = Shader;
-        _settings.Ares.Multiplier = int.Parse(Multiplier, CultureInfo.InvariantCulture);
+        if (int.TryParse(Multiplier, CultureInfo.InvariantCulture, out var multiplier))
+        {
+            _settings.Ares.Multiplier = multiplier;
+        }
+
         _settings.Ares.AspectCorrection = AspectCorrection;
         _settings.Ares.Mute = Mute;
         _settings.Ares.Volume = Volume;
@@ -128,10 +132,10 @@ public partial class InjectAresConfigViewModel : ObservableObject
         _settings.Ares.RunAhead = RunAhead;
         _settings.Ares.AutoSaveMemory = AutoSaveMemory;
         _settings.Ares.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
-    private string EnsureEmulatorPath()
+    private async Task<string> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {
@@ -145,7 +149,7 @@ public partial class InjectAresConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        _messageBox.AresemulatornotfoundMessageBox().GetAwaiter().GetResult();
+        await _messageBox.AresemulatornotfoundMessageBox();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -154,9 +158,9 @@ public partial class InjectAresConfigViewModel : ObservableObject
         return _emulatorPath;
     }
 
-    private bool InjectConfig()
+    private async Task<bool> InjectConfigAsync()
     {
-        var path = EnsureEmulatorPath();
+        var path = await EnsureEmulatorPathAsync();
         if (string.IsNullOrEmpty(path))
             throw new OperationCanceledException("User cancelled emulator path selection.");
 
@@ -173,12 +177,12 @@ public partial class InjectAresConfigViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task Run()
+    private async Task RunAsync()
     {
         SaveSettings();
         try
         {
-            if (InjectConfig())
+            if (await InjectConfigAsync())
             {
                 ShouldRun = true;
                 CloseRequested?.Invoke();
@@ -198,17 +202,17 @@ public partial class InjectAresConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectAresConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 
     [RelayCommand]
-    private async Task Save()
+    private async Task SaveAsync()
     {
         SaveSettings();
         try
         {
-            if (InjectConfig())
+            if (await InjectConfigAsync())
             {
                 await _messageBox.AresConfigurationSavedSuccessfullyMessageBox();
                 CloseRequested?.Invoke();

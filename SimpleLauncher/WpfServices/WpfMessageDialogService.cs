@@ -6,58 +6,48 @@ public class WpfMessageDialogService : IMessageDialogService
 {
     public Task ShowInfoAsync(string message, string title = "")
     {
-        ShowMessageBox(message, title, 0, 64);
+        ShowMessageBox(message, title, MessageBoxButton.Ok, MessageBoxImage.Information);
         return Task.CompletedTask;
     }
 
     public Task ShowWarningAsync(string message, string title = "")
     {
-        ShowMessageBox(message, title, 0, 48);
+        ShowMessageBox(message, title, MessageBoxButton.Ok, MessageBoxImage.Warning);
         return Task.CompletedTask;
     }
 
     public Task ShowErrorAsync(string message, string title = "")
     {
-        ShowMessageBox(message, title, 0, 16);
+        ShowMessageBox(message, title, MessageBoxButton.Ok, MessageBoxImage.Error);
         return Task.CompletedTask;
     }
 
     public Task<bool> ShowConfirmAsync(string message, string title = "")
     {
-        var result = ShowMessageBox(message, title, 1, 32);
-        return Task.FromResult(result == 1); // OK
+        var result = ShowMessageBox(message, title, MessageBoxButton.OkCancel, MessageBoxImage.Question);
+        return Task.FromResult(result == MessageBoxResult.Ok);
     }
 
     public Task<bool> ShowYesNoAsync(string message, string title = "")
     {
-        var result = ShowMessageBox(message, title, 4, 32);
-        return Task.FromResult(result == 6); // Yes
+        var result = ShowMessageBox(message, title, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        return Task.FromResult(result == MessageBoxResult.Yes);
     }
 
     public Task<MessageBoxResult> ShowAsync(string message, string title, MessageBoxButton buttons, MessageBoxImage icon)
     {
-        var wpfButtons = (int)buttons;
-        var wpfIcon = (int)icon;
-
-        var result = ShowMessageBox(message, title, wpfButtons, wpfIcon);
-
-        var mappedResult = result switch
-        {
-            1 => MessageBoxResult.Ok,
-            2 => MessageBoxResult.Cancel,
-            6 => MessageBoxResult.Yes,
-            7 => MessageBoxResult.No,
-            _ => MessageBoxResult.None
-        };
-
-        return Task.FromResult(mappedResult);
+        var result = ShowMessageBox(message, title, buttons, icon);
+        return Task.FromResult(result);
     }
 
-    private static int ShowMessageBox(string message, string title, int buttons, int icon)
+    private static MessageBoxResult ShowMessageBox(string message, string title, MessageBoxButton buttons, MessageBoxImage icon)
     {
-        return (int)System.Windows.Application.Current.Dispatcher.Invoke(() =>
-            System.Windows.MessageBox.Show(message, title,
-                (global::System.Windows.MessageBoxButton)buttons,
-                (global::System.Windows.MessageBoxImage)icon));
+        var wpfButtons = (global::System.Windows.MessageBoxButton)(int)buttons;
+        var wpfIcon = (global::System.Windows.MessageBoxImage)(int)icon;
+
+        var wpfResult = System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            System.Windows.MessageBox.Show(message, title, wpfButtons, wpfIcon));
+
+        return (MessageBoxResult)(int)wpfResult;
     }
 }

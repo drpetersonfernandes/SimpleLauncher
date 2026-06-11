@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameItemFactory;
 
+[SuppressMessage("ReSharper", "UnusedMember.Local")]
 public class GameListFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
@@ -68,7 +70,7 @@ public class GameListFactory(
         {
             fileNameWithExtension = Path.GetFileName(entityPath);
             fileNameWithoutExtension = Path.GetFileNameWithoutExtension(entityPath);
-            folderPath = Path.GetDirectoryName(entityPath);
+            folderPath = Path.GetDirectoryName(entityPath) ?? "";
         }
 
         var machineDescription = GetMachineDescription(fileNameWithoutExtension);
@@ -100,28 +102,7 @@ public class GameListFactory(
             MachineDescription = machineDescription,
             FilePath = entityPath,
             FolderPath = folderPath,
-            ContextMenu = ContextMenu.ContextMenu.AddRightClickReturnContextMenu(
-                new RightClickContext(
-                    entityPath,
-                    fileNameWithExtension,
-                    fileNameWithoutExtension,
-                    systemName,
-                    systemManager,
-                    _machines,
-                    _favoritesManager,
-                    _settings,
-                    _emulatorComboBox,
-                    null,
-                    null,
-                    null,
-                    null,
-                    _mainWindow,
-                    _gamePadController,
-                    null,
-                    _gameLauncher,
-                    _playSoundEffects
-                ), _logErrors, _findCoverImage
-            ),
+            SystemName = systemName,
             IsFavorite = isFavorite,
             TimesPlayed = timesPlayed,
             PlayTime = playTime

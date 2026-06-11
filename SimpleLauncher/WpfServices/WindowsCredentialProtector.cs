@@ -1,3 +1,5 @@
+#nullable enable
+
 using System.Security.Cryptography;
 using System.Text;
 using SimpleLauncher.Interfaces;
@@ -21,7 +23,7 @@ public class WindowsCredentialProtector : ICredentialProtector
         return Convert.ToBase64String(protectedBytes);
     }
 
-    public string Unprotect(string protectedData)
+    public string? Unprotect(string protectedData)
     {
         if (string.IsNullOrEmpty(protectedData))
             return "";
@@ -35,7 +37,7 @@ public class WindowsCredentialProtector : ICredentialProtector
         catch (CryptographicException)
         {
             // Data may be corrupted or from a different user/machine
-            return "";
+            return null;
         }
     }
 }

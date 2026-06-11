@@ -178,7 +178,7 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
         _settings.Xenia.Hid = XeniaHid;
         _settings.Xenia.UserLanguage = XeniaUserLanguage;
         _settings.Xenia.ShowSettingsBeforeLaunch = XeniaShowSettingsBeforeLaunch;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
     private async Task<string> EnsureEmulatorPathAsync()

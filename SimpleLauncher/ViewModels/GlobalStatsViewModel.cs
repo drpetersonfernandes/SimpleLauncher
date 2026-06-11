@@ -160,16 +160,6 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
     /// </summary>
     public event Action CloseRequested;
 
-    /// <summary>
-    /// Event raised when a message box should be shown.
-    /// </summary>
-    public event Func<System.Windows.MessageBoxResult> ConfirmSaveReportRequested;
-
-    /// <summary>
-    /// Event raised when a message box for cancellation should be shown.
-    /// </summary>
-    public event Func<System.Windows.MessageBoxResult> ConfirmCancelRequested;
-
     #endregion
 
     [RelayCommand(CanExecute = nameof(CanStart))]
@@ -241,7 +231,10 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         _globalStats = CalculateGlobalStats(systemStatsList);
         cancellationToken.ThrowIfCancellationRequested();
 
-        await Application.Current.Dispatcher.InvokeAsync(() =>
+        var dispatcher = Application.Current?.Dispatcher;
+        if (dispatcher == null) return;
+
+        await dispatcher.InvokeAsync(() =>
         {
             SystemStats = new ObservableCollection<SystemStatsData>(systemStatsList);
 
@@ -302,10 +295,14 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
                 cancellationToken.ThrowIfCancellationRequested();
 
                 // Update UI overlay text to show current system
-                await Application.Current.Dispatcher.InvokeAsync(() =>
+                var dispatcher = Application.Current?.Dispatcher;
+                if (dispatcher != null)
                 {
-                    BusyOverlayText = $"{processingText}\n{processingSystemText} {systemManager.SystemName}";
-                });
+                    await dispatcher.InvokeAsync(() =>
+                    {
+                        BusyOverlayText = $"{processingText}\n{processingSystemText} {systemManager.SystemName}";
+                    });
+                }
 
                 var allRomFiles = new List<string>();
                 foreach (var folderRaw in systemManager.SystemFolders)
@@ -396,8 +393,8 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
     {
         try
         {
-            var result = ConfirmSaveReportRequested?.Invoke();
-            if (result == System.Windows.MessageBoxResult.Yes)
+            var result = await _messageBox.WouldYouLikeToSaveAReportMessageBox();
+            if (result == Interfaces.MessageBoxResult.Yes)
             {
                 await SaveReport();
             }
@@ -467,25 +464,38 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
     }
 
     [RelayCommand]
-    private void Closing(CancelEventArgs e)
+    private async Task Closing(CancelEventArgs e)
     {
-        lock (_processingLock)
+        try
         {
-            if (!IsProcessing)
+            bool needsConfirmation;
+            lock (_processingLock)
             {
-                // Not processing, allow normal close
-                Dispose();
-                return;
+                if (!IsProcessing)
+                {
+                    // Not processing, allow normal close
+                    Dispose();
+                    return;
+                }
+
+                // Processing is active - cancel the close and ask user to confirm
+                e.Cancel = true;
+                needsConfirmation = true;
             }
 
-            // Processing is active - ask user to confirm
-            e.Cancel = true;
-            var result = ConfirmCancelRequested?.Invoke();
-            if (result == System.Windows.MessageBoxResult.Yes)
+            if (needsConfirmation)
             {
-                _forceClose = true;
-                Cancel();
+                var result = await _messageBox.DoYouWantToCancelAndCloseMessageBox();
+                if (result == Interfaces.MessageBoxResult.Yes)
+                {
+                    _forceClose = true;
+                    Cancel();
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in method Closing.");
         }
     }
 

@@ -62,8 +62,8 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
         _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
-        _logErrors = logErrors;
-        _configuration = configuration;
+        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
+        _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         _findCoverImage = findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
         _machines = machines ?? throw new ArgumentNullException(nameof(machines));
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));

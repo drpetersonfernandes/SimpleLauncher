@@ -102,12 +102,6 @@ public partial class SupportViewModel : ObservableObject
         var apiBaseUrl = _configuration.GetValue<string>("EmailApiBaseUrl") ?? "https://www.purelogiccode.com/customeremailservice/api/send-customer-email/";
         var apiKey = _configuration.GetValue<string>("ApiKey") ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
 
-        if (string.IsNullOrEmpty(apiBaseUrl))
-        {
-            await _messageBox.ApiKeyErrorMessageBox();
-            return;
-        }
-
         var requestPayload = new
         {
             to = "contact@purelogiccode.com",
@@ -156,7 +150,7 @@ public partial class SupportViewModel : ObservableObject
         }
         catch (OperationCanceledException)
         {
-            const string contextMessage = "The support request timed out after 15 seconds. Please check your internet connection and try again.";
+            const string contextMessage = "The support request timed out after 20 seconds. Please check your internet connection and try again.";
             _logErrors.LogAndForget(null, contextMessage);
 
             await _messageBox.SupportRequestSendErrorMessageBox();

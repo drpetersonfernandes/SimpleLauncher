@@ -1,4 +1,5 @@
 #nullable enable
+
 using NAudio.Wave;
 using SimpleLauncher.Services.DebugAndBugReport;
 

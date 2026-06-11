@@ -403,10 +403,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         await File.WriteAllTextAsync(_systemXmlPath, BuildMultiSystemXml());
         ResetSystemXmlStaticState();
 
-        SystemManager.DeleteSystemAsync("Arcade");
-
-        // Give it a moment since it's async void
-        await Task.Delay(200);
+        await SystemManager.DeleteSystemAsync("Arcade");
 
         ResetSystemXmlStaticState();
         var loaded = SystemManager.LoadSystemManagers(_configuration);
@@ -421,9 +418,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         await File.WriteAllTextAsync(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
 
-        SystemManager.DeleteSystemAsync("NonExistent");
-
-        await Task.Delay(200);
+        await SystemManager.DeleteSystemAsync("NonExistent");
 
         ResetSystemXmlStaticState();
         var loaded = SystemManager.LoadSystemManagers(_configuration);

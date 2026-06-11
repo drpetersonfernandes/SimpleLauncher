@@ -16,42 +16,42 @@ public class SystemPlayTimeExtendedTests
     public void SystemPlayTimeFormattedPlayTimeZeroSeconds()
     {
         var spt = new SystemPlayTime { SystemName = "NES", PlayTimeSeconds = 0 };
-        Assert.Equal("00:00:00", spt.FormattedPlayTime);
+        Assert.Equal("0:00:00", spt.FormattedPlayTime);
     }
 
     [Fact]
     public void SystemPlayTimeFormattedPlayTimeOneHour()
     {
         var spt = new SystemPlayTime { SystemName = "NES", PlayTimeSeconds = 3600 };
-        Assert.Equal("01:00:00", spt.FormattedPlayTime);
+        Assert.Equal("1:00:00", spt.FormattedPlayTime);
     }
 
     [Fact]
     public void SystemPlayTimeFormattedPlayTimeComplex()
     {
         var spt = new SystemPlayTime { SystemName = "NES", PlayTimeSeconds = 3723 };
-        Assert.Equal("01:02:03", spt.FormattedPlayTime);
+        Assert.Equal("1:02:03", spt.FormattedPlayTime);
     }
 
     [Fact]
     public void SystemPlayTimeFormattedPlayTimeMinutesOnly()
     {
         var spt = new SystemPlayTime { SystemName = "NES", PlayTimeSeconds = 120 };
-        Assert.Equal("00:02:00", spt.FormattedPlayTime);
+        Assert.Equal("0:02:00", spt.FormattedPlayTime);
     }
 
     [Fact]
     public void SystemPlayTimeFormattedPlayTimeSecondsOnly()
     {
         var spt = new SystemPlayTime { SystemName = "NES", PlayTimeSeconds = 45 };
-        Assert.Equal("00:00:45", spt.FormattedPlayTime);
+        Assert.Equal("0:00:45", spt.FormattedPlayTime);
     }
 
     [Fact]
     public void SystemPlayTimeFormattedPlayTimeLargeValue()
     {
         var spt = new SystemPlayTime { SystemName = "NES", PlayTimeSeconds = 86400 };
-        Assert.Equal("00:00:00", spt.FormattedPlayTime);
+        Assert.Equal("24:00:00", spt.FormattedPlayTime);
     }
 
     [Fact]
@@ -75,10 +75,10 @@ public class SystemPlayTimeExtendedTests
     public void SystemPlayTimeFormattedPlayTimeUpdatesWithPlayTimeSeconds()
     {
         var spt = new SystemPlayTime { SystemName = "NES", PlayTimeSeconds = 0 };
-        Assert.Equal("00:00:00", spt.FormattedPlayTime);
+        Assert.Equal("0:00:00", spt.FormattedPlayTime);
 
         spt.PlayTimeSeconds = 3661;
-        Assert.Equal("01:01:01", spt.FormattedPlayTime);
+        Assert.Equal("1:01:01", spt.FormattedPlayTime);
     }
 
     [Fact]
@@ -92,8 +92,8 @@ public class SystemPlayTimeExtendedTests
         };
 
         Assert.Equal(3, times.Count);
-        Assert.Equal("01:00:00", times[0].FormattedPlayTime);
-        Assert.Equal("02:00:00", times[1].FormattedPlayTime);
-        Assert.Equal("00:30:00", times[2].FormattedPlayTime);
+        Assert.Equal("1:00:00", times[0].FormattedPlayTime);
+        Assert.Equal("2:00:00", times[1].FormattedPlayTime);
+        Assert.Equal("0:30:00", times[2].FormattedPlayTime);
     }
 }

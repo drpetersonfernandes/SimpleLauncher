@@ -89,14 +89,26 @@ public partial class InjectCemuConfigViewModel : ObservableObject
     private void SaveSettings()
     {
         _settings.Cemu.Fullscreen = Fullscreen;
-        _settings.Cemu.GraphicApi = int.Parse(GraphicApi, CultureInfo.InvariantCulture);
-        _settings.Cemu.Vsync = int.Parse(Vsync, CultureInfo.InvariantCulture);
+        if (int.TryParse(GraphicApi, CultureInfo.InvariantCulture, out var graphicApi))
+        {
+            _settings.Cemu.GraphicApi = graphicApi;
+        }
+
+        if (int.TryParse(Vsync, CultureInfo.InvariantCulture, out var vsync))
+        {
+            _settings.Cemu.Vsync = vsync;
+        }
+
         _settings.Cemu.AsyncCompile = AsyncCompile;
         _settings.Cemu.TvVolume = Volume;
         _settings.Cemu.DiscordPresence = Discord;
-        _settings.Cemu.ConsoleLanguage = int.Parse(Language, CultureInfo.InvariantCulture);
+        if (int.TryParse(Language, CultureInfo.InvariantCulture, out var language))
+        {
+            _settings.Cemu.ConsoleLanguage = language;
+        }
+
         _settings.Cemu.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
     private async Task<string> EnsureEmulatorPath()
@@ -113,7 +125,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        await _messageBox.CemuemulatornotfoundMessageBox();
+        await _messageBox.CemuEmulatorNotFoundMessageBox();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;

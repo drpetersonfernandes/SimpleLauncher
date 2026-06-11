@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.AppDataFile;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Services.SystemConfiguration;
 
@@ -259,7 +258,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
         existingSystem.Add(new XElement("Emulators", config.Emulators.Select(CreateEmulatorXElement)));
     }
 
-    private static XElement CreateEmulatorXElement(Emulator emulator)
+    private static XElement CreateEmulatorXElement(IEmulator emulator)
     {
         var element = new XElement("Emulator",
             new XElement("EmulatorName", emulator.EmulatorName),

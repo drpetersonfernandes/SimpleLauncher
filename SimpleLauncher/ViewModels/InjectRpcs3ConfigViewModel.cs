@@ -147,7 +147,7 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
         _settings.Rpcs3.AudioBuffering = Rpcs3AudioBuffering;
         _settings.Rpcs3.StartFullscreen = Rpcs3StartFullscreen;
         _settings.Rpcs3.ShowSettingsBeforeLaunch = Rpcs3ShowSettingsBeforeLaunch;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
     private async Task<string> EnsureEmulatorPathAsync()

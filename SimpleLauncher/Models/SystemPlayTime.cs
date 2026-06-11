@@ -22,9 +22,16 @@ public class SystemPlayTime
     public long PlayTimeSeconds { get; set; }
 
     /// <summary>
-    /// Gets the play time formatted as HH:mm:ss.
+    /// Gets the play time formatted as ISO 8601 compatible duration (e.g. "25:30:15").
     /// </summary>
     [IgnoreMember]
-    public string FormattedPlayTime =>
-        TimeSpan.FromSeconds(PlayTimeSeconds).ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
+    public string FormattedPlayTime
+    {
+        get
+        {
+            var timeSpan = TimeSpan.FromSeconds(PlayTimeSeconds);
+            var totalHours = (int)timeSpan.TotalHours;
+            return string.Format(CultureInfo.InvariantCulture, "{0}:{1:D2}:{2:D2}", totalHours, timeSpan.Minutes, timeSpan.Seconds);
+        }
+    }
 }

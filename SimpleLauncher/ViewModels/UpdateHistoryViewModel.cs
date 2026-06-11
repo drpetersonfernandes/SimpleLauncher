@@ -15,7 +15,6 @@ public class UpdateHistoryViewModel : ObservableObject
     {
         _logErrors = logErrors;
         _resourceProvider = resourceProvider;
-        LoadWhatsNewContent();
     }
 
     public string MarkdownContent
@@ -24,14 +23,16 @@ public class UpdateHistoryViewModel : ObservableObject
         private set => SetProperty(ref _markdownContent, value);
     }
 
-    private void LoadWhatsNewContent()
+    public async Task InitializeAsync()
     {
         var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "whatsnew.md");
 
         try
         {
             var defaultContent = _resourceProvider.GetString("WhatsNewFileNotFound", "# 'whatsnew.md' not found. The update history file could not be found.");
-            MarkdownContent = File.Exists(filePath) ? File.ReadAllText(filePath) : defaultContent;
+            MarkdownContent = File.Exists(filePath)
+                ? await File.ReadAllTextAsync(filePath)
+                : defaultContent;
         }
         catch (Exception ex)
         {

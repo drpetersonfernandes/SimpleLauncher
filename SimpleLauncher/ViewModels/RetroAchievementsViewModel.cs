@@ -1,20 +1,17 @@
 #nullable enable
 
 using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.RetroAchievements.Models;
 using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
-[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class RetroAchievementsViewModel : ObservableObject
 {
     private readonly ILogErrors _logErrors;
@@ -22,7 +19,6 @@ public partial class RetroAchievementsViewModel : ObservableObject
     private readonly IResourceProvider _resourceProvider;
     private readonly SettingsManager _settings;
     private readonly RetroAchievementsService _raService;
-    private readonly PlaySoundEffects _playSoundEffects;
 
     // Profile tab
     [ObservableProperty] private string? _profileImageUrl;
@@ -97,15 +93,13 @@ public partial class RetroAchievementsViewModel : ObservableObject
         IMessageBoxLibraryService messageBox,
         IResourceProvider resourceProvider,
         SettingsManager settings,
-        RetroAchievementsService raService,
-        PlaySoundEffects playSoundEffects)
+        RetroAchievementsService raService)
     {
         _logErrors = logErrors;
         _messageBox = messageBox;
         _resourceProvider = resourceProvider;
         _settings = settings;
         _raService = raService;
-        _playSoundEffects = playSoundEffects;
 
         // Set default dates
         FromDate = DateTime.Today.AddMonths(-1);

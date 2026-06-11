@@ -12,6 +12,7 @@ public class SystemManagerConfig : ISystemManager
     public bool ExtractFileBeforeLaunch { get; init; }
     public List<string> FileFormatsToLaunch { get; init; }
     public List<Emulator> Emulators { get; init; }
+    IReadOnlyList<IEmulator> ISystemManager.Emulators => Emulators?.Cast<IEmulator>().ToList();
     public bool GroupByFolder { get; init; }
     public bool DisableRecursiveSearch { get; init; }
 }

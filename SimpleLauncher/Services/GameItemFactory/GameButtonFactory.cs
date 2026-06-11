@@ -287,6 +287,16 @@ internal partial class GameButtonFactory(
             _mainWindow
         );
 
+        // Capture fields as locals so overlay-button lambdas close over these
+        // locals instead of capturing 'this', allowing the factory to be GC'd
+        // while buttons are still alive.
+        var playSound = _playSoundEffects;
+        var mainWindow = _mainWindow;
+        var logErrors = _logErrors;
+        var messageBox = _messageBox;
+        var machines = _machines;
+        var settings = _settings;
+
         const double overlayButtonWidth = 22;
         const double overlayButtonHeight = 22;
         const double overlayButtonSpacing = 5; // Vertical spacing between buttons
@@ -327,37 +337,37 @@ internal partial class GameButtonFactory(
                     // Prevent the main button's click event from firing
                     e.Handled = true;
 
-                    _playSoundEffects.PlayNotificationSound();
+                    playSound.PlayNotificationSound();
 
-                    // Null check for _mainWindow before using it
-                    if (_mainWindow == null)
+                    // Null check for mainWindow before using it
+                    if (mainWindow == null)
                     {
-                        _logErrors.LogAndForget(null, "_mainWindow is null in trophy button click handler.");
+                        logErrors.LogAndForget(null, "_mainWindow is null in trophy button click handler.");
                         return;
                     }
 
-                    _mainWindow.SetLoadingState(true, (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Preparing RetroAchievements...");
+                    mainWindow.SetLoadingState(true, (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Preparing RetroAchievements...");
 
                     try
                     {
-                        await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, _mainWindow, _playSoundEffects, context.LoadingStateProvider, _logErrors, _messageBox);
+                        await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, mainWindow, playSound, context.LoadingStateProvider, logErrors, messageBox);
                     }
                     catch (Exception ex)
                     {
                         // Notify developer
-                        _logErrors.LogAndForget(ex, $"Error opening achievements for {fileNameWithoutExtension}");
+                        logErrors.LogAndForget(ex, $"Error opening achievements for {fileNameWithoutExtension}");
 
                         // Notify user
-                        await _messageBox.CouldNotOpenAchievementsWindowMessageBox();
+                        await messageBox.CouldNotOpenAchievementsWindowMessageBox();
                     }
                     finally
                     {
-                        _mainWindow.SetLoadingState(false);
+                        mainWindow.SetLoadingState(false);
                     }
                 }
                 catch (Exception ex)
                 {
-                    _logErrors.LogAndForget(ex, "Error opening Retro Achievements Window.");
+                    logErrors.LogAndForget(ex, "Error opening Retro Achievements Window.");
                     DebugLogger.Log($"Error opening Retro Achievements Window: {ex.Message}");
                 }
             };
@@ -397,20 +407,20 @@ internal partial class GameButtonFactory(
                     // Prevent the main button's click event from firing
                     e.Handled = true;
 
-                    _playSoundEffects.PlayNotificationSound();
+                    playSound.PlayNotificationSound();
 
                     context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        await ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, _mainWindow, _logErrors, _messageBox);
+                        await ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, machines, settings, mainWindow, logErrors, messageBox);
                     }
                     catch (Exception ex)
                     {
                         // Notify developer
-                        _logErrors.LogAndForget(ex, $"Error opening video link for {fileNameWithoutExtension}");
+                        logErrors.LogAndForget(ex, $"Error opening video link for {fileNameWithoutExtension}");
 
                         // Notify user
-                        await _messageBox.ErrorOpeningVideoLinkMessageBox();
+                        await messageBox.ErrorOpeningVideoLinkMessageBox();
                     }
                     finally
                     {
@@ -419,7 +429,7 @@ internal partial class GameButtonFactory(
                 }
                 catch (Exception ex)
                 {
-                    _logErrors.LogAndForget(ex, "Error opening the video Link.");
+                    logErrors.LogAndForget(ex, "Error opening the video Link.");
                     DebugLogger.Log($"Error opening the video link: {ex.Message}");
                 }
             };
@@ -459,20 +469,20 @@ internal partial class GameButtonFactory(
                     // Prevent the main button's click event from firing
                     e.Handled = true;
 
-                    _playSoundEffects.PlayNotificationSound();
+                    playSound.PlayNotificationSound();
 
                     context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        await ContextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, _mainWindow, _logErrors, _messageBox);
+                        await ContextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, machines, settings, mainWindow, logErrors, messageBox);
                     }
                     catch (Exception ex)
                     {
                         // Notify developer
-                        _logErrors.LogAndForget(ex, $"Error opening info link for {fileNameWithoutExtension}");
+                        logErrors.LogAndForget(ex, $"Error opening info link for {fileNameWithoutExtension}");
 
                         // Notify user
-                        await _messageBox.ProblemOpeningInfoLinkMessageBox();
+                        await messageBox.ProblemOpeningInfoLinkMessageBox();
                     }
                     finally
                     {
@@ -481,7 +491,7 @@ internal partial class GameButtonFactory(
                 }
                 catch (Exception ex)
                 {
-                    _logErrors.LogAndForget(ex, "Error opening the info Link.");
+                    logErrors.LogAndForget(ex, "Error opening the info Link.");
                     DebugLogger.Log($"Error opening the info link: {ex.Message}");
                 }
             };
@@ -512,7 +522,7 @@ internal partial class GameButtonFactory(
         kebabButton.Click += (_, e) =>
         {
             e.Handled = true; // Stop the main button's click event
-            _playSoundEffects.PlayNotificationSound();
+            playSound.PlayNotificationSound();
             if (contextMenu != null)
             {
                 contextMenu.PlacementTarget = kebabButton;
@@ -568,6 +578,11 @@ internal partial class GameButtonFactory(
 
         // Assign click handler AFTER context is created ***
         // Lambda can safely capture 'context'.
+        // Capture remaining fields as locals to avoid capturing 'this'.
+        var emulatorCombo = _emulatorComboBox;
+        var gameLauncher = _gameLauncher;
+        var gamePadCtrl = _gamePadController;
+
         _button.Click += async (sender, _) =>
         {
             try
@@ -577,49 +592,49 @@ internal partial class GameButtonFactory(
                 // Prevent multiple clicks while launching
                 if (!clickedButton.IsEnabled) return;
 
-                _mainWindow?.SetGameButtonsEnabled(false); // Disable all game buttons
+                mainWindow?.SetGameButtonsEnabled(false); // Disable all game buttons
 
-                if (_emulatorComboBox == null)
+                if (emulatorCombo == null)
                 {
-                    _logErrors.LogAndForget(null, "[CreateGameButtonAsync] _emulatorComboBox is null.");
-                    await _messageBox.EmulatorNameIsRequiredMessageBox();
-                    _mainWindow?.SetGameButtonsEnabled(true);
+                    logErrors.LogAndForget(null, "[CreateGameButtonAsync] _emulatorComboBox is null.");
+                    await messageBox.EmulatorNameIsRequiredMessageBox();
+                    mainWindow?.SetGameButtonsEnabled(true);
                     return;
                 }
 
-                var selectedEmulatorName = _emulatorComboBox.SelectedItem as string; // Update value to get current selected emulator
+                var selectedEmulatorName = emulatorCombo.SelectedItem as string; // Update value to get current selected emulator
                 if (string.IsNullOrEmpty(selectedEmulatorName))
                 {
                     // Notify developer
-                    _logErrors.LogAndForget(null, "[CreateGameButtonAsync] selectedEmulatorName is null or empty.");
+                    logErrors.LogAndForget(null, "[CreateGameButtonAsync] selectedEmulatorName is null or empty.");
 
                     // Notify user
-                    await _messageBox.EmulatorNameIsRequiredMessageBox();
+                    await messageBox.EmulatorNameIsRequiredMessageBox();
 
-                    _mainWindow?.SetGameButtonsEnabled(true); // Re-enable buttons on error
+                    mainWindow?.SetGameButtonsEnabled(true); // Re-enable buttons on error
                     return;
                 }
 
                 try
                 {
-                    _playSoundEffects?.PlayNotificationSound();
+                    playSound?.PlayNotificationSound();
 
-                    if (_gameLauncher == null)
+                    if (gameLauncher == null)
                     {
-                        _logErrors.LogAndForget(null, "[CreateGameButtonAsync] _gameLauncher is null.");
+                        logErrors.LogAndForget(null, "[CreateGameButtonAsync] _gameLauncher is null.");
                         return;
                     }
 
-                    await _gameLauncher.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController, _mainWindow);
+                    await gameLauncher.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, WpfWindowContext.FromMainWindow(mainWindow), gamePadCtrl, mainWindow);
                 }
                 finally
                 {
-                    _mainWindow?.SetGameButtonsEnabled(true); // Re-enable all game buttons
+                    mainWindow?.SetGameButtonsEnabled(true); // Re-enable all game buttons
                 }
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, $"[CreateGameButtonAsync] Error launching the game. entityPath: {entityPath}, systemName: {systemName}");
+                logErrors.LogAndForget(ex, $"[CreateGameButtonAsync] Error launching the game. entityPath: {entityPath}, systemName: {systemName}");
                 DebugLogger.Log($"Error launching the game: {ex.Message}");
             }
         };

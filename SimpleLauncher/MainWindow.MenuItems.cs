@@ -38,7 +38,7 @@ public partial class MainWindow
         }
     }
 
-    internal async void ResetUiAsync()
+    internal async Task ResetUiAsync()
     {
         try
         {
@@ -248,6 +248,11 @@ public partial class MainWindow
     {
         try
         {
+            if (_isLoadingGames)
+            {
+                return;
+            }
+
             CancelAndRecreateToken();
 
             _audioInput.PlayNotificationSound();
@@ -529,7 +534,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method TgoggleVideoLinkButton_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method ToggleVideoLinkButton_Click.");
         }
     }
 

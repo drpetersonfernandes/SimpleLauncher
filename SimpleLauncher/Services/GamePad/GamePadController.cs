@@ -378,8 +378,13 @@ public class GamePadController : IDisposable
                                                     $"Exception type: {ex.GetType().Name}\n" +
                                                     $"Exception details: {ex.Message}");
 
-                            // Notify user
-                            _ = _messageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+                            // Notify user (fire-and-forget inside lock; exception observed via continuation)
+                            _ = _messageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")))
+                                .ContinueWith(static (t, state) =>
+                                {
+                                    if (t.IsFaulted)
+                                        ((ILogErrors)state).LogAndForget(t.Exception, "Error showing GamePadErrorMessageBox");
+                                }, _logErrors, TaskContinuationOptions.OnlyOnFaulted);
                         }
 
                         // Attempt reconnection as a recovery step
@@ -395,14 +400,16 @@ public class GamePadController : IDisposable
             }
             finally
             {
-                // Always release, even if _isDisposed was set during execution
-                // Use lock to ensure we don't call Release on a disposed semaphore
-                lock (_stateLock)
+                // Always release the semaphore to prevent permanent blocking.
+                // Catch ObjectDisposedException if Dispose() disposed the semaphore
+                // between the acquire and this release.
+                try
                 {
-                    if (!_isDisposed)
-                    {
-                        _updateLock.Release();
-                    }
+                    _updateLock.Release();
+                }
+                catch (ObjectDisposedException)
+                {
+                    // Semaphore was disposed, ignore
                 }
             }
         }

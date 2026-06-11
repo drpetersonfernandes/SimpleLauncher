@@ -50,9 +50,17 @@ public partial class DebugViewModel : ObservableObject
 
     /// <summary>
     /// Appends a message to the log.
+    /// Thread-safe: dispatches to the UI thread if called from a background thread.
     /// </summary>
     public void AppendLogMessage(string message)
     {
+        var dispatcher = System.Windows.Application.Current?.Dispatcher;
+        if (dispatcher is not null && !dispatcher.CheckAccess())
+        {
+            dispatcher.Invoke(() => AppendLogMessage(message));
+            return;
+        }
+
         lock (_logLock)
         {
             var timestampedMessage = $"{DateTime.Now:HH:mm:ss} - {message}";
@@ -68,6 +76,13 @@ public partial class DebugViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanClearLog))]
     private void ClearLog()
     {
+        var dispatcher = System.Windows.Application.Current?.Dispatcher;
+        if (dispatcher is not null && !dispatcher.CheckAccess())
+        {
+            dispatcher.Invoke(ClearLog);
+            return;
+        }
+
         lock (_logLock)
         {
             LogMessages.Clear();

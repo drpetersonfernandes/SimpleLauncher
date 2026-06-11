@@ -212,10 +212,5 @@ public class GameFilterServiceTests
         {
             return "default.png";
         }
-
-        public double CalculateJaroWinklerSimilarity(string s1, string s2)
-        {
-            return 0.0;
-        }
     }
 }

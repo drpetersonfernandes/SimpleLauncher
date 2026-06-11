@@ -110,8 +110,16 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     {
         _settings.SegaModel2.ResX = ResX;
         _settings.SegaModel2.ResY = ResY;
-        _settings.SegaModel2.WideScreen = int.Parse(WideScreen, CultureInfo.InvariantCulture);
-        _settings.SegaModel2.Fsaa = int.Parse(Fsaa, CultureInfo.InvariantCulture);
+        if (int.TryParse(WideScreen, CultureInfo.InvariantCulture, out var wideScreen))
+        {
+            _settings.SegaModel2.WideScreen = wideScreen;
+        }
+
+        if (int.TryParse(Fsaa, CultureInfo.InvariantCulture, out var fsaa))
+        {
+            _settings.SegaModel2.Fsaa = fsaa;
+        }
+
         _settings.SegaModel2.Bilinear = Bilinear;
         _settings.SegaModel2.Trilinear = Trilinear;
         _settings.SegaModel2.FilterTilemaps = FilterTilemaps;
@@ -121,7 +129,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
         _settings.SegaModel2.HoldGears = HoldGears;
         _settings.SegaModel2.UseRawInput = UseRawInput;
         _settings.SegaModel2.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
     private async Task<string> EnsureEmulatorPathAsync()

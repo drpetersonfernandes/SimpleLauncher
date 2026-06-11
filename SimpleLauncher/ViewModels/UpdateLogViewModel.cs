@@ -1,3 +1,4 @@
+using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace SimpleLauncher.ViewModels;
@@ -7,6 +8,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public class UpdateLogViewModel : ObservableObject
 {
+    private readonly StringBuilder _logBuilder = new();
     private string _logText = "";
 
     /// <summary>
@@ -23,6 +25,9 @@ public class UpdateLogViewModel : ObservableObject
     /// </summary>
     public void AppendLog(string message)
     {
-        LogText += $"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}";
+        _logBuilder.Append(DateTime.Now.ToString("HH:mm:ss"));
+        _logBuilder.Append(" - ");
+        _logBuilder.AppendLine(message);
+        LogText = _logBuilder.ToString();
     }
 }

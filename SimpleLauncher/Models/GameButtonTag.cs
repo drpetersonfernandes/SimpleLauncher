@@ -1,3 +1,5 @@
+#nullable enable
+
 namespace SimpleLauncher.Models;
 
 /// <summary>
@@ -13,5 +15,5 @@ public class GameButtonTag
     /// <summary>
     /// Gets or sets the unique key used to identify this game entry.
     /// </summary>
-    public string Key { get; set; }
+    public string? Key { get; set; } = "";
 }

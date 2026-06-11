@@ -129,7 +129,7 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
         _settings.Pcsx2.AchievementsEnabled = Pcsx2AchievementsEnabled;
         _settings.Pcsx2.AchievementsHardcore = Pcsx2AchievementsHardcore;
         _settings.Pcsx2.ShowSettingsBeforeLaunch = Pcsx2ShowSettingsBeforeLaunch;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -172,7 +172,7 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task Run()
+    private async Task RunAsync()
     {
         SaveSettings();
         try
@@ -203,7 +203,7 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task Save()
+    private async Task SaveAsync()
     {
         SaveSettings();
         try

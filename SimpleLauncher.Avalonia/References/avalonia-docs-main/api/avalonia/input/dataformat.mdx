@@ -1,0 +1,427 @@
+---
+title: 'DataFormat'
+hide_title: true
+slug: '/avalonia/input/dataformat'
+uid: 'Avalonia.Input.DataFormat'
+commentId: 'T:Avalonia.Input.DataFormat'
+docset: 'avalonia-docs'
+packageId: 'Avalonia'
+assembly: 'Avalonia.Base'
+apiKind: 'Class'
+generatedBy: 'dotnet-apiref'
+namespace: 'Avalonia.Input'
+tfms:
+  - 'net10.0'
+---
+
+import ApiRefPage from '@site/src/components/apiref/ApiRefPage';
+
+<ApiRefPage>
+
+<h1 className="apiref-page__title">DataFormat Class</h1>
+
+## Definition
+
+<div className="apiref-page__definition-meta">
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Namespace:</span> <a href="./">Avalonia.Input</a>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Assembly:</span> <code>Avalonia.Base</code>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Package:</span> <code>Avalonia</code>
+</div>
+</div>
+
+<div className="apiref-page__lead">
+
+Represents a format usable with the clipboard and drag-and-drop.
+
+</div>
+
+<div className="apiref-page__signature">
+
+```csharp
+public class DataFormat
+```
+
+</div>
+
+<div className="apiref-page__relations">
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Inheritance:</span> object <span className="apiref-page__relation-separator">-&gt;</span> DataFormat
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Derived types:</span> <a href="dataformat-1">DataFormat&lt;T&gt;</a>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Implements:</span> IEquatable&lt;DataFormat&gt;
+</div>
+</div>
+
+## Methods
+
+| Name | Description |
+| --- | --- |
+| [CreateBytesApplicationFormat](#uid-3fbe38b6ba) | Creates a new format specific to the application that returns an array of [byte](xref:System.Byte). |
+| [CreateBytesPlatformFormat](#uid-1efc4cf482) | Creates a new format for the current platform that returns an array of [byte](xref:System.Byte). |
+| [CreateInProcessFormat](#uid-9584d61758) | No summary available. |
+| [CreateStringApplicationFormat](#uid-7587d5d188) | Creates a new format specific to the application that returns a [string](xref:System.String). |
+| [CreateStringPlatformFormat](#uid-5b39021fd9) | Creates a new format for the current platform that returns a [string](xref:System.String). |
+| [Equals (2 overloads)](#uid-78ddc432ce) | No summary available. |
+| [GetHashCode](#uid-f95a08c254) | No summary available. |
+| [ToString](#uid-fd15320886) | No summary available. |
+| [ToSystemName](#uid-02047ff4d5) | Creates a name for this format, usable by the underlying platform. |
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-3fbe38b6ba"></span>
+
+### CreateBytesApplicationFormat Method
+
+Creates a new format specific to the application that returns an array of [byte](xref:System.Byte).
+
+```csharp
+public Avalonia.Input.DataFormat<T><byte[]> CreateBytesApplicationFormat(string identifier)
+```
+
+#### Parameters
+
+`identifier` string
+
+The format identifier. To avoid conflicts with system identifiers, this value isn't passed to the underlying
+platform directly. However, two different applications using the same identifier
+with [Avalonia.Input.DataFormat.CreateBytesApplicationFormat(string)](xref:Avalonia.Input.DataFormat.CreateBytesApplicationFormat%28System.String%29) or [Avalonia.Input.DataFormat.CreateStringApplicationFormat(string)](xref:Avalonia.Input.DataFormat.CreateStringApplicationFormat%28System.String%29)
+are able to share data using this format.
+
+Only ASCII letters (A-Z, a-z), digits (0-9), the dot (.) and the hyphen (-) are accepted.
+
+
+#### Returns
+
+[Avalonia.Input.DataFormat](xref:Avalonia.Input.DataFormat)&lt;T&gt;&lt;byte[]&gt;
+
+A new [Avalonia.Input.DataFormat](xref:Avalonia.Input.DataFormat).
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-1efc4cf482"></span>
+
+### CreateBytesPlatformFormat Method
+
+Creates a new format for the current platform that returns an array of [byte](xref:System.Byte).
+
+```csharp
+public Avalonia.Input.DataFormat<T><byte[]> CreateBytesPlatformFormat(string identifier)
+```
+
+#### Parameters
+
+`identifier` string
+
+The format identifier. This value is not validated and is passed AS IS to the underlying platform.
+Most systems use mime types, but macOS requires Uniform Type Identifiers (UTI).
+
+
+#### Returns
+
+[Avalonia.Input.DataFormat](xref:Avalonia.Input.DataFormat)&lt;T&gt;&lt;byte[]&gt;
+
+A new [Avalonia.Input.DataFormat](xref:Avalonia.Input.DataFormat).
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-9584d61758"></span>
+
+### CreateInProcessFormat Method
+
+```csharp
+public Avalonia.Input.DataFormat<T><T> CreateInProcessFormat<T>(string identifier)
+```
+
+#### Parameters
+
+`identifier` string
+
+
+#### Type Parameters
+
+`T`
+
+
+#### Returns
+
+[Avalonia.Input.DataFormat](xref:Avalonia.Input.DataFormat)&lt;T&gt;&lt;T&gt;
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-7587d5d188"></span>
+
+### CreateStringApplicationFormat Method
+
+Creates a new format specific to the application that returns a [string](xref:System.String).
+
+```csharp
+public Avalonia.Input.DataFormat<T><string> CreateStringApplicationFormat(string identifier)
+```
+
+#### Parameters
+
+`identifier` string
+
+The format identifier. To avoid conflicts with system identifiers, this value isn't passed to the underlying
+platform directly. However, two different applications using the same identifier
+with [Avalonia.Input.DataFormat.CreateBytesApplicationFormat(string)](xref:Avalonia.Input.DataFormat.CreateBytesApplicationFormat%28System.String%29) or [Avalonia.Input.DataFormat.CreateStringApplicationFormat(string)](xref:Avalonia.Input.DataFormat.CreateStringApplicationFormat%28System.String%29)
+are able to share data using this format.
+
+Only ASCII letters (A-Z, a-z), digits (0-9), the dot (.) and the hyphen (-) are accepted.
+
+
+#### Returns
+
+[Avalonia.Input.DataFormat](xref:Avalonia.Input.DataFormat)&lt;T&gt;&lt;string&gt;
+
+A new [Avalonia.Input.DataFormat](xref:Avalonia.Input.DataFormat).
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-5b39021fd9"></span>
+
+### CreateStringPlatformFormat Method
+
+Creates a new format for the current platform that returns a [string](xref:System.String).
+
+```csharp
+public Avalonia.Input.DataFormat<T><string> CreateStringPlatformFormat(string identifier)
+```
+
+#### Parameters
+
+`identifier` string
+
+The format identifier. This value is not validated and is passed AS IS to the underlying platform.
+Most systems use mime types, but macOS requires Uniform Type Identifiers (UTI).
+
+
+#### Returns
+
+[Avalonia.Input.DataFormat](xref:Avalonia.Input.DataFormat)&lt;T&gt;&lt;string&gt;
+
+A new [Avalonia.Input.DataFormat](xref:Avalonia.Input.DataFormat).
+
+
+</section>
+
+<span id="uid-78ddc432ce"></span>
+
+### Equals overloads
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-c4940ce0a6"></span>
+
+#### Equals Method
+
+```csharp
+public bool Equals(Avalonia.Input.DataFormat other)
+```
+
+##### Parameters
+
+`other` [Avalonia.Input.DataFormat](xref:Avalonia.Input.DataFormat)
+
+
+##### Returns
+
+bool
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-87ed36a5e0"></span>
+
+#### Equals Method
+
+```csharp
+public bool Equals(object obj)
+```
+
+##### Parameters
+
+`obj` object
+
+
+##### Returns
+
+bool
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-f95a08c254"></span>
+
+### GetHashCode Method
+
+```csharp
+public int GetHashCode()
+```
+
+#### Returns
+
+int
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-fd15320886"></span>
+
+### ToString Method
+
+```csharp
+public string ToString()
+```
+
+#### Returns
+
+string
+
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-02047ff4d5"></span>
+
+### ToSystemName Method
+
+Creates a name for this format, usable by the underlying platform.
+
+```csharp
+public string ToSystemName(string applicationPrefix)
+```
+
+#### Parameters
+
+`applicationPrefix` string
+
+The system prefix used to recognize the name as an application format.
+
+
+#### Returns
+
+string
+
+A system name for the format.
+
+
+#### Remarks
+
+This method can only be called if [Avalonia.Input.DataFormat.Kind](xref:Avalonia.Input.DataFormat.Kind) is
+[Avalonia.Input.DataFormatKind.Application](xref:Avalonia.Input.DataFormatKind.Application) or [Avalonia.Input.DataFormatKind.Platform](xref:Avalonia.Input.DataFormatKind.Platform).
+
+</section>
+
+## Properties
+
+| Name | Description |
+| --- | --- |
+| [Bitmap](#uid-11b203b3e5) | Gets a data format representing a bitmap. Its data type is [Avalonia.Media.Imaging.Bitmap](xref:Avalonia.Media.Imaging.Bitmap). |
+| [File](#uid-4c6a2805bf) | Gets a data format representing a single file. Its data type is [Avalonia.Platform.Storage.IStorageItem](xref:Avalonia.Platform.Storage.IStorageItem). |
+| [Identifier](#uid-397db05437) | Gets the identifier of the data format. |
+| [Kind](#uid-65f1b1de50) | Gets the kind of the data format. |
+| [Text](#uid-a2e19e2523) | Gets a data format representing plain text. Its data type is [string](xref:System.String). |
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-11b203b3e5"></span>
+
+### Bitmap Property
+
+Gets a data format representing a bitmap.
+Its data type is [Avalonia.Media.Imaging.Bitmap](xref:Avalonia.Media.Imaging.Bitmap).
+
+```csharp
+public Avalonia.Input.DataFormat<T><Avalonia.Media.Imaging.Bitmap> Bitmap { get; set; }
+```
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-4c6a2805bf"></span>
+
+### File Property
+
+Gets a data format representing a single file.
+Its data type is [Avalonia.Platform.Storage.IStorageItem](xref:Avalonia.Platform.Storage.IStorageItem).
+
+```csharp
+public Avalonia.Input.DataFormat<T><Avalonia.Platform.Storage.IStorageItem> File { get; set; }
+```
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-397db05437"></span>
+
+### Identifier Property
+
+Gets the identifier of the data format.
+
+```csharp
+public string Identifier { get; set; }
+```
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-65f1b1de50"></span>
+
+### Kind Property
+
+Gets the kind of the data format.
+
+```csharp
+public Avalonia.Input.DataFormatKind Kind { get; set; }
+```
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-a2e19e2523"></span>
+
+### Text Property
+
+Gets a data format representing plain text.
+Its data type is [string](xref:System.String).
+
+```csharp
+public Avalonia.Input.DataFormat<T><string> Text { get; set; }
+```
+
+</section>
+
+</ApiRefPage>
+

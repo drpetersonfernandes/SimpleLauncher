@@ -28,9 +28,9 @@ public partial class MainWindow : IMenuActionHost
         return GetLoadGameFilesParams();
     }
 
-    void IMenuActionHost.ResetUiAsync()
+    Task IMenuActionHost.ResetUiAsync()
     {
-        ResetUiAsync();
+        return ResetUiAsync();
     }
 
     void IMenuActionHost.LoadOrReloadSystemManager()
@@ -220,7 +220,7 @@ public partial class MainWindow : IMenuActionHost
     // Data access
     List<Services.SystemManager.SystemManager> IMenuActionHost.GetSystemManagers()
     {
-        return _systemManagers;
+        return _systemManagers.ToList();
     }
 
     List<Services.MameManager.MameManager> IMenuActionHost.GetMachines()

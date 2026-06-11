@@ -11,10 +11,11 @@ public class WpfWindowContext : IWindowContext
     public WpfWindowContext(Window window, IDispatcherService dispatcher)
     {
         _window = window;
+        Handle = new WindowInteropHelper(window).Handle;
         Dispatcher = dispatcher;
     }
 
-    public IntPtr Handle => new WindowInteropHelper(_window).Handle;
+    public IntPtr Handle { get; }
 
     public void Show()
     {

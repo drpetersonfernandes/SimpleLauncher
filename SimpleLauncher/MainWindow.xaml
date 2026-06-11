@@ -952,12 +952,12 @@
                                       IsReadOnly="True"
                                       GridLinesVisibility="All"
                                       SelectionChanged="GameListSelectionChanged"
+                                      MouseRightButtonUp="GameListRightClickContextMenu"
                                       AutomationProperties.Name="{DynamicResource GameListGrid}"
                                       AutomationProperties.HelpText="{DynamicResource GameListGridHelpText}"
                                       ToolTip="{DynamicResource TooltipGameDataGrid}">
                                 <DataGrid.RowStyle>
                                     <Style TargetType="DataGridRow" BasedOn="{StaticResource CustomDataGridRowStyle}">
-                                        <Setter Property="ContextMenu" Value="{Binding ContextMenu}" />
                                     </Style>
                                 </DataGrid.RowStyle>
                                 <DataGrid.Columns>

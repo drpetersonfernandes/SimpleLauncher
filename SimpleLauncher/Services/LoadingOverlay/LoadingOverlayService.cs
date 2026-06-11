@@ -22,6 +22,9 @@ public class LoadingOverlayService
 
     public void SetLoadingState(bool isLoading, string message = null)
     {
+        var host = _host;
+        if (host == null) return;
+
         bool shouldShowOverlay;
 
         lock (_loadingStateLock)
@@ -43,45 +46,49 @@ public class LoadingOverlayService
             }
 
             shouldShowOverlay = _loadingOperationsCount > 0;
-            _host.SetIsLoadingGamesInternal(shouldShowOverlay);
         }
 
-        _host.Dispatcher.Invoke(() =>
+        host.SetIsLoadingGamesInternal(shouldShowOverlay);
+
+        host.Dispatcher.Invoke(() =>
         {
-            _host.SetLoadingOverlayVisible(shouldShowOverlay);
-            _host.SetMainContentGridEnabled(!shouldShowOverlay);
+            host.SetLoadingOverlayVisible(shouldShowOverlay);
+            host.SetMainContentGridEnabled(!shouldShowOverlay);
 
             if (isLoading && shouldShowOverlay && message != null)
             {
-                _host.SetLoadingOverlayContent(message);
+                host.SetLoadingOverlayContent(message);
             }
             else if (!shouldShowOverlay)
             {
-                _host.SetLoadingOverlayContent((string)Application.Current.TryFindResource("Loading") ?? "Loading...");
+                host.SetLoadingOverlayContent((string)Application.Current.TryFindResource("Loading") ?? "Loading...");
             }
         });
     }
 
     public void EmergencyRelease()
     {
+        var host = _host;
+        if (host == null) return;
+
         _playSoundEffects?.PlayNotificationSound();
 
         lock (_loadingStateLock)
         {
             _loadingOperationsCount = 0;
-            _host.SetIsLoadingGamesInternal(false);
         }
 
-        _host.CancelAndRecreateToken();
+        host.SetIsLoadingGamesInternal(false);
+        host.CancelAndRecreateToken();
 
-        _host.Dispatcher.Invoke(() =>
+        host.Dispatcher.Invoke(() =>
         {
-            _host.SetLoadingOverlayVisible(false);
-            _host.SetMainContentGridEnabled(true);
+            host.SetLoadingOverlayVisible(false);
+            host.SetMainContentGridEnabled(true);
         });
 
-        _host.ResetUiAsync();
-        _host.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
+        _ = host.ResetUiAsync();
+        host.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
         DebugAndBugReport.DebugLogger.Log("[Emergency] User forced overlay dismissal via Return button.");
     }
 }

@@ -91,7 +91,7 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
         _settings.Dolphin.WiimoteContinuousScanning = WiimoteContinuousScanning;
         _settings.Dolphin.WiimoteEnableSpeaker = WiimoteEnableSpeaker;
         _settings.Dolphin.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
     private async Task<string> EnsureEmulatorPath()

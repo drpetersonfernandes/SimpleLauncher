@@ -19,7 +19,7 @@ using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
 namespace SimpleLauncher.ViewModels;
 
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
-public partial class PlayHistoryViewModel : ObservableObject
+public partial class PlayHistoryViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors;
@@ -41,6 +41,11 @@ public partial class PlayHistoryViewModel : ObservableObject
     [ObservableProperty] private PlayHistoryItem? _selectedItem;
 
     [ObservableProperty] private Stream? _previewImageSource;
+
+    partial void OnPreviewImageSourceChanging(Stream? value)
+    {
+        value?.Dispose();
+    }
 
     [ObservableProperty] private bool _isLoading;
 
@@ -314,5 +319,12 @@ public partial class PlayHistoryViewModel : ObservableObject
         }
 
         return _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager.SystemImageFolder);
+    }
+
+    public void Dispose()
+    {
+        PreviewImageSource?.Dispose();
+        PreviewImageSource = null;
+        GC.SuppressFinalize(this);
     }
 }

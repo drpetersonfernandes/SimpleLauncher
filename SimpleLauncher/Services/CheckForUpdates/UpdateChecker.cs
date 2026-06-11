@@ -92,7 +92,7 @@ public partial class UpdateChecker
                     _debugLogger.Log("Check for Updates Success");
 
                     var content = await response.Content.ReadAsStringAsync();
-                    var (latestVersion, _, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
+                    var (latestVersion, releasePackageUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
 
                     if (latestVersion == null) return;
 
@@ -100,8 +100,7 @@ public partial class UpdateChecker
                     {
                         if (updaterZipAssetUrl != null)
                         {
-                            var (_, releasePackageUrlForFallback, _) = ParseVersionAndAssetUrlsFromResponse(content);
-                            await ShowUpdateWindowAsync(releasePackageUrlForFallback, CurrentVersion, latestVersion, mainWindow);
+                            await ShowUpdateWindowAsync(releasePackageUrl, CurrentVersion, latestVersion, mainWindow);
                         }
                         else
                         {

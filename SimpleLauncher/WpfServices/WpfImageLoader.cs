@@ -27,6 +27,11 @@ public class WpfImageLoader(ILogErrors logErrors, IConfiguration configuration, 
         {
             var imageBytes = await Task.Run(() => LoadImageBytes(imagePath));
 
+            if (imageBytes == null)
+            {
+                return await LoadDefaultImageAsync();
+            }
+
             return (new MemoryStream(imageBytes), false);
         }
         catch (NotSupportedException)
@@ -47,6 +52,14 @@ public class WpfImageLoader(ILogErrors logErrors, IConfiguration configuration, 
         {
             var imageBytes = await Task.Run(() => LoadImageBytes(_defaultImagePath));
 
+            if (imageBytes == null)
+            {
+                const string contextMessage = "Failed to load global default image: images\\default.png.";
+                _logErrors.LogAndForget(null, contextMessage);
+                await _messageBox.DefaultImageNotFoundMessageBox();
+                return (null, true);
+            }
+
             return (new MemoryStream(imageBytes), true);
         }
         catch (Exception ex)
@@ -58,13 +71,13 @@ public class WpfImageLoader(ILogErrors logErrors, IConfiguration configuration, 
         }
     }
 
-    public byte[] LoadImageBytes(string filePath)
+    public byte[]? LoadImageBytes(string filePath)
     {
         var longPath = PathHelper.GetLongPath(filePath);
 
         if (!File.Exists(longPath))
         {
-            throw new FileNotFoundException($"Image file not found: {filePath}", filePath);
+            return null;
         }
 
         try
@@ -73,11 +86,13 @@ public class WpfImageLoader(ILogErrors logErrors, IConfiguration configuration, 
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            throw new IOException($"Failed to read image file '{filePath}'. It might be locked or permissions are insufficient.", ex);
+            _logErrors.LogAndForget(ex, $"Failed to read image file '{filePath}'. It might be locked or permissions are insufficient.");
+            return null;
         }
         catch (Exception ex)
         {
-            throw new IOException($"An unexpected error occurred while reading image file '{filePath}'.", ex);
+            _logErrors.LogAndForget(ex, $"An unexpected error occurred while reading image file '{filePath}'.");
+            return null;
         }
     }
 }

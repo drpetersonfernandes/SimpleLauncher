@@ -306,7 +306,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
 
             _playSoundEffects.PlayNotificationSound();
 
-            SystemManager.SystemManager.DeleteSystemAsync(systemName);
+            await SystemManager.SystemManager.DeleteSystemAsync(systemName);
 
             await Task.Delay(100, _host.CurrentCancellationToken);
 
@@ -335,7 +335,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
             editSystemWindow.ShowDialog();
 
             LoadOrReloadSystemManager();
-            _host.ResetUiAsync();
+            _ = _host.ResetUiAsync();
         }
         catch (Exception ex)
         {

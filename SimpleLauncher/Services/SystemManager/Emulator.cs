@@ -1,6 +1,8 @@
+using SimpleLauncher.Interfaces;
+
 namespace SimpleLauncher.Services.SystemManager;
 
-public class Emulator
+public class Emulator : IEmulator
 {
     public string EmulatorName { get; init; }
     public string EmulatorLocation { get; init; }

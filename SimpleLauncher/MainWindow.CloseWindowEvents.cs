@@ -25,7 +25,6 @@ public partial class MainWindow
     private void UnsubscribeEventHandlers()
     {
         // Unsubscribe window-level event handlers
-        Loaded -= MainWindow_Loaded;
         Closing -= MainWindow_Closing;
         Activated -= MainWindow_Activated;
         Deactivated -= MainWindow_Deactivated;
@@ -104,7 +103,8 @@ public partial class MainWindow
         finally
         {
             _isDisposed = true;
-            GC.SuppressFinalize(this);
         }
+
+        GC.SuppressFinalize(this);
     }
 }

@@ -141,10 +141,10 @@ public partial class InjectMameConfigViewModel : ObservableObject
         _settings.Mame.ConfirmQuit = MameConfirmQuit;
         _settings.Mame.Joystick = MameJoystick;
         _settings.Mame.ShowSettingsBeforeLaunch = MameShowSettingsBeforeLaunch;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
-    private string EnsureEmulatorPath()
+    private async Task<string> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {
@@ -158,7 +158,7 @@ public partial class InjectMameConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        _messageBox.MameEmulatorPathNotFoundMessageBox().GetAwaiter().GetResult();
+        await _messageBox.MameEmulatorPathNotFoundMessageBox();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -167,9 +167,9 @@ public partial class InjectMameConfigViewModel : ObservableObject
         return _emulatorPath;
     }
 
-    private bool InjectConfig()
+    private async Task<bool> InjectConfigAsync()
     {
-        var path = EnsureEmulatorPath();
+        var path = await EnsureEmulatorPathAsync();
         if (string.IsNullOrEmpty(path))
             throw new OperationCanceledException("User cancelled emulator path selection.");
 
@@ -186,12 +186,12 @@ public partial class InjectMameConfigViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task Run()
+    private async Task RunAsync()
     {
         SaveSettings();
         try
         {
-            if (InjectConfig())
+            if (await InjectConfigAsync())
             {
                 ShouldRun = true;
                 CloseRequested?.Invoke();
@@ -217,14 +217,14 @@ public partial class InjectMameConfigViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task Save()
+    private async Task SaveAsync()
     {
         SaveSettings();
         try
         {
-            if (InjectConfig())
+            if (await InjectConfigAsync())
             {
-                await _messageBox.MamEconfigurationinjectedsuccessfullyMessageBox();
+                await _messageBox.MameConfigurationInjectedSuccessfullyMessageBox();
                 CloseRequested?.Invoke();
             }
             else

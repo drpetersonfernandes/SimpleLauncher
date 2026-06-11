@@ -116,7 +116,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
         _settings.Yumir.PauseWhenUnfocused = YumirPauseWhenUnfocused;
         _settings.Yumir.ForcedAspect = YumirForcedAspect;
         _settings.Yumir.ShowSettingsBeforeLaunch = YumirShowSettingsBeforeLaunch;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
     private async Task<string> EnsureEmulatorPathAsync()

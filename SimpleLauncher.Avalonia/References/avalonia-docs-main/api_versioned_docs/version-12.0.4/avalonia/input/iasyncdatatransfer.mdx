@@ -1,0 +1,110 @@
+---
+title: 'IAsyncDataTransfer'
+hide_title: true
+slug: '/avalonia/input/iasyncdatatransfer'
+uid: 'Avalonia.Input.IAsyncDataTransfer'
+commentId: 'T:Avalonia.Input.IAsyncDataTransfer'
+docset: 'avalonia-docs'
+packageId: 'Avalonia'
+assembly: 'Avalonia.Base'
+apiKind: 'Interface'
+generatedBy: 'dotnet-apiref'
+namespace: 'Avalonia.Input'
+tfms:
+  - 'net10.0'
+---
+
+import ApiRefPage from '@site/src/components/apiref/ApiRefPage';
+
+<ApiRefPage>
+
+<h1 className="apiref-page__title">IAsyncDataTransfer Interface</h1>
+
+## Definition
+
+<div className="apiref-page__definition-meta">
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Namespace:</span> <a href="./">Avalonia.Input</a>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Assembly:</span> <code>Avalonia.Base</code>
+</div>
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Package:</span> <code>Avalonia</code>
+</div>
+</div>
+
+<div className="apiref-page__lead">
+
+Represents an object providing a list of [Avalonia.Input.IAsyncDataTransferItem](xref:Avalonia.Input.IAsyncDataTransferItem) usable by the clipboard.
+
+</div>
+
+<div className="apiref-page__signature">
+
+```csharp
+public interface IAsyncDataTransfer
+```
+
+</div>
+
+<div className="apiref-page__relations">
+<div className="apiref-page__meta-row">
+<span className="apiref-page__meta-label">Implements:</span> IDisposable
+</div>
+</div>
+
+## Remarks
+
+- When an implementation of this interface is put into the clipboard using [Avalonia.Input.Platform.IClipboard.SetDataAsync(Avalonia.Input.IAsyncDataTransfer)](xref:Avalonia.Input.Platform.IClipboard.SetDataAsync%28Avalonia.Input.IAsyncDataTransfer%29), it must NOT be disposed by the caller. The system will dispose of it automatically when it becomes unused.
+- When an implementation of this interface is returned from the clipboard via [Avalonia.Input.Platform.IClipboard.TryGetDataAsync](xref:Avalonia.Input.Platform.IClipboard.TryGetDataAsync), it MUST be disposed the caller.
+- This interface is mostly used during clipboard operations. However, several platforms only support synchronous clipboard manipulation and will try to use [Avalonia.Input.IDataTransfer](xref:Avalonia.Input.IDataTransfer) if the underlying type also implements it. For this reason, custom implementations should ideally implement both [Avalonia.Input.IAsyncDataTransfer](xref:Avalonia.Input.IAsyncDataTransfer) and [Avalonia.Input.IDataTransfer](xref:Avalonia.Input.IDataTransfer).
+
+## See also
+
+- [Avalonia.Input.DataTransfer](xref:Avalonia.Input.DataTransfer)
+
+## Properties
+
+| Name | Description |
+| --- | --- |
+| [Formats](#uid-5c56c14138) | Gets the formats supported by a [Avalonia.Input.IAsyncDataTransfer](xref:Avalonia.Input.IAsyncDataTransfer). |
+| [Items](#uid-dfc40c36b1) | Gets a list of [Avalonia.Input.IAsyncDataTransferItem](xref:Avalonia.Input.IAsyncDataTransferItem) contained in this object. |
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-5c56c14138"></span>
+
+### Formats Property
+
+Gets the formats supported by a [Avalonia.Input.IAsyncDataTransfer](xref:Avalonia.Input.IAsyncDataTransfer).
+
+```csharp
+public System.Collections.Generic.IReadOnlyList<Avalonia.Input.DataFormat> Formats { get; set; }
+```
+
+</section>
+
+<section className="apiref-page__member-entry">
+
+<span id="uid-dfc40c36b1"></span>
+
+### Items Property
+
+Gets a list of [Avalonia.Input.IAsyncDataTransferItem](xref:Avalonia.Input.IAsyncDataTransferItem) contained in this object.
+
+```csharp
+public System.Collections.Generic.IReadOnlyList<Avalonia.Input.IAsyncDataTransferItem> Items { get; set; }
+```
+
+#### Remarks
+
+Some platforms (such as Windows and X11) may only support a single data item for all formats
+except [Avalonia.Input.DataFormat.File](xref:Avalonia.Input.DataFormat.File).
+
+Items returned by this property must stay valid until the [Avalonia.Input.IAsyncDataTransfer](xref:Avalonia.Input.IAsyncDataTransfer) is disposed.
+
+</section>
+
+</ApiRefPage>
+

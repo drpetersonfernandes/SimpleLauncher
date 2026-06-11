@@ -46,7 +46,7 @@ public class PlayHistoryManager
         if (!File.Exists(FilePath))
         {
             var defaultManager = new PlayHistoryManager { _logErrors = logErrors };
-            defaultManager.SavePlayHistoryAsync();
+            _ = defaultManager.SavePlayHistoryAsync();
             return defaultManager;
         }
 
@@ -368,7 +368,8 @@ public class PlayHistoryManager
                 Application.Current.Dispatcher.Invoke(() => PlayHistoryList.Add(itemToAdd));
             }
 
-            Application.Current.Dispatcher.Invoke(SavePlayHistoryAsync);
+            // Save on a background thread (SavePlayHistoryAsync already uses Task.Run internally)
+            _ = SavePlayHistoryAsync();
         }
         catch (Exception ex)
         {

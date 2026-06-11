@@ -124,7 +124,7 @@ public class PlayHistoryItemExtendedTests
         };
 
         item.TotalPlayTime = 100;
-        Assert.False(raised);
+        Assert.True(raised);
     }
 
     [Fact]
@@ -141,7 +141,7 @@ public class PlayHistoryItemExtendedTests
         };
 
         item.TotalPlayTime = 100;
-        Assert.False(raised);
+        Assert.True(raised);
     }
 
     [Fact]

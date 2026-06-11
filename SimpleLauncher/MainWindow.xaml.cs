@@ -112,8 +112,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly WrapPanel _gameFileGrid;
     private readonly SettingsManager _settings;
     private readonly IGameBrowserService _gameBrowser;
-    private string _selectedImageFolder;
-    private List<string> _selectedRomFolders;
+    private string _selectedImageFolder = "";
+    private List<string> _selectedRomFolders = [];
 
     private readonly ILaunchTools _launchTools;
     private readonly ILogErrors _logErrors;
@@ -201,7 +201,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         // Migrate old play history records to full paths
         _lifecycle.MigratePlayHistory(_systemManagers);
 
-        Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
         Activated += MainWindow_Activated;
         Deactivated += MainWindow_Deactivated;
@@ -222,11 +221,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                     emergencyBtn.Click += _emergencyButtonClickHandler;
                 }
 
+                await _lifecycle.InitializeStartupAsync(this);
                 await HandleLoadedAsync();
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in the HandleLoadedAsync method.");
+                _logErrors.LogAndForget(ex, "Error in the Loaded handler.");
             }
         };
         Loaded += _asyncLoadedHandler;
@@ -312,18 +312,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
     }
 
-    private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            await _lifecycle.InitializeStartupAsync(this);
-        }
-        catch (Exception ex)
-        {
-            _logErrors.LogAndForget(ex, "Error in the method MainWindow_Loaded.");
-        }
-    }
-
     private void MainWindow_Activated(object sender, EventArgs e)
     {
         if (_wasControllerRunningBeforeDeactivation)
@@ -379,11 +367,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         // This prevents race conditions when multiple threads try to recreate the token
         var oldCts = Interlocked.Exchange(ref _cancellationSource, new CancellationTokenSource());
 
-        // Dispose the old instance after the exchange is complete
+        // Cancel the old instance but do NOT dispose it.
+        // Disposing here would cause ObjectDisposedException in any code
+        // still holding a reference to the old token (TOCTOU race).
+        // The GC will collect the old CTS when no references remain.
         try
         {
             oldCts.Cancel();
-            oldCts.Dispose();
         }
         catch (ObjectDisposedException)
         {
@@ -658,7 +648,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         // cannot properly identify custom themes like "Adaptive", "HighContrast",
         // or "Midnight" - it would incorrectly save them as "Dark" or "Light".
 
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
     private void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -704,6 +694,74 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             // Notify developer
             const string contextMessage = "Error while using the method GameListDoubleClickOnSelectedItemAsync.";
             _logErrors.LogAndForget(ex, contextMessage);
+        }
+    }
+
+    private async void GameListRightClickContextMenu(object sender, MouseButtonEventArgs e)
+    {
+        try
+        {
+            if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem) return;
+            if (string.IsNullOrEmpty(selectedItem.FilePath)) return;
+
+            var systemManager = _systemManagers?.FirstOrDefault(s =>
+                s.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
+            if (systemManager == null)
+            {
+                _logErrors.LogAndForget(null, "systemManager is null for the selected game item");
+                await _messageBox.RightClickContextMenuErrorMessageBox();
+                return;
+            }
+
+            var fileNameWithExtension = Path.GetFileName(selectedItem.FilePath);
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedItem.FilePath);
+
+            var gameLauncher = App.ServiceProvider.GetRequiredService<Services.GameLauncher.GameLauncher>();
+            var gamePadController = App.ServiceProvider.GetRequiredService<Services.GamePad.GamePadController>();
+            var playSoundEffects = App.ServiceProvider.GetRequiredService<Services.PlaySound.PlaySoundEffects>();
+            var machines = App.ServiceProvider.GetRequiredService<List<Services.MameManager.MameManager>>();
+            var favoritesManager = App.ServiceProvider.GetRequiredService<Services.Favorites.FavoritesManager>();
+            var findCoverImage = App.ServiceProvider.GetRequiredService<IFindCoverImageService>();
+
+            var context = new RightClickContext(
+                selectedItem.FilePath,
+                fileNameWithExtension,
+                fileNameWithoutExtension,
+                selectedItem.SystemName,
+                systemManager,
+                machines,
+                favoritesManager,
+                _settings,
+                null,
+                null,
+                null,
+                null,
+                null,
+                this,
+                gamePadController,
+                null,
+                gameLauncher,
+                playSoundEffects,
+                this
+            );
+
+            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, findCoverImage);
+            if (contextMenu != null)
+            {
+                // Close the previous context menu before assigning a new one to prevent leaks.
+                if (GameDataGrid.ContextMenu is { IsOpen: true } oldMenu)
+                {
+                    oldMenu.IsOpen = false;
+                }
+
+                GameDataGrid.ContextMenu = contextMenu;
+                contextMenu.IsOpen = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "There was an error in the game list right-click context menu.");
+            await _messageBox.RightClickContextMenuErrorMessageBox();
         }
     }
 
@@ -821,14 +879,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     Task IUiOrchestratorHost.ResetUiAsync()
     {
-        try
-        {
-            ResetUiAsync();
-            return Task.CompletedTask;
-        }
-        catch (Exception exception)
-        {
-            return Task.FromException(exception);
-        }
+        return ResetUiAsync();
     }
 }

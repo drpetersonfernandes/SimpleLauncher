@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
@@ -12,6 +13,7 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly ILogErrors _logErrors;
 
     [ObservableProperty] private bool _daphneFullscreen;
     [ObservableProperty] private bool _daphneBilinear;
@@ -22,10 +24,11 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     [ObservableProperty] private bool _daphneUseOverlays;
     [ObservableProperty] private bool _daphneShowSettingsBeforeLaunch;
 
-    public InjectDaphneConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox)
+    public InjectDaphneConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogErrors logErrors)
     {
         _settings = settings;
         _messageBox = messageBox;
+        _logErrors = logErrors;
     }
 
     /// <summary>
@@ -75,15 +78,24 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
         _settings.Daphne.DisableCrosshairs = DaphneDisableCrosshairs;
         _settings.Daphne.UseOverlays = DaphneUseOverlays;
         _settings.Daphne.ShowSettingsBeforeLaunch = DaphneShowSettingsBeforeLaunch;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
     [RelayCommand]
-    private void Run()
+    private async Task RunAsync()
     {
-        SaveSettings();
-        ShouldRun = true;
-        CloseRequested?.Invoke();
+        try
+        {
+            SaveSettings();
+            ShouldRun = true;
+            CloseRequested?.Invoke();
+        }
+        catch (Exception ex)
+        {
+            ShouldRun = false;
+            _logErrors.LogAndForget(ex, "Error saving Daphne configuration.");
+            await _messageBox.ErrorMessageBox();
+        }
     }
 
     [RelayCommand]

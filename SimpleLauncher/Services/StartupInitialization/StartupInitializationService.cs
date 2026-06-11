@@ -56,7 +56,7 @@ public class StartupInitializationService
         await CheckWriteAccess();
         InitializePagination();
         InitializeTrayIcon();
-        CheckRequiredFiles();
+        await CheckRequiredFiles();
         InitializeOverlayButtons();
         InitializeGamePad();
     }
@@ -119,7 +119,7 @@ public class StartupInitializationService
         DebugLogger.Log("TrayIconManager was initialized.");
     }
 
-    private async void CheckRequiredFiles()
+    private async Task CheckRequiredFiles()
     {
         try
         {

@@ -108,14 +108,18 @@ public partial class InjectStellaConfigViewModel : ObservableObject
         _settings.Stella.Vsync = Vsync;
         _settings.Stella.CorrectAspect = CorrectAspect;
         _settings.Stella.VideoDriver = VideoDriver;
-        _settings.Stella.TvFilter = int.Parse(TvFilter, CultureInfo.InvariantCulture);
+        if (int.TryParse(TvFilter, CultureInfo.InvariantCulture, out var tvFilter))
+        {
+            _settings.Stella.TvFilter = tvFilter;
+        }
+
         _settings.Stella.Scanlines = Scanlines;
         _settings.Stella.AudioEnabled = AudioEnabled;
         _settings.Stella.AudioVolume = AudioVolume;
         _settings.Stella.TimeMachine = TimeMachine;
         _settings.Stella.ConfirmExit = ConfirmExit;
         _settings.Stella.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
     private async Task<string> EnsureEmulatorPathAsync()

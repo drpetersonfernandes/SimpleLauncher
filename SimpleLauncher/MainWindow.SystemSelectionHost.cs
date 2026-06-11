@@ -57,15 +57,7 @@ public partial class MainWindow : ISystemSelectionHost
 
     Task ISystemSelectionHost.ResetUiAsync()
     {
-        try
-        {
-            ResetUiAsync();
-            return Task.CompletedTask;
-        }
-        catch (Exception exception)
-        {
-            return Task.FromException(exception);
-        }
+        return ResetUiAsync();
     }
 
     void ISystemSelectionHost.ResetPaginationButtons()
@@ -85,7 +77,7 @@ public partial class MainWindow : ISystemSelectionHost
 
     List<SystemManager> ISystemSelectionHost.GetSystemManagers()
     {
-        return _systemManagers;
+        return _systemManagers?.ToList() ?? [];
     }
 
     void ISystemSelectionHost.SetSystemManagers(List<SystemManager> managers)

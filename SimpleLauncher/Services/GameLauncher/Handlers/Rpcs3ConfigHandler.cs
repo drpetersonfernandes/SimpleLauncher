@@ -26,25 +26,31 @@ public class Rpcs3ConfigHandler : IEmulatorConfigHandler
 
     public async Task<bool> HandleConfigurationAsync(LaunchContext context)
     {
-        var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
-        var shouldRun = true;
-
-        if (context.Settings.Rpcs3.ShowSettingsBeforeLaunch)
+        if (context.EmulatorManager != null)
         {
-            await context.WindowContext.Dispatcher.InvokeAsync(() =>
+            var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
+            var shouldRun = true;
+
+            if (context.Settings != null && context.Settings.Rpcs3.ShowSettingsBeforeLaunch)
             {
-                var win = App.ServiceProvider.GetRequiredService<InjectRpcs3ConfigWindow>();
-                win.Owner = (Window)context.WindowContext.PlatformWindow;
-                win.Initialize(resolvedExe);
-                win.ShowDialog();
-                shouldRun = win.ShouldRun;
-            });
-        }
-        else if (File.Exists(resolvedExe))
-        {
-            Rpcs3ConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
+                if (context.WindowContext != null)
+                    await context.WindowContext.Dispatcher.InvokeAsync(() =>
+                    {
+                        var win = App.ServiceProvider.GetRequiredService<InjectRpcs3ConfigWindow>();
+                        win.Owner = (Window)context.WindowContext.PlatformWindow;
+                        win.Initialize(resolvedExe);
+                        win.ShowDialog();
+                        shouldRun = win.ShouldRun;
+                    });
+            }
+            else if (File.Exists(resolvedExe))
+            {
+                Rpcs3ConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
+            }
+
+            return shouldRun;
         }
 
-        return shouldRun;
+        return false;
     }
 }

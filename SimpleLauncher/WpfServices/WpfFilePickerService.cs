@@ -7,6 +7,11 @@ namespace SimpleLauncher.WpfServices;
 
 public class WpfFilePickerService : IFilePickerService
 {
+    // WPF dialog APIs (ShowDialog) are inherently synchronous on the UI thread.
+    // Task.FromResult is used to satisfy the async interface contract without
+    // introducing unnecessary state machines. This is the standard .NET pattern
+    // for wrapping synchronous results behind an async interface.
+
     public Task<string?> OpenFileAsync(string title, string filter = "All files|*.*")
     {
         var dialog = new OpenFileDialog

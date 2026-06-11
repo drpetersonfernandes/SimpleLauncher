@@ -18,10 +18,16 @@ public static class BitmapImageConverter
             bitmapImage.StreamSource = stream;
             bitmapImage.EndInit();
             bitmapImage.Freeze();
+
+            // With CacheOption.OnLoad the image data is fully loaded during EndInit(),
+            // so the source stream is no longer needed and can be released.
+            stream.Dispose();
+
             return bitmapImage;
         }
         catch
         {
+            stream.Dispose();
             return null;
         }
     }

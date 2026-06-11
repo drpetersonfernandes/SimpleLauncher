@@ -45,42 +45,45 @@ public class ChdToCueStrategy : ILaunchStrategy
     public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
         var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToCue") ?? "Converting CHD...";
-        context.LoadingState.SetLoadingState(true, convertingMsg);
+        if (context.LoadingState != null)
+        {
+            context.LoadingState.SetLoadingState(true, convertingMsg);
 
-        string cuePath;
-        try
-        {
-            cuePath = await Converters.ConvertChdToCueBin.ConvertChdToCueBinAsync(context.ResolvedFilePath);
-        }
-        finally
-        {
-            // Always end conversion loading state before launching
-            context.LoadingState.SetLoadingState(false);
-        }
-
-        if (cuePath == null)
-        {
-            await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
-            return;
-        }
-
-        try
-        {
-            await launcher.LaunchRegularEmulatorAsync(cuePath, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.WindowContext, context.LoadingState);
-        }
-        finally
-        {
-            // CLEANUP: Delete the temporary .cue and .bin files
+            string cuePath;
             try
             {
-                var binPath = Path.ChangeExtension(cuePath, ".bin");
-                if (File.Exists(cuePath)) File.Delete(cuePath);
-                if (File.Exists(binPath)) File.Delete(binPath);
-                DebugLogger.Log($"Cleaned up temporary CHD conversion files: {cuePath}");
+                cuePath = await Converters.ConvertChdToCueBin.ConvertChdToCueBinAsync(context.ResolvedFilePath);
             }
-            catch (Exception ex)
+            finally
             {
-                DebugLogger.Log($"Failed to cleanup CHD temp files: {ex.Message}");
+                // Always end conversion loading state before launching
+                context.LoadingState.SetLoadingState(false);
+            }
+
+            if (cuePath == null)
+            {
+                await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                return;
+            }
+
+            try
+            {
+                await launcher.LaunchRegularEmulatorAsync(cuePath, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.WindowContext, context.LoadingState);
+            }
+            finally
+            {
+                // CLEANUP: Delete the temporary .cue and .bin files
+                try
+                {
+                    var binPath = Path.ChangeExtension(cuePath, ".bin");
+                    if (File.Exists(cuePath)) File.Delete(cuePath);
+                    if (File.Exists(binPath)) File.Delete(binPath);
+                    DebugLogger.Log($"Cleaned up temporary CHD conversion files: {cuePath}");
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"Failed to cleanup CHD temp files: {ex.Message}");
+                }
             }
         }
     }

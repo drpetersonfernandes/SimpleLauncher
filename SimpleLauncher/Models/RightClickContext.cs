@@ -87,5 +87,7 @@ public class RightClickContext(
     public PlaySoundEffects PlaySoundEffects { get; } = playSoundEffects;
 
     /// <summary>Gets the loading state provider for overlay display.</summary>
-    public ILoadingState LoadingStateProvider { get; } = loadingStateProvider ?? mainWindow;
+    public ILoadingState LoadingStateProvider { get; } = loadingStateProvider
+                                                         ?? (mainWindow as ILoadingState
+                                                             ?? throw new ArgumentException($@"{mainWindow.GetType().Name} does not implement {nameof(ILoadingState)}.", nameof(mainWindow)));
 }

@@ -6,14 +6,23 @@ namespace SimpleLauncher;
 
 public partial class RomHistoryWindow
 {
+    private readonly RequestNavigateEventHandler _requestNavigateHandler;
+
     public RomHistoryWindow(RomHistoryViewModel viewModel)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
+        _requestNavigateHandler = OnHyperlinkRequestNavigate;
+
         Loaded += (_, _) =>
         {
-            HistoryMarkdownViewer.AddHandler(Hyperlink.RequestNavigateEvent, new RequestNavigateEventHandler(OnHyperlinkRequestNavigate));
+            HistoryMarkdownViewer.AddHandler(Hyperlink.RequestNavigateEvent, _requestNavigateHandler);
+        };
+
+        Closed += (_, _) =>
+        {
+            HistoryMarkdownViewer.RemoveHandler(Hyperlink.RequestNavigateEvent, _requestNavigateHandler);
         };
 
         Loaded += async (_, _) =>

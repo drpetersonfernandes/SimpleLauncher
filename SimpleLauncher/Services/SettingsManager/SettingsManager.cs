@@ -296,7 +296,7 @@ public class SettingsManager : IDisposable
         MachineNameFontSize = ValidateFontSize(app?.Element("MachineNameFontSize")?.Value ?? settings.Element("MachineNameFontSize")?.Value);
 
         RaUsername = app?.Element("RaUsername")?.Value ?? settings.Element("RaUsername")?.Value ?? settings.Element("RA_Username")?.Value ?? RaUsername;
-        RaApiKey = app?.Element("RaApiKey")?.Value ?? settings.Element("RaApiKey")?.Value ?? settings.Element("RA_ApiKey")?.Value ?? RaApiKey;
+        RaApiKey = DecryptString(app?.Element("RaApiKey")?.Value ?? settings.Element("RaApiKey")?.Value ?? settings.Element("RA_ApiKey")?.Value ?? RaApiKey);
         RaPassword = DecryptString(app?.Element("RaPassword")?.Value ?? settings.Element("RaPassword")?.Value ?? RaPassword);
         RaToken = DecryptString(app?.Element("RaToken")?.Value ?? settings.Element("RaToken")?.Value ?? RaToken);
 
@@ -575,7 +575,7 @@ public class SettingsManager : IDisposable
                 new XElement("EnableNotificationSound", s.EnableNotificationSound),
                 new XElement("CustomNotificationSoundFile", s.CustomNotificationSoundFile),
                 new XElement("RaUsername", s.RaUsername),
-                new XElement("RaApiKey", s.RaApiKey),
+                new XElement("RaApiKey", s.EncryptString(s.RaApiKey)),
                 new XElement("RaPassword", s.EncryptString(s.RaPassword)),
                 new XElement("RaToken", s.EncryptString(s.RaToken)),
                 new XElement("OverlayRetroAchievementButton", s.OverlayRetroAchievementButton),

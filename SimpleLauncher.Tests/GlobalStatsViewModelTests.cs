@@ -198,46 +198,6 @@ public class GlobalStatsViewModelTests : IDisposable
     }
 
     [Fact]
-    public void ConfirmSaveReportRequestedEventCanBeSubscribed()
-    {
-        var systemManagers = new List<Services.SystemManager.SystemManager>();
-        var viewModel = new GlobalStatsViewModel(_configuration, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
-        viewModel.Initialize(systemManagers);
-
-        viewModel.ConfirmSaveReportRequested += Handler;
-        viewModel.ConfirmSaveReportRequested -= Handler;
-
-        Assert.NotNull(viewModel);
-        return;
-
-        // Verify event can be subscribed to
-        static System.Windows.MessageBoxResult Handler()
-        {
-            return System.Windows.MessageBoxResult.Yes;
-        }
-    }
-
-    [Fact]
-    public void ConfirmCancelRequestedEventCanBeSubscribed()
-    {
-        var systemManagers = new List<Services.SystemManager.SystemManager>();
-        var viewModel = new GlobalStatsViewModel(_configuration, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
-        viewModel.Initialize(systemManagers);
-
-        viewModel.ConfirmCancelRequested += Handler;
-        viewModel.ConfirmCancelRequested -= Handler;
-
-        Assert.NotNull(viewModel);
-        return;
-
-        // Verify event can be subscribed to
-        static System.Windows.MessageBoxResult Handler()
-        {
-            return System.Windows.MessageBoxResult.Yes;
-        }
-    }
-
-    [Fact]
     public void PropertyChangedEventCanBeSubscribed()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();

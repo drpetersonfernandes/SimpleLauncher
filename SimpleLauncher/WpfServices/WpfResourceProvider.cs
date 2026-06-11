@@ -7,13 +7,23 @@ public class WpfResourceProvider : IResourceProvider
 {
     public string GetString(string key)
     {
-        return Application.Current.Dispatcher.Invoke(() =>
+        var dispatcher = Application.Current.Dispatcher;
+        if (dispatcher.CheckAccess())
+            return Application.Current.TryFindResource(key) as string ?? key;
+
+        var task = dispatcher.InvokeAsync(() =>
             Application.Current.TryFindResource(key) as string ?? key);
+        return task.Task.Wait(TimeSpan.FromSeconds(5)) ? task.Task.Result : key;
     }
 
     public string GetString(string key, string defaultValue)
     {
-        return Application.Current.Dispatcher.Invoke(() =>
+        var dispatcher = Application.Current.Dispatcher;
+        if (dispatcher.CheckAccess())
+            return Application.Current.TryFindResource(key) as string ?? defaultValue;
+
+        var task = dispatcher.InvokeAsync(() =>
             Application.Current.TryFindResource(key) as string ?? defaultValue);
+        return task.Task.Wait(TimeSpan.FromSeconds(5)) ? task.Task.Result : defaultValue;
     }
 }

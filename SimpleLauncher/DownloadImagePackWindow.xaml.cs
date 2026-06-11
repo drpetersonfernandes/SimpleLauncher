@@ -54,6 +54,10 @@ internal partial class DownloadImagePackWindow : IDisposable
         {
             _logErrors.LogAndForget(ex, "Error in method CloseWindowRoutineAsync.");
         }
+        finally
+        {
+            Dispose();
+        }
     }
 
     private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)

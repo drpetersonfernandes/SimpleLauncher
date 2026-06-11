@@ -55,9 +55,9 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     /// <param name="systemRomPath">Optional path to the system ROM.</param>
     public void Initialize(string emulatorPath, bool isLauncherMode, string gameFilePath = null, string systemRomPath = null)
     {
-        _emulatorPath = emulatorPath;
-        _gameFilePath = gameFilePath;
-        _systemRomPath = systemRomPath;
+        _emulatorPath = emulatorPath ?? throw new ArgumentNullException(nameof(emulatorPath));
+        _gameFilePath = gameFilePath ?? "";
+        _systemRomPath = systemRomPath ?? "";
         IsLauncherMode = isLauncherMode;
         LoadSettings();
     }
@@ -150,10 +150,10 @@ public partial class InjectRaineConfigViewModel : ObservableObject
         _settings.Raine.MuteSfx = RaineMuteSfx;
         _settings.Raine.MuteMusic = RaineMuteMusic;
         _settings.Raine.RomDirectory = RaineRomDirectory;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
-    private string EnsureEmulatorPath()
+    private async Task<string> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {
@@ -167,7 +167,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        _messageBox.RaineExecutableNotFoundMessageBox().GetAwaiter().GetResult();
+        await _messageBox.RaineExecutableNotFoundMessageBox();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -176,9 +176,9 @@ public partial class InjectRaineConfigViewModel : ObservableObject
         return _emulatorPath;
     }
 
-    private bool InjectConfig()
+    private async Task<bool> InjectConfigAsync()
     {
-        var path = EnsureEmulatorPath();
+        var path = await EnsureEmulatorPathAsync();
         if (string.IsNullOrEmpty(path))
             throw new OperationCanceledException("User cancelled emulator path selection.");
 
@@ -215,12 +215,12 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task Run()
+    private async Task RunAsync()
     {
         SaveSettings();
         try
         {
-            if (InjectConfig())
+            if (await InjectConfigAsync())
             {
                 ShouldRun = true;
                 CloseRequested?.Invoke();
@@ -246,12 +246,12 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task Save()
+    private async Task SaveAsync()
     {
         SaveSettings();
         try
         {
-            if (InjectConfig())
+            if (await InjectConfigAsync())
             {
                 await _messageBox.RaineSettingsSavedAndInjectedMessageBox();
                 CloseRequested?.Invoke();

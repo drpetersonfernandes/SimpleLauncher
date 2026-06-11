@@ -451,7 +451,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task DownloadAndExtrationWereSuccessfulMessageBox()
+    public Task DownloadAndExtractionWereSuccessfulMessageBox()
     {
         return Task.CompletedTask;
     }
@@ -706,7 +706,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
         return Task.FromResult(MessageBoxResult.No);
     }
 
-    public Task<MessageBoxResult> WoulYouLikeToSaveAReportMessageBox()
+    public Task<MessageBoxResult> WouldYouLikeToSaveAReportMessageBox()
     {
         return Task.FromResult(MessageBoxResult.No);
     }
@@ -1086,7 +1086,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task MamEconfigurationinjectedsuccessfullyMessageBox()
+    public Task MameConfigurationInjectedSuccessfullyMessageBox()
     {
         return Task.CompletedTask;
     }
@@ -1111,7 +1111,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task RetroArchconfigurationinjectedsuccessfullyMessageBox()
+    public Task RetroArchConfigurationInjectedSuccessfullyMessageBox()
     {
         return Task.CompletedTask;
     }
@@ -1166,7 +1166,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task CemuemulatornotfoundMessageBox()
+    public Task CemuEmulatorNotFoundMessageBox()
     {
         return Task.CompletedTask;
     }

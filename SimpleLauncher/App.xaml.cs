@@ -86,8 +86,12 @@ public partial class App : IDisposable
         var tempDir = Path.GetTempPath();
         if (baseDir.StartsWith(tempDir, StringComparison.OrdinalIgnoreCase))
         {
-            var messageBox = ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
-            _ = messageBox.PleaseExtractApplicationFirstMessageBox();
+            MessageBox.Show(
+                "Please extract the application from the ZIP/RAR archive before running it.\n\n" +
+                "Do not run the application directly from inside the archive.",
+                "Simple Launcher",
+                System.Windows.MessageBoxButton.OK,
+                System.Windows.MessageBoxImage.Warning);
             Shutdown();
             return;
         }
@@ -550,18 +554,6 @@ public partial class App : IDisposable
                     var updateHistoryWindow = ServiceProvider.GetRequiredService<UpdateHistoryWindow>();
                     updateHistoryWindow.ShowDialog();
                 }
-                catch (InvalidOperationException ex)
-                {
-                    // Notify developer
-                    const string contextMessage = "Error showing UpdateHistoryWindow with -whatsnew argument.";
-                    ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, contextMessage);
-                }
-                catch (ArgumentException ex)
-                {
-                    // Notify developer
-                    const string contextMessage = "Error showing UpdateHistoryWindow with -whatsnew argument.";
-                    ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, contextMessage);
-                }
                 catch (SystemException ex)
                 {
                     // Notify developer
@@ -650,6 +642,7 @@ public partial class App : IDisposable
     private static void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
     {
         ReportException(e.Exception, "Unhandled dispatcher exception.");
+        e.Handled = true;
     }
 
     private static void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
@@ -991,7 +984,7 @@ public partial class App : IDisposable
         var settings = ServiceProvider.GetRequiredService<SettingsManager>();
         settings.BaseTheme = baseTheme;
         settings.AccentColor = accentColor;
-        settings.SaveAsync();
+        _ = settings.SaveAsync();
 
         ApplyTheme(baseTheme, accentColor);
 
@@ -1007,7 +1000,7 @@ public partial class App : IDisposable
 
     public void Dispose()
     {
-        _instanceSignal.Dispose();
+        _instanceSignal?.Dispose();
         _singleInstanceMutex.Dispose();
         GC.SuppressFinalize(this);
     }

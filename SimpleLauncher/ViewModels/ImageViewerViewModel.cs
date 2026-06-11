@@ -43,7 +43,7 @@ public class ImageViewerViewModel : ObservableObject
     /// Loads an image from a file path.
     /// </summary>
     /// <param name="imagePath">The path to the image file.</param>
-    public async void LoadImageFromPath(string imagePath)
+    public async Task LoadImageFromPath(string imagePath)
     {
         try
         {

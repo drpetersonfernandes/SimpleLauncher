@@ -114,10 +114,14 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
         _settings.Blastem.Scanlines = Scanlines;
         _settings.Blastem.Aspect = Aspect;
         _settings.Blastem.Scaling = Scaling;
-        _settings.Blastem.AudioRate = int.Parse(AudioRate, CultureInfo.InvariantCulture);
+        if (int.TryParse(AudioRate, CultureInfo.InvariantCulture, out var audioRate))
+        {
+            _settings.Blastem.AudioRate = audioRate;
+        }
+
         _settings.Blastem.SyncSource = SyncSource;
         _settings.Blastem.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
     private async Task<string> EnsureEmulatorPath()

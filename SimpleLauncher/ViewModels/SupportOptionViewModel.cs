@@ -19,18 +19,16 @@ public partial class SupportOptionViewModel : ObservableObject
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
-    private readonly SupportWindow _supportWindow;
 
     private Exception _exception;
     private string _contextMessage;
 
-    public SupportOptionViewModel(PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox, SupportWindow supportWindow)
+    public SupportOptionViewModel(PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         _playSoundEffects = playSoundEffects;
         _configuration = configuration;
         _logErrors = logErrors;
         _messageBox = messageBox;
-        _supportWindow = supportWindow;
     }
 
     /// <summary>
@@ -45,12 +43,15 @@ public partial class SupportOptionViewModel : ObservableObject
     /// <summary>Event raised when the window should be closed.</summary>
     public event Action CloseRequested;
 
+    /// <summary>Event raised when the support window should be shown.</summary>
+    public event Action ShowSupportWindowRequested;
+
     [RelayCommand]
     private void ContactDeveloper()
     {
         _playSoundEffects?.PlayNotificationSound();
 
-        _supportWindow.Show();
+        ShowSupportWindowRequested?.Invoke();
 
         CloseRequested?.Invoke();
     }
@@ -58,19 +59,19 @@ public partial class SupportOptionViewModel : ObservableObject
     [RelayCommand]
     private void AskPerplexity()
     {
-        LaunchAiSearch(_configuration.GetValue<string>("Urls:PerplexitySearch") ?? "https://www.perplexity.ai/search?q=");
+        _ = LaunchAiSearch(_configuration.GetValue<string>("Urls:PerplexitySearch") ?? "https://www.perplexity.ai/search?q=");
     }
 
     [RelayCommand]
     private void AskPhind()
     {
-        LaunchAiSearch(_configuration.GetValue<string>("Urls:PhindSearch") ?? "https://www.phind.com/search?q=");
+        _ = LaunchAiSearch(_configuration.GetValue<string>("Urls:PhindSearch") ?? "https://www.phind.com/search?q=");
     }
 
     [RelayCommand]
     private void AskYou()
     {
-        LaunchAiSearch(_configuration.GetValue<string>("Urls:YouSearch") ?? "https://you.com/search?q=");
+        _ = LaunchAiSearch(_configuration.GetValue<string>("Urls:YouSearch") ?? "https://you.com/search?q=");
     }
 
     [RelayCommand]
@@ -79,7 +80,7 @@ public partial class SupportOptionViewModel : ObservableObject
         CloseRequested?.Invoke();
     }
 
-    private async void LaunchAiSearch(string baseUrl)
+    private async Task LaunchAiSearch(string baseUrl)
     {
         try
         {

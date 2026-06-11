@@ -7,6 +7,7 @@ namespace SimpleLauncher;
 public partial class FlashOverlayWindow
 {
     private readonly FlashOverlayViewModel _viewModel;
+    private CancellationTokenSource _cts;
 
     public FlashOverlayWindow(FlashOverlayViewModel viewModel)
     {
@@ -16,10 +17,14 @@ public partial class FlashOverlayWindow
         _viewModel.CloseRequested += Close;
 
         DataContext = _viewModel;
+
+        Closing += (_, _) => _cts?.Cancel();
     }
 
     public async Task ShowFlashAsync()
     {
+        _cts = new CancellationTokenSource();
+
         // Set the window size and position
         Left = 0;
         Top = 0;
@@ -38,8 +43,15 @@ public partial class FlashOverlayWindow
         // Show the window
         Show();
 
-        // Wait for the animation to complete
-        await Task.Delay(600);
+        try
+        {
+            // Wait for the animation to complete
+            await Task.Delay(600, _cts.Token);
+        }
+        catch (OperationCanceledException)
+        {
+            return;
+        }
 
         // Close the window after the flash
         _viewModel.OnAnimationCompleted();

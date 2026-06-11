@@ -1,3 +1,5 @@
+#nullable enable
+
 namespace SimpleLauncher.Models;
 
 /// <inheritdoc />
@@ -24,5 +26,5 @@ public class DownloadProgressEventArgs : EventArgs
     /// <summary>
     /// Gets or sets the status message.
     /// </summary>
-    public string StatusMessage { get; set; }
+    public string StatusMessage { get; set; } = "";
 }

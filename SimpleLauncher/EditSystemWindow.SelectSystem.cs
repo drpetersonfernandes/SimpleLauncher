@@ -2,7 +2,6 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.HelpUser;
 using SimpleLauncher.Services.SystemManager;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
@@ -133,7 +132,7 @@ internal partial class EditSystemWindow
                 ValidateParameterFields();
 
                 HelpUserTextBlock.Document.Blocks.Clear();
-                ((HelpUserService)_helpUserService).UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox.Text.Trim());
+                _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox.Text.Trim());
             }
             else
             {
