@@ -1,9 +1,8 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -19,12 +18,16 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     private readonly IMessageDialogService _messageDialog;
     private readonly ReinstallSimpleLauncher _reinstallSimpleLauncher;
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
+    private readonly ILogErrors _logErrors;
+    private readonly IConfiguration _configuration;
 
-    public MessageBoxLibraryService(IMessageDialogService messageDialog, ReinstallSimpleLauncher reinstallSimpleLauncher, QuitSimpleLauncher quitSimpleLauncher)
+    public MessageBoxLibraryService(IMessageDialogService messageDialog, ReinstallSimpleLauncher reinstallSimpleLauncher, QuitSimpleLauncher quitSimpleLauncher, ILogErrors logErrors, IConfiguration configuration)
     {
         _messageDialog = messageDialog;
         _reinstallSimpleLauncher = reinstallSimpleLauncher;
         _quitSimpleLauncher = quitSimpleLauncher;
+        _logErrors = logErrors;
+        _configuration = configuration;
     }
 
     public Task TakeScreenShotMessageBox()
@@ -291,7 +294,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             catch (Exception ex)
             {
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
+                _logErrors.LogAndForget(ex, "Failed to open the error log file from a message box.");
                 var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
 
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwasnotfound, error);
@@ -340,7 +343,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             catch (Exception ex)
             {
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
+                _logErrors.LogAndForget(ex, "Failed to open the error log file from a message box.");
                 var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwasnotfound, error);
             }
@@ -432,7 +435,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             catch (Exception ex)
             {
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
+                _logErrors.LogAndForget(ex, "Failed to open the error log file from a message box.");
                 var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwasnotfound, error);
             }
@@ -723,12 +726,13 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     {
         if (Application.Current == null)
         {
+            return;
         }
 
         {
-            var simpleLaunchercouldnotloadthefilemamedat = (string)Application.Current?.TryFindResource("SimpleLaunchercouldnotloadthefilemamedat") ?? "'Simple Launcher' could not load the file 'mame.dat' or it is corrupted.";
-            var doyouwanttoautomaticreinstallSimpleLauncher = (string)Application.Current?.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
-            var error = (string)Application.Current?.TryFindResource("Error") ?? "Error";
+            var simpleLaunchercouldnotloadthefilemamedat = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotloadthefilemamedat") ?? "'Simple Launcher' could not load the file 'mame.dat' or it is corrupted.";
+            var doyouwanttoautomaticreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
             var result = await _messageDialog.ShowYesNoAsync($"{simpleLaunchercouldnotloadthefilemamedat}\n\n" +
                                                              $"{doyouwanttoautomaticreinstallSimpleLauncher}", error);
@@ -739,8 +743,8 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             else
             {
-                var pleasereinstallSimpleLaunchermanually = (string)Application.Current?.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
-                var theapplicationwillshutdown = (string)Application.Current?.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
+                var pleasereinstallSimpleLaunchermanually = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+                var theapplicationwillshutdown = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
                 await _messageDialog.ShowErrorAsync($"{pleasereinstallSimpleLaunchermanually}\n\n" +
                                                     $"{theapplicationwillshutdown}", error);
 
@@ -753,12 +757,13 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     {
         if (Application.Current == null)
         {
+            return;
         }
 
         {
-            var thefilemamedatcouldnotbefound = (string)Application.Current?.TryFindResource("Thefilemamedatcouldnotbefound") ?? "The file 'mame.dat' could not be found in the application folder.";
-            var doyouwanttoautomaticreinstall = (string)Application.Current?.TryFindResource("Doyouwanttoautomaticreinstall") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
-            var error = (string)Application.Current?.TryFindResource("Error") ?? "Error";
+            var thefilemamedatcouldnotbefound = (string)Application.Current.TryFindResource("Thefilemamedatcouldnotbefound") ?? "The file 'mame.dat' could not be found in the application folder.";
+            var doyouwanttoautomaticreinstall = (string)Application.Current.TryFindResource("Doyouwanttoautomaticreinstall") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
             var result = await _messageDialog.ShowYesNoAsync($"{thefilemamedatcouldnotbefound}\n\n"
                                                              + $"{doyouwanttoautomaticreinstall}", error);
@@ -840,7 +845,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             catch (Exception ex)
             {
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
+                _logErrors.LogAndForget(ex, "Failed to open the error log file from a message box.");
                 var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
                 await _messageDialog.ShowErrorAsync(thefileerroruserlog, error);
             }
@@ -869,7 +874,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             catch (Exception ex)
             {
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the 'error_user.log' file.");
+                _logErrors.LogAndForget(ex, "Failed to open the 'error_user.log' file.");
                 var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
                 await _messageDialog.ShowErrorAsync(thefileerroruserlog, error);
             }
@@ -897,7 +902,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             catch (Exception ex)
             {
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
+                _logErrors.LogAndForget(ex, "Failed to open the error log file from a message box.");
                 var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
                 await _messageDialog.ShowErrorAsync(thefileerroruserlog, error);
             }
@@ -915,7 +920,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (messageBoxResult)
         {
-            var downloadPageUrl = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("Urls:GitHubReleases") ?? "https://github.com/drpetersonfernandes/SimpleLauncher/releases/latest/";
+            var downloadPageUrl = _configuration.GetValue<string>("Urls:GitHubReleases") ?? "https://github.com/drpetersonfernandes/SimpleLauncher/releases/latest/";
 
             try
             {
@@ -928,7 +933,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             catch (Exception ex)
             {
                 // Notify developer
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Error in method InstallUpdateManuallyMessageBox");
+                _logErrors.LogAndForget(ex, "Error in method InstallUpdateManuallyMessageBox");
 
                 // Notify user
                 var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningthebrowser") ?? "An error occurred while opening the browser.";
@@ -952,7 +957,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (messageBoxResult)
         {
-            var downloadPageUrl = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("Urls:GitHubReleases") ?? "https://github.com/drpetersonfernandes/SimpleLauncher/releases/latest/";
+            var downloadPageUrl = _configuration.GetValue<string>("Urls:GitHubReleases") ?? "https://github.com/drpetersonfernandes/SimpleLauncher/releases/latest/";
 
             try
             {
@@ -965,7 +970,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             catch (Exception ex)
             {
                 // Notify developer
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Error in method UpdaterLaunchFailedMessageBox");
+                _logErrors.LogAndForget(ex, "Error in method UpdaterLaunchFailedMessageBox");
 
                 // Notify user
                 var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningthebrowser") ?? "An error occurred while opening the browser.";
@@ -1111,7 +1116,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 var errorOpeningFolderTitle = (string)Application.Current.TryFindResource("ErrorOpeningFolderTitle") ?? "Error Opening Folder";
                 var errorOpeningFolderMessage = (string)Application.Current.TryFindResource("ErrorOpeningFolderMessage") ?? "Could not open the temporary folder.";
                 await _messageDialog.ShowErrorAsync(errorOpeningFolderMessage, errorOpeningFolderTitle);
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to open temp folder: {tempFolderPath}");
+                _logErrors.LogAndForget(ex, $"Failed to open temp folder: {tempFolderPath}");
             }
         }
     }
@@ -1185,7 +1190,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             {
                 // Notify developer
                 const string contextMessage = "Error opening the download link.";
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, contextMessage);
+                _logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
                 var erroropeningthedownloadlink = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
@@ -1220,7 +1225,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             {
                 // Notify developer
                 const string contextMessage = "Error opening the download link.";
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, contextMessage);
+                _logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
                 var erroropeningthedownloadlink = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
@@ -1235,6 +1240,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     {
         if (selectedSystem?.Emulators?.Emulator?.ImagePackDownloadLink == null)
         {
+            return;
         }
 
         {
@@ -1249,13 +1255,13 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             {
                 try
                 {
-                    Process.Start(new ProcessStartInfo { FileName = selectedSystem?.Emulators?.Emulator?.ImagePackDownloadLink, UseShellExecute = true });
+                    Process.Start(new ProcessStartInfo { FileName = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink, UseShellExecute = true });
                 }
                 catch (Exception ex)
                 {
                     // Notify developer
                     const string contextMessage = "Error opening the download link.";
-                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, contextMessage);
+                    _logErrors.LogAndForget(ex, contextMessage);
 
                     // Notify user
                     var errorOpeningDownloadLink = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
@@ -1570,7 +1576,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             catch (Exception ex)
             {
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
+                _logErrors.LogAndForget(ex, "Failed to open the error log file from a message box.");
                 // Notify user
                 var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwas, error);
@@ -1602,7 +1608,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             catch (Exception ex)
             {
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
+                _logErrors.LogAndForget(ex, "Failed to open the error log file from a message box.");
                 var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ??
                                              "The file 'error_user.log' was not found!";
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwas, error);
@@ -1638,7 +1644,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             catch (Exception ex)
             {
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
+                _logErrors.LogAndForget(ex, "Failed to open the error log file from a message box.");
                 var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwas, error);
             }
@@ -1673,7 +1679,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             catch (Exception ex)
             {
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
+                _logErrors.LogAndForget(ex, "Failed to open the error log file from a message box.");
                 var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwas, error);
             }
@@ -1703,7 +1709,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             catch (Exception ex)
             {
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
+                _logErrors.LogAndForget(ex, "Failed to open the error log file from a message box.");
                 var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
                 await _messageDialog.ShowErrorAsync(thefileerroruserlog, error);
             }
@@ -1747,7 +1753,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             catch (Exception ex)
             {
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a batch file error message box.");
+                _logErrors.LogAndForget(ex, "Failed to open the error log file from a batch file error message box.");
                 var notFound = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
                 await _messageDialog.ShowErrorAsync(notFound, error);
             }
@@ -2172,7 +2178,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             catch (Exception ex)
             {
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
+                _logErrors.LogAndForget(ex, "Failed to open the error log file from a message box.");
                 var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwas, error);
             }
@@ -2196,7 +2202,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (messageBoxResult)
         {
-            var downloadPageUrl = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("Urls:DokanyWebsite") ?? "https://github.com/dokan-dev/dokany";
+            var downloadPageUrl = _configuration.GetValue<string>("Urls:DokanyWebsite") ?? "https://github.com/dokan-dev/dokany";
 
             try
             {
@@ -2209,7 +2215,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             catch (Exception ex)
             {
                 // Notify developer
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Could not open the Dokan website.");
+                _logErrors.LogAndForget(ex, "Could not open the Dokan website.");
 
                 // Notify user
                 var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningyourbrowser") ?? "An error occurred while opening your browser.";
@@ -2227,7 +2233,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
         if (messageBoxResult)
         {
-            var downloadPageUrl = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("Urls:DokanyWebsite") ?? "https://github.com/dokan-dev/dokany";
+            var downloadPageUrl = _configuration.GetValue<string>("Urls:DokanyWebsite") ?? "https://github.com/dokan-dev/dokany";
 
             try
             {
@@ -2239,7 +2245,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             catch (Exception ex)
             {
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Could not open the Dokan website.");
+                _logErrors.LogAndForget(ex, "Could not open the Dokan website.");
                 var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningyourbrowser") ?? "An error occurred while opening your browser.";
                 await _messageDialog.ShowErrorAsync(anerroroccurredwhileopeningthebrowser, error);
             }
@@ -2490,7 +2496,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 var errorOpeningFolderTitle = (string)Application.Current.TryFindResource("ErrorOpeningFolderTitle") ?? "Error Opening Folder";
                 var errorOpeningFolderMessage = (string)Application.Current.TryFindResource("ErrorOpeningFolderMessage") ?? "Could not open the temporary folder.";
                 await _messageDialog.ShowErrorAsync(errorOpeningFolderMessage, errorOpeningFolderTitle);
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to open temp folder: {tempFolderPath}");
+                _logErrors.LogAndForget(ex, $"Failed to open temp folder: {tempFolderPath}");
             }
         }
     }
@@ -2517,7 +2523,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 var errorOpeningFolderTitle = (string)Application.Current.TryFindResource("ErrorOpeningFolderTitle") ?? "Error Opening Folder";
                 var errorOpeningFolderMessage = (string)Application.Current.TryFindResource("ErrorOpeningFolderMessage") ?? "Could not open the temporary folder.";
                 await _messageDialog.ShowErrorAsync(errorOpeningFolderMessage, errorOpeningFolderTitle);
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to open temp folder: {tempFolderPath}");
+                _logErrors.LogAndForget(ex, $"Failed to open temp folder: {tempFolderPath}");
             }
         }
     }
@@ -2543,7 +2549,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             catch (Exception ex)
             {
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
+                _logErrors.LogAndForget(ex, "Failed to open the error log file from a message box.");
                 var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
 
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwasnotfound, launchError);
@@ -3196,14 +3202,14 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             {
                 Process.Start(new ProcessStartInfo
                 {
-                    FileName = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("Urls:PleasureDomeWebsite") ?? "https://pleasuredome.github.io/pleasuredome/index.html",
+                    FileName = _configuration.GetValue<string>("Urls:PleasureDomeWebsite") ?? "https://pleasuredome.github.io/pleasuredome/index.html",
                     UseShellExecute = true
                 });
             }
             catch (Exception ex)
             {
                 await _messageDialog.ShowErrorAsync($"Could not open browser: {ex.Message}", "Error");
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Could not open browser");
+                _logErrors.LogAndForget(ex, "Could not open browser");
             }
         }
     }
@@ -3228,14 +3234,14 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             {
                 Process.Start(new ProcessStartInfo
                 {
-                    FileName = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("Urls:PleasureDomeWebsite") ?? "https://pleasuredome.github.io/pleasuredome/index.html",
+                    FileName = _configuration.GetValue<string>("Urls:PleasureDomeWebsite") ?? "https://pleasuredome.github.io/pleasuredome/index.html",
                     UseShellExecute = true
                 });
             }
             catch (Exception ex)
             {
                 await _messageDialog.ShowErrorAsync($"Could not open browser: {ex.Message}", "Error");
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Could not open browser");
+                _logErrors.LogAndForget(ex, "Could not open browser");
             }
         }
     }
@@ -3260,14 +3266,14 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             {
                 Process.Start(new ProcessStartInfo
                 {
-                    FileName = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("Urls:PleasureDomeWebsite") ?? "https://pleasuredome.github.io/pleasuredome/index.html",
+                    FileName = _configuration.GetValue<string>("Urls:PleasureDomeWebsite") ?? "https://pleasuredome.github.io/pleasuredome/index.html",
                     UseShellExecute = true
                 });
             }
             catch (Exception ex)
             {
                 await _messageDialog.ShowErrorAsync($"Could not open browser: {ex.Message}", "Error");
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Could not open browser");
+                _logErrors.LogAndForget(ex, "Could not open browser");
             }
         }
     }
@@ -3304,7 +3310,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             catch (Exception ex)
             {
                 await _messageDialog.ShowErrorAsync($"Could not open browser: {ex.Message}", "Error");
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Could not open browser");
+                _logErrors.LogAndForget(ex, "Could not open browser");
             }
         }
     }
@@ -3343,7 +3349,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             }
             catch (Exception ex)
             {
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
+                _logErrors.LogAndForget(ex, "Failed to open the error log file from a message box.");
                 // Notify user
                 var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwas, title);
