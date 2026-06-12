@@ -103,9 +103,9 @@ public class MenuOrchestrator : IMenuOrchestrator
     /// Handles toggling gamepad support on or off.
     /// </summary>
     /// <param name="isChecked">Whether gamepad support should be enabled.</param>
-    public void HandleToggleGamepadAsync(bool isChecked)
+    public Task HandleToggleGamepadAsync(bool isChecked)
     {
-        _ = _menuActionHandler.HandleToggleGamepadAsync(isChecked);
+        return _menuActionHandler.HandleToggleGamepadAsync(isChecked);
     }
 
     /// <summary>
@@ -144,9 +144,9 @@ public class MenuOrchestrator : IMenuOrchestrator
     /// <summary>
     /// Opens the donation page for the application.
     /// </summary>
-    public void HandleDonateAsync()
+    public Task HandleDonateAsync()
     {
-        _ = _menuActionHandler.HandleDonateAsync();
+        return _menuActionHandler.HandleDonateAsync();
     }
 
     /// <summary>
@@ -293,9 +293,9 @@ public class MenuOrchestrator : IMenuOrchestrator
     /// Handles changing the view mode based on the sender menu item.
     /// </summary>
     /// <param name="sender">The menu item that triggered the view mode change.</param>
-    public void HandleChangeViewModeAsync(object sender)
+    public Task HandleChangeViewModeAsync(object sender)
     {
-        _ = _menuActionHandler.HandleChangeViewModeAsync(sender);
+        return _menuActionHandler.HandleChangeViewModeAsync(sender);
     }
 
     /// <summary>
@@ -337,9 +337,9 @@ public class MenuOrchestrator : IMenuOrchestrator
     /// <summary>
     /// Opens the sound configuration window.
     /// </summary>
-    public void HandleSoundConfigurationAsync()
+    public Task HandleSoundConfigurationAsync()
     {
-        _ = _menuActionHandler.HandleSoundConfigurationAsync();
+        return _menuActionHandler.HandleSoundConfigurationAsync();
     }
 
     /// <summary>

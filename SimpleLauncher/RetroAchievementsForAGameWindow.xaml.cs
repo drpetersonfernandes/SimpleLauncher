@@ -100,11 +100,13 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
 
     private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (e.Source is TabControl { SelectedItem: TabItem selectedTab })
+        try
         {
+            if (e.Source is not TabControl { SelectedItem: TabItem selectedTab })
+                return;
+
             if (selectedTab is not { IsSelected: true }) return;
 
-            // Use Tag instead of Header for language-independent tab identification
             var tag = selectedTab.Tag?.ToString();
 
             switch (tag)
@@ -140,6 +142,10 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                     _ = LoadUserProgressAsync();
                     break;
             }
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in TabControl_SelectionChanged of RetroAchievementsForAGameWindow.");
         }
     }
 
@@ -301,20 +307,19 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         }
     }
 
-    private async void OpenRaImageViewerAsync(Uri imageUri)
+    private void OpenRaImageViewerAsync(Uri imageUri)
     {
         try
         {
-            var raImageViewer = App.ServiceProvider.GetRequiredService<ImageViewerWindow>(); // Instantiate the new window
+            var raImageViewer = App.ServiceProvider.GetRequiredService<ImageViewerWindow>();
             raImageViewer.LoadImageUrl(imageUri);
-            raImageViewer.Owner = this; // Set owner to this window
+            raImageViewer.Owner = this;
             raImageViewer.Show();
         }
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, $"Failed to open RetroAchievements image viewer for URI: {imageUri}");
             _debugLogger.Log($"Failed to open RetroAchievements image viewer for URI: {imageUri}");
-            await _messageBox.ErrorMessageBoxAsync();
         }
     }
 
@@ -360,42 +365,49 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
 
     private void OpenRaSettings_Click(object sender, RoutedEventArgs e)
     {
-        var settingsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsSettingsWindow>();
-        settingsWindow.Owner = this;
-        _playSoundEffects.PlayNotificationSound();
-        settingsWindow.ShowDialog();
-
-        // Reload current tab using Tag instead of Header
-        if (TabControl.SelectedItem is TabItem selectedTab)
+        try
         {
-            var tag = selectedTab.Tag?.ToString();
-            switch (tag)
+            var settingsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsSettingsWindow>();
+            settingsWindow.Owner = this;
+            _playSoundEffects.PlayNotificationSound();
+            settingsWindow.ShowDialog();
+
+            // Reload current tab using Tag instead of Header
+            if (TabControl.SelectedItem is TabItem selectedTab)
             {
-                case "Achievements":
-                    _playSoundEffects.PlayNotificationSound();
-                    _ = LoadGameAchievementsAsync();
-                    break;
-                case "GameInfo":
-                    _playSoundEffects.PlayNotificationSound();
-                    _ = LoadGameInfoAsync();
-                    break;
-                case "GameRanking":
-                    _playSoundEffects.PlayNotificationSound();
-                    _ = LoadGameRankingAsync();
-                    break;
-                case "MyProfile":
-                    _playSoundEffects.PlayNotificationSound();
-                    _ = LoadUserProfileAsync();
-                    break;
-                case "Unlocks":
-                    _playSoundEffects.PlayNotificationSound();
-                    _ = LoadUnlocksByDateAsync();
-                    break;
-                case "UserProgress":
-                    _playSoundEffects.PlayNotificationSound();
-                    _ = LoadUserProgressAsync();
-                    break;
+                var tag = selectedTab.Tag?.ToString();
+                switch (tag)
+                {
+                    case "Achievements":
+                        _playSoundEffects.PlayNotificationSound();
+                        _ = LoadGameAchievementsAsync();
+                        break;
+                    case "GameInfo":
+                        _playSoundEffects.PlayNotificationSound();
+                        _ = LoadGameInfoAsync();
+                        break;
+                    case "GameRanking":
+                        _playSoundEffects.PlayNotificationSound();
+                        _ = LoadGameRankingAsync();
+                        break;
+                    case "MyProfile":
+                        _playSoundEffects.PlayNotificationSound();
+                        _ = LoadUserProfileAsync();
+                        break;
+                    case "Unlocks":
+                        _playSoundEffects.PlayNotificationSound();
+                        _ = LoadUnlocksByDateAsync();
+                        break;
+                    case "UserProgress":
+                        _playSoundEffects.PlayNotificationSound();
+                        _ = LoadUserProgressAsync();
+                        break;
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in OpenRaSettings_Click of RetroAchievementsForAGameWindow.");
         }
     }
 
@@ -880,7 +892,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                 UserProfileSoftcorePoints.Text = userProfile.TotalSoftcorePoints.ToString("N0", CultureInfo.InvariantCulture);
                 UserProfilePermissions.Text = GetPermissionDescription(userProfile.Permissions);
                 UserProfileStatus.Text = userProfile.Untracked == 1 ? (string)Application.Current.TryFindResource("RaStatusUntracked") ?? "Untracked" : (string)Application.Current.TryFindResource("RaStatusTracked") ?? "Tracked";
-                UserProfileProfileId.Text = string.IsNullOrWhiteSpace(userProfile.Uuid) ? (string)Application.Current.TryFindResource("RaStatusNotApplicable") ?? "N/A" : userProfile.Uuid;
+                UserProfileProfileId.Text = string.IsNullOrWhiteSpace(userProfile.Ulid) ? (string)Application.Current.TryFindResource("RaStatusNotApplicable") ?? "N/A" : userProfile.Ulid;
                 UserProfileWallActive.Text = userProfile.UserWallActive ? (string)Application.Current.TryFindResource("RaGenericYes") ?? "Yes" : (string)Application.Current.TryFindResource("RaGenericNo") ?? "No";
 
                 switch (recentlyPlayedGames)

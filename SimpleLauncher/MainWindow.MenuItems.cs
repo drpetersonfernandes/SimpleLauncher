@@ -32,6 +32,7 @@ public partial class MainWindow
 
     private async void ScanForMicrosoftWindowsGames_ClickAsync(object sender, RoutedEventArgs e)
     {
+        if (_isDisposed) return;
         try
         {
             await _menuOrchestrator.HandleScanForWindowsGamesAsync();
@@ -64,6 +65,7 @@ public partial class MainWindow
 
     private async void EditLinksClickAsync(object sender, RoutedEventArgs e)
     {
+        if (_isDisposed) return;
         try
         {
             await _menuOrchestrator.HandleEditLinksAsync();
@@ -74,11 +76,19 @@ public partial class MainWindow
         }
     }
 
-    private void ToggleGamepad_Click(object sender, RoutedEventArgs e)
+    private async void ToggleGamepad_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is not MenuItem menuItem) return;
+        if (_isDisposed) return;
+        try
+        {
+            if (sender is not MenuItem menuItem) return;
 
-        _menuOrchestrator.HandleToggleGamepadAsync(menuItem.IsChecked);
+            await _menuOrchestrator.HandleToggleGamepadAsync(menuItem.IsChecked);
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method ToggleGamepad_Click.");
+        }
     }
 
     private void SetGamepadDeadZone_Click(object sender, RoutedEventArgs e)
@@ -88,6 +98,7 @@ public partial class MainWindow
 
     private async void ToggleFuzzyMatchingClickAsync(object sender, RoutedEventArgs e)
     {
+        if (_isDisposed) return;
         try
         {
             if (sender is not MenuItem menuItem) return;
@@ -102,6 +113,7 @@ public partial class MainWindow
 
     private async void SetFuzzyMatchingThresholdClickAsync(object sender, RoutedEventArgs e)
     {
+        if (_isDisposed) return;
         try
         {
             await _menuOrchestrator.HandleSetFuzzyMatchingThresholdAsync();
@@ -117,9 +129,17 @@ public partial class MainWindow
         _menuOrchestrator.HandleSupport();
     }
 
-    private void Donate_Click(object sender, RoutedEventArgs e)
+    private async void Donate_Click(object sender, RoutedEventArgs e)
     {
-        _menuOrchestrator.HandleDonateAsync();
+        if (_isDisposed) return;
+        try
+        {
+            await _menuOrchestrator.HandleDonateAsync();
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method Donate_Click.");
+        }
     }
 
     private void About_Click(object sender, RoutedEventArgs e)
@@ -241,7 +261,7 @@ public partial class MainWindow
     /// </summary>
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The routed event arguments.</param>
-    public void ShowRetroAchievementsWindowClick(object sender, RoutedEventArgs e)
+    private void ShowRetroAchievementsWindowClick(object sender, RoutedEventArgs e)
     {
         _menuOrchestrator.HandleShowRetroAchievements();
     }
@@ -385,9 +405,17 @@ public partial class MainWindow
         }
     }
 
-    private void ChangeViewMode_Click(object sender, RoutedEventArgs e)
+    private async void ChangeViewMode_Click(object sender, RoutedEventArgs e)
     {
-        _menuOrchestrator.HandleChangeViewModeAsync(sender);
+        if (_isDisposed) return;
+        try
+        {
+            await _menuOrchestrator.HandleChangeViewModeAsync(sender);
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method ChangeViewMode_Click.");
+        }
     }
 
     private void ApplyShowGamesSetting()
@@ -505,9 +533,17 @@ public partial class MainWindow
         }
     }
 
-    private void SoundConfiguration_Click(object sender, RoutedEventArgs e)
+    private async void SoundConfiguration_Click(object sender, RoutedEventArgs e)
     {
-        _menuOrchestrator.HandleSoundConfigurationAsync();
+        if (_isDisposed) return;
+        try
+        {
+            await _menuOrchestrator.HandleSoundConfigurationAsync();
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method SoundConfiguration_Click.");
+        }
     }
 
     private async void ShowRetroAchievementsSettingsWindow_ClickAsync(object sender, RoutedEventArgs e)

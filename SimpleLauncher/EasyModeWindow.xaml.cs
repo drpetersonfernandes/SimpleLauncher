@@ -1263,6 +1263,8 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 _emergencyReturnButton = null;
             }
 
+            _downloadManager.DownloadProgressChanged -= DownloadManager_ProgressChanged;
+
             if (StopDownloadButton.IsEnabled)
             {
                 StopDownloadButton_Click(null, null);

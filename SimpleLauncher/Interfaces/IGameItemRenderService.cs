@@ -9,7 +9,7 @@ public interface IGameItemRenderService
     void Initialize(IGameItemRenderHost host);
     void ReloadFactories(List<SystemManager> systemManagers, List<MameManager> machines);
     Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManager systemManager, CancellationToken ct);
-    void HandleSelectionChangedAsync(GameListViewItem selectedItem);
+    Task HandleSelectionChangedAsync(GameListViewItem selectedItem);
     Task HandleDoubleClickAsync(GameListViewItem selectedItem);
     void ClearRenderedItems();
     void SetGameButtonsEnabled(bool isEnabled);

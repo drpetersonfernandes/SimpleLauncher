@@ -2,6 +2,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Interfaces;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.SettingsManager;
 
@@ -282,5 +283,3 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
         }
     }
 }
-
-public record TagOption(string Tag, string Display);

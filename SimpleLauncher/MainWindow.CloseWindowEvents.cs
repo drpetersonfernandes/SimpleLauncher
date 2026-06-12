@@ -70,6 +70,9 @@ public partial class MainWindow
         if (_isDisposed)
             return;
 
+        // Set flag FIRST to signal async handlers to bail out
+        _isDisposed = true;
+
         // 1. Signal cancellation FIRST to help background threads release locks sooner.
         // We catch ObjectDisposedException to prevent errors if cancellation was already triggered.
         try
@@ -107,9 +110,10 @@ public partial class MainWindow
 
             _cancellationSource?.Dispose();
         }
-        finally
+        catch (Exception ex)
         {
-            _isDisposed = true;
+            // Log but don't throw during disposal
+            System.Diagnostics.Debug.WriteLine($"Error during Dispose: {ex.Message}");
         }
 
         GC.SuppressFinalize(this);

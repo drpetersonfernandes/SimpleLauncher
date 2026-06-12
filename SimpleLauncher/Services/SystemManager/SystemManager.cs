@@ -255,6 +255,19 @@ public partial class SystemManager : ISystemManager
                         _debugLogger.Log($"Failed to perform regex recovery on system.xml: {fatalEx.Message}");
                         logErrors?.LogAndForget(fatalEx, "Failed to perform regex recovery on system.xml.");
                     }
+
+                    // If no systems could be recovered, the file is completely corrupted
+                    if (systemManagers.Count == 0 && invalidManagers.Count == 0)
+                    {
+                        logErrors?.LogAndForget(ex, "No systems could be recovered from 'system.xml'. The file is completely corrupted.");
+
+                        if (messageBoxLibrary != null)
+                        {
+                            _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                        }
+
+                        return [];
+                    }
                 }
                 catch (IOException ex)
                 {

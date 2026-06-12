@@ -21,7 +21,11 @@ public class DownloadProgressEventArgs : EventArgs
     /// <summary>
     /// Gets or sets the progress percentage (0-100).
     /// </summary>
-    public double ProgressPercentage { get; set; }
+    public double ProgressPercentage
+    {
+        get;
+        set => field = Math.Clamp(value, 0, 100);
+    }
 
     /// <summary>
     /// Gets or sets the status message.

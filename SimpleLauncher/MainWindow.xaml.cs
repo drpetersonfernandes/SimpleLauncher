@@ -25,7 +25,7 @@ namespace SimpleLauncher;
 public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingState, IMenuCheckMarkHost, IUiResetHost, IUiOrchestratorHost, IStartupInitializationHost, IThemeMenuHost, ILanguageMenuHost, IStatusBarHost
 {
     private CancellationTokenSource _cancellationSource = new();
-    private bool _isResortOperation;
+    private volatile bool _isResortOperation;
     private bool _wasControllerRunningBeforeDeactivation;
 
     private bool _isDisposed;
@@ -105,7 +105,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private void OnPropertyChanged(string propertyName)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        if (Dispatcher.CheckAccess())
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        else
+        {
+            Dispatcher.BeginInvoke(() => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)));
+        }
     }
 
     // Pagination
@@ -141,6 +148,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         PlayHistoryManager playHistoryManager,
         ILaunchTools launchTools,
         ILogErrors logErrors,
+        IMessageBoxLibraryService messageBox,
         IUpdateStatusBar updateStatusBarService,
         IUiResetService uiResetService,
         ISystemConfigurationService systemConfigurationService,
@@ -159,7 +167,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         PlayHistoryManager = playHistoryManager;
         _launchTools = launchTools;
         _logErrors = logErrors;
-        _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+        _messageBox = messageBox;
         UpdateStatusBarService = updateStatusBarService;
 
         _gameBrowser = gameBrowser;
@@ -355,6 +363,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private async void TopLetterNumberMenu_OnLetterSelectedAsync(string selectedLetter)
     {
+        if (_isDisposed) return;
         try
         {
             await TopLetterNumberMenuClickAsync(selectedLetter);
@@ -367,6 +376,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private async void SystemComboBoxSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
     {
+        if (_isDisposed) return;
         try
         {
             await _gameBrowser.SystemComboBoxSelectionChangedAsync(_cancellationSource.Token);
@@ -435,6 +445,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private async void MainWindow_MouseWheelAsync(object sender, MouseWheelEventArgs e)
     {
+        if (_isDisposed) return;
         try
         {
             // Check if the Ctrl key is pressed
@@ -584,14 +595,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 return;
             }
 
-            // Find and update the specific item
-            var gameItem = GameListItems.FirstOrDefault(item =>
-                item.FilePath.Equals(fileName, StringComparison.OrdinalIgnoreCase));
-
-            if (gameItem != null)
+            // Update in the UI thread to ensure UI refreshes
+            Dispatcher.Invoke(() =>
             {
-                // Update in the UI thread to ensure UI refreshes
-                Dispatcher.Invoke(() =>
+                // Find and update the specific item
+                var gameItem = GameListItems.FirstOrDefault(item =>
+                    item.FilePath.Equals(fileName, StringComparison.OrdinalIgnoreCase));
+
+                if (gameItem != null)
                 {
                     // Update playtime
                     var timeSpan = TimeSpan.FromSeconds(historyItem.TotalPlayTime);
@@ -604,8 +615,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
                     // Force refresh of DataGrid
                     GameDataGrid.Items.Refresh();
-                });
-            }
+                }
+            });
         }
         catch (Exception ex)
         {
@@ -622,7 +633,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     internal void SetIsLoadingGamesInternal(bool value)
     {
-        _isLoadingGames = value;
         IsLoadingGames = value;
     }
 
@@ -667,28 +677,37 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _ = _settings.SaveAsync();
     }
 
-    private void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem)
+        if (_isDisposed) return;
+        try
         {
-            PreviewImage.Source = null; // Clear preview if selection is cleared
-            return;
-        }
+            if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem)
+            {
+                PreviewImage.Source = null; // Clear preview if selection is cleared
+                return;
+            }
 
-        // If the selected item is the "No results" message, its FilePath will be null.
-        // In this case, just clear the preview and do nothing else.
-        if (string.IsNullOrEmpty(selectedItem.FilePath))
+            // If the selected item is the "No results" message, its FilePath will be null.
+            // In this case, just clear the preview and do nothing else.
+            if (string.IsNullOrEmpty(selectedItem.FilePath))
+            {
+                PreviewImage.Source = null;
+                return;
+            }
+
+            // If it's a real game item, proceed with loading the preview.
+            await _gameBrowser.HandleSelectionChangedAsync(selectedItem);
+        }
+        catch (Exception ex)
         {
-            PreviewImage.Source = null;
-            return;
+            _logErrors.LogAndForget(ex, "Error in GameListSelectionChanged.");
         }
-
-        // If it's a real game item, proceed with loading the preview.
-        _gameBrowser.HandleSelectionChangedAsync(selectedItem);
     }
 
     private async void GameListDoubleClickOnSelectedItemAsync(object sender, MouseButtonEventArgs e)
     {
+        if (_isDisposed) return;
         try
         {
             if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem)
@@ -715,6 +734,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private async void GameListRightClickContextMenuAsync(object sender, MouseButtonEventArgs e)
     {
+        if (_isDisposed) return;
         try
         {
             if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem) return;
@@ -803,6 +823,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private async void SortOrderToggleButtonClickAsync(object sender, RoutedEventArgs e)
     {
+        if (_isDisposed) return;
         try
         {
             if (_isLoadingGames)
@@ -826,6 +847,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             {
                 _isResortOperation = false; // Reset flag after loading
             }
+        }
+        catch (OperationCanceledException)
+        {
+            // Expected when user cancels the operation, no action needed
         }
         catch (Exception ex)
         {

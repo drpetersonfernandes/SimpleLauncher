@@ -7,7 +7,7 @@ namespace SimpleLauncher;
 /// <summary>
 /// Full-screen overlay window that displays a brief flash animation effect.
 /// </summary>
-public partial class FlashOverlayWindow
+public partial class FlashOverlayWindow : IDisposable
 {
     private readonly FlashOverlayViewModel _viewModel;
     private CancellationTokenSource _cts;
@@ -25,7 +25,11 @@ public partial class FlashOverlayWindow
 
         DataContext = _viewModel;
 
-        Closing += (_, _) => _cts?.Cancel();
+        Closing += (_, _) =>
+        {
+            _cts?.Cancel();
+            Dispose();
+        };
     }
 
     /// <summary>
@@ -65,5 +69,11 @@ public partial class FlashOverlayWindow
 
         // Close the window after the flash
         _viewModel.OnAnimationCompleted();
+    }
+
+    public void Dispose()
+    {
+        _cts?.Dispose();
+        _cts = null;
     }
 }

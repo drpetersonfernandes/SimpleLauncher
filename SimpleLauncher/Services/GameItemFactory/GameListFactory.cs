@@ -120,7 +120,7 @@ public class GameListFactory(
     /// <summary>
     /// Updates the preview image in the main window when the selected game list item changes.
     /// </summary>
-    public async void HandleSelectionChangedAsync(GameListViewItem selectedItem)
+    public async Task HandleSelectionChangedAsync(GameListViewItem selectedItem)
     {
         try
         {

@@ -25,7 +25,7 @@ public class LaunchTools : ILaunchTools
 
     /// <summary>
     /// Launches an external executable with optional arguments and working directory.
-    /// Handles basic file existence checks and generic launch exceptions.
+    /// Handles basic file existence checks, PE validation, and generic launch exceptions.
     /// </summary>
     private async Task LaunchExternalToolAsync(string toolPath, string arguments = null, string workingDirectory = null)
     {
@@ -43,6 +43,13 @@ public class LaunchTools : ILaunchTools
             return;
         }
 
+        if (!IsValidPeFile(toolPath))
+        {
+            _logErrors.LogAndForget(null, $"External tool is not a valid PE executable: {toolPath}");
+            await _messageBoxLibrary.SelectedToolNotFoundMessageBoxAsync();
+            return;
+        }
+
         try
         {
             var psi = new ProcessStartInfo
@@ -52,7 +59,6 @@ public class LaunchTools : ILaunchTools
                 UseShellExecute = true
             };
 
-            // Set working directory if provided, otherwise it defaults to the executable's directory
             if (!string.IsNullOrEmpty(workingDirectory))
             {
                 var resolvedWorkingDirectory = PathHelper.ResolveRelativeToAppDirectory(workingDirectory);
@@ -69,19 +75,55 @@ public class LaunchTools : ILaunchTools
             // 1223 = User cancelled UAC.
             // 5 = Access Denied (sometimes returned if UAC is disabled but user lacks rights).
             // 0x800704C7 = HRESULT for Operation Cancelled.
-            // We do NOT log these to the developer API as they are expected user actions.
             await _messageBoxLibrary.ToolLaunchWasCanceledByUserMessageBoxAsync();
+        }
+        catch (Win32Exception ex) when (ex.NativeErrorCode == 216)
+        {
+            // 216 = ERROR_EXE_MACHINE_TYPE_MISMATCH
+            // "The specified executable is not a valid application for this OS platform."
+            _logErrors.LogAndForget(ex, $"Tool executable architecture mismatch: {toolPath}.\n" +
+                                        $"NativeErrorCode: {ex.NativeErrorCode}, HResult: 0x{ex.HResult:X8}");
+            await _messageBoxLibrary.SelectedToolNotFoundMessageBoxAsync();
         }
         catch (Exception ex)
         {
-            // Notify developer of genuine errors
             var contextMessage = $"An error occurred while launching external tool: {toolPath}.\n" +
                                  $"Arguments: {arguments ?? "None"}\n" +
-                                 $"Working Directory: {workingDirectory ?? "Default"}";
+                                 $"Working Directory: {workingDirectory ?? "Default"}\n" +
+                                 $"NativeErrorCode: {(ex is Win32Exception w32 ? w32.NativeErrorCode : -1)}, HResult: 0x{ex.HResult:X8}";
             _logErrors.LogAndForget(ex, contextMessage);
 
-            // Notify user
             await _messageBoxLibrary.ErrorLaunchingToolMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+        }
+    }
+
+    /// <summary>
+    /// Validates that a file is a valid PE executable by checking the MZ and PE signatures.
+    /// </summary>
+    private static bool IsValidPeFile(string filePath)
+    {
+        try
+        {
+            using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            if (fs.Length < 64) return false;
+
+            Span<byte> buffer = stackalloc byte[4];
+            fs.ReadExactly(buffer[..2]);
+            if (buffer[0] != 0x4D || buffer[1] != 0x5A) return false; // MZ header
+
+            fs.Seek(0x3C, SeekOrigin.Begin);
+            fs.ReadExactly(buffer);
+            var peOffset = BitConverter.ToInt32(buffer);
+
+            if (peOffset < 0 || peOffset + 4 > fs.Length) return false;
+
+            fs.Seek(peOffset, SeekOrigin.Begin);
+            fs.ReadExactly(buffer);
+            return buffer[0] == 0x50 && buffer[1] == 0x45 && buffer[2] == 0x00 && buffer[3] == 0x00; // PE\0\0
+        }
+        catch
+        {
+            return false;
         }
     }
 

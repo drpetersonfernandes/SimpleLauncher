@@ -8,17 +8,17 @@ namespace SimpleLauncher.Services.RetroAchievements.Models;
 public record RaUserGameRank
 {
     [JsonPropertyName("User")]
-    public string User { get; set; } = "";
+    public string User { get; init; } = "";
 
     [JsonPropertyName("ULID")]
-    public string Ulid { get; set; } = "";
+    public string Ulid { get; init; } = "";
 
     [JsonPropertyName("UserRank")]
-    public int? UserRank { get; set; }
+    public int? UserRank { get; init; }
 
     [JsonPropertyName("TotalScore")]
-    public int TotalScore { get; set; }
+    public int TotalScore { get; init; }
 
     [JsonPropertyName("LastAward")]
-    public string LastAward { get; set; } = "";
+    public string LastAward { get; init; } = "";
 }

@@ -163,9 +163,9 @@ public class GameItemRenderService : IGameItemRenderService
     /// <summary>
     /// Handles a selection change in the list view by updating the preview image.
     /// </summary>
-    public void HandleSelectionChangedAsync(GameListViewItem selectedItem)
+    public Task HandleSelectionChangedAsync(GameListViewItem selectedItem)
     {
-        _gameListFactory.HandleSelectionChangedAsync(selectedItem);
+        return _gameListFactory.HandleSelectionChangedAsync(selectedItem);
     }
 
     /// <summary>

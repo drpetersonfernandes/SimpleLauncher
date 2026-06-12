@@ -9,37 +9,37 @@ namespace SimpleLauncher.Services.RetroAchievements.Models;
 public record RaUserCompletionGame
 {
     [JsonPropertyName("GameID")]
-    public int GameId { get; set; }
+    public int GameId { get; init; }
 
     [JsonPropertyName("Title")]
-    public string Title { get; set; } = "";
+    public string Title { get; init; } = "";
 
     [JsonPropertyName("ImageIcon")]
     public string ImageIcon { get; set; } = "";
 
     [JsonPropertyName("ConsoleID")]
-    public int ConsoleId { get; set; }
+    public int ConsoleId { get; init; }
 
     [JsonPropertyName("ConsoleName")]
-    public string ConsoleName { get; set; } = "";
+    public string ConsoleName { get; init; } = "";
 
     [JsonPropertyName("MaxPossible")]
-    public int MaxPossible { get; set; }
+    public int MaxPossible { get; init; }
 
     [JsonPropertyName("NumAwarded")]
-    public int NumAwarded { get; set; }
+    public int NumAwarded { get; init; }
 
     [JsonPropertyName("NumAwardedHardcore")]
-    public int NumAwardedHardcore { get; set; }
+    public int NumAwardedHardcore { get; init; }
 
     [JsonPropertyName("MostRecentAwardedDate")]
-    public string MostRecentAwardedDate { get; set; } = "";
+    public string MostRecentAwardedDate { get; init; } = "";
 
     [JsonPropertyName("HighestAwardKind")]
-    public string HighestAwardKind { get; set; } = "";
+    public string HighestAwardKind { get; init; } = "";
 
     [JsonPropertyName("HighestAwardDate")]
-    public string HighestAwardDate { get; set; } = "";
+    public string HighestAwardDate { get; init; } = "";
 
     /// <summary>
     /// Gets a formatted display string showing casual completion progress.

@@ -8,8 +8,7 @@
                       Title="{DynamicResource GlobalStats}"
                       Width="1000"
                       Height="700"
-                      WindowStartupLocation="CenterScreen"
-                      Closing="GlobalStatsWindow_Closing" x:ClassModifier="internal">
+                      WindowStartupLocation="CenterScreen" x:ClassModifier="internal">
 
     <Grid>
         <Grid.RowDefinitions>

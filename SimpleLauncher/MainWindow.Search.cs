@@ -12,6 +12,7 @@ public partial class MainWindow
 {
     private async void SearchButtonClickAsync(object sender, RoutedEventArgs e)
     {
+        if (_isDisposed) return;
         try
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("Searching") ?? "Searching...");
@@ -31,6 +32,7 @@ public partial class MainWindow
 
     private async void SearchTextBoxKeyDownAsync(object sender, KeyEventArgs e)
     {
+        if (_isDisposed) return;
         try
         {
             if (e.Key != Key.Enter) return;
@@ -79,7 +81,6 @@ public partial class MainWindow
                     await _messageBox.EnterSearchQueryMessageBoxAsync();
                 }
 
-                SetLoadingState(false);
                 return;
             }
 
@@ -89,12 +90,9 @@ public partial class MainWindow
             try
             {
                 await _gameBrowser.LoadGameFilesAsync(null, result.ValidatedQuery, _cancellationSource.Token);
-                SetLoadingState(false);
             }
             catch (Exception ex)
             {
-                SetLoadingState(false);
-
                 const string contextMessage = "Error during search execution.";
                 _logErrors.LogAndForget(ex, contextMessage);
 

@@ -9,28 +9,28 @@ namespace SimpleLauncher.Services.RetroAchievements.Models;
 public record RaApiAchievement
 {
     [JsonPropertyName("ID")]
-    public int Id { get; set; }
+    public int Id { get; init; }
 
     [JsonPropertyName("Title")]
-    public string Title { get; set; } = "";
+    public string Title { get; init; } = "";
 
     [JsonPropertyName("Description")]
-    public string Description { get; set; } = "";
+    public string Description { get; init; } = "";
 
     [JsonPropertyName("Points")]
-    public int Points { get; set; }
+    public int Points { get; init; }
 
     [JsonPropertyName("BadgeName")]
-    public string BadgeName { get; set; } = "";
+    public string BadgeName { get; init; } = "";
 
     [JsonPropertyName("DisplayOrder")]
-    public int DisplayOrder { get; set; }
+    public int DisplayOrder { get; init; }
 
     [JsonPropertyName("DateEarned")]
-    public string DateEarnedString { get; set; } = "";
+    public string DateEarnedString { get; init; } = "";
 
     [JsonPropertyName("DateEarnedHardcore")]
-    public string DateEarnedHardcoreString { get; set; } = "";
+    public string DateEarnedHardcoreString { get; init; } = "";
 
     /// <summary>
     /// Gets the parsed date when the achievement was earned, or null if not earned.
@@ -67,26 +67,26 @@ public record RaApiAchievement
     }
 
     [JsonPropertyName("NumAwarded")]
-    public int NumAwarded { get; set; }
+    public int NumAwarded { get; init; }
 
     [JsonPropertyName("NumAwardedHardcore")]
-    public int NumAwardedHardcore { get; set; }
+    public int NumAwardedHardcore { get; init; }
 
     [JsonPropertyName("Author")]
-    public string Author { get; set; } = "";
+    public string Author { get; init; } = "";
 
     [JsonPropertyName("AuthorULID")]
-    public string AuthorUlid { get; set; } = "";
+    public string AuthorUlid { get; init; } = "";
 
     [JsonPropertyName("DateModified")]
-    public string DateModified { get; set; } = "";
+    public string DateModified { get; init; } = "";
 
     [JsonPropertyName("DateCreated")]
-    public string DateCreated { get; set; } = "";
+    public string DateCreated { get; init; } = "";
 
     [JsonPropertyName("type")]
-    public string Type { get; set; } = "";
+    public string Type { get; init; } = "";
 
     [JsonPropertyName("TrueRatio")]
-    public int? TrueRatio { get; set; }
+    public int? TrueRatio { get; init; }
 }

@@ -126,9 +126,9 @@ public class GameBrowserService : IGameBrowserService
     /// <summary>
     /// Handles a selection change event by updating the preview image for the selected item.
     /// </summary>
-    public void HandleSelectionChangedAsync(GameListViewItem selectedItem)
+    public Task HandleSelectionChangedAsync(GameListViewItem selectedItem)
     {
-        _gameItemRenderService.HandleSelectionChangedAsync(selectedItem);
+        return _gameItemRenderService.HandleSelectionChangedAsync(selectedItem);
     }
 
     /// <summary>

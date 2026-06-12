@@ -8,11 +8,11 @@ namespace SimpleLauncher.Services.RetroAchievements.Models;
 public record RaUserCompletionProgressResponse
 {
     [JsonPropertyName("Count")]
-    public int Count { get; set; }
+    public int Count { get; init; }
 
     [JsonPropertyName("Total")]
-    public int Total { get; set; }
+    public int Total { get; init; }
 
     [JsonPropertyName("Results")]
-    public List<RaUserCompletionGame> Results { get; set; } = [];
+    public List<RaUserCompletionGame> Results { get; init; } = [];
 }

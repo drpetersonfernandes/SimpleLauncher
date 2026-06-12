@@ -93,22 +93,6 @@ public partial class App : IDisposable
         DispatcherUnhandledException += App_DispatcherUnhandledException;
         TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
-        // Detect if the application is running from a temporary extraction folder
-        // (e.g., user double-clicked the .exe inside a ZIP/RAR archive)
-        var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-        var tempDir = Path.GetTempPath();
-        if (baseDir.StartsWith(tempDir, StringComparison.OrdinalIgnoreCase))
-        {
-            MessageBox.Show(
-                "Please extract the application from the ZIP/RAR archive before running it.\n\n" +
-                "Do not run the application directly from inside the archive.",
-                "Simple Launcher",
-                System.Windows.MessageBoxButton.OK,
-                System.Windows.MessageBoxImage.Warning);
-            Shutdown();
-            return;
-        }
-
         var builder = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddJsonFile("appsettings.json", false, true);
@@ -183,7 +167,6 @@ public partial class App : IDisposable
         // Register IMemoryCache
         serviceCollection.AddMemoryCache();
 
-        // Register Managers as singletons
         // Register Managers as singletons
         serviceCollection.AddSingleton<ILogErrors, LogErrorsService>();
         serviceCollection.AddSingleton<ICredentialProtector, WindowsCredentialProtector>();
@@ -448,6 +431,18 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<ILaunchStrategy, DefaultLaunchStrategy>();
 
         ServiceProvider = serviceCollection.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true });
+
+        // Detect if the application is running from a temporary extraction folder
+        // (e.g., user double-clicked the .exe inside a ZIP/RAR archive)
+        var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        var tempDir = Path.GetTempPath();
+        if (baseDir.StartsWith(tempDir, StringComparison.OrdinalIgnoreCase))
+        {
+            var messageBox = ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+            _ = messageBox.PleaseExtractApplicationFirstMessageBoxAsync();
+            Shutdown();
+            return;
+        }
 
         // --- Single Instance Check ---
         // Catch args

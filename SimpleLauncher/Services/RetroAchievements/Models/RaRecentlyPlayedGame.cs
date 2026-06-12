@@ -8,52 +8,52 @@ namespace SimpleLauncher.Services.RetroAchievements.Models;
 public record RaRecentlyPlayedGame
 {
     [JsonPropertyName("GameID")]
-    public int GameId { get; set; }
+    public int GameId { get; init; }
 
     [JsonPropertyName("ConsoleID")]
-    public int ConsoleId { get; set; }
+    public int ConsoleId { get; init; }
 
     [JsonPropertyName("ConsoleName")]
-    public string ConsoleName { get; set; } = "";
+    public string ConsoleName { get; init; } = "";
 
     [JsonPropertyName("Title")]
-    public string Title { get; set; } = "";
+    public string Title { get; init; } = "";
 
     [JsonPropertyName("ImageIcon")]
-    public string ImageIcon { get; set; } = "";
+    public string ImageIcon { get; init; } = "";
 
     [JsonPropertyName("ImageTitle")]
-    public string ImageTitle { get; set; } = "";
+    public string ImageTitle { get; init; } = "";
 
     [JsonPropertyName("ImageIngame")]
-    public string ImageIngame { get; set; } = "";
+    public string ImageIngame { get; init; } = "";
 
     [JsonPropertyName("ImageBoxArt")]
-    public string ImageBoxArt { get; set; } = "";
+    public string ImageBoxArt { get; init; } = "";
 
     [JsonPropertyName("LastPlayed")]
-    public string LastPlayed { get; set; } = "";
+    public string LastPlayed { get; init; } = "";
 
     [JsonPropertyName("AchievementsTotal")]
-    public int AchievementsTotal { get; set; }
+    public int AchievementsTotal { get; init; }
 
     [JsonPropertyName("NumPossibleAchievements")]
-    public int NumPossibleAchievements { get; set; }
+    public int NumPossibleAchievements { get; init; }
 
     [JsonPropertyName("PossibleScore")]
-    public int PossibleScore { get; set; }
+    public int PossibleScore { get; init; }
 
     [JsonPropertyName("NumAchieved")]
-    public int NumAchieved { get; set; }
+    public int NumAchieved { get; init; }
 
     [JsonPropertyName("ScoreAchieved")]
-    public int ScoreAchieved { get; set; }
+    public int ScoreAchieved { get; init; }
 
     [JsonPropertyName("NumAchievedHardcore")]
-    public int NumAchievedHardcore { get; set; }
+    public int NumAchievedHardcore { get; init; }
 
     [JsonPropertyName("ScoreAchievedHardcore")]
-    public int ScoreAchievedHardcore { get; set; }
+    public int ScoreAchievedHardcore { get; init; }
 
     /// <summary>
     /// Gets the full URL for the game icon image.

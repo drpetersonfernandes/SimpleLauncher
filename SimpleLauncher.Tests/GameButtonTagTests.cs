@@ -66,9 +66,9 @@ public class GameButtonTagTests
             Key = "something"
         };
 
-        tag.Key = null;
+        tag.Key = "";
 
-        Assert.Null(tag.Key);
+        Assert.Equal("", tag.Key);
     }
 
     /// <summary>

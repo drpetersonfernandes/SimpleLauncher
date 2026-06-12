@@ -173,9 +173,9 @@ public partial class RetroAchievementsViewModel : ObservableObject
                 ProfileStatus = userProfile.Untracked == 1
                     ? _resourceProvider.GetString("RaStatusUntracked", "Untracked")
                     : _resourceProvider.GetString("RaStatusTracked", "Tracked");
-                ProfileProfileId = string.IsNullOrWhiteSpace(userProfile.Uuid)
+                ProfileProfileId = string.IsNullOrWhiteSpace(userProfile.Ulid)
                     ? _resourceProvider.GetString("RaStatusNotApplicable", "N/A")
-                    : userProfile.Uuid;
+                    : userProfile.Ulid;
                 ProfileWallActive = userProfile.UserWallActive
                     ? _resourceProvider.GetString("RaGenericYes", "Yes")
                     : _resourceProvider.GetString("RaGenericNo", "No");

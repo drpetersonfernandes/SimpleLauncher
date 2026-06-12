@@ -66,7 +66,21 @@ public class EasyModeSystemConfig
     /// </summary>
     public bool IsValid()
     {
-        // Validate only SystemName; Emulators and nested Emulator can be null.
-        return !string.IsNullOrWhiteSpace(SystemName);
+        if (string.IsNullOrWhiteSpace(SystemName))
+            return false;
+
+        if (string.IsNullOrWhiteSpace(SystemFolder))
+            return false;
+
+        if (string.IsNullOrWhiteSpace(SystemImageFolder))
+            return false;
+
+        if (FileFormatsToSearch == null || FileFormatsToSearch.Count == 0)
+            return false;
+
+        if (FileFormatsToLaunch == null || FileFormatsToLaunch.Count == 0)
+            return false;
+
+        return true;
     }
 }

@@ -22,8 +22,8 @@ public class RightClickContext(
     FavoritesManager favoritesManager,
     SettingsManager settings,
     ComboBox emulatorComboBox,
-    Favorite selectedFavorite,
-    Emulator emulatorManager,
+    Favorite favorite,
+    Emulator emulator,
     WrapPanel gameFileGrid,
     Button button,
     MainWindow mainWindow,
@@ -61,10 +61,10 @@ public class RightClickContext(
     public ComboBox EmulatorComboBox { get; } = emulatorComboBox;
 
     /// <summary>Gets the selected favorite entry, if any.</summary>
-    public Favorite Favorite { get; } = selectedFavorite;
+    public Favorite Favorite { get; } = favorite;
 
     /// <summary>Gets the emulator configuration instance.</summary>
-    public Emulator Emulator { get; } = emulatorManager;
+    public Emulator Emulator { get; } = emulator;
 
     /// <summary>Gets the game file grid panel.</summary>
     public WrapPanel GameFileGrid { get; } = gameFileGrid;

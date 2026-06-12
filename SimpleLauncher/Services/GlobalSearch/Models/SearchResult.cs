@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Services.GlobalSearch.Models;
@@ -15,7 +14,7 @@ public class SearchResult : INotifyPropertyChanged
     public string SystemName { get; init; }
     public Emulator EmulatorManager { get; init; }
 
-    public int Score // If the Score can be updated after display and is bound, it should also notify.
+    public int Score
     {
         get;
         set
@@ -28,7 +27,21 @@ public class SearchResult : INotifyPropertyChanged
     }
 
     public string CoverImage { get; init; }
-    public string DefaultEmulator => EmulatorManager?.EmulatorName ?? (string)Application.Current.TryFindResource("NoDefaultEmulator") ?? "No Default Emulator";
+
+    public string DefaultEmulator
+    {
+        get
+        {
+            if (EmulatorManager?.EmulatorName != null)
+                return EmulatorManager.EmulatorName;
+
+            // Use Dispatcher to safely access Application.Current resources
+            if (System.Windows.Application.Current?.TryFindResource("NoDefaultEmulator") is string localized)
+                return localized;
+
+            return "No Default Emulator";
+        }
+    }
 
     public event PropertyChangedEventHandler PropertyChanged;
 

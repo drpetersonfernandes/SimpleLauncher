@@ -8,6 +8,8 @@ namespace SimpleLauncher.Services.WpfServices;
 /// </summary>
 public class WpfResourceProvider : IResourceProvider
 {
+    private static readonly TimeSpan UiTimeout = TimeSpan.FromSeconds(5);
+
     /// <summary>Gets a localized string resource by key, returning the key itself if not found.</summary>
     public string GetString(string key)
     {
@@ -17,7 +19,7 @@ public class WpfResourceProvider : IResourceProvider
 
         var task = dispatcher.InvokeAsync(() =>
             Application.Current.TryFindResource(key) as string ?? key);
-        return task.Task.Wait(TimeSpan.FromSeconds(5)) ? task.Task.Result : key;
+        return task.Task.Wait(UiTimeout) ? task.Task.Result : key;
     }
 
     /// <summary>Gets a localized string resource by key, returning the specified default value if not found.</summary>
@@ -29,6 +31,6 @@ public class WpfResourceProvider : IResourceProvider
 
         var task = dispatcher.InvokeAsync(() =>
             Application.Current.TryFindResource(key) as string ?? defaultValue);
-        return task.Task.Wait(TimeSpan.FromSeconds(5)) ? task.Task.Result : defaultValue;
+        return task.Task.Wait(UiTimeout) ? task.Task.Result : defaultValue;
     }
 }

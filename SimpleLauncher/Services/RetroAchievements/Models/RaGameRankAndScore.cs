@@ -8,16 +8,16 @@ namespace SimpleLauncher.Services.RetroAchievements.Models;
 public record RaGameRankAndScore
 {
     [JsonPropertyName("User")]
-    public string User { get; set; } = "";
+    public string User { get; init; } = "";
 
     [JsonPropertyName("ULID")]
-    public string Ulid { get; set; } = "";
+    public string Ulid { get; init; } = "";
 
     [JsonPropertyName("NumAchievements")]
-    public int NumAchievements { get; set; }
+    public int NumAchievements { get; init; }
 
     [JsonPropertyName("TotalScore")]
-    public int TotalScore { get; set; }
+    public int TotalScore { get; init; }
 
     /// <summary>
     /// Gets the total score (alias for TotalScore).
@@ -26,17 +26,17 @@ public record RaGameRankAndScore
     public int Score => TotalScore;
 
     [JsonPropertyName("LastAward")]
-    public string LastAward { get; set; } = "";
+    public string LastAward { get; init; } = "";
 
     [JsonPropertyName("TotalTruePoints")]
-    public int? TotalTruePoints { get; set; }
+    public int? TotalTruePoints { get; init; }
 
     /// <summary>
     /// Gets the ratio of true points to total score as a percentage.
     /// </summary>
     [JsonIgnore]
-    public int TrueRatio => TotalTruePoints.HasValue && TotalScore > 0
-        ? (int)((double)TotalTruePoints.Value / TotalScore * 100)
+    public double TrueRatio => TotalTruePoints.HasValue && TotalScore > 0
+        ? (double)TotalTruePoints.Value / TotalScore * 100
         : 0;
 
     /// <summary>

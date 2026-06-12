@@ -21,7 +21,7 @@ internal partial class DownloadImagePackWindow : IDisposable
         _viewModel = viewModel;
         DataContext = _viewModel;
 
-        Closed += CloseWindowRoutineAsync;
+        Closing += CloseWindowRoutineAsync;
         Loaded += DownloadImagePackWindowLoadedAsync;
 
         Loaded += (_, _) =>

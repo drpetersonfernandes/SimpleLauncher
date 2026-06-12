@@ -78,8 +78,11 @@ public partial class RetroAchievementsWindow : ILoadingState
 
     private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (e.Source is TabControl { SelectedItem: TabItem selectedTab })
+        try
         {
+            if (e.Source is not TabControl { SelectedItem: TabItem selectedTab })
+                return;
+
             if (selectedTab is not { IsSelected: true }) return;
 
             var tag = selectedTab.Tag?.ToString();
@@ -105,11 +108,22 @@ public partial class RetroAchievementsWindow : ILoadingState
                     break;
             }
         }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in TabControl_SelectionChanged of RetroAchievementsWindow.");
+        }
     }
 
     private void RetroAchievementsWindow_Loaded(object sender, RoutedEventArgs e)
     {
-        _ = LoadUserProfileAsync();
+        try
+        {
+            _ = LoadUserProfileAsync();
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in RetroAchievementsWindow_Loaded.");
+        }
     }
 
     private async Task LoadUserProfileAsync()

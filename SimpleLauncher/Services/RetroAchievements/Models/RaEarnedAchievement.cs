@@ -9,58 +9,58 @@ namespace SimpleLauncher.Services.RetroAchievements.Models;
 public record RaEarnedAchievement
 {
     [JsonPropertyName("Date")]
-    public string Date { get; set; } = "";
+    public string Date { get; init; } = "";
 
     [JsonPropertyName("HardcoreMode")]
-    public int HardcoreMode { get; set; } // 1 for hardcore, 0 for casual
+    public int HardcoreMode { get; init; } // 1 for hardcore, 0 for casual
 
     [JsonPropertyName("AchievementID")]
-    public int AchievementId { get; set; }
+    public int AchievementId { get; init; }
 
     [JsonPropertyName("Title")]
-    public string Title { get; set; } = "";
+    public string Title { get; init; } = "";
 
     [JsonPropertyName("Description")]
-    public string Description { get; set; } = "";
+    public string Description { get; init; } = "";
 
     [JsonPropertyName("BadgeName")]
-    public string BadgeName { get; set; } = "";
+    public string BadgeName { get; init; } = "";
 
     [JsonPropertyName("Points")]
-    public int Points { get; set; }
+    public int Points { get; init; }
 
     [JsonPropertyName("TrueRatio")]
-    public int? TrueRatio { get; set; }
+    public int? TrueRatio { get; init; }
 
     [JsonPropertyName("Type")]
-    public string Type { get; set; } = "";
+    public string Type { get; init; } = "";
 
     [JsonPropertyName("Author")]
-    public string Author { get; set; } = "";
+    public string Author { get; init; } = "";
 
     [JsonPropertyName("AuthorULID")]
-    public string AuthorUlid { get; set; } = "";
+    public string AuthorUlid { get; init; } = "";
 
     [JsonPropertyName("GameTitle")]
-    public string GameTitle { get; set; } = "";
+    public string GameTitle { get; init; } = "";
 
     [JsonPropertyName("GameIcon")]
-    public string GameIcon { get; set; } = "";
+    public string GameIcon { get; init; } = "";
 
     [JsonPropertyName("GameID")]
-    public int GameId { get; set; }
+    public int GameId { get; init; }
 
     [JsonPropertyName("ConsoleName")]
-    public string ConsoleName { get; set; } = "";
+    public string ConsoleName { get; init; } = "";
 
     [JsonPropertyName("CumulScore")]
-    public int CumulScore { get; set; }
+    public int CumulScore { get; init; }
 
     [JsonPropertyName("BadgeURL")]
-    public string BadgeUrl { get; set; } = "";
+    public string BadgeUrl { get; init; } = "";
 
     [JsonPropertyName("GameURL")]
-    public string GameUrl { get; set; } = "";
+    public string GameUrl { get; init; } = "";
 
     private DateTime? UnlockedDate => DateTime.TryParse(Date, out var dt) ? dt : null;
 

@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -170,7 +171,10 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
 
             IsProcessing = true;
             _forceClose = false;
-            _cancellationTokenSource = new CancellationTokenSource();
+
+            // Dispose any previous CTS and create a new one atomically
+            var oldCts = Interlocked.Exchange(ref _cancellationTokenSource, new CancellationTokenSource());
+            oldCts?.Dispose();
 
             try
             {

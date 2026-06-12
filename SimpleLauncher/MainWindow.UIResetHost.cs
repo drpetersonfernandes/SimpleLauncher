@@ -14,11 +14,7 @@ public partial class MainWindow
     bool IUiResetHost.IsLoadingGames
     {
         get => _isLoadingGames;
-        set
-        {
-            _isLoadingGames = value;
-            IsLoadingGames = value;
-        }
+        set => IsLoadingGames = value;
     }
 
     string IUiResetHost.CurrentFilter { get; set; }

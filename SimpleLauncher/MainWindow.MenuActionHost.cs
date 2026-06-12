@@ -115,7 +115,6 @@ public partial class MainWindow : IMenuActionHost
 
     void IMenuActionHost.SetIsLoadingGames(bool value)
     {
-        _isLoadingGames = value;
         IsLoadingGames = value;
     }
 
@@ -223,7 +222,7 @@ public partial class MainWindow : IMenuActionHost
     // Data access
     List<Services.SystemManager.SystemManager> IMenuActionHost.GetSystemManagers()
     {
-        return _systemManagers.ToList();
+        return _systemManagers?.ToList() ?? [];
     }
 
     List<Services.MameManager.MameManager> IMenuActionHost.GetMachines()
