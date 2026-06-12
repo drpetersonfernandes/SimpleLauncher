@@ -204,7 +204,6 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
-                ShouldRun = true;
             }
         }
         catch (OperationCanceledException)
@@ -216,7 +215,6 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectDuckStationConfigWindow));
             var window = GetOwnerWindow?.Invoke();
             InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
-            ShouldRun = true;
         }
     }
 

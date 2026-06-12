@@ -15,15 +15,17 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
     private readonly SettingsManager _settingsManager;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
+    private readonly ILogErrors _logErrors;
 
     private double _deadZoneX;
     private double _deadZoneY;
 
-    public SetGamepadDeadZoneViewModel(SettingsManager settingsManager, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
+    public SetGamepadDeadZoneViewModel(SettingsManager settingsManager, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider, ILogErrors logErrors)
     {
         _settingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
         _messageBox = messageBox;
         _resourceProvider = resourceProvider;
+        _logErrors = logErrors;
 
         _deadZoneX = _settingsManager.DeadZoneX;
         _deadZoneY = _settingsManager.DeadZoneY;
@@ -70,16 +72,24 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
     [RelayCommand]
     private async Task SaveAsync()
     {
-        _settingsManager.DeadZoneX = (float)DeadZoneX;
-        _settingsManager.DeadZoneY = (float)DeadZoneY;
-        await _settingsManager.SaveAsync();
+        try
+        {
+            _settingsManager.DeadZoneX = (float)DeadZoneX;
+            _settingsManager.DeadZoneY = (float)DeadZoneY;
+            await _settingsManager.SaveAsync();
 
-        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-            _resourceProvider.GetString("SavingGamepadDeadZoneSettings", "Saving gamepad dead zone settings..."));
+            (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
+                _resourceProvider.GetString("SavingGamepadDeadZoneSettings", "Saving gamepad dead zone settings..."));
 
-        await _messageBox.DeadZonesSavedMessageBoxAsync();
+            await _messageBox.DeadZonesSavedMessageBoxAsync();
 
-        SaveCompleted?.Invoke();
+            SaveCompleted?.Invoke();
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error saving gamepad dead zone settings.");
+            await _messageBox.FailedToSaveSettingsMessageBoxAsync();
+        }
     }
 
     [RelayCommand]

@@ -78,6 +78,7 @@ public class DiscConverter : IDiscConverter
             {
                 _debugLogger.Log("[ConvertChdToIso] Conversion timed out after 5 minutes.");
                 try { process.Kill(); } catch { /* ignored */ }
+
                 return null;
             }
 
@@ -155,6 +156,7 @@ public class DiscConverter : IDiscConverter
             {
                 _debugLogger.Log("[ConvertChdToCueBin] Conversion timed out after 5 minutes. Killing process.");
                 try { process.Kill(); } catch { /* ignored */ }
+
                 return null;
             }
 
@@ -239,6 +241,7 @@ public class DiscConverter : IDiscConverter
             {
                 _debugLogger.Log("[ConvertPbpToCueBin] Conversion timed out after 5 minutes. Killing process.");
                 try { process.Kill(); } catch { /* ignored */ }
+
                 return null;
             }
 
@@ -324,6 +327,7 @@ public class DiscConverter : IDiscConverter
             {
                 _debugLogger.Log("[ConvertDiscImageToIso] Conversion timed out after 5 minutes.");
                 try { process.Kill(); } catch { /* ignored */ }
+
                 return null;
             }
 

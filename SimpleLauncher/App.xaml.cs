@@ -75,6 +75,7 @@ public partial class App : IDisposable
     /// Gets the application's dependency injection service provider.
     /// </summary>
     public static IServiceProvider ServiceProvider { get; private set; }
+
     private Mutex _singleInstanceMutex;
     private bool _isFirstInstance;
     private const string UniqueMutexIdentifier = "A8E2B9C1-F5D7-4E0A-8B3C-6D1E9F0A7B4C";
@@ -204,7 +205,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<PlaySoundEffects>();
         serviceCollection.AddSingleton<IPlaySoundEffects>(static sp => sp.GetRequiredService<PlaySoundEffects>());
         serviceCollection.AddSingleton<GamePadController>();
-        serviceCollection.AddScoped<DownloadManager>();
+        serviceCollection.AddSingleton<DownloadManager>();
         serviceCollection.AddSingleton<GameLauncher>();
         serviceCollection.AddSingleton<ILaunchTools, LaunchTools>();
         serviceCollection.AddSingleton<IDebugLogger>(_ => new DebugLogger(isDebugMode));
@@ -291,7 +292,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IMessageBoxLibraryService, MessageBoxLibraryService>();
         serviceCollection.AddSingleton<IUiOrchestrator, UiOrchestrator>();
         serviceCollection.AddSingleton<IGameItemRenderService, GameItemRenderService>();
-        serviceCollection.AddSingleton<IRetroAchievementsHasherTool, RetroAchievementsHasherTool>(static sp =>
+        serviceCollection.AddSingleton<IRetroAchievementsHasherTool>(static sp =>
         {
             var debugLogger = sp.GetRequiredService<IDebugLogger>();
             var extractionService = sp.GetRequiredService<IExtractionService>();
@@ -447,7 +448,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<ILaunchStrategy, DosBoxLaunchStrategy>();
         serviceCollection.AddSingleton<ILaunchStrategy, DefaultLaunchStrategy>();
 
-        ServiceProvider = serviceCollection.BuildServiceProvider();
+        ServiceProvider = serviceCollection.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true });
 
         // --- Single Instance Check ---
         // Catch args

@@ -139,49 +139,48 @@ public partial class SystemManager : ISystemManager
     /// </summary>
     public static List<SystemManager> LoadSystemManagers(IConfiguration configuration, ILogErrors logErrors = null, IMessageBoxLibraryService messageBoxLibrary = null)
     {
+        var systemXmlPath = GetSystemXmlPath(configuration);
+
+        if (!File.Exists(systemXmlPath))
+        {
+            var directoryPath = Path.GetDirectoryName(systemXmlPath);
+
+            if (directoryPath != null)
+            {
+                RestoreBackupFile(directoryPath, systemXmlPath, logErrors, messageBoxLibrary);
+            }
+
+            // If no backup was restored, create a new empty system.xml file
+            if (!File.Exists(systemXmlPath))
+            {
+                try
+                {
+                    // Create a new XDocument with the root element
+                    var emptyDoc = new XDocument(new XElement("SystemConfigs"));
+                    emptyDoc.Save(systemXmlPath);
+                    // No user notification needed for creating an expected empty file
+                }
+                catch (Exception createEx)
+                {
+                    // Notify developer
+                    const string contextMessage = "Error creating empty 'system.xml'.";
+                    logErrors?.LogAndForget(createEx, contextMessage);
+
+                    // Notify user
+                    if (messageBoxLibrary != null)
+                    {
+                        _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    }
+
+                    return []; // Return an empty list
+                }
+            }
+        }
+
         lock (XmlLock)
         {
-            var systemXmlPath = GetSystemXmlPath(configuration);
-
             try
             {
-                if (!File.Exists(systemXmlPath))
-                {
-                    var directoryPath = Path.GetDirectoryName(systemXmlPath);
-                    var backupRestored = false;
-
-                    if (directoryPath != null)
-                    {
-                        backupRestored = RestoreBackupFile(directoryPath, backupRestored, systemXmlPath);
-                    }
-
-                    // If no backup was restored, create a new empty system.xml file
-                    if (!backupRestored)
-                    {
-                        try
-                        {
-                            // Create a new XDocument with the root element
-                            var emptyDoc = new XDocument(new XElement("SystemConfigs"));
-                            emptyDoc.Save(systemXmlPath);
-                            // No user notification needed for creating an expected empty file
-                        }
-                        catch (Exception createEx)
-                        {
-                            // Notify developer
-                            const string contextMessage = "Error creating empty 'system.xml'.";
-                            logErrors?.LogAndForget(createEx, contextMessage);
-
-                            // Notify user
-                            if (messageBoxLibrary != null)
-                            {
-                                _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-                            }
-
-                            return []; // Return an empty list
-                        }
-                    }
-                }
-
                 var systemManagers = new List<SystemManager>();
                 var invalidManagers = new Dictionary<XElement, string>();
                 XDocument doc = null;
@@ -489,55 +488,49 @@ public partial class SystemManager : ISystemManager
                 DisableRecursiveSearch = disableRecursiveSearch
             });
         }
+    }
 
-        bool RestoreBackupFile(string directoryPath, bool backupRestored, string systemXmlPath)
+    private static void RestoreBackupFile(string directoryPath, string systemXmlPath, ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary)
+    {
+        try
         {
-            try
+            // Search for backup files in the application directory
+            var backupFiles = Directory.GetFiles(directoryPath, "system_backup*.xml").ToList();
+            if (backupFiles.Count > 0)
             {
-                // Search for backup files in the application directory
-                var backupFiles = Directory.GetFiles(directoryPath, "system_backup*.xml").ToList();
-                if (backupFiles.Count > 0)
+                // Sort the backup files by their last write time to find the most recent one
+                var mostRecentBackupFile = backupFiles.MaxBy(File.GetLastWriteTime);
+
+                // Notify user and ask to restore
+                var restoreResult = messageBoxLibrary != null ? messageBoxLibrary.WouldYouLikeToRestoreTheLastBackupMessageBoxAsync().GetAwaiter().GetResult() : MessageBoxResult.No;
+                if (restoreResult == MessageBoxResult.Yes)
                 {
-                    // Sort the backup files by their last write time to find the most recent one
-                    var mostRecentBackupFile = backupFiles.MaxBy(File.GetLastWriteTime);
-
-                    // Notify user and ask to restore
-                    var restoreResult = messageBoxLibrary != null ? messageBoxLibrary.WouldYouLikeToRestoreTheLastBackupMessageBoxAsync().GetAwaiter().GetResult() : MessageBoxResult.No;
-                    if (restoreResult == MessageBoxResult.Yes)
+                    try
                     {
-                        try
-                        {
-                            // Copy the most recent backup file to system.xml, overwriting if a dummy file exists
-                            if (mostRecentBackupFile != null) File.Copy(mostRecentBackupFile, systemXmlPath, true);
+                        // Copy the most recent backup file to system.xml, overwriting if a dummy file exists
+                        if (mostRecentBackupFile != null) File.Copy(mostRecentBackupFile, systemXmlPath, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Notify developer
+                        const string contextMessage = "'Simple Launcher' was unable to restore the last backup.";
+                        logErrors?.LogAndForget(ex, contextMessage);
 
-                            backupRestored = true;
-                        }
-                        catch (Exception ex)
+                        // Notify user
+                        if (messageBoxLibrary != null)
                         {
-                            // Notify developer
-                            const string contextMessage = "'Simple Launcher' was unable to restore the last backup.";
-                            logErrors?.LogAndForget(ex, contextMessage);
-
-                            // Notify user
-                            if (messageBoxLibrary != null)
-                            {
-                                _ = messageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBoxAsync();
-                            }
-                            // backupRestored remains false, proceed to create empty file
+                            _ = messageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBoxAsync();
                         }
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                // Notify developer
-                // Error during backup search/restore attempt (e.g., directory access issues)
-                const string contextMessage = "Error during backup file handling.";
-                logErrors?.LogAndForget(ex, contextMessage);
-                // Proceed to create empty file as backup handling failed
-            }
-
-            return backupRestored;
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            // Error during backup search/restore attempt (e.g., directory access issues)
+            const string contextMessage = "Error during backup file handling.";
+            logErrors?.LogAndForget(ex, contextMessage);
         }
     }
 
@@ -729,9 +722,9 @@ public partial class SystemManager : ISystemManager
                                         }
                                     }
                                 }
-                                catch
+                                catch (Exception fallbackEx)
                                 {
-                                    // Fallback failed, continue with normal error handling
+                                    System.Diagnostics.Debug.WriteLine($"[SystemManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
                                 }
                             }
 
@@ -746,9 +739,9 @@ public partial class SystemManager : ISystemManager
                                         File.Delete(tempPath);
                                     }
                                 }
-                                catch
+                                catch (Exception cleanupEx)
                                 {
-                                    // Ignore cleanup errors
+                                    System.Diagnostics.Debug.WriteLine($"[SystemManager] Temp file cleanup failed: {cleanupEx.Message}");
                                 }
 
                                 Thread.Sleep(retryDelayMs);
@@ -807,7 +800,13 @@ public partial class SystemManager : ISystemManager
                     XDocument xmlDoc;
                     try
                     {
-                        xmlDoc = XDocument.Load(systemXmlPath);
+                        var settings = new XmlReaderSettings
+                        {
+                            DtdProcessing = DtdProcessing.Prohibit,
+                            XmlResolver = null
+                        };
+                        using var reader = XmlReader.Create(systemXmlPath, settings);
+                        xmlDoc = XDocument.Load(reader, LoadOptions.None);
                     }
                     catch (Exception ex)
                     {
@@ -821,7 +820,9 @@ public partial class SystemManager : ISystemManager
                     if (systemNode != null)
                     {
                         systemNode.Remove();
-                        xmlDoc.Save(systemXmlPath);
+                        var tempPath = systemXmlPath + ".tmp";
+                        xmlDoc.Save(tempPath);
+                        File.Move(tempPath, systemXmlPath, true);
                     }
                 }
             });

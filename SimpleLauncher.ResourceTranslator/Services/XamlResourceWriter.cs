@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace SimpleLauncher.ResourceTranslator.Services;
 
-public static partial class XamlResourceWriter
+public static class XamlResourceWriter
 {
     public static void UpdateResourceFile(
         string filePath,
@@ -26,6 +26,7 @@ public static partial class XamlResourceWriter
             var closingIndex = content.LastIndexOf("</ResourceDictionary>", StringComparison.Ordinal);
             if (closingIndex < 0)
                 throw new InvalidOperationException($"Could not parse XAML structure in {filePath}");
+
             header = content[..closingIndex];
         }
 

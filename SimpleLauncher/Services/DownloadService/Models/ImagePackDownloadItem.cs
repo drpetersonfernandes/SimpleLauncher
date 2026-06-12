@@ -13,10 +13,12 @@ public class ImagePackDownloadItem : INotifyPropertyChanged
     /// Gets or sets the display name of the image pack.
     /// </summary>
     public string DisplayName { get; set; }
+
     /// <summary>
     /// Gets or sets the URL to download the image pack from.
     /// </summary>
     public string DownloadUrl { get; set; }
+
     /// <summary>
     /// Gets or sets the local path where the image pack will be extracted.
     /// </summary>
@@ -47,18 +49,22 @@ public class ImagePackDownloadItem : INotifyPropertyChanged
     /// Gets a value indicating whether the download is in the idle state.
     /// </summary>
     public bool IsIdle => State == DownloadButtonState.Idle;
+
     /// <summary>
     /// Gets a value indicating whether the download is currently in progress.
     /// </summary>
     public bool IsDownloading => State == DownloadButtonState.Downloading;
+
     /// <summary>
     /// Gets a value indicating whether the download has completed successfully.
     /// </summary>
     public bool IsDownloaded => State == DownloadButtonState.Downloaded;
+
     /// <summary>
     /// Gets a value indicating whether the download has failed.
     /// </summary>
     public bool IsFailed => State == DownloadButtonState.Failed;
+
     /// <summary>
     /// Gets a value indicating whether a new download can be started (idle or failed state).
     /// </summary>

@@ -114,6 +114,7 @@ public class DokanService
 
             if (process != null)
             {
+                process.Dispose();
                 LogMessage?.Invoke("Dokan installer launched. Please follow the installation wizard.");
             }
             else

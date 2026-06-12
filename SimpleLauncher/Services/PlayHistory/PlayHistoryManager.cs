@@ -273,9 +273,9 @@ public class PlayHistoryManager
                                 continue;
                             }
                         }
-                        catch
+                        catch (Exception fallbackEx)
                         {
-                            // Fallback failed, continue with normal error handling
+                            System.Diagnostics.Debug.WriteLine($"[PlayHistoryManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
                         }
                     }
 
@@ -289,9 +289,9 @@ public class PlayHistoryManager
                                 File.Delete(TempFilePath);
                             }
                         }
-                        catch
+                        catch (Exception cleanupEx)
                         {
-                            // Ignore cleanup errors
+                            System.Diagnostics.Debug.WriteLine($"[PlayHistoryManager] Temp file cleanup failed: {cleanupEx.Message}");
                         }
 
                         Thread.Sleep(retryDelayMs);
@@ -396,19 +396,22 @@ public class PlayHistoryManager
     internal void MigrateFilenamesToFullPaths(List<SystemManager.SystemManager> systemManagers)
     {
         var needsSave = false;
-        foreach (var item in PlayHistoryList)
+        lock (_historyLock)
         {
-            // If the path is not rooted, it's an old "filename only" record
-            if (!Path.IsPathRooted(item.FileName))
+            foreach (var item in PlayHistoryList)
             {
-                var system = systemManagers.FirstOrDefault(s => s.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
-                if (system != null)
+                // If the path is not rooted, it's an old "filename only" record
+                if (!Path.IsPathRooted(item.FileName))
                 {
-                    var resolvedPath = PathHelper.FindFileInSystemFolders(system.SystemFolders, item.FileName);
-                    if (!string.IsNullOrEmpty(resolvedPath))
+                    var system = systemManagers.FirstOrDefault(s => s.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
+                    if (system != null)
                     {
-                        item.FileName = resolvedPath;
-                        needsSave = true;
+                        var resolvedPath = PathHelper.FindFileInSystemFolders(system.SystemFolders, item.FileName);
+                        if (!string.IsNullOrEmpty(resolvedPath))
+                        {
+                            item.FileName = resolvedPath;
+                            needsSave = true;
+                        }
                     }
                 }
             }

@@ -118,13 +118,15 @@ public partial class SupportViewModel : ObservableObject
             var httpClient = _httpClientFactory?.CreateClient("SupportWindowClient");
             if (httpClient != null)
             {
-                httpClient.DefaultRequestHeaders.Add("X-API-KEY", apiKey);
-
                 var apiUrl = apiBaseUrl.TrimEnd('/');
 
                 using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
 
-                using var response = await httpClient.PostAsync(apiUrl, jsonContent, cts.Token);
+                using var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
+                request.Content = jsonContent;
+                request.Headers.Add("X-API-KEY", apiKey);
+
+                using var response = await httpClient.SendAsync(request, cts.Token);
 
                 if (response.IsSuccessStatusCode)
                 {

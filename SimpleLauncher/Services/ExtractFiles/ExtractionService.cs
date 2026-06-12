@@ -493,9 +493,9 @@ public class ExtractionService : IExtractionService
                 {
                     process.Kill();
                 }
-                catch
+                catch (Exception ex)
                 {
-                    /* ignored */
+                    Debug.WriteLine($"[ExtractionService] process.Kill() failed: {ex.Message}");
                 }
 
                 return false;

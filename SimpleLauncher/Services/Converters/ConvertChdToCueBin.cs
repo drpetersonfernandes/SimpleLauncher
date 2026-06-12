@@ -12,7 +12,8 @@ using Interfaces;
 /// </summary>
 public static class ConvertChdToCueBin
 {
-    private static readonly IDebugLogger DebugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();
+    private static readonly Lazy<IDebugLogger> DebugLogger2 = new(static () => App.ServiceProvider.GetRequiredService<IDebugLogger>());
+    private static IDebugLogger DebugLogger => DebugLogger2.Value;
     private static readonly string TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
     /// <summary>

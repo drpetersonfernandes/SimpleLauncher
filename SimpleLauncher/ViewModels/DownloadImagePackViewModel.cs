@@ -164,22 +164,32 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     /// </summary>
     public async Task InitializeAsync()
     {
-        LoadingMessage = _resourceProvider.GetString("Loadingconfiguration", "Loading configuration...");
-        IsLoading = true;
-        await Task.Yield();
-
-        _manager = await _easyModeManager.LoadAsync();
-
-        IsLoading = false;
-
-        if (_manager is not { Systems.Count: > 0 })
+        try
         {
+            LoadingMessage = _resourceProvider.GetString("Loadingconfiguration", "Loading configuration...");
+            IsLoading = true;
+            await Task.Yield();
+
+            _manager = await _easyModeManager.LoadAsync();
+
+            IsLoading = false;
+
+            if (_manager is not { Systems.Count: > 0 })
+            {
+                await _messageBox.ImagePackDownloaderUnavailableMessageBoxAsync();
+                IsSystemDropdownEnabled = false;
+                return;
+            }
+
+            PopulateSystemDropdown();
+        }
+        catch (Exception ex)
+        {
+            IsLoading = false;
+            _logErrors.LogAndForget(ex, "Error initializing image pack downloader.");
             await _messageBox.ImagePackDownloaderUnavailableMessageBoxAsync();
             IsSystemDropdownEnabled = false;
-            return;
         }
-
-        PopulateSystemDropdown();
     }
 
     private void PopulateSystemDropdown()

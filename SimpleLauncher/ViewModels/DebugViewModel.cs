@@ -56,7 +56,7 @@ public partial class DebugViewModel : ObservableObject
         var dispatcher = System.Windows.Application.Current?.Dispatcher;
         if (dispatcher is not null && !dispatcher.CheckAccess())
         {
-            dispatcher.Invoke(() => AppendLogMessage(message));
+            dispatcher.BeginInvoke(() => AppendLogMessage(message));
             return;
         }
 

@@ -96,11 +96,13 @@ public class ZipService
                 }
 
                 // Validate and sanitize entry path to prevent path traversal attacks
-                var safeEntryName = entryKey.Replace("..", "").TrimStart('/', '\\');
-                var destinationPath = Path.GetFullPath(Path.Combine(_appDirectory, safeEntryName));
+                // Normalize: remove leading slashes, then combine and resolve
+                var trimmedEntry = entryKey.TrimStart('/', '\\');
+                var destinationPath = Path.GetFullPath(Path.Combine(_appDirectory, trimmedEntry));
                 var appDirectoryFullPath = Path.GetFullPath(_appDirectory);
 
-                // Security check: ensure the destination path is within AppDirectory
+                // Security check: ensure the resolved destination path is within AppDirectory
+                // This is the actual guard — it catches all traversal attempts including encoded or multi-level ".."
                 if (!destinationPath.StartsWith(appDirectoryFullPath, StringComparison.OrdinalIgnoreCase))
                 {
                     throw new SecurityException($"Zip entry attempts to escape target directory: {entryKey}");

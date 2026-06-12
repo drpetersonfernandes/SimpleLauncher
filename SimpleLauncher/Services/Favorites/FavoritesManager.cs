@@ -30,6 +30,7 @@ public class FavoritesManager
 
     private static string DatFilePath => FileLocation.FilePath;
     private static string TempDatFilePath => FileLocation.TempFilePath;
+
     /// <summary>
     /// Gets a value indicating whether the application is running in portable mode.
     /// </summary>
@@ -78,19 +79,14 @@ public class FavoritesManager
         // Notify user outside of any lock to prevent potential deadlock
         Application.Current.Dispatcher.Invoke(static () => (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SavingFavorites") ?? "Saving favorites..."));
 
-        // Snapshot the ordered list inside the lock, then clear/repopulate inside
-        // the same lock to prevent another thread from seeing an empty/partial list.
+        // Take a sorted snapshot for serialization without modifying the live collection.
+        // This avoids the UI seeing an empty list during Clear()+Add().
+        List<Favorite> sortedSnapshot;
         lock (ListLock)
         {
-            var orderedFavorites = FavoriteList
+            sortedSnapshot = FavoriteList
                 .OrderBy(static fav => fav.FileName, StringComparer.OrdinalIgnoreCase)
                 .ToList();
-
-            FavoriteList.Clear();
-            foreach (var fav in orderedFavorites)
-            {
-                FavoriteList.Add(fav);
-            }
         }
 
         // Serialize and write on a background thread so Thread.Sleep in the
@@ -106,11 +102,12 @@ public class FavoritesManager
             {
                 try
                 {
-                    // Serialize using MessagePack
+                    // Serialize using the sorted snapshot
                     byte[] bytes;
                     lock (ListLock)
                     {
-                        bytes = MessagePackSerializer.Serialize(this);
+                        var snapshotManager = new FavoritesManager { FavoriteList = new ObservableCollection<Favorite>(sortedSnapshot), Version = Version };
+                        bytes = MessagePackSerializer.Serialize(snapshotManager);
                     }
 
                     // Write to temporary file first to prevent corruption on crash
@@ -136,9 +133,9 @@ public class FavoritesManager
                                 continue;
                             }
                         }
-                        catch
+                        catch (Exception fallbackEx)
                         {
-                            // Fallback failed, continue with normal error handling
+                            System.Diagnostics.Debug.WriteLine($"[FavoritesManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
                         }
                     }
 
@@ -152,9 +149,9 @@ public class FavoritesManager
                                 File.Delete(TempDatFilePath);
                             }
                         }
-                        catch
+                        catch (Exception cleanupEx)
                         {
-                            // Ignore cleanup errors
+                            System.Diagnostics.Debug.WriteLine($"[FavoritesManager] Temp file cleanup failed: {cleanupEx.Message}");
                         }
 
                         Thread.Sleep(retryDelayMs);

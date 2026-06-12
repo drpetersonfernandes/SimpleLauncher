@@ -29,7 +29,7 @@ public class ProcessService
         {
             try
             {
-                var mainAppProcess = Process.GetProcessById(processId.Value);
+                using var mainAppProcess = Process.GetProcessById(processId.Value);
                 LogMessage?.Invoke($"Waiting for Simple Launcher (PID: {processId}) to exit...");
 
                 var stopwatch = Stopwatch.StartNew();
@@ -89,7 +89,7 @@ public class ProcessService
                 UseShellExecute = true,
                 WorkingDirectory = appDirectory
             };
-            Process.Start(startInfo);
+            Process.Start(startInfo)?.Dispose();
             return true;
         }
         catch (Exception ex)
@@ -112,7 +112,7 @@ public class ProcessService
         {
             FileName = url,
             UseShellExecute = true
-        });
+        })?.Dispose();
     }
 
     /// <summary>

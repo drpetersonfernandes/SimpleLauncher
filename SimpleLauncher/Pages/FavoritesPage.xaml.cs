@@ -21,7 +21,7 @@ using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
 
 namespace SimpleLauncher.Pages;
 
-internal partial class FavoritesPage : ILoadingState
+internal partial class FavoritesPage : ILoadingState, IDisposable
 {
     private readonly FavoritesViewModel _viewModel;
     private readonly MainWindow _mainWindow;
@@ -418,5 +418,10 @@ internal partial class FavoritesPage : ILoadingState
 
         _debugLogger.Log("[Emergency] User forced overlay dismissal in FavoritesPage.");
         _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
+    }
+
+    public void Dispose()
+    {
+        _viewModel.Dispose();
     }
 }

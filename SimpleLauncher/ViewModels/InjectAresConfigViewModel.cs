@@ -190,7 +190,6 @@ public partial class InjectAresConfigViewModel : ObservableObject
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
-                ShouldRun = true;
             }
         }
         catch (OperationCanceledException)

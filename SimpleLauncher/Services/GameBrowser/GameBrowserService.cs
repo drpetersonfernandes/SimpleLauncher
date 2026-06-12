@@ -181,6 +181,7 @@ public class GameBrowserService : IGameBrowserService
     /// Gets the list of loaded MAME machine definitions.
     /// </summary>
     public IReadOnlyList<MameManager.MameManager> Machines => _mameDataService.Machines;
+
     /// <summary>
     /// Gets the MAME filename-to-description lookup dictionary.
     /// </summary>

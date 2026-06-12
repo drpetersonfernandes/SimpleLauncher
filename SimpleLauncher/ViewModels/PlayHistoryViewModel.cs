@@ -41,7 +41,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
 
     [ObservableProperty] private Stream? _previewImageSource;
 
-    partial void OnPreviewImageSourceChanging(Stream? value)
+    partial void OnPreviewImageSourceChanged(Stream? value)
     {
         value?.Dispose();
     }

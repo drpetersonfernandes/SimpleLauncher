@@ -227,7 +227,6 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
-                ShouldRun = true;
             }
         }
         catch (OperationCanceledException)
@@ -239,7 +238,6 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRedreamConfigWindow));
             var window = GetOwnerWindow?.Invoke();
             InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
-            ShouldRun = true;
         }
     }
 

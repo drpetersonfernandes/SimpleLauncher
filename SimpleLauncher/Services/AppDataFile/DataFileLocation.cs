@@ -100,8 +100,9 @@ public sealed class DataFileLocation
             IsPortableMode = false;
             return true;
         }
-        catch
+        catch (Exception ex)
         {
+            System.Diagnostics.Debug.WriteLine($"[DataFileLocation] TryFallbackToLocalAppData failed: {ex.Message}");
             return false;
         }
     }
@@ -118,8 +119,9 @@ public sealed class DataFileLocation
             File.Delete(testFilePath);
             return true;
         }
-        catch
+        catch (Exception ex)
         {
+            System.Diagnostics.Debug.WriteLine($"[DataFileLocation] IsDirectoryWritable failed for '{directoryPath}': {ex.Message}");
             return false;
         }
     }
@@ -131,9 +133,9 @@ public sealed class DataFileLocation
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
         }
-        catch
+        catch (Exception ex)
         {
-            // ignored
+            System.Diagnostics.Debug.WriteLine($"[DataFileLocation] EnsureDirectoryExists failed for '{path}': {ex.Message}");
         }
     }
 }

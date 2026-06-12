@@ -30,6 +30,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private bool _isDisposed;
     internal DispatcherTimer StatusBarTimer { get; set; }
+
     /// <summary>
     /// Collection of game list items displayed in the UI.
     /// </summary>
@@ -43,6 +44,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     /// Occurs when a property value changes, supporting data binding updates.
     /// </summary>
     public event PropertyChangedEventHandler PropertyChanged;
+
     private string _selectedSystem;
 
     /// <summary>
@@ -733,7 +735,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             var gameLauncher = App.ServiceProvider.GetRequiredService<Services.GameLauncher.GameLauncher>();
             var gamePadController = App.ServiceProvider.GetRequiredService<Services.GamePad.GamePadController>();
             var playSoundEffects = App.ServiceProvider.GetRequiredService<Services.PlaySound.PlaySoundEffects>();
-            var machines = App.ServiceProvider.GetRequiredService<List<Services.MameManager.MameManager>>();
+            var machines = App.ServiceProvider.GetRequiredService<IMameDataService>().Machines.ToList();
             var favoritesManager = App.ServiceProvider.GetRequiredService<Services.Favorites.FavoritesManager>();
             var findCoverImage = App.ServiceProvider.GetRequiredService<IFindCoverImageService>();
 

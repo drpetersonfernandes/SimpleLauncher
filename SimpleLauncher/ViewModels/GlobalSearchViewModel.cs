@@ -40,7 +40,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 
     [ObservableProperty] private Stream? _previewImageSource;
 
-    partial void OnPreviewImageSourceChanging(Stream? value)
+    partial void OnPreviewImageSourceChanged(Stream? value)
     {
         value?.Dispose();
     }

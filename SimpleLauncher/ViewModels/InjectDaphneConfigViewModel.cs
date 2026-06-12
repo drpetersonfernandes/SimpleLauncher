@@ -100,8 +100,16 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     [RelayCommand]
     private async Task SaveAsync()
     {
-        SaveSettings();
-        await _messageBox.DaphnesettingssavedsuccessfullyMessageBoxAsync();
-        CloseRequested?.Invoke();
+        try
+        {
+            SaveSettings();
+            await _messageBox.DaphnesettingssavedsuccessfullyMessageBoxAsync();
+            CloseRequested?.Invoke();
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error saving Daphne configuration.");
+            await _messageBox.DaphneConfigurationSaveFailedMessageBoxAsync();
+        }
     }
 }

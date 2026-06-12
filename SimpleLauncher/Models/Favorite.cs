@@ -34,7 +34,17 @@ public class Favorite : INotifyPropertyChanged
     /// Gets the path to the cover image for this game.
     /// </summary>
     [IgnoreMember]
-    public string? CoverImage { get; set; }
+    public string? CoverImage
+    {
+        get;
+        set
+        {
+            if (field == value) return;
+
+            field = value;
+            OnPropertyChanged();
+        }
+    }
 
     /// <summary>
     /// Gets or sets the default emulator name for this favorite.

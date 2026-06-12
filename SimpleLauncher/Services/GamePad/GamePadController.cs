@@ -31,19 +31,20 @@ public class GamePadController : IDisposable
     private readonly Controller _xinputController;
     private Joystick _directInputController;
     private readonly IMouseSimulator _mouseSimulator;
+    private readonly InputSimulator _inputSimulator;
 
     // DirectInput object needs to be managed for its lifetime
     private DirectInput _directInput;
 
     // For XInput
-    private bool _wasADown;
-    private bool _wasBDown;
+    private volatile bool _wasADown;
+    private volatile bool _wasBDown;
 
     // For DirectInput
-    private bool _wasCrossDown;
-    private bool _wasCircleDown;
+    private volatile bool _wasCrossDown;
+    private volatile bool _wasCircleDown;
 
-    // DeadZone settings
+    // DeadZone settings — accessed from UI thread (SetGamepadDeadZone) and timer thread (UpdateAsync)
     internal float DeadZoneX { get; set; } = 0.05f;
     internal float DeadZoneY { get; set; } = 0.02f;
 
@@ -95,7 +96,8 @@ public class GamePadController : IDisposable
             _playStationControllerGuid = Guid.Empty;
         }
 
-        _mouseSimulator = new InputSimulator().Mouse;
+        _inputSimulator = new InputSimulator();
+        _mouseSimulator = _inputSimulator.Mouse;
         _timer = new Timer(_ => UpdateAsync(), null, Timeout.Infinite, Timeout.Infinite);
     }
 

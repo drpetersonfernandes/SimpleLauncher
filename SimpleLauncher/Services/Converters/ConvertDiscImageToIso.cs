@@ -12,7 +12,8 @@ using Interfaces;
 /// </summary>
 public static class ConvertDiscImageToIso
 {
-    private static readonly IDebugLogger DebugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();
+    private static readonly Lazy<IDebugLogger> DebugLogger2 = new(static () => App.ServiceProvider.GetRequiredService<IDebugLogger>());
+    private static IDebugLogger DebugLogger => DebugLogger2.Value;
 
     /// <summary>
     /// Converts a disc image file (RVZ, WBFS, GCZ, CISO, WIA) to a temporary ISO using DolphinTool.exe.

@@ -38,7 +38,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
 
     [ObservableProperty] private Stream? _previewImageSource;
 
-    partial void OnPreviewImageSourceChanging(Stream? value)
+    partial void OnPreviewImageSourceChanged(Stream? value)
     {
         value?.Dispose();
     }

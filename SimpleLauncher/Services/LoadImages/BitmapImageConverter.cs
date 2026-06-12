@@ -25,8 +25,9 @@ public static class BitmapImageConverter
 
             return bitmapImage;
         }
-        catch
+        catch (Exception ex)
         {
+            System.Diagnostics.Debug.WriteLine($"[BitmapImageConverter] ToBitmapImage failed: {ex.Message}");
             stream.Dispose();
             return null;
         }

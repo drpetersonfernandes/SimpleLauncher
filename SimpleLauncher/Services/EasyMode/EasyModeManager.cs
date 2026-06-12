@@ -310,16 +310,22 @@ public class EasyModeManager : IDisposable
     {
         /// <summary>The emulator application binary.</summary>
         public const string Emulator = "Emulator";
+
         /// <summary>A libretro core for retroarch-based emulators.</summary>
         public const string Core = "Core";
+
         /// <summary>The primary image pack.</summary>
         public const string ImagePack1 = "ImagePack1";
+
         /// <summary>The second image pack.</summary>
         public const string ImagePack2 = "ImagePack2";
+
         /// <summary>The third image pack.</summary>
         public const string ImagePack3 = "ImagePack3";
+
         /// <summary>The fourth image pack.</summary>
         public const string ImagePack4 = "ImagePack4";
+
         /// <summary>The fifth image pack.</summary>
         public const string ImagePack5 = "ImagePack5";
     }

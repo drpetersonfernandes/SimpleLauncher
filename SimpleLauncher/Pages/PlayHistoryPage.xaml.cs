@@ -28,7 +28,7 @@ namespace SimpleLauncher.Pages;
 /// Page displaying the user's game play history with filtering and context menu support.
 /// </summary>
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
-public partial class PlayHistoryPage : ILoadingState
+public partial class PlayHistoryPage : ILoadingState, IDisposable
 {
     private readonly PlayHistoryViewModel _viewModel;
     private readonly MainWindow _mainWindow;
@@ -500,5 +500,11 @@ public partial class PlayHistoryPage : ILoadingState
 
         _debugLogger.Log("[Emergency] User forced overlay dismissal in PlayHistoryPage.");
         _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
+    }
+
+    public void Dispose()
+    {
+        _viewModel.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

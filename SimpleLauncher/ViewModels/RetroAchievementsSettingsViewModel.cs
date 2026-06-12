@@ -47,25 +47,25 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     [RelayCommand]
     private async Task SaveAsync()
     {
-        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
-            _resourceProvider.GetString("SavingRetroAchievementsSettings", "Saving RetroAchievements settings..."));
-
-        _settings.RaUsername = (Username).Trim();
-        _settings.RaApiKey = ApiKey;
-        _settings.RaPassword = Password;
-        await _settings.SaveAsync();
-
         try
         {
+            (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
+                _resourceProvider.GetString("SavingRetroAchievementsSettings", "Saving RetroAchievements settings..."));
+
+            _settings.RaUsername = (Username).Trim();
+            _settings.RaApiKey = ApiKey;
+            _settings.RaPassword = Password;
+            await _settings.SaveAsync();
+
             Process.Start(new ProcessStartInfo("https://retroachievements.org/controlpanel.php") { UseShellExecute = true });
+
+            SaveCompleted?.Invoke();
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error opening RetroAchievements control panel link.");
-            await _messageBox.UnableToOpenLinkMessageBoxAsync();
+            _logErrors.LogAndForget(ex, "Error saving RetroAchievements settings.");
+            await _messageBox.FailedToSaveSettingsMessageBoxAsync();
         }
-
-        SaveCompleted?.Invoke();
     }
 
     [RelayCommand]

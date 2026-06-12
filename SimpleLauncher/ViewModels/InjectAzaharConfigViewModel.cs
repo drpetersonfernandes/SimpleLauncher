@@ -113,10 +113,10 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         _settings.Azahar.Volume = Volume;
         _settings.Azahar.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
         _settings.Azahar.EnableAudioStretching = AudioStretching;
-        _settings.SaveAsync();
+        _ = _settings.SaveAsync();
     }
 
-    private string EnsureEmulatorPath()
+    private async Task<string> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {
@@ -139,7 +139,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
 
     private async Task<bool> InjectConfigAsync()
     {
-        var path = EnsureEmulatorPath();
+        var path = await EnsureEmulatorPathAsync();
         if (string.IsNullOrEmpty(path))
             throw new OperationCanceledException("User cancelled emulator path selection.");
 
@@ -176,13 +176,11 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
-                ShouldRun = true;
             }
         }
         catch (AzaharPermissionException)
         {
             CloseRequested?.Invoke();
-            ShouldRun = true;
         }
         catch (OperationCanceledException)
         {
@@ -193,7 +191,6 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectAzaharConfigWindow));
             var window = GetOwnerWindow?.Invoke();
             InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
-            ShouldRun = true;
         }
     }
 

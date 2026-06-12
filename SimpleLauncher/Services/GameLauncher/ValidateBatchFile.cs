@@ -41,9 +41,9 @@ public partial class ValidateBatchFile
                 }
             }
         }
-        catch
+        catch (Exception ex)
         {
-            // Best-effort validation; silently return whatever we gathered
+            System.Diagnostics.Debug.WriteLine($"[ValidateBatchFile] ValidateBatchFileContents failed: {ex.Message}");
         }
 
         return missingPaths;
@@ -91,9 +91,9 @@ public partial class ValidateBatchFile
                 }
             }
         }
-        catch
+        catch (Exception ex)
         {
-            // Best-effort validation; silently return whatever we gathered
+            System.Diagnostics.Debug.WriteLine($"[ValidateBatchFile] FindInvalidQuotedPathsSimple failed: {ex.Message}");
         }
 
         return invalidPaths;

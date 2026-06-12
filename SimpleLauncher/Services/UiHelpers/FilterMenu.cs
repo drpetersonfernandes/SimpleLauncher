@@ -21,6 +21,7 @@ public class FilterMenu
 
     /// <summary>Raised when a letter or filter option is selected, passing the selected letter or null for "All".</summary>
     public event Action<string> OnLetterSelected;
+
     private readonly IPlaySoundEffects _playSoundEffects;
 
     /// <summary>Initializes a new instance of the FilterMenu with sound effects support.</summary>

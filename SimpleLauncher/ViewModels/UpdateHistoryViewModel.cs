@@ -52,9 +52,9 @@ public class UpdateHistoryViewModel : ObservableObject
                 UseShellExecute = true
             });
         }
-        catch
+        catch (Exception ex)
         {
-            // Ignore errors when opening the browser
+            _logErrors.LogAndForget(ex, "Error opening hyperlink in browser.");
         }
     }
 }

@@ -15,7 +15,8 @@ using Interfaces;
 /// </summary>
 public class ApplicationStats
 {
-    private static readonly IDebugLogger DebugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();
+    private static readonly Lazy<IDebugLogger> DebugLogger2 = new(static () => App.ServiceProvider.GetRequiredService<IDebugLogger>());
+    private static IDebugLogger DebugLogger => DebugLogger2.Value;
 
     /// <summary>Asynchronously sends application version statistics to the remote API.</summary>
     public static async Task CallApplicationStatsAsync(IConfiguration configuration, ILogErrors logErrors)
@@ -56,7 +57,7 @@ public class ApplicationStats
         catch (OperationCanceledException)
         {
             // Request timed out - log but don't crash
-            const string message = "ApplicationStats API call timed out after 15 seconds.";
+            const string message = "ApplicationStats API call timed out after 20 seconds.";
             DebugLogger.Log(message);
             logErrors.LogAndForget(null, message);
         }

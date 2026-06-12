@@ -205,7 +205,7 @@ public class GameCacheService : IGameCacheService, IDisposable
     {
         try
         {
-            if (_lock.Wait(100))
+            if (_lock.Wait(5000))
             {
                 try
                 {
@@ -216,6 +216,10 @@ public class GameCacheService : IGameCacheService, IDisposable
                 {
                     _lock.Release();
                 }
+            }
+            else
+            {
+                _debugLogger?.Log("GameCacheService.ClearSync timed out waiting for lock after 5 seconds.");
             }
         }
         catch (ObjectDisposedException)

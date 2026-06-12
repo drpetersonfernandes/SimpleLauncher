@@ -75,6 +75,7 @@ public class DownloadService
 
             if (!response.IsSuccessStatusCode)
             {
+                response.Dispose();
                 throw new HttpRequestException($"Failed to download the update file. Status Code: {response.StatusCode}");
             }
         }
@@ -84,75 +85,78 @@ public class DownloadService
             throw;
         }
 
-        var totalBytes = response.Content.Headers.ContentLength ?? -1L;
-        var memoryStream = new MemoryStream();
-        var buffer = new byte[FileBufferSize];
-        var totalBytesRead = 0L;
-        var stopwatch = Stopwatch.StartNew();
-
-        try
+        using (response)
         {
-            await using var contentStream = await response.Content.ReadAsStreamAsync();
+            var totalBytes = response.Content.Headers.ContentLength ?? -1L;
+            var memoryStream = new MemoryStream();
+            var buffer = new byte[FileBufferSize];
+            var totalBytesRead = 0L;
+            var stopwatch = Stopwatch.StartNew();
 
-            while (true)
+            try
             {
-                try
+                await using var contentStream = await response.Content.ReadAsStreamAsync();
+
+                while (true)
                 {
-                    var bytesRead = await contentStream.ReadAsync(buffer);
-                    if (bytesRead == 0) break;
-
-                    await memoryStream.WriteAsync(buffer.AsMemory(0, bytesRead));
-                    totalBytesRead += bytesRead;
-
-                    // Calculate and report progress
-                    if (totalBytes > 0)
+                    try
                     {
-                        var percentage = (double)totalBytesRead / totalBytes * 100;
-                        var elapsedSeconds = Math.Max(stopwatch.ElapsedMilliseconds / 1000.0, 0.001);
-                        var speed = totalBytesRead / elapsedSeconds;
+                        var bytesRead = await contentStream.ReadAsync(buffer);
+                        if (bytesRead == 0) break;
 
-                        ProgressChanged?.Invoke(new DownloadProgressInfo
+                        await memoryStream.WriteAsync(buffer.AsMemory(0, bytesRead));
+                        totalBytesRead += bytesRead;
+
+                        // Calculate and report progress
+                        if (totalBytes > 0)
                         {
-                            Percentage = percentage,
-                            BytesRead = totalBytesRead,
-                            TotalBytes = totalBytes,
-                            BytesPerSecond = speed
-                        });
+                            var percentage = (double)totalBytesRead / totalBytes * 100;
+                            var elapsedSeconds = Math.Max(stopwatch.ElapsedMilliseconds / 1000.0, 0.001);
+                            var speed = totalBytesRead / elapsedSeconds;
+
+                            ProgressChanged?.Invoke(new DownloadProgressInfo
+                            {
+                                Percentage = percentage,
+                                BytesRead = totalBytesRead,
+                                TotalBytes = totalBytes,
+                                BytesPerSecond = speed
+                            });
+                        }
+                        else
+                        {
+                            // Unknown file size - report bytes downloaded only
+                            ProgressChanged?.Invoke(new DownloadProgressInfo
+                            {
+                                Percentage = -1,
+                                BytesRead = totalBytesRead,
+                                TotalBytes = 0,
+                                BytesPerSecond = 0
+                            });
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        // Unknown file size - report bytes downloaded only
-                        ProgressChanged?.Invoke(new DownloadProgressInfo
-                        {
-                            Percentage = -1,
-                            BytesRead = totalBytesRead,
-                            TotalBytes = 0,
-                            BytesPerSecond = 0
-                        });
+                        await BugReportService.ReportBugAsync(ex, "Error reading from download stream or writing to memory stream");
+                        throw;
                     }
                 }
-                catch (Exception ex)
-                {
-                    await BugReportService.ReportBugAsync(ex, "Error reading from download stream or writing to memory stream");
-                    throw;
-                }
-            }
 
-            stopwatch.Stop();
-            memoryStream.Position = 0;
-            LogMessage?.Invoke("Download complete");
-            return memoryStream;
-        }
-        catch (Exception ex)
-        {
-            await memoryStream.DisposeAsync();
-            // Don't report here if it was already reported in the inner catch
-            if (ex is not HttpRequestException and not IOException)
+                stopwatch.Stop();
+                memoryStream.Position = 0;
+                LogMessage?.Invoke("Download complete");
+                return memoryStream;
+            }
+            catch (Exception ex)
             {
-                await BugReportService.ReportBugAsync(ex, "Error downloading update file (outer catch)");
-            }
+                await memoryStream.DisposeAsync();
+                // Don't report here if it was already reported in the inner catch
+                if (ex is not HttpRequestException and not IOException)
+                {
+                    await BugReportService.ReportBugAsync(ex, "Error downloading update file (outer catch)");
+                }
 
-            throw;
+                throw;
+            }
         }
     }
 

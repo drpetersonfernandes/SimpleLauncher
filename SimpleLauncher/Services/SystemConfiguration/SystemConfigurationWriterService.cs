@@ -178,7 +178,13 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                     XDocument xmlDoc;
                     try
                     {
-                        xmlDoc = XDocument.Load(systemXmlPath);
+                        var settings = new XmlReaderSettings
+                        {
+                            DtdProcessing = DtdProcessing.Prohibit,
+                            XmlResolver = null
+                        };
+                        using var reader = XmlReader.Create(systemXmlPath, settings);
+                        xmlDoc = XDocument.Load(reader, LoadOptions.None);
                     }
                     catch (Exception ex)
                     {

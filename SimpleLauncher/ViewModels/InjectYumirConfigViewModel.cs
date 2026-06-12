@@ -141,9 +141,9 @@ public partial class InjectYumirConfigViewModel : ObservableObject
         return _emulatorPath;
     }
 
-    private bool InjectConfig()
+    private async Task<bool> InjectConfigAsync()
     {
-        var path = EnsureEmulatorPathAsync().GetAwaiter().GetResult();
+        var path = await EnsureEmulatorPathAsync();
         if (string.IsNullOrEmpty(path))
             throw new OperationCanceledException("User cancelled emulator path selection.");
 
@@ -165,7 +165,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
         SaveSettings();
         try
         {
-            if (InjectConfig())
+            if (await InjectConfigAsync())
             {
                 ShouldRun = true;
                 CloseRequested?.Invoke();
@@ -174,7 +174,6 @@ public partial class InjectYumirConfigViewModel : ObservableObject
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
-                ShouldRun = true;
             }
         }
         catch (OperationCanceledException)
@@ -186,7 +185,6 @@ public partial class InjectYumirConfigViewModel : ObservableObject
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectYumirConfigWindow));
             var window = GetOwnerWindow?.Invoke();
             InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
-            ShouldRun = true;
         }
     }
 
@@ -196,7 +194,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
         SaveSettings();
         try
         {
-            if (InjectConfig())
+            if (await InjectConfigAsync())
             {
                 await _messageBox.YumirConfigurationSavedSuccessfullyMessageBoxAsync();
                 CloseRequested?.Invoke();

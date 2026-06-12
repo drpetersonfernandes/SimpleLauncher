@@ -86,7 +86,10 @@ public class CleanSimpleLauncherFolderServiceTests
 
     private sealed class NoOpDeleteFilesService : IDeleteFilesService
     {
-        public void TryDeleteFile(string filePath) { }
+        public void TryDeleteFile(string filePath)
+        {
+        }
+
         public Task TryDeleteFileAsync(string filePath)
         {
             return Task.CompletedTask;

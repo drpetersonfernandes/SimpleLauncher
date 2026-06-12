@@ -199,7 +199,6 @@ public partial class InjectMameConfigViewModel : ObservableObject
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
-                ShouldRun = true;
             }
         }
         catch (OperationCanceledException)
@@ -211,7 +210,6 @@ public partial class InjectMameConfigViewModel : ObservableObject
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectMameConfigWindow));
             var window = GetOwnerWindow?.Invoke();
             InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
-            ShouldRun = true;
         }
     }
 

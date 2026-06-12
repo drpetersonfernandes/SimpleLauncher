@@ -163,7 +163,7 @@ public class Stats
         catch (OperationCanceledException)
         {
             // Request timed out - don't crash, just log and return false
-            var contextMessage = $"Stats API request timed out after 15 seconds.\n" +
+            var contextMessage = $"Stats API request timed out after 20 seconds.\n" +
                                  $"Stats API URL: '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : "");
