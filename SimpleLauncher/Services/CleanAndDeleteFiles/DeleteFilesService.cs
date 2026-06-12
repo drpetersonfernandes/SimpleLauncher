@@ -1,9 +1,13 @@
 using System.Diagnostics;
 using SimpleLauncher.Services.CheckPaths;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.CleanAndDeleteFiles;
 
+using Interfaces;
+
+/// <summary>
+/// Provides file deletion with retry logic and permission handling.
+/// </summary>
 public class DeleteFilesService : IDeleteFilesService
 {
     private const int MaxDeleteRetries = 15;
@@ -11,11 +15,19 @@ public class DeleteFilesService : IDeleteFilesService
 
     private readonly IDebugLogger _debugLogger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DeleteFilesService"/> class.
+    /// </summary>
+    /// <param name="debugLogger">The logger used to record debug information.</param>
     public DeleteFilesService(IDebugLogger debugLogger)
     {
         _debugLogger = debugLogger;
     }
 
+    /// <summary>
+    /// Attempts to delete a file synchronously with retry logic for locked files.
+    /// </summary>
+    /// <param name="filePath">The path of the file to delete.</param>
     public void TryDeleteFile(string filePath)
     {
         if (string.IsNullOrEmpty(filePath)) return;
@@ -80,6 +92,10 @@ public class DeleteFilesService : IDeleteFilesService
         }
     }
 
+    /// <summary>
+    /// Attempts to delete a file asynchronously with retry logic for locked files.
+    /// </summary>
+    /// <param name="filePath">The path of the file to delete.</param>
     public async Task TryDeleteFileAsync(string filePath)
     {
         if (string.IsNullOrEmpty(filePath)) return;

@@ -3,8 +3,15 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for <see cref="ParameterResolverResult"/> model property defaults,
+/// setters, special characters, multiline values, and instance independence.
+/// </summary>
 public class ParameterResolverResultTests
 {
+    /// <summary>
+    /// Verifies that the default SuggestedParameter is an empty string.
+    /// </summary>
     [Fact]
     public void DefaultSuggestedParameterIsEmpty()
     {
@@ -12,6 +19,9 @@ public class ParameterResolverResultTests
         Assert.Equal("", result.SuggestedParameter);
     }
 
+    /// <summary>
+    /// Verifies that the default Explanation is null.
+    /// </summary>
     [Fact]
     public void DefaultExplanationIsNull()
     {
@@ -19,6 +29,9 @@ public class ParameterResolverResultTests
         Assert.Null(result.Explanation);
     }
 
+    /// <summary>
+    /// Verifies that SuggestedParameter can be set and retrieved.
+    /// </summary>
     [Fact]
     public void SuggestedParameterCanBeSet()
     {
@@ -26,6 +39,9 @@ public class ParameterResolverResultTests
         Assert.Equal("-f", result.SuggestedParameter);
     }
 
+    /// <summary>
+    /// Verifies that Explanation can be set and retrieved.
+    /// </summary>
     [Fact]
     public void ExplanationCanBeSet()
     {
@@ -33,6 +49,9 @@ public class ParameterResolverResultTests
         Assert.Equal("Fullscreen flag", result.Explanation);
     }
 
+    /// <summary>
+    /// Verifies that both properties can be set together via object initializer.
+    /// </summary>
     [Fact]
     public void BothPropertiesCanBeSetTogether()
     {
@@ -46,6 +65,9 @@ public class ParameterResolverResultTests
         Assert.Equal("ROM path specified", result.Explanation);
     }
 
+    /// <summary>
+    /// Verifies that SuggestedParameter supports special characters such as paths and DLL names.
+    /// </summary>
     [Fact]
     public void SuggestedParameterSupportsSpecialCharacters()
     {
@@ -57,6 +79,9 @@ public class ParameterResolverResultTests
         Assert.Contains("fceumm_libretro.dll", result.SuggestedParameter);
     }
 
+    /// <summary>
+    /// Verifies that Explanation supports multiline strings with newline characters.
+    /// </summary>
     [Fact]
     public void ExplanationSupportsMultiline()
     {
@@ -68,6 +93,9 @@ public class ParameterResolverResultTests
         Assert.Contains("\n", result.Explanation);
     }
 
+    /// <summary>
+    /// Verifies that multiple instances maintain independent property values.
+    /// </summary>
     [Fact]
     public void CanCreateMultipleInstances()
     {

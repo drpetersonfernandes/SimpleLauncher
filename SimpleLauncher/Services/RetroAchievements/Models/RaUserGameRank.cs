@@ -2,6 +2,9 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Services.RetroAchievements.Models;
 
+/// <summary>
+/// Represents a user's rank and score for a specific game on RetroAchievements.
+/// </summary>
 public record RaUserGameRank
 {
     [JsonPropertyName("User")]

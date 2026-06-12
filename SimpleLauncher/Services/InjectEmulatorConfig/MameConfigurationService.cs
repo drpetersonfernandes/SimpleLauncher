@@ -1,9 +1,10 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using SimpleLauncher.Services.CheckPaths;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
+
+using Interfaces;
 
 public static partial class MameConfigurationService
 {

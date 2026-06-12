@@ -6,7 +6,6 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GlobalStats.Models;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;

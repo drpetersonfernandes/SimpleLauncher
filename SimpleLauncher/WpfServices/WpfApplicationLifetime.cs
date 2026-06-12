@@ -1,19 +1,23 @@
 using System.Diagnostics;
 using System.Windows;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.WpfServices;
 
+/// <summary>
+/// WPF implementation of IApplicationLifetime, providing application shutdown and restart functionality.
+/// </summary>
 public class WpfApplicationLifetime(ILogErrors logErrors) : IApplicationLifetime
 {
     private readonly ILogErrors _logErrors = logErrors;
 
+    /// <summary>Shuts down the WPF application.</summary>
     public void Shutdown()
     {
         Application.Current.Shutdown();
     }
 
+    /// <summary>Restarts the application by launching a new process and shutting down the current one.</summary>
     public void Restart()
     {
         try

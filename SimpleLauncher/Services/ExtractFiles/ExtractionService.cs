@@ -8,12 +8,15 @@ using System.Text;
 using SharpCompress.Archives;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
-using SimpleLauncher.Services.DebugAndBugReport;
 using FileLock = SimpleLauncher.Services.CheckForFileLock.CheckForFileLock;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.ExtractFiles;
 
+/// <summary>
+/// Extracts compressed game archives (7z, ZIP, RAR) to temporary or permanent locations,
+/// with support for path traversal protection, disk space checks, and 7za fallback.
+/// </summary>
 public class ExtractionService : IExtractionService
 {
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
@@ -21,6 +24,12 @@ public class ExtractionService : IExtractionService
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IDebugLogger _debugLogger;
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="ExtractionService"/>.
+    /// </summary>
+    /// <param name="logErrors">Error logging service.</param>
+    /// <param name="messageBoxLibrary">Service for displaying user-facing message boxes.</param>
+    /// <param name="debugLogger">Debug logging service.</param>
     public ExtractionService(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary, IDebugLogger debugLogger)
     {
         _logErrors = logErrors;
@@ -50,6 +59,13 @@ public class ExtractionService : IExtractionService
         }
     }
 
+    /// <summary>
+    /// Extracts an archive to the specified destination folder with retry logic for file locks,
+    /// disk space validation, and path traversal protection.
+    /// </summary>
+    /// <param name="archivePath">The full path to the archive file.</param>
+    /// <param name="destinationFolder">The target folder for extraction.</param>
+    /// <returns>True if extraction succeeded; otherwise false.</returns>
     public async Task<bool> ExtractToFolderAsync(string archivePath, string destinationFolder)
     {
         if (string.IsNullOrEmpty(archivePath) || !File.Exists(archivePath) || new FileInfo(archivePath).Length == 0)
@@ -79,9 +95,9 @@ public class ExtractionService : IExtractionService
             return false;
         }
 
-            // Add a retry loop to handle transient file locks (e.g., from antivirus)
-            const int maxRetries = 10;
-            const int retryDelayMs = 1000;
+        // Add a retry loop to handle transient file locks (e.g., from antivirus)
+        const int maxRetries = 10;
+        const int retryDelayMs = 1000;
         for (var i = 0; i < maxRetries; i++)
         {
             if (!FileLock.IsFileLocked(archivePath))

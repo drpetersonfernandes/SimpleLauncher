@@ -8,13 +8,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.ContextMenu;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.WpfServices;
 using Image = System.Windows.Controls.Image;
 

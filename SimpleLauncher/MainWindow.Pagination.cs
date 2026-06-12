@@ -1,9 +1,13 @@
 using System.Windows;
-using SimpleLauncher.Services.DebugAndBugReport;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
 
+using Interfaces;
+
+/// <summary>
+/// Partial MainWindow containing pagination button handlers and page navigation logic.
+/// </summary>
 public partial class MainWindow
 {
     private void ResetPaginationButtons()

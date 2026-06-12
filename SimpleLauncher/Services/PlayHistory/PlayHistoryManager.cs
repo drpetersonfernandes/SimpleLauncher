@@ -4,11 +4,14 @@ using System.Windows;
 using MessagePack;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.AppDataFile;
-using SimpleLauncher.Services.DebugAndBugReport;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.PlayHistory;
 
+/// <summary>
+/// Manages play history tracking, persistence, and date format migration using MessagePack serialization.
+/// </summary>
 [MessagePackObject(AllowPrivate = true)]
 public class PlayHistoryManager
 {
@@ -16,14 +19,22 @@ public class PlayHistoryManager
     [IgnoreMember] private ILogErrors _logErrors;
     [IgnoreMember] private static readonly DataFileLocation FileLocation = new("playhistory.dat");
 
-    // This collection will be serialized.
+    /// <summary>
+    /// Gets or sets the collection of play history entries.
+    /// </summary>
     [Key(0)] public ObservableCollection<PlayHistoryItem> PlayHistoryList { get; set; } = [];
 
+    /// <summary>
+    /// Gets or sets the data format version for migration purposes.
+    /// </summary>
     [Key(1)] public int Version { get; set; } = 1;
 
     private static string FilePath => FileLocation.FilePath;
     private static string TempFilePath => FileLocation.TempFilePath;
 
+    /// <summary>
+    /// Gets whether the application is running in portable mode.
+    /// </summary>
     public static bool IsPortableMode => FileLocation.IsPortableMode;
 
     // Constants for date and time formats
@@ -71,7 +82,7 @@ public class PlayHistoryManager
     }
 
     /// <summary>
-    /// Migrates any records with old date formats to the new culture-invariant ISO format
+    /// Migrates any records with old date formats to the new culture-invariant ISO format.
     /// </summary>
     private void MigrateOldDateFormats()
     {
@@ -101,7 +112,7 @@ public class PlayHistoryManager
     }
 
     /// <summary>
-    /// Checks if a date string is in ISO format (yyyy-MM-dd)
+    /// Checks if a date string is in ISO format (yyyy-MM-dd).
     /// </summary>
     private static bool IsIsoDateFormat(string dateStr)
     {
@@ -110,7 +121,7 @@ public class PlayHistoryManager
     }
 
     /// <summary>
-    /// Checks if a time string is in ISO time format (HH:mm:ss)
+    /// Checks if a time string is in ISO time format (HH:mm:ss).
     /// </summary>
     private static bool IsIsoTimeFormat(string timeStr)
     {
@@ -119,7 +130,7 @@ public class PlayHistoryManager
     }
 
     /// <summary>
-    /// Attempts to parse a date/time from any format and convert to ISO format
+    /// Attempts to parse a date/time from any format and convert to ISO format.
     /// </summary>
     private bool TryParseAndConvertDate(string dateStr, string timeStr,
         out string newDateStr, out string newTimeStr)
@@ -213,7 +224,7 @@ public class PlayHistoryManager
     }
 
     /// <summary>
-    /// Saves the provided play history to the MessagePack file asynchronously.
+    /// Saves the play history to the MessagePack file asynchronously with retry logic.
     /// </summary>
     internal Task SavePlayHistoryAsync()
     {

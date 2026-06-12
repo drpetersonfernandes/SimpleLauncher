@@ -7,6 +7,8 @@ using SimpleLauncher.Services.UsageStats;
 
 namespace SimpleLauncher.Services.ApplicationLifecycle;
 
+using Interfaces;
+
 public class ApplicationLifecycleService : IApplicationLifecycleService
 {
     private readonly UpdateChecker _updateChecker;

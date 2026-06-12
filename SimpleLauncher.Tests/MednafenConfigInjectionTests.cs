@@ -1,11 +1,12 @@
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
+
+using Interfaces;
 
 public class MednafenConfigInjectionTests : IDisposable
 {

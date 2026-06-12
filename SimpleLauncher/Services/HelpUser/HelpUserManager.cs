@@ -1,6 +1,5 @@
 using System.Text.RegularExpressions;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.HelpUser.Models;
 
 namespace SimpleLauncher.Services.HelpUser;

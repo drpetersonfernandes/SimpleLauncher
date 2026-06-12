@@ -1,10 +1,14 @@
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameCache;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+using Interfaces;
+
+/// <summary>
+/// Tests for the <see cref="GameCacheService"/> class.
+/// </summary>
 public class GameCacheServiceTests : IDisposable
 {
     private readonly GameCacheService _cache;
@@ -41,6 +45,9 @@ public class GameCacheServiceTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Verifies that GetAllGamesAsync returns an empty list when no games are cached.
+    /// </summary>
     [Fact]
     public async Task GetAllGamesAsyncReturnsEmptyListInitially()
     {
@@ -48,6 +55,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Verifies that GetSearchResultsAsync returns an empty list when no results are cached.
+    /// </summary>
     [Fact]
     public async Task GetSearchResultsAsyncReturnsEmptyListInitially()
     {
@@ -55,6 +65,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Verifies that SetAllGamesAsync stores and retrieves games correctly.
+    /// </summary>
     [Fact]
     public async Task SetAllGamesAsyncStoresGames()
     {
@@ -67,6 +80,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.Contains("game2.nes", result);
     }
 
+    /// <summary>
+    /// Verifies that SetSearchResultsAsync stores and retrieves search results.
+    /// </summary>
     [Fact]
     public async Task SetSearchResultsAsyncStoresResults()
     {
@@ -77,6 +93,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.Equal(2, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that IsCachePopulatedForSystemAsync returns false when cache is empty.
+    /// </summary>
     [Fact]
     public async Task IsCachePopulatedForSystemAsyncReturnsFalseWhenEmpty()
     {
@@ -84,6 +103,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that IsCachePopulatedForSystemAsync returns true for the matching system.
+    /// </summary>
     [Fact]
     public async Task IsCachePopulatedForSystemAsyncReturnsTrueForMatchingSystem()
     {
@@ -92,6 +114,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.True(result);
     }
 
+    /// <summary>
+    /// Verifies that IsCachePopulatedForSystemAsync returns false for a different system.
+    /// </summary>
     [Fact]
     public async Task IsCachePopulatedForSystemAsyncReturnsFalseForDifferentSystem()
     {
@@ -100,6 +125,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that IsCachePopulatedForSystemAsync performs case-insensitive system name comparison.
+    /// </summary>
     [Fact]
     public async Task IsCachePopulatedForSystemAsyncCaseInsensitive()
     {
@@ -108,6 +136,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.True(result);
     }
 
+    /// <summary>
+    /// Verifies that InvalidateAsync clears the cached games.
+    /// </summary>
     [Fact]
     public async Task InvalidateAsyncClearsCache()
     {
@@ -118,6 +149,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.Empty(games);
     }
 
+    /// <summary>
+    /// Verifies that InvalidateAsync clears the cached search results.
+    /// </summary>
     [Fact]
     public async Task InvalidateAsyncClearsSearchResults()
     {
@@ -128,6 +162,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.Empty(results);
     }
 
+    /// <summary>
+    /// Verifies that ClearSync does not throw when called.
+    /// </summary>
     [Fact]
     public void ClearSyncDoesNotThrow()
     {
@@ -135,6 +172,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.Null(exception);
     }
 
+    /// <summary>
+    /// Verifies that ClearSync clears all cached data.
+    /// </summary>
     [Fact]
     public async Task ClearSyncClearsData()
     {
@@ -145,6 +185,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.Empty(games);
     }
 
+    /// <summary>
+    /// Verifies that GetAllGamesAsync returns a defensive copy of the cached games.
+    /// </summary>
     [Fact]
     public async Task GetAllGamesAsyncReturnsCopy()
     {
@@ -158,6 +201,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.Single(result2);
     }
 
+    /// <summary>
+    /// Verifies that GetSearchResultsAsync returns a defensive copy of the cached results.
+    /// </summary>
     [Fact]
     public async Task GetSearchResultsAsyncReturnsCopy()
     {
@@ -171,6 +217,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.Single(result2);
     }
 
+    /// <summary>
+    /// Verifies that GetResortSourceAsync without filter returns all games.
+    /// </summary>
     [Fact]
     public async Task GetResortSourceAsyncWithoutFilterReturnsAllGames()
     {
@@ -181,6 +230,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.Equal(2, allGames.Count);
     }
 
+    /// <summary>
+    /// Verifies that GetResortSourceAsync with filter returns search results.
+    /// </summary>
     [Fact]
     public async Task GetResortSourceAsyncWithFilterReturnsSearchResults()
     {
@@ -192,12 +244,18 @@ public class GameCacheServiceTests : IDisposable
         Assert.Equal("mario.zip", source[0]);
     }
 
+    /// <summary>
+    /// Verifies that SelectedSystem defaults to an empty string.
+    /// </summary>
     [Fact]
     public void SelectedSystemDefaultsToEmpty()
     {
         Assert.Equal("", _cache.SelectedSystem);
     }
 
+    /// <summary>
+    /// Verifies that SelectedSystem is updated when SetAllGamesAsync is called.
+    /// </summary>
     [Fact]
     public async Task SelectedSystemUpdatesOnSetAllGames()
     {
@@ -205,6 +263,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.Equal("SNES", _cache.SelectedSystem);
     }
 
+    /// <summary>
+    /// Verifies that Dispose does not throw.
+    /// </summary>
     [Fact]
     public void DisposeDoesNotThrow()
     {
@@ -213,6 +274,9 @@ public class GameCacheServiceTests : IDisposable
         Assert.Null(exception);
     }
 
+    /// <summary>
+    /// Verifies that SetAllGamesAsync with an empty list results in empty cache.
+    /// </summary>
     [Fact]
     public async Task SetAllGamesWithEmptyList()
     {

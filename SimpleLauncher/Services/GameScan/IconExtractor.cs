@@ -2,7 +2,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 
 namespace SimpleLauncher.Services.GameScan;

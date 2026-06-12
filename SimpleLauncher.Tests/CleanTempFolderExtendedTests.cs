@@ -3,8 +3,15 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Extended tests for <see cref="CleanTempFolder"/> covering nested directories, hidden files,
+/// system files, and repeated cleanup operations.
+/// </summary>
 public class CleanTempFolderExtendedTests
 {
+    /// <summary>
+    /// Verifies that CleanupTempDirectoryAsync deletes deeply nested directory structures.
+    /// </summary>
     [Fact]
     public async Task CleanupTempDirectoryAsyncWithNestedDirectoriesDeletesAll()
     {
@@ -24,6 +31,9 @@ public class CleanTempFolderExtendedTests
         Assert.False(Directory.Exists(tempDir));
     }
 
+    /// <summary>
+    /// Verifies that CleanupTempDirectoryAsync deletes all files when the directory contains many files.
+    /// </summary>
     [Fact]
     public async Task CleanupTempDirectoryAsyncWithMultipleFilesDeletesAll()
     {
@@ -42,6 +52,9 @@ public class CleanTempFolderExtendedTests
         Assert.False(Directory.Exists(tempDir));
     }
 
+    /// <summary>
+    /// Verifies that CleanupPartialExtractionAsync removes all files and subdirectories from multiple subdirectories.
+    /// </summary>
     [Fact]
     public async Task CleanupPartialExtractionAsyncWithMultipleSubdirectories()
     {
@@ -65,6 +78,9 @@ public class CleanTempFolderExtendedTests
         Assert.True(Directory.Exists(tempDir));
     }
 
+    /// <summary>
+    /// Verifies that CleanupPartialExtractionAsync removes the tracking file and all other files.
+    /// </summary>
     [Fact]
     public async Task CleanupPartialExtractionAsyncWithTrackingFileAndOtherFiles()
     {
@@ -83,6 +99,9 @@ public class CleanTempFolderExtendedTests
         Assert.True(Directory.Exists(tempDir));
     }
 
+    /// <summary>
+    /// Verifies that CleanupPartialExtractionAsync handles an empty directory without throwing.
+    /// </summary>
     [Fact]
     public async Task CleanupPartialExtractionAsyncEmptyDirectoryDoesNotThrow()
     {
@@ -94,6 +113,9 @@ public class CleanTempFolderExtendedTests
         Assert.True(Directory.Exists(tempDir));
     }
 
+    /// <summary>
+    /// Verifies that CleanupTempDirectoryAsync deletes hidden files.
+    /// </summary>
     [Fact]
     public async Task CleanupTempDirectoryAsyncWithHiddenFiles()
     {
@@ -109,6 +131,9 @@ public class CleanTempFolderExtendedTests
         Assert.False(Directory.Exists(tempDir));
     }
 
+    /// <summary>
+    /// Verifies that CleanupTempDirectoryAsync deletes files with the System attribute.
+    /// </summary>
     [Fact]
     public async Task CleanupTempDirectoryAsyncWithSystemFiles()
     {
@@ -144,6 +169,9 @@ public class CleanTempFolderExtendedTests
         Assert.True(Directory.Exists(tempDir));
     }
 
+    /// <summary>
+    /// Verifies that calling CleanupTempDirectoryAsync twice on the same directory does not throw.
+    /// </summary>
     [Fact]
     public async Task CleanupTempDirectoryAsyncTwiceDoesNotThrow()
     {

@@ -1,11 +1,15 @@
 using System.Net;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.RetroAchievements.Models;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 
+using Interfaces;
+
+/// <summary>
+/// Provides methods to interact with the RetroAchievements REST API for user authentication, game progress, and leaderboard data.
+/// </summary>
 public class RetroAchievementsService
 {
     private readonly string _apiBaseUrl;
@@ -15,8 +19,15 @@ public class RetroAchievementsService
     private readonly HttpClient _httpClient;
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
+
+    /// <summary>
+    /// Gets the RetroAchievements manager containing the local game database.
+    /// </summary>
     public RetroAchievementsManager RaManager { get; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RetroAchievementsService"/> class.
+    /// </summary>
     public RetroAchievementsService(
         IHttpClientFactory httpClientFactory,
         RetroAchievementsManager raManager,
@@ -168,6 +179,9 @@ public class RetroAchievementsService
         }
     }
 
+    /// <summary>
+    /// Fetches extended game details including achievements, metadata, and player statistics.
+    /// </summary>
     public async Task<RaGameExtendedDetails> GetGameExtendedAsync(int gameId, string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
@@ -197,6 +211,9 @@ public class RetroAchievementsService
         }
     }
 
+    /// <summary>
+    /// Retrieves the user's rank and score for a specific game.
+    /// </summary>
     public async Task<List<RaUserGameRank>> GetUserGameRankAndScoreAsync(int gameId, string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
@@ -226,6 +243,9 @@ public class RetroAchievementsService
         }
     }
 
+    /// <summary>
+    /// Retrieves the global leaderboard rank and score data for a specific game.
+    /// </summary>
     public async Task<List<RaGameRankAndScore>> GetGameRankAndScoreAsync(int gameId, string username, string apiKey, bool latestMasters = false)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
@@ -256,6 +276,9 @@ public class RetroAchievementsService
         }
     }
 
+    /// <summary>
+    /// Retrieves the RetroAchievements profile for the specified user.
+    /// </summary>
     public async Task<RaProfile> GetUserProfileAsync(string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
@@ -285,6 +308,9 @@ public class RetroAchievementsService
         }
     }
 
+    /// <summary>
+    /// Retrieves the user's recently played games with achievement progress.
+    /// </summary>
     public async Task<List<RaRecentlyPlayedGame>> GetUserRecentlyPlayedGamesAsync(string username, string apiKey, int count = 10, int offset = 0)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
@@ -314,6 +340,9 @@ public class RetroAchievementsService
         }
     }
 
+    /// <summary>
+    /// Retrieves achievements earned by the user within a specified date range.
+    /// </summary>
     public async Task<List<RaEarnedAchievement>> GetAchievementsEarnedBetweenAsync(string username, string apiKey, DateTime fromDate, DateTime toDate)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
@@ -346,6 +375,9 @@ public class RetroAchievementsService
         }
     }
 
+    /// <summary>
+    /// Retrieves the user's game completion progress with award information.
+    /// </summary>
     public async Task<List<RaUserCompletionGame>> GetUserCompletionProgressAsync(string username, string apiKey, int count = 100, int offset = 0)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;

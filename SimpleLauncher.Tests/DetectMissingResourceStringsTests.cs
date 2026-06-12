@@ -13,6 +13,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public partial class DetectMissingResourceStringsTests
 {
+    /// <summary>
+    /// Verifies that the English resource file contains every key referenced in the source code.
+    /// </summary>
     [Fact]
     public void EnglishResourceFileShouldContainAllReferencedKeys()
     {

@@ -1,9 +1,13 @@
 using System.Windows;
-using SimpleLauncher.Services.DebugAndBugReport;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
 
+using Interfaces;
+
+/// <summary>
+/// Partial MainWindow containing launch tool click handlers for batch file creation and emulator utilities.
+/// </summary>
 public partial class MainWindow
 {
     private async void CreateBatchFilesForXbox360XBLAGames_Click(object sender, RoutedEventArgs e)

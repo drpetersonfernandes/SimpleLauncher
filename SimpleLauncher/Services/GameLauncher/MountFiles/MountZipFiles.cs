@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 using SharpCompress.Archives;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.SystemManager;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 

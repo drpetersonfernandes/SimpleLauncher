@@ -3,8 +3,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Extended tests for the <see cref="Favorite"/> model covering edge cases, Unicode, and special characters.
+/// </summary>
 public class FavoriteExtendedTests
 {
+    /// <summary>
+    /// Verifies that FileName can be set via init accessor.
+    /// </summary>
     [Fact]
     public void FavoriteFileNameIsRequiredInit()
     {
@@ -12,6 +18,9 @@ public class FavoriteExtendedTests
         Assert.Equal("game.zip", fav.FileName);
     }
 
+    /// <summary>
+    /// Verifies that SystemName can be set via init accessor.
+    /// </summary>
     [Fact]
     public void FavoriteSystemNameIsRequiredInit()
     {
@@ -19,6 +28,9 @@ public class FavoriteExtendedTests
         Assert.Equal("SNES", fav.SystemName);
     }
 
+    /// <summary>
+    /// Verifies that MachineDescription defaults to null.
+    /// </summary>
     [Fact]
     public void FavoriteMachineDescriptionDefaultIsNull()
     {
@@ -26,6 +38,9 @@ public class FavoriteExtendedTests
         Assert.Null(fav.MachineDescription);
     }
 
+    /// <summary>
+    /// Verifies that CoverImage defaults to null.
+    /// </summary>
     [Fact]
     public void FavoriteCoverImageDefaultIsNull()
     {
@@ -33,6 +48,9 @@ public class FavoriteExtendedTests
         Assert.Null(fav.CoverImage);
     }
 
+    /// <summary>
+    /// Verifies that DefaultEmulator defaults to null.
+    /// </summary>
     [Fact]
     public void FavoriteDefaultEmulatorDefaultIsNull()
     {
@@ -40,6 +58,9 @@ public class FavoriteExtendedTests
         Assert.Null(fav.DefaultEmulator);
     }
 
+    /// <summary>
+    /// Verifies that all Favorite properties can be set and retrieved together.
+    /// </summary>
     [Fact]
     public void FavoriteAllPropertiesCanBeSet()
     {
@@ -59,6 +80,9 @@ public class FavoriteExtendedTests
         Assert.Equal("MAME", fav.DefaultEmulator);
     }
 
+    /// <summary>
+    /// Verifies that FileName is init-only and retains its value after construction.
+    /// </summary>
     [Fact]
     public void FavoriteFileNameIsInitOnly()
     {
@@ -66,6 +90,9 @@ public class FavoriteExtendedTests
         Assert.Equal("game.zip", fav.FileName);
     }
 
+    /// <summary>
+    /// Verifies that SystemName is init-only and retains its value after construction.
+    /// </summary>
     [Fact]
     public void FavoriteSystemNameIsInitOnly()
     {
@@ -73,6 +100,9 @@ public class FavoriteExtendedTests
         Assert.Equal("NES", fav.SystemName);
     }
 
+    /// <summary>
+    /// Verifies that setting DefaultEmulator raises PropertyChanged with the correct property name.
+    /// </summary>
     [Fact]
     public void FavoriteDefaultEmulatorPropertyChanged()
     {
@@ -90,6 +120,9 @@ public class FavoriteExtendedTests
         Assert.True(raised);
     }
 
+    /// <summary>
+    /// Verifies that Unicode characters in FileName and MachineDescription are preserved.
+    /// </summary>
     [Fact]
     public void FavoriteWithUnicodeCharacters()
     {
@@ -104,6 +137,9 @@ public class FavoriteExtendedTests
         Assert.Contains("ポケットモンスター", fav.MachineDescription);
     }
 
+    /// <summary>
+    /// Verifies that very long file names are handled correctly.
+    /// </summary>
     [Fact]
     public void FavoriteWithLongFileName()
     {
@@ -112,6 +148,9 @@ public class FavoriteExtendedTests
         Assert.Equal(longName, fav.FileName);
     }
 
+    /// <summary>
+    /// Verifies that special characters in file names are preserved.
+    /// </summary>
     [Fact]
     public void FavoriteWithSpecialCharactersInFileName()
     {

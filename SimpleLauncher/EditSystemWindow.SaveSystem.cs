@@ -1,13 +1,14 @@
 using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Services.CreateFolders;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.SanitizeInputString;
 using SimpleLauncher.Services.SystemManager;
 using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
+
+using Interfaces;
 
 internal partial class EditSystemWindow
 {

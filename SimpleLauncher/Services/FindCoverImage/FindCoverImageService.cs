@@ -1,12 +1,13 @@
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.CheckPaths;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.FindCoverImage;
 
-[SuppressMessage("ReSharper", "NotAccessedField.Local")]
+/// <summary>
+/// Locates cover image files for games using exact name matching and optional Jaro-Winkler fuzzy matching,
+/// falling back to a default image when no match is found.
+/// </summary>
 public class FindCoverImageService : IFindCoverImageService
 {
     private readonly IConfiguration _configuration;
@@ -18,6 +19,13 @@ public class FindCoverImageService : IFindCoverImageService
     private const double PrefixScale = 0.1;
     private const int MaxPrefixLength = 4;
 
+    /// <summary>
+    /// Initializes a new instance of the FindCoverImageService class.
+    /// </summary>
+    /// <param name="configuration">The configuration.</param>
+    /// <param name="logErrors">The log errors.</param>
+    /// <param name="enableFuzzyMatching">The enable fuzzy matching.</param>
+    /// <param name="fuzzyMatchingThreshold">The fuzzy matching threshold.</param>
     public FindCoverImageService(IConfiguration configuration, ILogErrors logErrors, bool enableFuzzyMatching = false, double fuzzyMatchingThreshold = 0.8)
     {
         _configuration = configuration;
@@ -26,6 +34,14 @@ public class FindCoverImageService : IFindCoverImageService
         _fuzzyMatchingThreshold = fuzzyMatchingThreshold;
     }
 
+    /// <summary>
+    /// Finds the cover image path for a game by exact filename match, then optional fuzzy matching,
+    /// and finally falls back to a system-specific or global default image.
+    /// </summary>
+    /// <param name="fileNameWithoutExtension">The game filename without its extension.</param>
+    /// <param name="systemName">The system name used to resolve the image folder.</param>
+    /// <param name="systemImageFolder">Optional explicit image folder path for the system.</param>
+    /// <returns>The full path to the matching cover image, or a default image path.</returns>
     public string FindCoverImagePath(string fileNameWithoutExtension, string systemName, string systemImageFolder)
     {
         var imageExtensions = _configuration.GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
@@ -93,6 +109,12 @@ public class FindCoverImageService : IFindCoverImageService
         return GlobalDefaultImagePath;
     }
 
+    /// <summary>
+    /// Calculates the Jaro-Winkler similarity between two strings, returning a value from 0.0 (no match) to 1.0 (exact match).
+    /// </summary>
+    /// <param name="s1">The first string to compare.</param>
+    /// <param name="s2">The second string to compare.</param>
+    /// <returns>A similarity score between 0.0 and 1.0.</returns>
     public static double CalculateJaroWinklerSimilarity(string s1, string s2)
     {
         if (string.IsNullOrEmpty(s1) || string.IsNullOrEmpty(s2))

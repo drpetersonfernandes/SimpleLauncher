@@ -2,6 +2,8 @@ using System.Xml.Linq;
 
 namespace SimpleLauncher.Services.SettingsManager.EmulatorSettings;
 
+using Interfaces;
+
 public class DaphneSettings : IEmulatorSettings
 {
     private const string SectionName = "Daphne";

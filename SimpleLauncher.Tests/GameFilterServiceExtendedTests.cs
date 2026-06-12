@@ -1,6 +1,5 @@
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameFilter;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
@@ -48,6 +47,9 @@ public class GameFilterServiceExtendedTests
 
     // FilterByShowGamesSettingAsync tests
 
+    /// <summary>
+    /// Verifies that ShowAll returns all files regardless of cover image availability.
+    /// </summary>
     [Fact]
     public async Task FilterByShowGamesSettingAsyncShowAllReturnsAllRegardlessOfCover()
     {
@@ -64,6 +66,9 @@ public class GameFilterServiceExtendedTests
         Assert.Equal(3, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that ShowWithCover filters out games with default cover images.
+    /// </summary>
     [Fact]
     public async Task FilterByShowGamesSettingAsyncShowWithCoverFiltersDefaultImages()
     {
@@ -80,6 +85,9 @@ public class GameFilterServiceExtendedTests
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Verifies that ShowWithoutCover returns only games with default cover images.
+    /// </summary>
     [Fact]
     public async Task FilterByShowGamesSettingAsyncShowWithoutCoverReturnsDefaultImageGames()
     {
@@ -96,6 +104,9 @@ public class GameFilterServiceExtendedTests
         Assert.Equal(2, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that empty ShowGames setting does not behave as ShowAll.
+    /// </summary>
     [Fact]
     public async Task FilterByShowGamesSettingAsyncEmptyShowGamesTreatsAsShowAll()
     {
@@ -116,6 +127,9 @@ public class GameFilterServiceExtendedTests
 
     // FilterByLetterAsync tests
 
+    /// <summary>
+    /// Verifies that FilterByLetterAsync handles special character brackets.
+    /// </summary>
     [Fact]
     public async Task FilterByLetterAsyncSpecialCharacters()
     {
@@ -131,6 +145,9 @@ public class GameFilterServiceExtendedTests
         Assert.Contains("[BIOS]test.zip", result[0]);
     }
 
+    /// <summary>
+    /// Verifies that FilterByLetterAsync with '#' returns empty when no files start with a digit.
+    /// </summary>
     [Fact]
     public async Task FilterByLetterAsyncHashWithNoDigitFiles()
     {
@@ -145,6 +162,9 @@ public class GameFilterServiceExtendedTests
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Verifies that FilterByLetterAsync works with a single file in the list.
+    /// </summary>
     [Fact]
     public async Task FilterByLetterAsyncSingleFile()
     {
@@ -155,6 +175,9 @@ public class GameFilterServiceExtendedTests
         Assert.Single(result);
     }
 
+    /// <summary>
+    /// Verifies that FilterByLetterAsync matches letter case-insensitively.
+    /// </summary>
     [Fact]
     public async Task FilterByLetterAsyncCaseInsensitiveA()
     {
@@ -172,6 +195,9 @@ public class GameFilterServiceExtendedTests
 
     // SortByMameDescription tests
 
+    /// <summary>
+    /// Verifies that SortByMameDescription with MachineDescription sorts case-insensitively.
+    /// </summary>
     [Fact]
     public void SortByMameDescriptionMachineDescriptionSortsCaseInsensitive()
     {
@@ -187,6 +213,9 @@ public class GameFilterServiceExtendedTests
         Assert.Equal("game2.zip", Path.GetFileName(result[0]));
     }
 
+    /// <summary>
+    /// Verifies that SortByMameDescription with FileName sorts case-insensitively.
+    /// </summary>
     [Fact]
     public void SortByMameDescriptionFileNameSortsCaseInsensitive()
     {
@@ -197,6 +226,9 @@ public class GameFilterServiceExtendedTests
         Assert.Equal("apple.zip", Path.GetFileName(result[0]));
     }
 
+    /// <summary>
+    /// Verifies that SortByMameDescription with empty files returns empty.
+    /// </summary>
     [Fact]
     public void SortByMameDescriptionEmptyFilesReturnsEmpty()
     {
@@ -205,6 +237,9 @@ public class GameFilterServiceExtendedTests
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Verifies that SortByMameDescription falls back to filename for items not in the MAME lookup.
+    /// </summary>
     [Fact]
     public void SortByMameDescriptionPartialLookupFallsBackToFileName()
     {
@@ -223,6 +258,9 @@ public class GameFilterServiceExtendedTests
         Assert.Equal("game1.zip", Path.GetFileName(result[2]));
     }
 
+    /// <summary>
+    /// Verifies that SortByMameDescription with unknown sort order defaults to filename sorting.
+    /// </summary>
     [Fact]
     public void SortByMameDescriptionUnknownSortOrderDefaultsToFileName()
     {
@@ -235,6 +273,9 @@ public class GameFilterServiceExtendedTests
 
     // FilterBySearchQueryAsync tests
 
+    /// <summary>
+    /// Verifies that FilterBySearchQueryAsync supports partial filename matching.
+    /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncPartialMatch()
     {
@@ -245,6 +286,9 @@ public class GameFilterServiceExtendedTests
         Assert.Single(result);
     }
 
+    /// <summary>
+    /// Verifies that FilterBySearchQueryAsync returns multiple matches.
+    /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncMultipleMatches()
     {
@@ -261,6 +305,9 @@ public class GameFilterServiceExtendedTests
         Assert.Equal(3, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that FilterBySearchQueryAsync with empty query returns all files.
+    /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncEmptyQueryReturnsAll()
     {
@@ -271,6 +318,9 @@ public class GameFilterServiceExtendedTests
         Assert.Equal(2, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that FilterBySearchQueryAsync with empty file list returns empty.
+    /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncEmptyFilesReturnsEmpty()
     {
@@ -280,6 +330,9 @@ public class GameFilterServiceExtendedTests
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Verifies that FilterBySearchQueryAsync matches MAME descriptions case-insensitively.
+    /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncMameDescriptionCaseInsensitive()
     {
@@ -294,6 +347,9 @@ public class GameFilterServiceExtendedTests
         Assert.Single(result);
     }
 
+    /// <summary>
+    /// Verifies that FilterBySearchQueryAsync supports partial MAME description matching.
+    /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncMameDescriptionPartialMatch()
     {
@@ -308,6 +364,9 @@ public class GameFilterServiceExtendedTests
         Assert.Single(result);
     }
 
+    /// <summary>
+    /// Verifies that FilterBySearchQueryAsync handles MAME lookup with empty description.
+    /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncMameLookupWithEmptyDescription()
     {
@@ -322,6 +381,9 @@ public class GameFilterServiceExtendedTests
         Assert.Single(result); // matches filename
     }
 
+    /// <summary>
+    /// Verifies that FilterBySearchQueryAsync matches filenames even when MAME description differs.
+    /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncSearchInFilenameNotMame()
     {

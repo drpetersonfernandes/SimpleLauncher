@@ -1,7 +1,6 @@
 #nullable enable
 
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.SystemManager;
 

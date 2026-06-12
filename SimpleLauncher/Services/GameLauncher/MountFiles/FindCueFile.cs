@@ -1,9 +1,15 @@
-using SimpleLauncher.Services.DebugAndBugReport;
-
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
+using Interfaces;
+
+/// <summary>
+/// Locates the first .cue file in a given directory.
+/// </summary>
 public static class FindCueFile
 {
+    /// <summary>
+    /// Searches for the first .cue file in the specified root directory.
+    /// </summary>
     public static string Find(string rootPath, ILogErrors logErrors)
     {
         try

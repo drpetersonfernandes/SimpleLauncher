@@ -1,14 +1,27 @@
 namespace SimpleLauncher.Services.MenuCheckMark;
 
+using Interfaces;
+
+/// <summary>
+/// Manages the checked state of menu items for thumbnail size, games per page, display options, and view mode.
+/// </summary>
 public class MenuCheckMarkService : IMenuCheckMarkService
 {
     private IMenuCheckMarkHost _host;
 
+    /// <summary>
+    /// Initializes the service with the specified host that provides access to menu check mark controls.
+    /// </summary>
+    /// <param name="host">The host providing menu check mark UI elements.</param>
     public void Initialize(IMenuCheckMarkHost host)
     {
         _host = host;
     }
 
+    /// <summary>
+    /// Updates the thumbnail size menu check marks to reflect the currently selected size.
+    /// </summary>
+    /// <param name="selectedSize">The currently selected thumbnail size in pixels.</param>
     public void UpdateThumbnailSizeCheckMarks(int selectedSize)
     {
         _host.Size50.IsChecked = selectedSize == 50;
@@ -29,6 +42,10 @@ public class MenuCheckMarkService : IMenuCheckMarkService
         _host.Size800.IsChecked = selectedSize == 800;
     }
 
+    /// <summary>
+    /// Updates the games-per-page menu check marks to reflect the currently selected count.
+    /// </summary>
+    /// <param name="selectedSize">The currently selected number of games per page.</param>
     public void UpdateNumberOfGamesPerPageCheckMarks(int selectedSize)
     {
         _host.Page100.IsChecked = selectedSize == 100;
@@ -41,6 +58,9 @@ public class MenuCheckMarkService : IMenuCheckMarkService
         _host.Page1000000.IsChecked = selectedSize == 1000000;
     }
 
+    /// <summary>
+    /// Updates the show-games filter menu check marks to reflect the selected filter mode.
+    /// </summary>
     public void UpdateShowGamesCheckMarks(string selectedValue)
     {
         _host.ShowAll.IsChecked = selectedValue == "ShowAll";
@@ -48,6 +68,9 @@ public class MenuCheckMarkService : IMenuCheckMarkService
         _host.ShowWithoutCover.IsChecked = selectedValue == "ShowWithoutCover";
     }
 
+    /// <summary>
+    /// Updates the button aspect ratio menu check marks to reflect the selected aspect ratio.
+    /// </summary>
     public void UpdateButtonAspectRatioCheckMarks(string selectedValue)
     {
         _host.Square.IsChecked = selectedValue == "Square";
@@ -59,6 +82,9 @@ public class MenuCheckMarkService : IMenuCheckMarkService
         _host.SuperTaller2.IsChecked = selectedValue == "SuperTaller2";
     }
 
+    /// <summary>
+    /// Updates the filename display mode menu check marks to reflect the selected display mode.
+    /// </summary>
     public void UpdateFilenameDisplayModeCheckMarks(string selectedValue)
     {
         _host.FilenameDisplayOriginal.IsChecked = selectedValue == "Original";
@@ -66,6 +92,9 @@ public class MenuCheckMarkService : IMenuCheckMarkService
         _host.FilenameDisplayNoFilename.IsChecked = selectedValue == "NoFilename";
     }
 
+    /// <summary>
+    /// Updates the filename font size menu check marks to reflect the selected font size.
+    /// </summary>
     public void UpdateFilenameFontSizeCheckMarks(string selectedValue)
     {
         _host.FilenameFontSizeSmall.IsChecked = selectedValue == "Small";
@@ -73,6 +102,9 @@ public class MenuCheckMarkService : IMenuCheckMarkService
         _host.FilenameFontSizeBig.IsChecked = selectedValue == "Big";
     }
 
+    /// <summary>
+    /// Updates the machine name font size menu check marks to reflect the selected font size.
+    /// </summary>
     public void UpdateMachineNameFontSizeCheckMarks(string selectedValue)
     {
         _host.MachineNameFontSizeSmall.IsChecked = selectedValue == "Small";
@@ -80,6 +112,10 @@ public class MenuCheckMarkService : IMenuCheckMarkService
         _host.MachineNameFontSizeBig.IsChecked = selectedValue == "Big";
     }
 
+    /// <summary>
+    /// Sets the view mode check marks to indicate whether list view or grid view is active.
+    /// </summary>
+    /// <param name="viewMode">The view mode to set ("ListView" or "GridView").</param>
     public void SetViewMode(string viewMode)
     {
         if (viewMode == "ListView")

@@ -2,10 +2,14 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.Converters;
 
+using Interfaces;
+
+/// <summary>
+/// Provides conversion of disc image files (RVZ, WBFS, GCZ, CISO, WIA) to ISO format using DolphinTool.exe.
+/// </summary>
 public static class ConvertDiscImageToIso
 {
     private static readonly IDebugLogger DebugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();

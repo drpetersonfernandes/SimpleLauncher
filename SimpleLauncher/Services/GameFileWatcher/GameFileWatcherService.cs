@@ -1,7 +1,8 @@
 using SimpleLauncher.Services.CheckPaths;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.GameFileWatcher;
+
+using Interfaces;
 
 /// <summary>
 /// Monitors ROM system folders for file changes (create, delete, rename, change)
@@ -16,6 +17,10 @@ public sealed class GameFileWatcherService : IDisposable
     private CancellationTokenSource _debounceCts;
     private bool _disposed;
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="GameFileWatcherService"/>.
+    /// </summary>
+    /// <param name="debugLogger">Debug logging service.</param>
     public GameFileWatcherService(IDebugLogger debugLogger)
     {
         _debugLogger = debugLogger;
@@ -201,6 +206,9 @@ public sealed class GameFileWatcherService : IDisposable
         oldCts?.Dispose();
     }
 
+    /// <summary>
+    /// Releases all resources used by this instance.
+    /// </summary>
     public void Dispose()
     {
         if (_disposed) return;

@@ -4,8 +4,6 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SettingsManager;
@@ -15,6 +13,9 @@ using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
+/// <summary>
+/// Window for browsing RetroAchievements user profile, unlocks, and completion progress.
+/// </summary>
 public partial class RetroAchievementsWindow : ILoadingState
 {
     private readonly RetroAchievementsViewModel _viewModel;
@@ -23,6 +24,14 @@ public partial class RetroAchievementsWindow : ILoadingState
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IDebugLogger _debugLogger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RetroAchievementsWindow"/> class.
+    /// </summary>
+    /// <param name="playSoundEffects">The sound effects service.</param>
+    /// <param name="logErrors">The error logging service.</param>
+    /// <param name="debugLogger">The debug logger.</param>
+    /// <param name="settings">The application settings manager.</param>
+    /// <param name="raService">The RetroAchievements API service.</param>
     public RetroAchievementsWindow(PlaySoundEffects playSoundEffects, ILogErrors logErrors, IDebugLogger debugLogger, SettingsManager settings, RetroAchievementsService raService)
     {
         InitializeComponent();
@@ -225,6 +234,11 @@ public partial class RetroAchievementsWindow : ILoadingState
         }
     }
 
+    /// <summary>
+    /// Toggles the loading overlay with an optional message.
+    /// </summary>
+    /// <param name="isLoading">Whether to show or hide the loading overlay.</param>
+    /// <param name="message">Optional message to display while loading.</param>
     public void SetLoadingState(bool isLoading, string? message = null)
     {
         Dispatcher.Invoke(() =>

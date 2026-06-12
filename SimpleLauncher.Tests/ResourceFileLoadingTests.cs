@@ -12,6 +12,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class ResourceFileLoadingTests
 {
+    /// <summary>
+    /// Verifies that all localization resource XAML files can be loaded and parsed without errors.
+    /// </summary>
     [Fact]
     public void AllResourceFilesShouldLoadWithoutErrors()
     {

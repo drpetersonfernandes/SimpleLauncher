@@ -2,18 +2,23 @@ using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
+/// <summary>
+/// Handles configuration injection for the Stella (Atari 2600) emulator before launching a game.
+/// </summary>
 public class StellaConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
     private readonly IServiceScopeFactory _scopeFactory;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StellaConfigHandler"/> class.
+    /// </summary>
     public StellaConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
@@ -21,11 +26,13 @@ public class StellaConfigHandler : IEmulatorConfigHandler
         _scopeFactory = scopeFactory;
     }
 
+    /// <inheritdoc />
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Stella", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("stella.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
+    /// <inheritdoc />
     public async Task<bool> HandleConfigurationAsync(LaunchContext context)
     {
         if (context.EmulatorManager != null)

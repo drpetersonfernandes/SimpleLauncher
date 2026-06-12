@@ -1,9 +1,14 @@
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.RetroAchievements;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+using Interfaces;
+
+/// <summary>
+/// Tests for <see cref="RetroAchievementsSystemMatcher"/> covering system name aliasing,
+/// official name validation, supported system enumeration, and system ID lookups.
+/// </summary>
 public class RetroAchievementsSystemMatcherTests
 {
     private sealed class NoOpLogErrors : ILogErrors
@@ -27,6 +32,9 @@ public class RetroAchievementsSystemMatcherTests
 
     private readonly RetroAchievementsSystemMatcher _matcher = new(new NoOpLogErrors(), new NoOpDebugLogger());
 
+    /// <summary>
+    /// Verifies that GetBestMatchSystemName maps known system aliases to their canonical RetroAchievements names.
+    /// </summary>
     [Theory]
     [InlineData("snes", "super nintendo entertainment system")]
     [InlineData("SNES", "super nintendo entertainment system")]
@@ -48,6 +56,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.Equal(expected, result);
     }
 
+    /// <summary>
+    /// Verifies that GetBestMatchSystemName handles null, empty, and whitespace inputs gracefully.
+    /// </summary>
     [Fact]
     public void GetBestMatchSystemNameNullOrWhitespaceReturnsOriginal()
     {
@@ -56,6 +67,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.Equal("   ", _matcher.GetBestMatchSystemName("   "));
     }
 
+    /// <summary>
+    /// Verifies that IsOfficialSystemName correctly identifies known official system names.
+    /// </summary>
     [Theory]
     [InlineData("super nintendo entertainment system", true)]
     [InlineData("playstation", true)]
@@ -67,6 +81,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.Equal(expected, result);
     }
 
+    /// <summary>
+    /// Verifies that GetSupportedSystemNames returns a non-empty list with no duplicates.
+    /// </summary>
     [Fact]
     public void GetSupportedSystemNamesReturnsNonEmptyList()
     {
@@ -75,6 +92,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.Equal(result.Count, result.Distinct(StringComparer.OrdinalIgnoreCase).Count());
     }
 
+    /// <summary>
+    /// Verifies that GetExactAliasMatch returns the expected canonical name for known aliases.
+    /// </summary>
     [Theory]
     [InlineData("snes", "super nintendo entertainment system")]
     [InlineData("gb", "game boy")]
@@ -85,6 +105,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.Equal(expected, result);
     }
 
+    /// <summary>
+    /// Verifies that GetExactAliasMatch returns null for an unknown alias.
+    /// </summary>
     [Fact]
     public void GetExactAliasMatchUnknownReturnsNull()
     {
@@ -92,6 +115,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that IsSystemInMappings correctly identifies system names present in the alias mappings.
+    /// </summary>
     [Theory]
     [InlineData("snes", true)]
     [InlineData("super nintendo", true)]
@@ -102,6 +128,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.Equal(expected, result);
     }
 
+    /// <summary>
+    /// Verifies that GetSystemId returns the correct RetroAchievements system ID for known systems.
+    /// </summary>
     [Theory]
     [InlineData("snes", 3)]
     [InlineData("n64", 2)]

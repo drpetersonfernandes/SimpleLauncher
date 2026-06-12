@@ -1,12 +1,17 @@
 using System.Reflection;
 using System.Text;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+using Interfaces;
+
+/// <summary>
+/// Tests for <see cref="RetroAchievementsFileHasher"/> covering MD5 calculation,
+/// filename hashing, N64 byte-swap hashing, Arduboy line-ending normalization, and hex encoding.
+/// </summary>
 public class RetroAchievementsFileHasherTests : IDisposable
 {
     private readonly string _testDirectory;
@@ -64,6 +69,9 @@ public class RetroAchievementsFileHasherTests : IDisposable
         return fullPath;
     }
 
+    /// <summary>
+    /// Verifies that CalculateStandardMd5Async returns the correct MD5 hash for known content.
+    /// </summary>
     [Fact]
     public async Task CalculateStandardMd5AsyncReturnsExpectedHash()
     {
@@ -75,6 +83,9 @@ public class RetroAchievementsFileHasherTests : IDisposable
         Assert.Equal("b10a8db164e0754105b7a99be72e3fe5", result);
     }
 
+    /// <summary>
+    /// Verifies that CalculateStandardMd5Async returns the MD5 hash for an empty file.
+    /// </summary>
     [Fact]
     public async Task CalculateStandardMd5AsyncEmptyFileReturnsEmptyHash()
     {
@@ -85,6 +96,9 @@ public class RetroAchievementsFileHasherTests : IDisposable
         Assert.Equal("d41d8cd98f00b204e9800998ecf8427e", result);
     }
 
+    /// <summary>
+    /// Verifies that CalculateFilenameHash returns a 32-character hex string for a valid file path.
+    /// </summary>
     [Fact]
     public void CalculateFilenameHashReturnsExpectedHash()
     {
@@ -94,6 +108,10 @@ public class RetroAchievementsFileHasherTests : IDisposable
         Assert.Equal(32, result.Length);
     }
 
+    /// <summary>
+    /// Verifies that CalculateFilenameHash produces the same hash for files with the same name
+    /// but different paths or extensions.
+    /// </summary>
     [Fact]
     public void CalculateFilenameHashSameFilenameWithoutExtensionProducesSameHash()
     {
@@ -103,6 +121,9 @@ public class RetroAchievementsFileHasherTests : IDisposable
         Assert.Equal(hash1, hash2);
     }
 
+    /// <summary>
+    /// Verifies that CalculateFilenameHash produces different hashes for different file names.
+    /// </summary>
     [Fact]
     public void CalculateFilenameHashDifferentFilenamesProduceDifferentHashes()
     {
@@ -112,6 +133,9 @@ public class RetroAchievementsFileHasherTests : IDisposable
         Assert.NotEqual(hash1, hash2);
     }
 
+    /// <summary>
+    /// Verifies that CalculateArduboyHashAsync normalizes CRLF and LF line endings to produce the same hash.
+    /// </summary>
     [Fact]
     public async Task CalculateArduboyHashAsyncNormalizesLineEndings()
     {
@@ -126,6 +150,9 @@ public class RetroAchievementsFileHasherTests : IDisposable
         Assert.Equal(hash1, hash2);
     }
 
+    /// <summary>
+    /// Verifies that CalculateN64HashAsync for .z64 files returns the standard MD5 hash.
+    /// </summary>
     [Fact]
     public async Task CalculateN64HashAsyncZ64ReturnsStandardMd5()
     {
@@ -138,6 +165,9 @@ public class RetroAchievementsFileHasherTests : IDisposable
         Assert.Equal(standardHash, n64Hash);
     }
 
+    /// <summary>
+    /// Verifies that CalculateN64HashAsync for .v64 files returns a byte-swapped MD5 hash.
+    /// </summary>
     [Fact]
     public async Task CalculateN64HashAsyncV64ReturnsByteSwappedMd5()
     {
@@ -150,6 +180,9 @@ public class RetroAchievementsFileHasherTests : IDisposable
         Assert.Equal(32, result.Length);
     }
 
+    /// <summary>
+    /// Verifies that CalculateN64HashAsync for .n64 files returns a byte-swapped MD5 hash.
+    /// </summary>
     [Fact]
     public async Task CalculateN64HashAsyncN64ReturnsByteSwappedMd5()
     {
@@ -162,6 +195,9 @@ public class RetroAchievementsFileHasherTests : IDisposable
         Assert.Equal(32, result.Length);
     }
 
+    /// <summary>
+    /// Verifies that .v64 and .n64 files with identical content produce the same N64 hash.
+    /// </summary>
     [Fact]
     public async Task CalculateN64HashAsyncV64AndN64ProduceSameHash()
     {
@@ -175,6 +211,9 @@ public class RetroAchievementsFileHasherTests : IDisposable
         Assert.Equal(hash1, hash2);
     }
 
+    /// <summary>
+    /// Verifies that the private ToHexString method returns the correct lowercase hex string.
+    /// </summary>
     [Fact]
     public void ToHexStringReturnsExpectedHex()
     {
@@ -184,6 +223,9 @@ public class RetroAchievementsFileHasherTests : IDisposable
         Assert.Equal("00ffab1a", result);
     }
 
+    /// <summary>
+    /// Verifies that the private ToHexString method returns an empty string for an empty byte array.
+    /// </summary>
     [Fact]
     public void ToHexStringEmptyArrayReturnsEmptyString()
     {

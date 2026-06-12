@@ -1,11 +1,12 @@
 using System.IO.Compression;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
+
+using Interfaces;
 
 public class MountZipFilesTests
 {

@@ -3,6 +3,8 @@ using SimpleLauncher.Services.PlaySound;
 
 namespace SimpleLauncher.Services.AudioInput;
 
+using Interfaces;
+
 public class AudioInputService : IAudioInputService, IDisposable
 {
     private readonly PlaySoundEffects _playSoundEffects;

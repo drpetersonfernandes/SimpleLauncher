@@ -36,6 +36,9 @@ public class VersionConsistencyTests
         return assemblyVersion.Trim();
     }
 
+    /// <summary>
+    /// Verifies that the version in app.manifest matches the AssemblyVersion from the project file, auto-correcting mismatches.
+    /// </summary>
     [Fact]
     public void AppManifestVersionMatchesProjectVersion()
     {
@@ -73,6 +76,9 @@ public class VersionConsistencyTests
             "Please review the change and commit it.");
     }
 
+    /// <summary>
+    /// Verifies that the Updater/version.txt content matches the project version, auto-correcting mismatches.
+    /// </summary>
     [Fact]
     public void UpdaterVersionTxtMatchesProjectVersion()
     {

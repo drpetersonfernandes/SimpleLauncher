@@ -2,18 +2,19 @@ using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.ContextMenu;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Services.RetroAchievements;
 
 namespace SimpleLauncher.Services.GameItemRender;
 
+/// <summary>
+/// Renders game items in either grid or list view mode, delegating to
+/// <see cref="GameButtonFactory"/> or <see cref="GameListFactory"/> as appropriate.
+/// </summary>
 public class GameItemRenderService : IGameItemRenderService
 {
     private const int BatchSize = 100;
@@ -40,6 +41,9 @@ public class GameItemRenderService : IGameItemRenderService
     private GameButtonFactory _gameButtonFactory;
     private GameListFactory _gameListFactory;
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="GameItemRenderService"/> with all required dependencies.
+    /// </summary>
     public GameItemRenderService(
         SettingsManager.SettingsManager settings,
         FavoritesManager favoritesManager,
@@ -78,11 +82,17 @@ public class GameItemRenderService : IGameItemRenderService
         _contextMenuService = contextMenuService ?? throw new ArgumentNullException(nameof(contextMenuService));
     }
 
+    /// <summary>
+    /// Binds the render service to the host that provides UI controls and dispatchers.
+    /// </summary>
     public void Initialize(IGameItemRenderHost host)
     {
         _host = host;
     }
 
+    /// <summary>
+    /// Rebuilds the grid and list view factories with updated system and MAME machine data.
+    /// </summary>
     public void ReloadFactories(List<SystemManager.SystemManager> systemManagers, List<MameManager.MameManager> machines)
     {
         _gameButtonFactory = new GameButtonFactory(
@@ -127,6 +137,9 @@ public class GameItemRenderService : IGameItemRenderService
             _messageBox);
     }
 
+    /// <summary>
+    /// Renders the game items in the current view mode (grid or list) by delegating to the appropriate factory.
+    /// </summary>
     public Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManager.SystemManager systemManager, CancellationToken ct)
     {
         if (_settings.ViewMode == "GridView")
@@ -139,16 +152,25 @@ public class GameItemRenderService : IGameItemRenderService
         }
     }
 
+    /// <summary>
+    /// Handles a double-click on a game item in the list view by launching the game.
+    /// </summary>
     public Task HandleDoubleClickAsync(GameListViewItem selectedItem)
     {
         return _gameListFactory.HandleDoubleClickAsync(selectedItem);
     }
 
+    /// <summary>
+    /// Handles a selection change in the list view by updating the preview image.
+    /// </summary>
     public void HandleSelectionChangedAsync(GameListViewItem selectedItem)
     {
         _gameListFactory.HandleSelectionChangedAsync(selectedItem);
     }
 
+    /// <summary>
+    /// Clears all rendered game items from both the grid and list views.
+    /// </summary>
     public void ClearRenderedItems()
     {
         _host.GameFileGrid.Dispatcher.Invoke(() =>
@@ -159,11 +181,17 @@ public class GameItemRenderService : IGameItemRenderService
         _host.Dispatcher.Invoke(() => _host.GameListItems.Clear());
     }
 
+    /// <summary>
+    /// Enables or disables all game item buttons in the UI.
+    /// </summary>
     public void SetGameButtonsEnabled(bool isEnabled)
     {
         _gameListUiService.SetGameButtonsEnabled(isEnabled);
     }
 
+    /// <summary>
+    /// Gets or sets the height (in pixels) of game item thumbnail images in the grid view.
+    /// </summary>
     public int ImageHeight
     {
         get => _gameButtonFactory?.ImageHeight ?? _settings.ThumbnailSize;

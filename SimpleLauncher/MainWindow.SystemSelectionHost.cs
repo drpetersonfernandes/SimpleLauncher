@@ -2,11 +2,15 @@ using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.SystemSelectionOrchestrator;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 
+using Interfaces;
+
+/// <summary>
+/// Partial MainWindow implementing <see cref="ISystemSelectionHost"/> for system selection screen operations.
+/// </summary>
 public partial class MainWindow : ISystemSelectionHost
 {
     Dispatcher ISystemSelectionHost.Dispatcher => Dispatcher;

@@ -3,15 +3,22 @@ using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
+/// <summary>
+/// Fallback strategy that handles standard file types (.BAT, .LNK, .URL, .EXE) and regular ROM/game launches.
+/// Has the lowest priority so all specialized strategies are tried first.
+/// </summary>
 public class DefaultLaunchStrategy : ILaunchStrategy
 {
+    /// <inheritdoc />
     public int Priority => 999;
 
+    /// <inheritdoc />
     public bool IsMatch(LaunchContext context)
     {
         return true;
     }
 
+    /// <inheritdoc />
     public Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
         var ext = Path.GetExtension(context.ResolvedFilePath).ToUpperInvariant();

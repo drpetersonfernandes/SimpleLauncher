@@ -1,5 +1,4 @@
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
@@ -7,8 +6,17 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+using Interfaces;
+
+/// <summary>
+/// Tests for <see cref="RightClickContext"/> covering constructor parameter binding
+/// for file paths, system names, machines, favorites, and settings.
+/// </summary>
 public class RightClickContextTests
 {
+    /// <summary>
+    /// Verifies that the constructor sets the FilePath property correctly.
+    /// </summary>
     [Fact]
     public void ConstructorSetsFilePath()
     {
@@ -16,6 +24,9 @@ public class RightClickContextTests
         Assert.Equal(@"C:\roms\game.zip", context.FilePath);
     }
 
+    /// <summary>
+    /// Verifies that the constructor sets the FileNameWithExtension property correctly.
+    /// </summary>
     [Fact]
     public void ConstructorSetsFileNameWithExtension()
     {
@@ -23,6 +34,9 @@ public class RightClickContextTests
         Assert.Equal("game.zip", context.FileNameWithExtension);
     }
 
+    /// <summary>
+    /// Verifies that the constructor sets the FileNameWithoutExtension property correctly.
+    /// </summary>
     [Fact]
     public void ConstructorSetsFileNameWithoutExtension()
     {
@@ -30,6 +44,9 @@ public class RightClickContextTests
         Assert.Equal("game", context.FileNameWithoutExtension);
     }
 
+    /// <summary>
+    /// Verifies that the constructor sets the SelectedSystemName property correctly.
+    /// </summary>
     [Fact]
     public void ConstructorSetsSelectedSystemName()
     {
@@ -37,6 +54,9 @@ public class RightClickContextTests
         Assert.Equal("NES", context.SelectedSystemName);
     }
 
+    /// <summary>
+    /// Verifies that the constructor sets the Machines property to the provided list.
+    /// </summary>
     [Fact]
     public void ConstructorSetsMachines()
     {
@@ -45,6 +65,9 @@ public class RightClickContextTests
         Assert.Same(machines, context.Machines);
     }
 
+    /// <summary>
+    /// Verifies that the constructor initializes the FavoritesManager property.
+    /// </summary>
     [Fact]
     public void ConstructorSetsFavoritesManager()
     {
@@ -52,6 +75,9 @@ public class RightClickContextTests
         Assert.NotNull(context.FavoritesManager);
     }
 
+    /// <summary>
+    /// Verifies that the constructor initializes the Settings property.
+    /// </summary>
     [Fact]
     public void ConstructorSetsSettings()
     {
@@ -99,7 +125,7 @@ public class RightClickContextTests
         }
     }
 
-    private sealed class NoOpLoadingState : Services.LoadingInterface.ILoadingState
+    private sealed class NoOpLoadingState : ILoadingState
     {
         public void SetLoadingState(bool isLoading, string? message = null)
         {

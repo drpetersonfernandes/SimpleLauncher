@@ -2,15 +2,20 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
+/// <summary>
+/// Mounts original Xbox ISO (XISO) images using SimpleXisoDrive.exe and the Dokan filesystem driver.
+/// </summary>
 public class MountXisoFiles : IMountXisoFiles
 {
     private readonly IDebugLogger _debugLogger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MountXisoFiles"/> class.
+    /// </summary>
     public MountXisoFiles(IDebugLogger debugLogger)
     {
         _debugLogger = debugLogger;
@@ -51,6 +56,9 @@ public class MountXisoFiles : IMountXisoFiles
         }
     }
 
+    /// <summary>
+    /// Mounts an XISO file and returns a disposable drive handle with the mounted default.xbe path.
+    /// </summary>
     public async Task<MountXisoDrive> MountAsync(string resolvedIsoFilePath, string logPath, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         _debugLogger.Log($"[MountXisoFiles.MountAsync] Starting to mount ISO: {resolvedIsoFilePath}");

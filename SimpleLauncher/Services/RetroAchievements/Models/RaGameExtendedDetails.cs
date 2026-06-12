@@ -2,6 +2,9 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Services.RetroAchievements.Models;
 
+/// <summary>
+/// Represents extended game details from the RetroAchievements API, including media, metadata, and achievement data.
+/// </summary>
 public record RaGameExtendedDetails
 {
     [JsonPropertyName("ID")]

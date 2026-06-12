@@ -6,15 +6,28 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.DebugAndBugReport;
 
+/// <summary>
+/// Builds formatted bug reports containing environment details and exception information.
+/// </summary>
 public class BugReportFormatterService : IBugReportFormatter
 {
     private readonly IWindowsVersionService _windowsVersionService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BugReportFormatterService"/> class.
+    /// </summary>
+    /// <param name="windowsVersionService">Service used to retrieve the Windows version for report details.</param>
     public BugReportFormatterService(IWindowsVersionService windowsVersionService)
     {
         _windowsVersionService = windowsVersionService;
     }
 
+    /// <summary>
+    /// Builds a formatted bug report string containing environment details and exception information.
+    /// </summary>
+    /// <param name="ex">The exception to include in the report, or null for a report without exception details.</param>
+    /// <param name="contextMessage">An optional context message describing the error scenario.</param>
+    /// <returns>A formatted string containing the full bug report.</returns>
     public string BuildReport(Exception ex, string contextMessage = null)
     {
         var message = new StringBuilder();

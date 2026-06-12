@@ -2,18 +2,23 @@ using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
 using MameConfigurationService = SimpleLauncher.Services.InjectEmulatorConfig.MameConfigurationService;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
+/// <summary>
+/// Handles configuration injection for the MAME emulator before launching a game.
+/// </summary>
 public class MameConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
     private readonly IServiceScopeFactory _scopeFactory;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MameConfigHandler"/> class.
+    /// </summary>
     public MameConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
@@ -21,6 +26,7 @@ public class MameConfigHandler : IEmulatorConfigHandler
         _scopeFactory = scopeFactory;
     }
 
+    /// <inheritdoc />
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
@@ -28,6 +34,7 @@ public class MameConfigHandler : IEmulatorConfigHandler
                (emulatorPath?.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
+    /// <inheritdoc />
     public async Task<bool> HandleConfigurationAsync(LaunchContext context)
     {
         if (context.EmulatorManager != null)

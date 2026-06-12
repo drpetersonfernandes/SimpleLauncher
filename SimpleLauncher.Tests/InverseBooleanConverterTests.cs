@@ -4,10 +4,16 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for the <see cref="InverseBooleanConverter"/> class.
+/// </summary>
 public class InverseBooleanConverterTests
 {
     private readonly InverseBooleanConverter _converter = new();
 
+    /// <summary>
+    /// Verifies that Convert returns the inverse of a boolean value.
+    /// </summary>
     [Theory]
     [InlineData(true, false)]
     [InlineData(false, true)]
@@ -17,6 +23,9 @@ public class InverseBooleanConverterTests
         Assert.Equal(expected, result);
     }
 
+    /// <summary>
+    /// Verifies that ConvertBack returns the inverse of a boolean value.
+    /// </summary>
     [Theory]
     [InlineData(true, false)]
     [InlineData(false, true)]
@@ -26,6 +35,9 @@ public class InverseBooleanConverterTests
         Assert.Equal(expected, result);
     }
 
+    /// <summary>
+    /// Verifies that Convert returns the original value for non-boolean input.
+    /// </summary>
     [Fact]
     public void ConvertNonBooleanReturnsOriginalValue()
     {
@@ -33,6 +45,9 @@ public class InverseBooleanConverterTests
         Assert.Equal("hello", result);
     }
 
+    /// <summary>
+    /// Verifies that ConvertBack returns the original value for non-boolean input.
+    /// </summary>
     [Fact]
     public void ConvertBackNonBooleanReturnsOriginalValue()
     {

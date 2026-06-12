@@ -13,6 +13,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public partial class DetectAlphabeticalOrderingTests
 {
+    /// <summary>
+    /// Verifies that all localization resource files have their entries sorted alphabetically by key.
+    /// </summary>
     [Fact]
     public void AllResourceFilesShouldBeSortedAlphabeticallyByKey()
     {

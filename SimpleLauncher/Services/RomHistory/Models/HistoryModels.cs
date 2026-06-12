@@ -4,6 +4,9 @@ using MessagePack;
 
 namespace SimpleLauncher.Services.RomHistory.Models;
 
+/// <summary>
+/// Represents the root ROM history data containing version info and a collection of entries.
+/// </summary>
 [MessagePackObject]
 public class HistoryData
 {
@@ -17,6 +20,9 @@ public class HistoryData
     public EntryData[]? Entries { get; set; } = [];
 }
 
+/// <summary>
+/// Represents a single ROM history entry containing software, systems, and descriptive text.
+/// </summary>
 [MessagePackObject]
 public class EntryData
 {
@@ -30,6 +36,9 @@ public class EntryData
     public string? Text { get; set; }
 }
 
+/// <summary>
+/// Contains a collection of system items associated with a ROM history entry.
+/// </summary>
 [MessagePackObject]
 public class SystemsData
 {
@@ -37,6 +46,9 @@ public class SystemsData
     public SystemItemData[] SystemItems { get; set; } = [];
 }
 
+/// <summary>
+/// Represents a system entry with a name and associated game.
+/// </summary>
 [MessagePackObject]
 public class SystemItemData
 {
@@ -47,6 +59,9 @@ public class SystemItemData
     public string? Game { get; set; }
 }
 
+/// <summary>
+/// Contains a collection of software items associated with a ROM history entry.
+/// </summary>
 [MessagePackObject]
 public class SoftwareData
 {
@@ -54,6 +69,9 @@ public class SoftwareData
     public ItemData[] Items { get; set; } = [];
 }
 
+/// <summary>
+/// Represents a software item with a list name, display name, and associated game.
+/// </summary>
 [MessagePackObject]
 public class ItemData
 {

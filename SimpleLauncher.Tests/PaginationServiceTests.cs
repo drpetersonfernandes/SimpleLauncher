@@ -3,6 +3,12 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+using Interfaces;
+
+/// <summary>
+/// Tests for <see cref="PaginationService"/> core pagination behavior including
+/// page navigation, boundary checks, subset selection, and host initialization.
+/// </summary>
 public class PaginationServiceTests
 {
     private static PaginationService CreateService(int filesPerPage = 10, int threshold = 10)
@@ -14,6 +20,9 @@ public class PaginationServiceTests
         };
     }
 
+    /// <summary>
+    /// Verifies that the default current page is 1 when no pagination has been applied.
+    /// </summary>
     [Fact]
     public void DefaultCurrentPageIs1()
     {
@@ -21,6 +30,9 @@ public class PaginationServiceTests
         Assert.Equal(1, service.CurrentPage);
     }
 
+    /// <summary>
+    /// Verifies that the default total files count is 0 when no pagination has been applied.
+    /// </summary>
     [Fact]
     public void DefaultTotalFilesIs0()
     {
@@ -28,6 +40,9 @@ public class PaginationServiceTests
         Assert.Equal(0, service.TotalFiles);
     }
 
+    /// <summary>
+    /// Verifies that CanGoPrev returns false when on the first page.
+    /// </summary>
     [Fact]
     public void CanGoPrevReturnsFalseOnFirstPage()
     {
@@ -35,6 +50,9 @@ public class PaginationServiceTests
         Assert.False(service.CanGoPrev());
     }
 
+    /// <summary>
+    /// Verifies that CanGoNext returns false when there are no files.
+    /// </summary>
     [Fact]
     public void CanGoNextReturnsFalseWhenNoFiles()
     {
@@ -42,6 +60,9 @@ public class PaginationServiceTests
         Assert.False(service.CanGoNext());
     }
 
+    /// <summary>
+    /// Verifies that CanGoNext returns true when more pages are available beyond the current page.
+    /// </summary>
     [Fact]
     public void CanGoNextReturnsTrueWhenMorePages()
     {
@@ -51,6 +72,9 @@ public class PaginationServiceTests
         Assert.True(service.CanGoNext());
     }
 
+    /// <summary>
+    /// Verifies that CanGoNext returns false when on the last page.
+    /// </summary>
     [Fact]
     public void CanGoNextReturnsFalseOnLastPage()
     {
@@ -60,6 +84,9 @@ public class PaginationServiceTests
         Assert.False(service.CanGoNext());
     }
 
+    /// <summary>
+    /// Verifies that GoToNextPage increments the current page number.
+    /// </summary>
     [Fact]
     public void GoToNextPageIncrementsPage()
     {
@@ -70,6 +97,9 @@ public class PaginationServiceTests
         Assert.Equal(2, service.CurrentPage);
     }
 
+    /// <summary>
+    /// Verifies that GoToNextPage does not advance beyond the total number of pages.
+    /// </summary>
     [Fact]
     public void GoToNextPageDoesNotExceedTotalPages()
     {
@@ -82,6 +112,9 @@ public class PaginationServiceTests
         Assert.Equal(2, service.CurrentPage);
     }
 
+    /// <summary>
+    /// Verifies that GoToPreviousPage decrements the current page number.
+    /// </summary>
     [Fact]
     public void GoToPreviousPageDecrementsPage()
     {
@@ -93,6 +126,9 @@ public class PaginationServiceTests
         Assert.Equal(1, service.CurrentPage);
     }
 
+    /// <summary>
+    /// Verifies that GoToPreviousPage does not decrement below page 1.
+    /// </summary>
     [Fact]
     public void GoToPreviousPageDoesNotGoBelow1()
     {
@@ -104,6 +140,10 @@ public class PaginationServiceTests
         Assert.Equal(1, service.CurrentPage);
     }
 
+    /// <summary>
+    /// Verifies that ApplyPagination returns a subset of files equal to FilesPerPage when
+    /// the total file count exceeds the pagination threshold.
+    /// </summary>
     [Fact]
     public void ApplyPaginationReturnsCorrectSubsetAboveThreshold()
     {
@@ -113,6 +153,9 @@ public class PaginationServiceTests
         Assert.Equal(5, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that ApplyPagination returns all files when the count is below the pagination threshold.
+    /// </summary>
     [Fact]
     public void ApplyPaginationReturnsAllFilesBelowThreshold()
     {
@@ -122,6 +165,9 @@ public class PaginationServiceTests
         Assert.Equal(10, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that ApplyPagination returns an empty list when given an empty input.
+    /// </summary>
     [Fact]
     public void ApplyPaginationReturnsEmptyListForEmptyInput()
     {
@@ -130,6 +176,9 @@ public class PaginationServiceTests
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Verifies that ApplyPagination updates the TotalFiles property to reflect the input count.
+    /// </summary>
     [Fact]
     public void ApplyPaginationUpdatesTotalFiles()
     {
@@ -139,6 +188,9 @@ public class PaginationServiceTests
         Assert.Equal(15, service.TotalFiles);
     }
 
+    /// <summary>
+    /// Verifies that ApplyPagination on the second page returns the correct file subset.
+    /// </summary>
     [Fact]
     public void ApplyPaginationSecondPageReturnsCorrectFiles()
     {
@@ -152,6 +204,9 @@ public class PaginationServiceTests
         Assert.Equal("file10.zip", result[4]);
     }
 
+    /// <summary>
+    /// Verifies that ApplyPagination on the last page returns only the remaining files.
+    /// </summary>
     [Fact]
     public void ApplyPaginationLastPageReturnsRemainingFiles()
     {
@@ -163,6 +218,9 @@ public class PaginationServiceTests
         Assert.Equal(3, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that Reset sets the current page back to 1.
+    /// </summary>
     [Fact]
     public void ResetSetsPageBackTo1()
     {
@@ -175,6 +233,9 @@ public class PaginationServiceTests
         Assert.Equal(1, service.CurrentPage);
     }
 
+    /// <summary>
+    /// Verifies that calling Reset without initializing a host does not throw an exception.
+    /// </summary>
     [Fact]
     public void ResetWithoutHostDoesNotThrow()
     {
@@ -183,6 +244,9 @@ public class PaginationServiceTests
         Assert.Null(exception);
     }
 
+    /// <summary>
+    /// Verifies that Initialize sets the host and that pagination interacts with it correctly.
+    /// </summary>
     [Fact]
     public void InitializeSetsHost()
     {
@@ -194,6 +258,9 @@ public class PaginationServiceTests
         Assert.True(host.NoFilesMessageAdded);
     }
 
+    /// <summary>
+    /// Verifies that ApplyPagination handles an exact page boundary where file count equals FilesPerPage.
+    /// </summary>
     [Fact]
     public void ApplyPaginationWithExactPageBoundary()
     {
@@ -204,6 +271,9 @@ public class PaginationServiceTests
         Assert.False(service.CanGoNext());
     }
 
+    /// <summary>
+    /// Verifies that ApplyPagination correctly handles a single file input.
+    /// </summary>
     [Fact]
     public void ApplyPaginationSingleFile()
     {
@@ -213,6 +283,9 @@ public class PaginationServiceTests
         Assert.Equal("single.zip", result[0]);
     }
 
+    /// <summary>
+    /// Verifies that the FilesPerPage property can be modified after construction.
+    /// </summary>
     [Fact]
     public void FilesPerPageCanBeModified()
     {
@@ -221,6 +294,9 @@ public class PaginationServiceTests
         Assert.Equal(20, service.FilesPerPage);
     }
 
+    /// <summary>
+    /// Verifies that the PaginationThreshold property can be modified after construction.
+    /// </summary>
     [Fact]
     public void PaginationThresholdCanBeModified()
     {

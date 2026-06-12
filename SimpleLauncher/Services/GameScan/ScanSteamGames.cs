@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using Microsoft.Win32;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
@@ -78,24 +77,24 @@ internal class ScanSteamGames : IGamePlatformScanner
                                 case Dictionary<string, object> libData when
                                     libData.TryGetValue("path", out var pathObj) &&
                                     pathObj is string pathStr:
-                                {
-                                    if (!string.Equals(pathStr, steamPath, StringComparison.OrdinalIgnoreCase))
                                     {
-                                        libraryPaths.Add(Path.Combine(pathStr, "steamapps"));
-                                    }
+                                        if (!string.Equals(pathStr, steamPath, StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            libraryPaths.Add(Path.Combine(pathStr, "steamapps"));
+                                        }
 
-                                    break;
-                                }
+                                        break;
+                                    }
                                 // Legacy format: "1" "C:\\Games"
                                 case string legacyPath:
-                                {
-                                    if (!string.Equals(legacyPath, steamPath, StringComparison.OrdinalIgnoreCase))
                                     {
-                                        libraryPaths.Add(Path.Combine(legacyPath, "steamapps"));
-                                    }
+                                        if (!string.Equals(legacyPath, steamPath, StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            libraryPaths.Add(Path.Combine(legacyPath, "steamapps"));
+                                        }
 
-                                    break;
-                                }
+                                        break;
+                                    }
                             }
                         }
                     }

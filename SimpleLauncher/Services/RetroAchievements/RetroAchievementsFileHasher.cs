@@ -1,18 +1,10 @@
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 
-public interface IRetroAchievementsFileHasher
-{
-    Task<string> CalculateStandardMd5Async(string filePath);
-    string CalculateFilenameHash(string filePath);
-    Task<string> CalculateHeaderBasedMd5Async(string filePath, string systemName);
-    Task<string> CalculateArduboyHashAsync(string filePath);
-    Task<string> CalculateN64HashAsync(string filePath);
-}
+using Interfaces;
 
 /// <summary>
 /// Provides methods for hashing ROM files according to RetroAchievements' specifications.
@@ -225,9 +217,9 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
 
                 case ".v64": // Byte-swapped
                 case ".n64": // Little-endian
-                {
-                    return await CalculateByteSwappedMd5Async(filePath);
-                }
+                    {
+                        return await CalculateByteSwappedMd5Async(filePath);
+                    }
 
                 default:
                     // Fallback for unknown extensions like .rom, treat as standard.

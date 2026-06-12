@@ -66,8 +66,14 @@ using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
 
 namespace SimpleLauncher;
 
+/// <summary>
+/// Application entry point handling DI container setup, single-instance enforcement, theming, and global error handling.
+/// </summary>
 public partial class App : IDisposable
 {
+    /// <summary>
+    /// Gets the application's dependency injection service provider.
+    /// </summary>
     public static IServiceProvider ServiceProvider { get; private set; }
     private Mutex _singleInstanceMutex;
     private bool _isFirstInstance;
@@ -76,6 +82,10 @@ public partial class App : IDisposable
     private const string EventName = "SimpleLauncher_SingleInstanceEvent_" + UniqueMutexIdentifier;
     private EventWaitHandle _instanceSignal;
 
+    /// <summary>
+    /// Handles application startup including DI registration, single-instance check, and theme initialization.
+    /// </summary>
+    /// <param name="e">The startup event arguments.</param>
     protected override void OnStartup(StartupEventArgs e)
     {
         AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
@@ -312,10 +322,10 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IFormatFileSizeService, FormatFileSizeService>();
 
         // Facade services
-        serviceCollection.AddSingleton<Services.AudioInput.IAudioInputService, Services.AudioInput.AudioInputService>();
-        serviceCollection.AddSingleton<Services.ApplicationLifecycle.IApplicationLifecycleService, Services.ApplicationLifecycle.ApplicationLifecycleService>();
-        serviceCollection.AddSingleton<Services.MenuOrchestrator.IMenuOrchestrator, Services.MenuOrchestrator.MenuOrchestrator>();
-        serviceCollection.AddSingleton<Services.GameBrowser.IGameBrowserService, Services.GameBrowser.GameBrowserService>();
+        serviceCollection.AddSingleton<IAudioInputService, Services.AudioInput.AudioInputService>();
+        serviceCollection.AddSingleton<IApplicationLifecycleService, Services.ApplicationLifecycle.ApplicationLifecycleService>();
+        serviceCollection.AddSingleton<IMenuOrchestrator, Services.MenuOrchestrator.MenuOrchestrator>();
+        serviceCollection.AddSingleton<IGameBrowserService, Services.GameBrowser.GameBrowserService>();
 
         // ViewModels
         serviceCollection.AddTransient<AboutViewModel>();
@@ -674,6 +684,10 @@ public partial class App : IDisposable
         e.SetObserved();
     }
 
+    /// <summary>
+    /// Handles application exit, cleaning up gamepad resources, CHD mounter processes, and the single-instance mutex.
+    /// </summary>
+    /// <param name="e">The exit event arguments.</param>
     protected override void OnExit(ExitEventArgs e)
     {
         // Kill any lingering CHDMounter processes as a safety net
@@ -809,18 +823,18 @@ public partial class App : IDisposable
                     return;
                 // Handle High Contrast
                 case "HighContrast":
-                {
-                    InternalChangeTheme(Current, "Dark", accentColor);
-                    ApplyCustomThemeOverride("Theme.HighContrast.xaml");
-                    return;
-                }
+                    {
+                        InternalChangeTheme(Current, "Dark", accentColor);
+                        ApplyCustomThemeOverride("Theme.HighContrast.xaml");
+                        return;
+                    }
                 // Handle Custom Theme (Midnight)
                 case "Midnight":
-                {
-                    InternalChangeTheme(Current, "Dark", accentColor);
-                    ApplyCustomThemeOverride("Theme.Midnight.xaml");
-                    return;
-                }
+                    {
+                        InternalChangeTheme(Current, "Dark", accentColor);
+                        ApplyCustomThemeOverride("Theme.Midnight.xaml");
+                        return;
+                    }
                 default:
                     // Standard Themes (Light/Dark)
                     RemoveCustomThemeOverrides();
@@ -937,6 +951,10 @@ public partial class App : IDisposable
         }
     }
 
+    /// <summary>
+    /// Applies the current theme to the specified window based on application settings.
+    /// </summary>
+    /// <param name="window">The window to apply the theme to.</param>
     public static void ApplyThemeToWindow(Window window)
     {
         // Get the singleton SettingsManager instance
@@ -956,17 +974,17 @@ public partial class App : IDisposable
 
                     return;
                 case "HighContrast":
-                {
-                    InternalChangeTheme(window, "Dark", accentColor);
-                    ApplyCustomThemeOverrideToWindow(window, "Theme.HighContrast.xaml");
-                    return;
-                }
+                    {
+                        InternalChangeTheme(window, "Dark", accentColor);
+                        ApplyCustomThemeOverrideToWindow(window, "Theme.HighContrast.xaml");
+                        return;
+                    }
                 case "Midnight":
-                {
-                    InternalChangeTheme(window, "Dark", accentColor);
-                    ApplyCustomThemeOverrideToWindow(window, "Theme.Midnight.xaml");
-                    return;
-                }
+                    {
+                        InternalChangeTheme(window, "Dark", accentColor);
+                        ApplyCustomThemeOverrideToWindow(window, "Theme.Midnight.xaml");
+                        return;
+                    }
                 default:
                     RemoveCustomThemeOverridesFromWindow(window);
                     InternalChangeTheme(window, baseTheme, accentColor);
@@ -1001,6 +1019,11 @@ public partial class App : IDisposable
         };
     }
 
+    /// <summary>
+    /// Changes the application theme and applies it to all open windows.
+    /// </summary>
+    /// <param name="baseTheme">The base theme name (e.g., "Light", "Dark", "Adaptive").</param>
+    /// <param name="accentColor">The accent color name.</param>
     public static void ChangeTheme(string baseTheme, string accentColor)
     {
         // Get the singleton SettingsManager instance
@@ -1021,6 +1044,9 @@ public partial class App : IDisposable
         ServiceProvider.GetRequiredService<IDebugLogger>().Log($"Saved theme settings: {baseTheme}.{accentColor}");
     }
 
+    /// <summary>
+    /// Disposes application resources including the single-instance mutex and signal event.
+    /// </summary>
     public void Dispose()
     {
         _instanceSignal?.Dispose();

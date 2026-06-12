@@ -4,16 +4,12 @@ using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.ContextMenu;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
-using SimpleLauncher.Services.MenuCheckMark;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
-using SimpleLauncher.Services.UpdateStatusBar;
 using MessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
 using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
 

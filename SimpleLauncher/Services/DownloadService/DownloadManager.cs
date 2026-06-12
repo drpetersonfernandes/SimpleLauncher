@@ -1,8 +1,6 @@
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.ExtractFiles;
 
 namespace SimpleLauncher.Services.DownloadService;
 

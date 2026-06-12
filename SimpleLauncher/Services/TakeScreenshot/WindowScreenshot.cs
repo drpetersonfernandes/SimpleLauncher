@@ -1,17 +1,23 @@
 using System.Runtime.InteropServices;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.TakeScreenshot;
 
+using Interfaces;
+
+/// <summary>
+/// Provides methods to capture screenshots of specific windows using Win32 API calls.
+/// </summary>
 public static partial class WindowScreenshot
 {
     private static IDebugLogger _debugLogger;
 
+    /// <summary>Initializes the WindowScreenshot with a debug logger instance.</summary>
     public static void Initialize(IDebugLogger debugLogger)
     {
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
     }
 
+    /// <summary>Gets the bounding rectangle of a window including its borders.</summary>
     [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static partial bool GetWindowRect(IntPtr hWnd, out SimpleLauncher.Models.WindowScreenshot.Rectangle lpRectangle);

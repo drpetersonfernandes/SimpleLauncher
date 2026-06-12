@@ -6,8 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.ContextMenu;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GamePad;
@@ -21,12 +19,14 @@ using SimpleLauncher.WpfServices;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
-using ILoadingState = SimpleLauncher.Services.LoadingInterface.ILoadingState;
 
 #nullable enable
 
 namespace SimpleLauncher.Pages;
 
+/// <summary>
+/// Page displaying the user's game play history with filtering and context menu support.
+/// </summary>
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class PlayHistoryPage : ILoadingState
 {
@@ -325,23 +325,23 @@ public partial class PlayHistoryPage : ILoadingState
             switch (e.Key)
             {
                 case Key.Delete:
-                {
-                    var selectedItems = PlayHistoryDataGrid.SelectedItems.Cast<PlayHistoryItem>().ToList();
-                    if (selectedItems.Count > 0)
                     {
-                        _playSoundEffects.PlayTrashSound();
-                        _viewModel.RemoveItems(selectedItems);
-                        e.Handled = true;
-                        PreviewImage.Source = null;
-                    }
-                    else
-                    {
-                        await _messageBox.SelectAHistoryItemToRemoveMessageBox();
-                    }
+                        var selectedItems = PlayHistoryDataGrid.SelectedItems.Cast<PlayHistoryItem>().ToList();
+                        if (selectedItems.Count > 0)
+                        {
+                            _playSoundEffects.PlayTrashSound();
+                            _viewModel.RemoveItems(selectedItems);
+                            e.Handled = true;
+                            PreviewImage.Source = null;
+                        }
+                        else
+                        {
+                            await _messageBox.SelectAHistoryItemToRemoveMessageBox();
+                        }
 
-                    PreviewImage.Source = null;
-                    break;
-                }
+                        PreviewImage.Source = null;
+                        break;
+                    }
                 case Key.Enter when PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem:
                     _playSoundEffects.PlayNotificationSound();
                     _ = LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName);
@@ -478,6 +478,11 @@ public partial class PlayHistoryPage : ILoadingState
         }
     }
 
+    /// <summary>
+    /// Sets the loading state of the page, showing or hiding the loading overlay.
+    /// </summary>
+    /// <param name="isLoading">Whether the page is in a loading state.</param>
+    /// <param name="message">The optional message to display while loading.</param>
     public void SetLoadingState(bool isLoading, string? message = null)
     {
         LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;

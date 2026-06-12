@@ -2,6 +2,9 @@ using MessagePack;
 
 namespace SimpleLauncher.Services.RetroAchievements.Models;
 
+/// <summary>
+/// Represents basic RetroAchievements game metadata including console info, achievement count, and ROM hashes.
+/// </summary>
 [MessagePackObject]
 public record RaGameInfo
 {

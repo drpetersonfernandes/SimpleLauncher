@@ -1,12 +1,23 @@
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.CheckPaths;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.CreateFolders;
 
+/// <summary>
+/// Creates default system and image folders for a newly added system.
+/// </summary>
 public static class CreateDefaultSystemFolders
 {
+    /// <summary>
+    /// Creates the system folder, image folder, and all additional default folders for the specified system.
+    /// </summary>
+    /// <param name="systemName">The name of the system.</param>
+    /// <param name="systemFolder">The path to the system's ROM folder.</param>
+    /// <param name="systemImageFolder">The path to the system's image folder.</param>
+    /// <param name="configuration">The application configuration for additional folder settings.</param>
+    /// <param name="logErrors">The service used to log errors.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public static async Task CreateFolders(string systemName, string systemFolder, string systemImageFolder, IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;

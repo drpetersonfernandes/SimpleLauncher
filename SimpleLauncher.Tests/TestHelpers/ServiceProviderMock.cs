@@ -1,8 +1,9 @@
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Tests.TestHelpers;
+
+using Interfaces;
 
 /// <summary>
 /// Provides a way to mock <see cref="App.ServiceProvider"/> for unit tests.

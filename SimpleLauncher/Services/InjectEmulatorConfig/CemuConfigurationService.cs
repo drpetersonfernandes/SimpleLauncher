@@ -1,8 +1,9 @@
 using System.Globalization;
 using System.Xml.Linq;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
+
+using Interfaces;
 
 public static class CemuConfigurationService
 {

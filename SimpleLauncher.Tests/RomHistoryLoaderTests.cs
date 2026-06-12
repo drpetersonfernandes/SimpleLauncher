@@ -4,6 +4,10 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for <see cref="RomHistoryLoader"/> covering XML history file parsing,
+/// system/software name matching, and error handling for corrupt or missing files.
+/// </summary>
 public class RomHistoryLoaderTests : IDisposable
 {
     private readonly string _tempDir;
@@ -31,6 +35,9 @@ public class RomHistoryLoaderTests : IDisposable
         return path;
     }
 
+    /// <summary>
+    /// Verifies that FindEntry returns the correct entry when a system name match exists in the XML.
+    /// </summary>
     [Fact]
     public void FindEntryValidXmlWithSystemMatchReturnsEntry()
     {
@@ -53,6 +60,9 @@ public class RomHistoryLoaderTests : IDisposable
         Assert.Equal("Pac-Man history text.", result.Element("text")?.Value);
     }
 
+    /// <summary>
+    /// Verifies that FindEntry returns the correct entry when a software item name match exists in the XML.
+    /// </summary>
     [Fact]
     public void FindEntryValidXmlWithSoftwareMatchReturnsEntry()
     {
@@ -75,6 +85,9 @@ public class RomHistoryLoaderTests : IDisposable
         Assert.Equal("Galaga history text.", result.Element("text")?.Value);
     }
 
+    /// <summary>
+    /// Verifies that FindEntry returns null when no matching entry exists in the XML.
+    /// </summary>
     [Fact]
     public void FindEntryValidXmlWithoutMatchReturnsNull()
     {
@@ -96,6 +109,9 @@ public class RomHistoryLoaderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindEntry throws XmlException when the XML file is malformed.
+    /// </summary>
     [Fact]
     public void FindEntryCorruptedXmlThrowsXmlException()
     {
@@ -105,6 +121,9 @@ public class RomHistoryLoaderTests : IDisposable
         Assert.Throws<XmlException>(() => RomHistoryLoader.FindEntry(path, "anything"));
     }
 
+    /// <summary>
+    /// Verifies that FindEntry throws FileNotFoundException when the XML file does not exist.
+    /// </summary>
     [Fact]
     public void FindEntryMissingFileThrowsFileNotFoundException()
     {

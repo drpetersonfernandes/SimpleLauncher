@@ -4,11 +4,13 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.AppDataFile;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.SettingsManager.EmulatorSettings;
 
 namespace SimpleLauncher.Services.SettingsManager;
 
+/// <summary>
+/// Manages application and emulator settings, providing thread-safe load/save operations against an XML configuration file.
+/// </summary>
 public class SettingsManager : IDisposable
 {
     private readonly IConfiguration _configuration;
@@ -33,67 +35,185 @@ public class SettingsManager : IDisposable
     private bool _disposed;
 
     // Application Settings
+    /// <summary>Gets or sets the thumbnail size in pixels for game grid items.</summary>
     public int ThumbnailSize { get; set; } = 250;
+
+    /// <summary>Gets or sets the thumbnail size in pixels for system list items.</summary>
     public int ThumbnailSizeForSystem { get; set; } = 50;
+
+    /// <summary>Gets or sets the number of games displayed per page.</summary>
     public int GamesPerPage { get; set; } = 200;
+
+    /// <summary>Gets or sets the game visibility filter (e.g., "ShowAll", "ShowWithCover").</summary>
     public string ShowGames { get; set; } = "ShowAll";
+
+    /// <summary>Gets or sets the view mode (e.g., "GridView", "ListView").</summary>
     public string ViewMode { get; set; } = "GridView";
+
+    /// <summary>Gets or sets whether gamepad navigation is enabled.</summary>
     public bool EnableGamePadNavigation { get; set; }
+
+    /// <summary>Gets or sets the URL template for video search links.</summary>
     public string VideoUrl { get; set; }
+
+    /// <summary>Gets or sets the URL template for information search links.</summary>
     public string InfoUrl { get; set; }
+
+    /// <summary>Gets or sets the base UI theme (e.g., "Light", "Dark").</summary>
     public string BaseTheme { get; set; } = "Dark";
+
+    /// <summary>Gets or sets the accent color name (e.g., "Blue", "Amber").</summary>
     public string AccentColor { get; set; } = "Blue";
+
+    /// <summary>Gets or sets the style variant name.</summary>
     public string StyleVariant { get; set; } = "Default";
+
+    /// <summary>Gets or sets the UI language code (e.g., "en").</summary>
     public string Language { get; set; } = "en";
+
+    /// <summary>Gets or sets the horizontal gamepad dead zone threshold.</summary>
     public float DeadZoneX { get; set; } = DefaultDeadZoneX;
+
+    /// <summary>Gets or sets the vertical gamepad dead zone threshold.</summary>
     public float DeadZoneY { get; set; } = DefaultDeadZoneY;
+
+    /// <summary>Gets or sets the button aspect ratio for the game grid (e.g., "Square", "Wider").</summary>
     public string ButtonAspectRatio { get; set; } = "Square";
+
+    /// <summary>Gets or sets how filenames are displayed (e.g., "Original", "CleanUp", "NoFilename").</summary>
     public string FilenameDisplayMode { get; set; } = "Original";
+
+    /// <summary>Gets or sets whether the machine/system name is displayed on game items.</summary>
     public bool DisplayMachineName { get; set; }
+
+    /// <summary>Gets or sets the font size for filenames (e.g., "Small", "Normal", "Big").</summary>
     public string FilenameFontSize { get; set; } = "Normal";
+
+    /// <summary>Gets or sets the font size for machine names (e.g., "Small", "Normal", "Big").</summary>
     public string MachineNameFontSize { get; set; } = "Normal";
+
+    /// <summary>Gets or sets whether fuzzy matching is used for image and name lookups.</summary>
     public bool EnableFuzzyMatching { get; set; } = true;
+
+    /// <summary>Gets or sets the Jaro-Winkler similarity threshold for fuzzy matching (0.0–1.0).</summary>
     public double FuzzyMatchingThreshold { get; set; } = 0.80;
+
+    /// <summary>Gets or sets the default horizontal dead zone value.</summary>
     public const float DefaultDeadZoneX = 0.05f;
+
+    /// <summary>Gets or sets the default vertical dead zone value.</summary>
     public const float DefaultDeadZoneY = 0.02f;
+
+    /// <summary>Gets or sets whether notification sounds are enabled.</summary>
     public bool EnableNotificationSound { get; set; } = true;
+
+    /// <summary>Gets or sets the custom notification sound file path.</summary>
     public string CustomNotificationSoundFile { get; set; } = DefaultNotificationSoundFileName;
+
+    /// <summary>Gets or sets the RetroAchievements username.</summary>
     public string RaUsername { get; set; } = "";
+
+    /// <summary>Gets or sets the RetroAchievements API key.</summary>
     public string RaApiKey { get; set; } = "";
+
+    /// <summary>Gets or sets the RetroAchievements password.</summary>
     public string RaPassword { get; set; } = "";
+
+    /// <summary>Gets or sets the RetroAchievements token.</summary>
     public string RaToken { get; set; } = "";
+
+    /// <summary>Gets or sets whether the RetroAchievements overlay button is visible.</summary>
     public bool OverlayRetroAchievementButton { get; set; }
+
+    /// <summary>Gets or sets whether the open video overlay button is visible.</summary>
     public bool OverlayOpenVideoButton { get; set; } = true;
+
+    /// <summary>Gets or sets whether the open info overlay button is visible.</summary>
     public bool OverlayOpenInfoButton { get; set; }
+
+    /// <summary>Gets or sets whether the additional system folders section is expanded.</summary>
     public bool AdditionalSystemFoldersExpanded { get; set; } = true;
+
+    /// <summary>Gets or sets whether emulator slot 1 settings are expanded.</summary>
     public bool Emulator1Expanded { get; set; } = true;
+
+    /// <summary>Gets or sets whether emulator slot 2 settings are expanded.</summary>
     public bool Emulator2Expanded { get; set; } = true;
+
+    /// <summary>Gets or sets whether emulator slot 3 settings are expanded.</summary>
     public bool Emulator3Expanded { get; set; } = true;
+
+    /// <summary>Gets or sets whether emulator slot 4 settings are expanded.</summary>
     public bool Emulator4Expanded { get; set; } = true;
+
+    /// <summary>Gets or sets whether emulator slot 5 settings are expanded.</summary>
     public bool Emulator5Expanded { get; set; } = true;
+
+    /// <summary>Gets or sets the list of per-system play time records.</summary>
     public List<SystemPlayTime> SystemPlayTimes { get; set; } = [];
 
     // Emulator Settings (composition)
+    /// <summary>Gets or sets the Ares emulator configuration.</summary>
     public AresSettings Ares { get; set; } = new();
+
+    /// <summary>Gets or sets the Azahar emulator configuration.</summary>
     public AzaharSettings Azahar { get; set; } = new();
+
+    /// <summary>Gets or sets the BlastEm emulator configuration.</summary>
     public BlastemSettings Blastem { get; set; } = new();
+
+    /// <summary>Gets or sets the Cemu emulator configuration.</summary>
     public CemuSettings Cemu { get; set; } = new();
+
+    /// <summary>Gets or sets the Daphne emulator configuration.</summary>
     public DaphneSettings Daphne { get; set; } = new();
+
+    /// <summary>Gets or sets the Dolphin emulator configuration.</summary>
     public DolphinSettings Dolphin { get; set; } = new();
+
+    /// <summary>Gets or sets the DuckStation emulator configuration.</summary>
     public DuckStationSettings DuckStation { get; set; } = new();
+
+    /// <summary>Gets or sets the Flycast emulator configuration.</summary>
     public FlycastSettings Flycast { get; set; } = new();
+
+    /// <summary>Gets or sets the MAME emulator configuration.</summary>
     public MameSettings Mame { get; set; } = new();
+
+    /// <summary>Gets or sets the Mednafen emulator configuration.</summary>
     public MednafenSettings Mednafen { get; set; } = new();
+
+    /// <summary>Gets or sets the Mesen emulator configuration.</summary>
     public MesenSettings Mesen { get; set; } = new();
+
+    /// <summary>Gets or sets the PCSX2 emulator configuration.</summary>
     public Pcsx2Settings Pcsx2 { get; set; } = new();
+
+    /// <summary>Gets or sets the Raine emulator configuration.</summary>
     public RaineSettings Raine { get; set; } = new();
+
+    /// <summary>Gets or sets the Redream emulator configuration.</summary>
     public RedreamSettings Redream { get; set; } = new();
+
+    /// <summary>Gets or sets the RetroArch emulator configuration.</summary>
     public RetroArchSettings RetroArch { get; set; } = new();
+
+    /// <summary>Gets or sets the RPCS3 emulator configuration.</summary>
     public Rpcs3Settings Rpcs3 { get; set; } = new();
+
+    /// <summary>Gets or sets the Sega Model 2 emulator configuration.</summary>
     public SegaModel2Settings SegaModel2 { get; set; } = new();
+
+    /// <summary>Gets or sets the Stella emulator configuration.</summary>
     public StellaSettings Stella { get; set; } = new();
+
+    /// <summary>Gets or sets the Supermodel emulator configuration.</summary>
     public SupermodelSettings Supermodel { get; set; } = new();
+
+    /// <summary>Gets or sets the Xenia emulator configuration.</summary>
     public XeniaSettings Xenia { get; set; } = new();
+
+    /// <summary>Gets or sets the Yumir emulator configuration.</summary>
     public YumirSettings Yumir { get; set; } = new();
 
     private const string DefaultSettingsFilePath = "settings.xml";
@@ -141,6 +261,9 @@ public class SettingsManager : IDisposable
         }
     }
 
+    /// <summary>
+    /// Initializes a new instance of the SettingsManager with the specified dependencies.
+    /// </summary>
     public SettingsManager(IConfiguration configuration, ILogErrors logErrors, ICredentialProtector credentialProtector, IMessageBoxLibraryService messageBox = null)
     {
         _configuration = configuration;
@@ -153,8 +276,12 @@ public class SettingsManager : IDisposable
         InfoUrl = configuration.GetValue<string>("Urls:IgdbSearch") ?? "https://www.igdb.com/search?q=";
     }
 
+    /// <summary>Gets whether the settings file is stored in portable mode (next to the executable).</summary>
     public bool IsPortableMode => _fileLocation.IsPortableMode;
 
+    /// <summary>
+    /// Loads settings from the XML configuration file, applying defaults if the file does not exist.
+    /// </summary>
     public void Load()
     {
         XElement settings = null;
@@ -424,6 +551,9 @@ public class SettingsManager : IDisposable
         }
     }
 
+    /// <summary>
+    /// Asynchronously saves the current settings to the XML configuration file with retry logic.
+    /// </summary>
     public Task SaveAsync()
     {
         SettingsManager snapshot;
@@ -682,6 +812,9 @@ public class SettingsManager : IDisposable
         return _validAccentColors.Contains(value) ? value : "Blue";
     }
 
+    /// <summary>
+    /// Resets all settings to their default values.
+    /// </summary>
     public void ResetToDefaults()
     {
         CopyFrom(new SettingsManager(_configuration, _logErrors, _credentialProtector, _messageBox));
@@ -693,6 +826,9 @@ public class SettingsManager : IDisposable
         _ = SaveAsync();
     }
 
+    /// <summary>
+    /// Updates the cumulative play time for the specified system.
+    /// </summary>
     public void UpdateSystemPlayTime(string systemName, TimeSpan playTime)
     {
         if (string.IsNullOrWhiteSpace(systemName) || playTime == TimeSpan.Zero) return;
@@ -715,6 +851,9 @@ public class SettingsManager : IDisposable
         }
     }
 
+    /// <summary>
+    /// Releases resources used by the SettingsManager.
+    /// </summary>
     public void Dispose()
     {
         if (_disposed) return;

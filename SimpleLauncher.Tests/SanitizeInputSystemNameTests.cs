@@ -3,8 +3,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests the SanitizeInputSystemName utility for detecting invalid characters and sanitizing folder names.
+/// </summary>
 public class SanitizeInputSystemNameTests
 {
+    /// <summary>
+    /// Verifies that ContainsInvalidCharacters returns the expected result for various system names including names with invalid filesystem characters.
+    /// </summary>
     [Theory]
     [InlineData("Nintendo NES", false)]
     [InlineData("Sega Genesis", false)]
@@ -31,6 +37,9 @@ public class SanitizeInputSystemNameTests
         }
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidCharacters returns false when given a null input.
+    /// </summary>
     [Fact]
     public void ContainsInvalidCharactersNullReturnsFalse()
     {
@@ -39,6 +48,9 @@ public class SanitizeInputSystemNameTests
         Assert.Empty(invalidChars);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName produces the expected sanitized output for various inputs including reserved names and special characters.
+    /// </summary>
     [Theory]
     [InlineData("Nintendo NES", "Nintendo NES")]
     [InlineData("Game<Name>", "Game_Name_")]
@@ -62,6 +74,9 @@ public class SanitizeInputSystemNameTests
         Assert.Equal(expected, result);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName returns a placeholder when given null input.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameNullReturnsPlaceholder()
     {
@@ -69,6 +84,9 @@ public class SanitizeInputSystemNameTests
         Assert.Equal("_invalid_empty_name_", result);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName escapes Windows reserved names like PRN.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameReservedNameIsEscaped()
     {
@@ -76,6 +94,9 @@ public class SanitizeInputSystemNameTests
         Assert.Equal("_PRN_", result);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName removes directory traversal sequences from the input.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameDirectoryTraversalIsReplaced()
     {

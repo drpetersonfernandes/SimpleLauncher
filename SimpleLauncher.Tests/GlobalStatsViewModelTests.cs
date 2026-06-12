@@ -2,13 +2,15 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Tests.TestHelpers;
 using SimpleLauncher.ViewModels;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for the <see cref="GlobalStatsViewModel"/> class.
+/// </summary>
 [SuppressMessage("ReSharper", "NullableWarningSuppressionIsUsed")]
 public class GlobalStatsViewModelTests : IDisposable
 {
@@ -35,6 +37,9 @@ public class GlobalStatsViewModelTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Verifies that constructor with empty system managers initializes empty collections.
+    /// </summary>
     [Fact]
     public void ConstructorWithEmptySystemManagersInitializesEmptyCollections()
     {
@@ -51,6 +56,9 @@ public class GlobalStatsViewModelTests : IDisposable
         Assert.False(viewModel.IsProcessing);
     }
 
+    /// <summary>
+    /// Verifies that constructor initializes InfoText.
+    /// </summary>
     [Fact]
     public void ConstructorInitializesInfoText()
     {
@@ -64,6 +72,9 @@ public class GlobalStatsViewModelTests : IDisposable
         // In production it will be initialized from resources
     }
 
+    /// <summary>
+    /// Verifies that constructor initializes BusyOverlayText.
+    /// </summary>
     [Fact]
     public void ConstructorInitializesBusyOverlayText()
     {
@@ -76,6 +87,9 @@ public class GlobalStatsViewModelTests : IDisposable
         Assert.NotEmpty(viewModel.BusyOverlayText);
     }
 
+    /// <summary>
+    /// Verifies that GlobalStatsViewModel implements INotifyPropertyChanged.
+    /// </summary>
     [Fact]
     public void ImplementsINotifyPropertyChanged()
     {
@@ -86,6 +100,9 @@ public class GlobalStatsViewModelTests : IDisposable
         Assert.IsAssignableFrom<INotifyPropertyChanged>(viewModel);
     }
 
+    /// <summary>
+    /// Verifies that StartCommand is not null.
+    /// </summary>
     [Fact]
     public void StartCommandExists()
     {
@@ -96,6 +113,9 @@ public class GlobalStatsViewModelTests : IDisposable
         Assert.NotNull(viewModel.StartCommand);
     }
 
+    /// <summary>
+    /// Verifies that CancelCommand is not null.
+    /// </summary>
     [Fact]
     public void CancelCommandExists()
     {
@@ -106,6 +126,9 @@ public class GlobalStatsViewModelTests : IDisposable
         Assert.NotNull(viewModel.CancelCommand);
     }
 
+    /// <summary>
+    /// Verifies that SaveReportCommand is not null.
+    /// </summary>
     [Fact]
     public void SaveReportCommandExists()
     {
@@ -116,6 +139,9 @@ public class GlobalStatsViewModelTests : IDisposable
         Assert.NotNull(viewModel.SaveReportCommand);
     }
 
+    /// <summary>
+    /// Verifies that ClosingCommand is not null.
+    /// </summary>
     [Fact]
     public void ClosingCommandExists()
     {
@@ -126,6 +152,9 @@ public class GlobalStatsViewModelTests : IDisposable
         Assert.NotNull(viewModel.ClosingCommand);
     }
 
+    /// <summary>
+    /// Verifies that CancelCommand cannot execute when not processing.
+    /// </summary>
     [Fact]
     public void CancelCommandCannotExecuteInitially()
     {
@@ -137,6 +166,9 @@ public class GlobalStatsViewModelTests : IDisposable
         Assert.False(viewModel.CancelCommand.CanExecute(null));
     }
 
+    /// <summary>
+    /// Verifies that SaveReportCommand cannot execute initially.
+    /// </summary>
     [Fact]
     public void SaveReportCommandCannotExecuteInitially()
     {
@@ -147,6 +179,9 @@ public class GlobalStatsViewModelTests : IDisposable
         Assert.False(viewModel.SaveReportCommand.CanExecute(null));
     }
 
+    /// <summary>
+    /// Verifies that StartCommand can execute when not processing.
+    /// </summary>
     [Fact]
     public void StartCommandCanExecuteWhenNotProcessing()
     {
@@ -158,6 +193,9 @@ public class GlobalStatsViewModelTests : IDisposable
         Assert.True(viewModel.StartCommand.CanExecute(null));
     }
 
+    /// <summary>
+    /// Verifies that Initialize throws when system managers is null.
+    /// </summary>
     [Fact]
     public void ConstructorThrowsOnNullSystemManagers()
     {
@@ -165,12 +203,18 @@ public class GlobalStatsViewModelTests : IDisposable
         Assert.Throws<ArgumentNullException>(() => viewModel.Initialize(null!));
     }
 
+    /// <summary>
+    /// Verifies that constructor throws when configuration is null.
+    /// </summary>
     [Fact]
     public void ConstructorThrowsOnNullConfiguration()
     {
         Assert.Throws<ArgumentNullException>(() => new GlobalStatsViewModel(null!, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider()));
     }
 
+    /// <summary>
+    /// Verifies that Dispose does not throw.
+    /// </summary>
     [Fact]
     public void DisposeDoesNotThrow()
     {
@@ -183,6 +227,9 @@ public class GlobalStatsViewModelTests : IDisposable
         Assert.Null(exception);
     }
 
+    /// <summary>
+    /// Verifies that CloseRequested event can be subscribed to.
+    /// </summary>
     [Fact]
     public void CloseRequestedEventCanBeSubscribed()
     {
@@ -197,6 +244,9 @@ public class GlobalStatsViewModelTests : IDisposable
         Assert.False(eventRaised); // Event was just subscribed, not raised
     }
 
+    /// <summary>
+    /// Verifies that PropertyChanged event can be subscribed to.
+    /// </summary>
     [Fact]
     public void PropertyChangedEventCanBeSubscribed()
     {

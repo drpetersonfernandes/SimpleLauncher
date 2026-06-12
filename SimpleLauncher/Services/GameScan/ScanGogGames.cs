@@ -1,7 +1,6 @@
 using System.Text.Json;
 using Microsoft.Win32;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameScan.Models;
 using SimpleLauncher.Services.SanitizeInputString;
 

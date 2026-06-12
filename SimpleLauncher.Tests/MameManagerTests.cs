@@ -1,11 +1,15 @@
 using MessagePack;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+using Interfaces;
+
+/// <summary>
+/// Tests for the <see cref="MameManager"/> class covering loading from .dat files.
+/// </summary>
 public class MameManagerTests : IDisposable
 {
     private sealed class NoOpLogErrors : ILogErrors
@@ -29,6 +33,9 @@ public class MameManagerTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Verifies that LoadFromDat correctly deserializes a valid MessagePack .dat file.
+    /// </summary>
     [Fact]
     public void LoadFromDatValidDatFileReturnsDeserializedList()
     {
@@ -57,6 +64,9 @@ public class MameManagerTests : IDisposable
         }
     }
 
+    /// <summary>
+    /// Verifies that LoadFromDat correctly deserializes a single-item .dat file.
+    /// </summary>
     [Fact]
     public void LoadFromDatSingleItemReturnsCorrectItem()
     {
@@ -83,6 +93,9 @@ public class MameManagerTests : IDisposable
         }
     }
 
+    /// <summary>
+    /// Verifies that LoadFromDat returns an empty list for corrupted MessagePack data.
+    /// </summary>
     [Fact]
     public void LoadFromDatCorruptedMessagePackReturnsEmptyList()
     {
@@ -102,6 +115,9 @@ public class MameManagerTests : IDisposable
         }
     }
 
+    /// <summary>
+    /// Verifies that LoadFromDat returns an empty list for XML content.
+    /// </summary>
     [Fact]
     public void LoadFromDatXmlContentReturnsEmptyList()
     {
@@ -121,6 +137,9 @@ public class MameManagerTests : IDisposable
         }
     }
 
+    /// <summary>
+    /// Verifies that LoadFromDat returns an empty list for an empty file.
+    /// </summary>
     [Fact]
     public void LoadFromDatEmptyFileReturnsEmptyList()
     {

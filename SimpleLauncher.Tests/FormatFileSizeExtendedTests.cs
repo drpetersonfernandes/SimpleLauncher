@@ -3,8 +3,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Extended tests for the FormatFileSize utility covering boundary values and unit suffix detection.
+/// </summary>
 public class FormatFileSizeExtendedTests
 {
+    /// <summary>
+    /// Verifies that FormatToMb returns "0.00 MB" for zero bytes.
+    /// </summary>
     [Fact]
     public void FormatToMbZeroBytes()
     {
@@ -12,6 +18,9 @@ public class FormatFileSizeExtendedTests
         Assert.Equal("0.00 MB", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToMb returns "1.00 MB" for exactly one megabyte.
+    /// </summary>
     [Fact]
     public void FormatToMbOneMegabyte()
     {
@@ -19,6 +28,9 @@ public class FormatFileSizeExtendedTests
         Assert.Equal("1.00 MB", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToMb returns "0.50 MB" for half a megabyte.
+    /// </summary>
     [Fact]
     public void FormatToMbHalfMegabyte()
     {
@@ -26,6 +38,9 @@ public class FormatFileSizeExtendedTests
         Assert.Equal("0.50 MB", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToMb returns "1024.00 MB" for exactly one gigabyte.
+    /// </summary>
     [Fact]
     public void FormatToMbOneGigabyte()
     {
@@ -33,6 +48,9 @@ public class FormatFileSizeExtendedTests
         Assert.Equal("1024.00 MB", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToMb handles large values (5 GB) correctly.
+    /// </summary>
     [Fact]
     public void FormatToMbLargeValue()
     {
@@ -40,6 +58,9 @@ public class FormatFileSizeExtendedTests
         Assert.Equal("5120.00 MB", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToMb returns "0.00 MB" for a single byte.
+    /// </summary>
     [Fact]
     public void FormatToMbOneByte()
     {
@@ -47,6 +68,9 @@ public class FormatFileSizeExtendedTests
         Assert.Equal("0.00 MB", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToHumanReadable returns "0.00 B" for zero bytes.
+    /// </summary>
     [Fact]
     public void FormatToHumanReadableZeroBytes()
     {
@@ -54,6 +78,9 @@ public class FormatFileSizeExtendedTests
         Assert.Equal("0.00 B", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToHumanReadable returns bytes for values under 1024.
+    /// </summary>
     [Fact]
     public void FormatToHumanReadableBytes()
     {
@@ -61,6 +88,9 @@ public class FormatFileSizeExtendedTests
         Assert.Equal("500.00 B", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToHumanReadable handles the kilobyte boundary correctly.
+    /// </summary>
     [Fact]
     public void FormatToHumanReadableKilobytes()
     {
@@ -68,6 +98,9 @@ public class FormatFileSizeExtendedTests
         Assert.Equal("1024.00 B", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToHumanReadable handles the megabyte boundary correctly.
+    /// </summary>
     [Fact]
     public void FormatToHumanReadableMegabytes()
     {
@@ -75,6 +108,9 @@ public class FormatFileSizeExtendedTests
         Assert.Equal("1024.00 KB", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToHumanReadable handles the gigabyte boundary correctly.
+    /// </summary>
     [Fact]
     public void FormatToHumanReadableGigabytes()
     {
@@ -82,6 +118,9 @@ public class FormatFileSizeExtendedTests
         Assert.Equal("1024.00 MB", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToHumanReadable handles the terabyte boundary correctly.
+    /// </summary>
     [Fact]
     public void FormatToHumanReadableTerabytes()
     {
@@ -89,6 +128,9 @@ public class FormatFileSizeExtendedTests
         Assert.Equal("1024.00 GB", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToHumanReadable returns "1.00 B" for a single byte.
+    /// </summary>
     [Fact]
     public void FormatToHumanReadableOneByte()
     {
@@ -96,6 +138,9 @@ public class FormatFileSizeExtendedTests
         Assert.Equal("1.00 B", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToHumanReadable returns fractional KB correctly (1.50 KB).
+    /// </summary>
     [Fact]
     public void FormatToHumanReadableFractionalKb()
     {
@@ -103,6 +148,9 @@ public class FormatFileSizeExtendedTests
         Assert.Equal("1.50 KB", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToHumanReadable returns fractional MB correctly (1.50 MB).
+    /// </summary>
     [Fact]
     public void FormatToHumanReadableFractionalMb()
     {
@@ -110,6 +158,9 @@ public class FormatFileSizeExtendedTests
         Assert.Equal("1.50 MB", result);
     }
 
+    /// <summary>
+    /// Verifies that a value just under 1 KB stays in the byte unit range.
+    /// </summary>
     [Fact]
     public void FormatToHumanReadableJustUnder1Kb()
     {
@@ -117,6 +168,9 @@ public class FormatFileSizeExtendedTests
         Assert.Equal("1023.00 B", result);
     }
 
+    /// <summary>
+    /// Verifies that a value just under 1 MB uses the KB unit.
+    /// </summary>
     [Fact]
     public void FormatToHumanReadableJustUnder1Mb()
     {
@@ -124,6 +178,9 @@ public class FormatFileSizeExtendedTests
         Assert.Contains("KB", result);
     }
 
+    /// <summary>
+    /// Verifies that a value just under 1 GB uses the MB unit.
+    /// </summary>
     [Fact]
     public void FormatToHumanReadableJustUnder1Gb()
     {
@@ -131,6 +188,9 @@ public class FormatFileSizeExtendedTests
         Assert.Contains("MB", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToHumanReadable includes the KB suffix for kilobyte-range values.
+    /// </summary>
     [Fact]
     public void FormatToHumanReadableContainsSuffix()
     {
@@ -138,6 +198,9 @@ public class FormatFileSizeExtendedTests
         Assert.Contains("KB", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToMb includes the MB suffix in the output.
+    /// </summary>
     [Fact]
     public void FormatToMbContainsMbSuffix()
     {
@@ -145,6 +208,9 @@ public class FormatFileSizeExtendedTests
         Assert.Contains("MB", result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToHumanReadable handles very large values (long.MaxValue) using TB units.
+    /// </summary>
     [Fact]
     public void FormatToHumanReadableLargeValue()
     {

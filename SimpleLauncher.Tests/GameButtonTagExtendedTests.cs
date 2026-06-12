@@ -3,8 +3,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Extended tests for the <see cref="GameButtonTag"/> model class covering additional edge cases.
+/// </summary>
 public class GameButtonTagExtendedTests
 {
+    /// <summary>
+    /// Verifies that the default value of IsDefaultImage is false.
+    /// </summary>
     [Fact]
     public void GameButtonTagDefaultIsDefaultImageIsFalse()
     {
@@ -12,6 +18,9 @@ public class GameButtonTagExtendedTests
         Assert.False(tag.IsDefaultImage);
     }
 
+    /// <summary>
+    /// Verifies that the default value of Key is an empty string.
+    /// </summary>
     [Fact]
     public void GameButtonTagDefaultKeyIsEmpty()
     {
@@ -19,6 +28,9 @@ public class GameButtonTagExtendedTests
         Assert.Equal("", tag.Key);
     }
 
+    /// <summary>
+    /// Verifies that GameButtonTag properties can be set.
+    /// </summary>
     [Fact]
     public void GameButtonTagPropertiesCanBeSet()
     {
@@ -32,6 +44,9 @@ public class GameButtonTagExtendedTests
         Assert.Equal("NES|game.zip", tag.Key);
     }
 
+    /// <summary>
+    /// Verifies that the Key property supports special characters like parentheses and brackets.
+    /// </summary>
     [Fact]
     public void GameButtonTagKeyWithSpecialCharacters()
     {
@@ -44,6 +59,9 @@ public class GameButtonTagExtendedTests
         Assert.Contains("[", tag.Key);
     }
 
+    /// <summary>
+    /// Verifies that the Key property supports the pipe separator character.
+    /// </summary>
     [Fact]
     public void GameButtonTagKeyWithPipe()
     {
@@ -55,6 +73,9 @@ public class GameButtonTagExtendedTests
         Assert.Contains("|", tag.Key);
     }
 
+    /// <summary>
+    /// Verifies that the Key property supports Unicode characters.
+    /// </summary>
     [Fact]
     public void GameButtonTagKeyWithUnicode()
     {
@@ -66,6 +87,9 @@ public class GameButtonTagExtendedTests
         Assert.Contains("ポケモン", tag.Key);
     }
 
+    /// <summary>
+    /// Verifies that IsDefaultImage can be toggled between true and false.
+    /// </summary>
     [Fact]
     public void GameButtonTagIsDefaultImageCanBeToggled()
     {
@@ -76,6 +100,9 @@ public class GameButtonTagExtendedTests
         Assert.False(tag.IsDefaultImage);
     }
 
+    /// <summary>
+    /// Verifies that the Key property supports an empty system prefix.
+    /// </summary>
     [Fact]
     public void GameButtonTagKeyWithEmptySystem()
     {
@@ -87,6 +114,9 @@ public class GameButtonTagExtendedTests
         Assert.StartsWith("|", tag.Key);
     }
 
+    /// <summary>
+    /// Verifies that the Key property supports long file names.
+    /// </summary>
     [Fact]
     public void GameButtonTagKeyWithLongFileName()
     {

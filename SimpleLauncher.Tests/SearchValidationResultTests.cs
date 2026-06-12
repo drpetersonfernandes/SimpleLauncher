@@ -3,8 +3,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests the SearchValidationResult model for creating success and failure validation results.
+/// </summary>
 public class SearchValidationResultTests
 {
+    /// <summary>
+    /// Verifies that the Success factory creates a valid result with the correct query.
+    /// </summary>
     [Fact]
     public void SuccessCreatesValidResult()
     {
@@ -13,6 +19,9 @@ public class SearchValidationResultTests
         Assert.Equal("mario", result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that the Failure factory creates an invalid result with a null query.
+    /// </summary>
     [Fact]
     public void FailureCreatesInvalidResult()
     {
@@ -21,6 +30,9 @@ public class SearchValidationResultTests
         Assert.Null(result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that the Success factory preserves the query as-is including whitespace.
+    /// </summary>
     [Fact]
     public void SuccessTrimsQuery()
     {
@@ -28,6 +40,9 @@ public class SearchValidationResultTests
         Assert.Equal("  mario  ", result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that Success with an empty string still produces a valid result.
+    /// </summary>
     [Fact]
     public void SuccessWithEmptyQueryStillValid()
     {
@@ -36,6 +51,9 @@ public class SearchValidationResultTests
         Assert.Equal("", result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that Success correctly stores queries containing special characters.
+    /// </summary>
     [Fact]
     public void SuccessWithSpecialCharacters()
     {
@@ -44,6 +62,9 @@ public class SearchValidationResultTests
         Assert.Equal("mega man x2 (usa)", result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that Success correctly stores queries containing Unicode characters.
+    /// </summary>
     [Fact]
     public void SuccessWithUnicodeCharacters()
     {
@@ -52,6 +73,9 @@ public class SearchValidationResultTests
         Assert.Equal("ポケモン", result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that a Failure result always has IsValid set to false.
+    /// </summary>
     [Fact]
     public void FailureIsValidFalseByDefault()
     {
@@ -59,6 +83,9 @@ public class SearchValidationResultTests
         Assert.False(result.IsValid);
     }
 
+    /// <summary>
+    /// Verifies that internal whitespace within the query is preserved.
+    /// </summary>
     [Fact]
     public void SuccessPreservesInternalWhitespace()
     {
@@ -66,6 +93,9 @@ public class SearchValidationResultTests
         Assert.Equal("  super  mario  world  ", result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that multiple Success results maintain independent query values.
+    /// </summary>
     [Fact]
     public void MultipleSuccessResultsAreIndependent()
     {
@@ -76,6 +106,9 @@ public class SearchValidationResultTests
         Assert.Equal("mario", r2.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that a Failure result has a null ValidatedQuery property.
+    /// </summary>
     [Fact]
     public void FailureResultHasNullValidatedQuery()
     {

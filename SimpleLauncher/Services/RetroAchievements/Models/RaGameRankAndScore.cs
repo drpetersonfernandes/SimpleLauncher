@@ -2,6 +2,9 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Services.RetroAchievements.Models;
 
+/// <summary>
+/// Represents a user's rank and score entry in a game leaderboard on RetroAchievements.
+/// </summary>
 public record RaGameRankAndScore
 {
     [JsonPropertyName("User")]
@@ -16,6 +19,9 @@ public record RaGameRankAndScore
     [JsonPropertyName("TotalScore")]
     public int TotalScore { get; set; }
 
+    /// <summary>
+    /// Gets the total score (alias for TotalScore).
+    /// </summary>
     [JsonIgnore]
     public int Score => TotalScore;
 
@@ -25,11 +31,17 @@ public record RaGameRankAndScore
     [JsonPropertyName("TotalTruePoints")]
     public int? TotalTruePoints { get; set; }
 
+    /// <summary>
+    /// Gets the ratio of true points to total score as a percentage.
+    /// </summary>
     [JsonIgnore]
     public int TrueRatio => TotalTruePoints.HasValue && TotalScore > 0
         ? (int)((double)TotalTruePoints.Value / TotalScore * 100)
         : 0;
 
+    /// <summary>
+    /// Gets or sets the user's rank position in the leaderboard.
+    /// </summary>
     [JsonIgnore]
     public int Rank { get; set; }
 }

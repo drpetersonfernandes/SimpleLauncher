@@ -25,10 +25,10 @@ public class ConverterService
             History? history;
             using (var reader = new StringReader(xmlContent))
             using (var xmlReader = System.Xml.XmlReader.Create(reader, new System.Xml.XmlReaderSettings
-                   {
-                       DtdProcessing = System.Xml.DtdProcessing.Prohibit,
-                       XmlResolver = null
-                   }))
+            {
+                DtdProcessing = System.Xml.DtdProcessing.Prohibit,
+                XmlResolver = null
+            }))
             {
                 try
                 {

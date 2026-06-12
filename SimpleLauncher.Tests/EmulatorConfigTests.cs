@@ -3,8 +3,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for <see cref="EmulatorConfig"/> property defaults, getters, and setters.
+/// </summary>
 public class EmulatorConfigTests
 {
+    /// <summary>
+    /// Verifies that all properties on EmulatorConfig default to null.
+    /// </summary>
     [Fact]
     public void AllPropertiesDefaultToNull()
     {
@@ -31,6 +37,9 @@ public class EmulatorConfigTests
         Assert.Null(config.ImagePackDownloadExtractPath);
     }
 
+    /// <summary>
+    /// Verifies that all properties can be set via object initializer and retrieved correctly.
+    /// </summary>
     [Fact]
     public void PropertiesCanBeSet()
     {
@@ -78,6 +87,9 @@ public class EmulatorConfigTests
         Assert.Equal(@"C:\images", config.ImagePackDownloadExtractPath);
     }
 
+    /// <summary>
+    /// Verifies that properties can be modified after the object is created.
+    /// </summary>
     [Fact]
     public void PropertiesCanBeChangedAfterCreation()
     {

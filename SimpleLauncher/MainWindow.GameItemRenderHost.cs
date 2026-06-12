@@ -1,10 +1,14 @@
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.GameItemRender;
 
 namespace SimpleLauncher;
 
+using Interfaces;
+
+/// <summary>
+/// Partial MainWindow implementing <see cref="IGameItemRenderHost"/> for game item rendering operations.
+/// </summary>
 public partial class MainWindow : IGameItemRenderHost
 {
     ScrollViewer IGameItemRenderHost.Scroller => Scroller;

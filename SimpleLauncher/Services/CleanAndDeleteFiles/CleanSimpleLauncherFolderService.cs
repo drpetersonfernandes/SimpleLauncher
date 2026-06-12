@@ -2,6 +2,8 @@ using System.Runtime.InteropServices;
 
 namespace SimpleLauncher.Services.CleanAndDeleteFiles;
 
+using Interfaces;
+
 public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderService
 {
     private readonly IDeleteFilesService _deleteFilesService;

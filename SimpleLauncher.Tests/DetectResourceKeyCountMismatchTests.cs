@@ -11,6 +11,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class DetectResourceKeyCountMismatchTests
 {
+    /// <summary>
+    /// Verifies that every language resource file has the same number of keys as the English base file.
+    /// </summary>
     [Fact]
     public void AllLanguageFilesShouldHaveSameKeyCountAsEnglish()
     {

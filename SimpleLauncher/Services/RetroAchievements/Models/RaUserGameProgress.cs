@@ -1,5 +1,8 @@
 namespace SimpleLauncher.Services.RetroAchievements.Models;
 
+/// <summary>
+/// Represents a user's achievement progress for a specific game, including points and completion percentages.
+/// </summary>
 public class RaUserGameProgress
 {
     public string GameTitle { get; set; } = "";

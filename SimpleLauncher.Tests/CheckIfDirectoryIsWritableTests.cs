@@ -1,13 +1,20 @@
 using SimpleLauncher.Services.CheckIfDirectoryIsWritable;
-using SimpleLauncher.Services.DebugAndBugReport;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+using Interfaces;
+
+/// <summary>
+/// Tests the <see cref="CheckIfDirectoryIsWritable"/> utility for verifying directory write access.
+/// </summary>
 public class CheckIfDirectoryIsWritableTests
 {
     private static readonly ILogErrors NullLogErrors = new NullLogErrorsImpl();
 
+    /// <summary>
+    /// Verifies that a non-existent directory path returns false (not writable).
+    /// </summary>
     [Fact]
     public void IsWritableDirectoryNonExistentReturnsFalse()
     {
@@ -16,6 +23,9 @@ public class CheckIfDirectoryIsWritableTests
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that a writable temporary directory returns true.
+    /// </summary>
     [Fact]
     public void IsWritableDirectoryTempDirectoryReturnsTrue()
     {
@@ -32,6 +42,9 @@ public class CheckIfDirectoryIsWritableTests
         }
     }
 
+    /// <summary>
+    /// Verifies that the writable directory check leaves no temporary files behind.
+    /// </summary>
     [Fact]
     public void IsWritableDirectoryLeavesNoTempFiles()
     {

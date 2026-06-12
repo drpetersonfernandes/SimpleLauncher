@@ -4,18 +4,26 @@ using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using SimpleLauncher.Services.PlaySound;
 
 namespace SimpleLauncher.Services.UiHelpers;
 
+using Interfaces;
+
+/// <summary>
+/// Provides an alphabetical letter filter panel (A–Z, #, All) for filtering game lists, with keyboard navigation support.
+/// </summary>
 public class FilterMenu
 {
+    /// <summary>Gets the StackPanel containing the filter buttons.</summary>
     public StackPanel LetterPanel { get; } = new() { Orientation = Orientation.Horizontal };
+
     private Button _selectedButton;
 
+    /// <summary>Raised when a letter or filter option is selected, passing the selected letter or null for "All".</summary>
     public event Action<string> OnLetterSelected;
     private readonly IPlaySoundEffects _playSoundEffects;
 
+    /// <summary>Initializes a new instance of the FilterMenu with sound effects support.</summary>
     public FilterMenu(IPlaySoundEffects playSoundEffects)
     {
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
@@ -167,6 +175,7 @@ public class FilterMenu
         _selectedButton = button;
     }
 
+    /// <summary>Deselects the currently selected letter filter button.</summary>
     public void DeselectLetter()
     {
         if (_selectedButton == null) return;
@@ -175,6 +184,7 @@ public class FilterMenu
         _selectedButton = null;
     }
 
+    /// <summary>Enables or disables all filter buttons.</summary>
     public void SetButtonsEnabled(bool isEnabled)
     {
         foreach (var child in LetterPanel.Children)

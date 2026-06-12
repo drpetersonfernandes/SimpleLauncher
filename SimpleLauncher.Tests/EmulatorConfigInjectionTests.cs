@@ -1,7 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Nodes;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
@@ -13,6 +12,11 @@ using BlastemConfigurationService = SimpleLauncher.Services.InjectEmulatorConfig
 
 namespace SimpleLauncher.Tests;
 
+using Interfaces;
+
+/// <summary>
+/// Tests for emulator configuration injection into various emulator config file formats (INI, JSON, TOML, YAML, flat key-value).
+/// </summary>
 [SuppressMessage("ReSharper", "NullableWarningSuppressionIsUsed")]
 public class EmulatorConfigInjectionTests : IDisposable
 {
@@ -72,6 +76,9 @@ public class EmulatorConfigInjectionTests : IDisposable
         return new SettingsManager(_configuration, _logErrors, _credentialProtector);
     }
 
+    /// <summary>
+    /// Verifies that DuckStation settings are correctly injected into an INI config file.
+    /// </summary>
     [Fact]
     public void DuckStationInjectsSettingsCorrectly()
     {
@@ -114,6 +121,9 @@ public class EmulatorConfigInjectionTests : IDisposable
         Assert.Equal("true", sectionValues[("Audio", "OutputMuted")]);
     }
 
+    /// <summary>
+    /// Verifies that PCSX2 settings are correctly injected into an INI config file.
+    /// </summary>
     [Fact]
     public void Pcsx2InjectsSettingsCorrectly()
     {
@@ -152,6 +162,9 @@ public class EmulatorConfigInjectionTests : IDisposable
         Assert.Equal("false", sectionValues[("Achievements", "Hardcore")]);
     }
 
+    /// <summary>
+    /// Verifies that Mesen settings are correctly injected into a JSON config file.
+    /// </summary>
     [Fact]
     public void MesenInjectsJsonSettingsCorrectly()
     {
@@ -194,6 +207,9 @@ public class EmulatorConfigInjectionTests : IDisposable
         Assert.Equal(2, (int)emulation["RunAheadFrames"]!);
     }
 
+    /// <summary>
+    /// Verifies that Xenia settings are correctly injected into a TOML config file.
+    /// </summary>
     [Fact]
     public void XeniaInjectsTomlSettingsCorrectly()
     {
@@ -257,6 +273,9 @@ public class EmulatorConfigInjectionTests : IDisposable
         Assert.Equal(10L, (long)xconfig["user_language"]);
     }
 
+    /// <summary>
+    /// Verifies that RPCS3 settings are correctly injected into a YAML config file.
+    /// </summary>
     [Fact]
     public void Rpcs3InjectsYamlSettingsCorrectly()
     {
@@ -302,6 +321,9 @@ public class EmulatorConfigInjectionTests : IDisposable
         Assert.Equal("true", misc["Start games in fullscreen mode"].ToString());
     }
 
+    /// <summary>
+    /// Verifies that Redream settings are correctly injected into a flat key-value config file.
+    /// </summary>
     [Fact]
     public void RedreamInjectsFlatKeyValueCorrectly()
     {
@@ -349,6 +371,9 @@ public class EmulatorConfigInjectionTests : IDisposable
         Assert.Equal("1", values["framerate"]);
     }
 
+    /// <summary>
+    /// Verifies that RetroArch settings are correctly injected into a quoted key-value config file.
+    /// </summary>
     [Fact]
     public void RetroArchInjectsQuotedSettingsCorrectly()
     {
@@ -419,6 +444,9 @@ public class EmulatorConfigInjectionTests : IDisposable
         Assert.Equal("\"true\"", values["cheevos_hardcore_mode_enable"]);
     }
 
+    /// <summary>
+    /// Verifies that Blastem settings are correctly injected into a nested block config file.
+    /// </summary>
     [Fact]
     public void BlastemInjectsNestedBlockSettingsCorrectly()
     {

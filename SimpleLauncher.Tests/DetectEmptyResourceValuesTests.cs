@@ -11,6 +11,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public partial class DetectEmptyResourceValuesTests
 {
+    /// <summary>
+    /// Verifies that no localization resource file contains entries with empty string values.
+    /// </summary>
     [Fact]
     public void AllResourceFilesShouldHaveNoEmptyValues()
     {

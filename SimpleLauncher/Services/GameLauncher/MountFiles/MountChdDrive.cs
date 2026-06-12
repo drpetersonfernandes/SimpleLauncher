@@ -1,7 +1,8 @@
 using System.Diagnostics;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
+
+using Interfaces;
 
 /// <summary>
 /// Represents a temporarily mounted CHD drive.

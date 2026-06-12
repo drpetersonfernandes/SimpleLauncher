@@ -44,38 +44,38 @@ public sealed class DataFileLocation
                 IsPortableMode = false;
                 break;
             case true when localExists:
-            {
-                var portableInfo = new FileInfo(portablePath);
-                var localInfo = new FileInfo(localAppDataPath);
-                if (portableInfo.LastWriteTimeUtc > localInfo.LastWriteTimeUtc)
                 {
-                    FilePath = portablePath;
-                    IsPortableMode = true;
-                }
-                else
-                {
-                    FilePath = localAppDataPath;
-                    IsPortableMode = false;
-                }
+                    var portableInfo = new FileInfo(portablePath);
+                    var localInfo = new FileInfo(localAppDataPath);
+                    if (portableInfo.LastWriteTimeUtc > localInfo.LastWriteTimeUtc)
+                    {
+                        FilePath = portablePath;
+                        IsPortableMode = true;
+                    }
+                    else
+                    {
+                        FilePath = localAppDataPath;
+                        IsPortableMode = false;
+                    }
 
-                break;
-            }
+                    break;
+                }
             default:
-            {
-                if (IsDirectoryWritable(AppDomain.CurrentDomain.BaseDirectory))
                 {
-                    FilePath = portablePath;
-                    IsPortableMode = true;
-                }
-                else
-                {
-                    EnsureDirectoryExists(appDataFolder);
-                    FilePath = localAppDataPath;
-                    IsPortableMode = false;
-                }
+                    if (IsDirectoryWritable(AppDomain.CurrentDomain.BaseDirectory))
+                    {
+                        FilePath = portablePath;
+                        IsPortableMode = true;
+                    }
+                    else
+                    {
+                        EnsureDirectoryExists(appDataFolder);
+                        FilePath = localAppDataPath;
+                        IsPortableMode = false;
+                    }
 
-                break;
-            }
+                    break;
+                }
         }
     }
 

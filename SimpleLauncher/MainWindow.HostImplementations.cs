@@ -1,14 +1,15 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using SimpleLauncher.Services.LanguageMenu;
-using SimpleLauncher.Services.StartupInitialization;
-using SimpleLauncher.Services.ThemeMenu;
 using SimpleLauncher.Services.TrayIcon;
-using SimpleLauncher.Services.UpdateStatusBar;
 
 namespace SimpleLauncher;
 
+using Interfaces;
+
+/// <summary>
+/// Partial MainWindow implementing host interfaces for startup initialization, theming, language, status bar, and tray icon.
+/// </summary>
 public partial class MainWindow
 {
     // IStartupInitializationHost

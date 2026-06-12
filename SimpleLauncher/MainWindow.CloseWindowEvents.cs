@@ -1,12 +1,15 @@
 using System.ComponentModel;
 using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GameLauncher.MountFiles;
 
 
 namespace SimpleLauncher;
 
+using Interfaces;
+
+/// <summary>
+/// Partial MainWindow containing window closing, disposal, and event unsubscription logic.
+/// </summary>
 public partial class MainWindow
 {
     private void MainWindow_Closing(object sender, CancelEventArgs e)
@@ -58,6 +61,9 @@ public partial class MainWindow
         }
     }
 
+    /// <summary>
+    /// Disposes all managed resources including cancellation tokens, event handlers, and background services.
+    /// </summary>
     public void Dispose()
     {
         // Prevent double disposal

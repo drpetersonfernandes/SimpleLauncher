@@ -4,6 +4,9 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests the SearchOrchestratorService for validating and preparing search queries.
+/// </summary>
 public class SearchOrchestratorServiceTests
 {
     private readonly SearchOrchestratorService _service;
@@ -15,6 +18,9 @@ public class SearchOrchestratorServiceTests
         _service = new SearchOrchestratorService(_gameCacheService);
     }
 
+    /// <summary>
+    /// Verifies that validation fails when the system name is null.
+    /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncReturnsFailureForNullSystem()
     {
@@ -22,6 +28,9 @@ public class SearchOrchestratorServiceTests
         Assert.False(result.IsValid);
     }
 
+    /// <summary>
+    /// Verifies that validation fails when the system name is empty.
+    /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncReturnsFailureForEmptySystem()
     {
@@ -29,6 +38,9 @@ public class SearchOrchestratorServiceTests
         Assert.False(result.IsValid);
     }
 
+    /// <summary>
+    /// Verifies that validation fails when the search query is null.
+    /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncReturnsFailureForNullQuery()
     {
@@ -36,6 +48,9 @@ public class SearchOrchestratorServiceTests
         Assert.False(result.IsValid);
     }
 
+    /// <summary>
+    /// Verifies that validation fails when the search query is empty.
+    /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncReturnsFailureForEmptyQuery()
     {
@@ -43,6 +58,9 @@ public class SearchOrchestratorServiceTests
         Assert.False(result.IsValid);
     }
 
+    /// <summary>
+    /// Verifies that validation fails when the search query is whitespace only.
+    /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncReturnsFailureForWhitespaceQuery()
     {
@@ -50,6 +68,9 @@ public class SearchOrchestratorServiceTests
         Assert.False(result.IsValid);
     }
 
+    /// <summary>
+    /// Verifies that validation succeeds and returns the query for valid input.
+    /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncReturnsSuccessForValidInput()
     {
@@ -58,6 +79,9 @@ public class SearchOrchestratorServiceTests
         Assert.Equal("mario", result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that leading and trailing whitespace is trimmed from the search query.
+    /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncTrimsQuery()
     {
@@ -65,6 +89,9 @@ public class SearchOrchestratorServiceTests
         Assert.Equal("mario", result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that successful validation clears previous search results in the cache.
+    /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncClearsSearchResults()
     {
@@ -72,6 +99,9 @@ public class SearchOrchestratorServiceTests
         Assert.True(_gameCacheService.SearchResultsCleared);
     }
 
+    /// <summary>
+    /// Verifies that failed validation does not clear search results in the cache.
+    /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncFailureDoesNotClearSearchResults()
     {
@@ -80,6 +110,9 @@ public class SearchOrchestratorServiceTests
         Assert.False(_gameCacheService.SearchResultsCleared);
     }
 
+    /// <summary>
+    /// Verifies that search queries with special characters like parentheses are handled correctly.
+    /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncWithSpecialCharacters()
     {
@@ -88,7 +121,7 @@ public class SearchOrchestratorServiceTests
         Assert.Equal("mega man x2 (usa)", result.ValidatedQuery);
     }
 
-    private class GameCacheServiceForTest : Services.GameCache.IGameCacheService
+    private class GameCacheServiceForTest : IGameCacheService
     {
         public bool SearchResultsCleared { get; set; }
         public string SelectedSystem { get; set; } = "";

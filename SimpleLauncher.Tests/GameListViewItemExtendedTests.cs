@@ -3,8 +3,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Extended tests for the <see cref="GameListViewItem"/> model class covering additional edge cases.
+/// </summary>
 public class GameListViewItemExtendedTests
 {
+    /// <summary>
+    /// Verifies that the GameListViewItem instance can be created.
+    /// </summary>
     [Fact]
     public void FileSizePropertyCanBeSet()
     {
@@ -14,6 +20,9 @@ public class GameListViewItemExtendedTests
         Assert.NotNull(item);
     }
 
+    /// <summary>
+    /// Verifies that multiple PropertyChanged subscriptions are all invoked.
+    /// </summary>
     [Fact]
     public void MultiplePropertyChangedSubscriptions()
     {
@@ -26,6 +35,9 @@ public class GameListViewItemExtendedTests
         Assert.Equal(2, count);
     }
 
+    /// <summary>
+    /// Verifies that PropertyChanged event sender is the correct instance.
+    /// </summary>
     [Fact]
     public void PropertyChangedSenderIsCorrect()
     {
@@ -37,6 +49,9 @@ public class GameListViewItemExtendedTests
         Assert.Same(item, sender);
     }
 
+    /// <summary>
+    /// Verifies that PropertyChanged event args contain the correct property name.
+    /// </summary>
     [Fact]
     public void PropertyChangedArgsPropertyNameIsCorrect()
     {
@@ -48,6 +63,9 @@ public class GameListViewItemExtendedTests
         Assert.Equal(nameof(GameListViewItem.IsFavorite), propertyName);
     }
 
+    /// <summary>
+    /// Verifies that FilePath supports special characters.
+    /// </summary>
     [Fact]
     public void FilePathWithSpecialCharacters()
     {
@@ -60,6 +78,9 @@ public class GameListViewItemExtendedTests
         Assert.Contains("[", item.FilePath);
     }
 
+    /// <summary>
+    /// Verifies that FilePath supports Unicode characters.
+    /// </summary>
     [Fact]
     public void FilePathWithUnicode()
     {
@@ -71,6 +92,9 @@ public class GameListViewItemExtendedTests
         Assert.Contains("ポケモン", item.FilePath);
     }
 
+    /// <summary>
+    /// Verifies that FolderPath supports spaces.
+    /// </summary>
     [Fact]
     public void FolderPathWithSpaces()
     {
@@ -82,6 +106,9 @@ public class GameListViewItemExtendedTests
         Assert.Contains(" ", item.FolderPath);
     }
 
+    /// <summary>
+    /// Verifies that all string properties default to empty.
+    /// </summary>
     [Fact]
     public void AllStringPropertiesDefaultToEmpty()
     {
@@ -92,6 +119,9 @@ public class GameListViewItemExtendedTests
         Assert.Equal("", item.MachineDescription);
     }
 
+    /// <summary>
+    /// Verifies that all numeric properties default to zero.
+    /// </summary>
     [Fact]
     public void AllNumericDefaultsAreCorrect()
     {
@@ -100,6 +130,9 @@ public class GameListViewItemExtendedTests
         Assert.Equal(0, item.AchievementsTotal);
     }
 
+    /// <summary>
+    /// Verifies that all boolean properties default to false.
+    /// </summary>
     [Fact]
     public void AllBoolDefaultsAreCorrect()
     {
@@ -108,6 +141,9 @@ public class GameListViewItemExtendedTests
         Assert.False(item.HasAchievements);
     }
 
+    /// <summary>
+    /// Verifies that all string-formatted properties have correct default values.
+    /// </summary>
     [Fact]
     public void AllStringDefaultsAreCorrect()
     {
@@ -116,6 +152,9 @@ public class GameListViewItemExtendedTests
         Assert.Equal("0m 0s", item.PlayTime);
     }
 
+    /// <summary>
+    /// Verifies that all properties can be set simultaneously and read back.
+    /// </summary>
     [Fact]
     public void CanSetAllPropertiesSimultaneously()
     {

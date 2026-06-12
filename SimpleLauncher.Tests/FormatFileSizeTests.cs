@@ -3,8 +3,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for the FormatFileSize utility covering MB formatting and human-readable file size formatting.
+/// </summary>
 public class FormatFileSizeTests
 {
+    /// <summary>
+    /// Verifies that FormatToMb returns the expected MB string for various byte values.
+    /// </summary>
     [Theory]
     [InlineData(0, "0.00 MB")]
     [InlineData(1024 * 1024, "1.00 MB")]
@@ -17,6 +23,9 @@ public class FormatFileSizeTests
         Assert.Equal(expected, result);
     }
 
+    /// <summary>
+    /// Verifies that FormatToHumanReadable returns the expected string with appropriate unit suffixes.
+    /// </summary>
     [Theory]
     [InlineData(0, "0.00 B")]
     [InlineData(512, "512.00 B")]

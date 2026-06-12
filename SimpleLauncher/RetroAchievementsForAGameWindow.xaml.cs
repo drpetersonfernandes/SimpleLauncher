@@ -6,8 +6,6 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.RetroAchievements.Models;
@@ -15,6 +13,9 @@ using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher;
 
+/// <summary>
+/// Window displaying RetroAchievements data for a specific game, including achievements, rankings, and progress.
+/// </summary>
 public partial class RetroAchievementsForAGameWindow : ILoadingState
 {
     private readonly PlaySoundEffects _playSoundEffects;
@@ -27,6 +28,14 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
     private readonly SettingsManager _settings;
     private readonly RetroAchievementsService _raService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RetroAchievementsForAGameWindow"/> class.
+    /// </summary>
+    /// <param name="logErrors">The error logging service.</param>
+    /// <param name="playSoundEffects">The sound effects service.</param>
+    /// <param name="settings">The application settings manager.</param>
+    /// <param name="raService">The RetroAchievements API service.</param>
+    /// <param name="debugLogger">The debug logger.</param>
     public RetroAchievementsForAGameWindow(ILogErrors logErrors, PlaySoundEffects playSoundEffects, SettingsManager settings, RetroAchievementsService raService, IDebugLogger debugLogger)
     {
         InitializeComponent();
@@ -52,6 +61,11 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         };
     }
 
+    /// <summary>
+    /// Initializes the window with the specified game ID and display title.
+    /// </summary>
+    /// <param name="gameId">The RetroAchievements game ID.</param>
+    /// <param name="gameTitleForDisplay">The game title to display in the window.</param>
     public void Initialize(int gameId, string gameTitleForDisplay)
     {
         _gameId = gameId;
@@ -293,6 +307,11 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         }
     }
 
+    /// <summary>
+    /// Toggles the loading overlay with an optional message.
+    /// </summary>
+    /// <param name="isLoading">Whether to show or hide the loading overlay.</param>
+    /// <param name="message">Optional message to display while loading.</param>
     public void SetLoadingState(bool isLoading, string message = null)
     {
         Dispatcher.Invoke(() =>

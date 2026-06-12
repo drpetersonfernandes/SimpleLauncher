@@ -1,8 +1,9 @@
 using System.Text;
-using SimpleLauncher.Services.DebugAndBugReport;
 using YamlDotNet.Serialization;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
+
+using Interfaces;
 
 public static class Rpcs3ConfigurationService
 {

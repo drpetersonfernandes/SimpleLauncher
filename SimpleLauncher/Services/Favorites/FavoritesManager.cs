@@ -1,12 +1,16 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using MessagePack;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.AppDataFile;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.Favorites;
 
+/// <summary>
+/// Manages the user's favorite games list with MessagePack serialization,
+/// supporting load, save with atomic file replacement, and retry logic.
+/// </summary>
 [MessagePackObject(AllowPrivate = true)]
 public class FavoritesManager
 {
@@ -14,14 +18,21 @@ public class FavoritesManager
     [IgnoreMember] private ILogErrors _logErrors;
     [IgnoreMember] private static readonly DataFileLocation FileLocation = new("favorites.dat");
 
-    // This collection will be serialized with MessagePack
-    [Key(0)]
-    public ObservableCollection<Favorite> FavoriteList { get; set; } = [];
+    /// <summary>
+    /// Gets or sets the collection of favorite game entries.
+    /// </summary>
+    [Key(0)] public ObservableCollection<Favorite> FavoriteList { get; set; } = [];
 
+    /// <summary>
+    /// Gets or sets the data format version for forward-compatible deserialization.
+    /// </summary>
     [Key(1)] public int Version { get; set; } = 1;
 
     private static string DatFilePath => FileLocation.FilePath;
     private static string TempDatFilePath => FileLocation.TempFilePath;
+    /// <summary>
+    /// Gets a value indicating whether the application is running in portable mode.
+    /// </summary>
     public static bool IsPortableMode => FileLocation.IsPortableMode;
 
     /// <summary>

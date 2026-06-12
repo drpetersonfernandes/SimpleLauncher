@@ -2,6 +2,9 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Services.RetroAchievements.Models;
 
+/// <summary>
+/// Represents the API response for game progress, containing game metadata and user achievement data.
+/// </summary>
 public record RaGameProgressResponse
 {
     [JsonPropertyName("ID")]

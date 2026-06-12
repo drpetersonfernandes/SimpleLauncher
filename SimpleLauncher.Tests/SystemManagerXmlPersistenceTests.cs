@@ -7,6 +7,9 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests XML persistence of SystemManager configurations including loading, saving, updating, renaming, and deleting system entries.
+/// </summary>
 public class SystemManagerXmlPersistenceTests : IDisposable
 {
     private readonly string _testDirectory;
@@ -144,6 +147,9 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         return doc.ToString();
     }
 
+    /// <summary>
+    /// Verifies that SystemExists returns false when no XML file exists.
+    /// </summary>
     [Fact]
     public void SystemExistsReturnsFalseWhenXmlFileDoesNotExist()
     {
@@ -151,6 +157,9 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that SystemExists returns true for a system present in the XML.
+    /// </summary>
     [Fact]
     public void SystemExistsReturnsTrueWhenSystemIsInXml()
     {
@@ -161,6 +170,9 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         Assert.True(result);
     }
 
+    /// <summary>
+    /// Verifies that SystemExists returns false for a system not in the XML.
+    /// </summary>
     [Fact]
     public void SystemExistsReturnsFalseWhenSystemIsNotInXml()
     {
@@ -171,6 +183,9 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that system name lookup is case-insensitive.
+    /// </summary>
     [Fact]
     public void SystemExistsIsCaseInsensitive()
     {
@@ -181,6 +196,9 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         Assert.True(result);
     }
 
+    /// <summary>
+    /// Verifies that loading returns an empty list when no XML file exists.
+    /// </summary>
     [Fact]
     public void LoadSystemManagersReturnsEmptyListWhenXmlFileDoesNotExist()
     {
@@ -189,6 +207,9 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Verifies that loading triggers creation of the XML file if it does not exist.
+    /// </summary>
     [Fact]
     public void LoadSystemManagersCreatesXmlFileWhenFileDoesNotExist()
     {
@@ -196,6 +217,9 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         Assert.True(File.Exists(_systemXmlPath));
     }
 
+    /// <summary>
+    /// Verifies that a single system configuration is loaded with all properties intact.
+    /// </summary>
     [Fact]
     public void LoadSystemManagersLoadsSingleSystemCorrectly()
     {
@@ -221,6 +245,9 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         Assert.Equal("MAME", system.Emulators[0].EmulatorName);
     }
 
+    /// <summary>
+    /// Verifies that multiple system configurations are loaded correctly with proper ordering.
+    /// </summary>
     [Fact]
     public void LoadSystemManagersLoadsMultipleSystemsCorrectly()
     {
@@ -247,6 +274,9 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         Assert.Equal(2, nes.FileFormatsToSearch.Count);
     }
 
+    /// <summary>
+    /// Verifies that saving a new system creates the XML file and persists the configuration.
+    /// </summary>
     [Fact]
     public async Task SaveSystemConfigurationAsyncAddsNewSystem()
     {
@@ -288,6 +318,9 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         Assert.Equal("Blastem", loaded[0].Emulators[0].EmulatorName);
     }
 
+    /// <summary>
+    /// Verifies that a new system is added alongside existing systems in the XML.
+    /// </summary>
     [Fact]
     public async Task SaveSystemConfigurationAsyncAddsSystemAlongsideExisting()
     {
@@ -323,6 +356,9 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         Assert.Contains(loaded, static s => s.SystemName == "Genesis");
     }
 
+    /// <summary>
+    /// Verifies that saving with an existing system name updates the configuration.
+    /// </summary>
     [Fact]
     public async Task SaveSystemConfigurationAsyncUpdatesExistingSystem()
     {
@@ -362,6 +398,9 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         Assert.False(loaded[0].Emulators[0].ReceiveANotificationOnEmulatorError);
     }
 
+    /// <summary>
+    /// Verifies that saving with an originalSystemName parameter renames the system in the XML.
+    /// </summary>
     [Fact]
     public async Task SaveSystemConfigurationAsyncRenamesSystem()
     {
@@ -397,6 +436,9 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         Assert.Equal("ArcadeRenamed", loaded[0].SystemName);
     }
 
+    /// <summary>
+    /// Verifies that deleting a system removes it from the XML while preserving others.
+    /// </summary>
     [Fact]
     public async Task DeleteSystemAsyncRemovesSystem()
     {
@@ -412,6 +454,9 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         Assert.Equal("NES", loaded[0].SystemName);
     }
 
+    /// <summary>
+    /// Verifies that deleting a non-existent system leaves the XML unchanged.
+    /// </summary>
     [Fact]
     public async Task DeleteSystemAsyncDoesNothingWhenSystemNotFound()
     {

@@ -3,8 +3,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests the <see cref="BugReportFormatter"/> ability to build structured bug report strings.
+/// </summary>
 public class BugReportFormatterTests
 {
+    /// <summary>
+    /// Verifies that building a report with a null exception produces all expected sections with "None" placeholders.
+    /// </summary>
     [Fact]
     public void BuildReportNullExceptionContainsNoneSections()
     {
@@ -19,6 +25,9 @@ public class BugReportFormatterTests
         Assert.Contains("StackTrace: None", report);
     }
 
+    /// <summary>
+    /// Verifies that building a report with an exception includes the exception type and message.
+    /// </summary>
     [Fact]
     public void BuildReportWithExceptionContainsExceptionDetails()
     {
@@ -30,6 +39,9 @@ public class BugReportFormatterTests
         Assert.Contains("Source:", report);
     }
 
+    /// <summary>
+    /// Verifies that a custom context message is used instead of the exception message.
+    /// </summary>
     [Fact]
     public void BuildReportWithContextMessageUsesContextMessage()
     {
@@ -38,6 +50,9 @@ public class BugReportFormatterTests
         Assert.Contains("Custom context", report);
     }
 
+    /// <summary>
+    /// Verifies that a report with an inner exception includes the inner exception details.
+    /// </summary>
     [Fact]
     public void BuildReportWithInnerExceptionContainsInnerException()
     {
@@ -49,6 +64,9 @@ public class BugReportFormatterTests
         Assert.Contains("Inner error", report);
     }
 
+    /// <summary>
+    /// Verifies that the report contains environment details such as application name, version, and OS.
+    /// </summary>
     [Fact]
     public void BuildReportContainsEnvironmentDetails()
     {
@@ -61,6 +79,9 @@ public class BugReportFormatterTests
         Assert.Contains("Base Directory:", report);
     }
 
+    /// <summary>
+    /// Verifies that a deeply nested exception chain includes all inner exception levels.
+    /// </summary>
     [Fact]
     public void BuildReportDeeplyNestedExceptionContainsAllLevels()
     {
@@ -76,6 +97,9 @@ public class BugReportFormatterTests
         Assert.Contains("Level 2 error", report);
     }
 
+    /// <summary>
+    /// Verifies that an exception with a null source is handled gracefully in the report.
+    /// </summary>
     [Fact]
     public void BuildReportExceptionWithNullSourceHandlesGracefully()
     {
@@ -89,6 +113,9 @@ public class BugReportFormatterTests
         Assert.Contains("Source:", report);
     }
 
+    /// <summary>
+    /// Verifies that a context message takes priority over the exception message in the report.
+    /// </summary>
     [Fact]
     public void BuildReportWithContextMessageAndExceptionUsesContextMessage()
     {
@@ -99,6 +126,9 @@ public class BugReportFormatterTests
         Assert.Contains("Exception message", report); // Exception details still included
     }
 
+    /// <summary>
+    /// Verifies that an empty context message falls back to the exception message.
+    /// </summary>
     [Fact]
     public void BuildReportEmptyContextMessageFallsBackToExceptionMessage()
     {

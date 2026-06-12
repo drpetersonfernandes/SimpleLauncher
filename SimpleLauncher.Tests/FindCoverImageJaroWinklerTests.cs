@@ -3,10 +3,16 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for the Jaro-Winkler similarity algorithm used in cover image matching.
+/// </summary>
 public class FindCoverImageJaroWinklerTests
 {
     // Jaro-Winkler Similarity Tests
 
+    /// <summary>
+    /// Verifies that identical strings return a similarity of 1.0.
+    /// </summary>
     [Fact]
     public void JaroWinklerIdenticalStringsReturns1()
     {
@@ -14,6 +20,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.Equal(1.0, result, 10);
     }
 
+    /// <summary>
+    /// Verifies that two empty strings return a similarity of 1.0.
+    /// </summary>
     [Fact]
     public void JaroWinklerEmptyStringsReturns1()
     {
@@ -21,6 +30,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.Equal(1.0, result, 10);
     }
 
+    /// <summary>
+    /// Verifies that two null values return a similarity of 1.0.
+    /// </summary>
     [Fact]
     public void JaroWinklerBothNullReturns1()
     {
@@ -28,6 +40,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.Equal(1.0, result, 10);
     }
 
+    /// <summary>
+    /// Verifies that one empty and one null string return a similarity of 1.0.
+    /// </summary>
     [Fact]
     public void JaroWinklerOneEmptyOneNullReturns1()
     {
@@ -35,6 +50,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.Equal(1.0, result, 10);
     }
 
+    /// <summary>
+    /// Verifies that comparing a non-empty string with an empty string returns 0.0.
+    /// </summary>
     [Fact]
     public void JaroWinklerOneEmptyReturns0()
     {
@@ -42,6 +60,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.Equal(0.0, result, 10);
     }
 
+    /// <summary>
+    /// Verifies that comparing a non-empty string with null returns 0.0.
+    /// </summary>
     [Fact]
     public void JaroWinklerOneNullReturns0()
     {
@@ -49,6 +70,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.Equal(0.0, result, 10);
     }
 
+    /// <summary>
+    /// Verifies that completely different strings return a low similarity score.
+    /// </summary>
     [Fact]
     public void JaroWinklerCompletelyDifferentReturnsLow()
     {
@@ -56,6 +80,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.True(result < 0.5);
     }
 
+    /// <summary>
+    /// Verifies that similar strings return a high similarity score above 0.9.
+    /// </summary>
     [Fact]
     public void JaroWinklerSimilarStringsReturnsHigh()
     {
@@ -63,6 +90,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.True(result > 0.9);
     }
 
+    /// <summary>
+    /// Verifies that the similarity calculation is case-insensitive.
+    /// </summary>
     [Fact]
     public void JaroWinklerIsCaseInsensitive()
     {
@@ -70,6 +100,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.Equal(1.0, result, 10);
     }
 
+    /// <summary>
+    /// Verifies that the prefix bonus is applied consistently for strings with the same prefix.
+    /// </summary>
     [Fact]
     public void JaroWinklerPrefixBonusApplied()
     {
@@ -79,6 +112,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.Equal(noPrefix, withPrefix, 10);
     }
 
+    /// <summary>
+    /// Verifies that a single matching character returns 0.0 (edge case for minimum length).
+    /// </summary>
     [Fact]
     public void JaroWinklerSingleCharacterMatch()
     {
@@ -86,6 +122,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.Equal(0.0, result, 10);
     }
 
+    /// <summary>
+    /// Verifies that a single non-matching character returns 0.0.
+    /// </summary>
     [Fact]
     public void JaroWinklerSingleCharacterMismatch()
     {
@@ -93,6 +132,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.Equal(0.0, result, 10);
     }
 
+    /// <summary>
+    /// Verifies that transposed characters still yield a high similarity score.
+    /// </summary>
     [Fact]
     public void JaroWinklerTranspositions()
     {
@@ -100,6 +142,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.True(result > 0.9);
     }
 
+    /// <summary>
+    /// Verifies that the similarity calculation is symmetric (order of arguments does not matter).
+    /// </summary>
     [Fact]
     public void JaroWinklerSymmetric()
     {
@@ -108,6 +153,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.Equal(r1, r2, 10);
     }
 
+    /// <summary>
+    /// Verifies that identical long strings return a similarity of 1.0.
+    /// </summary>
     [Fact]
     public void JaroWinklerLongStrings()
     {
@@ -116,6 +164,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.Equal(1.0, FindCoverImageService.CalculateJaroWinklerSimilarity(s1, s2), 10);
     }
 
+    /// <summary>
+    /// Verifies that similar game names produce a high similarity score above 0.85.
+    /// </summary>
     [Fact]
     public void JaroWinklerGameNames()
     {
@@ -123,6 +174,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.True(result > 0.85);
     }
 
+    /// <summary>
+    /// Verifies that strings with numbers produce a high similarity score when close.
+    /// </summary>
     [Fact]
     public void JaroWinklerWithNumbers()
     {
@@ -130,6 +184,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.True(result > 0.9);
     }
 
+    /// <summary>
+    /// Verifies that strings with special characters are handled correctly.
+    /// </summary>
     [Fact]
     public void JaroWinklerWithSpecialChars()
     {
@@ -137,6 +194,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.Equal(1.0, result, 10);
     }
 
+    /// <summary>
+    /// Verifies that the max prefix length of 4 is applied correctly in the algorithm.
+    /// </summary>
     [Fact]
     public void JaroWinklerMaxLengthPrefixIs4()
     {
@@ -145,6 +205,9 @@ public class FindCoverImageJaroWinklerTests
         Assert.True(result > 0.5);
     }
 
+    /// <summary>
+    /// Verifies that the similarity result is always between 0.0 and 1.0.
+    /// </summary>
     [Fact]
     public void JaroWinklerReturnsBetween0And1()
     {

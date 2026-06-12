@@ -5,7 +5,6 @@ using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.RetroAchievements.Models;
 using SimpleLauncher.Services.SettingsManager;

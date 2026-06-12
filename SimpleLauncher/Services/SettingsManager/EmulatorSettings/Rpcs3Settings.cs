@@ -2,6 +2,8 @@ using System.Xml.Linq;
 
 namespace SimpleLauncher.Services.SettingsManager.EmulatorSettings;
 
+using Interfaces;
+
 public class Rpcs3Settings : IEmulatorSettings
 {
     private const string SectionName = "Rpcs3";

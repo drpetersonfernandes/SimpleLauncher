@@ -1,14 +1,27 @@
 namespace SimpleLauncher.Services.CleanAndDeleteFiles;
 
+using Interfaces;
+
+/// <summary>
+/// Provides operations to clean up temporary directories used during file extraction.
+/// </summary>
 public class CleanTempFolderService : ICleanTempFolderService
 {
     private readonly IDeleteFilesService _deleteFilesService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CleanTempFolderService"/> class.
+    /// </summary>
+    /// <param name="deleteFilesService">The service used to delete individual files.</param>
     public CleanTempFolderService(IDeleteFilesService deleteFilesService)
     {
         _deleteFilesService = deleteFilesService;
     }
 
+    /// <summary>
+    /// Deletes the specified temporary directory and all its contents.
+    /// </summary>
+    /// <param name="directoryPath">The path of the temporary directory to delete.</param>
     public async Task CleanupTempDirectoryAsync(string directoryPath)
     {
         if (string.IsNullOrEmpty(directoryPath) || !Directory.Exists(directoryPath)) return;
@@ -23,6 +36,10 @@ public class CleanTempFolderService : ICleanTempFolderService
         }
     }
 
+    /// <summary>
+    /// Cleans up a partially extracted directory by removing the tracking file, all files, and subdirectories.
+    /// </summary>
+    /// <param name="directoryPath">The path of the directory to clean up.</param>
     public async Task CleanupPartialExtractionAsync(string directoryPath)
     {
         if (string.IsNullOrEmpty(directoryPath) || !Directory.Exists(directoryPath))

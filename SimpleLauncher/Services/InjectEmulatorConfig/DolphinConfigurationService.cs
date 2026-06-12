@@ -1,7 +1,8 @@
 using System.Text;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
+
+using Interfaces;
 
 public static class DolphinConfigurationService
 {

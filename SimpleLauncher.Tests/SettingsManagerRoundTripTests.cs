@@ -1,11 +1,15 @@
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+using Interfaces;
+
+/// <summary>
+/// Tests SettingsManager round-trip behavior including reset to defaults, property validation, emulator defaults, and play time tracking.
+/// </summary>
 public class SettingsManagerRoundTripTests : IDisposable
 {
     private readonly string _testDirectory;
@@ -44,6 +48,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Verifies that ResetToDefaults restores all general settings to their default values after modification.
+    /// </summary>
     [Fact]
     public void SettingsManagerResetToDefaultsRestoresAllDefaults()
     {
@@ -77,6 +84,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         Assert.True(settings.EnableNotificationSound);
     }
 
+    /// <summary>
+    /// Verifies that ResetToDefaults restores emulator-specific settings to their defaults.
+    /// </summary>
     [Fact]
     public void SettingsManagerResetToDefaultsRestoresEmulatorSettings()
     {
@@ -98,6 +108,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         Assert.Equal("gl", settings.RetroArch.VideoDriver);
     }
 
+    /// <summary>
+    /// Verifies that valid thumbnail size values are accepted correctly.
+    /// </summary>
     [Fact]
     public void SettingsManagerThumbnailSizeValidationRejectsInvalidValues()
     {
@@ -114,6 +127,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         Assert.Equal(250, settings.ThumbnailSize);
     }
 
+    /// <summary>
+    /// Verifies that valid games-per-page values are accepted correctly.
+    /// </summary>
     [Fact]
     public void SettingsManagerGamesPerPageValidationRejectsInvalidValues()
     {
@@ -130,6 +146,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         Assert.Equal(200, settings.GamesPerPage);
     }
 
+    /// <summary>
+    /// Verifies that valid ShowGames values are accepted correctly.
+    /// </summary>
     [Fact]
     public void SettingsManagerShowGamesValidationRejectsInvalidValues()
     {
@@ -145,6 +164,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         Assert.Equal("ShowWithoutCover", settings.ShowGames);
     }
 
+    /// <summary>
+    /// Verifies that valid view mode values are accepted correctly.
+    /// </summary>
     [Fact]
     public void SettingsManagerViewModeValidationRejectsInvalidValues()
     {
@@ -157,6 +179,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         Assert.Equal("ListView", settings.ViewMode);
     }
 
+    /// <summary>
+    /// Verifies that valid base theme values are accepted correctly.
+    /// </summary>
     [Fact]
     public void SettingsManagerBaseThemeValidationRejectsInvalidValues()
     {
@@ -178,6 +203,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         Assert.Equal("Midnight", settings.BaseTheme);
     }
 
+    /// <summary>
+    /// Verifies that all valid accent color names are accepted.
+    /// </summary>
     [Fact]
     public void SettingsManagerAccentColorValidationAcceptsValidColors()
     {
@@ -192,6 +220,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         }
     }
 
+    /// <summary>
+    /// Verifies that all valid button aspect ratio values are accepted.
+    /// </summary>
     [Fact]
     public void SettingsManagerButtonAspectRatioValidationAcceptsValidValues()
     {
@@ -206,6 +237,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         }
     }
 
+    /// <summary>
+    /// Verifies that valid filename display mode values are accepted.
+    /// </summary>
     [Fact]
     public void SettingsManagerFilenameDisplayModeValidationAcceptsValidValues()
     {
@@ -221,6 +255,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         Assert.Equal("NoFilename", settings.FilenameDisplayMode);
     }
 
+    /// <summary>
+    /// Verifies that valid font size values are accepted.
+    /// </summary>
     [Fact]
     public void SettingsManagerFontSizeValidationAcceptsValidValues()
     {
@@ -236,6 +273,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         Assert.Equal("Big", settings.FilenameFontSize);
     }
 
+    /// <summary>
+    /// Verifies that updating play time for a new system creates a new entry.
+    /// </summary>
     [Fact]
     public void SettingsManagerUpdateSystemPlayTimeAddsNewEntry()
     {
@@ -248,6 +288,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         Assert.Equal(1800, settings.SystemPlayTimes[0].PlayTimeSeconds);
     }
 
+    /// <summary>
+    /// Verifies that updating play time for an existing system accumulates the duration.
+    /// </summary>
     [Fact]
     public void SettingsManagerUpdateSystemPlayTimeAccumulatesExistingEntry()
     {
@@ -260,6 +303,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         Assert.Equal(2700, settings.SystemPlayTimes[0].PlayTimeSeconds); // 30m + 15m = 45m = 2700s
     }
 
+    /// <summary>
+    /// Verifies that play time can be tracked independently for multiple systems.
+    /// </summary>
     [Fact]
     public void SettingsManagerUpdateSystemPlayTimeMultipleSystems()
     {
@@ -275,6 +321,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         Assert.Equal(3600, settings.SystemPlayTimes[2].PlayTimeSeconds);
     }
 
+    /// <summary>
+    /// Verifies that all DuckStation emulator default settings are correct.
+    /// </summary>
     [Fact]
     public void SettingsManagerDefaultDuckStationSettingsAreCorrect()
     {
@@ -293,6 +342,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         Assert.False(settings.DuckStation.OutputMuted);
     }
 
+    /// <summary>
+    /// Verifies that all Xenia emulator default settings are correct.
+    /// </summary>
     [Fact]
     public void SettingsManagerDefaultXeniaSettingsAreCorrect()
     {
@@ -311,6 +363,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         Assert.True(settings.Xenia.DiscordPresence);
     }
 
+    /// <summary>
+    /// Verifies that all RPCS3 emulator default settings are correct.
+    /// </summary>
     [Fact]
     public void SettingsManagerDefaultRpcs3SettingsAreCorrect()
     {
@@ -329,6 +384,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         Assert.False(settings.Rpcs3.StartFullscreen);
     }
 
+    /// <summary>
+    /// Verifies that all Mednafen emulator default settings are correct.
+    /// </summary>
     [Fact]
     public void SettingsManagerDefaultMednafenSettingsAreCorrect()
     {
@@ -347,6 +405,9 @@ public class SettingsManagerRoundTripTests : IDisposable
         Assert.Equal("none", settings.Mednafen.Special);
     }
 
+    /// <summary>
+    /// Verifies that all Stella emulator default settings are correct.
+    /// </summary>
     [Fact]
     public void SettingsManagerDefaultStellaSettingsAreCorrect()
     {

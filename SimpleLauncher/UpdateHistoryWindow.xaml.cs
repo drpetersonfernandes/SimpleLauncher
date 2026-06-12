@@ -1,16 +1,25 @@
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Navigation;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
+using Interfaces;
+
+/// <summary>
+/// Window displaying the application's update history in markdown format.
+/// </summary>
 public partial class UpdateHistoryWindow
 {
     private readonly UpdateHistoryViewModel _viewModel;
     private readonly IDebugLogger _debugLogger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UpdateHistoryWindow"/> class.
+    /// </summary>
+    /// <param name="viewModel">The view model providing update history data.</param>
+    /// <param name="debugLogger">The debug logger.</param>
     public UpdateHistoryWindow(UpdateHistoryViewModel viewModel, IDebugLogger debugLogger)
     {
         InitializeComponent();

@@ -3,8 +3,15 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for <see cref="PlayHistoryItem"/> covering display name formatting,
+/// play time formatting, default values, and property change notifications.
+/// </summary>
 public class PlayHistoryItemTests
 {
+    /// <summary>
+    /// Verifies that DisplayName extracts the file name from a full file path.
+    /// </summary>
     [Fact]
     public void DisplayNameWithFullPathReturnsFileName()
     {
@@ -17,6 +24,9 @@ public class PlayHistoryItemTests
         Assert.Equal("game.zip", item.DisplayName);
     }
 
+    /// <summary>
+    /// Verifies that DisplayName returns the file name when given just a file name without a path.
+    /// </summary>
     [Fact]
     public void DisplayNameWithFileNameOnlyReturnsFileName()
     {
@@ -29,6 +39,9 @@ public class PlayHistoryItemTests
         Assert.Equal("game.zip", item.DisplayName);
     }
 
+    /// <summary>
+    /// Verifies that DisplayName returns an empty string when FileName is null.
+    /// </summary>
     [Fact]
     public void DisplayNameWithNullFileNameReturnsEmpty()
     {
@@ -41,6 +54,9 @@ public class PlayHistoryItemTests
         Assert.Equal("", item.DisplayName);
     }
 
+    /// <summary>
+    /// Verifies that DisplayName returns an empty string when FileName is empty.
+    /// </summary>
     [Fact]
     public void DisplayNameWithEmptyFileNameReturnsEmpty()
     {
@@ -53,6 +69,9 @@ public class PlayHistoryItemTests
         Assert.Equal("", item.DisplayName);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays "0m 0s" for zero seconds.
+    /// </summary>
     [Fact]
     public void FormattedPlayTimeZeroSecondsReturnsZeroMinutesZeroSeconds()
     {
@@ -60,6 +79,9 @@ public class PlayHistoryItemTests
         Assert.Equal("0m 0s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays minutes and seconds for durations under one hour.
+    /// </summary>
     [Fact]
     public void FormattedPlayTimeUnderOneHourReturnsMinutesAndSeconds()
     {
@@ -67,6 +89,9 @@ public class PlayHistoryItemTests
         Assert.Equal("1m 30s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays hours, minutes, and seconds for exactly one hour.
+    /// </summary>
     [Fact]
     public void FormattedPlayTimeExactlyOneHourReturnsHoursMinutesSeconds()
     {
@@ -74,6 +99,9 @@ public class PlayHistoryItemTests
         Assert.Equal("1h 0m 0s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays hours, minutes, and seconds for durations over one hour.
+    /// </summary>
     [Fact]
     public void FormattedPlayTimeOverOneHourReturnsHoursMinutesSeconds()
     {
@@ -81,6 +109,9 @@ public class PlayHistoryItemTests
         Assert.Equal("1h 1m 1s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime correctly formats a large play time value.
+    /// </summary>
     [Fact]
     public void FormattedPlayTimeLargeValueReturnsCorrectFormat()
     {
@@ -88,6 +119,9 @@ public class PlayHistoryItemTests
         Assert.Equal("2h 3m 4s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays minutes and seconds for 59 minutes.
+    /// </summary>
     [Fact]
     public void FormattedPlayTime59MinutesReturnsMinutesOnly()
     {
@@ -95,6 +129,9 @@ public class PlayHistoryItemTests
         Assert.Equal("59m 0s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that PropertyChanged can be subscribed to and fires when OnPropertyChanged is invoked.
+    /// </summary>
     [Fact]
     public void PropertyChangedCanBeSubscribed()
     {
@@ -110,6 +147,9 @@ public class PlayHistoryItemTests
         Assert.True(eventRaised);
     }
 
+    /// <summary>
+    /// Verifies that all default property values of a new PlayHistoryItem are correct.
+    /// </summary>
     [Fact]
     public void DefaultValuesAreCorrect()
     {

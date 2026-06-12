@@ -4,6 +4,9 @@ namespace SimpleLauncher.Tests;
 
 public class MameManagerExtendedTests
 {
+    /// <summary>
+    /// Verifies that the default MachineName is an empty string.
+    /// </summary>
     [Fact]
     public void MameManagerDefaultMachineNameIsNull()
     {
@@ -11,6 +14,9 @@ public class MameManagerExtendedTests
         Assert.Equal("", manager.MachineName);
     }
 
+    /// <summary>
+    /// Verifies that the default Description is an empty string.
+    /// </summary>
     [Fact]
     public void MameManagerDefaultDescriptionIsNull()
     {
@@ -18,6 +24,9 @@ public class MameManagerExtendedTests
         Assert.Equal("", manager.Description);
     }
 
+    /// <summary>
+    /// Verifies that MameManager properties can be set.
+    /// </summary>
     [Fact]
     public void MameManagerPropertiesCanBeSet()
     {
@@ -31,6 +40,9 @@ public class MameManagerExtendedTests
         Assert.Equal("Pac-Man (Midway)", manager.Description);
     }
 
+    /// <summary>
+    /// Verifies that MameManager properties support special characters.
+    /// </summary>
     [Fact]
     public void MameManagerWithSpecialCharacters()
     {

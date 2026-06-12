@@ -2,6 +2,8 @@ using System.Xml.Linq;
 
 namespace SimpleLauncher.Services.SettingsManager.EmulatorSettings;
 
+using Interfaces;
+
 public class SegaModel2Settings : IEmulatorSettings
 {
     private const string SectionName = "SegaModel2";

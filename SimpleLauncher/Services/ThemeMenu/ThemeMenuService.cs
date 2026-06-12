@@ -4,6 +4,11 @@ using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
 
 namespace SimpleLauncher.Services.ThemeMenu;
 
+using Interfaces;
+
+/// <summary>
+/// Manages theme and accent color selection in the UI, updating menu check marks and applying theme changes.
+/// </summary>
 public class ThemeMenuService
 {
     private readonly PlaySoundEffects _playSoundEffects;
@@ -20,17 +25,20 @@ public class ThemeMenuService
         "SkyBlue", "Steel", "Taupe", "Teal", "Violet", "Yellow"
     ];
 
+    /// <summary>Initializes a new instance of the ThemeMenuService with the specified dependencies.</summary>
     public ThemeMenuService(PlaySoundEffects playSoundEffects, Settings settings)
     {
         _playSoundEffects = playSoundEffects;
         _settings = settings;
     }
 
+    /// <summary>Initializes the service with the specified UI host.</summary>
     public void Initialize(IThemeMenuHost host)
     {
         _host = host;
     }
 
+    /// <summary>Changes the base theme and updates the corresponding menu check marks.</summary>
     public void ChangeBaseTheme(MenuItem menuItem)
     {
         var baseTheme = menuItem.Name;
@@ -40,6 +48,7 @@ public class ThemeMenuService
         menuItem.IsChecked = true;
     }
 
+    /// <summary>Changes the accent color and updates the corresponding menu check marks.</summary>
     public void ChangeAccentColor(MenuItem menuItem)
     {
         var accentColor = menuItem.Name;
@@ -49,6 +58,7 @@ public class ThemeMenuService
         menuItem.IsChecked = true;
     }
 
+    /// <summary>Sets the checked state for the specified base theme and accent color menu items.</summary>
     public void SetCheckedTheme(string baseTheme, string accentColor)
     {
         UncheckAllBaseThemes();

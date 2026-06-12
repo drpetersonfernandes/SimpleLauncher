@@ -1,26 +1,21 @@
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 
-public interface IRetroAchievementsEmulatorConfiguratorService
-{
-    bool ConfigureRetroArch(string exePath, string username, string password);
-    bool ConfigurePcsx2(string exePath, string username, string token);
-    bool ConfigureDuckStation(string exePath, string username, string token);
-    bool ConfigurePpspp(string exePath, string username, string token);
-    bool ConfigureDolphin(string exePath, string username, string token);
-    bool ConfigureFlycast(string exePath, string username, string token);
-    bool ConfigureBizHawk(string exePath, string username, string token);
-}
-
+/// <summary>
+/// Configures RetroAchievements settings in various emulator configuration files (INI, CFG, JSON).
+/// </summary>
 public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEmulatorConfiguratorService
 {
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RetroAchievementsEmulatorConfiguratorService"/> class.
+    /// </summary>
     public RetroAchievementsEmulatorConfiguratorService(ILogErrors logErrors, IDebugLogger debugLogger)
     {
         _logErrors = logErrors;
@@ -56,7 +51,9 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         }
     }
 
-    // RetroArch
+    /// <summary>
+    /// Configures RetroArch's retroarch.cfg with RetroAchievements credentials.
+    /// </summary>
     public bool ConfigureRetroArch(string exePath, string username, string password)
     {
         var exeDir = Path.GetDirectoryName(exePath);
@@ -85,7 +82,9 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         return false;
     }
 
-    // PCSX2
+    /// <summary>
+    /// Configures PCSX2's PCSX2.ini with RetroAchievements credentials.
+    /// </summary>
     public bool ConfigurePcsx2(string exePath, string username, string token)
     {
         var exeDir = Path.GetDirectoryName(exePath);
@@ -113,7 +112,9 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         return UpdateIniFile(configPath, "Achievements", settingsToUpdate);
     }
 
-    // DuckStation
+    /// <summary>
+    /// Configures DuckStation's settings.ini with RetroAchievements credentials and encrypted token.
+    /// </summary>
     public bool ConfigureDuckStation(string exePath, string username, string token)
     {
         var exeDir = Path.GetDirectoryName(exePath);
@@ -167,7 +168,9 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         return false;
     }
 
-    // PPSSPP
+    /// <summary>
+    /// Configures PPSSPP's ppsspp.ini and session key file with RetroAchievements credentials.
+    /// </summary>
     public bool ConfigurePpspp(string exePath, string username, string token)
     {
         var exeDir = Path.GetDirectoryName(exePath);
@@ -210,7 +213,9 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         return false;
     }
 
-    // Dolphin
+    /// <summary>
+    /// Configures Dolphin's RetroAchievements.ini with RetroAchievements credentials.
+    /// </summary>
     public bool ConfigureDolphin(string exePath, string username, string token)
     {
         var exeDir = Path.GetDirectoryName(exePath);
@@ -264,7 +269,9 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         return UpdateIniFile(configPath, "Achievements", settingsToUpdate);
     }
 
-    // Flycast
+    /// <summary>
+    /// Configures Flycast's emu.cfg with RetroAchievements credentials.
+    /// </summary>
     public bool ConfigureFlycast(string exePath, string username, string token)
     {
         var exeDir = Path.GetDirectoryName(exePath);
@@ -299,7 +306,9 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         return false;
     }
 
-    // BizHawk
+    /// <summary>
+    /// Configures BizHawk's config.ini with RetroAchievements credentials.
+    /// </summary>
     public bool ConfigureBizHawk(string exePath, string username, string token)
     {
         var exeDir = Path.GetDirectoryName(exePath);

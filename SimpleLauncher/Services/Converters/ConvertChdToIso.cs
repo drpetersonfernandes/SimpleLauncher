@@ -2,10 +2,14 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.Converters;
 
+using Interfaces;
+
+/// <summary>
+/// Provides conversion of CHD disc image files to ISO format using chdman.exe.
+/// </summary>
 public static class ConvertChdToIso
 {
     private static readonly string TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");

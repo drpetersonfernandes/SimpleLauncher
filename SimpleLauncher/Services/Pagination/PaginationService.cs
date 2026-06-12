@@ -2,23 +2,46 @@ using System.Windows;
 
 namespace SimpleLauncher.Services.Pagination;
 
+using Interfaces;
+
+/// <summary>
+/// Manages file list pagination, handling page navigation, button states, and status labels.
+/// </summary>
 public class PaginationService : IPaginationService
 {
     private IPaginationHost _host;
 
+    /// <summary>
+    /// Gets the current 1-based page number.
+    /// </summary>
     public int CurrentPage { get; private set; } = 1;
 
+    /// <summary>
+    /// Gets the total number of files across all pages.
+    /// </summary>
     public int TotalFiles { get; private set; }
 
+    /// <summary>
+    /// Gets or sets the number of files displayed per page.
+    /// </summary>
     public int FilesPerPage { get; set; }
 
+    /// <summary>
+    /// Gets or sets the file count threshold above which pagination is applied.
+    /// </summary>
     public int PaginationThreshold { get; set; }
 
+    /// <summary>
+    /// Initializes the service with a host that provides UI callbacks for pagination controls.
+    /// </summary>
     public void Initialize(IPaginationHost host)
     {
         _host = host;
     }
 
+    /// <summary>
+    /// Resets pagination to the first page and disables all navigation buttons.
+    /// </summary>
     public void Reset()
     {
         CurrentPage = 1;
@@ -28,17 +51,26 @@ public class PaginationService : IPaginationService
         _host?.UpdateTotalFilesLabel(null);
     }
 
+    /// <summary>
+    /// Determines whether navigation to the previous page is possible.
+    /// </summary>
     public bool CanGoPrev()
     {
         return CurrentPage > 1;
     }
 
+    /// <summary>
+    /// Determines whether navigation to the next page is possible.
+    /// </summary>
     public bool CanGoNext()
     {
         var totalPages = (int)Math.Ceiling(TotalFiles / (double)FilesPerPage);
         return CurrentPage < totalPages;
     }
 
+    /// <summary>
+    /// Navigates to the previous page if available.
+    /// </summary>
     public void GoToPreviousPage()
     {
         if (CanGoPrev())
@@ -47,6 +79,9 @@ public class PaginationService : IPaginationService
         }
     }
 
+    /// <summary>
+    /// Navigates to the next page if available.
+    /// </summary>
     public void GoToNextPage()
     {
         if (CanGoNext())
@@ -55,6 +90,9 @@ public class PaginationService : IPaginationService
         }
     }
 
+    /// <summary>
+    /// Applies pagination to the file list, returning only the current page's files when the threshold is exceeded.
+    /// </summary>
     public List<string> ApplyPagination(List<string> allFiles)
     {
         TotalFiles = allFiles.Count;

@@ -4,9 +4,10 @@ using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.SystemManager;
-using ILoadingState = SimpleLauncher.Services.LoadingInterface.ILoadingState;
 
 namespace SimpleLauncher.Models;
+
+using Interfaces;
 
 /// <summary>
 /// Contextual information passed to right-click menu handlers for game buttons.

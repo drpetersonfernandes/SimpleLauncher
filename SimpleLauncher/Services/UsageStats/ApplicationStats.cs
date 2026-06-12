@@ -5,14 +5,19 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.UsageStats;
 
+using Interfaces;
+
+/// <summary>
+/// Sends anonymous application usage statistics to the remote stats API.
+/// </summary>
 public class ApplicationStats
 {
     private static readonly IDebugLogger DebugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();
 
+    /// <summary>Asynchronously sends application version statistics to the remote API.</summary>
     public static async Task CallApplicationStatsAsync(IConfiguration configuration, ILogErrors logErrors)
     {
         try

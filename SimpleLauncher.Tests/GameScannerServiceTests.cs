@@ -3,6 +3,9 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for the <see cref="GameScannerService"/> class.
+/// </summary>
 public class GameScannerServiceTests : IDisposable
 {
     private readonly string _testDirectory;
@@ -30,48 +33,72 @@ public class GameScannerServiceTests : IDisposable
 
     // IgnoredGameNames tests
 
+    /// <summary>
+    /// Verifies that IgnoredGameNames contains Steamworks Common Redistributables.
+    /// </summary>
     [Fact]
     public void IgnoredGameNamesContainsSteamworksCommonRedistributables()
     {
         Assert.Contains("Steamworks Common Redistributables", GameScannerService.IgnoredGameNames);
     }
 
+    /// <summary>
+    /// Verifies that IgnoredGameNames contains Unreal Engine.
+    /// </summary>
     [Fact]
     public void IgnoredGameNamesContainsUnrealEngine()
     {
         Assert.Contains("Unreal Engine", GameScannerService.IgnoredGameNames);
     }
 
+    /// <summary>
+    /// Verifies that IgnoredGameNames contains DirectX.
+    /// </summary>
     [Fact]
     public void IgnoredGameNamesContainsDirectX()
     {
         Assert.Contains("DirectX", GameScannerService.IgnoredGameNames);
     }
 
+    /// <summary>
+    /// Verifies that IgnoredGameNames contains Spacewar.
+    /// </summary>
     [Fact]
     public void IgnoredGameNamesContainsSpacewar()
     {
         Assert.Contains("Spacewar", GameScannerService.IgnoredGameNames);
     }
 
+    /// <summary>
+    /// Verifies that IgnoredGameNames contains Battle.net.
+    /// </summary>
     [Fact]
     public void IgnoredGameNamesContainsBattleNet()
     {
         Assert.Contains("Battle.net", GameScannerService.IgnoredGameNames);
     }
 
+    /// <summary>
+    /// Verifies that IgnoredGameNames contains Ubisoft Connect.
+    /// </summary>
     [Fact]
     public void IgnoredGameNamesContainsUbisoftConnect()
     {
         Assert.Contains("Ubisoft Connect", GameScannerService.IgnoredGameNames);
     }
 
+    /// <summary>
+    /// Verifies that IgnoredGameNames contains Rockstar Games Launcher.
+    /// </summary>
     [Fact]
     public void IgnoredGameNamesContainsRockstarGamesLauncher()
     {
         Assert.Contains("Rockstar Games Launcher", GameScannerService.IgnoredGameNames);
     }
 
+    /// <summary>
+    /// Verifies that IgnoredGameNames performs case-insensitive matching.
+    /// </summary>
     [Fact]
     public void IgnoredGameNamesIsCaseInsensitive()
     {
@@ -79,12 +106,18 @@ public class GameScannerServiceTests : IDisposable
         Assert.Contains("STEAMWORKS COMMON REDISTRIBUTABLES", GameScannerService.IgnoredGameNames);
     }
 
+    /// <summary>
+    /// Verifies that IgnoredGameNames does not contain arbitrary strings.
+    /// </summary>
     [Fact]
     public void IgnoredGameNamesDoesNotContainRandomString()
     {
         Assert.DoesNotContain("Some Random Game", GameScannerService.IgnoredGameNames);
     }
 
+    /// <summary>
+    /// Verifies that IgnoredGameNames contains at least the expected number of entries.
+    /// </summary>
     [Fact]
     public void IgnoredGameNamesHasExpectedCount()
     {
@@ -93,6 +126,9 @@ public class GameScannerServiceTests : IDisposable
 
     // FindMainExecutable tests (via reflection since it's private static)
 
+    /// <summary>
+    /// Verifies that FindMainExecutable returns null for a non-existent directory.
+    /// </summary>
     [Fact]
     public void FindMainExecutableReturnsNullForNonExistentDirectory()
     {
@@ -103,6 +139,9 @@ public class GameScannerServiceTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindMainExecutable returns null for an empty directory.
+    /// </summary>
     [Fact]
     public void FindMainExecutableReturnsNullForEmptyDirectory()
     {
@@ -116,6 +155,9 @@ public class GameScannerServiceTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindMainExecutable returns the executable matching the game name.
+    /// </summary>
     [Fact]
     public void FindMainExecutableReturnsNameMatchExe()
     {
@@ -132,6 +174,9 @@ public class GameScannerServiceTests : IDisposable
         Assert.Equal("MyGame.exe", Path.GetFileName(result));
     }
 
+    /// <summary>
+    /// Verifies that FindMainExecutable returns an executable containing the game name.
+    /// </summary>
     [Fact]
     public void FindMainExecutableReturnsContainsMatchExe()
     {
@@ -148,6 +193,9 @@ public class GameScannerServiceTests : IDisposable
         Assert.Contains("MyGame", Path.GetFileName(result));
     }
 
+    /// <summary>
+    /// Verifies that FindMainExecutable returns the specific exe path when provided.
+    /// </summary>
     [Fact]
     public void FindMainExecutableReturnsSpecificExePathIfProvided()
     {
@@ -165,6 +213,9 @@ public class GameScannerServiceTests : IDisposable
         Assert.Equal("specific.exe", Path.GetFileName(result));
     }
 
+    /// <summary>
+    /// Verifies that FindMainExecutable excludes uninstaller executables.
+    /// </summary>
     [Fact]
     public void FindMainExecutableExcludesUninstallerExe()
     {
@@ -181,6 +232,9 @@ public class GameScannerServiceTests : IDisposable
         Assert.Equal("game.exe", Path.GetFileName(result));
     }
 
+    /// <summary>
+    /// Verifies that FindMainExecutable excludes setup executables.
+    /// </summary>
     [Fact]
     public void FindMainExecutableExcludesSetupExe()
     {
@@ -197,6 +251,9 @@ public class GameScannerServiceTests : IDisposable
         Assert.Equal("game.exe", Path.GetFileName(result));
     }
 
+    /// <summary>
+    /// Verifies that FindMainExecutable excludes crash reporter executables.
+    /// </summary>
     [Fact]
     public void FindMainExecutableExcludesCrashReporterExe()
     {
@@ -213,6 +270,9 @@ public class GameScannerServiceTests : IDisposable
         Assert.Equal("game.exe", Path.GetFileName(result));
     }
 
+    /// <summary>
+    /// Verifies that FindMainExecutable excludes launcher executables.
+    /// </summary>
     [Fact]
     public void FindMainExecutableExcludesLauncherExe()
     {
@@ -229,6 +289,9 @@ public class GameScannerServiceTests : IDisposable
         Assert.Equal("game.exe", Path.GetFileName(result));
     }
 
+    /// <summary>
+    /// Verifies that FindMainExecutable falls back to the largest executable.
+    /// </summary>
     [Fact]
     public void FindMainExecutableLargestExeFallback()
     {
@@ -245,6 +308,9 @@ public class GameScannerServiceTests : IDisposable
         Assert.Equal("large.exe", Path.GetFileName(result));
     }
 
+    /// <summary>
+    /// Verifies that FindMainExecutable falls back to heuristics when specific path does not exist.
+    /// </summary>
     [Fact]
     public void FindMainExecutableSpecificPathDoesNotExistFallsBackToHeuristics()
     {

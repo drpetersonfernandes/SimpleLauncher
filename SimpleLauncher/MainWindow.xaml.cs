@@ -8,34 +8,20 @@ using System.Windows.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.AudioInput;
-using SimpleLauncher.Services.ApplicationLifecycle;
-using SimpleLauncher.Services.ContextMenu;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GameBrowser;
 using SimpleLauncher.Services.GameListUI;
-using SimpleLauncher.Services.LanguageMenu;
-using SimpleLauncher.Services.LaunchTools;
-using SimpleLauncher.Services.LoadingInterface;
-using SimpleLauncher.Services.MenuActionHandler;
-using SimpleLauncher.Services.MenuCheckMark;
-using SimpleLauncher.Services.MenuOrchestrator;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.SettingsManager;
-using SimpleLauncher.Services.StartupInitialization;
-using SimpleLauncher.Services.SystemConfiguration;
-using SimpleLauncher.Services.ThemeMenu;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.UiHelpers;
-using SimpleLauncher.Services.UIReset;
-using SimpleLauncher.Services.UiOrchestrator;
-using SimpleLauncher.Services.UpdateStatusBar;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 
+/// <summary>
+/// Main application window for SimpleLauncher, hosting game browsing, filtering, pagination, and system management UI.
+/// </summary>
 public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingState, IMenuCheckMarkHost, IUiResetHost, IUiOrchestratorHost, IStartupInitializationHost, IThemeMenuHost, ILanguageMenuHost, IStatusBarHost
 {
     private CancellationTokenSource _cancellationSource = new();
@@ -44,15 +30,24 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private bool _isDisposed;
     internal DispatcherTimer StatusBarTimer { get; set; }
+    /// <summary>
+    /// Collection of game list items displayed in the UI.
+    /// </summary>
     public ObservableCollection<GameListViewItem> GameListItems { get; } = [];
 
     // Event handler references for proper unsubscription to prevent memory leaks
     private RoutedEventHandler _emergencyButtonClickHandler;
     private readonly RoutedEventHandler _asyncLoadedHandler;
 
+    /// <summary>
+    /// Occurs when a property value changes, supporting data binding updates.
+    /// </summary>
     public event PropertyChangedEventHandler PropertyChanged;
     private string _selectedSystem;
 
+    /// <summary>
+    /// Gets or sets the currently selected system name.
+    /// </summary>
     public string SelectedSystem
     {
         get => _selectedSystem;
@@ -63,6 +58,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
     }
 
+    /// <summary>
+    /// Gets or sets the play time display string for the current game.
+    /// </summary>
     public string PlayTime
     {
         get;
@@ -73,6 +71,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
     }
 
+    /// <summary>
+    /// Gets or sets whether the play time display is visible.
+    /// </summary>
     public bool IsPlayTimeVisible
     {
         get;
@@ -87,6 +88,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private bool _isLoadingGames;
 
+    /// <summary>
+    /// Gets whether games are currently being loaded.
+    /// </summary>
     public bool IsLoadingGames
     {
         get => _isLoadingGames;

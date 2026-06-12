@@ -1,6 +1,8 @@
 namespace SimpleLauncher.Services.RetroAchievements.Models;
 
-// Custom exception for RetroAchievements API Unauthorized errors
+/// <summary>
+/// Exception thrown when the RetroAchievements API returns an Unauthorized (401) response.
+/// </summary>
 public class RaUnauthorizedException : Exception
 {
     public RaUnauthorizedException()

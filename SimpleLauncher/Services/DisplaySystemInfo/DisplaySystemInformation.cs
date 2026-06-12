@@ -9,8 +9,20 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.DisplaySystemInfo;
 
+using Interfaces;
+
+/// <summary>
+/// Displays system configuration information in the UI and validates system paths and emulator locations.
+/// </summary>
 public class DisplaySystemInformation : IDisplaySystemInformation
 {
+    /// <summary>
+    /// Populates the game file grid with system configuration details and validates all paths and emulator locations.
+    /// </summary>
+    /// <param name="selectedManager">The system manager whose configuration to display.</param>
+    /// <param name="gameFileGrid">The wrap panel to populate with system information UI elements.</param>
+    /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
+    /// <returns>A <see cref="SystemValidationResult"/> indicating the validity of the system configuration.</returns>
     public async Task<SystemValidationResult> DisplaySystemInfoAsync(SystemManager.SystemManager selectedManager, WrapPanel gameFileGrid, CancellationToken cancellationToken = default)
     {
         // Clear image sources first to prevent memory leaks from BitmapImage references
@@ -106,6 +118,11 @@ public class DisplaySystemInformation : IDisplaySystemInformation
         return validationResult;
     }
 
+    /// <summary>
+    /// Validates the system configuration by checking that all system folders, image folders, and emulator paths exist.
+    /// </summary>
+    /// <param name="selectedManager">The system manager to validate.</param>
+    /// <returns>A <see cref="SystemValidationResult"/> containing validation status and any error messages.</returns>
     public SystemValidationResult ValidateSystemConfiguration(SystemManager.SystemManager selectedManager)
     {
         var result = new SystemValidationResult();
@@ -204,14 +221,14 @@ public class DisplaySystemInformation : IDisplaySystemInformation
         switch (border.Child)
         {
             case Image image:
-            {
-                if (image.Source is BitmapImage)
                 {
-                    image.Source = null;
-                }
+                    if (image.Source is BitmapImage)
+                    {
+                        image.Source = null;
+                    }
 
-                break;
-            }
+                    break;
+                }
             case Panel panel:
                 ClearGameButtonImages(panel);
                 break;

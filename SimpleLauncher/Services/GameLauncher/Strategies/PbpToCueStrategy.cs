@@ -3,24 +3,31 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
+/// <summary>
+/// Converts PSP .pbp files to CUE/BIN format for emulators that do not support PBP natively (e.g., Mednafen).
+/// </summary>
 public class PbpToCueStrategy : ILaunchStrategy
 {
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IDebugLogger _debugLogger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PbpToCueStrategy"/> class.
+    /// </summary>
     public PbpToCueStrategy(IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
     {
         _messageBox = messageBox;
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
     }
 
+    /// <inheritdoc />
     public int Priority => 15; // Higher priority than Default (999) but lower than CHD (10) to handle specific case
 
+    /// <inheritdoc />
     public bool IsMatch(LaunchContext context)
     {
         if (string.IsNullOrEmpty(context.ResolvedFilePath) ||
@@ -44,6 +51,7 @@ public class PbpToCueStrategy : ILaunchStrategy
         }
     }
 
+    /// <inheritdoc />
     public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
         var convertingMsg = (string)Application.Current.TryFindResource("ConvertingPbpToCue") ?? "Converting PBP to CUE/BIN...";

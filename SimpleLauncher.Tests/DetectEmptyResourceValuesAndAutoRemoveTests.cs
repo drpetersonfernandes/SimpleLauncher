@@ -12,6 +12,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class DetectEmptyResourceValuesAndAutoRemoveTests
 {
+    /// <summary>
+    /// Verifies that no localization resource file contains empty or whitespace-only values, automatically removing them if found.
+    /// </summary>
     [Fact]
     public void AllResourceFilesShouldHaveNoEmptyValuesAndAutoRemove()
     {

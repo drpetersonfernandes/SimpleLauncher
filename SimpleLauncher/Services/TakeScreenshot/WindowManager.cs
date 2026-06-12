@@ -2,6 +2,9 @@ using System.Runtime.InteropServices;
 
 namespace SimpleLauncher.Services.TakeScreenshot;
 
+/// <summary>
+/// Provides methods to enumerate visible open windows using Win32 API calls.
+/// </summary>
 public static class WindowManager
 {
     [DllImport("user32.dll")]
@@ -18,6 +21,9 @@ public static class WindowManager
 
     private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
+    /// <summary>
+    /// Returns a list of all visible open windows with their handles and titles.
+    /// </summary>
     public static List<(IntPtr Handle, string Title)> GetOpenWindows()
     {
         var windows = new List<(IntPtr, string)>();

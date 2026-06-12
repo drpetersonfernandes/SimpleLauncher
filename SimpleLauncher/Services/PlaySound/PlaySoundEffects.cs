@@ -1,10 +1,14 @@
 #nullable enable
 
 using NAudio.Wave;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.PlaySound;
 
+using Interfaces;
+
+/// <summary>
+/// Plays UI sound effects such as click, shutter, and trash sounds using NAudio.
+/// </summary>
 public class PlaySoundEffects : IPlaySoundEffects, IDisposable
 {
     private const string ClickSoundFile = "click.mp3";
@@ -19,6 +23,9 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     private WaveOutEvent? _waveOut;
     private Mp3FileReader? _reader;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PlaySoundEffects"/> class.
+    /// </summary>
     public PlaySoundEffects(SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
     {
         _settingsManager = settings ?? throw new ArgumentNullException(nameof(settings));
@@ -26,6 +33,9 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
     }
 
+    /// <summary>
+    /// Plays the configured notification sound if notifications are enabled.
+    /// </summary>
     public void PlayNotificationSound()
     {
         if (!_settingsManager.EnableNotificationSound)
@@ -36,16 +46,25 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
         PlaySound(_settingsManager.CustomNotificationSoundFile ?? ClickSoundFile);
     }
 
+    /// <summary>
+    /// Plays the shutter sound effect.
+    /// </summary>
     public void PlayShutterSound()
     {
         PlaySound(ShutterSoundFile);
     }
 
+    /// <summary>
+    /// Plays the trash/delete sound effect.
+    /// </summary>
     public void PlayTrashSound()
     {
         PlaySound(TrashSoundFile);
     }
 
+    /// <summary>
+    /// Plays a sound file by name from the audio directory.
+    /// </summary>
     public void PlayConfiguredSound(string soundFileName)
     {
         if (string.IsNullOrWhiteSpace(soundFileName))
@@ -155,6 +174,9 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
         }
     }
 
+    /// <summary>
+    /// Stops any current playback and releases audio resources.
+    /// </summary>
     public void Dispose()
     {
         lock (Lock)

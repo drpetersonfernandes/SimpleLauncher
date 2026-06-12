@@ -4,8 +4,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for emulator settings XML serialization round-trip and property preservation.
+/// </summary>
 public class EmulatorSettingsRoundTripTests
 {
+    /// <summary>
+    /// Verifies that all AresSettings properties survive a full XML round-trip.
+    /// </summary>
     [Fact]
     public void AresSettingsFullRoundTrip()
     {
@@ -43,6 +49,9 @@ public class EmulatorSettingsRoundTripTests
         Assert.Equal(original.ShowSettingsBeforeLaunch, loaded.ShowSettingsBeforeLaunch);
     }
 
+    /// <summary>
+    /// Verifies that all DuckStationSettings properties survive a full XML round-trip.
+    /// </summary>
     [Fact]
     public void DuckStationSettingsFullRoundTrip()
     {
@@ -86,6 +95,9 @@ public class EmulatorSettingsRoundTripTests
         Assert.Equal(original.ShowSettingsBeforeLaunch, loaded.ShowSettingsBeforeLaunch);
     }
 
+    /// <summary>
+    /// Verifies that all RetroArchSettings properties survive a full XML round-trip.
+    /// </summary>
     [Fact]
     public void RetroArchSettingsFullRoundTrip()
     {
@@ -111,6 +123,9 @@ public class EmulatorSettingsRoundTripTests
         Assert.Equal(original.ShowAdvancedSettings, loaded.ShowAdvancedSettings);
     }
 
+    /// <summary>
+    /// Verifies that all Pcsx2Settings properties survive a full XML round-trip.
+    /// </summary>
     [Fact]
     public void Pcsx2SettingsFullRoundTrip()
     {
@@ -130,6 +145,9 @@ public class EmulatorSettingsRoundTripTests
         Assert.Equal(original.UpscaleMultiplier, loaded.UpscaleMultiplier);
     }
 
+    /// <summary>
+    /// Verifies that all DolphinSettings properties survive a full XML round-trip.
+    /// </summary>
     [Fact]
     public void DolphinSettingsFullRoundTrip()
     {
@@ -147,6 +165,9 @@ public class EmulatorSettingsRoundTripTests
         Assert.Equal(original.DspThread, loaded.DspThread);
     }
 
+    /// <summary>
+    /// Verifies that ResetDefaults restores settings to the same values as a fresh constructor instance.
+    /// </summary>
     [Fact]
     public void AllSettingsResetDefaultsRestoresToConstructorDefaults()
     {
@@ -169,6 +190,9 @@ public class EmulatorSettingsRoundTripTests
         Assert.Equal(freshRa.VideoDriver, ra.VideoDriver);
     }
 
+    /// <summary>
+    /// Verifies that LoadFromXml with missing elements preserves the existing default values.
+    /// </summary>
     [Fact]
     public void LoadFromXmlWithMissingElementsKeepsDefaults()
     {
@@ -180,6 +204,9 @@ public class EmulatorSettingsRoundTripTests
         Assert.Equal(originalDriver, ares.VideoDriver);
     }
 
+    /// <summary>
+    /// Verifies that CopyFrom correctly copies all properties from a source to a target instance.
+    /// </summary>
     [Fact]
     public void CopyFromPreservesAllProperties()
     {

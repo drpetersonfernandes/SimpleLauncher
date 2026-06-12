@@ -7,24 +7,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
-using SimpleLauncher.Services.DisplaySystemInfo;
-using SimpleLauncher.Services.GameCache;
 using SimpleLauncher.Services.GameFileWatcher;
-using SimpleLauncher.Services.GameItemRender;
 using SimpleLauncher.Services.LoadImages;
-using SimpleLauncher.Services.MameData;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
-using SimpleLauncher.Services.SystemConfiguration;
-using SimpleLauncher.Services.SystemImageResolver;
-using SimpleLauncher.Services.UIReset;
-using SimpleLauncher.Services.UpdateStatusBar;
 
 namespace SimpleLauncher.Services.SystemSelectionOrchestrator;
 
+/// <summary>
+/// Orchestrates system selection UI, including displaying the system grid, handling system clicks, combo box changes, and system CRUD operations.
+/// </summary>
 public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
 {
     private ISystemSelectionHost _host;
@@ -47,6 +41,9 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
     private readonly IDisplaySystemInformation _displaySystemInformation;
     private readonly IDebugLogger _debugLogger;
 
+    /// <summary>
+    /// Initializes a new instance of the SystemSelectionOrchestrator with the specified dependencies.
+    /// </summary>
     public SystemSelectionOrchestrator(
         SettingsManager.SettingsManager settings,
         ISystemImageResolverService systemImageResolverService,
@@ -87,11 +84,13 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
     }
 
+    /// <summary>Initializes the orchestrator with the specified UI host.</summary>
     public void Initialize(ISystemSelectionHost host)
     {
         _host = host;
     }
 
+    /// <summary>Loads or reloads system manager configurations and updates the combo box source.</summary>
     public void LoadOrReloadSystemManager()
     {
         var managers = _systemConfigurationService.LoadSystemManagers();
@@ -103,6 +102,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         _gameItemRenderService.ReloadFactories(managers, _mameDataService.Machines.ToList());
     }
 
+    /// <summary>Displays the system selection screen with clickable system buttons.</summary>
     public async Task DisplaySystemSelectionScreenAsync(CancellationToken cancellationToken = default)
     {
         _host.TopSystemSelection.Visibility = Visibility.Collapsed;
@@ -248,6 +248,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         }
     }
 
+    /// <summary>Handles a system button click, loading the selected system's games.</summary>
     public async Task SystemButtonClickAsync(string systemName, CancellationToken cancellationToken)
     {
         try
@@ -303,6 +304,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         }
     }
 
+    /// <summary>Deletes a system configuration after user confirmation.</summary>
     public async void DeleteSystemFromContextMenu(string systemName)
     {
         try
@@ -327,6 +329,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         }
     }
 
+    /// <summary>Opens the edit system dialog for the specified system.</summary>
     public void EditSystemFromContextMenu(string systemName)
     {
         try
@@ -349,6 +352,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         }
     }
 
+    /// <summary>Handles system combo box selection changes, loading the selected system's games and metadata.</summary>
     public async Task SystemComboBoxSelectionChangedAsync(CancellationToken cancellationToken = default)
     {
         try

@@ -5,8 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.ContextMenu;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GamePad;
@@ -18,7 +16,6 @@ using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.ViewModels;
 using SimpleLauncher.WpfServices;
-using ILoadingState = SimpleLauncher.Services.LoadingInterface.ILoadingState;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 

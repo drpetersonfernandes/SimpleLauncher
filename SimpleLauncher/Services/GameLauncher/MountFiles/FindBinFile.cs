@@ -1,9 +1,15 @@
-using SimpleLauncher.Services.DebugAndBugReport;
-
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
+using Interfaces;
+
+/// <summary>
+/// Locates the first .bin file in a given directory.
+/// </summary>
 public static class FindBinFile
 {
+    /// <summary>
+    /// Searches for the first .bin file in the specified root directory.
+    /// </summary>
     public static string Find(string rootPath, ILogErrors logErrors)
     {
         try

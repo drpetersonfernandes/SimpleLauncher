@@ -7,6 +7,9 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests connectivity to the bug report and statistics APIs used by SimpleLauncher.
+/// </summary>
 public class ApiConnectivityTests
 {
     private static readonly HttpClient HttpClient = new(new SocketsHttpHandler
@@ -39,6 +42,9 @@ public class ApiConnectivityTests
         return JsonDocument.Parse(json);
     }
 
+    /// <summary>
+    /// Verifies that the bug report API endpoint accepts a valid report payload.
+    /// </summary>
     [Fact]
     public async Task BugReportApiCanSendReport()
     {
@@ -68,6 +74,9 @@ public class ApiConnectivityTests
             $"Bug report API returned {(int)response.StatusCode} ({response.StatusCode}). Expected a success status code.");
     }
 
+    /// <summary>
+    /// Verifies that each statistics API endpoint is reachable with valid authentication.
+    /// </summary>
     [Theory]
     [InlineData("https://www.purelogiccode.com/simplelauncher/stats/stats/")]
     [InlineData("https://www.purelogiccode.com/ApplicationStats/stats")]

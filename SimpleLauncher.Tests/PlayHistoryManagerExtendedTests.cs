@@ -5,6 +5,10 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Extended tests for <see cref="Services.PlayHistory.PlayHistoryManager"/> covering
+/// large lists, special characters, unicode, version preservation, and property change notifications.
+/// </summary>
 public class PlayHistoryManagerExtendedTests : IDisposable
 {
     private readonly string _testDirectory;
@@ -32,6 +36,9 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Verifies that DisplayName extracts the file name without path from a full path.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemDisplayNameReturnsFileNameWithoutPath()
     {
@@ -44,6 +51,9 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         Assert.Equal("game.zip", item.DisplayName);
     }
 
+    /// <summary>
+    /// Verifies that DisplayName returns the file name when it contains no directory path.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemDisplayNameHandlesJustFileName()
     {
@@ -56,6 +66,9 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         Assert.Equal("game.zip", item.DisplayName);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays "0m 0s" for zero total play time.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemFormattedPlayTimeZeroSeconds()
     {
@@ -69,6 +82,9 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         Assert.Equal("0m 0s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays seconds only when under one minute.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemFormattedPlayTimeSecondsOnly()
     {
@@ -82,6 +98,9 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         Assert.Equal("0m 45s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays minutes and seconds for durations under one hour.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemFormattedPlayTimeMinutesAndSeconds()
     {
@@ -95,6 +114,9 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         Assert.Equal("2m 30s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays hours, minutes, and seconds for durations over one hour.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemFormattedPlayTimeHoursMinutesSeconds()
     {
@@ -108,6 +130,9 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         Assert.Equal("1h 1m 1s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime correctly formats a large value of 24 hours.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemFormattedPlayTimeLargeValue()
     {
@@ -121,6 +146,9 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         Assert.Equal("24h 0m 0s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that a PlayHistoryManager with a single item serializes and deserializes correctly.
+    /// </summary>
     [Fact]
     public void PlayHistoryManagerWithSingleItemSerializesCorrectly()
     {
@@ -151,6 +179,9 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         Assert.Equal("20:30:00", deserialized.PlayHistoryList[0].LastPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that file names with special characters survive MessagePack round-trip.
+    /// </summary>
     [Fact]
     public void PlayHistoryManagerWithSpecialCharactersInFileName()
     {
@@ -172,6 +203,9 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         Assert.Equal("C:\\roms\\game (v2.0).zip", deserialized.PlayHistoryList[1].FileName);
     }
 
+    /// <summary>
+    /// Verifies that Unicode characters in file names survive MessagePack round-trip.
+    /// </summary>
     [Fact]
     public void PlayHistoryManagerWithUnicodeCharacters()
     {
@@ -190,6 +224,9 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         Assert.Equal("C:\\roms\\ポケモン.zip", deserialized.PlayHistoryList[0].FileName);
     }
 
+    /// <summary>
+    /// Verifies that a non-default Version value is preserved after serialization.
+    /// </summary>
     [Fact]
     public void PlayHistoryManagerVersionPreservedAfterSerialization()
     {
@@ -205,6 +242,9 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         Assert.Equal(99, deserialized.Version);
     }
 
+    /// <summary>
+    /// Verifies that a large list of 1000 items serializes and deserializes correctly.
+    /// </summary>
     [Fact]
     public void PlayHistoryManagerLargeListSerializesCorrectly()
     {
@@ -234,6 +274,9 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         Assert.Equal(10000, deserialized.PlayHistoryList[999].TotalPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that zero TimesPlayed and TotalPlayTime values are handled correctly.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemZeroTimesPlayed()
     {
@@ -249,6 +292,9 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         Assert.Equal(0, item.TotalPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that empty string values for LastPlayDate and LastPlayTime are preserved.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemEmptyDateAndTime()
     {
@@ -264,6 +310,9 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         Assert.Equal("", item.LastPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that the order of items in the list is preserved after serialization round-trip.
+    /// </summary>
     [Fact]
     public void PlayHistoryManagerPreservesOrder()
     {
@@ -286,6 +335,9 @@ public class PlayHistoryManagerExtendedTests : IDisposable
         Assert.Equal("third.zip", deserialized.PlayHistoryList[2].FileName);
     }
 
+    /// <summary>
+    /// Verifies that PropertyChanged fires when TotalPlayTime is modified after initial assignment.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemPropertyChangedOnTotalPlayTime()
     {

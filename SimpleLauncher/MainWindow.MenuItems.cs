@@ -1,9 +1,13 @@
 using System.Windows;
 using System.Windows.Controls;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher;
 
+using Interfaces;
+
+/// <summary>
+/// Partial MainWindow containing menu item click handlers and system management operations.
+/// </summary>
 public partial class MainWindow
 {
     internal void SetViewMode(string viewMode)
@@ -50,6 +54,9 @@ public partial class MainWindow
         }
     }
 
+    /// <summary>
+    /// Reloads the system manager and refreshes the system list.
+    /// </summary>
     public void LoadOrReloadSystemManager()
     {
         _gameBrowser.LoadOrReloadSystemManager();
@@ -229,6 +236,11 @@ public partial class MainWindow
         _menuOrchestrator.HandleShowPlayHistory();
     }
 
+    /// <summary>
+    /// Opens the RetroAchievements window when the menu item is clicked.
+    /// </summary>
+    /// <param name="sender">The event sender.</param>
+    /// <param name="e">The routed event arguments.</param>
     public void ShowRetroAchievementsWindowClick(object sender, RoutedEventArgs e)
     {
         _menuOrchestrator.HandleShowRetroAchievements();

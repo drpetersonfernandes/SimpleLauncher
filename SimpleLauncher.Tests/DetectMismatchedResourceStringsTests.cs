@@ -11,6 +11,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public partial class DetectMismatchedResourceStringsTests
 {
+    /// <summary>
+    /// Verifies that the same resource key is not used with different fallback string literals in source code.
+    /// </summary>
     [Fact]
     public void SourceCodeShouldHaveNoMismatchedResourceFallbacks()
     {

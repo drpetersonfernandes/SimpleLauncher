@@ -1,15 +1,24 @@
 using System.Windows.Documents;
 using System.Windows.Navigation;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
+using Interfaces;
+
+/// <summary>
+/// Window displaying ROM history information with hyperlinked references.
+/// </summary>
 public partial class RomHistoryWindow
 {
     private readonly RequestNavigateEventHandler _requestNavigateHandler;
     private readonly IDebugLogger _debugLogger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RomHistoryWindow"/> class.
+    /// </summary>
+    /// <param name="viewModel">The view model providing ROM history data.</param>
+    /// <param name="debugLogger">The debug logger.</param>
     public RomHistoryWindow(RomHistoryViewModel viewModel, IDebugLogger debugLogger)
     {
         InitializeComponent();
@@ -43,6 +52,12 @@ public partial class RomHistoryWindow
         DataContext = viewModel;
     }
 
+    /// <summary>
+    /// Initializes the window with ROM and system information for history lookup.
+    /// </summary>
+    /// <param name="romName">The name of the ROM.</param>
+    /// <param name="systemName">The name of the system.</param>
+    /// <param name="searchTerm">The search term for filtering history.</param>
     public void Initialize(string romName, string systemName, string searchTerm)
     {
         ((RomHistoryViewModel)DataContext).Initialize(romName, systemName, searchTerm);

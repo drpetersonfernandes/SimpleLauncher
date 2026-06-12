@@ -3,10 +3,12 @@ using System.Diagnostics;
 using System.Globalization;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.QuitOrReinstall;
 
+/// <summary>
+/// Handles reinstalling SimpleLauncher by downloading and launching the Updater.exe.
+/// </summary>
 public class ReinstallSimpleLauncher
 {
     private readonly ILogErrors _logErrors;
@@ -14,6 +16,9 @@ public class ReinstallSimpleLauncher
     private readonly IDispatcherService _dispatcherService;
     private readonly IServiceProvider _serviceProvider;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ReinstallSimpleLauncher"/> class.
+    /// </summary>
     public ReinstallSimpleLauncher(ILogErrors logErrors, IApplicationLifetime applicationLifetime, IDispatcherService dispatcherService, IServiceProvider serviceProvider)
     {
         _logErrors = logErrors;
@@ -22,6 +27,9 @@ public class ReinstallSimpleLauncher
         _serviceProvider = serviceProvider;
     }
 
+    /// <summary>
+    /// Launches Updater.exe (downloading it from GitHub if missing) and shuts down the application.
+    /// </summary>
     public async void StartUpdaterAndShutdown()
     {
         try

@@ -2,7 +2,6 @@ using System.Windows;
 using System.Windows.Threading;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.ThemeMenu;
 using CheckDirWritable = SimpleLauncher.Services.CheckIfDirectoryIsWritable.CheckIfDirectoryIsWritable;
@@ -12,6 +11,9 @@ using TrayIconManager = SimpleLauncher.Services.TrayIcon.TrayIconManager;
 
 namespace SimpleLauncher.Services.StartupInitialization;
 
+/// <summary>
+/// Orchestrates application startup initialization, including theme, language, tray icon, gamepad, and required file checks.
+/// </summary>
 public class StartupInitializationService
 {
     private readonly IConfiguration _configuration;
@@ -26,6 +28,9 @@ public class StartupInitializationService
     private readonly RequiredFiles _requiredFiles;
     private IStartupInitializationHost _host;
 
+    /// <summary>
+    /// Initializes a new instance of the StartupInitializationService with the specified dependencies.
+    /// </summary>
     public StartupInitializationService(
         IConfiguration configuration,
         Settings settings,
@@ -49,6 +54,9 @@ public class StartupInitializationService
         _requiredFiles = new RequiredFiles(messageBoxLibrary);
     }
 
+    /// <summary>
+    /// Performs all startup initialization steps using the provided host for UI interaction.
+    /// </summary>
     public async Task InitializeAsync(IStartupInitializationHost host)
     {
         _host = host;

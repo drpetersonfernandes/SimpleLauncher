@@ -4,8 +4,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for the <see cref="ImagePackDownloadItem"/> model class.
+/// </summary>
 public class ImagePackDownloadItemTests
 {
+    /// <summary>
+    /// Verifies that a new ImagePackDownloadItem has correct default values.
+    /// </summary>
     [Fact]
     public void DefaultValuesAreCorrect()
     {
@@ -17,6 +23,9 @@ public class ImagePackDownloadItemTests
         Assert.Equal(DownloadButtonState.Idle, item.State);
     }
 
+    /// <summary>
+    /// Verifies that ImagePackDownloadItem properties can be set.
+    /// </summary>
     [Fact]
     public void PropertiesCanBeSet()
     {
@@ -32,6 +41,9 @@ public class ImagePackDownloadItemTests
         Assert.Equal(@"C:\images\nes", item.ExtractPath);
     }
 
+    /// <summary>
+    /// Verifies that convenience properties are correct in the Idle state.
+    /// </summary>
     [Fact]
     public void StateIdleConveniencePropertiesAreCorrect()
     {
@@ -44,6 +56,9 @@ public class ImagePackDownloadItemTests
         Assert.True(item.CanStartDownload);
     }
 
+    /// <summary>
+    /// Verifies that convenience properties are correct in the Downloading state.
+    /// </summary>
     [Fact]
     public void StateDownloadingConveniencePropertiesAreCorrect()
     {
@@ -56,6 +71,9 @@ public class ImagePackDownloadItemTests
         Assert.False(item.CanStartDownload);
     }
 
+    /// <summary>
+    /// Verifies that convenience properties are correct in the Downloaded state.
+    /// </summary>
     [Fact]
     public void StateDownloadedConveniencePropertiesAreCorrect()
     {
@@ -68,6 +86,9 @@ public class ImagePackDownloadItemTests
         Assert.False(item.CanStartDownload);
     }
 
+    /// <summary>
+    /// Verifies that convenience properties are correct in the Failed state.
+    /// </summary>
     [Fact]
     public void StateFailedConveniencePropertiesAreCorrect()
     {
@@ -80,6 +101,9 @@ public class ImagePackDownloadItemTests
         Assert.True(item.CanStartDownload);
     }
 
+    /// <summary>
+    /// Verifies that changing State raises PropertyChanged for all related properties.
+    /// </summary>
     [Fact]
     public void StateChangeRaisesPropertyChanged()
     {
@@ -101,6 +125,9 @@ public class ImagePackDownloadItemTests
         Assert.Contains(nameof(ImagePackDownloadItem.CanStartDownload), changedProperties);
     }
 
+    /// <summary>
+    /// Verifies that setting the same State does not raise PropertyChanged.
+    /// </summary>
     [Fact]
     public void SameStateDoesNotRaisePropertyChanged()
     {
@@ -113,6 +140,9 @@ public class ImagePackDownloadItemTests
         Assert.False(eventRaised);
     }
 
+    /// <summary>
+    /// Verifies that CanStartDownload is true only for Idle and Failed states.
+    /// </summary>
     [Fact]
     public void CanStartDownloadIsTrueForIdleAndFailedOnly()
     {

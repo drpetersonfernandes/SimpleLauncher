@@ -6,20 +6,28 @@ using SimpleLauncher.Services.InjectEmulatorConfig;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
+/// <summary>
+/// Handles configuration injection for the Daphne (laserdisc arcade) emulator before launching a game.
+/// </summary>
 public class DaphneConfigHandler : IEmulatorConfigHandler
 {
     private readonly IServiceScopeFactory _scopeFactory;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DaphneConfigHandler"/> class.
+    /// </summary>
     public DaphneConfigHandler(IServiceScopeFactory scopeFactory)
     {
         _scopeFactory = scopeFactory;
     }
 
+    /// <inheritdoc />
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Daphne", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("daphne.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
+    /// <inheritdoc />
     public async Task<bool> HandleConfigurationAsync(LaunchContext context)
     {
         var shouldRun = true;

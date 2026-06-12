@@ -6,12 +6,14 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.AppDataFile;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.EasyMode.Models;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.SystemManager;
 
+/// <summary>
+/// Represents a system (console/platform) configuration loaded from system.xml, including ROM folders, file formats, and emulators.
+/// </summary>
 public partial class SystemManager : ISystemManager
 {
     private static readonly object XmlLock = new();
@@ -19,22 +21,45 @@ public partial class SystemManager : ISystemManager
     private static DataFileLocation _fileLocation;
     private static readonly object FileLocationLock = new();
 
+    /// <summary>Gets the name of the system (e.g., "NES", "SNES").</summary>
     public string SystemName { get; init; }
+
+    /// <summary>Gets the list of ROM folder paths for this system.</summary>
     public List<string> SystemFolders { get; init; }
+
+    /// <summary>Gets the first (primary) system folder path.</summary>
     public string PrimarySystemFolder => SystemFolders?.FirstOrDefault();
+
+    /// <summary>Gets the path to the folder containing system images.</summary>
     public string SystemImageFolder { get; init; }
+
+    /// <summary>Gets the list of file extensions to search for in ROM folders.</summary>
     public List<string> FileFormatsToSearch { get; init; }
+
+    /// <summary>Gets whether compressed files should be extracted before launching.</summary>
     public bool ExtractFileBeforeLaunch { get; init; }
+
+    /// <summary>Gets the list of file extensions that can be launched directly.</summary>
     public List<string> FileFormatsToLaunch { get; init; }
+
+    /// <summary>Gets the list of configured emulators for this system.</summary>
     public List<Emulator> Emulators { get; init; }
+
     IReadOnlyList<IEmulator> ISystemManager.Emulators => Emulators?.Cast<IEmulator>().ToList();
+
+    /// <summary>Gets whether games should be grouped by their parent folder.</summary>
     public bool GroupByFolder { get; init; }
+
+    /// <summary>Gets whether recursive folder searching is disabled.</summary>
     public bool DisableRecursiveSearch { get; init; }
 
     // ReSharper disable once NotAccessedField.Local
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private static IDebugLogger _debugLogger;
 
+    /// <summary>
+    /// Initializes a new instance of the SystemManager with optional dependencies.
+    /// </summary>
     public SystemManager(IMessageBoxLibraryService messageBoxLibrary = null, IDebugLogger debugLogger = null)
     {
         _messageBoxLibrary = messageBoxLibrary;
@@ -61,6 +86,7 @@ public partial class SystemManager : ISystemManager
         return _fileLocation.FilePath;
     }
 
+    /// <summary>Gets whether the system.xml file is stored in portable mode (next to the executable).</summary>
     public static bool IsPortableMode
     {
         get
@@ -72,6 +98,9 @@ public partial class SystemManager : ISystemManager
         }
     }
 
+    /// <summary>
+    /// Checks whether a system configuration with the specified name exists in system.xml.
+    /// </summary>
     public static bool SystemExists(string systemName, IConfiguration configuration)
     {
         lock (XmlLock)
@@ -105,6 +134,9 @@ public partial class SystemManager : ISystemManager
         }
     }
 
+    /// <summary>
+    /// Loads all system manager configurations from system.xml, validating and cleaning invalid entries.
+    /// </summary>
     public static List<SystemManager> LoadSystemManagers(IConfiguration configuration, ILogErrors logErrors = null, IMessageBoxLibraryService messageBoxLibrary = null)
     {
         lock (XmlLock)
@@ -509,6 +541,9 @@ public partial class SystemManager : ISystemManager
         }
     }
 
+    /// <summary>
+    /// Adds or updates a system configuration from an Easy Mode preset.
+    /// </summary>
     public static Task AddOrUpdateSystemFromEasyModeAsync(EasyModeSystemConfig selectedSystem, string systemFolder)
     {
         var systemToSave = new SystemManager
@@ -544,6 +579,9 @@ public partial class SystemManager : ISystemManager
         };
     }
 
+    /// <summary>
+    /// Asynchronously saves a system configuration to system.xml, creating or updating the entry with retry logic.
+    /// </summary>
     public static async Task SaveSystemConfigurationAsync(SystemManager systemConfig, string originalSystemName = null, ILogErrors logErrors = null, IConfiguration configuration = null)
     {
         try
@@ -752,6 +790,9 @@ public partial class SystemManager : ISystemManager
         }
     }
 
+    /// <summary>
+    /// Asynchronously deletes a system configuration entry by name from system.xml.
+    /// </summary>
     public static async Task DeleteSystemAsync(string systemNameToDelete, ILogErrors logErrors = null, IConfiguration configuration = null)
     {
         try

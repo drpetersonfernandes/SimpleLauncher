@@ -1,7 +1,6 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.GameScan;
 

@@ -4,10 +4,17 @@ using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
+/// <summary>
+/// Window for configuring RetroAchievements credentials and settings.
+/// </summary>
 public partial class RetroAchievementsSettingsWindow
 {
     private readonly RetroAchievementsSettingsViewModel _viewModel;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RetroAchievementsSettingsWindow"/> class.
+    /// </summary>
+    /// <param name="viewModel">The view model providing settings logic.</param>
     public RetroAchievementsSettingsWindow(RetroAchievementsSettingsViewModel viewModel)
     {
         InitializeComponent();

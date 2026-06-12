@@ -2,24 +2,58 @@ using System.Xml.Linq;
 
 namespace SimpleLauncher.Services.SettingsManager.EmulatorSettings;
 
+using Interfaces;
+
+/// <summary>
+/// Configuration settings for the Supermodel (Sega Model 3) arcade emulator, including 3D rendering, input, and audio options.
+/// </summary>
 public class SupermodelSettings : IEmulatorSettings
 {
     private const string SectionName = "Supermodel";
 
+    /// <summary>Gets or sets whether the new 3D rendering engine is enabled.</summary>
     public bool New3DEngine { get; set; } = true;
+
+    /// <summary>Gets or sets whether quad rendering mode is enabled.</summary>
     public bool QuadRendering { get; set; }
+
+    /// <summary>Gets or sets whether fullscreen mode is enabled.</summary>
     public bool Fullscreen { get; set; } = true;
+
+    /// <summary>Gets or sets the horizontal resolution in pixels.</summary>
     public int ResX { get; set; } = 1920;
+
+    /// <summary>Gets or sets the vertical resolution in pixels.</summary>
     public int ResY { get; set; } = 1080;
+
+    /// <summary>Gets or sets whether widescreen mode is enabled.</summary>
     public bool WideScreen { get; set; } = true;
+
+    /// <summary>Gets or sets whether to stretch the display to fill the window.</summary>
     public bool Stretch { get; set; }
+
+    /// <summary>Gets or sets whether vertical sync is enabled.</summary>
     public bool Vsync { get; set; } = true;
+
+    /// <summary>Gets or sets whether frame throttling is enabled.</summary>
     public bool Throttle { get; set; } = true;
+
+    /// <summary>Gets or sets the music volume level (0–100).</summary>
     public int MusicVolume { get; set; } = 100;
+
+    /// <summary>Gets or sets the sound effects volume level (0–100).</summary>
     public int SoundVolume { get; set; } = 100;
+
+    /// <summary>Gets or sets the input system (e.g., "xinput", "dinput", "rawinput").</summary>
     public string InputSystem { get; set; } = "xinput";
+
+    /// <summary>Gets or sets whether multi-threaded rendering is enabled.</summary>
     public bool MultiThreaded { get; set; } = true;
+
+    /// <summary>Gets or sets the PowerPC CPU frequency in MHz.</summary>
     public int PowerPcFrequency { get; set; } = 50;
+
+    /// <summary>Gets or sets whether the emulator settings dialog is shown before launching a game.</summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
 
     private static string ValidateInputSystem(string value)
@@ -30,6 +64,7 @@ public class SupermodelSettings : IEmulatorSettings
         return normalized is "xinput" or "dinput" or "rawinput" ? normalized : "xinput";
     }
 
+    /// <summary>Loads emulator settings from the provided XML configuration element.</summary>
     public void LoadFromXml(XElement settings)
     {
         var s = settings.Element(SectionName);
@@ -50,6 +85,7 @@ public class SupermodelSettings : IEmulatorSettings
         ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
+    /// <summary>Serializes the current settings to an XML element.</summary>
     public XElement ToXElement()
     {
         return new XElement(SectionName,
@@ -70,6 +106,7 @@ public class SupermodelSettings : IEmulatorSettings
             new XElement("ShowSettingsBeforeLaunch", ShowSettingsBeforeLaunch));
     }
 
+    /// <summary>Copies all settings from another SupermodelSettings instance.</summary>
     public void CopyFrom(IEmulatorSettings other)
     {
         if (other is not SupermodelSettings src) return;
@@ -91,6 +128,7 @@ public class SupermodelSettings : IEmulatorSettings
         ShowSettingsBeforeLaunch = src.ShowSettingsBeforeLaunch;
     }
 
+    /// <summary>Resets all settings to their default values.</summary>
     public void ResetDefaults()
     {
         CopyFrom(new SupermodelSettings());

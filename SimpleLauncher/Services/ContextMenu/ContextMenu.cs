@@ -6,19 +6,14 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.WpfServices;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.ContextMenu;
 
-public interface IContextMenuService
-{
-    System.Windows.Controls.ContextMenu AddRightClickReturnContextMenu(RightClickContext context, IFindCoverImageService findCoverImage, IContextMenuFunctions contextMenuFunctions);
-    Button AddRightClickReturnButton(RightClickContext context, IFindCoverImageService findCoverImage, IContextMenuFunctions contextMenuFunctions);
-}
-
+/// <summary>
+/// Builds and manages right-click context menus for game items in the launcher.
+/// </summary>
 public class ContextMenuService : IContextMenuService
 {
     private readonly ILogErrors _logErrors;
@@ -26,6 +21,13 @@ public class ContextMenuService : IContextMenuService
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IRetroAchievementsHasherTool _raHasherTool;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ContextMenuService"/> class.
+    /// </summary>
+    /// <param name="logErrors">The service used to log errors.</param>
+    /// <param name="debugLogger">The logger used to record debug information.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
+    /// <param name="raHasherTool">The RetroAchievements hasher tool used to check system support.</param>
     public ContextMenuService(ILogErrors logErrors, IDebugLogger debugLogger, IMessageBoxLibraryService messageBox, IRetroAchievementsHasherTool raHasherTool)
     {
         _logErrors = logErrors;
@@ -34,11 +36,25 @@ public class ContextMenuService : IContextMenuService
         _raHasherTool = raHasherTool;
     }
 
+    /// <summary>
+    /// Creates and returns a context menu for the specified game item.
+    /// </summary>
+    /// <param name="context">The right-click context containing game and UI information.</param>
+    /// <param name="findCoverImage">The service used to find cover images.</param>
+    /// <param name="contextMenuFunctions">The functions that handle context menu actions.</param>
+    /// <returns>A configured <see cref="System.Windows.Controls.ContextMenu"/> for the game item.</returns>
     public System.Windows.Controls.ContextMenu AddRightClickReturnContextMenu(RightClickContext context, IFindCoverImageService findCoverImage, IContextMenuFunctions contextMenuFunctions)
     {
         return CreateMenu(context, findCoverImage, contextMenuFunctions);
     }
 
+    /// <summary>
+    /// Attaches a right-click context menu to the specified button and returns it.
+    /// </summary>
+    /// <param name="context">The right-click context containing game and UI information.</param>
+    /// <param name="findCoverImage">The service used to find cover images.</param>
+    /// <param name="contextMenuFunctions">The functions that handle context menu actions.</param>
+    /// <returns>The <see cref="Button"/> with the context menu attached.</returns>
     public Button AddRightClickReturnButton(RightClickContext context, IFindCoverImageService findCoverImage, IContextMenuFunctions contextMenuFunctions)
     {
         context.Button.ContextMenu = CreateMenu(context, findCoverImage, contextMenuFunctions);
@@ -216,7 +232,8 @@ public class ContextMenuService : IContextMenuService
             var viewAchievementsIcon = new Image
             {
                 Source = new BitmapImage(new Uri("pack://application:,,,/images/trophy.png")),
-                Width = 16, Height = 16
+                Width = 16,
+                Height = 16
             };
             var viewAchievementsText = (string)Application.Current.TryFindResource("ViewAchievements") ?? "View Achievements";
             viewAchievementsItem = new MenuItem

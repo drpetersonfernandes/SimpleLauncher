@@ -6,8 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.ContextMenu;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GamePad;
@@ -20,7 +18,6 @@ using SimpleLauncher.WpfServices;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
-using ILoadingState = SimpleLauncher.Services.LoadingInterface.ILoadingState;
 
 namespace SimpleLauncher.Pages;
 
@@ -364,39 +361,39 @@ internal partial class FavoritesPage : ILoadingState
             switch (e.Key)
             {
                 case Key.Delete:
-                {
-                    e.Handled = true;
-
-                    var selectedItems = FavoritesDataGrid.SelectedItems.Cast<Favorite>().ToList();
-                    if (selectedItems.Count > 0)
                     {
-                        _playSoundEffects.PlayTrashSound();
-                        foreach (var favorite in selectedItems)
+                        e.Handled = true;
+
+                        var selectedItems = FavoritesDataGrid.SelectedItems.Cast<Favorite>().ToList();
+                        if (selectedItems.Count > 0)
                         {
-                            _viewModel.RemoveFavoriteFromCollection(favorite);
+                            _playSoundEffects.PlayTrashSound();
+                            foreach (var favorite in selectedItems)
+                            {
+                                _viewModel.RemoveFavoriteFromCollection(favorite);
+                            }
+
+                            PreviewImage.Source = null;
+                            FavoritesDataGrid.ContextMenu = null;
+                        }
+                        else
+                        {
+                            await _messageBox.SelectAFavoriteToRemoveMessageBox();
                         }
 
-                        PreviewImage.Source = null;
-                        FavoritesDataGrid.ContextMenu = null;
+                        break;
                     }
-                    else
-                    {
-                        await _messageBox.SelectAFavoriteToRemoveMessageBox();
-                    }
-
-                    break;
-                }
                 case Key.Enter:
-                {
-                    e.Handled = true;
-                    if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
                     {
-                        _playSoundEffects.PlayNotificationSound();
-                        await LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName);
-                    }
+                        e.Handled = true;
+                        if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
+                        {
+                            _playSoundEffects.PlayNotificationSound();
+                            await LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName);
+                        }
 
-                    break;
-                }
+                        break;
+                    }
             }
         }
         catch (Exception ex)

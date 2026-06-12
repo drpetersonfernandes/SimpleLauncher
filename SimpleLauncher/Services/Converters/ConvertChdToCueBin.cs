@@ -2,10 +2,14 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.Converters;
 
+using Interfaces;
+
+/// <summary>
+/// Provides conversion of CHD disc image files to Cue/Bin format using chdman.exe.
+/// </summary>
 public static class ConvertChdToCueBin
 {
     private static readonly IDebugLogger DebugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();

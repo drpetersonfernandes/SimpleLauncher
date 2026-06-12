@@ -5,8 +5,17 @@ using System.Text;
 
 namespace SimpleLauncher.Services.DebugAndBugReport;
 
+/// <summary>
+/// Formats detailed bug reports including environment details, error information, and exception stack traces.
+/// </summary>
 public static class BugReportFormatter
 {
+    /// <summary>
+    /// Builds a formatted bug report string containing environment details, error information, and exception details.
+    /// </summary>
+    /// <param name="ex">The exception to include in the report, or null if no exception occurred.</param>
+    /// <param name="contextMessage">An optional contextual message describing the error.</param>
+    /// <returns>A formatted string containing the full bug report.</returns>
     public static string BuildReport(Exception ex, string contextMessage = null)
     {
         var message = new StringBuilder();

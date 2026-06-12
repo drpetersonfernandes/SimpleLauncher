@@ -1,10 +1,8 @@
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadImages;
@@ -15,7 +13,10 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameItemFactory;
 
-[SuppressMessage("ReSharper", "UnusedMember.Local")]
+/// <summary>
+/// Factory that creates <see cref="GameListViewItem"/> instances for the list view,
+/// including play history, favorites status, and preview image loading.
+/// </summary>
 public class GameListFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
@@ -53,6 +54,10 @@ public class GameListFactory(
     private readonly IImageLoader _imageLoader = imageLoader;
     private readonly IMessageBoxLibraryService _messageBox = messageBox;
 
+    /// <summary>
+    /// Creates a <see cref="GameListViewItem"/> for the given game entity path,
+    /// populating it with favorites status, play history, and MAME description data.
+    /// </summary>
     public Task<GameListViewItem> CreateGameListViewItemAsync(string entityPath, string systemName, SystemManager.SystemManager systemManager)
     {
         var isDirectory = Directory.Exists(entityPath);
@@ -112,6 +117,9 @@ public class GameListFactory(
         return Task.FromResult(gameListViewItem);
     }
 
+    /// <summary>
+    /// Updates the preview image in the main window when the selected game list item changes.
+    /// </summary>
     public async void HandleSelectionChangedAsync(GameListViewItem selectedItem)
     {
         try
@@ -260,12 +268,19 @@ public class GameListFactory(
         }
     }
 
+    /// <summary>
+    /// get machine description.
+    /// </summary>
+    /// <param name="fileName">The file name.</param>
     private string GetMachineDescription(string fileName)
     {
         var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileName, StringComparison.OrdinalIgnoreCase));
         return machine?.Description ?? "";
     }
 
+    /// <summary>
+    /// Launches the selected game using the currently chosen emulator and system configuration.
+    /// </summary>
     public async Task HandleDoubleClickAsync(GameListViewItem selectedItem)
     {
         if (selectedItem == null)

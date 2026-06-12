@@ -1,18 +1,23 @@
 using System.Diagnostics;
 using System.Globalization;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.SystemManager;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
+/// <summary>
+/// Mounts CHD (Compressed Hunks of Data) disc images using CHDMounter.exe and the Dokan filesystem driver.
+/// </summary>
 public class MountChdFiles : IMountChdFiles
 {
     private const string ChdMounterRelativePath = @"tools\CHDMounter\CHDMounter.exe";
 
     private readonly IDebugLogger _debugLogger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MountChdFiles"/> class.
+    /// </summary>
     public MountChdFiles(IDebugLogger debugLogger)
     {
         _debugLogger = debugLogger;
@@ -25,6 +30,9 @@ public class MountChdFiles : IMountChdFiles
             .ToHashSet();
     }
 
+    /// <summary>
+    /// Mounts a CHD file and returns a disposable drive handle with the mounted path and drive letter.
+    /// </summary>
     public async Task<MountChdDrive> MountAsync(string resolvedChdFilePath, int? consoleIndex, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         _debugLogger.Log($"[MountChdFiles.MountAsync] Starting to mount CHD: {resolvedChdFilePath} (ConsoleIndex: {consoleIndex?.ToString(CultureInfo.InvariantCulture) ?? "default"})");
@@ -126,6 +134,9 @@ public class MountChdFiles : IMountChdFiles
         }
     }
 
+    /// <summary>
+    /// Mounts a CHD file, locates a game file within the mounted drive, launches the emulator, and unmounts on exit.
+    /// </summary>
     public async Task MountChdFileAndLoadAsync(
         string resolvedChdFilePath,
         string selectedSystemName,
@@ -311,6 +322,9 @@ public class MountChdFiles : IMountChdFiles
         }
     }
 
+    /// <summary>
+    /// Mounts a CHD file with an explicit console index, locates a game file, launches the emulator, and unmounts on exit.
+    /// </summary>
     public async Task MountChdFileAndLoadWithConsoleIndexAsync(
         string resolvedChdFilePath,
         string selectedSystemName,
@@ -503,6 +517,9 @@ public class MountChdFiles : IMountChdFiles
         }
     }
 
+    /// <summary>
+    /// Determines the CHDMounter console index for a given system name and emulator name.
+    /// </summary>
     public int? GetConsoleIndexFromSystemName(string systemName, string emulatorName, ILogErrors logErrors)
     {
         if (string.IsNullOrEmpty(systemName))
@@ -726,6 +743,9 @@ public class MountChdFiles : IMountChdFiles
         }
     }
 
+    /// <summary>
+    /// Terminates all running CHDMounter processes to ensure clean unmounting.
+    /// </summary>
     public void KillAllChdMounterProcesses(ILogErrors logErrors)
     {
         try

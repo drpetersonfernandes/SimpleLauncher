@@ -1,11 +1,14 @@
 using System.Windows.Controls;
 using System.Windows.Threading;
-using SimpleLauncher.Services.GameFileLoadingOrchestrator;
-using SimpleLauncher.Services.UIReset;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 
+using Interfaces;
+
+/// <summary>
+/// Partial MainWindow implementing <see cref="IGameFileLoadingHost"/> for game file loading operations.
+/// </summary>
 public partial class MainWindow : IGameFileLoadingHost
 {
     Dispatcher IGameFileLoadingHost.Dispatcher => Dispatcher;

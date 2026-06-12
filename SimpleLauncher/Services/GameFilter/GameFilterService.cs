@@ -3,17 +3,28 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameFilter;
 
+/// <summary>
+/// Provides game file filtering and sorting operations including letter filtering,
+/// search query matching, cover image presence filtering, and MAME description sorting.
+/// </summary>
 public class GameFilterService : IGameFilterService
 {
     private readonly IFindCoverImageService _findCoverImage;
     private readonly SettingsManager.SettingsManager _settings;
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="GameFilterService"/>.
+    /// </summary>
     public GameFilterService(IFindCoverImageService findCoverImage, SettingsManager.SettingsManager settings)
     {
         _findCoverImage = findCoverImage;
         _settings = settings;
     }
 
+    /// <summary>
+    /// Filters the game file list based on the "ShowGames" setting, keeping only games
+    /// with or without cover images depending on the configured mode.
+    /// </summary>
     public Task<List<string>> FilterByShowGamesSettingAsync(
         List<string> files, string selectedSystem, SystemManager.SystemManager config)
     {
@@ -52,6 +63,9 @@ public class GameFilterService : IGameFilterService
         return Task.FromResult(filteredFiles);
     }
 
+    /// <summary>
+    /// Filters game files whose names start with the specified letter, or digits if "#" is provided.
+    /// </summary>
     public Task<List<string>> FilterByLetterAsync(List<string> files, string startLetter)
     {
         return Task.Run(() =>
@@ -71,6 +85,9 @@ public class GameFilterService : IGameFilterService
         });
     }
 
+    /// <summary>
+    /// Sorts the game file list by MAME machine description or by filename, depending on the sort order setting.
+    /// </summary>
     public List<string> SortByMameDescription(
         List<string> files, string mameSortOrder, Dictionary<string, string> mameLookup)
     {
@@ -88,6 +105,9 @@ public class GameFilterService : IGameFilterService
         return files.OrderBy(static f => Path.GetFileName(f), StringComparer.OrdinalIgnoreCase).ToList();
     }
 
+    /// <summary>
+    /// Filters game files whose filename or MAME description contains the search query (case-insensitive).
+    /// </summary>
     public Task<List<string>> FilterBySearchQueryAsync(
         List<string> files, string searchQuery, Dictionary<string, string> mameLookup)
     {

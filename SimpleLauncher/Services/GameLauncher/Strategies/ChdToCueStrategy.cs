@@ -3,24 +3,31 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
+/// <summary>
+/// Converts CHD files to CUE/BIN format for emulators that do not support CHD natively (e.g., 4DO, Raine).
+/// </summary>
 public class ChdToCueStrategy : ILaunchStrategy
 {
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IDebugLogger _debugLogger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ChdToCueStrategy"/> class.
+    /// </summary>
     public ChdToCueStrategy(IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
     {
         _messageBox = messageBox;
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
     }
 
+    /// <inheritdoc />
     public int Priority => 25;
 
+    /// <inheritdoc />
     public bool IsMatch(LaunchContext context)
     {
         if (string.IsNullOrEmpty(context.ResolvedFilePath) ||
@@ -44,6 +51,7 @@ public class ChdToCueStrategy : ILaunchStrategy
         return is4Do || isRaine;
     }
 
+    /// <inheritdoc />
     public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
         var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToCue") ?? "Converting CHD...";

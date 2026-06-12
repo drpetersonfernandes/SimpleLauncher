@@ -3,10 +3,12 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Hardcodet.Wpf.TaskbarNotification;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.TrayIcon;
 
+/// <summary>
+/// Manages the system tray icon, its context menu, and associated actions (open, minimize, exit, debug window).
+/// </summary>
 public class TrayIconManager : IDisposable
 {
     private static TrayIconManager _instance;
@@ -23,6 +25,9 @@ public class TrayIconManager : IDisposable
     private readonly RoutedEventHandler _onOpenDebugWindowHandler;
     private readonly RoutedEventHandler _trayMouseDoubleClickHandler;
 
+    /// <summary>
+    /// Initializes a new instance of the TrayIconManager, creating the tray icon and context menu.
+    /// </summary>
     public TrayIconManager(Window mainWindow, ILogErrors logErrors, IApplicationLifetime applicationLifetime, IDebugLogger debugLogger)
     {
         _instance = this;
@@ -170,11 +175,13 @@ public class TrayIconManager : IDisposable
         _applicationLifetime.Shutdown();
     }
 
+    /// <summary>Displays a balloon notification in the system tray.</summary>
     public static void ShowTrayMessage(string message)
     {
         _instance?._taskbarIcon.ShowBalloonTip("Simple Launcher", message, BalloonIcon.Info);
     }
 
+    /// <summary>Releases resources used by the TrayIconManager, removing the tray icon and unsubscribing events.</summary>
     public void Dispose()
     {
         if (_taskbarIcon != null)

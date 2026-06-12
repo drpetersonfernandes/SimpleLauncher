@@ -3,8 +3,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests the SystemManager and Emulator model classes for property assignment, defaults, and collection behavior.
+/// </summary>
 public class SystemManagerTests
 {
+    /// <summary>
+    /// Verifies that all SystemManager properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void SystemManagerPropertiesCanBeSetAndRetrieved()
     {
@@ -39,6 +45,9 @@ public class SystemManagerTests
         Assert.Equal("MAME", system.Emulators[0].EmulatorName);
     }
 
+    /// <summary>
+    /// Verifies that PrimarySystemFolder returns the first folder in the list.
+    /// </summary>
     [Fact]
     public void PrimarySystemFolderReturnsFirstFolder()
     {
@@ -51,6 +60,9 @@ public class SystemManagerTests
         Assert.Equal("C:\\roms\\NES", system.PrimarySystemFolder);
     }
 
+    /// <summary>
+    /// Verifies that PrimarySystemFolder returns null when SystemFolders is null.
+    /// </summary>
     [Fact]
     public void PrimarySystemFolderWithNullFoldersReturnsNull()
     {
@@ -63,6 +75,9 @@ public class SystemManagerTests
         Assert.Null(system.PrimarySystemFolder);
     }
 
+    /// <summary>
+    /// Verifies that PrimarySystemFolder returns null when SystemFolders is empty.
+    /// </summary>
     [Fact]
     public void PrimarySystemFolderWithEmptyFoldersReturnsNull()
     {
@@ -75,6 +90,9 @@ public class SystemManagerTests
         Assert.Null(system.PrimarySystemFolder);
     }
 
+    /// <summary>
+    /// Verifies that all Emulator properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void EmulatorPropertiesCanBeSetAndRetrieved()
     {
@@ -96,6 +114,9 @@ public class SystemManagerTests
         Assert.Equal("C:\\images", emulator.ImagePackDownloadExtractPath);
     }
 
+    /// <summary>
+    /// Verifies that Emulator properties default to null or false.
+    /// </summary>
     [Fact]
     public void EmulatorDefaultValuesAreNull()
     {
@@ -113,6 +134,9 @@ public class SystemManagerTests
         Assert.Null(emulator.ImagePackDownloadExtractPath);
     }
 
+    /// <summary>
+    /// Verifies that multiple emulators maintain their insertion order.
+    /// </summary>
     [Fact]
     public void SystemManagerWithMultipleEmulatorsPreservesOrder()
     {
@@ -134,6 +158,9 @@ public class SystemManagerTests
         Assert.Equal("Mednafen", system.Emulators[2].EmulatorName);
     }
 
+    /// <summary>
+    /// Verifies that boolean properties on SystemManager default to false.
+    /// </summary>
     [Fact]
     public void SystemManagerDefaultBoolPropertiesAreFalse()
     {

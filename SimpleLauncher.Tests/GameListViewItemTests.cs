@@ -3,8 +3,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for the <see cref="GameListViewItem"/> model class.
+/// </summary>
 public class GameListViewItemTests
 {
+    /// <summary>
+    /// Verifies that a new GameListViewItem has correct default values.
+    /// </summary>
     [Fact]
     public void DefaultValuesAreCorrect()
     {
@@ -22,6 +28,9 @@ public class GameListViewItemTests
         Assert.Equal(0, item.AchievementsTotal);
     }
 
+    /// <summary>
+    /// Verifies that init properties can be set during object creation.
+    /// </summary>
     [Fact]
     public void InitPropertiesCanBeSetDuringCreation()
     {
@@ -37,6 +46,9 @@ public class GameListViewItemTests
         Assert.Equal("game.zip", item.FileName);
     }
 
+    /// <summary>
+    /// Verifies that setting IsFavorite raises PropertyChanged.
+    /// </summary>
     [Fact]
     public void IsFavoriteRaisesPropertyChanged()
     {
@@ -56,6 +68,9 @@ public class GameListViewItemTests
         Assert.True(item.IsFavorite);
     }
 
+    /// <summary>
+    /// Verifies that setting IsFavorite to the same value does not raise PropertyChanged.
+    /// </summary>
     [Fact]
     public void IsFavoriteSameValueDoesNotRaisePropertyChanged()
     {
@@ -68,6 +83,9 @@ public class GameListViewItemTests
         Assert.False(eventRaised);
     }
 
+    /// <summary>
+    /// Verifies that setting MachineDescription raises PropertyChanged.
+    /// </summary>
     [Fact]
     public void MachineDescriptionRaisesPropertyChanged()
     {
@@ -87,6 +105,9 @@ public class GameListViewItemTests
         Assert.Equal("Neo Geo", item.MachineDescription);
     }
 
+    /// <summary>
+    /// Verifies that setting MachineDescription to the same value does not raise PropertyChanged.
+    /// </summary>
     [Fact]
     public void MachineDescriptionSameValueDoesNotRaisePropertyChanged()
     {
@@ -99,6 +120,9 @@ public class GameListViewItemTests
         Assert.False(eventRaised);
     }
 
+    /// <summary>
+    /// Verifies that setting TimesPlayed raises PropertyChanged.
+    /// </summary>
     [Fact]
     public void TimesPlayedRaisesPropertyChanged()
     {
@@ -118,6 +142,9 @@ public class GameListViewItemTests
         Assert.Equal("5", item.TimesPlayed);
     }
 
+    /// <summary>
+    /// Verifies that setting TimesPlayed to the same value does not raise PropertyChanged.
+    /// </summary>
     [Fact]
     public void TimesPlayedSameValueDoesNotRaisePropertyChanged()
     {
@@ -130,6 +157,9 @@ public class GameListViewItemTests
         Assert.False(eventRaised);
     }
 
+    /// <summary>
+    /// Verifies that setting PlayTime raises PropertyChanged.
+    /// </summary>
     [Fact]
     public void PlayTimeRaisesPropertyChanged()
     {
@@ -149,6 +179,9 @@ public class GameListViewItemTests
         Assert.Equal("1h 30m 0s", item.PlayTime);
     }
 
+    /// <summary>
+    /// Verifies that setting PlayTime to the same value does not raise PropertyChanged.
+    /// </summary>
     [Fact]
     public void PlayTimeSameValueDoesNotRaisePropertyChanged()
     {
@@ -161,6 +194,9 @@ public class GameListViewItemTests
         Assert.False(eventRaised);
     }
 
+    /// <summary>
+    /// Verifies that setting HasAchievements raises PropertyChanged.
+    /// </summary>
     [Fact]
     public void HasAchievementsRaisesPropertyChanged()
     {
@@ -180,6 +216,9 @@ public class GameListViewItemTests
         Assert.True(item.HasAchievements);
     }
 
+    /// <summary>
+    /// Verifies that setting AchievementsEarned raises PropertyChanged.
+    /// </summary>
     [Fact]
     public void AchievementsEarnedRaisesPropertyChanged()
     {
@@ -199,6 +238,9 @@ public class GameListViewItemTests
         Assert.Equal(10, item.AchievementsEarned);
     }
 
+    /// <summary>
+    /// Verifies that setting AchievementsTotal raises PropertyChanged.
+    /// </summary>
     [Fact]
     public void AchievementsTotalRaisesPropertyChanged()
     {
@@ -218,6 +260,9 @@ public class GameListViewItemTests
         Assert.Equal(50, item.AchievementsTotal);
     }
 
+    /// <summary>
+    /// Verifies that setting AchievementsEarned to the same value does not raise PropertyChanged.
+    /// </summary>
     [Fact]
     public void AchievementsEarnedSameValueDoesNotRaisePropertyChanged()
     {
@@ -230,6 +275,9 @@ public class GameListViewItemTests
         Assert.False(eventRaised);
     }
 
+    /// <summary>
+    /// Verifies that setting AchievementsTotal to the same value does not raise PropertyChanged.
+    /// </summary>
     [Fact]
     public void AchievementsTotalSameValueDoesNotRaisePropertyChanged()
     {

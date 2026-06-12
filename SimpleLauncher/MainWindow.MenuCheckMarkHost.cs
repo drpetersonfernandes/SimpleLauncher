@@ -1,11 +1,14 @@
 using System.Windows.Controls;
-using SimpleLauncher.Services.MenuCheckMark;
 
 namespace SimpleLauncher;
 
+using Interfaces;
+
+/// <summary>
+/// Partial MainWindow implementing <see cref="IMenuCheckMarkHost"/> for menu check mark state management.
+/// </summary>
 public partial class MainWindow
 {
-    // IMenuCheckMarkHost explicit implementations
     MenuItem IMenuCheckMarkHost.Size50 => Size50;
     MenuItem IMenuCheckMarkHost.Size100 => Size100;
     MenuItem IMenuCheckMarkHost.Size150 => Size150;

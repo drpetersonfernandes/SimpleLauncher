@@ -2,11 +2,12 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Microsoft.Win32;
 using SimpleLauncher.Services.CheckPaths;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.SanitizeInputString;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
+
+using Interfaces;
 
 internal partial class EditSystemWindow
 {

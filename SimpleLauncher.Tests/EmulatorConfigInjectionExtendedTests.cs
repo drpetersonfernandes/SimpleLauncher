@@ -1,7 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Nodes;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
@@ -11,6 +10,11 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+using Interfaces;
+
+/// <summary>
+/// Extended tests for emulator configuration injection covering disabled/false-value edge cases for all emulators.
+/// </summary>
 [SuppressMessage("ReSharper", "NullableWarningSuppressionIsUsed")]
 public class EmulatorConfigInjectionExtendedTests : IDisposable
 {
@@ -72,6 +76,9 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
 
     // DuckStation edge cases
 
+    /// <summary>
+    /// Verifies that DuckStation writes false values for all boolean options when disabled.
+    /// </summary>
     [Fact]
     public void DuckStationDisabledOptionsUsesFalseValues()
     {
@@ -105,6 +112,9 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
 
     // PCSX2 edge cases
 
+    /// <summary>
+    /// Verifies that PCSX2 writes false values for all boolean options when disabled.
+    /// </summary>
     [Fact]
     public void Pcsx2DisabledOptionsUsesFalseValues()
     {
@@ -136,6 +146,9 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
 
     // Mesen edge cases
 
+    /// <summary>
+    /// Verifies that Mesen writes false values for all boolean options when disabled.
+    /// </summary>
     [Fact]
     public void MesenDisabledOptionsUsesFalseValues()
     {
@@ -170,6 +183,9 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
 
     // Xenia edge cases
 
+    /// <summary>
+    /// Verifies that Xenia writes false values for all boolean options when disabled.
+    /// </summary>
     [Fact]
     public void XeniaDisabledOptionsUsesFalseValues()
     {
@@ -214,6 +230,9 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
 
     // RPCS3 edge cases
 
+    /// <summary>
+    /// Verifies that RPCS3 writes false values for all boolean options when disabled.
+    /// </summary>
     [Fact]
     public void Rpcs3DisabledOptionsUsesFalseValues()
     {
@@ -237,6 +256,9 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
 
     // Redream edge cases
 
+    /// <summary>
+    /// Verifies that Redream uses numeric zero/false values for disabled boolean options.
+    /// </summary>
     [Fact]
     public void RedreamDisabledOptionsUsesZeroValues()
     {
@@ -268,6 +290,9 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
 
     // RetroArch edge cases
 
+    /// <summary>
+    /// Verifies that RetroArch writes false values for all boolean options when disabled.
+    /// </summary>
     [Fact]
     public void RetroArchDisabledOptionsUsesFalseValues()
     {
@@ -334,6 +359,9 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
 
     // Blastem edge cases
 
+    /// <summary>
+    /// Verifies that Blastem uses "off" values for disabled boolean options.
+    /// </summary>
     [Fact]
     public void BlastemDisabledOptionsUsesOffValues()
     {

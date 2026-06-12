@@ -2,18 +2,23 @@ using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
+/// <summary>
+/// Handles configuration injection for the DuckStation (PS1) emulator before launching a game.
+/// </summary>
 public class DuckStationConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
     private readonly IServiceScopeFactory _scopeFactory;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DuckStationConfigHandler"/> class.
+    /// </summary>
     public DuckStationConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
@@ -21,12 +26,14 @@ public class DuckStationConfigHandler : IEmulatorConfigHandler
         _scopeFactory = scopeFactory;
     }
 
+    /// <inheritdoc />
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("DuckStation", StringComparison.OrdinalIgnoreCase) ||
                (emulatorPath?.Contains("duckstation", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
+    /// <inheritdoc />
     public async Task<bool> HandleConfigurationAsync(LaunchContext context)
     {
         if (context.EmulatorManager != null)

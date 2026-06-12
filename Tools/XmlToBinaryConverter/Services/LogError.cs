@@ -71,8 +71,8 @@ public class LogError
             }
             catch (Exception ex)
             {
-                 // Handle potential delete errors
-                 Console.WriteLine($"Error clearing log file: {ex.Message}");
+                // Handle potential delete errors
+                Console.WriteLine($"Error clearing log file: {ex.Message}");
             }
         }
     }

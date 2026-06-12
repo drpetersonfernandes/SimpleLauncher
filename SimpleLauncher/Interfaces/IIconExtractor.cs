@@ -1,5 +1,3 @@
-using SimpleLauncher.Services.DebugAndBugReport;
-
 namespace SimpleLauncher.Interfaces;
 
 public interface IIconExtractor

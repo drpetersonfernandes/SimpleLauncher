@@ -3,8 +3,15 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Provides extended test coverage for the <see cref="SystemPlayTime"/> model, verifying formatted output
+/// and property behavior across various scenarios.
+/// </summary>
 public class SystemPlayTimeExtendedTests
 {
+    /// <summary>
+    /// Verifies that <see cref="SystemPlayTime.PlayTimeSeconds"/> defaults to zero.
+    /// </summary>
     [Fact]
     public void SystemPlayTimeDefaultPlayTimeSecondsIsZero()
     {
@@ -12,6 +19,9 @@ public class SystemPlayTimeExtendedTests
         Assert.Equal(0, spt.PlayTimeSeconds);
     }
 
+    /// <summary>
+    /// Verifies that zero seconds produces 0:00:00.
+    /// </summary>
     [Fact]
     public void SystemPlayTimeFormattedPlayTimeZeroSeconds()
     {
@@ -19,6 +29,9 @@ public class SystemPlayTimeExtendedTests
         Assert.Equal("0:00:00", spt.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that 3600 seconds produces 1:00:00.
+    /// </summary>
     [Fact]
     public void SystemPlayTimeFormattedPlayTimeOneHour()
     {
@@ -26,6 +39,9 @@ public class SystemPlayTimeExtendedTests
         Assert.Equal("1:00:00", spt.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that 3723 seconds produces 1:02:03.
+    /// </summary>
     [Fact]
     public void SystemPlayTimeFormattedPlayTimeComplex()
     {
@@ -33,6 +49,9 @@ public class SystemPlayTimeExtendedTests
         Assert.Equal("1:02:03", spt.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that 120 seconds produces 0:02:00.
+    /// </summary>
     [Fact]
     public void SystemPlayTimeFormattedPlayTimeMinutesOnly()
     {
@@ -40,6 +59,9 @@ public class SystemPlayTimeExtendedTests
         Assert.Equal("0:02:00", spt.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that 45 seconds produces 0:00:45.
+    /// </summary>
     [Fact]
     public void SystemPlayTimeFormattedPlayTimeSecondsOnly()
     {
@@ -47,6 +69,9 @@ public class SystemPlayTimeExtendedTests
         Assert.Equal("0:00:45", spt.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that 86400 seconds (24 hours) produces 24:00:00.
+    /// </summary>
     [Fact]
     public void SystemPlayTimeFormattedPlayTimeLargeValue()
     {
@@ -54,6 +79,9 @@ public class SystemPlayTimeExtendedTests
         Assert.Equal("24:00:00", spt.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that <see cref="SystemPlayTime.SystemName"/> is set correctly during object initialization.
+    /// </summary>
     [Fact]
     public void SystemPlayTimeSystemNameIsInitOnly()
     {
@@ -61,6 +89,9 @@ public class SystemPlayTimeExtendedTests
         Assert.Equal("SNES", spt.SystemName);
     }
 
+    /// <summary>
+    /// Verifies that <see cref="SystemPlayTime.PlayTimeSeconds"/> can be set and updated after construction.
+    /// </summary>
     [Fact]
     public void SystemPlayTimePlayTimeSecondsCanBeSet()
     {
@@ -71,6 +102,9 @@ public class SystemPlayTimeExtendedTests
         Assert.Equal(200, spt.PlayTimeSeconds);
     }
 
+    /// <summary>
+    /// Verifies that <see cref="SystemPlayTime.FormattedPlayTime"/> reflects the current <see cref="SystemPlayTime.PlayTimeSeconds"/> value after updates.
+    /// </summary>
     [Fact]
     public void SystemPlayTimeFormattedPlayTimeUpdatesWithPlayTimeSeconds()
     {
@@ -81,6 +115,9 @@ public class SystemPlayTimeExtendedTests
         Assert.Equal("1:01:01", spt.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that multiple <see cref="SystemPlayTime"/> instances maintain independent formatted outputs.
+    /// </summary>
     [Fact]
     public void SystemPlayTimeMultipleSystems()
     {

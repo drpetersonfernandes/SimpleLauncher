@@ -4,6 +4,9 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests the SteamVdfParser for parsing Valve Data Format (VDF) files used by Steam.
+/// </summary>
 public class SteamVdfParserTests : IDisposable
 {
     private readonly string _testDirectory;
@@ -32,6 +35,9 @@ public class SteamVdfParserTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Verifies that simple key-value pairs in a VDF file are parsed into the correct dictionary structure.
+    /// </summary>
     [Fact]
     public void ParseSimpleKeyValuePairsReturnsCorrectDictionary()
     {
@@ -55,6 +61,9 @@ public class SteamVdfParserTests : IDisposable
         Assert.Equal("Steamworks Shared", appState["installdir"]);
     }
 
+    /// <summary>
+    /// Verifies that nested dictionary blocks in VDF format are parsed with correct hierarchy.
+    /// </summary>
     [Fact]
     public void ParseNestedDictionariesReturnsCorrectStructure()
     {
@@ -75,6 +84,9 @@ public class SteamVdfParserTests : IDisposable
         Assert.Equal("value", level1["key"]);
     }
 
+    /// <summary>
+    /// Verifies that escaped quote characters in VDF values are unescaped properly.
+    /// </summary>
     [Fact]
     public void ParseEscapedQuotesInValuesUnescapesCorrectly()
     {
@@ -87,6 +99,9 @@ public class SteamVdfParserTests : IDisposable
         Assert.Equal("some \"quoted\" value", result["key"].ToString());
     }
 
+    /// <summary>
+    /// Verifies that escaped backslash characters in VDF values are preserved correctly.
+    /// </summary>
     [Fact]
     public void ParseEscapedBackslashesUnescapesCorrectly()
     {
@@ -100,6 +115,9 @@ public class SteamVdfParserTests : IDisposable
         Assert.Equal("path\\of\\file", result["key"].ToString());
     }
 
+    /// <summary>
+    /// Verifies that Windows-style backslash paths in VDF values are preserved.
+    /// </summary>
     [Fact]
     public void ParseWindowsBackslashPathsPreservesBackslashes()
     {
@@ -112,6 +130,9 @@ public class SteamVdfParserTests : IDisposable
         Assert.Equal("C:\\games\\Steam", result["installdir"].ToString());
     }
 
+    /// <summary>
+    /// Verifies that parsing an empty VDF file returns an empty dictionary.
+    /// </summary>
     [Fact]
     public void ParseEmptyFileReturnsEmptyDictionary()
     {
@@ -124,6 +145,9 @@ public class SteamVdfParserTests : IDisposable
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Verifies that parsing a non-existent file returns an empty dictionary.
+    /// </summary>
     [Fact]
     public void ParseNonExistentFileReturnsEmptyDictionary()
     {
@@ -135,6 +159,9 @@ public class SteamVdfParserTests : IDisposable
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Verifies that comment lines starting with // are ignored during parsing.
+    /// </summary>
     [Fact]
     public void ParseCommentsAreIgnored()
     {
@@ -152,6 +179,9 @@ public class SteamVdfParserTests : IDisposable
         Assert.Equal(2, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that VDF dictionary key lookups are case-insensitive.
+    /// </summary>
     [Fact]
     public void ParseIsCaseInsensitiveForKeys()
     {
@@ -170,6 +200,9 @@ public class SteamVdfParserTests : IDisposable
         Assert.True(appState.ContainsKey("APPID"));
     }
 
+    /// <summary>
+    /// Verifies that escaped newline characters in VDF values are unescaped properly.
+    /// </summary>
     [Fact]
     public void ParseNewlineEscapesInValuesUnescapesCorrectly()
     {
@@ -182,6 +215,9 @@ public class SteamVdfParserTests : IDisposable
         Assert.Equal("line1\nline2", result["key"].ToString());
     }
 
+    /// <summary>
+    /// Verifies that escaped tab characters in VDF values are unescaped properly.
+    /// </summary>
     [Fact]
     public void ParseTabEscapesInValuesUnescapesCorrectly()
     {

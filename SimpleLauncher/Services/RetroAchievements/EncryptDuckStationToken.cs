@@ -1,12 +1,19 @@
 using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Text;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 
+using Interfaces;
+
+/// <summary>
+/// Provides DuckStation-compatible AES encryption for RetroAchievements API tokens.
+/// </summary>
 public class EncryptDuckStationToken
 {
+    /// <summary>
+    /// Encrypts a RetroAchievements token using DuckStation's AES-128-CBC scheme with a user-derived key.
+    /// </summary>
     public static string EncryptDuckStationTokenMethod(string token, string username, bool isPortable, ILogErrors logErrors)
     {
         if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(username)) return "";

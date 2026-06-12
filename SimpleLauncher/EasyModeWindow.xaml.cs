@@ -11,10 +11,8 @@ using System.Windows.Controls;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.CreateFolders;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.EasyMode;
-using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.PlaySound;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
@@ -33,6 +31,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     // Track download states for all components
     private readonly Dictionary<string, DownloadButtonState> _downloadStates = new();
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the emulator has been downloaded.
+    /// </summary>
     public bool IsEmulatorDownloaded
     {
         get;
@@ -44,6 +45,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     } = true;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the core has been downloaded.
+    /// </summary>
     public bool IsCoreDownloaded
     {
         get;
@@ -55,6 +59,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     } = true;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether image pack 1 has been downloaded.
+    /// </summary>
     public bool IsImagePack1Downloaded
     {
         get;
@@ -65,6 +72,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     } = true;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether image pack 2 has been downloaded.
+    /// </summary>
     public bool IsImagePack2Downloaded
     {
         get;
@@ -75,6 +85,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     } = true;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether image pack 3 has been downloaded.
+    /// </summary>
     public bool IsImagePack3Downloaded
     {
         get;
@@ -85,6 +98,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     } = true;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether image pack 4 has been downloaded.
+    /// </summary>
     public bool IsImagePack4Downloaded
     {
         get;
@@ -95,6 +111,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     } = true;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether image pack 5 has been downloaded.
+    /// </summary>
     public bool IsImagePack5Downloaded
     {
         get;
@@ -105,6 +124,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     } = true;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether image pack 1 is available for download.
+    /// </summary>
     public bool IsImagePack1Available
     {
         get;
@@ -115,6 +137,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether image pack 2 is available for download.
+    /// </summary>
     public bool IsImagePack2Available
     {
         get;
@@ -125,6 +150,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether image pack 3 is available for download.
+    /// </summary>
     public bool IsImagePack3Available
     {
         get;
@@ -135,6 +163,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether image pack 4 is available for download.
+    /// </summary>
     public bool IsImagePack4Available
     {
         get;
@@ -145,6 +176,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether image pack 5 is available for download.
+    /// </summary>
     public bool IsImagePack5Available
     {
         get;
@@ -155,6 +189,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     }
 
+    /// <summary>
+    /// Gets a value indicating whether an operation is currently in progress.
+    /// </summary>
     public bool IsOperationInProgress
     {
         get;

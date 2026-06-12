@@ -1,6 +1,5 @@
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.CheckIfDirectoryIsWritable;
 

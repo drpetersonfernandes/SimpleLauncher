@@ -2,29 +2,70 @@ using System.Xml.Linq;
 
 namespace SimpleLauncher.Services.SettingsManager.EmulatorSettings;
 
+using Interfaces;
+
+/// <summary>
+/// Configuration settings for the Xenia (Xbox 360) emulator, including GPU, audio, scaling, and input options.
+/// </summary>
 public class XeniaSettings : IEmulatorSettings
 {
     private const string SectionName = "Xenia";
 
+    /// <summary>Gets or sets the readback resolve mode (e.g., "none").</summary>
     public string ReadbackResolve { get; set; } = "none";
+
+    /// <summary>Gets or sets whether sRGB gamma correction is enabled.</summary>
     public bool GammaSrgb { get; set; }
+
+    /// <summary>Gets or sets whether controller vibration is enabled.</summary>
     public bool Vibration { get; set; } = true;
+
+    /// <summary>Gets or sets whether cache mounting is enabled.</summary>
     public bool MountCache { get; set; } = true;
+
+    /// <summary>Gets or sets the GPU backend (e.g., "d3d12").</summary>
     public string Gpu { get; set; } = "d3d12";
+
+    /// <summary>Gets or sets whether vertical sync is enabled.</summary>
     public bool Vsync { get; set; } = true;
+
+    /// <summary>Gets or sets the horizontal resolution scale factor.</summary>
     public int ResScaleX { get; set; } = 1;
+
+    /// <summary>Gets or sets the vertical resolution scale factor.</summary>
     public int ResScaleY { get; set; } = 1;
+
+    /// <summary>Gets or sets whether fullscreen mode is enabled.</summary>
     public bool Fullscreen { get; set; }
+
+    /// <summary>Gets or sets the audio processing unit backend (e.g., "xaudio2").</summary>
     public string Apu { get; set; } = "xaudio2";
+
+    /// <summary>Gets or sets whether audio output is muted.</summary>
     public bool Mute { get; set; }
+
+    /// <summary>Gets or sets the anti-aliasing mode.</summary>
     public string Aa { get; set; } = "";
+
+    /// <summary>Gets or sets the resolution scaling method (e.g., "fsr").</summary>
     public string Scaling { get; set; } = "fsr";
+
+    /// <summary>Gets or sets whether game patches are applied.</summary>
     public bool ApplyPatches { get; set; } = true;
+
+    /// <summary>Gets or sets whether Discord Rich Presence integration is enabled.</summary>
     public bool DiscordPresence { get; set; } = true;
+
+    /// <summary>Gets or sets the user language index.</summary>
     public int UserLanguage { get; set; } = 1;
+
+    /// <summary>Gets or sets the HID (human interface device) input backend (e.g., "xinput").</summary>
     public string Hid { get; set; } = "xinput";
+
+    /// <summary>Gets or sets whether the emulator settings dialog is shown before launching a game.</summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
 
+    /// <summary>Loads emulator settings from the provided XML configuration element.</summary>
     public void LoadFromXml(XElement settings)
     {
         var s = settings.Element(SectionName);
@@ -48,6 +89,7 @@ public class XeniaSettings : IEmulatorSettings
         ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
+    /// <summary>Serializes the current settings to an XML element.</summary>
     public XElement ToXElement()
     {
         return new XElement(SectionName,
@@ -71,6 +113,7 @@ public class XeniaSettings : IEmulatorSettings
             new XElement("ShowSettingsBeforeLaunch", ShowSettingsBeforeLaunch));
     }
 
+    /// <summary>Copies all settings from another XeniaSettings instance.</summary>
     public void CopyFrom(IEmulatorSettings other)
     {
         if (other is not XeniaSettings src) return;
@@ -95,6 +138,7 @@ public class XeniaSettings : IEmulatorSettings
         ShowSettingsBeforeLaunch = src.ShowSettingsBeforeLaunch;
     }
 
+    /// <summary>Resets all settings to their default values.</summary>
     public void ResetDefaults()
     {
         CopyFrom(new XeniaSettings());

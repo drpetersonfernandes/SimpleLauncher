@@ -1,4 +1,3 @@
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameScan;
 
 namespace SimpleLauncher.Interfaces;

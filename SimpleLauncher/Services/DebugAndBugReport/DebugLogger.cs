@@ -3,11 +3,20 @@ using System.Globalization;
 
 namespace SimpleLauncher.Services.DebugAndBugReport;
 
+using Interfaces;
+
+/// <summary>
+/// Provides debug logging functionality with optional output to a debug window.
+/// </summary>
 public class DebugLogger : IDebugLogger
 {
     private readonly bool _isDebugMode;
     private readonly DebugWindow _logWindowInstance;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DebugLogger"/> class.
+    /// </summary>
+    /// <param name="isDebugModeEnabled">If true, enables debug window output for log messages.</param>
     public DebugLogger(bool isDebugModeEnabled)
     {
         _isDebugMode = isDebugModeEnabled;
@@ -19,6 +28,10 @@ public class DebugLogger : IDebugLogger
         Log("Debug logging initialized.");
     }
 
+    /// <summary>
+    /// Logs a debug message to the debug output and optionally to the debug window.
+    /// </summary>
+    /// <param name="message">The message to log.</param>
     public void Log(string message)
     {
         Debug.WriteLine($"[DEBUG] {DateTime.Now:HH:mm:ss.fff} - {message}");
@@ -29,6 +42,11 @@ public class DebugLogger : IDebugLogger
         }
     }
 
+    /// <summary>
+    /// Logs exception details including type, message, source, stack trace, and any inner exception.
+    /// </summary>
+    /// <param name="ex">The exception to log.</param>
+    /// <param name="contextMessage">An optional context message describing the error scenario.</param>
     public void LogException(Exception ex, string contextMessage = null)
     {
         if (ex == null)

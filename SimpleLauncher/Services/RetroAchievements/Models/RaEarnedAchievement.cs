@@ -3,6 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Services.RetroAchievements.Models;
 
+/// <summary>
+/// Represents an achievement earned by a user within a specific time range, including game and badge metadata.
+/// </summary>
 public record RaEarnedAchievement
 {
     [JsonPropertyName("Date")]
@@ -60,8 +63,24 @@ public record RaEarnedAchievement
     public string GameUrl { get; set; } = "";
 
     private DateTime? UnlockedDate => DateTime.TryParse(Date, out var dt) ? dt : null;
+
+    /// <summary>
+    /// Gets a formatted display of the unlock date in local time.
+    /// </summary>
     public string UnlockedDateDisplay => UnlockedDate?.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture) ?? "N/A";
+
+    /// <summary>
+    /// Gets a display string indicating hardcore or casual mode.
+    /// </summary>
     public string ModeDisplay => HardcoreMode == 1 ? "Hardcore" : "Casual";
+
+    /// <summary>
+    /// Gets the full URL for the achievement badge image.
+    /// </summary>
     public string BadgeFullUrl => $"https://retroachievements.org{BadgeUrl}";
+
+    /// <summary>
+    /// Gets the full URL for the game icon image.
+    /// </summary>
     public string GameIconFullUrl => $"https://retroachievements.org{GameIcon}";
 }

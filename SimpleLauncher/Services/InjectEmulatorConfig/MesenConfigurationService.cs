@@ -1,8 +1,9 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
+
+using Interfaces;
 
 public static class MesenConfigurationService
 {

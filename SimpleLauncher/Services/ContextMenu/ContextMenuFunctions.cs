@@ -9,12 +9,10 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadImages;
-using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.TakeScreenshot;
@@ -28,15 +26,33 @@ using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
 
 namespace SimpleLauncher.Services.ContextMenu;
 
+/// <summary>
+/// Implements context menu actions for game items such as favorites, media viewing, screenshots, and deletion.
+/// </summary>
 public class ContextMenuFunctions : IContextMenuFunctions
 {
     private readonly IDebugLogger _debugLogger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ContextMenuFunctions"/> class.
+    /// </summary>
+    /// <param name="debugLogger">The logger used to record debug information.</param>
     public ContextMenuFunctions(IDebugLogger debugLogger)
     {
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
     }
 
+    /// <summary>
+    /// Adds a game to the favorites list and updates the UI accordingly.
+    /// </summary>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileNameWithExtension">The file name of the game with its extension.</param>
+    /// <param name="gameFileGrid">The wrap panel containing game buttons, or null if using list view.</param>
+    /// <param name="favoritesManager">The favorites manager instance.</param>
+    /// <param name="mainWindow">The main application window.</param>
+    /// <param name="playSoundEffects">The service used to play sound effects.</param>
+    /// <param name="logErrors">The service used to log errors.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public async Task AddToFavorites(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         try
@@ -96,6 +112,17 @@ public class ContextMenuFunctions : IContextMenuFunctions
         }
     }
 
+    /// <summary>
+    /// Removes a game from the favorites list and updates the UI accordingly.
+    /// </summary>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileNameWithExtension">The file name of the game with its extension.</param>
+    /// <param name="gameFileGrid">The wrap panel containing game buttons, or null if using list view.</param>
+    /// <param name="favoritesManager">The favorites manager instance.</param>
+    /// <param name="mainWindow">The main application window.</param>
+    /// <param name="playSoundEffects">The service used to play sound effects.</param>
+    /// <param name="logErrors">The service used to log errors.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public async Task RemoveFromFavorites(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         try
@@ -151,6 +178,16 @@ public class ContextMenuFunctions : IContextMenuFunctions
         }
     }
 
+    /// <summary>
+    /// Opens a video link for the specified game in the default browser.
+    /// </summary>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
+    /// <param name="machines">The collection of MAME machine entries for description lookup.</param>
+    /// <param name="settings">The application settings containing the video URL template.</param>
+    /// <param name="mainWindow">The main application window.</param>
+    /// <param name="logErrors">The service used to log errors.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public async Task OpenVideoLink(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, SettingsManager.SettingsManager settings, MainWindow mainWindow, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         // Attempt to find a matching machine description
@@ -189,6 +226,16 @@ public class ContextMenuFunctions : IContextMenuFunctions
         }
     }
 
+    /// <summary>
+    /// Opens an information link for the specified game in the default browser.
+    /// </summary>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
+    /// <param name="machines">The collection of MAME machine entries for description lookup.</param>
+    /// <param name="settings">The application settings containing the info URL template.</param>
+    /// <param name="mainWindow">The main application window.</param>
+    /// <param name="logErrors">The service used to log errors.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public async Task OpenInfoLink(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, SettingsManager.SettingsManager settings, MainWindow mainWindow, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         // Attempt to find a matching machine description
@@ -227,6 +274,15 @@ public class ContextMenuFunctions : IContextMenuFunctions
         }
     }
 
+    /// <summary>
+    /// Opens the ROM history window for the specified game.
+    /// </summary>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
+    /// <param name="machines">The collection of MAME machine entries for description lookup.</param>
+    /// <param name="mainWindow">The main application window.</param>
+    /// <param name="logErrors">The service used to log errors.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public async Task OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, MainWindow mainWindow, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         var romName = fileNameWithoutExtension.ToLowerInvariant();
@@ -257,6 +313,17 @@ public class ContextMenuFunctions : IContextMenuFunctions
         }
     }
 
+    /// <summary>
+    /// Opens the RetroAchievements window for the specified game, performing hash calculation and game lookup.
+    /// </summary>
+    /// <param name="filePath">The full path to the game file.</param>
+    /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
+    /// <param name="systemManager">The system manager for the selected system.</param>
+    /// <param name="mainWindow">The main application window.</param>
+    /// <param name="playSoundEffects">The service used to play sound effects.</param>
+    /// <param name="loadingStateProvider">The loading state provider for showing/hiding overlays.</param>
+    /// <param name="logErrors">The service used to log errors.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public async Task OpenRetroAchievementsWindowAsync(string filePath, string fileNameWithoutExtension, SystemManager.SystemManager systemManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         string tempExtractionPath = null;
@@ -546,6 +613,14 @@ public class ContextMenuFunctions : IContextMenuFunctions
         }
     }
 
+    /// <summary>
+    /// Opens the cover image for the specified game in an image viewer window.
+    /// </summary>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
+    /// <param name="systemManager">The system manager for the selected system.</param>
+    /// <param name="mainWindow">The main application window.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public Task OpenCover(string systemName, string fileNameWithoutExtension, SystemManager.SystemManager systemManager, MainWindow mainWindow, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -600,6 +675,12 @@ public class ContextMenuFunctions : IContextMenuFunctions
         }
     }
 
+    /// <summary>
+    /// Opens the title snapshot image for the specified game in an image viewer window.
+    /// </summary>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public Task OpenTitleSnapshot(string systemName, string fileNameWithoutExtension, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -622,7 +703,12 @@ public class ContextMenuFunctions : IContextMenuFunctions
         return messageBox.ThereIsNoTitleSnapshotMessageBox();
     }
 
-// Use fileNameWithoutExtension
+    /// <summary>
+    /// Opens the gameplay snapshot image for the specified game in an image viewer window.
+    /// </summary>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public Task OpenGameplaySnapshot(string systemName, string fileNameWithoutExtension, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -645,7 +731,12 @@ public class ContextMenuFunctions : IContextMenuFunctions
         return messageBox.ThereIsNoGameplaySnapshotMessageBox();
     }
 
-// Use fileNameWithoutExtension
+    /// <summary>
+    /// Opens the cart image for the specified game in an image viewer window.
+    /// </summary>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public Task OpenCart(string systemName, string fileNameWithoutExtension, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -668,7 +759,12 @@ public class ContextMenuFunctions : IContextMenuFunctions
         return messageBox.ThereIsNoCartMessageBox();
     }
 
-// Use fileNameWithoutExtension
+    /// <summary>
+    /// Plays the video file for the specified game using the default media player.
+    /// </summary>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public Task PlayVideo(string systemName, string fileNameWithoutExtension, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -693,7 +789,13 @@ public class ContextMenuFunctions : IContextMenuFunctions
         return messageBox.ThereIsNoVideoFileMessageBox();
     }
 
-// Use fileNameWithoutExtension
+    /// <summary>
+    /// Opens the PDF manual for the specified game using the default PDF viewer.
+    /// </summary>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
+    /// <param name="logErrors">The service used to log errors.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public async Task OpenManual(string systemName, string fileNameWithoutExtension, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -745,7 +847,13 @@ public class ContextMenuFunctions : IContextMenuFunctions
         await messageBox.ThereIsNoManualMessageBox();
     }
 
-// Use fileNameWithoutExtension
+    /// <summary>
+    /// Opens the PDF walkthrough for the specified game using the default PDF viewer.
+    /// </summary>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
+    /// <param name="logErrors">The service used to log errors.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public async Task OpenWalkthrough(string systemName, string fileNameWithoutExtension, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -798,7 +906,12 @@ public class ContextMenuFunctions : IContextMenuFunctions
         await messageBox.ThereIsNoWalkthroughMessageBox();
     }
 
-// Use fileNameWithoutExtension
+    /// <summary>
+    /// Opens the cabinet image for the specified game in an image viewer window.
+    /// </summary>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public Task OpenCabinet(string systemName, string fileNameWithoutExtension, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -821,7 +934,12 @@ public class ContextMenuFunctions : IContextMenuFunctions
         return messageBox.ThereIsNoCabinetMessageBox();
     }
 
-// Use fileNameWithoutExtension
+    /// <summary>
+    /// Opens the flyer image for the specified game in an image viewer window.
+    /// </summary>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public Task OpenFlyer(string systemName, string fileNameWithoutExtension, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -844,7 +962,12 @@ public class ContextMenuFunctions : IContextMenuFunctions
         return messageBox.ThereIsNoFlyerMessageBox();
     }
 
-// Use fileNameWithoutExtension
+    /// <summary>
+    /// Opens the PCB (printed circuit board) image for the specified game in an image viewer window.
+    /// </summary>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public Task OpenPcb(string systemName, string fileNameWithoutExtension, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -867,6 +990,22 @@ public class ContextMenuFunctions : IContextMenuFunctions
         return messageBox.ThereIsNoPcbMessageBox();
     }
 
+    /// <summary>
+    /// Launches the specified game, waits for its window to appear, captures a screenshot, and saves it as the game's cover image.
+    /// </summary>
+    /// <param name="filePath">The full path to the game file.</param>
+    /// <param name="selectedEmulatorName">The name of the selected emulator.</param>
+    /// <param name="selectedSystemName">The name of the selected system.</param>
+    /// <param name="selectedSystemManager">The system manager for the selected system.</param>
+    /// <param name="settings">The application settings.</param>
+    /// <param name="button">The game button whose image should be updated, or null.</param>
+    /// <param name="mainWindow">The main application window.</param>
+    /// <param name="gamePadController">The game pad controller.</param>
+    /// <param name="gameLauncher">The game launcher service.</param>
+    /// <param name="playSoundEffects">The service used to play sound effects.</param>
+    /// <param name="loadingStateProvider">The loading state provider for showing/hiding overlays.</param>
+    /// <param name="logErrors">The service used to log errors.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public async Task TakeScreenshotOfSelectedWindowAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher.GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TakingScreenshot") ?? "Taking screenshot...");
@@ -1076,6 +1215,15 @@ public class ContextMenuFunctions : IContextMenuFunctions
         }
     }
 
+    /// <summary>
+    /// Deletes the specified game file from disk and reloads the game list.
+    /// </summary>
+    /// <param name="filePath">The full path to the game file to delete.</param>
+    /// <param name="fileNameWithExtension">The file name of the game with its extension.</param>
+    /// <param name="mainWindow">The main application window.</param>
+    /// <param name="playSoundEffects">The service used to play sound effects.</param>
+    /// <param name="logErrors">The service used to log errors.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public async Task DeleteGameAsync(string filePath, string fileNameWithExtension, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("DeletingGame") ?? "Deleting game...");
@@ -1126,6 +1274,18 @@ public class ContextMenuFunctions : IContextMenuFunctions
         }
     }
 
+    /// <summary>
+    /// Deletes the cover image for the specified game and reloads the game list.
+    /// </summary>
+    /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
+    /// <param name="selectedSystemName">The name of the selected system.</param>
+    /// <param name="selectedSystemManager">The system manager for the selected system.</param>
+    /// <param name="contextSettings">The application settings.</param>
+    /// <param name="mainWindow">The main application window.</param>
+    /// <param name="playSoundEffects">The service used to play sound effects.</param>
+    /// <param name="logErrors">The service used to log errors.</param>
+    /// <param name="findCoverImage">The service used to locate cover images.</param>
+    /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public async Task DeleteCoverImageAsync(string fileNameWithoutExtension, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager contextSettings, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IFindCoverImageService findCoverImage, IMessageBoxLibraryService messageBox)
     {
         mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("DeletingCoverImage") ?? "Deleting cover image...");

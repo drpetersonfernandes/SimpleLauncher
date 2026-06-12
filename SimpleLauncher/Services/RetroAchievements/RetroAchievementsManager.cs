@@ -1,13 +1,20 @@
 using MessagePack;
 using SimpleLauncher.Services.AppDataFile;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.RetroAchievements.Models;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 
+using Interfaces;
+
+/// <summary>
+/// Manages the local RetroAchievements game database, providing hash-to-game lookups loaded from a MessagePack file.
+/// </summary>
 [MessagePackObject]
 public class RetroAchievementsManager
 {
+    /// <summary>
+    /// Gets or sets the complete list of RetroAchievements game info entries.
+    /// </summary>
     [Key(0)]
     public List<RaGameInfo> AllGames { get; set; } = [];
 
@@ -16,6 +23,9 @@ public class RetroAchievementsManager
     private static readonly DataFileLocation FileLocation = new("RetroAchievements.dat");
     private static string DatFilePath => FileLocation.FilePath;
 
+    /// <summary>
+    /// Loads the RetroAchievements game database from the MessagePack .dat file.
+    /// </summary>
     public static RetroAchievementsManager LoadRetroAchievement(ILogErrors logErrors, IDebugLogger debugLogger)
     {
         var manager = new RetroAchievementsManager { _debugLogger = debugLogger };

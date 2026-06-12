@@ -1,10 +1,11 @@
 using System.IO.Compression;
 using SimpleLauncher.Services.CheckForUpdates;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
+
+using Interfaces;
 
 /// <inheritdoc />
 /// <summary>
@@ -43,6 +44,9 @@ public class UpdateSimulationTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Verifies that a valid ZIP archive is extracted correctly with all files and content matching.
+    /// </summary>
     [Fact]
     public void ExtractAllFromZipValidZipExtractsAllFilesSuccessfully()
     {
@@ -68,6 +72,9 @@ public class UpdateSimulationTests : IDisposable
         AssertFileContent(Path.Combine(_testDirectory, "README.txt"), "This is a test update package.");
     }
 
+    /// <summary>
+    /// Verifies that extracting an empty ZIP archive returns false.
+    /// </summary>
     [Fact]
     public void ExtractAllFromZipEmptyZipReturnsFalse()
     {
@@ -87,6 +94,9 @@ public class UpdateSimulationTests : IDisposable
         Assert.False(result, "ExtractAllFromZip should return false for an empty ZIP.");
     }
 
+    /// <summary>
+    /// Verifies that a newer latest version signals an available update.
+    /// </summary>
     [Fact]
     public void IsNewVersionAvailableLatestGreaterThanCurrentReturnsTrue()
     {
@@ -97,6 +107,9 @@ public class UpdateSimulationTests : IDisposable
         Assert.True(result, "A higher latest version should signal an update is available.");
     }
 
+    /// <summary>
+    /// Verifies that identical versions do not signal an update.
+    /// </summary>
     [Fact]
     public void IsNewVersionAvailableSameVersionReturnsFalse()
     {
@@ -104,6 +117,9 @@ public class UpdateSimulationTests : IDisposable
         Assert.False(result, "Same version should not signal an update.");
     }
 
+    /// <summary>
+    /// Verifies that a newer current version does not signal an update.
+    /// </summary>
     [Fact]
     public void IsNewVersionAvailableCurrentGreaterThanLatestReturnsFalse()
     {
@@ -111,6 +127,9 @@ public class UpdateSimulationTests : IDisposable
         Assert.False(result, "Current newer than latest should not signal an update.");
     }
 
+    /// <summary>
+    /// Verifies that various version string formats are normalized to four-part version numbers.
+    /// </summary>
     [Fact]
     public void NormalizeVersionVariousInputsNormalizesCorrectly()
     {
@@ -122,6 +141,9 @@ public class UpdateSimulationTests : IDisposable
         Assert.Equal("0.0.0.0", InvokeNormalizeVersion(""));
     }
 
+    /// <summary>
+    /// Verifies that a valid GitHub release JSON response is parsed into the correct version and asset URLs.
+    /// </summary>
     [Fact]
     public void ParseVersionAndAssetUrlsFromResponseValidGitHubJsonParsesCorrectly()
     {
@@ -145,6 +167,9 @@ public class UpdateSimulationTests : IDisposable
         Assert.Equal("https://example.com/updater.zip", updaterUrl);
     }
 
+    /// <summary>
+    /// Verifies that malformed JSON input returns null values for all fields.
+    /// </summary>
     [Fact]
     public void ParseVersionAndAssetUrlsFromResponseMalformedJsonReturnsNulls()
     {
@@ -157,6 +182,9 @@ public class UpdateSimulationTests : IDisposable
         Assert.Null(updaterUrl);
     }
 
+    /// <summary>
+    /// Verifies that JSON missing the tag_name field returns null for the version.
+    /// </summary>
     [Fact]
     public void ParseVersionAndAssetUrlsFromResponseMissingTagNameReturnsNulls()
     {
@@ -173,6 +201,9 @@ public class UpdateSimulationTests : IDisposable
         Assert.Null(version);
     }
 
+    /// <summary>
+    /// Verifies that JSON missing the assets array returns null for all fields.
+    /// </summary>
     [Fact]
     public void ParseVersionAndAssetUrlsFromResponseMissingAssetsArrayReturnsNulls()
     {
@@ -190,6 +221,9 @@ public class UpdateSimulationTests : IDisposable
         Assert.Null(updaterUrl);
     }
 
+    /// <summary>
+    /// Verifies that a null current version does not signal an update.
+    /// </summary>
     [Fact]
     public void IsNewVersionAvailableNullCurrentReturnsFalse()
     {
@@ -197,6 +231,9 @@ public class UpdateSimulationTests : IDisposable
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that a null latest version does not signal an update.
+    /// </summary>
     [Fact]
     public void IsNewVersionAvailableNullLatestReturnsFalse()
     {
@@ -204,6 +241,9 @@ public class UpdateSimulationTests : IDisposable
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that empty version strings do not signal an update.
+    /// </summary>
     [Fact]
     public void IsNewVersionAvailableEmptyStringsReturnsFalse()
     {

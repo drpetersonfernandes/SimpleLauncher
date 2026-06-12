@@ -2,10 +2,16 @@ using System.Text.RegularExpressions;
 
 namespace SimpleLauncher.Services.GameLauncher;
 
+/// <summary>
+/// Provides methods to validate batch file contents by checking that referenced file paths exist.
+/// </summary>
 public partial class ValidateBatchFile
 {
     private static readonly Regex QuotedPathRegex = MyRegex1();
 
+    /// <summary>
+    /// Reads a batch file and returns a list of quoted paths that do not exist on disk.
+    /// </summary>
     public static List<string> ValidateBatchFileContents(string batchFilePath)
     {
         var missingPaths = new List<string>();
@@ -43,6 +49,9 @@ public partial class ValidateBatchFile
         return missingPaths;
     }
 
+    /// <summary>
+    /// Parses quoted strings from a batch file and returns those that look like paths but do not exist.
+    /// </summary>
     public static List<string> FindInvalidQuotedPathsSimple(string batchFilePath)
     {
         var invalidPaths = new List<string>();

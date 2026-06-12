@@ -1,23 +1,30 @@
 using System.Windows;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.UIReset;
 
+using Interfaces;
+
+/// <summary>
+/// Handles resetting the UI to its initial state, clearing filters, selections, and pagination.
+/// </summary>
 public class UiResetService : IUiResetService
 {
     private readonly ILogErrors _logErrors;
     private IUiResetHost _host;
 
+    /// <summary>Initializes a new instance of the UiResetService with error logging.</summary>
     public UiResetService(ILogErrors logErrors)
     {
         _logErrors = logErrors;
     }
 
+    /// <summary>Initializes the service with the specified UI host.</summary>
     public void Initialize(IUiResetHost host)
     {
         _host = host;
     }
 
+    /// <summary>Asynchronously resets the UI, clearing all filters, selections, and returning to the system selection screen.</summary>
     public async Task ResetUiAsync()
     {
         try

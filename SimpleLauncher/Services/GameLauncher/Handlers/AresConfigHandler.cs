@@ -2,18 +2,23 @@ using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
+/// <summary>
+/// Handles configuration injection for the Ares emulator before launching a game.
+/// </summary>
 public class AresConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
     private readonly IServiceScopeFactory _scopeFactory;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AresConfigHandler"/> class.
+    /// </summary>
     public AresConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
@@ -21,12 +26,14 @@ public class AresConfigHandler : IEmulatorConfigHandler
         _scopeFactory = scopeFactory;
     }
 
+    /// <inheritdoc />
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Ares", StringComparison.OrdinalIgnoreCase) ||
                (emulatorPath?.Contains("ares.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
+    /// <inheritdoc />
     public async Task<bool> HandleConfigurationAsync(LaunchContext context)
     {
         if (context.EmulatorManager != null)

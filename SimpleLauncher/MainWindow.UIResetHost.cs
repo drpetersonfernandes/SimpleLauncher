@@ -1,11 +1,14 @@
 using System.Windows;
-using SimpleLauncher.Services.UIReset;
 
 namespace SimpleLauncher;
 
+using Interfaces;
+
+/// <summary>
+/// Partial MainWindow implementing <see cref="IUiResetHost"/> for UI state reset and filter management.
+/// </summary>
 public partial class MainWindow
 {
-    // IUIResetHost explicit implementations
     bool IUiResetHost.IsUiUpdating { get; set; }
 
     bool IUiResetHost.IsLoadingGames

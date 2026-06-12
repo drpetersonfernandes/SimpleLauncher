@@ -1,9 +1,12 @@
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameCache;
 
+/// <summary>
+/// Thread-safe in-memory cache for game file lists, providing fast access to
+/// all games and search results for the currently selected system.
+/// </summary>
 public class GameCacheService : IGameCacheService, IDisposable
 {
     // ReSharper disable once NotAccessedField.Local
@@ -13,20 +16,31 @@ public class GameCacheService : IGameCacheService, IDisposable
     private List<string> _allGamesForCurrentSystem = [];
     private List<string> _currentSearchResults = [];
 
+    /// <summary>
+    /// Gets the name of the system whose games are currently cached.
+    /// </summary>
     public string SelectedSystem { get; private set; } = "";
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="GameCacheService"/>.
+    /// </summary>
+    /// <param name="logErrors">Error logging service.</param>
+    /// <param name="debugLogger">Debug logging service.</param>
     public GameCacheService(ILogErrors logErrors, IDebugLogger debugLogger)
     {
         _logErrors = logErrors;
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
     }
 
+    /// <summary>
+    /// Returns a snapshot of all cached game file paths for the current system.
+    /// </summary>
     public async Task<List<string>> GetAllGamesAsync(CancellationToken ct)
     {
         await _lock.WaitAsync(ct);
         try
         {
-            return [.._allGamesForCurrentSystem];
+            return [.. _allGamesForCurrentSystem];
         }
         finally
         {
@@ -34,12 +48,15 @@ public class GameCacheService : IGameCacheService, IDisposable
         }
     }
 
+    /// <summary>
+    /// Returns a snapshot of the current search result file paths.
+    /// </summary>
     public async Task<List<string>> GetSearchResultsAsync(CancellationToken ct)
     {
         await _lock.WaitAsync(ct);
         try
         {
-            return [.._currentSearchResults];
+            return [.. _currentSearchResults];
         }
         finally
         {
@@ -47,6 +64,9 @@ public class GameCacheService : IGameCacheService, IDisposable
         }
     }
 
+    /// <summary>
+    /// Determines whether the cache already contains data for the specified system.
+    /// </summary>
     public async Task<bool> IsCachePopulatedForSystemAsync(string systemName, CancellationToken ct)
     {
         await _lock.WaitAsync(ct);
@@ -61,6 +81,9 @@ public class GameCacheService : IGameCacheService, IDisposable
         }
     }
 
+    /// <summary>
+    /// Replaces the cached list of all games for the specified system.
+    /// </summary>
     public async Task SetAllGamesAsync(List<string> games, string systemName, CancellationToken ct)
     {
         await _lock.WaitAsync(ct);
@@ -76,6 +99,9 @@ public class GameCacheService : IGameCacheService, IDisposable
         }
     }
 
+    /// <summary>
+    /// Replaces the cached search results with the provided file list.
+    /// </summary>
     public async Task SetSearchResultsAsync(List<string> results, CancellationToken ct)
     {
         await _lock.WaitAsync(ct);
@@ -89,6 +115,9 @@ public class GameCacheService : IGameCacheService, IDisposable
         }
     }
 
+    /// <summary>
+    /// Returns the appropriate source list for re-sorting based on whether an active filter is applied.
+    /// </summary>
     public async Task<(List<string> allGames, List<string> searchResults)> GetResortSourceAsync(
         bool hasActiveFilter, CancellationToken ct)
     {
@@ -98,7 +127,7 @@ public class GameCacheService : IGameCacheService, IDisposable
             var source = hasActiveFilter
                 ? new List<string>(_currentSearchResults)
                 : new List<string>(_allGamesForCurrentSystem);
-            return (source, [.._currentSearchResults]);
+            return (source, [.. _currentSearchResults]);
         }
         finally
         {
@@ -106,6 +135,10 @@ public class GameCacheService : IGameCacheService, IDisposable
         }
     }
 
+    /// <summary>
+    /// Populates the cache from disk by scanning the system's configured folders,
+    /// skipping if the cache is already populated for the same system.
+    /// </summary>
     public async Task PopulateFromDiskAsync(SystemManager.SystemManager config, IGetListOfFilesService fileService, CancellationToken ct)
     {
         await _lock.WaitAsync(ct);
@@ -147,6 +180,9 @@ public class GameCacheService : IGameCacheService, IDisposable
         }
     }
 
+    /// <summary>
+    /// Clears all cached game and search result data, requiring a fresh load on next access.
+    /// </summary>
     public async Task InvalidateAsync(CancellationToken ct)
     {
         await _lock.WaitAsync(ct);
@@ -162,6 +198,9 @@ public class GameCacheService : IGameCacheService, IDisposable
         }
     }
 
+    /// <summary>
+    /// Synchronously clears all cached data, attempting to acquire the lock with a short timeout.
+    /// </summary>
     public void ClearSync()
     {
         try
@@ -185,6 +224,9 @@ public class GameCacheService : IGameCacheService, IDisposable
         }
     }
 
+    /// <summary>
+    /// Releases all resources used by this instance.
+    /// </summary>
     public void Dispose()
     {
         _lock.Dispose();

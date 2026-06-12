@@ -4,10 +4,16 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Extended tests for the <see cref="InverseBooleanConverter"/> class covering additional edge cases.
+/// </summary>
 public class InverseBooleanConverterExtendedTests
 {
     private readonly InverseBooleanConverter _converter = new();
 
+    /// <summary>
+    /// Verifies that Convert returns false for true input.
+    /// </summary>
     [Fact]
     public void ConvertTrueReturnsFalse()
     {
@@ -15,6 +21,9 @@ public class InverseBooleanConverterExtendedTests
         Assert.Equal(false, result);
     }
 
+    /// <summary>
+    /// Verifies that Convert returns true for false input.
+    /// </summary>
     [Fact]
     public void ConvertFalseReturnsTrue()
     {
@@ -22,6 +31,9 @@ public class InverseBooleanConverterExtendedTests
         Assert.Equal(true, result);
     }
 
+    /// <summary>
+    /// Verifies that ConvertBack returns false for true input.
+    /// </summary>
     [Fact]
     public void ConvertBackTrueReturnsFalse()
     {
@@ -29,6 +41,9 @@ public class InverseBooleanConverterExtendedTests
         Assert.Equal(false, result);
     }
 
+    /// <summary>
+    /// Verifies that ConvertBack returns true for false input.
+    /// </summary>
     [Fact]
     public void ConvertBackFalseReturnsTrue()
     {
@@ -36,6 +51,9 @@ public class InverseBooleanConverterExtendedTests
         Assert.Equal(true, result);
     }
 
+    /// <summary>
+    /// Verifies that Convert followed by ConvertBack returns the original value.
+    /// </summary>
     [Fact]
     public void ConvertAndConvertBackAreInverse()
     {
@@ -45,6 +63,9 @@ public class InverseBooleanConverterExtendedTests
         Assert.Equal(original, roundTrip);
     }
 
+    /// <summary>
+    /// Verifies that ConvertBack followed by Convert returns the original value.
+    /// </summary>
     [Fact]
     public void ConvertBackAndConvertAreInverse()
     {
@@ -54,6 +75,9 @@ public class InverseBooleanConverterExtendedTests
         Assert.Equal(original, roundTrip);
     }
 
+    /// <summary>
+    /// Verifies that Convert returns the original value for non-bool input.
+    /// </summary>
     [Fact]
     public void ConvertNonBoolReturnsOriginalValue()
     {
@@ -61,6 +85,9 @@ public class InverseBooleanConverterExtendedTests
         Assert.Equal("true", result);
     }
 
+    /// <summary>
+    /// Verifies that Convert returns the original value for integer input.
+    /// </summary>
     [Fact]
     public void ConvertIntReturnsOriginalValue()
     {
@@ -68,6 +95,9 @@ public class InverseBooleanConverterExtendedTests
         Assert.Equal(1, result);
     }
 
+    /// <summary>
+    /// Verifies that Convert returns null for null input.
+    /// </summary>
     [Fact]
     public void ConvertNullReturnsNull()
     {
@@ -75,6 +105,9 @@ public class InverseBooleanConverterExtendedTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that InverseBooleanConverter implements IValueConverter.
+    /// </summary>
     [Fact]
     public void ImplementsIValueConverter()
     {

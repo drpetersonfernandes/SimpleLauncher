@@ -5,13 +5,15 @@ using System.Windows.Threading;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.LoadingOverlay;
-using SimpleLauncher.Services.Pagination;
 using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Services.UIReset;
-using SimpleLauncher.Services.UpdateStatusBar;
 
 namespace SimpleLauncher.Services.UiOrchestrator;
 
+using Interfaces;
+
+/// <summary>
+/// Orchestrates UI operations including loading overlays, game list rendering, pagination, and page navigation.
+/// </summary>
 public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiHost, IPaginationHost
 {
     private IUiOrchestratorHost _host;
@@ -25,6 +27,7 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
     // ReSharper disable once NotAccessedField.Local
     private readonly SettingsManager.SettingsManager _settings;
 
+    /// <summary>Initializes a new instance of the UiOrchestrator with the specified dependencies.</summary>
     public UiOrchestrator(
         LoadingOverlayService loadingOverlayService,
         GameListUiService gameListUiService,
@@ -43,6 +46,7 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
         _settings = settings;
     }
 
+    /// <summary>Initializes the orchestrator and its child services with the specified UI host.</summary>
     public void Initialize(IUiOrchestratorHost host)
     {
         _host = host;
@@ -52,16 +56,19 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
         _uiResetService.Initialize(host as IUiResetHost);
     }
 
+    /// <summary>Sets the loading state, optionally displaying a loading overlay with a message.</summary>
     public void SetLoadingState(bool isLoading, string message = null)
     {
         _loadingOverlayService.SetLoadingState(isLoading, message);
     }
 
+    /// <summary>Forces an emergency release of the loading overlay regardless of current state.</summary>
     public void EmergencyRelease()
     {
         _loadingOverlayService.EmergencyRelease();
     }
 
+    /// <summary>Navigates to a Page within the content frame, hiding the main game content.</summary>
     public void NavigateToPage(Page page)
     {
         _host.MainGameContent.Visibility = Visibility.Collapsed;
@@ -69,6 +76,7 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
         _host.PageContentFrame.Content = page;
     }
 
+    /// <summary>Navigates back to the main game content, clearing the content frame.</summary>
     public void NavigateBackToMainContent()
     {
         _host.PageContentFrame.Content = null;

@@ -1,13 +1,14 @@
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GameLauncher.MountFiles;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
+/// <summary>
+/// Mounts ZIP/7Z/RAR archives as virtual drives for RPCS3 (EBOOT.BIN), ScummVM, and XBLA games.
+/// </summary>
 public class ZipMountStrategy : ILaunchStrategy
 {
     private readonly IConfiguration _configuration;
@@ -15,6 +16,9 @@ public class ZipMountStrategy : ILaunchStrategy
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMountZipFiles _mountZipFiles;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ZipMountStrategy"/> class.
+    /// </summary>
     public ZipMountStrategy(IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IMountZipFiles mountZipFiles)
     {
         _configuration = configuration;
@@ -23,8 +27,10 @@ public class ZipMountStrategy : ILaunchStrategy
         _mountZipFiles = mountZipFiles;
     }
 
+    /// <inheritdoc />
     public int Priority => 30;
 
+    /// <inheritdoc />
     public bool IsMatch(LaunchContext context)
     {
         if (string.IsNullOrEmpty(context.ResolvedFilePath) ||
@@ -49,6 +55,7 @@ public class ZipMountStrategy : ILaunchStrategy
                context.SystemName.Contains("xbla", StringComparison.OrdinalIgnoreCase);
     }
 
+    /// <inheritdoc />
     public Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
         var log = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");

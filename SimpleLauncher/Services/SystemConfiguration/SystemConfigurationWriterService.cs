@@ -4,10 +4,12 @@ using System.Xml.Linq;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.AppDataFile;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.SystemConfiguration;
 
+/// <summary>
+/// Handles reading and writing system configuration to the system.xml file, including save, delete, and existence checks.
+/// </summary>
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public class SystemConfigurationWriterService : ISystemConfigurationWriterService
 {
@@ -16,6 +18,9 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
     private readonly DataFileLocation _fileLocation;
     private static readonly object XmlLock = new();
 
+    /// <summary>
+    /// Initializes a new instance of the SystemConfigurationWriterService with the specified dependencies.
+    /// </summary>
     public SystemConfigurationWriterService(IConfiguration configuration, ILogErrors logErrors)
     {
         _configuration = configuration;
@@ -23,6 +28,9 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
         _fileLocation = new DataFileLocation(configuration, "SystemXmlPath", "system.xml");
     }
 
+    /// <summary>
+    /// Asynchronously saves a system configuration to the XML file, creating or updating the entry.
+    /// </summary>
     public async Task SaveSystemAsync(ISystemManager systemConfig, string originalSystemName = null)
     {
         try
@@ -153,6 +161,9 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
         }
     }
 
+    /// <summary>
+    /// Asynchronously deletes a system configuration entry by name from the XML file.
+    /// </summary>
     public async Task DeleteSystemAsync(string systemName)
     {
         try
@@ -192,6 +203,9 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
         }
     }
 
+    /// <summary>
+    /// Checks whether a system configuration with the specified name exists in the XML file.
+    /// </summary>
     public bool SystemExists(string systemName)
     {
         lock (XmlLock)

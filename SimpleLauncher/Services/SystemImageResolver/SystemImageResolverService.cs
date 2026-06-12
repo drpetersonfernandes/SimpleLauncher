@@ -5,6 +5,9 @@ using SimpleLauncher.Services.FindCoverImage;
 
 namespace SimpleLauncher.Services.SystemImageResolver;
 
+/// <summary>
+/// Resolves display images for system configurations using exact name matching with optional fuzzy matching fallback.
+/// </summary>
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public class SystemImageResolverService : ISystemImageResolverService
 {
@@ -12,6 +15,9 @@ public class SystemImageResolverService : ISystemImageResolverService
     private readonly IFindCoverImageService _findCoverImage;
     private readonly SettingsManager.SettingsManager _settings;
 
+    /// <summary>
+    /// Initializes a new instance of the SystemImageResolverService with the specified dependencies.
+    /// </summary>
     public SystemImageResolverService(IConfiguration configuration, IFindCoverImageService findCoverImage, SettingsManager.SettingsManager settings)
     {
         _configuration = configuration;
@@ -19,6 +25,9 @@ public class SystemImageResolverService : ISystemImageResolverService
         _settings = settings;
     }
 
+    /// <summary>
+    /// Asynchronously resolves the display image path for a system, using fuzzy matching if enabled.
+    /// </summary>
     public Task<string> ResolveDisplayImageAsync(SystemManager.SystemManager config)
     {
         var appBaseDir = AppDomain.CurrentDomain.BaseDirectory;

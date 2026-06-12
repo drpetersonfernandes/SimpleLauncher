@@ -2,6 +2,9 @@ using System.Text;
 
 namespace SimpleLauncher.Services.SanitizeInputString;
 
+/// <summary>
+/// Provides static methods for sanitizing system names, validating characters, and ensuring safe folder names.
+/// </summary>
 public static class SanitizeInputSystemName
 {
     // Windows reserved device names (case-insensitive)

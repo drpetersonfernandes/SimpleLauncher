@@ -3,10 +3,12 @@ using System.Diagnostics;
 using System.Globalization;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.CheckForUpdates;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.QuitOrReinstall;
 
+/// <summary>
+/// Handles application shutdown, restart, and update-related exit operations.
+/// </summary>
 public class QuitSimpleLauncher
 {
     private readonly ILogErrors _logErrors;
@@ -14,6 +16,9 @@ public class QuitSimpleLauncher
     private readonly IDispatcherService _dispatcherService;
     private readonly Lazy<UpdateChecker> _updateChecker;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="QuitSimpleLauncher"/> class.
+    /// </summary>
     public QuitSimpleLauncher(ILogErrors logErrors, IApplicationLifetime applicationLifetime, IDispatcherService dispatcherService, Lazy<UpdateChecker> updateChecker)
     {
         _logErrors = logErrors;
@@ -22,6 +27,9 @@ public class QuitSimpleLauncher
         _updateChecker = updateChecker;
     }
 
+    /// <summary>
+    /// Restarts the application by launching a new process and shutting down the current one.
+    /// </summary>
     public async Task RestartApplication(IMessageBoxLibraryService messageBox)
     {
         var processModule = Process.GetCurrentProcess().MainModule;
@@ -56,13 +64,17 @@ public class QuitSimpleLauncher
         _applicationLifetime.Shutdown();
     }
 
+    /// <summary>
+    /// Shuts down the application immediately.
+    /// </summary>
     public void SimpleQuitApplication()
     {
         _applicationLifetime.Shutdown();
     }
 
-    // Downloads a fresh Updater.exe from GitHub first, falling back to the local copy if offline.
-    // Then launches the updater and forcefully exits the current process.
+    /// <summary>
+    /// Downloads a fresh Updater.exe, launches it, and forcefully shuts down the application for an update.
+    /// </summary>
     public async Task ShutdownForUpdateAsync(string updaterPath, IMessageBoxLibraryService messageBox)
     {
         var appDirectory = Path.GetDirectoryName(updaterPath) ?? AppDomain.CurrentDomain.BaseDirectory;

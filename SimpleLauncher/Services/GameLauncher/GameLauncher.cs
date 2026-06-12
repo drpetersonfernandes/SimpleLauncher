@@ -5,23 +5,22 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.ExtractFiles;
-using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.SystemManager;
-using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.Services.UsageStats;
 using MameConfigurationService = SimpleLauncher.Services.InjectEmulatorConfig.MameConfigurationService;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher;
 
+/// <summary>
+/// Orchestrates the game launch pipeline: validates context, resolves emulators, applies configuration,
+/// selects a launch strategy, and manages post-launch cleanup and statistics.
+/// </summary>
 public partial class GameLauncher : ILauncherService
 {
     private readonly IEnumerable<IEmulatorConfigHandler> _configHandlers;
@@ -38,6 +37,9 @@ public partial class GameLauncher : ILauncherService
     private const int MemoryAccessViolation = -1073741819;
     private const int DepViolation = -1073740791;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GameLauncher"/> class with all required dependencies.
+    /// </summary>
     public GameLauncher(
         IEnumerable<IEmulatorConfigHandler> configHandlers,
         IEnumerable<ILaunchStrategy> launchStrategies,
@@ -330,6 +332,9 @@ public partial class GameLauncher : ILauncherService
         _ = _stats.CallApiAsync(context.EmulatorName);
     }
 
+    /// <summary>
+    /// Validates and executes a batch file, handling working directory resolution, exit code checks, and error reporting.
+    /// </summary>
     public async Task RunBatchFileAsync(string resolvedFilePath, Emulator selectedEmulatorManager, IWindowContext windowContext)
     {
         var invalidPaths = ValidateBatchFile.FindInvalidQuotedPathsSimple(resolvedFilePath);
@@ -482,6 +487,9 @@ public partial class GameLauncher : ILauncherService
         }
     }
 
+    /// <summary>
+    /// Launches a shortcut file (.LNK or .URL), resolving the target and handling protocol registration checks.
+    /// </summary>
     public async Task LaunchShortcutFileAsync(string resolvedFilePath, Emulator selectedEmulatorManager, IWindowContext windowContext)
     {
         // Common UI updates.
@@ -629,6 +637,9 @@ public partial class GameLauncher : ILauncherService
         }
     }
 
+    /// <summary>
+    /// Launches a standalone executable file, waits for it to exit, and reports negative exit codes as errors.
+    /// </summary>
     public async Task LaunchExecutableAsync(string resolvedFilePath, Emulator selectedEmulatorManager, IWindowContext windowContext)
     {
         var psi = new ProcessStartInfo
@@ -759,6 +770,10 @@ public partial class GameLauncher : ILauncherService
         }
     }
 
+    /// <summary>
+    /// Launches a ROM or game file with the specified emulator, handling extraction, parameter resolution,
+    /// emulator-specific quirks, and post-launch error analysis.
+    /// </summary>
     public async Task LaunchRegularEmulatorAsync(
         string resolvedFilePath,
         string selectedEmulatorName,

@@ -3,11 +3,15 @@ using System.Text.Json;
 using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.EasyMode;
 
+/// <summary>
+/// Manages EasyMode system configuration by loading emulator definitions from local XML,
+/// a remote API, or a fallback URL. Supports XML serialization for persistence.
+/// </summary>
 [XmlRoot("EasyMode")]
 public class EasyModeManager : IDisposable
 {
@@ -26,9 +30,15 @@ public class EasyModeManager : IDisposable
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IDebugLogger _debugLogger;
 
+    /// <summary>
+    /// Gets or sets the list of EasyMode system configurations.
+    /// </summary>
     [XmlElement("EasyModeSystemConfig")]
     public List<EasyModeSystemConfig> Systems { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="EasyModeManager"/> with the specified dependencies for API loading and error logging.
+    /// </summary>
     public EasyModeManager(ILogErrors logErrors, IConfiguration configuration, IHttpClientFactory httpClientFactory, IDebugLogger debugLogger)
     {
         _logErrors = logErrors;
@@ -37,6 +47,9 @@ public class EasyModeManager : IDisposable
         _debugLogger = debugLogger;
     }
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="EasyModeManager"/> with default settings (used for XML deserialization).
+    /// </summary>
     public EasyModeManager()
     {
     }
@@ -274,24 +287,40 @@ public class EasyModeManager : IDisposable
         }
     }
 
+    /// <summary>
+    /// Validates all loaded system configurations, removing any that are invalid.
+    /// </summary>
     public void Validate()
     {
         Systems = Systems?.Where(static system => system.IsValid()).ToList() ?? [];
     }
 
+    /// <summary>
+    /// Releases resources used by this <see cref="EasyModeManager"/>.
+    /// </summary>
     public void Dispose()
     {
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Defines constants representing the types of downloadable assets for EasyMode systems.
+    /// </summary>
     public static class DownloadType
     {
+        /// <summary>The emulator application binary.</summary>
         public const string Emulator = "Emulator";
+        /// <summary>A libretro core for retroarch-based emulators.</summary>
         public const string Core = "Core";
+        /// <summary>The primary image pack.</summary>
         public const string ImagePack1 = "ImagePack1";
+        /// <summary>The second image pack.</summary>
         public const string ImagePack2 = "ImagePack2";
+        /// <summary>The third image pack.</summary>
         public const string ImagePack3 = "ImagePack3";
+        /// <summary>The fourth image pack.</summary>
         public const string ImagePack4 = "ImagePack4";
+        /// <summary>The fifth image pack.</summary>
         public const string ImagePack5 = "ImagePack5";
     }
 }

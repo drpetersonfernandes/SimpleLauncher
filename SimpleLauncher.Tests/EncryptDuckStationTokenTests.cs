@@ -3,8 +3,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for the EncryptDuckStationToken encryption method covering null/empty inputs, determinism, and uniqueness.
+/// </summary>
 public class EncryptDuckStationTokenTests
 {
+    /// <summary>
+    /// Verifies that a null token returns an empty string.
+    /// </summary>
     [Fact]
     public void EncryptDuckStationTokenMethodNullTokenReturnsEmpty()
     {
@@ -12,6 +18,9 @@ public class EncryptDuckStationTokenTests
         Assert.Equal("", result);
     }
 
+    /// <summary>
+    /// Verifies that a null username returns an empty string.
+    /// </summary>
     [Fact]
     public void EncryptDuckStationTokenMethodNullUsernameReturnsEmpty()
     {
@@ -19,6 +28,9 @@ public class EncryptDuckStationTokenTests
         Assert.Equal("", result);
     }
 
+    /// <summary>
+    /// Verifies that an empty token returns an empty string.
+    /// </summary>
     [Fact]
     public void EncryptDuckStationTokenMethodEmptyTokenReturnsEmpty()
     {
@@ -26,6 +38,9 @@ public class EncryptDuckStationTokenTests
         Assert.Equal("", result);
     }
 
+    /// <summary>
+    /// Verifies that an empty username returns an empty string.
+    /// </summary>
     [Fact]
     public void EncryptDuckStationTokenMethodEmptyUsernameReturnsEmpty()
     {
@@ -33,6 +48,9 @@ public class EncryptDuckStationTokenTests
         Assert.Equal("", result);
     }
 
+    /// <summary>
+    /// Verifies that the same inputs always produce the same encrypted output (deterministic).
+    /// </summary>
     [Fact]
     public void EncryptDuckStationTokenMethodSameInputsReturnsSameOutput()
     {
@@ -41,6 +59,9 @@ public class EncryptDuckStationTokenTests
         Assert.Equal(result1, result2);
     }
 
+    /// <summary>
+    /// Verifies that different usernames produce different encrypted outputs.
+    /// </summary>
     [Fact]
     public void EncryptDuckStationTokenMethodDifferentUsernamesReturnsDifferentOutput()
     {
@@ -49,6 +70,9 @@ public class EncryptDuckStationTokenTests
         Assert.NotEqual(result1, result2);
     }
 
+    /// <summary>
+    /// Verifies that different tokens produce different encrypted outputs.
+    /// </summary>
     [Fact]
     public void EncryptDuckStationTokenMethodDifferentTokensReturnsDifferentOutput()
     {
@@ -57,6 +81,9 @@ public class EncryptDuckStationTokenTests
         Assert.NotEqual(result1, result2);
     }
 
+    /// <summary>
+    /// Verifies that valid inputs produce a non-empty valid Base64 encoded string.
+    /// </summary>
     [Fact]
     public void EncryptDuckStationTokenMethodValidInputReturnsNonEmptyBase64()
     {

@@ -3,10 +3,14 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.UsageStats;
 
+using Interfaces;
+
+/// <summary>
+/// Manages sending usage and emulator launch statistics to the remote stats API with configurable endpoints and authentication.
+/// </summary>
 public class Stats
 {
     private string _apiKey;
@@ -16,6 +20,9 @@ public class Stats
     private readonly IDebugLogger _debugLogger;
     private bool _isApiEnabled;
 
+    /// <summary>
+    /// Initializes a new instance of the Stats class, loading API configuration.
+    /// </summary>
     public Stats(IHttpClientFactory httpClientFactory, IConfiguration configuration, ILogErrors logErrors, IDebugLogger debugLogger)
     {
         _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));

@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 

@@ -6,8 +6,15 @@ using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
+/// <summary>
+/// Window for configuring sound and notification settings.
+/// </summary>
 public partial class SoundConfigurationWindow
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SoundConfigurationWindow"/> class.
+    /// </summary>
+    /// <param name="viewModel">The view model providing sound configuration logic.</param>
     public SoundConfigurationWindow(SoundConfigurationViewModel viewModel)
     {
         InitializeComponent();

@@ -1,5 +1,4 @@
 using MessagePack;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.RetroAchievements.Models;
 using SimpleLauncher.Tests.TestHelpers;
@@ -7,6 +6,12 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+using Interfaces;
+
+/// <summary>
+/// Tests for <see cref="RetroAchievementsManager"/> covering loading from .dat files,
+/// hash-based game lookups, and graceful handling of missing or corrupted data.
+/// </summary>
 public class RetroAchievementsManagerTests : IDisposable
 {
     private readonly ILogErrors _logErrors = new NoOpLogErrors();
@@ -50,6 +55,9 @@ public class RetroAchievementsManagerTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Verifies that LoadRetroAchievement returns a manager with games when given a valid .dat file.
+    /// </summary>
     [Fact]
     public void LoadRetroAchievementValidDatFileReturnsManagerWithGames()
     {
@@ -79,6 +87,9 @@ public class RetroAchievementsManagerTests : IDisposable
         Assert.Equal("Super Mario Bros.", manager.AllGames[0].Title);
     }
 
+    /// <summary>
+    /// Verifies that LoadRetroAchievement returns an empty manager when the .dat file contains corrupted data.
+    /// </summary>
     [Fact]
     public void LoadRetroAchievementCorruptedMessagePackReturnsEmptyManager()
     {
@@ -90,6 +101,9 @@ public class RetroAchievementsManagerTests : IDisposable
         Assert.Empty(manager.AllGames);
     }
 
+    /// <summary>
+    /// Verifies that LoadRetroAchievement returns an empty manager when the .dat file contains XML content.
+    /// </summary>
     [Fact]
     public void LoadRetroAchievementXmlContentReturnsEmptyManager()
     {
@@ -101,6 +115,9 @@ public class RetroAchievementsManagerTests : IDisposable
         Assert.Empty(manager.AllGames);
     }
 
+    /// <summary>
+    /// Verifies that LoadRetroAchievement returns an empty manager when the .dat file is empty.
+    /// </summary>
     [Fact]
     public void LoadRetroAchievementEmptyFileReturnsEmptyManager()
     {
@@ -112,6 +129,9 @@ public class RetroAchievementsManagerTests : IDisposable
         Assert.Empty(manager.AllGames);
     }
 
+    /// <summary>
+    /// Verifies that LoadRetroAchievement returns an empty manager when the .dat file does not exist.
+    /// </summary>
     [Fact]
     public void LoadRetroAchievementMissingFileReturnsEmptyManager()
     {
@@ -127,6 +147,9 @@ public class RetroAchievementsManagerTests : IDisposable
         Assert.Empty(manager.AllGames);
     }
 
+    /// <summary>
+    /// Verifies that GetGameInfoByHash returns the correct game info for a known hash.
+    /// </summary>
     [Fact]
     public void GetGameInfoByHashKnownHashReturnsGameInfo()
     {
@@ -156,6 +179,9 @@ public class RetroAchievementsManagerTests : IDisposable
         Assert.Equal("Super Mario Bros.", result.Title);
     }
 
+    /// <summary>
+    /// Verifies that GetGameInfoByHash returns null for an unknown hash.
+    /// </summary>
     [Fact]
     public void GetGameInfoByHashUnknownHashReturnsNull()
     {
@@ -184,6 +210,9 @@ public class RetroAchievementsManagerTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that GetGameInfoByHash returns null for an empty string hash.
+    /// </summary>
     [Fact]
     public void GetGameInfoByHashEmptyStringReturnsNull()
     {
@@ -212,6 +241,9 @@ public class RetroAchievementsManagerTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that GetGameInfoByHash returns the first matching game when multiple games share a hash.
+    /// </summary>
     [Fact]
     public void GetGameInfoByHashOverlappingHashesReturnsFirstMatch()
     {

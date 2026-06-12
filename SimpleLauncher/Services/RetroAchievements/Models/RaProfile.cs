@@ -2,6 +2,9 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Services.RetroAchievements.Models;
 
+/// <summary>
+/// Represents a RetroAchievements user profile with points, rank, and recently played games.
+/// </summary>
 public record RaProfile
 {
     [JsonPropertyName("User")]

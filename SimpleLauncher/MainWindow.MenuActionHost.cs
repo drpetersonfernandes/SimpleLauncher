@@ -1,10 +1,13 @@
 using System.Windows;
 using System.Windows.Controls;
-using SimpleLauncher.Services.MenuActionHandler;
-using SimpleLauncher.Services.UIReset;
 
 namespace SimpleLauncher;
 
+using Interfaces;
+
+/// <summary>
+/// Partial MainWindow implementing <see cref="IMenuActionHost"/> for menu action delegations.
+/// </summary>
 public partial class MainWindow : IMenuActionHost
 {
     // Core operations - explicit implementations calling existing internal/private methods

@@ -5,6 +5,10 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for <see cref="Services.PlayHistory.PlayHistoryManager"/> covering MessagePack
+/// serialization/deserialization, default values, corruption handling, and item ordering.
+/// </summary>
 public class PlayHistoryManagerTests : IDisposable
 {
     private readonly string _testDirectory;
@@ -32,6 +36,10 @@ public class PlayHistoryManagerTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Verifies that PlayHistoryManager can be serialized and deserialized via MessagePack
+    /// while preserving all item properties.
+    /// </summary>
     [Fact]
     public void PlayHistoryManagerCanBeSerializedAndDeserialized()
     {
@@ -65,6 +73,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Equal("14:30:00", deserialized.PlayHistoryList[0].LastPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that an empty PlayHistoryManager serializes and deserializes correctly.
+    /// </summary>
     [Fact]
     public void PlayHistoryManagerEmptyListSerializesCorrectly()
     {
@@ -81,6 +92,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Empty(deserialized.PlayHistoryList);
     }
 
+    /// <summary>
+    /// Verifies that the default Version of a new PlayHistoryManager is 1.
+    /// </summary>
     [Fact]
     public void PlayHistoryManagerDefaultVersionIsOne()
     {
@@ -88,6 +102,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Equal(1, manager.Version);
     }
 
+    /// <summary>
+    /// Verifies that the default PlayHistoryList of a new PlayHistoryManager is empty.
+    /// </summary>
     [Fact]
     public void PlayHistoryManagerDefaultListIsEmpty()
     {
@@ -95,6 +112,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Empty(manager.PlayHistoryList);
     }
 
+    /// <summary>
+    /// Verifies that deserializing corrupted MessagePack bytes throws a MessagePackSerializationException.
+    /// </summary>
     [Fact]
     public void PlayHistoryManagerCorruptedBytesThrowsException()
     {
@@ -104,6 +124,9 @@ public class PlayHistoryManagerTests : IDisposable
             MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(corruptedBytes));
     }
 
+    /// <summary>
+    /// Verifies that multiple play history items preserve their order after serialization and deserialization.
+    /// </summary>
     [Fact]
     public void PlayHistoryManagerMultipleItemsPreservesOrder()
     {
@@ -126,6 +149,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Equal("game3.smc", deserialized.PlayHistoryList[2].FileName);
     }
 
+    /// <summary>
+    /// Verifies that ISO date and time format strings are preserved after serialization.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemIsoDateFormatIsPreserved()
     {
@@ -149,6 +175,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Equal("23:59:59", deserialized.PlayHistoryList[0].LastPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that large play time values serialize and deserialize correctly.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemLargePlayTimeSerializesCorrectly()
     {

@@ -12,6 +12,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class DetectDuplicateResourceKeysTests
 {
+    /// <summary>
+    /// Verifies that no localization resource file contains duplicate x:Key entries.
+    /// </summary>
     [Fact]
     public void AllResourceFilesShouldHaveNoDuplicateKeys()
     {

@@ -5,6 +5,9 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for <see cref="SimpleLauncher.Services.Favorites.FavoritesManager"/> MessagePack serialization and basic properties.
+/// </summary>
 public class FavoritesManagerTests : IDisposable
 {
     private readonly string _testDirectory;
@@ -32,6 +35,9 @@ public class FavoritesManagerTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Verifies that FavoritesManager can be serialized and deserialized via MessagePack preserving all data.
+    /// </summary>
     [Fact]
     public void FavoritesManagerCanBeSerializedAndDeserialized()
     {
@@ -56,6 +62,9 @@ public class FavoritesManagerTests : IDisposable
         Assert.Equal("NES", deserialized.FavoriteList[1].SystemName);
     }
 
+    /// <summary>
+    /// Verifies that an empty FavoritesManager serializes and deserializes correctly.
+    /// </summary>
     [Fact]
     public void FavoritesManagerEmptyListSerializesCorrectly()
     {
@@ -72,6 +81,9 @@ public class FavoritesManagerTests : IDisposable
         Assert.Empty(deserialized.FavoriteList);
     }
 
+    /// <summary>
+    /// Verifies that the default Version value is 1.
+    /// </summary>
     [Fact]
     public void FavoritesManagerDefaultVersionIsOne()
     {
@@ -79,6 +91,9 @@ public class FavoritesManagerTests : IDisposable
         Assert.Equal(1, manager.Version);
     }
 
+    /// <summary>
+    /// Verifies that the default FavoriteList is empty.
+    /// </summary>
     [Fact]
     public void FavoritesManagerDefaultListIsEmpty()
     {
@@ -86,6 +101,9 @@ public class FavoritesManagerTests : IDisposable
         Assert.Empty(manager.FavoriteList);
     }
 
+    /// <summary>
+    /// Verifies that deserializing corrupted bytes throws a MessagePackSerializationException.
+    /// </summary>
     [Fact]
     public void FavoritesManagerCorruptedBytesThrowsException()
     {
@@ -95,6 +113,9 @@ public class FavoritesManagerTests : IDisposable
             MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(corruptedBytes));
     }
 
+    /// <summary>
+    /// Verifies that a Favorite with optional properties serializes the required fields correctly.
+    /// </summary>
     [Fact]
     public void FavoriteWithOptionalPropertiesSerializesCorrectly()
     {

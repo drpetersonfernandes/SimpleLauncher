@@ -1,7 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
 using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;

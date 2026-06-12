@@ -1,10 +1,13 @@
 using System.Windows;
 using System.Windows.Input;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.UIReset;
 
 namespace SimpleLauncher;
 
+using Interfaces;
+
+/// <summary>
+/// Partial MainWindow containing search button handlers and search text box interaction logic.
+/// </summary>
 public partial class MainWindow
 {
     private async void SearchButtonClickAsync(object sender, RoutedEventArgs e)

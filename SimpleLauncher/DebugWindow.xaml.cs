@@ -3,6 +3,9 @@ using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
+/// <summary>
+/// Debug log window that displays real-time application log messages.
+/// </summary>
 public partial class DebugWindow
 {
     private static readonly object InstanceLock = new();

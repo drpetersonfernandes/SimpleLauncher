@@ -2,10 +2,17 @@ using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
+/// <summary>
+/// Window for displaying images from local paths or URIs.
+/// </summary>
 public partial class ImageViewerWindow
 {
     private readonly ImageViewerViewModel _viewModel;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ImageViewerWindow"/> class.
+    /// </summary>
+    /// <param name="viewModel">The view model providing image viewing logic.</param>
     public ImageViewerWindow(ImageViewerViewModel viewModel)
     {
         InitializeComponent();

@@ -5,7 +5,6 @@ using System.Windows;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.QuitOrReinstall;
 using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
 using CoreMessageBoxButton = SimpleLauncher.Interfaces.MessageBoxButton;
@@ -13,6 +12,9 @@ using CoreMessageBoxImage = SimpleLauncher.Interfaces.MessageBoxImage;
 
 namespace SimpleLauncher.Services.MessageBox;
 
+/// <summary>
+/// Provides localized message box dialogs for user notifications, errors, warnings, and confirmations throughout the application.
+/// </summary>
 public class MessageBoxLibraryService : IMessageBoxLibraryService
 {
     private readonly IMessageDialogService _messageDialog;
@@ -22,6 +24,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     private readonly IConfiguration _configuration;
     private readonly IResourceProvider _resourceProvider;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MessageBoxLibraryService"/> class with the required dependencies.
+    /// </summary>
     public MessageBoxLibraryService(IMessageDialogService messageDialog, ReinstallSimpleLauncher reinstallSimpleLauncher, QuitSimpleLauncher quitSimpleLauncher, ILogErrors logErrors, IConfiguration configuration, IResourceProvider resourceProvider)
     {
         _messageDialog = messageDialog;
@@ -32,6 +37,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         _resourceProvider = resourceProvider;
     }
 
+    /// <summary>
+    /// Displays instructions for taking a screenshot of a game window.
+    /// </summary>
     public Task TakeScreenShotMessageBox()
     {
         var thegamewilllaunchnow = _resourceProvider.GetString("Thegamewilllaunchnow", "The game will launch now.");
@@ -48,6 +56,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                             $"{assoonasyouselectawindow}", takeScreenshot);
     }
 
+    /// <summary>
+    /// Displays an error message when a screenshot fails to save.
+    /// </summary>
     public Task CouldNotSaveScreenshotMessageBox()
     {
         var failedtosavescreenshot = _resourceProvider.GetString("Failedtosavescreenshot", "Failed to save screenshot.");
@@ -58,6 +69,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an informational message that the specified game is already in favorites.
+    /// </summary>
     public Task GameIsAlreadyInFavoritesMessageBox(string fileNameWithExtension)
     {
         var isalreadyinfavorites = _resourceProvider.GetString("isalreadyinfavorites", "is already in favorites.");
@@ -66,6 +80,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync($"{fileNameWithExtension} {isalreadyinfavorites}", info);
     }
 
+    /// <summary>
+    /// Displays an error message when adding a game to favorites fails.
+    /// </summary>
     public Task ErrorWhileAddingFavoritesMessageBox()
     {
         var anerroroccurredwhileaddingthisgame = _resourceProvider.GetString("Anerroroccurredwhileaddingthisgame", "An error occurred while adding this game to the favorites.");
@@ -75,6 +92,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync($"{anerroroccurredwhileaddingthisgame}\n\n" + $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when removing a game from favorites fails.
+    /// </summary>
     public Task ErrorWhileRemovingGameFromFavoriteMessageBox()
     {
         var anerroroccurredwhileremoving = _resourceProvider.GetString("Anerroroccurredwhileremoving", "An error occurred while removing this game from favorites.");
@@ -84,6 +104,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync($"{anerroroccurredwhileremoving}\n\n" + $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when the Update History window fails to open.
+    /// </summary>
     public Task ErrorOpeningTheUpdateHistoryWindowMessageBox()
     {
         var erroropeningtheUpdateHistorywindow = _resourceProvider.GetString("ErroropeningtheUpdateHistorywindow", "Error opening the Update History window.");
@@ -93,6 +116,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync($"{erroropeningtheUpdateHistorywindow}\n\n" + $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when a video link fails to open in the browser.
+    /// </summary>
     public Task ErrorOpeningVideoLinkMessageBox()
     {
         var therewasaproblemopeningtheVideo = _resourceProvider.GetString("TherewasaproblemopeningtheVideo", "There was a problem opening the Video Link.");
@@ -103,6 +129,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{ensureyouhaveadefaultbrowserinstalled}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when an info link fails to open in the browser.
+    /// </summary>
     public Task ProblemOpeningInfoLinkMessageBox()
     {
         var therewasaproblemopeningthe = _resourceProvider.GetString("Therewasaproblemopeningthe", "There was a problem opening the Info Link.");
@@ -113,6 +142,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{ensureyouhaveadefaultbrowserinstalled}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when a URL fails to open in the browser.
+    /// </summary>
     public Task ErrorOpeningUrlMessageBox()
     {
         var therewasaproblemopeningtheUrl = _resourceProvider.GetString("TherewasaproblemopeningtheUrl", "There was a problem opening the Url.");
@@ -123,6 +155,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{ensureyouhaveadefaultbrowserinstalled}", error);
     }
 
+    /// <summary>
+    /// Displays an informational message that no cover image is associated with the game.
+    /// </summary>
     public Task ThereIsNoCoverMessageBox()
     {
         var thereisnocoverfileassociated = _resourceProvider.GetString("Thereisnocoverfileassociated", "There is no cover file associated with this game.");
@@ -131,6 +166,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(thereisnocoverfileassociated, covernotfound);
     }
 
+    /// <summary>
+    /// Displays an informational message that no title snapshot is associated with the game.
+    /// </summary>
     public Task ThereIsNoTitleSnapshotMessageBox()
     {
         var thereisnotitlesnapshot = _resourceProvider.GetString("Thereisnotitlesnapshot", "There is no title snapshot file associated with this game.");
@@ -139,6 +177,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(thereisnotitlesnapshot, titleSnapshotnotfound);
     }
 
+    /// <summary>
+    /// Displays an informational message that no gameplay snapshot is associated with the game.
+    /// </summary>
     public Task ThereIsNoGameplaySnapshotMessageBox()
     {
         var thereisnogameplaysnapshot = _resourceProvider.GetString("Thereisnogameplaysnapshot", "There is no gameplay snapshot file associated with this game.");
@@ -147,6 +188,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(thereisnogameplaysnapshot, gameplaySnapshotnotfound);
     }
 
+    /// <summary>
+    /// Displays an informational message that no cart file is associated with the game.
+    /// </summary>
     public Task ThereIsNoCartMessageBox()
     {
         var thereisnocartfile = _resourceProvider.GetString("Thereisnocartfile", "There is no cart file associated with this game.");
@@ -155,6 +199,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(thereisnocartfile, cartnotfound);
     }
 
+    /// <summary>
+    /// Displays an informational message that no video file is associated with the game.
+    /// </summary>
     public Task ThereIsNoVideoFileMessageBox()
     {
         var thereisnovideofile = _resourceProvider.GetString("Thereisnovideofile", "There is no video file associated with this game.");
@@ -163,6 +210,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(thereisnovideofile, videonotfound);
     }
 
+    /// <summary>
+    /// Displays an error message when the game manual fails to open.
+    /// </summary>
     public Task CouldNotOpenManualMessageBox()
     {
         var failedtoopenthemanual = _resourceProvider.GetString("Failedtoopenthemanual", "Failed to open the manual.");
@@ -172,6 +222,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync($"{failedtoopenthemanual}\n\n" + $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when no PDF viewer is installed to open a manual.
+    /// </summary>
     public Task NoPdfViewerInstalledMessageBox()
     {
         var nopdfviewerinstalled = _resourceProvider.GetString("NoPDFViewerInstalled", "No PDF viewer is installed on your system.");
@@ -181,6 +234,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync($"{nopdfviewerinstalled}\n\n{pleaseinstallapdfviewer}", error);
     }
 
+    /// <summary>
+    /// Displays an informational message that no manual is associated with the game.
+    /// </summary>
     public Task ThereIsNoManualMessageBox()
     {
         var thereisnomanual = _resourceProvider.GetString("Thereisnomanual", "There is no manual associated with this file.");
@@ -189,6 +245,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(thereisnomanual, manualNotFound);
     }
 
+    /// <summary>
+    /// Displays an informational message that no walkthrough file is associated with the game.
+    /// </summary>
     public Task ThereIsNoWalkthroughMessageBox()
     {
         var thereisnowalkthrough = _resourceProvider.GetString("Thereisnowalkthrough", "There is no walkthrough file associated with this game.");
@@ -197,6 +256,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(thereisnowalkthrough, walkthroughnotfound);
     }
 
+    /// <summary>
+    /// Displays an informational message that no cabinet file is associated with the game.
+    /// </summary>
     public Task ThereIsNoCabinetMessageBox()
     {
         var thereisnocabinetfile = _resourceProvider.GetString("Thereisnocabinetfile", "There is no cabinet file associated with this game.");
@@ -205,6 +267,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(thereisnocabinetfile, cabinetnotfound);
     }
 
+    /// <summary>
+    /// Displays an informational message that no flyer file is associated with the game.
+    /// </summary>
     public Task ThereIsNoFlyerMessageBox()
     {
         var thereisnoflyer = _resourceProvider.GetString("Thereisnoflyer", "There is no flyer file associated with this game.");
@@ -213,6 +278,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(thereisnoflyer, flyernotfound);
     }
 
+    /// <summary>
+    /// Displays an informational message that no PCB file is associated with the game.
+    /// </summary>
     public Task ThereIsNoPcbMessageBox()
     {
         var thereisnoPcBfile = _resourceProvider.GetString("ThereisnoPCBfile", "There is no PCB file associated with this game.");
@@ -221,6 +289,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(thereisnoPcBfile, pCBnotfound);
     }
 
+    /// <summary>
+    /// Displays a success message confirming a file was deleted.
+    /// </summary>
     public Task FileSuccessfullyDeletedMessageBox(string fileNameWithExtension)
     {
         var thefile = _resourceProvider.GetString("Thefile", "The file");
@@ -230,6 +301,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync($"{thefile} '{fileNameWithExtension}' {hasbeensuccessfullydeleted}", fileDeleted);
     }
 
+    /// <summary>
+    /// Displays an error message when a file could not be deleted.
+    /// </summary>
     public Task FileCouldNotBeDeletedMessageBox(string fileNameWithExtension)
     {
         var anerroroccurredwhiletryingtodelete = _resourceProvider.GetString("Anerroroccurredwhiletryingtodelete", "An error occurred while trying to delete the file");
@@ -239,6 +313,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync($"{anerroroccurredwhiletryingtodelete} '{fileNameWithExtension}'.\n\n" + $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error when the default image file is missing, with an option to reinstall the application.
+    /// </summary>
     public async Task DefaultImageNotFoundMessageBox()
     {
         var defaultpngfileismissing = _resourceProvider.GetString("defaultpngfileismissing", "'default.png' file is missing.");
@@ -259,6 +336,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error message when the global search encounters an error.
+    /// </summary>
     public Task GlobalSearchErrorMessageBox()
     {
         var therewasanerrorusingtheGlobal = _resourceProvider.GetString("TherewasanerrorusingtheGlobal", "There was an error using the Global Search.");
@@ -268,6 +348,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync($"{therewasanerrorusingtheGlobal}\n\n" + $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays a warning prompting the user to enter a search term.
+    /// </summary>
     public Task PleaseEnterSearchTermMessageBox()
     {
         var pleaseenterasearchterm = _resourceProvider.GetString("Pleaseenterasearchterm", "Please enter a search term.");
@@ -276,6 +359,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(pleaseenterasearchterm, warning);
     }
 
+    /// <summary>
+    /// Displays an error message when a game fails to launch, with an option to open the error log.
+    /// </summary>
     public async Task ErrorLaunchingGameMessageBox(string logPath)
     {
         var therewasanerrorlaunchingtheselected = _resourceProvider.GetString("Therewasanerrorlaunchingtheselected", "There was an error launching the selected game.");
@@ -304,6 +390,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an informational message prompting the user to select a game to launch.
+    /// </summary>
     public Task SelectAGameToLaunchMessageBox()
     {
         var pleaseselectagametolaunch = _resourceProvider.GetString("Pleaseselectagametolaunch", "Please select a game to launch.");
@@ -311,6 +400,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(pleaseselectagametolaunch, info);
     }
 
+    /// <summary>
+    /// Displays a success message confirming a file was added to favorites.
+    /// </summary>
     public Task FileAddedToFavoritesMessageBox(string fileNameWithoutExtension)
     {
         var hasbeenaddedtofavorites = _resourceProvider.GetString("hasbeenaddedtofavorites", "has been added to favorites.");
@@ -318,6 +410,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync($"{fileNameWithoutExtension} {hasbeenaddedtofavorites}", success);
     }
 
+    /// <summary>
+    /// Displays a success message confirming a file was removed from favorites.
+    /// </summary>
     public Task FileRemovedFromFavoritesMessageBox(string fileNameWithoutExtension)
     {
         var wasremovedfromfavorites = _resourceProvider.GetString("wasremovedfromfavorites", "was removed from favorites.");
@@ -325,6 +420,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync($"{fileNameWithoutExtension} {wasremovedfromfavorites}", success);
     }
 
+    /// <summary>
+    /// Displays an error when a specific game could not be launched, with an option to open the error log.
+    /// </summary>
     public async Task CouldNotLaunchThisGameMessageBox(string logPath)
     {
         var simpleLaunchercouldnotlaunchthisgame = _resourceProvider.GetString("SimpleLaunchercouldnotlaunchthisgame", "'Simple Launcher' could not launch this game.");
@@ -352,6 +450,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays a warning that a protocol handler for the specified protocol is not registered.
+    /// </summary>
     public Task ProtocolHandlerNotRegisteredMessageBox(string protocol)
     {
         var protocolHandlerNotRegistered = _resourceProvider.GetString("ProtocolHandlerNotRegistered", "Protocol handler for '{0}://' is not registered. Please ensure the associated application is installed.");
@@ -360,6 +461,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(string.Format(CultureInfo.InvariantCulture, protocolHandlerNotRegistered, protocol), launchErrorTitle);
     }
 
+    /// <summary>
+    /// Displays a warning that the emulator executable path is not configured for the system.
+    /// </summary>
     public Task EmulatorPathNotConfiguredMessageBox()
     {
         var emulatorPathNotConfigured = _resourceProvider.GetString("EmulatorPathNotConfigured", "The emulator path is not configured.");
@@ -377,6 +481,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                $"{emulatorPathNotConfiguredDetails5}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when calculating global statistics fails.
+    /// </summary>
     public Task ErrorCalculatingStatsMessageBox()
     {
         var anerroroccurredwhilecalculatingtheGlobal = _resourceProvider.GetString("AnerroroccurredwhilecalculatingtheGlobal", "An error occurred while calculating the Global Statistics.");
@@ -387,6 +494,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when saving a statistics report fails.
+    /// </summary>
     public Task FailedSaveReportMessageBox()
     {
         var failedtosavethereport = _resourceProvider.GetString("Failedtosavethereport", "Failed to save the report.");
@@ -397,6 +507,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays a success message confirming a statistics report was saved.
+    /// </summary>
     public Task ReportSavedMessageBox()
     {
         var reportsavedsuccessfully = _resourceProvider.GetString("Reportsavedsuccessfully", "Report saved successfully.");
@@ -405,6 +518,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(reportsavedsuccessfully, success);
     }
 
+    /// <summary>
+    /// Displays a warning that no statistics are available to save.
+    /// </summary>
     public Task NoStatsToSaveMessageBox()
     {
         var nostatisticsavailabletosave = _resourceProvider.GetString("Nostatisticsavailabletosave", "No statistics available to save.");
@@ -413,6 +529,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(nostatisticsavailabletosave, error);
     }
 
+    /// <summary>
+    /// Displays an error when launching a tool fails, with an option to open the error log.
+    /// </summary>
     public async Task ErrorLaunchingToolMessageBox(string logPath)
     {
         var anerroroccurredwhilelaunchingtheselectedtool = _resourceProvider.GetString("Anerroroccurredwhilelaunchingtheselectedtool", "An error occurred while launching the selected tool.");
@@ -444,6 +563,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when the selected tool executable is not found, with an option to reinstall.
+    /// </summary>
     public async Task SelectedToolNotFoundMessageBox()
     {
         var theselectedtoolwasnotfound = _resourceProvider.GetString("Theselectedtoolwasnotfound", "The selected tool was not found in the expected path.");
@@ -464,6 +586,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays a generic error message indicating an error was reported to the developer.
+    /// </summary>
     public Task ErrorMessageBox()
     {
         var therewasanerror = _resourceProvider.GetString("Therewasanerror", "There was an error.");
@@ -473,6 +598,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays a warning that no favorite games were found for the selected system.
+    /// </summary>
     public Task NoFavoriteFoundMessageBox()
     {
         var thereisnoFavoriteforthissystem = _resourceProvider.GetString("ThereisnoFavoriteforthissystem", "There is no Favorite for this system, or you have not chosen a system.");
@@ -480,6 +608,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(thereisnoFavoriteforthissystem, warning);
     }
 
+    /// <summary>
+    /// Displays a warning that the application is in a restricted folder and needs to be moved to a writable location.
+    /// </summary>
     public Task MoveToWritableFolderMessageBox()
     {
         var itlookslikeSimpleLauncherisinstalled = _resourceProvider.GetString("ItlookslikeSimpleLauncherisinstalled", "It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access.");
@@ -493,6 +624,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                $"{ifpossiblerunitwithadministrative}", warning);
     }
 
+    /// <summary>
+    /// Displays an error message when the system configuration could not be loaded.
+    /// </summary>
     public Task InvalidSystemConfigMessageBox()
     {
         var therewasanerrorwhileloading = _resourceProvider.GetString("Therewasanerrorwhileloading", "There was an error while loading the system configuration for this system.");
@@ -502,6 +636,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when loading the game file list fails.
+    /// </summary>
     public Task ErrorMethodLoadGameFilesAsyncMessageBox()
     {
         var therewasanerrorloadingthegame = _resourceProvider.GetString("Therewasanerrorloadingthegame", "There was an error loading the game list.");
@@ -511,6 +648,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when the donation link fails to open.
+    /// </summary>
     public Task ErrorOpeningDonationLinkMessageBox()
     {
         var therewasanerroropeningthedonation = _resourceProvider.GetString("Therewasanerroropeningthedonation", "There was an error opening the Donation Link.");
@@ -520,6 +660,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when toggling gamepad support fails.
+    /// </summary>
     public Task ToggleGamepadFailureMessageBox()
     {
         var failedtotogglegamepad = _resourceProvider.GetString("Failedtotogglegamepad", "Failed to toggle gamepad.");
@@ -529,6 +672,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an informational message that the tool launch was canceled by the user.
+    /// </summary>
     public Task ToolLaunchWasCanceledByUserMessageBox()
     {
         var thelaunchoftheselectedtoolwascanceledbytheuser = _resourceProvider.GetString("thelaunchoftheselectedtoolwascanceledbytheuser", "The launch of the selected tool was canceled by the user.");
@@ -536,6 +682,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(thelaunchoftheselectedtoolwascanceledbytheuser, info);
     }
 
+    /// <summary>
+    /// Displays an error message when changing the view mode fails.
+    /// </summary>
     public Task ErrorChangingViewModeMessageBox()
     {
         var therewasanerrorwhilechangingtheviewmode = _resourceProvider.GetString("Therewasanerrorwhilechangingtheviewmode", "There was an error while changing the view mode.");
@@ -545,6 +694,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when a navigation button encounters an error.
+    /// </summary>
     public Task NavigationButtonErrorMessageBox()
     {
         var therewasanerrorinthenavigationbutton = _resourceProvider.GetString("Therewasanerrorinthenavigationbutton", "There was an error in the navigation button.");
@@ -554,6 +706,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays a warning prompting the user to select a system before searching.
+    /// </summary>
     public Task SelectSystemBeforeSearchMessageBox()
     {
         var pleaseselectasystembeforesearching = _resourceProvider.GetString("Pleaseselectasystembeforesearching", "Please select a system before searching.");
@@ -561,6 +716,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(pleaseselectasystembeforesearching, warning);
     }
 
+    /// <summary>
+    /// Displays a warning prompting the user to enter a search query.
+    /// </summary>
     public Task EnterSearchQueryMessageBox()
     {
         var pleaseenterasearchquery = _resourceProvider.GetString("Pleaseenterasearchquery", "Please enter a search query.");
@@ -568,6 +726,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(pleaseenterasearchquery, warning);
     }
 
+    /// <summary>
+    /// Displays an error when loading helpuser.xml fails, with an option to reinstall the application.
+    /// </summary>
     public async Task ErrorWhileLoadingHelpUserXmlMessageBox()
     {
         var unexpectederrorwhileloadinghelpuserxml = _resourceProvider.GetString("Unexpectederrorwhileloadinghelpuserxml", "Unexpected error while loading 'helpuser.xml'.");
@@ -583,6 +744,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when no valid systems are found in helpuser.xml, with an option to reinstall.
+    /// </summary>
     public async Task NoSystemInHelpUserXmlMessageBox()
     {
         var novalidsystemsfoundinthefilehelpuserxml = _resourceProvider.GetString("Novalidsystemsfoundinthefilehelpuserxml", "No valid systems found in the file 'helpuser.xml'.");
@@ -598,6 +762,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays a prompt asking whether to reinstall the application after helpuser.xml fails to load.
+    /// </summary>
     public Task<CoreMessageBoxResult> CouldNotLoadHelpUserXmlMessageBox()
     {
         var simpleLaunchercouldnotloadhelpuserxml = _resourceProvider.GetString("SimpleLaunchercouldnotloadhelpuserxml", "'Simple Launcher' could not load 'helpuser.xml'.");
@@ -608,6 +775,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                         $"{doyouwanttoautomaticreinstallSimpleLauncher}", error, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
+    /// <summary>
+    /// Displays an error when helpuser.xml is corrupted, with an option to reinstall the application.
+    /// </summary>
     public async Task FailedToLoadHelpUserXmlMessageBox()
     {
         var unabletoloadhelpuserxml = _resourceProvider.GetString("Unabletoloadhelpuserxml", "Unable to load 'helpuser.xml'. The file may be corrupted.");
@@ -623,6 +793,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when helpuser.xml is missing, with an option to reinstall the application.
+    /// </summary>
     public async Task FileHelpUserXmlIsMissingMessageBox()
     {
         var thefilehelpuserxmlismissing = _resourceProvider.GetString("Thefilehelpuserxmlismissing", "The file 'helpuser.xml' is missing.");
@@ -638,6 +811,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when loading parameters.md fails, with an option to reinstall the application.
+    /// </summary>
     public async Task ErrorWhileLoadingParametersMdMessageBox()
     {
         var unexpectederrorwhileloadingparametersmd = _resourceProvider.GetString("Unexpectederrorwhileloadingparametersmd", "Unexpected error while loading 'parameters.md'.");
@@ -653,6 +829,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when no valid systems are found in parameters.md, with an option to reinstall.
+    /// </summary>
     public async Task NoSystemInParametersMdMessageBox()
     {
         var novalidsystemsfoundinthefileparametersmd = _resourceProvider.GetString("Novalidsystemsfoundinthefileparametersmd", "No valid systems found in the file 'parameters.md'.");
@@ -668,6 +847,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when parameters.md fails to load, with an option to reinstall the application.
+    /// </summary>
     public async Task FailedToLoadParametersMdMessageBox()
     {
         var unabletoloadparametersmd = _resourceProvider.GetString("Unabletoloadparametersmd", "Unable to load 'parameters.md'. The file may be corrupted or in use.");
@@ -683,6 +865,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when parameters.md is missing, with an option to reinstall the application.
+    /// </summary>
     public async Task FileParametersMdIsMissingMessageBox()
     {
         var thefileparametersmdismissing = _resourceProvider.GetString("Thefileparametersmdismissing", "The file 'parameters.md' is missing.");
@@ -698,6 +883,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when parameters.md is empty, with an option to reinstall the application.
+    /// </summary>
     public async Task FileParametersMdIsEmptyMessageBox()
     {
         var thefileparametersmdisempty = _resourceProvider.GetString("Thefileparametersmdisempty", "The file 'parameters.md' is empty.");
@@ -713,6 +901,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error message when the image viewer fails to load an image.
+    /// </summary>
     public Task ImageViewerErrorMessageBox()
     {
         var failedtoloadtheimageintheImage = _resourceProvider.GetString("FailedtoloadtheimageintheImage", "Failed to load the image in the Image Viewer window.");
@@ -724,6 +915,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error when mame.dat is corrupted, with an option to reinstall the application.
+    /// </summary>
     public async Task ReinstallSimpleLauncherFileCorruptedMessageBox()
     {
         var simpleLaunchercouldnotloadthefilemamedat = _resourceProvider.GetString("SimpleLaunchercouldnotloadthefilemamedat", "'Simple Launcher' could not load the file 'mame.dat' or it is corrupted.");
@@ -748,6 +942,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when mame.dat is missing, with an option to reinstall the application.
+    /// </summary>
     public async Task ReinstallSimpleLauncherFileMissingMessageBox()
     {
         var thefilemamedatcouldnotbefound = _resourceProvider.GetString("Thefilemamedatcouldnotbefound", "The file 'mame.dat' could not be found in the application folder.");
@@ -763,6 +960,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error message when checking for application updates fails.
+    /// </summary>
     public Task ErrorCheckingForUpdatesMessageBox()
     {
         var anerroroccurredwhilecheckingforupdates = _resourceProvider.GetString("Anerroroccurredwhilecheckingforupdates", "An error occurred while checking for updates.");
@@ -772,6 +972,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when loading ROM history fails.
+    /// </summary>
     public Task ErrorLoadingRomHistoryMessageBox()
     {
         var anerroroccurredwhileloadingRoMhistory = _resourceProvider.GetString("AnerroroccurredwhileloadingROMhistory", "An error occurred while loading ROM history.");
@@ -782,6 +985,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error when no history.dat or history.xml file is found, with an option to reinstall.
+    /// </summary>
     public async Task NoHistoryXmlOrDatFoundMessageBox()
     {
         var nohistoryxmlfilefound = _resourceProvider.GetString("Nohistoryxmlfilefound2", "No 'history.dat' or 'history.xml' file found in the application folder.");
@@ -797,6 +1003,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error message when the browser fails to open.
+    /// </summary>
     public Task ErrorOpeningBrowserMessageBox()
     {
         var anerroroccurredwhileopeningthebrowser = _resourceProvider.GetString("Anerroroccurredwhileopeningthebrowser", "An error occurred while opening the browser.");
@@ -807,6 +1016,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error when system.xml is corrupted, with an option to open the error log, then shuts down.
+    /// </summary>
     public async Task SystemXmlIsCorruptedMessageBox(string logPath)
     {
         var systemxmliscorrupted = _resourceProvider.GetString("systemxmliscorrupted", "'system.xml' is corrupted or could not be opened.");
@@ -842,6 +1054,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         _quitSimpleLauncher.SimpleQuitApplication();
     }
 
+    /// <summary>
+    /// Displays an error when a game could not be launched, with an option to open the error log.
+    /// </summary>
     public async Task WouldYouLikeToOpenTheLogMessageBox(string logPath)
     {
         var simpleLauncherWasUnableToLaunchThisGame = _resourceProvider.GetString("SimpleLauncherWasUnableToLaunchThisGame", "'Simple Launcher' was unable to launch this game.");
@@ -869,6 +1084,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when the file system.xml is badly corrupted, with an option to open the error log.
+    /// </summary>
     public async Task FileSystemXmlIsCorruptedMessageBox(string logPath)
     {
         var thefilesystemxmlisbadlycorrupted = _resourceProvider.GetString("Thefilesystemxmlisbadlycorrupted", "The file 'system.xml' is badly corrupted.");
@@ -897,6 +1115,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error during update installation, with an option to open the GitHub releases page.
+    /// </summary>
     public async Task InstallUpdateManuallyMessageBox()
     {
         var therewasanerrorinstallingorupdating = _resourceProvider.GetString("Therewasanerrorinstallingorupdating", "There was an error installing or updating the application.");
@@ -932,6 +1153,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when the updater fails to launch, with an option to open the GitHub releases page.
+    /// </summary>
     public async Task UpdaterLaunchFailedMessageBox()
     {
         var updaterLaunchFailed = _resourceProvider.GetString("UpdaterLaunchFailed", "Failed to launch the Updater.");
@@ -969,6 +1193,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays a warning when appsettings.json is missing, with an option to reinstall the application.
+    /// </summary>
     public async Task RequiredFileMissingMessageBox()
     {
         var fileappsettingsjsonismissing = _resourceProvider.GetString("Fileappsettingsjsonismissing", "File 'appsettings.json' is missing.");
@@ -991,6 +1218,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an informational message prompting the user to enter support request details.
+    /// </summary>
     public Task EnterSupportRequestMessageBox()
     {
         var pleaseenterthedetailsofthesupportrequest = _resourceProvider.GetString("Pleaseenterthedetailsofthesupportrequest", "Please enter the details of the support request.");
@@ -998,6 +1228,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(pleaseenterthedetailsofthesupportrequest, info);
     }
 
+    /// <summary>
+    /// Displays an informational message prompting the user to enter a name.
+    /// </summary>
     public Task EnterNameMessageBox()
     {
         var pleaseenterthename = _resourceProvider.GetString("Pleaseenterthename", "Please enter the name.");
@@ -1005,6 +1238,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(pleaseenterthename, info);
     }
 
+    /// <summary>
+    /// Displays an informational message prompting the user to enter an email address.
+    /// </summary>
     public Task EnterEmailMessageBox()
     {
         var pleaseentertheemail = _resourceProvider.GetString("Pleaseentertheemail", "Please enter the email.");
@@ -1012,6 +1248,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(pleaseentertheemail, info);
     }
 
+    /// <summary>
+    /// Displays an error message when an API key error occurs in the support form.
+    /// </summary>
     public Task ApiKeyErrorMessageBox()
     {
         var therewasanerrorintheApiKey = _resourceProvider.GetString("TherewasanerrorintheAPIKey", "There was an error in the API Key of this form.");
@@ -1021,6 +1260,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays a success message confirming the support request was sent.
+    /// </summary>
     public Task SupportRequestSuccessMessageBox()
     {
         var supportrequestsentsuccessfully = _resourceProvider.GetString("Supportrequestsentsuccessfully", "Support request sent successfully.");
@@ -1028,6 +1270,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(supportrequestsentsuccessfully, info);
     }
 
+    /// <summary>
+    /// Displays an error message when sending the support request fails.
+    /// </summary>
     public Task SupportRequestSendErrorMessageBox()
     {
         var anerroroccurredwhilesendingthesupportrequest = _resourceProvider.GetString("Anerroroccurredwhilesendingthesupportrequest", "An error occurred while sending the support request.");
@@ -1037,6 +1282,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                             $"{thebugwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when file extraction fails, with troubleshooting suggestions.
+    /// </summary>
     public Task ExtractionFailedMessageBox()
     {
         var extractionfailed = _resourceProvider.GetString("Extractionfailed", "Extraction failed.");
@@ -1054,6 +1302,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{temporarilydisableyourantivirus}", error);
     }
 
+    /// <summary>
+    /// Displays a warning that the selected file must be a compressed archive (7z, zip, or rar) for extraction.
+    /// </summary>
     public Task FileNeedToBeCompressedMessageBox()
     {
         var theselectedfilecannotbe = _resourceProvider.GetString("Theselectedfilecannotbe", "The selected file cannot be extracted.");
@@ -1065,6 +1316,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                $"{pleasefixthatintheEditwindow}", warning);
     }
 
+    /// <summary>
+    /// Displays an error message when a downloaded file is missing, with a OneDrive sync suggestion.
+    /// </summary>
     public Task DownloadedFileIsMissingMessageBox()
     {
         var downloadedfileismissing = _resourceProvider.GetString("Downloadedfileismissing", "Downloaded file is missing.");
@@ -1074,6 +1328,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{oneDriveIssue}", error);
     }
 
+    /// <summary>
+    /// Displays an error when a downloaded file is locked, with an option to open the temp folder.
+    /// </summary>
     public async Task FileIsLockedMessageBox(string tempFolderPath)
     {
         var downloadedfileislocked = _resourceProvider.GetString("Downloadedfileislocked", "Downloaded file is locked.");
@@ -1109,6 +1366,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays a success message confirming that links were saved.
+    /// </summary>
     public Task LinksSavedMessageBox()
     {
         var linkssavedsuccessfully = _resourceProvider.GetString("Linkssavedsuccessfully", "Links saved successfully.");
@@ -1116,6 +1376,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(linkssavedsuccessfully, info);
     }
 
+    /// <summary>
+    /// Displays a success message confirming that dead zone values were saved.
+    /// </summary>
     public Task DeadZonesSavedMessageBox()
     {
         var deadZonevaluessavedsuccessfully = _resourceProvider.GetString("DeadZonevaluessavedsuccessfully", "DeadZone values saved successfully.");
@@ -1123,6 +1386,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(deadZonevaluessavedsuccessfully, info);
     }
 
+    /// <summary>
+    /// Displays an informational message confirming that links were reverted to default values.
+    /// </summary>
     public Task LinksRevertedMessageBox()
     {
         var linksreverted = _resourceProvider.GetString("Linksrevertedtodefaultvalues", "Links reverted to default values.");
@@ -1130,6 +1396,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(linksreverted, info);
     }
 
+    /// <summary>
+    /// Displays an error message when the main window search engine encounters an error.
+    /// </summary>
     public Task MainWindowSearchEngineErrorMessageBox()
     {
         var therewasanerrorwiththesearchengine = _resourceProvider.GetString("Therewasanerrorwiththesearchengine", "There was an error with the search engine.");
@@ -1139,6 +1408,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when download or extraction of a file fails.
+    /// </summary>
     public Task DownloadExtractionFailedMessageBox()
     {
         var downloadorextractionfailed = _resourceProvider.GetString("DownloadorExtractionFailed", "Download or extraction failed.");
@@ -1152,6 +1424,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{temporarilydisableyourantivirus}", error);
     }
 
+    /// <summary>
+    /// Displays a success message confirming that download and extraction completed.
+    /// </summary>
     public Task DownloadAndExtractionWereSuccessfulMessageBox()
     {
         var downloadandextractioncompletedsuccessfully = _resourceProvider.GetString("Downloadandextractioncompletedsuccessfully", "Download and extraction completed successfully.");
@@ -1159,6 +1434,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(downloadandextractioncompletedsuccessfully, info);
     }
 
+    /// <summary>
+    /// Displays an emulator download error with an option to open the emulator download page.
+    /// </summary>
     public async Task ShowEmulatorDownloadErrorMessageBoxAsync(EasyModeSystemConfig selectedSystem)
     {
         var downloaderror = _resourceProvider.GetString("Downloaderror", "Download error.");
@@ -1189,6 +1467,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays a core download error with an option to open the core download page.
+    /// </summary>
     public async Task ShowCoreDownloadErrorMessageBoxAsync(EasyModeSystemConfig selectedSystem)
     {
         var downloaderror = _resourceProvider.GetString("Downloaderror", "Download error.");
@@ -1224,6 +1505,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an image pack download error with an option to open the image pack download page.
+    /// </summary>
     public async Task ShowImagePackDownloadErrorMessageBoxAsync(EasyModeSystemConfig selectedSystem)
     {
         if (selectedSystem?.Emulators?.Emulator?.ImagePackDownloadLink == null)
@@ -1260,6 +1544,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays a prompt to select a history item before attempting removal.
+    /// </summary>
     public Task SelectAHistoryItemToRemoveMessageBox()
     {
         var message = _resourceProvider.GetString("SelectAHistoryItemToRemove", "Please select a history item to remove.");
@@ -1267,6 +1554,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message, pleaseselectaitem);
     }
 
+    /// <summary>
+    /// Displays a confirmation prompt asking whether to remove all play history.
+    /// </summary>
     public Task<CoreMessageBoxResult> ReallyWantToRemoveAllPlayHistoryMessageBox()
     {
         var message = _resourceProvider.GetString("AreYouSureYouWantToRemoveAllHistory", "Are you sure you want to remove all play history?");
@@ -1274,6 +1564,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowAsync(message, confirmation, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
+    /// <summary>
+    /// Displays a success message confirming a system was added, with folder paths for ROMs and cover images.
+    /// </summary>
     public Task SystemAddedMessageBox(string systemName, string resolvedSystemFolder, string resolvedSystemImageFolder)
     {
         var thesystem = _resourceProvider.GetString("Thesystem", "The system");
@@ -1286,6 +1579,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                             + $"{putcoverimagesforthissysteminside} '{resolvedSystemImageFolder}'.", info);
     }
 
+    /// <summary>
+    /// Displays an error message when adding a system fails, with optional error details.
+    /// </summary>
     public Task AddSystemFailedMessageBox(string details = null)
     {
         var therewasanerroradding = _resourceProvider.GetString("Therewasanerroradding", "There was an error adding this system.");
@@ -1304,6 +1600,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message, error);
     }
 
+    /// <summary>
+    /// Displays an error message when the right-click context menu encounters an error.
+    /// </summary>
     public Task RightClickContextMenuErrorMessageBox()
     {
         var therewasanerrorintherightclick = _resourceProvider.GetString("Therewasanerrorintherightclick", "There was an error in the right-click context menu.");
@@ -1313,6 +1612,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an informational message that a game file no longer exists and has been removed from the list.
+    /// </summary>
     public Task GameFileDoesNotExistMessageBox()
     {
         var thegamefiledoesnotexist = _resourceProvider.GetString("Thegamefiledoesnotexist", "The game file does not exist!");
@@ -1322,6 +1624,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                             $"{thefilehasbeenremovedfromthelist}", info);
     }
 
+    /// <summary>
+    /// Displays a prompt asking whether to delete a play history entry when the game file no longer exists.
+    /// </summary>
     public Task<CoreMessageBoxResult> GameFileDoesNotExistAskToDeleteMessageBox(string filePath)
     {
         var thegamefiledoesnotexist = _resourceProvider.GetString("Thegamefiledoesnotexist", "The game file does not exist!");
@@ -1336,6 +1641,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowAsync(message, gameNotAvailable, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
+    /// <summary>
+    /// Displays a prompt asking whether to delete a favorite entry when the game file no longer exists.
+    /// </summary>
     public Task<CoreMessageBoxResult> FavoriteFileDoesNotExistAskToDeleteMessageBox(string filePath)
     {
         var thegamefiledoesnotexist = _resourceProvider.GetString("Thegamefiledoesnotexist", "The game file does not exist!");
@@ -1350,6 +1658,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowAsync(message, gameNotAvailable, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
+    /// <summary>
+    /// Displays an error message when the History window fails to open.
+    /// </summary>
     public Task CouldNotOpenHistoryWindowMessageBox()
     {
         var therewasaproblemopeningtheHistorywindow = _resourceProvider.GetString("TherewasaproblemopeningtheHistorywindow", "There was a problem opening the History window.");
@@ -1359,6 +1670,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when the walkthrough file fails to open.
+    /// </summary>
     public Task CouldNotOpenWalkthroughMessageBox()
     {
         var failedtoopenthewalkthroughfile = _resourceProvider.GetString("Failedtoopenthewalkthroughfile", "Failed to open the walkthrough file.");
@@ -1368,6 +1682,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              + $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays a warning prompting the user to select a favorite before attempting removal.
+    /// </summary>
     public Task SelectAFavoriteToRemoveMessageBox()
     {
         var pleaseselectafavoritetoremove = _resourceProvider.GetString("Pleaseselectafavoritetoremove", "Please select a favorite to remove.");
@@ -1375,6 +1692,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(pleaseselectafavoritetoremove, warning);
     }
 
+    /// <summary>
+    /// Displays an error message when system.xml is not found in the application folder.
+    /// </summary>
     public Task SystemXmlNotFoundMessageBox()
     {
         var systemxmlnotfound = _resourceProvider.GetString("systemxmlnotfound", "'system.xml' not found inside the application folder.");
@@ -1386,6 +1706,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{ifthatdoesnotwork}", error);
     }
 
+    /// <summary>
+    /// Displays an informational message that a new system can now be added.
+    /// </summary>
     public Task YouCanAddANewSystemMessageBox()
     {
         var youcanaddanewsystem = _resourceProvider.GetString("Youcanaddanewsystem", "You can add a new system now.");
@@ -1393,6 +1716,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(youcanaddanewsystem, info);
     }
 
+    /// <summary>
+    /// Displays an informational message that a specific emulator name is required because related data was provided.
+    /// </summary>
     public Task EmulatorNameRequiredMessageBox(int i)
     {
         var emulator = _resourceProvider.GetString("Emulator", "Emulator");
@@ -1403,6 +1729,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                             $"{pleasefixthisfield}", info);
     }
 
+    /// <summary>
+    /// Displays an informational message that an emulator name is required.
+    /// </summary>
     public Task EmulatorNameIsRequiredMessageBox()
     {
         var emulatornameisrequired = _resourceProvider.GetString("Emulatornameisrequired", "Emulator name is required.");
@@ -1412,6 +1741,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                             $"{pleasefixthat}", error);
     }
 
+    /// <summary>
+    /// Displays an informational message that the emulator name must be unique.
+    /// </summary>
     public Task EmulatorNameMustBeUniqueMessageBox(string emulatorName)
     {
         var thename = _resourceProvider.GetString("Thename", "The name");
@@ -1420,6 +1752,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync($"{thename} '{emulatorName}' {isusedmultipletimes}", info);
     }
 
+    /// <summary>
+    /// Displays a success message confirming the system configuration was saved.
+    /// </summary>
     public Task SystemSavedSuccessfullyMessageBox()
     {
         var systemsavedsuccessfully = _resourceProvider.GetString("Systemsavedsuccessfully", "System saved successfully.");
@@ -1427,6 +1762,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(systemsavedsuccessfully, info);
     }
 
+    /// <summary>
+    /// Displays an error message when one or more paths or parameters are invalid.
+    /// </summary>
     public Task PathOrParameterInvalidMessageBox()
     {
         var oneormorepathsorparameters = _resourceProvider.GetString("Oneormorepathsorparameters", "One or more paths or parameters are invalid.");
@@ -1436,6 +1774,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{pleasefixthemtoproceed}", error);
     }
 
+    /// <summary>
+    /// Displays an error message that Emulator 1 name is required.
+    /// </summary>
     public Task Emulator1RequiredMessageBox()
     {
         var emulator1Nameisrequired = _resourceProvider.GetString("Emulator1Nameisrequired", "'Emulator 1 Name' is required.");
@@ -1445,6 +1786,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{pleasefixthisfield}", error);
     }
 
+    /// <summary>
+    /// Displays an error message that the extension to launch after extraction is required.
+    /// </summary>
     public Task ExtensionToLaunchIsRequiredMessageBox()
     {
         var extensiontoLaunchAfterExtraction = _resourceProvider.GetString("ExtensiontoLaunchAfterExtraction", "'Extension to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.");
@@ -1454,6 +1798,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{pleasefixthisfield}", error);
     }
 
+    /// <summary>
+    /// Displays an error message that the extension to search in the system folder is required.
+    /// </summary>
     public Task ExtensionToSearchIsRequiredMessageBox()
     {
         var extensiontoSearchintheSystemFolder = _resourceProvider.GetString("ExtensiontoSearchintheSystemFolder", "'Extension to Search in the System Folder' cannot be empty or contain only spaces.");
@@ -1463,6 +1810,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{pleasefixthisfield}", error);
     }
 
+    /// <summary>
+    /// Displays an error message that the search extension must include zip, 7z, or rar when extraction is enabled.
+    /// </summary>
     public Task FileMustBeCompressedMessageBox()
     {
         var whenExtractFileBeforeLaunch = _resourceProvider.GetString("WhenExtractFileBeforeLaunch", "When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.");
@@ -1472,6 +1822,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{itwillnotacceptotherextensions}", error);
     }
 
+    /// <summary>
+    /// Displays an error message that the system image folder field cannot be empty.
+    /// </summary>
     public Task SystemImageFolderCanNotBeEmptyMessageBox()
     {
         var systemImageFoldercannotbeempty = _resourceProvider.GetString("SystemImageFoldercannotbeempty", "'System Image Folder' cannot be empty or contain only spaces.");
@@ -1481,6 +1834,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{pleasefixthisfield}", error);
     }
 
+    /// <summary>
+    /// Displays an error message that the system folder field cannot be empty.
+    /// </summary>
     public Task SystemFolderCanNotBeEmptyMessageBox()
     {
         var systemFoldercannotbeempty = _resourceProvider.GetString("SystemFoldercannotbeempty", "'System Folder' cannot be empty or contain only spaces.");
@@ -1490,6 +1846,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{pleasefixthisfield}", error);
     }
 
+    /// <summary>
+    /// Displays an error message that the system name field cannot be empty.
+    /// </summary>
     public Task SystemNameCanNotBeEmptyMessageBox()
     {
         var systemNamecannotbeemptyor = _resourceProvider.GetString("SystemNamecannotbeemptyor", "'System Name' cannot be empty or contain only spaces.");
@@ -1499,6 +1858,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{pleasefixthisfield}", error);
     }
 
+    /// <summary>
+    /// Displays an error message listing invalid characters found in the system name.
+    /// </summary>
     public Task InvalidSystemNameCharactersMessageBox(string invalidChars)
     {
         var systemNamecontainsinvalid = _resourceProvider.GetString("SystemNamecontainsinvalid", "'System Name' contains invalid characters:");
@@ -1508,6 +1870,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{pleaseRemoveTheseCharacters}", error);
     }
 
+    /// <summary>
+    /// Displays an error message listing invalid characters found in the system folder name.
+    /// </summary>
     public Task InvalidFolderCharactersMessageBox(string invalidChars)
     {
         var systemFoldercontainsinvalid = _resourceProvider.GetString("SystemFoldercontainsinvalid", "'System Folder' contains invalid characters:");
@@ -1517,6 +1882,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{pleaseRemoveTheseCharacters}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when creating system folders fails, with troubleshooting suggestions.
+    /// </summary>
     public Task FolderCreationFailedMessageBox()
     {
         var simpleLauncherfailedtocreatethe = _resourceProvider.GetString("SimpleLauncherfailedtocreatethe", "'Simple Launcher' failed to create the necessary folders for this system.");
@@ -1530,6 +1898,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                             $"{ensurethattheSimpleLauncherfolderislocatedinawritable}", info);
     }
 
+    /// <summary>
+    /// Displays a warning prompting the user to select a system before deleting.
+    /// </summary>
     public Task SelectASystemToDeleteMessageBox()
     {
         var pleaseselectasystemtodelete = _resourceProvider.GetString("Pleaseselectasystemtodelete", "Please select a system to delete.");
@@ -1537,6 +1908,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(pleaseselectasystemtodelete, warning);
     }
 
+    /// <summary>
+    /// Displays a warning that the selected system was not found in the XML document.
+    /// </summary>
     public Task SystemNotFoundInTheXmlMessageBox()
     {
         var selectedsystemnotfound = _resourceProvider.GetString("Selectedsystemnotfound", "Selected system not found in the XML document!");
@@ -1544,6 +1918,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(selectedsystemnotfound, alert);
     }
 
+    /// <summary>
+    /// Displays an error when finding game files fails, with an option to open the error log.
+    /// </summary>
     public async Task ErrorFindingGameFilesMessageBox(string logPath)
     {
         var therewasanerrorfinding = _resourceProvider.GetString("Therewasanerrorfinding", "There was an error finding the game files.");
@@ -1572,6 +1949,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when the gamepad controller encounters an error, with an option to open the error log.
+    /// </summary>
     public async Task GamePadErrorMessageBox(string logPath)
     {
         var therewasanerrorwiththeGamePadController = _resourceProvider.GetString("TherewasanerrorwiththeGamePadController", "There was an error with the GamePad Controller.");
@@ -1603,6 +1983,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when a game could not be launched, with troubleshooting tips and an option to open the error log.
+    /// </summary>
     public async Task CouldNotLaunchGameMessageBox(string logPath)
     {
         var simpleLaunchercouldnotlaunch = _resourceProvider.GetString("SimpleLaunchercouldnotlaunch", "'Simple Launcher' could not launch the selected game.");
@@ -1638,6 +2021,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when an invalid operation occurs during game launch, with an option to open the error log.
+    /// </summary>
     public async Task InvalidOperationExceptionMessageBox(string logPath)
     {
         var simpleLaunchercouldnotlaunch = _resourceProvider.GetString("SimpleLaunchercouldnotlaunch", "'Simple Launcher' could not launch the selected game.");
@@ -1673,6 +2059,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when a game fails to launch, with an option to open the error log.
+    /// </summary>
     public async Task ThereWasAnErrorLaunchingThisGameMessageBox(string logPath)
     {
         var therewasanerrorlaunchingthisgame = _resourceProvider.GetString("Therewasanerrorlaunchingthisgame", "There was an error launching this game.");
@@ -1703,6 +2092,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when a batch file fails to execute, with error details and an option to open the error log.
+    /// </summary>
     public async Task BatchFileFailedMessageBox(string batchFilePath, string errorDetail, string logPath, int? exitCode = null)
     {
         var batchFileName = Path.GetFileName(batchFilePath);
@@ -1747,6 +2139,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays a warning listing missing paths referenced by a batch file, with an option to continue.
+    /// </summary>
     public Task<bool> BatchFilePathsMissingMessageBox(List<string> missingPaths)
     {
         var batchfilepathsmissing = _resourceProvider.GetString("Batchfilepathsmissing", "The batch file references paths that do not exist:");
@@ -1760,6 +2155,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowYesNoAsync(message, warning);
     }
 
+    /// <summary>
+    /// Displays an error message when administrator privileges are required to launch a game.
+    /// </summary>
     public Task ElevationRequiredMessageBox()
     {
         var therewasanerrorlaunchingthisgame = _resourceProvider.GetString("Therewasanerrorlaunchingthisgame", "There was an error launching this game.");
@@ -1772,6 +2170,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{grantSimpleLauncheradministrative}", error);
     }
 
+    /// <summary>
+    /// Displays an error when the file extension to launch after extraction is not configured.
+    /// </summary>
     public Task NullFileExtensionMessageBox()
     {
         var thereisnoExtension = _resourceProvider.GetString("ThereisnoExtension", "There is no 'Extension to Launch After Extraction' set in the system configuration.");
@@ -1781,6 +2182,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{pleaseeditthissystemto}", error);
     }
 
+    /// <summary>
+    /// Displays an error when no file matching the configured extension is found in the extracted folder.
+    /// </summary>
     public Task CouldNotFindAFileMessageBox()
     {
         var couldnotfindafilewiththeextensiondefined = _resourceProvider.GetString("Couldnotfindafilewiththeextensiondefined", "Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.");
@@ -1790,6 +2194,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{pleaseeditthissystemtofix}", error);
     }
 
+    /// <summary>
+    /// Displays a prompt asking whether to search online for ROM history when none is found locally.
+    /// </summary>
     public Task<CoreMessageBoxResult> SearchOnlineForRomHistoryMessageBox()
     {
         var thereisnoRoMhistoryinthelocaldatabase = _resourceProvider.GetString("ThereisnoROMhistoryinthelocaldatabase", "There is no ROM history in the local database for this file.");
@@ -1799,6 +2206,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                         $"{doyouwanttosearchonline}", rOmHistoryNotFound, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
+    /// <summary>
+    /// Displays a success message confirming a system was deleted.
+    /// </summary>
     public Task SystemHasBeenDeletedMessageBox(string selectedSystemName)
     {
         var system = _resourceProvider.GetString("System", "System");
@@ -1807,6 +2217,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync($"{system} '{selectedSystemName}' {hasbeendeleted}", info);
     }
 
+    /// <summary>
+    /// Displays a confirmation prompt asking whether to delete the selected system.
+    /// </summary>
     public Task<CoreMessageBoxResult> AreYouSureDoYouWantToDeleteThisSystemMessageBox()
     {
         var areyousureyouwanttodeletethis = _resourceProvider.GetString("Areyousureyouwanttodeletethis", "Are you sure you want to delete this system?");
@@ -1814,6 +2227,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowAsync(areyousureyouwanttodeletethis, confirmation, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
+    /// <summary>
+    /// Displays an error message when deleting a game file fails.
+    /// </summary>
     public Task ThereWasAnErrorDeletingTheGameMessageBox()
     {
         var therewasanerrordeletingthefile = _resourceProvider.GetString("Therewasanerrordeletingthefile", "There was an error deleting the file.");
@@ -1823,6 +2239,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an error message when deleting a cover image fails.
+    /// </summary>
     public Task ThereWasAnErrorDeletingTheCoverImageMessageBox()
     {
         var therewasanerrordeletingthecoverimage = _resourceProvider.GetString("Therewasanerrordeletingthecoverimage", "There was an error deleting the cover image.");
@@ -1832,6 +2251,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays a confirmation prompt asking whether to permanently delete a game file.
+    /// </summary>
     public Task<CoreMessageBoxResult> AreYouSureYouWantToDeleteTheGameMessageBox(string fileNameWithExtension)
     {
         var areyousureyouwanttodeletethefile = _resourceProvider.GetString("Areyousureyouwanttodeletethefile", "Are you sure you want to delete the file");
@@ -1841,6 +2263,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                         $"{thisactionwilldelete}", confirmDeletion, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
+    /// <summary>
+    /// Displays a confirmation prompt asking whether to permanently delete a game's cover image.
+    /// </summary>
     public Task<CoreMessageBoxResult> AreYouSureYouWantToDeleteTheCoverImageMessageBox(string fileNameWithoutExtension)
     {
         var areyousureyouwanttodeletethecoverimageof = _resourceProvider.GetString("Areyousureyouwanttodeletethecoverimageof", "Are you sure you want to delete the cover image of");
@@ -1850,6 +2275,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                         $"{thisactionwilldelete}", confirmDeletion, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
+    /// <summary>
+    /// Displays a prompt asking whether to save a report with the current results.
+    /// </summary>
     public Task<CoreMessageBoxResult> WouldYouLikeToSaveAReportMessageBox()
     {
         var wouldyouliketosaveareport = _resourceProvider.GetString("Wouldyouliketosaveareport", "Would you like to save a report with the results?");
@@ -1857,6 +2285,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowAsync(wouldyouliketosaveareport, saveReport, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
+    /// <summary>
+    /// Displays an error message when the application is unable to restore the last backup.
+    /// </summary>
     public Task SimpleLauncherWasUnableToRestoreBackupMessageBox()
     {
         var simpleLauncherwasunabletorestore = _resourceProvider.GetString("SimpleLauncherwasunabletorestore", "'Simple Launcher' was unable to restore the last backup.");
@@ -1864,6 +2295,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(simpleLauncherwasunabletorestore, error);
     }
 
+    /// <summary>
+    /// Displays a prompt asking whether to restore a backup when system.xml is missing.
+    /// </summary>
     public Task<CoreMessageBoxResult> WouldYouLikeToRestoreTheLastBackupMessageBox()
     {
         var icouldnotfindthefilesystemxml = _resourceProvider.GetString("Icouldnotfindthefilesystemxml", "I could not find the file 'system.xml', which is required to start the application.");
@@ -1875,6 +2309,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                         $"{wouldyouliketorestore}", restoreBackup, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
+    /// <summary>
+    /// Displays an error message when loading language resources fails.
+    /// </summary>
     public Task FailedToLoadLanguageResourceMessageBox()
     {
         var failedtoloadlanguageresources = _resourceProvider.GetString("Failedtoloadlanguageresources", "Failed to load language resources.");
@@ -1884,12 +2321,18 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", languageLoadingError);
     }
 
+    /// <summary>
+    /// Displays a warning message about an invalid system configuration.
+    /// </summary>
     public Task InvalidSystemConfigurationMessageBox(string errorMessage)
     {
         var invalidSystemConfiguration = _resourceProvider.GetString("InvalidSystemConfiguration", "Invalid System Configuration");
         return _messageDialog.ShowWarningAsync(errorMessage, invalidSystemConfiguration);
     }
 
+    /// <summary>
+    /// Displays an error message when a link fails to open.
+    /// </summary>
     public Task UnableToOpenLinkMessageBox()
     {
         var unabletoopenthelink = _resourceProvider.GetString("Unabletoopenthelink", "Unable to open the link.");
@@ -1899,6 +2342,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays an informational message that no games were found for the random selection feature.
+    /// </summary>
     public Task NoGameFoundInTheRandomSelectionMessageBox()
     {
         var nogamesfoundtorandomlyselectfrom = _resourceProvider.GetString("Nogamesfoundtorandomlyselectfrom", "No games found to randomly select from. Please check your system selection.");
@@ -1906,6 +2352,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(nogamesfoundtorandomlyselectfrom, feelingLucky);
     }
 
+    /// <summary>
+    /// Displays a warning prompting the user to select a system before using the Feeling Lucky feature.
+    /// </summary>
     public Task PleaseSelectASystemBeforeMessageBox()
     {
         var pleaseselectasystembeforeusingtheFeeling = _resourceProvider.GetString("PleaseselectasystembeforeusingtheFeeling", "Please select a system before using the Feeling Lucky feature.");
@@ -1913,6 +2362,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(pleaseselectasystembeforeusingtheFeeling, warning);
     }
 
+    /// <summary>
+    /// Displays an error message when toggling fuzzy matching logic fails.
+    /// </summary>
     public Task ToggleFuzzyMatchingFailureMessageBox()
     {
         var therewasanerrortogglingthefuzzymatchinglogic = _resourceProvider.GetString("Therewasanerrortogglingthefuzzymatchinglogic", "There was an error toggling the fuzzy matching logic.");
@@ -1920,6 +2372,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(therewasanerrortogglingthefuzzymatchinglogic, error);
     }
 
+    /// <summary>
+    /// Displays an error message when setting the fuzzy matching threshold fails.
+    /// </summary>
     public Task FuzzyMatchingErrorFailToSetThresholdMessageBox()
     {
         var errorMessage = _resourceProvider.GetString("SetFuzzyMatchingThresholdFailureMessageBoxText", "Failed to set fuzzy matching threshold.");
@@ -1927,6 +2382,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(errorMessage, error);
     }
 
+    /// <summary>
+    /// Displays a list of validation errors for a system configuration.
+    /// </summary>
     public Task ListOfErrorsMessageBox(StringBuilder errorMessages)
     {
         var editSystemtofixit = _resourceProvider.GetString("EditSystemtofixit", "Edit System to fix it.");
@@ -1935,6 +2393,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(fullMessage, validationerrors);
     }
 
+    /// <summary>
+    /// Displays an informational message that no update is available, showing the current version.
+    /// </summary>
     public Task ThereIsNoUpdateAvailableMessageBox(string currentVersion)
     {
         var thereisnoupdateavailable = _resourceProvider.GetString("thereisnoupdateavailable", "There is no update available.");
@@ -1944,12 +2405,18 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                             $"{thecurrentversionis} {currentVersion}", noupdateavailable);
     }
 
+    /// <summary>
+    /// Displays an informational message that another instance of Simple Launcher is already running.
+    /// </summary>
     public Task AnotherInstanceIsRunningMessageBox()
     {
         var anotherinstanceofSimpleLauncherisalreadyrunning = _resourceProvider.GetString("AnotherinstanceofSimpleLauncherisalreadyrunning", "Another instance of 'Simple Launcher' is already running.");
         return _messageDialog.ShowInfoAsync(anotherinstanceofSimpleLauncherisalreadyrunning, "Simple Launcher");
     }
 
+    /// <summary>
+    /// Displays an error message when Simple Launcher fails to start due to an instance check error.
+    /// </summary>
     public Task FailedToStartSimpleLauncherMessageBox()
     {
         var failedtostartSimpleLauncherAnerroroccurred = _resourceProvider.GetString("FailedtostartSimpleLauncherAnerroroccurred", "Failed to start 'Simple Launcher'. An error occurred while checking for existing instances.");
@@ -1957,6 +2424,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(failedtostartSimpleLauncherAnerroroccurred, simpleLauncherError);
     }
 
+    /// <summary>
+    /// Displays an error message when the application fails to restart.
+    /// </summary>
     public Task FailedToRestartMessageBox()
     {
         var failedtorestarttheapplication = _resourceProvider.GetString("Failedtorestarttheapplication", "Failed to restart the application.");
@@ -1964,6 +2434,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(failedtorestarttheapplication, restartError);
     }
 
+    /// <summary>
+    /// Displays a prompt asking whether to download and install an available update.
+    /// </summary>
     public Task<CoreMessageBoxResult> DoYouWantToUpdateMessageBox(string currentVersion, string latestVersion)
     {
         var thereIsAsoftwareUpdateAvailable = _resourceProvider.GetString("Thereisasoftwareupdateavailable", "There is a software update available.");
@@ -1977,6 +2450,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                         $"{doYouWantToDownloadAndInstall}", updateAvailable, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Information);
     }
 
+    /// <summary>
+    /// Displays an error when required files are missing, with an option to reinstall the application.
+    /// </summary>
     public async Task HandleMissingRequiredFilesMessageBox(string fileList)
     {
         var thefollowingrequiredfilesaremissing = _resourceProvider.GetString("Thefollowingrequiredfilesaremissing", "The following required file(s) are missing:");
@@ -2000,6 +2476,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when the API configuration fails to load, with an option to reinstall.
+    /// </summary>
     public async Task HandleApiConfigErrorMessageBox(string reason)
     {
         var apiConfigErrorTitle = _resourceProvider.GetString("ApiConfigErrorTitle", "API Configuration Error");
@@ -2027,6 +2506,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error message when there is not enough disk space for extraction.
+    /// </summary>
     public Task DiskSpaceErrorMessageBox()
     {
         var notenoughdiskspaceforextraction = _resourceProvider.GetString("Notenoughdiskspaceforextraction", "Not enough disk space for extraction.");
@@ -2034,6 +2516,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(notenoughdiskspaceforextraction, error);
     }
 
+    /// <summary>
+    /// Displays an error message when disk space cannot be checked for the specified path.
+    /// </summary>
     public Task CouldNotCheckForDiskSpaceMessageBox()
     {
         var message = _resourceProvider.GetString("SimpleLaunchercouldnotcheckdiskspace", "'Simple Launcher' could not check disk space for the specified path. Please check the path and try again.");
@@ -2041,6 +2526,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message, caption);
     }
 
+    /// <summary>
+    /// Displays an error message when saving the system configuration fails.
+    /// </summary>
     public Task SaveSystemFailedMessageBox(string details = null)
     {
         var failedToSaveSystem = _resourceProvider.GetString("FailedToSaveSystem", "Failed to save system configuration.");
@@ -2059,6 +2547,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message, error);
     }
 
+    /// <summary>
+    /// Displays an error message when the download link could not be opened.
+    /// </summary>
     public Task CouldNotOpenTheDownloadLinkMessageBox()
     {
         var simpleLaunchercouldnotopenthedownloadlink = _resourceProvider.GetString("SimpleLaunchercouldnotopenthedownloadlink", "'Simple Launcher' could not open the download link.");
@@ -2066,6 +2557,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(simpleLaunchercouldnotopenthedownloadlink, error);
     }
 
+    /// <summary>
+    /// Displays an error message when loading appsettings.json fails.
+    /// </summary>
     public Task ErrorLoadingAppSettingsMessageBox()
     {
         var therewasanerrorloadingconfiguration = _resourceProvider.GetString("Therewasanerrorloadingconfiguration", "There was an error loading 'appsettings.json'.");
@@ -2075,6 +2569,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{theerrorwasreportedtothedeveloper}", error);
     }
 
+    /// <summary>
+    /// Displays a security warning when a potential path manipulation (Zip Slip) is detected in an archive.
+    /// </summary>
     public Task PotentialPathManipulationDetectedMessageBox(string archivePath)
     {
         var title = _resourceProvider.GetString("SecurityWarning", "Security Warning");
@@ -2090,6 +2587,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                $"{reportedToDeveloper}", title);
     }
 
+    /// <summary>
+    /// Displays a warning when Easy Mode is unavailable due to Web API access issues, with troubleshooting suggestions.
+    /// </summary>
     public Task CouldNotOpenSoundConfigurationWindowMessageBox()
     {
         var couldNotOpenSoundConfigurationWindow = _resourceProvider.GetString("CouldNotOpenSoundConfigurationWindow", "Could not open sound configuration window");
@@ -2097,6 +2597,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(couldNotOpenSoundConfigurationWindow, warning);
     }
 
+    /// <summary>
+    /// Displays a warning when choosing or copying a sound file fails.
+    /// </summary>
     public Task ErrorSettingSoundFileMessageBox()
     {
         var errorSettingSoundFile = _resourceProvider.GetString("errorSettingSoundFile", "Error choosing or copying sound file.");
@@ -2104,6 +2607,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(errorSettingSoundFile, warning);
     }
 
+    /// <summary>
+    /// Displays an informational message that notification sounds are disabled.
+    /// </summary>
     public Task NotificationSoundIsDisableMessageBox()
     {
         var notificationSoundIsDisable = _resourceProvider.GetString("NotificationSoundIsDisable", "Notification sound is disable");
@@ -2111,6 +2617,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(notificationSoundIsDisable, info);
     }
 
+    /// <summary>
+    /// Displays a warning that no sound file is currently selected.
+    /// </summary>
     public Task NoSoundFileIsSelectedMessageBox()
     {
         var noSoundFileSelectedWarning = _resourceProvider.GetString("NoSoundFileSelectedWarning", "No sound file is selected.");
@@ -2118,6 +2627,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(noSoundFileSelectedWarning, warning);
     }
 
+    /// <summary>
+    /// Displays a success message confirming settings were saved.
+    /// </summary>
     public Task SettingsSavedSuccessfullyMessageBox()
     {
         var settingsSavedSuccessfully = _resourceProvider.GetString("SettingsSavedSuccessfully", "Settings saved successfully.");
@@ -2125,6 +2637,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(settingsSavedSuccessfully, info);
     }
 
+    /// <summary>
+    /// Displays an error message when saving settings fails.
+    /// </summary>
     public Task FailedToSaveSettingsMessageBox()
     {
         var message = _resourceProvider.GetString("FailedToSaveSettings", "Failed to save settings. Please check that the application folder is writable and not locked by another process.");
@@ -2132,6 +2647,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message, error);
     }
 
+    /// <summary>
+    /// Displays an error when a game file path is invalid, with troubleshooting suggestions and an option to open the error log.
+    /// </summary>
     public async Task FilePathIsInvalidMessageBox(string logPath)
     {
         var simpleLaunchercouldnotlaunch = _resourceProvider.GetString("SimpleLaunchercouldnotlaunch", "'Simple Launcher' could not launch the selected game.");
@@ -2172,6 +2690,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when mounting a file fails, with an option to download Dokan if needed.
+    /// </summary>
     public async Task ThereWasAnErrorMountingTheFileMessageBox(int? exitCode = null)
     {
         var simpleLaunchercouldnotmount = _resourceProvider.GetString("SimpleLaunchercouldnotmount", "'Simple Launcher' could not mount the selected game.");
@@ -2211,6 +2732,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when the Dokan driver is not installed, with an option to open the Dokan download page.
+    /// </summary>
     public async Task DokanDriverNotInstalledMessageBox()
     {
         var dokanDriverNotFound = _resourceProvider.GetString("DokanDriverNotFound", "The Dokan file system driver (dokan2.dll) is required to mount archives as virtual drives. It does not appear to be installed on this system.");
@@ -2239,12 +2763,18 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays informational text about launching a tool.
+    /// </summary>
     public Task LaunchToolInformationMessageBox(string info)
     {
         var error = _resourceProvider.GetString("Error", "Error");
         return _messageDialog.ShowInfoAsync(info, error);
     }
 
+    /// <summary>
+    /// Displays an error message that a screenshot cannot be taken of a minimized window.
+    /// </summary>
     public Task CannotScreenshotMinimizedWindowMessageBox()
     {
         var cannottakeascreenshotofaminimizedwindow = _resourceProvider.GetString("Cannottakeascreenshotofaminimizedwindow", "Cannot take a screenshot of a minimized window.");
@@ -2252,6 +2782,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(cannottakeascreenshotofaminimizedwindow, error);
     }
 
+    /// <summary>
+    /// Displays an error message when copying log content to the clipboard fails.
+    /// </summary>
     public Task FailedToCopyLogContentMessageBox()
     {
         var failedtocopylogcontent = _resourceProvider.GetString("Failedtocopylogcontent", "Failed to copy log content.");
@@ -2259,6 +2792,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(failedtocopylogcontent, copyError);
     }
 
+    /// <summary>
+    /// Displays an error message when the updater application cannot be found on GitHub.
+    /// </summary>
     public Task CouldNotFindUpdaterOnGitHubMessageBox()
     {
         var simpleLaunchercouldnotfindtheupdater = _resourceProvider.GetString("SimpleLaunchercouldnotfindtheupdater", "'Simple Launcher' could not find the updater application on GitHub.");
@@ -2266,6 +2802,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(simpleLaunchercouldnotfindtheupdater, error);
     }
 
+    /// <summary>
+    /// Displays an error message when the achievements window fails to open.
+    /// </summary>
     public Task CouldNotOpenAchievementsWindowMessageBox()
     {
         var couldNotOpenAchievementsWindow = _resourceProvider.GetString("CouldNotOpenAchievementsWindow", "Could not open the achievements window.");
@@ -2274,6 +2813,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync($"{couldNotOpenAchievementsWindow}\n\n{theErrorWasReported}", error);
     }
 
+    /// <summary>
+    /// Displays a prompt when a game is not supported by RetroAchievements, with an option to open the global window.
+    /// </summary>
     public Task<CoreMessageBoxResult> GameNotSupportedByRetroAchievementsMessageBox()
     {
         var message1 = _resourceProvider.GetString("SimpleLaunchercouldnotcalculate", "'Simple Launcher' could not calculate the hash value of this game or this game is not yet supported by RetroAchievements.");
@@ -2283,6 +2825,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                         $"{message2}", title, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
+    /// <summary>
+    /// Displays an error message when the game launch process times out.
+    /// </summary>
     public Task GameLaunchTimeoutMessageBox()
     {
         var gamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted = _resourceProvider.GetString("GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted", "Game launch timed out. Please try again or check if the emulator started.");
@@ -2290,6 +2835,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(gamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted, gamelaunchtimedout);
     }
 
+    /// <summary>
+    /// Displays an informational message prompting the user to add RetroAchievements login credentials.
+    /// </summary>
     public Task AddRaLoginMessageBox()
     {
         var youneedtoaddRetroAchievementlogin = _resourceProvider.GetString("YouneedtoaddRetroAchievementlogin", "You need to add RetroAchievement login information to use this feature.");
@@ -2297,6 +2845,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(youneedtoaddRetroAchievementlogin, attention);
     }
 
+    /// <summary>
+    /// Displays an error message when no default web browser is configured in the operating system.
+    /// </summary>
     public Task NoDefaultBrowserConfiguredMessageBox()
     {
         var noDefaultBrowserConfiguredMessage = _resourceProvider.GetString("NoDefaultBrowserConfiguredMessage", "Your operating system does not have a default web browser configured. Please set one in Windows Settings (Apps > Default apps) to open web links.");
@@ -2304,6 +2855,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(noDefaultBrowserConfiguredMessage, error);
     }
 
+    /// <summary>
+    /// Displays a warning about high memory usage when setting a very high number of games per page in Grid mode.
+    /// </summary>
     public Task<CoreMessageBoxResult> WarnUserAboutMemoryConsumptionMessageBox()
     {
         var warningMessage = _resourceProvider.GetString("WarningSettingupaveryhighnumberofgamesperpage", "Warning! Setting a very high number of games per page will significantly increase system memory usage when in Grid mode. If the number is too high, this may cause the application to crash. Please proceed with caution.");
@@ -2312,6 +2866,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowAsync($"{warningMessage}\n\n{proceedQuestion}", warningTitle, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Warning);
     }
 
+    /// <summary>
+    /// Displays a compatibility warning that the Group Files by Folder option only works with MAME or DOSBox emulators.
+    /// </summary>
     public Task GroupByFolderOnlyForMameAndDosBoxMessageBox()
     {
         var message = _resourceProvider.GetString("TheGroupFilesbyFolderoptionisonlycompatiblewith", "The 'Group Files by Folder' option is only compatible with MAME emulators (Software List CHDs) or DOSBox emulators (uncompressed DOS game folders). To use a different emulator, please edit the system settings and disable this option.");
@@ -2319,6 +2876,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message, title);
     }
 
+    /// <summary>
+    /// Displays a configuration warning when Group Files by Folder is enabled without a compatible emulator.
+    /// </summary>
     public Task<CoreMessageBoxResult> GroupByFolderWarningMessageBox()
     {
         var message = _resourceProvider.GetString("YouhaveenabledGroupFilesbyFolderbuthave", "You have enabled 'Group Files by Folder' but have configured neither a MAME nor a DOSBox emulator. This option is only compatible with MAME (Software List CHDs) or DOSBox (uncompressed game folders). Are you sure you want to save these settings?");
@@ -2326,6 +2886,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowAsync(message, title, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Warning);
     }
 
+    /// <summary>
+    /// Displays a welcome message for first-time users with no systems configured, offering to add a system via Easy Mode.
+    /// </summary>
     public Task<CoreMessageBoxResult> FirstRunWelcomeMessageBox()
     {
         var welcomeToSimpleLauncher = _resourceProvider.GetString("WelcomeToSimpleLauncher", "Welcome to 'Simple Launcher'!");
@@ -2337,6 +2900,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                         $"{easyModeGuide}", welcome, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
+    /// <summary>
+    /// Displays a warning that the Emulator 1 path is required.
+    /// </summary>
     public Task Emulator1LocationRequiredMessageBox()
     {
         var message = _resourceProvider.GetString("Emulator1pathisrequired", "Emulator 1 path is required.");
@@ -2344,6 +2910,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message, title);
     }
 
+    /// <summary>
+    /// Displays a warning that the Emulator 2 path is required.
+    /// </summary>
     public Task Emulator2LocationRequiredMessageBox()
     {
         var message = _resourceProvider.GetString("Emulator2pathisrequired", "Emulator 2 path is required.");
@@ -2351,6 +2920,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message, title);
     }
 
+    /// <summary>
+    /// Displays a warning that the Emulator 3 path is required.
+    /// </summary>
     public Task Emulator3LocationRequiredMessageBox()
     {
         var message = _resourceProvider.GetString("Emulator3pathisrequired", "Emulator 3 path is required.");
@@ -2358,6 +2930,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message, title);
     }
 
+    /// <summary>
+    /// Displays a warning that the Emulator 4 path is required.
+    /// </summary>
     public Task Emulator4LocationRequiredMessageBox()
     {
         var message = _resourceProvider.GetString("Emulator4pathisrequired", "Emulator 4 path is required.");
@@ -2365,6 +2940,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message, title);
     }
 
+    /// <summary>
+    /// Displays a warning that the Emulator 5 path is required.
+    /// </summary>
     public Task Emulator5LocationRequiredMessageBox()
     {
         var message = _resourceProvider.GetString("Emulator5pathisrequired", "Emulator 5 path is required.");
@@ -2372,6 +2950,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message, title);
     }
 
+    /// <summary>
+    /// Displays an error when the image pack downloader Web API is unavailable.
+    /// </summary>
     public Task ImagePackDownloaderUnavailableMessageBox()
     {
         var message = _resourceProvider.GetString("SimpleLaunchercouldnotaccesstheWebAPI", "'Simple Launcher' could not access the Web API to download the updated URLs. Please try again later.");
@@ -2379,6 +2960,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message, title);
     }
 
+    /// <summary>
+    /// Displays a warning when Easy Mode is unavailable due to Web API access issues, with troubleshooting suggestions.
+    /// </summary>
     public Task EasyModeUnavailableMessageBox()
     {
         var message = _resourceProvider.GetString("SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration", "'Simple Launcher' could not access the Web API to download the updated configuration.");
@@ -2402,6 +2986,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                $"{message9}", title);
     }
 
+    /// <summary>
+    /// Displays an error that RetroAchievements hash is not supported for systems grouped by folder.
+    /// </summary>
     public Task SimpleLauncherDoesNotSupportRaHashOfSystemGroupedByFolderMessageBox()
     {
         var simpleLauncherdoesnotsupportRetroAchievementshashofSystems = _resourceProvider.GetString("simpleLauncherdoesnotsupportRetroAchievementshashofSystems", "'Simple Launcher' does not support RetroAchievements hash of systems Grouped by Folder.");
@@ -2411,6 +2998,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{pleaseedittheSystemsettingsanddisablethe}", error);
     }
 
+    /// <summary>
+    /// Displays an error that the current processor architecture is unsupported.
+    /// </summary>
     public Task UnsupportedArchitectureMessageBox()
     {
         var simpleLauncherdoesnotsupportthecurrentprocessorarchitecture = _resourceProvider.GetString("SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture", "'Simple Launcher' does not support the current processor architecture. We only support 64-bit (x64) or ARM64. The application will now close.");
@@ -2418,6 +3008,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(simpleLauncherdoesnotsupportthecurrentprocessorarchitecture, unsupportedArchitecture);
     }
 
+    /// <summary>
+    /// Displays an error when the 7z DLL is missing, with an option to reinstall the application.
+    /// </summary>
     public async Task SevenZipDllNotFoundMessageBox()
     {
         var the7Zdllismissingfromtheapplicationfolder = _resourceProvider.GetString("The7zdllismissingfromtheapplicationfolder", "The 7z dll is missing from the application folder!");
@@ -2439,6 +3032,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when the 7-Zip library fails to initialize, with an option to reinstall the application.
+    /// </summary>
     public async Task FailedToInitializeSevenZipMessageBox()
     {
         var anunexpectederroroccurredwhileinitializingthe7Ziplibrary = _resourceProvider.GetString("Anunexpectederroroccurredwhileinitializingthe7Ziplibrary", "An unexpected error occurred while initializing the 7-Zip library.");
@@ -2460,6 +3056,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when file extraction fails after download, with an option to open the temp folder.
+    /// </summary>
     public async Task ShowExtractionFailedMessageBoxAsync(string tempFolderPath)
     {
         var extractionFailedTitle = _resourceProvider.GetString("ExtractionFailedTitle", "Extraction Failed");
@@ -2487,6 +3086,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays a download failure message when the temporary file is locked, with an option to open the temp folder.
+    /// </summary>
     public async Task ShowDownloadFileLockedMessageBoxAsync(string tempFolderPath)
     {
         var downloadFailedTitle = _resourceProvider.GetString("DownloadFailedTitle", "Download Failed");
@@ -2514,6 +3116,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays a custom game launch error message with an option to open the error log.
+    /// </summary>
     public async Task ShowCustomMessageBox(string message, string launchError, string logPath)
     {
         var therewasanerrorlaunchingtheselected = _resourceProvider.GetString("Therewasanerrorlaunchingtheselected", "There was an error launching the selected game.");
@@ -2543,6 +3148,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays a warning prompting the user to enter valid search terms.
+    /// </summary>
     public Task EnterValidSearchTermsMessageBox()
     {
         var message = _resourceProvider.GetString("EnterValidSearchTerms", "Please enter valid search terms.");
@@ -2550,6 +3158,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message, title);
     }
 
+    /// <summary>
+    /// Displays a notification that the operation was cancelled.
+    /// </summary>
     public Task OperationCancelledMessageBox()
     {
         var message = _resourceProvider.GetString("OperationCancelledMessage", "The operation was cancelled.");
@@ -2557,6 +3168,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message, title);
     }
 
+    /// <summary>
+    /// Displays a confirmation dialog asking whether to cancel processing and close.
+    /// </summary>
     public Task<CoreMessageBoxResult> DoYouWantToCancelAndCloseMessageBox()
     {
         var message = _resourceProvider.GetString("ProcessingStillRunningMessage", "Processing is still running. Do you want to cancel and close?");
@@ -2564,6 +3178,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowAsync(message, title, CoreMessageBoxButton.YesNo, CoreMessageBoxImage.Question);
     }
 
+    /// <summary>
+    /// Displays an error message when the browser cannot be opened for AI support.
+    /// </summary>
     public Task CouldNotOpenBrowserForAiSupportMessageBox()
     {
         var message = _resourceProvider.GetString("CouldnotopenbrowserforAIsupport", "Could not open browser for AI support.");
@@ -2571,6 +3188,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message, error);
     }
 
+    /// <summary>
+    /// Displays a warning when PowerShell execution policy restrictions prevent scanning Microsoft Store games.
+    /// </summary>
     public Task PowerShellExecutionPolicyRestrictionsMessageBox()
     {
         var unabletoscanMicrosoftStoregames = _resourceProvider.GetString("UnabletoscanMicrosoftStoregames", "Unable to scan Microsoft Store games due to PowerShell execution policy restrictions.");
@@ -2582,6 +3202,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                $"{simpleLaunchercannotperform}", powerShellRestricted);
     }
 
+    /// <summary>
+    /// Displays a warning when an ISO file cannot be mounted due to PowerShell execution policy restrictions.
+    /// </summary>
     public Task UnabletomountIsOfileMessageBox()
     {
         var unabletomountIsOfile = _resourceProvider.GetString("UnabletomountISOfile", "Unable to mount ISO file due to PowerShell execution policy restrictions.");
@@ -2593,6 +3216,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                $"{simpleLaunchercannotperform}", powerShellRestricted);
     }
 
+    /// <summary>
+    /// Displays a warning when an ISO file cannot be dismounted due to PowerShell execution policy restrictions.
+    /// </summary>
     public Task UnabletoDismountIsOfileMessageBox()
     {
         var unabletodismountIsOfile = _resourceProvider.GetString("UnabletoDismountISOfile", "Unable to dismount ISO file due to PowerShell execution policy restrictions.");
@@ -2604,6 +3230,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                $"{simpleLaunchercannotperform}", powerShellRestricted);
     }
 
+    /// <summary>
+    /// Displays a warning when an application control policy blocks a file or link.
+    /// </summary>
     public Task ApplicationControlPolicyBlockedMessageBox()
     {
         var message = _resourceProvider.GetString("ApplicationControlPolicyBlockedFile", "An application control policy blocked this file or link.");
@@ -2613,6 +3242,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                $"{simpleLaunchercannotperform}\n\n", securityPolicyBlocked);
     }
 
+    /// <summary>
+    /// Displays a warning when an application control policy blocks a link, and copies the URL to the clipboard.
+    /// </summary>
     public async Task ApplicationControlPolicyBlockedManualLinkMessageBox(string url)
     {
         var message = _resourceProvider.GetString("ApplicationControlPolicyBlockedFileManualLink", "An application control policy blocked this link.");
@@ -2625,6 +3257,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         Clipboard.SetText(url); // Copy URL to clipboard
     }
 
+    /// <summary>
+    /// Displays a warning prompting the user to enter RetroAchievements credentials before configuring an emulator.
+    /// </summary>
     public Task EnterYourRetroAchievementsUsernameMessageBox()
     {
         var message1 = _resourceProvider.GetString("PleaseenteryourRetroAchievements", "Please enter your RetroAchievements username, API key, and password before configuring an emulator.");
@@ -2632,6 +3267,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after an emulator has been configured for RetroAchievements.
+    /// </summary>
     public Task EmulatorConfiguredSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("Emulatorconfiguredsuccessfullyfor", "Emulator configured successfully for RetroAchievements!");
@@ -2639,6 +3277,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when emulator configuration fails due to a missing or read-only config file.
+    /// </summary>
     public Task FailedToConfigureTheEmulatorMessageBox()
     {
         var message1 = _resourceProvider.GetString("Failedtoconfiguretheemulator", "Failed to configure the emulator. The configuration file might be missing, in an unexpected location, or read-only.");
@@ -2646,6 +3287,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when an exception occurs while configuring an emulator.
+    /// </summary>
     public Task AnErrorOccurredWhileConfiguringTheEmulatorMessageBox()
     {
         var message1 = _resourceProvider.GetString("Anerroroccurredwhileconfiguringtheemulator", "An error occurred while configuring the emulator.");
@@ -2653,6 +3297,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when logging in to RetroAchievements fails.
+    /// </summary>
     public Task FailedToLoginToRetroAchievementsMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedtologintoRetroAchievements", "Failed to log in to RetroAchievements. Please check your username and password.");
@@ -2660,6 +3307,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when system.xml is locked or inaccessible by another process.
+    /// </summary>
     public Task FileSystemXmlIsLockedMessageBox()
     {
         var message1 = _resourceProvider.GetString("Thefilesystemxmlislocked", "The file 'system.xml' is locked or inaccessible by another process.");
@@ -2667,6 +3317,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a warning when injecting MAME configuration fails.
+    /// </summary>
     public Task FailedToInjectMameConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedtoinjectMAMEconfiguration", "Failed to inject MAME configuration. The error has been logged. Please check the emulator path and try again.");
@@ -2674,6 +3327,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after MAME configuration has been injected.
+    /// </summary>
     public Task MameConfigurationInjectedSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("MAMEconfigurationinjectedsuccessfully", "MAME configuration injected successfully.");
@@ -2681,6 +3337,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a warning when injecting MAME configuration fails (alternate message).
+    /// </summary>
     public Task FailedtoinjectMamEconfiguration2MessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedtoinjectMAMEconfigurationTheerror", "Failed to inject MAME configuration. The error has been logged.");
@@ -2688,6 +3347,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a prompt to locate the MAME emulator executable.
+    /// </summary>
     public Task MameEmulatorPathNotFoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("MAMEemulatorpathnotfoundPleaseselect", "MAME emulator path not found. Please select 'mame.exe' or 'mame64.exe' to apply these settings.");
@@ -2695,6 +3357,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a prompt to locate the RetroArch emulator executable.
+    /// </summary>
     public Task RetroArchemulatorpathnotfoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("RetroArchemulatorpathnotfoundPlease", "RetroArch emulator path not found. Please select 'retroarch.exe' to apply these settings.");
@@ -2702,6 +3367,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a warning when injecting RetroArch configuration fails.
+    /// </summary>
     public Task FailedtoinjectRetroArchconfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedtoinjectRetroArchconfigurationTheerror", "Failed to inject RetroArch configuration. The error has been logged. Please check the emulator path and try again.");
@@ -2709,6 +3377,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after RetroArch configuration has been injected.
+    /// </summary>
     public Task RetroArchConfigurationInjectedSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("RetroArchconfigurationinjectedsuccessfully", "RetroArch configuration injected successfully.");
@@ -2716,6 +3387,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a warning when injecting RetroArch configuration fails (alternate message).
+    /// </summary>
     public Task FailedtoinjectRetroArchconfiguration2MessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedtoinjectRetroArchconfigurationTheerrorhas", "Failed to inject RetroArch configuration. The error has been logged.");
@@ -2723,6 +3397,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a prompt to locate the Xenia emulator executable.
+    /// </summary>
     public Task XeniaemulatorpathnotfoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("Xeniaemulatorpathnotfound", "Xenia emulator path not found. Please select 'xenia.exe' or 'xenia_canary.exe' to apply these settings.");
@@ -2730,6 +3407,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a warning when injecting Xenia configuration fails.
+    /// </summary>
     public Task FailedtoinjectXeniaconfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedtoinjectXeniaconfigurationTheerrorPleasecheck", "Failed to inject Xenia configuration. The error has been logged. Please check the emulator path and try again.");
@@ -2737,6 +3417,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after Xenia configuration has been injected.
+    /// </summary>
     public Task XeniaconfigurationinjectedsuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("Xeniaconfigurationinjectedsuccessfully", "Xenia configuration injected successfully.");
@@ -2744,6 +3427,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a warning when injecting Xenia configuration fails (alternate message).
+    /// </summary>
     public Task FailedtoinjectXeniaconfiguration2MessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedtoinjectXeniaconfigurationTheerror", "Failed to inject Xenia configuration. The error has been logged.");
@@ -2751,6 +3437,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a warning prompting the user to enter RetroAchievements username and password first.
+    /// </summary>
     public Task EnterUsernamePasswordMessageBox()
     {
         var message1 = _resourceProvider.GetString("EnterUsernamePassword", "Please enter your RetroAchievements username and password first.");
@@ -2758,6 +3447,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when the Ares emulator cannot be found.
+    /// </summary>
     public Task AresemulatornotfoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("Aresemulatornotfound", "Ares emulator not found. Please locate 'ares.exe'.");
@@ -2765,6 +3457,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after Daphne settings have been saved.
+    /// </summary>
     public Task DaphnesettingssavedsuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("Daphnesettingssavedsuccessfully", "Daphne settings saved successfully.");
@@ -2772,6 +3467,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after PCSX2 settings have been saved.
+    /// </summary>
     public Task Pcsx2SettingssavedMessageBox()
     {
         var message1 = _resourceProvider.GetString("PCSX2settingssaved", "PCSX2 settings saved.");
@@ -2779,6 +3477,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after emulator settings have been saved.
+    /// </summary>
     public Task SettingsSavedMessageBox()
     {
         var message1 = _resourceProvider.GetString("SettingsSaved", "Settings saved.");
@@ -2786,6 +3487,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when the Cemu emulator cannot be found.
+    /// </summary>
     public Task CemuEmulatorNotFoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("Cemuemulatornotfound", "Cemu emulator not found. Please locate 'Cemu.exe'.");
@@ -2793,6 +3497,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when injecting Ares configuration fails.
+    /// </summary>
     public Task FailedtoinjectAresconfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedtoinjectAresconfiguration", "Failed to inject Ares configuration. Please check file permissions and try again.");
@@ -2800,6 +3507,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after Cemu configuration has been saved.
+    /// </summary>
     public Task CemuConfigurationSavedMessageBox()
     {
         var message1 = _resourceProvider.GetString("CemuConfigurationSaved", "Cemu configuration saved.");
@@ -2807,6 +3517,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when the Flycast emulator cannot be found.
+    /// </summary>
     public Task FlycastEmulatorNotFoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("Flycastemulatornotfound", "Flycast emulator not found. Please locate 'flycast.exe'.");
@@ -2814,6 +3527,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after Ares configuration has been saved.
+    /// </summary>
     public Task AresConfigurationSavedSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("AresConfigurationSavedSuccessfully", "Ares configuration saved successfully.");
@@ -2821,6 +3537,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when saving Ares configuration fails.
+    /// </summary>
     public Task FailedToSaveAresConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToSaveAresConfiguration", "Failed to save Ares configuration. Please check file permissions.");
@@ -2828,6 +3547,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when injecting Flycast configuration fails.
+    /// </summary>
     public Task FailedToInjectFlycastConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToInjectFlycastConfiguration", "Failed to inject Flycast configuration. Please check file permissions and try again.");
@@ -2835,6 +3557,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after Flycast configuration has been saved.
+    /// </summary>
     public Task FlycastConfigurationSavedSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("FlycastConfigurationSavedSuccessfully", "Flycast configuration saved successfully.");
@@ -2842,6 +3567,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when the Dolphin emulator cannot be found.
+    /// </summary>
     public Task DolphinEmulatorNotFoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("DolphinEmulatorNotFound", "Dolphin emulator not found. Please locate 'Dolphin.exe'.");
@@ -2849,6 +3577,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when saving Flycast configuration fails.
+    /// </summary>
     public Task FailedToSaveFlycastConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToSaveFlycastConfiguration", "Failed to save Flycast configuration. Please check file permissions.");
@@ -2856,6 +3587,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when injecting Dolphin configuration fails.
+    /// </summary>
     public Task FailedToInjectDolphinConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToInjectDolphinConfiguration", "Failed to inject Dolphin configuration. Please check file permissions and try again.");
@@ -2863,6 +3597,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after Dolphin configuration has been saved.
+    /// </summary>
     public Task DolphinConfigurationSavedSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("DolphinConfigurationSavedSuccessfully", "Dolphin configuration saved successfully.");
@@ -2870,6 +3607,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when saving Dolphin configuration fails.
+    /// </summary>
     public Task FailedToSaveDolphinConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToSaveDolphinConfiguration", "Failed to save Dolphin configuration. Please check file permissions.");
@@ -2877,6 +3617,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when the SEGA Model 2 emulator cannot be found.
+    /// </summary>
     public Task SegaModel2EmulatorNotFoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("SEGAModel2EmulatorNotFound", "SEGA Model 2 emulator not found. Please locate 'emulator.exe'.");
@@ -2884,6 +3627,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when injecting SEGA Model 2 configuration fails.
+    /// </summary>
     public Task FailedToInjectSegaModel2ConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToInjectSEGAModel2Configuration", "Failed to inject SEGA Model 2 configuration. Please check file permissions and try again.");
@@ -2891,6 +3637,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after SEGA Model 2 configuration has been saved.
+    /// </summary>
     public Task SegaModel2ConfigurationSavedSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("SEGAModel2ConfigurationSavedSuccessfully", "SEGA Model 2 configuration saved successfully.");
@@ -2898,6 +3647,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when the Blastem emulator cannot be found.
+    /// </summary>
     public Task BlastemEmulatorNotFoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("BlastememulatornotfoundPleaselocate", "Blastem emulator not found. Please locate 'blastem.exe'.");
@@ -2905,6 +3657,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when injecting Blastem configuration fails.
+    /// </summary>
     public Task FailedToInjectBlastemConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToInjectBlastemConfiguration", "Failed to inject Blastem configuration. Please check file permissions and try again.");
@@ -2912,6 +3667,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after Blastem configuration has been saved.
+    /// </summary>
     public Task BlastemConfigurationSavedSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("BlastemConfigurationSavedSuccessfully", "Blastem configuration saved successfully.");
@@ -2919,6 +3677,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when saving SEGA Model 2 configuration fails.
+    /// </summary>
     public Task FailedToSaveSegaModel2ConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToSaveSEGAModel2Configuration", "Failed to save SEGA Model 2 configuration. Please check file permissions.");
@@ -2926,6 +3687,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when saving Blastem configuration fails.
+    /// </summary>
     public Task FailedToSaveBlastemConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToSaveBlastemConfiguration", "Failed to save Blastem configuration. Please check file permissions.");
@@ -2933,6 +3697,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when the RPCS3 emulator cannot be found.
+    /// </summary>
     public Task Rpcs3EmulatorNotFoundPleaseLocateMessageBox()
     {
         var message1 = _resourceProvider.GetString("RPCS3emulatornotfoundPleaselocate", "RPCS3 emulator not found. Please locate 'rpcs3.exe'.");
@@ -2940,6 +3707,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when injecting RPCS3 configuration fails.
+    /// </summary>
     public Task FailedToInjectRpcs3ConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToInjectRPCS3Configuration", "Failed to inject RPCS3 configuration. Please check file permissions and try again.");
@@ -2947,6 +3717,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after RPCS3 configuration has been saved.
+    /// </summary>
     public Task Rpcs3ConfigurationSavedSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("RPCS3ConfigurationSavedSuccessfully", "RPCS3 configuration saved successfully.");
@@ -2954,6 +3727,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when saving RPCS3 configuration fails.
+    /// </summary>
     public Task FailedToSaveRpcs3ConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedtosaveRPCS3configurationPleasecheck", "Failed to save RPCS3 configuration. Please check file permissions.");
@@ -2961,6 +3737,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when the Stella emulator cannot be found.
+    /// </summary>
     public Task StellaEmulatorNotFoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("StellaemulatornotfoundPleaselocate", "Stella emulator not found. Please locate 'stella.exe'.");
@@ -2968,6 +3747,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when injecting Stella configuration fails.
+    /// </summary>
     public Task FailedToInjectStellaConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedtoinjectStellaconfiguration", "Failed to inject Stella configuration. Please check file permissions and try again.");
@@ -2975,6 +3757,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when the Supermodel emulator cannot be found.
+    /// </summary>
     public Task SupermodelEmulatorNotFoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("SupermodelEmulatorNotFound", "Supermodel emulator not found. Please locate 'Supermodel.exe'.");
@@ -2982,6 +3767,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after Stella configuration has been saved.
+    /// </summary>
     public Task StellaConfigurationSavedSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("StellaConfigurationSavedSuccessfully", "Stella configuration saved successfully.");
@@ -2989,6 +3777,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when injecting Supermodel configuration fails.
+    /// </summary>
     public Task FailedToInjectSupermodelConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedtoinjectSupermodelconfiguration", "Failed to inject Supermodel configuration. Please check file permissions and try again.");
@@ -2996,6 +3787,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when saving Stella configuration fails.
+    /// </summary>
     public Task FailedToSaveStellaConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToSaveStellaConfiguration", "Failed to save Stella configuration. Please check file permissions.");
@@ -3003,6 +3797,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after Supermodel configuration has been saved.
+    /// </summary>
     public Task SupermodelConfigurationSavedSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("Supermodelconfigurationsavedsuccessfully", "Supermodel configuration saved successfully.");
@@ -3010,6 +3807,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when saving Supermodel configuration fails.
+    /// </summary>
     public Task FailedToSaveSupermodelConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToSaveSupermodelConfiguration", "Failed to save Supermodel configuration. Please check file permissions.");
@@ -3017,6 +3817,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when the Mednafen emulator cannot be found.
+    /// </summary>
     public Task MednafenEmulatorNotFoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("Mednafenemulatornotfound", "Mednafen emulator not found. Please locate 'mednafen.exe'.");
@@ -3024,6 +3827,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when the Mesen emulator cannot be found.
+    /// </summary>
     public Task MesenEmulatorNotFoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("Mesenemulatornotfound", "Mesen emulator not found. Please locate 'Mesen.exe'.");
@@ -3031,6 +3837,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when injecting Mednafen configuration fails.
+    /// </summary>
     public Task FailedToInjectMednafenConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedtoinjectMednafenconfiguration", "Failed to inject Mednafen configuration. Please check file permissions and try again.");
@@ -3038,6 +3847,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when injecting Mesen configuration fails.
+    /// </summary>
     public Task FailedToInjectMesenConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedtoinjectMesenconfiguration", "Failed to inject Mesen configuration. Please check file permissions and try again.");
@@ -3045,6 +3857,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when the DuckStation emulator cannot be found.
+    /// </summary>
     public Task DuckStationEmulatorNotFoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("DuckStationemulatornotfound", "DuckStation emulator not found. Please locate the DuckStation executable.");
@@ -3052,6 +3867,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after Mednafen configuration has been saved.
+    /// </summary>
     public Task MednafenConfigurationSavedSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("MednafenConfigurationSavedSuccessfully", "Mednafen configuration saved successfully.");
@@ -3059,6 +3877,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when saving Mednafen configuration fails.
+    /// </summary>
     public Task FailedToSaveMednafenConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToSaveMednafenConfiguration", "Failed to save Mednafen configuration. Please check file permissions.");
@@ -3066,6 +3887,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when injecting DuckStation configuration fails.
+    /// </summary>
     public Task FailedToInjectDuckStationConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToInjectDuckStationConfiguration", "Failed to inject DuckStation configuration. Please check file permissions and try again.");
@@ -3073,6 +3897,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after DuckStation configuration has been saved.
+    /// </summary>
     public Task DuckStationConfigurationSavedSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("DuckStationConfigurationSavedSuccessfully", "DuckStation configuration saved successfully.");
@@ -3080,6 +3907,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when saving Mesen configuration fails.
+    /// </summary>
     public Task FailedToSaveMesenConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToSaveMesenConfiguration", "Failed to save Mesen configuration. Please check file permissions.");
@@ -3087,6 +3917,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when saving DuckStation configuration fails.
+    /// </summary>
     public Task FailedToSaveDuckStationConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToSaveDuckStationConfiguration", "Failed to save DuckStation configuration. Please check file permissions.");
@@ -3094,6 +3927,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after Mesen configuration has been saved.
+    /// </summary>
     public Task MesenConfigurationSavedSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("MesenConfigurationSavedSuccessfully", "Mesen configuration saved successfully.");
@@ -3101,6 +3937,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when injecting Yumir configuration fails.
+    /// </summary>
     public Task FailedToInjectYumirConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToSaveYumirConfiguration", "Failed to save Yumir configuration. Please check file permissions.");
@@ -3108,6 +3947,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after Yumir configuration has been saved.
+    /// </summary>
     public Task YumirConfigurationSavedSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("YumirConfigurationSavedSuccessfully", "Yumir configuration saved successfully.");
@@ -3115,6 +3957,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after Raine configuration has been injected.
+    /// </summary>
     public Task RaineSettingsSavedAndInjectedMessageBox()
     {
         var message1 = _resourceProvider.GetString("RaineSettingsSavedAndInjectedSuccessfully", "Raine configuration has been successfully injected.");
@@ -3122,6 +3967,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when the Raine executable cannot be found.
+    /// </summary>
     public Task RaineExecutableNotFoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("RaineConfig_PathNotFound", "Raine executable not found. Please select it.");
@@ -3129,6 +3977,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when the Yumir executable cannot be found.
+    /// </summary>
     public Task YumirEmulatorNotFoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("YumirConfig_PathNotFound", "Yumir executable not found. Please select it.");
@@ -3136,6 +3987,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when the ReDream executable cannot be found.
+    /// </summary>
     public Task ReDreamEmulatorPathNotFoundMessageBox()
     {
         var message1 = _resourceProvider.GetString("ReDreamConfig_PathNotFound", "ReDream executable not found. Please select it.");
@@ -3143,6 +3997,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when injecting ReDream configuration fails.
+    /// </summary>
     public Task FailedToInjectReDreamConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToSaveReDreamConfiguration", "Failed to save ReDream configuration. Please check file permissions.");
@@ -3150,6 +4007,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays a success message after ReDream configuration has been injected.
+    /// </summary>
     public Task ReDreamConfigurationInjectedSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("ReDreamConfigurationSavedSuccessfully", "ReDream configuration saved successfully.");
@@ -3157,6 +4017,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when a game fails to launch due to a DEP violation.
+    /// </summary>
     public Task CouldNotLaunchGameDueToDepViolationMessageBox()
     {
         var title = _resourceProvider.GetString("Error", "Error");
@@ -3170,6 +4033,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{message4}", title);
     }
 
+    /// <summary>
+    /// Displays a MAME ROM set error with an option to visit the PleasureDome website.
+    /// </summary>
     public async Task MameRomSetErrorMessageBox()
     {
         var title = _resourceProvider.GetString("ROMFilesNotFound", "ROM Files Not Found");
@@ -3200,6 +4066,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays a MAME unknown system error with an option to visit the PleasureDome website.
+    /// </summary>
     public async Task MameUnknownSystemErrorMessageBox()
     {
         var title = _resourceProvider.GetString("UnknownSystemError", "Unknown System Error");
@@ -3232,6 +4101,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when MAME cannot load an image file, with an option to visit the PleasureDome website.
+    /// </summary>
     public async Task MameUnableToLoadImageMessageBox()
     {
         var title = _resourceProvider.GetString("UnableToLoadImage", "Unable to load image");
@@ -3264,6 +4136,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error that the Ootake emulator does not support CHD, ISO, or CUE/BIN files.
+    /// </summary>
     public Task OotakeDoesNotSupportImageFilesMessageBox()
     {
         var title = _resourceProvider.GetString("Error", "Error");
@@ -3271,6 +4146,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message, title);
     }
 
+    /// <summary>
+    /// Displays an error that the Geolith libretro DLL does not support compressed files, with an option to visit a wiki page.
+    /// </summary>
     public async Task GeolithDoesNotSupportCompressedFilesMessageBox()
     {
         var title = _resourceProvider.GetString("Error", "Error");
@@ -3301,6 +4179,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error that the RetroArch parameter should contain -L to point to the desired core.
+    /// </summary>
     public Task RetroArchParameterShouldContainLMessageBox()
     {
         var title = _resourceProvider.GetString("Error", "Error");
@@ -3310,6 +4191,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{message2}", title);
     }
 
+    /// <summary>
+    /// Displays a RetroArch parameter issue with troubleshooting tips and an option to open the error log.
+    /// </summary>
     public async Task RetroArchParameterIssueMessageBox(string logPath)
     {
         var title = _resourceProvider.GetString("Error", "Error");
@@ -3343,6 +4227,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         }
     }
 
+    /// <summary>
+    /// Displays an error when special characters in the file path prevent RetroArch from launching.
+    /// </summary>
     public Task RetroArchSpecialCharactersInPathMessageBox()
     {
         var title = _resourceProvider.GetString("Error", "Error");
@@ -3354,6 +4241,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{message3}", title);
     }
 
+    /// <summary>
+    /// Displays a warning when Azahar configuration injection fails due to permission issues.
+    /// </summary>
     public Task AzaharConfigurationInjectionPermissionErrorMessageBox()
     {
         var title = _resourceProvider.GetString("InjectionFailed", "Injection Failed");
@@ -3371,6 +4261,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                $"{message6}", title);
     }
 
+    /// <summary>
+    /// Displays a success message after Azahar configuration has been saved.
+    /// </summary>
     public Task AzaharConfigurationSavedSuccessfullyMessageBox()
     {
         var message1 = _resourceProvider.GetString("AzaharConfigurationSavedSuccessfully", "Azahar configuration saved successfully.");
@@ -3378,6 +4271,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error message when saving Azahar configuration fails.
+    /// </summary>
     public Task FailedToSaveAzaharConfigurationMessageBox()
     {
         var message1 = _resourceProvider.GetString("FailedToSaveAzaharConfiguration", "Failed to save Azahar configuration. Please check file permissions.");
@@ -3385,6 +4281,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(message1, message2);
     }
 
+    /// <summary>
+    /// Displays an error that the Xemu parameter should contain '-dvd_path'.
+    /// </summary>
     public Task XemuParameterShouldContainDvdPathMessageBox()
     {
         var title = _resourceProvider.GetString("Error", "Error");
@@ -3394,6 +4293,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{message2}", title);
     }
 
+    /// <summary>
+    /// Displays an error that the application cannot run from a temporary folder.
+    /// </summary>
     public Task PleaseExtractApplicationFirstMessageBox()
     {
         var title = _resourceProvider.GetString("Error", "Error");
@@ -3403,6 +4305,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                              $"{message2}", title);
     }
 
+    /// <summary>
+    /// Displays a generic error message when configuration injection fails.
+    /// </summary>
     public Task InjectionFailedGenericMessageBox()
     {
         var errorMessage = _resourceProvider.GetString("Failedtoinjectconfiguration", "Failed to inject configuration. The error has been logged to the developer.");
@@ -3410,6 +4315,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(errorMessage, errorTitle);
     }
 
+    /// <summary>
+    /// Displays an error message when saving Daphne configuration fails.
+    /// </summary>
     public Task DaphneConfigurationSaveFailedMessageBox()
     {
         var errorMessage = _resourceProvider.GetString("Failedtosaveconfiguration", "Failed to save configuration. The error has been logged to the developer.");
@@ -3417,6 +4325,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync(errorMessage, errorTitle);
     }
 
+    /// <summary>
+    /// Displays a warning when image download times out due to Cloudflare access issues.
+    /// </summary>
     public Task ShowImageDownloadTimeoutMessageBox()
     {
         var simpleLauncherCouldNotDownloadImages = _resourceProvider.GetString("SimpleLauncherCouldNotDownloadImages", "Simple Launcher could not download images due to access issues to Cloudflare servers.");
@@ -3429,6 +4340,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                $"{pleaseTryAgainBehindAVpn}", imageDownloadError);
     }
 
+    /// <summary>
+    /// Displays a prompt asking the user to enter a system name before choosing an image.
+    /// </summary>
     public Task SystemNameRequiredBeforeChoosingImageMessageBox()
     {
         var message = _resourceProvider.GetString("SystemNameRequiredBeforeChoosingImage", "Please enter a system name before choosing an image.");
@@ -3436,6 +4350,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowInfoAsync(message, title);
     }
 
+    /// <summary>
+    /// Displays a warning when the selected image format is not supported.
+    /// </summary>
     public Task InvalidImageFormatMessageBox()
     {
         var message = _resourceProvider.GetString("InvalidImageFormat", "Only PNG, JPG, and JPEG images are supported.");
@@ -3443,6 +4360,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowWarningAsync(message, title);
     }
 
+    /// <summary>
+    /// Displays an error message when copying the system image fails.
+    /// </summary>
     public Task FailedToCopySystemImageMessageBox(string errorMessage)
     {
         var baseMessage = _resourceProvider.GetString("FailedToCopySystemImage", "Failed to copy the image:");
@@ -3450,17 +4370,26 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return _messageDialog.ShowErrorAsync($"{baseMessage} {errorMessage}", title);
     }
 
+    /// <summary>
+    /// Displays a generic warning message with the specified message text.
+    /// </summary>
     public Task WarningMessageBox(string message)
     {
         var title = _resourceProvider.GetString("Warning", "Warning");
         return _messageDialog.ShowWarningAsync(message, title);
     }
 
+    /// <summary>
+    /// Displays a custom error message with the specified message and title.
+    /// </summary>
     public Task CustomErrorMessageBox(string message, string title)
     {
         return _messageDialog.ShowErrorAsync(message, title);
     }
 
+    /// <summary>
+    /// Displays a custom yes/no question dialog and returns the user's response.
+    /// </summary>
     public async Task<bool> CustomQuestionMessageBox(string title, string message)
     {
         var result = await _messageDialog.ShowYesNoAsync(message, title);

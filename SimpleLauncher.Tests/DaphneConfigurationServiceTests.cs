@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
@@ -7,6 +6,11 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+using Interfaces;
+
+/// <summary>
+/// Tests the <see cref="DaphneConfigurationService"/> command-line argument builder for the Daphne emulator.
+/// </summary>
 public class DaphneConfigurationServiceTests : IDisposable
 {
     private readonly IConfiguration _configuration;
@@ -37,12 +41,18 @@ public class DaphneConfigurationServiceTests : IDisposable
         return new SettingsManager(_configuration, _logErrors, _credentialProtector);
     }
 
+    /// <summary>
+    /// Verifies that passing null settings to BuildArguments throws ArgumentNullException.
+    /// </summary>
     [Fact]
     public void BuildArgumentsNullSettingsThrowsArgumentNullException()
     {
         Assert.Throws<ArgumentNullException>(static () => DaphneConfigurationService.BuildArguments(null));
     }
 
+    /// <summary>
+    /// Verifies that default settings produce arguments containing the -use_overlays flag.
+    /// </summary>
     [Fact]
     public void BuildArgumentsDefaultSettingsContainsUseOverlays()
     {
@@ -52,6 +62,9 @@ public class DaphneConfigurationServiceTests : IDisposable
         Assert.Contains("-use_overlays", args);
     }
 
+    /// <summary>
+    /// Verifies that enabling fullscreen produces arguments containing the -fullscreen flag.
+    /// </summary>
     [Fact]
     public void BuildArgumentsFullscreenEnabledContainsFullscreenFlag()
     {
@@ -63,6 +76,9 @@ public class DaphneConfigurationServiceTests : IDisposable
         Assert.Contains("-fullscreen", args);
     }
 
+    /// <summary>
+    /// Verifies that disabling fullscreen omits the -fullscreen flag from arguments.
+    /// </summary>
     [Fact]
     public void BuildArgumentsFullscreenDisabledOmitsFullscreenFlag()
     {
@@ -74,6 +90,9 @@ public class DaphneConfigurationServiceTests : IDisposable
         Assert.DoesNotContain("-fullscreen", args);
     }
 
+    /// <summary>
+    /// Verifies that valid resolution values produce -x and -y arguments.
+    /// </summary>
     [Fact]
     public void BuildArgumentsValidResolutionContainsXyArgs()
     {
@@ -87,6 +106,9 @@ public class DaphneConfigurationServiceTests : IDisposable
         Assert.Contains("-y 1080", args);
     }
 
+    /// <summary>
+    /// Verifies that resolution values below the minimum threshold omit -x and -y arguments.
+    /// </summary>
     [Fact]
     public void BuildArgumentsResolutionBelowMinOmitsResolutionArgs()
     {
@@ -100,6 +122,9 @@ public class DaphneConfigurationServiceTests : IDisposable
         Assert.DoesNotContain("-y", args);
     }
 
+    /// <summary>
+    /// Verifies that resolution values above the maximum threshold omit -x and -y arguments.
+    /// </summary>
     [Fact]
     public void BuildArgumentsResolutionAboveMaxOmitsResolutionArgs()
     {
@@ -124,6 +149,9 @@ public class DaphneConfigurationServiceTests : IDisposable
         Assert.Contains("-nocrosshairs", args);
     }
 
+    /// <summary>
+    /// Verifies that enabling crosshairs omits the -nocrosshairs flag from arguments.
+    /// </summary>
     [Fact]
     public void BuildArgumentsCrosshairsEnabledOmitsNoCrosshairsFlag()
     {
@@ -135,6 +163,9 @@ public class DaphneConfigurationServiceTests : IDisposable
         Assert.DoesNotContain("-nocrosshairs", args);
     }
 
+    /// <summary>
+    /// Verifies that disabling bilinear filtering produces arguments containing -nolinear_scale.
+    /// </summary>
     [Fact]
     public void BuildArgumentsBilinearDisabledContainsNoLinearScaleFlag()
     {
@@ -146,6 +177,9 @@ public class DaphneConfigurationServiceTests : IDisposable
         Assert.Contains("-nolinear_scale", args);
     }
 
+    /// <summary>
+    /// Verifies that enabling bilinear filtering omits the -nolinear_scale flag from arguments.
+    /// </summary>
     [Fact]
     public void BuildArgumentsBilinearEnabledOmitsNoLinearScaleFlag()
     {
@@ -157,6 +191,9 @@ public class DaphneConfigurationServiceTests : IDisposable
         Assert.DoesNotContain("-nolinear_scale", args);
     }
 
+    /// <summary>
+    /// Verifies that disabling sound produces arguments containing -nosound.
+    /// </summary>
     [Fact]
     public void BuildArgumentsSoundDisabledContainsNoSoundFlag()
     {
@@ -168,6 +205,9 @@ public class DaphneConfigurationServiceTests : IDisposable
         Assert.Contains("-nosound", args);
     }
 
+    /// <summary>
+    /// Verifies that enabling sound omits the -nosound flag from arguments.
+    /// </summary>
     [Fact]
     public void BuildArgumentsSoundEnabledOmitsNoSoundFlag()
     {
@@ -179,6 +219,9 @@ public class DaphneConfigurationServiceTests : IDisposable
         Assert.DoesNotContain("-nosound", args);
     }
 
+    /// <summary>
+    /// Verifies that enabling overlays produces arguments containing -use_overlays 1.
+    /// </summary>
     [Fact]
     public void BuildArgumentsOverlaysEnabledContainsUseOverlays1()
     {
@@ -190,6 +233,9 @@ public class DaphneConfigurationServiceTests : IDisposable
         Assert.Contains("-use_overlays 1", args);
     }
 
+    /// <summary>
+    /// Verifies that disabling overlays produces arguments containing -use_overlays 0.
+    /// </summary>
     [Fact]
     public void BuildArgumentsOverlaysDisabledContainsUseOverlays0()
     {
@@ -201,6 +247,9 @@ public class DaphneConfigurationServiceTests : IDisposable
         Assert.Contains("-use_overlays 0", args);
     }
 
+    /// <summary>
+    /// Verifies that all options enabled produce arguments containing every expected flag.
+    /// </summary>
     [Fact]
     public void BuildArgumentsAllOptionsEnabledContainsAllFlags()
     {

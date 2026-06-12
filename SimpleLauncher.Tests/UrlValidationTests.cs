@@ -8,6 +8,9 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests that URLs referenced in parameters.md and EasyMode configuration files are reachable and valid.
+/// </summary>
 public partial class UrlValidationTests
 {
     private static readonly HttpClient HttpClient = new(new SocketsHttpHandler
@@ -34,6 +37,9 @@ public partial class UrlValidationTests
         return Path.GetFullPath(path);
     }
 
+    /// <summary>
+    /// Verifies that all URLs found in parameters.md are reachable via HTTP requests.
+    /// </summary>
     [Fact]
     public async Task ParametersMdAllUrlsAreReachable()
     {
@@ -78,6 +84,9 @@ public partial class UrlValidationTests
         }
     }
 
+    /// <summary>
+    /// Verifies that the EasyMode API endpoints return valid JSON array responses.
+    /// </summary>
     [Theory]
     [InlineData("https://www.purelogiccode.com/simplelauncheradmin/api/Systems/x64")]
     [InlineData("https://www.purelogiccode.com/simplelauncheradmin/api/Systems/arm64")]
@@ -91,6 +100,9 @@ public partial class UrlValidationTests
         Assert.True(content.TrimStart().StartsWith('['), $"API endpoint {url} did not return a JSON array");
     }
 
+    /// <summary>
+    /// Verifies that EasyMode fallback XML files are reachable and contain valid, reachable download URLs.
+    /// </summary>
     [Theory]
     [InlineData("https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/easymode.xml")]
     [InlineData("https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/easymode_arm64.xml")]

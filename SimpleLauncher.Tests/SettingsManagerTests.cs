@@ -1,11 +1,15 @@
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+using Interfaces;
+
+/// <summary>
+/// Tests the SettingsManager for correct default values, modification behavior, and emulator-specific settings.
+/// </summary>
 public class SettingsManagerTests : IDisposable
 {
     private readonly string _testDirectory;
@@ -44,6 +48,9 @@ public class SettingsManagerTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Verifies the default thumbnail size is 250.
+    /// </summary>
     [Fact]
     public void DefaultThumbnailSizeIs250()
     {
@@ -51,6 +58,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal(250, settings.ThumbnailSize);
     }
 
+    /// <summary>
+    /// Verifies the default games per page is 200.
+    /// </summary>
     [Fact]
     public void DefaultGamesPerPageIs200()
     {
@@ -58,6 +68,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal(200, settings.GamesPerPage);
     }
 
+    /// <summary>
+    /// Verifies the default show games setting is ShowAll.
+    /// </summary>
     [Fact]
     public void DefaultShowGamesIsShowAll()
     {
@@ -65,6 +78,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal("ShowAll", settings.ShowGames);
     }
 
+    /// <summary>
+    /// Verifies the default view mode is GridView.
+    /// </summary>
     [Fact]
     public void DefaultViewModeIsGridView()
     {
@@ -72,6 +88,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal("GridView", settings.ViewMode);
     }
 
+    /// <summary>
+    /// Verifies the default base theme is Dark.
+    /// </summary>
     [Fact]
     public void DefaultBaseThemeIsDark()
     {
@@ -79,6 +98,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal("Dark", settings.BaseTheme);
     }
 
+    /// <summary>
+    /// Verifies the default accent color is Blue.
+    /// </summary>
     [Fact]
     public void DefaultAccentColorIsBlue()
     {
@@ -86,6 +108,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal("Blue", settings.AccentColor);
     }
 
+    /// <summary>
+    /// Verifies the default language is en.
+    /// </summary>
     [Fact]
     public void DefaultLanguageIsEn()
     {
@@ -93,18 +118,27 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal("en", settings.Language);
     }
 
+    /// <summary>
+    /// Verifies the default X-axis dead zone value is 0.05.
+    /// </summary>
     [Fact]
     public void DefaultDeadZoneXIsCorrect()
     {
         Assert.Equal(0.05f, SettingsManager.DefaultDeadZoneX);
     }
 
+    /// <summary>
+    /// Verifies the default Y-axis dead zone value is 0.02.
+    /// </summary>
     [Fact]
     public void DefaultDeadZoneYIsCorrect()
     {
         Assert.Equal(0.02f, SettingsManager.DefaultDeadZoneY);
     }
 
+    /// <summary>
+    /// Verifies that fuzzy matching is enabled by default.
+    /// </summary>
     [Fact]
     public void DefaultEnableFuzzyMatchingIsTrue()
     {
@@ -112,6 +146,9 @@ public class SettingsManagerTests : IDisposable
         Assert.True(settings.EnableFuzzyMatching);
     }
 
+    /// <summary>
+    /// Verifies the default fuzzy matching threshold is 0.80.
+    /// </summary>
     [Fact]
     public void DefaultFuzzyMatchingThresholdIs080()
     {
@@ -119,6 +156,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal(0.80, settings.FuzzyMatchingThreshold);
     }
 
+    /// <summary>
+    /// Verifies that notification sounds are enabled by default.
+    /// </summary>
     [Fact]
     public void DefaultEnableNotificationSoundIsTrue()
     {
@@ -126,6 +166,9 @@ public class SettingsManagerTests : IDisposable
         Assert.True(settings.EnableNotificationSound);
     }
 
+    /// <summary>
+    /// Verifies the default button aspect ratio is Square.
+    /// </summary>
     [Fact]
     public void DefaultButtonAspectRatioIsSquare()
     {
@@ -133,6 +176,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal("Square", settings.ButtonAspectRatio);
     }
 
+    /// <summary>
+    /// Verifies the default filename display mode is Original.
+    /// </summary>
     [Fact]
     public void DefaultFilenameDisplayModeIsOriginal()
     {
@@ -140,6 +186,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal("Original", settings.FilenameDisplayMode);
     }
 
+    /// <summary>
+    /// Verifies the default filename font size is Normal.
+    /// </summary>
     [Fact]
     public void DefaultFilenameFontSizeIsNormal()
     {
@@ -147,6 +196,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal("Normal", settings.FilenameFontSize);
     }
 
+    /// <summary>
+    /// Verifies the default machine name font size is Normal.
+    /// </summary>
     [Fact]
     public void DefaultMachineNameFontSizeIsNormal()
     {
@@ -154,6 +206,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal("Normal", settings.MachineNameFontSize);
     }
 
+    /// <summary>
+    /// Verifies the default style variant is Default.
+    /// </summary>
     [Fact]
     public void DefaultStyleVariantIsDefault()
     {
@@ -161,6 +216,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal("Default", settings.StyleVariant);
     }
 
+    /// <summary>
+    /// Verifies the overlay open video button is enabled by default.
+    /// </summary>
     [Fact]
     public void DefaultOverlayOpenVideoButtonIsTrue()
     {
@@ -168,6 +226,9 @@ public class SettingsManagerTests : IDisposable
         Assert.True(settings.OverlayOpenVideoButton);
     }
 
+    /// <summary>
+    /// Verifies that additional system folders section is expanded by default.
+    /// </summary>
     [Fact]
     public void DefaultAdditionalSystemFoldersExpandedIsTrue()
     {
@@ -175,6 +236,9 @@ public class SettingsManagerTests : IDisposable
         Assert.True(settings.AdditionalSystemFoldersExpanded);
     }
 
+    /// <summary>
+    /// Verifies that all emulator expanded states default to true.
+    /// </summary>
     [Fact]
     public void DefaultEmulatorExpandedStatesAreTrue()
     {
@@ -186,6 +250,9 @@ public class SettingsManagerTests : IDisposable
         Assert.True(settings.Emulator5Expanded);
     }
 
+    /// <summary>
+    /// Verifies that settings properties can be modified and the new values are retained.
+    /// </summary>
     [Fact]
     public void SettingsCanBeModified()
     {
@@ -212,6 +279,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal(0.95, settings.FuzzyMatchingThreshold);
     }
 
+    /// <summary>
+    /// Verifies that DuckStation emulator settings have correct default values.
+    /// </summary>
     [Fact]
     public void DefaultDuckStationSettingsAreCorrect()
     {
@@ -226,6 +296,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal(100, settings.DuckStation.OutputVolume);
     }
 
+    /// <summary>
+    /// Verifies that RetroArch emulator settings have correct default values.
+    /// </summary>
     [Fact]
     public void DefaultRetroArchSettingsAreCorrect()
     {
@@ -238,6 +311,9 @@ public class SettingsManagerTests : IDisposable
         Assert.True(settings.RetroArch.ShowAdvancedSettings);
     }
 
+    /// <summary>
+    /// Verifies that system play times collection is empty by default.
+    /// </summary>
     [Fact]
     public void SystemPlayTimesDefaultIsEmpty()
     {
@@ -245,6 +321,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Empty(settings.SystemPlayTimes);
     }
 
+    /// <summary>
+    /// Verifies that the video URL defaults are loaded from configuration.
+    /// </summary>
     [Fact]
     public void VideoUrlDefaultsFromConfiguration()
     {
@@ -252,6 +331,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal("https://www.youtube.com/results?search_query=", settings.VideoUrl);
     }
 
+    /// <summary>
+    /// Verifies that the info URL defaults are loaded from configuration.
+    /// </summary>
     [Fact]
     public void InfoUrlDefaultsFromConfiguration()
     {

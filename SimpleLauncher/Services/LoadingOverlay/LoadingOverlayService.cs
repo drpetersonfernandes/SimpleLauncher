@@ -1,8 +1,9 @@
 using System.Windows;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.PlaySound;
 
 namespace SimpleLauncher.Services.LoadingOverlay;
+
+using Interfaces;
 
 public class LoadingOverlayService
 {

@@ -2,11 +2,13 @@
 
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.WpfServices;
 
+/// <summary>
+/// WPF implementation of IImageLoader, loading images from the filesystem with fallback to a default image.
+/// </summary>
 public class WpfImageLoader(ILogErrors logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBox) : IImageLoader
 {
     private readonly ILogErrors _logErrors = logErrors;
@@ -16,6 +18,7 @@ public class WpfImageLoader(ILogErrors logErrors, IConfiguration configuration, 
         AppDomain.CurrentDomain.BaseDirectory,
         configuration.GetValue<string>("DefaultImagePath") ?? Path.Combine("images", "default.png"));
 
+    /// <summary>Asynchronously loads an image from the specified path, falling back to a default image on failure.</summary>
     public async Task<(Stream? image, bool isDefault)> LoadImageAsync(string? imagePath)
     {
         if (string.IsNullOrWhiteSpace(imagePath))
@@ -71,6 +74,7 @@ public class WpfImageLoader(ILogErrors logErrors, IConfiguration configuration, 
         }
     }
 
+    /// <summary>Reads image file bytes from disk, handling long paths and access errors.</summary>
     public byte[]? LoadImageBytes(string filePath)
     {
         var longPath = PathHelper.GetLongPath(filePath);

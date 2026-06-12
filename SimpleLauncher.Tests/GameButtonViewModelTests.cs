@@ -3,8 +3,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for the <see cref="GameButtonViewModel"/> class.
+/// </summary>
 public class GameButtonViewModelTests
 {
+    /// <summary>
+    /// Verifies that the default value of IsFavorite is false.
+    /// </summary>
     [Fact]
     public void DefaultIsFavoriteIsFalse()
     {
@@ -12,6 +18,9 @@ public class GameButtonViewModelTests
         Assert.False(vm.IsFavorite);
     }
 
+    /// <summary>
+    /// Verifies that the default value of HasAchievements is false.
+    /// </summary>
     [Fact]
     public void DefaultHasAchievementsIsFalse()
     {
@@ -19,6 +28,9 @@ public class GameButtonViewModelTests
         Assert.False(vm.HasAchievements);
     }
 
+    /// <summary>
+    /// Verifies that IsFavorite can be set to true.
+    /// </summary>
     [Fact]
     public void IsFavoriteCanBeSetToTrue()
     {
@@ -26,6 +38,9 @@ public class GameButtonViewModelTests
         Assert.True(vm.IsFavorite);
     }
 
+    /// <summary>
+    /// Verifies that HasAchievements can be set to true.
+    /// </summary>
     [Fact]
     public void HasAchievementsCanBeSetToTrue()
     {
@@ -33,6 +48,9 @@ public class GameButtonViewModelTests
         Assert.True(vm.HasAchievements);
     }
 
+    /// <summary>
+    /// Verifies that setting IsFavorite raises PropertyChanged.
+    /// </summary>
     [Fact]
     public void IsFavoriteRaisesPropertyChanged()
     {
@@ -50,6 +68,9 @@ public class GameButtonViewModelTests
         Assert.True(raised);
     }
 
+    /// <summary>
+    /// Verifies that setting HasAchievements raises PropertyChanged.
+    /// </summary>
     [Fact]
     public void HasAchievementsRaisesPropertyChanged()
     {
@@ -67,6 +88,9 @@ public class GameButtonViewModelTests
         Assert.True(raised);
     }
 
+    /// <summary>
+    /// Verifies that setting IsFavorite to the same value does not raise PropertyChanged.
+    /// </summary>
     [Fact]
     public void IsFavoriteSameValueDoesNotRaisePropertyChanged()
     {
@@ -78,6 +102,9 @@ public class GameButtonViewModelTests
         Assert.False(raised);
     }
 
+    /// <summary>
+    /// Verifies that setting HasAchievements to the same value does not raise PropertyChanged.
+    /// </summary>
     [Fact]
     public void HasAchievementsSameValueDoesNotRaisePropertyChanged()
     {
@@ -89,6 +116,9 @@ public class GameButtonViewModelTests
         Assert.False(raised);
     }
 
+    /// <summary>
+    /// Verifies that IsFavorite can be toggled between true and false.
+    /// </summary>
     [Fact]
     public void IsFavoriteToggleBackAndForth()
     {
@@ -101,6 +131,9 @@ public class GameButtonViewModelTests
         Assert.False(vm.IsFavorite);
     }
 
+    /// <summary>
+    /// Verifies that multiple PropertyChanged subscriptions are all invoked.
+    /// </summary>
     [Fact]
     public void MultiplePropertyChangedSubscriptions()
     {

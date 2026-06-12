@@ -14,6 +14,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public partial class DetectMissingKeysInOtherLanguagesTests
 {
+    /// <summary>
+    /// Verifies that every non-English resource file contains all keys from the English base file.
+    /// </summary>
     [Fact]
     public void AllLanguageFilesShouldContainEveryKeyFromEnglish()
     {

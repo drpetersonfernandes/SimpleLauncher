@@ -3,11 +3,17 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests the emulator name normalization logic that converts emulator names to title case.
+/// </summary>
 public class StatsNormalizeEmulatorNameTests
 {
     // Stats.NormalizeEmulatorName is private, but we can test the behavior
     // through the public API by testing the CultureInfo.TextInfo.ToTitleCase pattern
 
+    /// <summary>
+    /// Verifies that emulator names are converted to title case regardless of input casing.
+    /// </summary>
     [Theory]
     [InlineData("retroarch", "Retroarch")]
     [InlineData("RETROARCH", "Retroarch")]
@@ -24,6 +30,9 @@ public class StatsNormalizeEmulatorNameTests
         Assert.Equal(expected, result);
     }
 
+    /// <summary>
+    /// Verifies that an empty string returns an empty result.
+    /// </summary>
     [Fact]
     public void NormalizeEmulatorNameEmptyReturnsEmpty()
     {
@@ -31,6 +40,9 @@ public class StatsNormalizeEmulatorNameTests
         Assert.Equal("", result);
     }
 
+    /// <summary>
+    /// Verifies that null input returns an empty result.
+    /// </summary>
     [Fact]
     public void NormalizeEmulatorNameNullReturnsEmpty()
     {
@@ -38,6 +50,9 @@ public class StatsNormalizeEmulatorNameTests
         Assert.Equal("", result);
     }
 
+    /// <summary>
+    /// Verifies that whitespace-only input returns an empty result.
+    /// </summary>
     [Fact]
     public void NormalizeEmulatorNameWhitespaceReturnsEmpty()
     {
@@ -45,6 +60,9 @@ public class StatsNormalizeEmulatorNameTests
         Assert.Equal("", result);
     }
 
+    /// <summary>
+    /// Verifies that a single character is converted to uppercase.
+    /// </summary>
     [Fact]
     public void NormalizeEmulatorNameSingleChar()
     {
@@ -52,6 +70,9 @@ public class StatsNormalizeEmulatorNameTests
         Assert.Equal("A", result);
     }
 
+    /// <summary>
+    /// Verifies that multi-word names are title-cased correctly.
+    /// </summary>
     [Fact]
     public void NormalizeEmulatorNameWithSpaces()
     {
@@ -59,6 +80,9 @@ public class StatsNormalizeEmulatorNameTests
         Assert.Equal("Super Model", result);
     }
 
+    /// <summary>
+    /// Verifies that names containing numbers are handled correctly.
+    /// </summary>
     [Fact]
     public void NormalizeEmulatorNameWithNumbers()
     {
@@ -66,6 +90,9 @@ public class StatsNormalizeEmulatorNameTests
         Assert.Equal("Pcsx2 0.9", result);
     }
 
+    /// <summary>
+    /// Verifies that names containing hyphens are title-cased correctly.
+    /// </summary>
     [Fact]
     public void NormalizeEmulatorNameWithHyphens()
     {

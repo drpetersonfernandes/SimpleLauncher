@@ -8,10 +8,7 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.ExtractFiles;
 using SimpleLauncher.Services.TrayIcon;
-using SimpleLauncher.Services.UpdateStatusBar;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
@@ -30,6 +27,9 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         ".CK1", ".CK2", ".CK3", ".CK4", ".CK5", ".CK6"
     ];
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CommanderGeniusLaunchStrategy"/> class.
+    /// </summary>
     public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, ILogErrors logErrors, IUpdateStatusBar updateStatusBar, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
     {
         _extractionService = extractionService;
@@ -40,8 +40,10 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
     }
 
+    /// <inheritdoc />
     public int Priority => 20;
 
+    /// <inheritdoc />
     public bool IsMatch(LaunchContext context)
     {
         if (string.IsNullOrEmpty(context.EmulatorName) ||
@@ -55,6 +57,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         return ext is ".ZIP" or ".7Z" or ".RAR";
     }
 
+    /// <inheritdoc />
     public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
         string extractionDir = null;

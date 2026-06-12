@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
@@ -9,6 +8,8 @@ using Xunit;
 using MameConfigurationService = SimpleLauncher.Services.InjectEmulatorConfig.MameConfigurationService;
 
 namespace SimpleLauncher.Tests;
+
+using Interfaces;
 
 public class EmulatorConfigInjectionTests2 : IDisposable
 {

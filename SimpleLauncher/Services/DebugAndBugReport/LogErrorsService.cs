@@ -5,10 +5,12 @@ using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.CheckPaths;
-using SimpleLauncher.Services.CleanAndDeleteFiles;
 
 namespace SimpleLauncher.Services.DebugAndBugReport;
 
+/// <summary>
+/// Logs errors to local files and optionally sends them to a remote bug report API.
+/// </summary>
 public class LogErrorsService : ILogErrors
 {
     private static readonly SemaphoreSlim LogFileLock = new(1, 1);
@@ -18,6 +20,14 @@ public class LogErrorsService : ILogErrors
     private readonly IDispatcherService _dispatcher;
     private readonly IDeleteFilesService _deleteFilesService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LogErrorsService"/> class.
+    /// </summary>
+    /// <param name="httpClientFactory">Factory for creating HTTP clients used to send error reports to the API.</param>
+    /// <param name="configuration">Application configuration containing log paths and API settings.</param>
+    /// <param name="debugLogger">Logger for writing debug and exception output.</param>
+    /// <param name="dispatcher">Dispatcher service for invoking operations on the UI thread.</param>
+    /// <param name="deleteFilesService">Service for deleting log files after successful API upload.</param>
     public LogErrorsService(
         IHttpClientFactory httpClientFactory,
         IConfiguration configuration,
@@ -32,6 +42,11 @@ public class LogErrorsService : ILogErrors
         _deleteFilesService = deleteFilesService;
     }
 
+    /// <summary>
+    /// Logs an error by writing to local log files and optionally sending the report to the remote bug report API.
+    /// </summary>
+    /// <param name="ex">The exception to log, or null if only a context message is provided.</param>
+    /// <param name="contextMessage">An optional context message describing the error scenario.</param>
     public async Task LogErrorAsync(Exception ex, string contextMessage = null)
     {
         if (ex != null)

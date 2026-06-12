@@ -4,6 +4,9 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Provides extended test coverage for SystemManager and Emulator models, covering default states, property assignment, and edge cases.
+/// </summary>
 public class SystemManagerExtendedTests : IDisposable
 {
     private readonly string _testDirectory;
@@ -31,6 +34,9 @@ public class SystemManagerExtendedTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Verifies that a new SystemManager has null defaults for all reference-type properties.
+    /// </summary>
     [Fact]
     public void SystemManagerDefaultProperties()
     {
@@ -42,6 +48,9 @@ public class SystemManagerExtendedTests : IDisposable
         Assert.Null(sm.FileFormatsToLaunch);
     }
 
+    /// <summary>
+    /// Verifies that SystemManager properties can be assigned and retrieved.
+    /// </summary>
     [Fact]
     public void SystemManagerPropertiesCanBeSet()
     {
@@ -60,6 +69,9 @@ public class SystemManagerExtendedTests : IDisposable
         Assert.True(sm.ExtractFileBeforeLaunch);
     }
 
+    /// <summary>
+    /// Verifies that the Emulators list defaults to null.
+    /// </summary>
     [Fact]
     public void SystemManagerEmulatorsListDefaultIsNull()
     {
@@ -67,6 +79,9 @@ public class SystemManagerExtendedTests : IDisposable
         Assert.Null(sm.Emulators);
     }
 
+    /// <summary>
+    /// Verifies that emulators can be added to the Emulators list.
+    /// </summary>
     [Fact]
     public void SystemManagerEmulatorsCanBeSet()
     {
@@ -84,6 +99,9 @@ public class SystemManagerExtendedTests : IDisposable
         Assert.Contains(sm.Emulators, static e => e.EmulatorName == "Mesen");
     }
 
+    /// <summary>
+    /// Verifies that file format lists can be populated correctly.
+    /// </summary>
     [Fact]
     public void SystemManagerFileFormatsCanBeSet()
     {
@@ -97,6 +115,9 @@ public class SystemManagerExtendedTests : IDisposable
         Assert.Equal(2, sm.FileFormatsToLaunch.Count);
     }
 
+    /// <summary>
+    /// Verifies that the DisableRecursiveSearch flag can be set.
+    /// </summary>
     [Fact]
     public void SystemManagerDisableRecursiveSearch()
     {
@@ -108,6 +129,9 @@ public class SystemManagerExtendedTests : IDisposable
         Assert.True(sm.DisableRecursiveSearch);
     }
 
+    /// <summary>
+    /// Verifies that the GroupByFolder flag can be set.
+    /// </summary>
     [Fact]
     public void SystemManagerGroupByFolder()
     {
@@ -119,6 +143,9 @@ public class SystemManagerExtendedTests : IDisposable
         Assert.True(sm.GroupByFolder);
     }
 
+    /// <summary>
+    /// Verifies that system folders can be assigned.
+    /// </summary>
     [Fact]
     public void SystemManagerSystemFoldersCanBeSet()
     {
@@ -130,6 +157,9 @@ public class SystemManagerExtendedTests : IDisposable
         Assert.Equal(2, sm.SystemFolders.Count);
     }
 
+    /// <summary>
+    /// Verifies that a new Emulator has null defaults for string properties.
+    /// </summary>
     [Fact]
     public void EmulatorDefaultProperties()
     {
@@ -139,6 +169,9 @@ public class SystemManagerExtendedTests : IDisposable
         Assert.Null(emu.EmulatorParameters);
     }
 
+    /// <summary>
+    /// Verifies that Emulator properties can be assigned and retrieved.
+    /// </summary>
     [Fact]
     public void EmulatorPropertiesCanBeSet()
     {
@@ -154,6 +187,9 @@ public class SystemManagerExtendedTests : IDisposable
         Assert.Equal("-L core.dll", emu.EmulatorParameters);
     }
 
+    /// <summary>
+    /// Verifies that emulator paths with parentheses are handled correctly.
+    /// </summary>
     [Fact]
     public void EmulatorWithSpecialCharactersInPath()
     {
@@ -166,6 +202,9 @@ public class SystemManagerExtendedTests : IDisposable
         Assert.Contains(")", emu.EmulatorLocation);
     }
 
+    /// <summary>
+    /// Verifies that emulator paths with spaces are handled correctly.
+    /// </summary>
     [Fact]
     public void EmulatorWithSpacesInPath()
     {

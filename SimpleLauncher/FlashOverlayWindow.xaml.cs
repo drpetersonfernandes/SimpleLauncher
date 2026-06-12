@@ -4,11 +4,18 @@ using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
+/// <summary>
+/// Full-screen overlay window that displays a brief flash animation effect.
+/// </summary>
 public partial class FlashOverlayWindow
 {
     private readonly FlashOverlayViewModel _viewModel;
     private CancellationTokenSource _cts;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FlashOverlayWindow"/> class.
+    /// </summary>
+    /// <param name="viewModel">The view model providing flash overlay logic.</param>
     public FlashOverlayWindow(FlashOverlayViewModel viewModel)
     {
         InitializeComponent();
@@ -21,6 +28,9 @@ public partial class FlashOverlayWindow
         Closing += (_, _) => _cts?.Cancel();
     }
 
+    /// <summary>
+    /// Displays the flash overlay with a fade-in/out animation and closes automatically.
+    /// </summary>
     public async Task ShowFlashAsync()
     {
         _cts = new CancellationTokenSource();

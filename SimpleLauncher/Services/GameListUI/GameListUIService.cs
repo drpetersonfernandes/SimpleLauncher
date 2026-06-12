@@ -6,6 +6,8 @@ using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
 
 namespace SimpleLauncher.Services.GameListUI;
 
+using Interfaces;
+
 public class GameListUiService
 {
     private readonly Settings _settings;

@@ -3,10 +3,17 @@ using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
+/// <summary>
+/// Window for injecting Redream emulator configuration settings.
+/// </summary>
 public partial class InjectRedreamConfigWindow
 {
     private readonly InjectRedreamConfigViewModel _viewModel;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InjectRedreamConfigWindow"/> class.
+    /// </summary>
+    /// <param name="viewModel">The view model providing configuration logic.</param>
     public InjectRedreamConfigWindow(InjectRedreamConfigViewModel viewModel)
     {
         InitializeComponent();
@@ -20,6 +27,11 @@ public partial class InjectRedreamConfigWindow
         DataContext = _viewModel;
     }
 
+    /// <summary>
+    /// Initializes the window with the specified emulator path and launcher mode.
+    /// </summary>
+    /// <param name="emulatorPath">Optional path to the Redream emulator executable.</param>
+    /// <param name="isLauncherMode">If true, the window operates in launcher mode.</param>
     public void Initialize(string emulatorPath = null, bool isLauncherMode = true)
     {
         _viewModel.Initialize(emulatorPath, isLauncherMode);
@@ -30,6 +42,9 @@ public partial class InjectRedreamConfigWindow
         }
     }
 
+    /// <summary>
+    /// Gets whether the emulator should be launched after configuration.
+    /// </summary>
     public bool ShouldRun => _viewModel.ShouldRun;
 
     private static string OnRequestEmulatorPath()

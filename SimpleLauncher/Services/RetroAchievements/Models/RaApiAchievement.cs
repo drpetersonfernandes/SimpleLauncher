@@ -3,6 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Services.RetroAchievements.Models;
 
+/// <summary>
+/// Represents raw achievement data from the RetroAchievements API with parsed date helpers.
+/// </summary>
 public record RaApiAchievement
 {
     [JsonPropertyName("ID")]
@@ -29,15 +32,27 @@ public record RaApiAchievement
     [JsonPropertyName("DateEarnedHardcore")]
     public string DateEarnedHardcoreString { get; set; } = "";
 
+    /// <summary>
+    /// Gets the parsed date when the achievement was earned, or null if not earned.
+    /// </summary>
     [JsonIgnore]
     public DateTime? DateEarned => ParseDate(DateEarnedString);
 
+    /// <summary>
+    /// Gets the parsed date when the achievement was earned in hardcore mode, or null if not earned.
+    /// </summary>
     [JsonIgnore]
     public DateTime? DateEarnedHardcore => ParseDate(DateEarnedHardcoreString);
 
+    /// <summary>
+    /// Gets the full URL for the achievement badge image.
+    /// </summary>
     [JsonIgnore]
     public string BadgeUri => $"https://retroachievements.org/Badge/{BadgeName}.png";
 
+    /// <summary>
+    /// Gets the author name, defaulting to "Unknown" if empty.
+    /// </summary>
     [JsonIgnore]
     public string AuthorDisplay => string.IsNullOrWhiteSpace(Author) ? "Unknown" : Author;
 

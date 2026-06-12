@@ -3,10 +3,16 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.SanitizeInputString;
 
+/// <summary>
+/// Provides input sanitization for folder names and path validation to prevent invalid or dangerous file system operations.
+/// </summary>
 public class InputSanitizerService : IInputSanitizerService
 {
     private static readonly string[] ReservedNames = ["CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"];
 
+    /// <summary>
+    /// Checks whether a name contains characters that are invalid for file names.
+    /// </summary>
     public bool ContainsInvalidCharacters(string name, out char[] invalidChars)
     {
         invalidChars = [];
@@ -26,6 +32,9 @@ public class InputSanitizerService : IInputSanitizerService
         return invalidChars.Length > 0;
     }
 
+    /// <summary>
+    /// Checks whether a path contains characters that are invalid for file system paths.
+    /// </summary>
     public bool ContainsInvalidPathCharacters(string path, out char[] invalidChars)
     {
         invalidChars = [];
@@ -45,6 +54,9 @@ public class InputSanitizerService : IInputSanitizerService
         return invalidChars.Length > 0;
     }
 
+    /// <summary>
+    /// Sanitizes a string for use as a folder name by replacing invalid characters and directory traversal sequences.
+    /// </summary>
     public string SanitizeFolderName(string name)
     {
         if (string.IsNullOrWhiteSpace(name))

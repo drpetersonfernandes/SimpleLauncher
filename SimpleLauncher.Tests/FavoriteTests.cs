@@ -3,8 +3,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for the <see cref="Favorite"/> model covering required properties, optional defaults, and property change notifications.
+/// </summary>
 public class FavoriteTests
 {
+    /// <summary>
+    /// Verifies that a Favorite can be created with required FileName and SystemName properties.
+    /// </summary>
     [Fact]
     public void FavoriteCanBeCreatedWithRequiredProperties()
     {
@@ -18,6 +24,9 @@ public class FavoriteTests
         Assert.Equal("Arcade", favorite.SystemName);
     }
 
+    /// <summary>
+    /// Verifies that optional properties default to null when only required properties are set.
+    /// </summary>
     [Fact]
     public void FavoriteOptionalPropertiesDefaultToNull()
     {
@@ -32,6 +41,9 @@ public class FavoriteTests
         Assert.Null(favorite.DefaultEmulator);
     }
 
+    /// <summary>
+    /// Verifies that optional properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void FavoriteOptionalPropertiesCanBeSet()
     {
@@ -47,6 +59,9 @@ public class FavoriteTests
         Assert.Equal("cover.png", favorite.CoverImage);
     }
 
+    /// <summary>
+    /// Verifies that setting DefaultEmulator raises a PropertyChanged event.
+    /// </summary>
     [Fact]
     public void DefaultEmulatorPropertyRaisesPropertyChanged()
     {
@@ -70,6 +85,9 @@ public class FavoriteTests
         Assert.Equal("RetroArch", favorite.DefaultEmulator);
     }
 
+    /// <summary>
+    /// Verifies that setting DefaultEmulator to the same value does not raise PropertyChanged.
+    /// </summary>
     [Fact]
     public void DefaultEmulatorSameValueDoesNotRaisePropertyChanged()
     {

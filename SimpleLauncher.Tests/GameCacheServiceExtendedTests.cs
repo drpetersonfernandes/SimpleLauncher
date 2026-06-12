@@ -1,10 +1,14 @@
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameCache;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+using Interfaces;
+
+/// <summary>
+/// Extended tests for the <see cref="GameCacheService"/> class covering additional edge cases.
+/// </summary>
 public class GameCacheServiceExtendedTests : IDisposable
 {
     private readonly GameCacheService _cache;
@@ -41,6 +45,9 @@ public class GameCacheServiceExtendedTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Verifies that SetAllGamesAsync overwrites previously cached games.
+    /// </summary>
     [Fact]
     public async Task SetAllGamesAsyncOverwritesPreviousGames()
     {
@@ -53,6 +60,9 @@ public class GameCacheServiceExtendedTests : IDisposable
         Assert.Contains("game3.zip", result);
     }
 
+    /// <summary>
+    /// Verifies that SetSearchResultsAsync overwrites previously cached results.
+    /// </summary>
     [Fact]
     public async Task SetSearchResultsAsyncOverwritesPreviousResults()
     {
@@ -63,6 +73,9 @@ public class GameCacheServiceExtendedTests : IDisposable
         Assert.Equal(2, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that IsCachePopulatedForSystemAsync returns false when an empty games list was set.
+    /// </summary>
     [Fact]
     public async Task IsCachePopulatedForSystemAsyncReturnsFalseForEmptyGames()
     {
@@ -71,6 +84,9 @@ public class GameCacheServiceExtendedTests : IDisposable
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that GetResortSourceAsync without filter returns all games even when search results exist.
+    /// </summary>
     [Fact]
     public async Task GetResortSourceAsyncWithoutFilterReturnsAllGamesEvenWithSearchResults()
     {
@@ -82,6 +98,9 @@ public class GameCacheServiceExtendedTests : IDisposable
         Assert.Single(searchResults);
     }
 
+    /// <summary>
+    /// Verifies that GetResortSourceAsync with filter returns search results and all games.
+    /// </summary>
     [Fact]
     public async Task GetResortSourceAsyncWithFilterReturnsSearchResultsAndAllGames()
     {
@@ -94,6 +113,9 @@ public class GameCacheServiceExtendedTests : IDisposable
         Assert.Single(searchResults);
     }
 
+    /// <summary>
+    /// Verifies that InvalidateAsync clears cached games but preserves SelectedSystem.
+    /// </summary>
     [Fact]
     public async Task InvalidateAsyncResetsSelectedSystem()
     {
@@ -106,6 +128,9 @@ public class GameCacheServiceExtendedTests : IDisposable
         Assert.Empty(games);
     }
 
+    /// <summary>
+    /// Verifies that SetAllGamesAsync handles a large list of 10000 games.
+    /// </summary>
     [Fact]
     public async Task SetAllGamesAsyncWithLargeList()
     {
@@ -116,6 +141,9 @@ public class GameCacheServiceExtendedTests : IDisposable
         Assert.Equal(10000, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that SetSearchResultsAsync handles a large list of 5000 results.
+    /// </summary>
     [Fact]
     public async Task SetSearchResultsAsyncWithLargeList()
     {
@@ -126,6 +154,9 @@ public class GameCacheServiceExtendedTests : IDisposable
         Assert.Equal(5000, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that successive calls to GetAllGamesAsync return independent copies.
+    /// </summary>
     [Fact]
     public async Task GetAllGamesAsyncReturnsIndependentCopies()
     {
@@ -138,6 +169,9 @@ public class GameCacheServiceExtendedTests : IDisposable
         Assert.Single(copy2);
     }
 
+    /// <summary>
+    /// Verifies that successive calls to GetSearchResultsAsync return independent copies.
+    /// </summary>
     [Fact]
     public async Task GetSearchResultsAsyncReturnsIndependentCopies()
     {
@@ -150,6 +184,9 @@ public class GameCacheServiceExtendedTests : IDisposable
         Assert.Single(copy2);
     }
 
+    /// <summary>
+    /// Verifies the workflow of setting games, invalidating, then setting for a different system.
+    /// </summary>
     [Fact]
     public async Task SetAllGamesThenInvalidateThenSetDifferentSystem()
     {
@@ -163,6 +200,9 @@ public class GameCacheServiceExtendedTests : IDisposable
         Assert.Equal("snes_game.zip", games[0]);
     }
 
+    /// <summary>
+    /// Verifies that SetAllGamesAsync preserves the original list from external modification.
+    /// </summary>
     [Fact]
     public async Task SetAllGamesAsyncPreservesOriginalList()
     {
@@ -175,6 +215,9 @@ public class GameCacheServiceExtendedTests : IDisposable
         Assert.Equal(2, cachedList.Count); // Should not be affected by modification of original
     }
 
+    /// <summary>
+    /// Verifies that calling Dispose twice does not throw.
+    /// </summary>
     [Fact]
     public void DisposeTwiceDoesNotThrow()
     {

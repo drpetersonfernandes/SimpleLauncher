@@ -7,7 +7,6 @@ using System.Windows;
 using SharpCompress.Archives.Zip;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.QuitOrReinstall;
 using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
 
