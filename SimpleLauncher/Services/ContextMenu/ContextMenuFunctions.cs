@@ -16,7 +16,7 @@ using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.TakeScreenshot;
-using SimpleLauncher.WpfServices;
+using SimpleLauncher.Services.WpfServices;
 using Image = System.Windows.Controls.Image;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using Point = System.Drawing.Point;

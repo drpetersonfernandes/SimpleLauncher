@@ -8,7 +8,7 @@ using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.WpfServices;
+using SimpleLauncher.Services.WpfServices;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameItemFactory;

@@ -11,7 +11,9 @@ using Interfaces;
 public class DebugLogger : IDebugLogger
 {
     private readonly bool _isDebugMode;
-    private readonly DebugWindow _logWindowInstance;
+    private readonly object _initLock = new();
+    private DebugWindow _logWindowInstance;
+    private bool _windowInitialized;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DebugLogger"/> class.
@@ -20,12 +22,6 @@ public class DebugLogger : IDebugLogger
     public DebugLogger(bool isDebugModeEnabled)
     {
         _isDebugMode = isDebugModeEnabled;
-
-        if (!_isDebugMode) return;
-
-        DebugWindow.Initialize();
-        _logWindowInstance = DebugWindow.Instance;
-        Log("Debug logging initialized.");
     }
 
     /// <summary>
@@ -36,9 +32,38 @@ public class DebugLogger : IDebugLogger
     {
         Debug.WriteLine($"[DEBUG] {DateTime.Now:HH:mm:ss.fff} - {message}");
 
-        if (_isDebugMode && _logWindowInstance != null)
+        if (!_isDebugMode) return;
+
+        EnsureWindowInitialized();
+        _logWindowInstance?.AppendLogMessage(message);
+    }
+
+    private void EnsureWindowInitialized()
+    {
+        lock (_initLock)
         {
-            _logWindowInstance.AppendLogMessage(message);
+            if (_windowInitialized) return;
+        }
+
+        lock (_initLock)
+        {
+            if (_windowInitialized) return;
+
+            _windowInitialized = true;
+            var dispatcher = System.Windows.Application.Current?.Dispatcher;
+            if (dispatcher != null && !dispatcher.CheckAccess())
+            {
+                dispatcher.Invoke(() =>
+                {
+                    DebugWindow.Initialize();
+                    _logWindowInstance = DebugWindow.Instance;
+                });
+            }
+            else
+            {
+                DebugWindow.Initialize();
+                _logWindowInstance = DebugWindow.Instance;
+            }
         }
     }
 

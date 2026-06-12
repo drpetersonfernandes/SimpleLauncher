@@ -14,8 +14,8 @@ using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.SystemManager;
+using SimpleLauncher.Services.WpfServices;
 using SimpleLauncher.ViewModels;
-using SimpleLauncher.WpfServices;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 

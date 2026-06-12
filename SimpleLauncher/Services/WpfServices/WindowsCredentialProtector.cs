@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using SimpleLauncher.Interfaces;
 
-namespace SimpleLauncher.WpfServices;
+namespace SimpleLauncher.Services.WpfServices;
 
 /// <summary>
 /// Windows-specific implementation of <see cref="ICredentialProtector"/> using DPAPI (Data Protection API).

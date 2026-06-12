@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
-namespace SimpleLauncher.WpfServices;
+namespace SimpleLauncher.Services.WpfServices;
 
 /// <summary>
 /// WPF implementation of IImageLoader, loading images from the filesystem with fallback to a default image.

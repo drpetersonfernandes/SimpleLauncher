@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
 using SimpleLauncher.Models;
-using SimpleLauncher.WpfServices;
+using SimpleLauncher.Services.WpfServices;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.ContextMenu;

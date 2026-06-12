@@ -2,7 +2,7 @@ using System.Windows;
 using System.Windows.Interop;
 using SimpleLauncher.Interfaces;
 
-namespace SimpleLauncher.WpfServices;
+namespace SimpleLauncher.Services.WpfServices;
 
 /// <summary>
 /// WPF implementation of IWindowContext, wrapping a WPF Window to provide platform-agnostic window operations.

@@ -12,7 +12,7 @@ using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.WpfServices;
+using SimpleLauncher.Services.WpfServices;
 using Image = System.Windows.Controls.Image;
 
 // ReSharper disable UnusedMember.Local

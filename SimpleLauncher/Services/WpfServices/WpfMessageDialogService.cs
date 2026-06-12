@@ -4,7 +4,7 @@ using MessageBoxButton = SimpleLauncher.Interfaces.MessageBoxButton;
 using MessageBoxImage = SimpleLauncher.Interfaces.MessageBoxImage;
 using MessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
 
-namespace SimpleLauncher.WpfServices;
+namespace SimpleLauncher.Services.WpfServices;
 
 /// <summary>
 /// WPF implementation of IMessageDialogService, displaying message boxes via the WPF dispatcher.
@@ -18,7 +18,7 @@ public class WpfMessageDialogService : IMessageDialogService
         const System.Windows.MessageBoxImage wpfIcon = (System.Windows.MessageBoxImage)(int)MessageBoxImage.Information;
 
         Application.Current.Dispatcher.InvokeAsync(() =>
-            MessageBox.Show(message, title, wpfButtons, wpfIcon));
+            System.Windows.MessageBox.Show(message, title, wpfButtons, wpfIcon));
 
         return Task.CompletedTask;
     }
@@ -30,7 +30,7 @@ public class WpfMessageDialogService : IMessageDialogService
         const System.Windows.MessageBoxImage wpfIcon = (System.Windows.MessageBoxImage)(int)MessageBoxImage.Warning;
 
         Application.Current.Dispatcher.InvokeAsync(() =>
-            MessageBox.Show(message, title, wpfButtons, wpfIcon));
+            System.Windows.MessageBox.Show(message, title, wpfButtons, wpfIcon));
 
         return Task.CompletedTask;
     }
@@ -42,7 +42,7 @@ public class WpfMessageDialogService : IMessageDialogService
         const System.Windows.MessageBoxImage wpfIcon = (System.Windows.MessageBoxImage)(int)MessageBoxImage.Error;
 
         Application.Current.Dispatcher.InvokeAsync(() =>
-            MessageBox.Show(message, title, wpfButtons, wpfIcon));
+            System.Windows.MessageBox.Show(message, title, wpfButtons, wpfIcon));
 
         return Task.CompletedTask;
     }
@@ -74,7 +74,7 @@ public class WpfMessageDialogService : IMessageDialogService
         var wpfIcon = (System.Windows.MessageBoxImage)(int)icon;
 
         var wpfResult = Application.Current.Dispatcher.Invoke(() =>
-            MessageBox.Show(message, title, wpfButtons, wpfIcon));
+            System.Windows.MessageBox.Show(message, title, wpfButtons, wpfIcon));
 
         return (MessageBoxResult)(int)wpfResult;
     }

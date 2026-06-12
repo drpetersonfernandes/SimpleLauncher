@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Windows;
 using SimpleLauncher.Interfaces;
 
-namespace SimpleLauncher.WpfServices;
+namespace SimpleLauncher.Services.WpfServices;
 
 /// <summary>
 /// WPF implementation of IApplicationLifetime, providing application shutdown and restart functionality.
@@ -32,7 +32,7 @@ public class WpfApplicationLifetime(ILogErrors logErrors) : IApplicationLifetime
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Restart failed: Process.Start threw an exception.");
-            MessageBox.Show($"Failed to restart the application: {ex.Message}\nPlease restart manually.", "Restart Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            System.Windows.MessageBox.Show($"Failed to restart the application: {ex.Message}\nPlease restart manually.", "Restart Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
         }
     }
 }
