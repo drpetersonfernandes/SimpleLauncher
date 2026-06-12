@@ -1,3 +1,4 @@
+using System.Xml;
 using System.Xml.Linq;
 using Mame.DatCreator.Models;
 using Mame.DatCreator.Services;
@@ -11,7 +12,9 @@ public static class MameFullProcessor
         return Task.Run(() =>
         {
             logger.Info($"Loading MAME full driver XML from: {inputFilePath}");
-            var inputDoc = XDocument.Load(inputFilePath);
+            var settings = new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
+            using var reader = XmlReader.Create(inputFilePath, settings);
+            var inputDoc = XDocument.Load(reader);
             var machines = new List<MachineInfo>();
 
             var machineElements = inputDoc.Descendants("machine").ToList();

@@ -582,9 +582,4 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
         _disposed = true;
     }
-
-    ~DownloadImagePackViewModel()
-    {
-        Dispose(false);
-    }
 }

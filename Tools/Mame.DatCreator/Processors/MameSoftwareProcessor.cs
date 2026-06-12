@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using System.IO;
+using System.Xml;
 using System.Xml.Linq;
 using Mame.DatCreator.Models;
 using Mame.DatCreator.Services;
@@ -23,12 +24,16 @@ public static class MameSoftwareProcessor
             logger.Info($"Found {files.Length} software list XML files to process.");
 
             var allSoftware = new ConcurrentBag<MachineInfo>();
+            var warnings = new ConcurrentBag<string>();
+
+            var settings = new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
 
             Parallel.ForEach(files, file =>
             {
                 try
                 {
-                    var doc = XDocument.Load(file);
+                    using var reader = XmlReader.Create(file, settings);
+                    var doc = XDocument.Load(reader);
                     var softwares = doc.Descendants("software")
                         .Select(static software => new MachineInfo
                         {
@@ -43,9 +48,16 @@ public static class MameSoftwareProcessor
                 }
                 catch (Exception ex)
                 {
-                    logger.Warning($"Skipping file '{Path.GetFileName(file)}' due to an error: {ex.Message}");
+                    warnings.Add($"Skipping file '{Path.GetFileName(file)}' due to an error: {ex.Message}");
                 }
             });
+
+            // Log warnings after the parallel loop to avoid Dispatcher.Invoke
+            // blocking thread pool threads.
+            foreach (var warning in warnings)
+            {
+                logger.Warning(warning);
+            }
 
             logger.Info($"Extracted {allSoftware.Count} entries from software lists.");
             return allSoftware.ToList();

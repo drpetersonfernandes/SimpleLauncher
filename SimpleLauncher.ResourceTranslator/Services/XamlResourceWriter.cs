@@ -5,58 +5,40 @@ namespace SimpleLauncher.ResourceTranslator.Services;
 
 public static partial class XamlResourceWriter
 {
-    private static readonly Regex EntryRegex = MyRegex();
-
     public static void UpdateResourceFile(
         string filePath,
         Dictionary<string, string> newTranslations,
         List<string> duplicatesToRemove)
     {
-        var lines = File.ReadAllLines(filePath).ToList();
+        var content = File.ReadAllText(filePath);
+
+        var entryRegex = XmlHelper.EntryRegex();
 
         // Extract header (before first entry)
-        var firstEntryIndex = -1;
-        for (var i = 0; i < lines.Count; i++)
+        var firstMatch = entryRegex.Match(content);
+        string header;
+        if (firstMatch.Success)
         {
-            if (EntryRegex.IsMatch(lines[i]))
-            {
-                firstEntryIndex = i;
-                break;
-            }
+            header = content[..firstMatch.Index];
         }
-
-        if (firstEntryIndex == -1)
+        else
         {
-            // No existing entries - find the closing tag
-            for (var i = 0; i < lines.Count; i++)
-            {
-                if (lines[i].Trim() == "</ResourceDictionary>")
-                {
-                    firstEntryIndex = i;
-                    break;
-                }
-            }
+            var closingIndex = content.LastIndexOf("</ResourceDictionary>", StringComparison.Ordinal);
+            if (closingIndex < 0)
+                throw new InvalidOperationException($"Could not parse XAML structure in {filePath}");
+            header = content[..closingIndex];
         }
-
-        if (firstEntryIndex == -1)
-            throw new InvalidOperationException($"Could not parse XAML structure in {filePath}");
-
-        var header = lines.Take(firstEntryIndex).ToList();
 
         // Parse existing entries, skipping duplicates
         var existingEntries = new Dictionary<string, string>(StringComparer.Ordinal);
         var duplicatesRemoved = new HashSet<string>(duplicatesToRemove, StringComparer.Ordinal);
 
-        foreach (var line in lines)
+        foreach (Match match in entryRegex.Matches(content))
         {
-            var match = EntryRegex.Match(line);
-            if (match.Success)
+            var key = match.Groups[1].Value;
+            if (!duplicatesRemoved.Contains(key) && !existingEntries.ContainsKey(key))
             {
-                var key = match.Groups[1].Value;
-                if (!duplicatesRemoved.Contains(key) && !existingEntries.ContainsKey(key))
-                {
-                    existingEntries[key] = UnescapeXml(match.Groups[2].Value);
-                }
+                existingEntries[key] = XmlHelper.UnescapeXml(match.Groups[2].Value);
             }
         }
 
@@ -66,46 +48,24 @@ public static partial class XamlResourceWriter
             existingEntries[kvp.Key] = kvp.Value;
         }
 
-        // Sort by key and build lines
-        var sortedEntries = existingEntries
-            .OrderBy(static e => e.Key, StringComparer.OrdinalIgnoreCase)
-            .Select(static e =>
-            {
-                var escapedValue = EscapeXml(e.Value);
-                return $"    <system:String x:Key=\"{e.Key}\">{escapedValue}</system:String>";
-            })
-            .ToList();
+        // Sort by key and build output
+        var sb = new StringBuilder();
+        sb.Append(header);
+        if (!header.EndsWith('\n'))
+            sb.AppendLine();
 
-        var footer = new List<string> { "</ResourceDictionary>" };
+        foreach (var e in existingEntries.OrderBy(static e => e.Key, StringComparer.OrdinalIgnoreCase))
+        {
+            sb.Append("    <system:String x:Key=\"");
+            sb.Append(e.Key);
+            sb.Append("\">");
+            sb.Append(XmlHelper.EscapeXml(e.Value));
+            sb.AppendLine("</system:String>");
+        }
+
+        sb.AppendLine("</ResourceDictionary>");
 
         var encoding = new UTF8Encoding(true);
-        File.WriteAllLines(filePath, header.Concat(sortedEntries).Concat(footer), encoding);
+        File.WriteAllText(filePath, sb.ToString(), encoding);
     }
-
-    private static string EscapeXml(string text)
-    {
-        if (string.IsNullOrEmpty(text))
-            return text;
-
-        return text
-            .Replace("&", "&amp;")
-            .Replace("<", "&lt;")
-            .Replace(">", "&gt;")
-            .Replace("\"", "&quot;");
-    }
-
-    private static string UnescapeXml(string text)
-    {
-        if (string.IsNullOrEmpty(text))
-            return text;
-
-        return text
-            .Replace("&lt;", "<")
-            .Replace("&gt;", ">")
-            .Replace("&quot;", "\"")
-            .Replace("&amp;", "&");
-    }
-
-    [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""", RegexOptions.Compiled)]
-    private static partial Regex MyRegex();
 }
