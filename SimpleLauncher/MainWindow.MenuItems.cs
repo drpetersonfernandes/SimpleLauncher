@@ -32,10 +32,18 @@ public partial class MainWindow
 
     private async void ScanForMicrosoftWindowsGames_ClickAsync(object sender, RoutedEventArgs e)
     {
-        if (_isDisposed) return;
         try
         {
-            await _menuOrchestrator.HandleScanForWindowsGamesAsync();
+            if (_isDisposed) return;
+
+            try
+            {
+                await _menuOrchestrator.HandleScanForWindowsGamesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error in the method ScanForMicrosoftWindowsGames_ClickAsync");
+            }
         }
         catch (Exception ex)
         {
@@ -65,10 +73,18 @@ public partial class MainWindow
 
     private async void EditLinksClickAsync(object sender, RoutedEventArgs e)
     {
-        if (_isDisposed) return;
         try
         {
-            await _menuOrchestrator.HandleEditLinksAsync();
+            if (_isDisposed) return;
+
+            try
+            {
+                await _menuOrchestrator.HandleEditLinksAsync();
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error in the method EditLinksClickAsync.");
+            }
         }
         catch (Exception ex)
         {
@@ -78,12 +94,20 @@ public partial class MainWindow
 
     private async void ToggleGamepad_Click(object sender, RoutedEventArgs e)
     {
-        if (_isDisposed) return;
         try
         {
-            if (sender is not MenuItem menuItem) return;
+            if (_isDisposed) return;
 
-            await _menuOrchestrator.HandleToggleGamepadAsync(menuItem.IsChecked);
+            try
+            {
+                if (sender is not MenuItem menuItem) return;
+
+                await _menuOrchestrator.HandleToggleGamepadAsync(menuItem.IsChecked);
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error in the method ToggleGamepad_Click.");
+            }
         }
         catch (Exception ex)
         {
@@ -98,12 +122,20 @@ public partial class MainWindow
 
     private async void ToggleFuzzyMatchingClickAsync(object sender, RoutedEventArgs e)
     {
-        if (_isDisposed) return;
         try
         {
-            if (sender is not MenuItem menuItem) return;
+            if (_isDisposed) return;
 
-            await _menuOrchestrator.HandleToggleFuzzyMatchingAsync(menuItem.IsChecked);
+            try
+            {
+                if (sender is not MenuItem menuItem) return;
+
+                await _menuOrchestrator.HandleToggleFuzzyMatchingAsync(menuItem.IsChecked);
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error in the method ToggleFuzzyMatchingClickAsync.");
+            }
         }
         catch (Exception ex)
         {
@@ -113,10 +145,18 @@ public partial class MainWindow
 
     private async void SetFuzzyMatchingThresholdClickAsync(object sender, RoutedEventArgs e)
     {
-        if (_isDisposed) return;
         try
         {
-            await _menuOrchestrator.HandleSetFuzzyMatchingThresholdAsync();
+            if (_isDisposed) return;
+
+            try
+            {
+                await _menuOrchestrator.HandleSetFuzzyMatchingThresholdAsync();
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error in the method SetFuzzyMatchingThresholdClickAsync.");
+            }
         }
         catch (Exception ex)
         {
@@ -131,10 +171,18 @@ public partial class MainWindow
 
     private async void Donate_Click(object sender, RoutedEventArgs e)
     {
-        if (_isDisposed) return;
         try
         {
-            await _menuOrchestrator.HandleDonateAsync();
+            if (_isDisposed) return;
+
+            try
+            {
+                await _menuOrchestrator.HandleDonateAsync();
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error in the method Donate_Click.");
+            }
         }
         catch (Exception ex)
         {
@@ -407,10 +455,18 @@ public partial class MainWindow
 
     private async void ChangeViewMode_Click(object sender, RoutedEventArgs e)
     {
-        if (_isDisposed) return;
         try
         {
-            await _menuOrchestrator.HandleChangeViewModeAsync(sender);
+            if (_isDisposed) return;
+
+            try
+            {
+                await _menuOrchestrator.HandleChangeViewModeAsync(sender);
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error in the method ChangeViewMode_Click.");
+            }
         }
         catch (Exception ex)
         {
@@ -535,10 +591,18 @@ public partial class MainWindow
 
     private async void SoundConfiguration_Click(object sender, RoutedEventArgs e)
     {
-        if (_isDisposed) return;
         try
         {
-            await _menuOrchestrator.HandleSoundConfigurationAsync();
+            if (_isDisposed) return;
+
+            try
+            {
+                await _menuOrchestrator.HandleSoundConfigurationAsync();
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error in the method SoundConfiguration_Click.");
+            }
         }
         catch (Exception ex)
         {

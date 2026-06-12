@@ -1,6 +1,5 @@
 using System.Security;
 using System.IO;
-using System.Threading;
 using SharpCompress.Readers;
 using SharpCompress.Readers.Zip;
 

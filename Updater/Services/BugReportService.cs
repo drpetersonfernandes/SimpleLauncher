@@ -54,7 +54,7 @@ public static class BugReportService
             if (!response.IsSuccessStatusCode)
             {
                 // Log failure to local file as fallback - don't throw to avoid infinite loops
-                var responseContent = await response.Content.ReadAsStringAsync();
+                var responseContent = await response.Content.ReadAsStringAsync(cts.Token);
                 var errorMessage = $"Failed to report bug: {response.StatusCode} - {responseContent}";
                 System.Diagnostics.Debug.WriteLine(errorMessage);
                 await LogToLocalFileAsync(errorMessage, bugReport);

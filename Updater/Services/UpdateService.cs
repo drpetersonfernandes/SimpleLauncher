@@ -1,6 +1,5 @@
 using System.IO;
 using System.Net.NetworkInformation;
-using System.Threading;
 
 namespace Updater.Services;
 

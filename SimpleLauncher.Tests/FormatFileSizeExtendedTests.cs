@@ -95,7 +95,7 @@ public class FormatFileSizeExtendedTests
     public void FormatToHumanReadableKilobytes()
     {
         var result = FormatFileSize.FormatToHumanReadable(1024);
-        Assert.Equal("1024.00 B", result);
+        Assert.Equal("1.00 KB", result);
     }
 
     /// <summary>
@@ -105,7 +105,7 @@ public class FormatFileSizeExtendedTests
     public void FormatToHumanReadableMegabytes()
     {
         var result = FormatFileSize.FormatToHumanReadable(1024L * 1024);
-        Assert.Equal("1024.00 KB", result);
+        Assert.Equal("1.00 MB", result);
     }
 
     /// <summary>
@@ -115,7 +115,7 @@ public class FormatFileSizeExtendedTests
     public void FormatToHumanReadableGigabytes()
     {
         var result = FormatFileSize.FormatToHumanReadable(1024L * 1024 * 1024);
-        Assert.Equal("1024.00 MB", result);
+        Assert.Equal("1.00 GB", result);
     }
 
     /// <summary>
@@ -125,7 +125,7 @@ public class FormatFileSizeExtendedTests
     public void FormatToHumanReadableTerabytes()
     {
         var result = FormatFileSize.FormatToHumanReadable(1024L * 1024 * 1024 * 1024);
-        Assert.Equal("1024.00 GB", result);
+        Assert.Equal("1.00 TB", result);
     }
 
     /// <summary>

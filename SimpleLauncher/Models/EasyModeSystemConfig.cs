@@ -69,18 +69,6 @@ public class EasyModeSystemConfig
         if (string.IsNullOrWhiteSpace(SystemName))
             return false;
 
-        if (string.IsNullOrWhiteSpace(SystemFolder))
-            return false;
-
-        if (string.IsNullOrWhiteSpace(SystemImageFolder))
-            return false;
-
-        if (FileFormatsToSearch == null || FileFormatsToSearch.Count == 0)
-            return false;
-
-        if (FileFormatsToLaunch == null || FileFormatsToLaunch.Count == 0)
-            return false;
-
         return true;
     }
 }

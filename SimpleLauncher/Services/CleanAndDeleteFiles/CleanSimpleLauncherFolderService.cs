@@ -192,7 +192,7 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
         // Clean directories
         foreach (var directory in DirectoriesToClean)
         {
-            DeleteDirectorySafely(directory);
+            _deleteFilesService.TryDeleteDirectory(directory);
         }
 
         // Clean files
@@ -207,9 +207,9 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
 
     public void CleanupTempFiles()
     {
-        DeleteDirectorySafely(Path.Combine(Path.GetTempPath(), "SimpleLauncher"));
-        DeleteDirectorySafely(Path.Combine(Path.GetTempPath(), "SimpleZipDrive"));
-        DeleteDirectorySafely(Path.Combine(Path.GetTempPath(), "SimpleXisoDrive"));
+        _deleteFilesService.TryDeleteDirectory(Path.Combine(Path.GetTempPath(), "SimpleLauncher"));
+        _deleteFilesService.TryDeleteDirectory(Path.Combine(Path.GetTempPath(), "SimpleZipDrive"));
+        _deleteFilesService.TryDeleteDirectory(Path.Combine(Path.GetTempPath(), "SimpleXisoDrive"));
     }
 
     private void CleanupArchitectureSpecificFiles()
@@ -236,7 +236,7 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
         }
     }
 
-    private static void CleanupArchitectureSpecificFolders()
+    private void CleanupArchitectureSpecificFolders()
     {
         var currentArchitecture = RuntimeInformation.OSArchitecture;
 
@@ -256,24 +256,7 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
 
         foreach (var folder in foldersToDelete)
         {
-            DeleteDirectorySafely(folder);
-        }
-    }
-
-    private static void DeleteDirectorySafely(string path)
-    {
-        if (!Directory.Exists(path))
-        {
-            return;
-        }
-
-        try
-        {
-            Directory.Delete(path, true);
-        }
-        catch (Exception)
-        {
-            // Ignore
+            _deleteFilesService.TryDeleteDirectory(folder);
         }
     }
 

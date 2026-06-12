@@ -26,7 +26,11 @@ public partial class RetroAchievementsSettingsWindow
 
         _saveCompletedHandler = () =>
         {
-            if (IsLoaded) DialogResult = true;
+            if (IsLoaded)
+            {
+                DialogResult = true;
+            }
+
             Close();
         };
 

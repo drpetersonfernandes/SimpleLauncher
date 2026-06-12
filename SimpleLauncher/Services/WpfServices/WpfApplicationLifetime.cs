@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.WpfServices;
@@ -7,10 +8,10 @@ namespace SimpleLauncher.Services.WpfServices;
 /// <summary>
 /// WPF implementation of IApplicationLifetime, providing application shutdown and restart functionality.
 /// </summary>
-public class WpfApplicationLifetime(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibraryService) : IApplicationLifetime
+public class WpfApplicationLifetime(ILogErrors logErrors, IServiceProvider serviceProvider) : IApplicationLifetime
 {
     private readonly ILogErrors _logErrors = logErrors;
-    private readonly IMessageBoxLibraryService _messageBoxLibraryService = messageBoxLibraryService;
+    private readonly Lazy<IMessageBoxLibraryService> _messageBoxLibraryService = new(serviceProvider.GetRequiredService<IMessageBoxLibraryService>);
 
     /// <summary>Shuts down the WPF application.</summary>
     public void Shutdown()
@@ -33,7 +34,7 @@ public class WpfApplicationLifetime(ILogErrors logErrors, IMessageBoxLibraryServ
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Restart failed: Process.Start threw an exception.");
-            _ = _messageBoxLibraryService.FailedToRestartMessageBoxAsync();
+            _ = _messageBoxLibraryService.Value.FailedToRestartMessageBoxAsync();
         }
     }
 }

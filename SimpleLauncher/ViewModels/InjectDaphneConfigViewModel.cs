@@ -56,7 +56,10 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     public event Action CloseRequested;
 
     [RelayCommand]
-    private void Cancel() => CloseRequested?.Invoke();
+    private void Cancel()
+    {
+        CloseRequested?.Invoke();
+    }
 
     private void LoadSettings()
     {

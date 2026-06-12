@@ -60,7 +60,7 @@ public class GameListUiService
     {
         var noGamesMatched = Application.Current.Dispatcher.CheckAccess()
             ? (string)Application.Current.TryFindResource("nogamesmatched") ?? "Unfortunately, no games matched your search query or the selected button."
-            : Application.Current.Dispatcher.Invoke(() => (string)Application.Current.TryFindResource("nogamesmatched") ?? "Unfortunately, no games matched your search query or the selected button.");
+            : Application.Current.Dispatcher.Invoke(static () => (string)Application.Current.TryFindResource("nogamesmatched") ?? "Unfortunately, no games matched your search query or the selected button.");
 
         if (_settings.ViewMode == "GridView")
         {

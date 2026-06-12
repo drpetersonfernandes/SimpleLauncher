@@ -12,42 +12,50 @@ public partial class MainWindow
 {
     private async void SearchButtonClickAsync(object sender, RoutedEventArgs e)
     {
-        if (_isDisposed) return;
         try
         {
-            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("Searching") ?? "Searching...");
-            _audioInput.PlayNotificationSound();
-            await ExecuteSearchAsync();
+            if (_isDisposed) return;
+
+            try
+            {
+                UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("Searching") ?? "Searching...");
+                _audioInput.PlayNotificationSound();
+                await ExecuteSearchAsync();
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error in the method SearchButtonClickAsync.");
+                await _messageBox.MainWindowSearchEngineErrorMessageBoxAsync();
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string errorMessage = "Error in the method SearchButtonClickAsync.";
-            _logErrors.LogAndForget(ex, errorMessage);
-
-            // Notify user
-            await _messageBox.MainWindowSearchEngineErrorMessageBoxAsync();
+            _logErrors.LogAndForget(ex, "Error in the method SearchButtonClickAsync.");
         }
     }
 
     private async void SearchTextBoxKeyDownAsync(object sender, KeyEventArgs e)
     {
-        if (_isDisposed) return;
         try
         {
-            if (e.Key != Key.Enter) return;
+            if (_isDisposed) return;
 
-            _audioInput.PlayNotificationSound(); // Play sound immediately
-            await ExecuteSearchAsync();
+            try
+            {
+                if (e.Key != Key.Enter) return;
+
+                _audioInput.PlayNotificationSound(); // Play sound immediately
+                await ExecuteSearchAsync();
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error in the method SearchTextBoxKeyDownAsync.");
+                await _messageBox.MainWindowSearchEngineErrorMessageBoxAsync();
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string contextMessage = "Error in the method SearchTextBoxKeyDownAsync.";
-            _logErrors.LogAndForget(ex, contextMessage);
-
-            // Notify user
-            await _messageBox.MainWindowSearchEngineErrorMessageBoxAsync();
+            _logErrors.LogAndForget(ex, "Error in the method SearchTextBoxKeyDownAsync.");
         }
     }
 

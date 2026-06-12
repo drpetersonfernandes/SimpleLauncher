@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.CheckForUpdates;
 
@@ -14,17 +15,17 @@ public class QuitSimpleLauncher
     private readonly ILogErrors _logErrors;
     private readonly IApplicationLifetime _applicationLifetime;
     private readonly IDispatcherService _dispatcherService;
-    private readonly UpdateChecker _updateChecker;
+    private readonly IServiceProvider _serviceProvider;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="QuitSimpleLauncher"/> class.
     /// </summary>
-    public QuitSimpleLauncher(ILogErrors logErrors, IApplicationLifetime applicationLifetime, IDispatcherService dispatcherService, UpdateChecker updateChecker)
+    public QuitSimpleLauncher(ILogErrors logErrors, IApplicationLifetime applicationLifetime, IDispatcherService dispatcherService, IServiceProvider serviceProvider)
     {
         _logErrors = logErrors;
         _applicationLifetime = applicationLifetime;
         _dispatcherService = dispatcherService;
-        _updateChecker = updateChecker;
+        _serviceProvider = serviceProvider;
     }
 
     /// <summary>
@@ -83,12 +84,13 @@ public class QuitSimpleLauncher
         var downloaded = false;
         try
         {
-            var (updaterZipUrl, _) = await _updateChecker.GetLatestUpdaterInfoAsync();
+            var updateChecker = _serviceProvider.GetRequiredService<UpdateChecker>();
+            var (updaterZipUrl, _) = await updateChecker.GetLatestUpdaterInfoAsync();
 
             if (!string.IsNullOrEmpty(updaterZipUrl))
             {
                 using var memoryStream = new MemoryStream();
-                await _updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
+                await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
                 UpdateChecker.ExtractAllFromZip(memoryStream, appDirectory, null, _logErrors);
                 if (File.Exists(updaterPath))
                 {

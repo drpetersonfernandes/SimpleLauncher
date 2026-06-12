@@ -27,7 +27,7 @@ public class FormatFileSizeService : IFormatFileSizeService
         var counter = 0;
         double size = bytes;
 
-        while (size > 1024 && counter < suffixes.Length - 1)
+        while (size >= 1024 && counter < suffixes.Length - 1)
         {
             size /= 1024;
             counter++;

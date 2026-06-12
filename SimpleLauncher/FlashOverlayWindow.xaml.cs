@@ -75,5 +75,6 @@ public partial class FlashOverlayWindow : IDisposable
     {
         _cts?.Dispose();
         _cts = null;
+        GC.SuppressFinalize(this);
     }
 }

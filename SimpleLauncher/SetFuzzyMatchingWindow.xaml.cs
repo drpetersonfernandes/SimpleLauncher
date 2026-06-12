@@ -23,12 +23,20 @@ public partial class SetFuzzyMatchingWindow
 
         _saveCompletedHandler = () =>
         {
-            if (IsLoaded) DialogResult = true;
+            if (IsLoaded)
+            {
+                DialogResult = true;
+            }
+
             Close();
         };
         _cancelRequestedHandler = () =>
         {
-            if (IsLoaded) DialogResult = false;
+            if (IsLoaded)
+            {
+                DialogResult = false;
+            }
+
             Close();
         };
 

@@ -6,13 +6,13 @@ namespace SimpleLauncher;
 
 using Interfaces;
 
-internal partial class DownloadImagePackWindow : IDisposable
+public partial class DownloadImagePackWindow : IDisposable
 {
     private readonly DownloadImagePackViewModel _viewModel;
     private readonly ILogErrors _logErrors;
     private Button _emergencyReturnButton;
 
-    internal DownloadImagePackWindow(ILogErrors logErrors, DownloadImagePackViewModel viewModel)
+    public DownloadImagePackWindow(ILogErrors logErrors, DownloadImagePackViewModel viewModel)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -77,5 +77,6 @@ internal partial class DownloadImagePackWindow : IDisposable
     public void Dispose()
     {
         _viewModel.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

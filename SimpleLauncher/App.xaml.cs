@@ -623,6 +623,12 @@ public partial class App : IDisposable
                 contextMessage = $"[RenderingEngineFailure] {contextMessage} | HResult=0x88980406 (UCEERR_RENDERTHREADFAILURE). Commonly triggered by GPU driver issues or WPF per-pixel transparency.";
             }
 
+            if (ServiceProvider == null)
+            {
+                Debug.WriteLine($"[SimpleLauncher] {contextMessage}: {ex}");
+                return;
+            }
+
             var logErrors = ServiceProvider.GetRequiredService<ILogErrors>();
             // Fire-and-forget pattern with proper exception handling
             _ = Task.Run(async () =>

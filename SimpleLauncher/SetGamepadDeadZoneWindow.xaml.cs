@@ -22,7 +22,11 @@ public partial class SetGamepadDeadZoneWindow
 
         _saveCompletedHandler = () =>
         {
-            if (IsLoaded) DialogResult = true;
+            if (IsLoaded)
+            {
+                DialogResult = true;
+            }
+
             Close();
         };
 

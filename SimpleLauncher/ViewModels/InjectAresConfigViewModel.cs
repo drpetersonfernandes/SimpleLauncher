@@ -88,7 +88,10 @@ public partial class InjectAresConfigViewModel : ObservableObject
     public event Action CloseRequested;
 
     [RelayCommand]
-    private void Cancel() => CloseRequested?.Invoke();
+    private void Cancel()
+    {
+        CloseRequested?.Invoke();
+    }
 
     /// <summary>
     /// Requests the user to provide the emulator executable path.

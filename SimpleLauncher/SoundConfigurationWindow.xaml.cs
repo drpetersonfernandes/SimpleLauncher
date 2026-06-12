@@ -26,7 +26,11 @@ public partial class SoundConfigurationWindow
 
         _saveCompletedHandler = () =>
         {
-            if (IsLoaded) DialogResult = true;
+            if (IsLoaded)
+            {
+                DialogResult = true;
+            }
+
             Close();
         };
 

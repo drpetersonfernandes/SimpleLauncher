@@ -401,7 +401,7 @@ public partial class GameLauncher : ILauncherService
                 _logErrors.LogAndForget(new TimeoutException($"Batch file timed out after 5 minutes: {resolvedFilePath}"), $"Batch file timed out: {resolvedFilePath}");
                 try
                 {
-                    process.Kill(entireProcessTree: true);
+                    process.Kill(true);
                 }
                 catch (Exception killEx)
                 {

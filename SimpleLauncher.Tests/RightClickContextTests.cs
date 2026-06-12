@@ -91,7 +91,7 @@ public class RightClickContextTests
     [Fact]
     public void ConstructorThrowsForNullFilePath()
     {
-        Assert.Throws<ArgumentNullException>(() => CreateContext(filePath: null));
+        Assert.Throws<ArgumentNullException>(static () => CreateContext(null));
     }
 
     /// <summary>
@@ -100,14 +100,14 @@ public class RightClickContextTests
     [Fact]
     public void ConstructorThrowsForNullSelectedSystemName()
     {
-        Assert.Throws<ArgumentNullException>(() => CreateContext(selectedSystemName: null));
+        Assert.Throws<ArgumentNullException>(static () => CreateContext(selectedSystemName: null));
     }
 
     private static RightClickContext CreateContext(
-        string filePath = "game.zip",
+        string? filePath = "game.zip",
         string fileNameWithExtension = "game.zip",
         string fileNameWithoutExtension = "game",
-        string selectedSystemName = "NES",
+        string? selectedSystemName = "NES",
         List<Services.MameManager.MameManager>? machines = null)
     {
         var configuration = new Microsoft.Extensions.Configuration.ConfigurationBuilder().Build();

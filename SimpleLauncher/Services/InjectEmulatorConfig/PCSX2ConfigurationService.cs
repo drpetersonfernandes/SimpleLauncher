@@ -91,6 +91,7 @@ public static class Pcsx2ConfigurationService
             logErrors.LogAndForget(ex, $"[PCSX2Config] Failed to read PCSX2.ini: {ex.Message}");
             throw new Pcsx2PermissionException($"Cannot read configuration file: {configPath}", ex);
         }
+
         var modified = false;
         var currentSection = "";
 

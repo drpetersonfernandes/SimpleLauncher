@@ -363,10 +363,18 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private async void TopLetterNumberMenu_OnLetterSelectedAsync(string selectedLetter)
     {
-        if (_isDisposed) return;
         try
         {
-            await TopLetterNumberMenuClickAsync(selectedLetter);
+            if (_isDisposed) return;
+
+            try
+            {
+                await TopLetterNumberMenuClickAsync(selectedLetter);
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error in method TopLetterNumberMenu_OnLetterSelectedAsync");
+            }
         }
         catch (Exception ex)
         {
@@ -376,10 +384,18 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private async void SystemComboBoxSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
     {
-        if (_isDisposed) return;
         try
         {
-            await _gameBrowser.SystemComboBoxSelectionChangedAsync(_cancellationSource.Token);
+            if (_isDisposed) return;
+
+            try
+            {
+                await _gameBrowser.SystemComboBoxSelectionChangedAsync(_cancellationSource.Token);
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error in SystemComboBoxSelectionChangedAsync.");
+            }
         }
         catch (Exception ex)
         {
@@ -445,31 +461,39 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private async void MainWindow_MouseWheelAsync(object sender, MouseWheelEventArgs e)
     {
-        if (_isDisposed) return;
         try
         {
-            // Check if the Ctrl key is pressed
-            if (Keyboard.Modifiers != ModifierKeys.Control) return;
+            if (_isDisposed) return;
 
             try
             {
-                switch (e.Delta)
+                // Check if the Ctrl key is pressed
+                if (Keyboard.Modifiers != ModifierKeys.Control) return;
+
+                try
                 {
-                    case > 0:
-                        await _menuOrchestrator.HandleZoomInAsync();
-                        break;
-                    case < 0:
-                        await _menuOrchestrator.HandleZoomOutAsync();
-                        break;
+                    switch (e.Delta)
+                    {
+                        case > 0:
+                            await _menuOrchestrator.HandleZoomInAsync();
+                            break;
+                        case < 0:
+                            await _menuOrchestrator.HandleZoomOutAsync();
+                            break;
+                    }
                 }
+                catch (Exception ex)
+                {
+                    _logErrors.LogAndForget(ex, "Error in the method MainWindow_MouseWheelAsync.");
+                }
+
+                // Mark the event as handled to prevent scrolling the ScrollViewer
+                e.Handled = true;
             }
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Error in the method MainWindow_MouseWheelAsync.");
             }
-
-            // Mark the event as handled to prevent scrolling the ScrollViewer
-            e.Handled = true;
         }
         catch (Exception ex)
         {
@@ -679,25 +703,33 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private async void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (_isDisposed) return;
         try
         {
-            if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem)
-            {
-                PreviewImage.Source = null; // Clear preview if selection is cleared
-                return;
-            }
+            if (_isDisposed) return;
 
-            // If the selected item is the "No results" message, its FilePath will be null.
-            // In this case, just clear the preview and do nothing else.
-            if (string.IsNullOrEmpty(selectedItem.FilePath))
+            try
             {
-                PreviewImage.Source = null;
-                return;
-            }
+                if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem)
+                {
+                    PreviewImage.Source = null; // Clear preview if selection is cleared
+                    return;
+                }
 
-            // If it's a real game item, proceed with loading the preview.
-            await _gameBrowser.HandleSelectionChangedAsync(selectedItem);
+                // If the selected item is the "No results" message, its FilePath will be null.
+                // In this case, just clear the preview and do nothing else.
+                if (string.IsNullOrEmpty(selectedItem.FilePath))
+                {
+                    PreviewImage.Source = null;
+                    return;
+                }
+
+                // If it's a real game item, proceed with loading the preview.
+                await _gameBrowser.HandleSelectionChangedAsync(selectedItem);
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error in GameListSelectionChanged.");
+            }
         }
         catch (Exception ex)
         {
@@ -707,97 +739,111 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private async void GameListDoubleClickOnSelectedItemAsync(object sender, MouseButtonEventArgs e)
     {
-        if (_isDisposed) return;
         try
         {
-            if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem)
-            {
-                return;
-            }
+            if (_isDisposed) return;
 
-            if (string.IsNullOrEmpty(selectedItem.FilePath))
+            try
             {
-                // This is likely the "No results found" placeholder item.
-                return;
-            }
+                if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem)
+                {
+                    return;
+                }
 
-            // Delegate the double-click handling to the render service
-            await _gameBrowser.HandleDoubleClickAsync(selectedItem);
+                if (string.IsNullOrEmpty(selectedItem.FilePath))
+                {
+                    // This is likely the "No results found" placeholder item.
+                    return;
+                }
+
+                // Delegate the double-click handling to the render service
+                await _gameBrowser.HandleDoubleClickAsync(selectedItem);
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error while using the method GameListDoubleClickOnSelectedItemAsync.");
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string contextMessage = "Error while using the method GameListDoubleClickOnSelectedItemAsync.";
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logErrors.LogAndForget(ex, "Error while using the method GameListDoubleClickOnSelectedItemAsync.");
         }
     }
 
     private async void GameListRightClickContextMenuAsync(object sender, MouseButtonEventArgs e)
     {
-        if (_isDisposed) return;
         try
         {
-            if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem) return;
-            if (string.IsNullOrEmpty(selectedItem.FilePath)) return;
+            if (_isDisposed) return;
 
-            var systemManager = _systemManagers?.FirstOrDefault(s =>
-                s.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
-            if (systemManager == null)
+            try
             {
-                _logErrors.LogAndForget(null, "systemManager is null for the selected game item");
-                await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
-                return;
-            }
+                if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem) return;
+                if (string.IsNullOrEmpty(selectedItem.FilePath)) return;
 
-            var fileNameWithExtension = Path.GetFileName(selectedItem.FilePath);
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedItem.FilePath);
-
-            var gameLauncher = App.ServiceProvider.GetRequiredService<Services.GameLauncher.GameLauncher>();
-            var gamePadController = App.ServiceProvider.GetRequiredService<Services.GamePad.GamePadController>();
-            var playSoundEffects = App.ServiceProvider.GetRequiredService<Services.PlaySound.PlaySoundEffects>();
-            var machines = App.ServiceProvider.GetRequiredService<IMameDataService>().Machines.ToList();
-            var favoritesManager = App.ServiceProvider.GetRequiredService<Services.Favorites.FavoritesManager>();
-            var findCoverImage = App.ServiceProvider.GetRequiredService<IFindCoverImageService>();
-
-            var context = new RightClickContext(
-                selectedItem.FilePath,
-                fileNameWithExtension,
-                fileNameWithoutExtension,
-                selectedItem.SystemName,
-                systemManager,
-                machines,
-                favoritesManager,
-                _settings,
-                null,
-                null,
-                null,
-                null,
-                null,
-                this,
-                gamePadController,
-                null,
-                gameLauncher,
-                playSoundEffects,
-                this
-            );
-
-            var contextMenu = _contextMenuService.AddRightClickReturnContextMenu(context, findCoverImage, _contextMenuFunctions);
-            if (contextMenu != null)
-            {
-                // Close the previous context menu before assigning a new one to prevent leaks.
-                if (GameDataGrid.ContextMenu is { IsOpen: true } oldMenu)
+                var systemManager = _systemManagers?.FirstOrDefault(s =>
+                    s.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
+                if (systemManager == null)
                 {
-                    oldMenu.IsOpen = false;
+                    _logErrors.LogAndForget(null, "systemManager is null for the selected game item");
+                    await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
+                    return;
                 }
 
-                GameDataGrid.ContextMenu = contextMenu;
-                contextMenu.IsOpen = true;
+                var fileNameWithExtension = Path.GetFileName(selectedItem.FilePath);
+                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedItem.FilePath);
+
+                var gameLauncher = App.ServiceProvider.GetRequiredService<Services.GameLauncher.GameLauncher>();
+                var gamePadController = App.ServiceProvider.GetRequiredService<Services.GamePad.GamePadController>();
+                var playSoundEffects = App.ServiceProvider.GetRequiredService<Services.PlaySound.PlaySoundEffects>();
+                var machines = App.ServiceProvider.GetRequiredService<IMameDataService>().Machines.ToList();
+                var favoritesManager = App.ServiceProvider.GetRequiredService<Services.Favorites.FavoritesManager>();
+                var findCoverImage = App.ServiceProvider.GetRequiredService<IFindCoverImageService>();
+
+                var context = new RightClickContext(
+                    selectedItem.FilePath,
+                    fileNameWithExtension,
+                    fileNameWithoutExtension,
+                    selectedItem.SystemName,
+                    systemManager,
+                    machines,
+                    favoritesManager,
+                    _settings,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    this,
+                    gamePadController,
+                    null,
+                    gameLauncher,
+                    playSoundEffects,
+                    this
+                );
+
+                var contextMenu = _contextMenuService.AddRightClickReturnContextMenu(context, findCoverImage, _contextMenuFunctions);
+                if (contextMenu != null)
+                {
+                    // Close the previous context menu before assigning a new one to prevent leaks.
+                    if (GameDataGrid.ContextMenu is { IsOpen: true } oldMenu)
+                    {
+                        oldMenu.IsOpen = false;
+                    }
+
+                    GameDataGrid.ContextMenu = contextMenu;
+                    contextMenu.IsOpen = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "There was an error in the game list right-click context menu.");
+                await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "There was an error in the game list right-click context menu.");
-            await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
+            _logErrors.LogAndForget(ex, "There was an error in the method GameListRightClickContextMenuAsync.");
         }
     }
 
@@ -823,39 +869,48 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private async void SortOrderToggleButtonClickAsync(object sender, RoutedEventArgs e)
     {
-        if (_isDisposed) return;
         try
         {
-            if (_isLoadingGames)
-            {
-                return;
-            }
+            if (_isDisposed) return;
 
-            CancelAndRecreateToken();
-
-            _audioInput.PlayNotificationSound();
-            ((IUiResetHost)this).MameSortOrder = ((IUiResetHost)this).MameSortOrder == "FileName" ? "MachineDescription" : "FileName";
-            UpdateSortOrderButtonUi();
-
-            _isResortOperation = true; // Set flag before loading
             try
             {
-                var (sl, sq) = GetLoadGameFilesParams();
-                await _gameBrowser.LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+                if (_isLoadingGames)
+                {
+                    return;
+                }
+
+                CancelAndRecreateToken();
+
+                _audioInput.PlayNotificationSound();
+                ((IUiResetHost)this).MameSortOrder = ((IUiResetHost)this).MameSortOrder == "FileName" ? "MachineDescription" : "FileName";
+                UpdateSortOrderButtonUi();
+
+                _isResortOperation = true; // Set flag before loading
+                try
+                {
+                    var (sl, sq) = GetLoadGameFilesParams();
+                    await _gameBrowser.LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+                }
+                finally
+                {
+                    _isResortOperation = false; // Reset flag after loading
+                }
             }
-            finally
+            catch (OperationCanceledException)
             {
-                _isResortOperation = false; // Reset flag after loading
+                // Expected when user cancels the operation, no action needed
             }
-        }
-        catch (OperationCanceledException)
-        {
-            // Expected when user cancels the operation, no action needed
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error in method SortOrderToggleButtonClickAsync.");
+                _debugLogger.Log("Error in method SortOrderToggleButtonClickAsync.");
+            }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in SortOrderToggleButtonClickAsync.");
-            _debugLogger.Log("Error in SortOrderToggleButtonClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in method SortOrderToggleButtonClickAsync.");
+            _debugLogger.Log("Error in method SortOrderToggleButtonClickAsync.");
         }
     }
 

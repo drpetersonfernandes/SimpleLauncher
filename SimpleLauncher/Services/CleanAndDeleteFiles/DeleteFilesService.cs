@@ -212,4 +212,19 @@ public class DeleteFilesService : IDeleteFilesService
             }
         }
     }
+
+    public void TryDeleteDirectory(string directoryPath)
+    {
+        if (string.IsNullOrEmpty(directoryPath) || !Directory.Exists(directoryPath))
+            return;
+
+        try
+        {
+            Directory.Delete(directoryPath, true);
+        }
+        catch (Exception ex)
+        {
+            _debugLogger.Log($"[DeleteFiles] Failed to delete directory '{directoryPath}': {ex.Message}");
+        }
+    }
 }

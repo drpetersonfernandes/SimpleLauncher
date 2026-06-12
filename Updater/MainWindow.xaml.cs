@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using System.Net.Http;
 using System.Reflection;
-using System.Threading;
 using System.Windows;
 using Updater.Services;
 
@@ -22,7 +21,7 @@ public partial class MainWindow
 
     private readonly UpdateService _updateService;
     private readonly string[] _args;
-    private CancellationTokenSource _cts;
+    private readonly CancellationTokenSource _cts;
 
     // Files to exclude during extraction to prevent self-destruction
     private static readonly string[] IgnoredFiles =

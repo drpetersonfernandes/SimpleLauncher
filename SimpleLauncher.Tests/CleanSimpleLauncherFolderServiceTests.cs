@@ -58,7 +58,7 @@ public class CleanSimpleLauncherFolderServiceTests
     }
 
     [Fact]
-    public void CleanupTrashCallsDeleteForTempDirectory()
+    public void CleanupTempFilesCallsDeleteForTempDirectory()
     {
         var tempDir = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
         Directory.CreateDirectory(tempDir);
@@ -94,6 +94,10 @@ public class CleanSimpleLauncherFolderServiceTests
         {
             return Task.CompletedTask;
         }
+
+        public void TryDeleteDirectory(string directoryPath)
+        {
+        }
     }
 
     private sealed class TrackingDeleteFilesService : IDeleteFilesService
@@ -118,6 +122,20 @@ public class CleanSimpleLauncherFolderServiceTests
         {
             TryDeleteFile(filePath);
             return Task.CompletedTask;
+        }
+
+        public void TryDeleteDirectory(string directoryPath)
+        {
+            DeletedFiles.Add(directoryPath);
+            try
+            {
+                if (Directory.Exists(directoryPath))
+                    Directory.Delete(directoryPath, true);
+            }
+            catch
+            {
+                // ignore
+            }
         }
     }
 }

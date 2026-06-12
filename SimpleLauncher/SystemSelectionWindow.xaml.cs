@@ -21,7 +21,11 @@ public partial class SystemSelectionWindow
         _viewModel = viewModel;
         _viewModel.DialogResultRequested += result =>
         {
-            if (IsLoaded) DialogResult = result;
+            if (IsLoaded)
+            {
+                DialogResult = result;
+            }
+
             Close();
         };
 

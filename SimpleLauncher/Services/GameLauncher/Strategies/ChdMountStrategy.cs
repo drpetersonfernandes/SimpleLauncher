@@ -128,7 +128,7 @@ public class ChdMountStrategy : ILaunchStrategy
                           context.EmulatorName.Contains("FinalBurn Neo", StringComparison.OrdinalIgnoreCase) ||
                           (context.EmulatorManager?.EmulatorLocation?.Contains("fbneo64.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
-        _isGenesisPlusGx = context.EmulatorName.Contains("genesis plux gx", StringComparison.OrdinalIgnoreCase) ||
+        _isGenesisPlusGx = context.EmulatorName.Contains("genesis plus gx", StringComparison.OrdinalIgnoreCase) ||
                            (context.EmulatorManager?.EmulatorLocation?.Contains("gen_sdl.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
         _isGens = context.EmulatorName.Contains("Gens", StringComparison.OrdinalIgnoreCase) ||

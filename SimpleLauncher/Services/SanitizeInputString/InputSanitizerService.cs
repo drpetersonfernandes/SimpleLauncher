@@ -62,7 +62,8 @@ public class InputSanitizerService : IInputSanitizerService
         if (string.IsNullOrWhiteSpace(name))
             return "_invalid_empty_name_";
 
-        var sanitizedName = name.Replace("..", "_");
+        var sanitizedName = name.Trim('.', ' ');
+        sanitizedName = sanitizedName.Replace("..", "_");
         var invalidChars = Path.GetInvalidFileNameChars();
         var sb = new StringBuilder(sanitizedName);
 
@@ -70,7 +71,6 @@ public class InputSanitizerService : IInputSanitizerService
             sb.Replace(invalidChar, '_');
 
         sanitizedName = sb.ToString();
-        sanitizedName = sanitizedName.Trim('.', ' ');
 
         if (string.IsNullOrWhiteSpace(sanitizedName))
             return "_invalid_sanitized_name_";

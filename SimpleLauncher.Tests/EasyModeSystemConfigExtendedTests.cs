@@ -200,7 +200,7 @@ public class EasyModeSystemConfigExtendedTests
     /// Verifies that IsValid still returns true when SystemFolder is null (only SystemName is required).
     /// </summary>
     [Fact]
-    public void EasyModeSystemConfigIsValidReturnsFalseWithNullSystemFolder()
+    public void EasyModeSystemConfigIsValidReturnsTrueWithNullSystemFolder()
     {
         var config = new EasyModeSystemConfig
         {
