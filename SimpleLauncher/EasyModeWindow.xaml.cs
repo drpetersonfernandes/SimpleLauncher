@@ -27,6 +27,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     private readonly EasyModeManager _easyModeManager;
     private EasyModeManager _manager;
     private readonly IConfiguration _configuration;
+    private Button _emergencyReturnButton;
 
     // Track download states for all components
     private readonly Dictionary<string, DownloadButtonState> _downloadStates = new();
@@ -327,6 +328,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             LoadingOverlay.ApplyTemplate();
             if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
             {
+                _emergencyReturnButton = emergencyBtn;
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;
             }
         };
@@ -1255,6 +1257,12 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try // Top-level catch for async Task method
         {
+            if (_emergencyReturnButton != null)
+            {
+                _emergencyReturnButton.Click -= EmergencyOverlayRelease_Click;
+                _emergencyReturnButton = null;
+            }
+
             if (StopDownloadButton.IsEnabled)
             {
                 StopDownloadButton_Click(null, null);

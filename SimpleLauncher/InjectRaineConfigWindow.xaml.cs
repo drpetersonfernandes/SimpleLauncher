@@ -9,6 +9,10 @@ namespace SimpleLauncher;
 public partial class InjectRaineConfigWindow
 {
     private readonly InjectRaineConfigViewModel _viewModel;
+    private readonly Func<string> _requestEmulatorPathHandler;
+    private readonly Func<string> _requestFilePathHandler;
+    private readonly Func<string> _requestFolderPathHandler;
+    private readonly Func<Window> _getOwnerWindowHandler;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="InjectRaineConfigWindow"/> class.
@@ -20,11 +24,25 @@ public partial class InjectRaineConfigWindow
         App.ApplyThemeToWindow(this);
 
         _viewModel = viewModel;
+        _requestEmulatorPathHandler = OnRequestEmulatorPath;
+        _requestFilePathHandler = OnRequestFilePath;
+        _requestFolderPathHandler = OnRequestFolderPath;
+        _getOwnerWindowHandler = () => this;
+
         _viewModel.CloseRequested += Close;
-        _viewModel.RequestEmulatorPath += OnRequestEmulatorPath;
-        _viewModel.RequestFilePath += OnRequestFilePath;
-        _viewModel.RequestFolderPath += OnRequestFolderPath;
-        _viewModel.GetOwnerWindow += () => this;
+        _viewModel.RequestEmulatorPath += _requestEmulatorPathHandler;
+        _viewModel.RequestFilePath += _requestFilePathHandler;
+        _viewModel.RequestFolderPath += _requestFolderPathHandler;
+        _viewModel.GetOwnerWindow += _getOwnerWindowHandler;
+
+        Closing += (_, _) =>
+        {
+            _viewModel.CloseRequested -= Close;
+            _viewModel.RequestEmulatorPath -= _requestEmulatorPathHandler;
+            _viewModel.RequestFilePath -= _requestFilePathHandler;
+            _viewModel.RequestFolderPath -= _requestFolderPathHandler;
+            _viewModel.GetOwnerWindow -= _getOwnerWindowHandler;
+        };
 
         DataContext = _viewModel;
     }

@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Net.Http;
 using System.IO;
+using System.Threading;
 
 namespace Updater.Services;
 
@@ -62,16 +63,18 @@ public class DownloadService
     /// Downloads a file to a memory stream with progress reporting.
     /// </summary>
     /// <param name="url">The URL to download from.</param>
+    /// <param name="cancellationToken">Token to cancel the download operation.</param>
     /// <returns>A MemoryStream containing the downloaded file.</returns>
     /// <exception cref="HttpRequestException">Thrown when the download fails.</exception>
-    public async Task<MemoryStream> DownloadToMemoryAsync(string url)
+    /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
+    public async Task<MemoryStream> DownloadToMemoryAsync(string url, CancellationToken cancellationToken = default)
     {
         LogMessage?.Invoke("Downloading the update file...");
 
         HttpResponseMessage response;
         try
         {
-            response = await _httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+            response = await _httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -95,16 +98,16 @@ public class DownloadService
 
             try
             {
-                await using var contentStream = await response.Content.ReadAsStreamAsync();
+                await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
 
                 while (true)
                 {
                     try
                     {
-                        var bytesRead = await contentStream.ReadAsync(buffer);
+                        var bytesRead = await contentStream.ReadAsync(buffer, cancellationToken);
                         if (bytesRead == 0) break;
 
-                        await memoryStream.WriteAsync(buffer.AsMemory(0, bytesRead));
+                        await memoryStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
                         totalBytesRead += bytesRead;
 
                         // Calculate and report progress

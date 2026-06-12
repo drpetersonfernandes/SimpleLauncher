@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 
 namespace Updater.Services;
 
@@ -10,7 +11,6 @@ public class ProcessService
 {
     private const int ProcessExitTimeoutMs = 30000; // 30 seconds timeout for main app to exit
     private const int ProcessExitPollIntervalMs = 500; // Poll every 500ms to check if process exited
-    private const int FallbackWaitDelayMs = 5000; // 5 seconds fallback when no PID provided
 
     /// <summary>
     /// Event raised when a log message needs to be displayed.
@@ -21,9 +21,11 @@ public class ProcessService
     /// Waits for the main application process to exit.
     /// </summary>
     /// <param name="processId">The process ID of the main application, or null if not available.</param>
+    /// <param name="cancellationToken">Token to cancel the wait operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
     /// <exception cref="TimeoutException">Thrown when the process does not exit within the timeout period.</exception>
-    public async Task WaitForProcessExitAsync(int? processId)
+    /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
+    public async Task WaitForProcessExitAsync(int? processId, CancellationToken cancellationToken = default)
     {
         if (processId.HasValue)
         {
@@ -35,9 +37,11 @@ public class ProcessService
                 var stopwatch = Stopwatch.StartNew();
                 while (!mainAppProcess.HasExited && stopwatch.ElapsedMilliseconds < ProcessExitTimeoutMs)
                 {
-                    await Task.Delay(ProcessExitPollIntervalMs);
+                    await Task.Delay(ProcessExitPollIntervalMs, cancellationToken);
                     mainAppProcess.Refresh();
                 }
+
+                cancellationToken.ThrowIfCancellationRequested();
 
                 if (!mainAppProcess.HasExited)
                 {
@@ -47,7 +51,7 @@ public class ProcessService
                 }
 
                 // Add a small delay to ensure file handles are released
-                await Task.Delay(500);
+                await Task.Delay(500, cancellationToken);
                 LogMessage?.Invoke("Simple Launcher has exited.");
             }
             catch (ArgumentException)
@@ -57,8 +61,40 @@ public class ProcessService
         }
         else
         {
-            LogMessage?.Invoke("No PID provided by Simple Launcher. Waiting for 5 seconds (this is unreliable)...");
-            await Task.Delay(FallbackWaitDelayMs);
+            LogMessage?.Invoke("No PID provided by Simple Launcher. Searching for SimpleLauncher process by name...");
+
+            var processes = Process.GetProcessesByName("SimpleLauncher");
+            if (processes.Length > 0)
+            {
+                var process = processes[0];
+                LogMessage?.Invoke($"Found SimpleLauncher process (PID: {process.Id}). Waiting for it to exit...");
+
+                var stopwatch = Stopwatch.StartNew();
+                while (!process.HasExited && stopwatch.ElapsedMilliseconds < ProcessExitTimeoutMs)
+                {
+                    await Task.Delay(ProcessExitPollIntervalMs, cancellationToken);
+                    process.Refresh();
+                }
+
+                process.Dispose();
+                cancellationToken.ThrowIfCancellationRequested();
+
+                if (!process.HasExited)
+                {
+                    LogMessage?.Invoke($"SimpleLauncher process did not exit within {ProcessExitTimeoutMs / 1000} seconds. Proceeding anyway.");
+                }
+                else
+                {
+                    LogMessage?.Invoke("SimpleLauncher has exited.");
+                }
+            }
+            else
+            {
+                LogMessage?.Invoke("SimpleLauncher process not found. Proceeding immediately.");
+            }
+
+            // Small delay to ensure file handles are released
+            await Task.Delay(500, cancellationToken);
         }
     }
 

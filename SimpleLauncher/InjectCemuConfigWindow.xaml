@@ -106,6 +106,7 @@
                     ToolTip="{DynamicResource CemuConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource CemuConfig_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"
+                    Command="{Binding CancelCommand}"
                     ToolTip="{DynamicResource CemuConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>

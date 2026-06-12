@@ -10,6 +10,7 @@ internal partial class DownloadImagePackWindow : IDisposable
 {
     private readonly DownloadImagePackViewModel _viewModel;
     private readonly ILogErrors _logErrors;
+    private Button _emergencyReturnButton;
 
     internal DownloadImagePackWindow(ILogErrors logErrors, DownloadImagePackViewModel viewModel)
     {
@@ -28,6 +29,7 @@ internal partial class DownloadImagePackWindow : IDisposable
             LoadingOverlay.ApplyTemplate();
             if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
             {
+                _emergencyReturnButton = emergencyBtn;
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;
             }
         };
@@ -49,6 +51,12 @@ internal partial class DownloadImagePackWindow : IDisposable
     {
         try
         {
+            if (_emergencyReturnButton != null)
+            {
+                _emergencyReturnButton.Click -= EmergencyOverlayRelease_Click;
+                _emergencyReturnButton = null;
+            }
+
             await _viewModel.CloseWindowRoutineAsync();
         }
         catch (Exception ex)

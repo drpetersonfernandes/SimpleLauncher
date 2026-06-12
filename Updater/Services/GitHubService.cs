@@ -2,6 +2,7 @@ using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Net.Http;
+using System.Threading;
 
 namespace Updater.Services;
 
@@ -53,13 +54,15 @@ public partial class GitHubService
     /// Fetches the latest release asset URL from GitHub with a timeout,
     /// falling back to the secondary server if GitHub is not available.
     /// </summary>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>A tuple containing the normalized version string and the asset download URL.</returns>
     /// <exception cref="HttpRequestException">Thrown when both GitHub and fallback requests fail.</exception>
     /// <exception cref="InvalidOperationException">Thrown when the release data is invalid or the asset is not found.</exception>
-    public async Task<(string version, string assetUrl)> GetLatestReleaseAssetUrlAsync()
+    /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
+    public async Task<(string version, string assetUrl)> GetLatestReleaseAssetUrlAsync(CancellationToken cancellationToken = default)
     {
         // First, try to get release info from GitHub with a short timeout
-        var gitHubResult = await TryGetGitHubReleaseAsync();
+        var gitHubResult = await TryGetGitHubReleaseAsync(cancellationToken);
 
         if (gitHubResult != null)
         {
@@ -68,23 +71,25 @@ public partial class GitHubService
 
         // If GitHub failed, fall back to secondary server
         LogMessage?.Invoke($"GitHub not responding after {GitHubTimeoutSeconds} seconds. Using secondary server...");
-        return await GetFallbackReleaseAsync();
+        return await GetFallbackReleaseAsync(cancellationToken);
     }
 
     /// <summary>
     /// Attempts to get the release from GitHub with a 5-second timeout.
     /// </summary>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>The version and asset URL if successful, null if timed out or failed.</returns>
-    private async Task<(string version, string assetUrl)?> TryGetGitHubReleaseAsync()
+    private async Task<(string version, string assetUrl)?> TryGetGitHubReleaseAsync(CancellationToken cancellationToken = default)
     {
         try
         {
             LogMessage?.Invoke("Fetching the latest release from GitHub...");
 
-            // Create a cancellation token that expires after 5 seconds
-            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(GitHubTimeoutSeconds));
+            // Create a cancellation token that expires after 5 seconds, linked to the external token
+            using var timeoutCts = new CancellationTokenSource(TimeSpan.FromSeconds(GitHubTimeoutSeconds));
+            using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(timeoutCts.Token, cancellationToken);
 
-            var response = await _httpClient.GetAsync(ApiUrl, cts.Token);
+            var response = await _httpClient.GetAsync(ApiUrl, linkedCts.Token);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -92,7 +97,7 @@ public partial class GitHubService
                 return null;
             }
 
-            var jsonResponse = await response.Content.ReadAsStringAsync(cts.Token);
+            var jsonResponse = await response.Content.ReadAsStringAsync(linkedCts.Token);
             using var jsonDoc = JsonDocument.Parse(jsonResponse);
             var root = jsonDoc.RootElement;
 
@@ -162,10 +167,12 @@ public partial class GitHubService
     /// <summary>
     /// Gets the release from the secondary server when GitHub is unavailable.
     /// </summary>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>A tuple containing the normalized version string and the asset download URL.</returns>
     /// <exception cref="HttpRequestException">Thrown when the request fails.</exception>
     /// <exception cref="InvalidOperationException">Thrown when the version file is invalid.</exception>
-    private async Task<(string version, string assetUrl)> GetFallbackReleaseAsync()
+    /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
+    private async Task<(string version, string assetUrl)> GetFallbackReleaseAsync(CancellationToken cancellationToken = default)
     {
         try
         {
@@ -174,13 +181,13 @@ public partial class GitHubService
             // The secondary server has a version.txt file with the current version
             const string versionUrl = SecondaryServerBaseUrl + "version.txt";
 
-            var versionResponse = await _httpClient.GetAsync(versionUrl);
+            var versionResponse = await _httpClient.GetAsync(versionUrl, cancellationToken);
             if (!versionResponse.IsSuccessStatusCode)
             {
                 throw new HttpRequestException($"Failed to fetch version from secondary server. Status Code: {versionResponse.StatusCode}");
             }
 
-            var versionText = (await versionResponse.Content.ReadAsStringAsync()).Trim();
+            var versionText = (await versionResponse.Content.ReadAsStringAsync(cancellationToken)).Trim();
 
             // Remove "release" prefix if present
             var rawVersionString = ExtractVersionFromTag(versionText);
@@ -277,6 +284,6 @@ public partial class GitHubService
         return string.Join(".", parts.Take(4));
     }
 
-    [GeneratedRegex(@"(\d+(\.\d+){1,3})", RegexOptions.Compiled)]
+    [GeneratedRegex(@"(\d+(\.\d+){1,3})")]
     private static partial Regex VersionRegex();
 }

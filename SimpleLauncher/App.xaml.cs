@@ -198,7 +198,6 @@ public partial class App : IDisposable
             return sm;
         });
         serviceCollection.AddSingleton<UpdateChecker>();
-        serviceCollection.AddSingleton(static sp => new Lazy<UpdateChecker>(sp.GetRequiredService<UpdateChecker>));
         serviceCollection.AddSingleton<QuitSimpleLauncher>();
         serviceCollection.AddSingleton<ReinstallSimpleLauncher>();
         serviceCollection.AddSingleton<Stats>();

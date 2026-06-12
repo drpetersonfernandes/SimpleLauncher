@@ -23,6 +23,7 @@ public partial class RetroAchievementsWindow : ILoadingState
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IDebugLogger _debugLogger;
+    private Button? _emergencyReturnButton;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RetroAchievementsWindow"/> class.
@@ -60,7 +61,17 @@ public partial class RetroAchievementsWindow : ILoadingState
             LoadingOverlay.ApplyTemplate();
             if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
             {
+                _emergencyReturnButton = emergencyBtn;
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;
+            }
+        };
+
+        Closing += (_, _) =>
+        {
+            if (_emergencyReturnButton != null)
+            {
+                _emergencyReturnButton.Click -= EmergencyOverlayRelease_Click;
+                _emergencyReturnButton = null;
             }
         };
     }

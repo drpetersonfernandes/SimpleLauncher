@@ -103,6 +103,7 @@
                     ToolTip="{DynamicResource MednafenConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource MednafenConfig_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"
+                    Command="{Binding CancelCommand}"
                     ToolTip="{DynamicResource MednafenConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>

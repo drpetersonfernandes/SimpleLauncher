@@ -10,6 +10,7 @@ namespace SimpleLauncher;
 public partial class RetroAchievementsSettingsWindow
 {
     private readonly RetroAchievementsSettingsViewModel _viewModel;
+    private readonly Action _saveCompletedHandler;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RetroAchievementsSettingsWindow"/> class.
@@ -23,12 +24,20 @@ public partial class RetroAchievementsSettingsWindow
 
         _viewModel = viewModel;
 
-        _viewModel.SaveCompleted += () =>
+        _saveCompletedHandler = () =>
         {
-            DialogResult = true;
+            if (IsLoaded) DialogResult = true;
             Close();
         };
+
+        _viewModel.SaveCompleted += _saveCompletedHandler;
         _viewModel.RequestExePath += OnRequestExePath;
+
+        Closing += (_, _) =>
+        {
+            _viewModel.SaveCompleted -= _saveCompletedHandler;
+            _viewModel.RequestExePath -= OnRequestExePath;
+        };
 
         ApiKeyPasswordBox.PasswordChanged += (_, _) => { _viewModel.ApiKey = ApiKeyPasswordBox.Password; };
         RaPasswordPasswordBox.PasswordChanged += (_, _) => { _viewModel.Password = RaPasswordPasswordBox.Password; };

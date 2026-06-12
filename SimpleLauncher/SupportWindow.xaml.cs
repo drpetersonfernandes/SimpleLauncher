@@ -13,6 +13,8 @@ public partial class SupportWindow : ILoadingState
 {
     private readonly SupportViewModel _viewModel;
     private readonly IDebugLogger _debugLogger;
+    private readonly Action _formClearedHandler;
+    private Button _emergencyReturnButton;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SupportWindow"/> class.
@@ -27,12 +29,26 @@ public partial class SupportWindow : ILoadingState
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
         _viewModel = viewModel;
 
-        _viewModel.CloseRequested += Close;
-        _viewModel.FormCleared += () =>
+        _formClearedHandler = () =>
         {
             NameTextBox.Text = "";
             EmailTextBox.Text = "";
             SupportTextBox.Text = "";
+        };
+
+        _viewModel.CloseRequested += Close;
+        _viewModel.FormCleared += _formClearedHandler;
+
+        Closing += (_, _) =>
+        {
+            _viewModel.CloseRequested -= Close;
+            _viewModel.FormCleared -= _formClearedHandler;
+
+            if (_emergencyReturnButton != null)
+            {
+                _emergencyReturnButton.Click -= EmergencyOverlayRelease_Click;
+                _emergencyReturnButton = null;
+            }
         };
 
         Loaded += (_, _) =>
@@ -40,6 +56,7 @@ public partial class SupportWindow : ILoadingState
             LoadingOverlay.ApplyTemplate();
             if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
             {
+                _emergencyReturnButton = emergencyBtn;
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;
             }
         };

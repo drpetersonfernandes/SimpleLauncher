@@ -55,6 +55,9 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     /// </summary>
     public event Action CloseRequested;
 
+    [RelayCommand]
+    private void Cancel() => CloseRequested?.Invoke();
+
     private void LoadSettings()
     {
         DaphneFullscreen = _settings.Daphne.Fullscreen;

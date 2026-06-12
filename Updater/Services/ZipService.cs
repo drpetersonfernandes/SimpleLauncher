@@ -1,5 +1,6 @@
 using System.Security;
 using System.IO;
+using System.Threading;
 using SharpCompress.Readers;
 using SharpCompress.Readers.Zip;
 
@@ -62,9 +63,11 @@ public class ZipService
     /// Uses streaming extraction without upfront indexing for faster start.
     /// </summary>
     /// <param name="zipStream">The memory stream containing the ZIP archive.</param>
+    /// <param name="cancellationToken">Token to cancel the extraction operation.</param>
     /// <returns>The number of files extracted.</returns>
     /// <exception cref="SecurityException">Thrown when a ZIP entry attempts to escape the target directory.</exception>
-    public async Task<int> ExtractFromStreamAsync(MemoryStream zipStream)
+    /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
+    public async Task<int> ExtractFromStreamAsync(MemoryStream zipStream, CancellationToken cancellationToken = default)
     {
         LogMessage?.Invoke("Extracting update files...");
 
@@ -76,6 +79,7 @@ public class ZipService
 
         while (reader.MoveToNextEntry())
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var entryKey = reader.Entry.Key;
 
             try
@@ -123,7 +127,7 @@ public class ZipService
                 });
 
                 // Extract with retry logic for locked files
-                await ExtractFileWithRetryAsync(reader, destinationPath, entryKey);
+                await ExtractFileWithRetryAsync(reader, destinationPath, entryKey, cancellationToken);
 
                 LogMessage?.Invoke($"Extracted: {entryKey}");
             }
@@ -151,14 +155,17 @@ public class ZipService
     /// <param name="reader">The ZIP reader positioned at the entry to extract.</param>
     /// <param name="destinationPath">The destination file path.</param>
     /// <param name="entryKey">The ZIP entry key for logging purposes.</param>
+    /// <param name="cancellationToken">Token to cancel the extraction operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
     /// <exception cref="IOException">Thrown when the file cannot be written after all retry attempts.</exception>
-    private async Task ExtractFileWithRetryAsync(IReader reader, string destinationPath, string entryKey)
+    /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
+    private async Task ExtractFileWithRetryAsync(IReader reader, string destinationPath, string entryKey, CancellationToken cancellationToken = default)
     {
         Exception? lastException = null;
 
         for (var attempt = 1; attempt <= FileWriteRetryAttempts; attempt++)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             try
             {
                 await using var destinationFileStream = new FileStream(
@@ -169,7 +176,7 @@ public class ZipService
                     FileBufferSize,
                     true);
                 await using var entryStream = reader.OpenEntryStream();
-                await entryStream.CopyToAsync(destinationFileStream);
+                await entryStream.CopyToAsync(destinationFileStream, cancellationToken);
                 return; // Success, exit the method
             }
             catch (IOException ex) when (attempt < FileWriteRetryAttempts)
@@ -177,7 +184,7 @@ public class ZipService
                 // File is likely locked by another process, retry after delay
                 lastException = ex;
                 LogMessage?.Invoke($"File locked ({attempt}/{FileWriteRetryAttempts}): {entryKey} - retrying in {FileWriteRetryDelayMs}ms...");
-                await Task.Delay(FileWriteRetryDelayMs * attempt); // Increasing delay for each attempt
+                await Task.Delay(FileWriteRetryDelayMs * attempt, cancellationToken); // Increasing delay for each attempt
             }
         }
 

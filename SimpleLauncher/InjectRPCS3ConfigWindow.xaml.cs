@@ -9,6 +9,8 @@ namespace SimpleLauncher;
 public partial class InjectRpcs3ConfigWindow
 {
     private readonly InjectRpcs3ConfigViewModel _viewModel;
+    private readonly Func<string> _requestEmulatorPathHandler;
+    private readonly Func<Window> _getOwnerWindowHandler;
 
     public InjectRpcs3ConfigWindow(InjectRpcs3ConfigViewModel viewModel)
     {
@@ -16,9 +18,19 @@ public partial class InjectRpcs3ConfigWindow
         App.ApplyThemeToWindow(this);
 
         _viewModel = viewModel;
+        _requestEmulatorPathHandler = OnRequestEmulatorPath;
+        _getOwnerWindowHandler = () => this;
+
         _viewModel.CloseRequested += Close;
-        _viewModel.RequestEmulatorPath += OnRequestEmulatorPath;
-        _viewModel.GetOwnerWindow += () => this;
+        _viewModel.RequestEmulatorPath += _requestEmulatorPathHandler;
+        _viewModel.GetOwnerWindow += _getOwnerWindowHandler;
+
+        Closing += (_, _) =>
+        {
+            _viewModel.CloseRequested -= Close;
+            _viewModel.RequestEmulatorPath -= _requestEmulatorPathHandler;
+            _viewModel.GetOwnerWindow -= _getOwnerWindowHandler;
+        };
 
         DataContext = _viewModel;
     }

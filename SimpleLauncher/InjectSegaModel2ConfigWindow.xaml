@@ -93,6 +93,7 @@
                     ToolTip="{DynamicResource SegaModel2Config_Run_Tooltip}" />
             <Button Content="{DynamicResource SegaModel2Config_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"
+                    Command="{Binding CancelCommand}"
                     ToolTip="{DynamicResource SegaModel2Config_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>

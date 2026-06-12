@@ -85,6 +85,7 @@
                     ToolTip="{DynamicResource YumirConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource YumirConfig_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"
+                    Command="{Binding CancelCommand}"
                     ToolTip="{DynamicResource YumirConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>

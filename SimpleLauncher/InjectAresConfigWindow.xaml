@@ -111,6 +111,7 @@
                      ToolTip="{DynamicResource AresConfig_Run_Tooltip}"/>
              <Button Content="{DynamicResource AresConfig_Cancel_Button}"
                      Style="{DynamicResource DialogCancelButtonStyle}"
+                     Command="{Binding CancelCommand}"
                      ToolTip="{DynamicResource AresConfig_Cancel_Tooltip}"/>
         </StackPanel>
     </Grid>

@@ -49,6 +49,7 @@
     <Thickness x:Key="TextBoxPadding">10</Thickness>
     <Thickness x:Key="ProgressBarMargin">10,10,10,5</Thickness>
     <Thickness x:Key="StatusTextMargin">10,0,10,10</Thickness>
+    <Thickness x:Key="CancelButtonMargin">10,5,10,10</Thickness>
 
     <!-- ============================================ -->
     <!-- STYLES                                       -->
@@ -97,6 +98,33 @@
         <Setter Property="FontFamily" Value="{StaticResource StatusFontFamily}" />
         <Setter Property="FontSize" Value="{StaticResource StatusTextFontSize}" />
         <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+
+    <!-- Cancel Button Style -->
+    <Style x:Key="CancelButtonStyle" TargetType="Button">
+        <Setter Property="Margin" Value="{StaticResource CancelButtonMargin}" />
+        <Setter Property="Padding" Value="20,5" />
+        <Setter Property="Background" Value="#FF4444" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontSize" Value="{StaticResource StatusTextFontSize}" />
+        <Setter Property="FontFamily" Value="{StaticResource StatusFontFamily}" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            CornerRadius="3"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#FF6666" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

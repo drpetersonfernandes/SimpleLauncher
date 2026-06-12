@@ -120,6 +120,7 @@
                     ToolTip="{DynamicResource RetroArchConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource RetroArchConfig_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"
+                    Command="{Binding CancelCommand}"
                     ToolTip="{DynamicResource RetroArchConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>

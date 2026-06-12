@@ -104,6 +104,7 @@
                     ToolTip="{DynamicResource AzaharConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource AzaharConfig_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"
+                    Command="{Binding CancelCommand}"
                     ToolTip="{DynamicResource AzaharConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>

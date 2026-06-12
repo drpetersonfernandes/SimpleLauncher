@@ -113,6 +113,7 @@
                     ToolTip="{DynamicResource DuckStationConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource DuckStationConfig_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"
+                    Command="{Binding CancelCommand}"
                     ToolTip="{DynamicResource DuckStationConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>

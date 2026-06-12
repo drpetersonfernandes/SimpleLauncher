@@ -1,3 +1,4 @@
+using System.Windows;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
@@ -7,6 +8,8 @@ namespace SimpleLauncher;
 /// </summary>
 public partial class SetGamepadDeadZoneWindow
 {
+    private readonly Action _saveCompletedHandler;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="SetGamepadDeadZoneWindow"/> class.
     /// </summary>
@@ -15,13 +18,22 @@ public partial class SetGamepadDeadZoneWindow
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
+        Owner = Application.Current.MainWindow;
 
-        viewModel.SaveCompleted += () =>
+        _saveCompletedHandler = () =>
         {
-            DialogResult = true;
+            if (IsLoaded) DialogResult = true;
             Close();
         };
+
+        viewModel.SaveCompleted += _saveCompletedHandler;
         viewModel.CloseRequested += Close;
+
+        Closing += (_, _) =>
+        {
+            viewModel.SaveCompleted -= _saveCompletedHandler;
+            viewModel.CloseRequested -= Close;
+        };
 
         DataContext = viewModel;
     }

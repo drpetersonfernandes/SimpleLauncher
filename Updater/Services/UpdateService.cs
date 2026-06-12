@@ -1,4 +1,5 @@
 using System.IO;
+using System.Threading;
 
 namespace Updater.Services;
 
@@ -116,8 +117,9 @@ public class UpdateService
     /// </summary>
     /// <param name="processId">The process ID of the main application to wait for, or null.</param>
     /// <param name="ignoredFiles">Files to exclude during extraction (typically updater files).</param>
+    /// <param name="cancellationToken">Token to cancel the update operation.</param>
     /// <returns>The result of the update operation.</returns>
-    public async Task<UpdateResult> ExecuteUpdateAsync(int? processId, string[] ignoredFiles)
+    public async Task<UpdateResult> ExecuteUpdateAsync(int? processId, string[] ignoredFiles, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrEmpty(_appDirectory))
         {
@@ -134,7 +136,7 @@ public class UpdateService
             // Wait for the main application to exit
             try
             {
-                await _processService.WaitForProcessExitAsync(processId);
+                await _processService.WaitForProcessExitAsync(processId, cancellationToken);
             }
             catch (AlreadyReportedException)
             {
@@ -151,7 +153,7 @@ public class UpdateService
             string latestVersion;
             try
             {
-                (latestVersion, assetUrl) = await _gitHubService.GetLatestReleaseAssetUrlAsync();
+                (latestVersion, assetUrl) = await _gitHubService.GetLatestReleaseAssetUrlAsync(cancellationToken);
             }
             catch (AlreadyReportedException)
             {
@@ -168,8 +170,7 @@ public class UpdateService
             try
             {
                 DownloadProgressReset?.Invoke(this, EventArgs.Empty);
-                updateFileStream = await _downloadService.DownloadToMemoryAsync(assetUrl);
-                DownloadProgressReset?.Invoke(this, EventArgs.Empty);
+                updateFileStream = await _downloadService.DownloadToMemoryAsync(assetUrl, cancellationToken);
             }
             catch (AlreadyReportedException)
             {
@@ -188,7 +189,7 @@ public class UpdateService
             try
             {
                 ExtractionStarted?.Invoke(this, EventArgs.Empty);
-                await _zipService.ExtractFromStreamAsync(updateFileStream);
+                await _zipService.ExtractFromStreamAsync(updateFileStream, cancellationToken);
                 ExtractionCompleted?.Invoke(this, EventArgs.Empty);
             }
             catch (AlreadyReportedException)
@@ -226,6 +227,10 @@ public class UpdateService
                 ErrorMessage = "Automatic update failed.",
                 RequiresManualUpdate = true
             };
+        }
+        catch (OperationCanceledException)
+        {
+            throw;
         }
         catch (Exception ex)
         {

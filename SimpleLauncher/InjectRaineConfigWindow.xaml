@@ -138,6 +138,7 @@
                     ToolTip="{DynamicResource RaineConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource RaineConfig_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"
+                    Command="{Binding CancelCommand}"
                     ToolTip="{DynamicResource RaineConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>

@@ -21,9 +21,11 @@ public partial class SystemSelectionWindow
         _viewModel = viewModel;
         _viewModel.DialogResultRequested += result =>
         {
-            DialogResult = result;
+            if (IsLoaded) DialogResult = result;
             Close();
         };
+
+        Closed += (_, _) => { DialogResult ??= false; };
 
         DataContext = _viewModel;
     }

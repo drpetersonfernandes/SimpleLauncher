@@ -87,6 +87,7 @@
                     ToolTip="{DynamicResource MesenConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource MesenConfig_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"
+                    Command="{Binding CancelCommand}"
                     ToolTip="{DynamicResource MesenConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>

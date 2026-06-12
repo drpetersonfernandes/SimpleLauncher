@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Net.Http;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
 using Updater.Services;
 
@@ -26,6 +27,7 @@ public partial class MainWindow
 
     private readonly UpdateService _updateService;
     private readonly string[] _args;
+    private CancellationTokenSource _cts;
 
     // Files to exclude during extraction to prevent self-destruction
     private static readonly string[] IgnoredFiles =
@@ -75,7 +77,8 @@ public partial class MainWindow
         Log($"Updater version: {applicationVersion}\n\n");
 
         // Start update process async when window is loaded
-        Loaded += async (_, _) => await ExecuteUpdateAsync();
+        _cts = new CancellationTokenSource();
+        Loaded += async (_, _) => await ExecuteUpdateAsync(_cts.Token);
     }
 
     /// <summary>
@@ -111,7 +114,7 @@ public partial class MainWindow
             Dispatcher.BeginInvoke(() =>
             {
                 DownloadProgressBar.Value = 0;
-                ProgressStatusText.Text = "Download complete";
+                ProgressStatusText.Text = "Preparing download...";
             });
         };
         _updateService.ExtractionStarted += (_, _) =>
@@ -162,20 +165,21 @@ public partial class MainWindow
     /// <summary>
     /// Executes the update process asynchronously with error handling and bug reporting.
     /// </summary>
+    /// <param name="cancellationToken">Token to cancel the update operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    private async Task ExecuteUpdateAsync()
+    private async Task ExecuteUpdateAsync(CancellationToken cancellationToken)
     {
         try
         {
             // Parse process ID from command line arguments
             int? processId = null;
-            if (_args.Length > 0 && int.TryParse(_args[0], out var pid))
+            if (_args.Length > 0 && int.TryParse(_args[0], out var pid) && pid > 0)
             {
                 processId = pid;
             }
 
             // Execute the update through the service
-            var result = await _updateService.ExecuteUpdateAsync(processId, IgnoredFiles);
+            var result = await _updateService.ExecuteUpdateAsync(processId, IgnoredFiles, cancellationToken);
 
             if (result.Success)
             {
@@ -193,6 +197,12 @@ public partial class MainWindow
                 RedirectToDownloadPage(result.ErrorMessage ?? "Automatic update failed.\n\nWould you like to update manually?");
             }
         }
+        catch (OperationCanceledException)
+        {
+            Log("Update was cancelled by the user.");
+            ProgressStatusText.Text = "Cancelled";
+            CancelButton.IsEnabled = false;
+        }
         catch (Exception ex)
         {
             // Report bug to the bug report API
@@ -201,6 +211,13 @@ public partial class MainWindow
             Log($"An error occurred during update process: {ex.Message}");
             Log("Please update manually.");
         }
+    }
+
+    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    {
+        _cts.Cancel();
+        CancelButton.IsEnabled = false;
+        Log("Cancelling update...");
     }
 
     private void RedirectToDownloadPage(string message)

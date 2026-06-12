@@ -9,6 +9,8 @@ namespace SimpleLauncher;
 public partial class InjectMesenConfigWindow
 {
     private readonly InjectMesenConfigViewModel _viewModel;
+    private readonly Func<string> _requestEmulatorPathHandler;
+    private readonly Func<Window> _getOwnerWindowHandler;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="InjectMesenConfigWindow"/> class.
@@ -20,9 +22,19 @@ public partial class InjectMesenConfigWindow
         App.ApplyThemeToWindow(this);
 
         _viewModel = viewModel;
+        _requestEmulatorPathHandler = OnRequestEmulatorPath;
+        _getOwnerWindowHandler = () => this;
+
         _viewModel.CloseRequested += Close;
-        _viewModel.RequestEmulatorPath += OnRequestEmulatorPath;
-        _viewModel.GetOwnerWindow += () => this;
+        _viewModel.RequestEmulatorPath += _requestEmulatorPathHandler;
+        _viewModel.GetOwnerWindow += _getOwnerWindowHandler;
+
+        Closing += (_, _) =>
+        {
+            _viewModel.CloseRequested -= Close;
+            _viewModel.RequestEmulatorPath -= _requestEmulatorPathHandler;
+            _viewModel.GetOwnerWindow -= _getOwnerWindowHandler;
+        };
 
         DataContext = _viewModel;
     }

@@ -98,6 +98,7 @@ public partial class MainWindow
 
             // Clean up collections
             GameListItems?.Clear();
+            if (GameDataGrid != null) GameDataGrid.ItemsSource = null;
 
             // Clear game caches via the cache service
             _gameBrowser?.ClearCache();

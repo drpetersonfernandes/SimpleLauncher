@@ -84,6 +84,9 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
     /// </summary>
     public event Action CloseRequested;
 
+    [RelayCommand]
+    private void Cancel() => CloseRequested?.Invoke();
+
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>

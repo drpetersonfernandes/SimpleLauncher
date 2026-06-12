@@ -14,12 +14,12 @@ public class QuitSimpleLauncher
     private readonly ILogErrors _logErrors;
     private readonly IApplicationLifetime _applicationLifetime;
     private readonly IDispatcherService _dispatcherService;
-    private readonly Lazy<UpdateChecker> _updateChecker;
+    private readonly UpdateChecker _updateChecker;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="QuitSimpleLauncher"/> class.
     /// </summary>
-    public QuitSimpleLauncher(ILogErrors logErrors, IApplicationLifetime applicationLifetime, IDispatcherService dispatcherService, Lazy<UpdateChecker> updateChecker)
+    public QuitSimpleLauncher(ILogErrors logErrors, IApplicationLifetime applicationLifetime, IDispatcherService dispatcherService, UpdateChecker updateChecker)
     {
         _logErrors = logErrors;
         _applicationLifetime = applicationLifetime;
@@ -83,13 +83,12 @@ public class QuitSimpleLauncher
         var downloaded = false;
         try
         {
-            var updateChecker = _updateChecker.Value;
-            var (updaterZipUrl, _) = await updateChecker.GetLatestUpdaterInfoAsync();
+            var (updaterZipUrl, _) = await _updateChecker.GetLatestUpdaterInfoAsync();
 
             if (!string.IsNullOrEmpty(updaterZipUrl))
             {
                 using var memoryStream = new MemoryStream();
-                await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
+                await _updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
                 UpdateChecker.ExtractAllFromZip(memoryStream, appDirectory, null, _logErrors);
                 if (File.Exists(updaterPath))
                 {

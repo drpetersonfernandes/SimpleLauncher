@@ -10,6 +10,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBox x:Name="LogTextBox"
@@ -24,5 +25,11 @@
                    Grid.Row="2"
                    Style="{StaticResource StatusTextBlockStyle}"
                    Text="Waiting to start..." />
+
+        <Button x:Name="CancelButton"
+                Grid.Row="3"
+                Style="{StaticResource CancelButtonStyle}"
+                Content="Cancel"
+                Click="CancelButton_Click" />
     </Grid>
 </Window>

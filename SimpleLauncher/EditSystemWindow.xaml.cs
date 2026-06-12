@@ -37,6 +37,7 @@ internal partial class EditSystemWindow : ILoadingState
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
     private readonly IDebugLogger _debugLogger;
+    private Button _emergencyReturnButton;
 
     public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, IHelpUserService helpUserService, IImageLoader imageLoader, IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, IDebugLogger debugLogger, string preSelectedSystemName = null)
     {
@@ -65,6 +66,7 @@ internal partial class EditSystemWindow : ILoadingState
             LoadingOverlay.ApplyTemplate();
             if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
             {
+                _emergencyReturnButton = emergencyBtn;
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;
             }
         };
@@ -589,6 +591,13 @@ internal partial class EditSystemWindow : ILoadingState
 
     private void EditSystem_Closing(object sender, CancelEventArgs e)
     {
+        // Unsubscribe emergency button
+        if (_emergencyReturnButton != null)
+        {
+            _emergencyReturnButton.Click -= EmergencyOverlayRelease_Click;
+            _emergencyReturnButton = null;
+        }
+
         // Save expander states
         _settings.AdditionalSystemFoldersExpanded = AdditionalFoldersExpander.IsExpanded;
         _settings.Emulator1Expanded = Emulator1Expander.IsExpanded;

@@ -166,6 +166,7 @@
                     ToolTip="{DynamicResource RedreamConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource RedreamConfig_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"
+                    Command="{Binding CancelCommand}"
                     ToolTip="{DynamicResource RedreamConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>

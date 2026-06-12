@@ -102,6 +102,7 @@
                     ToolTip="{DynamicResource BlastemConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource BlastemConfig_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"
+                    Command="{Binding CancelCommand}"
                     ToolTip="{DynamicResource BlastemConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>

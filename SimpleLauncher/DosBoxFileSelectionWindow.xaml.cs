@@ -1,3 +1,4 @@
+using System.Windows;
 using DosBoxFileSelectionViewModel = SimpleLauncher.ViewModels.DosBoxFileSelectionViewModel;
 
 namespace SimpleLauncher;
@@ -17,11 +18,12 @@ public partial class DosBoxFileSelectionWindow
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
+        Owner = Application.Current.MainWindow;
 
         _viewModel = viewModel;
         _viewModel.DialogResultRequested += result =>
         {
-            DialogResult = result;
+            if (IsLoaded) DialogResult = result;
             Close();
         };
 

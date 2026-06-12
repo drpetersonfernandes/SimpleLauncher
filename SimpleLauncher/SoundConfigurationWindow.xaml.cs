@@ -11,6 +11,8 @@ namespace SimpleLauncher;
 /// </summary>
 public partial class SoundConfigurationWindow
 {
+    private readonly Action _saveCompletedHandler;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="SoundConfigurationWindow"/> class.
     /// </summary>
@@ -22,13 +24,22 @@ public partial class SoundConfigurationWindow
 
         Owner = Application.Current.MainWindow;
 
-        viewModel.SaveCompleted += () =>
+        _saveCompletedHandler = () =>
         {
-            DialogResult = true;
+            if (IsLoaded) DialogResult = true;
             Close();
         };
+
+        viewModel.SaveCompleted += _saveCompletedHandler;
         viewModel.CloseRequested += Close;
         viewModel.RequestSoundFilePath += OnRequestSoundFilePath;
+
+        Closing += (_, _) =>
+        {
+            viewModel.SaveCompleted -= _saveCompletedHandler;
+            viewModel.CloseRequested -= Close;
+            viewModel.RequestSoundFilePath -= OnRequestSoundFilePath;
+        };
 
         DataContext = viewModel;
     }

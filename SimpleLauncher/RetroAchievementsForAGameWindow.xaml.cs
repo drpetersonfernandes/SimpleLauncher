@@ -27,6 +27,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
     private string _gameTitleForDisplay;
     private readonly SettingsManager _settings;
     private readonly RetroAchievementsService _raService;
+    private Button _emergencyReturnButton;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RetroAchievementsForAGameWindow"/> class.
@@ -56,7 +57,17 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
             LoadingOverlay.ApplyTemplate();
             if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
             {
+                _emergencyReturnButton = emergencyBtn;
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;
+            }
+        };
+
+        Closing += (_, _) =>
+        {
+            if (_emergencyReturnButton != null)
+            {
+                _emergencyReturnButton.Click -= EmergencyOverlayRelease_Click;
+                _emergencyReturnButton = null;
             }
         };
     }

@@ -152,6 +152,7 @@
                     ToolTip="{DynamicResource RPCS3Config_Run_Tooltip}" />
             <Button Content="{DynamicResource RPCS3Config_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"
+                    Command="{Binding CancelCommand}"
                     ToolTip="{DynamicResource RPCS3Config_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
