@@ -14,15 +14,17 @@ public class Pcsx2ConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
+    private readonly IMessageBoxLibraryService _messageBox;
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Pcsx2ConfigHandler"/> class.
     /// </summary>
-    public Pcsx2ConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
+    public Pcsx2ConfigHandler(ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
         _debugLogger = debugLogger;
+        _messageBox = messageBox;
         _scopeFactory = scopeFactory;
     }
 
@@ -56,7 +58,16 @@ public class Pcsx2ConfigHandler : IEmulatorConfigHandler
             }
             else if (File.Exists(resolvedExe))
             {
-                Pcsx2ConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
+                try
+                {
+                    Pcsx2ConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
+                }
+                catch (Pcsx2PermissionException)
+                {
+                    // Show permission error message but allow the game to launch
+                    await _messageBox.Pcsx2ConfigurationInjectionPermissionErrorMessageBoxAsync();
+                    // Return true to allow the game to launch with default settings
+                }
             }
 
             return shouldRun;

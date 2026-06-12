@@ -166,6 +166,11 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
             Pcsx2ConfigurationService.InjectSettings(path, _settings, _logErrors, _debugLogger);
             return true;
         }
+        catch (Pcsx2PermissionException)
+        {
+            await _messageBox.Pcsx2ConfigurationInjectionPermissionErrorMessageBoxAsync();
+            throw;
+        }
         catch (InvalidOperationException ex)
         {
             _logErrors.LogAndForget(ex, $"PCSX2 configuration injection failed for path: {path}");
@@ -189,6 +194,10 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
+        }
+        catch (Pcsx2PermissionException)
+        {
+            CloseRequested?.Invoke();
         }
         catch (OperationCanceledException)
         {
@@ -218,6 +227,10 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
+        }
+        catch (Pcsx2PermissionException)
+        {
+            CloseRequested?.Invoke();
         }
         catch (OperationCanceledException)
         {

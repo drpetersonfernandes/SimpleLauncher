@@ -236,6 +236,7 @@ public interface IMessageBoxLibraryService
     Task AresemulatornotfoundMessageBoxAsync();
     Task DaphnesettingssavedsuccessfullyMessageBoxAsync();
     Task Pcsx2SettingssavedMessageBoxAsync();
+    Task Pcsx2ConfigurationInjectionPermissionErrorMessageBoxAsync();
     Task SettingsSavedMessageBoxAsync();
     Task CemuEmulatorNotFoundMessageBoxAsync();
     Task FailedtoinjectAresconfigurationMessageBoxAsync();

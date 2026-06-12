@@ -177,14 +177,15 @@ public sealed class GameFileWatcherService : IDisposable
 
             var cts = new CancellationTokenSource();
             _debounceCts = cts;
+            var token = cts.Token;
 
             _ = Task.Run(async () =>
             {
                 try
                 {
-                    await Task.Delay(DebounceDelay, cts.Token);
+                    await Task.Delay(DebounceDelay, token);
 
-                    if (!cts.IsCancellationRequested)
+                    if (!token.IsCancellationRequested)
                     {
                         _debugLogger.Log($"[GameFileWatcherService] Debounce complete. Raising GameFilesChanged for system '{systemName}'.");
                         GameFilesChanged?.Invoke(systemName);
@@ -194,7 +195,7 @@ public sealed class GameFileWatcherService : IDisposable
                 {
                     // Expected when debounce is reset by another file change
                 }
-            }, cts.Token);
+            }, token);
         }
     }
 

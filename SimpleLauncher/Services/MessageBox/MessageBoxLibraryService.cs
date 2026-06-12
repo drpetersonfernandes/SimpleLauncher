@@ -3478,6 +3478,26 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
+    /// Displays a warning when PCSX2 configuration injection fails due to permission issues.
+    /// </summary>
+    public Task Pcsx2ConfigurationInjectionPermissionErrorMessageBoxAsync()
+    {
+        var title = _resourceProvider.GetString("InjectionFailed", "Injection Failed");
+        var message1 = _resourceProvider.GetString("Pcsx2ConfigPermissionError1", "Failed to inject PCSX2 configuration. The emulator is installed in a protected system directory.");
+        var message2 = _resourceProvider.GetString("Pcsx2ConfigPermissionError2", "The configuration file could not be modified due to insufficient permissions.");
+        var message3 = _resourceProvider.GetString("Pcsx2ConfigPermissionError3", "To fix this, either:");
+        var message4 = _resourceProvider.GetString("Pcsx2ConfigPermissionError4", "1. Run Simple Launcher as administrator, or");
+        var message5 = _resourceProvider.GetString("Pcsx2ConfigPermissionError5", "2. Install PCSX2 in a user directory (e.g., C:\\Users\\YourName\\PCSX2)");
+        var message6 = _resourceProvider.GetString("Pcsx2ConfigPermissionError6", "The game will launch with the emulator's default settings.");
+        return _messageDialog.ShowWarningAsync($"{message1}\n\n" +
+                                               $"{message2}\n\n" +
+                                               $"{message3}\n" +
+                                               $"{message4}\n" +
+                                               $"{message5}\n\n" +
+                                               $"{message6}", title);
+    }
+
+    /// <summary>
     /// Displays a success message after emulator settings have been saved.
     /// </summary>
     public Task SettingsSavedMessageBoxAsync()

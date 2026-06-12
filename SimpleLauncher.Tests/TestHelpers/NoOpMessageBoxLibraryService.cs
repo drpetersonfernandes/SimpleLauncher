@@ -1929,6 +1929,14 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
+    /// Does nothing. Does not display the PCSX2 configuration injection permission error message box.
+    /// </summary>
+    public Task Pcsx2ConfigurationInjectionPermissionErrorMessageBoxAsync()
+    {
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
     /// Does nothing. Does not display the settings-saved message box.
     /// </summary>
     public Task SettingsSavedMessageBoxAsync()

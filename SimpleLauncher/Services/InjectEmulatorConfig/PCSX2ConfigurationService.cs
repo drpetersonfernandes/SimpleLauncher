@@ -31,6 +31,12 @@ public static class Pcsx2ConfigurationService
                     File.Copy(samplePath, configPath);
                     debugLogger.Log($"[PCSX2Config] Created new PCSX2.ini from sample: {configPath}");
                 }
+                catch (UnauthorizedAccessException ex)
+                {
+                    debugLogger.Log($"[PCSX2Config] Failed to create PCSX2.ini from sample due to permissions: {ex.Message}");
+                    logErrors.LogAndForget(ex, $"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
+                    throw new Pcsx2PermissionException($"Cannot write to emulator directory: {emuDir}", ex);
+                }
                 catch (Exception ex)
                 {
                     debugLogger.Log($"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
@@ -74,7 +80,17 @@ public static class Pcsx2ConfigurationService
             { "Hardcore", settings.Pcsx2.AchievementsHardcore.ToString().ToLowerInvariant() }
         };
 
-        var lines = File.ReadAllLines(configPath).ToList();
+        List<string> lines;
+        try
+        {
+            lines = File.ReadAllLines(configPath).ToList();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            debugLogger.Log($"[PCSX2Config] Failed to read PCSX2.ini due to permissions: {ex.Message}");
+            logErrors.LogAndForget(ex, $"[PCSX2Config] Failed to read PCSX2.ini: {ex.Message}");
+            throw new Pcsx2PermissionException($"Cannot read configuration file: {configPath}", ex);
+        }
         var modified = false;
         var currentSection = "";
 
@@ -147,6 +163,12 @@ public static class Pcsx2ConfigurationService
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
                 debugLogger.Log("[PCSX2Config] Injected configuration changes..");
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                debugLogger.Log($"[PCSX2Config] Failed to inject configuration changes due to permissions: {ex.Message}");
+                logErrors.LogAndForget(ex, $"[PCSX2Config] Failed to inject configuration changes: {ex.Message}");
+                throw new Pcsx2PermissionException($"Cannot write to configuration file: {configPath}", ex);
+            }
             catch (Exception ex)
             {
                 debugLogger.Log($"[PCSX2Config] Failed to inject configuration changes: {ex.Message}");
@@ -177,5 +199,19 @@ public static class Pcsx2ConfigurationService
         {
             modified = true;
         }
+    }
+}
+
+/// <summary>
+/// Exception thrown when PCSX2 configuration cannot be modified due to file permission issues.
+/// </summary>
+public class Pcsx2PermissionException : Exception
+{
+    public Pcsx2PermissionException(string message) : base(message)
+    {
+    }
+
+    public Pcsx2PermissionException(string message, Exception innerException) : base(message, innerException)
+    {
     }
 }
