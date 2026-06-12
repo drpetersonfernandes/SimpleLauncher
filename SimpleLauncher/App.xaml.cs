@@ -297,7 +297,8 @@ public partial class App : IDisposable
             var extractionService = sp.GetRequiredService<IExtractionService>();
             var systemMatcher = sp.GetRequiredService<IRetroAchievementsSystemMatcher>();
             var fileHasher = sp.GetRequiredService<IRetroAchievementsFileHasher>();
-            return new RetroAchievementsHasherTool(debugLogger, extractionService, SystemSelectionWindowFactory, MainWindowFactory, systemMatcher, fileHasher);
+            var discConverter = sp.GetRequiredService<IDiscConverter>();
+            return new RetroAchievementsHasherTool(debugLogger, extractionService, SystemSelectionWindowFactory, MainWindowFactory, systemMatcher, fileHasher, discConverter);
 
             SystemSelectionWindow SystemSelectionWindowFactory()
             {
@@ -320,6 +321,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IBugReportFormatter, BugReportFormatterService>();
         serviceCollection.AddSingleton<IFileFinderService, FileFinderService>();
         serviceCollection.AddSingleton<IFormatFileSizeService, FormatFileSizeService>();
+        serviceCollection.AddSingleton<IDiscConverter, Services.Converters.DiscConverter>();
 
         // Facade services
         serviceCollection.AddSingleton<IAudioInputService, Services.AudioInput.AudioInputService>();

@@ -14,14 +14,16 @@ public class PbpToCueStrategy : ILaunchStrategy
 {
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IDebugLogger _debugLogger;
+    private readonly IDiscConverter _discConverter;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PbpToCueStrategy"/> class.
     /// </summary>
-    public PbpToCueStrategy(IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
+    public PbpToCueStrategy(IMessageBoxLibraryService messageBox, IDebugLogger debugLogger, IDiscConverter discConverter)
     {
         _messageBox = messageBox;
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _discConverter = discConverter;
     }
 
     /// <inheritdoc />
@@ -62,7 +64,7 @@ public class PbpToCueStrategy : ILaunchStrategy
             string cuePath;
             try
             {
-                cuePath = await Converters.ConvertPbpToCueBin.ConvertPbpToCueBinAsync(context.ResolvedFilePath);
+                cuePath = await _discConverter.ConvertPbpToCueBinAsync(context.ResolvedFilePath);
             }
             finally
             {

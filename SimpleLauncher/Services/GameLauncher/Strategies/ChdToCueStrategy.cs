@@ -14,14 +14,16 @@ public class ChdToCueStrategy : ILaunchStrategy
 {
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IDebugLogger _debugLogger;
+    private readonly IDiscConverter _discConverter;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ChdToCueStrategy"/> class.
     /// </summary>
-    public ChdToCueStrategy(IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
+    public ChdToCueStrategy(IMessageBoxLibraryService messageBox, IDebugLogger debugLogger, IDiscConverter discConverter)
     {
         _messageBox = messageBox;
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _discConverter = discConverter;
     }
 
     /// <inheritdoc />
@@ -62,7 +64,7 @@ public class ChdToCueStrategy : ILaunchStrategy
             string cuePath;
             try
             {
-                cuePath = await Converters.ConvertChdToCueBin.ConvertChdToCueBinAsync(context.ResolvedFilePath);
+                cuePath = await _discConverter.ConvertChdToCueBinAsync(context.ResolvedFilePath);
             }
             finally
             {

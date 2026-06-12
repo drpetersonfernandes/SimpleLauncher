@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.Windows;
-using SimpleLauncher.Services.Converters;
 using SimpleLauncher.Services.RetroAchievements.Models;
 
 namespace SimpleLauncher.Services.RetroAchievements;
@@ -19,6 +18,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
     private readonly Func<Window> _mainWindowFactory;
     private readonly IRetroAchievementsSystemMatcher _systemMatcher;
     private readonly IRetroAchievementsFileHasher _fileHasher;
+    private readonly IDiscConverter _discConverter;
 
     public RetroAchievementsHasherTool(
         IDebugLogger debugLogger,
@@ -26,7 +26,8 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         Func<SystemSelectionWindow> systemSelectionWindowFactory,
         Func<Window> mainWindowFactory,
         IRetroAchievementsSystemMatcher systemMatcher,
-        IRetroAchievementsFileHasher fileHasher)
+        IRetroAchievementsFileHasher fileHasher,
+        IDiscConverter discConverter)
     {
         _debugLogger = debugLogger;
         _extractionService = extractionService;
@@ -34,6 +35,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         _mainWindowFactory = mainWindowFactory;
         _systemMatcher = systemMatcher;
         _fileHasher = fileHasher;
+        _discConverter = discConverter;
     }
 
     private static readonly string HasherPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "RAHasher", "RAHasher.exe");
@@ -519,7 +521,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
                                 fileExt.Equals(".wia", StringComparison.OrdinalIgnoreCase))
                             {
                                 _debugLogger.Log($"[RA Hasher Tool] {fileExt.ToUpperInvariant()} detected. Converting to ISO for hashing: {fileToProcess}");
-                                tempIsoPath = await ConvertDiscImageToIso.ConvertToIsoAsync(fileToProcess);
+                                tempIsoPath = await _discConverter.ConvertToIsoAsync(fileToProcess);
                                 if (!string.IsNullOrEmpty(tempIsoPath))
                                 {
                                     fileToProcess = tempIsoPath;
