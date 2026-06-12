@@ -15,7 +15,7 @@ public class DokanService
     private const string DokanX64Url = "https://github.com/dokan-dev/dokany/releases/download/v2.3.1.1000/Dokan_x64.msi";
     private const string DokanArm64Url = "https://github.com/dokan-dev/dokany/releases/download/v2.3.1.1000/Dokan_ARM64.msi";
 
-    private readonly HttpClient _httpClient;
+    private readonly DownloadService _downloadService;
 
     /// <summary>
     /// Event raised when a log message needs to be displayed.
@@ -30,10 +30,10 @@ public class DokanService
     /// <summary>
     /// Initializes a new instance of the DokanService class.
     /// </summary>
-    /// <param name="httpClient">The HTTP client to use for downloads.</param>
-    public DokanService(HttpClient httpClient)
+    /// <param name="downloadService">The download service to use for downloading files.</param>
+    public DokanService(DownloadService downloadService)
     {
-        _httpClient = httpClient;
+        _downloadService = downloadService;
     }
 
     /// <summary>
@@ -90,11 +90,10 @@ public class DokanService
         try
         {
             // Download the MSI file
-            var downloadService = new DownloadService(_httpClient);
-            downloadService.LogMessage += msg => LogMessage?.Invoke(msg);
-            downloadService.ProgressChanged += info => ProgressChanged?.Invoke(info);
+            _downloadService.LogMessage += msg => LogMessage?.Invoke(msg);
+            _downloadService.ProgressChanged += info => ProgressChanged?.Invoke(info);
 
-            using var memoryStream = await downloadService.DownloadToMemoryAsync(downloadUrl);
+            using var memoryStream = await _downloadService.DownloadToMemoryAsync(downloadUrl);
 
             // Save to disk
             LogMessage?.Invoke($"Saving installer to: {msiPath}");
@@ -116,6 +115,24 @@ public class DokanService
             {
                 process.Dispose();
                 LogMessage?.Invoke("Dokan installer launched. Please follow the installation wizard.");
+
+                // Schedule cleanup of the MSI file after a delay (installer may lock it)
+                _ = Task.Run(async () =>
+                {
+                    await Task.Delay(TimeSpan.FromMinutes(10));
+                    try
+                    {
+                        if (File.Exists(msiPath))
+                        {
+                            File.Delete(msiPath);
+                            LogMessage?.Invoke($"Cleaned up Dokan installer: {msiPath}");
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // Best-effort cleanup; file may still be in use
+                    }
+                });
             }
             else
             {

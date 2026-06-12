@@ -390,7 +390,32 @@ public partial class GameLauncher : ILauncherService
                 throw new InvalidOperationException("Failed to start the batch file process.");
             }
 
-            await process.WaitForExitAsync();
+            // 5-minute timeout to prevent hung batch files from blocking indefinitely
+            using var timeoutCts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+            try
+            {
+                await process.WaitForExitAsync(timeoutCts.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                _logErrors.LogAndForget(new TimeoutException($"Batch file timed out after 5 minutes: {resolvedFilePath}"), $"Batch file timed out: {resolvedFilePath}");
+                try
+                {
+                    process.Kill(entireProcessTree: true);
+                }
+                catch (Exception killEx)
+                {
+                    _debugLogger?.Log($"Failed to kill timed-out batch process: {killEx.Message}");
+                }
+
+                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
+                    var logPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
+                    await _messageBoxLibrary.BatchFileFailedMessageBoxAsync(resolvedFilePath, "Process timed out after 5 minutes", logPath);
+                }
+
+                return;
+            }
 
             var batchShortName = Path.GetFileName(resolvedFilePath);
             if (process.ExitCode != 0)

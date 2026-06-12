@@ -1,4 +1,5 @@
 using System.IO;
+using System.Net.NetworkInformation;
 using System.Threading;
 
 namespace Updater.Services;
@@ -131,6 +132,16 @@ public class UpdateService
             };
         }
 
+        if (!NetworkInterface.GetIsNetworkAvailable())
+        {
+            return new UpdateResult
+            {
+                Success = false,
+                ErrorMessage = "No network connection available. Please check your internet connection and try again.",
+                RequiresManualUpdate = true
+            };
+        }
+
         try
         {
             // Wait for the main application to exit
@@ -138,14 +149,10 @@ public class UpdateService
             {
                 await _processService.WaitForProcessExitAsync(processId, cancellationToken);
             }
-            catch (AlreadyReportedException)
-            {
-                throw;
-            }
-            catch (Exception ex)
+            catch (Exception ex) when (ex is not OperationCanceledException)
             {
                 await BugReportService.ReportBugAsync(ex, "Error waiting for main application to exit");
-                throw new AlreadyReportedException(ex);
+                throw;
             }
 
             // Fetch the latest release from GitHub
@@ -155,14 +162,10 @@ public class UpdateService
             {
                 (latestVersion, assetUrl) = await _gitHubService.GetLatestReleaseAssetUrlAsync(cancellationToken);
             }
-            catch (AlreadyReportedException)
-            {
-                throw;
-            }
-            catch (Exception ex)
+            catch (Exception ex) when (ex is not OperationCanceledException)
             {
                 await BugReportService.ReportBugAsync(ex, "Error fetching latest release from GitHub");
-                throw new AlreadyReportedException(ex);
+                throw;
             }
 
             // Download the update file to memory
@@ -172,14 +175,10 @@ public class UpdateService
                 DownloadProgressReset?.Invoke(this, EventArgs.Empty);
                 updateFileStream = await _downloadService.DownloadToMemoryAsync(assetUrl, cancellationToken);
             }
-            catch (AlreadyReportedException)
-            {
-                throw;
-            }
-            catch (Exception ex)
+            catch (Exception ex) when (ex is not OperationCanceledException)
             {
                 await BugReportService.ReportBugAsync(ex, $"Error downloading update file from: {assetUrl}");
-                throw new AlreadyReportedException(ex);
+                throw;
             }
 
             // Configure ignored files for ZIP extraction
@@ -192,18 +191,14 @@ public class UpdateService
                 await _zipService.ExtractFromStreamAsync(updateFileStream, cancellationToken);
                 ExtractionCompleted?.Invoke(this, EventArgs.Empty);
             }
-            catch (AlreadyReportedException)
-            {
-                throw;
-            }
             // InvalidOperationException is excluded here because it typically indicates the UI (Dispatcher)
             // has been shut down (e.g., window closed), which is a normal application lifecycle event
             // during update and not a bug that needs reporting. Other exceptions during extraction
             // are genuine errors that should be reported.
-            catch (Exception ex) when (ex is not InvalidOperationException)
+            catch (Exception ex) when (ex is not InvalidOperationException and not OperationCanceledException)
             {
                 await BugReportService.ReportBugAsync(ex, "Error extracting ZIP archive");
-                throw new AlreadyReportedException(ex);
+                throw;
             }
             finally
             {
@@ -218,25 +213,12 @@ public class UpdateService
                 Version = latestVersion
             };
         }
-        catch (AlreadyReportedException)
-        {
-            LogMessage?.Invoke("Automatic update failed due to an already reported error.");
-            return new UpdateResult
-            {
-                Success = false,
-                ErrorMessage = "Automatic update failed.",
-                RequiresManualUpdate = true
-            };
-        }
         catch (OperationCanceledException)
         {
             throw;
         }
         catch (Exception ex)
         {
-            // Report bug to the bug report API
-            await BugReportService.ReportBugAsync(ex, "Error during update process (UpdateService)");
-
             LogMessage?.Invoke($"Automatic update failed: {ex.Message}");
             return new UpdateResult
             {

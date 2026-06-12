@@ -14,11 +14,6 @@ public static class ApplicationStats
     private const string StatsApiUrl = "https://www.purelogiccode.com/ApplicationStats/stats";
     private const string ApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
 
-    private static readonly HttpClient HttpClient = new()
-    {
-        Timeout = TimeSpan.FromSeconds(20)
-    };
-
     /// <summary>
     /// Sends application launch statistics to the ApplicationStats API.
     /// This is a fire-and-forget operation that will not block or throw.
@@ -38,14 +33,15 @@ public static class ApplicationStats
             var assembly = Assembly.GetExecutingAssembly();
             var version = assembly.GetName().Version?.ToString() ?? "0.0.0";
 
-            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ApiKey);
+            var httpClient = MainWindow.HttpClient;
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ApiKey);
 
             var payload = new { applicationId = "simplelauncher-updater", version };
             var json = JsonSerializer.Serialize(payload);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
-            using var response = await HttpClient.PostAsync(StatsApiUrl, content, cts.Token);
+            using var response = await httpClient.PostAsync(StatsApiUrl, content, cts.Token);
 
             if (!response.IsSuccessStatusCode)
             {

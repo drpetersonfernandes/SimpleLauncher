@@ -94,7 +94,7 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            ShouldRun = false;
+            ShouldRun = true;
             _logErrors.LogAndForget(ex, "Error saving Daphne configuration.");
             await _messageBox.ErrorMessageBoxAsync();
         }

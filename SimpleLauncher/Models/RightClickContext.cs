@@ -11,6 +11,7 @@ using Interfaces;
 
 /// <summary>
 /// Contextual information passed to right-click menu handlers for game buttons.
+/// Aggregates game data, UI controls, and services needed by the context menu.
 /// </summary>
 public class RightClickContext(
     string filePath,
@@ -34,28 +35,28 @@ public class RightClickContext(
     ILoadingState loadingStateProvider = null)
 {
     /// <summary>Gets the full file path of the game ROM.</summary>
-    public string FilePath { get; } = filePath;
+    public string FilePath { get; } = filePath ?? throw new ArgumentNullException(nameof(filePath));
 
     /// <summary>Gets the file name with extension.</summary>
-    public string FileNameWithExtension { get; } = fileNameWithExtension;
+    public string FileNameWithExtension { get; } = fileNameWithExtension ?? throw new ArgumentNullException(nameof(fileNameWithExtension));
 
     /// <summary>Gets the file name without extension.</summary>
-    public string FileNameWithoutExtension { get; } = fileNameWithoutExtension;
+    public string FileNameWithoutExtension { get; } = fileNameWithoutExtension ?? throw new ArgumentNullException(nameof(fileNameWithoutExtension));
 
     /// <summary>Gets the name of the selected system.</summary>
-    public string SelectedSystemName { get; } = selectedSystemName;
+    public string SelectedSystemName { get; } = selectedSystemName ?? throw new ArgumentNullException(nameof(selectedSystemName));
 
     /// <summary>Gets the selected system manager instance.</summary>
-    public SystemManager SelectedSystemManager { get; } = selectedSystemManager;
+    public SystemManager SelectedSystemManager { get; } = selectedSystemManager ?? throw new ArgumentNullException(nameof(selectedSystemManager));
 
     /// <summary>Gets the list of MAME machine entries.</summary>
-    public List<Services.MameManager.MameManager> Machines { get; } = machines;
+    public List<Services.MameManager.MameManager> Machines { get; } = machines ?? throw new ArgumentNullException(nameof(machines));
 
     /// <summary>Gets the favorites manager instance.</summary>
-    public FavoritesManager FavoritesManager { get; } = favoritesManager;
+    public FavoritesManager FavoritesManager { get; } = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
 
     /// <summary>Gets the application settings manager.</summary>
-    public SettingsManager Settings { get; } = settings;
+    public SettingsManager Settings { get; } = settings ?? throw new ArgumentNullException(nameof(settings));
 
     /// <summary>Gets the emulator combo box control.</summary>
     public ComboBox EmulatorComboBox { get; } = emulatorComboBox;

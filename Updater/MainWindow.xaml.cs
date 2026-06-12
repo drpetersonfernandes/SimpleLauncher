@@ -8,22 +8,17 @@ using Updater.Services;
 namespace Updater;
 
 /// <summary>
-/// Exception marker to track exceptions that have already been reported to avoid duplicate bug reports.
-/// </summary>
-internal class AlreadyReportedException : Exception
-{
-    public AlreadyReportedException(Exception innerException) : base("Exception already reported", innerException)
-    {
-    }
-}
-
-/// <summary>
 /// Main window for the Updater application that manages the update process for SimpleLauncher.
 /// </summary>
 public partial class MainWindow
 {
     private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
-    private static readonly HttpClient HttpClient = new() { Timeout = TimeSpan.FromMinutes(5) };
+
+    /// <summary>
+    /// Shared HttpClient instance for the entire Updater application.
+    /// Uses a long timeout for large downloads; individual callers should use CancellationTokenSource for shorter timeouts.
+    /// </summary>
+    internal static readonly HttpClient HttpClient = new() { Timeout = TimeSpan.FromMinutes(5) };
 
     private readonly UpdateService _updateService;
     private readonly string[] _args;
@@ -90,7 +85,7 @@ public partial class MainWindow
         var downloadService = new DownloadService(HttpClient);
         var zipService = new ZipService(AppDirectory);
         var processService = new ProcessService();
-        var dokanService = new DokanService(HttpClient);
+        var dokanService = new DokanService(downloadService);
 
         return new UpdateService(gitHubService, downloadService, zipService, processService, dokanService, AppDirectory);
     }

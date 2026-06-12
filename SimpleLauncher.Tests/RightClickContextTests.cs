@@ -85,6 +85,24 @@ public class RightClickContextTests
         Assert.NotNull(context.Settings);
     }
 
+    /// <summary>
+    /// Verifies that the constructor throws ArgumentNullException for null FilePath.
+    /// </summary>
+    [Fact]
+    public void ConstructorThrowsForNullFilePath()
+    {
+        Assert.Throws<ArgumentNullException>(() => CreateContext(filePath: null));
+    }
+
+    /// <summary>
+    /// Verifies that the constructor throws ArgumentNullException for null SelectedSystemName.
+    /// </summary>
+    [Fact]
+    public void ConstructorThrowsForNullSelectedSystemName()
+    {
+        Assert.Throws<ArgumentNullException>(() => CreateContext(selectedSystemName: null));
+    }
+
     private static RightClickContext CreateContext(
         string filePath = "game.zip",
         string fileNameWithExtension = "game.zip",

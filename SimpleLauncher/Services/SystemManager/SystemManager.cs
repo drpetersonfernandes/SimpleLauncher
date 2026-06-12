@@ -55,6 +55,11 @@ public partial class SystemManager : ISystemManager
 
     // ReSharper disable once NotAccessedField.Local
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
+
+    /// <summary>
+    /// Static logger shared across static methods. Set by the last instance created.
+    /// This is intentional — static methods like SystemExists and LoadSystemManagers need logging.
+    /// </summary>
     private static IDebugLogger _debugLogger;
 
     /// <summary>
@@ -128,7 +133,7 @@ public partial class SystemManager : ISystemManager
             catch (Exception ex) // Catch XmlException, IOException, etc.
             {
                 // If file is corrupt or locked, we can't check.
-                _debugLogger.Log($"[SystemManager.SystemExists] Could not check system.xml: {ex.Message}");
+                _debugLogger?.Log($"[SystemManager.SystemExists] Could not check system.xml: {ex.Message}");
                 return false;
             }
         }
@@ -245,14 +250,14 @@ public partial class SystemManager : ISystemManager
 
                                 invalidManagers[structuralErrorKey] += $"- {sysName} (Unrecoverable XML block)\n";
 
-                                _debugLogger.Log($"Failed to validate system configuration for '{sysName}'");
+                                _debugLogger?.Log($"Failed to validate system configuration for '{sysName}'");
                                 logErrors?.LogAndForget(innerEx, $"Failed to validate system configuration for '{sysName}'");
                             }
                         }
                     }
                     catch (Exception fatalEx)
                     {
-                        _debugLogger.Log($"Failed to perform regex recovery on system.xml: {fatalEx.Message}");
+                        _debugLogger?.Log($"Failed to perform regex recovery on system.xml: {fatalEx.Message}");
                         logErrors?.LogAndForget(fatalEx, "Failed to perform regex recovery on system.xml.");
                     }
 
@@ -791,7 +796,7 @@ public partial class SystemManager : ISystemManager
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"Error saving system configuration: {ex.Message}");
+            _debugLogger?.Log($"Error saving system configuration: {ex.Message}");
             logErrors?.LogAndForget(ex, "Error saving system configuration.");
         }
     }
@@ -842,7 +847,7 @@ public partial class SystemManager : ISystemManager
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"Error deleting system '{systemNameToDelete}': {ex.Message}");
+            _debugLogger?.Log($"Error deleting system '{systemNameToDelete}': {ex.Message}");
             logErrors?.LogAndForget(ex, $"Error deleting system '{systemNameToDelete}'.");
         }
     }

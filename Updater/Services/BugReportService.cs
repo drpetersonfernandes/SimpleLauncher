@@ -16,11 +16,6 @@ public static class BugReportService
     private const string ApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
     private static readonly string LogFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bugreport_failures.log");
 
-    private static readonly HttpClient HttpClient = new()
-    {
-        Timeout = TimeSpan.FromSeconds(30)
-    };
-
     private static int _isReporting;
 
     /// <summary>
@@ -28,7 +23,7 @@ public static class BugReportService
     /// </summary>
     public static void Dispose()
     {
-        HttpClient.Dispose();
+        // HttpClient is shared via MainWindow; don't dispose here
     }
 
     /// <summary>
@@ -53,7 +48,8 @@ public static class BugReportService
             request.Headers.Add("X-API-KEY", ApiKey);
             request.Content = content;
 
-            var response = await HttpClient.SendAsync(request);
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+            var response = await MainWindow.HttpClient.SendAsync(request, cts.Token);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -84,8 +80,15 @@ public static class BugReportService
     /// <param name="additionalInfo">Additional context information</param>
     public static void ReportBug(Exception exception, string? additionalInfo = null)
     {
-        // Fire and forget - don't block the calling thread
-        _ = Task.Run(async () => await ReportBugAsync(exception, additionalInfo));
+        // Fire and forget with unobserved task exception handling
+        _ = Task.Run(async () => await ReportBugAsync(exception, additionalInfo))
+            .ContinueWith(static t =>
+            {
+                if (t.IsFaulted)
+                {
+                    System.Diagnostics.Debug.WriteLine($"BugReportService.ReportBug failed: {t.Exception?.InnerException?.Message}");
+                }
+            }, TaskContinuationOptions.OnlyOnFaulted);
     }
 
     /// <summary>
