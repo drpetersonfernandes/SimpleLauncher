@@ -237,7 +237,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
                 Header = (string)Application.Current.TryFindResource("DeleteSystem") ?? "Delete System",
                 Icon = deleteIcon
             };
-            deleteMenuItem.Click += (_, _) => DeleteSystemFromContextMenu(config.SystemName);
+            deleteMenuItem.Click += (_, _) => DeleteSystemFromContextMenuAsync(config.SystemName);
 
             contextMenu.Items.Add(selectMenuItem);
             contextMenu.Items.Add(editMenuItem);
@@ -281,7 +281,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Error in SystemButtonClickAsync.");
-                await _messageBox.InvalidSystemConfigMessageBox();
+                await _messageBox.InvalidSystemConfigMessageBoxAsync();
                 _host.SortOrderToggleButton.Visibility = Visibility.Collapsed;
 
                 _host.SystemComboBox.SelectedItem = null;
@@ -305,11 +305,11 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
     }
 
     /// <summary>Deletes a system configuration after user confirmation.</summary>
-    public async void DeleteSystemFromContextMenu(string systemName)
+    public async void DeleteSystemFromContextMenuAsync(string systemName)
     {
         try
         {
-            var result = await _messageBox.AreYouSureDoYouWantToDeleteThisSystemMessageBox();
+            var result = await _messageBox.AreYouSureDoYouWantToDeleteThisSystemMessageBoxAsync();
             if (result != CoreMessageBoxResult.Yes) return;
 
             _playSoundEffects.PlayNotificationSound();
@@ -321,11 +321,11 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
             LoadOrReloadSystemManager();
             await _host.ResetUiAsync();
 
-            await _messageBox.SystemHasBeenDeletedMessageBox(systemName);
+            await _messageBox.SystemHasBeenDeletedMessageBoxAsync(systemName);
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in DeleteSystemFromContextMenu.");
+            _logErrors.LogAndForget(ex, "Error in DeleteSystemFromContextMenuAsync.");
         }
     }
 
@@ -399,7 +399,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
                         const string errorMessage = "Selected system or its configuration is null.";
                         _logErrors.LogAndForget(null, errorMessage);
 
-                        await _messageBox.InvalidSystemConfigMessageBox();
+                        await _messageBox.InvalidSystemConfigMessageBoxAsync();
                         _host.SortOrderToggleButton.Visibility = Visibility.Collapsed;
 
                         _host.SystemComboBox.SelectedItem = null;
@@ -440,7 +440,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
                             errorMessages.Append(msg);
                         }
 
-                        await _messageBox.ListOfErrorsMessageBox(errorMessages);
+                        await _messageBox.ListOfErrorsMessageBoxAsync(errorMessages);
                     }
 
                     var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemImageFolder);
@@ -453,7 +453,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
                     _host.SetSelectedRomFolders(selectedRomFolders);
                     _host.SetSelectedImageFolder(selectedImageFolder);
 
-                    await PopulateAllGamesForCurrentSystem(selectedManager, selectedSystem, selectedRomFolders, cancellationToken);
+                    await PopulateAllGamesForCurrentSystemAsync(selectedManager, selectedSystem, selectedRomFolders, cancellationToken);
 
                     _gameFileWatcherService.StartWatching(
                         selectedManager.SystemFolders,
@@ -467,7 +467,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
                     const string errorMessage = "Error in the method SystemComboBoxSelectionChangedAsync.";
                     _logErrors.LogAndForget(ex, errorMessage);
 
-                    await _messageBox.InvalidSystemConfigMessageBox();
+                    await _messageBox.InvalidSystemConfigMessageBoxAsync();
 
                     await _gameCacheService.InvalidateAsync(cancellationToken);
                 }
@@ -488,7 +488,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         }
     }
 
-    private async Task PopulateAllGamesForCurrentSystem(SystemManager.SystemManager selectedManager, string currentSelectedSystem, List<string> selectedRomFolders, CancellationToken cancellationToken)
+    private async Task PopulateAllGamesForCurrentSystemAsync(SystemManager.SystemManager selectedManager, string currentSelectedSystem, List<string> selectedRomFolders, CancellationToken cancellationToken)
     {
         var uniqueFilesForSystem = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (var folder in selectedRomFolders)

@@ -31,11 +31,11 @@ public partial class UpdateHistoryWindow
         DataContext = _viewModel;
 
         HistoryMarkdownViewer.AddHandler(Hyperlink.RequestNavigateEvent, new RequestNavigateEventHandler(OnHyperlinkRequestNavigate));
-        Loaded += UpdateHistoryWindow_Loaded;
+        Loaded += UpdateHistoryWindow_LoadedAsync;
         Closed += UpdateHistoryWindow_Closed;
     }
 
-    private async void UpdateHistoryWindow_Loaded(object sender, RoutedEventArgs e)
+    private async void UpdateHistoryWindow_LoadedAsync(object sender, RoutedEventArgs e)
     {
         try
         {

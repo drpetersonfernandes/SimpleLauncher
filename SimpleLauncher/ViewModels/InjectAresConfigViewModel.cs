@@ -148,7 +148,7 @@ public partial class InjectAresConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        await _messageBox.AresemulatornotfoundMessageBox();
+        await _messageBox.AresemulatornotfoundMessageBoxAsync();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -188,7 +188,7 @@ public partial class InjectAresConfigViewModel : ObservableObject
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -213,12 +213,12 @@ public partial class InjectAresConfigViewModel : ObservableObject
         {
             if (await InjectConfigAsync())
             {
-                await _messageBox.AresConfigurationSavedSuccessfullyMessageBox();
+                await _messageBox.AresConfigurationSavedSuccessfullyMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
         }

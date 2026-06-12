@@ -119,7 +119,7 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify the user
-            await _messageBox.FuzzyMatchingErrorFailToSetThresholdMessageBox();
+            await _messageBox.FuzzyMatchingErrorFailToSetThresholdMessageBoxAsync();
             // Do not close the window on error
         }
     }

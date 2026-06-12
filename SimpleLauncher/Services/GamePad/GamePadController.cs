@@ -99,7 +99,7 @@ public class GamePadController : IDisposable
         _timer = new Timer(_ => UpdateAsync(), null, Timeout.Infinite, Timeout.Infinite);
     }
 
-    internal Task Start()
+    internal Task StartAsync()
     {
         Exception startException = null;
         lock (_stateLock)
@@ -129,13 +129,13 @@ public class GamePadController : IDisposable
         // Notify user (outside lock to allow async/await)
         if (startException != null)
         {
-            return _messageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            return _messageBoxLibrary.GamePadErrorMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
 
         return Task.CompletedTask;
     }
 
-    internal Task Stop()
+    internal Task StopAsync()
     {
         Exception stopException = null;
         lock (_stateLock)
@@ -159,7 +159,7 @@ public class GamePadController : IDisposable
         // Notify user (outside lock to allow async/await)
         if (stopException != null)
         {
-            return _messageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            return _messageBoxLibrary.GamePadErrorMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
 
         return Task.CompletedTask;
@@ -378,11 +378,11 @@ public class GamePadController : IDisposable
                                                     $"Exception details: {ex.Message}");
 
                             // Notify user (fire-and-forget inside lock; exception observed via continuation)
-                            _ = _messageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")))
+                            _ = _messageBoxLibrary.GamePadErrorMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")))
                                 .ContinueWith(static (t, state) =>
                                 {
                                     if (t.IsFaulted)
-                                        ((ILogErrors)state).LogAndForget(t.Exception, "Error showing GamePadErrorMessageBox");
+                                        ((ILogErrors)state).LogAndForget(t.Exception, "Error showing GamePadErrorMessageBoxAsync");
                                 }, _logErrors, TaskContinuationOptions.OnlyOnFaulted);
                         }
 

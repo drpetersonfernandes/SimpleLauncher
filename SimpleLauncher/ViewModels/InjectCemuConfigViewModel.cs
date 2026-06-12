@@ -110,7 +110,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
         _ = _settings.SaveAsync();
     }
 
-    private async Task<string> EnsureEmulatorPath()
+    private async Task<string> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {
@@ -124,7 +124,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        await _messageBox.CemuEmulatorNotFoundMessageBox();
+        await _messageBox.CemuEmulatorNotFoundMessageBoxAsync();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -133,9 +133,9 @@ public partial class InjectCemuConfigViewModel : ObservableObject
         return _emulatorPath;
     }
 
-    private async Task<bool> InjectConfig()
+    private async Task<bool> InjectConfigAsync()
     {
-        var path = await EnsureEmulatorPath();
+        var path = await EnsureEmulatorPathAsync();
         if (string.IsNullOrEmpty(path))
             throw new OperationCanceledException("User cancelled emulator path selection.");
 
@@ -157,14 +157,14 @@ public partial class InjectCemuConfigViewModel : ObservableObject
         SaveSettings();
         try
         {
-            if (await InjectConfig())
+            if (await InjectConfigAsync())
             {
                 ShouldRun = true;
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -188,15 +188,15 @@ public partial class InjectCemuConfigViewModel : ObservableObject
         SaveSettings();
         try
         {
-            if (await InjectConfig())
+            if (await InjectConfigAsync())
             {
-                await _messageBox.CemuConfigurationSavedMessageBox();
+                await _messageBox.CemuConfigurationSavedMessageBoxAsync();
                 ShouldRun = false;
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
         }

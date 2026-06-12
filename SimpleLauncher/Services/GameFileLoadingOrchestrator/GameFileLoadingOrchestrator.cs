@@ -100,7 +100,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
                 const string contextMessage = "selectedConfig is null.";
                 _logErrors.LogAndForget(null, contextMessage);
 
-                await _messageBox.InvalidSystemConfigMessageBox();
+                await _messageBox.InvalidSystemConfigMessageBoxAsync();
 
                 await _host.DisplaySystemSelectionScreenAsync(cancellationToken);
 
@@ -175,7 +175,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
             const string contextMessage = "Error in the method LoadGameFilesAsync.";
             _logErrors.LogAndForget(ex, contextMessage);
 
-            await _messageBox.ErrorMethodLoadGameFilesAsyncMessageBox();
+            await _messageBox.ErrorMethodLoadGameFilesAsyncMessageBoxAsync();
         }
         finally
         {
@@ -194,25 +194,25 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
     /// <summary>
     /// Handles file system change notifications for a system by invalidating caches and reloading game files.
     /// </summary>
-    public async void OnGameFilesChanged(string systemName)
+    public async void OnGameFilesChangedAsync(string systemName)
     {
         try
         {
             var currentSystem = _host.SystemComboBox.SelectedItem?.ToString();
             if (!string.Equals(currentSystem, systemName, StringComparison.OrdinalIgnoreCase))
             {
-                _debugLogger.Log($"[OnGameFilesChanged] Ignoring change for system '{systemName}' (current: '{currentSystem}').");
+                _debugLogger.Log($"[OnGameFilesChangedAsync] Ignoring change for system '{systemName}' (current: '{currentSystem}').");
                 return;
             }
 
-            _debugLogger.Log($"[OnGameFilesChanged] File change detected for system '{systemName}'. Reloading game list.");
+            _debugLogger.Log($"[OnGameFilesChangedAsync] File change detected for system '{systemName}'. Reloading game list.");
 
             await InvalidateGameFileCachesAsync();
             await LoadGameFilesAsync(cancellationToken: CancellationToken.None);
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"[OnGameFilesChanged] Error reloading game list: {ex.Message}");
+            _debugLogger.Log($"[OnGameFilesChangedAsync] Error reloading game list: {ex.Message}");
         }
     }
 
@@ -260,7 +260,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
                     {
                         allFiles = [];
                         await _gameCacheService.SetSearchResultsAsync(allFiles, token);
-                        await _host.Dispatcher.BeginInvoke(() => _messageBox.ErrorMessageBox());
+                        await _host.Dispatcher.BeginInvoke(() => _messageBox.ErrorMessageBoxAsync());
                         break;
                     }
 

@@ -163,7 +163,7 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        await _messageBox.Rpcs3EmulatorNotFoundPleaseLocateMessageBox();
+        await _messageBox.Rpcs3EmulatorNotFoundPleaseLocateMessageBoxAsync();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -203,7 +203,7 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -229,12 +229,12 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
         {
             if (InjectConfig())
             {
-                await _messageBox.Rpcs3ConfigurationSavedSuccessfullyMessageBox();
+                await _messageBox.Rpcs3ConfigurationSavedSuccessfullyMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
         }

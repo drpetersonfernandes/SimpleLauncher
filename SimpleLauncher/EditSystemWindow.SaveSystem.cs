@@ -29,7 +29,7 @@ internal partial class EditSystemWindow
             if (SanitizeInputSystemName.ContainsInvalidCharacters(systemNameText, out var invalidChars))
             {
                 var invalidCharsStr = string.Join(", ", invalidChars.Select(static c => $"'{c}'"));
-                await _messageBox.InvalidSystemNameCharactersMessageBox(invalidCharsStr);
+                await _messageBox.InvalidSystemNameCharactersMessageBoxAsync(invalidCharsStr);
                 MarkInvalid(SystemNameTextBox, false);
                 return;
             }
@@ -84,11 +84,11 @@ internal partial class EditSystemWindow
             if (!isSystemFolderValid || !isSystemImageFolderValid) return;
 
             // Validate SystemName (now with sanitized value)
-            if (await ValidateSystemName(systemNameText)) return;
+            if (await ValidateSystemNameAsync(systemNameText)) return;
 
             // Validate SystemFolder (uses the potentially prefixed value)
             var firstFolder = allSystemFolders.FirstOrDefault() ?? "";
-            var systemFolderResult = await ValidateSystemFolder(systemNameText, firstFolder);
+            var systemFolderResult = await ValidateSystemFolderAsync(systemNameText, firstFolder);
             if (systemFolderResult.IsFailed) return;
 
             firstFolder = systemFolderResult.FolderText;
@@ -103,7 +103,7 @@ internal partial class EditSystemWindow
             }
 
             // Validate SystemImageFolder (uses the potentially prefixed value)
-            var imageFolderResult = await ValidateSystemImageFolder(systemNameText, varSystemImageFolderText);
+            var imageFolderResult = await ValidateSystemImageFolderAsync(systemNameText, varSystemImageFolderText);
             if (imageFolderResult.IsFailed) return;
 
             varSystemImageFolderText = imageFolderResult.FolderText;
@@ -117,7 +117,7 @@ internal partial class EditSystemWindow
             var disableRecursiveSearch = (DisableRecursiveSearchComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString()
                 ?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false;
 
-            var formatSearchResult = await ValidateFormatToSearch(formatToSearchText, extractFileBeforeLaunch);
+            var formatSearchResult = await ValidateFormatToSearchAsync(formatToSearchText, extractFileBeforeLaunch);
             if (formatSearchResult.IsFailed)
             {
                 MarkInvalid(FormatToSearchTextBox, false); // Invalid state
@@ -130,7 +130,7 @@ internal partial class EditSystemWindow
 
             var formatsToSearch = formatSearchResult.Formats;
 
-            var formatLaunchResult = await ValidateFormatToLaunch(formatToLaunchText, extractFileBeforeLaunch);
+            var formatLaunchResult = await ValidateFormatToLaunchAsync(formatToLaunchText, extractFileBeforeLaunch);
             if (formatLaunchResult.IsFailed)
             {
                 return;
@@ -138,43 +138,43 @@ internal partial class EditSystemWindow
 
             var formatsToLaunch = formatLaunchResult.Formats;
 
-            if (await ValidateEmulator1Name(emulator1NameText))
+            if (await ValidateEmulator1NameAsync(emulator1NameText))
             {
                 return;
             }
 
-            if (await ValidateEmulator1Location(emulator1LocationText, formatsToSearch))
+            if (await ValidateEmulator1LocationAsync(emulator1LocationText, formatsToSearch))
             {
                 MarkInvalid(Emulator1PathTextBox, false);
                 return;
             }
 
-            if (await ValidateEmulator2Location(emulator2NameText, emulator2LocationText, formatsToSearch))
+            if (await ValidateEmulator2LocationAsync(emulator2NameText, emulator2LocationText, formatsToSearch))
             {
                 MarkInvalid(Emulator2PathTextBox, false);
                 return;
             }
 
-            if (await ValidateEmulator3Location(emulator3NameText, emulator3LocationText, formatsToSearch))
+            if (await ValidateEmulator3LocationAsync(emulator3NameText, emulator3LocationText, formatsToSearch))
             {
                 MarkInvalid(Emulator3PathTextBox, false);
                 return;
             }
 
-            if (await ValidateEmulator4Location(emulator4NameText, emulator4LocationText, formatsToSearch))
+            if (await ValidateEmulator4LocationAsync(emulator4NameText, emulator4LocationText, formatsToSearch))
             {
                 MarkInvalid(Emulator4PathTextBox, false);
                 return;
             }
 
-            if (await ValidateEmulator5Location(emulator5NameText, emulator5LocationText, formatsToSearch))
+            if (await ValidateEmulator5LocationAsync(emulator5NameText, emulator5LocationText, formatsToSearch))
             {
                 MarkInvalid(Emulator5PathTextBox, false);
                 return;
             }
 
             // Check if any of the *location* paths are invalid after prefixing/validation
-            if (await CheckPaths(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid,
+            if (await CheckPathsAsync(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid,
                     isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid,
                     isEmulator5LocationValid)) return;
 
@@ -202,7 +202,7 @@ internal partial class EditSystemWindow
 
                 if (!hasMameOrDosBoxEmulator)
                 {
-                    var result = await _messageBox.GroupByFolderWarningMessageBox();
+                    var result = await _messageBox.GroupByFolderWarningMessageBoxAsync();
                     if (result == CoreMessageBoxResult.No)
                     {
                         return; // User chose not to save, so abort.
@@ -234,7 +234,7 @@ internal partial class EditSystemWindow
             {
                 if (!emulatorNames.Add(emulator1NameText))
                 {
-                    await _messageBox.EmulatorNameMustBeUniqueMessageBox(emulator1NameText);
+                    await _messageBox.EmulatorNameMustBeUniqueMessageBoxAsync(emulator1NameText);
                     return;
                 }
 
@@ -262,7 +262,7 @@ internal partial class EditSystemWindow
                 {
                     if (string.IsNullOrEmpty(currentEmulatorName))
                     {
-                        await _messageBox.EmulatorNameRequiredMessageBox(i + 2); // Pass emulator number (2-5)
+                        await _messageBox.EmulatorNameRequiredMessageBoxAsync(i + 2); // Pass emulator number (2-5)
                         return;
                     }
                 }
@@ -271,7 +271,7 @@ internal partial class EditSystemWindow
 
                 if (!emulatorNames.Add(currentEmulatorName))
                 {
-                    await _messageBox.EmulatorNameMustBeUniqueMessageBox(currentEmulatorName);
+                    await _messageBox.EmulatorNameMustBeUniqueMessageBoxAsync(currentEmulatorName);
                     return;
                 }
 
@@ -307,22 +307,22 @@ internal partial class EditSystemWindow
 
                 await LoadSystemsAsync();
                 SystemNameDropdown.SelectedItem = systemNameText;
-                LoadSystemDetails(systemNameText); // This will load the saved values (including %BASEFOLDER%) back into UI
+                LoadSystemDetailsAsync(systemNameText); // This will load the saved values (including %BASEFOLDER%) back into UI
 
                 // Notify user
-                await _messageBox.SystemSavedSuccessfullyMessageBox();
+                await _messageBox.SystemSavedSuccessfullyMessageBoxAsync();
 
                 // Create folders based on the resolved paths
                 var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? "");
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(varSystemImageFolderText);
-                await CreateDefaultSystemFolders.CreateFolders(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logErrors, _messageBox);
+                await CreateDefaultSystemFolders.CreateFoldersAsync(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logErrors, _messageBox);
 
                 _originalSystemName = systemNameText; // Update original name after successful save & UI refresh
             }
             catch (InvalidOperationException ex)
             {
                 // Notify user
-                await _messageBox.SaveSystemFailedMessageBox(ex.InnerException?.Message);
+                await _messageBox.SaveSystemFailedMessageBoxAsync(ex.InnerException?.Message);
             }
             catch (Exception ex)
             {
@@ -331,7 +331,7 @@ internal partial class EditSystemWindow
                 _logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
-                await _messageBox.SaveSystemFailedMessageBox("An unexpected error occurred.");
+                await _messageBox.SaveSystemFailedMessageBoxAsync("An unexpected error occurred.");
             }
             finally
             {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -9,7 +9,7 @@ namespace XmlToBinaryConverter.Services;
 
 public class ConverterService
 {
-    public async Task ConvertXmlToBinary(string inputPath, string outputPath, IProgress<string> progress)
+    public async Task ConvertXmlToBinaryAsync(string inputPath, string outputPath, IProgress<string> progress)
     {
         try
         {
@@ -66,7 +66,7 @@ public class ConverterService
     }
 
 
-    public async Task ConvertBinaryToXml(string inputPath, string outputPath, IProgress<string> progress)
+    public async Task ConvertBinaryToXmlAsync(string inputPath, string outputPath, IProgress<string> progress)
     {
         try
         {

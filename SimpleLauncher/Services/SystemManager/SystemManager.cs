@@ -174,7 +174,7 @@ public partial class SystemManager : ISystemManager
                             // Notify user
                             if (messageBoxLibrary != null)
                             {
-                                _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBox(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                                _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                             }
 
                             return []; // Return an empty list
@@ -262,7 +262,7 @@ public partial class SystemManager : ISystemManager
                     logErrors?.LogAndForget(ex, "The file 'system.xml' is locked.");
                     if (messageBoxLibrary != null)
                     {
-                        _ = messageBoxLibrary.FileSystemXmlIsLockedMessageBox();
+                        _ = messageBoxLibrary.FileSystemXmlIsLockedMessageBoxAsync();
                     }
                 }
 
@@ -309,7 +309,7 @@ public partial class SystemManager : ISystemManager
                     // Notify user
                     if (messageBoxLibrary != null)
                     {
-                        _ = messageBoxLibrary.InvalidSystemConfigurationMessageBox(error);
+                        _ = messageBoxLibrary.InvalidSystemConfigurationMessageBoxAsync(error);
                     }
                 }
 
@@ -344,7 +344,7 @@ public partial class SystemManager : ISystemManager
                 // Notify user
                 if (messageBoxLibrary != null)
                 {
-                    _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBox(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 }
 
                 return []; // Return an empty list
@@ -502,7 +502,7 @@ public partial class SystemManager : ISystemManager
                     var mostRecentBackupFile = backupFiles.MaxBy(File.GetLastWriteTime);
 
                     // Notify user and ask to restore
-                    var restoreResult = messageBoxLibrary != null ? messageBoxLibrary.WouldYouLikeToRestoreTheLastBackupMessageBox().GetAwaiter().GetResult() : MessageBoxResult.No;
+                    var restoreResult = messageBoxLibrary != null ? messageBoxLibrary.WouldYouLikeToRestoreTheLastBackupMessageBoxAsync().GetAwaiter().GetResult() : MessageBoxResult.No;
                     if (restoreResult == MessageBoxResult.Yes)
                     {
                         try
@@ -521,7 +521,7 @@ public partial class SystemManager : ISystemManager
                             // Notify user
                             if (messageBoxLibrary != null)
                             {
-                                _ = messageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBox();
+                                _ = messageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBoxAsync();
                             }
                             // backupRestored remains false, proceed to create empty file
                         }

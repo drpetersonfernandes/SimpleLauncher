@@ -133,7 +133,7 @@ public partial class PlayHistoryPage : ILoadingState
         }
     }
 
-    private async void PlayHistoryPrepareForRightClickContext(object sender, MouseButtonEventArgs e)
+    private async void PlayHistoryPrepareForRightClickContextAsync(object sender, MouseButtonEventArgs e)
     {
         try
         {
@@ -147,7 +147,7 @@ public partial class PlayHistoryPage : ILoadingState
             if (selectedItem.FileName == null)
             {
                 _logErrors.LogAndForget(null, "History item filename is null");
-                await _messageBox.RightClickContextMenuErrorMessageBox();
+                await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
                 return;
             }
 
@@ -155,13 +155,13 @@ public partial class PlayHistoryPage : ILoadingState
             if (systemManager == null)
             {
                 _logErrors.LogAndForget(null, "systemManager is null");
-                await _messageBox.RightClickContextMenuErrorMessageBox();
+                await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
                 return;
             }
 
             if (!File.Exists(selectedItem.FileName))
             {
-                var result = await _messageBox.GameFileDoesNotExistAskToDeleteMessageBox(selectedItem.FileName);
+                var result = await _messageBox.GameFileDoesNotExistAskToDeleteMessageBoxAsync(selectedItem.FileName);
                 if (result == CoreMessageBoxResult.Yes)
                 {
                     _viewModel.RemoveItem(selectedItem);
@@ -175,7 +175,7 @@ public partial class PlayHistoryPage : ILoadingState
             if (emulatorManager == null)
             {
                 _logErrors.LogAndForget(null, "emulatorManager is null.");
-                await _messageBox.CouldNotLaunchThisGameMessageBox(
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                     PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
             }
@@ -211,8 +211,8 @@ public partial class PlayHistoryPage : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "There was an error in the method PlayHistoryPrepareForRightClickContext.");
-            await _messageBox.RightClickContextMenuErrorMessageBox();
+            _logErrors.LogAndForget(ex, "There was an error in the method PlayHistoryPrepareForRightClickContextAsync.");
+            await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
         }
     }
 
@@ -222,14 +222,14 @@ public partial class PlayHistoryPage : ILoadingState
         if (selectedSystemManager == null)
         {
             _logErrors.LogAndForget(null, "[LaunchGameFromHistoryAsync] systemManager is null.");
-            await _messageBox.CouldNotLaunchThisGameMessageBox(
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
             return;
         }
 
         if (!File.Exists(fileName))
         {
-            var result = await _messageBox.GameFileDoesNotExistAskToDeleteMessageBox(fileName);
+            var result = await _messageBox.GameFileDoesNotExistAskToDeleteMessageBoxAsync(fileName);
             if (result == CoreMessageBoxResult.Yes)
             {
                 var itemToRemove = _viewModel.PlayHistoryList.FirstOrDefault(item => item.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
@@ -247,7 +247,7 @@ public partial class PlayHistoryPage : ILoadingState
         if (emulatorManager == null)
         {
             _logErrors.LogAndForget(null, "[LaunchGameFromHistoryAsync] emulatorManager is null.");
-            await _messageBox.CouldNotLaunchThisGameMessageBox(
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
             return;
         }
@@ -289,7 +289,7 @@ public partial class PlayHistoryPage : ILoadingState
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in the method MouseDoubleClick.");
-            await _messageBox.CouldNotLaunchThisGameMessageBox(
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
@@ -318,7 +318,7 @@ public partial class PlayHistoryPage : ILoadingState
         }
     }
 
-    private async void DeleteHistoryItemWithDelButton(object sender, KeyEventArgs e)
+    private async void DeleteHistoryItemWithDelButtonAsync(object sender, KeyEventArgs e)
     {
         try
         {
@@ -336,7 +336,7 @@ public partial class PlayHistoryPage : ILoadingState
                         }
                         else
                         {
-                            await _messageBox.SelectAHistoryItemToRemoveMessageBox();
+                            await _messageBox.SelectAHistoryItemToRemoveMessageBoxAsync();
                         }
 
                         PreviewImage.Source = null;
@@ -348,13 +348,13 @@ public partial class PlayHistoryPage : ILoadingState
                     e.Handled = true;
                     break;
                 case Key.Enter:
-                    await _messageBox.SelectAGameToLaunchMessageBox();
+                    await _messageBox.SelectAGameToLaunchMessageBoxAsync();
                     break;
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method DeleteHistoryItemWithDelButton.");
+            _logErrors.LogAndForget(ex, "Error in the method DeleteHistoryItemWithDelButtonAsync.");
         }
     }
 
@@ -416,7 +416,7 @@ public partial class PlayHistoryPage : ILoadingState
         RestoreSelectionAfterSort(identifier);
     }
 
-    private async void RemoveHistoryItemButton_Click(object sender, RoutedEventArgs e)
+    private async void RemoveHistoryItemButton_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -430,18 +430,18 @@ public partial class PlayHistoryPage : ILoadingState
             }
             else
             {
-                await _messageBox.SelectAHistoryItemToRemoveMessageBox();
+                await _messageBox.SelectAHistoryItemToRemoveMessageBoxAsync();
             }
 
             PreviewImage.Source = null;
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method RemoveHistoryItemButton_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method RemoveHistoryItemButton_ClickAsync.");
         }
     }
 
-    private async void RemoveAllHistoryItemButton_Click(object sender, RoutedEventArgs e)
+    private async void RemoveAllHistoryItemButton_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -451,7 +451,7 @@ public partial class PlayHistoryPage : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method RemoveAllHistoryItemButton_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method RemoveAllHistoryItemButton_ClickAsync.");
         }
     }
 
@@ -467,13 +467,13 @@ public partial class PlayHistoryPage : ILoadingState
             else
             {
                 _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingGameFromHistory") ?? "Launching game from history...");
-                await _messageBox.SelectAGameToLaunchMessageBox();
+                await _messageBox.SelectAGameToLaunchMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in the LaunchGameClickAsync method.");
-            await _messageBox.CouldNotLaunchThisGameMessageBox(
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }

@@ -8,7 +8,7 @@ public class Program
 {
     private const int BatchSize = 40;
 
-    public static async Task Main(string[] args)
+    public static async Task MainAsync(string[] args)
     {
         Console.OutputEncoding = Encoding.UTF8;
 
@@ -160,6 +160,11 @@ public class Program
         Console.WriteLine($"Total keys translated: {totalMissing}");
         if (totalDuplicates > 0)
             Console.WriteLine($"Total duplicates removed: {totalDuplicates}");
+    }
+
+    public static void Main(string[] args)
+    {
+        MainAsync(args).GetAwaiter().GetResult();
     }
 
     private static string? FindResourcesPath()

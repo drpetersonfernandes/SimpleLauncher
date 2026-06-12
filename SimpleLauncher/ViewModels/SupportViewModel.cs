@@ -48,19 +48,19 @@ public partial class SupportViewModel : ObservableObject
     {
         if (string.IsNullOrWhiteSpace(Name))
         {
-            await _messageBox.EnterNameMessageBox();
+            await _messageBox.EnterNameMessageBoxAsync();
             return;
         }
 
         if (string.IsNullOrWhiteSpace(Email))
         {
-            await _messageBox.EnterEmailMessageBox();
+            await _messageBox.EnterEmailMessageBoxAsync();
             return;
         }
 
         if (string.IsNullOrWhiteSpace(SupportRequest))
         {
-            await _messageBox.EnterSupportRequestMessageBox();
+            await _messageBox.EnterSupportRequestMessageBoxAsync();
             return;
         }
 
@@ -134,7 +134,7 @@ public partial class SupportViewModel : ObservableObject
 
                     FormCleared?.Invoke();
 
-                    await _messageBox.SupportRequestSuccessMessageBox();
+                    await _messageBox.SupportRequestSuccessMessageBoxAsync();
                 }
                 else
                 {
@@ -143,7 +143,7 @@ public partial class SupportViewModel : ObservableObject
                     var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {errorContent}";
                     _logErrors.LogAndForget(null, contextMessage);
 
-                    await _messageBox.SupportRequestSendErrorMessageBox();
+                    await _messageBox.SupportRequestSendErrorMessageBoxAsync();
                 }
             }
         }
@@ -152,14 +152,14 @@ public partial class SupportViewModel : ObservableObject
             const string contextMessage = "The support request timed out after 20 seconds. Please check your internet connection and try again.";
             _logErrors.LogAndForget(null, contextMessage);
 
-            await _messageBox.SupportRequestSendErrorMessageBox();
+            await _messageBox.SupportRequestSendErrorMessageBoxAsync();
         }
         catch (Exception ex)
         {
             const string contextMessage = "Error sending the Support Request.";
             _logErrors.LogAndForget(ex, contextMessage);
 
-            await _messageBox.SupportRequestSendErrorMessageBox();
+            await _messageBox.SupportRequestSendErrorMessageBoxAsync();
         }
     }
 }

@@ -72,7 +72,7 @@ public partial class RomHistoryViewModel : ObservableObject
                 var nohistoryxmlfilefound2 = _resourceProvider.GetString("Nohistoryxmlfilefound2", "No 'history.dat' or 'history.xml' file found in the application folder.");
                 HistoryMarkdown = nohistoryxmlfilefound2;
 
-                await _messageBox.NoHistoryXmlOrDatFoundMessageBox();
+                await _messageBox.NoHistoryXmlOrDatFoundMessageBoxAsync();
                 return;
             }
 
@@ -91,18 +91,18 @@ public partial class RomHistoryViewModel : ObservableObject
             }
             else
             {
-                await PromptForOnlineSearch();
+                await PromptForOnlineSearchAsync();
             }
         }
         catch (Exception ex)
         {
             const string contextMessage = "An error occurred while loading ROM history.";
             _logErrors.LogAndForget(ex, contextMessage);
-            await _messageBox.ErrorLoadingRomHistoryMessageBox();
+            await _messageBox.ErrorLoadingRomHistoryMessageBoxAsync();
         }
     }
 
-    private async Task PromptForOnlineSearch()
+    private async Task PromptForOnlineSearchAsync()
     {
         RomNameText = _romName;
         RomDescriptionText = _searchTerm;
@@ -111,15 +111,15 @@ public partial class RomHistoryViewModel : ObservableObject
         var noRoMhistoryfoundinthelocal2 = _resourceProvider.GetString("NoROMhistoryfoundinthelocal", "No ROM history found in the local database for the selected file.");
         HistoryMarkdown = noRoMhistoryfoundinthelocal2;
 
-        var result = await _messageBox.SearchOnlineForRomHistoryMessageBox();
+        var result = await _messageBox.SearchOnlineForRomHistoryMessageBoxAsync();
         if (result == MessageBoxResult.Yes)
         {
-            await OpenGoogleSearch();
+            await OpenGoogleSearchAsync();
         }
     }
 
     [RelayCommand]
-    private async Task OpenGoogleSearch()
+    private async Task OpenGoogleSearchAsync()
     {
         var query = !string.IsNullOrEmpty(_searchTerm) ? $"\"{_systemName}\" \"{_searchTerm}\" history" : $"\"{_systemName}\" \"{_romName}\" history";
         var googleSearchUrl = $"https://www.google.com/search?q={Uri.EscapeDataString(query)}";
@@ -132,7 +132,7 @@ public partial class RomHistoryViewModel : ObservableObject
         {
             const string contextMessage = "An error occurred while opening the browser.";
             _logErrors.LogAndForget(ex, contextMessage);
-            await _messageBox.ErrorOpeningBrowserMessageBox();
+            await _messageBox.ErrorOpeningBrowserMessageBoxAsync();
         }
     }
 

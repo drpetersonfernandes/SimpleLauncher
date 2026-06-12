@@ -106,7 +106,7 @@ internal partial class EditSystemWindow : ILoadingState
             if (systems == null)
             {
                 // Notify user on UI thread
-                await _messageBox.SystemXmlNotFoundMessageBox();
+                await _messageBox.SystemXmlNotFoundMessageBoxAsync();
                 _quitSimpleLauncher.SimpleQuitApplication(); // Or just Close();
             }
             else
@@ -283,7 +283,7 @@ internal partial class EditSystemWindow : ILoadingState
         _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox.Text.Trim());
     }
 
-    private async void AddSystemButton_Click(object sender, RoutedEventArgs e)
+    private async void AddSystemButton_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -302,11 +302,11 @@ internal partial class EditSystemWindow : ILoadingState
             DeleteSystemButton.IsEnabled = false;
 
             // Notify user
-            await _messageBox.YouCanAddANewSystemMessageBox();
+            await _messageBox.YouCanAddANewSystemMessageBoxAsync();
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method AddSystemButton_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method AddSystemButton_ClickAsync.");
         }
     }
 
@@ -550,7 +550,7 @@ internal partial class EditSystemWindow : ILoadingState
         ReceiveANotificationOnEmulatorError5.SelectedItem = null;
     }
 
-    private async void DeleteSystemButton_Click(object sender, RoutedEventArgs e)
+    private async void DeleteSystemButton_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -559,13 +559,13 @@ internal partial class EditSystemWindow : ILoadingState
             if (SystemNameDropdown.SelectedItem == null)
             {
                 // Notify user
-                await _messageBox.SelectASystemToDeleteMessageBox();
+                await _messageBox.SelectASystemToDeleteMessageBoxAsync();
                 return;
             }
 
             var selectedSystemName = SystemNameDropdown.SelectedItem.ToString();
 
-            var result = await _messageBox.AreYouSureDoYouWantToDeleteThisSystemMessageBox();
+            var result = await _messageBox.AreYouSureDoYouWantToDeleteThisSystemMessageBoxAsync();
             if (result != CoreMessageBoxResult.Yes) return;
 
             await SystemManager.DeleteSystemAsync(selectedSystemName, _logErrors);
@@ -578,12 +578,12 @@ internal partial class EditSystemWindow : ILoadingState
             }
 
             // Notify user
-            await _messageBox.SystemHasBeenDeletedMessageBox(selectedSystemName);
+            await _messageBox.SystemHasBeenDeletedMessageBoxAsync(selectedSystemName);
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"Error in method DeleteSystemButton_Click: {ex.Message}");
-            _logErrors.LogAndForget(ex, "Error in method DeleteSystemButton_Click");
+            _debugLogger.Log($"Error in method DeleteSystemButton_ClickAsync: {ex.Message}");
+            _logErrors.LogAndForget(ex, "Error in method DeleteSystemButton_ClickAsync");
         }
     }
 
@@ -617,7 +617,7 @@ internal partial class EditSystemWindow : ILoadingState
         }
     }
 
-    private async void HelpLink_Click(object sender, RoutedEventArgs e)
+    private async void HelpLink_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -636,25 +636,25 @@ internal partial class EditSystemWindow : ILoadingState
                 if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
                 {
                     // Specific message for application control policy blocking links
-                    await _messageBox.ApplicationControlPolicyBlockedManualLinkMessageBox(searchUrl);
+                    await _messageBox.ApplicationControlPolicyBlockedManualLinkMessageBoxAsync(searchUrl);
                     _logErrors.LogAndForget(ex, "Application control policy blocked opening HelpLink.");
                 }
                 else
                 {
                     // Existing error handling for other Win32Exceptions
-                    _logErrors.LogAndForget(ex, "Error in method HelpLink_Click");
-                    await _messageBox.ErrorOpeningUrlMessageBox();
+                    _logErrors.LogAndForget(ex, "Error in method HelpLink_ClickAsync");
+                    await _messageBox.ErrorOpeningUrlMessageBoxAsync();
                 }
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in method HelpLink_Click");
-                await _messageBox.ErrorOpeningUrlMessageBox();
+                _logErrors.LogAndForget(ex, "Error in method HelpLink_ClickAsync");
+                await _messageBox.ErrorOpeningUrlMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method HelpLink_Click");
+            _logErrors.LogAndForget(ex, "Error in method HelpLink_ClickAsync");
         }
     }
 
@@ -694,14 +694,14 @@ internal partial class EditSystemWindow : ILoadingState
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 
-    private async void ChooseSystemImageButton_Click(object sender, RoutedEventArgs e)
+    private async void ChooseSystemImageButton_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
             var systemName = SystemNameTextBox.Text.Trim();
             if (string.IsNullOrEmpty(systemName))
             {
-                await _messageBox.SystemNameRequiredBeforeChoosingImageMessageBox();
+                await _messageBox.SystemNameRequiredBeforeChoosingImageMessageBoxAsync();
                 return;
             }
 
@@ -718,7 +718,7 @@ internal partial class EditSystemWindow : ILoadingState
             var extension = Path.GetExtension(sourceFilePath).ToLowerInvariant();
             if (extension != ".png" && extension != ".jpg" && extension != ".jpeg")
             {
-                await _messageBox.InvalidImageFormatMessageBox();
+                await _messageBox.InvalidImageFormatMessageBoxAsync();
                 return;
             }
 
@@ -753,7 +753,7 @@ internal partial class EditSystemWindow : ILoadingState
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Error copying system image.");
-                await _messageBox.FailedToCopySystemImageMessageBox(ex.Message);
+                await _messageBox.FailedToCopySystemImageMessageBoxAsync(ex.Message);
             }
         }
         catch (Exception ex)
@@ -809,7 +809,7 @@ internal partial class EditSystemWindow : ILoadingState
         WriteIndented = false
     };
 
-    private async void SuggestEmulator1Parameters_Click(object sender, RoutedEventArgs e)
+    private async void SuggestEmulator1Parameters_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -821,11 +821,11 @@ internal partial class EditSystemWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method SuggestEmulator1Parameters_Click");
+            _logErrors.LogAndForget(ex, "Error in method SuggestEmulator1Parameters_ClickAsync");
         }
     }
 
-    private async void SuggestEmulator2Parameters_Click(object sender, RoutedEventArgs e)
+    private async void SuggestEmulator2Parameters_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -837,11 +837,11 @@ internal partial class EditSystemWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method SuggestEmulator2Parameters_Click");
+            _logErrors.LogAndForget(ex, "Error in method SuggestEmulator2Parameters_ClickAsync");
         }
     }
 
-    private async void SuggestEmulator3Parameters_Click(object sender, RoutedEventArgs e)
+    private async void SuggestEmulator3Parameters_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -853,11 +853,11 @@ internal partial class EditSystemWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method SuggestEmulator3Parameters_Click");
+            _logErrors.LogAndForget(ex, "Error in method SuggestEmulator3Parameters_ClickAsync");
         }
     }
 
-    private async void SuggestEmulator4Parameters_Click(object sender, RoutedEventArgs e)
+    private async void SuggestEmulator4Parameters_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -869,11 +869,11 @@ internal partial class EditSystemWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method SuggestEmulator4Parameters_Click");
+            _logErrors.LogAndForget(ex, "Error in method SuggestEmulator4Parameters_ClickAsync");
         }
     }
 
-    private async void SuggestEmulator5Parameters_Click(object sender, RoutedEventArgs e)
+    private async void SuggestEmulator5Parameters_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -885,7 +885,7 @@ internal partial class EditSystemWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method SuggestEmulator5Parameters_Click");
+            _logErrors.LogAndForget(ex, "Error in method SuggestEmulator5Parameters_ClickAsync");
         }
     }
 
@@ -899,7 +899,7 @@ internal partial class EditSystemWindow : ILoadingState
         if (string.IsNullOrWhiteSpace(emulatorName))
         {
             var enterEmulatorNameMsg = (string)Application.Current.TryFindResource("ParameterResolverEnterEmulatorName") ?? "Please enter an emulator name first.";
-            await _messageBox.WarningMessageBox(enterEmulatorNameMsg);
+            await _messageBox.WarningMessageBoxAsync(enterEmulatorNameMsg);
             return;
         }
 
@@ -951,7 +951,7 @@ internal partial class EditSystemWindow : ILoadingState
                     dialogMessage += $"\n\nExplanation: {explanation}";
                 }
 
-                var applyResult = await _messageBox.CustomQuestionMessageBox(successTitle, dialogMessage);
+                var applyResult = await _messageBox.CustomQuestionMessageBoxAsync(successTitle, dialogMessage);
 
                 if (applyResult)
                 {
@@ -963,13 +963,13 @@ internal partial class EditSystemWindow : ILoadingState
             {
                 var apiException = new InvalidOperationException($"ParameterResolver API returned {(int)response.StatusCode}: {responseBody}");
                 _logErrors.LogAndForget(apiException, "ParameterResolver API error");
-                await _messageBox.CustomErrorMessageBox(errorMessage, errorTitle);
+                await _messageBox.CustomErrorMessageBoxAsync(errorMessage, errorTitle);
             }
         }
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error calling ParameterResolver API");
-            await _messageBox.CustomErrorMessageBox(errorMessage, errorTitle);
+            await _messageBox.CustomErrorMessageBoxAsync(errorMessage, errorTitle);
         }
         finally
         {

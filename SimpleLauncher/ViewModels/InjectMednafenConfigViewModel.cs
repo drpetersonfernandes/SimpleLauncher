@@ -157,7 +157,7 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        await _messageBox.MednafenEmulatorNotFoundMessageBox();
+        await _messageBox.MednafenEmulatorNotFoundMessageBoxAsync();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -197,7 +197,7 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -223,12 +223,12 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
         {
             if (await InjectConfigAsync())
             {
-                await _messageBox.MednafenConfigurationSavedSuccessfullyMessageBox();
+                await _messageBox.MednafenConfigurationSavedSuccessfullyMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
         }

@@ -55,12 +55,14 @@
             <Button Content="{DynamicResource Cancel}"
                     Margin="5,0"
                     Command="{Binding CancelCommand}"
-                    MinWidth="75" />
+                    MinWidth="75"
+                    ToolTip="{DynamicResource TooltipDosBoxCancel}" />
             <Button Content="{DynamicResource DosBoxSelectFileLaunch}"
                     Margin="5,0"
                     Command="{Binding LaunchCommand}"
                     MinWidth="75"
-                    IsEnabled="{Binding IsLaunchEnabled}" />
+                    IsEnabled="{Binding IsLaunchEnabled}"
+                    ToolTip="{DynamicResource TooltipDosBoxLaunch}" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

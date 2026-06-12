@@ -12,7 +12,7 @@ public class CheckForRequiredFiles
         _messageBoxLibrary = messageBoxLibrary;
     }
 
-    public async Task CheckFiles(IConfiguration configuration, ILogErrors logErrors)
+    public async Task CheckFilesAsync(IConfiguration configuration, ILogErrors logErrors)
     {
         var baseDirectory = AppContext.BaseDirectory;
         var requiredFiles = configuration.GetValue<string[]>("RequiredFiles") ??
@@ -39,7 +39,7 @@ public class CheckForRequiredFiles
             }
 
             var fileList = string.Join(Environment.NewLine, missingFiles);
-            await _messageBoxLibrary.HandleMissingRequiredFilesMessageBox(fileList);
+            await _messageBoxLibrary.HandleMissingRequiredFilesMessageBoxAsync(fileList);
         }
         catch (Exception ex)
         {

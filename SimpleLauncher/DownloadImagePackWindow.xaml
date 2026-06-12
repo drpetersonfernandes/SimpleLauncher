@@ -11,9 +11,6 @@
                       Height="600"
                       MinHeight="500"
                       WindowStartupLocation="CenterScreen" x:ClassModifier="internal">
-    <controls:MetroWindow.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    </controls:MetroWindow.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" /> <!-- Header -->

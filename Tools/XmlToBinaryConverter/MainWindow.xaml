@@ -1,4 +1,4 @@
-﻿<Window x:Class="XmlToBinaryConverter.MainWindow"
+<Window x:Class="XmlToBinaryConverter.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -93,7 +93,7 @@
             <!-- Convert Button -->
             <Button x:Name="ConvertButton" Grid.Row="3" Content="Convert" 
                    HorizontalAlignment="Center" Margin="0,20,0,0" Width="150" Height="40"
-                   Click="Convert_Click"/>
+                   Click="Convert_ClickAsync"/>
             
             <!-- Processing Indicator -->
             <StackPanel x:Name="ProcessingIndicator" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center"

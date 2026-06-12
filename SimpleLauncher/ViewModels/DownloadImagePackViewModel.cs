@@ -174,7 +174,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
         if (_manager is not { Systems.Count: > 0 })
         {
-            await _messageBox.ImagePackDownloaderUnavailableMessageBox();
+            await _messageBox.ImagePackDownloaderUnavailableMessageBoxAsync();
             IsSystemDropdownEnabled = false;
             return;
         }
@@ -387,7 +387,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                 var hasbeensuccessfullydownloadedandinstalled = _resourceProvider.GetString("hasbeensuccessfullydownloadedandinstalled", "has been successfully downloaded and installed.");
                 StatusMessage = $"{componentName} {hasbeensuccessfullydownloadedandinstalled}";
 
-                await _messageBox.DownloadAndExtractionWereSuccessfulMessageBox();
+                await _messageBox.DownloadAndExtractionWereSuccessfulMessageBoxAsync();
 
                 IsStopEnabled = false;
                 EndOperation();
@@ -508,7 +508,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     }
 
     [RelayCommand]
-    private async Task HyperlinkNavigate(string url)
+    private async Task HyperlinkNavigateAsync(string url)
     {
         try
         {
@@ -520,7 +520,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         {
             _logErrors.LogAndForget(ex, "Error opening the download link.");
 
-            await _messageBox.CouldNotOpenTheDownloadLinkMessageBox();
+            await _messageBox.CouldNotOpenTheDownloadLinkMessageBoxAsync();
         }
     }
 

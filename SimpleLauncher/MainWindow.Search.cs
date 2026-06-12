@@ -25,7 +25,7 @@ public partial class MainWindow
             _logErrors.LogAndForget(ex, errorMessage);
 
             // Notify user
-            await _messageBox.MainWindowSearchEngineErrorMessageBox();
+            await _messageBox.MainWindowSearchEngineErrorMessageBoxAsync();
         }
     }
 
@@ -45,7 +45,7 @@ public partial class MainWindow
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            await _messageBox.MainWindowSearchEngineErrorMessageBox();
+            await _messageBox.MainWindowSearchEngineErrorMessageBoxAsync();
         }
     }
 
@@ -72,11 +72,11 @@ public partial class MainWindow
             {
                 if (SystemComboBox.SelectedItem == null)
                 {
-                    await _messageBox.SelectSystemBeforeSearchMessageBox();
+                    await _messageBox.SelectSystemBeforeSearchMessageBoxAsync();
                 }
                 else
                 {
-                    await _messageBox.EnterSearchQueryMessageBox();
+                    await _messageBox.EnterSearchQueryMessageBoxAsync();
                 }
 
                 SetLoadingState(false);
@@ -98,7 +98,7 @@ public partial class MainWindow
                 const string contextMessage = "Error during search execution.";
                 _logErrors.LogAndForget(ex, contextMessage);
 
-                await _messageBox.MainWindowSearchEngineErrorMessageBox();
+                await _messageBox.MainWindowSearchEngineErrorMessageBoxAsync();
             }
         }
         finally

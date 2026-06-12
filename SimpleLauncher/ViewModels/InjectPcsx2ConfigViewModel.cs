@@ -183,7 +183,7 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -209,12 +209,12 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
         {
             if (InjectConfig())
             {
-                await _messageBox.Pcsx2SettingssavedMessageBox();
+                await _messageBox.Pcsx2SettingssavedMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
         }

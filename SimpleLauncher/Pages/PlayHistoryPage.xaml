@@ -25,11 +25,11 @@
                    Content="{DynamicResource PlayHistory}"
                    FontSize="22" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
-                <Button Content="{DynamicResource RemovefromHistory}" Click="RemoveHistoryItemButton_Click"
+                <Button Content="{DynamicResource RemovefromHistory}" Click="RemoveHistoryItemButton_ClickAsync"
                         Style="{DynamicResource SecondaryActionButtonStyle}"
                         ToolTip="{DynamicResource TooltipRemoveFromHistory}"
                         AutomationProperties.Name="{DynamicResource RemovefromHistory}" />
-                <Button Content="{DynamicResource RemoveAllfromHistory}" Click="RemoveAllHistoryItemButton_Click"
+                <Button Content="{DynamicResource RemoveAllfromHistory}" Click="RemoveAllHistoryItemButton_ClickAsync"
                         Style="{DynamicResource SecondaryActionButtonStyle}"
                         ToolTip="{DynamicResource TooltipRemoveAllFromHistory}"
                         AutomationProperties.Name="{DynamicResource RemoveAllfromHistory}" />
@@ -62,10 +62,11 @@
                       Grid.Row="2"
                       Grid.Column="0"
                       Margin="10"
-                      MouseRightButtonUp="PlayHistoryPrepareForRightClickContext"
+                      ToolTip="{DynamicResource TooltipPlayHistoryDataGrid}"
+                      MouseRightButtonUp="PlayHistoryPrepareForRightClickContextAsync"
                       MouseDoubleClick="LaunchGameWithDoubleClickAsync"
                       SelectionChanged="SetPreviewImageOnSelectionChangedAsync"
-                      PreviewKeyDown="DeleteHistoryItemWithDelButton">
+                      PreviewKeyDown="DeleteHistoryItemWithDelButtonAsync">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}" Binding="{Binding DisplayName}" Width="*" />
                     <DataGridTextColumn Header="{DynamicResource MachineDescriptionMameHeader}" Binding="{Binding MachineDescription}" Width="*" />
@@ -105,7 +106,8 @@
                     <Image Name="PreviewImage"
                            Stretch="Uniform"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center" />
+                           VerticalAlignment="Center"
+                           ToolTip="{DynamicResource TooltipPlayHistoryPreviewImage}" />
                 </Border>
             </Grid>
         </Grid>

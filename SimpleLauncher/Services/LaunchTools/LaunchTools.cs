@@ -27,19 +27,19 @@ public class LaunchTools : ILaunchTools
     /// Launches an external executable with optional arguments and working directory.
     /// Handles basic file existence checks and generic launch exceptions.
     /// </summary>
-    private async Task LaunchExternalTool(string toolPath, string arguments = null, string workingDirectory = null)
+    private async Task LaunchExternalToolAsync(string toolPath, string arguments = null, string workingDirectory = null)
     {
         if (string.IsNullOrEmpty(toolPath))
         {
             _logErrors.LogAndForget(null, "Tool path cannot be null or empty.");
-            await _messageBoxLibrary.SelectedToolNotFoundMessageBox();
+            await _messageBoxLibrary.SelectedToolNotFoundMessageBoxAsync();
             return;
         }
 
         if (!File.Exists(toolPath))
         {
             _logErrors.LogAndForget(null, $"External tool not found: {toolPath}");
-            await _messageBoxLibrary.SelectedToolNotFoundMessageBox();
+            await _messageBoxLibrary.SelectedToolNotFoundMessageBoxAsync();
             return;
         }
 
@@ -70,7 +70,7 @@ public class LaunchTools : ILaunchTools
             // 5 = Access Denied (sometimes returned if UAC is disabled but user lacks rights).
             // 0x800704C7 = HRESULT for Operation Cancelled.
             // We do NOT log these to the developer API as they are expected user actions.
-            await _messageBoxLibrary.ToolLaunchWasCanceledByUserMessageBox();
+            await _messageBoxLibrary.ToolLaunchWasCanceledByUserMessageBoxAsync();
         }
         catch (Exception ex)
         {
@@ -81,11 +81,11 @@ public class LaunchTools : ILaunchTools
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            await _messageBoxLibrary.ErrorLaunchingToolMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            await _messageBoxLibrary.ErrorLaunchingToolMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
         }
     }
 
-    private async Task<string> GetToolExecutablePath(string toolFolder, string baseName, bool useArchSubfolders = false)
+    private async Task<string> GetToolExecutablePathAsync(string toolFolder, string baseName, bool useArchSubfolders = false)
     {
         var architecture = RuntimeInformation.ProcessArchitecture;
         var archPath = architecture switch
@@ -98,32 +98,32 @@ public class LaunchTools : ILaunchTools
         if (archPath == null)
         {
             var msg = _resourceProvider.GetString("AppNotAvailableForArch", "This application is not available for {0}");
-            await _messageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
+            await _messageBoxLibrary.LaunchToolInformationMessageBoxAsync(string.Format(CultureInfo.InvariantCulture, msg, architecture));
             return null;
         }
 
         return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", toolFolder, archPath);
     }
 
-    public async Task CreateBatchFilesForXbox360XblaGames()
+    public async Task CreateBatchFilesForXbox360XblaGamesAsync()
     {
-        var toolPath = await GetToolExecutablePath("CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames");
+        var toolPath = await GetToolExecutablePathAsync("CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames");
         if (toolPath == null) return;
 
-        await LaunchExternalTool(toolPath);
+        await LaunchExternalToolAsync(toolPath);
     }
 
-    public async Task CreateBatchFilesForWindowsGames()
+    public async Task CreateBatchFilesForWindowsGamesAsync()
     {
-        var toolPath = await GetToolExecutablePath("CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames");
+        var toolPath = await GetToolExecutablePathAsync("CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames");
         if (toolPath == null) return;
 
-        await LaunchExternalTool(toolPath);
+        await LaunchExternalToolAsync(toolPath);
     }
 
-    public async Task FindRomCoverLaunch(string selectedImageFolder, string selectedRomFolder)
+    public async Task FindRomCoverLaunchAsync(string selectedImageFolder, string selectedRomFolder)
     {
-        var toolPath = await GetToolExecutablePath("FindRomCover", "FindRomCover");
+        var toolPath = await GetToolExecutablePathAsync("FindRomCover", "FindRomCover");
         if (toolPath == null) return;
 
         var arguments = "";
@@ -137,28 +137,28 @@ public class LaunchTools : ILaunchTools
             arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
         }
 
-        await LaunchExternalTool(toolPath, arguments, workingDirectory);
+        await LaunchExternalToolAsync(toolPath, arguments, workingDirectory);
     }
 
-    public async Task CreateBatchFilesForPs3Games()
+    public async Task CreateBatchFilesForPs3GamesAsync()
     {
-        var toolPath = await GetToolExecutablePath("CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games");
+        var toolPath = await GetToolExecutablePathAsync("CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games");
         if (toolPath == null) return;
 
-        await LaunchExternalTool(toolPath);
+        await LaunchExternalToolAsync(toolPath);
     }
 
-    public async Task BatchConvertIsoToXiso()
+    public async Task BatchConvertIsoToXisoAsync()
     {
-        var toolPath = await GetToolExecutablePath("BatchConvertIsoToXiso", "BatchConvertIsoToXiso");
+        var toolPath = await GetToolExecutablePathAsync("BatchConvertIsoToXiso", "BatchConvertIsoToXiso");
         if (toolPath == null) return;
 
-        await LaunchExternalTool(toolPath);
+        await LaunchExternalToolAsync(toolPath);
     }
 
-    public async Task BatchConvertToChd(string selectedRomFolder)
+    public async Task BatchConvertToChdAsync(string selectedRomFolder)
     {
-        var toolPath = await GetToolExecutablePath("BatchConvertToCHD", "BatchConvertToCHD");
+        var toolPath = await GetToolExecutablePathAsync("BatchConvertToCHD", "BatchConvertToCHD");
         if (toolPath == null) return;
 
         var arguments = "";
@@ -171,44 +171,44 @@ public class LaunchTools : ILaunchTools
             arguments = $"\"{absoluteRomFolder}\"";
         }
 
-        await LaunchExternalTool(toolPath, arguments, workingDirectory);
+        await LaunchExternalToolAsync(toolPath, arguments, workingDirectory);
     }
 
-    public async Task BatchConvertToCompressedFile()
+    public async Task BatchConvertToCompressedFileAsync()
     {
-        var toolPath = await GetToolExecutablePath("BatchConvertToCompressedFile", "BatchConvertToCompressedFile");
+        var toolPath = await GetToolExecutablePathAsync("BatchConvertToCompressedFile", "BatchConvertToCompressedFile");
         if (toolPath == null) return;
 
-        await LaunchExternalTool(toolPath);
+        await LaunchExternalToolAsync(toolPath);
     }
 
-    public async Task BatchConvertToRvz()
+    public async Task BatchConvertToRvzAsync()
     {
-        var toolPath = await GetToolExecutablePath("BatchConvertToRVZ", "BatchConvertToRVZ");
+        var toolPath = await GetToolExecutablePathAsync("BatchConvertToRVZ", "BatchConvertToRVZ");
         if (toolPath == null) return;
 
-        await LaunchExternalTool(toolPath);
+        await LaunchExternalToolAsync(toolPath);
     }
 
-    public async Task CreateBatchFilesForScummVmGames()
+    public async Task CreateBatchFilesForScummVmGamesAsync()
     {
-        var toolPath = await GetToolExecutablePath("CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames");
+        var toolPath = await GetToolExecutablePathAsync("CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames");
         if (toolPath == null) return;
 
-        await LaunchExternalTool(toolPath);
+        await LaunchExternalToolAsync(toolPath);
     }
 
-    public async Task RomValidator()
+    public async Task RomValidatorAsync()
     {
-        var toolPath = await GetToolExecutablePath("RomValidator", "RomValidator");
+        var toolPath = await GetToolExecutablePathAsync("RomValidator", "RomValidator");
         if (toolPath == null) return;
 
-        await LaunchExternalTool(toolPath);
+        await LaunchExternalToolAsync(toolPath);
     }
 
-    public async Task GameCoverScraper(string selectedImageFolder, string selectedRomFolder)
+    public async Task GameCoverScraperAsync(string selectedImageFolder, string selectedRomFolder)
     {
-        var toolPath = await GetToolExecutablePath("GameCoverScraper", "GameCoverScraper", true);
+        var toolPath = await GetToolExecutablePathAsync("GameCoverScraper", "GameCoverScraper", true);
         if (toolPath == null) return;
 
         var arguments = "";
@@ -222,12 +222,12 @@ public class LaunchTools : ILaunchTools
             arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
         }
 
-        await LaunchExternalTool(toolPath, arguments, workingDirectory);
+        await LaunchExternalToolAsync(toolPath, arguments, workingDirectory);
     }
 
-    public async Task RetroGameCoverDownloader(string selectedImageFolder, string selectedRomFolder)
+    public async Task RetroGameCoverDownloaderAsync(string selectedImageFolder, string selectedRomFolder)
     {
-        var toolPath = await GetToolExecutablePath("RetroGameCoverDownloader", "RetroGameCoverDownloader");
+        var toolPath = await GetToolExecutablePathAsync("RetroGameCoverDownloader", "RetroGameCoverDownloader");
         if (toolPath == null) return;
 
         var arguments = "";
@@ -241,6 +241,6 @@ public class LaunchTools : ILaunchTools
             arguments = $"\"{absoluteRomFolder}\" \"{absoluteImageFolder}\"";
         }
 
-        await LaunchExternalTool(toolPath, arguments, workingDirectory);
+        await LaunchExternalToolAsync(toolPath, arguments, workingDirectory);
     }
 }

@@ -118,13 +118,13 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 
             if (!hasMeaningfulKeywords)
             {
-                await _messageBox.EnterValidSearchTermsMessageBox();
+                await _messageBox.EnterValidSearchTermsMessageBoxAsync();
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(searchTerm))
             {
-                await _messageBox.PleaseEnterSearchTermMessageBox();
+                await _messageBox.PleaseEnterSearchTermMessageBoxAsync();
                 return;
             }
 
@@ -161,7 +161,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
             catch (Exception ex)
             {
                 await _logErrors.LogErrorAsync(ex, "Error during search operation.");
-                await _messageBox.GlobalSearchErrorMessageBox();
+                await _messageBox.GlobalSearchErrorMessageBoxAsync();
                 NoResultsVisible = true;
             }
             finally

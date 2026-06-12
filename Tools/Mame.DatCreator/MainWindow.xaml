@@ -102,7 +102,7 @@
         <Button Grid.Row="4" 
                 x:Name="ProcessButton"
                 Content="Create DAT Files" 
-                Click="Process_Click"
+                Click="Process_ClickAsync"
                 Style="{StaticResource ButtonStyle}"
                 HorizontalAlignment="Center"
                 MinWidth="200"

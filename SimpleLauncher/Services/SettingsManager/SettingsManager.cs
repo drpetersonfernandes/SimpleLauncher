@@ -672,7 +672,7 @@ public class SettingsManager : IDisposable
                 // Ignore cleanup errors
             }
 
-            if (_messageBox != null) await _messageBox.FailedToSaveSettingsMessageBox();
+            if (_messageBox != null) await _messageBox.FailedToSaveSettingsMessageBoxAsync();
         });
     }
 

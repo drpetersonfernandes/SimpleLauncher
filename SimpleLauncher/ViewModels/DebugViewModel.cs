@@ -109,7 +109,7 @@ public partial class DebugViewModel : ObservableObject
             _logErrors.LogAndForget(ex, "Error copying log");
 
             // Notify user
-            await _messageBox.FailedToCopyLogContentMessageBox();
+            await _messageBox.FailedToCopyLogContentMessageBoxAsync();
             _debugLogger.Log("Failed to copy log content.");
         }
     }

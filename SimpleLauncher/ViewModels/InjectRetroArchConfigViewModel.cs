@@ -176,7 +176,7 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        await _messageBox.RetroArchemulatorpathnotfoundMessageBox();
+        await _messageBox.RetroArchemulatorpathnotfoundMessageBoxAsync();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -216,7 +216,7 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -242,12 +242,12 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
         {
             if (await InjectConfigAsync())
             {
-                await _messageBox.RetroArchConfigurationInjectedSuccessfullyMessageBox();
+                await _messageBox.RetroArchConfigurationInjectedSuccessfullyMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
         }

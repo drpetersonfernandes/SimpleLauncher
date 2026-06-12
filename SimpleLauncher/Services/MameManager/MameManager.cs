@@ -1,4 +1,4 @@
-﻿using MessagePack;
+using MessagePack;
 using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.MameManager;
@@ -27,7 +27,7 @@ public class MameManager
             // Notify user
             if (messageBox != null)
             {
-                _ = messageBox.ReinstallSimpleLauncherFileMissingMessageBox();
+                _ = messageBox.ReinstallSimpleLauncherFileMissingMessageBoxAsync();
             }
 
             return []; // return an empty list
@@ -50,7 +50,7 @@ public class MameManager
             // Notify user
             if (messageBox != null)
             {
-                _ = messageBox.ReinstallSimpleLauncherFileCorruptedMessageBox();
+                _ = messageBox.ReinstallSimpleLauncherFileCorruptedMessageBoxAsync();
             }
 
             return []; // return an empty list

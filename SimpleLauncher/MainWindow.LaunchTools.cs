@@ -10,175 +10,175 @@ using Interfaces;
 /// </summary>
 public partial class MainWindow
 {
-    private async void CreateBatchFilesForXbox360XBLAGames_Click(object sender, RoutedEventArgs e)
+    private async void CreateBatchFilesForXbox360XBLAGames_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.CreateBatchFilesForXbox360XblaGames();
+            await _launchTools.CreateBatchFilesForXbox360XblaGamesAsync();
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method CreateBatchFilesForXbox360XBLAGames_Click");
+            _logErrors.LogAndForget(ex, "Error in the method CreateBatchFilesForXbox360XBLAGames_ClickAsync");
         }
     }
 
-    private async void BatchConvertIsoToXiso_Click(object sender, RoutedEventArgs e)
+    private async void BatchConvertIsoToXiso_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.BatchConvertIsoToXiso();
+            await _launchTools.BatchConvertIsoToXisoAsync();
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method BatchConvertIsoToXiso_Click");
+            _logErrors.LogAndForget(ex, "Error in the method BatchConvertIsoToXiso_ClickAsync");
         }
     }
 
-    private async void BatchConvertToCHD_Click(object sender, RoutedEventArgs e)
+    private async void BatchConvertToCHD_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.BatchConvertToChd(_selectedRomFolders?.FirstOrDefault());
+            await _launchTools.BatchConvertToChdAsync(_selectedRomFolders?.FirstOrDefault());
             _debugLogger.Log($"Called BatchConvertToCHD with args: {_selectedRomFolders?.FirstOrDefault()}");
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method BatchConvertToCHD_Click");
+            _logErrors.LogAndForget(ex, "Error in the method BatchConvertToCHD_ClickAsync");
         }
     }
 
-    private async void BatchConvertToCompressedFile_Click(object sender, RoutedEventArgs e)
+    private async void BatchConvertToCompressedFile_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.BatchConvertToCompressedFile();
+            await _launchTools.BatchConvertToCompressedFileAsync();
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method BatchConvertToCompressedFile_Click");
+            _logErrors.LogAndForget(ex, "Error in the method BatchConvertToCompressedFile_ClickAsync");
         }
     }
 
-    private async void BatchConvertToRVZ_Click(object sender, RoutedEventArgs e)
+    private async void BatchConvertToRVZ_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.BatchConvertToRvz();
+            await _launchTools.BatchConvertToRvzAsync();
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method BatchConvertToRVZ_Click");
+            _logErrors.LogAndForget(ex, "Error in the method BatchConvertToRVZ_ClickAsync");
         }
     }
 
-    private async void CreateBatchFilesForPS3Games_Click(object sender, RoutedEventArgs e)
+    private async void CreateBatchFilesForPS3Games_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.CreateBatchFilesForPs3Games();
+            await _launchTools.CreateBatchFilesForPs3GamesAsync();
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method CreateBatchFilesForPS3Games_Click");
+            _logErrors.LogAndForget(ex, "Error in the method CreateBatchFilesForPS3Games_ClickAsync");
         }
     }
 
-    private async void CreateBatchFilesForScummVMGames_Click(object sender, RoutedEventArgs e)
+    private async void CreateBatchFilesForScummVMGames_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.CreateBatchFilesForScummVmGames();
+            await _launchTools.CreateBatchFilesForScummVmGamesAsync();
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method CreateBatchFilesForScummVMGames_Click");
+            _logErrors.LogAndForget(ex, "Error in the method CreateBatchFilesForScummVMGames_ClickAsync");
         }
     }
 
-    private async void CreateBatchFilesForWindowsGames_Click(object sender, RoutedEventArgs e)
+    private async void CreateBatchFilesForWindowsGames_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.CreateBatchFilesForWindowsGames();
+            await _launchTools.CreateBatchFilesForWindowsGamesAsync();
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method CreateBatchFilesForWindowsGames_Click");
+            _logErrors.LogAndForget(ex, "Error in the method CreateBatchFilesForWindowsGames_ClickAsync");
         }
     }
 
-    private async void FindRomCover_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
-            _audioInput.PlayNotificationSound();
-            await ResetUiAsync();
-            await _launchTools.FindRomCoverLaunch(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
-        }
-        catch (Exception ex)
-        {
-            _logErrors.LogAndForget(ex, "Error in the method FindRomCover_Click");
-        }
-    }
-
-    private async void RomValidator_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
-            _audioInput.PlayNotificationSound();
-            await _launchTools.RomValidator();
-        }
-        catch (Exception ex)
-        {
-            _logErrors.LogAndForget(ex, "Error in the method RomValidator_Click");
-        }
-    }
-
-    private async void GameCoverScraper_Click(object sender, RoutedEventArgs e)
+    private async void FindRomCover_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
             await ResetUiAsync();
-            await _launchTools.GameCoverScraper(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
+            await _launchTools.FindRomCoverLaunchAsync(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method GameCoverScraper_Click");
+            _logErrors.LogAndForget(ex, "Error in the method FindRomCover_ClickAsync");
         }
     }
 
-    private async void RetroGameCoverDownloader_Click(object sender, RoutedEventArgs e)
+    private async void RomValidator_ClickAsync(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
+            _audioInput.PlayNotificationSound();
+            await _launchTools.RomValidatorAsync();
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method RomValidator_ClickAsync");
+        }
+    }
+
+    private async void GameCoverScraper_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
             await ResetUiAsync();
-            await _launchTools.RetroGameCoverDownloader(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
+            await _launchTools.GameCoverScraperAsync(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method RetroGameCoverDownloader_Click");
+            _logErrors.LogAndForget(ex, "Error in the method GameCoverScraper_ClickAsync");
+        }
+    }
+
+    private async void RetroGameCoverDownloader_ClickAsync(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
+            _audioInput.PlayNotificationSound();
+            await ResetUiAsync();
+            await _launchTools.RetroGameCoverDownloaderAsync(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method RetroGameCoverDownloader_ClickAsync");
         }
     }
 }

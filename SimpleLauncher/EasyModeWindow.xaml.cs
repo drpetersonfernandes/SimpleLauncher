@@ -355,7 +355,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
         if (_manager is not { Systems.Count: > 0 })
         {
-            await _messageBox.EasyModeUnavailableMessageBox();
+            await _messageBox.EasyModeUnavailableMessageBoxAsync();
             SystemNameDropdown.IsEnabled = false;
             SystemFolderTextBox.IsEnabled = false;
             DownloadEmulatorButton.IsEnabled = false;
@@ -933,7 +933,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     DownloadStatus = $"{componentName} {hasbeensuccessfullydownloadedandinstalled}";
 
                     // Notify user
-                    await _messageBox.DownloadAndExtractionWereSuccessfulMessageBox();
+                    await _messageBox.DownloadAndExtractionWereSuccessfulMessageBoxAsync();
 
                     StopDownloadButton.IsEnabled = false;
                     // Mark as successfully downloaded
@@ -1055,7 +1055,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             case EasyModeManager.DownloadType.ImagePack5:
                 return _messageBox.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
             default:
-                return _messageBox.DownloadExtractionFailedMessageBox();
+                return _messageBox.DownloadExtractionFailedMessageBoxAsync();
         }
     }
 
@@ -1158,12 +1158,12 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolderRaw);
                     var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderRaw);
 
-                    await CreateDefaultSystemFolders.CreateFolders(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logErrors, _messageBox);
+                    await CreateDefaultSystemFolders.CreateFoldersAsync(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logErrors, _messageBox);
 
                     var systemhasbeensuccessfullyadded = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
                     DownloadStatus = systemhasbeensuccessfullyadded;
 
-                    await _messageBox.SystemAddedMessageBox(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
+                    await _messageBox.SystemAddedMessageBoxAsync(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
 
                     Close();
                 }
@@ -1172,7 +1172,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     var errorFailedtoaddsystem = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
                     DownloadStatus = $"{errorFailedtoaddsystem} {ex.Message}";
 
-                    await _messageBox.AddSystemFailedMessageBox(ex.Message);
+                    await _messageBox.AddSystemFailedMessageBoxAsync(ex.Message);
                 }
                 catch (Exception ex)
                 {
@@ -1182,7 +1182,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     const string contextMessage = "Unexpected error adding system.";
                     _logErrors.LogAndForget(ex, contextMessage);
 
-                    await _messageBox.AddSystemFailedMessageBox();
+                    await _messageBox.AddSystemFailedMessageBoxAsync();
                 }
                 finally
                 {
@@ -1288,7 +1288,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     }
 
-    private async void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+    private async void Hyperlink_RequestNavigateAsync(object sender, RequestNavigateEventArgs e)
     {
         try
         {
@@ -1305,7 +1305,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             _logErrors.LogAndForget(ex, "Error opening the download link.");
 
             // Notify user
-            await _messageBox.CouldNotOpenTheDownloadLinkMessageBox();
+            await _messageBox.CouldNotOpenTheDownloadLinkMessageBoxAsync();
         }
     }
 

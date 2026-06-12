@@ -57,7 +57,7 @@ public class LanguageMenuService
         return NameToCode.GetValueOrDefault(menuItem.Name);
     }
 
-    public async void ChangeLanguage(string languageCode)
+    public async void ChangeLanguageAsync(string languageCode)
     {
         try
         {
@@ -69,11 +69,11 @@ public class LanguageMenuService
             SetLanguageCheckMarks(languageCode);
             _host.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingLanguage") ?? "Changing language...");
             await _settings.SaveAsync();
-            await _quitSimpleLauncher.RestartApplication(_messageBox);
+            await _quitSimpleLauncher.RestartApplicationAsync(_messageBox);
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ChangeLanguage");
+            _logErrors.LogAndForget(ex, "Error in the method ChangeLanguageAsync");
         }
     }
 

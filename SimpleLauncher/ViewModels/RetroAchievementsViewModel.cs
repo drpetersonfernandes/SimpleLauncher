@@ -290,7 +290,7 @@ public partial class RetroAchievementsViewModel : ObservableObject
 
         if (fromDate > toDate)
         {
-            await _messageBox.ErrorMessageBox();
+            await _messageBox.ErrorMessageBoxAsync();
             return;
         }
 

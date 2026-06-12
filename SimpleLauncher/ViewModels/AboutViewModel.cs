@@ -92,7 +92,7 @@ public partial class AboutViewModel : ObservableObject
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            await _messageBox.ErrorCheckingForUpdatesMessageBox();
+            await _messageBox.ErrorCheckingForUpdatesMessageBoxAsync();
         }
         finally
         {
@@ -123,7 +123,7 @@ public partial class AboutViewModel : ObservableObject
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            await _messageBox.UnableToOpenLinkMessageBox();
+            await _messageBox.UnableToOpenLinkMessageBoxAsync();
         }
     }
 }

@@ -130,7 +130,7 @@ public partial class InjectMesenConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        await _messageBox.MesenEmulatorNotFoundMessageBox();
+        await _messageBox.MesenEmulatorNotFoundMessageBoxAsync();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -170,7 +170,7 @@ public partial class InjectMesenConfigViewModel : ObservableObject
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -196,12 +196,12 @@ public partial class InjectMesenConfigViewModel : ObservableObject
         {
             if (await InjectConfigAsync())
             {
-                await _messageBox.MesenConfigurationSavedSuccessfullyMessageBox();
+                await _messageBox.MesenConfigurationSavedSuccessfullyMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
         }

@@ -236,7 +236,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         return char.ToUpper(input[0], CultureInfo.InvariantCulture) + input[1..];
     }
 
-    private async void OpenUrlInBrowser(string url)
+    private async void OpenUrlInBrowserAsync(string url)
     {
         try
         {
@@ -246,7 +246,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, $"Error opening URL: {url}");
-            await _messageBox.UnableToOpenLinkMessageBox();
+            await _messageBox.UnableToOpenLinkMessageBoxAsync();
         }
     }
 
@@ -255,17 +255,17 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         if (!string.IsNullOrWhiteSpace(_settings.RaUsername))
         {
             var url = $"https://retroachievements.org/user/{Uri.EscapeDataString(_settings.RaUsername)}";
-            OpenUrlInBrowser(url);
+            OpenUrlInBrowserAsync(url);
         }
     }
 
     private void ViewGameOnRaButton_Click(object sender, RoutedEventArgs e)
     {
         var url = $"https://retroachievements.org/game/{_gameId}";
-        OpenUrlInBrowser(url);
+        OpenUrlInBrowserAsync(url);
     }
 
-    private async void GameImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    private async void GameImage_MouseLeftButtonDownAsync(object sender, MouseButtonEventArgs e)
     {
         try
         {
@@ -274,23 +274,23 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                 if (clickedImage.Source is BitmapImage bitmapImage && bitmapImage.UriSource != null)
                 {
                     _playSoundEffects.PlayNotificationSound();
-                    OpenRaImageViewer(bitmapImage.UriSource); // Use the new RetroAchievementsImageViewerWindow
+                    OpenRaImageViewerAsync(bitmapImage.UriSource); // Use the new RetroAchievementsImageViewerWindow
                 }
                 else
                 {
                     // Log and potentially inform the user if the image source is not a valid URI
                     _logErrors.LogAndForget(null, "Clicked image has no valid URI source to display in viewer.");
-                    await _messageBox.ErrorMessageBox(); // Generic error for the user
+                    await _messageBox.ErrorMessageBoxAsync(); // Generic error for the user
                 }
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method GameImage_MouseLeftButtonDown.");
+            _logErrors.LogAndForget(ex, "Error in the method GameImage_MouseLeftButtonDownAsync.");
         }
     }
 
-    private async void OpenRaImageViewer(Uri imageUri)
+    private async void OpenRaImageViewerAsync(Uri imageUri)
     {
         try
         {
@@ -303,7 +303,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         {
             _logErrors.LogAndForget(ex, $"Failed to open RetroAchievements image viewer for URI: {imageUri}");
             _debugLogger.Log($"Failed to open RetroAchievements image viewer for URI: {imageUri}");
-            await _messageBox.ErrorMessageBox();
+            await _messageBox.ErrorMessageBoxAsync();
         }
     }
 
@@ -1019,7 +1019,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
 
             if (fromDate > toDate)
             {
-                await _messageBox.ErrorMessageBox();
+                await _messageBox.ErrorMessageBoxAsync();
                 return; // Exit without fetching
             }
 

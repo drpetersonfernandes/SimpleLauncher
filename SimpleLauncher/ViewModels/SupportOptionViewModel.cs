@@ -58,19 +58,19 @@ public partial class SupportOptionViewModel : ObservableObject
     [RelayCommand]
     private void AskPerplexity()
     {
-        _ = LaunchAiSearch(_configuration.GetValue<string>("Urls:PerplexitySearch") ?? "https://www.perplexity.ai/search?q=");
+        _ = LaunchAiSearchAsync(_configuration.GetValue<string>("Urls:PerplexitySearch") ?? "https://www.perplexity.ai/search?q=");
     }
 
     [RelayCommand]
     private void AskPhind()
     {
-        _ = LaunchAiSearch(_configuration.GetValue<string>("Urls:PhindSearch") ?? "https://www.phind.com/search?q=");
+        _ = LaunchAiSearchAsync(_configuration.GetValue<string>("Urls:PhindSearch") ?? "https://www.phind.com/search?q=");
     }
 
     [RelayCommand]
     private void AskYou()
     {
-        _ = LaunchAiSearch(_configuration.GetValue<string>("Urls:YouSearch") ?? "https://you.com/search?q=");
+        _ = LaunchAiSearchAsync(_configuration.GetValue<string>("Urls:YouSearch") ?? "https://you.com/search?q=");
     }
 
     [RelayCommand]
@@ -79,7 +79,7 @@ public partial class SupportOptionViewModel : ObservableObject
         CloseRequested?.Invoke();
     }
 
-    private async Task LaunchAiSearch(string baseUrl)
+    private async Task LaunchAiSearchAsync(string baseUrl)
     {
         try
         {
@@ -97,9 +97,9 @@ public partial class SupportOptionViewModel : ObservableObject
             }
             catch (Exception ex)
             {
-                await _messageBox.CouldNotOpenBrowserForAiSupportMessageBox();
+                await _messageBox.CouldNotOpenBrowserForAiSupportMessageBoxAsync();
 
-                var contextMessage = $"Error in LaunchAiSearch with base URL: {baseUrl}";
+                var contextMessage = $"Error in LaunchAiSearchAsync with base URL: {baseUrl}";
                 _logErrors.LogAndForget(ex, contextMessage);
             }
 
@@ -107,7 +107,7 @@ public partial class SupportOptionViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in LaunchAiSearch");
+            _logErrors.LogAndForget(ex, "Error in LaunchAiSearchAsync");
         }
     }
 

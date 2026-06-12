@@ -18,7 +18,8 @@
             <!-- Header Section: Game Cover, Title, Console -->
             <Border Grid.Row="0" Margin="10" Padding="15" BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}" BorderThickness="1" CornerRadius="5">
                 <StackPanel Orientation="Horizontal">
-                    <Image x:Name="GameCoverImage" Width="80" Height="80" Stretch="Uniform" Margin="0,0,15,0" />
+                    <Image x:Name="GameCoverImage" Width="80" Height="80" Stretch="Uniform" Margin="0,0,15,0"
+                           ToolTip="{DynamicResource TooltipGameCoverImage}" />
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock x:Name="GameTitleTextBlock" FontSize="24" FontWeight="Bold" Text="{DynamicResource GameTitle}" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                         <TextBlock x:Name="ConsoleNameTextBlock" FontSize="16" Margin="0,5,0,0" Text="{DynamicResource ConsoleName}" Foreground="{DynamicResource MahApps.Brushes.Text}" />
@@ -133,7 +134,9 @@
                                       GridLinesVisibility="Horizontal"
                                       RowDetailsVisibilityMode="Collapsed"
                                       Background="{DynamicResource MahApps.Brushes.Control.Background}"
-                                      BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}" BorderThickness="1" d:DataContext="{d:DesignInstance }">
+                                      BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}" BorderThickness="1"
+                                      ToolTip="{DynamicResource TooltipAchievementsDataGrid}"
+                                      d:DataContext="{d:DesignInstance }">
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="{DynamicResource HeaderIcon}" Width="Auto">
                                         <DataGridTemplateColumn.CellTemplate>
@@ -183,7 +186,7 @@
                                 <StackPanel Grid.Column="0" Margin="0,0,10,0">
                                     <TextBlock Text="{DynamicResource Icon}" FontSize="14" HorizontalAlignment="Center" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                                     <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray5}" BorderThickness="1" Margin="0,5,0,0" HorizontalAlignment="Center">
-                                        <Image x:Name="GameInfoImageIcon" Width="150" Height="112.5" Stretch="Uniform" MouseLeftButtonDown="GameImage_MouseLeftButtonDown" ToolTip="{DynamicResource ClickToViewFullSize}" />
+                                        <Image x:Name="GameInfoImageIcon" Width="150" Height="112.5" Stretch="Uniform" MouseLeftButtonDown="GameImage_MouseLeftButtonDownAsync" ToolTip="{DynamicResource ClickToViewFullSize}" />
                                     </Border>
                                 </StackPanel>
 
@@ -191,7 +194,7 @@
                                 <StackPanel Grid.Column="1" Margin="10,0,10,0">
                                     <TextBlock Text="{DynamicResource TitleScreen}" FontSize="14" HorizontalAlignment="Center" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                                     <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray5}" BorderThickness="1" Margin="0,5,0,0" HorizontalAlignment="Center">
-                                        <Image x:Name="GameInfoTitleImage" Width="150" Height="112.5" Stretch="Uniform" MouseLeftButtonDown="GameImage_MouseLeftButtonDown" ToolTip="{DynamicResource ClickToViewFullSize}" />
+                                        <Image x:Name="GameInfoTitleImage" Width="150" Height="112.5" Stretch="Uniform" MouseLeftButtonDown="GameImage_MouseLeftButtonDownAsync" ToolTip="{DynamicResource ClickToViewFullSize}" />
                                     </Border>
                                 </StackPanel>
 
@@ -199,7 +202,7 @@
                                 <StackPanel Grid.Column="2" Margin="10,0,10,0">
                                     <TextBlock Text="{DynamicResource InGame}" FontSize="14" HorizontalAlignment="Center" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                                     <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray5}" BorderThickness="1" Margin="0,5,0,0" HorizontalAlignment="Center">
-                                        <Image x:Name="GameInfoIngameImage" Width="150" Height="112.5" Stretch="Uniform" MouseLeftButtonDown="GameImage_MouseLeftButtonDown" ToolTip="{DynamicResource ClickToViewFullSize}" />
+                                        <Image x:Name="GameInfoIngameImage" Width="150" Height="112.5" Stretch="Uniform" MouseLeftButtonDown="GameImage_MouseLeftButtonDownAsync" ToolTip="{DynamicResource ClickToViewFullSize}" />
                                     </Border>
                                 </StackPanel>
 
@@ -207,7 +210,7 @@
                                 <StackPanel Grid.Column="3" Margin="10,0,0,0">
                                     <TextBlock Text="{DynamicResource BoxArt}" FontSize="14" HorizontalAlignment="Center" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                                     <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray5}" BorderThickness="1" Margin="0,5,0,0" HorizontalAlignment="Center">
-                                        <Image x:Name="GameInfoBoxArtImage" Width="150" Height="112.5" Stretch="Uniform" MouseLeftButtonDown="GameImage_MouseLeftButtonDown" ToolTip="{DynamicResource ClickToViewFullSize}" />
+                                        <Image x:Name="GameInfoBoxArtImage" Width="150" Height="112.5" Stretch="Uniform" MouseLeftButtonDown="GameImage_MouseLeftButtonDownAsync" ToolTip="{DynamicResource ClickToViewFullSize}" />
                                     </Border>
                                 </StackPanel>
                             </Grid>
@@ -321,7 +324,9 @@
                                           RowDetailsVisibilityMode="Collapsed"
                                           Background="{DynamicResource MahApps.Brushes.Control.Background}"
                                           BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}" BorderThickness="1"
-                                          MaxHeight="400" d:DataContext="{d:DesignInstance }">
+                                          MaxHeight="400"
+                                          ToolTip="{DynamicResource TooltipGameInfoAchievementsDataGrid}"
+                                          d:DataContext="{d:DesignInstance }">
                                     <DataGrid.Columns>
                                         <DataGridTemplateColumn Header="{DynamicResource HeaderIcon}" Width="Auto">
                                             <DataGridTemplateColumn.CellTemplate>
@@ -400,7 +405,9 @@
                                       GridLinesVisibility="Horizontal"
                                       RowDetailsVisibilityMode="Collapsed"
                                       Background="{DynamicResource MahApps.Brushes.Control.Background}"
-                                      BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}" BorderThickness="1" d:DataContext="{d:DesignInstance }">
+                                      BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}" BorderThickness="1"
+                                      ToolTip="{DynamicResource TooltipLatestMastersDataGrid}"
+                                      d:DataContext="{d:DesignInstance }">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="{DynamicResource HeaderRank}" Binding="{Binding Rank}" Width="Auto" SortMemberPath="Rank" ElementStyle="{DynamicResource MahApps.Styles.DataGrid.Column.TextBlock.RightAligned}" />
                                     <DataGridTextColumn Header="{DynamicResource HeaderUser}" Binding="{Binding User}" Width="*" SortMemberPath="User" />
@@ -427,7 +434,9 @@
                                       GridLinesVisibility="Horizontal"
                                       RowDetailsVisibilityMode="Collapsed"
                                       Background="{DynamicResource MahApps.Brushes.Control.Background}"
-                                      BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}" BorderThickness="1" d:DataContext="{d:DesignInstance }">
+                                      BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}" BorderThickness="1"
+                                      ToolTip="{DynamicResource TooltipHighScoresDataGrid}"
+                                      d:DataContext="{d:DesignInstance }">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="{DynamicResource HeaderRank}" Binding="{Binding Rank}" Width="Auto" SortMemberPath="Rank" ElementStyle="{DynamicResource MahApps.Styles.DataGrid.Column.TextBlock.RightAligned}" />
                                     <DataGridTextColumn Header="{DynamicResource HeaderUser}" Binding="{Binding User}" Width="*" SortMemberPath="User" />

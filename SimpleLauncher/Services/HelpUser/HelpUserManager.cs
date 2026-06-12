@@ -32,7 +32,7 @@ public partial class HelpUserManager
                 _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
-                await _messageBoxLibrary.FileParametersMdIsMissingMessageBox();
+                await _messageBoxLibrary.FileParametersMdIsMissingMessageBoxAsync();
 
                 return;
             }
@@ -49,7 +49,7 @@ public partial class HelpUserManager
                 _logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
-                await _messageBoxLibrary.FailedToLoadParametersMdMessageBox();
+                await _messageBoxLibrary.FailedToLoadParametersMdMessageBoxAsync();
 
                 return;
             }
@@ -61,7 +61,7 @@ public partial class HelpUserManager
                 _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
-                await _messageBoxLibrary.FileParametersMdIsEmptyMessageBox();
+                await _messageBoxLibrary.FileParametersMdIsEmptyMessageBoxAsync();
 
                 return;
             }
@@ -75,7 +75,7 @@ public partial class HelpUserManager
                 _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
-                await _messageBoxLibrary.NoSystemInParametersMdMessageBox();
+                await _messageBoxLibrary.NoSystemInParametersMdMessageBoxAsync();
 
                 return;
             }
@@ -89,7 +89,7 @@ public partial class HelpUserManager
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            await _messageBoxLibrary.ErrorWhileLoadingParametersMdMessageBox();
+            await _messageBoxLibrary.ErrorWhileLoadingParametersMdMessageBoxAsync();
         }
     }
 

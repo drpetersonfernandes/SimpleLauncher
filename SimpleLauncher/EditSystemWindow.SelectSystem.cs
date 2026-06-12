@@ -52,11 +52,11 @@ internal partial class EditSystemWindow
         else
         {
             // A system is selected. Load its details.
-            LoadSystemDetails(currentSelectedSystemName);
+            LoadSystemDetailsAsync(currentSelectedSystemName);
         }
     }
 
-    private async void LoadSystemDetails(string systemNameToLoad)
+    private async void LoadSystemDetailsAsync(string systemNameToLoad)
     {
         try
         {
@@ -137,7 +137,7 @@ internal partial class EditSystemWindow
             }
             else
             {
-                await _messageBox.SystemNotFoundInTheXmlMessageBox();
+                await _messageBox.SystemNotFoundInTheXmlMessageBoxAsync();
                 ClearFieldsForNoSelection();
                 DisableAllEditableFields();
                 SaveSystemButton.IsEnabled = false;
@@ -146,7 +146,7 @@ internal partial class EditSystemWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method LoadSystemDetails.");
+            _logErrors.LogAndForget(ex, "Error in the method LoadSystemDetailsAsync.");
         }
     }
 

@@ -189,9 +189,9 @@ public class GameBrowserService : IGameBrowserService
     /// <summary>
     /// Notifies the system that game files have changed for the specified system, triggering a reload.
     /// </summary>
-    public void OnGameFilesChanged(string systemName)
+    public void OnGameFilesChangedAsync(string systemName)
     {
-        _gameFileLoadingOrchestrator.OnGameFilesChanged(systemName);
+        _gameFileLoadingOrchestrator.OnGameFilesChangedAsync(systemName);
     }
 
     /// <summary>

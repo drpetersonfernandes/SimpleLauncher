@@ -86,26 +86,26 @@ public class MenuOrchestrator : IMenuOrchestrator
     /// <summary>
     /// Handles scanning for Windows games installed on the system.
     /// </summary>
-    public Task HandleScanForWindowsGames()
+    public Task HandleScanForWindowsGamesAsync()
     {
-        return _menuActionHandler.HandleScanForWindowsGames();
+        return _menuActionHandler.HandleScanForWindowsGamesAsync();
     }
 
     /// <summary>
     /// Handles editing external links associated with games.
     /// </summary>
-    public Task HandleEditLinks()
+    public Task HandleEditLinksAsync()
     {
-        return _menuActionHandler.HandleEditLinks();
+        return _menuActionHandler.HandleEditLinksAsync();
     }
 
     /// <summary>
     /// Handles toggling gamepad support on or off.
     /// </summary>
     /// <param name="isChecked">Whether gamepad support should be enabled.</param>
-    public void HandleToggleGamepad(bool isChecked)
+    public void HandleToggleGamepadAsync(bool isChecked)
     {
-        _ = _menuActionHandler.HandleToggleGamepad(isChecked);
+        _ = _menuActionHandler.HandleToggleGamepadAsync(isChecked);
     }
 
     /// <summary>
@@ -120,17 +120,17 @@ public class MenuOrchestrator : IMenuOrchestrator
     /// Handles toggling fuzzy matching for game search on or off.
     /// </summary>
     /// <param name="isChecked">Whether fuzzy matching is enabled.</param>
-    public Task HandleToggleFuzzyMatching(bool isChecked)
+    public Task HandleToggleFuzzyMatchingAsync(bool isChecked)
     {
-        return _menuActionHandler.HandleToggleFuzzyMatching(isChecked);
+        return _menuActionHandler.HandleToggleFuzzyMatchingAsync(isChecked);
     }
 
     /// <summary>
     /// Handles setting the fuzzy matching threshold value.
     /// </summary>
-    public Task HandleSetFuzzyMatchingThreshold()
+    public Task HandleSetFuzzyMatchingThresholdAsync()
     {
-        return _menuActionHandler.HandleSetFuzzyMatchingThreshold();
+        return _menuActionHandler.HandleSetFuzzyMatchingThresholdAsync();
     }
 
     /// <summary>
@@ -144,9 +144,9 @@ public class MenuOrchestrator : IMenuOrchestrator
     /// <summary>
     /// Opens the donation page for the application.
     /// </summary>
-    public void HandleDonate()
+    public void HandleDonateAsync()
     {
-        _ = _menuActionHandler.HandleDonate();
+        _ = _menuActionHandler.HandleDonateAsync();
     }
 
     /// <summary>
@@ -169,36 +169,36 @@ public class MenuOrchestrator : IMenuOrchestrator
     /// Handles changing the show-games filter mode.
     /// </summary>
     /// <param name="showGamesMode">The filter mode to apply (e.g., "ShowAll", "ShowWithCover").</param>
-    public Task HandleShowGames(string showGamesMode)
+    public Task HandleShowGamesAsync(string showGamesMode)
     {
-        return _menuActionHandler.HandleShowGames(showGamesMode);
+        return _menuActionHandler.HandleShowGamesAsync(showGamesMode);
     }
 
     /// <summary>
     /// Handles changing the thumbnail button size.
     /// </summary>
     /// <param name="newSize">The new thumbnail size in pixels.</param>
-    public Task HandleButtonSize(int newSize)
+    public Task HandleButtonSizeAsync(int newSize)
     {
-        return _menuActionHandler.HandleButtonSize(newSize);
+        return _menuActionHandler.HandleButtonSizeAsync(newSize);
     }
 
     /// <summary>
     /// Handles changing the button aspect ratio.
     /// </summary>
     /// <param name="aspectRatio">The aspect ratio identifier to apply.</param>
-    public Task HandleButtonAspectRatio(string aspectRatio)
+    public Task HandleButtonAspectRatioAsync(string aspectRatio)
     {
-        return _menuActionHandler.HandleButtonAspectRatio(aspectRatio);
+        return _menuActionHandler.HandleButtonAspectRatioAsync(aspectRatio);
     }
 
     /// <summary>
     /// Handles changing the number of games displayed per page.
     /// </summary>
     /// <param name="newPage">The new number of games per page.</param>
-    public Task HandleGamesPerPage(int newPage)
+    public Task HandleGamesPerPageAsync(int newPage)
     {
-        return _menuActionHandler.HandleGamesPerPage(newPage);
+        return _menuActionHandler.HandleGamesPerPageAsync(newPage);
     }
 
     /// <summary>
@@ -244,154 +244,154 @@ public class MenuOrchestrator : IMenuOrchestrator
     /// <summary>
     /// Opens the system-specific favorites window.
     /// </summary>
-    public Task HandleShowSystemFavorites()
+    public Task HandleShowSystemFavoritesAsync()
     {
-        return _menuActionHandler.HandleShowSystemFavorites();
+        return _menuActionHandler.HandleShowSystemFavoritesAsync();
     }
 
     /// <summary>
     /// Selects and launches a random game from the current system.
     /// </summary>
-    public Task HandleFeelingLucky()
+    public Task HandleFeelingLuckyAsync()
     {
-        return _menuActionHandler.HandleFeelingLucky();
+        return _menuActionHandler.HandleFeelingLuckyAsync();
     }
 
     /// <summary>
     /// Shows games that have RetroAchievements support.
     /// </summary>
-    public Task HandleShowGamesWithRetroAchievements()
+    public Task HandleShowGamesWithRetroAchievementsAsync()
     {
-        return _menuActionHandler.HandleShowGamesWithRetroAchievements();
+        return _menuActionHandler.HandleShowGamesWithRetroAchievementsAsync();
     }
 
     /// <summary>
     /// Handles zooming in on the game grid.
     /// </summary>
-    public Task HandleZoomIn()
+    public Task HandleZoomInAsync()
     {
-        return _menuActionHandler.HandleZoomIn();
+        return _menuActionHandler.HandleZoomInAsync();
     }
 
     /// <summary>
     /// Handles zooming out on the game grid.
     /// </summary>
-    public Task HandleZoomOut()
+    public Task HandleZoomOutAsync()
     {
-        return _menuActionHandler.HandleZoomOut();
+        return _menuActionHandler.HandleZoomOutAsync();
     }
 
     /// <summary>
     /// Handles toggling between list view and grid view.
     /// </summary>
-    public Task HandleToggleViewMode()
+    public Task HandleToggleViewModeAsync()
     {
-        return _menuActionHandler.HandleToggleViewMode();
+        return _menuActionHandler.HandleToggleViewModeAsync();
     }
 
     /// <summary>
     /// Handles changing the view mode based on the sender menu item.
     /// </summary>
     /// <param name="sender">The menu item that triggered the view mode change.</param>
-    public void HandleChangeViewMode(object sender)
+    public void HandleChangeViewModeAsync(object sender)
     {
-        _ = _menuActionHandler.HandleChangeViewMode(sender);
+        _ = _menuActionHandler.HandleChangeViewModeAsync(sender);
     }
 
     /// <summary>
     /// Handles changing the filename display mode.
     /// </summary>
     /// <param name="mode">The display mode to apply (e.g., "Original", "CleanUp").</param>
-    public Task HandleFilenameDisplayMode(string mode)
+    public Task HandleFilenameDisplayModeAsync(string mode)
     {
-        return _menuActionHandler.HandleFilenameDisplayMode(mode);
+        return _menuActionHandler.HandleFilenameDisplayModeAsync(mode);
     }
 
     /// <summary>
     /// Handles toggling machine name display on or off.
     /// </summary>
     /// <param name="isChecked">Whether to display machine names.</param>
-    public Task HandleDisplayMachineName(bool isChecked)
+    public Task HandleDisplayMachineNameAsync(bool isChecked)
     {
-        return _menuActionHandler.HandleDisplayMachineName(isChecked);
+        return _menuActionHandler.HandleDisplayMachineNameAsync(isChecked);
     }
 
     /// <summary>
     /// Handles changing the filename font size.
     /// </summary>
     /// <param name="size">The font size to apply (e.g., "Small", "Normal", "Big").</param>
-    public Task HandleFilenameFontSize(string size)
+    public Task HandleFilenameFontSizeAsync(string size)
     {
-        return _menuActionHandler.HandleFilenameFontSize(size);
+        return _menuActionHandler.HandleFilenameFontSizeAsync(size);
     }
 
     /// <summary>
     /// Handles changing the machine name font size.
     /// </summary>
     /// <param name="size">The font size to apply (e.g., "Small", "Normal", "Big").</param>
-    public Task HandleMachineNameFontSize(string size)
+    public Task HandleMachineNameFontSizeAsync(string size)
     {
-        return _menuActionHandler.HandleMachineNameFontSize(size);
+        return _menuActionHandler.HandleMachineNameFontSizeAsync(size);
     }
 
     /// <summary>
     /// Opens the sound configuration window.
     /// </summary>
-    public void HandleSoundConfiguration()
+    public void HandleSoundConfigurationAsync()
     {
-        _ = _menuActionHandler.HandleSoundConfiguration();
+        _ = _menuActionHandler.HandleSoundConfigurationAsync();
     }
 
     /// <summary>
     /// Opens the RetroAchievements settings window.
     /// </summary>
-    public Task HandleShowRetroAchievementsSettings()
+    public Task HandleShowRetroAchievementsSettingsAsync()
     {
-        return _menuActionHandler.HandleShowRetroAchievementsSettings();
+        return _menuActionHandler.HandleShowRetroAchievementsSettingsAsync();
     }
 
     /// <summary>
     /// Handles toggling the RetroAchievement button visibility.
     /// </summary>
     /// <param name="isChecked">Whether the button should be visible.</param>
-    public Task HandleToggleRetroAchievementButton(bool isChecked)
+    public Task HandleToggleRetroAchievementButtonAsync(bool isChecked)
     {
-        return _menuActionHandler.HandleToggleRetroAchievementButton(isChecked);
+        return _menuActionHandler.HandleToggleRetroAchievementButtonAsync(isChecked);
     }
 
     /// <summary>
     /// Handles toggling the video link button visibility.
     /// </summary>
     /// <param name="isChecked">Whether the button should be visible.</param>
-    public Task HandleToggleVideoLinkButton(bool isChecked)
+    public Task HandleToggleVideoLinkButtonAsync(bool isChecked)
     {
-        return _menuActionHandler.HandleToggleVideoLinkButton(isChecked);
+        return _menuActionHandler.HandleToggleVideoLinkButtonAsync(isChecked);
     }
 
     /// <summary>
     /// Handles toggling the info link button visibility.
     /// </summary>
     /// <param name="isChecked">Whether the button should be visible.</param>
-    public Task HandleToggleInfoLinkButton(bool isChecked)
+    public Task HandleToggleInfoLinkButtonAsync(bool isChecked)
     {
-        return _menuActionHandler.HandleToggleInfoLinkButton(isChecked);
+        return _menuActionHandler.HandleToggleInfoLinkButtonAsync(isChecked);
     }
 
     /// <summary>
     /// Handles toggling the sort order between ascending and descending.
     /// </summary>
-    public Task HandleSortOrderToggle()
+    public Task HandleSortOrderToggleAsync()
     {
-        return _menuActionHandler.HandleSortOrderToggle();
+        return _menuActionHandler.HandleSortOrderToggleAsync();
     }
 
     /// <summary>
     /// Handles clicking a letter or number in the top navigation menu to jump to that section.
     /// </summary>
     /// <param name="selectedLetter">The letter or number clicked.</param>
-    public Task HandleTopLetterNumberMenuClick(string selectedLetter)
+    public Task HandleTopLetterNumberMenuClickAsync(string selectedLetter)
     {
-        return _menuActionHandler.HandleTopLetterNumberMenuClick(selectedLetter);
+        return _menuActionHandler.HandleTopLetterNumberMenuClickAsync(selectedLetter);
     }
 
     /// <summary>
@@ -519,9 +519,9 @@ public class MenuOrchestrator : IMenuOrchestrator
     /// Changes the application language to the specified language code.
     /// </summary>
     /// <param name="languageCode">The language code to apply.</param>
-    public void ChangeLanguage(string languageCode)
+    public void ChangeLanguageAsync(string languageCode)
     {
-        _languageMenu.ChangeLanguage(languageCode);
+        _languageMenu.ChangeLanguageAsync(languageCode);
     }
 
     /// <summary>

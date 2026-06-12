@@ -5,9 +5,6 @@
                       Title="{DynamicResource AzaharConfig_Title}"
                       Height="650" Width="700"
                       WindowStartupLocation="CenterScreen">
-    <controls:MetroWindow.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    </controls:MetroWindow.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

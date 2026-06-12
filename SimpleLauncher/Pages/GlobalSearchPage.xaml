@@ -64,7 +64,7 @@
                             Style="{DynamicResource SecondaryActionButtonStyle}"
                             ToolTip="{DynamicResource TooltipGlobalSearchButton}"
                             AutomationProperties.Name="{DynamicResource Search}" />
-                    <Button Name="LaunchButton" Content="{DynamicResource LaunchSelectedGame}" Click="LaunchButton_Click"
+                    <Button Name="LaunchButton" Content="{DynamicResource LaunchSelectedGame}" Click="LaunchButton_ClickAsync"
                             IsEnabled="False"
                             Style="{DynamicResource PrimaryActionButtonStyle}"
                             ToolTip="{DynamicResource TooltipLaunchFromSearch}"
@@ -79,8 +79,9 @@
                       AutoGenerateColumns="False"
                       IsReadOnly="True"
                       ScrollViewer.CanContentScroll="True"
-                      MouseRightButtonUp="GlobalSearchPrepareForRightClickContextMenu"
-                      MouseDoubleClick="ResultsDataGrid_MouseDoubleClick"
+                      ToolTip="{DynamicResource TooltipResultsDataGrid}"
+                      MouseRightButtonUp="GlobalSearchPrepareForRightClickContextMenuAsync"
+                      MouseDoubleClick="ResultsDataGrid_MouseDoubleClickAsync"
                        SelectionChanged="ActionsWhenUserSelectAResultItemAsync">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}" Binding="{Binding FileNameWithExtension}" Width="*" />
@@ -134,7 +135,8 @@
                     <Image Name="PreviewImage"
                            Stretch="Uniform"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center" />
+                           VerticalAlignment="Center"
+                           ToolTip="{DynamicResource TooltipResultsPreviewImage}" />
                 </Border>
             </Grid>
         </Grid>

@@ -30,7 +30,7 @@ public class QuitSimpleLauncher
     /// <summary>
     /// Restarts the application by launching a new process and shutting down the current one.
     /// </summary>
-    public async Task RestartApplication(IMessageBoxLibraryService messageBox)
+    public async Task RestartApplicationAsync(IMessageBoxLibraryService messageBox)
     {
         var processModule = Process.GetCurrentProcess().MainModule;
         if (processModule == null) return;
@@ -53,7 +53,7 @@ public class QuitSimpleLauncher
             _logErrors.LogAndForget(ex, "Failed to start new process during application restart.");
 
             // Notify user
-            await messageBox.FailedToRestartMessageBox();
+            await messageBox.FailedToRestartMessageBoxAsync();
 
             // Don't shut down the current instance if the new one couldn't start
             return;
@@ -105,7 +105,7 @@ public class QuitSimpleLauncher
         // 2. If neither downloaded nor local file exists, notify and return
         if (!downloaded && !File.Exists(updaterPath))
         {
-            await messageBox.UpdaterLaunchFailedMessageBox();
+            await messageBox.UpdaterLaunchFailedMessageBoxAsync();
             return;
         }
 
@@ -131,13 +131,13 @@ public class QuitSimpleLauncher
         {
             _logErrors.LogAndForget(ex, "Access denied when starting Updater.exe.");
 
-            await messageBox.UpdaterLaunchFailedMessageBox();
+            await messageBox.UpdaterLaunchFailedMessageBoxAsync();
         }
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Failed to start updater and shut down.");
 
-            await messageBox.UpdaterLaunchFailedMessageBox();
+            await messageBox.UpdaterLaunchFailedMessageBoxAsync();
         }
     }
 }

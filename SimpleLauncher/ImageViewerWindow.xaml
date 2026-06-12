@@ -7,6 +7,7 @@
                       Height="600"
                       WindowStartupLocation="CenterScreen">
     <Grid>
-        <Image Source="{Binding ImageSource}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Image Source="{Binding ImageSource}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"
+               ToolTip="{DynamicResource TooltipImageViewer}" />
     </Grid>
 </controls:MetroWindow>

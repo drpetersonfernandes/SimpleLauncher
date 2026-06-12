@@ -46,7 +46,7 @@ public class MountChdFiles : IMountChdFiles
             const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
             _debugLogger.Log($"[MountChdFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
             return new MountChdDrive(logErrors, _debugLogger);
         }
 
@@ -55,7 +55,7 @@ public class MountChdFiles : IMountChdFiles
             const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
             _debugLogger.Log($"[MountChdFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            await messageBox.DokanDriverNotInstalledMessageBox();
+            await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return new MountChdDrive(logErrors, _debugLogger);
         }
 
@@ -101,7 +101,7 @@ public class MountChdFiles : IMountChdFiles
                 }
 
                 mountProcess.Dispose();
-                await messageBox.ThereWasAnErrorMountingTheFileMessageBox(exitCode);
+                await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync(exitCode);
                 return new MountChdDrive(logErrors, _debugLogger);
             }
 
@@ -129,7 +129,7 @@ public class MountChdFiles : IMountChdFiles
 
             mountProcess.Dispose();
 
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
             return new MountChdDrive(logErrors, _debugLogger);
         }
     }
@@ -161,7 +161,7 @@ public class MountChdFiles : IMountChdFiles
             const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
             _debugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
             return;
         }
 
@@ -170,7 +170,7 @@ public class MountChdFiles : IMountChdFiles
             const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
             _debugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            await messageBox.DokanDriverNotInstalledMessageBox();
+            await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return;
         }
 
@@ -218,7 +218,7 @@ public class MountChdFiles : IMountChdFiles
                 }
 
                 mountProcess.Dispose();
-                await messageBox.ThereWasAnErrorMountingTheFileMessageBox(exitCode);
+                await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync(exitCode);
                 return;
             }
 
@@ -248,7 +248,7 @@ public class MountChdFiles : IMountChdFiles
                                  $"{exitCodeInfoInCatch}";
             logErrors.LogAndForget(ex, contextMessage);
 
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
         }
         finally
         {
@@ -350,7 +350,7 @@ public class MountChdFiles : IMountChdFiles
             const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
             _debugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
             return;
         }
 
@@ -359,7 +359,7 @@ public class MountChdFiles : IMountChdFiles
             const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
             _debugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            await messageBox.DokanDriverNotInstalledMessageBox();
+            await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return;
         }
 
@@ -413,7 +413,7 @@ public class MountChdFiles : IMountChdFiles
                 }
 
                 mountProcess.Dispose();
-                await messageBox.ThereWasAnErrorMountingTheFileMessageBox(exitCode);
+                await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync(exitCode);
                 return;
             }
 
@@ -443,7 +443,7 @@ public class MountChdFiles : IMountChdFiles
                                  $"{exitCodeInfoInCatch}";
             logErrors.LogAndForget(ex, contextMessage);
 
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
         }
         finally
         {

@@ -30,15 +30,15 @@ public partial class MainWindow
         _menuOrchestrator.HandleDownloadImagePack();
     }
 
-    private async void ScanForMicrosoftWindowsGames_Click(object sender, RoutedEventArgs e)
+    private async void ScanForMicrosoftWindowsGames_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
-            await _menuOrchestrator.HandleScanForWindowsGames();
+            await _menuOrchestrator.HandleScanForWindowsGamesAsync();
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ScanForMicrosoftWindowsGames_Click");
+            _logErrors.LogAndForget(ex, "Error in the method ScanForMicrosoftWindowsGames_ClickAsync");
         }
     }
 
@@ -66,7 +66,7 @@ public partial class MainWindow
     {
         try
         {
-            await _menuOrchestrator.HandleEditLinks();
+            await _menuOrchestrator.HandleEditLinksAsync();
         }
         catch (Exception ex)
         {
@@ -78,7 +78,7 @@ public partial class MainWindow
     {
         if (sender is not MenuItem menuItem) return;
 
-        _menuOrchestrator.HandleToggleGamepad(menuItem.IsChecked);
+        _menuOrchestrator.HandleToggleGamepadAsync(menuItem.IsChecked);
     }
 
     private void SetGamepadDeadZone_Click(object sender, RoutedEventArgs e)
@@ -92,7 +92,7 @@ public partial class MainWindow
         {
             if (sender is not MenuItem menuItem) return;
 
-            await _menuOrchestrator.HandleToggleFuzzyMatching(menuItem.IsChecked);
+            await _menuOrchestrator.HandleToggleFuzzyMatchingAsync(menuItem.IsChecked);
         }
         catch (Exception ex)
         {
@@ -104,7 +104,7 @@ public partial class MainWindow
     {
         try
         {
-            await _menuOrchestrator.HandleSetFuzzyMatchingThreshold();
+            await _menuOrchestrator.HandleSetFuzzyMatchingThresholdAsync();
         }
         catch (Exception ex)
         {
@@ -119,7 +119,7 @@ public partial class MainWindow
 
     private void Donate_Click(object sender, RoutedEventArgs e)
     {
-        _menuOrchestrator.HandleDonate();
+        _menuOrchestrator.HandleDonateAsync();
     }
 
     private void About_Click(object sender, RoutedEventArgs e)
@@ -136,7 +136,7 @@ public partial class MainWindow
     {
         try
         {
-            await _menuOrchestrator.HandleShowGames("ShowAll");
+            await _menuOrchestrator.HandleShowGamesAsync("ShowAll");
         }
         catch (Exception ex)
         {
@@ -148,7 +148,7 @@ public partial class MainWindow
     {
         try
         {
-            await _menuOrchestrator.HandleShowGames("ShowWithCover");
+            await _menuOrchestrator.HandleShowGamesAsync("ShowWithCover");
         }
         catch (Exception ex)
         {
@@ -160,7 +160,7 @@ public partial class MainWindow
     {
         try
         {
-            await _menuOrchestrator.HandleShowGames("ShowWithoutCover");
+            await _menuOrchestrator.HandleShowGamesAsync("ShowWithoutCover");
         }
         catch (Exception ex)
         {
@@ -177,7 +177,7 @@ public partial class MainWindow
             var sizeText = clickedItem.Name.Replace("Size", "");
             if (!int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out var newSize)) return;
 
-            await _menuOrchestrator.HandleButtonSize(newSize);
+            await _menuOrchestrator.HandleButtonSizeAsync(newSize);
         }
         catch (Exception ex)
         {
@@ -191,7 +191,7 @@ public partial class MainWindow
         {
             if (sender is not MenuItem clickedItem) return;
 
-            await _menuOrchestrator.HandleButtonAspectRatio(clickedItem.Name);
+            await _menuOrchestrator.HandleButtonAspectRatioAsync(clickedItem.Name);
         }
         catch (Exception ex)
         {
@@ -208,7 +208,7 @@ public partial class MainWindow
             var pageText = clickedItem.Name.Replace("Page", "");
             if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out var newPage)) return;
 
-            await _menuOrchestrator.HandleGamesPerPage(newPage);
+            await _menuOrchestrator.HandleGamesPerPageAsync(newPage);
         }
         catch (Exception ex)
         {
@@ -301,11 +301,11 @@ public partial class MainWindow
             _logErrors.LogAndForget(ex, errorMessage);
 
             // Notify user
-            await _messageBox.ErrorMessageBox();
+            await _messageBox.ErrorMessageBoxAsync();
         }
     }
 
-    private async void FilenameDisplayMode_Click(object sender, RoutedEventArgs e)
+    private async void FilenameDisplayMode_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -319,29 +319,29 @@ public partial class MainWindow
                 _ => "Original"
             };
 
-            await _menuOrchestrator.HandleFilenameDisplayMode(mode);
+            await _menuOrchestrator.HandleFilenameDisplayModeAsync(mode);
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method FilenameDisplayMode_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method FilenameDisplayMode_ClickAsync.");
         }
     }
 
-    private async void DisplayMachineName_Click(object sender, RoutedEventArgs e)
+    private async void DisplayMachineName_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
             if (sender is not MenuItem menuItem) return;
 
-            await _menuOrchestrator.HandleDisplayMachineName(menuItem.IsChecked);
+            await _menuOrchestrator.HandleDisplayMachineNameAsync(menuItem.IsChecked);
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method DisplayMachineName_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method DisplayMachineName_ClickAsync.");
         }
     }
 
-    private async void FilenameFontSize_Click(object sender, RoutedEventArgs e)
+    private async void FilenameFontSize_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -355,15 +355,15 @@ public partial class MainWindow
                 _ => "Normal"
             };
 
-            await _menuOrchestrator.HandleFilenameFontSize(size);
+            await _menuOrchestrator.HandleFilenameFontSizeAsync(size);
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method FilenameFontSize_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method FilenameFontSize_ClickAsync.");
         }
     }
 
-    private async void MachineNameFontSize_Click(object sender, RoutedEventArgs e)
+    private async void MachineNameFontSize_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -377,17 +377,17 @@ public partial class MainWindow
                 _ => "Normal"
             };
 
-            await _menuOrchestrator.HandleMachineNameFontSize(size);
+            await _menuOrchestrator.HandleMachineNameFontSizeAsync(size);
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method MachineNameFontSize_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method MachineNameFontSize_ClickAsync.");
         }
     }
 
     private void ChangeViewMode_Click(object sender, RoutedEventArgs e)
     {
-        _menuOrchestrator.HandleChangeViewMode(sender);
+        _menuOrchestrator.HandleChangeViewModeAsync(sender);
     }
 
     private void ApplyShowGamesSetting()
@@ -437,7 +437,7 @@ public partial class MainWindow
     {
         try
         {
-            await _menuOrchestrator.HandleShowSystemFavorites();
+            await _menuOrchestrator.HandleShowSystemFavoritesAsync();
         }
         catch (Exception ex)
         {
@@ -449,7 +449,7 @@ public partial class MainWindow
     {
         try
         {
-            await _menuOrchestrator.HandleFeelingLucky();
+            await _menuOrchestrator.HandleFeelingLuckyAsync();
         }
         catch (Exception ex)
         {
@@ -461,7 +461,7 @@ public partial class MainWindow
     {
         try
         {
-            await _menuOrchestrator.HandleShowGamesWithRetroAchievements();
+            await _menuOrchestrator.HandleShowGamesWithRetroAchievementsAsync();
         }
         catch (Exception ex)
         {
@@ -473,7 +473,7 @@ public partial class MainWindow
     {
         try
         {
-            await _menuOrchestrator.HandleZoomIn();
+            await _menuOrchestrator.HandleZoomInAsync();
         }
         catch (Exception ex)
         {
@@ -485,7 +485,7 @@ public partial class MainWindow
     {
         try
         {
-            await _menuOrchestrator.HandleZoomOut();
+            await _menuOrchestrator.HandleZoomOutAsync();
         }
         catch (Exception ex)
         {
@@ -497,7 +497,7 @@ public partial class MainWindow
     {
         try
         {
-            await _menuOrchestrator.HandleToggleViewMode();
+            await _menuOrchestrator.HandleToggleViewModeAsync();
         }
         catch (Exception ex)
         {
@@ -507,60 +507,60 @@ public partial class MainWindow
 
     private void SoundConfiguration_Click(object sender, RoutedEventArgs e)
     {
-        _menuOrchestrator.HandleSoundConfiguration();
+        _menuOrchestrator.HandleSoundConfigurationAsync();
     }
 
-    private async void ShowRetroAchievementsSettingsWindow_Click(object sender, RoutedEventArgs e)
+    private async void ShowRetroAchievementsSettingsWindow_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
-            await _menuOrchestrator.HandleShowRetroAchievementsSettings();
+            await _menuOrchestrator.HandleShowRetroAchievementsSettingsAsync();
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ShowRetroAchievementsSettingsWindow_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method ShowRetroAchievementsSettingsWindow_ClickAsync.");
         }
     }
 
-    private async void ToggleRetroAchievementButton_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            if (sender is not MenuItem menuItem) return;
-
-            await _menuOrchestrator.HandleToggleRetroAchievementButton(menuItem.IsChecked);
-        }
-        catch (Exception ex)
-        {
-            _logErrors.LogAndForget(ex, "Error in the method ToggleRetroAchievementButton_Click.");
-        }
-    }
-
-    private async void ToggleVideoLinkButton_Click(object sender, RoutedEventArgs e)
+    private async void ToggleRetroAchievementButton_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
             if (sender is not MenuItem menuItem) return;
 
-            await _menuOrchestrator.HandleToggleVideoLinkButton(menuItem.IsChecked);
+            await _menuOrchestrator.HandleToggleRetroAchievementButtonAsync(menuItem.IsChecked);
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ToggleVideoLinkButton_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method ToggleRetroAchievementButton_ClickAsync.");
         }
     }
 
-    private async void ToggleInfoLinkButton_Click(object sender, RoutedEventArgs e)
+    private async void ToggleVideoLinkButton_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
             if (sender is not MenuItem menuItem) return;
 
-            await _menuOrchestrator.HandleToggleInfoLinkButton(menuItem.IsChecked);
+            await _menuOrchestrator.HandleToggleVideoLinkButtonAsync(menuItem.IsChecked);
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ToggleInfoLinkButton_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method ToggleVideoLinkButton_ClickAsync.");
+        }
+    }
+
+    private async void ToggleInfoLinkButton_ClickAsync(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem menuItem) return;
+
+            await _menuOrchestrator.HandleToggleInfoLinkButtonAsync(menuItem.IsChecked);
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method ToggleInfoLinkButton_ClickAsync.");
         }
     }
 

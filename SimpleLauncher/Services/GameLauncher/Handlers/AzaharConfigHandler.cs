@@ -63,7 +63,7 @@ public class AzaharConfigHandler : IEmulatorConfigHandler
                 catch (AzaharPermissionException)
                 {
                     // Show permission error message but allow the game to launch
-                    await _messageBox.AzaharConfigurationInjectionPermissionErrorMessageBox();
+                    await _messageBox.AzaharConfigurationInjectionPermissionErrorMessageBoxAsync();
                     // Return true to allow the game to launch with default settings
                 }
             }

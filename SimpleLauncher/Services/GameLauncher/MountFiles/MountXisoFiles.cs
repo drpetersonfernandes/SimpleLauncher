@@ -73,7 +73,7 @@ public class MountXisoFiles : IMountXisoFiles
             var errorMessage = $"{Path.GetFileName(toolRelativePath)} not found. Cannot mount ISO.";
             _debugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
             return new MountXisoDrive(logErrors, _debugLogger);
         }
 
@@ -82,7 +82,7 @@ public class MountXisoFiles : IMountXisoFiles
             const string errorMessage = "Dokan driver not found. Cannot mount ISO.";
             _debugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            await messageBox.DokanDriverNotInstalledMessageBox();
+            await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return new MountXisoDrive(logErrors, _debugLogger);
         }
 
@@ -92,7 +92,7 @@ public class MountXisoFiles : IMountXisoFiles
             const string errorMessage = "No available drive letters found to mount the ISO.";
             _debugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
             return new MountXisoDrive(logErrors, _debugLogger);
         }
 
@@ -137,7 +137,7 @@ public class MountXisoFiles : IMountXisoFiles
                 }
 
                 mountProcess.Dispose();
-                await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
+                await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
                 return new MountXisoDrive(logErrors, _debugLogger);
             }
 
@@ -164,7 +164,7 @@ public class MountXisoFiles : IMountXisoFiles
 
             mountProcess.Dispose();
 
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
             return new MountXisoDrive(logErrors, _debugLogger);
         }
     }

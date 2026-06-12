@@ -185,7 +185,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        await _messageBox.ReDreamEmulatorPathNotFoundMessageBox();
+        await _messageBox.ReDreamEmulatorPathNotFoundMessageBoxAsync();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -225,7 +225,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -251,12 +251,12 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
         {
             if (await InjectConfigAsync())
             {
-                await _messageBox.ReDreamConfigurationInjectedSuccessfullyMessageBox();
+                await _messageBox.ReDreamConfigurationInjectedSuccessfullyMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
         }

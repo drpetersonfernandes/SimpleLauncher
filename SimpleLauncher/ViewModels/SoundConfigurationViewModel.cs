@@ -53,7 +53,7 @@ public partial class SoundConfigurationViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task ChooseSoundFile()
+    private async Task ChooseSoundFileAsync()
     {
         var sourceFilePath = RequestSoundFilePath?.Invoke();
         if (string.IsNullOrEmpty(sourceFilePath)) return;
@@ -76,12 +76,12 @@ public partial class SoundConfigurationViewModel : ObservableObject
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error choosing or copying sound file.");
-            await _messageBox.ErrorSettingSoundFileMessageBox();
+            await _messageBox.ErrorSettingSoundFileMessageBoxAsync();
         }
     }
 
     [RelayCommand]
-    private Task PlayCurrentSound()
+    private Task PlayCurrentSoundAsync()
     {
         switch (EnableNotificationSound)
         {
@@ -89,9 +89,9 @@ public partial class SoundConfigurationViewModel : ObservableObject
                 _playSoundEffects.PlayConfiguredSound(NotificationSoundFile);
                 break;
             case false:
-                return _messageBox.NotificationSoundIsDisableMessageBox();
+                return _messageBox.NotificationSoundIsDisableMessageBoxAsync();
             default:
-                return _messageBox.NoSoundFileIsSelectedMessageBox();
+                return _messageBox.NoSoundFileIsSelectedMessageBoxAsync();
         }
 
         return Task.CompletedTask;
@@ -105,7 +105,7 @@ public partial class SoundConfigurationViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task Save()
+    private async Task SaveAsync()
     {
         _settings.EnableNotificationSound = EnableNotificationSound;
         _settings.CustomNotificationSoundFile = NotificationSoundFile;
@@ -114,7 +114,7 @@ public partial class SoundConfigurationViewModel : ObservableObject
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
             _resourceProvider.GetString("SavingSoundSettings", "Saving sound settings..."));
 
-        await _messageBox.SettingsSavedSuccessfullyMessageBox();
+        await _messageBox.SettingsSavedSuccessfullyMessageBoxAsync();
 
         SaveCompleted?.Invoke();
     }

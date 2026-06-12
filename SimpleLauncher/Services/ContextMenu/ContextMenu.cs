@@ -138,7 +138,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("AddingToFavorites") ?? "Adding to favorites...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.AddToFavorites(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects, _logErrors, _messageBox);
+            _ = contextMenuFunctions.AddToFavoritesAsync(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects, _logErrors, _messageBox);
         };
 
         // Remove From Favorites Context Menu
@@ -158,7 +158,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingFromFavorites") ?? "Removing from favorites...");
             context.PlaySoundEffects.PlayTrashSound();
-            _ = contextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects, _logErrors, _messageBox);
+            _ = contextMenuFunctions.RemoveFromFavoritesAsync(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects, _logErrors, _messageBox);
 
             // Invoke the callback if it exists
             context.OnFavoriteRemoved?.Invoke();
@@ -181,7 +181,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningVideoLink") ?? "Opening video link...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenVideoLink(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.Settings, context.MainWindow, _logErrors, _messageBox);
+            _ = contextMenuFunctions.OpenVideoLinkAsync(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.Settings, context.MainWindow, _logErrors, _messageBox);
         };
 
         // Open Info Link Context Menu
@@ -201,7 +201,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningInfoLink") ?? "Opening info link...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenInfoLink(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.Settings, context.MainWindow, _logErrors, _messageBox);
+            _ = contextMenuFunctions.OpenInfoLinkAsync(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.Settings, context.MainWindow, _logErrors, _messageBox);
         };
 
         // Open History Context Menu
@@ -221,7 +221,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningROMHistory") ?? "Opening ROM history...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenRomHistoryWindow(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.MainWindow, _logErrors, _messageBox);
+            _ = contextMenuFunctions.OpenRomHistoryWindowAsync(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.MainWindow, _logErrors, _messageBox);
         };
 
         // View Achievements Context Menu - Only add for supported systems
@@ -273,7 +273,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningCoverImage") ?? "Opening cover image...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenCover(context.SelectedSystemName, context.FileNameWithoutExtension, context.SelectedSystemManager, context.MainWindow, _messageBox);
+            _ = contextMenuFunctions.OpenCoverAsync(context.SelectedSystemName, context.FileNameWithoutExtension, context.SelectedSystemManager, context.MainWindow, _messageBox);
         };
 
         // Open Title Snapshot Context Menu
@@ -293,7 +293,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningTitleSnapshot") ?? "Opening title snapshot...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenTitleSnapshot(context.SelectedSystemName, context.FileNameWithoutExtension, _messageBox);
+            _ = contextMenuFunctions.OpenTitleSnapshotAsync(context.SelectedSystemName, context.FileNameWithoutExtension, _messageBox);
         };
 
         // Open Gameplay Snapshot Context Menu
@@ -313,7 +313,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningGameplaySnapshot") ?? "Opening gameplay snapshot...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenGameplaySnapshot(context.SelectedSystemName, context.FileNameWithoutExtension, _messageBox);
+            _ = contextMenuFunctions.OpenGameplaySnapshotAsync(context.SelectedSystemName, context.FileNameWithoutExtension, _messageBox);
         };
 
         // Open Cart Context Menu
@@ -333,7 +333,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningCartImage") ?? "Opening cart image...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenCart(context.SelectedSystemName, context.FileNameWithoutExtension, _messageBox);
+            _ = contextMenuFunctions.OpenCartAsync(context.SelectedSystemName, context.FileNameWithoutExtension, _messageBox);
         };
 
         // Open Video Context Menu
@@ -353,7 +353,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("PlayingVideo") ?? "Playing video...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.PlayVideo(context.SelectedSystemName, context.FileNameWithoutExtension, _messageBox);
+            _ = contextMenuFunctions.PlayVideoAsync(context.SelectedSystemName, context.FileNameWithoutExtension, _messageBox);
         };
 
         // Open Manual Context Menu
@@ -373,7 +373,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningManual") ?? "Opening manual...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenManual(context.SelectedSystemName, context.FileNameWithoutExtension, _logErrors, _messageBox);
+            _ = contextMenuFunctions.OpenManualAsync(context.SelectedSystemName, context.FileNameWithoutExtension, _logErrors, _messageBox);
         };
 
         // Open Walkthrough Context Menu
@@ -393,7 +393,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningWalkthrough") ?? "Opening walkthrough...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenWalkthrough(context.SelectedSystemName, context.FileNameWithoutExtension, _logErrors, _messageBox);
+            _ = contextMenuFunctions.OpenWalkthroughAsync(context.SelectedSystemName, context.FileNameWithoutExtension, _logErrors, _messageBox);
         };
 
         // Open Cabinet Context Menu
@@ -413,7 +413,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningCabinetImage") ?? "Opening cabinet image...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenCabinet(context.SelectedSystemName, context.FileNameWithoutExtension, _messageBox);
+            _ = contextMenuFunctions.OpenCabinetAsync(context.SelectedSystemName, context.FileNameWithoutExtension, _messageBox);
         };
 
         // Open Flyer Context Menu
@@ -433,7 +433,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningFlyerImage") ?? "Opening flyer image...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenFlyer(context.SelectedSystemName, context.FileNameWithoutExtension, _messageBox);
+            _ = contextMenuFunctions.OpenFlyerAsync(context.SelectedSystemName, context.FileNameWithoutExtension, _messageBox);
         };
 
         // Open PCB Context Menu
@@ -453,7 +453,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningPCBImage") ?? "Opening PCB image...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenPcb(context.SelectedSystemName, context.FileNameWithoutExtension, _messageBox);
+            _ = contextMenuFunctions.OpenPcbAsync(context.SelectedSystemName, context.FileNameWithoutExtension, _messageBox);
         };
 
         // Take Screenshot Context Menu
@@ -478,7 +478,7 @@ public class ContextMenuService : IContextMenuService
                 context.PlaySoundEffects.PlayNotificationSound();
 
                 // Notify user
-                await _messageBox.TakeScreenShotMessageBox();
+                await _messageBox.TakeScreenShotMessageBoxAsync();
 
                 string selectedEmulatorName;
 
@@ -525,12 +525,12 @@ public class ContextMenuService : IContextMenuService
             {
                 context.PlaySoundEffects.PlayNotificationSound();
 
-                var result = await _messageBox.AreYouSureYouWantToDeleteTheGameMessageBox(context.FileNameWithExtension);
+                var result = await _messageBox.AreYouSureYouWantToDeleteTheGameMessageBoxAsync(context.FileNameWithExtension);
                 if (result == CoreMessageBoxResult.Yes)
                 {
                     try
                     {
-                        await contextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects, _logErrors, _messageBox);
+                        await contextMenuFunctions.RemoveFromFavoritesAsync(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects, _logErrors, _messageBox);
 
                         // Invoke the callback if it exists
                         context.OnFavoriteRemoved?.Invoke();
@@ -545,7 +545,7 @@ public class ContextMenuService : IContextMenuService
                         _logErrors.LogAndForget(ex, contextMessage);
 
                         // Notify user
-                        await _messageBox.ThereWasAnErrorDeletingTheGameMessageBox();
+                        await _messageBox.ThereWasAnErrorDeletingTheGameMessageBoxAsync();
                     }
                 }
             }
@@ -577,7 +577,7 @@ public class ContextMenuService : IContextMenuService
             {
                 context.PlaySoundEffects.PlayNotificationSound();
 
-                var result = await _messageBox.AreYouSureYouWantToDeleteTheCoverImageMessageBox(context.FileNameWithoutExtension);
+                var result = await _messageBox.AreYouSureYouWantToDeleteTheCoverImageMessageBoxAsync(context.FileNameWithoutExtension);
                 if (result == CoreMessageBoxResult.Yes)
                 {
                     try
@@ -591,7 +591,7 @@ public class ContextMenuService : IContextMenuService
                         _logErrors.LogAndForget(ex, contextMessage);
 
                         // Notify user
-                        await _messageBox.ThereWasAnErrorDeletingTheCoverImageMessageBox();
+                        await _messageBox.ThereWasAnErrorDeletingTheCoverImageMessageBoxAsync();
                     }
                 }
             }
@@ -642,7 +642,7 @@ public class ContextMenuService : IContextMenuService
                 await _logErrors.LogErrorAsync(null, "Right click context menu was invoked, but the FilePath is null or empty.");
 
                 // Notify user
-                await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
 
                 return true;
             }
@@ -653,7 +653,7 @@ public class ContextMenuService : IContextMenuService
                 await _logErrors.LogErrorAsync(null, "[CheckParametersForNullOrEmptyAsync] Right click context menu was invoked, but the SelectedEmulatorName is null or empty.");
 
                 // Notify user
-                await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
 
                 return true;
             }
@@ -664,7 +664,7 @@ public class ContextMenuService : IContextMenuService
                 await _logErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedSystemName is null or empty.");
 
                 // Notify user
-                await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
 
                 return true;
             }
@@ -675,7 +675,7 @@ public class ContextMenuService : IContextMenuService
                 await _logErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedSystemManager is null.");
 
                 // Notify user
-                await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
 
                 return true;
             }

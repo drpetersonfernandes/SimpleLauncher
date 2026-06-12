@@ -145,7 +145,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        await _messageBox.SegaModel2EmulatorNotFoundMessageBox();
+        await _messageBox.SegaModel2EmulatorNotFoundMessageBoxAsync();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -185,7 +185,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -211,12 +211,12 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
         {
             if (InjectConfig())
             {
-                await _messageBox.SegaModel2ConfigurationSavedSuccessfullyMessageBox();
+                await _messageBox.SegaModel2ConfigurationSavedSuccessfullyMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
         }

@@ -40,7 +40,7 @@ public interface IGameBrowserService
     Dictionary<string, string> MameLookup { get; }
 
     // File watcher
-    void OnGameFilesChanged(string systemName);
+    void OnGameFilesChangedAsync(string systemName);
 
     // Cleanup
     void ClearCache();

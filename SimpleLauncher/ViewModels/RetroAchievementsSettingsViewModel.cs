@@ -45,7 +45,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     public event Func<string> RequestExePath;
 
     [RelayCommand]
-    private async Task Save()
+    private async Task SaveAsync()
     {
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
             _resourceProvider.GetString("SavingRetroAchievementsSettings", "Saving RetroAchievements settings..."));
@@ -62,7 +62,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error opening RetroAchievements control panel link.");
-            await _messageBox.UnableToOpenLinkMessageBox();
+            await _messageBox.UnableToOpenLinkMessageBoxAsync();
         }
 
         SaveCompleted?.Invoke();
@@ -78,7 +78,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                await _messageBox.EnterUsernamePasswordMessageBox();
+                await _messageBox.EnterUsernamePasswordMessageBoxAsync();
                 return;
             }
 
@@ -101,7 +101,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
                     }
                     else
                     {
-                        await _messageBox.FailedToLoginToRetroAchievementsMessageBox();
+                        await _messageBox.FailedToLoginToRetroAchievementsMessageBoxAsync();
                         return;
                     }
                 }
@@ -126,16 +126,16 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
 
                 if (success)
                 {
-                    await _messageBox.EmulatorConfiguredSuccessfullyMessageBox();
+                    await _messageBox.EmulatorConfiguredSuccessfullyMessageBoxAsync();
                 }
                 else
                 {
-                    await _messageBox.FailedToConfigureTheEmulatorMessageBox();
+                    await _messageBox.FailedToConfigureTheEmulatorMessageBoxAsync();
                 }
             }
             catch (Exception ex)
             {
-                await _messageBox.AnErrorOccurredWhileConfiguringTheEmulatorMessageBox();
+                await _messageBox.AnErrorOccurredWhileConfiguringTheEmulatorMessageBoxAsync();
                 _logErrors.LogAndForget(ex, $"Failed to configure {emulatorName}.");
             }
         }

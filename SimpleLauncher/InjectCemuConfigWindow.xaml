@@ -6,9 +6,6 @@
                       Height="600" Width="700"
                       ResizeMode="CanResize"
                       WindowStartupLocation="CenterScreen">
-    <controls:MetroWindow.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    </controls:MetroWindow.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

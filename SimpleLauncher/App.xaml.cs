@@ -491,7 +491,7 @@ public partial class App : IDisposable
                 ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to create or acquire single instance mutex.");
 
                 var messageBox = ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
-                _ = messageBox.FailedToStartSimpleLauncherMessageBox();
+                _ = messageBox.FailedToStartSimpleLauncherMessageBoxAsync();
 
                 _singleInstanceMutex.Dispose();
                 Shutdown();
@@ -503,7 +503,7 @@ public partial class App : IDisposable
                 ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to create or acquire single instance mutex.");
 
                 var messageBox = ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
-                _ = messageBox.FailedToStartSimpleLauncherMessageBox();
+                _ = messageBox.FailedToStartSimpleLauncherMessageBoxAsync();
 
                 _singleInstanceMutex.Dispose();
                 Shutdown();
@@ -710,7 +710,7 @@ public partial class App : IDisposable
         {
             var gamePadController = ServiceProvider.GetRequiredService<GamePadController>();
             // Dispose gamepad resources
-            _ = gamePadController.Stop();
+            _ = gamePadController.StopAsync();
             gamePadController.Dispose();
         }
         catch (InvalidOperationException ex)

@@ -18,7 +18,7 @@ public static class CreateDefaultSystemFolders
     /// <param name="configuration">The application configuration for additional folder settings.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public static async Task CreateFolders(string systemName, string systemFolder, string systemImageFolder, IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public static async Task CreateFoldersAsync(string systemName, string systemFolder, string systemImageFolder, IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var additionalFolders = configuration.GetValue<string[]>("AdditionalFolders") ??
@@ -42,7 +42,7 @@ public static class CreateDefaultSystemFolders
                     logErrors.LogAndForget(ex, "Error creating the primary system folder.");
 
                     // Notify user
-                    await messageBox.FolderCreationFailedMessageBox();
+                    await messageBox.FolderCreationFailedMessageBoxAsync();
                 }
             }
 
@@ -58,7 +58,7 @@ public static class CreateDefaultSystemFolders
                     logErrors.LogAndForget(ex, "Error creating the primary image folder.");
 
                     // Notify user
-                    await messageBox.FolderCreationFailedMessageBox();
+                    await messageBox.FolderCreationFailedMessageBoxAsync();
                 }
             }
 
@@ -80,7 +80,7 @@ public static class CreateDefaultSystemFolders
                     logErrors.LogAndForget(ex, $"Error creating the {folder} folder.");
 
                     // Notify user
-                    await messageBox.FolderCreationFailedMessageBox();
+                    await messageBox.FolderCreationFailedMessageBoxAsync();
                 }
             }
         }
@@ -91,7 +91,7 @@ public static class CreateDefaultSystemFolders
             logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            await messageBox.FolderCreationFailedMessageBox();
+            await messageBox.FolderCreationFailedMessageBoxAsync();
 
             throw;
         }

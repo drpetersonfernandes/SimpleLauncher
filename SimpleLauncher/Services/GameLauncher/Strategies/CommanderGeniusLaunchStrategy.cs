@@ -100,7 +100,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                 {
                     _debugLogger.Log("[CommanderGeniusLaunchStrategy] Emulator executable not found.");
                     LogErrorAsync($"Emulator executable not found: {emulatorLocation}");
-                    await _messageBox.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                     return;
                 }
 
@@ -181,7 +181,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
                     if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
                     {
-                        await _messageBox.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                        await _messageBox.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                     }
                 }
                 catch (Exception ex)
@@ -198,7 +198,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
                     if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
                     {
-                        await _messageBox.CouldNotLaunchGameMessageBox(
+                        await _messageBox.CouldNotLaunchGameMessageBoxAsync(
                             PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                     }
                 }

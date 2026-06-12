@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -103,7 +103,7 @@ public partial class MainWindow
         }
     }
 
-    private async void Convert_Click(object sender, RoutedEventArgs e)
+    private async void Convert_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -134,11 +134,11 @@ public partial class MainWindow
                 // Start the conversion based on the type
                 if (conversionType == "XML to Binary")
                 {
-                    await _converterService.ConvertXmlToBinary(InputFilePathTextBox.Text, OutputFilePathTextBox.Text, progress);
+                    await _converterService.ConvertXmlToBinaryAsync(InputFilePathTextBox.Text, OutputFilePathTextBox.Text, progress);
                 }
                 else
                 {
-                    await _converterService.ConvertBinaryToXml(InputFilePathTextBox.Text, OutputFilePathTextBox.Text, progress);
+                    await _converterService.ConvertBinaryToXmlAsync(InputFilePathTextBox.Text, OutputFilePathTextBox.Text, progress);
                 }
 
                 // Show success message

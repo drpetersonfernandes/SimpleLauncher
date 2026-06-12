@@ -64,10 +64,10 @@ public class StartupInitializationService
         InitializeStatusBarTimer();
         ApplyInitialThemeAndLanguage();
         InitializeUiState();
-        await CheckWriteAccess();
+        await CheckWriteAccessAsync();
         InitializePagination();
         InitializeTrayIcon();
-        await CheckRequiredFiles();
+        await CheckRequiredFilesAsync();
         InitializeOverlayButtons();
         InitializeGamePad();
     }
@@ -109,11 +109,11 @@ public class StartupInitializationService
         _debugLogger.Log("ViewMode was set.");
     }
 
-    private async Task CheckWriteAccess()
+    private async Task CheckWriteAccessAsync()
     {
         if (!CheckDirWritable.IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory, _logErrors))
         {
-            await _messageBoxLibrary.MoveToWritableFolderMessageBox();
+            await _messageBoxLibrary.MoveToWritableFolderMessageBoxAsync();
             _debugLogger.Log("Application does not have write access.");
         }
     }
@@ -130,16 +130,16 @@ public class StartupInitializationService
         _debugLogger.Log("TrayIconManager was initialized.");
     }
 
-    private async Task CheckRequiredFiles()
+    private async Task CheckRequiredFilesAsync()
     {
         try
         {
-            await _requiredFiles.CheckFiles(_configuration, _logErrors);
+            await _requiredFiles.CheckFilesAsync(_configuration, _logErrors);
             _debugLogger.Log("Required files were checked.");
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method CheckRequiredFiles.");
+            _logErrors.LogAndForget(ex, "Error in the method CheckRequiredFilesAsync.");
         }
     }
 
@@ -156,11 +156,11 @@ public class StartupInitializationService
         _gamePadController.ErrorLogger = (ex, msg) => { _logErrors.LogAndForget(ex, msg); };
         if (_settings.EnableGamePadNavigation)
         {
-            _ = _gamePadController.Start();
+            _ = _gamePadController.StartAsync();
         }
         else
         {
-            _ = _gamePadController.Stop();
+            _ = _gamePadController.StopAsync();
         }
 
         _gamePadController.DeadZoneX = _settings.DeadZoneX;

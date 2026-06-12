@@ -15,6 +15,7 @@
                                  VerticalAlignment="Top"
                                  HorizontalAlignment="Stretch"
                                  Markdown="{Binding MarkdownContent}"
-                                 MarkdownStyle="{StaticResource ThemeAwareMarkdownStyle}" />
+                                 MarkdownStyle="{StaticResource ThemeAwareMarkdownStyle}"
+                                 ToolTip="{DynamicResource TooltipUpdateHistoryViewer}" />
     </Grid>
 </controls:MetroWindow>

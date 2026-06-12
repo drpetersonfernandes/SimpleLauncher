@@ -30,7 +30,7 @@ public class ReinstallSimpleLauncher
     /// <summary>
     /// Launches Updater.exe (downloading it from GitHub if missing) and shuts down the application.
     /// </summary>
-    public async void StartUpdaterAndShutdown()
+    public async void StartUpdaterAndShutdownAsync()
     {
         try
         {
@@ -59,7 +59,7 @@ public class ReinstallSimpleLauncher
                         _logErrors.LogAndForget(ex, "Access denied when starting Updater.exe.");
 
                         // Notify user that update failed
-                        await messageBoxLibrary.UpdaterLaunchFailedMessageBox();
+                        await messageBoxLibrary.UpdaterLaunchFailedMessageBoxAsync();
                     }
                 }
                 else
@@ -73,7 +73,7 @@ public class ReinstallSimpleLauncher
 
                         if (string.IsNullOrEmpty(updaterZipUrl))
                         {
-                            await messageBoxLibrary.CouldNotFindUpdaterOnGitHubMessageBox();
+                            await messageBoxLibrary.CouldNotFindUpdaterOnGitHubMessageBoxAsync();
                             return;
                         }
 
@@ -87,7 +87,7 @@ public class ReinstallSimpleLauncher
                         if (!extractionSuccess)
                         {
                             // Notify user
-                            await messageBoxLibrary.InstallUpdateManuallyMessageBox();
+                            await messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
 
                             return;
                         }
@@ -113,13 +113,13 @@ public class ReinstallSimpleLauncher
                                 _logErrors.LogAndForget(ex, "Access denied when starting Updater.exe after download.");
 
                                 // Notify user that update failed
-                                await messageBoxLibrary.UpdaterLaunchFailedMessageBox();
+                                await messageBoxLibrary.UpdaterLaunchFailedMessageBoxAsync();
                             }
                         }
                         else
                         {
                             // Notify user
-                            await messageBoxLibrary.InstallUpdateManuallyMessageBox();
+                            await messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
                         }
                     }
                     catch (Exception ex)
@@ -128,7 +128,7 @@ public class ReinstallSimpleLauncher
                         _logErrors.LogAndForget(ex, "Failed to download and reinstall the updater.");
 
                         // Notify user
-                        await messageBoxLibrary.InstallUpdateManuallyMessageBox();
+                        await messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
                     }
                 }
             }
@@ -138,12 +138,12 @@ public class ReinstallSimpleLauncher
                 _logErrors.LogAndForget(ex, "Failed to reinstall SimpleLauncher.");
 
                 // Notify user
-                await messageBoxLibrary.InstallUpdateManuallyMessageBox();
+                await messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method StartUpdaterAndShutdown.");
+            _logErrors.LogAndForget(ex, "Error in the method StartUpdaterAndShutdownAsync.");
         }
     }
 

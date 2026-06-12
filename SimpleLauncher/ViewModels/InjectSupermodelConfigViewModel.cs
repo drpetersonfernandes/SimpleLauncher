@@ -147,7 +147,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        await _messageBox.SupermodelEmulatorNotFoundMessageBox();
+        await _messageBox.SupermodelEmulatorNotFoundMessageBoxAsync();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -187,7 +187,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -213,12 +213,12 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
         {
             if (InjectConfig())
             {
-                await _messageBox.SupermodelConfigurationSavedSuccessfullyMessageBox();
+                await _messageBox.SupermodelConfigurationSavedSuccessfullyMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
         }

@@ -166,7 +166,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        await _messageBox.RaineExecutableNotFoundMessageBox();
+        await _messageBox.RaineExecutableNotFoundMessageBoxAsync();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -226,7 +226,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -252,12 +252,12 @@ public partial class InjectRaineConfigViewModel : ObservableObject
         {
             if (await InjectConfigAsync())
             {
-                await _messageBox.RaineSettingsSavedAndInjectedMessageBox();
+                await _messageBox.RaineSettingsSavedAndInjectedMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
         }

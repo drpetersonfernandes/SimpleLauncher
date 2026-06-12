@@ -144,7 +144,7 @@ public partial class UpdateChecker
                     if (latestVersion == null)
                     {
                         _logErrors.LogAndForget(new InvalidDataException("Could not determine latest version from API response."), "Update Check Error");
-                        await _messageBoxLibrary.ErrorCheckingForUpdatesMessageBox();
+                        await _messageBoxLibrary.ErrorCheckingForUpdatesMessageBoxAsync();
                         return;
                     }
 
@@ -166,13 +166,13 @@ public partial class UpdateChecker
                             _logErrors.LogAndForget(new FileNotFoundException(message, expectedUpdaterFileName), "Update Process Info");
 
                             // Notify user
-                            await _messageBoxLibrary.InstallUpdateManuallyMessageBox();
+                            await _messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
                         }
                     }
                     else
                     {
                         // Notify user
-                        await _messageBoxLibrary.ThereIsNoUpdateAvailableMessageBox(CurrentVersion);
+                        await _messageBoxLibrary.ThereIsNoUpdateAvailableMessageBoxAsync(CurrentVersion);
                     }
                 }
                 else
@@ -181,7 +181,7 @@ public partial class UpdateChecker
                     _logErrors.LogAndForget(new HttpRequestException($"GitHub API request failed with status code {response.StatusCode}."), "Update Check Error");
 
                     // Notify user
-                    await _messageBoxLibrary.ErrorCheckingForUpdatesMessageBox();
+                    await _messageBoxLibrary.ErrorCheckingForUpdatesMessageBoxAsync();
                 }
             }
         }
@@ -192,7 +192,7 @@ public partial class UpdateChecker
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            await _messageBoxLibrary.ErrorCheckingForUpdatesMessageBox();
+            await _messageBoxLibrary.ErrorCheckingForUpdatesMessageBoxAsync();
         }
     }
 
@@ -239,7 +239,7 @@ public partial class UpdateChecker
 
         try
         {
-            var result = await _messageBoxLibrary.DoYouWantToUpdateMessageBox(currentVersion, latestVersion);
+            var result = await _messageBoxLibrary.DoYouWantToUpdateMessageBoxAsync(currentVersion, latestVersion);
             if (result != CoreMessageBoxResult.Yes)
             {
                 return;
@@ -274,7 +274,7 @@ public partial class UpdateChecker
             const string contextMessage = "There was an error preparing for the application update.";
             _logErrors.LogAndForget(ex, contextMessage);
             logWindow?.Log($"An unexpected error occurred during the update process: {ex.Message}");
-            await _messageBoxLibrary.InstallUpdateManuallyMessageBox();
+            await _messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
         }
         finally
         {

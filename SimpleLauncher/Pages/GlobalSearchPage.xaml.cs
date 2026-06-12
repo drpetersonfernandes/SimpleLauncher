@@ -158,7 +158,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         }
     }
 
-    private async void LaunchButton_Click(object sender, RoutedEventArgs e)
+    private async void LaunchButton_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -169,13 +169,13 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
             }
             else
             {
-                await _messageBox.SelectAGameToLaunchMessageBox();
+                await _messageBox.SelectAGameToLaunchMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in LaunchButton_Click (GlobalSearch).");
-            await _messageBox.ErrorLaunchingGameMessageBox(
+            _logErrors.LogAndForget(ex, "Error in LaunchButton_ClickAsync (GlobalSearch).");
+            await _messageBox.ErrorLaunchingGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
@@ -187,7 +187,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
             if (string.IsNullOrEmpty(filePath) || string.IsNullOrEmpty(selectedSystemName) || selectedEmulatorManager == null)
             {
                 _logErrors.LogAndForget(null, "[LaunchGameFromSearchResultAsync] filePath or selectedSystemName or selectedEmulatorManager is null.");
-                await _messageBox.ErrorLaunchingGameMessageBox(
+                await _messageBox.ErrorLaunchingGameMessageBoxAsync(
                     PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
             }
@@ -196,7 +196,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
             if (selectedSystemManager == null)
             {
                 _logErrors.LogAndForget(null, "[LaunchGameFromSearchResultAsync] System manager not found.");
-                await _messageBox.ErrorLaunchingGameMessageBox(
+                await _messageBox.ErrorLaunchingGameMessageBoxAsync(
                     PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
             }
@@ -207,12 +207,12 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, $"[LaunchGameFromSearchResultAsync] Error launching: {filePath}, System: {selectedSystemName}");
-            await _messageBox.ErrorLaunchingGameMessageBox(
+            await _messageBox.ErrorLaunchingGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 
-    private async void GlobalSearchPrepareForRightClickContextMenu(object sender, MouseButtonEventArgs e)
+    private async void GlobalSearchPrepareForRightClickContextMenuAsync(object sender, MouseButtonEventArgs e)
     {
         try
         {
@@ -223,7 +223,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
             if (systemManager == null)
             {
                 _logErrors.LogAndForget(null, "SystemManager is null");
-                await _messageBox.ErrorLaunchingGameMessageBox(
+                await _messageBox.ErrorLaunchingGameMessageBoxAsync(
                     PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
             }
@@ -231,7 +231,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
             if (string.IsNullOrEmpty(selectedResult.FilePath) || string.IsNullOrEmpty(selectedResult.SystemName) || selectedResult.EmulatorManager == null)
             {
                 _logErrors.LogAndForget(null, "FilePath, SystemName, or EmulatorManager is null.");
-                await _messageBox.ErrorLaunchingGameMessageBox(
+                await _messageBox.ErrorLaunchingGameMessageBoxAsync(
                     PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
             }
@@ -268,11 +268,11 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in GlobalSearch right-click context menu.");
-            await _messageBox.RightClickContextMenuErrorMessageBox();
+            await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
         }
     }
 
-    private async void ResultsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    private async void ResultsDataGrid_MouseDoubleClickAsync(object sender, MouseButtonEventArgs e)
     {
         try
         {
@@ -283,8 +283,8 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in ResultsDataGrid_MouseDoubleClick (GlobalSearch).");
-            await _messageBox.CouldNotLaunchThisGameMessageBox(
+            _logErrors.LogAndForget(ex, "Error in ResultsDataGrid_MouseDoubleClickAsync (GlobalSearch).");
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }

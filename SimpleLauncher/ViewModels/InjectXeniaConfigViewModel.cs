@@ -194,7 +194,7 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        await _messageBox.XeniaemulatorpathnotfoundMessageBox();
+        await _messageBox.XeniaemulatorpathnotfoundMessageBoxAsync();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -234,7 +234,7 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -260,12 +260,12 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
         {
             if (InjectConfig())
             {
-                await _messageBox.XeniaconfigurationinjectedsuccessfullyMessageBox();
+                await _messageBox.XeniaconfigurationinjectedsuccessfullyMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
         }

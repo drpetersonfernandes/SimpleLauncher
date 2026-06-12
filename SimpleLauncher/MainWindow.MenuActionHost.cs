@@ -237,8 +237,8 @@ public partial class MainWindow : IMenuActionHost
     }
 
     // Language
-    void IMenuActionHost.ChangeLanguage(string languageCode)
+    void IMenuActionHost.ChangeLanguageAsync(string languageCode)
     {
-        _menuOrchestrator.ChangeLanguage(languageCode);
+        _menuOrchestrator.ChangeLanguageAsync(languageCode);
     }
 }

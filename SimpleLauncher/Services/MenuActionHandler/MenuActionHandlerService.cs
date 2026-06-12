@@ -340,7 +340,7 @@ public class MenuActionHandlerService
 
     // ---- Scan for Windows Games ----
 
-    public async Task HandleScanForWindowsGames()
+    public async Task HandleScanForWindowsGamesAsync()
     {
         try
         {
@@ -356,7 +356,7 @@ public class MenuActionHandlerService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in method ScanForMicrosoftWindowsGames_Click.");
+                _logErrors.LogAndForget(ex, "Error in method ScanForMicrosoftWindowsGames_ClickAsync.");
             }
             finally
             {
@@ -365,13 +365,13 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ScanForMicrosoftWindowsGames_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method ScanForMicrosoftWindowsGames_ClickAsync.");
         }
     }
 
     // ---- Edit Links ----
 
-    public async Task HandleEditLinks()
+    public async Task HandleEditLinksAsync()
     {
         try
         {
@@ -396,7 +396,7 @@ public class MenuActionHandlerService
 
     // ---- Toggle Gamepad ----
 
-    public async Task HandleToggleGamepad(bool isChecked)
+    public async Task HandleToggleGamepadAsync(bool isChecked)
     {
         try
         {
@@ -406,9 +406,9 @@ public class MenuActionHandlerService
             await _settings.SaveAsync();
 
             if (isChecked)
-                await _gamePadController.Start();
+                await _gamePadController.StartAsync();
             else
-                await _gamePadController.Stop();
+                await _gamePadController.StopAsync();
 
             _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingGamepadNavigation") ?? "Toggling gamepad navigation...");
         }
@@ -416,7 +416,7 @@ public class MenuActionHandlerService
         {
             const string contextMessage = "Failed to toggle gamepad.";
             _logErrors.LogAndForget(ex, contextMessage);
-            await _messageBoxLibrary.ToggleGamepadFailureMessageBox();
+            await _messageBoxLibrary.ToggleGamepadFailureMessageBoxAsync();
         }
     }
 
@@ -435,18 +435,18 @@ public class MenuActionHandlerService
 
         if (_settings.EnableGamePadNavigation)
         {
-            _ = _gamePadController.Stop();
-            _ = _gamePadController.Start();
+            _ = _gamePadController.StopAsync();
+            _ = _gamePadController.StartAsync();
         }
         else
         {
-            _ = _gamePadController.Stop();
+            _ = _gamePadController.StopAsync();
         }
     }
 
     // ---- Toggle Fuzzy Matching ----
 
-    public async Task HandleToggleFuzzyMatching(bool isChecked)
+    public async Task HandleToggleFuzzyMatchingAsync(bool isChecked)
     {
         try
         {
@@ -471,7 +471,7 @@ public class MenuActionHandlerService
             {
                 const string contextMessage = "Failed to toggle fuzzy matching.";
                 _logErrors.LogAndForget(ex, contextMessage);
-                await _messageBoxLibrary.ToggleFuzzyMatchingFailureMessageBox();
+                await _messageBoxLibrary.ToggleFuzzyMatchingFailureMessageBoxAsync();
             }
         }
         catch (Exception ex)
@@ -482,7 +482,7 @@ public class MenuActionHandlerService
 
     // ---- Set Fuzzy Matching Threshold ----
 
-    public async Task HandleSetFuzzyMatchingThreshold()
+    public async Task HandleSetFuzzyMatchingThresholdAsync()
     {
         try
         {
@@ -518,7 +518,7 @@ public class MenuActionHandlerService
         supportRequestWindow.ShowDialog();
     }
 
-    public async Task HandleDonate()
+    public async Task HandleDonateAsync()
     {
         try
         {
@@ -536,7 +536,7 @@ public class MenuActionHandlerService
         {
             const string contextMessage = "Unable to open the Donation Link from the menu.";
             _logErrors.LogAndForget(ex, contextMessage);
-            await _messageBoxLibrary.ErrorOpeningDonationLinkMessageBox();
+            await _messageBoxLibrary.ErrorOpeningDonationLinkMessageBoxAsync();
         }
     }
 
@@ -558,7 +558,7 @@ public class MenuActionHandlerService
 
     // ---- Show Games Settings ----
 
-    public async Task HandleShowGames(string showGamesMode)
+    public async Task HandleShowGamesAsync(string showGamesMode)
     {
         try
         {
@@ -591,7 +591,7 @@ public class MenuActionHandlerService
 
     // ---- Button Size ----
 
-    public async Task HandleButtonSize(int newSize)
+    public async Task HandleButtonSizeAsync(int newSize)
     {
         try
         {
@@ -617,7 +617,7 @@ public class MenuActionHandlerService
             {
                 const string errorMessage = "Error in method ButtonSizeClickAsync.";
                 _logErrors.LogAndForget(ex, errorMessage);
-                await _messageBoxLibrary.ErrorMessageBox();
+                await _messageBoxLibrary.ErrorMessageBoxAsync();
             }
         }
         catch (Exception ex)
@@ -628,7 +628,7 @@ public class MenuActionHandlerService
 
     // ---- Button Aspect Ratio ----
 
-    public async Task HandleButtonAspectRatio(string aspectRatio)
+    public async Task HandleButtonAspectRatioAsync(string aspectRatio)
     {
         try
         {
@@ -653,7 +653,7 @@ public class MenuActionHandlerService
             {
                 const string contextMessage = "Error in method ButtonAspectRatioClickAsync";
                 _logErrors.LogAndForget(ex, contextMessage);
-                await _messageBoxLibrary.ErrorMessageBox();
+                await _messageBoxLibrary.ErrorMessageBoxAsync();
             }
         }
         catch (Exception ex)
@@ -664,7 +664,7 @@ public class MenuActionHandlerService
 
     // ---- Games Per Page ----
 
-    public async Task HandleGamesPerPage(int newPage)
+    public async Task HandleGamesPerPageAsync(int newPage)
     {
         try
         {
@@ -674,7 +674,7 @@ public class MenuActionHandlerService
             {
                 if (newPage is 1000 or 10000 or 1000000)
                 {
-                    if (await _messageBoxLibrary.WarnUserAboutMemoryConsumptionMessageBox() == MessageBoxResult.No)
+                    if (await _messageBoxLibrary.WarnUserAboutMemoryConsumptionMessageBoxAsync() == MessageBoxResult.No)
                     {
                         return;
                     }
@@ -797,7 +797,7 @@ public class MenuActionHandlerService
 
     // ---- System Favorites ----
 
-    public async Task HandleShowSystemFavorites()
+    public async Task HandleShowSystemFavoritesAsync()
     {
         try
         {
@@ -813,7 +813,7 @@ public class MenuActionHandlerService
 
     // ---- Random / Feeling Lucky ----
 
-    public async Task HandleFeelingLucky()
+    public async Task HandleFeelingLuckyAsync()
     {
         try
         {
@@ -829,7 +829,7 @@ public class MenuActionHandlerService
 
     // ---- Retro Achievements Filter ----
 
-    public async Task HandleShowGamesWithRetroAchievements()
+    public async Task HandleShowGamesWithRetroAchievementsAsync()
     {
         try
         {
@@ -861,7 +861,7 @@ public class MenuActionHandlerService
     private const int MinThumbnailSize = 50;
     private const int ZoomStep = 50;
 
-    public async Task HandleZoomIn()
+    public async Task HandleZoomInAsync()
     {
         try
         {
@@ -902,11 +902,11 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method HandleZoomIn.");
+            _logErrors.LogAndForget(ex, "Error in the method HandleZoomInAsync.");
         }
     }
 
-    public async Task HandleZoomOut()
+    public async Task HandleZoomOutAsync()
     {
         try
         {
@@ -947,13 +947,13 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method HandleZoomOut.");
+            _logErrors.LogAndForget(ex, "Error in the method HandleZoomOutAsync.");
         }
     }
 
     // ---- View Mode ----
 
-    public async Task HandleToggleViewMode()
+    public async Task HandleToggleViewModeAsync()
     {
         try
         {
@@ -990,7 +990,7 @@ public class MenuActionHandlerService
         }
     }
 
-    public async Task HandleChangeViewMode(object sender)
+    public async Task HandleChangeViewModeAsync(object sender)
     {
         try
         {
@@ -1026,13 +1026,13 @@ public class MenuActionHandlerService
         {
             const string errorMessage = "Error while using the method ChangeViewMode_Click.";
             _logErrors.LogAndForget(ex, errorMessage);
-            await _messageBoxLibrary.ErrorChangingViewModeMessageBox();
+            await _messageBoxLibrary.ErrorChangingViewModeMessageBoxAsync();
         }
     }
 
     // ---- Filename Display Mode ----
 
-    public async Task HandleFilenameDisplayMode(string mode)
+    public async Task HandleFilenameDisplayModeAsync(string mode)
     {
         try
         {
@@ -1059,19 +1059,19 @@ public class MenuActionHandlerService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in method FilenameDisplayMode_Click.");
-                await _messageBoxLibrary.ErrorMessageBox();
+                _logErrors.LogAndForget(ex, "Error in method FilenameDisplayMode_ClickAsync.");
+                await _messageBoxLibrary.ErrorMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method FilenameDisplayMode_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method FilenameDisplayMode_ClickAsync.");
         }
     }
 
     // ---- Display Machine Name ----
 
-    public async Task HandleDisplayMachineName(bool isChecked)
+    public async Task HandleDisplayMachineNameAsync(bool isChecked)
     {
         try
         {
@@ -1096,19 +1096,19 @@ public class MenuActionHandlerService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in method DisplayMachineName_Click.");
-                await _messageBoxLibrary.ErrorMessageBox();
+                _logErrors.LogAndForget(ex, "Error in method DisplayMachineName_ClickAsync.");
+                await _messageBoxLibrary.ErrorMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method DisplayMachineName_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method DisplayMachineName_ClickAsync.");
         }
     }
 
     // ---- Filename Font Size ----
 
-    public async Task HandleFilenameFontSize(string size)
+    public async Task HandleFilenameFontSizeAsync(string size)
     {
         try
         {
@@ -1135,19 +1135,19 @@ public class MenuActionHandlerService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in method FilenameFontSize_Click.");
-                await _messageBoxLibrary.ErrorMessageBox();
+                _logErrors.LogAndForget(ex, "Error in method FilenameFontSize_ClickAsync.");
+                await _messageBoxLibrary.ErrorMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method FilenameFontSize_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method FilenameFontSize_ClickAsync.");
         }
     }
 
     // ---- Machine Name Font Size ----
 
-    public async Task HandleMachineNameFontSize(string size)
+    public async Task HandleMachineNameFontSizeAsync(string size)
     {
         try
         {
@@ -1174,19 +1174,19 @@ public class MenuActionHandlerService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in method MachineNameFontSize_Click.");
-                await _messageBoxLibrary.ErrorMessageBox();
+                _logErrors.LogAndForget(ex, "Error in method MachineNameFontSize_ClickAsync.");
+                await _messageBoxLibrary.ErrorMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method MachineNameFontSize_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method MachineNameFontSize_ClickAsync.");
         }
     }
 
     // ---- Sound Configuration ----
 
-    public async Task HandleSoundConfiguration()
+    public async Task HandleSoundConfigurationAsync()
     {
         try
         {
@@ -1200,13 +1200,13 @@ public class MenuActionHandlerService
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error opening Sound Configuration window.");
-            await _messageBoxLibrary.CouldNotOpenSoundConfigurationWindowMessageBox();
+            await _messageBoxLibrary.CouldNotOpenSoundConfigurationWindowMessageBoxAsync();
         }
     }
 
     // ---- RetroAchievements Settings ----
 
-    public async Task HandleShowRetroAchievementsSettings()
+    public async Task HandleShowRetroAchievementsSettingsAsync()
     {
         try
         {
@@ -1220,13 +1220,13 @@ public class MenuActionHandlerService
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error opening RetroAchievements settings window.");
-            await _messageBoxLibrary.ErrorMessageBox();
+            await _messageBoxLibrary.ErrorMessageBoxAsync();
         }
     }
 
     // ---- Overlay Button Toggles ----
 
-    public async Task HandleToggleRetroAchievementButton(bool isChecked)
+    public async Task HandleToggleRetroAchievementButtonAsync(bool isChecked)
     {
         _host.CancelAndRecreateToken();
 
@@ -1244,11 +1244,11 @@ public class MenuActionHandlerService
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error toggling RetroAchievements overlay button.");
-            await _messageBoxLibrary.ErrorMessageBox();
+            await _messageBoxLibrary.ErrorMessageBoxAsync();
         }
     }
 
-    public async Task HandleToggleVideoLinkButton(bool isChecked)
+    public async Task HandleToggleVideoLinkButtonAsync(bool isChecked)
     {
         _host.CancelAndRecreateToken();
 
@@ -1266,11 +1266,11 @@ public class MenuActionHandlerService
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error toggling video link overlay button.");
-            await _messageBoxLibrary.ErrorMessageBox();
+            await _messageBoxLibrary.ErrorMessageBoxAsync();
         }
     }
 
-    public async Task HandleToggleInfoLinkButton(bool isChecked)
+    public async Task HandleToggleInfoLinkButtonAsync(bool isChecked)
     {
         _host.CancelAndRecreateToken();
 
@@ -1288,7 +1288,7 @@ public class MenuActionHandlerService
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error toggling info link overlay button.");
-            await _messageBoxLibrary.ErrorMessageBox();
+            await _messageBoxLibrary.ErrorMessageBoxAsync();
         }
     }
 
@@ -1296,12 +1296,12 @@ public class MenuActionHandlerService
 
     public void HandleChangeLanguage(string languageCode)
     {
-        _host.ChangeLanguage(languageCode);
+        _host.ChangeLanguageAsync(languageCode);
     }
 
     // ---- Top Letter/Number Menu ----
 
-    public async Task HandleTopLetterNumberMenuClick(string selectedLetter)
+    public async Task HandleTopLetterNumberMenuClickAsync(string selectedLetter)
     {
         try
         {
@@ -1330,7 +1330,7 @@ public class MenuActionHandlerService
 
     // ---- Sort Order Toggle ----
 
-    public async Task HandleSortOrderToggle()
+    public async Task HandleSortOrderToggleAsync()
     {
         try
         {

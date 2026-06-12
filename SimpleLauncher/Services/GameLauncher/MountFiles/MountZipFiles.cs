@@ -239,7 +239,7 @@ public class MountZipFiles : IMountZipFiles
             var errorMessage = $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
             _debugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             logErrors.LogAndForget(ex, errorMessage);
-            await messageBox.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(logPath));
+            await messageBox.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(logPath));
             return;
         }
 
@@ -255,7 +255,7 @@ public class MountZipFiles : IMountZipFiles
             logErrors.LogAndForget(null, errorMessage);
 
             // Notify user
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
 
             return;
         }
@@ -265,7 +265,7 @@ public class MountZipFiles : IMountZipFiles
             const string errorMessage = "Dokan driver not found. Cannot mount ZIP.";
             _debugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            await messageBox.DokanDriverNotInstalledMessageBox();
+            await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return;
         }
 
@@ -276,7 +276,7 @@ public class MountZipFiles : IMountZipFiles
             const string errorMessage = "No available drive letters found to mount the ZIP.";
             _debugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
             return;
         }
 
@@ -395,7 +395,7 @@ public class MountZipFiles : IMountZipFiles
             logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
         }
         finally
         {
@@ -502,7 +502,7 @@ public class MountZipFiles : IMountZipFiles
             var errorMessage = $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
             _debugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             logErrors.LogAndForget(ex, errorMessage);
-            await messageBox.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(logPath));
+            await messageBox.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(logPath));
             return;
         }
 
@@ -518,7 +518,7 @@ public class MountZipFiles : IMountZipFiles
             logErrors.LogAndForget(null, errorMessage);
 
             // Notify user
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
 
             return;
         }
@@ -528,7 +528,7 @@ public class MountZipFiles : IMountZipFiles
             const string errorMessage = "Dokan driver not found. Cannot mount ZIP.";
             _debugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            await messageBox.DokanDriverNotInstalledMessageBox();
+            await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return;
         }
 
@@ -539,7 +539,7 @@ public class MountZipFiles : IMountZipFiles
             const string errorMessage = "No available drive letters found to mount the ZIP.";
             _debugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
             return;
         }
 
@@ -653,7 +653,7 @@ public class MountZipFiles : IMountZipFiles
             logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
         }
         finally
         {
@@ -841,7 +841,7 @@ public class MountZipFiles : IMountZipFiles
             var errorMessage = $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
             _debugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             logErrors.LogAndForget(ex, errorMessage);
-            await messageBox.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(logPath));
+            await messageBox.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(logPath));
             return;
         }
 
@@ -857,7 +857,7 @@ public class MountZipFiles : IMountZipFiles
             logErrors.LogAndForget(null, errorMessage);
 
             // Notify user
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
 
             return;
         }
@@ -867,7 +867,7 @@ public class MountZipFiles : IMountZipFiles
             const string errorMessage = "Dokan driver not found. Cannot mount ZIP.";
             _debugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            await messageBox.DokanDriverNotInstalledMessageBox();
+            await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return;
         }
 
@@ -878,7 +878,7 @@ public class MountZipFiles : IMountZipFiles
             const string errorMessage = "No available drive letters found to mount the ZIP.";
             _debugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox();
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
             return;
         }
 
@@ -1044,7 +1044,7 @@ public class MountZipFiles : IMountZipFiles
             logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBox(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
         }
         finally
         {

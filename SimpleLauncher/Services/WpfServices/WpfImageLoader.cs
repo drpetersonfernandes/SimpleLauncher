@@ -59,7 +59,7 @@ public class WpfImageLoader(ILogErrors logErrors, IConfiguration configuration, 
             {
                 const string contextMessage = "Failed to load global default image: images\\default.png.";
                 _logErrors.LogAndForget(null, contextMessage);
-                await _messageBox.DefaultImageNotFoundMessageBox();
+                await _messageBox.DefaultImageNotFoundMessageBoxAsync();
                 return (null, true);
             }
 
@@ -69,7 +69,7 @@ public class WpfImageLoader(ILogErrors logErrors, IConfiguration configuration, 
         {
             const string contextMessage = "Failed to load global default image: images\\default.png.";
             _logErrors.LogAndForget(ex, contextMessage);
-            await _messageBox.DefaultImageNotFoundMessageBox();
+            await _messageBox.DefaultImageNotFoundMessageBoxAsync();
             return (null, true);
         }
     }

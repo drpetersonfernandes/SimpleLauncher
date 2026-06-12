@@ -210,7 +210,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         LetterNumberMenu.Children.Add(_topLetterNumberMenu.LetterPanel);
 
         // Create and integrate FilterMenu
-        _topLetterNumberMenu.OnLetterSelected += TopLetterNumberMenu_OnLetterSelected;
+        _topLetterNumberMenu.OnLetterSelected += TopLetterNumberMenu_OnLetterSelectedAsync;
 
         // Migrate old play history records to full paths
         _lifecycle.MigratePlayHistory(_systemManagers);
@@ -220,7 +220,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         Deactivated += MainWindow_Deactivated;
 
         // Wire up game file watcher to detect external file changes
-        _lifecycle.GameFilesChanged += _gameBrowser.OnGameFilesChanged;
+        _lifecycle.GameFilesChanged += _gameBrowser.OnGameFilesChangedAsync;
 
         // Store the async Loaded handler reference so it can be unsubscribed later
         _asyncLoadedHandler = async void (_, _) =>
@@ -306,7 +306,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 // If still no systems, show the Easy Mode prompt.
                 if (_systemManagers == null || _systemManagers.Count == 0)
                 {
-                    var result = (System.Windows.MessageBoxResult)(int)await _messageBox.FirstRunWelcomeMessageBox();
+                    var result = (System.Windows.MessageBoxResult)(int)await _messageBox.FirstRunWelcomeMessageBoxAsync();
                     if (result == System.Windows.MessageBoxResult.Yes)
                     {
                         var easyModeWindow = App.ServiceProvider.GetRequiredService<EasyModeWindow>();
@@ -351,7 +351,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
     }
 
-    private async void TopLetterNumberMenu_OnLetterSelected(string selectedLetter)
+    private async void TopLetterNumberMenu_OnLetterSelectedAsync(string selectedLetter)
     {
         try
         {
@@ -359,7 +359,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method TopLetterNumberMenu_OnLetterSelected");
+            _logErrors.LogAndForget(ex, "Error in method TopLetterNumberMenu_OnLetterSelectedAsync");
         }
     }
 
@@ -431,7 +431,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         return (startLetterToUse, searchQueryToUse);
     }
 
-    private async void MainWindow_MouseWheel(object sender, MouseWheelEventArgs e)
+    private async void MainWindow_MouseWheelAsync(object sender, MouseWheelEventArgs e)
     {
         try
         {
@@ -443,16 +443,16 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 switch (e.Delta)
                 {
                     case > 0:
-                        await _menuOrchestrator.HandleZoomIn();
+                        await _menuOrchestrator.HandleZoomInAsync();
                         break;
                     case < 0:
-                        await _menuOrchestrator.HandleZoomOut();
+                        await _menuOrchestrator.HandleZoomOutAsync();
                         break;
                 }
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in the method MainWindow_MouseWheel.");
+                _logErrors.LogAndForget(ex, "Error in the method MainWindow_MouseWheelAsync.");
             }
 
             // Mark the event as handled to prevent scrolling the ScrollViewer
@@ -460,7 +460,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method MainWindow_MouseWheel.");
+            _logErrors.LogAndForget(ex, "Error in the method MainWindow_MouseWheelAsync.");
         }
     }
 
@@ -560,7 +560,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in ShowSystemFeelingLuckyClickAsync.");
-            await _messageBox.ErrorMessageBox();
+            await _messageBox.ErrorMessageBoxAsync();
         }
     }
 
@@ -711,7 +711,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
     }
 
-    private async void GameListRightClickContextMenu(object sender, MouseButtonEventArgs e)
+    private async void GameListRightClickContextMenuAsync(object sender, MouseButtonEventArgs e)
     {
         try
         {
@@ -723,7 +723,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             if (systemManager == null)
             {
                 _logErrors.LogAndForget(null, "systemManager is null for the selected game item");
-                await _messageBox.RightClickContextMenuErrorMessageBox();
+                await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
                 return;
             }
 
@@ -775,7 +775,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "There was an error in the game list right-click context menu.");
-            await _messageBox.RightClickContextMenuErrorMessageBox();
+            await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
         }
     }
 

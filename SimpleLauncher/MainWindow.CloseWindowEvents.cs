@@ -41,7 +41,7 @@ public partial class MainWindow
         // Unsubscribe FilterMenu event handler
         if (_topLetterNumberMenu != null)
         {
-            _topLetterNumberMenu.OnLetterSelected -= TopLetterNumberMenu_OnLetterSelected;
+            _topLetterNumberMenu.OnLetterSelected -= TopLetterNumberMenu_OnLetterSelectedAsync;
         }
 
         // Unsubscribe emergency button click handler if it was wired
@@ -56,7 +56,7 @@ public partial class MainWindow
         // Unsubscribe and stop game file watcher
         if (_lifecycle != null)
         {
-            _lifecycle.UnsubscribeGameFilesChanged(_gameBrowser.OnGameFilesChanged);
+            _lifecycle.UnsubscribeGameFilesChanged(_gameBrowser.OnGameFilesChangedAsync);
             _lifecycle.StopWatching();
         }
     }

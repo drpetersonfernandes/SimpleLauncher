@@ -228,7 +228,7 @@ public class ChdMountStrategy : ILaunchStrategy
         {
             _debugLogger.Log($"[ChdMountStrategy] No suitable game file found in mounted CHD at {mountedDrive.MountedPath}");
             await _logErrors.LogErrorAsync(null, $"No game file found in mounted CHD for emulator '{context.EmulatorName}'");
-            await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
+            await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(logPath);
             return; // will be handle by the next Strategy
         }
 

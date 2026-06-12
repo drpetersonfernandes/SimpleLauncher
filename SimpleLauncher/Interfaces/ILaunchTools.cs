@@ -2,16 +2,16 @@ namespace SimpleLauncher.Interfaces;
 
 public interface ILaunchTools
 {
-    Task BatchConvertIsoToXiso();
-    Task BatchConvertToChd(string selectedRomFolder);
-    Task BatchConvertToCompressedFile();
-    Task BatchConvertToRvz();
-    Task CreateBatchFilesForPs3Games();
-    Task CreateBatchFilesForScummVmGames();
-    Task CreateBatchFilesForWindowsGames();
-    Task CreateBatchFilesForXbox360XblaGames();
-    Task FindRomCoverLaunch(string selectedImageFolder, string selectedRomFolder);
-    Task GameCoverScraper(string selectedImageFolder, string selectedRomFolder);
-    Task RetroGameCoverDownloader(string selectedImageFolder, string selectedRomFolder);
-    Task RomValidator();
+    Task BatchConvertIsoToXisoAsync();
+    Task BatchConvertToChdAsync(string selectedRomFolder);
+    Task BatchConvertToCompressedFileAsync();
+    Task BatchConvertToRvzAsync();
+    Task CreateBatchFilesForPs3GamesAsync();
+    Task CreateBatchFilesForScummVmGamesAsync();
+    Task CreateBatchFilesForWindowsGamesAsync();
+    Task CreateBatchFilesForXbox360XblaGamesAsync();
+    Task FindRomCoverLaunchAsync(string selectedImageFolder, string selectedRomFolder);
+    Task GameCoverScraperAsync(string selectedImageFolder, string selectedRomFolder);
+    Task RetroGameCoverDownloaderAsync(string selectedImageFolder, string selectedRomFolder);
+    Task RomValidatorAsync();
 }

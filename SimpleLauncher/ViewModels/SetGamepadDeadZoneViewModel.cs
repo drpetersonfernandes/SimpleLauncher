@@ -77,7 +77,7 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
             _resourceProvider.GetString("SavingGamepadDeadZoneSettings", "Saving gamepad dead zone settings..."));
 
-        await _messageBox.DeadZonesSavedMessageBox();
+        await _messageBox.DeadZonesSavedMessageBoxAsync();
 
         SaveCompleted?.Invoke();
     }

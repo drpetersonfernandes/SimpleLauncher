@@ -122,7 +122,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error loading play history data.");
-            await _messageBox.ErrorLoadingRomHistoryMessageBox();
+            await _messageBox.ErrorLoadingRomHistoryMessageBoxAsync();
         }
         finally
         {
@@ -179,7 +179,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
     {
         try
         {
-            var result = await _messageBox.ReallyWantToRemoveAllPlayHistoryMessageBox();
+            var result = await _messageBox.ReallyWantToRemoveAllPlayHistoryMessageBoxAsync();
             if (result == CoreMessageBoxResult.Yes)
             {
                 PlayHistoryList.Clear();
@@ -201,7 +201,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
     {
         if (SelectedItem == null)
         {
-            await _messageBox.SelectAGameToLaunchMessageBox();
+            await _messageBox.SelectAGameToLaunchMessageBoxAsync();
             return;
         }
 

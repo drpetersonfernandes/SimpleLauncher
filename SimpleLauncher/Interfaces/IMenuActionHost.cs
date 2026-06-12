@@ -64,5 +64,5 @@ public interface IMenuActionHost
     Dictionary<string, string> GetMameLookup();
 
     // Language
-    void ChangeLanguage(string languageCode);
+    void ChangeLanguageAsync(string languageCode);
 }

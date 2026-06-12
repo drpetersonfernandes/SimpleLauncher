@@ -122,7 +122,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error loading favorites data in FavoritesViewModel.");
-            await _messageBox.ErrorWhileAddingFavoritesMessageBox();
+            await _messageBox.ErrorWhileAddingFavoritesMessageBoxAsync();
         }
         finally
         {
@@ -137,7 +137,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         {
             if (SelectedFavorite == null)
             {
-                await _messageBox.SelectAFavoriteToRemoveMessageBox();
+                await _messageBox.SelectAFavoriteToRemoveMessageBoxAsync();
                 return;
             }
 
@@ -162,7 +162,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         {
             if (SelectedFavorite == null)
             {
-                await _messageBox.SelectAGameToLaunchMessageBox();
+                await _messageBox.SelectAGameToLaunchMessageBoxAsync();
                 return;
             }
 
@@ -172,7 +172,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in LaunchGameAsync.");
-            await _messageBox.CouldNotLaunchThisGameMessageBox(
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
@@ -185,7 +185,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
             if (selectedSystemManager == null)
             {
                 _logErrors.LogAndForget(null, "[LaunchGameFromFavoritesAsync] selectedSystemManager is null.");
-                await _messageBox.CouldNotLaunchThisGameMessageBox(
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                     PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
             }
@@ -193,7 +193,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
             var filePath = PathHelper.FindFileInSystemFolders(selectedSystemManager.SystemFolders, fileName);
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
-                var result = await _messageBox.FavoriteFileDoesNotExistAskToDeleteMessageBox(filePath ?? fileName);
+                var result = await _messageBox.FavoriteFileDoesNotExistAskToDeleteMessageBoxAsync(filePath ?? fileName);
                 if (result == CoreMessageBoxResult.Yes)
                 {
                     var favoriteToRemove = Favorites.FirstOrDefault(fav => fav.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
@@ -212,7 +212,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
             if (emulatorManager == null)
             {
                 _logErrors.LogAndForget(null, "[LaunchGameFromFavoritesAsync] emulatorManager is null.");
-                await _messageBox.CouldNotLaunchThisGameMessageBox(
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                     PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
             }
 
@@ -222,7 +222,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, $"[LaunchGameFromFavoritesAsync] Error launching: {fileName}, {selectedSystemName}");
-            await _messageBox.CouldNotLaunchThisGameMessageBox(
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }

@@ -75,7 +75,7 @@ public class ExtractionService : IExtractionService
             _logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
-            await _messageBoxLibrary.DownloadedFileIsMissingMessageBox();
+            await _messageBoxLibrary.DownloadedFileIsMissingMessageBoxAsync();
 
             return false;
         }
@@ -90,7 +90,7 @@ public class ExtractionService : IExtractionService
             _logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
-            await _messageBoxLibrary.ExtractionFailedMessageBox();
+            await _messageBoxLibrary.ExtractionFailedMessageBoxAsync();
 
             return false;
         }
@@ -113,7 +113,7 @@ public class ExtractionService : IExtractionService
                 _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user, passing the directory of the locked archive
-                await _messageBoxLibrary.FileIsLockedMessageBox(Path.GetDirectoryName(archivePath));
+                await _messageBoxLibrary.FileIsLockedMessageBoxAsync(Path.GetDirectoryName(archivePath));
 
                 return false;
             }
@@ -129,7 +129,7 @@ public class ExtractionService : IExtractionService
             _logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
-            await _messageBoxLibrary.FileNeedToBeCompressedMessageBox();
+            await _messageBoxLibrary.FileNeedToBeCompressedMessageBoxAsync();
 
             return false;
         }
@@ -177,7 +177,7 @@ public class ExtractionService : IExtractionService
                             _logErrors.LogAndForget(null, contextMessage);
 
                             // Notify user
-                            await _messageBoxLibrary.DiskSpaceErrorMessageBox();
+                            await _messageBoxLibrary.DiskSpaceErrorMessageBoxAsync();
 
                             throw new IOException("Insufficient disk space.");
                         }
@@ -188,7 +188,7 @@ public class ExtractionService : IExtractionService
                         _logErrors.LogAndForget(ex, $"Unable to check disk space for path {resolvedDestinationFolder}: {ex.Message}");
 
                         // Notify user
-                        await _messageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
+                        await _messageBoxLibrary.CouldNotCheckForDiskSpaceMessageBoxAsync();
 
                         throw new IOException($"Unable to check disk space for path {resolvedDestinationFolder}", ex);
                     }
@@ -211,7 +211,7 @@ public class ExtractionService : IExtractionService
                         if (fullDestPath != null && fullResolvedDestFolder != null && !fullDestPath.StartsWith(fullResolvedDestFolder, StringComparison.OrdinalIgnoreCase))
                         {
                             // Notify user
-                            await _messageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
+                            await _messageBoxLibrary.PotentialPathManipulationDetectedMessageBoxAsync(archivePath);
                             throw new SecurityException($"Potentially dangerous zip entry path: {entry.Key}");
                         }
                     }
@@ -301,7 +301,7 @@ public class ExtractionService : IExtractionService
             _logErrors.LogAndForget(ex, $"Error extracting the file: {archivePath}\n{exceptionDetails}");
 
             // Notify user
-            await _messageBoxLibrary.ExtractionFailedMessageBox();
+            await _messageBoxLibrary.ExtractionFailedMessageBoxAsync();
 
             return false;
         }
@@ -316,7 +316,7 @@ public class ExtractionService : IExtractionService
             _logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
-            await _messageBoxLibrary.ExtractionFailedMessageBox();
+            await _messageBoxLibrary.ExtractionFailedMessageBoxAsync();
 
             return null;
         }
@@ -325,7 +325,7 @@ public class ExtractionService : IExtractionService
         if (extension != ".7z" && extension != ".zip" && extension != ".rar")
         {
             // Notify user
-            await _messageBoxLibrary.FileNeedToBeCompressedMessageBox();
+            await _messageBoxLibrary.FileNeedToBeCompressedMessageBoxAsync();
 
             return null;
         }
@@ -341,7 +341,7 @@ public class ExtractionService : IExtractionService
                 _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
-                await _messageBoxLibrary.ExtractionFailedMessageBox();
+                await _messageBoxLibrary.ExtractionFailedMessageBoxAsync();
 
                 return null;
             }
@@ -434,7 +434,7 @@ public class ExtractionService : IExtractionService
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            await _messageBoxLibrary.ExtractionFailedMessageBox();
+            await _messageBoxLibrary.ExtractionFailedMessageBoxAsync();
 
             return null;
         }
@@ -547,7 +547,7 @@ public class ExtractionService : IExtractionService
             _debugLogger.Log($"[ValidateAndFindGameFileAsync] Error: {contextMessage}");
 
             // Notify user
-            await _messageBoxLibrary.ExtractionFailedMessageBox();
+            await _messageBoxLibrary.ExtractionFailedMessageBoxAsync();
 
             return null;
         }
@@ -614,7 +614,7 @@ public class ExtractionService : IExtractionService
         _logErrors.LogAndForget(new FileNotFoundException(notFoundContext), notFoundContext);
         _debugLogger.Log($"[ValidateAndFindGameFileAsync] Error: {notFoundContext}");
 
-        await _messageBoxLibrary.CouldNotFindAFileMessageBox(); // This message is now more general.
+        await _messageBoxLibrary.CouldNotFindAFileMessageBoxAsync(); // This message is now more general.
 
         return null;
     }

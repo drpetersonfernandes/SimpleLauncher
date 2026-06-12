@@ -31,7 +31,7 @@ public static class InjectionErrorHandler
 
     private static void ShowGenericInjectionError(IMessageBoxLibraryService messageBox)
     {
-        _ = messageBox.InjectionFailedGenericMessageBox();
+        _ = messageBox.InjectionFailedGenericMessageBoxAsync();
     }
 
     public static string GetEmulatorName(string emulatorPath, Type windowType)

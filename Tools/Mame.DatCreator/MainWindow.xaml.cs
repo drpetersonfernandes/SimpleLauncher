@@ -64,7 +64,7 @@ public partial class MainWindow
         }
     }
 
-    private async void Process_Click(object sender, RoutedEventArgs e)
+    private async void Process_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {

@@ -218,7 +218,7 @@ public class GameScannerService
                     if (attempt == 1 && !_timeoutMessageShown)
                     {
                         _timeoutMessageShown = true;
-                        await _messageBoxLibrary.ShowImageDownloadTimeoutMessageBox();
+                        await _messageBoxLibrary.ShowImageDownloadTimeoutMessageBoxAsync();
                     }
                 }
             }

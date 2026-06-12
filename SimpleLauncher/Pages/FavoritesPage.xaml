@@ -26,7 +26,7 @@
                    Content="{DynamicResource Favorites}"
                    FontSize="22" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
-                <Button Content="{DynamicResource RemoveFromFavorites}" Click="RemoveFavoriteButton_Click"
+                <Button Content="{DynamicResource RemoveFromFavorites}" Click="RemoveFavoriteButton_ClickAsync"
                         Style="{DynamicResource SecondaryActionButtonStyle}"
                         ToolTip="{DynamicResource TooltipRemoveFromFavorites}"
                         AutomationProperties.Name="{DynamicResource RemoveFromFavorites}" />
@@ -47,10 +47,11 @@
                       Grid.Row="2"
                       Grid.Column="0"
                       Margin="10"
-                      MouseRightButtonUp="FavoritesPrepareForRightClickContextMenu"
+                      ToolTip="{DynamicResource TooltipFavoritesDataGrid}"
+                      MouseRightButtonUp="FavoritesPrepareForRightClickContextMenuAsync"
                       MouseDoubleClick="LaunchGameWithDoubleClickAsync"
                       SelectionChanged="SetPreviewImageOnSelectionChangedAsync"
-                      PreviewKeyDown="FavoritesDataGrid_PreviewKeyDown">
+                      PreviewKeyDown="FavoritesDataGrid_PreviewKeyDownAsync">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}" Binding="{Binding FileName}" Width="*" />
                     <DataGridTextColumn Header="{DynamicResource MachineDescriptionMameHeader}" Binding="{Binding MachineDescription}" Width="*" />
@@ -86,7 +87,8 @@
                     <Image Name="PreviewImage"
                            Stretch="Uniform"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center" />
+                           VerticalAlignment="Center"
+                           ToolTip="{DynamicResource TooltipFavoritesPreviewImage}" />
                 </Border>
             </Grid>
         </Grid>

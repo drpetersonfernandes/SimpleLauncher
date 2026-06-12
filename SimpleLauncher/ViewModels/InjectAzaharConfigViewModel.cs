@@ -137,7 +137,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         return _emulatorPath;
     }
 
-    private async Task<bool> InjectConfig()
+    private async Task<bool> InjectConfigAsync()
     {
         var path = EnsureEmulatorPath();
         if (string.IsNullOrEmpty(path))
@@ -150,13 +150,13 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         }
         catch (AzaharPermissionException)
         {
-            await _messageBox.AzaharConfigurationInjectionPermissionErrorMessageBox();
+            await _messageBox.AzaharConfigurationInjectionPermissionErrorMessageBoxAsync();
             throw;
         }
         catch (InvalidOperationException ex)
         {
             _logErrors.LogAndForget(ex, "Azahar injection failed");
-            await _messageBox.FailedToSaveAzaharConfigurationMessageBox();
+            await _messageBox.FailedToSaveAzaharConfigurationMessageBoxAsync();
             return false;
         }
     }
@@ -167,14 +167,14 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         SaveSettings();
         try
         {
-            if (await InjectConfig())
+            if (await InjectConfigAsync())
             {
                 ShouldRun = true;
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -203,14 +203,14 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         SaveSettings();
         try
         {
-            if (await InjectConfig())
+            if (await InjectConfigAsync())
             {
-                await _messageBox.AzaharConfigurationSavedSuccessfullyMessageBox();
+                await _messageBox.AzaharConfigurationSavedSuccessfullyMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
         }

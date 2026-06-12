@@ -42,7 +42,7 @@ public class ImageViewerViewModel : ObservableObject
     /// Loads an image from a file path.
     /// </summary>
     /// <param name="imagePath">The path to the image file.</param>
-    public async Task LoadImageFromPath(string imagePath)
+    public async Task LoadImageFromPathAsync(string imagePath)
     {
         try
         {
@@ -65,7 +65,7 @@ public class ImageViewerViewModel : ObservableObject
             _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            await _messageBox.ImageViewerErrorMessageBox();
+            await _messageBox.ImageViewerErrorMessageBoxAsync();
 
             ImageSource = null;
         }

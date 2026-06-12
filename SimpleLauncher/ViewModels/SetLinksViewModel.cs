@@ -53,7 +53,7 @@ public partial class SetLinksViewModel : ObservableObject
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
             _resourceProvider.GetString("SavingLinkSettings", "Saving link settings..."));
 
-        await _messageBox.LinksSavedMessageBox();
+        await _messageBox.LinksSavedMessageBoxAsync();
 
         SaveCompleted?.Invoke();
     }
@@ -72,7 +72,7 @@ public partial class SetLinksViewModel : ObservableObject
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
             _resourceProvider.GetString("RevertingLinkSettings", "Reverting link settings..."));
 
-        await _messageBox.LinksRevertedMessageBox();
+        await _messageBox.LinksRevertedMessageBoxAsync();
 
         CloseRequested?.Invoke();
     }

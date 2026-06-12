@@ -93,7 +93,7 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
         {
             ShouldRun = false;
             _logErrors.LogAndForget(ex, "Error saving Daphne configuration.");
-            await _messageBox.ErrorMessageBox();
+            await _messageBox.ErrorMessageBoxAsync();
         }
     }
 
@@ -101,7 +101,7 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     private async Task SaveAsync()
     {
         SaveSettings();
-        await _messageBox.DaphnesettingssavedsuccessfullyMessageBox();
+        await _messageBox.DaphnesettingssavedsuccessfullyMessageBoxAsync();
         CloseRequested?.Invoke();
     }
 }

@@ -47,7 +47,7 @@ public partial class MainWindow
             _logErrors.LogAndForget(ex, errorMessage);
 
             // Notify user
-            await _messageBox.NavigationButtonErrorMessageBox();
+            await _messageBox.NavigationButtonErrorMessageBoxAsync();
         }
     }
 
@@ -81,7 +81,7 @@ public partial class MainWindow
             _logErrors.LogAndForget(ex, "Error in the NextPageButtonClickAsync method.");
 
             // Notify user
-            await _messageBox.NavigationButtonErrorMessageBox();
+            await _messageBox.NavigationButtonErrorMessageBoxAsync();
         }
     }
 }

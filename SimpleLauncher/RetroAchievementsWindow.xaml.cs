@@ -182,7 +182,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         SetLoadingState(false);
     }
 
-    private async void OpenUrlInBrowser(string url)
+    private async void OpenUrlInBrowserAsync(string url)
     {
         try
         {
@@ -192,7 +192,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, $"Error opening URL: {url}");
-            await _messageBox.UnableToOpenLinkMessageBox();
+            await _messageBox.UnableToOpenLinkMessageBoxAsync();
         }
     }
 
@@ -201,7 +201,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         var url = _viewModel.GetProfileUrl();
         if (!string.IsNullOrWhiteSpace(url))
         {
-            OpenUrlInBrowser(url);
+            OpenUrlInBrowserAsync(url);
         }
     }
 

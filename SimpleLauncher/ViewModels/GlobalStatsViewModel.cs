@@ -162,7 +162,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
     #endregion
 
     [RelayCommand(CanExecute = nameof(CanStart))]
-    private async Task Start()
+    private async Task StartAsync()
     {
         try
         {
@@ -187,7 +187,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
             {
                 if (!_forceClose)
                 {
-                    await _messageBox.OperationCancelledMessageBox();
+                    await _messageBox.OperationCancelledMessageBoxAsync();
                 }
 
                 ResetUiAfterProcessing();
@@ -197,7 +197,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
                 _logErrors.LogAndForget(ex, "An error occurred while calculating Global Statistics.");
                 if (!_forceClose)
                 {
-                    await _messageBox.ErrorCalculatingStatsMessageBox();
+                    await _messageBox.ErrorCalculatingStatsMessageBoxAsync();
                 }
 
                 ResetUiAfterProcessing();
@@ -277,7 +277,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
             }
         }
 
-        DoYouWantToSaveTheReportMessageBox();
+        DoYouWantToSaveTheReportMessageBoxAsync();
     }
 
     private Task<List<SystemStatsData>> CalculateSystemStatsSequentialAsync(CancellationToken cancellationToken)
@@ -388,24 +388,24 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         BusyOverlayText = _resourceProvider.GetString("Processingpleasewait", "Processing");
     }
 
-    private async void DoYouWantToSaveTheReportMessageBox()
+    private async void DoYouWantToSaveTheReportMessageBoxAsync()
     {
         try
         {
-            var result = await _messageBox.WouldYouLikeToSaveAReportMessageBox();
+            var result = await _messageBox.WouldYouLikeToSaveAReportMessageBoxAsync();
             if (result == Interfaces.MessageBoxResult.Yes)
             {
-                await SaveReport();
+                await SaveReportAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method DoYouWantToSaveTheReportMessageBox");
+            _logErrors.LogAndForget(ex, "Error in method DoYouWantToSaveTheReportMessageBoxAsync");
         }
     }
 
     [RelayCommand(CanExecute = nameof(CanSaveReport))]
-    private async Task SaveReport()
+    private async Task SaveReportAsync()
     {
         if (_globalStats == null) return;
 
@@ -422,12 +422,12 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
             {
                 var systemStatsList = SystemStats.ToList();
                 await File.WriteAllTextAsync(saveFileDialog.FileName, GenerateReportText(_globalStats, systemStatsList));
-                await _messageBox.ReportSavedMessageBox();
+                await _messageBox.ReportSavedMessageBoxAsync();
             }
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Failed to save report.");
-                await _messageBox.FailedSaveReportMessageBox();
+                await _messageBox.FailedSaveReportMessageBoxAsync();
             }
         }
     }
@@ -463,7 +463,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
     }
 
     [RelayCommand]
-    private async Task Closing(CancelEventArgs e)
+    private async Task ClosingAsync(CancelEventArgs e)
     {
         try
         {
@@ -484,7 +484,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
 
             if (needsConfirmation)
             {
-                var result = await _messageBox.DoYouWantToCancelAndCloseMessageBox();
+                var result = await _messageBox.DoYouWantToCancelAndCloseMessageBoxAsync();
                 if (result == Interfaces.MessageBoxResult.Yes)
                 {
                     _forceClose = true;

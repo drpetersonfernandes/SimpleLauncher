@@ -96,7 +96,7 @@ public partial class GameLauncher : ILauncherService
                 var contextMessage = $"SystemManager is null when attempting to launch.\n" +
                                      $"SystemName: '{context.SystemName}', EmulatorName: '{context.EmulatorName}', FilePath: '{context.FilePath}'";
                 _logErrors.LogAndForget(null, contextMessage);
-                await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 return;
             }
 
@@ -105,7 +105,7 @@ public partial class GameLauncher : ILauncherService
                 var contextMessage = $"SystemManager.Emulators is null or empty for system '{context.SystemName}'.\n" +
                                      $"EmulatorName: '{context.EmulatorName}', FilePath: '{context.FilePath}'";
                 _logErrors.LogAndForget(null, contextMessage);
-                await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 return;
             }
 
@@ -113,7 +113,7 @@ public partial class GameLauncher : ILauncherService
             context.EmulatorManager = context.SystemManager.Emulators.FirstOrDefault(e => e.EmulatorName.Equals(context.EmulatorName, StringComparison.OrdinalIgnoreCase)) as Emulator;
             if (context.EmulatorManager == null)
             {
-                await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 _logErrors.LogAndForget(null, $"Could not find EmulatorManager for emulator '{context.EmulatorName}' in system '{context.SystemName}'.");
                 return;
             }
@@ -136,7 +136,7 @@ public partial class GameLauncher : ILauncherService
 
             // 7. Pre-launch UI/State
             var wasGamePadRunning = gamePadController.IsRunning;
-            if (wasGamePadRunning) await gamePadController.Stop();
+            if (wasGamePadRunning) await gamePadController.StopAsync();
 
             var startTime = DateTime.Now;
             context.LoadingState.SetLoadingState(true);
@@ -149,7 +149,7 @@ public partial class GameLauncher : ILauncherService
                 {
                     var errorMessage = $"No launch strategy found for the context: SystemName='{context.SystemName}', EmulatorName='{context.EmulatorName}', FilePath='{context.FilePath}'";
                     _logErrors.LogAndForget(null, errorMessage);
-                    await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                     return;
                 }
 
@@ -159,7 +159,7 @@ public partial class GameLauncher : ILauncherService
             {
                 // 9. Post-launch Cleanup & Stats
                 context.LoadingState.SetLoadingState(false);
-                if (wasGamePadRunning) await gamePadController.Start();
+                if (wasGamePadRunning) await gamePadController.StartAsync();
 
                 var playTime = DateTime.Now - startTime;
                 if (playTime.TotalSeconds > 5)
@@ -181,7 +181,7 @@ public partial class GameLauncher : ILauncherService
                                   $"SystemManager.Emulators is null: {context.SystemManager?.Emulators == null}\n" +
                                   $"Stack Trace: {ex.StackTrace}";
             _logErrors.LogAndForget(ex, detailedMessage);
-            await _messageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            await _messageBoxLibrary.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
         }
     }
 
@@ -190,7 +190,7 @@ public partial class GameLauncher : ILauncherService
         if (string.IsNullOrWhiteSpace(context.ResolvedFilePath))
         {
             _logErrors.LogAndForget(null, "Resolved file path is empty");
-            await _messageBoxLibrary.FilePathIsInvalidMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            await _messageBoxLibrary.FilePathIsInvalidMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             return false;
         }
 
@@ -246,7 +246,7 @@ public partial class GameLauncher : ILauncherService
             }
 
             _logErrors.LogAndForget(new FileNotFoundException(msg), msg);
-            await _messageBoxLibrary.FilePathIsInvalidMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            await _messageBoxLibrary.FilePathIsInvalidMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             return false;
         }
 
@@ -277,7 +277,7 @@ public partial class GameLauncher : ILauncherService
         if (string.IsNullOrWhiteSpace(context.EmulatorName))
         {
             _logErrors.LogAndForget(null, "Emulator name is empty");
-            await _messageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            await _messageBoxLibrary.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             return false;
         }
 
@@ -296,7 +296,7 @@ public partial class GameLauncher : ILauncherService
 
             if (!isMame && !isDosBox)
             {
-                await _messageBoxLibrary.GroupByFolderOnlyForMameAndDosBoxMessageBox();
+                await _messageBoxLibrary.GroupByFolderOnlyForMameAndDosBoxMessageBoxAsync();
                 return false;
             }
         }
@@ -340,7 +340,7 @@ public partial class GameLauncher : ILauncherService
         var invalidPaths = ValidateBatchFile.FindInvalidQuotedPathsSimple(resolvedFilePath);
         if (invalidPaths.Count > 0)
         {
-            var shouldContinue = await _messageBoxLibrary.BatchFilePathsMissingMessageBox(invalidPaths);
+            var shouldContinue = await _messageBoxLibrary.BatchFilePathsMissingMessageBoxAsync(invalidPaths);
             if (!shouldContinue) return;
         }
 
@@ -372,7 +372,7 @@ public partial class GameLauncher : ILauncherService
             _logErrors.LogAndForget(new DirectoryNotFoundException(msg), $"{msg}\n{userNotified}");
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                await _messageBoxLibrary.BatchFileFailedMessageBox(resolvedFilePath, $"Working directory not found: {psi.WorkingDirectory}", logPath);
+                await _messageBoxLibrary.BatchFileFailedMessageBoxAsync(resolvedFilePath, $"Working directory not found: {psi.WorkingDirectory}", logPath);
             }
 
             return;
@@ -404,7 +404,7 @@ public partial class GameLauncher : ILauncherService
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
-                    await _messageBoxLibrary.BatchFileFailedMessageBox(resolvedFilePath, $"Exit code: {process.ExitCode}", logPath, process.ExitCode);
+                    await _messageBoxLibrary.BatchFileFailedMessageBoxAsync(resolvedFilePath, $"Exit code: {process.ExitCode}", logPath, process.ExitCode);
                 }
 
                 TrayIconManager.ShowTrayMessage($"Error: {batchShortName} failed");
@@ -421,13 +421,13 @@ public partial class GameLauncher : ILauncherService
         {
             if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
-                await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
+                await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBoxAsync();
                 _logErrors.LogAndForget(ex, "Application control policy blocked launching batch file.");
                 _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
             }
             else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
             {
-                await _messageBoxLibrary.ElevationRequiredMessageBox();
+                await _messageBoxLibrary.ElevationRequiredMessageBoxAsync();
                 _logErrors.LogAndForget(ex, "Elevation required to launch batch file.");
                 _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
             }
@@ -446,7 +446,7 @@ public partial class GameLauncher : ILauncherService
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
                     var logPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
-                    await _messageBoxLibrary.BatchFileFailedMessageBox(resolvedFilePath, ex.Message, logPath);
+                    await _messageBoxLibrary.BatchFileFailedMessageBoxAsync(resolvedFilePath, ex.Message, logPath);
                 }
 
                 _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
@@ -463,7 +463,7 @@ public partial class GameLauncher : ILauncherService
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 var logPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
-                await _messageBoxLibrary.BatchFileFailedMessageBox(resolvedFilePath, ex.Message, logPath);
+                await _messageBoxLibrary.BatchFileFailedMessageBoxAsync(resolvedFilePath, ex.Message, logPath);
             }
 
             _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
@@ -530,7 +530,7 @@ public partial class GameLauncher : ILauncherService
                     var protocol = targetUrl[..protocolIndex];
                     if (!IsProtocolRegistered(protocol))
                     {
-                        await _messageBoxLibrary.ProtocolHandlerNotRegisteredMessageBox(protocol);
+                        await _messageBoxLibrary.ProtocolHandlerNotRegisteredMessageBoxAsync(protocol);
                         return;
                     }
                 }
@@ -572,12 +572,12 @@ public partial class GameLauncher : ILauncherService
         {
             if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
-                await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
+                await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBoxAsync();
                 _logErrors.LogAndForget(ex, "Application control policy blocked launching shortcut file.");
             }
             else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
             {
-                await _messageBoxLibrary.ElevationRequiredMessageBox();
+                await _messageBoxLibrary.ElevationRequiredMessageBoxAsync();
                 _logErrors.LogAndForget(ex, "Elevation required to launch shortcut file.");
             }
             else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
@@ -602,7 +602,7 @@ public partial class GameLauncher : ILauncherService
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
                     var launchErrorTitle = (string)Application.Current.TryFindResource("LaunchErrorTitle") ?? "Launch Error";
-                    await _messageBoxLibrary.ShowCustomMessageBox("There was a Win32Exception.", launchErrorTitle, PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    await _messageBoxLibrary.ShowCustomMessageBoxAsync("There was a Win32Exception.", launchErrorTitle, PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 }
             }
         }
@@ -632,7 +632,7 @@ public partial class GameLauncher : ILauncherService
                     _ => couldNotLaunchShortcut
                 };
 
-                await _messageBoxLibrary.ShowCustomMessageBox(userMessage, launchErrorTitle, PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                await _messageBoxLibrary.ShowCustomMessageBoxAsync(userMessage, launchErrorTitle, PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
         }
     }
@@ -697,7 +697,7 @@ public partial class GameLauncher : ILauncherService
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
-                    await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 }
             }
         }
@@ -705,12 +705,12 @@ public partial class GameLauncher : ILauncherService
         {
             if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
-                await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
+                await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBoxAsync();
                 _logErrors.LogAndForget(ex, "Application control policy blocked launching executable.");
             }
             else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
             {
-                await _messageBoxLibrary.ElevationRequiredMessageBox();
+                await _messageBoxLibrary.ElevationRequiredMessageBoxAsync();
                 _logErrors.LogAndForget(ex, "Elevation required to launch executable.");
             }
             else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
@@ -739,7 +739,7 @@ public partial class GameLauncher : ILauncherService
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
-                    await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 }
             }
         }
@@ -765,7 +765,7 @@ public partial class GameLauncher : ILauncherService
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
         }
     }
@@ -800,7 +800,7 @@ public partial class GameLauncher : ILauncherService
             _debugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
-            await _messageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            await _messageBoxLibrary.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
             return;
         }
@@ -867,7 +867,7 @@ public partial class GameLauncher : ILauncherService
             _debugLogger.Log(errorMessage);
             _logErrors.LogAndForget(null, errorMessage);
 
-            await _messageBoxLibrary.RetroArchParameterShouldContainLMessageBox();
+            await _messageBoxLibrary.RetroArchParameterShouldContainLMessageBoxAsync();
 
             return;
         }
@@ -878,7 +878,7 @@ public partial class GameLauncher : ILauncherService
             _debugLogger.Log(errorMessage);
             _logErrors.LogAndForget(null, errorMessage);
 
-            await _messageBoxLibrary.XemuParameterShouldContainDvdPathMessageBox();
+            await _messageBoxLibrary.XemuParameterShouldContainDvdPathMessageBoxAsync();
 
             return;
         }
@@ -917,13 +917,13 @@ public partial class GameLauncher : ILauncherService
 
         if (isOotake && (isChd || isBin || isCue || isIso))
         {
-            await _messageBoxLibrary.OotakeDoesNotSupportImageFilesMessageBox();
+            await _messageBoxLibrary.OotakeDoesNotSupportImageFilesMessageBoxAsync();
             return;
         }
 
         if (isGeolith && (isZip || is7Z || isRar))
         {
-            await _messageBoxLibrary.GeolithDoesNotSupportCompressedFilesMessageBox();
+            await _messageBoxLibrary.GeolithDoesNotSupportCompressedFilesMessageBoxAsync();
             return;
         }
 
@@ -935,7 +935,7 @@ public partial class GameLauncher : ILauncherService
             _debugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
-            await _messageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            await _messageBoxLibrary.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
             // The finally block will handle cleanup of tempExtractionPath if it was set.
             return;
@@ -950,7 +950,7 @@ public partial class GameLauncher : ILauncherService
             _debugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
-            await _messageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            await _messageBoxLibrary.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
             return;
         }
@@ -969,7 +969,7 @@ public partial class GameLauncher : ILauncherService
                 _debugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
                 // Notify user with a helpful message
-                await _messageBoxLibrary.EmulatorPathNotConfiguredMessageBox();
+                await _messageBoxLibrary.EmulatorPathNotConfiguredMessageBoxAsync();
 
                 return;
             }
@@ -983,7 +983,7 @@ public partial class GameLauncher : ILauncherService
                 _debugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
                 // Notify user
-                await _messageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                await _messageBoxLibrary.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
                 return;
             }
@@ -998,7 +998,7 @@ public partial class GameLauncher : ILauncherService
                 _debugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
                 // Notify user
-                await _messageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                await _messageBoxLibrary.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
                 return;
             }
@@ -1150,19 +1150,19 @@ public partial class GameLauncher : ILauncherService
                     if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                     {
                         // Notify user
-                        await _messageBoxLibrary.InvalidOperationExceptionMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                        await _messageBoxLibrary.InvalidOperationExceptionMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                     }
                 }
                 catch (Win32Exception ex) // Catch Win32Exception specifically
                 {
                     if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
                     {
-                        await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
+                        await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBoxAsync();
                         _logErrors.LogAndForget(ex, "Application control policy blocked launching emulator.");
                     }
                     else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
                     {
-                        await _messageBoxLibrary.ElevationRequiredMessageBox();
+                        await _messageBoxLibrary.ElevationRequiredMessageBoxAsync();
                         _logErrors.LogAndForget(ex, "Elevation required to launch emulator.");
                     }
                     else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
@@ -1199,7 +1199,7 @@ public partial class GameLauncher : ILauncherService
                         if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                         {
                             // Notify user
-                            await _messageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                            await _messageBoxLibrary.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                         }
                     }
                 }
@@ -1232,7 +1232,7 @@ public partial class GameLauncher : ILauncherService
                     if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                     {
                         // Notify user
-                        await _messageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                        await _messageBoxLibrary.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                     }
                 }
             }
@@ -1291,8 +1291,8 @@ public partial class GameLauncher : ILauncherService
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                await _messageBoxLibrary.RetroArchSpecialCharactersInPathMessageBox();
-                await _messageBoxLibrary.WouldYouLikeToOpenTheLogMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                await _messageBoxLibrary.RetroArchSpecialCharactersInPathMessageBoxAsync();
+                await _messageBoxLibrary.WouldYouLikeToOpenTheLogMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
 
             return;
@@ -1307,7 +1307,7 @@ public partial class GameLauncher : ILauncherService
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                await _messageBoxLibrary.RetroArchParameterIssueMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                await _messageBoxLibrary.RetroArchParameterIssueMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
 
             return;
@@ -1327,8 +1327,8 @@ public partial class GameLauncher : ILauncherService
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                await _messageBoxLibrary.MameRomSetErrorMessageBox();
-                await _messageBoxLibrary.WouldYouLikeToOpenTheLogMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                await _messageBoxLibrary.MameRomSetErrorMessageBoxAsync();
+                await _messageBoxLibrary.WouldYouLikeToOpenTheLogMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
 
             return;
@@ -1347,8 +1347,8 @@ public partial class GameLauncher : ILauncherService
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                await _messageBoxLibrary.MameUnknownSystemErrorMessageBox();
-                await _messageBoxLibrary.WouldYouLikeToOpenTheLogMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                await _messageBoxLibrary.MameUnknownSystemErrorMessageBoxAsync();
+                await _messageBoxLibrary.WouldYouLikeToOpenTheLogMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
 
             return;
@@ -1365,8 +1365,8 @@ public partial class GameLauncher : ILauncherService
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                await _messageBoxLibrary.MameUnableToLoadImageMessageBox();
-                await _messageBoxLibrary.WouldYouLikeToOpenTheLogMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                await _messageBoxLibrary.MameUnableToLoadImageMessageBoxAsync();
+                await _messageBoxLibrary.WouldYouLikeToOpenTheLogMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
 
             return;
@@ -1398,7 +1398,7 @@ public partial class GameLauncher : ILauncherService
         // Generic error handler
         if (emulatorManager.ReceiveANotificationOnEmulatorError)
         {
-            await _messageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            await _messageBoxLibrary.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
         }
     }
 

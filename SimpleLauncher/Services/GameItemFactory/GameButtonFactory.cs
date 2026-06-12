@@ -362,7 +362,7 @@ internal partial class GameButtonFactory(
                         logErrors.LogAndForget(ex, $"Error opening achievements for {fileNameWithoutExtension}");
 
                         // Notify user
-                        await messageBox.CouldNotOpenAchievementsWindowMessageBox();
+                        await messageBox.CouldNotOpenAchievementsWindowMessageBoxAsync();
                     }
                     finally
                     {
@@ -416,7 +416,7 @@ internal partial class GameButtonFactory(
                     context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        await _contextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, machines, settings, mainWindow, logErrors, messageBox);
+                        await _contextMenuFunctions.OpenVideoLinkAsync(selectedSystemName, fileNameWithoutExtension, machines, settings, mainWindow, logErrors, messageBox);
                     }
                     catch (Exception ex)
                     {
@@ -424,7 +424,7 @@ internal partial class GameButtonFactory(
                         logErrors.LogAndForget(ex, $"Error opening video link for {fileNameWithoutExtension}");
 
                         // Notify user
-                        await messageBox.ErrorOpeningVideoLinkMessageBox();
+                        await messageBox.ErrorOpeningVideoLinkMessageBoxAsync();
                     }
                     finally
                     {
@@ -478,7 +478,7 @@ internal partial class GameButtonFactory(
                     context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        await _contextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, machines, settings, mainWindow, logErrors, messageBox);
+                        await _contextMenuFunctions.OpenInfoLinkAsync(selectedSystemName, fileNameWithoutExtension, machines, settings, mainWindow, logErrors, messageBox);
                     }
                     catch (Exception ex)
                     {
@@ -486,7 +486,7 @@ internal partial class GameButtonFactory(
                         logErrors.LogAndForget(ex, $"Error opening info link for {fileNameWithoutExtension}");
 
                         // Notify user
-                        await messageBox.ProblemOpeningInfoLinkMessageBox();
+                        await messageBox.ProblemOpeningInfoLinkMessageBoxAsync();
                     }
                     finally
                     {
@@ -601,7 +601,7 @@ internal partial class GameButtonFactory(
                 if (emulatorCombo == null)
                 {
                     logErrors.LogAndForget(null, "[CreateGameButtonAsync] _emulatorComboBox is null.");
-                    await messageBox.EmulatorNameIsRequiredMessageBox();
+                    await messageBox.EmulatorNameIsRequiredMessageBoxAsync();
                     mainWindow?.SetGameButtonsEnabled(true);
                     return;
                 }
@@ -613,7 +613,7 @@ internal partial class GameButtonFactory(
                     logErrors.LogAndForget(null, "[CreateGameButtonAsync] selectedEmulatorName is null or empty.");
 
                     // Notify user
-                    await messageBox.EmulatorNameIsRequiredMessageBox();
+                    await messageBox.EmulatorNameIsRequiredMessageBoxAsync();
 
                     mainWindow?.SetGameButtonsEnabled(true); // Re-enable buttons on error
                     return;

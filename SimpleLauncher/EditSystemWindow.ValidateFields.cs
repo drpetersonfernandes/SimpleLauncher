@@ -116,7 +116,7 @@ internal partial class EditSystemWindow
         isEmulator5LocationValid = string.IsNullOrWhiteSpace(emulator5LocationText) || CheckPath.IsValidEmulatorExecutablePath(emulator5LocationText);
     }
 
-    private async Task<bool> CheckPaths(bool isSystemFolderValid, bool isSystemImageFolderValid, bool isEmulator1LocationValid,
+    private async Task<bool> CheckPathsAsync(bool isSystemFolderValid, bool isSystemImageFolderValid, bool isEmulator1LocationValid,
         bool isEmulator2LocationValid, bool isEmulator3LocationValid, bool isEmulator4LocationValid,
         bool isEmulator5LocationValid)
     {
@@ -124,22 +124,22 @@ internal partial class EditSystemWindow
             isEmulator3LocationValid && isEmulator4LocationValid && isEmulator5LocationValid) return false;
 
         // Notify user
-        await _messageBox.PathOrParameterInvalidMessageBox();
+        await _messageBox.PathOrParameterInvalidMessageBoxAsync();
 
         return true;
     }
 
-    private async Task<bool> ValidateEmulator1Name(string emulator1NameText)
+    private async Task<bool> ValidateEmulator1NameAsync(string emulator1NameText)
     {
         if (!string.IsNullOrEmpty(emulator1NameText)) return false;
 
         // Notify user
-        await _messageBox.Emulator1RequiredMessageBox();
+        await _messageBox.Emulator1RequiredMessageBoxAsync();
 
         return true;
     }
 
-    private async Task<bool> ValidateEmulator1Location(string emulator1LocationText, IEnumerable<string> formatsToSearch)
+    private async Task<bool> ValidateEmulator1LocationAsync(string emulator1LocationText, IEnumerable<string> formatsToSearch)
     {
         // If formatsToSearch contains bat, exe, lnk, or url, the emulator path is not required.
         var requiresEmulatorPath = !formatsToSearch.Any(static f =>
@@ -152,14 +152,14 @@ internal partial class EditSystemWindow
         if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator1LocationText))
         {
             // Notify user
-            await _messageBox.Emulator1LocationRequiredMessageBox();
+            await _messageBox.Emulator1LocationRequiredMessageBoxAsync();
             return true; // Validation failed
         }
 
         return false; // Validation passed
     }
 
-    private async Task<bool> ValidateEmulator2Location(string emulator2NameText, string emulator2LocationText, IEnumerable<string> formatsToSearch)
+    private async Task<bool> ValidateEmulator2LocationAsync(string emulator2NameText, string emulator2LocationText, IEnumerable<string> formatsToSearch)
     {
         if (string.IsNullOrEmpty(emulator2NameText))
         {
@@ -177,14 +177,14 @@ internal partial class EditSystemWindow
         if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator2LocationText))
         {
             // Notify user
-            await _messageBox.Emulator2LocationRequiredMessageBox();
+            await _messageBox.Emulator2LocationRequiredMessageBoxAsync();
             return true; // Validation failed
         }
 
         return false; // Validation passed
     }
 
-    private async Task<bool> ValidateEmulator3Location(string emulator3NameText, string emulator3LocationText, IEnumerable<string> formatsToSearch)
+    private async Task<bool> ValidateEmulator3LocationAsync(string emulator3NameText, string emulator3LocationText, IEnumerable<string> formatsToSearch)
     {
         if (string.IsNullOrEmpty(emulator3NameText))
         {
@@ -202,14 +202,14 @@ internal partial class EditSystemWindow
         if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator3LocationText))
         {
             // Notify user
-            await _messageBox.Emulator3LocationRequiredMessageBox();
+            await _messageBox.Emulator3LocationRequiredMessageBoxAsync();
             return true; // Validation failed
         }
 
         return false; // Validation passed
     }
 
-    private async Task<bool> ValidateEmulator4Location(string emulator4NameText, string emulator4LocationText, IEnumerable<string> formatsToSearch)
+    private async Task<bool> ValidateEmulator4LocationAsync(string emulator4NameText, string emulator4LocationText, IEnumerable<string> formatsToSearch)
     {
         if (string.IsNullOrEmpty(emulator4NameText))
         {
@@ -227,14 +227,14 @@ internal partial class EditSystemWindow
         if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator4LocationText))
         {
             // Notify user
-            await _messageBox.Emulator4LocationRequiredMessageBox();
+            await _messageBox.Emulator4LocationRequiredMessageBoxAsync();
             return true; // Validation failed
         }
 
         return false; // Validation passed
     }
 
-    private async Task<bool> ValidateEmulator5Location(string emulator5NameText, string emulator5LocationText, IEnumerable<string> formatsToSearch)
+    private async Task<bool> ValidateEmulator5LocationAsync(string emulator5NameText, string emulator5LocationText, IEnumerable<string> formatsToSearch)
     {
         if (string.IsNullOrEmpty(emulator5NameText))
         {
@@ -252,14 +252,14 @@ internal partial class EditSystemWindow
         if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator5LocationText))
         {
             // Notify user
-            await _messageBox.Emulator5LocationRequiredMessageBox();
+            await _messageBox.Emulator5LocationRequiredMessageBoxAsync();
             return true; // Validation failed
         }
 
         return false; // Validation passed
     }
 
-    private async Task<(bool IsFailed, List<string> Formats)> ValidateFormatToLaunch(string formatToLaunchText, bool extractFileBeforeLaunch)
+    private async Task<(bool IsFailed, List<string> Formats)> ValidateFormatToLaunchAsync(string formatToLaunchText, bool extractFileBeforeLaunch)
     {
         var formatsToLaunch = formatToLaunchText.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
             .Select(static format => format.Trim())
@@ -271,14 +271,14 @@ internal partial class EditSystemWindow
         if (extractFileBeforeLaunch && formatsToLaunch.Count == 0)
         {
             // Notify user
-            await _messageBox.ExtensionToLaunchIsRequiredMessageBox();
+            await _messageBox.ExtensionToLaunchIsRequiredMessageBoxAsync();
             return (true, formatsToLaunch); // Return true to indicate validation failed
         }
 
         return (false, formatsToLaunch); // Return false to indicate validation passed
     }
 
-    private async Task<(bool IsFailed, List<string> Formats)> ValidateFormatToSearch(string formatToSearchText, bool extractFileBeforeLaunch)
+    private async Task<(bool IsFailed, List<string> Formats)> ValidateFormatToSearchAsync(string formatToSearchText, bool extractFileBeforeLaunch)
     {
         var formatsToSearch = formatToSearchText.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
             .Select(static format => format.Trim())
@@ -288,7 +288,7 @@ internal partial class EditSystemWindow
         if (formatsToSearch.Count == 0)
         {
             // Notify user
-            await _messageBox.ExtensionToSearchIsRequiredMessageBox();
+            await _messageBox.ExtensionToSearchIsRequiredMessageBoxAsync();
             return (true, formatsToSearch);
         }
 
@@ -297,14 +297,14 @@ internal partial class EditSystemWindow
         if (extractFileBeforeLaunch && !formatsToSearch.All(static f => f is "zip" or "7z" or "rar"))
         {
             // Notify user
-            await _messageBox.FileMustBeCompressedMessageBox();
+            await _messageBox.FileMustBeCompressedMessageBoxAsync();
             return (true, formatsToSearch);
         }
 
         return (false, formatsToSearch);
     }
 
-    private async Task<(bool IsFailed, string FolderText)> ValidateSystemImageFolder(string systemNameText, string systemImageFolderText)
+    private async Task<(bool IsFailed, string FolderText)> ValidateSystemImageFolderAsync(string systemNameText, string systemImageFolderText)
     {
         var defaultPattern = Path.Combine(".", "images", systemNameText);
         var prefixedDefaultPattern = Path.Combine("%BASEFOLDER%", "images", systemNameText);
@@ -317,7 +317,7 @@ internal partial class EditSystemWindow
 
         if (string.IsNullOrEmpty(systemImageFolderText))
         {
-            await _messageBox.SystemImageFolderCanNotBeEmptyMessageBox();
+            await _messageBox.SystemImageFolderCanNotBeEmptyMessageBoxAsync();
             return (true, systemImageFolderText);
         }
 
@@ -329,7 +329,7 @@ internal partial class EditSystemWindow
             if (SanitizeInputSystemName.ContainsInvalidPathCharacters(resolvedImageFolder, out var invalidChars))
             {
                 var invalidCharsStr = string.Join(", ", invalidChars.Select(static c => $"'{c}'"));
-                await _messageBox.InvalidFolderCharactersMessageBox(invalidCharsStr);
+                await _messageBox.InvalidFolderCharactersMessageBoxAsync(invalidCharsStr);
                 return (true, systemImageFolderText);
             }
 
@@ -340,7 +340,7 @@ internal partial class EditSystemWindow
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, $"Error creating the system image folder: {resolvedImageFolder}");
-                await _messageBox.FolderCreationFailedMessageBox();
+                await _messageBox.FolderCreationFailedMessageBoxAsync();
                 return (true, systemImageFolderText);
             }
         }
@@ -348,7 +348,7 @@ internal partial class EditSystemWindow
         return (false, systemImageFolderText);
     }
 
-    private async Task<(bool IsFailed, string FolderText)> ValidateSystemFolder(string systemNameText, string systemFolderText)
+    private async Task<(bool IsFailed, string FolderText)> ValidateSystemFolderAsync(string systemNameText, string systemFolderText)
     {
         var defaultPattern = Path.Combine(".", "roms", systemNameText);
         var prefixedDefaultPattern = Path.Combine("%BASEFOLDER%", "roms", systemNameText);
@@ -361,7 +361,7 @@ internal partial class EditSystemWindow
 
         if (string.IsNullOrEmpty(systemFolderText))
         {
-            await _messageBox.SystemFolderCanNotBeEmptyMessageBox();
+            await _messageBox.SystemFolderCanNotBeEmptyMessageBoxAsync();
             return (true, systemFolderText);
         }
 
@@ -373,7 +373,7 @@ internal partial class EditSystemWindow
             if (SanitizeInputSystemName.ContainsInvalidPathCharacters(resolvedSystemFolder, out var invalidChars))
             {
                 var invalidCharsStr = string.Join(", ", invalidChars.Select(static c => $"'{c}'"));
-                await _messageBox.InvalidFolderCharactersMessageBox(invalidCharsStr);
+                await _messageBox.InvalidFolderCharactersMessageBoxAsync(invalidCharsStr);
                 return (true, systemFolderText);
             }
 
@@ -384,7 +384,7 @@ internal partial class EditSystemWindow
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, $"Error creating the system folder: {resolvedSystemFolder}");
-                await _messageBox.FolderCreationFailedMessageBox();
+                await _messageBox.FolderCreationFailedMessageBoxAsync();
                 return (true, systemFolderText);
             }
         }
@@ -392,7 +392,7 @@ internal partial class EditSystemWindow
         return (false, systemFolderText);
     }
 
-    private async Task<bool> ValidateSystemName(string systemNameText)
+    private async Task<bool> ValidateSystemNameAsync(string systemNameText)
     {
         // First, sanitize the input (though this is primarily handled in SaveSystemButtonClickAsync)
         systemNameText = SanitizeInputSystemName.SanitizeFolderName(systemNameText);
@@ -403,7 +403,7 @@ internal partial class EditSystemWindow
         }
 
         // Notify user
-        await _messageBox.SystemNameCanNotBeEmptyMessageBox();
+        await _messageBox.SystemNameCanNotBeEmptyMessageBoxAsync();
 
         return true;
     }

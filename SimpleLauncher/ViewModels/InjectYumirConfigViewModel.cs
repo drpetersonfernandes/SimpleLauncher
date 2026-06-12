@@ -132,7 +132,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        await _messageBox.YumirEmulatorNotFoundMessageBox();
+        await _messageBox.YumirEmulatorNotFoundMessageBoxAsync();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -172,7 +172,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -198,12 +198,12 @@ public partial class InjectYumirConfigViewModel : ObservableObject
         {
             if (InjectConfig())
             {
-                await _messageBox.YumirConfigurationSavedSuccessfullyMessageBox();
+                await _messageBox.YumirConfigurationSavedSuccessfullyMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
         }

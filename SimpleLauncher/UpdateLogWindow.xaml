@@ -12,6 +12,7 @@
     <Grid>
         <TextBox Text="{Binding LogText, Mode=OneWay}"
                  HorizontalScrollBarVisibility="Auto"
-                 Style="{StaticResource LogTextBoxStyle}" />
+                 Style="{StaticResource LogTextBoxStyle}"
+                 ToolTip="{DynamicResource TooltipUpdateLog}" />
     </Grid>
 </controls:MetroWindow>

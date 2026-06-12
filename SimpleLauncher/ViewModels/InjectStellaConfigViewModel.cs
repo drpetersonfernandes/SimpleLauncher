@@ -135,7 +135,7 @@ public partial class InjectStellaConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        await _messageBox.StellaEmulatorNotFoundMessageBox();
+        await _messageBox.StellaEmulatorNotFoundMessageBoxAsync();
 
         var result = RequestEmulatorPath?.Invoke();
         if (string.IsNullOrEmpty(result)) return null;
@@ -175,7 +175,7 @@ public partial class InjectStellaConfigViewModel : ObservableObject
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
                 ShouldRun = true;
             }
@@ -201,12 +201,12 @@ public partial class InjectStellaConfigViewModel : ObservableObject
         {
             if (InjectConfig())
             {
-                await _messageBox.StellaConfigurationSavedSuccessfullyMessageBox();
+                await _messageBox.StellaConfigurationSavedSuccessfullyMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
             else
             {
-                await _messageBox.InjectionFailedGenericMessageBox();
+                await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
         }
