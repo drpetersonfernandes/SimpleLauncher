@@ -187,7 +187,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<PlaySoundEffects>();
         serviceCollection.AddSingleton<IPlaySoundEffects>(static sp => sp.GetRequiredService<PlaySoundEffects>());
         serviceCollection.AddSingleton<GamePadController>();
-        serviceCollection.AddSingleton<DownloadManager>();
+        serviceCollection.AddTransient<DownloadManager>();
         serviceCollection.AddSingleton<GameLauncher>();
         serviceCollection.AddSingleton<ILaunchTools, LaunchTools>();
         serviceCollection.AddSingleton<IDebugLogger>(_ => new DebugLogger(isDebugMode));
@@ -488,7 +488,7 @@ public partial class App : IDisposable
                 var messageBox = ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
                 _ = messageBox.FailedToStartSimpleLauncherMessageBoxAsync();
 
-                _singleInstanceMutex.Dispose();
+                _singleInstanceMutex?.Dispose();
                 Shutdown();
 
                 return;
@@ -500,7 +500,7 @@ public partial class App : IDisposable
                 var messageBox = ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
                 _ = messageBox.FailedToStartSimpleLauncherMessageBoxAsync();
 
-                _singleInstanceMutex.Dispose();
+                _singleInstanceMutex?.Dispose();
                 Shutdown();
 
                 return;
@@ -526,7 +526,7 @@ public partial class App : IDisposable
                     RestoreExistingWindow();
                 }
 
-                _singleInstanceMutex.Dispose();
+                _singleInstanceMutex?.Dispose();
                 Shutdown();
 
                 return; // Stop further startup logic
@@ -678,6 +678,13 @@ public partial class App : IDisposable
     private static void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
     {
         ReportException(e.Exception, "Unhandled dispatcher exception.");
+
+        // Don't swallow critical exceptions that indicate memory corruption or resource exhaustion
+        if (e.Exception is OutOfMemoryException or AccessViolationException or InvalidProgramException)
+        {
+            return;
+        }
+
         e.Handled = true;
     }
 
@@ -751,7 +758,7 @@ public partial class App : IDisposable
             }
             finally
             {
-                _singleInstanceMutex.Dispose();
+                _singleInstanceMutex?.Dispose();
             }
         }
 
@@ -1053,7 +1060,7 @@ public partial class App : IDisposable
     public void Dispose()
     {
         _instanceSignal?.Dispose();
-        _singleInstanceMutex.Dispose();
+        _singleInstanceMutex?.Dispose();
         GC.SuppressFinalize(this);
     }
 

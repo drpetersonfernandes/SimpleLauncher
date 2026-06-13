@@ -70,22 +70,22 @@ public partial class MainWindow
         if (_isDisposed)
             return;
 
-        // Set flag FIRST to signal async handlers to bail out
-        _isDisposed = true;
-
-        // 1. Signal cancellation FIRST to help background threads release locks sooner.
-        // We catch ObjectDisposedException to prevent errors if cancellation was already triggered.
         try
         {
-            _cancellationSource?.Cancel();
-        }
-        catch (ObjectDisposedException)
-        {
-            // Already cancelled/disposed, ignore
-        }
+            // Set flag to signal async handlers to bail out
+            _isDisposed = true;
 
-        try
-        {
+            // 1. Signal cancellation FIRST to help background threads release locks sooner.
+            // We catch ObjectDisposedException to prevent errors if cancellation was already triggered.
+            try
+            {
+                _cancellationSource?.Cancel();
+            }
+            catch (ObjectDisposedException)
+            {
+                // Already cancelled/disposed, ignore
+            }
+
             // Kill any lingering CHDMounter processes as a safety net
             App.ServiceProvider.GetRequiredService<IMountChdFiles>().KillAllChdMounterProcesses(App.ServiceProvider.GetRequiredService<ILogErrors>());
 
