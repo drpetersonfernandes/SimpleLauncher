@@ -66,9 +66,37 @@ public class DetectEmptyResourceValuesAndAutoRemoveTests
 
             if (hasChanges)
             {
+                // Rebuild the file from scratch to avoid orphaned whitespace nodes
+                // that XDocument.Load(LoadOptions.PreserveWhitespace) + doc.Save() would leave.
+                var remainingEntries = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                var remainingElements = root.Elements()
+                    .Where(e => e.Attribute(xNamespace + "Key") != null)
+                    .ToList();
+
+                foreach (var element in remainingElements)
+                {
+                    // ReSharper disable once NullableWarningSuppressionIsUsed
+                    var key = element.Attribute(xNamespace + "Key")!.Value;
+                    remainingEntries[key] = element.Value;
+                }
+
+                var lines = new List<string>
+                {
+                    "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+                    "",
+                    "<ResourceDictionary xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\" xmlns:system=\"clr-namespace:System;assembly=System.Runtime\">"
+                };
+
+                foreach (var kvp in remainingEntries)
+                {
+                    var escapedValue = EscapeXml(kvp.Value);
+                    lines.Add($"    <system:String x:Key=\"{kvp.Key}\">{escapedValue}</system:String>");
+                }
+
+                lines.Add("</ResourceDictionary>");
+
                 var encoding = new UTF8Encoding(true);
-                using var writer = new StreamWriter(file, false, encoding);
-                doc.Save(writer);
+                File.WriteAllLines(file, lines, encoding);
             }
         }
 
@@ -89,5 +117,17 @@ public class DetectEmptyResourceValuesAndAutoRemoveTests
         }
 
         Assert.Fail(message.ToString());
+    }
+
+    private static string EscapeXml(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+            return text;
+
+        return text
+            .Replace("&", "&amp;")
+            .Replace("<", "&lt;")
+            .Replace(">", "&gt;")
+            .Replace("\"", "&quot;");
     }
 }

@@ -91,20 +91,42 @@ public class DetectDuplicateResourceKeysTests
 
             if (!allKeyedElements.SequenceEqual(sortedElements))
             {
-                foreach (var el in allKeyedElements)
-                    el.Remove();
-
-                foreach (var el in sortedElements)
-                    root.Add(el);
-
                 hasChanges = true;
             }
 
             if (hasChanges)
             {
+                // Rebuild the file from scratch to avoid orphaned whitespace nodes
+                // that XDocument.Load(LoadOptions.PreserveWhitespace) + doc.Save() would leave.
+                var entries = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                var freshElements = root.Elements()
+                    .Where(e => e.Attribute(xNamespace + "Key") != null)
+                    .ToList();
+
+                foreach (var element in freshElements)
+                {
+                    // ReSharper disable once NullableWarningSuppressionIsUsed
+                    var key = element.Attribute(xNamespace + "Key")!.Value;
+                    entries[key] = element.Value;
+                }
+
+                var lines = new List<string>
+                {
+                    "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+                    "",
+                    "<ResourceDictionary xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\" xmlns:system=\"clr-namespace:System;assembly=System.Runtime\">"
+                };
+
+                foreach (var kvp in entries)
+                {
+                    var escapedValue = EscapeXml(kvp.Value);
+                    lines.Add($"    <system:String x:Key=\"{kvp.Key}\">{escapedValue}</system:String>");
+                }
+
+                lines.Add("</ResourceDictionary>");
+
                 var encoding = new UTF8Encoding(true);
-                using var writer = new StreamWriter(file, false, encoding);
-                doc.Save(writer);
+                File.WriteAllLines(file, lines, encoding);
             }
         }
 
@@ -124,5 +146,17 @@ public class DetectDuplicateResourceKeysTests
         }
 
         Assert.Fail(message.ToString());
+    }
+
+    private static string EscapeXml(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+            return text;
+
+        return text
+            .Replace("&", "&amp;")
+            .Replace("<", "&lt;")
+            .Replace(">", "&gt;")
+            .Replace("\"", "&quot;");
     }
 }
