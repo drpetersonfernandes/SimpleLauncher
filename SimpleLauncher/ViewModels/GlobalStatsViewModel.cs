@@ -188,7 +188,8 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
 
             // Dispose any previous CTS and create a new one atomically
             var oldCts = Interlocked.Exchange(ref _cancellationTokenSource, new CancellationTokenSource());
-            oldCts.Dispose();
+            // ReSharper disable once ConstantConditionalAccessQualifier
+            oldCts?.Dispose();
 
             try
             {
@@ -484,6 +485,11 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
             BusyOverlayText = _resourceProvider.GetString("CancellingPleasewait", "Cancelling...");
             IsCancelOverlayVisible = false;
         }
+    }
+
+    public void EmergencyOverlayRelease()
+    {
+        Cancel();
     }
 
     private async Task ClosingAsync(CancelEventArgs e)

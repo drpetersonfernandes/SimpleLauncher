@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using SimpleLauncher.ViewModels;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
@@ -9,6 +10,7 @@ internal partial class GlobalStatsWindow : IDisposable
 {
     private readonly GlobalStatsViewModel _viewModel;
     private Action _closeRequestedHandler;
+    private Button _emergencyReturnButton;
 
     public GlobalStatsWindow(GlobalStatsViewModel viewModel)
     {
@@ -25,11 +27,26 @@ internal partial class GlobalStatsWindow : IDisposable
         App.ApplyThemeToWindow(this);
 
         Closing += GlobalStatsWindow_Closing;
+
+        Loaded += (_, _) =>
+        {
+            LoadingOverlay.ApplyTemplate();
+            if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
+            {
+                _emergencyReturnButton = emergencyBtn;
+                emergencyBtn.Click += EmergencyOverlayRelease_Click;
+            }
+        };
     }
 
     internal void Initialize(List<SystemManager> systemManagers)
     {
         _viewModel.Initialize(systemManagers);
+    }
+
+    private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
+    {
+        _viewModel.EmergencyOverlayRelease();
     }
 
     private void GlobalStatsWindow_Closing(object sender, CancelEventArgs e)
@@ -52,6 +69,12 @@ internal partial class GlobalStatsWindow : IDisposable
 
     public void Dispose()
     {
+        if (_emergencyReturnButton != null)
+        {
+            _emergencyReturnButton.Click -= EmergencyOverlayRelease_Click;
+            _emergencyReturnButton = null;
+        }
+
         _viewModel.Dispose();
     }
 }

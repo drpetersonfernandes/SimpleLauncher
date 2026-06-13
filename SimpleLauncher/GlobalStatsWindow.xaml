@@ -70,7 +70,7 @@
         </StackPanel>
 
         <!-- BUSY OVERLAY -->
-        <ContentControl
+        <ContentControl x:Name="LoadingOverlay"
             Grid.Row="0"
             Grid.RowSpan="5"
             Panel.ZIndex="100"
