@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">Tüm oyunlar</system:String>
     <system:String x:Key="10000games">10000 oyun</system:String>
     <system:String x:Key="1000games">1000 oyun</system:String>
@@ -1108,7 +1109,6 @@
     <system:String x:Key="ParameterResolverEnterEmulatorName">Lütfen önce bir emülatör adı girin.</system:String>
     <system:String x:Key="ParameterResolverError">Hata</system:String>
     <system:String x:Key="ParameterResolverLoading">Parametreler çözümleniyor, lütfen bekleyin...</system:String>
-    <system:String x:Key="ParameterResolverNotConfigured">Parametre çözümleyici yapılandırılmamış. Lütfen API anahtarını kontrol edin.</system:String>
     <system:String x:Key="ParameterResolverSuccess">Parametre Önerisi</system:String>
     <system:String x:Key="ParentGame">Ana Oyun:</system:String>
     <system:String x:Key="PathManipulationDetected">Potansiyel Yol Manipülasyonu Tespit Edildi</system:String>
@@ -1743,7 +1743,7 @@
     <system:String x:Key="StellaSettings">Stella Ayarları</system:String>
     <system:String x:Key="StopDownload">İndirmeyi durdur</system:String>
     <system:String x:Key="Success">Başarılı</system:String>
-    <system:String x:Key="SuggestParameters">Öner</system:String>
+    <system:String x:Key="SuggestParameters">Parametre Öner</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodel yapılandırması başarıyla kaydedildi.</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">Ses</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">İptal</system:String>

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">تمام گیمز</system:String>
     <system:String x:Key="10000games">10000 گیمز</system:String>
     <system:String x:Key="1000games">1000 گیمز</system:String>
@@ -1108,7 +1109,6 @@
     <system:String x:Key="ParameterResolverEnterEmulatorName">براہ کرم پہلے ایک ایمولیٹر کا نام درج کریں۔</system:String>
     <system:String x:Key="ParameterResolverError">خرابی</system:String>
     <system:String x:Key="ParameterResolverLoading">پیرامیٹرز حل کیے جا رہے ہیں، براہ کرم انتظار کریں...</system:String>
-    <system:String x:Key="ParameterResolverNotConfigured">پیرامیٹر ریزالور کنفیگر نہیں ہے۔ براہ کرم API کی کو چیک کریں۔</system:String>
     <system:String x:Key="ParameterResolverSuccess">پیرامیٹر کی تجویز</system:String>
     <system:String x:Key="ParentGame">والدین گیم:</system:String>
     <system:String x:Key="PathManipulationDetected">ممکنہ راستہ میں ہیرا پھیری کا پتہ چلا</system:String>
@@ -1743,7 +1743,7 @@
     <system:String x:Key="StellaSettings">سٹیلا سیٹنگز</system:String>
     <system:String x:Key="StopDownload">ڈاؤنلوڈ روکیں</system:String>
     <system:String x:Key="Success">کامیابی</system:String>
-    <system:String x:Key="SuggestParameters">تجویز کریں</system:String>
+    <system:String x:Key="SuggestParameters">پیرامیٹرز تجویز کریں</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodel کنفیگریشن کامیابی سے محفوظ ہو گئی۔</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">آڈیو</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">منسوخ کریں</system:String>

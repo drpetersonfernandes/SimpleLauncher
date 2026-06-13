@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">सभी गेम</system:String>
     <system:String x:Key="10000games">10000 गेम</system:String>
     <system:String x:Key="1000games">1000 गेम</system:String>
@@ -1108,7 +1109,6 @@
     <system:String x:Key="ParameterResolverEnterEmulatorName">कृपया पहले एक एमुलेटर नाम दर्ज करें।</system:String>
     <system:String x:Key="ParameterResolverError">त्रुटि</system:String>
     <system:String x:Key="ParameterResolverLoading">पैरामीटर हल किए जा रहे हैं, कृपया प्रतीक्षा करें...</system:String>
-    <system:String x:Key="ParameterResolverNotConfigured">पैरामीटर रिज़ॉल्वर कॉन्फ़िगर नहीं है। कृपया API कुंजी की जाँच करें।</system:String>
     <system:String x:Key="ParameterResolverSuccess">पैरामीटर सुझाव</system:String>
     <system:String x:Key="ParentGame">मूल गेम:</system:String>
     <system:String x:Key="PathManipulationDetected">संभावित पथ हेरफेर का पता चला</system:String>
@@ -1743,7 +1743,7 @@
     <system:String x:Key="StellaSettings">स्टेला सेटिंग्स</system:String>
     <system:String x:Key="StopDownload">डाउनलोड रोकें</system:String>
     <system:String x:Key="Success">सफलता</system:String>
-    <system:String x:Key="SuggestParameters">सुझाव दें</system:String>
+    <system:String x:Key="SuggestParameters">पैरामीटर सुझाएँ</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">सुपरमॉडल कॉन्फ़िगरेशन सफलतापूर्वक सहेजा गया।</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">ऑडियो</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">रद्द करें</system:String>

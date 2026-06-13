@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
     <system:String x:Key="10000games">10000 trò chơi</system:String>
     <system:String x:Key="1000games">1000 trò chơi</system:String>
@@ -1108,7 +1109,6 @@
     <system:String x:Key="ParameterResolverEnterEmulatorName">Vui lòng nhập tên trình giả lập trước.</system:String>
     <system:String x:Key="ParameterResolverError">Lỗi</system:String>
     <system:String x:Key="ParameterResolverLoading">Đang giải quyết tham số, vui lòng đợi...</system:String>
-    <system:String x:Key="ParameterResolverNotConfigured">Trình giải quyết tham số chưa được cấu hình. Vui lòng kiểm tra khóa API.</system:String>
     <system:String x:Key="ParameterResolverSuccess">Gợi ý Tham số</system:String>
     <system:String x:Key="ParentGame">Trò chơi gốc:</system:String>
     <system:String x:Key="PathManipulationDetected">Phát hiện thao túng đường dẫn tiềm năng</system:String>
@@ -1743,7 +1743,7 @@
     <system:String x:Key="StellaSettings">Cài đặt Stella</system:String>
     <system:String x:Key="StopDownload">Dừng tải xuống</system:String>
     <system:String x:Key="Success">Thành công</system:String>
-    <system:String x:Key="SuggestParameters">Gợi ý</system:String>
+    <system:String x:Key="SuggestParameters">Gợi ý tham số</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Đã lưu cấu hình Supermodel thành công.</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">Âm thanh</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">Hủy</system:String>

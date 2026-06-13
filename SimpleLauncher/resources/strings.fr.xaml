@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">Tous les jeux</system:String>
     <system:String x:Key="10000games">10000 jeux</system:String>
     <system:String x:Key="1000games">1000 jeux</system:String>
@@ -1108,7 +1109,6 @@
     <system:String x:Key="ParameterResolverEnterEmulatorName">Veuillez d'abord saisir un nom d'émulateur.</system:String>
     <system:String x:Key="ParameterResolverError">Erreur</system:String>
     <system:String x:Key="ParameterResolverLoading">Résolution des paramètres, veuillez patienter...</system:String>
-    <system:String x:Key="ParameterResolverNotConfigured">Le résolveur de paramètres n'est pas configuré. Veuillez vérifier la clé API.</system:String>
     <system:String x:Key="ParameterResolverSuccess">Suggestion de paramètre</system:String>
     <system:String x:Key="ParentGame">Jeu parent :</system:String>
     <system:String x:Key="PathManipulationDetected">Manipulation potentielle de chemin détectée</system:String>
@@ -1743,7 +1743,7 @@
     <system:String x:Key="StellaSettings">Paramètres Stella</system:String>
     <system:String x:Key="StopDownload">Arrêter le téléchargement</system:String>
     <system:String x:Key="Success">Succès</system:String>
-    <system:String x:Key="SuggestParameters">Suggérer</system:String>
+    <system:String x:Key="SuggestParameters">Demander à l'IA</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Configuration Supermodel enregistrée avec succès.</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">Audio</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">Annuler</system:String>

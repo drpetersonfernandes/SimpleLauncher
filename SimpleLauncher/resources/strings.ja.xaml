@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">全ゲーム</system:String>
     <system:String x:Key="10000games">10000ゲーム</system:String>
     <system:String x:Key="1000games">1000ゲーム</system:String>
@@ -1108,7 +1109,6 @@
     <system:String x:Key="ParameterResolverEnterEmulatorName">まずエミュレーター名を入力してください。</system:String>
     <system:String x:Key="ParameterResolverError">エラー</system:String>
     <system:String x:Key="ParameterResolverLoading">パラメーターを解決しています。お待ちください...</system:String>
-    <system:String x:Key="ParameterResolverNotConfigured">パラメーターリゾルバーが設定されていません。APIキーを確認してください。</system:String>
     <system:String x:Key="ParameterResolverSuccess">パラメーターの提案</system:String>
     <system:String x:Key="ParentGame">親ゲーム:</system:String>
     <system:String x:Key="PathManipulationDetected">潜在的なパス操作が検出されました</system:String>
@@ -1743,7 +1743,7 @@
     <system:String x:Key="StellaSettings">Stella設定</system:String>
     <system:String x:Key="StopDownload">ダウンロードを停止</system:String>
     <system:String x:Key="Success">成功</system:String>
-    <system:String x:Key="SuggestParameters">提案</system:String>
+    <system:String x:Key="SuggestParameters">パラメータ提案</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodelの設定が正常に保存されました。</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">オーディオ</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">キャンセル</system:String>

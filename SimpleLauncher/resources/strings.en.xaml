@@ -1742,6 +1742,7 @@
     <system:String x:Key="StellaSettings">Stella Settings</system:String>
     <system:String x:Key="StopDownload">Stop Download</system:String>
     <system:String x:Key="Success">Success</system:String>
+    <system:String x:Key="SuggestParameters">Ask AI</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodel configuration saved successfully.</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">Audio</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">Cancel</system:String>
@@ -2345,7 +2346,4 @@
     <system:String x:Key="ZoomInIcon">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
     <system:String x:Key="ZoomOutIcon">Zoom Out</system:String>
-    
-    <system:String x:Key="SuggestParameters">Ask AI</system:String>
-    
 </ResourceDictionary>
