@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">Все игры</system:String>
     <system:String x:Key="10000games">10000 игр</system:String>
     <system:String x:Key="1000games">1000 игр</system:String>
@@ -1114,6 +1115,12 @@
     <system:String x:Key="PathToRomsWatermark">Путь к ROM'ам...</system:String>
     <system:String x:Key="PCB">Печатная плата (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Печатная плата (PCB) не найдена</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError1">Не удалось внедрить конфигурацию PCSX2. Эмулятор установлен в защищенном системном каталоге.</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError2">Не удалось изменить файл конфигурации из-за недостаточных разрешений.</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError3">Чтобы исправить это, либо:</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError4">1. Запустите Simple Launcher от имени администратора, или</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError5">2. Установите PCSX2 в пользовательский каталог (например, C:\\Users\\ВашеИмя\\PCSX2)</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError6">Игра будет запущена с настройками эмулятора по умолчанию.</system:String>
     <system:String x:Key="Pcsx2Config_AchEnabled_Checkbox">Включить достижения</system:String>
     <system:String x:Key="Pcsx2Config_AchEnabled_Tooltip">Подключиться к RetroAchievements.org для отслеживания прогресса.</system:String>
     <system:String x:Key="Pcsx2Config_AchHardcore_Checkbox">Хардкорный режим</system:String>
@@ -1920,6 +1927,7 @@
     <system:String x:Key="ToolsIcon">Инструменты</system:String>
     <system:String x:Key="TooltipAboutMenu">О Simple Launcher и параметры обновления</system:String>
     <system:String x:Key="TooltipAccentColorsMenu">Изменить акцентный цвет</system:String>
+    <system:String x:Key="TooltipAchievementsDataGrid">Список достижений для выбранной игры</system:String>
     <system:String x:Key="TooltipAdaptiveMenu">Автоматическое переключение между светлой и тёмной темой на основе системных настроек Windows</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Добавить еще одну папку для поиска игр</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">Добавить дополнительные папки для поиска игровых файлов</system:String>
@@ -1968,6 +1976,8 @@
     <system:String x:Key="TooltipDisableRecursiveSearch2">Не искать в подпапках основной системной папки</system:String>
     <system:String x:Key="TooltipDisableRecursiveSearchLabel">Отключить поиск игр во вложенных папках</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Переключить отображение описания автомата MAME в режиме сетки</system:String>
+    <system:String x:Key="TooltipDosBoxCancel">Отменить и закрыть окно выбора файла</system:String>
+    <system:String x:Key="TooltipDosBoxLaunch">Запустить выбранный файл игры DOS</system:String>
     <system:String x:Key="TooltipDownloadCore">Загрузить ядро эмулятора (если требуется)</system:String>
     <system:String x:Key="TooltipDownloadEmulator">Загрузить эмулятор для выбранной системы</system:String>
     <system:String x:Key="TooltipDownloadImagePack">Загрузить выбранный пакет изображений</system:String>
@@ -2015,6 +2025,8 @@
     <system:String x:Key="TooltipExtractFileBeforeLaunchLabel">Извлекать сжатые файлы перед запуском эмулятора</system:String>
     <system:String x:Key="TooltipFavoriteColumnHeader">Показывает, является ли игра избранной</system:String>
     <system:String x:Key="TooltipFavorites">Открыть список ваших любимых игр</system:String>
+    <system:String x:Key="TooltipFavoritesDataGrid">Список ваших любимых игр</system:String>
+    <system:String x:Key="TooltipFavoritesPreviewImage">Изображение предварительного просмотра выбранной любимой игры</system:String>
     <system:String x:Key="TooltipFeelingLucky">Запустить случайную игру из текущей системы</system:String>
     <system:String x:Key="TooltipFileNameColumnHeader">Имя файла игры</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Выберите способ отображения имени файла (оригинальное, очищенное или без имени)</system:String>
@@ -2022,8 +2034,10 @@
     <system:String x:Key="TooltipFilenamePreferencesMenu">Изменить способ отображения имен файлов в режиме сетки</system:String>
     <system:String x:Key="TooltipFolderPathColumnHeader">Путь к папке, содержащей игру</system:String>
     <system:String x:Key="TooltipFuzzyMatchingMenu">Настроить параметры нечеткого сопоставления изображений</system:String>
+    <system:String x:Key="TooltipGameCoverImage">Изображение обложки выбранной игры</system:String>
     <system:String x:Key="TooltipGameDataGrid">Список игр для выбранной системы</system:String>
     <system:String x:Key="TooltipGameFileGrid">Кнопки игр, отображаемые в виде сетки</system:String>
+    <system:String x:Key="TooltipGameInfoAchievementsDataGrid">Список достижений для выбранной игры</system:String>
     <system:String x:Key="TooltipGamepadSupportMenu">Включить или настроить поддержку геймпада</system:String>
     <system:String x:Key="TooltipGamesPerPageMenu">Установить, сколько игр отображать на странице</system:String>
     <system:String x:Key="TooltipGlobalSearch">Искать игры по всем системам</system:String>
@@ -2033,9 +2047,12 @@
     <system:String x:Key="TooltipGroupFilesByFolderLabel">Группировать игры по названию их подпапки</system:String>
     <system:String x:Key="TooltipHelpDeskImage">Открыть справочную документацию</system:String>
     <system:String x:Key="TooltipHighContrastMenu">Высококонтрастная тема для лучшей доступности</system:String>
+    <system:String x:Key="TooltipHighScoresDataGrid">Список рекордов для выбранной игры</system:String>
+    <system:String x:Key="TooltipImageViewer">Окно просмотра изображений</system:String>
     <system:String x:Key="TooltipInfoLink">Шаблон URL для информационных ссылок (используйте {GameName} как заполнитель)</system:String>
     <system:String x:Key="TooltipInjectConfigMenu">Настроить параметры эмулятора перед запуском</system:String>
     <system:String x:Key="TooltipLanguageMenu">Изменить язык приложения</system:String>
+    <system:String x:Key="TooltipLatestMastersDataGrid">Последние мастера достижений для выбранной игры</system:String>
     <system:String x:Key="TooltipLaunchFavorite">Запустить выбранную любимую игру</system:String>
     <system:String x:Key="TooltipLaunchFromHistory">Запустить выбранную игру из истории</system:String>
     <system:String x:Key="TooltipLaunchFromSearch">Запустить выбранную игру из результатов поиска</system:String>
@@ -2057,6 +2074,8 @@
     <system:String x:Key="TooltipOverlayButtonMenu">Показать или скрыть кнопки наложения на обложках игр</system:String>
     <system:String x:Key="TooltipPageContentFrame">Область содержимого для таких страниц, как Избранное и История</system:String>
     <system:String x:Key="TooltipPlayHistory">Просмотреть историю игр и статистику</system:String>
+    <system:String x:Key="TooltipPlayHistoryDataGrid">Список записей вашей истории игр</system:String>
+    <system:String x:Key="TooltipPlayHistoryPreviewImage">Изображение предварительного просмотра выбранной игры из истории</system:String>
     <system:String x:Key="TooltipPlaySound">Предварительный просмотр выбранного звука уведомления</system:String>
     <system:String x:Key="TooltipPlayTimeColumnHeader">Общее время игры</system:String>
     <system:String x:Key="TooltipPreviewImage">Предварительный просмотр обложки выбранной игры</system:String>
@@ -2072,9 +2091,12 @@
     <system:String x:Key="TooltipRemoveFromHistory">Удалить выбранный элемент из истории игр</system:String>
     <system:String x:Key="TooltipResetSound">Сбросить звук уведомления к значению по умолчанию</system:String>
     <system:String x:Key="TooltipRestart">Перезапустите приложение, чтобы применить изменения или перезагрузить системы</system:String>
+    <system:String x:Key="TooltipResultsDataGrid">Список глобальных результатов поиска</system:String>
+    <system:String x:Key="TooltipResultsPreviewImage">Изображение предварительного просмотра выбранного результата поиска</system:String>
     <system:String x:Key="TooltipRetroAchievements">Просмотреть профиль и прогресс RetroAchievements</system:String>
     <system:String x:Key="TooltipRevertDeadZone">Сбросить мертвую зону к значениям по умолчанию</system:String>
     <system:String x:Key="TooltipRevertLinks">Сбросить ссылки к значениям по умолчанию</system:String>
+    <system:String x:Key="TooltipRomHistoryViewer">Окно просмотра истории ROM</system:String>
     <system:String x:Key="TooltipSaveDeadZone">Сохранить настройки мертвой зоны</system:String>
     <system:String x:Key="TooltipSaveLinks">Сохранить пользовательскую конфигурацию ссылок</system:String>
     <system:String x:Key="TooltipSaveRaSettings">Сохранить настройки RetroAchievements</system:String>
@@ -2130,6 +2152,8 @@
     <system:String x:Key="TooltipTotalFilesLabel">Общее количество файлов в текущем представлении</system:String>
     <system:String x:Key="TooltipTotalPlaytimeInfo">Общее время игры для выбранной системы</system:String>
     <system:String x:Key="TooltipUpdateHistory">Просмотреть журнал изменений и историю обновлений</system:String>
+    <system:String x:Key="TooltipUpdateHistoryViewer">Окно просмотра истории обновлений</system:String>
+    <system:String x:Key="TooltipUpdateLog">Окно журнала обновлений</system:String>
     <system:String x:Key="TooltipVideoLink">Шаблон URL для видеоссылок (используйте {GameName} как заполнитель)</system:String>
     <system:String x:Key="TooltipViewModeMenu">Переключиться между режимами просмотра сетки и списка</system:String>
     <system:String x:Key="TooltipZoomIn">Увеличить размер кнопок игр</system:String>

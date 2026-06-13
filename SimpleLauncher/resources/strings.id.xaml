@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">Semua game</system:String>
     <system:String x:Key="10000games">10000 game</system:String>
     <system:String x:Key="1000games">1000 game</system:String>
@@ -1114,6 +1115,12 @@
     <system:String x:Key="PathToRomsWatermark">Jalur ke ROMs...</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB tidak ditemukan</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError1">Gagal menyuntikkan konfigurasi PCSX2. Emulator terinstal di direktori sistem yang dilindungi.</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError2">Berkas konfigurasi tidak dapat dimodifikasi karena izin tidak mencukupi.</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError3">Untuk memperbaikinya, Anda bisa:</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError4">1. Jalankan Simple Launcher sebagai administrator, atau</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError5">2. Instal PCSX2 di direktori pengguna (misalnya, C:\\Users\\NamaAnda\\PCSX2)</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError6">Permainan akan diluncurkan dengan pengaturan bawaan emulator.</system:String>
     <system:String x:Key="Pcsx2Config_AchEnabled_Checkbox">Aktifkan Achievements</system:String>
     <system:String x:Key="Pcsx2Config_AchEnabled_Tooltip">Terhubung ke RetroAchievements.org untuk melacak kemajuan.</system:String>
     <system:String x:Key="Pcsx2Config_AchHardcore_Checkbox">Mode Hardcore</system:String>
@@ -1920,6 +1927,7 @@
     <system:String x:Key="ToolsIcon">Alat</system:String>
     <system:String x:Key="TooltipAboutMenu">Tentang Simple Launcher dan opsi pembaruan</system:String>
     <system:String x:Key="TooltipAccentColorsMenu">Ubah warna aksen</system:String>
+    <system:String x:Key="TooltipAchievementsDataGrid">Daftar pencapaian untuk permainan yang dipilih</system:String>
     <system:String x:Key="TooltipAdaptiveMenu">Beralih secara otomatis antara Terang dan Gelap berdasarkan pengaturan sistem Windows</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Tambahkan folder lain untuk mencari game</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">Tambahkan folder tambahan untuk mencari file game</system:String>
@@ -1968,6 +1976,8 @@
     <system:String x:Key="TooltipDisableRecursiveSearch2">Jangan cari di subfolder folder sistem utama</system:String>
     <system:String x:Key="TooltipDisableRecursiveSearchLabel">Nonaktifkan pencarian di subfolder untuk game</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Aktifkan/nonaktifkan tampilan deskripsi mesin MAME dalam mode Grid</system:String>
+    <system:String x:Key="TooltipDosBoxCancel">Batal dan tutup jendela pemilihan berkas</system:String>
+    <system:String x:Key="TooltipDosBoxLaunch">Luncurkan berkas permainan DOS yang dipilih</system:String>
     <system:String x:Key="TooltipDownloadCore">Unduh core emulator (jika diperlukan)</system:String>
     <system:String x:Key="TooltipDownloadEmulator">Unduh emulator untuk sistem yang dipilih</system:String>
     <system:String x:Key="TooltipDownloadImagePack">Unduh paket gambar yang dipilih</system:String>
@@ -2015,6 +2025,8 @@
     <system:String x:Key="TooltipExtractFileBeforeLaunchLabel">Ekstrak file terkompresi sebelum meluncurkan emulator</system:String>
     <system:String x:Key="TooltipFavoriteColumnHeader">Menunjukkan apakah game ditandai sebagai favorit</system:String>
     <system:String x:Key="TooltipFavorites">Buka daftar game favorit Anda</system:String>
+    <system:String x:Key="TooltipFavoritesDataGrid">Daftar permainan favorit Anda</system:String>
+    <system:String x:Key="TooltipFavoritesPreviewImage">Gambar pratinjau dari permainan favorit yang dipilih</system:String>
     <system:String x:Key="TooltipFeelingLucky">Luncurkan game acak dari sistem saat ini</system:String>
     <system:String x:Key="TooltipFileNameColumnHeader">Nama file game</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Pilih bagaimana nama file ditampilkan (Asli, Bersih, atau Tanpa Nama File)</system:String>
@@ -2022,8 +2034,10 @@
     <system:String x:Key="TooltipFilenamePreferencesMenu">Ubah cara nama file ditampilkan dalam mode Grid</system:String>
     <system:String x:Key="TooltipFolderPathColumnHeader">Jalur ke folder yang berisi game</system:String>
     <system:String x:Key="TooltipFuzzyMatchingMenu">Konfigurasi pengaturan pencocokan gambar fuzzy</system:String>
+    <system:String x:Key="TooltipGameCoverImage">Gambar sampul dari permainan yang dipilih</system:String>
     <system:String x:Key="TooltipGameDataGrid">Daftar game untuk sistem yang dipilih</system:String>
     <system:String x:Key="TooltipGameFileGrid">Tombol game ditampilkan dalam tampilan kisi</system:String>
+    <system:String x:Key="TooltipGameInfoAchievementsDataGrid">Daftar pencapaian untuk permainan yang dipilih</system:String>
     <system:String x:Key="TooltipGamepadSupportMenu">Aktifkan atau konfigurasi dukungan gamepad</system:String>
     <system:String x:Key="TooltipGamesPerPageMenu">Atur berapa banyak game yang akan ditampilkan per halaman</system:String>
     <system:String x:Key="TooltipGlobalSearch">Cari game di semua sistem</system:String>
@@ -2033,9 +2047,12 @@
     <system:String x:Key="TooltipGroupFilesByFolderLabel">Kelompokkan game berdasarkan nama subfoldernya</system:String>
     <system:String x:Key="TooltipHelpDeskImage">Buka dokumentasi bantuan</system:String>
     <system:String x:Key="TooltipHighContrastMenu">Tema kontras tinggi untuk aksesibilitas yang lebih baik</system:String>
+    <system:String x:Key="TooltipHighScoresDataGrid">Daftar skor tertinggi untuk permainan yang dipilih</system:String>
+    <system:String x:Key="TooltipImageViewer">Jendela penampil gambar</system:String>
     <system:String x:Key="TooltipInfoLink">Template URL untuk tautan info (gunakan {GameName} sebagai placeholder)</system:String>
     <system:String x:Key="TooltipInjectConfigMenu">Konfigurasi pengaturan emulator sebelum diluncurkan</system:String>
     <system:String x:Key="TooltipLanguageMenu">Ubah bahasa aplikasi</system:String>
+    <system:String x:Key="TooltipLatestMastersDataGrid">Master pencapaian terbaru untuk permainan yang dipilih</system:String>
     <system:String x:Key="TooltipLaunchFavorite">Luncurkan game favorit yang dipilih</system:String>
     <system:String x:Key="TooltipLaunchFromHistory">Luncurkan game yang dipilih dari riwayat</system:String>
     <system:String x:Key="TooltipLaunchFromSearch">Luncurkan game yang dipilih dari hasil pencarian</system:String>
@@ -2057,6 +2074,8 @@
     <system:String x:Key="TooltipOverlayButtonMenu">Tampilkan atau sembunyikan tombol overlay pada sampul game</system:String>
     <system:String x:Key="TooltipPageContentFrame">Area konten untuk halaman seperti Favorit dan Riwayat</system:String>
     <system:String x:Key="TooltipPlayHistory">Lihat riwayat bermain dan statistik Anda</system:String>
+    <system:String x:Key="TooltipPlayHistoryDataGrid">Daftar riwayat permainan Anda</system:String>
+    <system:String x:Key="TooltipPlayHistoryPreviewImage">Gambar pratinjau dari permainan riwayat yang dipilih</system:String>
     <system:String x:Key="TooltipPlaySound">Pratinjau suara notifikasi yang dipilih</system:String>
     <system:String x:Key="TooltipPlayTimeColumnHeader">Total waktu yang dihabiskan untuk memainkan game ini</system:String>
     <system:String x:Key="TooltipPreviewImage">Pratinjau gambar sampul game yang dipilih</system:String>
@@ -2072,9 +2091,12 @@
     <system:String x:Key="TooltipRemoveFromHistory">Hapus item yang dipilih dari riwayat bermain</system:String>
     <system:String x:Key="TooltipResetSound">Setel ulang ke suara notifikasi default</system:String>
     <system:String x:Key="TooltipRestart">Mulai ulang aplikasi untuk menerapkan perubahan atau memuat ulang sistem</system:String>
+    <system:String x:Key="TooltipResultsDataGrid">Daftar hasil pencarian global</system:String>
+    <system:String x:Key="TooltipResultsPreviewImage">Gambar pratinjau dari hasil pencarian yang dipilih</system:String>
     <system:String x:Key="TooltipRetroAchievements">Lihat profil dan kemajuan RetroAchievements</system:String>
     <system:String x:Key="TooltipRevertDeadZone">Setel ulang dead zone ke nilai default</system:String>
     <system:String x:Key="TooltipRevertLinks">Setel ulang tautan ke nilai default</system:String>
+    <system:String x:Key="TooltipRomHistoryViewer">Jendela penampil riwayat ROM</system:String>
     <system:String x:Key="TooltipSaveDeadZone">Simpan pengaturan dead zone</system:String>
     <system:String x:Key="TooltipSaveLinks">Simpan konfigurasi tautan kustom</system:String>
     <system:String x:Key="TooltipSaveRaSettings">Simpan pengaturan RetroAchievements</system:String>
@@ -2130,6 +2152,8 @@
     <system:String x:Key="TooltipTotalFilesLabel">Jumlah total file dalam tampilan saat ini</system:String>
     <system:String x:Key="TooltipTotalPlaytimeInfo">Total waktu bermain untuk sistem yang dipilih</system:String>
     <system:String x:Key="TooltipUpdateHistory">Lihat changelog dan riwayat pembaruan</system:String>
+    <system:String x:Key="TooltipUpdateHistoryViewer">Jendela penampil riwayat pembaruan</system:String>
+    <system:String x:Key="TooltipUpdateLog">Jendela log pembaruan</system:String>
     <system:String x:Key="TooltipVideoLink">Template URL untuk tautan video (gunakan {GameName} sebagai placeholder)</system:String>
     <system:String x:Key="TooltipViewModeMenu">Beralih antara mode tampilan grid dan daftar</system:String>
     <system:String x:Key="TooltipZoomIn">Perbesar ukuran tombol game</system:String>

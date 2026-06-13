@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">Tüm oyunlar</system:String>
     <system:String x:Key="10000games">10000 oyun</system:String>
     <system:String x:Key="1000games">1000 oyun</system:String>
@@ -1114,6 +1115,12 @@
     <system:String x:Key="PathToRomsWatermark">ROM'ların yolu...</system:String>
     <system:String x:Key="PCB">Devre Kartı (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Devre Kartı (PCB) bulunamadı</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError1">PCSX2 yapılandırması enjekte edilemedi. Emülatör korumalı bir sistem dizinine yüklü.</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError2">Yetersiz izinler nedeniyle yapılandırma dosyası değiştirilemedi.</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError3">Bunu düzeltmek için şunlardan birini yapın:</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError4">1. Simple Launcher'ı yönetici olarak çalıştırın veya</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError5">2. PCSX2'yi bir kullanıcı dizinine yükleyin (örn. C:\\Users\\KullanıcıAdınız\\PCSX2)</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError6">Oyun, emülatörün varsayılan ayarlarıyla başlayacak.</system:String>
     <system:String x:Key="Pcsx2Config_AchEnabled_Checkbox">Başarımları Etkinleştir</system:String>
     <system:String x:Key="Pcsx2Config_AchEnabled_Tooltip">İlerlemeyi takip etmek için RetroAchievements.org'a bağlanın.</system:String>
     <system:String x:Key="Pcsx2Config_AchHardcore_Checkbox">Hardcore Modu</system:String>
@@ -1920,6 +1927,7 @@
     <system:String x:Key="ToolsIcon">Araçlar</system:String>
     <system:String x:Key="TooltipAboutMenu">Simple Launcher hakkında ve güncelleme seçenekleri</system:String>
     <system:String x:Key="TooltipAccentColorsMenu">Vurgu rengini değiştir</system:String>
+    <system:String x:Key="TooltipAchievementsDataGrid">Seçili oyunun başarımlar listesi</system:String>
     <system:String x:Key="TooltipAdaptiveMenu">Windows sistem ayarlarına göre Açık ve Koyu mod arasında otomatik geçiş yap</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Oyun aramak için başka bir klasör ekle</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">Oyun dosyalarını aramak için ek klasörler ekle</system:String>
@@ -1968,6 +1976,8 @@
     <system:String x:Key="TooltipDisableRecursiveSearch2">Ana sistem klasörünün alt klasörlerinde arama yapma</system:String>
     <system:String x:Key="TooltipDisableRecursiveSearchLabel">Oyunlar için alt klasörlerde aramayı devre dışı bırak</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Izgara modunda MAME makine açıklaması görünümünü aç/kapat</system:String>
+    <system:String x:Key="TooltipDosBoxCancel">Dosya seçimi penceresini iptal et ve kapat</system:String>
+    <system:String x:Key="TooltipDosBoxLaunch">Seçili DOS oyun dosyasını başlat</system:String>
     <system:String x:Key="TooltipDownloadCore">Emülatör çekirdeğini indirin (gerekliyse)</system:String>
     <system:String x:Key="TooltipDownloadEmulator">Seçilen sistem için emülatörü indirin</system:String>
     <system:String x:Key="TooltipDownloadImagePack">Seçilen resim paketini indir</system:String>
@@ -2015,6 +2025,8 @@
     <system:String x:Key="TooltipExtractFileBeforeLaunchLabel">Emülatörü başlatmadan önce sıkıştırılmış dosyaları çıkar</system:String>
     <system:String x:Key="TooltipFavoriteColumnHeader">Oyunun favori olarak işaretlenip işaretlenmediğini gösterir</system:String>
     <system:String x:Key="TooltipFavorites">Favori oyun listenizi açın</system:String>
+    <system:String x:Key="TooltipFavoritesDataGrid">Favori oyunlarınızın listesi</system:String>
+    <system:String x:Key="TooltipFavoritesPreviewImage">Seçili favori oyunun önizleme resmi</system:String>
     <system:String x:Key="TooltipFeelingLucky">Mevcut sistemden rastgele bir oyun başlatın</system:String>
     <system:String x:Key="TooltipFileNameColumnHeader">Oyun dosyasının adı</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Dosya adının nasıl görüntüleneceğini seçin (Orijinal, Temizlenmiş veya Dosya Adı Yok)</system:String>
@@ -2022,8 +2034,10 @@
     <system:String x:Key="TooltipFilenamePreferencesMenu">Izgara modunda dosya adlarının nasıl görüntüleneceğini değiştirin</system:String>
     <system:String x:Key="TooltipFolderPathColumnHeader">Oyunu içeren klasörün yolu</system:String>
     <system:String x:Key="TooltipFuzzyMatchingMenu">Bulanık resim eşleştirme ayarlarını yapılandır</system:String>
+    <system:String x:Key="TooltipGameCoverImage">Seçili oyunun kapak resmi</system:String>
     <system:String x:Key="TooltipGameDataGrid">Seçilen sistem için oyun listesi</system:String>
     <system:String x:Key="TooltipGameFileGrid">Izgara görünümünde görüntülenen oyun düğmeleri</system:String>
+    <system:String x:Key="TooltipGameInfoAchievementsDataGrid">Seçili oyunun başarımlar listesi</system:String>
     <system:String x:Key="TooltipGamepadSupportMenu">Gamepad desteğini etkinleştir veya yapılandır</system:String>
     <system:String x:Key="TooltipGamesPerPageMenu">Sayfa başına kaç oyun görüntüleneceğini ayarla</system:String>
     <system:String x:Key="TooltipGlobalSearch">Tüm sistemlerde oyun arayın</system:String>
@@ -2033,9 +2047,12 @@
     <system:String x:Key="TooltipGroupFilesByFolderLabel">Oyunları alt klasör adlarına göre grupla</system:String>
     <system:String x:Key="TooltipHelpDeskImage">Yardım belgelerini aç</system:String>
     <system:String x:Key="TooltipHighContrastMenu">Daha iyi erişilebilirlik için yüksek karşıtlıklı tema</system:String>
+    <system:String x:Key="TooltipHighScoresDataGrid">Seçili oyun için yüksek skorlar listesi</system:String>
+    <system:String x:Key="TooltipImageViewer">Resim görüntüleyici penceresi</system:String>
     <system:String x:Key="TooltipInfoLink">Bilgi bağlantıları için URL şablonu ({GameName} yer tutucu olarak kullanın)</system:String>
     <system:String x:Key="TooltipInjectConfigMenu">Başlatmadan önce emülatör ayarlarını yapılandır</system:String>
     <system:String x:Key="TooltipLanguageMenu">Uygulama dilini değiştir</system:String>
+    <system:String x:Key="TooltipLatestMastersDataGrid">Seçili oyun için en son başarım ustaları</system:String>
     <system:String x:Key="TooltipLaunchFavorite">Seçilen favori oyunu başlatın</system:String>
     <system:String x:Key="TooltipLaunchFromHistory">Geçmişten seçilen oyunu başlatın</system:String>
     <system:String x:Key="TooltipLaunchFromSearch">Arama sonuçlarından seçilen oyunu başlatın</system:String>
@@ -2057,6 +2074,8 @@
     <system:String x:Key="TooltipOverlayButtonMenu">Oyun kapaklarında bindirme düğmelerini göster veya gizle</system:String>
     <system:String x:Key="TooltipPageContentFrame">Favoriler ve Geçmiş gibi sayfalar için içerik alanı</system:String>
     <system:String x:Key="TooltipPlayHistory">Oyun geçmişinizi ve istatistiklerinizi görüntüleyin</system:String>
+    <system:String x:Key="TooltipPlayHistoryDataGrid">Oynama geçmişi kayıtlarınızın listesi</system:String>
+    <system:String x:Key="TooltipPlayHistoryPreviewImage">Seçili oynama geçmişi oyununun önizleme resmi</system:String>
     <system:String x:Key="TooltipPlaySound">Seçilen bildirim sesini önizle</system:String>
     <system:String x:Key="TooltipPlayTimeColumnHeader">Bu oyunu oynarken harcanan toplam süre</system:String>
     <system:String x:Key="TooltipPreviewImage">Seçilen oyun kapak görselinin önizlemesi</system:String>
@@ -2072,9 +2091,12 @@
     <system:String x:Key="TooltipRemoveFromHistory">Seçilen öğeyi oynatma geçmişinden kaldırın</system:String>
     <system:String x:Key="TooltipResetSound">Varsayılan bildirim sesine sıfırla</system:String>
     <system:String x:Key="TooltipRestart">Değişiklikleri uygulamak veya sistemleri yeniden yüklemek için uygulamayı yeniden başlatın</system:String>
+    <system:String x:Key="TooltipResultsDataGrid">Küresel arama sonuçları listesi</system:String>
+    <system:String x:Key="TooltipResultsPreviewImage">Seçili arama sonucunun önizleme resmi</system:String>
     <system:String x:Key="TooltipRetroAchievements">RetroAchievements profilini ve ilerlemesini görüntüleyin</system:String>
     <system:String x:Key="TooltipRevertDeadZone">Ölü bölgeyi varsayılan değerlere sıfırla</system:String>
     <system:String x:Key="TooltipRevertLinks">Bağlantıları varsayılan değerlere sıfırla</system:String>
+    <system:String x:Key="TooltipRomHistoryViewer">ROM geçmişi görüntüleyici penceresi</system:String>
     <system:String x:Key="TooltipSaveDeadZone">Ölü bölge ayarlarını kaydet</system:String>
     <system:String x:Key="TooltipSaveLinks">Özel bağlantı yapılandırmasını kaydet</system:String>
     <system:String x:Key="TooltipSaveRaSettings">RetroAchievements ayarlarını kaydet</system:String>
@@ -2130,6 +2152,8 @@
     <system:String x:Key="TooltipTotalFilesLabel">Mevcut görünümdeki toplam dosya sayısı</system:String>
     <system:String x:Key="TooltipTotalPlaytimeInfo">Seçilen sistem için toplam oynama süresi</system:String>
     <system:String x:Key="TooltipUpdateHistory">Değişiklik günlüğünü ve güncelleme geçmişini görüntüleyin</system:String>
+    <system:String x:Key="TooltipUpdateHistoryViewer">Güncelleme geçmişi görüntüleyici penceresi</system:String>
+    <system:String x:Key="TooltipUpdateLog">Güncelleme günlüğü penceresi</system:String>
     <system:String x:Key="TooltipVideoLink">Video bağlantıları için URL şablonu ({GameName} yer tutucu olarak kullanın)</system:String>
     <system:String x:Key="TooltipViewModeMenu">Izgara ve liste görünüm modları arasında geçiş yap</system:String>
     <system:String x:Key="TooltipZoomIn">Oyun düğmelerinin boyutunu artırın</system:String>

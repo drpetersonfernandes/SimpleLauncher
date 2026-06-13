@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">全ゲーム</system:String>
     <system:String x:Key="10000games">10000ゲーム</system:String>
     <system:String x:Key="1000games">1000ゲーム</system:String>
@@ -1114,6 +1115,12 @@
     <system:String x:Key="PathToRomsWatermark">ROMsへのパス...</system:String>
     <system:String x:Key="PCB">基板（PCB）</system:String>
     <system:String x:Key="PCBnotfound">基板（PCB）が見つかりません</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError1">PCSX2の設定の挿入に失敗しました。エミュレーターが保護されたシステムディレクトリにインストールされています。</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError2">権限が不足しているため、設定ファイルを変更できませんでした。</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError3">これを修正するには、次のいずれかを実行してください。</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError4">1. Simple Launcherを管理者として実行する、または</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError5">2. PCSX2をユーザーディレクトリ (例: C:\\Users\\YourName\\PCSX2) にインストールする</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError6">ゲームはエミュレーターのデフォルト設定で起動します。</system:String>
     <system:String x:Key="Pcsx2Config_AchEnabled_Checkbox">実績を有効にする</system:String>
     <system:String x:Key="Pcsx2Config_AchEnabled_Tooltip">RetroAchievements.orgに接続して進行状況を追跡します。</system:String>
     <system:String x:Key="Pcsx2Config_AchHardcore_Checkbox">ハードコアモード</system:String>
@@ -1920,6 +1927,7 @@
     <system:String x:Key="ToolsIcon">ツール</system:String>
     <system:String x:Key="TooltipAboutMenu">Simple Launcherについてと更新オプション</system:String>
     <system:String x:Key="TooltipAccentColorsMenu">アクセントカラーを変更します</system:String>
+    <system:String x:Key="TooltipAchievementsDataGrid">選択したゲームの実績リスト</system:String>
     <system:String x:Key="TooltipAdaptiveMenu">Windowsのシステム設定に基づいて、ライトモードとダークモードを自動的に切り替えます</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">ゲームを検索する別のフォルダを追加します</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">ゲームファイルを検索する追加フォルダーを追加します</system:String>
@@ -1968,6 +1976,8 @@
     <system:String x:Key="TooltipDisableRecursiveSearch2">メインシステムフォルダのサブフォルダを検索しません</system:String>
     <system:String x:Key="TooltipDisableRecursiveSearchLabel">ゲームのサブフォルダー内の検索を無効にする</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">グリッドモードでのMAMEマシン名の表示を切り替えます</system:String>
+    <system:String x:Key="TooltipDosBoxCancel">ファイル選択ウィンドウをキャンセルして閉じます</system:String>
+    <system:String x:Key="TooltipDosBoxLaunch">選択したDOSゲームファイルを起動します</system:String>
     <system:String x:Key="TooltipDownloadCore">エミュレータコアをダウンロードします（必要な場合）</system:String>
     <system:String x:Key="TooltipDownloadEmulator">選択したシステムのエミュレータをダウンロードします</system:String>
     <system:String x:Key="TooltipDownloadImagePack">選択した画像パックをダウンロードします</system:String>
@@ -2015,6 +2025,8 @@
     <system:String x:Key="TooltipExtractFileBeforeLaunchLabel">エミュレーターを起動する前に圧縮ファイルを解凍します</system:String>
     <system:String x:Key="TooltipFavoriteColumnHeader">ゲームがお気に入りとしてマークされているかどうかを示します</system:String>
     <system:String x:Key="TooltipFavorites">お気に入りのゲームリストを開きます</system:String>
+    <system:String x:Key="TooltipFavoritesDataGrid">お気に入りのゲームリスト</system:String>
+    <system:String x:Key="TooltipFavoritesPreviewImage">選択したお気に入りゲームのプレビュー画像</system:String>
     <system:String x:Key="TooltipFeelingLucky">現在のシステムからランダムなゲームを起動します</system:String>
     <system:String x:Key="TooltipFileNameColumnHeader">ゲームファイル名</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">ファイル名の表示形式を選択します (元の名前、クリーンアップ、または表示なし)</system:String>
@@ -2022,8 +2034,10 @@
     <system:String x:Key="TooltipFilenamePreferencesMenu">グリッドモードでのファイル名の表示方法を変更します</system:String>
     <system:String x:Key="TooltipFolderPathColumnHeader">ゲームを含むフォルダーへのパス</system:String>
     <system:String x:Key="TooltipFuzzyMatchingMenu">あいまい画像マッチング設定を構成します</system:String>
+    <system:String x:Key="TooltipGameCoverImage">選択したゲームのカバー画像</system:String>
     <system:String x:Key="TooltipGameDataGrid">選択したシステム用のゲームのリスト</system:String>
     <system:String x:Key="TooltipGameFileGrid">グリッドビューで表示されるゲームボタン</system:String>
+    <system:String x:Key="TooltipGameInfoAchievementsDataGrid">選択したゲームの実績リスト</system:String>
     <system:String x:Key="TooltipGamepadSupportMenu">ゲームパッドのサポートを有効または設定します</system:String>
     <system:String x:Key="TooltipGamesPerPageMenu">1ページに表示するゲーム数を設定します</system:String>
     <system:String x:Key="TooltipGlobalSearch">すべてのシステムでゲームを検索します</system:String>
@@ -2033,9 +2047,12 @@
     <system:String x:Key="TooltipGroupFilesByFolderLabel">サブフォルダー名でゲームをグループ化します</system:String>
     <system:String x:Key="TooltipHelpDeskImage">ヘルプドキュメントを開く</system:String>
     <system:String x:Key="TooltipHighContrastMenu">視認性を高めるためのハイコントラストテーマ</system:String>
+    <system:String x:Key="TooltipHighScoresDataGrid">選択したゲームのハイスコアリスト</system:String>
+    <system:String x:Key="TooltipImageViewer">画像ビューアウィンドウ</system:String>
     <system:String x:Key="TooltipInfoLink">情報リンクのURLテンプレート（{GameName}をプレースホルダーとして使用）</system:String>
     <system:String x:Key="TooltipInjectConfigMenu">起動前にエミュレータ設定を構成します</system:String>
     <system:String x:Key="TooltipLanguageMenu">アプリケーションの言語を変更します</system:String>
+    <system:String x:Key="TooltipLatestMastersDataGrid">選択したゲームの最新の実績マスター</system:String>
     <system:String x:Key="TooltipLaunchFavorite">選択したお気に入りのゲームを起動します</system:String>
     <system:String x:Key="TooltipLaunchFromHistory">履歴から選択したゲームを起動します</system:String>
     <system:String x:Key="TooltipLaunchFromSearch">検索結果から選択したゲームを起動します</system:String>
@@ -2057,6 +2074,8 @@
     <system:String x:Key="TooltipOverlayButtonMenu">ゲームカバー上のオーバーレイボタンを表示または非表示にします</system:String>
     <system:String x:Key="TooltipPageContentFrame">お気に入りや履歴などのページ用のコンテンツ領域</system:String>
     <system:String x:Key="TooltipPlayHistory">プレイ履歴と統計を表示します</system:String>
+    <system:String x:Key="TooltipPlayHistoryDataGrid">プレイ履歴リスト</system:String>
+    <system:String x:Key="TooltipPlayHistoryPreviewImage">選択したプレイ履歴ゲームのプレビュー画像</system:String>
     <system:String x:Key="TooltipPlaySound">選択した通知サウンドをプレビューします</system:String>
     <system:String x:Key="TooltipPlayTimeColumnHeader">このゲームをプレイした合計時間</system:String>
     <system:String x:Key="TooltipPreviewImage">選択したゲームのカバー画像のプレビュー</system:String>
@@ -2072,9 +2091,12 @@
     <system:String x:Key="TooltipRemoveFromHistory">プレイ履歴から選択した項目を削除します</system:String>
     <system:String x:Key="TooltipResetSound">デフォルトの通知サウンドにリセットします</system:String>
     <system:String x:Key="TooltipRestart">変更を適用したり、システムをリロードするためにアプリケーションを再起動します</system:String>
+    <system:String x:Key="TooltipResultsDataGrid">グローバル検索結果リスト</system:String>
+    <system:String x:Key="TooltipResultsPreviewImage">選択した検索結果のプレビュー画像</system:String>
     <system:String x:Key="TooltipRetroAchievements">RetroAchievementsのプロフィールと進捗を表示します</system:String>
     <system:String x:Key="TooltipRevertDeadZone">デッドゾーンをデフォルト値にリセットします</system:String>
     <system:String x:Key="TooltipRevertLinks">リンクをデフォルト値にリセットします</system:String>
+    <system:String x:Key="TooltipRomHistoryViewer">ROM履歴ビューアウィンドウ</system:String>
     <system:String x:Key="TooltipSaveDeadZone">デッドゾーン設定を保存します</system:String>
     <system:String x:Key="TooltipSaveLinks">カスタムリンク設定を保存します</system:String>
     <system:String x:Key="TooltipSaveRaSettings">RetroAchievements設定を保存します</system:String>
@@ -2130,6 +2152,8 @@
     <system:String x:Key="TooltipTotalFilesLabel">現在のビュー内のファイルの総数</system:String>
     <system:String x:Key="TooltipTotalPlaytimeInfo">選択されたシステムの総プレイ時間</system:String>
     <system:String x:Key="TooltipUpdateHistory">変更履歴と更新履歴を表示します</system:String>
+    <system:String x:Key="TooltipUpdateHistoryViewer">更新履歴ビューアウィンドウ</system:String>
+    <system:String x:Key="TooltipUpdateLog">更新ログウィンドウ</system:String>
     <system:String x:Key="TooltipVideoLink">ビデオリンクのURLテンプレート（{GameName}をプレースホルダーとして使用）</system:String>
     <system:String x:Key="TooltipViewModeMenu">グリッド表示とリスト表示モードを切り替えます</system:String>
     <system:String x:Key="TooltipZoomIn">ゲームボタンのサイズを大きくします</system:String>

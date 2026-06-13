@@ -1925,6 +1925,7 @@
     <system:String x:Key="ToolsIcon">Tools</system:String>
     <system:String x:Key="TooltipAboutMenu">About Simple Launcher and update options</system:String>
     <system:String x:Key="TooltipAccentColorsMenu">Change the accent color</system:String>
+    <system:String x:Key="TooltipAchievementsDataGrid">List of achievements for the selected game</system:String>
     <system:String x:Key="TooltipAdaptiveMenu">Automatically switch between Light and Dark based on Windows system settings</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Add another folder to search for games</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">Add additional folders to search for game files</system:String>
@@ -1973,6 +1974,8 @@
     <system:String x:Key="TooltipDisableRecursiveSearch2">Do not search in subfolders of the main system folder</system:String>
     <system:String x:Key="TooltipDisableRecursiveSearchLabel">Disable searching in subfolders for games</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Toggle MAME machine description display in Grid mode</system:String>
+    <system:String x:Key="TooltipDosBoxCancel">Cancel and close the file selection window</system:String>
+    <system:String x:Key="TooltipDosBoxLaunch">Launch the selected DOS game file</system:String>
     <system:String x:Key="TooltipDownloadCore">Download the emulator core (if required)</system:String>
     <system:String x:Key="TooltipDownloadEmulator">Download the emulator for the selected system</system:String>
     <system:String x:Key="TooltipDownloadImagePack">Download the selected image pack</system:String>
@@ -2020,6 +2023,8 @@
     <system:String x:Key="TooltipExtractFileBeforeLaunchLabel">Extract compressed files before launching the emulator</system:String>
     <system:String x:Key="TooltipFavoriteColumnHeader">Indicates if the game is marked as favorite</system:String>
     <system:String x:Key="TooltipFavorites">Open your favorite games list</system:String>
+    <system:String x:Key="TooltipFavoritesDataGrid">List of your favorite games</system:String>
+    <system:String x:Key="TooltipFavoritesPreviewImage">Preview image of the selected favorite game</system:String>
     <system:String x:Key="TooltipFeelingLucky">Launch a random game from the current system</system:String>
     <system:String x:Key="TooltipFileNameColumnHeader">Name of the game file</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Select how the filename is displayed (Original, Clean Up, or No Filename)</system:String>
@@ -2027,8 +2032,10 @@
     <system:String x:Key="TooltipFilenamePreferencesMenu">Change how filenames are displayed in Grid mode</system:String>
     <system:String x:Key="TooltipFolderPathColumnHeader">Path to the folder containing the game</system:String>
     <system:String x:Key="TooltipFuzzyMatchingMenu">Configure fuzzy image matching settings</system:String>
+    <system:String x:Key="TooltipGameCoverImage">Cover image of the selected game</system:String>
     <system:String x:Key="TooltipGameDataGrid">List of games for the selected system</system:String>
     <system:String x:Key="TooltipGameFileGrid">Game buttons displayed in grid view</system:String>
+    <system:String x:Key="TooltipGameInfoAchievementsDataGrid">List of achievements for the selected game</system:String>
     <system:String x:Key="TooltipGamepadSupportMenu">Enable or configure gamepad support</system:String>
     <system:String x:Key="TooltipGamesPerPageMenu">Set how many games to display per page</system:String>
     <system:String x:Key="TooltipGlobalSearch">Search for games across all systems</system:String>
@@ -2038,9 +2045,12 @@
     <system:String x:Key="TooltipGroupFilesByFolderLabel">Group games by their subfolder name</system:String>
     <system:String x:Key="TooltipHelpDeskImage">Open help documentation</system:String>
     <system:String x:Key="TooltipHighContrastMenu">High contrast theme for better accessibility</system:String>
+    <system:String x:Key="TooltipHighScoresDataGrid">High scores list for the selected game</system:String>
+    <system:String x:Key="TooltipImageViewer">Image viewer window</system:String>
     <system:String x:Key="TooltipInfoLink">URL template for info links (use {GameName} as placeholder)</system:String>
     <system:String x:Key="TooltipInjectConfigMenu">Configure emulator settings before launch</system:String>
     <system:String x:Key="TooltipLanguageMenu">Change the application language</system:String>
+    <system:String x:Key="TooltipLatestMastersDataGrid">Latest achievement masters for the selected game</system:String>
     <system:String x:Key="TooltipLaunchFavorite">Launch the selected favorite game</system:String>
     <system:String x:Key="TooltipLaunchFromHistory">Launch the selected game from history</system:String>
     <system:String x:Key="TooltipLaunchFromSearch">Launch the selected game from search results</system:String>
@@ -2062,6 +2072,8 @@
     <system:String x:Key="TooltipOverlayButtonMenu">Show or hide overlay buttons on game covers</system:String>
     <system:String x:Key="TooltipPageContentFrame">Content area for pages such as Favorites and History</system:String>
     <system:String x:Key="TooltipPlayHistory">View your play history and statistics</system:String>
+    <system:String x:Key="TooltipPlayHistoryDataGrid">List of your play history records</system:String>
+    <system:String x:Key="TooltipPlayHistoryPreviewImage">Preview image of the selected play history game</system:String>
     <system:String x:Key="TooltipPlaySound">Preview the selected notification sound</system:String>
     <system:String x:Key="TooltipPlayTimeColumnHeader">Total time spent playing this game</system:String>
     <system:String x:Key="TooltipPreviewImage">Preview of the selected game cover image</system:String>
@@ -2077,9 +2089,12 @@
     <system:String x:Key="TooltipRemoveFromHistory">Remove the selected item from play history</system:String>
     <system:String x:Key="TooltipResetSound">Reset to the default notification sound</system:String>
     <system:String x:Key="TooltipRestart">Restart the application to apply changes or reload systems</system:String>
+    <system:String x:Key="TooltipResultsDataGrid">List of global search results</system:String>
+    <system:String x:Key="TooltipResultsPreviewImage">Preview image of the selected search result</system:String>
     <system:String x:Key="TooltipRetroAchievements">View RetroAchievements profile and progress</system:String>
     <system:String x:Key="TooltipRevertDeadZone">Reset dead zone to default values</system:String>
     <system:String x:Key="TooltipRevertLinks">Reset links to default values</system:String>
+    <system:String x:Key="TooltipRomHistoryViewer">ROM history viewer window</system:String>
     <system:String x:Key="TooltipSaveDeadZone">Save the dead zone settings</system:String>
     <system:String x:Key="TooltipSaveLinks">Save the custom link configuration</system:String>
     <system:String x:Key="TooltipSaveRaSettings">Save RetroAchievements settings</system:String>
@@ -2114,6 +2129,7 @@
     <system:String x:Key="TooltipStatusBarText">Current status message</system:String>
     <system:String x:Key="TooltipStopDownload">Cancel the current download operation</system:String>
     <system:String x:Key="TooltipStopImageDownload">Cancel the image pack download</system:String>
+    <system:String x:Key="TooltipSuggestParameters">Use AI to suggest the best parameters for this emulator</system:String>
     <system:String x:Key="TooltipSupportDetails">Describe your issue or question in detail</system:String>
     <system:String x:Key="TooltipSystemFolderRequiredLabel">Folder containing the ROM or ISO files for this system</system:String>
     <system:String x:Key="TooltipSystemImageFolderOptionalLabel">Optional folder containing cover images for this system</system:String>
@@ -2134,6 +2150,8 @@
     <system:String x:Key="TooltipTotalFilesLabel">Total number of files in the current view</system:String>
     <system:String x:Key="TooltipTotalPlaytimeInfo">Total play time for the selected system</system:String>
     <system:String x:Key="TooltipUpdateHistory">View the changelog and update history</system:String>
+    <system:String x:Key="TooltipUpdateHistoryViewer">Update history viewer window</system:String>
+    <system:String x:Key="TooltipUpdateLog">Update log window</system:String>
     <system:String x:Key="TooltipVideoLink">URL template for video links (use {GameName} as placeholder)</system:String>
     <system:String x:Key="TooltipViewModeMenu">Switch between grid and list view modes</system:String>
     <system:String x:Key="TooltipZoomIn">Increase the size of game buttons</system:String>
@@ -2327,4 +2345,7 @@
     <system:String x:Key="ZoomInIcon">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
     <system:String x:Key="ZoomOutIcon">Zoom Out</system:String>
+    
+    <system:String x:Key="SuggestParameters">Ask AI</system:String>
+    
 </ResourceDictionary>

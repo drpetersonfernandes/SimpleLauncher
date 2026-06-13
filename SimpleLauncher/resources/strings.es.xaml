@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">Todos los juegos</system:String>
     <system:String x:Key="10000games">10000 juegos</system:String>
     <system:String x:Key="1000games">1000 juegos</system:String>
@@ -1114,6 +1115,12 @@
     <system:String x:Key="PathToRomsWatermark">Ruta a las ROMs...</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB no encontrado</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError1">No se pudo inyectar la configuración de PCSX2. El emulador está instalado en un directorio de sistema protegido.</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError2">El archivo de configuración no pudo ser modificado debido a permisos insuficientes.</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError3">Para solucionar esto, puede hacer lo siguiente:</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError4">1. Ejecutar Simple Launcher como administrador, o</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError5">2. Instalar PCSX2 en un directorio de usuario (p. ej., C:\\Users\\SuNombre\\PCSX2)</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError6">El juego se iniciará con la configuración predeterminada del emulador.</system:String>
     <system:String x:Key="Pcsx2Config_AchEnabled_Checkbox">Habilitar Logros</system:String>
     <system:String x:Key="Pcsx2Config_AchEnabled_Tooltip">Conéctate a RetroAchievements.org para seguir el progreso.</system:String>
     <system:String x:Key="Pcsx2Config_AchHardcore_Checkbox">Modo Hardcore</system:String>
@@ -1920,6 +1927,7 @@
     <system:String x:Key="ToolsIcon">Herramientas</system:String>
     <system:String x:Key="TooltipAboutMenu">Acerca de Simple Launcher y opciones de actualización</system:String>
     <system:String x:Key="TooltipAccentColorsMenu">Cambiar el color de acento</system:String>
+    <system:String x:Key="TooltipAchievementsDataGrid">Lista de logros para el juego seleccionado</system:String>
     <system:String x:Key="TooltipAdaptiveMenu">Cambia automáticamente entre Claro y Oscuro según la configuración del sistema Windows</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Añadir otra carpeta para buscar juegos</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">Añadir carpetas adicionales para buscar archivos de juego</system:String>
@@ -1968,6 +1976,8 @@
     <system:String x:Key="TooltipDisableRecursiveSearch2">No buscar en subcarpetas de la carpeta principal del sistema</system:String>
     <system:String x:Key="TooltipDisableRecursiveSearchLabel">Desactivar la búsqueda de juegos en subcarpetas</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Alternar la visualización de la descripción de la máquina MAME en el modo Cuadrícula</system:String>
+    <system:String x:Key="TooltipDosBoxCancel">Cancelar y cerrar la ventana de selección de archivos</system:String>
+    <system:String x:Key="TooltipDosBoxLaunch">Iniciar el archivo de juego DOS seleccionado</system:String>
     <system:String x:Key="TooltipDownloadCore">Descargar el núcleo del emulador (si es necesario)</system:String>
     <system:String x:Key="TooltipDownloadEmulator">Descargar el emulador para el sistema seleccionado</system:String>
     <system:String x:Key="TooltipDownloadImagePack">Descargar el paquete de imágenes seleccionado</system:String>
@@ -2015,6 +2025,8 @@
     <system:String x:Key="TooltipExtractFileBeforeLaunchLabel">Extraer archivos comprimidos antes de iniciar el emulador</system:String>
     <system:String x:Key="TooltipFavoriteColumnHeader">Indica si el juego está marcado como favorito</system:String>
     <system:String x:Key="TooltipFavorites">Abrir tu lista de juegos favoritos</system:String>
+    <system:String x:Key="TooltipFavoritesDataGrid">Lista de tus juegos favoritos</system:String>
+    <system:String x:Key="TooltipFavoritesPreviewImage">Imagen de vista previa del juego favorito seleccionado</system:String>
     <system:String x:Key="TooltipFeelingLucky">Iniciar un juego aleatorio del sistema actual</system:String>
     <system:String x:Key="TooltipFileNameColumnHeader">Nombre del archivo del juego</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Seleccione cómo se muestra el nombre de archivo (Original, Limpio o Sin Nombre de Archivo)</system:String>
@@ -2022,8 +2034,10 @@
     <system:String x:Key="TooltipFilenamePreferencesMenu">Cambiar cómo se muestran los nombres de archivo en el modo Cuadrícula</system:String>
     <system:String x:Key="TooltipFolderPathColumnHeader">Ruta a la carpeta que contiene el juego</system:String>
     <system:String x:Key="TooltipFuzzyMatchingMenu">Configurar ajustes de coincidencia difusa de imágenes</system:String>
+    <system:String x:Key="TooltipGameCoverImage">Imagen de portada del juego seleccionado</system:String>
     <system:String x:Key="TooltipGameDataGrid">Lista de juegos para el sistema seleccionado</system:String>
     <system:String x:Key="TooltipGameFileGrid">Botones de juego mostrados en vista de cuadrícula</system:String>
+    <system:String x:Key="TooltipGameInfoAchievementsDataGrid">Lista de logros para el juego seleccionado</system:String>
     <system:String x:Key="TooltipGamepadSupportMenu">Habilitar o configurar el soporte para gamepad</system:String>
     <system:String x:Key="TooltipGamesPerPageMenu">Establecer cuántos juegos mostrar por página</system:String>
     <system:String x:Key="TooltipGlobalSearch">Buscar juegos en todos los sistemas</system:String>
@@ -2033,9 +2047,12 @@
     <system:String x:Key="TooltipGroupFilesByFolderLabel">Agrupar juegos por el nombre de su subcarpeta</system:String>
     <system:String x:Key="TooltipHelpDeskImage">Abrir documentación de ayuda</system:String>
     <system:String x:Key="TooltipHighContrastMenu">Tema de alto contraste para una mejor accesibilidad</system:String>
+    <system:String x:Key="TooltipHighScoresDataGrid">Lista de puntuaciones altas para el juego seleccionado</system:String>
+    <system:String x:Key="TooltipImageViewer">Ventana del visor de imágenes</system:String>
     <system:String x:Key="TooltipInfoLink">Plantilla de URL para enlaces de información (usar {GameName} como marcador de posición)</system:String>
     <system:String x:Key="TooltipInjectConfigMenu">Configurar ajustes del emulador antes de iniciar</system:String>
     <system:String x:Key="TooltipLanguageMenu">Cambiar el idioma de la aplicación</system:String>
+    <system:String x:Key="TooltipLatestMastersDataGrid">Últimos maestros de logros para el juego seleccionado</system:String>
     <system:String x:Key="TooltipLaunchFavorite">Iniciar el juego favorito seleccionado</system:String>
     <system:String x:Key="TooltipLaunchFromHistory">Iniciar el juego seleccionado del historial</system:String>
     <system:String x:Key="TooltipLaunchFromSearch">Iniciar el juego seleccionado de los resultados de búsqueda</system:String>
@@ -2057,6 +2074,8 @@
     <system:String x:Key="TooltipOverlayButtonMenu">Mostrar u ocultar botones superpuestos en las portadas de los juegos</system:String>
     <system:String x:Key="TooltipPageContentFrame">Área de contenido para páginas como Favoritos e Historial</system:String>
     <system:String x:Key="TooltipPlayHistory">Ver tu historial de juego y estadísticas</system:String>
+    <system:String x:Key="TooltipPlayHistoryDataGrid">Lista de tus registros de historial de juego</system:String>
+    <system:String x:Key="TooltipPlayHistoryPreviewImage">Imagen de vista previa del juego seleccionado del historial de juego</system:String>
     <system:String x:Key="TooltipPlaySound">Previsualizar el sonido de notificación seleccionado</system:String>
     <system:String x:Key="TooltipPlayTimeColumnHeader">Tiempo total jugado a este juego</system:String>
     <system:String x:Key="TooltipPreviewImage">Vista previa de la imagen de carátula del juego seleccionado</system:String>
@@ -2072,9 +2091,12 @@
     <system:String x:Key="TooltipRemoveFromHistory">Eliminar el elemento seleccionado del historial de juego</system:String>
     <system:String x:Key="TooltipResetSound">Restablecer al sonido de notificación predeterminado</system:String>
     <system:String x:Key="TooltipRestart">Reiniciar la aplicación para aplicar cambios o recargar sistemas</system:String>
+    <system:String x:Key="TooltipResultsDataGrid">Lista de resultados de búsqueda global</system:String>
+    <system:String x:Key="TooltipResultsPreviewImage">Imagen de vista previa del resultado de búsqueda seleccionado</system:String>
     <system:String x:Key="TooltipRetroAchievements">Ver perfil y progreso de RetroAchievements</system:String>
     <system:String x:Key="TooltipRevertDeadZone">Restablecer la zona muerta a los valores predeterminados</system:String>
     <system:String x:Key="TooltipRevertLinks">Restablecer enlaces a valores predeterminados</system:String>
+    <system:String x:Key="TooltipRomHistoryViewer">Ventana del visor de historial de ROM</system:String>
     <system:String x:Key="TooltipSaveDeadZone">Guardar la configuración de la zona muerta</system:String>
     <system:String x:Key="TooltipSaveLinks">Guardar la configuración de enlaces personalizados</system:String>
     <system:String x:Key="TooltipSaveRaSettings">Guardar configuración de RetroAchievements</system:String>
@@ -2130,6 +2152,8 @@
     <system:String x:Key="TooltipTotalFilesLabel">Número total de archivos en la vista actual</system:String>
     <system:String x:Key="TooltipTotalPlaytimeInfo">Tiempo total de juego para el sistema seleccionado</system:String>
     <system:String x:Key="TooltipUpdateHistory">Ver el registro de cambios y el historial de actualizaciones</system:String>
+    <system:String x:Key="TooltipUpdateHistoryViewer">Ventana del visor de historial de actualizaciones</system:String>
+    <system:String x:Key="TooltipUpdateLog">Ventana del registro de actualizaciones</system:String>
     <system:String x:Key="TooltipVideoLink">Plantilla de URL para enlaces de video (usar {GameName} como marcador de posición)</system:String>
     <system:String x:Key="TooltipViewModeMenu">Cambiar entre modos de vista de cuadrícula y lista</system:String>
     <system:String x:Key="TooltipZoomIn">Aumentar el tamaño de los botones de juego</system:String>

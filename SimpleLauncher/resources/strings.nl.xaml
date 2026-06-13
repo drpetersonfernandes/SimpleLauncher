@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">Alle spellen</system:String>
     <system:String x:Key="10000games">10000 spellen</system:String>
     <system:String x:Key="1000games">1000 spellen</system:String>
@@ -1114,6 +1115,12 @@
     <system:String x:Key="PathToRomsWatermark">Pad naar ROM's...</system:String>
     <system:String x:Key="PCB">Printplaat (PCB)</system:String>
     <system:String x:Key="PCBnotfound">PCB niet gevonden</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError1">Niet gelukt om PCSX2-configuratie te injecteren. De emulator is geïnstalleerd in een beveiligde systeemmap.</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError2">Het configuratiebestand kon niet worden gewijzigd vanwege onvoldoende machtigingen.</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError3">Om dit te verhelpen, kunt u:</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError4">1. Simple Launcher uitvoeren als beheerder, of</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError5">2. PCSX2 installeren in een gebruikersmap (bijv. C:\\Gebruikers\\UwNaam\\PCSX2)</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError6">Het spel zal starten met de standaardinstellingen van de emulator.</system:String>
     <system:String x:Key="Pcsx2Config_AchEnabled_Checkbox">Achievements Inschakelen</system:String>
     <system:String x:Key="Pcsx2Config_AchEnabled_Tooltip">Verbinden met RetroAchievements.org om voortgang bij te houden.</system:String>
     <system:String x:Key="Pcsx2Config_AchHardcore_Checkbox">Hardcore Modus</system:String>
@@ -1920,6 +1927,7 @@
     <system:String x:Key="ToolsIcon">Tools</system:String>
     <system:String x:Key="TooltipAboutMenu">Over Simple Launcher en update-opties</system:String>
     <system:String x:Key="TooltipAccentColorsMenu">Wijzig de accentkleur</system:String>
+    <system:String x:Key="TooltipAchievementsDataGrid">Lijst met prestaties voor het geselecteerde spel</system:String>
     <system:String x:Key="TooltipAdaptiveMenu">Schakel automatisch tussen Licht en Donker op basis van de Windows-systeeminstellingen</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Voeg nog een map toe om naar spellen te zoeken</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">Voeg extra mappen toe om naar gamebestanden te zoeken</system:String>
@@ -1968,6 +1976,8 @@
     <system:String x:Key="TooltipDisableRecursiveSearch2">Niet zoeken in submappen van de hoofd systeemmap</system:String>
     <system:String x:Key="TooltipDisableRecursiveSearchLabel">Schakel zoeken in submappen naar games uit</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Schakel de weergave van de MAME-machinebeschrijving in de Rastermodus in of uit</system:String>
+    <system:String x:Key="TooltipDosBoxCancel">Annuleren en het bestandsselectievenster sluiten</system:String>
+    <system:String x:Key="TooltipDosBoxLaunch">Start het geselecteerde DOS-spelbestand</system:String>
     <system:String x:Key="TooltipDownloadCore">Download de emulatorkern (indien vereist)</system:String>
     <system:String x:Key="TooltipDownloadEmulator">Download de emulator voor het geselecteerde systeem</system:String>
     <system:String x:Key="TooltipDownloadImagePack">Download het geselecteerde afbeeldingspakket</system:String>
@@ -2015,6 +2025,8 @@
     <system:String x:Key="TooltipExtractFileBeforeLaunchLabel">Pak gecomprimeerde bestanden uit voordat de emulator wordt gestart</system:String>
     <system:String x:Key="TooltipFavoriteColumnHeader">Geeft aan of het spel is gemarkeerd als favoriet</system:String>
     <system:String x:Key="TooltipFavorites">Open uw lijst met favoriete spellen</system:String>
+    <system:String x:Key="TooltipFavoritesDataGrid">Lijst met uw favoriete spellen</system:String>
+    <system:String x:Key="TooltipFavoritesPreviewImage">Voorbeeldweergave van het geselecteerde favoriete spel</system:String>
     <system:String x:Key="TooltipFeelingLucky">Start een willekeurig spel uit het huidige systeem</system:String>
     <system:String x:Key="TooltipFileNameColumnHeader">Naam van het spelbestand</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Selecteer hoe de bestandsnaam wordt weergegeven (Origineel, Opgeschoond of Geen bestandsnaam)</system:String>
@@ -2022,8 +2034,10 @@
     <system:String x:Key="TooltipFilenamePreferencesMenu">Wijzig hoe bestandsnamen worden weergegeven in de Rastermodus</system:String>
     <system:String x:Key="TooltipFolderPathColumnHeader">Pad naar de map die het spel bevat</system:String>
     <system:String x:Key="TooltipFuzzyMatchingMenu">Configureer instellingen voor fuzzy beeldovereenkomst</system:String>
+    <system:String x:Key="TooltipGameCoverImage">Hoesafbeelding van het geselecteerde spel</system:String>
     <system:String x:Key="TooltipGameDataGrid">Lijst met spellen voor het geselecteerde systeem</system:String>
     <system:String x:Key="TooltipGameFileGrid">Spelknoppen weergegeven in rasterweergave</system:String>
+    <system:String x:Key="TooltipGameInfoAchievementsDataGrid">Lijst met prestaties voor het geselecteerde spel</system:String>
     <system:String x:Key="TooltipGamepadSupportMenu">Schakel gamepadondersteuning in of configureer deze</system:String>
     <system:String x:Key="TooltipGamesPerPageMenu">Stel in hoeveel spellen per pagina moeten worden weergegeven</system:String>
     <system:String x:Key="TooltipGlobalSearch">Zoek naar spellen in alle systemen</system:String>
@@ -2033,9 +2047,12 @@
     <system:String x:Key="TooltipGroupFilesByFolderLabel">Groepeer spellen op hun submapnaam</system:String>
     <system:String x:Key="TooltipHelpDeskImage">Open helpdocumentatie</system:String>
     <system:String x:Key="TooltipHighContrastMenu">Hoog contrast-thema voor betere toegankelijkheid</system:String>
+    <system:String x:Key="TooltipHighScoresDataGrid">Lijst met topscores voor het geselecteerde spel</system:String>
+    <system:String x:Key="TooltipImageViewer">Afbeeldingsviewer venster</system:String>
     <system:String x:Key="TooltipInfoLink">URL-sjabloon voor infolinks (gebruik {GameName} als placeholder)</system:String>
     <system:String x:Key="TooltipInjectConfigMenu">Configureer emulatorinstellingen vóór de lancering</system:String>
     <system:String x:Key="TooltipLanguageMenu">Wijzig de applicatietaal</system:String>
+    <system:String x:Key="TooltipLatestMastersDataGrid">Laatste prestatie-meesters voor het geselecteerde spel</system:String>
     <system:String x:Key="TooltipLaunchFavorite">Start het geselecteerde favoriete spel</system:String>
     <system:String x:Key="TooltipLaunchFromHistory">Start het geselecteerde spel vanuit de geschiedenis</system:String>
     <system:String x:Key="TooltipLaunchFromSearch">Start het geselecteerde spel vanuit de zoekresultaten</system:String>
@@ -2057,6 +2074,8 @@
     <system:String x:Key="TooltipOverlayButtonMenu">Toon of verberg overlayknoppen op spelcovers</system:String>
     <system:String x:Key="TooltipPageContentFrame">Inhoudsgebied voor pagina's zoals Favorieten en Geschiedenis</system:String>
     <system:String x:Key="TooltipPlayHistory">Bekijk uw speelgeschiedenis en statistieken</system:String>
+    <system:String x:Key="TooltipPlayHistoryDataGrid">Lijst met uw speelgeschiedenis</system:String>
+    <system:String x:Key="TooltipPlayHistoryPreviewImage">Voorbeeldweergave van het geselecteerde spel uit de speelgeschiedenis</system:String>
     <system:String x:Key="TooltipPlaySound">Voorbeeld van het geselecteerde meldingsgeluid</system:String>
     <system:String x:Key="TooltipPlayTimeColumnHeader">Totale speeltijd van dit spel</system:String>
     <system:String x:Key="TooltipPreviewImage">Voorbeeld van de geselecteerde spelcoverafbeelding</system:String>
@@ -2072,9 +2091,12 @@
     <system:String x:Key="TooltipRemoveFromHistory">Verwijder het geselecteerde item uit de speelgeschiedenis</system:String>
     <system:String x:Key="TooltipResetSound">Herstel naar het standaard meldingsgeluid</system:String>
     <system:String x:Key="TooltipRestart">Herstart de applicatie om wijzigingen toe te passen of systemen te herladen</system:String>
+    <system:String x:Key="TooltipResultsDataGrid">Lijst met wereldwijde zoekresultaten</system:String>
+    <system:String x:Key="TooltipResultsPreviewImage">Voorbeeldweergave van het geselecteerde zoekresultaat</system:String>
     <system:String x:Key="TooltipRetroAchievements">Bekijk RetroAchievements profiel en voortgang</system:String>
     <system:String x:Key="TooltipRevertDeadZone">Herstel dode zone naar standaardwaarden</system:String>
     <system:String x:Key="TooltipRevertLinks">Herstel links naar standaardwaarden</system:String>
+    <system:String x:Key="TooltipRomHistoryViewer">ROM-geschiedenisviewer venster</system:String>
     <system:String x:Key="TooltipSaveDeadZone">Sla de dode zone instellingen op</system:String>
     <system:String x:Key="TooltipSaveLinks">Sla de aangepaste linkconfiguratie op</system:String>
     <system:String x:Key="TooltipSaveRaSettings">Sla RetroAchievements instellingen op</system:String>
@@ -2130,6 +2152,8 @@
     <system:String x:Key="TooltipTotalFilesLabel">Totaal aantal bestanden in de huidige weergave</system:String>
     <system:String x:Key="TooltipTotalPlaytimeInfo">Totale speeltijd voor het geselecteerde systeem</system:String>
     <system:String x:Key="TooltipUpdateHistory">Bekijk de changelog en updategeschiedenis</system:String>
+    <system:String x:Key="TooltipUpdateHistoryViewer">Updategeschiedenisviewer venster</system:String>
+    <system:String x:Key="TooltipUpdateLog">Updatelogboek venster</system:String>
     <system:String x:Key="TooltipVideoLink">URL-sjabloon voor videolinks (gebruik {GameName} als placeholder)</system:String>
     <system:String x:Key="TooltipViewModeMenu">Schakel tussen raster- en lijstweergavemodi</system:String>
     <system:String x:Key="TooltipZoomIn">Vergroot de grootte van spelknoppen</system:String>

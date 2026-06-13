@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">تمام گیمز</system:String>
     <system:String x:Key="10000games">10000 گیمز</system:String>
     <system:String x:Key="1000games">1000 گیمز</system:String>
@@ -1114,6 +1115,12 @@
     <system:String x:Key="PathToRomsWatermark">ROMs کا راستہ...</system:String>
     <system:String x:Key="PCB">پی سی بی</system:String>
     <system:String x:Key="PCBnotfound">پی سی بی نہیں ملی</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError1">PCSX2 کنفیگریشن داخل کرنے میں ناکامی ہوئی۔ ایمولیٹر ایک محفوظ سسٹم ڈائریکٹری میں انسٹال ہے۔</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError2">ناکافی اجازتوں کی وجہ سے کنفیگریشن فائل میں ترمیم نہیں کی جا سکی۔</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError3">اسے ٹھیک کرنے کے لیے، یا تو:</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError4">1. Simple Launcher کو ایڈمنسٹریٹر کے طور پر چلائیں، یا</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError5">2. PCSX2 کو صارف ڈائریکٹری میں انسٹال کریں (مثلاً، C:\\Users\\YourName\\PCSX2)</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError6">گیم ایمولیٹر کی ڈیفالٹ سیٹنگز کے ساتھ لانچ ہوگی۔</system:String>
     <system:String x:Key="Pcsx2Config_AchEnabled_Checkbox">اچیومنٹس فعال کریں</system:String>
     <system:String x:Key="Pcsx2Config_AchEnabled_Tooltip">پیشرفت کو ٹریک کرنے کے لیے RetroAchievements.org سے جڑیں۔</system:String>
     <system:String x:Key="Pcsx2Config_AchHardcore_Checkbox">ہارڈکور موڈ</system:String>
@@ -1920,6 +1927,7 @@
     <system:String x:Key="ToolsIcon">ٹولز</system:String>
     <system:String x:Key="TooltipAboutMenu">سادہ لانچر کے بارے میں اور اپ ڈیٹ کے اختیارات</system:String>
     <system:String x:Key="TooltipAccentColorsMenu">ایکسنٹ کلر تبدیل کریں</system:String>
+    <system:String x:Key="TooltipAchievementsDataGrid">منتخب کردہ گیم کے لیے کامیابیوں کی فہرست</system:String>
     <system:String x:Key="TooltipAdaptiveMenu">ونڈوز سسٹم کی ترتیبات کی بنیاد پر لائٹ اور ڈارک موڈ کے درمیان خودکار طور پر تبدیل کریں</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">گیمز تلاش کرنے کے لیے ایک اور فولڈر شامل کریں</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">گیم فائلوں کو تلاش کرنے کے لیے اضافی فولڈرز شامل کریں۔</system:String>
@@ -1968,6 +1976,8 @@
     <system:String x:Key="TooltipDisableRecursiveSearch2">مین سسٹم فولڈر کے سب فولڈرز میں تلاش نہ کریں</system:String>
     <system:String x:Key="TooltipDisableRecursiveSearchLabel">گیمز کے لیے ذیلی فولڈرز میں تلاش کو غیر فعال کریں۔</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">گرڈ موڈ میں MAME مشین کی تفصیل دکھانے کو آن یا آف کریں</system:String>
+    <system:String x:Key="TooltipDosBoxCancel">فائل سلیکشن ونڈو کو منسوخ کریں اور بند کریں۔</system:String>
+    <system:String x:Key="TooltipDosBoxLaunch">منتخب کردہ DOS گیم فائل کو لانچ کریں۔</system:String>
     <system:String x:Key="TooltipDownloadCore">ایمولیٹر کور ڈاؤن لوڈ کریں (اگر ضرورت ہو)</system:String>
     <system:String x:Key="TooltipDownloadEmulator">منتخب سسٹم کے لیے ایمولیٹر ڈاؤن لوڈ کریں</system:String>
     <system:String x:Key="TooltipDownloadImagePack">منتخب امیج پیک ڈاؤن لوڈ کریں</system:String>
@@ -2015,6 +2025,8 @@
     <system:String x:Key="TooltipExtractFileBeforeLaunchLabel">ایمولیٹر لانچ کرنے سے پہلے کمپریسڈ فائلیں نکالیں</system:String>
     <system:String x:Key="TooltipFavoriteColumnHeader">بتاتا ہے کہ آیا گیم کو پسندیدہ کے طور پر نشان زد کیا گیا ہے</system:String>
     <system:String x:Key="TooltipFavorites">اپنی پسندیدہ گیمز کی فہرست کھولیں</system:String>
+    <system:String x:Key="TooltipFavoritesDataGrid">آپ کی پسندیدہ گیمز کی فہرست</system:String>
+    <system:String x:Key="TooltipFavoritesPreviewImage">منتخب کردہ پسندیدہ گیم کی پیش نظارہ تصویر</system:String>
     <system:String x:Key="TooltipFeelingLucky">موجودہ سسٹم سے ایک بے ترتیب گیم لانچ کریں</system:String>
     <system:String x:Key="TooltipFileNameColumnHeader">گیم فائل کا نام</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">منتخب کریں کہ فائل کا نام کیسے دکھایا جائے (اصل، صاف ستھرا، یا کوئی نام نہیں)</system:String>
@@ -2022,8 +2034,10 @@
     <system:String x:Key="TooltipFilenamePreferencesMenu">گرڈ موڈ میں فائل کے نام دکھانے کا طریقہ تبدیل کریں</system:String>
     <system:String x:Key="TooltipFolderPathColumnHeader">گیم پر مشتمل فولڈر کا پاتھ</system:String>
     <system:String x:Key="TooltipFuzzyMatchingMenu">فزی امیج میچنگ سیٹنگز کنفیگر کریں</system:String>
+    <system:String x:Key="TooltipGameCoverImage">منتخب کردہ گیم کی کور تصویر</system:String>
     <system:String x:Key="TooltipGameDataGrid">منتخب کردہ سسٹم کے لیے گیمز کی فہرست</system:String>
     <system:String x:Key="TooltipGameFileGrid">گرڈ ویو میں دکھائے گئے گیم کے بٹن</system:String>
+    <system:String x:Key="TooltipGameInfoAchievementsDataGrid">منتخب کردہ گیم کے لیے کامیابیوں کی فہرست</system:String>
     <system:String x:Key="TooltipGamepadSupportMenu">گیم پیڈ سپورٹ فعال یا کنفیگر کریں</system:String>
     <system:String x:Key="TooltipGamesPerPageMenu">فی صفحہ کتنے گیمز دکھانے ہیں سیٹ کریں</system:String>
     <system:String x:Key="TooltipGlobalSearch">تمام سسٹمز میں گیمز تلاش کریں</system:String>
@@ -2033,9 +2047,12 @@
     <system:String x:Key="TooltipGroupFilesByFolderLabel">گیمز کو ان کے سب فولڈر کے نام سے گروپ کریں</system:String>
     <system:String x:Key="TooltipHelpDeskImage">مدد کی دستاویزات کھولیں</system:String>
     <system:String x:Key="TooltipHighContrastMenu">بہتر رسائی کے لیے ہائی کنٹراسٹ تھیم</system:String>
+    <system:String x:Key="TooltipHighScoresDataGrid">منتخب کردہ گیم کے لیے ہائی اسکورز کی فہرست</system:String>
+    <system:String x:Key="TooltipImageViewer">امیج ویوور ونڈو</system:String>
     <system:String x:Key="TooltipInfoLink">معلومات لنکس کے لیے URL ٹیمپلیٹ ({GameName} کو پلیس ہولڈر کے طور پر استعمال کریں)</system:String>
     <system:String x:Key="TooltipInjectConfigMenu">لانچ سے پہلے ایمولیٹر سیٹنگز کنفیگر کریں</system:String>
     <system:String x:Key="TooltipLanguageMenu">ایپلیکیشن کی زبان تبدیل کریں</system:String>
+    <system:String x:Key="TooltipLatestMastersDataGrid">منتخب کردہ گیم کے لیے تازہ ترین اچیومنٹ ماسٹرز</system:String>
     <system:String x:Key="TooltipLaunchFavorite">منتخب پسندیدہ گیم لانچ کریں</system:String>
     <system:String x:Key="TooltipLaunchFromHistory">ہسٹری سے منتخب گیم لانچ کریں</system:String>
     <system:String x:Key="TooltipLaunchFromSearch">تلاش کے نتائج سے منتخب گیم لانچ کریں</system:String>
@@ -2057,6 +2074,8 @@
     <system:String x:Key="TooltipOverlayButtonMenu">گیم کورز پر اوورلے بٹن دکھائیں یا چھپائیں</system:String>
     <system:String x:Key="TooltipPageContentFrame">صفحات جیسے پسندیدہ اور ہسٹری کے لیے مواد کا علاقہ</system:String>
     <system:String x:Key="TooltipPlayHistory">اپنی پلے ہسٹری اور اعدادوشمار دیکھیں</system:String>
+    <system:String x:Key="TooltipPlayHistoryDataGrid">آپ کے پلے ہسٹری ریکارڈز کی فہرست</system:String>
+    <system:String x:Key="TooltipPlayHistoryPreviewImage">منتخب کردہ پلے ہسٹری گیم کی پیش نظارہ تصویر</system:String>
     <system:String x:Key="TooltipPlaySound">منتخب نوٹیفکیشن ساؤنڈ کا پیش نظارہ کریں</system:String>
     <system:String x:Key="TooltipPlayTimeColumnHeader">اس گیم کو کھیلنے میں گزارا گیا کل وقت</system:String>
     <system:String x:Key="TooltipPreviewImage">منتخب کردہ گیم کور امیج کا پیش منظر</system:String>
@@ -2072,9 +2091,12 @@
     <system:String x:Key="TooltipRemoveFromHistory">منتخب آئٹم کو پلے ہسٹری سے ہٹائیں</system:String>
     <system:String x:Key="TooltipResetSound">ڈیفالٹ نوٹیفکیشن ساؤنڈ پر ری سیٹ کریں</system:String>
     <system:String x:Key="TooltipRestart">تبدیلیاں لاگو کرنے یا سسٹمز کو دوبارہ لوڈ کرنے کے لیے ایپلیکیشن کو دوبارہ شروع کریں</system:String>
+    <system:String x:Key="TooltipResultsDataGrid">عالمی تلاش کے نتائج کی فہرست</system:String>
+    <system:String x:Key="TooltipResultsPreviewImage">منتخب کردہ تلاش کے نتیجے کی پیش نظارہ تصویر</system:String>
     <system:String x:Key="TooltipRetroAchievements">ریٹرو اچیومنٹس پروفائل اور پیشرفت دیکھیں</system:String>
     <system:String x:Key="TooltipRevertDeadZone">ڈیڈ زون کو ڈیفالٹ اقدار پر ری سیٹ کریں</system:String>
     <system:String x:Key="TooltipRevertLinks">لنکس کو ڈیفالٹ اقدار پر ری سیٹ کریں</system:String>
+    <system:String x:Key="TooltipRomHistoryViewer">ROM ہسٹری ویوور ونڈو</system:String>
     <system:String x:Key="TooltipSaveDeadZone">ڈیڈ زون کی سیٹنگز محفوظ کریں</system:String>
     <system:String x:Key="TooltipSaveLinks">کسٹم لنک کنفیگریشن محفوظ کریں</system:String>
     <system:String x:Key="TooltipSaveRaSettings">ریٹرو اچیومنٹس کی سیٹنگز محفوظ کریں</system:String>
@@ -2130,6 +2152,8 @@
     <system:String x:Key="TooltipTotalFilesLabel">موجودہ منظر میں فائلز کی کل تعداد</system:String>
     <system:String x:Key="TooltipTotalPlaytimeInfo">منتخب کردہ سسٹم کے لیے کھیلنے کا کل وقت</system:String>
     <system:String x:Key="TooltipUpdateHistory">چینج لاگ اور اپ ڈیٹ ہسٹری دیکھیں</system:String>
+    <system:String x:Key="TooltipUpdateHistoryViewer">اپ ڈیٹ ہسٹری ویوور ونڈو</system:String>
+    <system:String x:Key="TooltipUpdateLog">اپ ڈیٹ لاگ ونڈو</system:String>
     <system:String x:Key="TooltipVideoLink">ویڈیو لنکس کے لیے URL ٹیمپلیٹ ({GameName} کو پلیس ہولڈر کے طور پر استعمال کریں)</system:String>
     <system:String x:Key="TooltipViewModeMenu">گرڈ اور لسٹ ویو موڈز کے درمیان سوئچ کریں</system:String>
     <system:String x:Key="TooltipZoomIn">گیم بٹنوں کا سائز بڑھائیں</system:String>

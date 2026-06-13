@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
     <system:String x:Key="10000games">10000 trò chơi</system:String>
     <system:String x:Key="1000games">1000 trò chơi</system:String>
@@ -1114,6 +1115,12 @@
     <system:String x:Key="PathToRomsWatermark">Đường dẫn đến ROMs...</system:String>
     <system:String x:Key="PCB">Mạch in (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Không tìm thấy mạch in (PCB)</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError1">Không thể áp dụng cấu hình PCSX2. Trình giả lập được cài đặt trong một thư mục hệ thống được bảo vệ.</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError2">Không thể sửa đổi tệp cấu hình do không đủ quyền.</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError3">Để khắc phục điều này, bạn có thể:</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError4">1. Chạy Simple Launcher với quyền quản trị viên, hoặc</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError5">2. Cài đặt PCSX2 vào một thư mục người dùng (ví dụ: C:\\Users\\TênCủaBạn\\PCSX2)</system:String>
+    <system:String x:Key="Pcsx2ConfigPermissionError6">Trò chơi sẽ khởi chạy với cài đặt mặc định của trình giả lập.</system:String>
     <system:String x:Key="Pcsx2Config_AchEnabled_Checkbox">Bật Thành tích</system:String>
     <system:String x:Key="Pcsx2Config_AchEnabled_Tooltip">Kết nối với RetroAchievements.org để theo dõi tiến độ.</system:String>
     <system:String x:Key="Pcsx2Config_AchHardcore_Checkbox">Chế độ Hardcore</system:String>
@@ -1920,6 +1927,7 @@
     <system:String x:Key="ToolsIcon">Công cụ</system:String>
     <system:String x:Key="TooltipAboutMenu">Giới thiệu về Simple Launcher và các tùy chọn cập nhật</system:String>
     <system:String x:Key="TooltipAccentColorsMenu">Thay đổi màu nhấn</system:String>
+    <system:String x:Key="TooltipAchievementsDataGrid">Danh sách thành tích của trò chơi đã chọn</system:String>
     <system:String x:Key="TooltipAdaptiveMenu">Tự động chuyển đổi giữa chế độ Sáng và Tối dựa trên cài đặt hệ thống Windows</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Thêm một thư mục khác để tìm kiếm trò chơi</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">Thêm thư mục bổ sung để tìm kiếm tệp trò chơi</system:String>
@@ -1968,6 +1976,8 @@
     <system:String x:Key="TooltipDisableRecursiveSearch2">Không tìm kiếm trong các thư mục con của thư mục hệ thống chính</system:String>
     <system:String x:Key="TooltipDisableRecursiveSearchLabel">Tắt tìm kiếm trong các thư mục con cho trò chơi</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Bật/tắt hiển thị mô tả máy MAME trong chế độ Lưới (Grid)</system:String>
+    <system:String x:Key="TooltipDosBoxCancel">Hủy và đóng cửa sổ chọn tệp</system:String>
+    <system:String x:Key="TooltipDosBoxLaunch">Khởi chạy tệp trò chơi DOS đã chọn</system:String>
     <system:String x:Key="TooltipDownloadCore">Tải xuống lõi trình giả lập (nếu cần)</system:String>
     <system:String x:Key="TooltipDownloadEmulator">Tải xuống trình giả lập cho hệ thống đã chọn</system:String>
     <system:String x:Key="TooltipDownloadImagePack">Tải xuống gói hình ảnh đã chọn</system:String>
@@ -2015,6 +2025,8 @@
     <system:String x:Key="TooltipExtractFileBeforeLaunchLabel">Giải nén các tệp nén trước khi khởi chạy trình giả lập</system:String>
     <system:String x:Key="TooltipFavoriteColumnHeader">Cho biết trò chơi có được đánh dấu là yêu thích hay không</system:String>
     <system:String x:Key="TooltipFavorites">Mở danh sách trò chơi yêu thích của bạn</system:String>
+    <system:String x:Key="TooltipFavoritesDataGrid">Danh sách các trò chơi yêu thích của bạn</system:String>
+    <system:String x:Key="TooltipFavoritesPreviewImage">Hình ảnh xem trước của trò chơi yêu thích đã chọn</system:String>
     <system:String x:Key="TooltipFeelingLucky">Khởi chạy một trò chơi ngẫu nhiên từ hệ thống hiện tại</system:String>
     <system:String x:Key="TooltipFileNameColumnHeader">Tên tệp trò chơi</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Chọn cách hiển thị tên tệp (Gốc, Rút gọn, hoặc Không hiển thị)</system:String>
@@ -2022,8 +2034,10 @@
     <system:String x:Key="TooltipFilenamePreferencesMenu">Thay đổi cách hiển thị tên tệp trong chế độ Lưới (Grid)</system:String>
     <system:String x:Key="TooltipFolderPathColumnHeader">Đường dẫn đến thư mục chứa trò chơi</system:String>
     <system:String x:Key="TooltipFuzzyMatchingMenu">Cấu hình cài đặt khớp hình ảnh mờ</system:String>
+    <system:String x:Key="TooltipGameCoverImage">Ảnh bìa của trò chơi đã chọn</system:String>
     <system:String x:Key="TooltipGameDataGrid">Danh sách trò chơi cho hệ thống đã chọn</system:String>
     <system:String x:Key="TooltipGameFileGrid">Các nút trò chơi được hiển thị ở dạng lưới</system:String>
+    <system:String x:Key="TooltipGameInfoAchievementsDataGrid">Danh sách thành tích của trò chơi đã chọn</system:String>
     <system:String x:Key="TooltipGamepadSupportMenu">Bật hoặc cấu hình hỗ trợ gamepad</system:String>
     <system:String x:Key="TooltipGamesPerPageMenu">Đặt số lượng trò chơi hiển thị trên mỗi trang</system:String>
     <system:String x:Key="TooltipGlobalSearch">Tìm kiếm trò chơi trên tất cả các hệ thống</system:String>
@@ -2033,9 +2047,12 @@
     <system:String x:Key="TooltipGroupFilesByFolderLabel">Nhóm trò chơi theo tên thư mục con của chúng</system:String>
     <system:String x:Key="TooltipHelpDeskImage">Mở tài liệu trợ giúp</system:String>
     <system:String x:Key="TooltipHighContrastMenu">Chủ đề độ tương phản cao để hỗ trợ khả năng tiếp cận tốt hơn</system:String>
+    <system:String x:Key="TooltipHighScoresDataGrid">Danh sách điểm cao của trò chơi đã chọn</system:String>
+    <system:String x:Key="TooltipImageViewer">Cửa sổ xem ảnh</system:String>
     <system:String x:Key="TooltipInfoLink">Mẫu URL cho liên kết thông tin (sử dụng {GameName} làm chỗ giữ chỗ)</system:String>
     <system:String x:Key="TooltipInjectConfigMenu">Cấu hình cài đặt trình giả lập trước khi khởi chạy</system:String>
     <system:String x:Key="TooltipLanguageMenu">Thay đổi ngôn ngữ ứng dụng</system:String>
+    <system:String x:Key="TooltipLatestMastersDataGrid">Các bậc thầy thành tích mới nhất của trò chơi đã chọn</system:String>
     <system:String x:Key="TooltipLaunchFavorite">Khởi chạy trò chơi yêu thích đã chọn</system:String>
     <system:String x:Key="TooltipLaunchFromHistory">Khởi chạy trò chơi đã chọn từ lịch sử</system:String>
     <system:String x:Key="TooltipLaunchFromSearch">Khởi chạy trò chơi đã chọn từ kết quả tìm kiếm</system:String>
@@ -2057,6 +2074,8 @@
     <system:String x:Key="TooltipOverlayButtonMenu">Hiển thị hoặc ẩn các nút phủ trên bìa trò chơi</system:String>
     <system:String x:Key="TooltipPageContentFrame">Khu vực nội dung cho các trang như Yêu thích và Lịch sử</system:String>
     <system:String x:Key="TooltipPlayHistory">Xem lịch sử chơi và số liệu thống kê của bạn</system:String>
+    <system:String x:Key="TooltipPlayHistoryDataGrid">Danh sách lịch sử chơi của bạn</system:String>
+    <system:String x:Key="TooltipPlayHistoryPreviewImage">Hình ảnh xem trước của trò chơi lịch sử chơi đã chọn</system:String>
     <system:String x:Key="TooltipPlaySound">Xem trước âm thanh thông báo đã chọn</system:String>
     <system:String x:Key="TooltipPlayTimeColumnHeader">Tổng thời gian đã chơi trò chơi này</system:String>
     <system:String x:Key="TooltipPreviewImage">Xem trước hình ảnh bìa trò chơi đã chọn</system:String>
@@ -2072,9 +2091,12 @@
     <system:String x:Key="TooltipRemoveFromHistory">Xóa mục đã chọn khỏi lịch sử chơi</system:String>
     <system:String x:Key="TooltipResetSound">Đặt lại về âm thanh thông báo mặc định</system:String>
     <system:String x:Key="TooltipRestart">Khởi động lại ứng dụng để áp dụng các thay đổi hoặc tải lại hệ thống</system:String>
+    <system:String x:Key="TooltipResultsDataGrid">Danh sách kết quả tìm kiếm toàn cầu</system:String>
+    <system:String x:Key="TooltipResultsPreviewImage">Hình ảnh xem trước của kết quả tìm kiếm đã chọn</system:String>
     <system:String x:Key="TooltipRetroAchievements">Xem hồ sơ và tiến độ RetroAchievements</system:String>
     <system:String x:Key="TooltipRevertDeadZone">Đặt lại vùng chết về giá trị mặc định</system:String>
     <system:String x:Key="TooltipRevertLinks">Đặt lại các liên kết về giá trị mặc định</system:String>
+    <system:String x:Key="TooltipRomHistoryViewer">Cửa sổ xem lịch sử ROM</system:String>
     <system:String x:Key="TooltipSaveDeadZone">Lưu cài đặt vùng chết</system:String>
     <system:String x:Key="TooltipSaveLinks">Lưu cấu hình liên kết tùy chỉnh</system:String>
     <system:String x:Key="TooltipSaveRaSettings">Lưu cài đặt RetroAchievements</system:String>
@@ -2130,6 +2152,8 @@
     <system:String x:Key="TooltipTotalFilesLabel">Tổng số tệp trong chế độ xem hiện tại</system:String>
     <system:String x:Key="TooltipTotalPlaytimeInfo">Tổng thời gian chơi cho hệ thống đã chọn</system:String>
     <system:String x:Key="TooltipUpdateHistory">Xem nhật ký thay đổi và lịch sử cập nhật</system:String>
+    <system:String x:Key="TooltipUpdateHistoryViewer">Cửa sổ xem lịch sử cập nhật</system:String>
+    <system:String x:Key="TooltipUpdateLog">Cửa sổ nhật ký cập nhật</system:String>
     <system:String x:Key="TooltipVideoLink">Mẫu URL cho liên kết video (sử dụng {GameName} làm chỗ giữ chỗ)</system:String>
     <system:String x:Key="TooltipViewModeMenu">Chuyển đổi giữa chế độ xem lưới và danh sách</system:String>
     <system:String x:Key="TooltipZoomIn">Tăng kích thước các nút trò chơi</system:String>
