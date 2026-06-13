@@ -1916,9 +1916,9 @@
     <system:String x:Key="Toextractafileitneedstobe">To extract a file, it needs to be a 7z, zip, or rar file.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Toggle Button Aspect Ratio</system:String>
     <system:String x:Key="ToggleViewMode">Toggle View Mode</system:String>
+    <system:String x:Key="TogglingAnnotationStripping">Toggling annotation stripping...</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">Toggling button aspect ratio...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">Toggling fuzzy matching...</system:String>
-    <system:String x:Key="TogglingAnnotationStripping">Toggling annotation stripping...</system:String>
     <system:String x:Key="TogglingGamepadNavigation">Toggling gamepad navigation...</system:String>
     <system:String x:Key="TogglingInfoLinkOverlayButton">Toggling info link overlay button...</system:String>
     <system:String x:Key="TogglingRetroAchievementsOverlayButton">Toggling RetroAchievements overlay button...</system:String>
@@ -1935,6 +1935,7 @@
     <system:String x:Key="TooltipAddNewSystem">Add New System</system:String>
     <system:String x:Key="TooltipAddNewSystem2">Add a new game system configuration</system:String>
     <system:String x:Key="TooltipAddSystem">Add the configured system to your library</system:String>
+    <system:String x:Key="TooltipAnnotationStripping">Strip region, language, and version annotations from filenames before matching images</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">Change the aspect ratio of game buttons</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Switch between light and dark theme</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Adjust the size of game buttons</system:String>
@@ -2035,7 +2036,6 @@
     <system:String x:Key="TooltipFilenamePreferencesMenu">Change how filenames are displayed in Grid mode</system:String>
     <system:String x:Key="TooltipFolderPathColumnHeader">Path to the folder containing the game</system:String>
     <system:String x:Key="TooltipFuzzyMatchingMenu">Configure fuzzy image matching settings</system:String>
-    <system:String x:Key="TooltipAnnotationStripping">Strip region, language, and version annotations from filenames before matching images</system:String>
     <system:String x:Key="TooltipGameCoverImage">Cover image of the selected game</system:String>
     <system:String x:Key="TooltipGameDataGrid">List of games for the selected system</system:String>
     <system:String x:Key="TooltipGameFileGrid">Game buttons displayed in grid view</system:String>
