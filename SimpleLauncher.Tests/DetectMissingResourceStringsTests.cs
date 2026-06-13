@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
+using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
@@ -19,7 +20,7 @@ public partial class DetectMissingResourceStringsTests
     [Fact]
     public void EnglishResourceFileShouldContainAllReferencedKeys()
     {
-        var simpleLauncherPath = GetSimpleLauncherPath();
+        var simpleLauncherPath = ProjectPathHelper.GetSimpleLauncherPath();
         var stringsEnPath = Path.Combine(simpleLauncherPath, "resources", "strings.en.xaml");
         var appXamlPath = Path.Combine(simpleLauncherPath, "App.xaml");
 
@@ -72,14 +73,14 @@ public partial class DetectMissingResourceStringsTests
             AppendMissingEntries(stringsEnPath, keysWithValues);
         }
 
-        // Build failure message.
+        // Always fail when there are missing keys so the developer knows what happened.
         var message = new StringBuilder();
-        var hasMissing = keysWithoutValues.Count > 0;
-        var hasAdded = keysWithValues.Count > 0;
+        message.AppendLine(CultureInfo.InvariantCulture, $"Found {missingKeys.Count} resource key(s) referenced in source code but missing from strings.en.xaml.");
+        message.AppendLine();
 
-        if (hasAdded)
+        if (keysWithValues.Count > 0)
         {
-            message.AppendLine(CultureInfo.InvariantCulture, $"{keysWithValues.Count} missing resource key(s) were automatically added to strings.en.xaml:");
+            message.AppendLine(CultureInfo.InvariantCulture, $"The following {keysWithValues.Count} key(s) were automatically added to strings.en.xaml:");
             message.AppendLine();
             foreach (var key in keysWithValues.Keys.OrderBy(static k => k, StringComparer.OrdinalIgnoreCase))
             {
@@ -89,9 +90,9 @@ public partial class DetectMissingResourceStringsTests
             message.AppendLine();
         }
 
-        if (hasMissing)
+        if (keysWithoutValues.Count > 0)
         {
-            message.AppendLine("The following referenced keys could not be automatically added because no fallback value is known. Please add them manually to strings.en.xaml:");
+            message.AppendLine(CultureInfo.InvariantCulture, $"The following {keysWithoutValues.Count} key(s) could not be automatically added because no fallback value is known. Please add them manually to strings.en.xaml:");
             message.AppendLine();
             foreach (var key in keysWithoutValues.OrderBy(static k => k, StringComparer.OrdinalIgnoreCase))
             {
@@ -99,10 +100,7 @@ public partial class DetectMissingResourceStringsTests
             }
         }
 
-        if (hasMissing || hasAdded)
-        {
-            Assert.Fail(message.ToString());
-        }
+        Assert.Fail(message.ToString());
     }
 
     /// <summary>
@@ -254,26 +252,6 @@ public partial class DetectMissingResourceStringsTests
         return path.Contains("\\bin\\", StringComparison.OrdinalIgnoreCase)
                || path.Contains("\\obj\\", StringComparison.OrdinalIgnoreCase)
                || path.Contains("\\resources\\", StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static string GetSimpleLauncherPath()
-    {
-        var dir = new DirectoryInfo(AppContext.BaseDirectory);
-
-        while (dir != null)
-        {
-            var candidate = Path.Combine(dir.FullName, "SimpleLauncher");
-            if (Directory.Exists(candidate) &&
-                File.Exists(Path.Combine(candidate, "SimpleLauncher.csproj")))
-            {
-                return candidate;
-            }
-
-            dir = dir.Parent;
-        }
-
-        throw new DirectoryNotFoundException(
-            "Could not locate the SimpleLauncher project directory from the test output folder.");
     }
 
     [GeneratedRegex("""TryFindResource\(\s*"([^"]+)"\s*\)(?:\s*\?\?\s*"([^"]+)")?""", RegexOptions.Compiled)]

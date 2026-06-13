@@ -135,4 +135,41 @@ public class SystemPlayTimeTests
         var item = new SystemPlayTime { SystemName = "NES", PlayTimeSeconds = 90000 }; // 25h 0m 0s
         Assert.Equal("25:00:00", item.FormattedPlayTime);
     }
+
+    [Fact]
+    public void FormattedPlayTimeMinutesOnly()
+    {
+        var item = new SystemPlayTime { SystemName = "NES", PlayTimeSeconds = 120 };
+        Assert.Equal("0:02:00", item.FormattedPlayTime);
+    }
+
+    [Fact]
+    public void FormattedPlayTimeSecondsOnly()
+    {
+        var item = new SystemPlayTime { SystemName = "NES", PlayTimeSeconds = 45 };
+        Assert.Equal("0:00:45", item.FormattedPlayTime);
+    }
+
+    [Fact]
+    public void FormattedPlayTimeLargeValue24Hours()
+    {
+        var item = new SystemPlayTime { SystemName = "NES", PlayTimeSeconds = 86400 };
+        Assert.Equal("24:00:00", item.FormattedPlayTime);
+    }
+
+    [Fact]
+    public void MultipleSystemsMaintainIndependentValues()
+    {
+        var times = new List<SystemPlayTime>
+        {
+            new() { SystemName = "NES", PlayTimeSeconds = 3600 },
+            new() { SystemName = "SNES", PlayTimeSeconds = 7200 },
+            new() { SystemName = "Genesis", PlayTimeSeconds = 1800 }
+        };
+
+        Assert.Equal(3, times.Count);
+        Assert.Equal("1:00:00", times[0].FormattedPlayTime);
+        Assert.Equal("2:00:00", times[1].FormattedPlayTime);
+        Assert.Equal("0:30:00", times[2].FormattedPlayTime);
+    }
 }

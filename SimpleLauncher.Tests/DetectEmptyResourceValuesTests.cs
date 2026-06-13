@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
+using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
@@ -17,7 +18,7 @@ public partial class DetectEmptyResourceValuesTests
     [Fact]
     public void AllResourceFilesShouldHaveNoEmptyValues()
     {
-        var resourcesPath = Path.Combine(GetSimpleLauncherPath(), "resources");
+        var resourcesPath = Path.Combine(ProjectPathHelper.GetSimpleLauncherPath(), "resources");
         var resourceFiles = Directory.EnumerateFiles(resourcesPath, "strings.*.xaml")
             .OrderBy(static f => f, StringComparer.OrdinalIgnoreCase)
             .ToList();
@@ -70,26 +71,6 @@ public partial class DetectEmptyResourceValuesTests
         }
 
         Assert.Fail(message.ToString());
-    }
-
-    private static string GetSimpleLauncherPath()
-    {
-        var dir = new DirectoryInfo(AppContext.BaseDirectory);
-
-        while (dir != null)
-        {
-            var candidate = Path.Combine(dir.FullName, "SimpleLauncher");
-            if (Directory.Exists(candidate) &&
-                File.Exists(Path.Combine(candidate, "SimpleLauncher.csproj")))
-            {
-                return candidate;
-            }
-
-            dir = dir.Parent;
-        }
-
-        throw new DirectoryNotFoundException(
-            "Could not locate the SimpleLauncher project directory from the test output folder.");
     }
 
     [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""", RegexOptions.Compiled)]

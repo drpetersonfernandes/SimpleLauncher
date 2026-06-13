@@ -162,4 +162,129 @@ public class PlayHistoryItemTests
         Assert.Null(item.LastPlayDate);
         Assert.Null(item.LastPlayTime);
     }
+
+    [Fact]
+    public void FormattedPlayTimeOneMinuteReturnsCorrectFormat()
+    {
+        var item = new PlayHistoryItem { TotalPlayTime = 60 };
+        Assert.Equal("1m 0s", item.FormattedPlayTime);
+    }
+
+    [Fact]
+    public void FormattedPlayTimeComplexReturnsCorrectFormat()
+    {
+        var item = new PlayHistoryItem { TotalPlayTime = 3723 }; // 1h 2m 3s
+        Assert.Equal("1h 2m 3s", item.FormattedPlayTime);
+    }
+
+    [Fact]
+    public void FormattedPlayTimeOnlySecondsReturnsCorrectFormat()
+    {
+        var item = new PlayHistoryItem { TotalPlayTime = 45 };
+        Assert.Equal("0m 45s", item.FormattedPlayTime);
+    }
+
+    [Fact]
+    public void AllPropertiesCanBeSet()
+    {
+        var item = new PlayHistoryItem
+        {
+            FileName = "game.zip",
+            SystemName = "NES",
+            TotalPlayTime = 3600,
+            TimesPlayed = 10,
+            LastPlayDate = "2024-01-15",
+            LastPlayTime = "14:30:00"
+        };
+
+        Assert.Equal("game.zip", item.FileName);
+        Assert.Equal("NES", item.SystemName);
+        Assert.Equal(3600, item.TotalPlayTime);
+        Assert.Equal(10, item.TimesPlayed);
+        Assert.Equal("2024-01-15", item.LastPlayDate);
+        Assert.Equal("14:30:00", item.LastPlayTime);
+    }
+
+    [Fact]
+    public void PropertyChangedTotalPlayTime()
+    {
+        var item = new PlayHistoryItem();
+        var raised = false;
+        item.PropertyChanged += (_, args) =>
+        {
+            if (args.PropertyName == nameof(PlayHistoryItem.TotalPlayTime))
+            {
+                raised = true;
+            }
+        };
+
+        item.TotalPlayTime = 100;
+        Assert.True(raised);
+    }
+
+    [Fact]
+    public void PropertyChangedFormattedPlayTime()
+    {
+        var item = new PlayHistoryItem();
+        var raised = false;
+        item.PropertyChanged += (_, args) =>
+        {
+            if (args.PropertyName == nameof(PlayHistoryItem.FormattedPlayTime))
+            {
+                raised = true;
+            }
+        };
+
+        item.TotalPlayTime = 100;
+        Assert.True(raised);
+    }
+
+    [Fact]
+    public void SameValueDoesNotRaisePropertyChanged()
+    {
+        var item = new PlayHistoryItem { TotalPlayTime = 100 };
+        var raised = false;
+        item.PropertyChanged += (_, _) => { raised = true; };
+
+        item.TotalPlayTime = 100;
+        Assert.False(raised);
+    }
+
+    [Fact]
+    public void UnicodeFileNameDisplaysCorrectly()
+    {
+        var item = new PlayHistoryItem { FileName = "ポケモン.zip", SystemName = "GBA" };
+        Assert.Equal("ポケモン.zip", item.DisplayName);
+    }
+
+    [Fact]
+    public void SpecialCharactersInFileNameDisplayCorrectly()
+    {
+        var item = new PlayHistoryItem { FileName = "game (v1.0) [!].zip" };
+        Assert.Equal("game (v1.0) [!].zip", item.DisplayName);
+    }
+
+    [Fact]
+    public void LargePlayTimeValuesAreCorrect()
+    {
+        var item = new PlayHistoryItem { TotalPlayTime = 999999, TimesPlayed = 10000 };
+        Assert.Equal(999999, item.TotalPlayTime);
+        Assert.Equal(10000, item.TimesPlayed);
+        Assert.Contains("h", item.FormattedPlayTime);
+    }
+
+    [Fact]
+    public void IsoDateFormatIsPreserved()
+    {
+        var item = new PlayHistoryItem { LastPlayDate = "2024-12-25", LastPlayTime = "23:59:59" };
+        Assert.Equal("2024-12-25", item.LastPlayDate);
+        Assert.Equal("23:59:59", item.LastPlayTime);
+    }
+
+    [Fact]
+    public void UsDateFormatIsPreserved()
+    {
+        var item = new PlayHistoryItem { LastPlayDate = "12/25/2024" };
+        Assert.Equal("12/25/2024", item.LastPlayDate);
+    }
 }

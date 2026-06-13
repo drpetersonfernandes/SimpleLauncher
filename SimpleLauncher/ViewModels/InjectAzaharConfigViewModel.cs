@@ -122,25 +122,32 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         _ = _settings.SaveAsync();
     }
 
-    private async Task<string> EnsureEmulatorPathAsync()
+    private Task<string> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
+        try
         {
-            return _emulatorPath;
-        }
+            if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
+            {
+                return Task.FromResult(_emulatorPath);
+            }
 
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Azahar", _logErrors);
-        if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
+            var resolved = EmulatorPathResolver.TryFindEmulatorPath("Azahar", _logErrors);
+            if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
+            {
+                _emulatorPath = resolved;
+                return Task.FromResult(_emulatorPath);
+            }
+
+            var result = RequestEmulatorPath?.Invoke();
+            if (string.IsNullOrEmpty(result)) return Task.FromResult<string>(null);
+
+            _emulatorPath = result;
+            return Task.FromResult(_emulatorPath);
+        }
+        catch (Exception exception)
         {
-            _emulatorPath = resolved;
-            return _emulatorPath;
+            return Task.FromException<string>(exception);
         }
-
-        var result = RequestEmulatorPath?.Invoke();
-        if (string.IsNullOrEmpty(result)) return null;
-
-        _emulatorPath = result;
-        return _emulatorPath;
     }
 
     private async Task<bool> InjectConfigAsync()

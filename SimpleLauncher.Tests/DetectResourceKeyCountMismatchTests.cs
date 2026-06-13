@@ -1,4 +1,5 @@
 using System.Xml.Linq;
+using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
@@ -17,7 +18,7 @@ public class DetectResourceKeyCountMismatchTests
     [Fact]
     public void AllLanguageFilesShouldHaveSameKeyCountAsEnglish()
     {
-        var resourcesPath = Path.Combine(GetSimpleLauncherPath(), "resources");
+        var resourcesPath = Path.Combine(ProjectPathHelper.GetSimpleLauncherPath(), "resources");
         var englishFile = Path.Combine(resourcesPath, "strings.en.xaml");
 
         if (!File.Exists(englishFile))
@@ -68,25 +69,5 @@ public class DetectResourceKeyCountMismatchTests
 
         return root.Elements()
             .Count(e => e.Attribute(xNamespace + "Key") != null);
-    }
-
-    private static string GetSimpleLauncherPath()
-    {
-        var dir = new DirectoryInfo(AppContext.BaseDirectory);
-
-        while (dir != null)
-        {
-            var candidate = Path.Combine(dir.FullName, "SimpleLauncher");
-            if (Directory.Exists(candidate) &&
-                File.Exists(Path.Combine(candidate, "SimpleLauncher.csproj")))
-            {
-                return candidate;
-            }
-
-            dir = dir.Parent;
-        }
-
-        throw new DirectoryNotFoundException(
-            "Could not locate the SimpleLauncher project directory from the test output folder.");
     }
 }

@@ -585,4 +585,60 @@ public class EmulatorSettingsTests
             Assert.Null(exception);
         }
     }
+
+    [Fact]
+    public void Pcsx2SettingsFullRoundTrip()
+    {
+        var original = new Pcsx2Settings { StartFullscreen = false, Renderer = 12, UpscaleMultiplier = 4 };
+        var element = original.ToXElement();
+        var loaded = new Pcsx2Settings();
+        loaded.LoadFromXml(new XElement("Settings", element));
+
+        Assert.Equal(original.StartFullscreen, loaded.StartFullscreen);
+        Assert.Equal(original.Renderer, loaded.Renderer);
+        Assert.Equal(original.UpscaleMultiplier, loaded.UpscaleMultiplier);
+    }
+
+    [Fact]
+    public void DolphinSettingsFullRoundTrip()
+    {
+        var original = new DolphinSettings { GfxBackend = "D3D12", DspThread = false };
+        var element = original.ToXElement();
+        var loaded = new DolphinSettings();
+        loaded.LoadFromXml(new XElement("Settings", element));
+
+        Assert.Equal(original.GfxBackend, loaded.GfxBackend);
+        Assert.Equal(original.DspThread, loaded.DspThread);
+    }
+
+    [Fact]
+    public void LoadFromXmlWithMissingElementsKeepsDefaults()
+    {
+        var emptyXml = new XElement("Settings");
+        var ares = new AresSettings();
+        var originalDriver = ares.VideoDriver;
+
+        ares.LoadFromXml(emptyXml);
+        Assert.Equal(originalDriver, ares.VideoDriver);
+    }
+
+    [Fact]
+    public void CopyFromPreservesAllProperties()
+    {
+        var source = new DuckStationSettings
+        {
+            StartFullscreen = true,
+            Renderer = "OpenGL",
+            ResolutionScale = 8,
+            OutputVolume = 25
+        };
+
+        var target = new DuckStationSettings();
+        target.CopyFrom(source);
+
+        Assert.Equal(source.StartFullscreen, target.StartFullscreen);
+        Assert.Equal(source.Renderer, target.Renderer);
+        Assert.Equal(source.ResolutionScale, target.ResolutionScale);
+        Assert.Equal(source.OutputVolume, target.OutputVolume);
+    }
 }

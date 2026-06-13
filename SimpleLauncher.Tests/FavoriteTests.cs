@@ -104,4 +104,73 @@ public class FavoriteTests
         favorite.DefaultEmulator = "RetroArch";
         Assert.False(eventRaised);
     }
+
+    [Fact]
+    public void AllPropertiesCanBeSet()
+    {
+        var fav = new Favorite
+        {
+            FileName = "game.zip",
+            SystemName = "Arcade",
+            MachineDescription = "Pac-Man",
+            CoverImage = "pacman.png",
+            DefaultEmulator = "MAME"
+        };
+
+        Assert.Equal("game.zip", fav.FileName);
+        Assert.Equal("Arcade", fav.SystemName);
+        Assert.Equal("Pac-Man", fav.MachineDescription);
+        Assert.Equal("pacman.png", fav.CoverImage);
+        Assert.Equal("MAME", fav.DefaultEmulator);
+    }
+
+    [Fact]
+    public void FileNameIsInitOnly()
+    {
+        var fav = new Favorite { FileName = "game.zip", SystemName = "NES" };
+        Assert.Equal("game.zip", fav.FileName);
+    }
+
+    [Fact]
+    public void SystemNameIsInitOnly()
+    {
+        var fav = new Favorite { FileName = "game.zip", SystemName = "NES" };
+        Assert.Equal("NES", fav.SystemName);
+    }
+
+    [Fact]
+    public void UnicodeCharactersArePreserved()
+    {
+        var fav = new Favorite
+        {
+            FileName = "ポケモン.zip",
+            SystemName = "GBA",
+            MachineDescription = "ポケットモンスター"
+        };
+
+        Assert.Contains("ポケモン", fav.FileName);
+        Assert.Contains("ポケットモンスター", fav.MachineDescription);
+    }
+
+    [Fact]
+    public void LongFileNameIsPreserved()
+    {
+        var longName = new string('a', 500) + ".zip";
+        var fav = new Favorite { FileName = longName, SystemName = "NES" };
+        Assert.Equal(longName, fav.FileName);
+    }
+
+    [Fact]
+    public void SpecialCharactersInFileNameArePreserved()
+    {
+        var fav = new Favorite
+        {
+            FileName = "game (v1.0) [!] {proto}.zip",
+            SystemName = "NES"
+        };
+
+        Assert.Contains("(", fav.FileName);
+        Assert.Contains("[", fav.FileName);
+        Assert.Contains("{", fav.FileName);
+    }
 }

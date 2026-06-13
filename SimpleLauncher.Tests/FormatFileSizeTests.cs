@@ -13,10 +13,14 @@ public class FormatFileSizeTests
     /// </summary>
     [Theory]
     [InlineData(0, "0.00 MB")]
+    [InlineData(1, "0.00 MB")]
+    [InlineData(512 * 1024, "0.50 MB")]
     [InlineData(1024 * 1024, "1.00 MB")]
     [InlineData(2 * 1024 * 1024, "2.00 MB")]
     [InlineData(1536 * 1024, "1.50 MB")]
     [InlineData(1048576 * 5, "5.00 MB")]
+    [InlineData(1024L * 1024 * 1024, "1024.00 MB")]
+    [InlineData(5L * 1024 * 1024 * 1024, "5120.00 MB")]
     public void FormatToMbReturnsExpected(long bytes, string expected)
     {
         var result = FormatFileSize.FormatToMb(bytes);
@@ -28,7 +32,10 @@ public class FormatFileSizeTests
     /// </summary>
     [Theory]
     [InlineData(0, "0.00 B")]
+    [InlineData(1, "1.00 B")]
+    [InlineData(500, "500.00 B")]
     [InlineData(512, "512.00 B")]
+    [InlineData(1023, "1023.00 B")]
     [InlineData(1024, "1.00 KB")]
     [InlineData(1025, "1.00 KB")]
     [InlineData(1536, "1.50 KB")]
@@ -43,5 +50,33 @@ public class FormatFileSizeTests
     {
         var result = FormatFileSize.FormatToHumanReadable(bytes);
         Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    public void FormatToHumanReadableJustUnder1MbUsesKbUnit()
+    {
+        var result = FormatFileSize.FormatToHumanReadable(1024L * 1024 - 1);
+        Assert.Contains("KB", result);
+    }
+
+    [Fact]
+    public void FormatToHumanReadableJustUnder1GbUsesMbUnit()
+    {
+        var result = FormatFileSize.FormatToHumanReadable(1024L * 1024 * 1024 - 1);
+        Assert.Contains("MB", result);
+    }
+
+    [Fact]
+    public void FormatToMbContainsMbSuffix()
+    {
+        var result = FormatFileSize.FormatToMb(1024 * 1024);
+        Assert.Contains("MB", result);
+    }
+
+    [Fact]
+    public void FormatToHumanReadableLargeValueUsesTbUnit()
+    {
+        var result = FormatFileSize.FormatToHumanReadable(long.MaxValue);
+        Assert.Contains("TB", result);
     }
 }

@@ -103,4 +103,186 @@ public class SanitizeInputSystemNameTests
         var result = SanitizeInputSystemName.SanitizeFolderName("../etc/passwd");
         Assert.DoesNotContain("..", result);
     }
+
+    [Fact]
+    public void ContainsInvalidCharactersWithDotsReturnsFalse()
+    {
+        var result = SanitizeInputSystemName.ContainsInvalidCharacters("N.E.S.", out _);
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void ContainsInvalidCharactersWithBackslashReturnsTrue()
+    {
+        var result = SanitizeInputSystemName.ContainsInvalidCharacters("NES\\SNES", out var invalidChars);
+        Assert.True(result);
+        Assert.Contains('\\', invalidChars);
+    }
+
+    [Fact]
+    public void ContainsInvalidCharactersWithSlashReturnsTrue()
+    {
+        var result = SanitizeInputSystemName.ContainsInvalidCharacters("NES/SNES", out var invalidChars);
+        Assert.True(result);
+        Assert.Contains('/', invalidChars);
+    }
+
+    [Fact]
+    public void ContainsInvalidCharactersWithColonReturnsTrue()
+    {
+        var result = SanitizeInputSystemName.ContainsInvalidCharacters("NES:SNES", out var invalidChars);
+        Assert.True(result);
+        Assert.Contains(':', invalidChars);
+    }
+
+    [Fact]
+    public void ContainsInvalidCharactersWithAsteriskReturnsTrue()
+    {
+        var result = SanitizeInputSystemName.ContainsInvalidCharacters("NES*SNES", out var invalidChars);
+        Assert.True(result);
+        Assert.Contains('*', invalidChars);
+    }
+
+    [Fact]
+    public void ContainsInvalidCharactersWithQuestionMarkReturnsTrue()
+    {
+        var result = SanitizeInputSystemName.ContainsInvalidCharacters("NES?SNES", out var invalidChars);
+        Assert.True(result);
+        Assert.Contains('?', invalidChars);
+    }
+
+    [Fact]
+    public void ContainsInvalidCharactersWithPipeReturnsTrue()
+    {
+        var result = SanitizeInputSystemName.ContainsInvalidCharacters("NES|SNES", out var invalidChars);
+        Assert.True(result);
+        Assert.Contains('|', invalidChars);
+    }
+
+    [Fact]
+    public void ContainsInvalidCharactersWhitespaceReturnsFalse()
+    {
+        var result = SanitizeInputSystemName.ContainsInvalidCharacters("   ", out _);
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void ContainsInvalidPathCharactersValidPathReturnsFalse()
+    {
+        var result = SanitizeInputSystemName.ContainsInvalidPathCharacters(@"C:\roms\NES", out _);
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void ContainsInvalidPathCharactersEmptyReturnsFalse()
+    {
+        var result = SanitizeInputSystemName.ContainsInvalidPathCharacters("", out var invalidChars);
+        Assert.False(result);
+        Assert.Empty(invalidChars);
+    }
+
+    [Fact]
+    public void ContainsInvalidPathCharactersNullReturnsFalse()
+    {
+        var result = SanitizeInputSystemName.ContainsInvalidPathCharacters(null, out _);
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void SanitizeFolderNameWithSpacesReturnsUnchanged()
+    {
+        var result = SanitizeInputSystemName.SanitizeFolderName("Super Nintendo");
+        Assert.Equal("Super Nintendo", result);
+    }
+
+    [Fact]
+    public void SanitizeFolderNameWithDoubleDotsReplacesTraversal()
+    {
+        var result = SanitizeInputSystemName.SanitizeFolderName("NES..SNES");
+        Assert.DoesNotContain("..", result);
+    }
+
+    [Fact]
+    public void SanitizeFolderNameReservedCon()
+    {
+        var result = SanitizeInputSystemName.SanitizeFolderName("CON");
+        Assert.StartsWith("_", result);
+        Assert.EndsWith("_", result);
+    }
+
+    [Fact]
+    public void SanitizeFolderNameReservedAux()
+    {
+        var result = SanitizeInputSystemName.SanitizeFolderName("AUX");
+        Assert.StartsWith("_", result);
+        Assert.EndsWith("_", result);
+    }
+
+    [Fact]
+    public void SanitizeFolderNameReservedNul()
+    {
+        var result = SanitizeInputSystemName.SanitizeFolderName("NUL");
+        Assert.StartsWith("_", result);
+        Assert.EndsWith("_", result);
+    }
+
+    [Fact]
+    public void SanitizeFolderNameReservedCom1()
+    {
+        var result = SanitizeInputSystemName.SanitizeFolderName("COM1");
+        Assert.StartsWith("_", result);
+        Assert.EndsWith("_", result);
+    }
+
+    [Fact]
+    public void SanitizeFolderNameReservedLpt1()
+    {
+        var result = SanitizeInputSystemName.SanitizeFolderName("LPT1");
+        Assert.StartsWith("_", result);
+        Assert.EndsWith("_", result);
+    }
+
+    [Fact]
+    public void SanitizeFolderNameReservedCaseInsensitive()
+    {
+        var result = SanitizeInputSystemName.SanitizeFolderName("con");
+        Assert.StartsWith("_", result);
+        Assert.EndsWith("_", result);
+    }
+
+    [Fact]
+    public void SanitizeFolderNameWithInvalidChars()
+    {
+        var result = SanitizeInputSystemName.SanitizeFolderName("NES/SNES");
+        Assert.DoesNotContain("/", result);
+    }
+
+    [Fact]
+    public void SanitizeFolderNameTrimsDotsAndSpaces()
+    {
+        var result = SanitizeInputSystemName.SanitizeFolderName(" NES ");
+        Assert.Equal("NES", result);
+    }
+
+    [Fact]
+    public void SanitizeFolderNameWithMultipleInvalidChars()
+    {
+        var result = SanitizeInputSystemName.SanitizeFolderName("NES<>:\"/\\|?*SNES");
+        Assert.DoesNotContain("<", result);
+        Assert.DoesNotContain(">", result);
+        Assert.DoesNotContain(":", result);
+        Assert.DoesNotContain("\"", result);
+        Assert.DoesNotContain("/", result);
+        Assert.DoesNotContain("\\", result);
+        Assert.DoesNotContain("|", result);
+        Assert.DoesNotContain("?", result);
+        Assert.DoesNotContain("*", result);
+    }
+
+    [Fact]
+    public void SanitizeFolderNamePreservesValidCharacters()
+    {
+        var result = SanitizeInputSystemName.SanitizeFolderName("NES-GBA_v2.0");
+        Assert.Equal("NES-GBA_v2.0", result);
+    }
 }

@@ -54,4 +54,36 @@ public class InverseBooleanConverterTests
         var result = _converter.ConvertBack(42, typeof(int), null, CultureInfo.InvariantCulture);
         Assert.Equal(42, result);
     }
+
+    [Fact]
+    public void ConvertAndConvertBackAreInverse()
+    {
+        const bool original = true;
+        var converted = _converter.Convert(original, typeof(bool), null, CultureInfo.InvariantCulture);
+        var roundTrip = _converter.ConvertBack(converted, typeof(bool), null, CultureInfo.InvariantCulture);
+        Assert.Equal(original, roundTrip);
+    }
+
+    [Fact]
+    public void ConvertBackAndConvertAreInverse()
+    {
+        const bool original = false;
+        var converted = _converter.ConvertBack(original, typeof(bool), null, CultureInfo.InvariantCulture);
+        var roundTrip = _converter.Convert(converted, typeof(bool), null, CultureInfo.InvariantCulture);
+        Assert.Equal(original, roundTrip);
+    }
+
+    [Fact]
+    public void ConvertIntReturnsOriginalValue()
+    {
+        var result = _converter.Convert(1, typeof(bool), null, CultureInfo.InvariantCulture);
+        Assert.Equal(1, result);
+    }
+
+    [Fact]
+    public void ConvertNullReturnsNull()
+    {
+        var result = _converter.Convert(null, typeof(bool), null, CultureInfo.InvariantCulture);
+        Assert.Null(result);
+    }
 }

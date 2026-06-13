@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
@@ -17,7 +18,7 @@ public partial class DetectMismatchedResourceStringsTests
     [Fact]
     public void SourceCodeShouldHaveNoMismatchedResourceFallbacks()
     {
-        var simpleLauncherPath = GetSimpleLauncherPath();
+        var simpleLauncherPath = ProjectPathHelper.GetSimpleLauncherPath();
         var mismatches = FindMismatches(simpleLauncherPath);
 
         if (mismatches.Count == 0)
@@ -77,26 +78,6 @@ public partial class DetectMismatchedResourceStringsTests
         return path.Contains("\\bin\\", StringComparison.OrdinalIgnoreCase)
                || path.Contains("\\obj\\", StringComparison.OrdinalIgnoreCase)
                || path.Contains("\\resources\\", StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static string GetSimpleLauncherPath()
-    {
-        var dir = new DirectoryInfo(AppContext.BaseDirectory);
-
-        while (dir != null)
-        {
-            var candidate = Path.Combine(dir.FullName, "SimpleLauncher");
-            if (Directory.Exists(candidate) &&
-                File.Exists(Path.Combine(candidate, "SimpleLauncher.csproj")))
-            {
-                return candidate;
-            }
-
-            dir = dir.Parent;
-        }
-
-        throw new DirectoryNotFoundException(
-            "Could not locate the SimpleLauncher project directory from the test output folder.");
     }
 
     [GeneratedRegex("""

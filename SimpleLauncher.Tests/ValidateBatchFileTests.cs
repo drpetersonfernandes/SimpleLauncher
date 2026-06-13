@@ -197,4 +197,41 @@ public class ValidateBatchFileTests : IDisposable
         var result = ValidateBatchFile.FindInvalidQuotedPathsSimple(batchFile);
         Assert.Equal(2, result.Count);
     }
+
+    [Fact]
+    public void ValidateBatchFileContentsExistingFileNotReported()
+    {
+        var batchFile = Path.Combine(_testDirectory, "existing.bat");
+        var testExe = Path.Combine(_testDirectory, "existing.exe");
+        File.WriteAllText(testExe, "test");
+        File.WriteAllText(batchFile, $"start \"{testExe}\"");
+
+        var result = ValidateBatchFile.ValidateBatchFileContents(batchFile);
+        Assert.Empty(result);
+    }
+
+    [Fact]
+    public void FindInvalidQuotedPathsSimpleDetectsMissingPaths()
+    {
+        var batchFile = Path.Combine(_testDirectory, "missing.bat");
+        File.WriteAllText(batchFile, "\"C:\\nonexistent_folder_67890\\tool.exe\"\n");
+
+        var result = ValidateBatchFile.FindInvalidQuotedPathsSimple(batchFile);
+        Assert.NotEmpty(result);
+        Assert.Contains("tool.exe", result[0]);
+    }
+
+    [Fact]
+    public void FindInvalidQuotedPathsSimpleSkipNonPaths()
+    {
+        var batchFile = Path.Combine(_testDirectory, "nonpath.bat");
+        File.WriteAllText(batchFile, """
+                                    @echo off
+                                    set "NAME=hello"
+                                    echo "this is not a path"
+                                    """);
+
+        var result = ValidateBatchFile.FindInvalidQuotedPathsSimple(batchFile);
+        Assert.Empty(result);
+    }
 }
