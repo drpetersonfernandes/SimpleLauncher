@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">تمام گیمز</system:String>
     <system:String x:Key="10000games">10000 گیمز</system:String>
     <system:String x:Key="1000games">1000 گیمز</system:String>
@@ -1742,6 +1743,7 @@
     <system:String x:Key="StellaemulatornotfoundPleaselocate">Stella ایمولیٹر نہیں ملا۔ براہ کرم 'stella.exe' تلاش کریں۔</system:String>
     <system:String x:Key="StellaSettings">سٹیلا سیٹنگز</system:String>
     <system:String x:Key="StopDownload">ڈاؤنلوڈ روکیں</system:String>
+    <system:String x:Key="StripAnnotations">موازنے کے لیے تشریحات ہٹائیں</system:String>
     <system:String x:Key="Success">کامیابی</system:String>
     <system:String x:Key="SuggestParameters">پیرامیٹرز تجویز کریں</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodel کنفیگریشن کامیابی سے محفوظ ہو گئی۔</system:String>
@@ -1916,6 +1918,7 @@
     <system:String x:Key="Toextractafileitneedstobe">کسی فائل کی ایکسٹریکشن کیلئے اسے 7z, zip یا rar ہونا چاہئے۔</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">بٹن کا تناسب تبدیل کریں</system:String>
     <system:String x:Key="ToggleViewMode">دیکھنے کا موڈ تبدیل کریں</system:String>
+    <system:String x:Key="TogglingAnnotationStripping">تشریحات ہٹانے کو ٹوگل کیا جا رہا ہے...</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">بٹن کے پہلو کا تناسب ٹوگل کر رہا ہے...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">فزی میچنگ ٹوگل کر رہا ہے...</system:String>
     <system:String x:Key="TogglingGamepadNavigation">گیم پیڈ نیویگیشن ٹوگل کر رہا ہے...</system:String>
@@ -1934,6 +1937,7 @@
     <system:String x:Key="TooltipAddNewSystem">نیا سسٹم شامل کریں</system:String>
     <system:String x:Key="TooltipAddNewSystem2">ایک نئی گیم سسٹم کنفیگریشن شامل کریں</system:String>
     <system:String x:Key="TooltipAddSystem">کنفیگرڈ سسٹم کو اپنی لائبریری میں شامل کریں</system:String>
+    <system:String x:Key="TooltipAnnotationStripping">تصاویر کو موازنہ کرنے سے پہلے فائلوں کے ناموں سے علاقہ، زبان، اور ورژن کی تشریحات ہٹائیں</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">گیم بٹنوں کا پہلو تناسب تبدیل کریں</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">لائٹ اور ڈارک تھیم کے درمیان سوئچ کریں</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">گیم بٹنوں کا سائز ایڈجسٹ کریں</system:String>

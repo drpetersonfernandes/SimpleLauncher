@@ -44,6 +44,25 @@ public class SystemImageResolverService : ISystemImageResolverService
             }
         }
 
+        var enableAnnotationStripping = _settings.EnableAnnotationStripping;
+
+        // Normalized exact match (strip annotations)
+        if (enableAnnotationStripping)
+        {
+            var strippedSystemName = FindCoverImageService.StripAnnotations(systemName);
+            if (strippedSystemName != systemName)
+            {
+                foreach (var ext in imageExtensions)
+                {
+                    var systemImagePath = Path.Combine(systemImageFolder, $"{strippedSystemName}{ext}");
+                    if (File.Exists(systemImagePath))
+                    {
+                        return Task.FromResult(systemImagePath);
+                    }
+                }
+            }
+        }
+
         var enableFuzzyMatching = _settings.EnableFuzzyMatching;
         var similarityThreshold = _settings.FuzzyMatchingThreshold;
 
@@ -56,6 +75,9 @@ public class SystemImageResolverService : ISystemImageResolverService
             string bestMatchPath = null;
             double highestSimilarity = 0;
             var lowerSystemName = systemName.ToLowerInvariant();
+            var normalizedSystemName = enableAnnotationStripping
+                ? FindCoverImageService.StripAnnotations(lowerSystemName)
+                : lowerSystemName;
 
             foreach (var filePath in filesInImageFolder)
             {
@@ -63,7 +85,11 @@ public class SystemImageResolverService : ISystemImageResolverService
                 if (string.IsNullOrEmpty(fileWithoutExt)) continue;
 
                 var lowerFileName = fileWithoutExt.ToLowerInvariant();
-                var similarity = FindCoverImageService.CalculateJaroWinklerSimilarity(lowerSystemName, lowerFileName);
+                var normalizedFileName = enableAnnotationStripping
+                    ? FindCoverImageService.StripAnnotations(lowerFileName)
+                    : lowerFileName;
+
+                var similarity = FindCoverImageService.CalculateJaroWinklerSimilarity(normalizedSystemName, normalizedFileName);
 
                 if (!(similarity > highestSimilarity)) continue;
 

@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">Todos os jogos</system:String>
     <system:String x:Key="10000games">10000 jogos</system:String>
     <system:String x:Key="1000games">1000 jogos</system:String>
@@ -1742,6 +1743,7 @@
     <system:String x:Key="StellaemulatornotfoundPleaselocate">Emulador Stella não encontrado. Por favor, localize 'stella.exe'.</system:String>
     <system:String x:Key="StellaSettings">Configurações do Stella</system:String>
     <system:String x:Key="StopDownload">Parar download</system:String>
+    <system:String x:Key="StripAnnotations">Remover Anotações para Correspondência</system:String>
     <system:String x:Key="Success">Sucesso</system:String>
     <system:String x:Key="SuggestParameters">Perguntar IA</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Configuração do Supermodel salva com sucesso.</system:String>
@@ -1916,6 +1918,7 @@
     <system:String x:Key="Toextractafileitneedstobe">Para extrair um arquivo, ele deve ser um arquivo 7z, zip ou rar.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Alternar proporção do botão</system:String>
     <system:String x:Key="ToggleViewMode">Alternar modo de exibição</system:String>
+    <system:String x:Key="TogglingAnnotationStripping">Alternando remoção de anotações...</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">Alternando proporção do botão...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">Alternando correspondência difusa...</system:String>
     <system:String x:Key="TogglingGamepadNavigation">Alternando navegação por gamepad...</system:String>
@@ -1934,6 +1937,7 @@
     <system:String x:Key="TooltipAddNewSystem">Adicionar Novo Sistema</system:String>
     <system:String x:Key="TooltipAddNewSystem2">Adicionar uma nova configuração de sistema de jogos</system:String>
     <system:String x:Key="TooltipAddSystem">Adicionar o sistema configurado à sua biblioteca</system:String>
+    <system:String x:Key="TooltipAnnotationStripping">Remova anotações de região, idioma e versão de nomes de arquivo antes de corresponder imagens.</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">Mudar a proporção dos botões dos jogos</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Alternar entre tema claro e escuro</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Ajustar o tamanho dos botões dos jogos</system:String>

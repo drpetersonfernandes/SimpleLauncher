@@ -253,6 +253,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
 
                 var systemId = _systemMatcher.GetSystemId(selectedManager.SystemName);
                 var threshold = _settings.FuzzyMatchingThreshold;
+                var enableAnnotationStripping = _settings.EnableAnnotationStripping;
 
                 try
                 {
@@ -280,16 +281,22 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
                     allFiles = cachedGames.Where(filePath =>
                     {
                         var fileName = Path.GetFileNameWithoutExtension(filePath);
+                        var normalizedFileName = enableAnnotationStripping
+                            ? FindCoverImageService.StripAnnotations(fileName)
+                            : fileName;
 
                         return raGamesForSystem.Any(ra =>
                         {
                             var raTitle = ra.Title;
+                            var normalizedRaTitle = enableAnnotationStripping
+                                ? FindCoverImageService.StripAnnotations(raTitle)
+                                : raTitle;
 
-                            if (fileName.Contains(raTitle, StringComparison.OrdinalIgnoreCase) ||
-                                raTitle.Contains(fileName, StringComparison.OrdinalIgnoreCase))
+                            if (normalizedFileName.Contains(normalizedRaTitle, StringComparison.OrdinalIgnoreCase) ||
+                                normalizedRaTitle.Contains(normalizedFileName, StringComparison.OrdinalIgnoreCase))
                                 return true;
 
-                            var similarity = FindCoverImageService.CalculateJaroWinklerSimilarity(fileName, raTitle);
+                            var similarity = FindCoverImageService.CalculateJaroWinklerSimilarity(normalizedFileName, normalizedRaTitle);
                             return similarity >= threshold;
                         });
                     }).ToList();

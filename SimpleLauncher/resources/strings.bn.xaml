@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">সমস্ত গেম</system:String>
     <system:String x:Key="10000games">10000 গেম</system:String>
     <system:String x:Key="1000games">1000 গেম</system:String>
@@ -1742,6 +1743,7 @@
     <system:String x:Key="StellaemulatornotfoundPleaselocate">Stella এমুলেটর খুঁজে পাওয়া যায়নি। অনুগ্রহ করে 'stella.exe' সনাক্ত করুন।</system:String>
     <system:String x:Key="StellaSettings">স্টেলা সেটিংস</system:String>
     <system:String x:Key="StopDownload">ডাউনলোড বন্ধ করুন</system:String>
+    <system:String x:Key="StripAnnotations">মিলানোর জন্য অ্যানোটেশনগুলি সরান</system:String>
     <system:String x:Key="Success">সফল</system:String>
     <system:String x:Key="SuggestParameters">প্যারামিটার প্রস্তাব</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodel কনফিগারেশন সফলভাবে সংরক্ষণ করা হয়েছে।</system:String>
@@ -1916,6 +1918,7 @@
     <system:String x:Key="Toextractafileitneedstobe">একটি ফাইল এক্সট্র্যাক্ট করতে হলে এটি 7z, zip অথবা rar ফাইল হতে হবে।</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">বাটনের অনুপাত পরিবর্তন করুন</system:String>
     <system:String x:Key="ToggleViewMode">ভিউ মোড পরিবর্তন করুন</system:String>
+    <system:String x:Key="TogglingAnnotationStripping">অ্যানোটেশন স্ট্রিপিং টগল করা হচ্ছে...</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">বোতামের অনুপাত টগল করা হচ্ছে...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">ফাজি ম্যাচিং টগল করা হচ্ছে...</system:String>
     <system:String x:Key="TogglingGamepadNavigation">গেমপ্যাড নেভিগেশন টগল করা হচ্ছে...</system:String>
@@ -1934,6 +1937,7 @@
     <system:String x:Key="TooltipAddNewSystem">নতুন সিস্টেম যোগ করুন</system:String>
     <system:String x:Key="TooltipAddNewSystem2">একটি নতুন গেম সিস্টেম কনফিগারেশন যোগ করুন</system:String>
     <system:String x:Key="TooltipAddSystem">আপনার লাইব্রেরিতে কনফিগার করা সিস্টেম যোগ করুন</system:String>
+    <system:String x:Key="TooltipAnnotationStripping">ছবি মেলানোর আগে ফাইলের নাম থেকে অঞ্চল, ভাষা এবং সংস্করণ অ্যানোটেশনগুলি সরান</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">গেম বোতামগুলির অনুপাত পরিবর্তন করুন</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">হালকা এবং গাঢ় থিমের মধ্যে স্যুইচ করুন</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">গেম বোতামগুলির আকার সামঞ্জস্য করুন</system:String>

@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">Tüm oyunlar</system:String>
     <system:String x:Key="10000games">10000 oyun</system:String>
     <system:String x:Key="1000games">1000 oyun</system:String>
@@ -1742,6 +1743,7 @@
     <system:String x:Key="StellaemulatornotfoundPleaselocate">Stella emülatörü bulunamadı. Lütfen 'stella.exe' dosyasını bulun.</system:String>
     <system:String x:Key="StellaSettings">Stella Ayarları</system:String>
     <system:String x:Key="StopDownload">İndirmeyi durdur</system:String>
+    <system:String x:Key="StripAnnotations">Eşleştirme için Ek Açıklamaları Kaldır</system:String>
     <system:String x:Key="Success">Başarılı</system:String>
     <system:String x:Key="SuggestParameters">Parametre Öner</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodel yapılandırması başarıyla kaydedildi.</system:String>
@@ -1916,6 +1918,7 @@
     <system:String x:Key="Toextractafileitneedstobe">Bir dosyanın çıkarılabilmesi için 7z, zip veya rar formatında olması gerekir.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Buton en-boy oranını değiştir</system:String>
     <system:String x:Key="ToggleViewMode">Görünüm modunu değiştir</system:String>
+    <system:String x:Key="TogglingAnnotationStripping">Ek açıklama kaldırma değiştiriliyor...</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">Düğme en boy oranı değiştiriliyor...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">Bulanık eşleştirme değiştiriliyor...</system:String>
     <system:String x:Key="TogglingGamepadNavigation">Gamepad navigasyonu değiştiriliyor...</system:String>
@@ -1934,6 +1937,7 @@
     <system:String x:Key="TooltipAddNewSystem">Yeni Sistem Ekle</system:String>
     <system:String x:Key="TooltipAddNewSystem2">Yeni bir oyun sistemi yapılandırması ekle</system:String>
     <system:String x:Key="TooltipAddSystem">Yapılandırılan sistemi kitaplığınıza ekleyin</system:String>
+    <system:String x:Key="TooltipAnnotationStripping">Görüntüleri eşleştirmeden önce dosya adlarından bölge, dil ve sürüm ek açıklamalarını kaldır</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">Oyun düğmelerinin en boy oranını değiştir</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Açık ve koyu tema arasında geçiş yap</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Oyun düğmelerinin boyutunu ayarla</system:String>

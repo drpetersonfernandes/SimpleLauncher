@@ -252,7 +252,7 @@ public partial class App : IDisposable
             var configuration = sp.GetRequiredService<IConfiguration>();
             var logErrors = sp.GetRequiredService<ILogErrors>();
             var settings = sp.GetRequiredService<SettingsManager>();
-            return new FindCoverImageService(configuration, logErrors, settings.EnableFuzzyMatching, settings.FuzzyMatchingThreshold);
+            return new FindCoverImageService(configuration, logErrors, settings.EnableFuzzyMatching, settings.FuzzyMatchingThreshold, settings.EnableAnnotationStripping);
         });
         serviceCollection.AddSingleton<IImageLoader, WpfImageLoader>();
         serviceCollection.AddSingleton<IMenuCheckMarkService, MenuCheckMarkService>();

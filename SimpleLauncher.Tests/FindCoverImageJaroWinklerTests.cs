@@ -214,4 +214,137 @@ public class FindCoverImageJaroWinklerTests
         var result = FindCoverImageService.CalculateJaroWinklerSimilarity("test", "testing");
         Assert.InRange(result, 0.0, 1.0);
     }
+
+    // Annotation Stripping Tests
+
+    /// <summary>
+    /// Verifies that parenthetical annotations are removed from filenames.
+    /// </summary>
+    [Fact]
+    public void StripAnnotations_Parentheses_RemovesContent()
+    {
+        var result = FindCoverImageService.StripAnnotations("007 - Everything or Nothing (Asia) (En)");
+        Assert.Equal("007 - Everything or Nothing", result);
+    }
+
+    /// <summary>
+    /// Verifies that square bracket annotations are removed from filenames.
+    /// </summary>
+    [Fact]
+    public void StripAnnotations_SquareBrackets_RemovesContent()
+    {
+        var result = FindCoverImageService.StripAnnotations("Game [v1.0]");
+        Assert.Equal("Game", result);
+    }
+
+    /// <summary>
+    /// Verifies that curly brace annotations are removed from filenames.
+    /// </summary>
+    [Fact]
+    public void StripAnnotations_CurlyBraces_RemovesContent()
+    {
+        var result = FindCoverImageService.StripAnnotations("Game {test}");
+        Assert.Equal("Game", result);
+    }
+
+    /// <summary>
+    /// Verifies that mixed annotation types are all removed.
+    /// </summary>
+    [Fact]
+    public void StripAnnotations_Mixed_RemovesAll()
+    {
+        var result = FindCoverImageService.StripAnnotations("Game (USA) [v1] {test}");
+        Assert.Equal("Game", result);
+    }
+
+    /// <summary>
+    /// Verifies that filenames without annotations are returned unchanged.
+    /// </summary>
+    [Fact]
+    public void StripAnnotations_NoAnnotations_ReturnsUnchanged()
+    {
+        var result = FindCoverImageService.StripAnnotations("Game");
+        Assert.Equal("Game", result);
+    }
+
+    /// <summary>
+    /// Verifies that null input returns null.
+    /// </summary>
+    [Fact]
+    public void StripAnnotations_Null_ReturnsNull()
+    {
+        var result = FindCoverImageService.StripAnnotations(null);
+        Assert.Null(result);
+    }
+
+    /// <summary>
+    /// Verifies that empty input returns empty.
+    /// </summary>
+    [Fact]
+    public void StripAnnotations_Empty_ReturnsEmpty()
+    {
+        var result = FindCoverImageService.StripAnnotations("");
+        Assert.Equal("", result);
+    }
+
+    /// <summary>
+    /// Verifies that when the entire filename is annotations, the original is returned.
+    /// </summary>
+    [Fact]
+    public void StripAnnotations_OnlyAnnotations_ReturnsOriginal()
+    {
+        var result = FindCoverImageService.StripAnnotations("(test)");
+        Assert.Equal("(test)", result);
+    }
+
+    /// <summary>
+    /// Verifies that trailing whitespace and dots are trimmed after stripping.
+    /// </summary>
+    [Fact]
+    public void StripAnnotations_TrailingDotsAndSpaces_Trims()
+    {
+        var result = FindCoverImageService.StripAnnotations("Game (USA) ");
+        Assert.Equal("Game", result);
+    }
+
+    /// <summary>
+    /// Verifies that annotation stripping enables high similarity between ROM and image names.
+    /// </summary>
+    [Fact]
+    public void FuzzyMatch_WithAnnotationStripping_MatchesCorrectly()
+    {
+        var romName = FindCoverImageService.StripAnnotations("007 - Everything or Nothing (Asia) (En)");
+        var imageName = FindCoverImageService.StripAnnotations("007 - Everything or Nothing");
+        var similarity = FindCoverImageService.CalculateJaroWinklerSimilarity(
+            romName.ToLowerInvariant(), imageName.ToLowerInvariant());
+        Assert.True(similarity > 0.95, $"Expected similarity > 0.95 but got {similarity}");
+    }
+
+    /// <summary>
+    /// Verifies that multiple region variants all match the same base name.
+    /// </summary>
+    [Fact]
+    public void StripAnnotations_MultipleRegionVariants_AllMatchBase()
+    {
+        var rom1 = FindCoverImageService.StripAnnotations("007 - Everything or Nothing (Asia) (En)");
+        var rom2 = FindCoverImageService.StripAnnotations("007 - Everything or Nothing (Europe) (En,Es,It,Nl,Sv)");
+        var rom3 = FindCoverImageService.StripAnnotations("007 - Everything or Nothing (Europe) (Fr,De)");
+        var rom4 = FindCoverImageService.StripAnnotations("007 - Everything or Nothing (USA)");
+        var image = FindCoverImageService.StripAnnotations("007 - Everything or Nothing");
+
+        Assert.Equal(image, rom1);
+        Assert.Equal(image, rom2);
+        Assert.Equal(image, rom3);
+        Assert.Equal(image, rom4);
+    }
+
+    /// <summary>
+    /// Verifies that nested parentheses are handled (first balanced pair is stripped).
+    /// </summary>
+    [Fact]
+    public void StripAnnotations_NestedParentheses_HandlesGracefully()
+    {
+        var result = FindCoverImageService.StripAnnotations("Game (Region (Sub))");
+        Assert.Equal("Game)", result);
+    }
 }

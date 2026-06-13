@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.CheckPaths;
@@ -8,12 +9,13 @@ namespace SimpleLauncher.Services.FindCoverImage;
 /// Locates cover image files for games using exact name matching and optional Jaro-Winkler fuzzy matching,
 /// falling back to a default image when no match is found.
 /// </summary>
-public class FindCoverImageService : IFindCoverImageService
+public partial class FindCoverImageService : IFindCoverImageService
 {
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors;
     private readonly bool _enableFuzzyMatching;
     private readonly double _fuzzyMatchingThreshold;
+    private readonly bool _enableAnnotationStripping;
     private static readonly string GlobalDefaultImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
 
     private const double PrefixScale = 0.1;
@@ -26,12 +28,14 @@ public class FindCoverImageService : IFindCoverImageService
     /// <param name="logErrors">The log errors.</param>
     /// <param name="enableFuzzyMatching">The enable fuzzy matching.</param>
     /// <param name="fuzzyMatchingThreshold">The fuzzy matching threshold.</param>
-    public FindCoverImageService(IConfiguration configuration, ILogErrors logErrors, bool enableFuzzyMatching = false, double fuzzyMatchingThreshold = 0.8)
+    /// <param name="enableAnnotationStripping">Whether to strip parenthetical annotations before matching.</param>
+    public FindCoverImageService(IConfiguration configuration, ILogErrors logErrors, bool enableFuzzyMatching = false, double fuzzyMatchingThreshold = 0.8, bool enableAnnotationStripping = true)
     {
         _configuration = configuration;
         _logErrors = logErrors;
         _enableFuzzyMatching = enableFuzzyMatching;
         _fuzzyMatchingThreshold = fuzzyMatchingThreshold;
+        _enableAnnotationStripping = enableAnnotationStripping;
     }
 
     /// <summary>
@@ -66,6 +70,21 @@ public class FindCoverImageService : IFindCoverImageService
                     return imagePath;
             }
 
+            // Normalized exact match (strip annotations like region, language, version)
+            if (_enableAnnotationStripping)
+            {
+                var strippedRomName = StripAnnotations(fileNameWithoutExtension);
+                if (strippedRomName != fileNameWithoutExtension)
+                {
+                    foreach (var ext in imageExtensions)
+                    {
+                        var imagePath = Path.Combine(resolvedImageFolder, $"{strippedRomName}{ext}");
+                        if (File.Exists(imagePath))
+                            return imagePath;
+                    }
+                }
+            }
+
             // Fuzzy match
             if (_enableFuzzyMatching)
             {
@@ -76,6 +95,9 @@ public class FindCoverImageService : IFindCoverImageService
                 string bestMatchPath = null;
                 double highestSimilarity = 0;
                 var lowerRomName = fileNameWithoutExtension.ToLowerInvariant();
+                var normalizedRomName = _enableAnnotationStripping
+                    ? StripAnnotations(lowerRomName)
+                    : lowerRomName;
 
                 foreach (var filePathInFolder in filesInImageFolder)
                 {
@@ -83,7 +105,11 @@ public class FindCoverImageService : IFindCoverImageService
                     if (string.IsNullOrEmpty(fileWithoutExt)) continue;
 
                     var lowerFileName = fileWithoutExt.ToLowerInvariant();
-                    var similarity = CalculateJaroWinklerSimilarity(lowerRomName, lowerFileName);
+                    var normalizedFileName = _enableAnnotationStripping
+                        ? StripAnnotations(lowerFileName)
+                        : lowerFileName;
+
+                    var similarity = CalculateJaroWinklerSimilarity(normalizedRomName, normalizedFileName);
 
                     if (similarity > highestSimilarity)
                     {
@@ -107,6 +133,33 @@ public class FindCoverImageService : IFindCoverImageService
             return defaultSystemImagePath;
 
         return GlobalDefaultImagePath;
+    }
+
+    [GeneratedRegex(@"\s*\([^)]*\)")]
+    private static partial Regex StripParenthesesRegex();
+
+    [GeneratedRegex(@"\s*\[[^\]]*\]")]
+    private static partial Regex StripSquareBracketsRegex();
+
+    [GeneratedRegex(@"\s*\{[^}]*\}")]
+    private static partial Regex StripCurlyBracesRegex();
+
+    /// <summary>
+    /// Strips parenthetical annotations (parentheses, square brackets, curly braces) from a filename,
+    /// removing region, language, version, and other metadata tags commonly found in ROM filenames.
+    /// </summary>
+    /// <param name="fileName">The filename to clean.</param>
+    /// <returns>The filename with annotations removed and trailing whitespace/dots/underscores trimmed.</returns>
+    public static string StripAnnotations(string fileName)
+    {
+        if (string.IsNullOrWhiteSpace(fileName)) return fileName;
+
+        var result = StripParenthesesRegex().Replace(fileName, "");
+        result = StripSquareBracketsRegex().Replace(result, "");
+        result = StripCurlyBracesRegex().Replace(result, "");
+        result = result.Trim().TrimEnd('.', '_', ' ');
+
+        return string.IsNullOrWhiteSpace(result) ? fileName : result;
     }
 
     /// <summary>

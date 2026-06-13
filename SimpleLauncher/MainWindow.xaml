@@ -353,6 +353,9 @@
                     <MenuItem x:Name="ToggleFuzzyMatching" Header="{DynamicResource Enable}"
                               Click="ToggleFuzzyMatchingClickAsync"
                               IsCheckable="True" ToolTip="{DynamicResource TooltipFuzzyMatchingMenu}" />
+                    <MenuItem x:Name="ToggleAnnotationStripping" Header="{DynamicResource StripAnnotations}"
+                              Click="ToggleAnnotationStrippingClickAsync"
+                              IsCheckable="True" ToolTip="{DynamicResource TooltipAnnotationStripping}" />
                     <MenuItem Header="{DynamicResource SetThreshold}" Click="SetFuzzyMatchingThresholdClickAsync" ToolTip="{DynamicResource TooltipFuzzyMatchingMenu}">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/setthreshold.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource SetThresholdIcon}" />

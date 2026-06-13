@@ -1741,6 +1741,7 @@
     <system:String x:Key="StellaemulatornotfoundPleaselocate">Stella emulator not found. Please locate 'stella.exe'.</system:String>
     <system:String x:Key="StellaSettings">Stella Settings</system:String>
     <system:String x:Key="StopDownload">Stop Download</system:String>
+    <system:String x:Key="StripAnnotations">Strip Annotations for Matching</system:String>
     <system:String x:Key="Success">Success</system:String>
     <system:String x:Key="SuggestParameters">Ask AI</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodel configuration saved successfully.</system:String>
@@ -1917,6 +1918,7 @@
     <system:String x:Key="ToggleViewMode">Toggle View Mode</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">Toggling button aspect ratio...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">Toggling fuzzy matching...</system:String>
+    <system:String x:Key="TogglingAnnotationStripping">Toggling annotation stripping...</system:String>
     <system:String x:Key="TogglingGamepadNavigation">Toggling gamepad navigation...</system:String>
     <system:String x:Key="TogglingInfoLinkOverlayButton">Toggling info link overlay button...</system:String>
     <system:String x:Key="TogglingRetroAchievementsOverlayButton">Toggling RetroAchievements overlay button...</system:String>
@@ -2033,6 +2035,7 @@
     <system:String x:Key="TooltipFilenamePreferencesMenu">Change how filenames are displayed in Grid mode</system:String>
     <system:String x:Key="TooltipFolderPathColumnHeader">Path to the folder containing the game</system:String>
     <system:String x:Key="TooltipFuzzyMatchingMenu">Configure fuzzy image matching settings</system:String>
+    <system:String x:Key="TooltipAnnotationStripping">Strip region, language, and version annotations from filenames before matching images</system:String>
     <system:String x:Key="TooltipGameCoverImage">Cover image of the selected game</system:String>
     <system:String x:Key="TooltipGameDataGrid">List of games for the selected system</system:String>
     <system:String x:Key="TooltipGameFileGrid">Game buttons displayed in grid view</system:String>

@@ -98,6 +98,9 @@ public class SettingsManager : IDisposable
     /// <summary>Gets or sets the Jaro-Winkler similarity threshold for fuzzy matching (0.0–1.0).</summary>
     public double FuzzyMatchingThreshold { get; set; } = 0.80;
 
+    /// <summary>Gets or sets whether parenthetical annotations (e.g. region, language) are stripped from filenames before matching images.</summary>
+    public bool EnableAnnotationStripping { get; set; } = true;
+
     /// <summary>Gets or sets the default horizontal dead zone value.</summary>
     public const float DefaultDeadZoneX = 0.05f;
 
@@ -345,6 +348,7 @@ public class SettingsManager : IDisposable
         MachineNameFontSize = other.MachineNameFontSize;
         EnableFuzzyMatching = other.EnableFuzzyMatching;
         FuzzyMatchingThreshold = other.FuzzyMatchingThreshold;
+        EnableAnnotationStripping = other.EnableAnnotationStripping;
         EnableNotificationSound = other.EnableNotificationSound;
         CustomNotificationSoundFile = other.CustomNotificationSoundFile;
         RaUsername = other.RaUsername;
@@ -445,6 +449,11 @@ public class SettingsManager : IDisposable
         if (double.TryParse(app?.Element("FuzzyMatchingThreshold")?.Value ?? settings.Element("FuzzyMatchingThreshold")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var fmt))
         {
             FuzzyMatchingThreshold = fmt;
+        }
+
+        if (bool.TryParse(app?.Element("EnableAnnotationStripping")?.Value ?? settings.Element("EnableAnnotationStripping")?.Value, out var ans))
+        {
+            EnableAnnotationStripping = ans;
         }
 
         if (bool.TryParse(app?.Element("EnableNotificationSound")?.Value ?? settings.Element("EnableNotificationSound")?.Value, out var ens))
@@ -702,6 +711,7 @@ public class SettingsManager : IDisposable
                 new XElement("MachineNameFontSize", s.MachineNameFontSize),
                 new XElement("EnableFuzzyMatching", s.EnableFuzzyMatching),
                 new XElement("FuzzyMatchingThreshold", s.FuzzyMatchingThreshold.ToString(CultureInfo.InvariantCulture)),
+                new XElement("EnableAnnotationStripping", s.EnableAnnotationStripping),
                 new XElement("EnableNotificationSound", s.EnableNotificationSound),
                 new XElement("CustomNotificationSoundFile", s.CustomNotificationSoundFile),
                 new XElement("RaUsername", s.RaUsername),

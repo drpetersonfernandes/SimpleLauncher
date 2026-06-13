@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">Все игры</system:String>
     <system:String x:Key="10000games">10000 игр</system:String>
     <system:String x:Key="1000games">1000 игр</system:String>
@@ -1742,6 +1743,7 @@
     <system:String x:Key="StellaemulatornotfoundPleaselocate">Эмулятор Stella не найден. Пожалуйста, найдите 'stella.exe'.</system:String>
     <system:String x:Key="StellaSettings">Настройки Stella</system:String>
     <system:String x:Key="StopDownload">Остановить загрузку</system:String>
+    <system:String x:Key="StripAnnotations">Удалить аннотации для сопоставления</system:String>
     <system:String x:Key="Success">Успех</system:String>
     <system:String x:Key="SuggestParameters">Спросить ИИ</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Конфигурация Supermodel успешно сохранена.</system:String>
@@ -1916,6 +1918,7 @@
     <system:String x:Key="Toextractafileitneedstobe">Чтобы извлечь файл, он должен быть формата 7z, zip или rar.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Переключить соотношение сторон кнопки</system:String>
     <system:String x:Key="ToggleViewMode">Переключить режим просмотра</system:String>
+    <system:String x:Key="TogglingAnnotationStripping">Переключение удаления аннотаций...</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">Переключение соотношения сторон кнопки...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">Переключение нечеткого поиска...</system:String>
     <system:String x:Key="TogglingGamepadNavigation">Переключение навигации геймпадом...</system:String>
@@ -1934,6 +1937,7 @@
     <system:String x:Key="TooltipAddNewSystem">Добавить новую систему</system:String>
     <system:String x:Key="TooltipAddNewSystem2">Добавить новую конфигурацию игровой системы</system:String>
     <system:String x:Key="TooltipAddSystem">Добавить настроенную систему в вашу библиотеку</system:String>
+    <system:String x:Key="TooltipAnnotationStripping">Удалять аннотации региона, языка и версии из имен файлов перед сопоставлением изображений</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">Изменить соотношение сторон кнопок игр</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Переключиться между светлой и темной темой</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Настроить размер кнопок игр</system:String>

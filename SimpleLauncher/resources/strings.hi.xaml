@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">सभी गेम</system:String>
     <system:String x:Key="10000games">10000 गेम</system:String>
     <system:String x:Key="1000games">1000 गेम</system:String>
@@ -1742,6 +1743,7 @@
     <system:String x:Key="StellaemulatornotfoundPleaselocate">स्टेला एमुलेटर नहीं मिला। कृपया 'stella.exe' का पता लगाएँ।</system:String>
     <system:String x:Key="StellaSettings">स्टेला सेटिंग्स</system:String>
     <system:String x:Key="StopDownload">डाउनलोड रोकें</system:String>
+    <system:String x:Key="StripAnnotations">मिलान के लिए एनोटेशन हटाएँ</system:String>
     <system:String x:Key="Success">सफलता</system:String>
     <system:String x:Key="SuggestParameters">पैरामीटर सुझाएँ</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">सुपरमॉडल कॉन्फ़िगरेशन सफलतापूर्वक सहेजा गया।</system:String>
@@ -1916,6 +1918,7 @@
     <system:String x:Key="Toextractafileitneedstobe">फ़ाइल को एक्सट्रैक्ट करने के लिए, इसे 7जेड, ज़िप, या रार फ़ाइल होना चाहिए।</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">बटन का अनुपात बदलें</system:String>
     <system:String x:Key="ToggleViewMode">दृश्य मोड बदलें</system:String>
+    <system:String x:Key="TogglingAnnotationStripping">एनोटेशन स्ट्रिपिंग टॉगल किया जा रहा है...</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">बटन पहलू अनुपात टॉगल कर रहा है...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">फ़ज़ी मिलान टॉगल कर रहा है...</system:String>
     <system:String x:Key="TogglingGamepadNavigation">गेमपैड नेविगेशन टॉगल कर रहा है...</system:String>
@@ -1934,6 +1937,7 @@
     <system:String x:Key="TooltipAddNewSystem">नया सिस्टम जोड़ें</system:String>
     <system:String x:Key="TooltipAddNewSystem2">एक नया गेम सिस्टम कॉन्फ़िगरेशन जोड़ें</system:String>
     <system:String x:Key="TooltipAddSystem">कॉन्फ़िगर किए गए सिस्टम को अपनी लाइब्रेरी में जोड़ें</system:String>
+    <system:String x:Key="TooltipAnnotationStripping">छवियों का मिलान करने से पहले फ़ाइलनामों से क्षेत्र, भाषा और संस्करण एनोटेशन हटाएँ</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">गेम बटनों का पहलू अनुपात बदलें</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">लाइट और डार्क थीम के बीच स्विच करें</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">गेम बटनों का आकार समायोजित करें</system:String>

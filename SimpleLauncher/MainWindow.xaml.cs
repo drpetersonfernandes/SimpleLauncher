@@ -202,6 +202,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         UiOrchestrator.PaginationFilesPerPage = _settings.GamesPerPage;
         UiOrchestrator.PaginationThreshold = _settings.GamesPerPage;
         ToggleFuzzyMatching.IsChecked = _settings.EnableFuzzyMatching;
+        ToggleAnnotationStripping.IsChecked = _settings.EnableAnnotationStripping;
 
         // Initialize _gameFileGrid before LoadOrReloadSystemManager uses it
         _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
@@ -691,6 +692,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _settings.GamesPerPage = UiOrchestrator.PaginationFilesPerPage;
         _settings.EnableGamePadNavigation = ToggleGamepad.IsChecked;
         _settings.EnableFuzzyMatching = ToggleFuzzyMatching.IsChecked;
+        _settings.EnableAnnotationStripping = ToggleAnnotationStripping.IsChecked;
 
         // Note: Theme settings (BaseTheme and AccentColor) are already saved
         // when the user changes them via App.ChangeTheme().

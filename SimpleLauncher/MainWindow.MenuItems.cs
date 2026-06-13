@@ -164,6 +164,29 @@ public partial class MainWindow
         }
     }
 
+    private async void ToggleAnnotationStrippingClickAsync(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (_isDisposed) return;
+
+            try
+            {
+                if (sender is not MenuItem menuItem) return;
+
+                await _menuOrchestrator.HandleToggleAnnotationStrippingAsync(menuItem.IsChecked);
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error in the method ToggleAnnotationStrippingClickAsync.");
+            }
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method ToggleAnnotationStrippingClickAsync.");
+        }
+    }
+
     private void Support_Click(object sender, RoutedEventArgs e)
     {
         _menuOrchestrator.HandleSupport();

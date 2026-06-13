@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">Alle spellen</system:String>
     <system:String x:Key="10000games">10000 spellen</system:String>
     <system:String x:Key="1000games">1000 spellen</system:String>
@@ -1742,6 +1743,7 @@
     <system:String x:Key="StellaemulatornotfoundPleaselocate">Stella-emulator niet gevonden. Zoek 'stella.exe'.</system:String>
     <system:String x:Key="StellaSettings">Stella Instellingen</system:String>
     <system:String x:Key="StopDownload">Stop download</system:String>
+    <system:String x:Key="StripAnnotations">Verwijder annotaties voor matching</system:String>
     <system:String x:Key="Success">Succes</system:String>
     <system:String x:Key="SuggestParameters">Parameters voorstellen</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodel-configuratie succesvol opgeslagen.</system:String>
@@ -1916,6 +1918,7 @@
     <system:String x:Key="Toextractafileitneedstobe">Om een bestand uit te pakken, moet het een 7z-, zip- of rar-bestand zijn.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Beeldverhouding knop wisselen</system:String>
     <system:String x:Key="ToggleViewMode">Weergavemodus wisselen</system:String>
+    <system:String x:Key="TogglingAnnotationStripping">Annotatiestripping in-/uitschakelen...</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">Knopverhouding wisselen...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">Fuzzy matching wisselen...</system:String>
     <system:String x:Key="TogglingGamepadNavigation">Gamepad-navigatie wisselen...</system:String>
@@ -1934,6 +1937,7 @@
     <system:String x:Key="TooltipAddNewSystem">Nieuw systeem toevoegen</system:String>
     <system:String x:Key="TooltipAddNewSystem2">Voeg een nieuwe spelsysteemconfiguratie toe</system:String>
     <system:String x:Key="TooltipAddSystem">Voeg het geconfigureerde systeem toe aan uw bibliotheek</system:String>
+    <system:String x:Key="TooltipAnnotationStripping">Verwijder regio-, taal- en versie-annotaties uit bestandsnamen voordat afbeeldingen worden gematcht</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">Wijzig de beeldverhouding van spelknoppen</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Schakel tussen licht en donker thema</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Pas de grootte van spelknoppen aan</system:String>

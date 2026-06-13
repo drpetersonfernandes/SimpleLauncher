@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">全ゲーム</system:String>
     <system:String x:Key="10000games">10000ゲーム</system:String>
     <system:String x:Key="1000games">1000ゲーム</system:String>
@@ -1742,6 +1743,7 @@
     <system:String x:Key="StellaemulatornotfoundPleaselocate">Stellaエミュレータが見つかりません。'stella.exe'の場所を指定してください。</system:String>
     <system:String x:Key="StellaSettings">Stella設定</system:String>
     <system:String x:Key="StopDownload">ダウンロードを停止</system:String>
+    <system:String x:Key="StripAnnotations">マッチング用アノテーションを削除</system:String>
     <system:String x:Key="Success">成功</system:String>
     <system:String x:Key="SuggestParameters">パラメータ提案</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodelの設定が正常に保存されました。</system:String>
@@ -1916,6 +1918,7 @@
     <system:String x:Key="Toextractafileitneedstobe">ファイルを抽出するには、7z、zip、またはrarファイルである必要があります。</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">ボタンのアスペクト比を切り替える</system:String>
     <system:String x:Key="ToggleViewMode">表示モードを切り替える</system:String>
+    <system:String x:Key="TogglingAnnotationStripping">アノテーションの削除を切り替え中...</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">ボタンのアスペクト比を切り替えています...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">ファジーマッチングを切り替えています...</system:String>
     <system:String x:Key="TogglingGamepadNavigation">ゲームパッドナビゲーションを切り替えています...</system:String>
@@ -1934,6 +1937,7 @@
     <system:String x:Key="TooltipAddNewSystem">新しいシステムを追加</system:String>
     <system:String x:Key="TooltipAddNewSystem2">新しいゲームシステム設定を追加します</system:String>
     <system:String x:Key="TooltipAddSystem">設定したシステムをライブラリに追加します</system:String>
+    <system:String x:Key="TooltipAnnotationStripping">画像をマッチングする前に、ファイル名から地域、言語、バージョンに関するアノテーションを削除します</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">ゲームボタンのアスペクト比を変更します</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">ライトテーマとダークテーマを切り替えます</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">ゲームボタンのサイズを調整します</system:String>

@@ -506,6 +506,39 @@ public class MenuActionHandlerService
         }
     }
 
+    // ---- Toggle Annotation Stripping ----
+
+    public async Task HandleToggleAnnotationStrippingAsync(bool isChecked)
+    {
+        try
+        {
+            _host.CancelAndRecreateToken();
+
+            try
+            {
+                _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingAnnotationStripping") ?? "Toggling annotation stripping...");
+                _playSoundEffects.PlayNotificationSound();
+
+                _settings.EnableAnnotationStripping = isChecked;
+                await _settings.SaveAsync();
+
+                var (sl, sq) = _host.GetLoadGameFilesParams();
+                _host.SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
+                await Task.Yield();
+                await _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
+            }
+            catch (Exception ex)
+            {
+                const string contextMessage = "Failed to toggle annotation stripping.";
+                _logErrors.LogAndForget(ex, contextMessage);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method HandleToggleAnnotationStrippingAsync.");
+        }
+    }
+
     // ---- Support / Donate / About / Exit ----
 
     public void HandleSupport()

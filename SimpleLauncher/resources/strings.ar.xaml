@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">كل الألعاب</system:String>
     <system:String x:Key="10000games">10000 لعبة</system:String>
     <system:String x:Key="1000games">1000 لعبة</system:String>
@@ -1742,6 +1743,7 @@
     <system:String x:Key="StellaemulatornotfoundPleaselocate">لم يتم العثور على محاكي Stella. يرجى تحديد موقع 'stella.exe'.</system:String>
     <system:String x:Key="StellaSettings">إعدادات Stella</system:String>
     <system:String x:Key="StopDownload">إيقاف التنزيل</system:String>
+    <system:String x:Key="StripAnnotations">تجريد التعليقات التوضيحية للمطابقة</system:String>
     <system:String x:Key="Success">تم بنجاح</system:String>
     <system:String x:Key="SuggestParameters">اقترح معلمات</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">تم حفظ تكوين Supermodel بنجاح.</system:String>
@@ -1916,6 +1918,7 @@
     <system:String x:Key="Toextractafileitneedstobe">لاستخراج الملفات، يجب أن تكون بتنسيق 7z أو zip أو rar.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">تبديل نسبة الأبعاد للزر</system:String>
     <system:String x:Key="ToggleViewMode">تبديل وضع العرض</system:String>
+    <system:String x:Key="TogglingAnnotationStripping">جارٍ تبديل تجريد التعليقات التوضيحية...</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">تبديل نسبة أبعاد الزر...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">تبديل المطابقة الضبابية...</system:String>
     <system:String x:Key="TogglingGamepadNavigation">تبديل التنقل بواسطة لوحة الألعاب...</system:String>
@@ -1934,6 +1937,7 @@
     <system:String x:Key="TooltipAddNewSystem">إضافة نظام جديد</system:String>
     <system:String x:Key="TooltipAddNewSystem2">إضافة تكوين نظام ألعاب جديد</system:String>
     <system:String x:Key="TooltipAddSystem">إضافة النظام المكون إلى مكتبتك</system:String>
+    <system:String x:Key="TooltipAnnotationStripping">تجريد تعليقات المنطقة واللغة والإصدار التوضيحية من أسماء الملفات قبل مطابقة الصور</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">تغيير نسبة العرض إلى الارتفاع لأزرار اللعبة</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">التبديل بين السمة الفاتحة والداكنة</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">ضبط حجم أزرار اللعبة</system:String>

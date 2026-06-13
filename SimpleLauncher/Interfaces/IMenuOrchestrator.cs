@@ -17,6 +17,7 @@ public interface IMenuOrchestrator
     void HandleSetGamepadDeadZone();
     Task HandleToggleFuzzyMatchingAsync(bool isChecked);
     Task HandleSetFuzzyMatchingThresholdAsync();
+    Task HandleToggleAnnotationStrippingAsync(bool isChecked);
     void HandleSupport();
     Task HandleDonateAsync();
     void HandleAbout();

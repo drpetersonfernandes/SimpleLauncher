@@ -134,6 +134,15 @@ public class MenuOrchestrator : IMenuOrchestrator
     }
 
     /// <summary>
+    /// Handles toggling annotation stripping for image matching on or off.
+    /// </summary>
+    /// <param name="isChecked">Whether annotation stripping is enabled.</param>
+    public Task HandleToggleAnnotationStrippingAsync(bool isChecked)
+    {
+        return _menuActionHandler.HandleToggleAnnotationStrippingAsync(isChecked);
+    }
+
+    /// <summary>
     /// Opens the support page for the application.
     /// </summary>
     public void HandleSupport()

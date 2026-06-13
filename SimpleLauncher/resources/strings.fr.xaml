@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">Tous les jeux</system:String>
     <system:String x:Key="10000games">10000 jeux</system:String>
     <system:String x:Key="1000games">1000 jeux</system:String>
@@ -1742,6 +1743,7 @@
     <system:String x:Key="StellaemulatornotfoundPleaselocate">Émulateur Stella introuvable. Veuillez localiser 'stella.exe'.</system:String>
     <system:String x:Key="StellaSettings">Paramètres Stella</system:String>
     <system:String x:Key="StopDownload">Arrêter le téléchargement</system:String>
+    <system:String x:Key="StripAnnotations">Supprimer les annotations pour la correspondance</system:String>
     <system:String x:Key="Success">Succès</system:String>
     <system:String x:Key="SuggestParameters">Demander à l'IA</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Configuration Supermodel enregistrée avec succès.</system:String>
@@ -1916,6 +1918,7 @@
     <system:String x:Key="Toextractafileitneedstobe">Pour extraire un fichier, il doit s'agir d'un fichier 7z, zip ou rar.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Basculer le format du bouton</system:String>
     <system:String x:Key="ToggleViewMode">Basculer le mode d’affichage</system:String>
+    <system:String x:Key="TogglingAnnotationStripping">Basculement de la suppression des annotations...</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">Activation/désactivation du rapport d'aspect du bouton...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">Activation/désactivation de la correspondance floue...</system:String>
     <system:String x:Key="TogglingGamepadNavigation">Activation/désactivation de la navigation au gamepad...</system:String>
@@ -1934,6 +1937,7 @@
     <system:String x:Key="TooltipAddNewSystem">Ajouter un nouveau système</system:String>
     <system:String x:Key="TooltipAddNewSystem2">Ajouter une nouvelle configuration de système de jeu</system:String>
     <system:String x:Key="TooltipAddSystem">Ajouter le système configuré à votre bibliothèque</system:String>
+    <system:String x:Key="TooltipAnnotationStripping">Supprime les annotations de région, de langue et de version des noms de fichiers avant de faire correspondre les images</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">Changer le rapport d'aspect des boutons de jeu</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Basculer entre le thème clair et sombre</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Ajuster la taille des boutons de jeu</system:String>
