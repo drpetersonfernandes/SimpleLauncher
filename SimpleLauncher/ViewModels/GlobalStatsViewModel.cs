@@ -15,7 +15,7 @@ namespace SimpleLauncher.ViewModels;
 /// <summary>
 /// ViewModel for the GlobalStatsWindow.
 /// </summary>
-public partial class GlobalStatsViewModel : ObservableObject, IDisposable
+public class GlobalStatsViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
     private List<SystemManager> _systemManagers;
@@ -44,6 +44,11 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         _getListOfFiles = getListOfFiles;
         _messageBox = messageBox;
         _resourceProvider = resourceProvider;
+
+        StartCommand = new AsyncRelayCommand(StartAsync, () => CanStart);
+        CancelCommand = new RelayCommand(Cancel, () => CanCancel);
+        SaveReportCommand = new AsyncRelayCommand(SaveReportAsync, () => CanSaveReport);
+        ClosingCommand = new AsyncRelayCommand<CancelEventArgs>(ClosingAsync);
     }
 
     public void Initialize(List<SystemManager> systemManagers)
@@ -161,12 +166,22 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
 
     #endregion
 
-    [RelayCommand(CanExecute = nameof(CanStart))]
+    public IAsyncRelayCommand StartCommand { get; }
+    public IRelayCommand CancelCommand { get; }
+    public IAsyncRelayCommand SaveReportCommand { get; }
+    public IAsyncRelayCommand<CancelEventArgs> ClosingCommand { get; }
+
     private async Task StartAsync()
     {
         try
         {
             if (IsProcessing) return;
+
+            if (_systemManagers is null or { Count: 0 })
+            {
+                InfoText = _resourceProvider.GetString("GlobalStatsNoSystems", "No systems are configured. Please add systems before calculating global statistics.");
+                return;
+            }
 
             IsProcessing = true;
             _forceClose = false;
@@ -200,7 +215,14 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
                 _logErrors.LogAndForget(ex, "An error occurred while calculating Global Statistics.");
                 if (!_forceClose)
                 {
-                    await _messageBox.ErrorCalculatingStatsMessageBoxAsync();
+                    try
+                    {
+                        await _messageBox.ErrorCalculatingStatsMessageBoxAsync();
+                    }
+                    catch
+                    {
+                        // Swallow message-box failures to ensure UI is always reset
+                    }
                 }
 
                 ResetUiAfterProcessing();
@@ -221,6 +243,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "An error occurred while calculating Global Statistics.");
+            ResetUiAfterProcessing();
         }
     }
 
@@ -407,7 +430,6 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         }
     }
 
-    [RelayCommand(CanExecute = nameof(CanSaveReport))]
     private async Task SaveReportAsync()
     {
         if (_globalStats == null) return;
@@ -454,7 +476,6 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         return systemStats.Aggregate(report, (current, s) => current + $"{s.SystemName}: {s.NumberOfFiles} {gamesText}, {s.NumberOfImages} {imagesText}\n");
     }
 
-    [RelayCommand(CanExecute = nameof(CanCancel))]
     private void Cancel()
     {
         if (_cancellationTokenSource is { IsCancellationRequested: false })
@@ -465,7 +486,6 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         }
     }
 
-    [RelayCommand]
     private async Task ClosingAsync(CancelEventArgs e)
     {
         try

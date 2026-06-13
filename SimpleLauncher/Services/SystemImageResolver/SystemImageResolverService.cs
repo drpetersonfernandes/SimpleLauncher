@@ -52,6 +52,7 @@ public class SystemImageResolverService : ISystemImageResolverService
             var strippedSystemName = FindCoverImageService.StripAnnotations(systemName);
             if (strippedSystemName != systemName)
             {
+                // Try exact match with stripped name
                 foreach (var ext in imageExtensions)
                 {
                     var systemImagePath = Path.Combine(systemImageFolder, $"{strippedSystemName}{ext}");
@@ -59,6 +60,17 @@ public class SystemImageResolverService : ISystemImageResolverService
                     {
                         return Task.FromResult(systemImagePath);
                     }
+                }
+
+                // Try stripping annotations from image filenames too
+                foreach (var fileInFolder in Directory.GetFiles(systemImageFolder)
+                             .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase))))
+                {
+                    var fileWithoutExt = Path.GetFileNameWithoutExtension(fileInFolder);
+                    if (string.IsNullOrEmpty(fileWithoutExt)) continue;
+
+                    if (string.Equals(strippedSystemName, FindCoverImageService.StripAnnotations(fileWithoutExt), StringComparison.OrdinalIgnoreCase))
+                        return Task.FromResult(fileInFolder);
                 }
             }
         }

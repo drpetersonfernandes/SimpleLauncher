@@ -252,7 +252,7 @@ public partial class App : IDisposable
             var configuration = sp.GetRequiredService<IConfiguration>();
             var logErrors = sp.GetRequiredService<ILogErrors>();
             var settings = sp.GetRequiredService<SettingsManager>();
-            return new FindCoverImageService(configuration, logErrors, settings.EnableFuzzyMatching, settings.FuzzyMatchingThreshold, settings.EnableAnnotationStripping);
+            return new FindCoverImageService(configuration, logErrors, settings);
         });
         serviceCollection.AddSingleton<IImageLoader, WpfImageLoader>();
         serviceCollection.AddSingleton<IMenuCheckMarkService, MenuCheckMarkService>();
@@ -365,6 +365,7 @@ public partial class App : IDisposable
         serviceCollection.AddTransient<DownloadImagePackWindow>();
         serviceCollection.AddTransient<EasyModeManager>();
         serviceCollection.AddTransient<EasyModeWindow>();
+        serviceCollection.AddTransient<GlobalStatsWindow>();
         serviceCollection.AddTransient<RetroAchievementsWindow>();
         serviceCollection.AddTransient<RetroAchievementsForAGameWindow>();
         serviceCollection.AddTransient<InjectAresConfigWindow>();

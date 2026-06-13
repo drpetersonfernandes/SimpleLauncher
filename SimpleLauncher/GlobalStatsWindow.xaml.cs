@@ -10,7 +10,7 @@ internal partial class GlobalStatsWindow : IDisposable
     private readonly GlobalStatsViewModel _viewModel;
     private Action _closeRequestedHandler;
 
-    internal GlobalStatsWindow(GlobalStatsViewModel viewModel)
+    public GlobalStatsWindow(GlobalStatsViewModel viewModel)
     {
         InitializeComponent();
 

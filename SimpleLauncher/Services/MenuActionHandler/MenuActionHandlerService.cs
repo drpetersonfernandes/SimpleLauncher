@@ -1027,6 +1027,8 @@ public class MenuActionHandlerService
     {
         try
         {
+            _host.CancelAndRecreateToken();
+
             _playSoundEffects.PlayNotificationSound();
 
             switch (sender)
@@ -1054,6 +1056,9 @@ public class MenuActionHandlerService
             }
 
             await _settings.SaveAsync();
+
+            var (sl, sq) = _host.GetLoadGameFilesParams();
+            await _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
         }
         catch (Exception ex)
         {

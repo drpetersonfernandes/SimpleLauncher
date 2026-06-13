@@ -134,6 +134,38 @@ public partial class RetroAchievementsWindow : ILoadingState
 
         await _viewModel.LoadUserProfileAsync();
 
+        // Toggle overlays
+        UserProfilePanel.Visibility = _viewModel.NoProfileVisible ? Visibility.Collapsed : Visibility.Visible;
+        NoProfileOverlay.Visibility = _viewModel.NoProfileVisible ? Visibility.Visible : Visibility.Collapsed;
+
+        if (_viewModel.NoProfileVisible)
+        {
+            NoProfileMainMessage.Text = _viewModel.NoProfileMainMessage;
+            NoProfileSubMessage.Text = _viewModel.NoProfileSubMessage;
+            SetLoadingState(false);
+            return;
+        }
+
+        // Update profile header
+        UserProfileUser.Text = _viewModel.ProfileUser;
+        UserProfileMotto.Text = _viewModel.ProfileMotto;
+        UserProfileRichPresence.Text = _viewModel.ProfileRichPresence;
+
+        // Update stats
+        PointsValue.Text = _viewModel.ProfilePoints;
+        TruePointsValue.Text = _viewModel.ProfileTruePoints;
+        RankValue.Text = _viewModel.ProfileRank;
+
+        // Update detailed info
+        UserProfileMemberSince.Text = _viewModel.ProfileMemberSince;
+        UserProfileId.Text = _viewModel.ProfileId;
+        UserProfileContributions.Text = _viewModel.ProfileContributions;
+        UserProfileSoftcorePoints.Text = _viewModel.ProfileSoftcorePoints;
+        UserProfilePermissions.Text = _viewModel.ProfilePermissions;
+        UserProfileStatus.Text = _viewModel.ProfileStatus;
+        UserProfileProfileId.Text = _viewModel.ProfileProfileId;
+        UserProfileWallActive.Text = _viewModel.ProfileWallActive;
+
         // Update WPF-specific UI (profile image as BitmapImage)
         if (_viewModel.ProfileImageUrl != null)
         {
@@ -156,10 +188,27 @@ public partial class RetroAchievementsWindow : ILoadingState
             (string)Application.Current.TryFindResource("FetchingEarnedAchievementsByDate") ?? "Fetching earned achievements by date...");
         SetLoadingState(true);
 
+        // Sync DatePickers with ViewModel
+        FromDatePicker.SelectedDate = _viewModel.FromDate;
+        ToDatePicker.SelectedDate = _viewModel.ToDate;
+
         await _viewModel.LoadUnlocksByDateAsync();
 
         // Bind unlocks data
         UnlocksDataGrid.ItemsSource = _viewModel.Unlocks;
+
+        // Update totals
+        TotalUnlocksInRangeText.Text = _viewModel.TotalUnlocksInRange;
+        TotalPointsEarnedInRangeText.Text = _viewModel.TotalPointsEarnedInRange;
+
+        // Toggle overlay
+        NoUnlocksOverlay.Visibility = _viewModel.NoUnlocksVisible ? Visibility.Visible : Visibility.Collapsed;
+        if (_viewModel.NoUnlocksVisible)
+        {
+            NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
+        }
+
+        FetchUnlocksButton.IsEnabled = _viewModel.FetchUnlocksEnabled;
 
         SetLoadingState(false);
     }
@@ -168,8 +217,20 @@ public partial class RetroAchievementsWindow : ILoadingState
     {
         try
         {
+            // Sync ViewModel with DatePickers before fetching
+            _viewModel.FromDate = FromDatePicker.SelectedDate;
+            _viewModel.ToDate = ToDatePicker.SelectedDate;
+
             await _viewModel.FetchUnlocksCommand.ExecuteAsync(null);
             UnlocksDataGrid.ItemsSource = _viewModel.Unlocks;
+            TotalUnlocksInRangeText.Text = _viewModel.TotalUnlocksInRange;
+            TotalPointsEarnedInRangeText.Text = _viewModel.TotalPointsEarnedInRange;
+            NoUnlocksOverlay.Visibility = _viewModel.NoUnlocksVisible ? Visibility.Visible : Visibility.Collapsed;
+            if (_viewModel.NoUnlocksVisible)
+            {
+                NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
+            }
+            FetchUnlocksButton.IsEnabled = _viewModel.FetchUnlocksEnabled;
         }
         catch (Exception ex)
         {
@@ -186,6 +247,16 @@ public partial class RetroAchievementsWindow : ILoadingState
 
             await _viewModel.ResetDatesCommand.ExecuteAsync(null);
             UnlocksDataGrid.ItemsSource = _viewModel.Unlocks;
+            TotalUnlocksInRangeText.Text = _viewModel.TotalUnlocksInRange;
+            TotalPointsEarnedInRangeText.Text = _viewModel.TotalPointsEarnedInRange;
+            NoUnlocksOverlay.Visibility = _viewModel.NoUnlocksVisible ? Visibility.Visible : Visibility.Collapsed;
+            if (_viewModel.NoUnlocksVisible)
+            {
+                NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
+            }
+            FromDatePicker.SelectedDate = _viewModel.FromDate;
+            ToDatePicker.SelectedDate = _viewModel.ToDate;
+            FetchUnlocksButton.IsEnabled = _viewModel.FetchUnlocksEnabled;
         }
         catch (Exception ex)
         {
@@ -203,6 +274,14 @@ public partial class RetroAchievementsWindow : ILoadingState
 
         // Bind user progress data
         UserProgressDataGrid.ItemsSource = _viewModel.UserProgress;
+
+        // Toggle overlay
+        NoUserProgressOverlay.Visibility = _viewModel.NoUserProgressVisible ? Visibility.Visible : Visibility.Collapsed;
+        if (_viewModel.NoUserProgressVisible)
+        {
+            NoUserProgressMainMessage.Text = _viewModel.NoUserProgressMainMessage;
+            NoUserProgressSubMessage.Text = _viewModel.NoUserProgressSubMessage;
+        }
 
         SetLoadingState(false);
     }

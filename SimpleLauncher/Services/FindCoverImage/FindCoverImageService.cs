@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+using System.Text;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.CheckPaths;
@@ -9,13 +9,11 @@ namespace SimpleLauncher.Services.FindCoverImage;
 /// Locates cover image files for games using exact name matching and optional Jaro-Winkler fuzzy matching,
 /// falling back to a default image when no match is found.
 /// </summary>
-public partial class FindCoverImageService : IFindCoverImageService
+public class FindCoverImageService : IFindCoverImageService
 {
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors;
-    private readonly bool _enableFuzzyMatching;
-    private readonly double _fuzzyMatchingThreshold;
-    private readonly bool _enableAnnotationStripping;
+    private readonly SettingsManager.SettingsManager _settings;
     private static readonly string GlobalDefaultImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
 
     private const double PrefixScale = 0.1;
@@ -26,16 +24,12 @@ public partial class FindCoverImageService : IFindCoverImageService
     /// </summary>
     /// <param name="configuration">The configuration.</param>
     /// <param name="logErrors">The log errors.</param>
-    /// <param name="enableFuzzyMatching">The enable fuzzy matching.</param>
-    /// <param name="fuzzyMatchingThreshold">The fuzzy matching threshold.</param>
-    /// <param name="enableAnnotationStripping">Whether to strip parenthetical annotations before matching.</param>
-    public FindCoverImageService(IConfiguration configuration, ILogErrors logErrors, bool enableFuzzyMatching = false, double fuzzyMatchingThreshold = 0.8, bool enableAnnotationStripping = true)
+    /// <param name="settings">The settings manager for reading dynamic matching preferences.</param>
+    public FindCoverImageService(IConfiguration configuration, ILogErrors logErrors, SettingsManager.SettingsManager settings)
     {
         _configuration = configuration;
         _logErrors = logErrors;
-        _enableFuzzyMatching = enableFuzzyMatching;
-        _fuzzyMatchingThreshold = fuzzyMatchingThreshold;
-        _enableAnnotationStripping = enableAnnotationStripping;
+        _settings = settings;
     }
 
     /// <summary>
@@ -71,22 +65,34 @@ public partial class FindCoverImageService : IFindCoverImageService
             }
 
             // Normalized exact match (strip annotations like region, language, version)
-            if (_enableAnnotationStripping)
+            if (_settings.EnableAnnotationStripping)
             {
                 var strippedRomName = StripAnnotations(fileNameWithoutExtension);
                 if (strippedRomName != fileNameWithoutExtension)
                 {
+                    // Try exact match with stripped name
                     foreach (var ext in imageExtensions)
                     {
                         var imagePath = Path.Combine(resolvedImageFolder, $"{strippedRomName}{ext}");
                         if (File.Exists(imagePath))
                             return imagePath;
                     }
+
+                    // Try stripping annotations from image filenames too
+                    foreach (var fileInFolder in Directory.EnumerateFiles(resolvedImageFolder)
+                                 .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase))))
+                    {
+                        var fileWithoutExt = Path.GetFileNameWithoutExtension(fileInFolder);
+                        if (string.IsNullOrEmpty(fileWithoutExt)) continue;
+
+                        if (string.Equals(strippedRomName, StripAnnotations(fileWithoutExt), StringComparison.OrdinalIgnoreCase))
+                            return fileInFolder;
+                    }
                 }
             }
 
             // Fuzzy match
-            if (_enableFuzzyMatching)
+            if (_settings.EnableFuzzyMatching)
             {
                 var filesInImageFolder = Directory.EnumerateFiles(resolvedImageFolder)
                     .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
@@ -95,7 +101,7 @@ public partial class FindCoverImageService : IFindCoverImageService
                 string bestMatchPath = null;
                 double highestSimilarity = 0;
                 var lowerRomName = fileNameWithoutExtension.ToLowerInvariant();
-                var normalizedRomName = _enableAnnotationStripping
+                var normalizedRomName = _settings.EnableAnnotationStripping
                     ? StripAnnotations(lowerRomName)
                     : lowerRomName;
 
@@ -105,7 +111,7 @@ public partial class FindCoverImageService : IFindCoverImageService
                     if (string.IsNullOrEmpty(fileWithoutExt)) continue;
 
                     var lowerFileName = fileWithoutExt.ToLowerInvariant();
-                    var normalizedFileName = _enableAnnotationStripping
+                    var normalizedFileName = _settings.EnableAnnotationStripping
                         ? StripAnnotations(lowerFileName)
                         : lowerFileName;
 
@@ -118,7 +124,7 @@ public partial class FindCoverImageService : IFindCoverImageService
                     }
                 }
 
-                if (bestMatchPath != null && highestSimilarity >= _fuzzyMatchingThreshold)
+                if (bestMatchPath != null && highestSimilarity >= _settings.FuzzyMatchingThreshold)
                 {
                     return bestMatchPath;
                 }
@@ -135,18 +141,10 @@ public partial class FindCoverImageService : IFindCoverImageService
         return GlobalDefaultImagePath;
     }
 
-    [GeneratedRegex(@"\s*\([^)]*\)")]
-    private static partial Regex StripParenthesesRegex();
-
-    [GeneratedRegex(@"\s*\[[^\]]*\]")]
-    private static partial Regex StripSquareBracketsRegex();
-
-    [GeneratedRegex(@"\s*\{[^}]*\}")]
-    private static partial Regex StripCurlyBracesRegex();
-
     /// <summary>
     /// Strips parenthetical annotations (parentheses, square brackets, curly braces) from a filename,
     /// removing region, language, version, and other metadata tags commonly found in ROM filenames.
+    /// Handles nested brackets and cross-type nesting correctly.
     /// </summary>
     /// <param name="fileName">The filename to clean.</param>
     /// <returns>The filename with annotations removed and trailing whitespace/dots/underscores trimmed.</returns>
@@ -154,12 +152,54 @@ public partial class FindCoverImageService : IFindCoverImageService
     {
         if (string.IsNullOrWhiteSpace(fileName)) return fileName;
 
-        var result = StripParenthesesRegex().Replace(fileName, "");
-        result = StripSquareBracketsRegex().Replace(result, "");
-        result = StripCurlyBracesRegex().Replace(result, "");
+        var result = RemoveBalancedBracketGroups(fileName, '(', ')');
+        result = RemoveBalancedBracketGroups(result, '[', ']');
+        result = RemoveBalancedBracketGroups(result, '{', '}');
         result = result.Trim().TrimEnd('.', '_', ' ');
 
         return string.IsNullOrWhiteSpace(result) ? fileName : result;
+    }
+
+    private static string RemoveBalancedBracketGroups(string input, char open, char close)
+    {
+        var result = new StringBuilder(input.Length);
+        var i = 0;
+        while (i < input.Length)
+        {
+            if (input[i] == open)
+            {
+                var depth = 1;
+                var j = i + 1;
+                while (j < input.Length && depth > 0)
+                {
+                    if (input[j] == open)
+                    {
+                        depth++;
+                    }
+                    else if (input[j] == close)
+                    {
+                        depth--;
+                    }
+
+                    j++;
+                }
+
+                if (depth == 0)
+                {
+                    // Strip preceding whitespace before the bracket group
+                    while (result.Length > 0 && (result[^1] == ' ' || result[^1] == '\t'))
+                    {
+                        result.Length--;
+                    }
+
+                    i = j;
+                    continue;
+                }
+            }
+            result.Append(input[i]);
+            i++;
+        }
+        return result.ToString();
     }
 
     /// <summary>

@@ -339,12 +339,30 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that nested parentheses are handled (first balanced pair is stripped).
+    /// Verifies that nested parentheses are fully stripped.
     /// </summary>
     [Fact]
     public void StripAnnotations_NestedParentheses_HandlesGracefully()
     {
         var result = FindCoverImageService.StripAnnotations("Game (Region (Sub))");
-        Assert.Equal("Game)", result);
+        Assert.Equal("Game", result);
+    }
+
+    /// <summary>
+    /// Verifies that mixed parentheses and square brackets (GoodTools-style annotations) are all stripped,
+    /// leaving the base ROM name for cover image matching.
+    /// </summary>
+    [Fact]
+    public void StripAnnotations_ParensThenSquareBrackets_AllRemoved()
+    {
+        const string baseName = "007 - Live and Let Die";
+
+        var r1 = FindCoverImageService.StripAnnotations("007 - Live and Let Die (1988)(Domark)");
+        var r2 = FindCoverImageService.StripAnnotations("007 - Live and Let Die (1988)(Domark)[cr XOR][t  2 XOR]");
+        var r3 = FindCoverImageService.StripAnnotations("007 - Live and Let Die (1988)(Domark)[cr Celtic Gang]");
+
+        Assert.Equal(baseName, r1);
+        Assert.Equal(baseName, r2);
+        Assert.Equal(baseName, r3);
     }
 }

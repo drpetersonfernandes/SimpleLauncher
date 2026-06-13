@@ -713,6 +713,7 @@
     <system:String x:Key="GlobalSearch">Global Search</system:String>
     <system:String x:Key="GlobalStats">Global Stats</system:String>
     <system:String x:Key="GlobalStatsExplanation">This window calculates comprehensive statistics about your game library, including total systems, emulators, games, and matched images. Click 'Start Process' to begin the analysis.</system:String>
+    <system:String x:Key="GlobalStatsNoSystems">No systems are configured. Please add systems before calculating global statistics.</system:String>
     <system:String x:Key="GlobalStatsReportTitle">Global Stats Report</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Grant 'Simple Launcher' administrative access and try again.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Grant 'Simple Launcher' administrative access and try again.</system:String>
