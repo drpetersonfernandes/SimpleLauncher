@@ -37,6 +37,7 @@ using SimpleLauncher.Services.MameData;
 using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MenuCheckMark;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.ParameterResolver;
 using SimpleLauncher.Services.Pagination;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
@@ -272,6 +273,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IFilePickerService, WpfFilePickerService>();
         serviceCollection.AddSingleton<IApplicationLifetime, WpfApplicationLifetime>();
         serviceCollection.AddSingleton<IMessageBoxLibraryService, MessageBoxLibraryService>();
+        serviceCollection.AddSingleton<IParameterResolverService, ParameterResolverService>();
         serviceCollection.AddSingleton<IUiOrchestrator, UiOrchestrator>();
         serviceCollection.AddSingleton<IGameItemRenderService, GameItemRenderService>();
         serviceCollection.AddSingleton<IRetroAchievementsHasherTool>(static sp =>

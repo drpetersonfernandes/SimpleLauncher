@@ -45,6 +45,8 @@
     <system:String x:Key="AdjustingButtonAspectRatio">Adjusting button aspect ratio...</system:String>
     <system:String x:Key="AdjustingButtonSize">Adjusting button size...</system:String>
     <system:String x:Key="AdjustingGamesPerPage">Adjusting games per page...</system:String>
+    <system:String x:Key="AiParameterSuggestionTitle">Parameter Suggestion</system:String>
+    <system:String x:Key="AiSuggestedParameterApplied">The parameter has been updated. Please try launching the game again.</system:String>
     <system:String x:Key="Alert">Alert</system:String>
     <system:String x:Key="AllSystems">All Systems</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Also, make sure you are calling the emulator with the correct parameter.</system:String>
@@ -120,6 +122,8 @@
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">A selection window will open in 'Simple Launcher', allowing you to choose the desired window to capture.</system:String>
     <system:String x:Key="AskAIPerplexityai">Ask AI (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">Ask AI (Phind.com)</system:String>
+    <system:String x:Key="AskAiToFixParameters">The launch failed. Would you like 'Simple Launcher AI' to suggest correct parameters for this emulator?</system:String>
+    <system:String x:Key="AskAiToFixParametersTitle">Simple Launcher AI</system:String>
     <system:String x:Key="AskAIYoucom">Ask AI (You.com)</system:String>
     <system:String x:Key="AspectRatioIcon">Aspect Ratio</system:String>
     <system:String x:Key="assoonasyouselectawindow">As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.</system:String>
@@ -1196,6 +1200,7 @@
     <system:String x:Key="PleaseselecttheSystemFolder">Please select the System Folder</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Please select the System Image Folder</system:String>
     <system:String x:Key="PleaseTryAgainBehindAVpn">Please try again behind a VPN.</system:String>
+    <system:String x:Key="pleaseWaitForAiResponse">If you click Yes, please wait some seconds for the AI response.</system:String>
     <system:String x:Key="Plum">Plum</system:String>
     <system:String x:Key="Points">Points</system:String>
     <system:String x:Key="PowerShellRestricted">PowerShell Restricted</system:String>

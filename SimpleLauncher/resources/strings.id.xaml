@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">Semua game</system:String>
     <system:String x:Key="10000games">10000 game</system:String>
     <system:String x:Key="1000games">1000 game</system:String>
@@ -45,6 +46,8 @@
     <system:String x:Key="AdjustingButtonAspectRatio">Menyesuaikan rasio aspek tombol...</system:String>
     <system:String x:Key="AdjustingButtonSize">Menyesuaikan ukuran tombol...</system:String>
     <system:String x:Key="AdjustingGamesPerPage">Menyesuaikan game per halaman...</system:String>
+    <system:String x:Key="AiParameterSuggestionTitle">Saran Parameter</system:String>
+    <system:String x:Key="AiSuggestedParameterApplied">Parameter telah diperbarui. Silakan coba luncurkan game lagi.</system:String>
     <system:String x:Key="Alert">Peringatan</system:String>
     <system:String x:Key="AllSystems">Semua Sistem</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Pastikan juga Anda memanggil emulator dengan parameter yang benar.</system:String>
@@ -120,6 +123,8 @@
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Jendela seleksi akan terbuka di 'Simple Launcher', memungkinkan Anda memilih jendela yang diinginkan untuk diambil.</system:String>
     <system:String x:Key="AskAIPerplexityai">Tanya AI (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">Tanya AI (Phind.com)</system:String>
+    <system:String x:Key="AskAiToFixParameters">Peluncuran gagal. Apakah Anda ingin 'Simple Launcher AI' menyarankan parameter yang benar untuk emulator ini?</system:String>
+    <system:String x:Key="AskAiToFixParametersTitle">Simple Launcher AI</system:String>
     <system:String x:Key="AskAIYoucom">Tanya AI (You.com)</system:String>
     <system:String x:Key="AspectRatioIcon">Rasio Aspek</system:String>
     <system:String x:Key="assoonasyouselectawindow">Segera setelah Anda memilih jendela, tangkapan layar akan diambil dan disimpan di folder gambar sistem yang dipilih.</system:String>
@@ -1196,6 +1201,7 @@
     <system:String x:Key="PleaseselecttheSystemFolder">Silakan pilih folder sistem.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Silakan pilih folder gambar sistem.</system:String>
     <system:String x:Key="PleaseTryAgainBehindAVpn">Silakan coba lagi menggunakan VPN.</system:String>
+    <system:String x:Key="pleaseWaitForAiResponse">Jika Anda mengklik Ya, harap tunggu beberapa detik untuk respons AI.</system:String>
     <system:String x:Key="Plum">Plum</system:String>
     <system:String x:Key="Points">Poin</system:String>
     <system:String x:Key="PowerShellRestricted">PowerShell Dibatasi</system:String>

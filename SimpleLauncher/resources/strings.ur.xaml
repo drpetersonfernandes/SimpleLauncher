@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">تمام گیمز</system:String>
     <system:String x:Key="10000games">10000 گیمز</system:String>
     <system:String x:Key="1000games">1000 گیمز</system:String>
@@ -45,6 +46,8 @@
     <system:String x:Key="AdjustingButtonAspectRatio">بٹن کے پہلو کا تناسب ایڈجسٹ کر رہا ہے...</system:String>
     <system:String x:Key="AdjustingButtonSize">بٹن کا سائز ایڈجسٹ کر رہا ہے...</system:String>
     <system:String x:Key="AdjustingGamesPerPage">فی صفحہ گیمز ایڈجسٹ کر رہا ہے...</system:String>
+    <system:String x:Key="AiParameterSuggestionTitle">پیرامیٹر تجویز</system:String>
+    <system:String x:Key="AiSuggestedParameterApplied">پیرامیٹر کو اپ ڈیٹ کر دیا گیا ہے۔ براہ کرم گیم کو دوبارہ لانچ کرنے کی کوشش کریں۔</system:String>
     <system:String x:Key="Alert">خبردار۔</system:String>
     <system:String x:Key="AllSystems">تمام سسٹمز</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">یہ بھی یقینی بنائیں کہ آپ ایمولیشن کو درست پیرامیٹرز کے ساتھ بلا رہے ہیں۔</system:String>
@@ -120,6 +123,8 @@
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">'سمپل لانچر' میں ایک انتخابی ونڈو کھلے گی، جو آپ کو مطلوبہ ونڈو منتخب کرنے کی اجازت دے گی تاکہ اسے کیپچر کیا جا سکے۔</system:String>
     <system:String x:Key="AskAIPerplexityai">AI سے پوچھیں (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">AI سے پوچھیں (Phind.com)</system:String>
+    <system:String x:Key="AskAiToFixParameters">لانچ ناکام ہو گیا۔ کیا آپ چاہیں گے کہ 'Simple Launcher AI' اس ایمولیٹر کے لیے درست پیرامیٹرز تجویز کرے؟</system:String>
+    <system:String x:Key="AskAiToFixParametersTitle">Simple Launcher AI</system:String>
     <system:String x:Key="AskAIYoucom">AI سے پوچھیں (You.com)</system:String>
     <system:String x:Key="AspectRatioIcon">ایسپیکٹ ریشو</system:String>
     <system:String x:Key="assoonasyouselectawindow">جیسے ہی آپ ونڈو منتخب کرتے ہیں، ایک اسکرین شاٹ لیا جائے گا اور منتخب سسٹم کے امیج فولڈر میں محفوظ کیا جائے گا۔</system:String>
@@ -1196,6 +1201,7 @@
     <system:String x:Key="PleaseselecttheSystemFolder">براہ کرم نظام فولڈر منتخب کریں۔</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">براہ کرم نظام کی تصاویر کا فولڈر منتخب کریں۔</system:String>
     <system:String x:Key="PleaseTryAgainBehindAVpn">براہ کرم VPN کے پیچھے دوبارہ کوشش کریں۔</system:String>
+    <system:String x:Key="pleaseWaitForAiResponse">اگر آپ ہاں پر کلک کرتے ہیں، تو براہ کرم AI کے جواب کے لیے چند سیکنڈ انتظار کریں۔</system:String>
     <system:String x:Key="Plum">آلو بخارائی رنگ (Plum)</system:String>
     <system:String x:Key="Points">پوائنٹس</system:String>
     <system:String x:Key="PowerShellRestricted">پاور شیل محدود</system:String>

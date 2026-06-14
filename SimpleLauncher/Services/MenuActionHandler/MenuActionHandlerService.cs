@@ -38,6 +38,7 @@ public class MenuActionHandlerService
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
     private readonly IDebugLogger _debugLogger;
+    private readonly IParameterResolverService _parameterResolverService;
 
     private IMenuActionHost _host;
     private readonly IUpdateStatusBar _updateStatusBar;
@@ -64,7 +65,8 @@ public class MenuActionHandlerService
         IMessageBoxLibraryService messageBoxLibrary,
         IUpdateStatusBar updateStatusBar,
         QuitSimpleLauncher quitSimpleLauncher,
-        IDebugLogger debugLogger)
+        IDebugLogger debugLogger,
+        IParameterResolverService parameterResolverService)
     {
         _settings = settings;
         _playSoundEffects = playSoundEffects;
@@ -86,6 +88,7 @@ public class MenuActionHandlerService
         _updateStatusBar = updateStatusBar;
         _quitSimpleLauncher = quitSimpleLauncher;
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _parameterResolverService = parameterResolverService;
 
         _emulatorConfigWindowFactory = new Dictionary<string, Action>(StringComparer.OrdinalIgnoreCase)
         {
@@ -302,7 +305,7 @@ public class MenuActionHandlerService
                 ? selectedSystem
                 : null;
 
-            var editSystemWindow = new EditSystemWindow(_settings, _playSoundEffects, _configuration, _logErrors, _helpUserService, _imageLoader, _messageBoxLibrary, _quitSimpleLauncher, _debugLogger, systemToPreselect)
+            var editSystemWindow = new EditSystemWindow(_settings, _playSoundEffects, _configuration, _logErrors, _helpUserService, _imageLoader, _messageBoxLibrary, _quitSimpleLauncher, _debugLogger, _parameterResolverService, systemToPreselect)
             {
                 Owner = Application.Current.MainWindow
             };

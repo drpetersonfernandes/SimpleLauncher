@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">Alle spellen</system:String>
     <system:String x:Key="10000games">10000 spellen</system:String>
     <system:String x:Key="1000games">1000 spellen</system:String>
@@ -45,6 +46,8 @@
     <system:String x:Key="AdjustingButtonAspectRatio">Knopverhouding aanpassen...</system:String>
     <system:String x:Key="AdjustingButtonSize">Knopgrootte aanpassen...</system:String>
     <system:String x:Key="AdjustingGamesPerPage">Spellen per pagina aanpassen...</system:String>
+    <system:String x:Key="AiParameterSuggestionTitle">Parametersuggestie</system:String>
+    <system:String x:Key="AiSuggestedParameterApplied">De parameter is bijgewerkt. Probeer het spel opnieuw te starten.</system:String>
     <system:String x:Key="Alert">Waarschuwing</system:String>
     <system:String x:Key="AllSystems">Alle systemen</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Zorg er ook voor dat u de emulator aanroept met de juiste parameters.</system:String>
@@ -120,6 +123,8 @@
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Er wordt een selectievenster geopend in 'Simple Launcher', waarmee u het gewenste venster kunt kiezen om vast te leggen.</system:String>
     <system:String x:Key="AskAIPerplexityai">Vraag AI (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">Vraag AI (Phind.com)</system:String>
+    <system:String x:Key="AskAiToFixParameters">Het starten is mislukt. Wilt u dat 'Simple Launcher AI' de juiste parameters voor deze emulator voorstelt?</system:String>
+    <system:String x:Key="AskAiToFixParametersTitle">Simple Launcher AI</system:String>
     <system:String x:Key="AskAIYoucom">Vraag AI (You.com)</system:String>
     <system:String x:Key="AspectRatioIcon">Beeldverhouding</system:String>
     <system:String x:Key="assoonasyouselectawindow">Zodra je een venster selecteert, wordt er een schermafbeelding gemaakt en opgeslagen in de afbeeldingsmap van het gekozen systeem.</system:String>
@@ -1196,6 +1201,7 @@
     <system:String x:Key="PleaseselecttheSystemFolder">Selecteer de systeemmap.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Selecteer de systeemafbeeldingsmap.</system:String>
     <system:String x:Key="PleaseTryAgainBehindAVpn">Probeer het opnieuw via een VPN.</system:String>
+    <system:String x:Key="pleaseWaitForAiResponse">Als u op Ja klikt, wacht dan enkele seconden op het AI-antwoord.</system:String>
     <system:String x:Key="Plum">Pruim</system:String>
     <system:String x:Key="Points">Punten</system:String>
     <system:String x:Key="PowerShellRestricted">PowerShell beperkt</system:String>

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">Все игры</system:String>
     <system:String x:Key="10000games">10000 игр</system:String>
     <system:String x:Key="1000games">1000 игр</system:String>
@@ -45,6 +46,8 @@
     <system:String x:Key="AdjustingButtonAspectRatio">Настройка соотношения сторон кнопок...</system:String>
     <system:String x:Key="AdjustingButtonSize">Настройка размера кнопок...</system:String>
     <system:String x:Key="AdjustingGamesPerPage">Настройка игр на страницу...</system:String>
+    <system:String x:Key="AiParameterSuggestionTitle">Предложение параметра</system:String>
+    <system:String x:Key="AiSuggestedParameterApplied">Параметр был обновлен. Пожалуйста, попробуйте запустить игру снова.</system:String>
     <system:String x:Key="Alert">Предупреждение</system:String>
     <system:String x:Key="AllSystems">Все системы</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Также убедитесь, что вы указываете правильные параметры для запуска эмулятора.</system:String>
@@ -120,6 +123,8 @@
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">В 'Simple Launcher' откроется окно выбора, которое позволит выбрать нужное окно для захвата.</system:String>
     <system:String x:Key="AskAIPerplexityai">Спросить ИИ (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">Спросить ИИ (Phind.com)</system:String>
+    <system:String x:Key="AskAiToFixParameters">Запуск не удался. Хотите, чтобы 'Simple Launcher AI' предложил правильные параметры для этого эмулятора?</system:String>
+    <system:String x:Key="AskAiToFixParametersTitle">Simple Launcher AI</system:String>
     <system:String x:Key="AskAIYoucom">Спросить ИИ (You.com)</system:String>
     <system:String x:Key="AspectRatioIcon">Соотношение сторон</system:String>
     <system:String x:Key="assoonasyouselectawindow">Как только вы выберете окно, будет сделан скриншот и сохранён в папке изображений выбранной системы.</system:String>
@@ -1196,6 +1201,7 @@
     <system:String x:Key="PleaseselecttheSystemFolder">Выберите папку системы.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Выберите папку с изображениями системы.</system:String>
     <system:String x:Key="PleaseTryAgainBehindAVpn">Пожалуйста, попробуйте снова, используя VPN.</system:String>
+    <system:String x:Key="pleaseWaitForAiResponse">Если вы нажмете Да, пожалуйста, подождите несколько секунд для ответа ИИ.</system:String>
     <system:String x:Key="Plum">Сливовый</system:String>
     <system:String x:Key="Points">Очки</system:String>
     <system:String x:Key="PowerShellRestricted">PowerShell ограничен</system:String>

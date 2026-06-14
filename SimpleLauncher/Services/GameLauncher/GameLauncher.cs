@@ -34,6 +34,8 @@ public partial class GameLauncher : ILauncherService
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IMountZipFiles _mountZipFiles;
     private readonly IDebugLogger _debugLogger;
+    private readonly IParameterResolverService _parameterResolverService;
+    private readonly IServiceProvider _serviceProvider;
     private const int MemoryAccessViolation = -1073741819;
     private const int DepViolation = -1073740791;
 
@@ -51,7 +53,9 @@ public partial class GameLauncher : ILauncherService
         PlayHistoryManager playHistoryManager,
         IMessageBoxLibraryService messageBoxLibrary,
         IMountZipFiles mountZipFiles,
-        IDebugLogger debugLogger)
+        IDebugLogger debugLogger,
+        IParameterResolverService parameterResolverService,
+        IServiceProvider serviceProvider)
     {
         _configHandlers = configHandlers;
         _launchStrategies = launchStrategies.OrderBy(static s => s.Priority);
@@ -64,6 +68,8 @@ public partial class GameLauncher : ILauncherService
         _messageBoxLibrary = messageBoxLibrary;
         _mountZipFiles = mountZipFiles;
         _debugLogger = debugLogger;
+        _parameterResolverService = parameterResolverService;
+        _serviceProvider = serviceProvider;
     }
 
     internal async Task HandleButtonClickAsync(string filePath,
@@ -1162,7 +1168,7 @@ public partial class GameLauncher : ILauncherService
 
                         await CheckForMemoryAccessViolationAsync(process, psi, output, error);
                         await CheckForDepViolationAsync(process, psi, output, error, selectedEmulatorManager);
-                        await CheckForExitCodeWithErrorAnyAsync(process, psi, output, error, selectedEmulatorManager);
+                        await CheckForExitCodeWithErrorAnyAsync(process, psi, output, error, selectedEmulatorManager, selectedSystemManager);
                     }
                 }
                 catch (InvalidOperationException ex)
@@ -1176,6 +1182,9 @@ public partial class GameLauncher : ILauncherService
                     {
                         // Notify user
                         await _messageBoxLibrary.InvalidOperationExceptionMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+
+                        // Offer AI parameter fix
+                        await AskAiToFixParameters.ExecuteAsync(selectedSystemManager, selectedEmulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
                     }
                 }
                 catch (Win32Exception ex) // Catch Win32Exception specifically
@@ -1225,6 +1234,9 @@ public partial class GameLauncher : ILauncherService
                         {
                             // Notify user
                             await _messageBoxLibrary.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+
+                            // Offer AI parameter fix
+                            await AskAiToFixParameters.ExecuteAsync(selectedSystemManager, selectedEmulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
                         }
                     }
                 }
@@ -1258,6 +1270,9 @@ public partial class GameLauncher : ILauncherService
                     {
                         // Notify user
                         await _messageBoxLibrary.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+
+                        // Offer AI parameter fix
+                        await AskAiToFixParameters.ExecuteAsync(selectedSystemManager, selectedEmulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
                     }
                 }
             }
@@ -1281,7 +1296,7 @@ public partial class GameLauncher : ILauncherService
         }
     }
 
-    private async Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, Emulator emulatorManager)
+    private async Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, Emulator emulatorManager, ISystemManager systemManager)
     {
         var userNotified = emulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
         var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
@@ -1318,6 +1333,9 @@ public partial class GameLauncher : ILauncherService
             {
                 await _messageBoxLibrary.RetroArchSpecialCharactersInPathMessageBoxAsync();
                 await _messageBoxLibrary.WouldYouLikeToOpenTheLogMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+
+                // Offer AI parameter fix
+                await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
             }
 
             return;
@@ -1333,6 +1351,9 @@ public partial class GameLauncher : ILauncherService
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 await _messageBoxLibrary.RetroArchParameterIssueMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+
+                // Offer AI parameter fix
+                await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
             }
 
             return;
@@ -1354,6 +1375,9 @@ public partial class GameLauncher : ILauncherService
             {
                 await _messageBoxLibrary.MameRomSetErrorMessageBoxAsync();
                 await _messageBoxLibrary.WouldYouLikeToOpenTheLogMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+
+                // Offer AI parameter fix
+                await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
             }
 
             return;
@@ -1374,6 +1398,9 @@ public partial class GameLauncher : ILauncherService
             {
                 await _messageBoxLibrary.MameUnknownSystemErrorMessageBoxAsync();
                 await _messageBoxLibrary.WouldYouLikeToOpenTheLogMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+
+                // Offer AI parameter fix
+                await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
             }
 
             return;
@@ -1392,6 +1419,9 @@ public partial class GameLauncher : ILauncherService
             {
                 await _messageBoxLibrary.MameUnableToLoadImageMessageBoxAsync();
                 await _messageBoxLibrary.WouldYouLikeToOpenTheLogMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+
+                // Offer AI parameter fix
+                await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
             }
 
             return;
@@ -1424,6 +1454,9 @@ public partial class GameLauncher : ILauncherService
         if (emulatorManager.ReceiveANotificationOnEmulatorError)
         {
             await _messageBoxLibrary.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+
+            // Offer AI parameter fix
+            await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
         }
     }
 
@@ -1472,7 +1505,8 @@ public partial class GameLauncher : ILauncherService
     {
         var emulatorsToSkipErrorChecking = _configuration.GetValue<string[]>("EmulatorsToSkipErrorChecking") ??
         [
-            "Kega Fusion", "KegaFusion", "Kega", "Fusion", "Fusion.exe", "Project64", "Project 64", "Project64.exe", "Emulicious", "Emulicious.exe", "Speccy", "Speccy.exe", "ProSystem.exe", "ProSystem"
+            "Kega Fusion", "KegaFusion", "Kega", "Fusion", "Fusion.exe", "Project64", "Project 64",
+            "Project64.exe", "Emulicious", "Emulicious.exe", "Speccy", "Speccy.exe", "ProSystem.exe", "ProSystem"
         ];
 
         foreach (var emulatorToSkip in emulatorsToSkipErrorChecking)

@@ -1,12 +1,9 @@
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Text;
-using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
@@ -37,9 +34,10 @@ internal partial class EditSystemWindow : ILoadingState
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
     private readonly IDebugLogger _debugLogger;
+    private readonly IParameterResolverService _parameterResolverService;
     private Button _emergencyReturnButton;
 
-    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, IHelpUserService helpUserService, IImageLoader imageLoader, IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, IDebugLogger debugLogger, string preSelectedSystemName = null)
+    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, IHelpUserService helpUserService, IImageLoader imageLoader, IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, IDebugLogger debugLogger, IParameterResolverService parameterResolverService, string preSelectedSystemName = null)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -54,6 +52,7 @@ internal partial class EditSystemWindow : ILoadingState
         _messageBox = messageBox;
         _quitSimpleLauncher = quitSimpleLauncher;
         _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _parameterResolverService = parameterResolverService;
 
         ApplyExpanderSettings();
 
@@ -812,12 +811,6 @@ internal partial class EditSystemWindow : ILoadingState
         }
     }
 
-    private static readonly JsonSerializerOptions JsonOptions = new()
-    {
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        WriteIndented = false
-    };
-
     private async void SuggestEmulator1Parameters_ClickAsync(object sender, RoutedEventArgs e)
     {
         try
@@ -921,7 +914,7 @@ internal partial class EditSystemWindow : ILoadingState
 
         try
         {
-            var request = new
+            var request = new ParameterResolverRequest
             {
                 SystemName = SystemNameTextBox.Text.Trim(),
                 SystemFolder = SystemFolderTextBox.Text.Trim(),
@@ -935,24 +928,12 @@ internal partial class EditSystemWindow : ILoadingState
                 CurrentParameters = currentParameters?.Trim()
             };
 
-            var apiKey = _configuration["ApiKey"];
+            var result = await _parameterResolverService.ResolveParametersAsync(request);
 
-            var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
-            var client = httpClientFactory.CreateClient("ParameterResolverClient");
-
-            var jsonContent = JsonSerializer.Serialize(request, JsonOptions);
-            using var httpRequest = new HttpRequestMessage(HttpMethod.Post, "api/ParameterResolver/resolve");
-            httpRequest.Headers.Add("X-Api-Key", apiKey);
-            httpRequest.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-
-            var response = await client.SendAsync(httpRequest);
-            var responseBody = await response.Content.ReadAsStringAsync();
-
-            if (response.IsSuccessStatusCode)
+            if (result != null)
             {
-                var result = JsonSerializer.Deserialize<ParameterResolverResult>(responseBody, JsonOptions);
-                var suggestedParam = result?.SuggestedParameter ?? "";
-                var explanation = result?.Explanation ?? "";
+                var suggestedParam = result.SuggestedParameter ?? "";
+                var explanation = result.Explanation ?? "";
 
                 var dialogMessage = $"{confirmMessage}\n\n{suggestedParam}";
                 if (!string.IsNullOrEmpty(explanation))
@@ -970,8 +951,6 @@ internal partial class EditSystemWindow : ILoadingState
             }
             else
             {
-                var apiException = new InvalidOperationException($"ParameterResolver API returned {(int)response.StatusCode}: {responseBody}");
-                _logErrors.LogAndForget(apiException, "ParameterResolver API error");
                 await _messageBox.CustomErrorMessageBoxAsync(errorMessage, errorTitle);
             }
         }

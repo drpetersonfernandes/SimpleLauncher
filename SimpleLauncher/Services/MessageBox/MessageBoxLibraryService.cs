@@ -4415,4 +4415,19 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var result = await _messageDialog.ShowYesNoAsync(message, title);
         return result;
     }
+
+    public Task CustomInfoMessageBoxAsync(string title, string message)
+    {
+        return _messageDialog.ShowInfoAsync(message, title);
+    }
+
+    public async Task<bool> AskAiToFixParametersMessageBoxAsync()
+    {
+        var askAiMessage = _resourceProvider.GetString("AskAiToFixParameters", "The launch failed. Would you like 'Simple Launcher AI' to suggest correct parameters for this emulator?");
+        var pleaseWaitForAiResponse = _resourceProvider.GetString("pleaseWaitForAiResponse", "If you click Yes, please wait some seconds for the AI response.");
+        var askAiTitle = _resourceProvider.GetString("AskAiToFixParametersTitle", "Simple Launcher AI");
+        var result = await _messageDialog.ShowYesNoAsync($"{askAiMessage}\n\n" +
+                                                         $"{pleaseWaitForAiResponse}", askAiTitle);
+        return result;
+    }
 }

@@ -2559,4 +2559,14 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     {
         return Task.FromResult(false);
     }
+
+    public Task CustomInfoMessageBoxAsync(string title, string message)
+    {
+        return Task.CompletedTask;
+    }
+
+    public Task<bool> AskAiToFixParametersMessageBoxAsync()
+    {
+        return Task.FromResult(false);
+    }
 }

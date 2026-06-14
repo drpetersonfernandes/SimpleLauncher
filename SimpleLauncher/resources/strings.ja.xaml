@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">全ゲーム</system:String>
     <system:String x:Key="10000games">10000ゲーム</system:String>
     <system:String x:Key="1000games">1000ゲーム</system:String>
@@ -45,6 +46,8 @@
     <system:String x:Key="AdjustingButtonAspectRatio">ボタンのアスペクト比を調整しています...</system:String>
     <system:String x:Key="AdjustingButtonSize">ボタンサイズを調整しています...</system:String>
     <system:String x:Key="AdjustingGamesPerPage">ページあたりのゲーム数を調整しています...</system:String>
+    <system:String x:Key="AiParameterSuggestionTitle">パラメーターの提案</system:String>
+    <system:String x:Key="AiSuggestedParameterApplied">パラメーターが更新されました。ゲームの起動をもう一度お試しください。</system:String>
     <system:String x:Key="Alert">警告</system:String>
     <system:String x:Key="AllSystems">全てのシステム</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">エミュレーターを正しいパラメーターでコールしていることを確認してください。</system:String>
@@ -120,6 +123,8 @@
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">「Simple Launcher」で選択ウィンドウが開き、キャプチャするウィンドウを選択できます。</system:String>
     <system:String x:Key="AskAIPerplexityai">AIに質問 (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">AIに質問 (Phind.com)</system:String>
+    <system:String x:Key="AskAiToFixParameters">起動に失敗しました。「Simple Launcher AI」にこのエミュレーターの正しいパラメーターを提案させますか？</system:String>
+    <system:String x:Key="AskAiToFixParametersTitle">Simple Launcher AI</system:String>
     <system:String x:Key="AskAIYoucom">AIに質問 (You.com)</system:String>
     <system:String x:Key="AspectRatioIcon">アスペクト比</system:String>
     <system:String x:Key="assoonasyouselectawindow">ウィンドウを選択するとすぐにスクリーンショットが撮られ、選択したシステムの画像フォルダーに保存されます。</system:String>
@@ -1196,6 +1201,7 @@
     <system:String x:Key="PleaseselecttheSystemFolder">システムフォルダーを選択してください。</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">システム画像フォルダーを選択してください。</system:String>
     <system:String x:Key="PleaseTryAgainBehindAVpn">VPN経由で再度お試しください。</system:String>
+    <system:String x:Key="pleaseWaitForAiResponse">「はい」をクリックした場合、AIからの応答を数秒お待ちください。</system:String>
     <system:String x:Key="Plum">プラム</system:String>
     <system:String x:Key="Points">ポイント</system:String>
     <system:String x:Key="PowerShellRestricted">PowerShell制限</system:String>

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">Todos os jogos</system:String>
     <system:String x:Key="10000games">10000 jogos</system:String>
     <system:String x:Key="1000games">1000 jogos</system:String>
@@ -45,6 +46,8 @@
     <system:String x:Key="AdjustingButtonAspectRatio">Ajustando proporção do botão...</system:String>
     <system:String x:Key="AdjustingButtonSize">Ajustando tamanho do botão...</system:String>
     <system:String x:Key="AdjustingGamesPerPage">Ajustando jogos por página...</system:String>
+    <system:String x:Key="AiParameterSuggestionTitle">Sugestão de Parâmetro</system:String>
+    <system:String x:Key="AiSuggestedParameterApplied">O parâmetro foi atualizado. Por favor, tente iniciar o jogo novamente.</system:String>
     <system:String x:Key="Alert">Alerta</system:String>
     <system:String x:Key="AllSystems">Todos os Sistemas</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Certifique-se também de que você está utilizando os parâmetros corretos ao invocar o emulador.</system:String>
@@ -120,6 +123,8 @@
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Uma janela de seleção será aberta no 'Simple Launcher', permitindo que você escolha a janela desejada para capturar.</system:String>
     <system:String x:Key="AskAIPerplexityai">Perguntar à IA (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">Perguntar à IA (Phind.com)</system:String>
+    <system:String x:Key="AskAiToFixParameters">O lançamento falhou. Gostaria que a 'IA do Simple Launcher' sugerisse os parâmetros corretos para este emulador?</system:String>
+    <system:String x:Key="AskAiToFixParametersTitle">IA do Simple Launcher</system:String>
     <system:String x:Key="AskAIYoucom">Perguntar à IA (You.com)</system:String>
     <system:String x:Key="AspectRatioIcon">Proporção de Tela</system:String>
     <system:String x:Key="assoonasyouselectawindow">Assim que você selecionar uma janela, uma captura de tela será feita e salva na pasta de imagens do sistema selecionado.</system:String>
@@ -1196,6 +1201,7 @@
     <system:String x:Key="PleaseselecttheSystemFolder">Por favor, selecione a pasta do sistema.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Por favor, selecione a pasta de imagens do sistema.</system:String>
     <system:String x:Key="PleaseTryAgainBehindAVpn">Por favor, tente novamente usando uma VPN.</system:String>
+    <system:String x:Key="pleaseWaitForAiResponse">Se você clicar em Sim, aguarde alguns segundos pela resposta da IA.</system:String>
     <system:String x:Key="Plum">Ameixa</system:String>
     <system:String x:Key="Points">Pontos</system:String>
     <system:String x:Key="PowerShellRestricted">PowerShell Restrito</system:String>

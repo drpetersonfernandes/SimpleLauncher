@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
     <system:String x:Key="10000games">10000 trò chơi</system:String>
     <system:String x:Key="1000games">1000 trò chơi</system:String>
@@ -45,6 +46,8 @@
     <system:String x:Key="AdjustingButtonAspectRatio">Đang điều chỉnh tỷ lệ khung hình nút...</system:String>
     <system:String x:Key="AdjustingButtonSize">Đang điều chỉnh kích thước nút...</system:String>
     <system:String x:Key="AdjustingGamesPerPage">Đang điều chỉnh số trò chơi trên mỗi trang...</system:String>
+    <system:String x:Key="AiParameterSuggestionTitle">Gợi ý thông số</system:String>
+    <system:String x:Key="AiSuggestedParameterApplied">Thông số đã được cập nhật. Vui lòng thử khởi chạy lại trò chơi.</system:String>
     <system:String x:Key="Alert">Cảnh báo</system:String>
     <system:String x:Key="AllSystems">Tất cả hệ thống</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Hãy chắc chắn rằng bạn đang gọi trình giả lập bằng các thông số đúng.</system:String>
@@ -120,6 +123,8 @@
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Một cửa sổ lựa chọn sẽ mở trong 'Simple Launcher', cho phép bạn chọn cửa sổ mong muốn để chụp.</system:String>
     <system:String x:Key="AskAIPerplexityai">Hỏi AI (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">Hỏi AI (Phind.com)</system:String>
+    <system:String x:Key="AskAiToFixParameters">Khởi chạy thất bại. Bạn có muốn 'Simple Launcher AI' đề xuất các thông số chính xác cho trình giả lập này không?</system:String>
+    <system:String x:Key="AskAiToFixParametersTitle">Simple Launcher AI</system:String>
     <system:String x:Key="AskAIYoucom">Hỏi AI (You.com)</system:String>
     <system:String x:Key="AspectRatioIcon">Tỷ lệ khung hình</system:String>
     <system:String x:Key="assoonasyouselectawindow">Ngay khi bạn chọn một cửa sổ, một ảnh chụp màn hình sẽ được tạo và lưu vào thư mục hình ảnh của hệ thống được chọn.</system:String>
@@ -1196,6 +1201,7 @@
     <system:String x:Key="PleaseselecttheSystemFolder">Vui lòng chọn thư mục hệ thống.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Vui lòng chọn thư mục ảnh hệ thống.</system:String>
     <system:String x:Key="PleaseTryAgainBehindAVpn">Vui lòng thử lại bằng VPN.</system:String>
+    <system:String x:Key="pleaseWaitForAiResponse">Nếu bạn nhấp Có, vui lòng đợi vài giây để AI phản hồi.</system:String>
     <system:String x:Key="Plum">Màu mận (Plum)</system:String>
     <system:String x:Key="Points">Điểm</system:String>
     <system:String x:Key="PowerShellRestricted">PowerShell bị hạn chế</system:String>

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">所有游戏</system:String>
     <system:String x:Key="10000games">10000 游戏</system:String>
     <system:String x:Key="1000games">1000 游戏</system:String>
@@ -45,6 +46,8 @@
     <system:String x:Key="AdjustingButtonAspectRatio">正在调整按钮宽高比...</system:String>
     <system:String x:Key="AdjustingButtonSize">正在调整按钮大小...</system:String>
     <system:String x:Key="AdjustingGamesPerPage">正在调整每页游戏数量...</system:String>
+    <system:String x:Key="AiParameterSuggestionTitle">参数建议</system:String>
+    <system:String x:Key="AiSuggestedParameterApplied">参数已更新。请再次尝试启动游戏。</system:String>
     <system:String x:Key="Alert">警告</system:String>
     <system:String x:Key="AllSystems">所有系统</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">请确保您使用正确的参数调用模拟器。</system:String>
@@ -120,6 +123,8 @@
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">一个选择窗口将在'Simple Launcher'中打开，让您选择想要捕捉的窗口。</system:String>
     <system:String x:Key="AskAIPerplexityai">询问 AI (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">询问 AI (Phind.com)</system:String>
+    <system:String x:Key="AskAiToFixParameters">启动失败。您希望“简易启动器AI”为该模拟器建议正确的参数吗？</system:String>
+    <system:String x:Key="AskAiToFixParametersTitle">简易启动器AI</system:String>
     <system:String x:Key="AskAIYoucom">询问 AI (You.com)</system:String>
     <system:String x:Key="AspectRatioIcon">宽高比</system:String>
     <system:String x:Key="assoonasyouselectawindow">一旦您选择了一个窗口，将会截图并将其保存到所选系统的图像文件夹中。</system:String>
@@ -1196,6 +1201,7 @@
     <system:String x:Key="PleaseselecttheSystemFolder">请选定系统文件夹。</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">请选定系统图片文件夹。</system:String>
     <system:String x:Key="PleaseTryAgainBehindAVpn">请在 VPN 后重试。</system:String>
+    <system:String x:Key="pleaseWaitForAiResponse">如果您点击“是”，请等待几秒钟以获取AI响应。</system:String>
     <system:String x:Key="Plum">梅紫</system:String>
     <system:String x:Key="Points">点数</system:String>
     <system:String x:Key="PowerShellRestricted">PowerShell 受限</system:String>

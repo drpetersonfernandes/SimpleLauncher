@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">সমস্ত গেম</system:String>
     <system:String x:Key="10000games">10000 গেম</system:String>
     <system:String x:Key="1000games">1000 গেম</system:String>
@@ -45,6 +46,8 @@
     <system:String x:Key="AdjustingButtonAspectRatio">বোতামের অনুপাত সমন্বয় করা হচ্ছে...</system:String>
     <system:String x:Key="AdjustingButtonSize">বোতামের আকার সমন্বয় করা হচ্ছে...</system:String>
     <system:String x:Key="AdjustingGamesPerPage">প্রতি পৃষ্ঠায় গেমের সংখ্যা সমন্বয় করা হচ্ছে...</system:String>
+    <system:String x:Key="AiParameterSuggestionTitle">প্যারামিটার পরামর্শ</system:String>
+    <system:String x:Key="AiSuggestedParameterApplied">প্যারামিটার হালনাগাদ করা হয়েছে। অনুগ্রহ করে গেমটি আবার চালু করার চেষ্টা করুন।</system:String>
     <system:String x:Key="Alert">সতর্কতা</system:String>
     <system:String x:Key="AllSystems">সমস্ত সিস্টেম</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">এছাড়াও, নিশ্চিত করুন যে আপনি সঠিক প্যারামিটার সহ এমুলেটরটি কল করছেন।</system:String>
@@ -120,6 +123,8 @@
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">'Simple Launcher' এ একটি নির্বাচন উইন্ডো খুলবে, যা আপনাকে প্রয়োজনীয় উইন্ডোটি নির্বাচন করার সুযোগ দেবে।</system:String>
     <system:String x:Key="AskAIPerplexityai">এআইকে জিজ্ঞাসা করুন (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">এআইকে জিজ্ঞাসা করুন (Phind.com)</system:String>
+    <system:String x:Key="AskAiToFixParameters">লঞ্চ ব্যর্থ হয়েছে। আপনি কি 'সিম্পল লঞ্চার এআই' কে এই এমুলেটরের জন্য সঠিক প্যারামিটার পরামর্শ দিতে চান?</system:String>
+    <system:String x:Key="AskAiToFixParametersTitle">সিম্পল লঞ্চার এআই</system:String>
     <system:String x:Key="AskAIYoucom">এআইকে জিজ্ঞাসা করুন (You.com)</system:String>
     <system:String x:Key="AspectRatioIcon">অ্যাসপেক্ট রেশিও</system:String>
     <system:String x:Key="assoonasyouselectawindow">উইন্ডোটি নির্বাচন করার সাথে সাথেই স্ক্রিনশট নেওয়া হবে এবং এটি সিস্টেম ইমেজ ফোল্ডারে সংরক্ষণ করা হবে</system:String>
@@ -1196,6 +1201,7 @@
     <system:String x:Key="PleaseselecttheSystemFolder">দয়া করে সিস্টেম ফোল্ডারটি নির্বাচন করুন।</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">দয়া করে সিস্টেম চিত্রের ফোল্ডারটি নির্বাচন করুন।</system:String>
     <system:String x:Key="PleaseTryAgainBehindAVpn">একটি VPN এর মাধ্যমে আবার চেষ্টা করুন।</system:String>
+    <system:String x:Key="pleaseWaitForAiResponse">যদি আপনি হ্যাঁ ক্লিক করেন, অনুগ্রহ করে এআই প্রতিক্রিয়ার জন্য কয়েক সেকেন্ড অপেক্ষা করুন।</system:String>
     <system:String x:Key="Plum">প্লাম</system:String>
     <system:String x:Key="Points">পয়েন্ট</system:String>
     <system:String x:Key="PowerShellRestricted">PowerShell সীমাবদ্ধ</system:String>

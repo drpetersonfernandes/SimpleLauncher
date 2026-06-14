@@ -314,4 +314,6 @@ public interface IMessageBoxLibraryService
     Task WarningMessageBoxAsync(string message);
     Task CustomErrorMessageBoxAsync(string message, string title);
     Task<bool> CustomQuestionMessageBoxAsync(string title, string message);
+    Task CustomInfoMessageBoxAsync(string title, string message);
+    Task<bool> AskAiToFixParametersMessageBoxAsync();
 }

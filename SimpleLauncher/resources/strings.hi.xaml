@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">सभी गेम</system:String>
     <system:String x:Key="10000games">10000 गेम</system:String>
     <system:String x:Key="1000games">1000 गेम</system:String>
@@ -45,6 +46,8 @@
     <system:String x:Key="AdjustingButtonAspectRatio">बटन पहलू अनुपात समायोजित कर रहा है...</system:String>
     <system:String x:Key="AdjustingButtonSize">बटन का आकार समायोजित कर रहा है...</system:String>
     <system:String x:Key="AdjustingGamesPerPage">प्रति पृष्ठ गेम समायोजित कर रहा है...</system:String>
+    <system:String x:Key="AiParameterSuggestionTitle">पैरामीटर सुझाव</system:String>
+    <system:String x:Key="AiSuggestedParameterApplied">पैरामीटर अपडेट कर दिया गया है। कृपया गेम को फिर से लॉन्च करने का प्रयास करें।</system:String>
     <system:String x:Key="Alert">चेतावनी</system:String>
     <system:String x:Key="AllSystems">सभी सिस्टम</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">सुनिश्चित करें कि आप एमुलेटर को सही पैरामीटर के साथ कॉल कर रहे हैं।</system:String>
@@ -120,6 +123,8 @@
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">'Simple Launcher' में एक चयन विंडो खुलेगी, जो आपको कार्रवाई के लिए वांछित विंडो का चयन करने देगी।</system:String>
     <system:String x:Key="AskAIPerplexityai">एआई से पूछें (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">एआई से पूछें (Phind.com)</system:String>
+    <system:String x:Key="AskAiToFixParameters">लॉन्च विफल रहा। क्या आप चाहेंगे कि 'सिंपल लॉन्चर एआई' इस एमुलेटर के लिए सही पैरामीटर सुझाए?</system:String>
+    <system:String x:Key="AskAiToFixParametersTitle">सिंपल लॉन्चर एआई</system:String>
     <system:String x:Key="AskAIYoucom">एआई से पूछें (You.com)</system:String>
     <system:String x:Key="AspectRatioIcon">एस्पेक्ट रेशियो</system:String>
     <system:String x:Key="assoonasyouselectawindow">जैसे ही आप एक विंडो चुनते हैं, एक स्क्रीनशॉट लिया जाएगा और इसे चयनित सिस्टम के चित्र फ़ोल्डर में सहेजा जाएगा।</system:String>
@@ -1196,6 +1201,7 @@
     <system:String x:Key="PleaseselecttheSystemFolder">कृपया सिस्टम फ़ोल्डर चुनें।</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">कृपया सिस्टम की छवि फ़ोल्डर का चयन करें।</system:String>
     <system:String x:Key="PleaseTryAgainBehindAVpn">कृपया VPN के पीछे से पुनः प्रयास करें।</system:String>
+    <system:String x:Key="pleaseWaitForAiResponse">यदि आप हाँ पर क्लिक करते हैं, तो कृपया एआई प्रतिक्रिया के लिए कुछ सेकंड प्रतीक्षा करें।</system:String>
     <system:String x:Key="Plum">प्लम</system:String>
     <system:String x:Key="Points">अंक</system:String>
     <system:String x:Key="PowerShellRestricted">PowerShell प्रतिबंधित</system:String>

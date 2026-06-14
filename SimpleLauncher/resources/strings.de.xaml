@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
+    
     <system:String x:Key="1000000games">Alle Spiele</system:String>
     <system:String x:Key="10000games">10000 Spiele</system:String>
     <system:String x:Key="1000games">1000 Spiele</system:String>
@@ -45,6 +46,8 @@
     <system:String x:Key="AdjustingButtonAspectRatio">Schaltflächen-Seitenverhältnis wird angepasst...</system:String>
     <system:String x:Key="AdjustingButtonSize">Schaltflächengröße wird angepasst...</system:String>
     <system:String x:Key="AdjustingGamesPerPage">Spiele pro Seite werden angepasst...</system:String>
+    <system:String x:Key="AiParameterSuggestionTitle">Parametersuggestion</system:String>
+    <system:String x:Key="AiSuggestedParameterApplied">Der Parameter wurde aktualisiert. Bitte versuchen Sie, das Spiel erneut zu starten.</system:String>
     <system:String x:Key="Alert">Alarm</system:String>
     <system:String x:Key="AllSystems">Alle Systeme</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Stellen Sie sicher, dass Sie den Emulator mit dem richtigen Parameter aufrufen.</system:String>
@@ -120,6 +123,8 @@
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">Ein Auswahlfenster wird in 'Simple Launcher' geöffnet, sodass Sie das gewünschte Fenster zur Erfassung auswählen können.</system:String>
     <system:String x:Key="AskAIPerplexityai">KI fragen (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">KI fragen (Phind.com)</system:String>
+    <system:String x:Key="AskAiToFixParameters">Der Start ist fehlgeschlagen. Möchten Sie, dass 'Simple Launcher AI' korrekte Parameter für diesen Emulator vorschlägt?</system:String>
+    <system:String x:Key="AskAiToFixParametersTitle">Simple Launcher AI</system:String>
     <system:String x:Key="AskAIYoucom">KI fragen (You.com)</system:String>
     <system:String x:Key="AspectRatioIcon">Seitenverhältnis</system:String>
     <system:String x:Key="assoonasyouselectawindow">Sobald Sie ein Fenster ausgewählt haben, wird ein Screenshot erstellt und im Bildordner des ausgewählten Systems gespeichert.</system:String>
@@ -1196,6 +1201,7 @@
     <system:String x:Key="PleaseselecttheSystemFolder">Bitte wählen Sie den Systemordner aus.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Bitte wählen Sie den Image-Ordner des Systems aus.</system:String>
     <system:String x:Key="PleaseTryAgainBehindAVpn">Bitte versuchen Sie es erneut über ein VPN.</system:String>
+    <system:String x:Key="pleaseWaitForAiResponse">Wenn Sie auf Ja klicken, warten Sie bitte einige Sekunden auf die KI-Antwort.</system:String>
     <system:String x:Key="Plum">Pflaume</system:String>
     <system:String x:Key="Points">Punkte</system:String>
     <system:String x:Key="PowerShellRestricted">PowerShell eingeschränkt</system:String>
