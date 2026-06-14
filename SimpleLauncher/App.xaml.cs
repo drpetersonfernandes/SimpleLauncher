@@ -398,6 +398,7 @@ public partial class App : IDisposable
         serviceCollection.AddTransient<DosBoxFileSelectionWindow>();
         serviceCollection.AddTransient<SystemSelectionWindow>();
         serviceCollection.AddTransient<WindowSelectionDialogWindow>();
+        serviceCollection.AddTransient<SupportWindow>();
 
         // Handlers
         serviceCollection.AddSingleton<IEmulatorConfigHandler, AresConfigHandler>();
