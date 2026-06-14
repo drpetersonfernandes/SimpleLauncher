@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">সমস্ত গেম</system:String>
     <system:String x:Key="10000games">10000 গেম</system:String>
     <system:String x:Key="1000games">1000 গেম</system:String>
@@ -712,6 +713,7 @@
     <system:String x:Key="GlobalSearch">গ্লোবাল অনুসন্ধান</system:String>
     <system:String x:Key="GlobalStats">বিশ্বব্যাপী পরিসংখ্যান</system:String>
     <system:String x:Key="GlobalStatsExplanation">এই উইন্ডোটি আপনার গেম লাইব্রেরি সম্পর্কে ব্যাপক পরিসংখ্যান গণনা করে, যার মধ্যে মোট সিস্টেম, এমুলেটর, গেম এবং মিলে যাওয়া ছবি রয়েছে। বিশ্লেষণ শুরু করতে 'প্রক্রিয়া শুরু করুন' এ ক্লিক করুন।</system:String>
+    <system:String x:Key="GlobalStatsNoSystems">কোনো সিস্টেম কনফিগার করা হয়নি। গ্লোবাল পরিসংখ্যান গণনা করার আগে অনুগ্রহ করে সিস্টেম যোগ করুন।</system:String>
     <system:String x:Key="GlobalStatsReportTitle">গ্লোবাল পরিসংখ্যান রিপোর্ট</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">'Simple Launcher' কে প্রশাসনিক অ্যাক্সেস দিন এবং আবার চেষ্টা করুন।</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher'-এ অ্যাডমিনিস্ট্রেটিভ অ্যাক্সেস প্রদান করুন এবং আবার চেষ্টা করুন।</system:String>

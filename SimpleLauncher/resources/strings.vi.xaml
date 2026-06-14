@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
     <system:String x:Key="10000games">10000 trò chơi</system:String>
     <system:String x:Key="1000games">1000 trò chơi</system:String>
@@ -712,6 +713,7 @@
     <system:String x:Key="GlobalSearch">Tìm kiếm toàn cầu</system:String>
     <system:String x:Key="GlobalStats">Thống kê toàn cầu</system:String>
     <system:String x:Key="GlobalStatsExplanation">Cửa sổ này tính toán số liệu thống kê toàn diện về thư viện trò chơi của bạn, bao gồm tổng số hệ thống, trình giả lập, trò chơi và hình ảnh khớp. Nhấp vào 'Bắt đầu quá trình' để bắt đầu phân tích.</system:String>
+    <system:String x:Key="GlobalStatsNoSystems">Chưa có hệ thống nào được cấu hình. Vui lòng thêm hệ thống trước khi tính toán số liệu thống kê toàn cầu.</system:String>
     <system:String x:Key="GlobalStatsReportTitle">Báo cáo Thống kê Toàn cầu</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Hãy cấp quyền quản trị cho 'Simple Launcher' và thử lại.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Cấp quyền quản trị viên cho 'Simple Launcher' và thử lại.</system:String>

@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">全ゲーム</system:String>
     <system:String x:Key="10000games">10000ゲーム</system:String>
     <system:String x:Key="1000games">1000ゲーム</system:String>
@@ -712,6 +713,7 @@
     <system:String x:Key="GlobalSearch">グローバル検索</system:String>
     <system:String x:Key="GlobalStats">グローバル統計</system:String>
     <system:String x:Key="GlobalStatsExplanation">このウィンドウは、合計システム、エミュレーター、ゲーム、一致した画像を含む、ゲームライブラリに関する包括的な統計を計算します。「プロセス開始」をクリックして分析を開始してください。</system:String>
+    <system:String x:Key="GlobalStatsNoSystems">システムが設定されていません。グローバル統計を計算する前にシステムを追加してください。</system:String>
     <system:String x:Key="GlobalStatsReportTitle">グローバル統計レポート</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">『Simple Launcher』に管理者権限を付与し、再試行してください。</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher' に管理者権限を付与して、再試行してください。</system:String>

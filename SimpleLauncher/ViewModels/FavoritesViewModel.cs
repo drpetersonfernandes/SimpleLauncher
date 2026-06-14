@@ -38,9 +38,9 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
 
     [ObservableProperty] private Stream? _previewImageSource;
 
-    partial void OnPreviewImageSourceChanged(Stream? value)
+    partial void OnPreviewImageSourceChanged(Stream? oldValue, Stream? newValue)
     {
-        value?.Dispose();
+        oldValue?.Dispose();
     }
 
     [ObservableProperty] private bool _isLoading;

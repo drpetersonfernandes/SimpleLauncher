@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">Все игры</system:String>
     <system:String x:Key="10000games">10000 игр</system:String>
     <system:String x:Key="1000games">1000 игр</system:String>
@@ -712,6 +713,7 @@
     <system:String x:Key="GlobalSearch">Глобальный поиск</system:String>
     <system:String x:Key="GlobalStats">Глобальная статистика</system:String>
     <system:String x:Key="GlobalStatsExplanation">Это окно рассчитывает исчерпывающую статистику о вашей игровой библиотеке, включая общее количество систем, эмуляторов, игр и совпадающих изображений. Нажмите 'Начать процесс', чтобы начать анализ.</system:String>
+    <system:String x:Key="GlobalStatsNoSystems">Системы не настроены. Пожалуйста, добавьте системы, прежде чем рассчитывать глобальную статистику.</system:String>
     <system:String x:Key="GlobalStatsReportTitle">Отчет о глобальной статистике</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Предоставьте 'Simple Launcher' права администратора и попробуйте снова.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Предоставьте программе 'Simple Launcher' права администратора и попробуйте снова.</system:String>

@@ -127,7 +127,7 @@ if ($failed.Count -gt 0) {
         Write-Host "  $i. $($f.Name)" -ForegroundColor Red
         Write-Host "     Duration: $($f.Duration)" -ForegroundColor DarkGray
         if ($f.Error) {
-            $lines = $f.Error -split "`n" | Where-Object { $_.Trim() -ne "" } | Select-Object -First 5
+            $lines = $f.Error -split "`n" | Where-Object { $_.Trim() -ne "" }
             foreach ($line in $lines) {
                 Write-Host "     $($line.Trim())" -ForegroundColor DarkRed
             }

@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">Alle spellen</system:String>
     <system:String x:Key="10000games">10000 spellen</system:String>
     <system:String x:Key="1000games">1000 spellen</system:String>
@@ -712,6 +713,7 @@
     <system:String x:Key="GlobalSearch">Globaal zoeken</system:String>
     <system:String x:Key="GlobalStats">Globale statistieken</system:String>
     <system:String x:Key="GlobalStatsExplanation">Dit venster berekent uitgebreide statistieken over uw gamebibliotheek, inclusief het totale aantal systemen, emulators, games en overeenkomende afbeeldingen. Klik op 'Proces starten' om de analyse te beginnen.</system:String>
+    <system:String x:Key="GlobalStatsNoSystems">Er zijn geen systemen geconfigureerd. Voeg systemen toe voordat u globale statistieken berekent.</system:String>
     <system:String x:Key="GlobalStatsReportTitle">Globaal Statistiekenrapport</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Geef 'Simple Launcher' beheerdersrechten en probeer het opnieuw.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Geef 'Simple Launcher' beheerdersrechten en probeer het opnieuw.</system:String>

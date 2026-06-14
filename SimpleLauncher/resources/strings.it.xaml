@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">Tutti i giochi</system:String>
     <system:String x:Key="10000games">10000 giochi</system:String>
     <system:String x:Key="1000games">1000 giochi</system:String>
@@ -712,6 +713,7 @@
     <system:String x:Key="GlobalSearch">Ricerca globale</system:String>
     <system:String x:Key="GlobalStats">Statistiche globali</system:String>
     <system:String x:Key="GlobalStatsExplanation">Questa finestra calcola statistiche complete sulla tua libreria di giochi, inclusi il totale di sistemi, emulatori, giochi e immagini corrispondenti. Clicca su 'Avvia processo' per iniziare l'analisi.</system:String>
+    <system:String x:Key="GlobalStatsNoSystems">Nessun sistema è configurato. Aggiungi sistemi prima di calcolare le statistiche globali.</system:String>
     <system:String x:Key="GlobalStatsReportTitle">Rapporto statistiche globali</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Concedi i permessi di amministratore a 'Simple Launcher' e riprova.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Concedi l'accesso amministrativo a 'Simple Launcher' e riprova.</system:String>

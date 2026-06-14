@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">كل الألعاب</system:String>
     <system:String x:Key="10000games">10000 لعبة</system:String>
     <system:String x:Key="1000games">1000 لعبة</system:String>
@@ -712,6 +713,7 @@
     <system:String x:Key="GlobalSearch">بحث شامل</system:String>
     <system:String x:Key="GlobalStats">الإحصائيات العامة</system:String>
     <system:String x:Key="GlobalStatsExplanation">تحسب هذه النافذة إحصائيات شاملة حول مكتبة الألعاب الخاصة بك، بما في ذلك إجمالي الأنظمة والمحاكيات والألعاب والصور المتطابقة. انقر على 'بدء العملية' لبدء التحليل.</system:String>
+    <system:String x:Key="GlobalStatsNoSystems">لا توجد أنظمة مهيأة. يرجى إضافة أنظمة قبل حساب الإحصائيات العالمية.</system:String>
     <system:String x:Key="GlobalStatsReportTitle">تقرير الإحصائيات العالمية</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">امنح 'Simple Launcher' صلاحيات المسؤول وحاول مرة أخرى.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">امنح 'Simple Launcher' صلاحيات إدارية وحاول مرة أخرى.</system:String>

@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">所有游戏</system:String>
     <system:String x:Key="10000games">10000 游戏</system:String>
     <system:String x:Key="1000games">1000 游戏</system:String>
@@ -712,6 +713,7 @@
     <system:String x:Key="GlobalSearch">全局搜索</system:String>
     <system:String x:Key="GlobalStats">全局统计</system:String>
     <system:String x:Key="GlobalStatsExplanation">此窗口计算您的游戏库的综合统计数据，包括系统总数、模拟器、游戏和匹配的图像。点击“开始处理”以开始分析。</system:String>
+    <system:String x:Key="GlobalStatsNoSystems">没有配置系统。请在计算全局统计数据之前添加系统。</system:String>
     <system:String x:Key="GlobalStatsReportTitle">全局统计报告</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">请授予 'Simple Launcher' 管理员权限并重试。</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">请给予 'Simple Launcher' 管理员权限后重试。</system:String>

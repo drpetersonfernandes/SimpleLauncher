@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">सभी गेम</system:String>
     <system:String x:Key="10000games">10000 गेम</system:String>
     <system:String x:Key="1000games">1000 गेम</system:String>
@@ -712,6 +713,7 @@
     <system:String x:Key="GlobalSearch">वैश्विक खोज</system:String>
     <system:String x:Key="GlobalStats">वैश्विक सांख्यिकी</system:String>
     <system:String x:Key="GlobalStatsExplanation">यह विंडो आपकी गेम लाइब्रेरी के बारे में व्यापक आंकड़े गणना करती है, जिसमें कुल सिस्टम, एमुलेटर, गेम और मिलान की गई छवियां शामिल हैं। विश्लेषण शुरू करने के लिए 'प्रक्रिया प्रारंभ करें' पर क्लिक करें।</system:String>
+    <system:String x:Key="GlobalStatsNoSystems">कोई सिस्टम कॉन्फ़िगर नहीं है। वैश्विक सांख्यिकी की गणना करने से पहले कृपया सिस्टम जोड़ें।</system:String>
     <system:String x:Key="GlobalStatsReportTitle">ग्लोबल आँकड़े रिपोर्ट</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">'Simple Launcher' को प्रशासनिक अनुमतियाँ दें और पुनः प्रयास करें।</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher' को प्रशासनिक पहुंच प्रदान करें और पुनः प्रयास करें।</system:String>

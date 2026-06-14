@@ -14,8 +14,8 @@
 
 **System Folder (Example):** c:\Amstrad CPC<br>
 **Extension to Search in the System Folder:** zip<br>
-**Extract File Before Launch?** false<br>
-**Extension to Launch After Extraction:** <br>
+**Extract File Before Launch?** true<br>
+**Extension to Launch After Extraction:** dsk, ipf, voc, cdt, cpr, sna<br>
 **Group Files by Folder:** false<br>
 
 .
