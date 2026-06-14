@@ -36,6 +36,7 @@ public class ChdMountStrategy : ILaunchStrategy
     private bool _isXemu;
     private bool _isXenia;
     private bool _isYabause;
+    private bool _isKegaFusion;
 
     public ChdMountStrategy(IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IMountChdFiles mountChdFiles, IDebugLogger debugLogger)
     {
@@ -81,6 +82,7 @@ public class ChdMountStrategy : ILaunchStrategy
                _isFinalBurnAlpha ||
                _isFinalBurnNeo ||
                _isGens ||
+               _isKegaFusion ||
                _isMednafen ||
                _isMesen ||
                _isNebula ||
@@ -133,6 +135,10 @@ public class ChdMountStrategy : ILaunchStrategy
 
         _isGens = context.EmulatorName.Contains("Gens", StringComparison.OrdinalIgnoreCase) ||
                   (context.EmulatorManager?.EmulatorLocation?.Contains("gens.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+
+        _isKegaFusion = context.EmulatorName.Contains("Kega Fusion", StringComparison.OrdinalIgnoreCase) ||
+                        context.EmulatorName.Contains("Fusion", StringComparison.OrdinalIgnoreCase) ||
+                        (context.EmulatorManager?.EmulatorLocation?.Contains("fusion.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
         _isMednafen = context.EmulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||
                       (context.EmulatorManager?.EmulatorLocation?.Contains("mednafen", StringComparison.OrdinalIgnoreCase) ?? false);
@@ -208,7 +214,7 @@ public class ChdMountStrategy : ILaunchStrategy
             // Cxbx-Reloaded needs the path to default.xbe
             gameFilePath = FindDefaultXbe.Find(mountedDrive.MountedPath, _logErrors);
         }
-        else if (_isGens || _cDiEmu)
+        else if (_isGens || _cDiEmu || _isKegaFusion)
         {
             // Path to a .bin file
             gameFilePath = FindBinFile.Find(mountedDrive.MountedPath, _logErrors);

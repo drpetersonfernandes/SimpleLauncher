@@ -29,7 +29,8 @@
 - **Path character validation** — System folder and image folder paths are now validated for invalid path characters before attempting directory creation.
 - Shows a clear error message listing the invalid characters found.
 
-## CHD Mount Error Handling
+## CHD Support and CHD Mount Error Handling
+- Added CHD support for emulator Kega Fusion.
 - **Exit code reporting** — CHD mount failures now include the process exit code in error messages for easier debugging.
 - Added Dokan installation check before CHD mount operations.
 

@@ -4295,6 +4295,17 @@ You can download this emulator on the [Official Website](https://www.retrodev.co
 
 .
 
+**Emulator Name:** Kega Fusion<br>
+**Emulator Path (Example):** C:\Emulators\Kega Fusion\Fusion.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+This emulator requires BIOS files to run Sega CD.<br>
+You can download this emulator on the [Official Website](https://www.carpeludum.com/kega-fusion/).<br>
+
+.
+
 **Emulator Name:** Retroarch picodrive<br>
 **Emulator Path (Example):** C:\Emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example using absolute paths):** -L "C:\Emulators\retroarch\cores\picodrive_libretro.dll" -f<br>

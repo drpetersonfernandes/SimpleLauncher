@@ -156,6 +156,7 @@ The launcher supports an extensive range of gaming systems including:
 | FinalBurn Alpha     | ✅ Added | Arcade        |
 | FinalBurn Neo       | ✅ Added | Arcade        |
 | Gens                | ✅ Added | Sega Genesis  |
+| Kega Fusion         | ✅ Added | Sega Genesis  |
 | Mednafen            | ✅ Added | Multi-system  |
 | Mesen               | ✅ Added | NES, SNES     |
 | PCSX-Redux          | ✅ Added | PlayStation 1 |

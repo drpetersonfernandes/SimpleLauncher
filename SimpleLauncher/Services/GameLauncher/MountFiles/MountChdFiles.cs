@@ -622,9 +622,15 @@ public class MountChdFiles : IMountChdFiles
             return 20;
         }
 
+        // Sega Genesis CD / Mega Drive CD / Sega CD / Mega CD
         else if (systemName.Contains("GENESIS CD", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("SEGA CD", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("MEGA CD", StringComparison.OrdinalIgnoreCase))
+                 systemName.Contains("MEGA CD", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("GENESISCD", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("SEGACD", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("MEGACD", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("Sega Genesis CD", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("Mega Drive CD", StringComparison.OrdinalIgnoreCase))
         {
             return 20;
         }
