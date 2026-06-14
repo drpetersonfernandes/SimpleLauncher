@@ -321,7 +321,6 @@ public partial class App : IDisposable
         serviceCollection.AddTransient<SetGamepadDeadZoneViewModel>();
         serviceCollection.AddTransient<SetLinksViewModel>();
         serviceCollection.AddTransient<SoundConfigurationViewModel>();
-        serviceCollection.AddTransient<SupportOptionViewModel>();
         serviceCollection.AddTransient<RomHistoryViewModel>();
         serviceCollection.AddTransient<SupportViewModel>();
         serviceCollection.AddTransient<RetroAchievementsSettingsViewModel>();
