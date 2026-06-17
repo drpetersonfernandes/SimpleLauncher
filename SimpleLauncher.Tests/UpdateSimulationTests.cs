@@ -340,5 +340,9 @@ public class UpdateSimulationTests : IDisposable
         public void LogException(Exception ex, string? contextMessage = null)
         {
         }
+
+        public void OpenDebugWindow()
+        {
+        }
     }
 }

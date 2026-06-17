@@ -35,6 +35,10 @@ public class RetroAchievementsManagerTests : IDisposable
         public void LogException(Exception ex, string? contextMessage = null)
         {
         }
+
+        public void OpenDebugWindow()
+        {
+        }
     }
 
     public RetroAchievementsManagerTests()

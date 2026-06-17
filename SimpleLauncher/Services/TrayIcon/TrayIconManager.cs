@@ -147,18 +147,7 @@ public class TrayIconManager : IDisposable
     {
         try
         {
-            // Initialize DebugWindow if it doesn't exist yet
-            DebugWindow.Initialize();
-
-            // Show the debug window
-            if (DebugWindow.Instance == null) return;
-
-            DebugWindow.Instance.Show();
-            DebugWindow.Instance.WindowState = WindowState.Normal;
-            DebugWindow.Instance.Activate();
-
-            // Log that the debug window was opened from tray
-            _debugLogger.Log("Debug window opened from tray menu");
+            _debugLogger.OpenDebugWindow();
         }
         catch (Exception ex)
         {

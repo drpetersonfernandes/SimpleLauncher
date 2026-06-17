@@ -61,6 +61,15 @@ public partial class DebugWindow
         });
     }
 
+    // Method to load pre-formatted buffered messages (preserves original timestamps)
+    internal void LoadBufferedMessages(IEnumerable<string> formattedMessages)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            _viewModel.LoadBufferedMessages(formattedMessages);
+        });
+    }
+
     private static void LogWindow_Closed(object sender, EventArgs e)
     {
         lock (InstanceLock)

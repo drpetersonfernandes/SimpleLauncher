@@ -72,6 +72,34 @@ public partial class DebugViewModel : ObservableObject
         }
     }
 
+    /// <summary>
+    /// Loads pre-formatted (already timestamped) messages into the log.
+    /// Used to populate the window with buffered messages when opened from the tray.
+    /// </summary>
+    public void LoadBufferedMessages(IEnumerable<string> formattedMessages)
+    {
+        var dispatcher = System.Windows.Application.Current?.Dispatcher;
+        if (dispatcher is not null && !dispatcher.CheckAccess())
+        {
+            dispatcher.Invoke(() => LoadBufferedMessages(formattedMessages));
+            return;
+        }
+
+        lock (_logLock)
+        {
+            foreach (var msg in formattedMessages)
+            {
+                LogMessages.Add(msg);
+            }
+
+            LogText = string.Join(Environment.NewLine, LogMessages) + Environment.NewLine;
+            OnPropertyChanged(nameof(CanClearLog));
+            OnPropertyChanged(nameof(CanCopyLog));
+            ClearLogCommand.NotifyCanExecuteChanged();
+            CopyLogCommand.NotifyCanExecuteChanged();
+        }
+    }
+
     [RelayCommand(CanExecute = nameof(CanClearLog))]
     private void ClearLog()
     {

@@ -161,5 +161,9 @@ public class MountZipFilesTests
         public void LogException(Exception ex, string? contextMessage = null)
         {
         }
+
+        public void OpenDebugWindow()
+        {
+        }
     }
 }

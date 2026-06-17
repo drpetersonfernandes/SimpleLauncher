@@ -12,6 +12,8 @@ public class DebugLogger : IDebugLogger
 {
     private readonly bool _isDebugMode;
     private readonly object _initLock = new();
+    private readonly object _bufferLock = new();
+    private readonly List<string> _messageBuffer = [];
     private DebugWindow _logWindowInstance;
     private bool _windowInitialized;
 
@@ -26,11 +28,25 @@ public class DebugLogger : IDebugLogger
 
     /// <summary>
     /// Logs a debug message to the debug output and optionally to the debug window.
+    /// Messages are always buffered so they can be displayed when the debug window is opened later.
     /// </summary>
     /// <param name="message">The message to log.</param>
     public void Log(string message)
     {
         Debug.WriteLine($"[DEBUG] {DateTime.Now:HH:mm:ss.fff} - {message}");
+
+        var timestampedMessage = $"{DateTime.Now:HH:mm:ss} - {message}";
+
+        lock (_bufferLock)
+        {
+            _messageBuffer.Add(timestampedMessage);
+        }
+
+        if (_windowInitialized)
+        {
+            _logWindowInstance?.AppendLogMessage(message);
+            return;
+        }
 
         if (!_isDebugMode) return;
 
@@ -65,6 +81,48 @@ public class DebugLogger : IDebugLogger
                 _logWindowInstance = DebugWindow.Instance;
             }
         }
+    }
+
+    /// <summary>
+    /// Opens the debug window, connecting the logger to it and loading any buffered messages.
+    /// Can be called from any thread.
+    /// </summary>
+    public void OpenDebugWindow()
+    {
+        var dispatcher = System.Windows.Application.Current?.Dispatcher;
+        if (dispatcher != null && !dispatcher.CheckAccess())
+        {
+            dispatcher.Invoke(OpenDebugWindow);
+            return;
+        }
+
+        DebugWindow.Initialize();
+
+        lock (_initLock)
+        {
+            if (!_windowInitialized)
+            {
+                _windowInitialized = true;
+                _logWindowInstance = DebugWindow.Instance;
+
+                if (_logWindowInstance != null)
+                {
+                    List<string> bufferedCopy;
+                    lock (_bufferLock)
+                    {
+                        bufferedCopy = [.. _messageBuffer];
+                    }
+
+                    _logWindowInstance.LoadBufferedMessages(bufferedCopy);
+                }
+            }
+        }
+
+        if (DebugWindow.Instance == null) return;
+
+        DebugWindow.Instance.Show();
+        DebugWindow.Instance.WindowState = System.Windows.WindowState.Normal;
+        DebugWindow.Instance.Activate();
     }
 
     /// <summary>

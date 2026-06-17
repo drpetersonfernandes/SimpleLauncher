@@ -24,4 +24,11 @@ public class NoOpDebugLogger : IDebugLogger
     public void LogException(Exception ex, string? contextMessage = null)
     {
     }
+
+    /// <summary>
+    /// Does nothing.
+    /// </summary>
+    public void OpenDebugWindow()
+    {
+    }
 }

@@ -31,6 +31,10 @@ public class FindGameFileTests : IDisposable
         public void LogException(Exception ex, string? contextMessage = null)
         {
         }
+
+        public void OpenDebugWindow()
+        {
+        }
     }
 
     public FindGameFileTests()

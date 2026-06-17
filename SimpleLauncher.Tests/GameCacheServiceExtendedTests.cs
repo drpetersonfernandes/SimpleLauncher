@@ -30,6 +30,10 @@ public class GameCacheServiceExtendedTests : IDisposable
         public void LogException(Exception ex, string? contextMessage = null)
         {
         }
+
+        public void OpenDebugWindow()
+        {
+        }
     }
 
     public GameCacheServiceExtendedTests()
