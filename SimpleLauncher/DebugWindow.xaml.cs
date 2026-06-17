@@ -40,6 +40,14 @@ public partial class DebugWindow
 
                 Instance.DataContext = Instance._viewModel;
 
+                Instance._viewModel.PropertyChanged += (_, args) =>
+                {
+                    if (args.PropertyName == nameof(DebugViewModel.LogText))
+                    {
+                        Instance.Dispatcher.BeginInvoke(() => Instance.LogTextBox.ScrollToEnd());
+                    }
+                };
+
                 Instance.Show();
             }
             else
