@@ -3163,6 +3163,15 @@ You can download this emulator on the [Official Website](https://github.com/Sour
 
 .
 
+**Emulator Name:** MyNes<br>
+**Emulator Path (Example):** C:\Emulators\MyNes\MyNes.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+
+.
+
 **Emulator Name:** Retroarch mesen<br>
 **Emulator Path (Example):** C:\Emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example using absolute paths):** -L "C:\Emulators\retroarch\cores\mesen_libretro.dll" -f<br>

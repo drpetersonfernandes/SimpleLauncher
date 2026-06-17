@@ -156,7 +156,8 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
             "Mitsubishi Multi-8", "Memotech MTX", "Matsushita JR-100", "M&D Monon Color", "Jupiter Ace", "Java",
             "Sord M5", "Sinclair QL", "Vector06c", "Sharp MZ-2200", "Sega Super Control Station", "Sega SC-3000",
             "Sega SC3000", "Sega SC 3000", "Sam Coupé", "RM Nimbus", "RCA Chip-8", "Philips VG5000", "RCA Studio II",
-            "Philips P2000", "SEGA_action", "ReflectionHLE"
+            "Philips P2000", "SEGA_action", "ReflectionHLE", "Spectravideo", "Symbian", "Tandy TRS80", "Tangerine Microtan 65",
+            "Tatung Einstein TC-01"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),
