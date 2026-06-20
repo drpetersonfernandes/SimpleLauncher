@@ -88,7 +88,8 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         // Other systems
         ["arcade"] = new RaSystemInfo(27, [
             "arcade", "mame", "m.a.m.e.", "arcade games", "arcade classics", "fliperama",
-            "neogeo", "neo geo", "neo-geo", "snk neo geo", "snk neogeo", "ARCADE GAME", "ARCADE - Multiple Arcade Machine Emulator", "sega model", "sega_Model 2", "sega model 3m"
+            "neogeo", "neo geo", "neo-geo", "snk neo geo", "snk neogeo", "ARCADE GAME", "ARCADE - Multiple Arcade Machine Emulator", "sega model",
+            "sega_Model 2", "@sega_Model 2", "@sega model"
         ]),
         ["neo geo pocket"] = new RaSystemInfo(14, ["neo geo pocket", "neo geo pocket color", "neogeo pocket", "neogeo pocket color", "ngp", "ngpc", "SNK Neo Geo Pocket Color", "SNK Neo Geo Pocket"]),
         ["magnavox odyssey 2"] = new RaSystemInfo(23, ["magnavox odyssey 2", "odyssey 2", "odyssey2", "videopac g7000"]),
@@ -157,7 +158,8 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
             "Sord M5", "Sinclair QL", "Vector06c", "Sharp MZ-2200", "Sega Super Control Station", "Sega SC-3000",
             "Sega SC3000", "Sega SC 3000", "Sam Coupé", "RM Nimbus", "RCA Chip-8", "Philips VG5000", "RCA Studio II",
             "Philips P2000", "SEGA_action", "ReflectionHLE", "Spectravideo", "Symbian", "Tandy TRS80", "Tangerine Microtan 65",
-            "Tatung Einstein TC-01"
+            "Tatung Einstein TC-01", "SEGA_fighting", "SEGA_arcade", "SEGA_SPORTS", "Metroid Saga", "Sega Chihiro", "ReflectionHLE",
+            "Technosys Aamber Pegasus", "TI-99", "TI-73", "TI-80", "@sega_model 3", "sega model 3m"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),
