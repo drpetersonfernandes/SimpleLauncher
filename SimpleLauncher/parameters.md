@@ -974,10 +974,24 @@ You can download this emulator on the [Official Website](https://vice-emu.source
 
 .
 
-**Emulator Name:** Retroarch vice_x64<br>
+**Emulator Name:** Retroarch vice_x64_libretro<br>
 **Emulator Path (Example):** C:\Emulators\Retroarch\retroarch.exe<br>
 **Emulator Parameters (Example using absolute paths):** -L "C:\Emulators\retroarch\cores\vice_x64_libretro.dll" -f<br>
 **Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\vice_x64_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/vice/).<br>
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
+
+.
+
+**Emulator Name:** Retroarch vice_x64sc_libretro<br>
+**Emulator Path (Example):** C:\Emulators\Retroarch\retroarch.exe<br>
+**Emulator Parameters (Example using absolute paths):** -L "C:\Emulators\retroarch\cores\vice_x64sc_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\vice_x64sc_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2692,6 +2706,16 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 .
 
+**Emulator Name:** mGBA<br>
+**Emulator Path (Example):** C:\Emulators\mBGA\mGBA.exe<br>
+**Emulator Parameters (Example):** -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://mgba.io/).<br>
+
+.
+
 **Emulator Name:** Ares<br>
 **Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Game Boy"<br>
@@ -2844,6 +2868,16 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 
 .
 
+**Emulator Name:** mGBA<br>
+**Emulator Path (Example):** C:\Emulators\mBGA\mGBA.exe<br>
+**Emulator Parameters (Example):** -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://mgba.io/).<br>
+
+.
+
 **Emulator Name:** Ares<br>
 **Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Game Boy Advance"<br>
@@ -2931,6 +2965,16 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **Extract File Before Launch?** false or true (depends on the emulator you are using)<br>
 **Extension to Launch After Extraction:** gb, sgb, gbc, gba<br>
 **Group Files by Folder:** false<br>
+
+.
+
+**Emulator Name:** mGBA<br>
+**Emulator Path (Example):** C:\Emulators\mBGA\mGBA.exe<br>
+**Emulator Parameters (Example):** -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://mgba.io/).<br>
 
 .
 
