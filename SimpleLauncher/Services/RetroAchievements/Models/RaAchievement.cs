@@ -1,3 +1,5 @@
+using System.Windows.Media.Imaging;
+
 namespace SimpleLauncher.Services.RetroAchievements.Models;
 
 /// <summary>
@@ -10,6 +12,7 @@ public class RaAchievement
     public string Description { get; set; }
     public int Points { get; set; }
     public string BadgeUri { get; set; }
+    public BitmapImage BadgeImage { get; set; }
     public bool IsUnlocked { get; set; }
     public DateTime? DateUnlocked { get; set; }
     public bool UnlockedInHardcore { get; set; }

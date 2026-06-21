@@ -1515,7 +1515,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **System Folder (Example):** c:\Microsoft MSX<br>
 **Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
-**Extension to Launch After Extraction:** rom, ri, mx1, mx2, col, dsk, cas, sg, sc, m3u<br>
+**Extension to Launch After Extraction:** rom, ri, mx1, mx2, col, dsk, cas, sg, sc, m3u, fdi<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1582,6 +1582,15 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 Core may require BIOS files or system files to work.<br>
 You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
+.
+
+**Emulator Name:** fMSX<br>
+**Emulator Path (Example):** C:\Emulators\fMSX\fMSX.exe<br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://fms.komkon.org/fMSX/).<br>
 
 .
 
@@ -1678,6 +1687,16 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fmsx/).<br>
 Core may require BIOS files or system files to work.<br>
 You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
+
+.
+
+**Emulator Name:** fMSX<br>
+**Emulator Path (Example):** C:\Emulators\fMSX\fMSX.exe<br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://fms.komkon.org/fMSX/).<br>
 
 .
 

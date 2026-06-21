@@ -159,7 +159,7 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
             "Sega SC3000", "Sega SC 3000", "Sam Coupé", "RM Nimbus", "RCA Chip-8", "Philips VG5000", "RCA Studio II",
             "Philips P2000", "SEGA_action", "ReflectionHLE", "Spectravideo", "Symbian", "Tandy TRS80", "Tangerine Microtan 65",
             "Tatung Einstein TC-01", "SEGA_fighting", "SEGA_arcade", "SEGA_SPORTS", "Metroid Saga", "Sega Chihiro", "ReflectionHLE",
-            "Technosys Aamber Pegasus", "TI-99", "TI-73", "TI-80", "@sega_model 3", "sega model 3m"
+            "Technosys Aamber Pegasus", "TI-99", "TI-73", "TI-80", "@sega_model 3", "sega model 3m", "FBNeo"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),

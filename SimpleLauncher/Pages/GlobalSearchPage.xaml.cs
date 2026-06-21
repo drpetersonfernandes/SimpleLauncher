@@ -137,15 +137,26 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
             var searchFolderName = SearchFolderNameCheckBox.IsChecked == true;
             var searchRecursively = SearchRecursivelyCheckBox.IsChecked == true;
 
-            await _viewModel.SearchAsync(searchTerm, selectedSystem, searchFilename, searchMameDescription,
-                searchFolderName, searchRecursively);
+            SetLoadingState(true, "Searching... Please wait.");
+            await Task.Yield();
 
-            // Update UI after search
-            ResultsDataGrid.ItemsSource = _viewModel.SearchResults;
-            NoResultsMessageOverlay.Visibility = _viewModel.NoResultsVisible ? Visibility.Visible : Visibility.Collapsed;
+            try
+            {
+                await _viewModel.SearchAsync(searchTerm, selectedSystem, searchFilename, searchMameDescription,
+                    searchFolderName, searchRecursively);
+
+                // Update UI after search
+                ResultsDataGrid.ItemsSource = _viewModel.SearchResults;
+                NoResultsMessageOverlay.Visibility = _viewModel.NoResultsVisible ? Visibility.Visible : Visibility.Collapsed;
+            }
+            finally
+            {
+                SetLoadingState(false);
+            }
         }
         catch (Exception ex)
         {
+            SetLoadingState(false);
             await _logErrors.LogErrorAsync(ex, "Error in SearchButtonClickAsync.");
         }
     }

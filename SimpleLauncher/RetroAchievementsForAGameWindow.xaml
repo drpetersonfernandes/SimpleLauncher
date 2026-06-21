@@ -141,7 +141,7 @@
                                     <DataGridTemplateColumn Header="{DynamicResource HeaderIcon}" Width="Auto">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                     <Image Source="{Binding BadgeUri, Converter={StaticResource ImageUrlConverter}}" Width="40" Height="40" Margin="5" d:DataContext="{d:DesignInstance }" />
+                                                     <Image Source="{Binding BadgeImage}" Width="40" Height="40" Margin="5" d:DataContext="{d:DesignInstance }" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -331,7 +331,7 @@
                                         <DataGridTemplateColumn Header="{DynamicResource HeaderIcon}" Width="Auto">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <Image Source="{Binding BadgeUri, Converter={StaticResource ImageUrlConverter}}" Width="40" Height="40" Margin="5" d:DataContext="{d:DesignInstance }" />
+                                                    <Image Source="{Binding BadgeImage}" Width="40" Height="40" Margin="5" d:DataContext="{d:DesignInstance }" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>

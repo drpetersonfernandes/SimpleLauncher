@@ -208,11 +208,11 @@
                         <Border Padding="15" BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}" BorderThickness="1" CornerRadius="5">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBlock Text="{DynamicResource TotalUnlocksInRange}" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                                    <TextBlock Text="{DynamicResource TotalUnlocksInRange}" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource MahApps.Brushes.Text}" Margin="0,0,10,0"/>
                                     <TextBlock x:Name="TotalUnlocksInRangeText" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource MahApps.Brushes.Accent}" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
-                                    <TextBlock Text="{DynamicResource TotalPointsEarnedInRange}" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                                    <TextBlock Text="{DynamicResource TotalPointsEarnedInRange}" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource MahApps.Brushes.Text}" Margin="0,0,10,0"/>
                                     <TextBlock x:Name="TotalPointsEarnedInRangeText" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource MahApps.Brushes.Accent}" />
                                 </StackPanel>
                             </StackPanel>

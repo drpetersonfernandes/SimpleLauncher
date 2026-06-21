@@ -445,12 +445,13 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
 
                 if (!string.IsNullOrEmpty(progress.GameIconUrl))
                 {
-                    GameCoverImage.Source = new BitmapImage(new Uri(progress.GameIconUrl));
+                    GameCoverImage.Source = await LoadImageFromUrlAsync(progress.GameIconUrl);
                 }
 
                 // Update progress bars and stats
                 UpdateProgressDisplay(progress);
 
+                await PreloadBadgeImagesAsync(achievements);
                 AchievementsDataGrid.ItemsSource = achievements;
                 NoAchievementsOverlay.Visibility = Visibility.Collapsed;
             }
@@ -518,8 +519,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                 {
                     try
                     {
-                        var uri = new Uri($"https://retroachievements.org{gameInfo.ImageIcon}");
-                        GameInfoImageIcon.Source = new BitmapImage(uri); // For the image section
+                        GameInfoImageIcon.Source = await LoadImageFromUrlAsync($"https://retroachievements.org{gameInfo.ImageIcon}");
                     }
                     catch
                     {
@@ -537,7 +537,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                 {
                     try
                     {
-                        GameInfoTitleImage.Source = new BitmapImage(new Uri($"https://retroachievements.org{gameInfo.ImageTitle}"));
+                        GameInfoTitleImage.Source = await LoadImageFromUrlAsync($"https://retroachievements.org{gameInfo.ImageTitle}");
                     }
                     catch
                     {
@@ -553,7 +553,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                 {
                     try
                     {
-                        GameInfoIngameImage.Source = new BitmapImage(new Uri($"https://retroachievements.org{gameInfo.ImageIngame}"));
+                        GameInfoIngameImage.Source = await LoadImageFromUrlAsync($"https://retroachievements.org{gameInfo.ImageIngame}");
                     }
                     catch
                     {
@@ -569,7 +569,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                 {
                     try
                     {
-                        GameInfoBoxArtImage.Source = new BitmapImage(new Uri($"https://retroachievements.org{gameInfo.ImageBoxArt}"));
+                        GameInfoBoxArtImage.Source = await LoadImageFromUrlAsync($"https://retroachievements.org{gameInfo.ImageBoxArt}");
                     }
                     catch
                     {
@@ -627,6 +627,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                             DateCreated = a.DateCreated
                         })
                         .ToList();
+                    await PreloadBadgeImagesAsync(achievementsList);
                     GameInfoAchievementsDataGrid.ItemsSource = achievementsList;
                     GameInfoAchievementsSection.Visibility = Visibility.Visible;
                 }
@@ -854,7 +855,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                 // Basic profile info
                 if (!string.IsNullOrEmpty(userProfile.UserPic))
                 {
-                    UserProfilePic.Source = new BitmapImage(new Uri($"https://retroachievements.org{userProfile.UserPic}"));
+                    UserProfilePic.Source = await LoadImageFromUrlAsync($"https://retroachievements.org{userProfile.UserPic}");
                 }
                 else
                 {
@@ -1148,6 +1149,40 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
             LoadingOverlay.Visibility = Visibility.Collapsed;
             await Task.Yield();
         }
+    }
+
+    private static readonly HttpClient SharedHttpClient = new();
+
+    private static async Task<BitmapImage> LoadImageFromUrlAsync(string url)
+    {
+        try
+        {
+            var imageBytes = await SharedHttpClient.GetByteArrayAsync(url);
+            using var ms = new MemoryStream(imageBytes);
+            var bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.StreamSource = ms;
+            bitmapImage.EndInit();
+            bitmapImage.Freeze();
+            return bitmapImage;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static Task PreloadBadgeImagesAsync(IEnumerable<RaAchievement> achievements)
+    {
+        var tasks = achievements.Select(async achievement =>
+        {
+            if (!string.IsNullOrEmpty(achievement.BadgeUri))
+            {
+                achievement.BadgeImage = await LoadImageFromUrlAsync(achievement.BadgeUri);
+            }
+        });
+        return Task.WhenAll(tasks);
     }
 
     private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)

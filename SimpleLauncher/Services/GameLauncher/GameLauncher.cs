@@ -1506,7 +1506,8 @@ public partial class GameLauncher : ILauncherService
         var emulatorsToSkipErrorChecking = _configuration.GetValue<string[]>("EmulatorsToSkipErrorChecking") ??
         [
             "Kega Fusion", "KegaFusion", "Kega", "Fusion", "Fusion.exe", "Project64", "Project 64",
-            "Project64.exe", "Emulicious", "Emulicious.exe", "Speccy", "Speccy.exe", "ProSystem.exe", "ProSystem"
+            "Project64.exe", "Emulicious", "Emulicious.exe", "Speccy", "Speccy.exe", "ProSystem.exe", "ProSystem",
+            "fMSX.exe", "fMSX"
         ];
 
         foreach (var emulatorToSkip in emulatorsToSkipErrorChecking)

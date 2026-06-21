@@ -134,8 +134,6 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
             LoadingMessage = _resourceProvider.GetString("Searchingpleasewait", "Searching... Please wait.");
             NoResultsVisible = false;
 
-            await Task.Yield();
-
             try
             {
                 var results = await PerformSearchAsync(
