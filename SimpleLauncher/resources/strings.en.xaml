@@ -1846,6 +1846,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">The file has been removed from the list.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">The file 'helpuser.xml' is missing.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">The file 'mame.dat' could not be found in the application folder.</system:String>
+    <system:String x:Key="Thefilenolongerexists">The file no longer exists on disk</system:String>
     <system:String x:Key="Thefileparametersmdisempty">The file 'parameters.md' is empty.</system:String>
     <system:String x:Key="Thefileparametersmdismissing">The file 'parameters.md' is missing.</system:String>
     <system:String x:Key="Thefilepathisinvalid">The filepath is invalid or the file does not exist!</system:String>
@@ -1853,6 +1854,7 @@
     <system:String x:Key="Thefilesystemxmlislocked">The file 'system.xml' is locked or inaccessible by another process.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">The following required file(s) are missing:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">The game file does not exist!</system:String>
+    <system:String x:Key="Thegamelistwillberefreshed">The game list will be refreshed.</system:String>
     <system:String x:Key="Thegamewilllaunchnow">The game will launch now.</system:String>
     <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">The 'Group Files by Folder' option is only compatible with MAME emulators (Software List CHDs) or DOSBox emulators (uncompressed DOS game folders). To use a different emulator, please edit the system settings and disable this option.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">The image may be corrupted or inaccessible.</system:String>

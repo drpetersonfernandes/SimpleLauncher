@@ -314,6 +314,18 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
+    /// Displays an info message when a file no longer exists on disk and the game list will be refreshed.
+    /// </summary>
+    public Task FileNoLongerExistsMessageBoxAsync(string fileNameWithExtension)
+    {
+        var thefilenolongerexists = _resourceProvider.GetString("Thefilenolongerexists", "The file no longer exists on disk");
+        var thegamelistwillberefreshed = _resourceProvider.GetString("Thegamelistwillberefreshed", "The game list will be refreshed.");
+        var info = _resourceProvider.GetString("Info", "Info");
+
+        return _messageDialog.ShowInfoAsync($"{thefilenolongerexists} '{fileNameWithExtension}'.\n\n{thegamelistwillberefreshed}", info);
+    }
+
+    /// <summary>
     /// Displays an error when the default image file is missing, with an option to reinstall the application.
     /// </summary>
     public async Task DefaultImageNotFoundMessageBoxAsync()

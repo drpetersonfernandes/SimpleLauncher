@@ -1265,12 +1265,19 @@ public class ContextMenuFunctions : IContextMenuFunctions
         }
         else
         {
-            // Notify developer
-            var contextMessage = $"The file '{fileNameWithExtension}' could not be found for deletion.\n\nFile path checked: {filePath}";
-            logErrors.LogAndForget(null, contextMessage);
+            // Notify user the file no longer exists
+            await messageBox.FileNoLongerExistsMessageBoxAsync(fileNameWithExtension);
 
-            // Notify user
-            await messageBox.FileCouldNotBeDeletedMessageBoxAsync(fileNameWithExtension);
+            // Refresh the game list to remove the stale entry
+            try
+            {
+                await mainWindow.LoadGameFilesAsync();
+            }
+            catch (Exception ex)
+            {
+                const string contextMessage = "There was a problem loading the Game Files after detecting a missing file.";
+                logErrors.LogAndForget(ex, contextMessage);
+            }
         }
     }
 

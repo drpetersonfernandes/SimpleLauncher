@@ -28,6 +28,7 @@ public interface IMessageBoxLibraryService
     Task ThereIsNoPcbMessageBoxAsync();
     Task FileSuccessfullyDeletedMessageBoxAsync(string fileNameWithExtension);
     Task FileCouldNotBeDeletedMessageBoxAsync(string fileNameWithExtension);
+    Task FileNoLongerExistsMessageBoxAsync(string fileNameWithExtension);
     Task DefaultImageNotFoundMessageBoxAsync();
     Task GlobalSearchErrorMessageBoxAsync();
     Task PleaseEnterSearchTermMessageBoxAsync();

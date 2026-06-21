@@ -194,6 +194,15 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
+    /// Does nothing. Does not display the file-no-longer-exists message box.
+    /// </summary>
+    /// <param name="fileNameWithExtension">The file name that no longer exists.</param>
+    public Task FileNoLongerExistsMessageBoxAsync(string fileNameWithExtension)
+    {
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
     /// Does nothing. Does not display the default-image-not-found message box.
     /// </summary>
     public Task DefaultImageNotFoundMessageBoxAsync()

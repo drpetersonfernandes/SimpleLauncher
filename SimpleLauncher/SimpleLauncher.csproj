@@ -930,7 +930,6 @@
         <Page Remove="resources\Strings.en.xaml" />
         <Resource Include="resources\strings.en.xaml" />
         <Page Remove="resources\Strings.es.xaml" />
-        <Resource Include="resources\strings.es.xaml" />
         <Page Remove="resources\Strings.fr.xaml" />
         <Resource Include="resources\strings.fr.xaml" />
         <Page Remove="resources\Strings.ja.xaml" />
@@ -956,7 +955,6 @@
         <Page Remove="resources\strings.nl.xaml" />
         <Resource Include="resources\strings.nl.xaml" />
         <Page Remove="resources\strings.tr.xaml" />
-        <Resource Include="resources\strings.tr.xaml" />
         <Page Remove="resources\strings.vi.xaml" />
         <Resource Include="resources\strings.vi.xaml" />
         <Resource Include="resources2\Theme.Midnight.xaml" />
