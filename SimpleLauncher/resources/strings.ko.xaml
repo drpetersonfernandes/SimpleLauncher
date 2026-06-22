@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">모든 게임</system:String>
     <system:String x:Key="10000games">10000 게임</system:String>
     <system:String x:Key="1000games">1000 게임</system:String>
@@ -1847,6 +1848,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">파일이 목록에서 제거되었습니다.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' 파일이 없습니다.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">애플리케이션 폴더에서 'mame.dat' 파일을 찾을 수 없습니다.</system:String>
+    <system:String x:Key="Thefilenolongerexists">파일이 디스크에 더 이상 존재하지 않습니다.</system:String>
     <system:String x:Key="Thefileparametersmdisempty">'parameters.md' 파일이 비어 있습니다.</system:String>
     <system:String x:Key="Thefileparametersmdismissing">'parameters.md' 파일이 없습니다.</system:String>
     <system:String x:Key="Thefilepathisinvalid">파일 경로가 유효하지 않거나 파일이 존재하지 않습니다!</system:String>
@@ -1854,6 +1856,7 @@
     <system:String x:Key="Thefilesystemxmlislocked">파일 'system.xml'이 잠겨 있거나 다른 프로세스에서 액세스할 수 없습니다.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">다음 필수 파일이 누락되었습니다:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">게임 파일이 존재하지 않습니다!</system:String>
+    <system:String x:Key="Thegamelistwillberefreshed">게임 목록이 새로 고쳐집니다.</system:String>
     <system:String x:Key="Thegamewilllaunchnow">게임이 지금 시작됩니다.</system:String>
     <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">'폴더별 파일 그룹화' 옵션은 MAME 에뮬레이터(소프트웨어 목록 CHD) 또는 DOSBox 에뮬레이터(압축되지 않은 DOS 게임 폴더)에서만 호환됩니다. 다른 에뮬레이터를 사용하려면 시스템 설정을 편집하고 이 옵션을 비활성화하십시오.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">이미지가 손상되었거나 액세스할 수 없습니다.</system:String>

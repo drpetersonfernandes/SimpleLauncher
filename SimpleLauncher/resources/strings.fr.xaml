@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">Tous les jeux</system:String>
     <system:String x:Key="10000games">10000 jeux</system:String>
     <system:String x:Key="1000games">1000 jeux</system:String>
@@ -1847,6 +1848,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">Le fichier a été supprimé de la liste.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Le fichier 'helpuser.xml' est manquant.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Le fichier 'mame.dat' n'a pas été trouvé dans le dossier de l'application.</system:String>
+    <system:String x:Key="Thefilenolongerexists">Le fichier n'existe plus sur le disque</system:String>
     <system:String x:Key="Thefileparametersmdisempty">Le fichier 'parameters.md' est vide.</system:String>
     <system:String x:Key="Thefileparametersmdismissing">Le fichier 'parameters.md' est manquant.</system:String>
     <system:String x:Key="Thefilepathisinvalid">Le chemin du fichier est invalide ou le fichier n'existe pas !</system:String>
@@ -1854,6 +1856,7 @@
     <system:String x:Key="Thefilesystemxmlislocked">Le fichier 'system.xml' est verrouillé ou inaccessible par un autre processus.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">Les fichiers requis suivants sont manquants :</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Le fichier du jeu n'existe pas !</system:String>
+    <system:String x:Key="Thegamelistwillberefreshed">La liste des jeux sera actualisée.</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Le jeu va se lancer maintenant.</system:String>
     <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">L'option 'Regrouper les fichiers par dossier' est uniquement compatible avec les émulateurs MAME (CHDs de la liste logicielle) ou les émulateurs DOSBox (dossiers de jeux DOS non compressés). Pour utiliser un émulateur différent, veuillez modifier les paramètres système et désactiver cette option.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">L'image peut être corrompue ou inaccessible.</system:String>

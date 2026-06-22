@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">Tüm oyunlar</system:String>
     <system:String x:Key="10000games">10000 oyun</system:String>
     <system:String x:Key="1000games">1000 oyun</system:String>
@@ -1847,6 +1848,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">Dosya listeden kaldırıldı.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' dosyası eksik.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">'mame.dat' dosyası uygulama klasöründe bulunamadı.</system:String>
+    <system:String x:Key="Thefilenolongerexists">Dosya artık diskte mevcut değil.</system:String>
     <system:String x:Key="Thefileparametersmdisempty">'parameters.md' dosyası boş.</system:String>
     <system:String x:Key="Thefileparametersmdismissing">'parameters.md' dosyası eksik.</system:String>
     <system:String x:Key="Thefilepathisinvalid">Dosya yolu geçersiz veya dosya mevcut değil!</system:String>
@@ -1854,6 +1856,7 @@
     <system:String x:Key="Thefilesystemxmlislocked">'system.xml' dosyası kilitli veya başka bir işlem tarafından erişilemiyor.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">Aşağıdaki gerekli dosya(lar) eksik:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Oyun dosyası mevcut değil!</system:String>
+    <system:String x:Key="Thegamelistwillberefreshed">Oyun listesi yenilenecektir.</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Oyun şimdi başlatılacak.</system:String>
     <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">'Dosyaları Klasöre Göre Grupla' seçeneği yalnızca MAME emülatörleri (Yazılım Listesi CHD'leri) veya DOSBox emülatörleri (sıkıştırılmamış DOS oyunu klasörleri) ile uyumludur. Farklı bir emülatör kullanmak için lütfen sistem ayarlarını düzenleyin ve bu seçeneği devre dışı bırakın.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">Resim bozulmuş veya erişilemez durumda olabilir.</system:String>

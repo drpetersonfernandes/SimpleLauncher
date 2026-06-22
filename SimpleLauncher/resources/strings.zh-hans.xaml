@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">所有游戏</system:String>
     <system:String x:Key="10000games">10000 游戏</system:String>
     <system:String x:Key="1000games">1000 游戏</system:String>
@@ -1847,6 +1848,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">文件已从列表中删除。</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">文件“helpuser.xml”缺失。</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">在应用程序文件夹中找不到 'mame.dat' 文件。</system:String>
+    <system:String x:Key="Thefilenolongerexists">文件在磁盘上已不存在</system:String>
     <system:String x:Key="Thefileparametersmdisempty">文件'parameters.md'为空。</system:String>
     <system:String x:Key="Thefileparametersmdismissing">文件'parameters.md'缺失。</system:String>
     <system:String x:Key="Thefilepathisinvalid">文件路径无效或文件不存在！</system:String>
@@ -1854,6 +1856,7 @@
     <system:String x:Key="Thefilesystemxmlislocked">文件 'system.xml' 已被锁定或被其他进程占用。</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">缺少以下必需文件：</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">游戏文件不存在！</system:String>
+    <system:String x:Key="Thegamelistwillberefreshed">游戏列表将刷新。</system:String>
     <system:String x:Key="Thegamewilllaunchnow">游戏即将启动。</system:String>
     <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">“按文件夹分组文件”选项仅兼容 MAME 模拟器（软件列表 CHD）或 DOSBox 模拟器（未压缩的 DOS 游戏文件夹）。要使用其他模拟器，请编辑系统设置并禁用此选项。</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">图片可能已损坏或无法访问。</system:String>

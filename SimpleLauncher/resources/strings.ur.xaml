@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">تمام گیمز</system:String>
     <system:String x:Key="10000games">10000 گیمز</system:String>
     <system:String x:Key="1000games">1000 گیمز</system:String>
@@ -1847,6 +1848,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">فائل کو فہرست سے ہٹا دیا گیا ہے۔</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' فائل موجود نہیں ہے۔</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">ایپلیکیشن فولڈر میں 'mame.dat' فائل نہیں ملی۔</system:String>
+    <system:String x:Key="Thefilenolongerexists">فائل اب ڈسک پر موجود نہیں ہے۔</system:String>
     <system:String x:Key="Thefileparametersmdisempty">'parameters.md' فائل خالی ہے۔</system:String>
     <system:String x:Key="Thefileparametersmdismissing">'parameters.md' فائل موجود نہیں ہے۔</system:String>
     <system:String x:Key="Thefilepathisinvalid">فائل پاتھ غلط ہے یا فائل موجود نہیں ہے!</system:String>
@@ -1854,6 +1856,7 @@
     <system:String x:Key="Thefilesystemxmlislocked">فائل 'system.xml' لاک ہے یا کسی دوسرے عمل کے ذریعے ناقابل رسائی ہے۔</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">درج ذیل مطلوبہ فائلیں غائب ہیں:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">گیم فائل موجود نہیں ہے!</system:String>
+    <system:String x:Key="Thegamelistwillberefreshed">گیم کی فہرست کو ریفریش کیا جائے گا۔</system:String>
     <system:String x:Key="Thegamewilllaunchnow">گیم اب شروع ہوگی۔</system:String>
     <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">'فائلوں کو فولڈر کے لحاظ سے گروپ کریں' کا آپشن صرف MAME ایمولیٹرز (سافٹ ویئر لسٹ CHDs) یا DOSBox ایمولیٹرز (غیر کمپریسڈ DOS گیم فولڈرز) کے ساتھ مطابقت رکھتا ہے۔ مختلف ایمولیٹر استعمال کرنے کے لیے، براہ کرم سسٹم کی ترتیبات میں ترمیم کریں اور اس آپشن کو غیر فعال کریں۔</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">تصویر خراب یا قابل رسائی نہیں ہو سکتی۔</system:String>

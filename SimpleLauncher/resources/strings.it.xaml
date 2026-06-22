@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">Tutti i giochi</system:String>
     <system:String x:Key="10000games">10000 giochi</system:String>
     <system:String x:Key="1000games">1000 giochi</system:String>
@@ -1847,6 +1848,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">Il file è stato rimosso dall'elenco.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Il file 'helpuser.xml' è mancante.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Il file 'mame.dat' non è stato trovato nella cartella dell'applicazione.</system:String>
+    <system:String x:Key="Thefilenolongerexists">Il file non esiste più sul disco</system:String>
     <system:String x:Key="Thefileparametersmdisempty">Il file 'parameters.md' è vuoto.</system:String>
     <system:String x:Key="Thefileparametersmdismissing">Il file 'parameters.md' è mancante.</system:String>
     <system:String x:Key="Thefilepathisinvalid">Il percorso del file non è valido o il file non esiste!</system:String>
@@ -1854,6 +1856,7 @@
     <system:String x:Key="Thefilesystemxmlislocked">Il file 'system.xml' è bloccato o inaccessibile da un altro processo.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">I seguenti file richiesti sono mancanti:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Il file del gioco non esiste!</system:String>
+    <system:String x:Key="Thegamelistwillberefreshed">L'elenco dei giochi verrà aggiornato.</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Il gioco si avvierà ora.</system:String>
     <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">L'opzione 'Raggruppa file per cartella' è compatibile solo con gli emulatori MAME (CHD dell'elenco software) o gli emulatori DOSBox (cartelle di giochi DOS non compressi). Per utilizzare un emulatore diverso, modifica le impostazioni di sistema e disabilita questa opzione.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">L'immagine potrebbe essere corrotta o inaccessibile.</system:String>

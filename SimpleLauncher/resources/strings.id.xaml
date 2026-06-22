@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">Semua game</system:String>
     <system:String x:Key="10000games">10000 game</system:String>
     <system:String x:Key="1000games">1000 game</system:String>
@@ -1847,6 +1848,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">File telah dihapus dari daftar.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">File 'helpuser.xml' hilang.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">File 'mame.dat' tidak ditemukan di folder aplikasi.</system:String>
+    <system:String x:Key="Thefilenolongerexists">Berkas tidak lagi ada di disk</system:String>
     <system:String x:Key="Thefileparametersmdisempty">File 'parameters.md' kosong.</system:String>
     <system:String x:Key="Thefileparametersmdismissing">File 'parameters.md' hilang.</system:String>
     <system:String x:Key="Thefilepathisinvalid">Jalur file tidak valid atau file tidak ada!</system:String>
@@ -1854,6 +1856,7 @@
     <system:String x:Key="Thefilesystemxmlislocked">File 'system.xml' terkunci atau tidak dapat diakses oleh proses lain.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">File yang diperlukan berikut hilang:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">File game tidak ada!</system:String>
+    <system:String x:Key="Thegamelistwillberefreshed">Daftar game akan diperbarui</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Game akan diluncurkan sekarang.</system:String>
     <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">Opsi 'Kelompokkan Berkas berdasarkan Folder' hanya kompatibel dengan emulator MAME (CHD Daftar Perangkat Lunak) atau emulator DOSBox (folder permainan DOS yang tidak terkompresi). Untuk menggunakan emulator yang berbeda, harap edit pengaturan sistem dan nonaktifkan opsi ini.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">Gambar mungkin rusak atau tidak dapat diakses.</system:String>

@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">Alle Spiele</system:String>
     <system:String x:Key="10000games">10000 Spiele</system:String>
     <system:String x:Key="1000games">1000 Spiele</system:String>
@@ -1847,6 +1848,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">Die Datei wurde aus der Liste entfernt.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Die Datei 'helpuser.xml' fehlt.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Die Datei 'mame.dat' wurde im Anwendungsordner nicht gefunden.</system:String>
+    <system:String x:Key="Thefilenolongerexists">Die Datei existiert nicht mehr auf der Festplatte</system:String>
     <system:String x:Key="Thefileparametersmdisempty">Die Datei 'parameters.md' ist leer.</system:String>
     <system:String x:Key="Thefileparametersmdismissing">Die Datei 'parameters.md' fehlt.</system:String>
     <system:String x:Key="Thefilepathisinvalid">Der Dateipfad ist ungültig oder die Datei existiert nicht!</system:String>
@@ -1854,6 +1856,7 @@
     <system:String x:Key="Thefilesystemxmlislocked">Die Datei 'system.xml' ist gesperrt oder durch einen anderen Prozess unzugänglich.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">Die folgenden erforderlichen Datei(en) fehlen:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Die Spieldatei existiert nicht!</system:String>
+    <system:String x:Key="Thegamelistwillberefreshed">Die Spieleliste wird aktualisiert.</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Das Spiel wird jetzt gestartet.</system:String>
     <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">Die Option 'Dateien nach Ordner gruppieren' ist nur mit MAME-Emulatoren (Software List CHDs) oder DOSBox-Emulatoren (unkomprimierte DOS-Spieleordner) kompatibel. Um einen anderen Emulator zu verwenden, bearbeiten Sie bitte die Systemeinstellungen und deaktivieren Sie diese Option.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">Das Bild ist möglicherweise beschädigt oder nicht zugänglich.</system:String>

@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">كل الألعاب</system:String>
     <system:String x:Key="10000games">10000 لعبة</system:String>
     <system:String x:Key="1000games">1000 لعبة</system:String>
@@ -1847,6 +1848,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">تمت إزالة الملف من القائمة.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">ملف 'helpuser.xml' مفقود.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">لم يتم العثور على الملف 'mame.dat' في مجلد التطبيق.</system:String>
+    <system:String x:Key="Thefilenolongerexists">الملف لم يعد موجودًا على القرص</system:String>
     <system:String x:Key="Thefileparametersmdisempty">ملف 'parameters.md' فارغ.</system:String>
     <system:String x:Key="Thefileparametersmdismissing">ملف 'parameters.md' مفقود.</system:String>
     <system:String x:Key="Thefilepathisinvalid">مسار الملف غير صالح أو الملف غير موجود!</system:String>
@@ -1854,6 +1856,7 @@
     <system:String x:Key="Thefilesystemxmlislocked">الملف 'system.xml' مقفل أو غير قابل للوصول بواسطة عملية أخرى.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">الملفات المطلوبة التالية مفقودة:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">ملف اللعبة غير موجود!</system:String>
+    <system:String x:Key="Thegamelistwillberefreshed">سيتم تحديث قائمة الألعاب.</system:String>
     <system:String x:Key="Thegamewilllaunchnow">سيتم تشغيل اللعبة الآن.</system:String>
     <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">خيار 'تجميع الملفات حسب المجلد' متوافق فقط مع محاكيات MAME (ملفات CHD لقائمة البرامج) أو محاكيات DOSBox (مجلدات ألعاب DOS غير المضغوطة). لاستخدام محاكي مختلف، يرجى تعديل إعدادات النظام وتعطيل هذا الخيار.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">قد تكون الصورة تالفة أو غير قابلة للوصول.</system:String>

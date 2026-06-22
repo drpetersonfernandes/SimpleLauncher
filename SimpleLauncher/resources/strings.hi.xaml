@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">सभी गेम</system:String>
     <system:String x:Key="10000games">10000 गेम</system:String>
     <system:String x:Key="1000games">1000 गेम</system:String>
@@ -1847,6 +1848,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">फ़ाइल को सूची से हटा दिया गया है।</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' फाइल गायब है।</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">एप्लिकेशन फ़ोल्डर में 'mame.dat' फ़ाइल नहीं मिली।</system:String>
+    <system:String x:Key="Thefilenolongerexists">फ़ाइल अब डिस्क पर मौजूद नहीं है</system:String>
     <system:String x:Key="Thefileparametersmdisempty">'parameters.md' फाइल खाली है।</system:String>
     <system:String x:Key="Thefileparametersmdismissing">'parameters.md' फाइल गायब है।</system:String>
     <system:String x:Key="Thefilepathisinvalid">फ़ाइलपाथ अमान्य है या फ़ाइल मौजूद नहीं है!</system:String>
@@ -1854,6 +1856,7 @@
     <system:String x:Key="Thefilesystemxmlislocked">फ़ाइल 'system.xml' लॉक है या किसी अन्य प्रक्रिया द्वारा दुर्गम है।</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">निम्नलिखित आवश्यक फ़ाइलें गायब हैं:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">खेल फ़ाइल मौजूद नहीं है!</system:String>
+    <system:String x:Key="Thegamelistwillberefreshed">गेम सूची ताज़ा की जाएगी।</system:String>
     <system:String x:Key="Thegamewilllaunchnow">खेल अब शुरू होगा।</system:String>
     <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">'फ़ाइलों को फ़ोल्डर द्वारा समूहित करें' विकल्प केवल MAME एमुलेटर (सॉफ़्टवेयर सूची CHD) या DOSBox एमुलेटर (असंपीड़ित DOS गेम फ़ोल्डर) के साथ संगत है। किसी भिन्न एमुलेटर का उपयोग करने के लिए, कृपया सिस्टम सेटिंग्स संपादित करें और इस विकल्प को अक्षम करें।</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">इमेज भ्रष्ट हो सकती है या अप्राप्य है।</system:String>

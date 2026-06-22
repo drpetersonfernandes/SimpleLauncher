@@ -2,6 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     
     
+    
     <system:String x:Key="1000000games">Todos los juegos</system:String>
     <system:String x:Key="10000games">10000 juegos</system:String>
     <system:String x:Key="1000games">1000 juegos</system:String>
@@ -1847,6 +1848,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">El archivo ha sido eliminado de la lista.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">El archivo 'helpuser.xml' no se encuentra.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">No se encontró el archivo 'mame.dat' en la carpeta de la aplicación.</system:String>
+    <system:String x:Key="Thefilenolongerexists">El archivo ya no existe en el disco.</system:String>
     <system:String x:Key="Thefileparametersmdisempty">El archivo 'parameters.md' está vacío.</system:String>
     <system:String x:Key="Thefileparametersmdismissing">El archivo 'parameters.md' no se encuentra.</system:String>
     <system:String x:Key="Thefilepathisinvalid">¡La ruta del archivo no es válida o el archivo no existe!</system:String>
@@ -1854,6 +1856,7 @@
     <system:String x:Key="Thefilesystemxmlislocked">El archivo 'system.xml' está bloqueado o inaccesible por otro proceso.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">Faltan los siguientes archivos requeridos:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">¡El archivo del juego no existe!</system:String>
+    <system:String x:Key="Thegamelistwillberefreshed">La lista de juegos se actualizará.</system:String>
     <system:String x:Key="Thegamewilllaunchnow">El juego se iniciará ahora.</system:String>
     <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">La opción 'Agrupar archivos por carpeta' solo es compatible con emuladores MAME (CHDs de la lista de software) o emuladores DOSBox (carpetas de juegos DOS sin comprimir). Para usar un emulador diferente, edite la configuración del sistema y desactive esta opción.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">La imagen podría estar dañada o no ser accesible.</system:String>
