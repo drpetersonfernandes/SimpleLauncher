@@ -1,5 +1,5 @@
 # Release 5.6.0
-*2026-06-13*
+*2026-06-22*
 ---
 
 ## Game File Watcher
@@ -44,94 +44,6 @@
 - Migrated `history.xml` to `history.dat` (MessagePack binary format) for faster loading and smaller file size.
 - Maintains backward compatibility — falls back to `history.xml` if `history.dat` is not found.
 
-## Major MVVM & Architecture Refactoring
-
-### MainWindow Decomposition
-- Split monolithic `MainWindow` into focused partial class host files: `MainWindow.GameFileLoadingHost.cs`, `MainWindow.GameItemRenderHost.cs`, `MainWindow.HostImplementations.cs`, `MainWindow.MenuActionHost.cs`, `MainWindow.MenuCheckMarkHost.cs`, `MainWindow.SystemSelectionHost.cs`, `MainWindow.UIResetHost.cs`.
-- Deleted old partials: `MainWindow.LoadGameFiles.cs`, `MainWindow.LoadWindowEvents.cs`, `MainWindow.SelectASystem.cs`, `MainWindow.SystemSelection.cs`, `MainWindow.ThemeOptions.cs`.
-
-### New Service Interfaces (80+ new abstractions)
-- Extracted interfaces for all major services under `SimpleLauncher/Interfaces/`: `IWindowContext`, `IDispatcherService`, `IMessageDialogService`, `IImageLoader`, `IResourceProvider`, `ICredentialProtector`, `IGamePlatformScanner`, `IDiscConverter`, `IPaginationService`, `IGameCacheService`, `IGameFilterService`, `ISearchOrchestratorService`, `IMenuOrchestrator`, `IUiOrchestrator`, `IApplicationLifecycleService`, and many more.
-
-### New Extracted Services
-- `GameBrowserService` — Game browsing and pagination logic.
-- `PaginationService` — Page navigation and items-per-page management.
-- `GameCacheService` — Game list caching with thread-safe invalidation.
-- `GameFilterService` — Game filtering and sorting logic.
-- `SearchOrchestratorService` — Global search coordination.
-- `GameFileLoadingOrchestrator` — File loading pipeline management.
-- `GameItemRenderService` — Game item UI rendering.
-- `UiOrchestrator` — UI state coordination.
-- `MenuOrchestrator` — Menu action coordination.
-- `SystemSelectionOrchestrator` — System selection handling.
-- `ApplicationLifecycleService` — Application startup/shutdown lifecycle.
-- `AudioInputService` — Audio device management.
-- `InputSanitizerService` — Input string sanitization.
-- `DirectoryValidationService` — Directory writability checks.
-- `FileLockService` — File lock detection.
-- `CleanSimpleLauncherFolderService` — Application folder cleanup.
-- `CleanTempFolderService` — Temp folder cleanup.
-- `DeleteFilesService` — Safe file deletion.
-- `FormatFileSizeService` — Human-readable file size formatting.
-- `FindCoverImageService` — Cover image resolution with Jaro-Winkler fuzzy matching.
-- `SystemImageResolverService` — System image path resolution.
-- `SystemConfigurationService` — System configuration read/write operations.
-- `MameDataService` — MAME data file management.
-- `WindowsVersionService` — Windows version detection.
-- `BugReportFormatterService` — Structured bug report generation.
-- `MenuActionHandlerService` — Menu action dispatch.
-- `MenuCheckMarkService` — Menu checkmark state management.
-- `UIResetService` — UI state reset operations.
-- `DiscConverter` — Disc format conversion service (CHD, CUE/BIN, ISO, RVZ).
-- `WindowsCredentialProtector` — Secure credential storage.
-
-### ViewModel Migration
-- Created ViewModels for all emulator configuration windows: `InjectAresConfigViewModel`, `InjectAzaharConfigViewModel`, `InjectBlastemConfigViewModel`, `InjectCemuConfigViewModel`, `InjectDaphneConfigViewModel`, `InjectDolphinConfigViewModel`, `InjectDuckStationConfigViewModel`, `InjectFlycastConfigViewModel`, `InjectMameConfigViewModel`, `InjectMednafenConfigViewModel`, `InjectMesenConfigViewModel`, `InjectPcsx2ConfigViewModel`, `InjectRaineConfigViewModel`, `InjectRedreamConfigViewModel`, `InjectRetroArchConfigViewModel`, `InjectRpcs3ConfigViewModel`, `InjectSegaModel2ConfigViewModel`, `InjectStellaConfigViewModel`, `InjectSupermodelConfigViewModel`, `InjectXeniaConfigViewModel`, `InjectYumirConfigViewModel`.
-- Created ViewModels for: `FavoritesViewModel`, `GlobalSearchViewModel`, `PlayHistoryViewModel`, `RetroAchievementsViewModel`, `RetroAchievementsSettingsViewModel`, `RomHistoryViewModel`, `SoundConfigurationViewModel`, `SupportViewModel`, `SupportOptionViewModel`, `UpdateHistoryViewModel`, `UpdateLogViewModel`, `SystemSelectionViewModel`, `DosBoxFileSelectionViewModel`, `FlashOverlayViewModel`, `SetGamepadDeadZoneViewModel`, `SetLinksViewModel`, `WindowSelectionDialogViewModel`.
-
-### WPF Platform Services
-- Created WPF-specific implementations of core interfaces: `WpfDispatcherService`, `WpfImageLoader`, `WpfMessageDialogService`, `WpfResourceProvider`, `WpfWindowContext`, `WpfFilePickerService`, `WpfApplicationLifetime`, `WindowsCredentialProtector`.
-
-### DI Container Overhaul
-- Replaced static `App.ServiceProvider` resolution with constructor-injected dependencies across all services, ViewModels, and windows.
-- Replaced `MessageBoxLibrary` (static) with `MessageBoxLibraryService` (DI-injected `IMessageBoxLibraryService`).
-- Replaced static `ImageLoader` with `IImageLoader` interface.
-- Replaced static `FindCoverImage` with `IFindCoverImageService`.
-- Replaced static `GetListOfFiles` with `IGetListOfFilesService`.
-- Replaced static `DebugLogger` with `IDebugLogger`.
-- Replaced static `ContextMenuFunctions` with `IContextMenuFunctions`.
-- Replaced static game platform scanners with `IGamePlatformScanner` implementations.
-- Replaced static RetroAchievements services with DI-injected `IRetroAchievementsFileHasher`, `IRetroAchievementsSystemMatcher`, `IRetroAchievementsHasherTool`.
-
-### ILogErrors Refactoring
-- Replaced `App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(...)` with constructor-injected `ILogErrors` instances using `LogAndForget()` across the entire codebase.
-- Affected services: `ExtractionService`, `GameLauncher`, `SettingsManager`, `FavoritesManager`, `PlayHistoryManager`, `RetroAchievementsManager`, `Stats`, `GamePadController`, `PlaySoundEffects`, `HelpUser`, `TrayIconManager`, and all emulator configuration services.
-
-### DataFileLocation Abstraction
-- **New `DataFileLocation` class** — Centralizes portable mode file management for `settings.xml`, `system.xml`, `favorites.dat`, and `playhistory.dat`.
-- Consolidates duplicate path resolution and fallback logic across multiple managers.
-
-### Emulator Settings Refactoring
-- Extracted per-emulator settings classes from monolithic `SettingsManager` into dedicated classes: `AresSettings`, `AzaharSettings`, `BlastemSettings`, `CemuSettings`, `DaphneSettings`, `DolphinSettings`, `DuckStationSettings`, `FlycastSettings`, `MameSettings`, `MednafenSettings`, `MesenSettings`, `Pcsx2Settings`, `RaineSettings`, `RedreamSettings`, `RetroArchSettings`, `Rpcs3Settings`, `SegaModel2Settings`, `StellaSettings`, `SupermodelSettings`, `XeniaSettings`, `YumirSettings`.
-- Added `EmulatorXmlHelpers` for XML configuration file manipulation.
-
-### Host Pattern Implementation
-- MainWindow implements host interfaces (`IGameFileLoadingHost`, `IGameItemRenderHost`, `IMenuActionHost`, `IMenuCheckMarkHost`, `ISystemSelectionHost`, `IUiResetHost`, `ILoadingOverlayHost`, `IStatusBarHost`, `ILanguageMenuHost`, `IThemeMenuHost`, `IPaginationHost`, `IStartupInitializationHost`, `IGameListUiHost`, `ISystemSelectionOrchestrator`).
-- Services receive host interfaces instead of direct MainWindow references, enabling testability.
-
-## RetroAchievements System Matching
-- Expanded system name aliases: added "Nintendo Satellaview" for SNES, "C64 - Ultimate Tape Archive" and "C64 - Floppy [Scene Collection]" for Commodore 64.
-- Added new unsupported system entries: CGenius, NEC PC88, Fujitsu FM-7, Fairchild Channel-F, Exelvision EX100, Enterprise 64-128, Capcom Medalusion.
-
-## New Tool: XmlToBinaryConverter
-- New standalone tool for converting XML data files to MessagePack binary format.
-
-## Unit Tests
-- Added **105 new/updated test files** with comprehensive coverage for models, services, ViewModels, and converters.
-- Added test helpers: `NoOpMessageBoxLibraryService`, `NoOpResourceProvider`, `NoOpDebugLogger`, `NoOpGetListOfFiles`, `NoOpCredentialProtector`, `ProjectPathHelper`.
-- Added `Moq` library for mocking in tests.
-- Total: **1197 tests**.
-
 ## Dependency Updates
 - `SharpCompress` 0.48.1 → **0.49.1**
 - `Tomlyn` 2.4.0 → **2.6.0**
@@ -142,10 +54,6 @@
 - `Microsoft.CodeAnalysis.NetAnalyzers` 10.0.300 → **10.0.301**
 - `Microsoft.NET.Test.Sdk` 18.5.1 → **18.6.0**
 - Added `Moq` **4.20.72** *(new, for unit testing)*
-
-## Documentation
-- Added PlantUML architecture diagrams: Core Architecture, Launch Pipeline, Services & Managers, UI Layer.
-- Updated `SoftwareMap.md` with detailed architecture documentation.
 
 # Release 5.5.0
 *2026-05-25*
