@@ -165,6 +165,22 @@ public class ZipService
         for (var attempt = 1; attempt <= FileWriteRetryAttempts; attempt++)
         {
             cancellationToken.ThrowIfCancellationRequested();
+
+            // Clear read-only attribute if the file already exists (e.g., from a previous installation)
+            if (File.Exists(destinationPath))
+            {
+                try
+                {
+                    var attributes = File.GetAttributes(destinationPath);
+                    if ((attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+                        File.SetAttributes(destinationPath, attributes & ~FileAttributes.ReadOnly);
+                }
+                catch
+                {
+                    // Best effort — extraction will report the error if this fails
+                }
+            }
+
             try
             {
                 await using var destinationFileStream = new FileStream(
@@ -178,11 +194,11 @@ public class ZipService
                 await entryStream.CopyToAsync(destinationFileStream, cancellationToken);
                 return; // Success, exit the method
             }
-            catch (IOException ex) when (attempt < FileWriteRetryAttempts)
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException && attempt < FileWriteRetryAttempts)
             {
-                // File is likely locked by another process, retry after delay
+                // File is likely locked by another process or has permission issues, retry after delay
                 lastException = ex;
-                LogMessage?.Invoke($"File locked ({attempt}/{FileWriteRetryAttempts}): {entryKey} - retrying in {FileWriteRetryDelayMs}ms...");
+                LogMessage?.Invoke($"File locked or access denied ({attempt}/{FileWriteRetryAttempts}): {entryKey} - retrying in {FileWriteRetryDelayMs}ms...");
                 await Task.Delay(FileWriteRetryDelayMs * attempt, cancellationToken); // Increasing delay for each attempt
             }
         }
@@ -192,7 +208,7 @@ public class ZipService
         {
             throw new IOException(
                 $"Failed to extract file after {FileWriteRetryAttempts} attempts: {entryKey}. " +
-                $"The file may be locked by another process.", lastException);
+                $"The file may be locked by another process or has restricted permissions.", lastException);
         }
     }
 }

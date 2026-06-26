@@ -3316,7 +3316,7 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
 You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
-## Nintendo SNES / Super Nintendo / Super Famicom
+## Nintendo SNES / Super Nintendo / Super Famicom / Super Nes
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
@@ -3425,6 +3425,18 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [GitHub Repository](https://github.com/libretro/bsnes-jg).<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
+
+.
+
+**Emulator Name:** Retroarch mednafen_snes_libretro<br>
+**Emulator Path (Example):** C:\Emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example using absolute paths):** -L "C:\Emulators\retroarch\cores\mednafen_snes_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mednafen_snes_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .

@@ -21,6 +21,10 @@ public class DownloadManager : IDisposable
     private volatile bool _isUserCancellation;
     private volatile bool _isFileLockedDuringDownload;
 
+    // Constants
+    private const int RetryMaxAttempts = 3;
+    private const int RetryBaseDelayMs = 1000;
+
     // Private fields
     private readonly HttpClient _httpClient;
     private readonly IHttpClientFactory _httpClientFactory;
@@ -221,35 +225,64 @@ public class DownloadManager : IDisposable
             token = _cancellationTokenSource.Token;
         }
 
-        try
-        {
-            await DownloadWithProgressAsync(downloadUrl, downloadFilePath, token);
+        var currentRetry = 0;
 
-            if (IsDownloadCompleted)
-            {
-                return downloadFilePath;
-            }
-        }
-        catch (Exception ex) when (ex is HttpRequestException or IOException or TaskCanceledException)
+        while (currentRetry <= RetryMaxAttempts && !IsUserCancellation)
         {
-            if (IsUserCancellation)
+            try
             {
-                return null;
-            }
+                await DownloadWithProgressAsync(downloadUrl, downloadFilePath, token);
 
-            // Check for file lock specifically
-            if (ex.Message.Contains("being used by another process", StringComparison.OrdinalIgnoreCase))
+                if (IsDownloadCompleted)
+                {
+                    return downloadFilePath;
+                }
+
+                currentRetry++;
+            }
+            catch (Exception ex) when (ex is HttpRequestException or IOException or TaskCanceledException)
             {
-                IsFileLockedDuringDownload = true;
+                if (IsUserCancellation)
+                {
+                    return null;
+                }
+
+                // Check for file lock specifically
+                if (ex.Message.Contains("being used by another process", StringComparison.OrdinalIgnoreCase))
+                {
+                    IsFileLockedDuringDownload = true;
+                    await DeleteFiles.TryDeleteFileAsync(downloadFilePath);
+                    return null;
+                }
+
+                currentRetry++;
+
+                // Cleanup partial file before retry
                 await DeleteFiles.TryDeleteFileAsync(downloadFilePath);
-                return null;
+
+                if (currentRetry > RetryMaxAttempts)
+                {
+                    // Notify developer
+                    _logErrors.LogAndForget(ex, $"Download error for {downloadUrl}");
+                    break;
+                }
+
+                var delay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
+                OnProgressChanged(new DownloadProgressEventArgs
+                {
+                    ProgressPercentage = 0,
+                    StatusMessage = $"Download error. Retrying ({currentRetry}/{RetryMaxAttempts})..."
+                });
+
+                try
+                {
+                    await Task.Delay(delay, token);
+                }
+                catch (OperationCanceledException)
+                {
+                    return null;
+                }
             }
-
-            // Notify developer
-            _logErrors.LogAndForget(ex, $"Download error for {downloadUrl}");
-
-            // Cleanup on failure
-            await DeleteFiles.TryDeleteFileAsync(downloadFilePath);
         }
 
         return null;
