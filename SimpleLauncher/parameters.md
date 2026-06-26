@@ -238,7 +238,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 
 **Emulator Name:** Altirra<br>
 **Emulator Path (Example):** C:\Emulators\altirra\Altirra64.exe<br>
-**Emulator Parameters (Example):** /f<br>
+**Emulator Parameters (Example):** /f /cart<br>
 **Fullscreen Parameter:** /f<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
