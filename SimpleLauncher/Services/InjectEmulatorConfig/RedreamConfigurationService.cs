@@ -73,7 +73,24 @@ public static class RedreamConfigurationService
             updates["fullheight"] = settings.Redream.Height.ToString(CultureInfo.InvariantCulture);
         }
 
-        var lines = File.ReadAllLines(configPath).ToList();
+        List<string> lines;
+        try
+        {
+            lines = File.ReadAllLines(configPath).ToList();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            debugLogger.Log($"[RedreamConfig] Access denied reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[RedreamConfig] Access denied reading config: {configPath}");
+            throw;
+        }
+        catch (IOException ex)
+        {
+            debugLogger.Log($"[RedreamConfig] I/O error reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[RedreamConfig] I/O error reading config: {configPath}");
+            throw;
+        }
+
         var modified = false;
         var keysFound = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 

@@ -72,7 +72,24 @@ public static class MednafenConfigurationService
             updates[$"{prefix}.special"] = settings.Mednafen.Special;
         }
 
-        var lines = File.ReadAllLines(configPath).ToList();
+        List<string> lines;
+        try
+        {
+            lines = File.ReadAllLines(configPath).ToList();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            debugLogger.Log($"[MednafenConfig] Access denied reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[MednafenConfig] Access denied reading config: {configPath}");
+            throw;
+        }
+        catch (IOException ex)
+        {
+            debugLogger.Log($"[MednafenConfig] I/O error reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[MednafenConfig] I/O error reading config: {configPath}");
+            throw;
+        }
+
         var keysFound = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         var modified = false;
 

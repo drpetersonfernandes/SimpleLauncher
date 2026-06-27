@@ -68,7 +68,24 @@ public static class AresConfigurationService
             }
         };
 
-        var lines = File.ReadAllLines(configPath).ToList();
+        List<string> lines;
+        try
+        {
+            lines = File.ReadAllLines(configPath).ToList();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            debugLogger.Log($"[AresConfig] Access denied reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[AresConfig] Access denied reading config: {configPath}");
+            throw;
+        }
+        catch (IOException ex)
+        {
+            debugLogger.Log($"[AresConfig] I/O error reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[AresConfig] I/O error reading config: {configPath}");
+            throw;
+        }
+
         var modified = false;
         string currentSection = null;
 

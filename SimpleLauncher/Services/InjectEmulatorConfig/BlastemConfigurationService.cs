@@ -54,7 +54,24 @@ public static partial class BlastemConfigurationService
             { "sync_source", settings.Blastem.SyncSource }
         };
 
-        var lines = File.ReadAllLines(configPath, new UTF8Encoding(false)).ToList();
+        List<string> lines;
+        try
+        {
+            lines = File.ReadAllLines(configPath, new UTF8Encoding(false)).ToList();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            debugLogger.Log($"[BlastemConfig] Access denied reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[BlastemConfig] Access denied reading config: {configPath}");
+            throw;
+        }
+        catch (IOException ex)
+        {
+            debugLogger.Log($"[BlastemConfig] I/O error reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[BlastemConfig] I/O error reading config: {configPath}");
+            throw;
+        }
+
         var modified = false;
 
         // Map configuration keys to their expected parent blocks for scope validation

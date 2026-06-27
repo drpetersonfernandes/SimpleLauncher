@@ -111,7 +111,24 @@ public static class RaineConfigurationService
             updates["neocd"]["mute_music"] = settings.Raine.MuteMusic ? "1" : "0";
         }
 
-        var lines = File.ReadAllLines(configPath).ToList();
+        List<string> lines;
+        try
+        {
+            lines = File.ReadAllLines(configPath).ToList();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            debugLogger.Log($"[RaineConfig] Access denied reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[RaineConfig] Access denied reading config: {configPath}");
+            throw;
+        }
+        catch (IOException ex)
+        {
+            debugLogger.Log($"[RaineConfig] I/O error reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[RaineConfig] I/O error reading config: {configPath}");
+            throw;
+        }
+
         var modified = false;
         string currentSection = null;
 

@@ -77,7 +77,24 @@ public static class RetroArchConfigurationService
         };
 
         // Read and Update
-        var lines = File.ReadAllLines(configPath).ToList();
+        List<string> lines;
+        try
+        {
+            lines = File.ReadAllLines(configPath).ToList();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            debugLogger.Log($"[RetroArchConfig] Access denied reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[RetroArchConfig] Access denied reading config: {configPath}");
+            throw;
+        }
+        catch (IOException ex)
+        {
+            debugLogger.Log($"[RetroArchConfig] I/O error reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[RetroArchConfig] I/O error reading config: {configPath}");
+            throw;
+        }
+
         var keysFound = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         for (var i = 0; i < lines.Count; i++)

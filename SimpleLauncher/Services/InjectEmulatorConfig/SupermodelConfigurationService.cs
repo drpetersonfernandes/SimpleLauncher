@@ -67,7 +67,24 @@ public static class SupermodelConfigurationService
             { "PowerPCFrequency", settings.Supermodel.PowerPcFrequency.ToString(CultureInfo.InvariantCulture) }
         };
 
-        var lines = File.ReadAllLines(configPath).ToList();
+        List<string> lines;
+        try
+        {
+            lines = File.ReadAllLines(configPath).ToList();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            debugLogger.Log($"[SupermodelConfig] Access denied reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[SupermodelConfig] Access denied reading config: {configPath}");
+            throw;
+        }
+        catch (IOException ex)
+        {
+            debugLogger.Log($"[SupermodelConfig] I/O error reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[SupermodelConfig] I/O error reading config: {configPath}");
+            throw;
+        }
+
         var keysFound = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         var inGlobalSection = false;
         var globalSectionIndex = -1;

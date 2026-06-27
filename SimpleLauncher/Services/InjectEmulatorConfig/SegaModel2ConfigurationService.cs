@@ -60,7 +60,24 @@ public static class SegaModel2ConfigurationService
             { "UseRawInput", settings.SegaModel2.UseRawInput ? "1" : "0" }
         };
 
-        var lines = File.ReadAllLines(configPath).ToList();
+        List<string> lines;
+        try
+        {
+            lines = File.ReadAllLines(configPath).ToList();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            debugLogger.Log($"[SegaModel2Config] Access denied reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[SegaModel2Config] Access denied reading config: {configPath}");
+            throw;
+        }
+        catch (IOException ex)
+        {
+            debugLogger.Log($"[SegaModel2Config] I/O error reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[SegaModel2Config] I/O error reading config: {configPath}");
+            throw;
+        }
+
         var modified = false;
         var currentSection = "";
 

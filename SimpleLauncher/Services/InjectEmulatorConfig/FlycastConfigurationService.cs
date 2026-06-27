@@ -48,7 +48,24 @@ public static class FlycastConfigurationService
             { "maximized", settings.Flycast.Maximized ? "yes" : "no" }
         };
 
-        var lines = File.ReadAllLines(configPath).ToList();
+        List<string> lines;
+        try
+        {
+            lines = File.ReadAllLines(configPath).ToList();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            debugLogger.Log($"[FlycastConfig] Access denied reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[FlycastConfig] Access denied reading config: {configPath}");
+            throw;
+        }
+        catch (IOException ex)
+        {
+            debugLogger.Log($"[FlycastConfig] I/O error reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[FlycastConfig] I/O error reading config: {configPath}");
+            throw;
+        }
+
         var modified = false;
         var inWindowSection = false;
 

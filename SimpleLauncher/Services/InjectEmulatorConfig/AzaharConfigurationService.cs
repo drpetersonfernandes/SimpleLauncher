@@ -101,6 +101,12 @@ public static class AzaharConfigurationService
             logErrors.LogAndForget(ex, $"[AzaharConfig] Failed to read qt-config.ini: {ex.Message}");
             throw new AzaharPermissionException($"Cannot read configuration file: {configPath}", ex);
         }
+        catch (IOException ex)
+        {
+            debugLogger.Log($"[AzaharConfig] I/O error reading qt-config.ini: {configPath}");
+            logErrors.LogAndForget(ex, $"[AzaharConfig] I/O error reading qt-config.ini: {configPath}");
+            throw;
+        }
 
         var modified = false;
 

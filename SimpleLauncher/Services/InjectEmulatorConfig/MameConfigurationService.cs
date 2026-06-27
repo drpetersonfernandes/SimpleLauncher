@@ -67,7 +67,24 @@ public static partial class MameConfigurationService
             { "nvram_save", settings.Mame.NvramSave ? "1" : "0" }
         };
 
-        var lines = File.ReadAllLines(configPath).ToList();
+        List<string> lines;
+        try
+        {
+            lines = File.ReadAllLines(configPath).ToList();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            debugLogger.Log($"[MameConfig] Access denied reading mame.ini: {configPath}");
+            logErrors.LogAndForget(ex, $"[MameConfig] Access denied reading mame.ini: {configPath}");
+            throw;
+        }
+        catch (IOException ex)
+        {
+            debugLogger.Log($"[MameConfig] I/O error reading mame.ini: {configPath}");
+            logErrors.LogAndForget(ex, $"[MameConfig] I/O error reading mame.ini: {configPath}");
+            throw;
+        }
+
         var modified = false;
         var keysFound = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 

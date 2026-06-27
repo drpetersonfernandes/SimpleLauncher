@@ -89,7 +89,24 @@ public static class DolphinConfigurationService
             { "DSPThread", settings.Dolphin.DspThread.ToString() }
         };
 
-        var lines = File.ReadAllLines(configPath).ToList();
+        List<string> lines;
+        try
+        {
+            lines = File.ReadAllLines(configPath).ToList();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            debugLogger.Log($"[DolphinConfig] Access denied reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[DolphinConfig] Access denied reading config: {configPath}");
+            throw;
+        }
+        catch (IOException ex)
+        {
+            debugLogger.Log($"[DolphinConfig] I/O error reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[DolphinConfig] I/O error reading config: {configPath}");
+            throw;
+        }
+
         var modified = false;
         var currentSection = "";
 

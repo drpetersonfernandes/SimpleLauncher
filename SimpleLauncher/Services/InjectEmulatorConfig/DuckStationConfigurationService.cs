@@ -70,7 +70,24 @@ public static class DuckStationConfigurationService
             { "OutputMuted", settings.DuckStation.OutputMuted.ToString().ToLowerInvariant() }
         };
 
-        var lines = File.ReadAllLines(configPath).ToList();
+        List<string> lines;
+        try
+        {
+            lines = File.ReadAllLines(configPath).ToList();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            debugLogger.Log($"[DuckStationConfig] Access denied reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[DuckStationConfig] Access denied reading config: {configPath}");
+            throw;
+        }
+        catch (IOException ex)
+        {
+            debugLogger.Log($"[DuckStationConfig] I/O error reading config: {configPath}");
+            logErrors.LogAndForget(ex, $"[DuckStationConfig] I/O error reading config: {configPath}");
+            throw;
+        }
+
         var modified = false;
         var currentSection = "";
 

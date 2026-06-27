@@ -14,15 +14,17 @@ public class MameConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
     private readonly IDebugLogger _debugLogger;
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MameConfigHandler"/> class.
     /// </summary>
-    public MameConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
+    public MameConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IMessageBoxLibraryService messageBoxLibrary, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
         _debugLogger = debugLogger;
+        _messageBoxLibrary = messageBoxLibrary;
         _scopeFactory = scopeFactory;
     }
 
@@ -60,7 +62,16 @@ public class MameConfigHandler : IEmulatorConfigHandler
                 }
                 else
                 {
-                    MameConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger, resolvedSystemFolder, listOfSecondarySystemFolders);
+                    try
+                    {
+                        MameConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger, resolvedSystemFolder, listOfSecondarySystemFolders);
+                    }
+                    catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+                    {
+                        _debugLogger.Log($"[MameConfigHandler] Failed to inject MAME configuration: {ex.Message}");
+                        _logErrors.LogAndForget(ex, "[MameConfigHandler] Failed to inject MAME configuration. The game will launch with existing MAME settings.");
+                        await _messageBoxLibrary.FailedToInjectMameConfigurationMessageBoxAsync();
+                    }
                 }
 
                 return shouldRun;
