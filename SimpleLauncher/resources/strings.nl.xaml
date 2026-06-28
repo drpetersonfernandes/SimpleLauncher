@@ -686,6 +686,7 @@
     <system:String x:Key="FolderPathColumnHeader">Map Pad</system:String>
     <system:String x:Key="ForumTopic">Forumonderwerp:</system:String>
     <system:String x:Key="FoundNewMicrosoftWindowsGames">Nieuwe Microsoft Windows-games gevonden. Systeemlijst wordt vernieuwd.</system:String>
+    <system:String x:Key="FoundResults">{0} resultaten gevonden</system:String>
     <system:String x:Key="FromDate">Van:</system:String>
     <system:String x:Key="FromDatePickerTooltip">Selecteer startdatum</system:String>
     <system:String x:Key="FuzzyImageMatching">Fuzzy beeldmatching</system:String>

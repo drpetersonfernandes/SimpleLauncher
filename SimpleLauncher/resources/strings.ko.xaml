@@ -686,6 +686,7 @@
     <system:String x:Key="FolderPathColumnHeader">폴더 경로</system:String>
     <system:String x:Key="ForumTopic">포럼 주제:</system:String>
     <system:String x:Key="FoundNewMicrosoftWindowsGames">새로운 Microsoft Windows 게임을 찾았습니다. 시스템 목록을 새로 고치는 중입니다.</system:String>
+    <system:String x:Key="FoundResults">{0}개의 결과를 찾았습니다</system:String>
     <system:String x:Key="FromDate">시작:</system:String>
     <system:String x:Key="FromDatePickerTooltip">시작 날짜 선택</system:String>
     <system:String x:Key="FuzzyImageMatching">퍼지 이미지 매칭</system:String>

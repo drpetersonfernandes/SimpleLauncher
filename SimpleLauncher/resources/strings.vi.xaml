@@ -686,6 +686,7 @@
     <system:String x:Key="FolderPathColumnHeader">Đường dẫn Thư mục</system:String>
     <system:String x:Key="ForumTopic">Chủ đề diễn đàn:</system:String>
     <system:String x:Key="FoundNewMicrosoftWindowsGames">Đã tìm thấy các trò chơi Microsoft Windows mới. Đang làm mới danh sách hệ thống.</system:String>
+    <system:String x:Key="FoundResults">Tìm thấy {0} kết quả</system:String>
     <system:String x:Key="FromDate">Từ:</system:String>
     <system:String x:Key="FromDatePickerTooltip">Chọn ngày bắt đầu</system:String>
     <system:String x:Key="FuzzyImageMatching">So khớp hình ảnh mờ</system:String>

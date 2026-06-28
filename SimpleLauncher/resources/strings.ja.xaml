@@ -686,6 +686,7 @@
     <system:String x:Key="FolderPathColumnHeader">フォルダ パス</system:String>
     <system:String x:Key="ForumTopic">フォーラムトピック:</system:String>
     <system:String x:Key="FoundNewMicrosoftWindowsGames">新しい Microsoft Windows ゲームが見つかりました。システムリストを更新しています。</system:String>
+    <system:String x:Key="FoundResults">{0}件の結果が見つかりました</system:String>
     <system:String x:Key="FromDate">から:</system:String>
     <system:String x:Key="FromDatePickerTooltip">開始日を選択</system:String>
     <system:String x:Key="FuzzyImageMatching">ファジー画像マッチング</system:String>

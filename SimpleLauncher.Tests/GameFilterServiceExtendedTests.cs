@@ -397,4 +397,135 @@ public class GameFilterServiceExtendedTests
         var result = await service.FilterBySearchQueryAsync(files, "street", mameLookup);
         Assert.Single(result);
     }
+
+    // AND/OR operator tests for FilterBySearchQueryAsync
+
+    [Fact]
+    public async Task FilterBySearchQueryAsyncAndOperatorBothTermsMustMatch()
+    {
+        var service = CreateService();
+        var files = new List<string>
+        {
+            @"C:\roms\super mario bros.zip",
+            @"C:\roms\mario kart.zip",
+            @"C:\roms\zelda.zip"
+        };
+
+        var result = await service.FilterBySearchQueryAsync(files, "mario AND kart", new Dictionary<string, string>());
+        Assert.Single(result);
+        Assert.Contains("mario kart", result[0]);
+    }
+
+    [Fact]
+    public async Task FilterBySearchQueryAsyncOrOperatorAnyTermMatches()
+    {
+        var service = CreateService();
+        var files = new List<string>
+        {
+            @"C:\roms\mario.zip",
+            @"C:\roms\zelda.zip",
+            @"C:\roms\metroid.zip"
+        };
+
+        var result = await service.FilterBySearchQueryAsync(files, "mario OR zelda", new Dictionary<string, string>());
+        Assert.Equal(2, result.Count);
+    }
+
+    [Fact]
+    public async Task FilterBySearchQueryAsyncDefaultAndForMultipleTerms()
+    {
+        var service = CreateService();
+        var files = new List<string>
+        {
+            @"C:\roms\super mario bros.zip",
+            @"C:\roms\mario kart.zip",
+            @"C:\roms\zelda.zip"
+        };
+
+        var result = await service.FilterBySearchQueryAsync(files, "super mario", new Dictionary<string, string>());
+        Assert.Single(result);
+        Assert.Contains("super mario", result[0]);
+    }
+
+    [Fact]
+    public async Task FilterBySearchQueryAsyncQuotedPhrase()
+    {
+        var service = CreateService();
+        var files = new List<string>
+        {
+            @"C:\roms\super mario bros.zip",
+            @"C:\roms\mario super.zip",
+            @"C:\roms\zelda.zip"
+        };
+
+        var result = await service.FilterBySearchQueryAsync(files, "\"super mario\"", new Dictionary<string, string>());
+        Assert.Single(result);
+        Assert.Contains("super mario", result[0]);
+    }
+
+    [Fact]
+    public async Task FilterBySearchQueryAsyncAndWithMameDescription()
+    {
+        var service = CreateService();
+        var files = new List<string>
+        {
+            @"C:\roms\game1.zip",
+            @"C:\roms\game2.zip"
+        };
+        var mameLookup = new Dictionary<string, string>
+        {
+            ["game1"] = "Super Mario Bros",
+            ["game2"] = "Donkey Kong"
+        };
+
+        var result = await service.FilterBySearchQueryAsync(files, "super AND game", mameLookup);
+        Assert.Single(result);
+    }
+
+    [Fact]
+    public async Task FilterBySearchQueryAsyncOrWithMameDescription()
+    {
+        var service = CreateService();
+        var files = new List<string>
+        {
+            @"C:\roms\game1.zip",
+            @"C:\roms\game2.zip",
+            @"C:\roms\zelda.zip"
+        };
+        var mameLookup = new Dictionary<string, string>
+        {
+            ["game1"] = "Pac-Man",
+            ["game2"] = "Donkey Kong"
+        };
+
+        var result = await service.FilterBySearchQueryAsync(files, "pac-man OR zelda", mameLookup);
+        Assert.Equal(2, result.Count);
+    }
+
+    [Fact]
+    public async Task FilterBySearchQueryAsyncAndOperatorNoMatch()
+    {
+        var service = CreateService();
+        var files = new List<string>
+        {
+            @"C:\roms\mario.zip",
+            @"C:\roms\zelda.zip"
+        };
+
+        var result = await service.FilterBySearchQueryAsync(files, "mario AND zelda", new Dictionary<string, string>());
+        Assert.Empty(result);
+    }
+
+    [Fact]
+    public async Task FilterBySearchQueryAsyncOrOperatorNoMatch()
+    {
+        var service = CreateService();
+        var files = new List<string>
+        {
+            @"C:\roms\mario.zip"
+        };
+
+        var result = await service.FilterBySearchQueryAsync(files, "zelda OR metroid", new Dictionary<string, string>());
+        Assert.Empty(result);
+    }
 }

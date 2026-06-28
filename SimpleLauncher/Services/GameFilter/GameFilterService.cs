@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using SimpleLauncher.Interfaces;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
@@ -7,7 +8,7 @@ namespace SimpleLauncher.Services.GameFilter;
 /// Provides game file filtering and sorting operations including letter filtering,
 /// search query matching, cover image presence filtering, and MAME description sorting.
 /// </summary>
-public class GameFilterService : IGameFilterService
+public partial class GameFilterService : IGameFilterService
 {
     private readonly IFindCoverImageService _findCoverImage;
     private readonly SettingsManager.SettingsManager _settings;
@@ -106,25 +107,72 @@ public class GameFilterService : IGameFilterService
     }
 
     /// <summary>
-    /// Filters game files whose filename or MAME description contains the search query (case-insensitive).
+    /// Filters game files whose filename or MAME description matches the search query (case-insensitive).
+    /// Supports logical operators AND, OR, and quoted phrases.
+    /// Examples: "mario kart" (AND by default), "mario AND kart", "mario OR kart", "\"super mario\""
     /// </summary>
     public Task<List<string>> FilterBySearchQueryAsync(
         List<string> files, string searchQuery, Dictionary<string, string> mameLookup)
     {
-        var lowerQuery = searchQuery.ToLowerInvariant();
+        var searchTerms = ParseSearchTerms(searchQuery);
+        if (searchTerms.Count == 0)
+            return Task.FromResult(files);
+
         return Task.Run(() =>
             files.FindAll(file =>
             {
                 var fileName = Path.GetFileNameWithoutExtension(file);
-                var filenameMatch = fileName.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
-                if (filenameMatch) return true;
 
-                if (mameLookup != null && mameLookup.TryGetValue(fileName, out var description))
+                var searchText = fileName;
+                if (mameLookup != null && mameLookup.TryGetValue(fileName, out var description)
+                                        && !string.IsNullOrWhiteSpace(description))
                 {
-                    return description.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
+                    searchText = string.Concat(fileName, " ", description);
                 }
 
-                return false;
+                return MatchesSearchQuery(searchText, searchTerms);
             }));
     }
+
+    private static List<string> ParseSearchTerms(string searchTerm)
+    {
+        var terms = new List<string>();
+        var matches = SearchTermsRegex().Matches(searchTerm);
+        foreach (Match match in matches)
+        {
+            terms.Add(match.Value.Trim('"').ToLowerInvariant());
+        }
+
+        return terms.Where(static t => !string.IsNullOrWhiteSpace(t)).ToList();
+    }
+
+    private static bool MatchesSearchQuery(string text, IReadOnlyCollection<string> searchTerms)
+    {
+        if (text == null) return false;
+
+        var keywords = searchTerms
+            .Where(static t => !t.Equals("and", StringComparison.OrdinalIgnoreCase) &&
+                               !t.Equals("or", StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        if (keywords.Count == 0) return true;
+
+        var hasAndOperator = searchTerms.Any(static t => t.Equals("and", StringComparison.OrdinalIgnoreCase));
+        var hasOrOperator = searchTerms.Any(static t => t.Equals("or", StringComparison.OrdinalIgnoreCase));
+
+        if (hasAndOperator)
+        {
+            return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+        }
+
+        if (hasOrOperator)
+        {
+            return keywords.Any(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+        }
+
+        return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+    }
+
+    [GeneratedRegex("""[\"](.+?)[\"]|([^ ]+)""")]
+    private static partial Regex SearchTermsRegex();
 }

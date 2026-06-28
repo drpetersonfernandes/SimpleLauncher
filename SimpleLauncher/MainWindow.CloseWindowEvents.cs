@@ -99,6 +99,9 @@ public partial class MainWindow
             // Dispose tray icon resources
             TrayIconManager?.Dispose();
 
+            // Dispose F8 global hotkey
+            _globalHotkeyService?.Dispose();
+
             // Clean up collections
             GameListItems?.Clear();
             GameDataGrid?.ItemsSource = null;

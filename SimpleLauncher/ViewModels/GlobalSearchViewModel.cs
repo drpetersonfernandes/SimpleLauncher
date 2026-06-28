@@ -51,6 +51,10 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 
     [ObservableProperty] private bool _noResultsVisible;
 
+    [ObservableProperty] private string _resultsCountText = "";
+
+    [ObservableProperty] private bool _resultsCountVisible;
+
     [ObservableProperty] private bool _launchButtonEnabled;
 
     [ObservableProperty] private List<string> _systemNames = [];
@@ -133,6 +137,8 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
             IsLoading = true;
             LoadingMessage = _resourceProvider.GetString("Searchingpleasewait", "Searching... Please wait.");
             NoResultsVisible = false;
+            ResultsCountText = "";
+            ResultsCountVisible = false;
 
             try
             {
@@ -144,12 +150,17 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
                 {
                     SearchResults = new ObservableCollection<SearchResult>(results);
                     NoResultsVisible = false;
+                    ResultsCountText = string.Format(
+                        _resourceProvider.GetString("FoundResults", "Found {0} results"), results.Count);
+                    ResultsCountVisible = true;
                 }
                 else
                 {
                     SearchResults = [];
                     NoResultsVisible = true;
                     PreviewImageSource = null;
+                    ResultsCountText = "";
+                    ResultsCountVisible = false;
                 }
             }
             catch (OperationCanceledException)
@@ -161,6 +172,8 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
                 await _logErrors.LogErrorAsync(ex, "Error during search operation.");
                 await _messageBox.GlobalSearchErrorMessageBoxAsync();
                 NoResultsVisible = true;
+                ResultsCountText = "";
+                ResultsCountVisible = false;
             }
             finally
             {
@@ -321,7 +334,13 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
     {
         foreach (var result in results)
         {
-            result.Score = CalculateScore(result.FileName.ToLowerInvariant(), searchTerms);
+            var fileName = result.FileName.ToLowerInvariant();
+            var machineName = result.MachineName?.ToLowerInvariant() ?? "";
+            var folderName = result.FolderName?.ToLowerInvariant() ?? "";
+
+            result.Score = CalculateScore(fileName, searchTerms)
+                           + CalculateScore(machineName, searchTerms)
+                           + CalculateScore(folderName, searchTerms);
         }
 
         return results.OrderByDescending(static r => r.Score)
@@ -330,6 +349,8 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 
     private static int CalculateScore(string text, List<string> searchTerms)
     {
+        if (string.IsNullOrEmpty(text)) return 0;
+
         var score = 0;
         foreach (var term in searchTerms)
         {

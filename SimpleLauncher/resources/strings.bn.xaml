@@ -686,6 +686,7 @@
     <system:String x:Key="FolderPathColumnHeader">ফোল্ডার পাথ</system:String>
     <system:String x:Key="ForumTopic">ফোরাম টপিক:</system:String>
     <system:String x:Key="FoundNewMicrosoftWindowsGames">নতুন Microsoft Windows গেম পাওয়া গেছে। সিস্টেম তালিকা রিফ্রেশ করা হচ্ছে।</system:String>
+    <system:String x:Key="FoundResults">{0}টি ফলাফল পাওয়া গেছে</system:String>
     <system:String x:Key="FromDate">থেকে:</system:String>
     <system:String x:Key="FromDatePickerTooltip">শুরুর তারিখ নির্বাচন করুন</system:String>
     <system:String x:Key="FuzzyImageMatching">ফাজি ইমেজ ম্যাচিং</system:String>

@@ -686,6 +686,7 @@
     <system:String x:Key="FolderPathColumnHeader">Jalur Folder</system:String>
     <system:String x:Key="ForumTopic">Topik Forum:</system:String>
     <system:String x:Key="FoundNewMicrosoftWindowsGames">Ditemukan game Microsoft Windows baru. Menyegarkan daftar sistem.</system:String>
+    <system:String x:Key="FoundResults">Ditemukan {0} hasil</system:String>
     <system:String x:Key="FromDate">Dari:</system:String>
     <system:String x:Key="FromDatePickerTooltip">Pilih tanggal mulai</system:String>
     <system:String x:Key="FuzzyImageMatching">Pencocokan Gambar Fuzzy</system:String>

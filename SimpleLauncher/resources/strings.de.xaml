@@ -686,6 +686,7 @@
     <system:String x:Key="FolderPathColumnHeader">Ordnerpfad</system:String>
     <system:String x:Key="ForumTopic">Forum-Thema:</system:String>
     <system:String x:Key="FoundNewMicrosoftWindowsGames">Neue Microsoft Windows-Spiele gefunden. Systemliste wird aktualisiert.</system:String>
+    <system:String x:Key="FoundResults">{0} Ergebnisse gefunden</system:String>
     <system:String x:Key="FromDate">Von:</system:String>
     <system:String x:Key="FromDatePickerTooltip">Startdatum auswählen</system:String>
     <system:String x:Key="FuzzyImageMatching">Fuzzy Bildabgleich</system:String>

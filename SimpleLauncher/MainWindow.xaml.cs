@@ -40,6 +40,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private RoutedEventHandler _emergencyButtonClickHandler;
     private readonly RoutedEventHandler _asyncLoadedHandler;
 
+    // F8 global hotkey for active window screenshots
+    private Services.TakeScreenshot.GlobalHotkeyService _globalHotkeyService;
+    private Services.TakeScreenshot.ActiveWindowScreenshotService _activeWindowScreenshotService;
+
     /// <summary>
     /// Occurs when a property value changes, supporting data binding updates.
     /// </summary>
@@ -247,6 +251,23 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 }
 
                 await _lifecycle.InitializeStartupAsync(this);
+
+                // F8 global hotkey for active window screenshots
+                _globalHotkeyService = App.ServiceProvider.GetRequiredService<Services.TakeScreenshot.GlobalHotkeyService>();
+                _activeWindowScreenshotService = App.ServiceProvider.GetRequiredService<Services.TakeScreenshot.ActiveWindowScreenshotService>();
+                _globalHotkeyService.Initialize(this);
+                _globalHotkeyService.F8Pressed += async () =>
+                {
+                    try
+                    {
+                        await _activeWindowScreenshotService.CaptureActiveWindowAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        _logErrors.LogAndForget(ex, "Error in F8 screenshot handler.");
+                    }
+                };
+
                 await HandleLoadedAsync();
             }
             catch (Exception ex)

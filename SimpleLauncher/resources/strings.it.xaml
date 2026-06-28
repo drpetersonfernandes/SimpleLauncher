@@ -686,6 +686,7 @@
     <system:String x:Key="FolderPathColumnHeader">Percorso Cartella</system:String>
     <system:String x:Key="ForumTopic">Argomento Forum:</system:String>
     <system:String x:Key="FoundNewMicrosoftWindowsGames">Trovati nuovi giochi Microsoft Windows. Aggiornamento dell'elenco dei sistemi.</system:String>
+    <system:String x:Key="FoundResults">Trovati {0} risultati</system:String>
     <system:String x:Key="FromDate">Da:</system:String>
     <system:String x:Key="FromDatePickerTooltip">Seleziona la data di inizio</system:String>
     <system:String x:Key="FuzzyImageMatching">Corrispondenza immagine fuzzy</system:String>

@@ -686,6 +686,7 @@
     <system:String x:Key="FolderPathColumnHeader">Klasör Yolu</system:String>
     <system:String x:Key="ForumTopic">Forum Konusu:</system:String>
     <system:String x:Key="FoundNewMicrosoftWindowsGames">Yeni Microsoft Windows oyunları bulundu. Sistem listesi yenileniyor.</system:String>
+    <system:String x:Key="FoundResults">{0} sonuç bulundu</system:String>
     <system:String x:Key="FromDate">Başlangıç:</system:String>
     <system:String x:Key="FromDatePickerTooltip">Başlangıç tarihini seçin</system:String>
     <system:String x:Key="FuzzyImageMatching">Bulanık Görüntü Eşleştirme</system:String>

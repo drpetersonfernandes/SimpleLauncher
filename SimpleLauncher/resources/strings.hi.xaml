@@ -686,6 +686,7 @@
     <system:String x:Key="FolderPathColumnHeader">फ़ोल्डर पथ</system:String>
     <system:String x:Key="ForumTopic">फ़ोरम विषय:</system:String>
     <system:String x:Key="FoundNewMicrosoftWindowsGames">नए Microsoft Windows गेम्स मिले। सिस्टम सूची को रिफ्रेश किया जा रहा है।</system:String>
+    <system:String x:Key="FoundResults">{0} परिणाम मिले</system:String>
     <system:String x:Key="FromDate">से:</system:String>
     <system:String x:Key="FromDatePickerTooltip">प्रारंभ तिथि चुनें</system:String>
     <system:String x:Key="FuzzyImageMatching">फजी इमेज मैचिंग</system:String>

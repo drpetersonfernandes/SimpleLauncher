@@ -684,6 +684,7 @@
     <system:String x:Key="FolderPathColumnHeader">Folder Path</system:String>
     <system:String x:Key="ForumTopic">Forum Topic:</system:String>
     <system:String x:Key="FoundNewMicrosoftWindowsGames">Found new Microsoft Windows games. Refreshing system list.</system:String>
+    <system:String x:Key="FoundResults">Found {0} results</system:String>
     <system:String x:Key="FromDate">From:</system:String>
     <system:String x:Key="FromDatePickerTooltip">Select start date</system:String>
     <system:String x:Key="FuzzyImageMatching">Fuzzy Image Matching</system:String>

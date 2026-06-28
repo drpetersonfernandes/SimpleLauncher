@@ -686,6 +686,7 @@
     <system:String x:Key="FolderPathColumnHeader">Путь к папке</system:String>
     <system:String x:Key="ForumTopic">Тема форума:</system:String>
     <system:String x:Key="FoundNewMicrosoftWindowsGames">Найдены новые игры Microsoft Windows. Обновление списка систем.</system:String>
+    <system:String x:Key="FoundResults">Найдено результатов: {0}</system:String>
     <system:String x:Key="FromDate">С:</system:String>
     <system:String x:Key="FromDatePickerTooltip">Выбрать начальную дату</system:String>
     <system:String x:Key="FuzzyImageMatching">Нечеткое сопоставление изображений</system:String>

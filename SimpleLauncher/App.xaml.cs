@@ -314,6 +314,10 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IMenuOrchestrator, Services.MenuOrchestrator.MenuOrchestrator>();
         serviceCollection.AddSingleton<IGameBrowserService, Services.GameBrowser.GameBrowserService>();
 
+        // F8 Screenshot Hotkey
+        serviceCollection.AddSingleton<Services.TakeScreenshot.GlobalHotkeyService>();
+        serviceCollection.AddSingleton<Services.TakeScreenshot.ActiveWindowScreenshotService>();
+
         // ViewModels
         serviceCollection.AddTransient<AboutViewModel>();
         serviceCollection.AddTransient<DebugViewModel>();
