@@ -93,6 +93,12 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private void Cancel()
+    {
+        CloseRequested?.Invoke();
+    }
+
+    [RelayCommand]
     private void Revert()
     {
         _settingsManager.DeadZoneX = SettingsManager.DefaultDeadZoneX;

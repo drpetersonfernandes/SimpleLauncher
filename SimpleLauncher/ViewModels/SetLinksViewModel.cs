@@ -59,6 +59,12 @@ public partial class SetLinksViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private void Cancel()
+    {
+        CloseRequested?.Invoke();
+    }
+
+    [RelayCommand]
     private async Task RevertAsync()
     {
         _settingsManager.VideoUrl = _configuration.GetValue<string>("Urls:YouTubeSearch") ?? "https://www.youtube.com/results?search_query=";

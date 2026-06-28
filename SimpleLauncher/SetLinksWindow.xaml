@@ -81,6 +81,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <!-- Save Button -->
@@ -101,10 +102,20 @@
                 Grid.Column="1"
                 Margin="10"
                 Padding="10"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 Command="{Binding RevertCommand}"
                 Content="{DynamicResource ReverttoDefaultValues}"
                 ToolTip="{DynamicResource TooltipRevertLinks}" />
+
+            <!-- Cancel Button -->
+            <Button
+                Style="{DynamicResource DialogCancelButtonStyle}"
+                Grid.Column="2"
+                Margin="10"
+                HorizontalAlignment="Left"
+                Command="{Binding CancelCommand}"
+                Content="{DynamicResource Cancel}"
+                ToolTip="{DynamicResource TooltipClose}" />
         </Grid>
 
     </Grid>

@@ -588,6 +588,11 @@ internal partial class EditSystemWindow : ILoadingState
         }
     }
 
+    private void CloseButton_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
+
     private void EditSystem_Closing(object sender, CancelEventArgs e)
     {
         // Unsubscribe emergency button

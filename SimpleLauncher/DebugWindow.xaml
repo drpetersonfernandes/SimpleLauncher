@@ -38,6 +38,10 @@
             <Button Content="{DynamicResource CopyLog}" Margin="5,0" Command="{Binding CopyLogCommand}"
                     Style="{DynamicResource MahApps.Styles.Button.Square}"
                     ToolTip="{DynamicResource TooltipCopyLog}" />
+            <Button Content="{DynamicResource Close}" Margin="5,0"
+                    Style="{DynamicResource DialogCancelButtonStyle}"
+                    Click="CloseButton_Click"
+                    ToolTip="{DynamicResource TooltipClose}" />
         </StackPanel>
     </Grid>
 </mah:MetroWindow>

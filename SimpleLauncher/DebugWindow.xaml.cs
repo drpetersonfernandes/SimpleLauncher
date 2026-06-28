@@ -85,4 +85,9 @@ public partial class DebugWindow
             Instance = null;
         }
     }
+
+    private void CloseButton_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        Close();
+    }
 }

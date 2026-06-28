@@ -150,6 +150,14 @@
                     Command="{Binding RevertCommand}"
                     Content="{DynamicResource ReverttoDefaultValues}"
                     ToolTip="{DynamicResource TooltipRevertDeadZone}" />
+
+                <!-- Cancel Button -->
+                <Button
+                    Style="{DynamicResource DialogCancelButtonStyle}"
+                    Margin="5,20,0,10"
+                    Command="{Binding CancelCommand}"
+                    Content="{DynamicResource Cancel}"
+                    ToolTip="{DynamicResource TooltipClose}" />
             </StackPanel>
         </Grid>
 
