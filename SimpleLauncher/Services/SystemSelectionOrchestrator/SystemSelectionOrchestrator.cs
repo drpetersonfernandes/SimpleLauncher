@@ -465,6 +465,9 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
 
                     _host.ResetPaginationButtons();
                 }
+                catch (OperationCanceledException)
+                {
+                }
                 catch (Exception ex)
                 {
                     const string errorMessage = "Error in the method SystemComboBoxSelectionChangedAsync.";
@@ -472,7 +475,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
 
                     await _messageBox.InvalidSystemConfigMessageBoxAsync();
 
-                    await _gameCacheService.InvalidateAsync(cancellationToken);
+                    await _gameCacheService.InvalidateAsync(CancellationToken.None);
                 }
                 finally
                 {
@@ -480,10 +483,18 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
                     ((IUiResetHost)_host).IsUiUpdating = false;
                 }
             }
+            catch (OperationCanceledException)
+            {
+                // Expected when user rapidly switches systems
+            }
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Error in SystemComboBoxSelectionChangedAsync.");
             }
+        }
+        catch (OperationCanceledException)
+        {
+            // Expected when user rapidly switches systems
         }
         catch (Exception ex)
         {

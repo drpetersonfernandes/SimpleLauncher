@@ -393,10 +393,18 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             {
                 await _gameBrowser.SystemComboBoxSelectionChangedAsync(_cancellationSource.Token);
             }
+            catch (OperationCanceledException)
+            {
+                // Expected when user rapidly switches systems, no action needed
+            }
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Error in SystemComboBoxSelectionChangedAsync.");
             }
+        }
+        catch (OperationCanceledException)
+        {
+            // Expected when user rapidly switches systems, no action needed
         }
         catch (Exception ex)
         {
