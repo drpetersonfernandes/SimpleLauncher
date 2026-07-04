@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.ViewModels;
@@ -38,11 +39,13 @@ public partial class SupportWindow : ILoadingState
 
         _viewModel.CloseRequested += Close;
         _viewModel.FormCleared += _formClearedHandler;
+        _viewModel.PropertyChanged += ViewModel_PropertyChanged;
 
         Closing += (_, _) =>
         {
             _viewModel.CloseRequested -= Close;
             _viewModel.FormCleared -= _formClearedHandler;
+            _viewModel.PropertyChanged -= ViewModel_PropertyChanged;
 
             if (_emergencyReturnButton != null)
             {
@@ -62,6 +65,15 @@ public partial class SupportWindow : ILoadingState
         };
 
         DataContext = _viewModel;
+    }
+
+    private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(SupportViewModel.IsLoading))
+        {
+            var loadingMessage = (string)Application.Current.TryFindResource("SendingSupportRequest") ?? "Sending support request...";
+            SetLoadingState(_viewModel.IsLoading, loadingMessage);
+        }
     }
 
     /// <summary>
