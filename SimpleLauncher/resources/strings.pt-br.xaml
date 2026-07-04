@@ -349,6 +349,7 @@
     <system:String x:Key="DeadZoneExplanationContent">Uma zona morta é a área ao redor do centro dos thumbsticks do seu gamepad onde nenhum movimento é registrado. Isso evita movimentos indesejados do cursor quando o stick não está perfeitamente centralizado devido ao desgaste ou tolerâncias de fabricação.</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">O que é uma Zona Morta?</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Valores da zona morta salvos com sucesso.</system:String>
+    <system:String x:Key="DeadZonesRevertedToDefaultValues">Valores da zona morta revertidos para os valores padrão.</system:String>
     <system:String x:Key="DeadZoneX">Zona morta X</system:String>
     <system:String x:Key="DeadZoneY">Zona morta Y</system:String>
     <system:String x:Key="Debugger">Depurador</system:String>

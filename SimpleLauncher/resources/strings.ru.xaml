@@ -349,6 +349,7 @@
     <system:String x:Key="DeadZoneExplanationContent">Мертвая зона — это область вокруг центра стиков вашего геймпада, где не регистрируется движение. Это предотвращает нежелательное перемещение курсора, когда стик не идеально центрирован из-за износа или производственных допусков.</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">Что такое мертвая зона?</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Значения мертвой зоны успешно сохранены.</system:String>
+    <system:String x:Key="DeadZonesRevertedToDefaultValues">Значения мертвой зоны возвращены к значениям по умолчанию.</system:String>
     <system:String x:Key="DeadZoneX">Мертвая зона X</system:String>
     <system:String x:Key="DeadZoneY">Мертвая зона Y</system:String>
     <system:String x:Key="Debugger">Отладчик</system:String>

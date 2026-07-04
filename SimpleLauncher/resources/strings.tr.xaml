@@ -349,6 +349,7 @@
     <system:String x:Key="DeadZoneExplanationContent">Ölü bölge, gamepad'inizin başparmak çubuklarının merkezi etrafındaki, hiçbir hareketin kaydedilmediği alandır. Bu, aşınma veya üretim toleransları nedeniyle çubuğun mükemmel şekilde ortalanmadığı durumlarda istenmeyen imleç hareketini önler.</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">Ölü Bölge Nedir?</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Ölü bölge değerleri başarıyla kaydedildi.</system:String>
+    <system:String x:Key="DeadZonesRevertedToDefaultValues">Ölü bölge değerleri varsayılan değerlere döndürüldü.</system:String>
     <system:String x:Key="DeadZoneX">Ölü Bölge X</system:String>
     <system:String x:Key="DeadZoneY">Ölü Bölge Y</system:String>
     <system:String x:Key="Debugger">Hata Ayıklayıcı</system:String>

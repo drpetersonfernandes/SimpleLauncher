@@ -1399,6 +1399,16 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
+    /// Displays a success message confirming that dead zone values were reverted to defaults.
+    /// </summary>
+    public Task DeadZonesRevertedMessageBoxAsync()
+    {
+        var deadZonesRevertedToDefaultValues = _resourceProvider.GetString("DeadZonesRevertedToDefaultValues", "DeadZone values reverted to default values.");
+        var info = _resourceProvider.GetString("Info", "Info");
+        return _messageDialog.ShowInfoAsync(deadZonesRevertedToDefaultValues, info);
+    }
+
+    /// <summary>
     /// Displays an informational message confirming that links were reverted to default values.
     /// </summary>
     public Task LinksRevertedMessageBoxAsync()

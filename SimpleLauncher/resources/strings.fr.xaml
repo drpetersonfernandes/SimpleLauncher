@@ -349,6 +349,7 @@
     <system:String x:Key="DeadZoneExplanationContent">Une zone morte est la zone autour du centre des joysticks de votre manette où aucun mouvement n'est enregistré. Cela empêche les mouvements indésirables du curseur lorsque le stick n'est pas parfaitement centré en raison de l'usure ou des tolérances de fabrication.</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">Qu'est-ce qu'une Zone Morte ?</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Valeurs de la zone morte enregistrées avec succès.</system:String>
+    <system:String x:Key="DeadZonesRevertedToDefaultValues">Valeurs de la zone morte réinitialisées aux valeurs par défaut.</system:String>
     <system:String x:Key="DeadZoneX">Zone morte X</system:String>
     <system:String x:Key="DeadZoneY">Zone morte Y</system:String>
     <system:String x:Key="Debugger">Débogueur</system:String>

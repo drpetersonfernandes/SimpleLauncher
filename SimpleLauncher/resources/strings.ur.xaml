@@ -349,6 +349,7 @@
     <system:String x:Key="DeadZoneExplanationContent">ڈیڈ زون آپ کے گیم پیڈ کے تھمب اسٹکس کے مرکز کے گرد کا وہ علاقہ ہے جہاں کوئی حرکت رجسٹر نہیں ہوتی ہے۔ یہ اس وقت ناپسندیدہ کرسر کی حرکت کو روکتا ہے جب اسٹک ٹوٹ پھوٹ یا مینوفیکچرنگ کی خرابیوں کی وجہ سے بالکل مرکز میں نہ ہو۔</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">ڈیڈ زون کیا ہے؟</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">ڈیڈ زون کی قدریں کامیابی سے محفوظ کر لی گئیں۔</system:String>
+    <system:String x:Key="DeadZonesRevertedToDefaultValues">ڈیڈ زون کی قدریں ڈیفالٹ اقدار پر واپس آ گئیں۔</system:String>
     <system:String x:Key="DeadZoneX">ڈیڈ زون X</system:String>
     <system:String x:Key="DeadZoneY">ڈیڈ زون Y</system:String>
     <system:String x:Key="Debugger">ڈیبگر</system:String>

@@ -349,6 +349,7 @@
     <system:String x:Key="DeadZoneExplanationContent">死区是游戏手柄摇杆中心周围的区域，在该区域内不会注册任何移动。这可以防止由于磨损或制造公差导致摇杆未完全居中时出现不必要的鼠标光标移动。</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">什么是死区？</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">死区值已成功保存。</system:String>
+    <system:String x:Key="DeadZonesRevertedToDefaultValues">死区值已恢复为默认值。</system:String>
     <system:String x:Key="DeadZoneX">死区 X</system:String>
     <system:String x:Key="DeadZoneY">死区 Y</system:String>
     <system:String x:Key="Debugger">调试器</system:String>

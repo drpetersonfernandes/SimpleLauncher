@@ -349,6 +349,7 @@
     <system:String x:Key="DeadZoneExplanationContent">একটি ডেড জোন হল আপনার গেমপ্যাডের থাম্বস্টিকগুলির কেন্দ্রের চারপাশের এমন একটি এলাকা যেখানে কোনও নড়াচড়া নিবন্ধিত হয় না। এটি পরিধান বা উত্পাদন ত্রুটির কারণে স্টিক পুরোপুরি কেন্দ্রে না থাকলেও অবাঞ্ছিত কার্সার চলাচল প্রতিরোধ করে।</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">ডেড জোন কী?</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">ডেডজোন মান সফলভাবে সংরক্ষিত হয়েছে।</system:String>
+    <system:String x:Key="DeadZonesRevertedToDefaultValues">ডেডজোন মান ডিফল্ট মানে ফিরিয়ে আনা হয়েছে।</system:String>
     <system:String x:Key="DeadZoneX">ডেডজোন X</system:String>
     <system:String x:Key="DeadZoneY">ডেডজোন Y</system:String>
     <system:String x:Key="Debugger">ডিবাগার</system:String>

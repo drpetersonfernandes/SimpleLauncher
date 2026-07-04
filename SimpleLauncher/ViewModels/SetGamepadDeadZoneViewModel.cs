@@ -99,17 +99,19 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void Revert()
+    private async Task RevertAsync()
     {
         _settingsManager.DeadZoneX = SettingsManager.DefaultDeadZoneX;
         _settingsManager.DeadZoneY = SettingsManager.DefaultDeadZoneY;
-        _settingsManager.SaveAsync();
+        await _settingsManager.SaveAsync();
 
         DeadZoneX = SettingsManager.DefaultDeadZoneX;
         DeadZoneY = SettingsManager.DefaultDeadZoneY;
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
             _resourceProvider.GetString("RevertingGamepadDeadZoneSettings", "Reverting gamepad dead zone settings..."));
+
+        await _messageBox.DeadZonesRevertedMessageBoxAsync();
 
         CloseRequested?.Invoke();
     }

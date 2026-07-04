@@ -92,6 +92,7 @@ public interface IMessageBoxLibraryService
     Task FileIsLockedMessageBoxAsync(string tempFolderPath);
     Task LinksSavedMessageBoxAsync();
     Task DeadZonesSavedMessageBoxAsync();
+    Task DeadZonesRevertedMessageBoxAsync();
     Task LinksRevertedMessageBoxAsync();
     Task MainWindowSearchEngineErrorMessageBoxAsync();
     Task DownloadExtractionFailedMessageBoxAsync();

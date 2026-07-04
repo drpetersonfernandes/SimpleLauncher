@@ -349,6 +349,7 @@
     <system:String x:Key="DeadZoneExplanationContent">Een dode zone is het gebied rond het midden van de thumbsticks van je gamepad waar geen beweging wordt geregistreerd. Dit voorkomt ongewenste cursorbewegingen wanneer de stick niet perfect gecentreerd is door slijtage of productietoleranties.</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">Wat is een dode zone?</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Dode zone waarden succesvol opgeslagen.</system:String>
+    <system:String x:Key="DeadZonesRevertedToDefaultValues">Dode zone waarden zijn teruggezet naar standaardwaarden.</system:String>
     <system:String x:Key="DeadZoneX">Dode zone X</system:String>
     <system:String x:Key="DeadZoneY">Dode zone Y</system:String>
     <system:String x:Key="Debugger">Debugger</system:String>

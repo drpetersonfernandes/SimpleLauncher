@@ -349,6 +349,7 @@
     <system:String x:Key="DeadZoneExplanationContent">Zona mati adalah area di sekitar pusat thumbstick gamepad Anda di mana tidak ada gerakan yang terdaftar. Ini mencegah gerakan kursor yang tidak diinginkan ketika stick tidak sepenuhnya terpusat karena keausan atau toleransi manufaktur.</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">Apa itu Zona Mati?</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Nilai zona mati berhasil disimpan.</system:String>
+    <system:String x:Key="DeadZonesRevertedToDefaultValues">Nilai zona mati dikembalikan ke nilai default.</system:String>
     <system:String x:Key="DeadZoneX">Zona Mati X</system:String>
     <system:String x:Key="DeadZoneY">Zona Mati Y</system:String>
     <system:String x:Key="Debugger">Debugger</system:String>

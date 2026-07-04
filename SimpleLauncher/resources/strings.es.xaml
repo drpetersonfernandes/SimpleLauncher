@@ -349,6 +349,7 @@
     <system:String x:Key="DeadZoneExplanationContent">Una zona muerta es el área alrededor del centro de los joysticks de tu gamepad donde no se registra ningún movimiento. Esto evita movimientos no deseados del cursor cuando el joystick no está perfectamente centrado debido al desgaste o a las tolerancias de fabricación.</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">¿Qué es una Zona Muerta?</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Valores de zona muerta guardados correctamente.</system:String>
+    <system:String x:Key="DeadZonesRevertedToDefaultValues">Valores de zona muerta restablecidos a los valores predeterminados.</system:String>
     <system:String x:Key="DeadZoneX">Zona muerta X</system:String>
     <system:String x:Key="DeadZoneY">Zona muerta Y</system:String>
     <system:String x:Key="Debugger">Depurador</system:String>

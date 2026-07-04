@@ -718,6 +718,14 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
+    /// Does nothing. Does not display the dead-zones-reverted message box.
+    /// </summary>
+    public Task DeadZonesRevertedMessageBoxAsync()
+    {
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
     /// Does nothing. Does not display the links-reverted message box.
     /// </summary>
     public Task LinksRevertedMessageBoxAsync()

@@ -349,6 +349,7 @@
     <system:String x:Key="DeadZoneExplanationContent">Vùng chết là khu vực xung quanh trung tâm của cần điều khiển gamepad của bạn nơi không có chuyển động nào được ghi nhận. Điều này ngăn chặn chuyển động con trỏ không mong muốn khi cần điều khiển không được căn giữa hoàn hảo do hao mòn hoặc dung sai sản xuất.</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">Vùng chết là gì?</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Đã lưu thành công giá trị vùng chết.</system:String>
+    <system:String x:Key="DeadZonesRevertedToDefaultValues">Giá trị vùng chết đã được đặt lại về mặc định.</system:String>
     <system:String x:Key="DeadZoneX">Vùng chết X</system:String>
     <system:String x:Key="DeadZoneY">Vùng chết Y</system:String>
     <system:String x:Key="Debugger">Trình gỡ lỗi</system:String>
