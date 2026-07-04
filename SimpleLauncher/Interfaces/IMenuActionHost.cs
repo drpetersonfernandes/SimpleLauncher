@@ -47,7 +47,6 @@ public interface IMenuActionHost
     void ClearPreviewImage();
     void SetSystemComboBoxSelectedItem(object item);
     void SetEmulatorComboBoxSelectedItem(object item);
-    void SetSortOrderToggleButtonVisible(bool isVisible);
     void SetLoadingOverlayVisible(bool isVisible);
     void SetSortOrderToggleButtonToolTip(string toolTip);
 

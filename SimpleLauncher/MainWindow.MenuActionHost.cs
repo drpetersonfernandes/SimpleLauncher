@@ -184,11 +184,6 @@ public partial class MainWindow : IMenuActionHost
         EmulatorComboBox.SelectedItem = item;
     }
 
-    void IMenuActionHost.SetSortOrderToggleButtonVisible(bool isVisible)
-    {
-        SortOrderToggleButton.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
-    }
-
     void IMenuActionHost.SetLoadingOverlayVisible(bool isVisible)
     {
         LoadingOverlay.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;

@@ -54,7 +54,6 @@ public class UiResetService : IUiResetService
                 _host.ClearPreviewImage();
                 _host.SetSystemComboBoxSelectedItem(null);
                 _host.SetEmulatorComboBoxSelectedItem(null);
-                _host.SetSortOrderToggleButtonVisible(false);
                 _host.MameSortOrder = "FileName";
 
                 var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";

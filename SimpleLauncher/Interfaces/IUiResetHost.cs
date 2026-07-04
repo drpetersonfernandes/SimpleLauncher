@@ -23,5 +23,4 @@ public interface IUiResetHost
     void ClearPreviewImage();
     void SetSystemComboBoxSelectedItem(object item);
     void SetEmulatorComboBoxSelectedItem(object item);
-    void SetSortOrderToggleButtonVisible(bool isVisible);
 }

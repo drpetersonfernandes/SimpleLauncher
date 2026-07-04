@@ -285,7 +285,6 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
             {
                 _logErrors.LogAndForget(ex, "Error in SystemButtonClickAsync.");
                 await _messageBox.InvalidSystemConfigMessageBoxAsync();
-                _host.SortOrderToggleButton.Visibility = Visibility.Collapsed;
 
                 _host.SystemComboBox.SelectedItem = null;
                 await DisplaySystemSelectionScreenAsync(token);
@@ -403,7 +402,6 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
                         _logErrors.LogAndForget(null, errorMessage);
 
                         await _messageBox.InvalidSystemConfigMessageBoxAsync();
-                        _host.SortOrderToggleButton.Visibility = Visibility.Collapsed;
 
                         _host.SystemComboBox.SelectedItem = null;
                         await DisplaySystemSelectionScreenAsync(cancellationToken);
@@ -420,7 +418,6 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
 
                     ((IUiResetHost)_host).MameSortOrder = "FileName";
                     _host.UpdateSortOrderButtonUi();
-                    _host.SortOrderToggleButton.Visibility = Visibility.Visible;
 
                     _host.EmulatorComboBox.ItemsSource = selectedManager.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
                     if (_host.EmulatorComboBox.Items.Count > 0)

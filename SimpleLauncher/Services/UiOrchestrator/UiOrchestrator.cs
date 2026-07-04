@@ -154,11 +154,6 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
         _host.SearchTextBox.Text = text;
     }
 
-    public void SetSortOrderToggleButtonVisible(bool isVisible)
-    {
-        _host.SortOrderToggleButton.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
-    }
-
     public void SetLoadingOverlayVisible(bool isVisible)
     {
         _host.LoadingOverlay.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;

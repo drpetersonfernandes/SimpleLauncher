@@ -1240,7 +1240,6 @@ This release brings significant user-interface improvements, new features for ga
 # Release 2.4
 *2023-12-30*
 ---
--   Updated `system.xml` to include the field `SystemIsMAME`.
 -   Added a `mame.xml` database.
 -   Updated the `UI` to display the `System Directory` and the `number of games`.
 -   Updated the `parameters` within the `system.xml`.

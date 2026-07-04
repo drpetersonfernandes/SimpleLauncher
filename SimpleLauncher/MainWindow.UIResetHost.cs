@@ -76,9 +76,4 @@ public partial class MainWindow
     {
         EmulatorComboBox.SelectedItem = item;
     }
-
-    void IUiResetHost.SetSortOrderToggleButtonVisible(bool isVisible)
-    {
-        SortOrderToggleButton.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
-    }
 }

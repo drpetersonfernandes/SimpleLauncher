@@ -889,7 +889,7 @@
                                     Grid.Column="6"
                                     ToolTip="{DynamicResource TooltipSortOrder}" Click="SortOrderToggleButtonClickAsync"
                                     Margin="10,10,0,0"
-                                    Visibility="Collapsed" AutomationProperties.Name="{DynamicResource SortByFileNameTooltip}">
+                                    AutomationProperties.Name="{DynamicResource SortByFileNameTooltip}">
                                 <Image Source="pack://application:,,,/images/sort-az.png" Width="27" Height="27" AutomationProperties.Name="{DynamicResource SortAzIcon}" />
                             </Button>
                             </Grid>

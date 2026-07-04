@@ -27,7 +27,6 @@ public interface IUiOrchestrator
 
     void ClearPreviewImage();
     void SetSearchTextBoxText(string text);
-    void SetSortOrderToggleButtonVisible(bool isVisible);
     void SetLoadingOverlayVisible(bool isVisible);
 
     Task SetUiBeforeLoadGameFilesAsync();
