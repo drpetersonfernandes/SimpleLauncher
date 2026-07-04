@@ -189,6 +189,12 @@ public static partial class PathHelper
             return null;
         }
 
+        if ((path.StartsWith('"') && path.EndsWith('"')) ||
+            (path.StartsWith('\'') && path.EndsWith('\'')))
+        {
+            path = path[1..^1];
+        }
+
         string basePath;
         var remainingPath = path;
 
