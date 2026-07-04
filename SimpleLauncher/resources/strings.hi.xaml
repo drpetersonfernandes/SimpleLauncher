@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    
-    
-    
     <system:String x:Key="1000000games">सभी गेम</system:String>
     <system:String x:Key="10000games">10000 गेम</system:String>
     <system:String x:Key="1000games">1000 गेम</system:String>
@@ -348,8 +346,8 @@
     <system:String x:Key="DarkModeIcon">डार्क मोड</system:String>
     <system:String x:Key="DeadZoneExplanationContent">एक डेड ज़ोन आपके गेमपैड के थंबस्टिक्स के केंद्र के चारों ओर का वह क्षेत्र है जहाँ कोई गतिविधि दर्ज नहीं की जाती है। यह पहनने या निर्माण सहनशीलता के कारण स्टिक के पूरी तरह से केंद्रित न होने पर अवांछित कर्सर आंदोलन को रोकता है।</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">डेड ज़ोन क्या है?</system:String>
-    <system:String x:Key="DeadZonevaluessavedsuccessfully">डेड ज़ोन मान सफलतापूर्वक सहेजे गए।</system:String>
     <system:String x:Key="DeadZonesRevertedToDefaultValues">डेड ज़ोन मान डिफ़ॉल्ट मानों पर वापस आ गए।</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">डेड ज़ोन मान सफलतापूर्वक सहेजे गए।</system:String>
     <system:String x:Key="DeadZoneX">डेड ज़ोन X</system:String>
     <system:String x:Key="DeadZoneY">डेड ज़ोन Y</system:String>
     <system:String x:Key="Debugger">डीबगर</system:String>

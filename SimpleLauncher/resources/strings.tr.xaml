@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    
-    
-    
     <system:String x:Key="1000000games">Tüm oyunlar</system:String>
     <system:String x:Key="10000games">10000 oyun</system:String>
     <system:String x:Key="1000games">1000 oyun</system:String>
@@ -348,8 +346,8 @@
     <system:String x:Key="DarkModeIcon">Karanlık Mod</system:String>
     <system:String x:Key="DeadZoneExplanationContent">Ölü bölge, gamepad'inizin başparmak çubuklarının merkezi etrafındaki, hiçbir hareketin kaydedilmediği alandır. Bu, aşınma veya üretim toleransları nedeniyle çubuğun mükemmel şekilde ortalanmadığı durumlarda istenmeyen imleç hareketini önler.</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">Ölü Bölge Nedir?</system:String>
-    <system:String x:Key="DeadZonevaluessavedsuccessfully">Ölü bölge değerleri başarıyla kaydedildi.</system:String>
     <system:String x:Key="DeadZonesRevertedToDefaultValues">Ölü bölge değerleri varsayılan değerlere döndürüldü.</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">Ölü bölge değerleri başarıyla kaydedildi.</system:String>
     <system:String x:Key="DeadZoneX">Ölü Bölge X</system:String>
     <system:String x:Key="DeadZoneY">Ölü Bölge Y</system:String>
     <system:String x:Key="Debugger">Hata Ayıklayıcı</system:String>

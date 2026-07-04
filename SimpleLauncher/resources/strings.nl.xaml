@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    
-    
-    
     <system:String x:Key="1000000games">Alle spellen</system:String>
     <system:String x:Key="10000games">10000 spellen</system:String>
     <system:String x:Key="1000games">1000 spellen</system:String>
@@ -348,8 +346,8 @@
     <system:String x:Key="DarkModeIcon">Donkere modus</system:String>
     <system:String x:Key="DeadZoneExplanationContent">Een dode zone is het gebied rond het midden van de thumbsticks van je gamepad waar geen beweging wordt geregistreerd. Dit voorkomt ongewenste cursorbewegingen wanneer de stick niet perfect gecentreerd is door slijtage of productietoleranties.</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">Wat is een dode zone?</system:String>
-    <system:String x:Key="DeadZonevaluessavedsuccessfully">Dode zone waarden succesvol opgeslagen.</system:String>
     <system:String x:Key="DeadZonesRevertedToDefaultValues">Dode zone waarden zijn teruggezet naar standaardwaarden.</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">Dode zone waarden succesvol opgeslagen.</system:String>
     <system:String x:Key="DeadZoneX">Dode zone X</system:String>
     <system:String x:Key="DeadZoneY">Dode zone Y</system:String>
     <system:String x:Key="Debugger">Debugger</system:String>

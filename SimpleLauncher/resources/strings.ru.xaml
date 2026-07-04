@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    
-    
-    
     <system:String x:Key="1000000games">Все игры</system:String>
     <system:String x:Key="10000games">10000 игр</system:String>
     <system:String x:Key="1000games">1000 игр</system:String>
@@ -348,8 +346,8 @@
     <system:String x:Key="DarkModeIcon">Темная тема</system:String>
     <system:String x:Key="DeadZoneExplanationContent">Мертвая зона — это область вокруг центра стиков вашего геймпада, где не регистрируется движение. Это предотвращает нежелательное перемещение курсора, когда стик не идеально центрирован из-за износа или производственных допусков.</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">Что такое мертвая зона?</system:String>
-    <system:String x:Key="DeadZonevaluessavedsuccessfully">Значения мертвой зоны успешно сохранены.</system:String>
     <system:String x:Key="DeadZonesRevertedToDefaultValues">Значения мертвой зоны возвращены к значениям по умолчанию.</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">Значения мертвой зоны успешно сохранены.</system:String>
     <system:String x:Key="DeadZoneX">Мертвая зона X</system:String>
     <system:String x:Key="DeadZoneY">Мертвая зона Y</system:String>
     <system:String x:Key="Debugger">Отладчик</system:String>

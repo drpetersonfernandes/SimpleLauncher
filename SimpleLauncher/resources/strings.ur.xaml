@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    
-    
-    
     <system:String x:Key="1000000games">تمام گیمز</system:String>
     <system:String x:Key="10000games">10000 گیمز</system:String>
     <system:String x:Key="1000games">1000 گیمز</system:String>
@@ -348,8 +346,8 @@
     <system:String x:Key="DarkModeIcon">ڈارک موڈ</system:String>
     <system:String x:Key="DeadZoneExplanationContent">ڈیڈ زون آپ کے گیم پیڈ کے تھمب اسٹکس کے مرکز کے گرد کا وہ علاقہ ہے جہاں کوئی حرکت رجسٹر نہیں ہوتی ہے۔ یہ اس وقت ناپسندیدہ کرسر کی حرکت کو روکتا ہے جب اسٹک ٹوٹ پھوٹ یا مینوفیکچرنگ کی خرابیوں کی وجہ سے بالکل مرکز میں نہ ہو۔</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">ڈیڈ زون کیا ہے؟</system:String>
-    <system:String x:Key="DeadZonevaluessavedsuccessfully">ڈیڈ زون کی قدریں کامیابی سے محفوظ کر لی گئیں۔</system:String>
     <system:String x:Key="DeadZonesRevertedToDefaultValues">ڈیڈ زون کی قدریں ڈیفالٹ اقدار پر واپس آ گئیں۔</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">ڈیڈ زون کی قدریں کامیابی سے محفوظ کر لی گئیں۔</system:String>
     <system:String x:Key="DeadZoneX">ڈیڈ زون X</system:String>
     <system:String x:Key="DeadZoneY">ڈیڈ زون Y</system:String>
     <system:String x:Key="Debugger">ڈیبگر</system:String>

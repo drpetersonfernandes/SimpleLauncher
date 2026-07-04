@@ -17,7 +17,7 @@ public class WpfMessageDialogService : IMessageDialogService
         const System.Windows.MessageBoxButton wpfButtons = (int)MessageBoxButton.Ok;
         const System.Windows.MessageBoxImage wpfIcon = (System.Windows.MessageBoxImage)(int)MessageBoxImage.Information;
 
-        Application.Current.Dispatcher.InvokeAsync(() =>
+        Application.Current.Dispatcher.Invoke(() =>
             System.Windows.MessageBox.Show(message, title, wpfButtons, wpfIcon));
 
         return Task.CompletedTask;
@@ -29,7 +29,7 @@ public class WpfMessageDialogService : IMessageDialogService
         const System.Windows.MessageBoxButton wpfButtons = (int)MessageBoxButton.Ok;
         const System.Windows.MessageBoxImage wpfIcon = (System.Windows.MessageBoxImage)(int)MessageBoxImage.Warning;
 
-        Application.Current.Dispatcher.InvokeAsync(() =>
+        Application.Current.Dispatcher.Invoke(() =>
             System.Windows.MessageBox.Show(message, title, wpfButtons, wpfIcon));
 
         return Task.CompletedTask;
@@ -41,7 +41,7 @@ public class WpfMessageDialogService : IMessageDialogService
         const System.Windows.MessageBoxButton wpfButtons = (int)MessageBoxButton.Ok;
         const System.Windows.MessageBoxImage wpfIcon = (System.Windows.MessageBoxImage)(int)MessageBoxImage.Error;
 
-        Application.Current.Dispatcher.InvokeAsync(() =>
+        Application.Current.Dispatcher.Invoke(() =>
             System.Windows.MessageBox.Show(message, title, wpfButtons, wpfIcon));
 
         return Task.CompletedTask;

@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    
-    
-    
     <system:String x:Key="1000000games">全ゲーム</system:String>
     <system:String x:Key="10000games">10000ゲーム</system:String>
     <system:String x:Key="1000games">1000ゲーム</system:String>
@@ -348,8 +346,8 @@
     <system:String x:Key="DarkModeIcon">ダークモード</system:String>
     <system:String x:Key="DeadZoneExplanationContent">デッドゾーンとは、ゲームパッドのサムスティックの中心周辺の領域で、動きが登録されない場所です。これにより、摩耗や製造公差によりスティックが完全に中央にない場合に、意図しないカーソル移動を防ぎます。</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">デッドゾーンとは？</system:String>
-    <system:String x:Key="DeadZonevaluessavedsuccessfully">デッドゾーンの値が正常に保存されました。</system:String>
     <system:String x:Key="DeadZonesRevertedToDefaultValues">デッドゾーンの値がデフォルト値に戻されました。</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">デッドゾーンの値が正常に保存されました。</system:String>
     <system:String x:Key="DeadZoneX">デッドゾーンX</system:String>
     <system:String x:Key="DeadZoneY">デッドゾーンY</system:String>
     <system:String x:Key="Debugger">デバッガー</system:String>

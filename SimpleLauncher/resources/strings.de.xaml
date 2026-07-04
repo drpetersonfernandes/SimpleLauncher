@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    
-    
-    
     <system:String x:Key="1000000games">Alle Spiele</system:String>
     <system:String x:Key="10000games">10000 Spiele</system:String>
     <system:String x:Key="1000games">1000 Spiele</system:String>
@@ -348,8 +346,8 @@
     <system:String x:Key="DarkModeIcon">Dunkelmodus</system:String>
     <system:String x:Key="DeadZoneExplanationContent">Eine Totzone ist der Bereich um die Mitte der Thumbsticks Ihres Gamepads, in dem keine Bewegung registriert wird. Dies verhindert unerwünschte Cursorbewegungen, wenn der Stick aufgrund von Verschleiß oder Fertigungstoleranzen nicht perfekt zentriert ist.</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">Was ist eine Totzone?</system:String>
-    <system:String x:Key="DeadZonevaluessavedsuccessfully">Totzonenwerte wurden erfolgreich gespeichert.</system:String>
     <system:String x:Key="DeadZonesRevertedToDefaultValues">Totzonenwerte wurden auf Standardwerte zurückgesetzt.</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">Totzonenwerte wurden erfolgreich gespeichert.</system:String>
     <system:String x:Key="DeadZoneX">Totzone X</system:String>
     <system:String x:Key="DeadZoneY">Totzone Y</system:String>
     <system:String x:Key="Debugger">Debugger</system:String>

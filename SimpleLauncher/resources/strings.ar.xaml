@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    
-    
-    
     <system:String x:Key="1000000games">كل الألعاب</system:String>
     <system:String x:Key="10000games">10000 لعبة</system:String>
     <system:String x:Key="1000games">1000 لعبة</system:String>
@@ -348,8 +346,8 @@
     <system:String x:Key="DarkModeIcon">الوضع الداكن</system:String>
     <system:String x:Key="DeadZoneExplanationContent">المنطقة الميتة هي المنطقة المحيطة بمركز عصا التحكم في لوحة الألعاب الخاصة بك حيث لا يتم تسجيل أي حركة. هذا يمنع حركة المؤشر غير المرغوب فيها عندما لا تكون العصا متمركزة تمامًا بسبب التآكل أو تفاوتات التصنيع.</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">ما هي المنطقة الميتة؟</system:String>
-    <system:String x:Key="DeadZonevaluessavedsuccessfully">تم حفظ قيم المنطقة الميتة بنجاح.</system:String>
     <system:String x:Key="DeadZonesRevertedToDefaultValues">تم إعادة قيم المنطقة الميتة إلى القيم الافتراضية.</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">تم حفظ قيم المنطقة الميتة بنجاح.</system:String>
     <system:String x:Key="DeadZoneX">المنطقة الميتة X</system:String>
     <system:String x:Key="DeadZoneY">المنطقة الميتة Y</system:String>
     <system:String x:Key="Debugger">مصدر الأخطاء</system:String>

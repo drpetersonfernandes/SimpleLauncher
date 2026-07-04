@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    
-    
-    
     <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
     <system:String x:Key="10000games">10000 trò chơi</system:String>
     <system:String x:Key="1000games">1000 trò chơi</system:String>
@@ -348,8 +346,8 @@
     <system:String x:Key="DarkModeIcon">Chế độ tối</system:String>
     <system:String x:Key="DeadZoneExplanationContent">Vùng chết là khu vực xung quanh trung tâm của cần điều khiển gamepad của bạn nơi không có chuyển động nào được ghi nhận. Điều này ngăn chặn chuyển động con trỏ không mong muốn khi cần điều khiển không được căn giữa hoàn hảo do hao mòn hoặc dung sai sản xuất.</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">Vùng chết là gì?</system:String>
-    <system:String x:Key="DeadZonevaluessavedsuccessfully">Đã lưu thành công giá trị vùng chết.</system:String>
     <system:String x:Key="DeadZonesRevertedToDefaultValues">Giá trị vùng chết đã được đặt lại về mặc định.</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">Đã lưu thành công giá trị vùng chết.</system:String>
     <system:String x:Key="DeadZoneX">Vùng chết X</system:String>
     <system:String x:Key="DeadZoneY">Vùng chết Y</system:String>
     <system:String x:Key="Debugger">Trình gỡ lỗi</system:String>

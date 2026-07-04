@@ -346,8 +346,8 @@
     <system:String x:Key="DarkModeIcon">Dark Mode</system:String>
     <system:String x:Key="DeadZoneExplanationContent">A dead zone is the area around the center of your gamepad's thumbsticks where no movement is registered. This prevents unwanted cursor movement when the stick isn't perfectly centered due to wear or manufacturing tolerances.</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">What is a Dead Zone?</system:String>
-    <system:String x:Key="DeadZonevaluessavedsuccessfully">DeadZone values saved successfully.</system:String>
     <system:String x:Key="DeadZonesRevertedToDefaultValues">DeadZone values reverted to default values.</system:String>
+    <system:String x:Key="DeadZonevaluessavedsuccessfully">DeadZone values saved successfully.</system:String>
     <system:String x:Key="DeadZoneX">DeadZone X</system:String>
     <system:String x:Key="DeadZoneY">DeadZone Y</system:String>
     <system:String x:Key="Debugger">Debugger</system:String>
