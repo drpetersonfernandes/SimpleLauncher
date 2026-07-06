@@ -41,7 +41,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-You can download this emulator on the [Official Website](http://cngsoft.no-ip.org/cpcec.htm).<br>
+You can download this emulator on the [Official Website](https://github.com/cpcitor/cpcec).<br>
 
 .
 
@@ -1554,7 +1554,7 @@ You can download this emulator on the [Official Website](https://openmsx.org/).<
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-You can download this emulator on the [Official Website](http://cngsoft.no-ip.org/cpcec.htm).<br>
+You can download this emulator on the [Official Website](https://github.com/cpcitor/cpcec).<br>
 
 .
 
@@ -1660,7 +1660,7 @@ You can download this emulator on the [Official Website](https://openmsx.org/).<
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-You can download this emulator on the [Official Website](http://cngsoft.no-ip.org/cpcec.htm).<br>
+You can download this emulator on the [Official Website](https://github.com/cpcitor/cpcec).<br>
 
 .
 

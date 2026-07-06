@@ -1,32 +1,24 @@
-# 🎮 Simple Launcher
-
-**Simple Launcher** is a high-performance, open-source emulator frontend built with C# and WPF. Designed for both casual gamers and power users, it provides a seamless interface to organize, browse, and launch your retro gaming collection with deep integration for modern emulators and RetroAchievements.
-
 [![GitHub release](https://img.shields.io/github/v/release/drpetersonfernandes/SimpleLauncher)](https://github.com/drpetersonfernandes/SimpleLauncher/releases)
 [![Platform](https://img.shields.io/badge/platform-Windows%20x64%20%7C%20ARM64-blue)](https://github.com/drpetersonfernandes/SimpleLauncher/releases)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE.txt)
+
+# 🎮 Simple Launcher
+
+**Simple Launcher** is a open-source emulator frontend. Designed for both casual gamers and power users, it provides a seamless interface to organize, browse, and launch your retro gaming collection with deep integration for modern emulators and RetroAchievements.
 
 ---
 
 ## 📸 Screenshots
 
-**System Selection**
 ![System Selection](screenshot.png)
 
-**List Of Games in Grid Mode**
 ![List Of Games in Grid Mode](screenshot2.png)
 
-**List Of Games in List Mode**
 ![List Of Games in List Mode](screenshot3.png)
 
-**RetroAchievements Window**
 ![RetroAchievements Window](screenshot4.png)
 
-**RetroAchievements Window**
 ![RetroAchievements Window](screenshot5.png)
-
-**Inject Configuration Window for Emulator Xenia**
-![Inject Configuration Window for Emulator Xenia](screenshot6.png)
 
 ---
 
