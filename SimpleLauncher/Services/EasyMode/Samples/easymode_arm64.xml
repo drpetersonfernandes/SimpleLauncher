@@ -1537,7 +1537,7 @@
         <CoreDownloadLink />
         <CoreDownloadExtractPath />
         <ImagePackDownloadLink>https://assets.purelogiccode.com/Simple%20Launcher/segamastersystem.zip</ImagePackDownloadLink>
-        <ImagePackDownloadLink2>https://assets.purelogiccode.com/Simple%20Launcher/segamastersystem_2.zip</ImagePackDownloadLink2>
+        <ImagePackDownloadLink2 />
         <ImagePackDownloadLink3 />
         <ImagePackDownloadLink4 />
         <ImagePackDownloadLink5 />
