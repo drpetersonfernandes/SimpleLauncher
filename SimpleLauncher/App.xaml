@@ -131,7 +131,7 @@
 
             <SolidColorBrush x:Key="UpdateLogWindowBackground" Color="#FF1E1E1E" />
             <SolidColorBrush x:Key="LogBackground" Color="Black" />
-            <SolidColorBrush x:Key="LogForeground" Color="Lime" />
+            <SolidColorBrush x:Key="LogForeground" Color="White" />
 
             <SolidColorBrush x:Key="GridSplitterBackground" Color="Gray" />
             <SolidColorBrush x:Key="GridSplitterDotBrush" Color="White" />

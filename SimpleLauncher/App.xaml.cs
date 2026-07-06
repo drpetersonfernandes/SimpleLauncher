@@ -694,6 +694,14 @@ public partial class App : IDisposable
     private static void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
     {
         ReportException(e.Exception, "Unhandled dispatcher exception.");
+
+        // Don't swallow critical exceptions that indicate memory corruption or resource exhaustion
+        if (e.Exception is OutOfMemoryException or AccessViolationException or InvalidProgramException)
+        {
+            return;
+        }
+
+        e.Handled = true;
     }
 
     private static void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)

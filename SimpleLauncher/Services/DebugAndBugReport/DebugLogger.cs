@@ -44,7 +44,20 @@ public class DebugLogger : IDebugLogger
 
         if (_windowInitialized)
         {
-            _logWindowInstance?.AppendLogMessage(message);
+            try
+            {
+                _logWindowInstance?.AppendLogMessage(message);
+            }
+            catch (ObjectDisposedException)
+            {
+                _logWindowInstance = null;
+                _windowInitialized = false;
+            }
+            catch (InvalidOperationException)
+            {
+                _logWindowInstance = null;
+                _windowInitialized = false;
+            }
             return;
         }
 
@@ -94,6 +107,22 @@ public class DebugLogger : IDebugLogger
         {
             dispatcher.Invoke(OpenDebugWindow);
             return;
+        }
+
+        // If window exists but was hidden, just show it
+        if (_windowInitialized && DebugWindow.Instance != null)
+        {
+            DebugWindow.Instance.Show();
+            DebugWindow.Instance.WindowState = System.Windows.WindowState.Normal;
+            DebugWindow.Instance.Activate();
+            return;
+        }
+
+        // Reset state if window was previously closed
+        if (_windowInitialized && DebugWindow.Instance == null)
+        {
+            _windowInitialized = false;
+            _logWindowInstance = null;
         }
 
         DebugWindow.Initialize();
