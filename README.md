@@ -4,7 +4,7 @@
 
 # 🎮 Simple Launcher
 
-**Simple Launcher** is a open-source emulator frontend. Designed for both casual gamers and power users, it provides a seamless interface to organize, browse, and launch your retro gaming collection with deep integration for modern emulators and RetroAchievements.
+**Simple Launcher** is an open-source emulator frontend. Designed for both casual gamers and power users, it provides a seamless interface to organize, browse, and launch your retro gaming collection with deep integration for modern emulators and RetroAchievements.
 
 ---
 
