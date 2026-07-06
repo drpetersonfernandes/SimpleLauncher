@@ -511,14 +511,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                             await _menuOrchestrator.HandleZoomOutAsync();
                             break;
                     }
+
+                    // Mark the event as handled to prevent scrolling the ScrollViewer
+                    e.Handled = true;
                 }
                 catch (Exception ex)
                 {
                     _logErrors.LogAndForget(ex, "Error in the method MainWindow_MouseWheelAsync.");
                 }
-
-                // Mark the event as handled to prevent scrolling the ScrollViewer
-                e.Handled = true;
             }
             catch (Exception ex)
             {

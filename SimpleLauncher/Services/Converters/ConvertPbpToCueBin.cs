@@ -13,7 +13,11 @@ using Interfaces;
 public static class ConvertPbpToCueBin
 {
     private static readonly string TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
-    private static readonly Lazy<IDebugLogger> DebugLogger2 = new(static () => App.ServiceProvider.GetRequiredService<IDebugLogger>());
+    private static readonly Lazy<IDebugLogger> DebugLogger2 = new(() =>
+    {
+        var sp = App.ServiceProvider;
+        return sp?.GetService<IDebugLogger>() ?? new FallbackDebugLogger();
+    });
     private static IDebugLogger DebugLogger => DebugLogger2.Value;
 
     /// <summary>

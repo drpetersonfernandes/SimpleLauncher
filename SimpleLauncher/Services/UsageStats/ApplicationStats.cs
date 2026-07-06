@@ -15,7 +15,11 @@ using Interfaces;
 /// </summary>
 public class ApplicationStats
 {
-    private static readonly Lazy<IDebugLogger> DebugLogger2 = new(static () => App.ServiceProvider.GetRequiredService<IDebugLogger>());
+    private static readonly Lazy<IDebugLogger> DebugLogger2 = new(() =>
+    {
+        var sp = App.ServiceProvider;
+        return sp?.GetService<IDebugLogger>() ?? new FallbackDebugLogger();
+    });
     private static IDebugLogger DebugLogger => DebugLogger2.Value;
 
     /// <summary>Asynchronously sends application version statistics to the remote API.</summary>

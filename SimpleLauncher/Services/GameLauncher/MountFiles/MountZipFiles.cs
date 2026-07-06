@@ -146,7 +146,7 @@ public class MountZipFiles : IMountZipFiles
                     catch (Exception ex)
                     {
                         _debugLogger.Log($"[MountZipFiles.KillAllSimpleZipDriveProcesses] Error killing process {process.Id}: {ex.Message}");
-                        logErrors.LogErrorAsync(ex, $"[MountZipFiles.KillAllSimpleZipDriveProcesses] Error killing process {process.Id}: {ex.Message}");
+                        logErrors.LogAndForget(ex, $"[MountZipFiles.KillAllSimpleZipDriveProcesses] Error killing process {process.Id}: {ex.Message}");
                     }
                     finally
                     {

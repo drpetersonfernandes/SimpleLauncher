@@ -146,6 +146,11 @@ public partial class App : IDisposable
         serviceCollection.AddHttpClient("ParameterResolverClient", client =>
         {
             var resolverUrl = configuration.GetValue<string>("Urls:ParameterResolverApi") ?? "https://www.purelogiccode.com/simplelauncheradmin/";
+            if (!resolverUrl.EndsWith('/'))
+            {
+                resolverUrl += "/";
+            }
+
             client.BaseAddress = new Uri(resolverUrl);
             client.Timeout = TimeSpan.FromSeconds(60);
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher/1.0");
@@ -437,19 +442,21 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<ILaunchStrategy, DosBoxLaunchStrategy>();
         serviceCollection.AddSingleton<ILaunchStrategy, DefaultLaunchStrategy>();
 
-        ServiceProvider = serviceCollection.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true });
-
         // Detect if the application is running from a temporary extraction folder
         // (e.g., user double-clicked the .exe inside a ZIP/RAR archive)
         var baseDir = AppDomain.CurrentDomain.BaseDirectory;
         var tempDir = Path.GetTempPath();
         if (baseDir.StartsWith(tempDir, StringComparison.OrdinalIgnoreCase))
         {
-            var messageBox = ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
-            _ = messageBox.PleaseExtractApplicationFirstMessageBoxAsync();
+            MessageBox.Show("Please extract the application first.\n\nIt looks like you are running SimpleLauncher from inside a ZIP or RAR archive.\n\nPlease extract the archive to a folder on your computer and run the application from there.",
+                "SimpleLauncher",
+                System.Windows.MessageBoxButton.OK,
+                System.Windows.MessageBoxImage.Warning);
             Shutdown();
             return;
         }
+
+        ServiceProvider = serviceCollection.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true });
 
         // --- Single Instance Check ---
         // Catch args
@@ -461,7 +468,9 @@ public partial class App : IDisposable
         {
             try
             {
-                ServiceProvider.GetRequiredService<ICleanSimpleLauncherFolderService>().CleanupTrash();
+                var cleanupService = ServiceProvider.GetRequiredService<ICleanSimpleLauncherFolderService>();
+                cleanupService.CleanupTrash();
+                cleanupService.CleanupTempFiles();
             }
             catch (Exception ex)
             {
@@ -685,14 +694,6 @@ public partial class App : IDisposable
     private static void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
     {
         ReportException(e.Exception, "Unhandled dispatcher exception.");
-
-        // Don't swallow critical exceptions that indicate memory corruption or resource exhaustion
-        if (e.Exception is OutOfMemoryException or AccessViolationException or InvalidProgramException)
-        {
-            return;
-        }
-
-        e.Handled = true;
     }
 
     private static void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
@@ -725,7 +726,7 @@ public partial class App : IDisposable
         {
             var gamePadController = ServiceProvider.GetRequiredService<GamePadController>();
             // Dispose gamepad resources
-            _ = gamePadController.StopAsync();
+            gamePadController.StopAsync().GetAwaiter().GetResult();
             gamePadController.Dispose();
         }
         catch (InvalidOperationException ex)
