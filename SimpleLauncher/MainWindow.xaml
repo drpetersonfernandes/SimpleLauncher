@@ -596,11 +596,6 @@
                         <Image Source="pack://application:,,,/images/findromcover.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource FindRomCoverIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="GameCoverScraper_ClickAsync" Header="Game Cover Scraper" ToolTip="{DynamicResource TooltipToolsMenu}">
-                    <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/gamecoverscraper.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource GameCoverScraperIcon}" />
-                    </MenuItem.Icon>
-                </MenuItem>
                 <MenuItem Click="RetroGameCoverDownloader_ClickAsync" Header="Retro Game Cover Downloader" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/retrogamecoverdownloader.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource RetroGameCoverDownloaderIcon}" />

@@ -694,7 +694,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">Niedriger Schwellenwert (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">Findet mehr Übereinstimmungen, kann aber falsche Bilder enthalten</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">Stellen Sie den Fuzzy-Matching-Schwellenwert ein</system:String>
-    <system:String x:Key="GameCoverScraperIcon">Spiele-Cover-Scraper</system:String>
     <system:String x:Key="GameDetails">Spiel-Details</system:String>
     <system:String x:Key="GameID">Spiel-ID:</system:String>
     <system:String x:Key="GameImages">Spiel-Bilder</system:String>

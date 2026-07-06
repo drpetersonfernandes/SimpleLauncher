@@ -694,7 +694,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">低しきい値 (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">より多くのマッチを見つけますが、不正確な画像が含まれる場合があります</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">ファジーマッチングの閾値を設定</system:String>
-    <system:String x:Key="GameCoverScraperIcon">ゲームカバー・スクレイパー</system:String>
     <system:String x:Key="GameDetails">ゲーム詳細</system:String>
     <system:String x:Key="GameID">ゲームID:</system:String>
     <system:String x:Key="GameImages">ゲーム画像</system:String>

@@ -694,7 +694,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">নিম্ন থ্রেশহোল্ড (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">আরও বেশি মিল খুঁজে পায় তবে ভুল ছবিও অন্তর্ভুক্ত করতে পারে</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">ফাজি ম্যাচিং থ্রেশহোল্ড সেট করুন</system:String>
-    <system:String x:Key="GameCoverScraperIcon">গেম কভার স্ক্র্যাপার</system:String>
     <system:String x:Key="GameDetails">গেমের বিবরণ</system:String>
     <system:String x:Key="GameID">গেম আইডি:</system:String>
     <system:String x:Key="GameImages">গেমের ছবি</system:String>

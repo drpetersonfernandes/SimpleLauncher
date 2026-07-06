@@ -694,7 +694,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">Низкий порог (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">Находит больше совпадений, но может включать некорректные изображения</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">Установите порог нечеткого сопоставления</system:String>
-    <system:String x:Key="GameCoverScraperIcon">Скрапер обложек игр</system:String>
     <system:String x:Key="GameDetails">Детали игры</system:String>
     <system:String x:Key="GameID">ID игры:</system:String>
     <system:String x:Key="GameImages">Изображения игры</system:String>

@@ -694,7 +694,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">عتبة منخفضة (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">يعثر على المزيد من التطابقات ولكنه قد يتضمن صورًا غير صحيحة</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">قم بضبط عتبة المطابقة الضبابية</system:String>
-    <system:String x:Key="GameCoverScraperIcon">جالب أغلفة الألعاب</system:String>
     <system:String x:Key="GameDetails">تفاصيل اللعبة</system:String>
     <system:String x:Key="GameID">معرف اللعبة:</system:String>
     <system:String x:Key="GameImages">صور اللعبة</system:String>

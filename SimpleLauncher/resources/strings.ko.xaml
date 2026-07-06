@@ -694,7 +694,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">낮은 임계값 (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">더 많은 일치를 찾지만 잘못된 이미지가 포함될 수 있습니다</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">퍼지 매칭 임계값 설정</system:String>
-    <system:String x:Key="GameCoverScraperIcon">게임 커버 스크레이퍼</system:String>
     <system:String x:Key="GameDetails">게임 세부 정보</system:String>
     <system:String x:Key="GameID">게임 ID:</system:String>
     <system:String x:Key="GameImages">게임 이미지</system:String>

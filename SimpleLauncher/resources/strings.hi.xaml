@@ -694,7 +694,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">कम थ्रेशोल्ड (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">अधिक मिलान ढूंढता है लेकिन इसमें गलत छवियां शामिल हो सकती हैं</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">फजी मैचिंग सीमा सेट करें</system:String>
-    <system:String x:Key="GameCoverScraperIcon">गेम कवर स्क्रैपर</system:String>
     <system:String x:Key="GameDetails">गेम विवरण</system:String>
     <system:String x:Key="GameID">गेम आईडी:</system:String>
     <system:String x:Key="GameImages">गेम छवियाँ</system:String>

@@ -694,7 +694,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">Lage drempel (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">Vindt meer overeenkomsten, maar kan onjuiste afbeeldingen bevatten</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">Stel de fuzzy matching drempel in</system:String>
-    <system:String x:Key="GameCoverScraperIcon">Game-cover scraper</system:String>
     <system:String x:Key="GameDetails">Speldetails</system:String>
     <system:String x:Key="GameID">Spel ID:</system:String>
     <system:String x:Key="GameImages">Spelafbeeldingen</system:String>

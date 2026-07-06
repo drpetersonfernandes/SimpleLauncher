@@ -11,7 +11,6 @@ public interface ILaunchTools
     Task CreateBatchFilesForWindowsGamesAsync();
     Task CreateBatchFilesForXbox360XblaGamesAsync();
     Task FindRomCoverLaunchAsync(string selectedImageFolder, string selectedRomFolder);
-    Task GameCoverScraperAsync(string selectedImageFolder, string selectedRomFolder);
     Task RetroGameCoverDownloaderAsync(string selectedImageFolder, string selectedRomFolder);
     Task RomValidatorAsync();
 }

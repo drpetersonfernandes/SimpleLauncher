@@ -694,7 +694,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">Düşük eşik (%70-80):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">Daha fazla eşleşme bulur ancak yanlış resimler içerebilir</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">Bulanık eşleştirme eşiğini ayarla</system:String>
-    <system:String x:Key="GameCoverScraperIcon">Oyun Kapağı Kazıyıcı</system:String>
     <system:String x:Key="GameDetails">Oyun Detayları</system:String>
     <system:String x:Key="GameID">Oyun Kimliği:</system:String>
     <system:String x:Key="GameImages">Oyun Resimleri</system:String>

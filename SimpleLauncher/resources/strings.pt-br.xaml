@@ -694,7 +694,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">Limite inferior (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">Encontra mais correspondências, mas pode incluir imagens incorretas</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">Defina o limite de correspondência difusa</system:String>
-    <system:String x:Key="GameCoverScraperIcon">Scraper de Capas de Jogos</system:String>
     <system:String x:Key="GameDetails">Detalhes do Jogo</system:String>
     <system:String x:Key="GameID">ID do Jogo:</system:String>
     <system:String x:Key="GameImages">Imagens do Jogo</system:String>

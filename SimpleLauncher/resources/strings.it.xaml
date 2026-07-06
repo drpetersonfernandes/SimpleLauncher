@@ -694,7 +694,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">Soglia bassa (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">Trova più corrispondenze ma potrebbe includere immagini errate</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">Imposta la soglia di corrispondenza fuzzy</system:String>
-    <system:String x:Key="GameCoverScraperIcon">Scraper copertine giochi</system:String>
     <system:String x:Key="GameDetails">Dettagli del Gioco</system:String>
     <system:String x:Key="GameID">ID Gioco:</system:String>
     <system:String x:Key="GameImages">Immagini del Gioco</system:String>

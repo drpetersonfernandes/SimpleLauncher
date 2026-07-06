@@ -694,7 +694,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">Umbral bajo (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">Encuentra más coincidencias, pero puede incluir imágenes incorrectas</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">Establecer el umbral de coincidencia difusa</system:String>
-    <system:String x:Key="GameCoverScraperIcon">Buscador de portadas de juegos</system:String>
     <system:String x:Key="GameDetails">Detalles del juego</system:String>
     <system:String x:Key="GameID">ID del juego:</system:String>
     <system:String x:Key="GameImages">Imágenes del juego</system:String>

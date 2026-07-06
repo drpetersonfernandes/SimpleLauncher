@@ -165,7 +165,7 @@ public class LaunchTools : ILaunchTools
 
     public async Task FindRomCoverLaunchAsync(string selectedImageFolder, string selectedRomFolder)
     {
-        var toolPath = await GetToolExecutablePathAsync("FindRomCover", "FindRomCover");
+        var toolPath = await GetToolExecutablePathAsync("FindRomCover", "FindRomCover", true);
         if (toolPath == null) return;
 
         var arguments = "";
@@ -246,25 +246,6 @@ public class LaunchTools : ILaunchTools
         if (toolPath == null) return;
 
         await LaunchExternalToolAsync(toolPath);
-    }
-
-    public async Task GameCoverScraperAsync(string selectedImageFolder, string selectedRomFolder)
-    {
-        var toolPath = await GetToolExecutablePathAsync("GameCoverScraper", "GameCoverScraper", true);
-        if (toolPath == null) return;
-
-        var arguments = "";
-        var workingDirectory = Path.GetDirectoryName(toolPath);
-
-        var absoluteImageFolder = !string.IsNullOrEmpty(selectedImageFolder) ? PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder) : null;
-        var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder) ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder) : null;
-
-        if (!string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(absoluteRomFolder))
-        {
-            arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
-        }
-
-        await LaunchExternalToolAsync(toolPath, arguments, workingDirectory);
     }
 
     public async Task RetroGameCoverDownloaderAsync(string selectedImageFolder, string selectedRomFolder)

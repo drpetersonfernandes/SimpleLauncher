@@ -152,21 +152,6 @@ public partial class MainWindow
         }
     }
 
-    private async void GameCoverScraper_ClickAsync(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
-            _audioInput.PlayNotificationSound();
-            await ResetUiAsync();
-            await _launchTools.GameCoverScraperAsync(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
-        }
-        catch (Exception ex)
-        {
-            _logErrors.LogAndForget(ex, "Error in the method GameCoverScraper_ClickAsync");
-        }
-    }
-
     private async void RetroGameCoverDownloader_ClickAsync(object sender, RoutedEventArgs e)
     {
         try

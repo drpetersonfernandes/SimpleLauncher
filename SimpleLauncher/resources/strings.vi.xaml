@@ -694,7 +694,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">Ngưỡng thấp (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">Tìm thấy nhiều kết quả khớp hơn nhưng có thể bao gồm hình ảnh không chính xác</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">Đặt ngưỡng so khớp mờ</system:String>
-    <system:String x:Key="GameCoverScraperIcon">Trình thu thập bìa trò chơi</system:String>
     <system:String x:Key="GameDetails">Chi tiết trò chơi</system:String>
     <system:String x:Key="GameID">ID trò chơi:</system:String>
     <system:String x:Key="GameImages">Hình ảnh trò chơi</system:String>

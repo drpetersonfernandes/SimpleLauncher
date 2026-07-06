@@ -694,7 +694,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">Ambang batas rendah (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">Menemukan lebih banyak kecocokan tetapi mungkin menyertakan gambar yang salah</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">Atur ambang batas pencocokan fuzzy</system:String>
-    <system:String x:Key="GameCoverScraperIcon">Pengambil Sampul Game</system:String>
     <system:String x:Key="GameDetails">Detail Game</system:String>
     <system:String x:Key="GameID">ID Game:</system:String>
     <system:String x:Key="GameImages">Gambar Game</system:String>

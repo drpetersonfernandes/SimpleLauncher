@@ -694,7 +694,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">کم حد (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">زیادہ مماثلتیں تلاش کرتا ہے لیکن اس میں غلط تصاویر شامل ہو سکتی ہیں</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">فزی میچنگ کی حد سیٹ کریں</system:String>
-    <system:String x:Key="GameCoverScraperIcon">گیم کور اسکریپر</system:String>
     <system:String x:Key="GameDetails">گیم کی تفصیلات</system:String>
     <system:String x:Key="GameID">گیم آئی ڈی:</system:String>
     <system:String x:Key="GameImages">گیم کی تصاویر</system:String>

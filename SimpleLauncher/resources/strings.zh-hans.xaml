@@ -694,7 +694,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">较低阈值 (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">找到更多匹配项，但可能包含不正确的图像</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">设置模糊匹配阈值</system:String>
-    <system:String x:Key="GameCoverScraperIcon">游戏封面刮削器</system:String>
     <system:String x:Key="GameDetails">游戏详情</system:String>
     <system:String x:Key="GameID">游戏ID：</system:String>
     <system:String x:Key="GameImages">游戏图片</system:String>
