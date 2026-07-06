@@ -1,16 +1,19 @@
 # Release 5.6.0
-*2026-06-22*
+*2026-07-05*
 ---
-
-## Game File Watcher
-- **New `GameFileWatcherService`** — Monitors ROM system folders for external file changes (create, delete, rename) and automatically refreshes the game list when changes are detected.
-- Uses debouncing (500ms) to avoid rapid re-scans during batch file operations like archive extraction.
-- Automatically starts/stops watching when switching between systems.
 
 ## Parameter Resolver API
 - **New "Suggest" buttons** in the Edit System window for each emulator parameter field.
 - Uses an AI-powered API to suggest the best emulator parameters based on system configuration.
 - Shows a confirmation dialog with the suggested parameter and explanation before applying.
+
+## Image Matching Improvements
+- **Annotation stripping** — New `EnableAnnotationStripping` option strips region tags, revision numbers, and other annotations from filenames for better cover image matching.
+
+- ## Game File Watcher
+- **New `GameFileWatcherService`** — Monitors ROM system folders for external file changes (create, delete, rename) and automatically refreshes the game list when changes are detected.
+- Uses debouncing (500ms) to avoid rapid re-scans during batch file operations like archive extraction.
+- Automatically starts/stops watching when switching between systems.
 
 ## 7za Fallback Extraction
 - **Automatic fallback to 7za** — When SharpCompress fails to extract `.7z` files, the application now automatically retries using the bundled `7za.exe` (or `7za_arm64.exe` on ARM64).
@@ -37,22 +40,61 @@
 ## PCSX2 Configuration Error Handling
 - **Permission error detection** — PCSX2 configuration injection now detects file permission errors and shows a user-friendly notification instead of crashing.
 
-## Image Matching Improvements
-- **Annotation stripping** — New `EnableAnnotationStripping` option strips region tags, revision numbers, and other annotations from filenames for better cover image matching.
-
 ## History Database Format Migration
 - Migrated `history.xml` to `history.dat` (MessagePack binary format) for faster loading and smaller file size.
 - Maintains backward compatibility — falls back to `history.xml` if `history.dat` is not found.
 
+## Global Search Enhancements
+- **Results count display** — Shows the number of matching results in the global search window.
+- **AND/OR search operators** — Supports boolean operators for more flexible search queries.
+- **Improved loading state** — Better visual feedback during search operations.
+
+## Debug Logger Improvements
+- **Buffered logging** — Debug log messages are now buffered for better performance.
+
+## Download Retry with Exponential Backoff
+- **Automatic retry** — Downloads now automatically retry with exponential backoff on failure.
+- **Read-only file handling** — Extraction now handles read-only files gracefully.
+
+## UI/UX Improvements
+- **Cancel buttons** — Added cancel buttons to SetGamepadDeadZone, Debug, SetLinks, and EditSystem dialogs.
+- **Loading overlay** — Added loading overlay to AI parameter resolution.
+- **Tooltips** — Added tooltips for data grids, preview images, and viewer windows.
+- **Confirmation dialog** — Added confirmation message box for reverting dead zone settings.
+- **Game list refresh** — Game list now automatically refreshes when deleting a file that no longer exists on disk.
+- **Emergency overlay release** — Added emergency overlay release button to GlobalStatsWindow.
+
+## Credential Protection
+- **Encrypted RetroAchievements credentials** — RA credentials are now encrypted using Windows Credential Manager.
+- **Nested settings structure** — Emulator configuration now uses nested settings structure for better organization.
+
+## Path Handling
+- **Quote trimming** — Surrounding quotes are now automatically trimmed from paths.
+
+## Dependency Injection Refactoring
+- **Massive DI migration** — Replaced static service dependencies with dependency injection throughout the entire application.
+- All services, ViewModels, and windows now use constructor injection.
+- Removed `MessageBoxLibrary.cs` and replaced with `IMessageBoxLibraryService`.
+- Replaced static `DebugLogger` with `IDebugLogger` interface.
+- Replaced static `ContextMenuFunctions` with `IContextMenuFunctions` interface.
+
+## MVVM Refactoring
+- Refactored all configuration windows to MVVM pattern.
+- Refactored RetroAchievements window to MVVM.
+- Added ViewModels for multiple windows including SupportWindow.
+- Introduced `IWindowContext` abstraction to decouple game launcher from MainWindow.
+
 ## Dependency Updates
 - `SharpCompress` 0.48.1 → **0.49.1**
 - `Tomlyn` 2.4.0 → **2.6.0**
+- `YamlDotNet` updated to latest version
 - `MessagePack` 3.1.6 → **3.1.7**
 - `Microsoft.Data.Sqlite` 10.0.8 → **10.0.9**
 - `Microsoft.Extensions.*` 10.0.8 → **10.0.9**
 - `Microsoft.Extensions.Http.Resilience` 10.6.0 → **10.7.0**
 - `Microsoft.CodeAnalysis.NetAnalyzers` 10.0.300 → **10.0.301**
 - `Microsoft.NET.Test.Sdk` 18.5.1 → **18.6.0**
+- `SourceGear.sqlite3` updated to **3.53.3**
 - Added `Moq` **4.20.72** *(new, for unit testing)*
 
 # Release 5.5.0
