@@ -16,17 +16,10 @@
         </Grid.RowDefinitions>
 
         <TextBox x:Name="LogTextBox"
+                 Style="{StaticResource LogTextBoxStyle}"
                  Grid.Row="0"
-                 IsReadOnly="True"
-                 VerticalScrollBarVisibility="Auto"
                  HorizontalScrollBarVisibility="Auto"
-                 TextWrapping="Wrap"
-                 AcceptsReturn="True"
                  Margin="5"
-                 Background="Black"
-                  Foreground="White"
-                 CaretBrush="Lime"
-                 FontFamily="Consolas"
                  FontSize="12"
                  Text="{Binding LogText, Mode=OneWay}"
                  ToolTip="{DynamicResource TooltipDebuggerLog}" />

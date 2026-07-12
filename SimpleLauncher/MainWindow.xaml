@@ -8,6 +8,7 @@
                  MinWidth="1050"
                  MinHeight="650"
                  Closing="MainWindow_Closing"
+                 StateChanged="MainWindow_StateChanged"
                  MouseWheel="MainWindow_MouseWheelAsync">
     <!-- Root Grid to host MainContent and LoadingOverlay as siblings -->
     <Grid>

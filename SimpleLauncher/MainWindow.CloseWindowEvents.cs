@@ -22,6 +22,15 @@ public partial class MainWindow
         Dispose();
     }
 
+    private void MainWindow_StateChanged(object sender, EventArgs e)
+    {
+        if (WindowState == System.Windows.WindowState.Minimized)
+        {
+            Hide();
+            ShowInTaskbar = false;
+        }
+    }
+
     /// <summary>
     /// Unsubscribes all event handlers to prevent memory leaks.
     /// </summary>
@@ -29,6 +38,7 @@ public partial class MainWindow
     {
         // Unsubscribe window-level event handlers
         Closing -= MainWindow_Closing;
+        StateChanged -= MainWindow_StateChanged;
         Activated -= MainWindow_Activated;
         Deactivated -= MainWindow_Deactivated;
 
