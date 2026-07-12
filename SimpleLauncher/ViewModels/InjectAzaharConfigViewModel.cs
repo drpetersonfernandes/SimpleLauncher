@@ -193,6 +193,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         }
         catch (AzaharPermissionException)
         {
+            ShouldRun = true;
             CloseRequested?.Invoke();
         }
         catch (OperationCanceledException)
@@ -223,6 +224,10 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
                 CloseRequested?.Invoke();
             }
+        }
+        catch (AzaharPermissionException)
+        {
+            CloseRequested?.Invoke();
         }
         catch (OperationCanceledException)
         {

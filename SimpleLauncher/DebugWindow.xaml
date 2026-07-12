@@ -24,7 +24,7 @@
                  AcceptsReturn="True"
                  Margin="5"
                  Background="Black"
-                 Foreground="Lime"
+                  Foreground="White"
                  CaretBrush="Lime"
                  FontFamily="Consolas"
                  FontSize="12"

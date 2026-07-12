@@ -207,6 +207,7 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
         }
         catch (Pcsx2PermissionException)
         {
+            ShouldRun = true;
             CloseRequested?.Invoke();
         }
         catch (OperationCanceledException)

@@ -109,20 +109,19 @@ public class DebugLogger : IDebugLogger
             return;
         }
 
-        // If window exists but was hidden, just show it
-        if (_windowInitialized && DebugWindow.Instance != null)
+        switch (_windowInitialized)
         {
-            DebugWindow.Instance.Show();
-            DebugWindow.Instance.WindowState = System.Windows.WindowState.Normal;
-            DebugWindow.Instance.Activate();
-            return;
-        }
-
-        // Reset state if window was previously closed
-        if (_windowInitialized && DebugWindow.Instance == null)
-        {
-            _windowInitialized = false;
-            _logWindowInstance = null;
+            // If window exists but was hidden, just show it
+            case true when DebugWindow.Instance != null:
+                DebugWindow.Instance.Show();
+                DebugWindow.Instance.WindowState = System.Windows.WindowState.Normal;
+                DebugWindow.Instance.Activate();
+                return;
+            // Reset state if window was previously closed
+            case true when DebugWindow.Instance == null:
+                _windowInitialized = false;
+                _logWindowInstance = null;
+                break;
         }
 
         DebugWindow.Initialize();
