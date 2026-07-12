@@ -71,8 +71,7 @@ public class MountChdFiles : IMountChdFiles
             FileName = resolvedToolPath,
             Arguments = arguments,
             UseShellExecute = false,
-            RedirectStandardOutput = false,
-            RedirectStandardError = false,
+            RedirectStandardError = true,
             CreateNoWindow = true,
             WorkingDirectory = Path.GetDirectoryName(resolvedToolPath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
@@ -81,6 +80,7 @@ public class MountChdFiles : IMountChdFiles
         _debugLogger.Log($"[MountChdFiles.MountAsync] Arguments: {psiMount.Arguments}");
 
         var mountProcess = new Process { StartInfo = psiMount, EnableRaisingEvents = true };
+        var errorOutput = new List<string>();
 
         try
         {
@@ -89,9 +89,17 @@ public class MountChdFiles : IMountChdFiles
                 throw new InvalidOperationException("Failed to start the CHDMounter process.");
             }
 
+            mountProcess.ErrorDataReceived += (_, e) =>
+            {
+                if (e.Data != null)
+                    errorOutput.Add(e.Data);
+            };
+            mountProcess.BeginErrorReadLine();
+
             _debugLogger.Log($"[MountChdFiles.MountAsync] CHDMounter process started (ID: {mountProcess.Id}).");
 
-            var (mountSuccessful, detectedDrive, exitCode) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcess.Id, logErrors);
+            var chdFileName = Path.GetFileName(resolvedChdFilePath);
+            var (mountSuccessful, detectedDrive, exitCode) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcess.Id, logErrors, errorOutput, chdFileName);
 
             if (!mountSuccessful || detectedDrive == null)
             {
@@ -182,6 +190,7 @@ public class MountChdFiles : IMountChdFiles
             FileName = resolvedToolPath,
             Arguments = $"/a \"{resolvedChdFilePath}\"",
             UseShellExecute = false,
+            RedirectStandardError = true,
             CreateNoWindow = true,
             WorkingDirectory = Path.GetDirectoryName(resolvedToolPath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
@@ -194,6 +203,7 @@ public class MountChdFiles : IMountChdFiles
         Process mountProcess = null;
         var mountProcessId = -1;
         string driveRoot = null;
+        var errorOutput = new List<string>();
 
         try
         {
@@ -205,10 +215,18 @@ public class MountChdFiles : IMountChdFiles
                 throw new InvalidOperationException("Failed to start the CHDMounter process.");
             }
 
+            mountProcess.ErrorDataReceived += (_, e) =>
+            {
+                if (e.Data != null)
+                    errorOutput.Add(e.Data);
+            };
+            mountProcess.BeginErrorReadLine();
+
             mountProcessId = mountProcess.Id;
             _debugLogger.Log($"[MountChdFiles] CHDMounter process started (ID: {mountProcessId}).");
 
-            var (mountSuccessful, drive, exitCode) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcessId, logErrors);
+            var chdFileName = Path.GetFileName(resolvedChdFilePath);
+            var (mountSuccessful, drive, exitCode) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcessId, logErrors, errorOutput, chdFileName);
 
             if (!mountSuccessful || drive == null)
             {
@@ -376,8 +394,7 @@ public class MountChdFiles : IMountChdFiles
             Arguments = arguments,
             UseShellExecute = false,
             CreateNoWindow = false,
-            RedirectStandardOutput = false,
-            RedirectStandardError = false,
+            RedirectStandardError = true,
             WorkingDirectory = Path.GetDirectoryName(resolvedToolPath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
 
@@ -389,6 +406,7 @@ public class MountChdFiles : IMountChdFiles
         Process mountProcess = null;
         var mountProcessId = -1;
         string driveRoot = null;
+        var errorOutput = new List<string>();
 
         try
         {
@@ -400,10 +418,18 @@ public class MountChdFiles : IMountChdFiles
                 throw new InvalidOperationException("Failed to start the CHDMounter process.");
             }
 
+            mountProcess.ErrorDataReceived += (_, e) =>
+            {
+                if (e.Data != null)
+                    errorOutput.Add(e.Data);
+            };
+            mountProcess.BeginErrorReadLine();
+
             mountProcessId = mountProcess.Id;
             _debugLogger.Log($"[MountChdFiles] CHDMounter process started (ID: {mountProcessId}).");
 
-            var (mountSuccessful, drive, exitCode) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcessId, logErrors);
+            var chdFileName = Path.GetFileName(resolvedChdFilePath);
+            var (mountSuccessful, drive, exitCode) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcessId, logErrors, errorOutput, chdFileName);
 
             if (!mountSuccessful || drive == null)
             {
@@ -671,28 +697,18 @@ public class MountChdFiles : IMountChdFiles
         }
     }
 
-    private async Task<(bool Success, char? DriveLetter, int? ExitCode)> WaitForDriveMountAndDetectAsync(HashSet<char> existingDrives, Process mountProcess, int processId, ILogErrors logErrors)
+    private async Task<(bool Success, char? DriveLetter, int? ExitCode)> WaitForDriveMountAndDetectAsync(
+        HashSet<char> existingDrives, Process mountProcess, int processId, ILogErrors logErrors,
+        List<string> errorOutput, string chdFileName)
     {
         const int maxRetries = 240;
         const int pollIntervalMs = 500;
         var retryCount = 0;
 
-        _debugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] Polling for new drive to appear (max {maxRetries * pollIntervalMs / 1000}s)...");
+        _debugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] Polling for new drive to appear for '{chdFileName}' (max {maxRetries * pollIntervalMs / 1000}s)...");
 
         while (retryCount < maxRetries)
         {
-            if (mountProcess.HasExited)
-            {
-                var exitCode = mountProcess.ExitCode;
-                var contextMessage = exitCode == -1073741515
-                    ? $"Failed to mount CHD. The CHDMounter tool exited prematurely with code {exitCode} (STATUS_DLL_NOT_FOUND). This indicates that the Dokan library is not installed."
-                    : $"Failed to mount CHD. The CHDMounter tool exited prematurely with code {exitCode}.";
-
-                _debugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] CHDMounter process (ID: {processId}) exited prematurely during polling. {contextMessage}");
-                logErrors.LogAndForget(null, contextMessage);
-                return (false, null, exitCode);
-            }
-
             var currentDrives = GetCurrentDriveLetters();
             var newDrives = currentDrives.Except(existingDrives).ToList();
 
@@ -703,12 +719,35 @@ public class MountChdFiles : IMountChdFiles
                 return (true, detectedDrive, null);
             }
 
+            if (mountProcess.HasExited)
+            {
+                var exitCode = mountProcess.ExitCode;
+                var contextMessage = exitCode == -1073741515
+                    ? $"Failed to mount CHD. The CHDMounter tool exited prematurely with code {exitCode} (STATUS_DLL_NOT_FOUND). This indicates that the Dokan library is not installed."
+                    : $"Failed to mount CHD. The CHDMounter tool exited prematurely with code {exitCode}.";
+
+                if (errorOutput is { Count: > 0 })
+                {
+                    contextMessage += "\n\n=== CHDMounter error output ===\n" + string.Join(Environment.NewLine, errorOutput);
+                }
+
+                _debugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] CHDMounter process (ID: {processId}) exited prematurely during polling. {contextMessage}");
+                logErrors.LogAndForget(null, contextMessage);
+                return (false, null, exitCode);
+            }
+
             retryCount++;
             await Task.Delay(pollIntervalMs);
         }
 
         _debugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] Timed out waiting for new drive after {maxRetries * pollIntervalMs / 1000} seconds.");
-        const string timeoutContextMessage = "Timed out waiting for the CHD to mount. No new drive detected.";
+        var timeoutContextMessage = $"Timed out waiting for the CHD to mount '{chdFileName}'. No new drive detected.";
+
+        if (errorOutput is { Count: > 0 })
+        {
+            timeoutContextMessage += "\n\n=== CHDMounter error output ===\n" + string.Join(Environment.NewLine, errorOutput);
+        }
+
         logErrors.LogAndForget(null, timeoutContextMessage);
         return (false, null, null);
     }

@@ -256,6 +256,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 _globalHotkeyService = App.ServiceProvider.GetRequiredService<Services.TakeScreenshot.GlobalHotkeyService>();
                 _activeWindowScreenshotService = App.ServiceProvider.GetRequiredService<Services.TakeScreenshot.ActiveWindowScreenshotService>();
                 _globalHotkeyService.Initialize(this);
+
+                if (!_globalHotkeyService.IsRegistered)
+                {
+                    var msg = (string)Application.Current.TryFindResource("F8ShortcutInUse")
+                        ?? "The F8 shortcut key is already in use by another program. Because of this, the screenshot functionality is turned off.";
+                    MessageBox.Show(msg, "SimpleLauncher", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                }
+
                 _globalHotkeyService.F8Pressed += async () =>
                 {
                     try

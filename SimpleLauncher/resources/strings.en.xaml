@@ -694,6 +694,7 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">Lower threshold (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">Finds more matches but may include incorrect images</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">Set the fuzzy matching threshold</system:String>
+    <system:String x:Key="F8ShortcutInUse">The F8 shortcut key is already in use by another program. Because of this, the screenshot functionality is turned off.</system:String>
     <system:String x:Key="GameDetails">Game Details</system:String>
     <system:String x:Key="GameID">Game ID:</system:String>
     <system:String x:Key="GameImages">Game Images</system:String>

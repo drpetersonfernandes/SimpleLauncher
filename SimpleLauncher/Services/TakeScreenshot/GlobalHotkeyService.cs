@@ -31,6 +31,11 @@ public partial class GlobalHotkeyService : IDisposable
     private bool _isDisposed;
 
     /// <summary>
+    /// Whether the F8 global hotkey was successfully registered.
+    /// </summary>
+    public bool IsRegistered { get; private set; }
+
+    /// <summary>
     /// Raised when the F8 global hotkey is pressed.
     /// </summary>
     public event Func<Task> F8Pressed;
@@ -59,11 +64,12 @@ public partial class GlobalHotkeyService : IDisposable
         {
             var error = Marshal.GetLastWin32Error();
             _debugLogger.Log($"[GlobalHotkeyService] Failed to register F8 hotkey. Win32 error code: {error}");
-            _logErrors.LogAndForget(null, $"[GlobalHotkeyService] Failed to register F8 hotkey. Win32 error code: {error}");
+            IsRegistered = false;
         }
         else
         {
             _debugLogger.Log("[GlobalHotkeyService] F8 hotkey registered successfully.");
+            IsRegistered = true;
         }
     }
 
