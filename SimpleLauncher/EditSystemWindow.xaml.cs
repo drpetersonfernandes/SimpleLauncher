@@ -940,6 +940,17 @@ internal partial class EditSystemWindow : ILoadingState
                 var suggestedParam = result.SuggestedParameter ?? "";
                 var explanation = result.Explanation ?? "";
 
+                if (!string.IsNullOrWhiteSpace(suggestedParam) && suggestedParam.StartsWith("Explanation:", StringComparison.OrdinalIgnoreCase))
+                {
+                    var explanationFromParam = suggestedParam["Explanation:".Length..].Trim();
+                    if (string.IsNullOrEmpty(explanation) || !explanation.Equals(explanationFromParam, StringComparison.OrdinalIgnoreCase))
+                    {
+                        explanation = explanationFromParam;
+                    }
+
+                    suggestedParam = "";
+                }
+
                 var dialogMessage = $"{confirmMessage}\n\n{suggestedParam}";
                 if (!string.IsNullOrEmpty(explanation))
                 {

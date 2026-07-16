@@ -61,6 +61,17 @@ public static class AskAiToFixParameters
                 var suggestedParam = result.SuggestedParameter ?? "";
                 var explanation = result.Explanation ?? "";
 
+                if (!string.IsNullOrWhiteSpace(suggestedParam) && suggestedParam.StartsWith("Explanation:", StringComparison.OrdinalIgnoreCase))
+                {
+                    var explanationFromParam = suggestedParam["Explanation:".Length..].Trim();
+                    if (string.IsNullOrEmpty(explanation) || !explanation.Equals(explanationFromParam, StringComparison.OrdinalIgnoreCase))
+                    {
+                        explanation = explanationFromParam;
+                    }
+
+                    suggestedParam = "";
+                }
+
                 var aiSuggestionTitle = (string)Application.Current.TryFindResource("AiParameterSuggestionTitle") ?? "Parameter Suggestion";
                 var confirmMessage = (string)Application.Current.TryFindResource("ParameterResolverConfirmApply") ?? "Do you want to apply this parameter?";
 
