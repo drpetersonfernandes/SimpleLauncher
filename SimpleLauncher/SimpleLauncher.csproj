@@ -872,6 +872,12 @@
         <None Update="tools\FindRomCover\arm64\audio\click.mp3">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="tools\BatchConvertToRVZ\7za.exe">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertToRVZ\7za_arm64.exe">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
     <ItemGroup>
         <Page Include="resources2\Theme.HighContrast.xaml">
