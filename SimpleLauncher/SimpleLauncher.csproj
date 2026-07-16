@@ -1054,21 +1054,21 @@
         <PackageReference Include="MahApps.Metro" Version="2.4.11" />
         <PackageReference Include="MdXaml" Version="1.27.0" />
         <PackageReference Include="MessagePack" Version="3.1.8" />
-        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.301">
+        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.302">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.9" />
-        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.9" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.9" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.9" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.9" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9" />
-        <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.9" />
-        <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.7.0" />
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.10" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.8.0" />
         <PackageReference Include="NAudio" Version="2.3.0" />
         <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
-        <PackageReference Include="SharpCompress" Version="0.49.1" />
+        <PackageReference Include="SharpCompress" Version="0.50.0" />
         <PackageReference Include="SourceGear.sqlite3" Version="3.53.3" />
         <PackageReference Include="Tomlyn" Version="2.10.1" />
         <PackageReference Include="YamlDotNet" Version="18.1.0" />
