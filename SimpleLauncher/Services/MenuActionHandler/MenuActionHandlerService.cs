@@ -936,6 +936,9 @@ public class MenuActionHandlerService
                 await _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
             }
         }
+        catch (OperationCanceledException)
+        {
+        }
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in the method HandleZoomInAsync.");
@@ -980,6 +983,9 @@ public class MenuActionHandlerService
                 var (sl, sq) = _host.GetLoadGameFilesParams();
                 await _host.LoadGameFilesAsync(sl, sq, _host.CurrentCancellationToken);
             }
+        }
+        catch (OperationCanceledException)
+        {
         }
         catch (Exception ex)
         {

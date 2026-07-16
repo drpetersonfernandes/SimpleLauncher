@@ -582,6 +582,9 @@ public partial class MainWindow
         {
             await _menuOrchestrator.HandleZoomInAsync();
         }
+        catch (OperationCanceledException)
+        {
+        }
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in the method NavZoomInButtonClickAsync.");
@@ -593,6 +596,9 @@ public partial class MainWindow
         try
         {
             await _menuOrchestrator.HandleZoomOutAsync();
+        }
+        catch (OperationCanceledException)
+        {
         }
         catch (Exception ex)
         {

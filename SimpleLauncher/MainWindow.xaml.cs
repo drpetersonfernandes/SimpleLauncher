@@ -293,6 +293,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             await _gameBrowser.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
             _debugLogger.Log("DisplaySystemSelectionScreenAsync called.");
         }
+        catch (OperationCanceledException)
+        {
+        }
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in the DisplaySystemSelectionScreenAsync method.");
@@ -523,10 +526,16 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                     // Mark the event as handled to prevent scrolling the ScrollViewer
                     e.Handled = true;
                 }
+                catch (OperationCanceledException)
+                {
+                }
                 catch (Exception ex)
                 {
                     _logErrors.LogAndForget(ex, "Error in the method MainWindow_MouseWheelAsync.");
                 }
+            }
+            catch (OperationCanceledException)
+            {
             }
             catch (Exception ex)
             {

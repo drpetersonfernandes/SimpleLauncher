@@ -580,6 +580,7 @@
     <system:String x:Key="Extractionfailed">Extraction failed.</system:String>
     <system:String x:Key="ExtractionFailedMessage">The file was downloaded successfully, but automatic extraction failed. This can happen if an antivirus program is scanning or locking the file.</system:String>
     <system:String x:Key="ExtractionFailedTitle">Extraction Failed</system:String>
+    <system:String x:Key="F8ShortcutInUse">The F8 shortcut key is already in use by another program. Because of this, the screenshot functionality is turned off.</system:String>
     <system:String x:Key="Failedtoconfiguretheemulator">Failed to configure the emulator. The configuration file might be missing, in an unexpected location, or read-only.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Failed to copy log content.</system:String>
     <system:String x:Key="FailedToCopySystemImage">Failed to copy the image:</system:String>
@@ -694,7 +695,6 @@
     <system:String x:Key="FuzzyMatchingLowThreshold">Lower threshold (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">Finds more matches but may include incorrect images</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">Set the fuzzy matching threshold</system:String>
-    <system:String x:Key="F8ShortcutInUse">The F8 shortcut key is already in use by another program. Because of this, the screenshot functionality is turned off.</system:String>
     <system:String x:Key="GameDetails">Game Details</system:String>
     <system:String x:Key="GameID">Game ID:</system:String>
     <system:String x:Key="GameImages">Game Images</system:String>

@@ -13,12 +13,7 @@ public static class Pcsx2ConfigurationService
         if (string.IsNullOrEmpty(emuDir))
             throw new InvalidOperationException("Emulator directory not found.");
 
-        // PCSX2 usually stores config in 'inis' subfolder or root
-        var configPath = Path.Combine(emuDir, "inis", "PCSX2.ini");
-        if (!File.Exists(configPath))
-        {
-            configPath = Path.Combine(emuDir, "PCSX2.ini");
-        }
+        var configPath = ResolveConfigPath(emuDir, debugLogger);
 
         if (!File.Exists(configPath))
         {
@@ -35,7 +30,7 @@ public static class Pcsx2ConfigurationService
                 {
                     debugLogger.Log($"[PCSX2Config] Failed to create PCSX2.ini from sample due to permissions: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
-                    throw new Pcsx2PermissionException($"Cannot write to emulator directory: {emuDir}", ex);
+                    throw new Pcsx2PermissionException($"Cannot write to configuration directory: {Path.GetDirectoryName(configPath)}", ex);
                 }
                 catch (Exception ex)
                 {
@@ -183,6 +178,45 @@ public static class Pcsx2ConfigurationService
                 throw;
             }
         }
+    }
+
+    private static string ResolveConfigPath(string emuDir, IDebugLogger debugLogger)
+    {
+        // 1. Portable mode: PCSX2 uses a 'portable.ini' marker next to the executable.
+        //    In this mode, config lives in '<emuDir>\inis\PCSX2.ini'.
+        var portableMarker = Path.Combine(emuDir, "portable.ini");
+        if (File.Exists(portableMarker))
+        {
+            var portableConfigPath = Path.Combine(emuDir, "inis", "PCSX2.ini");
+            debugLogger.Log($"[PCSX2Config] Portable mode detected (portable.ini found). Using: {portableConfigPath}");
+            return portableConfigPath;
+        }
+
+        // 2. Existing config in the emulator directory (legacy/portable setups without marker)
+        var localInisPath = Path.Combine(emuDir, "inis", "PCSX2.ini");
+        if (File.Exists(localInisPath))
+        {
+            debugLogger.Log($"[PCSX2Config] Using existing config in emulator directory: {localInisPath}");
+            return localInisPath;
+        }
+
+        var localRootPath = Path.Combine(emuDir, "PCSX2.ini");
+        if (File.Exists(localRootPath))
+        {
+            debugLogger.Log($"[PCSX2Config] Using existing config in emulator directory: {localRootPath}");
+            return localRootPath;
+        }
+
+        // 3. Non-portable (installed) mode: PCSX2 stores config in 'Documents\PCSX2\inis\PCSX2.ini'.
+        //    This is also the creation target when no config exists, since the emulator
+        //    directory may not be writable (e.g., 'C:\Program Files\PCSX2').
+        var documentsConfigPath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            "PCSX2",
+            "inis",
+            "PCSX2.ini");
+        debugLogger.Log($"[PCSX2Config] No portable config found. Using standard install location: {documentsConfigPath}");
+        return documentsConfigPath;
     }
 
     private static void ApplyUpdatesToSection(List<string> lines, string sectionName, Dictionary<string, string> updates, ref bool modified)

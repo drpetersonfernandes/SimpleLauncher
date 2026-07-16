@@ -163,6 +163,30 @@ public class EmulatorConfigInjectionTests : IDisposable
     }
 
     /// <summary>
+    /// Verifies that when PCSX2 runs in portable mode (portable.ini marker present) and no config exists,
+    /// the PCSX2.ini is created from the sample inside the emulator's 'inis' subfolder.
+    /// </summary>
+    [Fact]
+    public void Pcsx2PortableMarkerCreatesConfigInEmulatorInisFolder()
+    {
+        var emuDir = Path.Combine(_testDirectory, "PCSX2Portable");
+        Directory.CreateDirectory(emuDir);
+        File.WriteAllText(Path.Combine(emuDir, "portable.ini"), string.Empty);
+
+        var settings = CreateSettingsManager();
+        settings.Pcsx2.EnableCheats = true;
+
+        Pcsx2ConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors, new NoOpDebugLogger());
+
+        var expectedConfigPath = Path.Combine(emuDir, "inis", "PCSX2.ini");
+        Assert.True(File.Exists(expectedConfigPath));
+
+        var lines = File.ReadAllLines(expectedConfigPath).ToList();
+        var sectionValues = ParseIniSections(lines);
+        Assert.Equal("true", sectionValues[("EmuCore", "EnableCheats")]);
+    }
+
+    /// <summary>
     /// Verifies that Mesen settings are correctly injected into a JSON config file.
     /// </summary>
     [Fact]
