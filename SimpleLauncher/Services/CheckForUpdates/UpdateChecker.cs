@@ -111,6 +111,14 @@ public partial class UpdateChecker
                 }
             }
         }
+        catch (TaskCanceledException)
+        {
+            _debugLogger.Log("Silent update check canceled (network timeout or user canceled).");
+        }
+        catch (OperationCanceledException)
+        {
+            _debugLogger.Log("Silent update check canceled.");
+        }
         catch (Exception ex)
         {
             // Notify developer

@@ -20,6 +20,7 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "x86"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "x64"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "x86"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "Resources"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games"),
         Path.Combine(AppDirectory, "tools", "xbox-iso-vfs"),
         Path.Combine(AppDirectory, "resources"),
@@ -59,6 +60,8 @@ public static class CleanSimpleLauncherFolder
 
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "7z.dll"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "7z.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "maxcso.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "psxpackager.exe"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.deps.json"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.dll"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.pdb"),

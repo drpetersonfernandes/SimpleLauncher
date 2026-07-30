@@ -60,10 +60,7 @@ public class ApplicationStats
         }
         catch (OperationCanceledException)
         {
-            // Request timed out - log but don't crash
-            const string message = "ApplicationStats API call timed out after 20 seconds.";
-            DebugLogger.Log(message);
-            logErrors.LogAndForget(null, message);
+            DebugLogger.Log("ApplicationStats API call timed out.");
         }
         catch (Exception ex)
         {
