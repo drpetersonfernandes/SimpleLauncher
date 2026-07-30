@@ -15,7 +15,7 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
@@ -35,11 +35,11 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     [ObservableProperty] private int _duckStationOutputVolume;
     [ObservableProperty] private bool _duckStationShowSettingsBeforeLaunch;
 
-    public InjectDuckStationConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
+    public InjectDuckStationConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _messageBox = messageBox;
     }
 
@@ -186,7 +186,7 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
 
         try
         {
-            DuckStationConfigurationService.InjectSettings(path, _settings, _logErrors, _debugLogger);
+            DuckStationConfigurationService.InjectSettings(path, _settings, _logErrors, _logger);
             return true;
         }
         catch (InvalidOperationException ex)

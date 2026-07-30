@@ -21,14 +21,14 @@ public partial class SupportViewModel : ObservableObject
     private readonly IConfiguration _configuration;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
 
     [ObservableProperty] private string _name;
     [ObservableProperty] private string _email;
     [ObservableProperty] private string _supportRequest;
     [ObservableProperty] private bool _isLoading;
 
-    public SupportViewModel(PlaySoundEffects playSoundEffects, IHttpClientFactory httpClientFactory, ILogErrors logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider, IDebugLogger debugLogger)
+    public SupportViewModel(PlaySoundEffects playSoundEffects, IHttpClientFactory httpClientFactory, ILogErrors logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider, ILogger logger)
     {
         _playSoundEffects = playSoundEffects;
         _httpClientFactory = httpClientFactory;
@@ -36,7 +36,7 @@ public partial class SupportViewModel : ObservableObject
         _configuration = configuration;
         _messageBox = messageBox;
         _resourceProvider = resourceProvider;
-        _debugLogger = debugLogger;
+        _logger = logger;
     }
 
     /// <summary>Event raised when the window should be closed.</summary>
@@ -48,30 +48,30 @@ public partial class SupportViewModel : ObservableObject
     [RelayCommand]
     private async Task SendSupportRequestAsync()
     {
-        _debugLogger.Log("[Support] SendSupportRequestAsync started.");
+        _logger.Debug("[Support] SendSupportRequestAsync started.");
 
         if (string.IsNullOrWhiteSpace(Name))
         {
-            _debugLogger.Log("[Support] Validation failed: Name is empty.");
+            _logger.Debug("[Support] Validation failed: Name is empty.");
             await _messageBox.EnterNameMessageBoxAsync();
             return;
         }
 
         if (string.IsNullOrWhiteSpace(Email))
         {
-            _debugLogger.Log("[Support] Validation failed: Email is empty.");
+            _logger.Debug("[Support] Validation failed: Email is empty.");
             await _messageBox.EnterEmailMessageBoxAsync();
             return;
         }
 
         if (string.IsNullOrWhiteSpace(SupportRequest))
         {
-            _debugLogger.Log("[Support] Validation failed: SupportRequest is empty.");
+            _logger.Debug("[Support] Validation failed: SupportRequest is empty.");
             await _messageBox.EnterSupportRequestMessageBoxAsync();
             return;
         }
 
-        _debugLogger.Log($"[Support] Validation passed. Name='{Name}', Email='{Email}', MessageLength={SupportRequest.Length}");
+        _logger.Debug($"[Support] Validation passed. Name='{Name}', Email='{Email}', MessageLength={SupportRequest.Length}");
         IsLoading = true;
 
         try
@@ -82,7 +82,7 @@ public partial class SupportViewModel : ObservableObject
             fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Support Request:\n\n{SupportRequest}");
 
             _playSoundEffects.PlayNotificationSound();
-            _debugLogger.Log("[Support] Calling SendSupportRequestToApiAsync...");
+            _logger.Debug("[Support] Calling SendSupportRequestToApiAsync...");
             await SendSupportRequestToApiAsync(fullMessageBuilder.ToString());
 
             (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
@@ -90,13 +90,13 @@ public partial class SupportViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            _debugLogger.LogException(ex, "[Support] Exception in SendSupportRequestAsync.");
+            _logger.Error(ex, "[Support] Exception in SendSupportRequestAsync.");
             _logErrors.LogAndForget(ex, "Error in the SendSupportRequestClickAsync method.");
         }
         finally
         {
             IsLoading = false;
-            _debugLogger.Log("[Support] SendSupportRequestAsync finished. IsLoading set to false.");
+            _logger.Debug("[Support] SendSupportRequestAsync finished. IsLoading set to false.");
         }
     }
 
@@ -112,10 +112,10 @@ public partial class SupportViewModel : ObservableObject
         var apiKey = _configuration.GetValue<string>("ApiKey") ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
         var supportEmailTo = _configuration.GetValue<string>("SupportEmailTo") ?? "contact@purelogiccode.com";
 
-        _debugLogger.Log($"[Support] EmailApiBaseUrl from config: '{apiBaseUrl}'");
-        _debugLogger.Log($"[Support] ApiKey from config: '{apiKey.Substring(0, Math.Min(10, apiKey.Length))}...' (length={apiKey.Length})");
-        _debugLogger.Log($"[Support] SupportEmailTo from config: '{supportEmailTo}'");
-        _debugLogger.Log($"[Support] Message body length: {fullMessage.Length} chars");
+        _logger.Debug($"[Support] EmailApiBaseUrl from config: '{apiBaseUrl}'");
+        _logger.Debug($"[Support] ApiKey from config: '{apiKey.Substring(0, Math.Min(10, apiKey.Length))}...' (length={apiKey.Length})");
+        _logger.Debug($"[Support] SupportEmailTo from config: '{supportEmailTo}'");
+        _logger.Debug($"[Support] Message body length: {fullMessage.Length} chars");
 
         var requestPayload = new
         {
@@ -127,7 +127,7 @@ public partial class SupportViewModel : ObservableObject
         };
 
         var jsonString = JsonSerializer.Serialize(requestPayload);
-        _debugLogger.Log($"[Support] JSON payload size: {jsonString.Length} chars");
+        _logger.Debug($"[Support] JSON payload size: {jsonString.Length} chars");
         var jsonContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
         try
@@ -135,14 +135,14 @@ public partial class SupportViewModel : ObservableObject
             var httpClient = _httpClientFactory?.CreateClient("SupportWindowClient");
             if (httpClient == null)
             {
-                _debugLogger.Log("[Support] ERROR: httpClient is null. IHttpClientFactory returned null for 'SupportWindowClient'.");
+                _logger.Debug("[Support] ERROR: httpClient is null. IHttpClientFactory returned null for 'SupportWindowClient'.");
                 return;
             }
 
-            _debugLogger.Log($"[Support] HttpClient created. BaseAddress: '{httpClient.BaseAddress}', Timeout: {httpClient.Timeout}");
+            _logger.Debug($"[Support] HttpClient created. BaseAddress: '{httpClient.BaseAddress}', Timeout: {httpClient.Timeout}");
 
             var apiUrl = apiBaseUrl.TrimEnd('/');
-            _debugLogger.Log($"[Support] Final API URL: '{apiUrl}'");
+            _logger.Debug($"[Support] Final API URL: '{apiUrl}'");
 
             using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
 
@@ -150,36 +150,36 @@ public partial class SupportViewModel : ObservableObject
             request.Content = jsonContent;
             request.Headers.Add("X-API-KEY", apiKey);
 
-            _debugLogger.Log("[Support] Sending HTTP POST request...");
+            _logger.Debug("[Support] Sending HTTP POST request...");
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
             using var response = await httpClient.SendAsync(request, cts.Token);
 
             stopwatch.Stop();
-            _debugLogger.Log($"[Support] Response received in {stopwatch.ElapsedMilliseconds}ms.");
-            _debugLogger.Log($"[Support] StatusCode: {(int)response.StatusCode} ({response.StatusCode})");
-            _debugLogger.Log("[Support] Response Headers:");
+            _logger.Debug($"[Support] Response received in {stopwatch.ElapsedMilliseconds}ms.");
+            _logger.Debug($"[Support] StatusCode: {(int)response.StatusCode} ({response.StatusCode})");
+            _logger.Debug("[Support] Response Headers:");
             foreach (var header in response.Headers)
             {
-                _debugLogger.Log($"[Support]   {header.Key}: {string.Join(", ", header.Value)}");
+                _logger.Debug($"[Support]   {header.Key}: {string.Join(", ", header.Value)}");
             }
 
             if (response.Content != null)
             {
                 foreach (var header in response.Content.Headers)
                 {
-                    _debugLogger.Log($"[Support]   {header.Key}: {string.Join(", ", header.Value)}");
+                    _logger.Debug($"[Support]   {header.Key}: {string.Join(", ", header.Value)}");
                 }
             }
 
             if (response.Content != null)
             {
                 var responseContent = await response.Content.ReadAsStringAsync(cts.Token);
-                _debugLogger.Log($"[Support] Response body ({responseContent.Length} chars): '{responseContent}'");
+                _logger.Debug($"[Support] Response body ({responseContent.Length} chars): '{responseContent}'");
 
                 if (response.IsSuccessStatusCode)
                 {
-                    _debugLogger.Log("[Support] SUCCESS: Email sent successfully.");
+                    _logger.Debug("[Support] SUCCESS: Email sent successfully.");
 
                     Name = "";
                     Email = "";
@@ -191,7 +191,7 @@ public partial class SupportViewModel : ObservableObject
                 }
                 else
                 {
-                    _debugLogger.Log($"[Support] FAILURE: API returned error. Status={response.StatusCode}, Body='{responseContent}'");
+                    _logger.Debug($"[Support] FAILURE: API returned error. Status={response.StatusCode}, Body='{responseContent}'");
 
                     var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {responseContent}";
                     _logErrors.LogAndForget(null, contextMessage);
@@ -202,14 +202,14 @@ public partial class SupportViewModel : ObservableObject
         }
         catch (OperationCanceledException)
         {
-            _debugLogger.Log("[Support] TIMEOUT: Request timed out after 20 seconds.");
+            _logger.Debug("[Support] TIMEOUT: Request timed out after 20 seconds.");
             _logErrors.LogAndForget(null, "The support request timed out after 20 seconds. Please check your internet connection and try again.");
 
             await _messageBox.SupportRequestSendErrorMessageBoxAsync();
         }
         catch (Exception ex)
         {
-            _debugLogger.LogException(ex, "[Support] EXCEPTION: Error sending the Support Request.");
+            _logger.Error(ex, "[Support] EXCEPTION: Error sending the Support Request.");
             _logErrors.LogAndForget(ex, "Error sending the Support Request.");
 
             await _messageBox.SupportRequestSendErrorMessageBoxAsync();

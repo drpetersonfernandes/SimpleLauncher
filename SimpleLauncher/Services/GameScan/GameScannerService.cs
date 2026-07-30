@@ -14,7 +14,7 @@ public class GameScannerService
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IConfiguration _configuration;
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IEnumerable<IGamePlatformScanner> _scanners;
     private readonly IIconExtractor _iconExtractor;
     private const string WindowsSystemName = "Microsoft Windows";
@@ -41,13 +41,13 @@ public class GameScannerService
 
     private bool _timeoutMessageShown;
 
-    public GameScannerService(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary, IConfiguration configuration, IHttpClientFactory httpClientFactory, IDebugLogger debugLogger, IEnumerable<IGamePlatformScanner> scanners, IIconExtractor iconExtractor)
+    public GameScannerService(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary, IConfiguration configuration, IHttpClientFactory httpClientFactory, ILogger logger, IEnumerable<IGamePlatformScanner> scanners, IIconExtractor iconExtractor)
     {
         _logErrors = logErrors;
         _messageBoxLibrary = messageBoxLibrary;
         _configuration = configuration;
         _httpClientFactory = httpClientFactory;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _scanners = scanners;
         _iconExtractor = iconExtractor;
     }
@@ -66,7 +66,7 @@ public class GameScannerService
 
             await Task.WhenAll(tasks);
 
-            _debugLogger.Log("[GameScannerService] All store game scans completed.");
+            _logger.Debug("[GameScannerService] All store game scans completed.");
         }
         catch (Exception ex)
         {
@@ -93,13 +93,13 @@ public class GameScannerService
                 var resolvedRomsPath = PathHelper.ResolveRelativeToAppDirectory(existingRomsPath);
                 var resolvedImagesPath = PathHelper.ResolveRelativeToAppDirectory(existingImagesPath);
 
-                _debugLogger.Log($"[GameScannerService] Using existing '{WindowsSystemName}' system paths: ROMs='{resolvedRomsPath}', Images='{resolvedImagesPath}'");
+                _logger.Debug($"[GameScannerService] Using existing '{WindowsSystemName}' system paths: ROMs='{resolvedRomsPath}', Images='{resolvedImagesPath}'");
 
                 return (resolvedRomsPath, resolvedImagesPath, false);
             }
 
             // System doesn't exist, create it with default paths
-            _debugLogger.Log($"[GameScannerService] '{WindowsSystemName}' system not found. Creating it now.");
+            _logger.Debug($"[GameScannerService] '{WindowsSystemName}' system not found. Creating it now.");
 
             var defaultRomsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", "Microsoft Windows");
             var defaultImagesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "Microsoft Windows");
@@ -131,7 +131,7 @@ public class GameScannerService
             Directory.CreateDirectory(defaultRomsPath);
             Directory.CreateDirectory(defaultImagesPath);
 
-            _debugLogger.Log($"[GameScannerService] Created new '{WindowsSystemName}' system with default paths: ROMs='{defaultRomsPath}', Images='{defaultImagesPath}'");
+            _logger.Debug($"[GameScannerService] Created new '{WindowsSystemName}' system with default paths: ROMs='{defaultRomsPath}', Images='{defaultImagesPath}'");
 
             return (defaultRomsPath, defaultImagesPath, true);
         }
@@ -165,7 +165,7 @@ public class GameScannerService
                 {
                     if (response.StatusCode != HttpStatusCode.NotFound)
                     {
-                        _debugLogger.Log($"[GameScannerService] API query for '{gameName}' failed with status: {response.StatusCode}");
+                        _logger.Debug($"[GameScannerService] API query for '{gameName}' failed with status: {response.StatusCode}");
                     }
 
                     return false;
@@ -179,21 +179,21 @@ public class GameScannerService
                     // HttpClient supports absolute URLs directly, even when BaseAddress is configured
                     var imageBytes = await client.GetByteArrayAsync(apiResponse.ImageUrl);
                     await File.WriteAllBytesAsync(destinationPath, imageBytes);
-                    _debugLogger.Log($"[GameScannerService] Successfully downloaded image for '{gameName}' from API.");
+                    _logger.Debug($"[GameScannerService] Successfully downloaded image for '{gameName}' from API.");
                     return true;
                 }
             }
             catch (OperationCanceledException) when (attempt == 0)
             {
                 // Timeout on first attempt - wait and retry
-                _debugLogger.Log($"[GameScannerService] Image download timeout for '{gameName}', retrying in 5 seconds...");
+                _logger.Debug($"[GameScannerService] Image download timeout for '{gameName}', retrying in 5 seconds...");
                 await Task.Delay(5000);
             }
             catch (HttpRequestException ex) when (attempt == 0)
             {
                 // Network error on first attempt - wait and retry
                 var innerMessage = ex.InnerException?.Message ?? "none";
-                _debugLogger.Log($"[GameScannerService] Image download network error for '{gameName}': {ex.Message}. Inner: {innerMessage}. Retrying in 5 seconds...");
+                _logger.Debug($"[GameScannerService] Image download network error for '{gameName}': {ex.Message}. Inner: {innerMessage}. Retrying in 5 seconds...");
                 await Task.Delay(5000);
             }
             catch (Exception ex)
@@ -207,7 +207,7 @@ public class GameScannerService
                 };
                 var innerDetails = GetInnerExceptionDetails(ex);
                 var logMessage = $"[GameScannerService] Image download failed for '{gameName}' after retry ({errorType}: {ex.Message}).{innerDetails} Falling back to icon extraction.";
-                _debugLogger.Log(logMessage);
+                _logger.Debug(logMessage);
 
                 // Log persistent network errors to help identify API issues, but don't spam logs
                 if (ex is HttpRequestException or OperationCanceledException)

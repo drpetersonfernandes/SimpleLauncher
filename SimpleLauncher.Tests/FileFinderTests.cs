@@ -1,4 +1,5 @@
 using Moq;
+using Serilog;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 using Xunit;
@@ -265,7 +266,7 @@ public class FileFinderTests : IDisposable
     [Fact]
     public void FindEbootBinNullPathReturnsNull()
     {
-        var debugLoggerMock = new Mock<IDebugLogger>();
+        var debugLoggerMock = new Mock<ILogger>();
         var result = FindEbootBin.FindEbootBinRecursive(null, CreateLogErrorsMock().Object, debugLoggerMock.Object);
         Assert.Null(result);
     }
@@ -273,7 +274,7 @@ public class FileFinderTests : IDisposable
     [Fact]
     public void FindEbootBinEmptyPathReturnsNull()
     {
-        var debugLoggerMock = new Mock<IDebugLogger>();
+        var debugLoggerMock = new Mock<ILogger>();
         var result = FindEbootBin.FindEbootBinRecursive("", CreateLogErrorsMock().Object, debugLoggerMock.Object);
         Assert.Null(result);
     }
@@ -281,7 +282,7 @@ public class FileFinderTests : IDisposable
     [Fact]
     public void FindEbootBinInTopDirectory()
     {
-        var debugLoggerMock = new Mock<IDebugLogger>();
+        var debugLoggerMock = new Mock<ILogger>();
         var ebootPath = Path.Combine(_tempDir, "EBOOT.BIN");
         File.WriteAllText(ebootPath, "test");
         var result = FindEbootBin.FindEbootBinRecursive(_tempDir, CreateLogErrorsMock().Object, debugLoggerMock.Object);
@@ -291,7 +292,7 @@ public class FileFinderTests : IDisposable
     [Fact]
     public void FindEbootBinInPs3GameUsrDir()
     {
-        var debugLoggerMock = new Mock<IDebugLogger>();
+        var debugLoggerMock = new Mock<ILogger>();
         var ps3GameDir = Path.Combine(_tempDir, "PS3_GAME");
         var usrDir = Path.Combine(ps3GameDir, "USRDIR");
         Directory.CreateDirectory(usrDir);
@@ -304,7 +305,7 @@ public class FileFinderTests : IDisposable
     [Fact]
     public void FindEbootBinPrefersTopDirectoryOverPs3Game()
     {
-        var debugLoggerMock = new Mock<IDebugLogger>();
+        var debugLoggerMock = new Mock<ILogger>();
         var topEboot = Path.Combine(_tempDir, "EBOOT.BIN");
         File.WriteAllText(topEboot, "top");
 
@@ -320,7 +321,7 @@ public class FileFinderTests : IDisposable
     [Fact]
     public void FindEbootBinRecursiveSearch()
     {
-        var debugLoggerMock = new Mock<IDebugLogger>();
+        var debugLoggerMock = new Mock<ILogger>();
         var nestedDir = Path.Combine(_tempDir, "subdir1", "subdir2");
         Directory.CreateDirectory(nestedDir);
         var ebootPath = Path.Combine(nestedDir, "EBOOT.BIN");
@@ -332,7 +333,7 @@ public class FileFinderTests : IDisposable
     [Fact]
     public void FindEbootBinNotFoundReturnsNull()
     {
-        var debugLoggerMock = new Mock<IDebugLogger>();
+        var debugLoggerMock = new Mock<ILogger>();
         File.WriteAllText(Path.Combine(_tempDir, "game.iso"), "test");
         var result = FindEbootBin.FindEbootBinRecursive(_tempDir, CreateLogErrorsMock().Object, debugLoggerMock.Object);
         Assert.Null(result);

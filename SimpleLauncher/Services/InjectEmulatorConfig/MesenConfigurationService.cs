@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class MesenConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -24,11 +24,11 @@ public static class MesenConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[MesenConfig] Created new settings.json from sample: {configPath}");
+                    logger.Debug($"[MesenConfig] Created new settings.json from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[MesenConfig] Failed to create settings.json from sample: {ex.Message}");
+                    logger.Debug($"[MesenConfig] Failed to create settings.json from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[MesenConfig] Failed to create settings.json from sample: {ex.Message}");
                     throw;
                 }
@@ -39,7 +39,7 @@ public static class MesenConfigurationService
             }
         }
 
-        debugLogger.Log($"[MesenConfig] Injecting configuration into: {configPath}");
+        logger.Debug($"[MesenConfig] Injecting configuration into: {configPath}");
 
         try
         {
@@ -86,11 +86,11 @@ public static class MesenConfigurationService
             var options = new JsonSerializerOptions { WriteIndented = true };
             File.WriteAllText(configPath, root.ToJsonString(options));
 
-            debugLogger.Log("[MesenConfig] Injection successful.");
+            logger.Debug("[MesenConfig] Injection successful.");
         }
         catch (Exception ex)
         {
-            debugLogger.Log($"[MesenConfig] Error injecting settings: {ex.Message}");
+            logger.Debug($"[MesenConfig] Error injecting settings: {ex.Message}");
             logErrors.LogAndForget(ex, $"[MesenConfig] Error injecting settings: {ex.Message}");
             throw; // Re-throw to be caught by the caller
         }

@@ -13,17 +13,17 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 public class AzaharConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AzaharConfigHandler"/> class.
     /// </summary>
-    public AzaharConfigHandler(ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
+    public AzaharConfigHandler(ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _messageBox = messageBox;
         _scopeFactory = scopeFactory;
     }
@@ -58,7 +58,7 @@ public class AzaharConfigHandler : IEmulatorConfigHandler
             {
                 try
                 {
-                    AzaharConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
+                    AzaharConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _logger);
                 }
                 catch (AzaharPermissionException)
                 {

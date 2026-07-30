@@ -13,16 +13,16 @@ namespace SimpleLauncher.Services.GameLauncher.Strategies;
 public class ChdToCueStrategy : ILaunchStrategy
 {
     private readonly IMessageBoxLibraryService _messageBox;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IDiscConverter _discConverter;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ChdToCueStrategy"/> class.
     /// </summary>
-    public ChdToCueStrategy(IMessageBoxLibraryService messageBox, IDebugLogger debugLogger, IDiscConverter discConverter)
+    public ChdToCueStrategy(IMessageBoxLibraryService messageBox, ILogger logger, IDiscConverter discConverter)
     {
         _messageBox = messageBox;
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _discConverter = discConverter;
     }
 
@@ -90,11 +90,11 @@ public class ChdToCueStrategy : ILaunchStrategy
                     var binPath = Path.ChangeExtension(cuePath, ".bin");
                     if (File.Exists(cuePath)) File.Delete(cuePath);
                     if (File.Exists(binPath)) File.Delete(binPath);
-                    _debugLogger.Log($"Cleaned up temporary CHD conversion files: {cuePath}");
+                    _logger.Debug($"Cleaned up temporary CHD conversion files: {cuePath}");
                 }
                 catch (Exception ex)
                 {
-                    _debugLogger.Log($"Failed to cleanup CHD temp files: {ex.Message}");
+                    _logger.Debug($"Failed to cleanup CHD temp files: {ex.Message}");
                 }
             }
         }

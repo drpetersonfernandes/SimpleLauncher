@@ -140,7 +140,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly IApplicationLifecycleService _lifecycle;
     private readonly IAudioInputService _audioInput;
     private readonly IContextMenuFunctions _contextMenuFunctions;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IContextMenuService _contextMenuService;
     internal readonly IUpdateStatusBar UpdateStatusBarService;
     internal readonly IUiResetService UiResetService;
@@ -162,7 +162,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         IApplicationLifecycleService lifecycle,
         IAudioInputService audioInput,
         IContextMenuFunctions contextMenuFunctions,
-        IDebugLogger debugLogger,
+        ILogger logger,
         IContextMenuService contextMenuService)
     {
         InitializeComponent();
@@ -179,7 +179,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _lifecycle = lifecycle;
         _audioInput = audioInput;
         _contextMenuFunctions = contextMenuFunctions;
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _contextMenuService = contextMenuService;
 
         UiResetService = uiResetService;
@@ -291,7 +291,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         try
         {
             await _gameBrowser.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
-            _debugLogger.Log("DisplaySystemSelectionScreenAsync called.");
+            _logger.Debug("DisplaySystemSelectionScreenAsync called.");
         }
         catch (OperationCanceledException)
         {
@@ -299,20 +299,20 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in the DisplaySystemSelectionScreenAsync method.");
-            _debugLogger.Log($"Error in the DisplaySystemSelectionScreenAsync method: {ex.Message}");
+            _logger.Debug($"Error in the DisplaySystemSelectionScreenAsync method: {ex.Message}");
         }
 
         try
         {
             await _lifecycle.SilentCheckForUpdatesAsync(this);
-            _debugLogger.Log("Silent check for updates was done.");
+            _logger.Debug("Silent check for updates was done.");
             await _lifecycle.ReportUsageAsync();
-            _debugLogger.Log("Stats API call was done.");
+            _logger.Debug("Stats API call was done.");
         }
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in the Loaded event.");
-            _debugLogger.Log($"Error in the Loaded event: {ex.Message}");
+            _logger.Debug($"Error in the Loaded event: {ex.Message}");
         }
 
         try
@@ -365,7 +365,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in the Loaded event's first-run logic.");
-            _debugLogger.Log($"Error in the Loaded event's first-run logic: {ex.Message}");
+            _logger.Debug($"Error in the Loaded event's first-run logic: {ex.Message}");
         }
     }
 
@@ -374,7 +374,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         if (_wasControllerRunningBeforeDeactivation)
         {
             _audioInput.StartGamepad();
-            _debugLogger.Log("Gamepad controller restarted on window activation.");
+            _logger.Debug("Gamepad controller restarted on window activation.");
         }
 
         _wasControllerRunningBeforeDeactivation = false; // Reset flag
@@ -386,7 +386,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         {
             _wasControllerRunningBeforeDeactivation = true;
             _audioInput.StopGamepad();
-            _debugLogger.Log("Gamepad controller temporarily stopped on window deactivation.");
+            _logger.Debug("Gamepad controller temporarily stopped on window deactivation.");
         }
         else
         {
@@ -952,13 +952,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Error in method SortOrderToggleButtonClickAsync.");
-                _debugLogger.Log("Error in method SortOrderToggleButtonClickAsync.");
+                _logger.Debug("Error in method SortOrderToggleButtonClickAsync.");
             }
         }
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error in method SortOrderToggleButtonClickAsync.");
-            _debugLogger.Log("Error in method SortOrderToggleButtonClickAsync.");
+            _logger.Debug("Error in method SortOrderToggleButtonClickAsync.");
         }
     }
 

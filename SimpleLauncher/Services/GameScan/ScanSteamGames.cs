@@ -9,12 +9,12 @@ namespace SimpleLauncher.Services.GameScan;
 
 internal class ScanSteamGames : IGamePlatformScanner
 {
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly ISteamVdfParser _vdfParser;
 
-    public ScanSteamGames(IDebugLogger debugLogger, ISteamVdfParser vdfParser)
+    public ScanSteamGames(ILogger logger, ISteamVdfParser vdfParser)
     {
-        _debugLogger = debugLogger;
+        _logger = logger;
         _vdfParser = vdfParser;
     }
 
@@ -44,7 +44,7 @@ internal class ScanSteamGames : IGamePlatformScanner
 
             if (string.IsNullOrEmpty(steamPath))
             {
-                _debugLogger.Log("[GameScannerService] Steam installation not found.");
+                _logger.Debug("[GameScannerService] Steam installation not found.");
                 return;
             }
 
@@ -234,7 +234,7 @@ internal class ScanSteamGames : IGamePlatformScanner
 
             if (string.IsNullOrEmpty(baseAppId))
             {
-                _debugLogger.Log($"[GameScannerService] Could not resolve Base AppID for mod: {gameName}. Skipping.");
+                _logger.Debug($"[GameScannerService] Could not resolve Base AppID for mod: {gameName}. Skipping.");
                 return;
             }
 
@@ -273,7 +273,7 @@ internal class ScanSteamGames : IGamePlatformScanner
                 }
             }
 
-            _debugLogger.Log($"[GameScannerService] Created shortcut for Source Mod: {gameName}");
+            _logger.Debug($"[GameScannerService] Created shortcut for Source Mod: {gameName}");
         }
         catch (Exception ex)
         {

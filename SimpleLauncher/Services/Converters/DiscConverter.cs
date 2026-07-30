@@ -12,12 +12,12 @@ public class DiscConverter : IDiscConverter
 {
     private static readonly string TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly ILogErrors _logErrors;
 
-    public DiscConverter(IDebugLogger debugLogger, ILogErrors logErrors)
+    public DiscConverter(ILogger logger, ILogErrors logErrors)
     {
-        _debugLogger = debugLogger;
+        _logger = logger;
         _logErrors = logErrors;
     }
 
@@ -31,7 +31,7 @@ public class DiscConverter : IDiscConverter
 
             if (!File.Exists(chdmanPath))
             {
-                _debugLogger.Log($"[ConvertChdToIso] chdman not found at {chdmanPath}. Cannot convert CHD.");
+                _logger.Debug($"[ConvertChdToIso] chdman not found at {chdmanPath}. Cannot convert CHD.");
                 return null;
             }
 
@@ -56,8 +56,8 @@ public class DiscConverter : IDiscConverter
             using var process = new Process();
             process.StartInfo = processStartInfo;
 
-            _debugLogger.Log($"[ConvertChdToIso] Running chdman with args: {args}");
-            _debugLogger.Log("[ConvertChdToIso] Converting from CHD to ISO.");
+            _logger.Debug($"[ConvertChdToIso] Running chdman with args: {args}");
+            _logger.Debug("[ConvertChdToIso] Converting from CHD to ISO.");
 
             var errorBuilder = new StringBuilder();
             process.ErrorDataReceived += (_, e) =>
@@ -76,7 +76,7 @@ public class DiscConverter : IDiscConverter
             }
             catch (OperationCanceledException)
             {
-                _debugLogger.Log("[ConvertChdToIso] Conversion timed out after 5 minutes.");
+                _logger.Debug("[ConvertChdToIso] Conversion timed out after 5 minutes.");
                 try { process.Kill(); } catch { /* ignored */ }
 
                 return null;
@@ -84,16 +84,16 @@ public class DiscConverter : IDiscConverter
 
             if (process.ExitCode == 0 && File.Exists(tempIsoPath))
             {
-                _debugLogger.Log("[ConvertChdToIso] Conversion successful.");
+                _logger.Debug("[ConvertChdToIso] Conversion successful.");
                 return tempIsoPath;
             }
 
-            _debugLogger.Log($"[ConvertChdToIso] chdman failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
+            _logger.Debug($"[ConvertChdToIso] chdman failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
             return null;
         }
         catch (Exception ex)
         {
-            _debugLogger.LogException(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
+            _logger.Error(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
             _logErrors.LogAndForget(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
             return null;
         }
@@ -109,7 +109,7 @@ public class DiscConverter : IDiscConverter
 
             if (!File.Exists(chdmanPath))
             {
-                _debugLogger.Log($"[ConvertChdToCueBin] chdman not found at {chdmanPath}. Cannot convert CHD.");
+                _logger.Debug($"[ConvertChdToCueBin] chdman not found at {chdmanPath}. Cannot convert CHD.");
                 return null;
             }
 
@@ -134,8 +134,8 @@ public class DiscConverter : IDiscConverter
             using var process = new Process();
             process.StartInfo = processStartInfo;
 
-            _debugLogger.Log($"[ConvertChdToCueBin] Running chdman with args: {args}");
-            _debugLogger.Log("[ConvertChdToCueBin] Converting from CHD to CUE/BIN.");
+            _logger.Debug($"[ConvertChdToCueBin] Running chdman with args: {args}");
+            _logger.Debug("[ConvertChdToCueBin] Converting from CHD to CUE/BIN.");
 
             var errorBuilder = new StringBuilder();
             process.ErrorDataReceived += (_, e) =>
@@ -154,7 +154,7 @@ public class DiscConverter : IDiscConverter
             }
             catch (OperationCanceledException)
             {
-                _debugLogger.Log("[ConvertChdToCueBin] Conversion timed out after 5 minutes. Killing process.");
+                _logger.Debug("[ConvertChdToCueBin] Conversion timed out after 5 minutes. Killing process.");
                 try { process.Kill(); } catch { /* ignored */ }
 
                 return null;
@@ -162,16 +162,16 @@ public class DiscConverter : IDiscConverter
 
             if (process.ExitCode == 0 && File.Exists(tempCuePath))
             {
-                _debugLogger.Log("[ConvertChdToCueBin] Conversion successful.");
+                _logger.Debug("[ConvertChdToCueBin] Conversion successful.");
                 return tempCuePath;
             }
 
-            _debugLogger.Log($"[ConvertChdToCueBin] chdman failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
+            _logger.Debug($"[ConvertChdToCueBin] chdman failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
             return null;
         }
         catch (Exception ex)
         {
-            _debugLogger.LogException(ex, "[ConvertChdToCueBin] Error converting CHD to CUE/BIN.");
+            _logger.Error(ex, "[ConvertChdToCueBin] Error converting CHD to CUE/BIN.");
             _logErrors.LogAndForget(ex, "[ConvertChdToCueBin] Error converting CHD to CUE/BIN.");
             return null;
         }
@@ -184,7 +184,7 @@ public class DiscConverter : IDiscConverter
             var arch = RuntimeInformation.ProcessArchitecture;
             if (arch == Architecture.Arm64)
             {
-                _debugLogger.Log("[ConvertPbpToCueBin] PSXPackager is not available for ARM64 architecture.");
+                _logger.Debug("[ConvertPbpToCueBin] PSXPackager is not available for ARM64 architecture.");
                 return null;
             }
 
@@ -192,7 +192,7 @@ public class DiscConverter : IDiscConverter
 
             if (!File.Exists(psxPackagerPath))
             {
-                _debugLogger.Log($"[ConvertPbpToCueBin] psxpackager not found at {psxPackagerPath}. Cannot convert PBP.");
+                _logger.Debug($"[ConvertPbpToCueBin] psxpackager not found at {psxPackagerPath}. Cannot convert PBP.");
                 return null;
             }
 
@@ -219,8 +219,8 @@ public class DiscConverter : IDiscConverter
             using var process = new Process();
             process.StartInfo = processStartInfo;
 
-            _debugLogger.Log($"[ConvertPbpToCueBin] Running psxpackager with args: {args}");
-            _debugLogger.Log("[ConvertPbpToCueBin] Converting from PBP to CUE/BIN.");
+            _logger.Debug($"[ConvertPbpToCueBin] Running psxpackager with args: {args}");
+            _logger.Debug("[ConvertPbpToCueBin] Converting from PBP to CUE/BIN.");
 
             var errorBuilder = new StringBuilder();
             process.ErrorDataReceived += (_, e) =>
@@ -239,7 +239,7 @@ public class DiscConverter : IDiscConverter
             }
             catch (OperationCanceledException)
             {
-                _debugLogger.Log("[ConvertPbpToCueBin] Conversion timed out after 5 minutes. Killing process.");
+                _logger.Debug("[ConvertPbpToCueBin] Conversion timed out after 5 minutes. Killing process.");
                 try { process.Kill(); } catch { /* ignored */ }
 
                 return null;
@@ -249,24 +249,24 @@ public class DiscConverter : IDiscConverter
             {
                 if (File.Exists(tempCuePath))
                 {
-                    _debugLogger.Log("[ConvertPbpToCueBin] Conversion successful.");
+                    _logger.Debug("[ConvertPbpToCueBin] Conversion successful.");
                     return tempCuePath;
                 }
 
                 var disc1CuePath = Path.Combine(TempFolder, $"{tempFileName}_disc1.cue");
                 if (File.Exists(disc1CuePath))
                 {
-                    _debugLogger.Log("[ConvertPbpToCueBin] Conversion successful (disc 1 variant).");
+                    _logger.Debug("[ConvertPbpToCueBin] Conversion successful (disc 1 variant).");
                     return disc1CuePath;
                 }
             }
 
-            _debugLogger.Log($"[ConvertPbpToCueBin] psxpackager failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
+            _logger.Debug($"[ConvertPbpToCueBin] psxpackager failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
             return null;
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"[ConvertPbpToCueBin] Exception during conversion: {ex.Message}");
+            _logger.Debug($"[ConvertPbpToCueBin] Exception during conversion: {ex.Message}");
             return null;
         }
     }
@@ -281,7 +281,7 @@ public class DiscConverter : IDiscConverter
 
             if (!File.Exists(dolphinToolPath))
             {
-                _debugLogger.Log($"[ConvertDiscImageToIso] DolphinTool not found at {dolphinToolPath}. Cannot convert disc image.");
+                _logger.Debug($"[ConvertDiscImageToIso] DolphinTool not found at {dolphinToolPath}. Cannot convert disc image.");
                 return null;
             }
 
@@ -305,8 +305,8 @@ public class DiscConverter : IDiscConverter
             using var process = new Process();
             process.StartInfo = processStartInfo;
 
-            _debugLogger.Log($"[ConvertDiscImageToIso] Running DolphinTool with args: {args}");
-            _debugLogger.Log($"[ConvertDiscImageToIso] Converting {Path.GetExtension(discImagePath)} to ISO.");
+            _logger.Debug($"[ConvertDiscImageToIso] Running DolphinTool with args: {args}");
+            _logger.Debug($"[ConvertDiscImageToIso] Converting {Path.GetExtension(discImagePath)} to ISO.");
 
             var errorBuilder = new StringBuilder();
             process.ErrorDataReceived += (_, e) =>
@@ -325,7 +325,7 @@ public class DiscConverter : IDiscConverter
             }
             catch (OperationCanceledException)
             {
-                _debugLogger.Log("[ConvertDiscImageToIso] Conversion timed out after 5 minutes.");
+                _logger.Debug("[ConvertDiscImageToIso] Conversion timed out after 5 minutes.");
                 try { process.Kill(); } catch { /* ignored */ }
 
                 return null;
@@ -333,16 +333,16 @@ public class DiscConverter : IDiscConverter
 
             if (process.ExitCode == 0 && File.Exists(tempIsoPath))
             {
-                _debugLogger.Log("[ConvertDiscImageToIso] Conversion successful.");
+                _logger.Debug("[ConvertDiscImageToIso] Conversion successful.");
                 return tempIsoPath;
             }
 
-            _debugLogger.Log($"[ConvertDiscImageToIso] DolphinTool failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
+            _logger.Debug($"[ConvertDiscImageToIso] DolphinTool failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
             return null;
         }
         catch (Exception ex)
         {
-            _debugLogger.LogException(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
+            _logger.Error(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
             _logErrors.LogAndForget(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
             return null;
         }

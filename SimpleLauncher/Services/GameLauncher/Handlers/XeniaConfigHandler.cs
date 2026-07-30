@@ -13,16 +13,16 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 public class XeniaConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="XeniaConfigHandler"/> class.
     /// </summary>
-    public XeniaConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
+    public XeniaConfigHandler(ILogErrors logErrors, ILogger logger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _scopeFactory = scopeFactory;
     }
 
@@ -58,12 +58,12 @@ public class XeniaConfigHandler : IEmulatorConfigHandler
             {
                 try
                 {
-                    XeniaConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
+                    XeniaConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _logger);
                 }
                 catch (Exception ex)
                 {
                     // Log error but allow game to launch with default Xenia settings
-                    _debugLogger.Log($"[XeniaConfigHandler] Failed to inject settings: {ex.Message}");
+                    _logger.Debug($"[XeniaConfigHandler] Failed to inject settings: {ex.Message}");
                 }
             }
 

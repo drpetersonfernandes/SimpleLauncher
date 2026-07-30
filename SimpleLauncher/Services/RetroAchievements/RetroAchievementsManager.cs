@@ -19,16 +19,16 @@ public class RetroAchievementsManager
     public List<RaGameInfo> AllGames { get; set; } = [];
 
     private Dictionary<string, RaGameInfo> _hashToGameInfoLookup;
-    private IDebugLogger _debugLogger;
+    private ILogger _logger;
     private static readonly DataFileLocation FileLocation = new("RetroAchievements.dat");
     private static string DatFilePath => FileLocation.FilePath;
 
     /// <summary>
     /// Loads the RetroAchievements game database from the MessagePack .dat file.
     /// </summary>
-    public static RetroAchievementsManager LoadRetroAchievement(ILogErrors logErrors, IDebugLogger debugLogger)
+    public static RetroAchievementsManager LoadRetroAchievement(ILogErrors logErrors, ILogger logger)
     {
-        var manager = new RetroAchievementsManager { _debugLogger = debugLogger };
+        var manager = new RetroAchievementsManager { _logger = logger };
         if (File.Exists(DatFilePath))
         {
             try
@@ -47,7 +47,7 @@ public class RetroAchievementsManager
                 const string contextMessage = "Error loading RetroAchievements.dat. The file might be corrupted or invalid. A new empty file will be created.";
                 logErrors.LogAndForget(ex, contextMessage);
 
-                debugLogger.Log($"[RA Manager] Failed to load RetroAchievements.dat: {ex.Message}");
+                logger.Debug($"[RA Manager] Failed to load RetroAchievements.dat: {ex.Message}");
             }
         }
 
@@ -61,7 +61,7 @@ public class RetroAchievementsManager
             const string contextMessage = "RetroAchievements.dat is missing or empty. Starting with an empty database.";
             logErrors.LogAndForget(null, contextMessage);
 
-            debugLogger.Log("[RA Manager] Starting with empty RetroAchievements database");
+            logger.Debug("[RA Manager] Starting with empty RetroAchievements database");
         }
 
         return manager;
@@ -84,7 +84,7 @@ public class RetroAchievementsManager
             }
         }
 
-        _debugLogger.Log($"[RA Manager] Populated hash lookup with {_hashToGameInfoLookup.Count} entries.");
+        _logger.Debug($"[RA Manager] Populated hash lookup with {_hashToGameInfoLookup.Count} entries.");
     }
 
     /// <summary>

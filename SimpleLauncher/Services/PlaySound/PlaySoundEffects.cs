@@ -18,7 +18,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     private static readonly Lock Lock = new();
     private readonly SettingsManager.SettingsManager _settingsManager;
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
 
     private WaveOutEvent? _waveOut;
     private Mp3FileReader? _reader;
@@ -26,11 +26,11 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     /// <summary>
     /// Initializes a new instance of the <see cref="PlaySoundEffects"/> class.
     /// </summary>
-    public PlaySoundEffects(SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public PlaySoundEffects(SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         _settingsManager = settings ?? throw new ArgumentNullException(nameof(settings));
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     /// <summary>
@@ -132,7 +132,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
             }
             catch (Exception ex)
             {
-                _debugLogger.Log($"[PlaySoundEffects] Error stopping waveOut: {ex.Message}");
+                _logger.Debug($"[PlaySoundEffects] Error stopping waveOut: {ex.Message}");
             }
         }
 
@@ -146,7 +146,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
             }
             catch (Exception ex)
             {
-                _debugLogger.Log($"[PlaySoundEffects] Error disposing reader: {ex.Message}");
+                _logger.Debug($"[PlaySoundEffects] Error disposing reader: {ex.Message}");
             }
         }
 
@@ -158,7 +158,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
             }
             catch (Exception ex)
             {
-                _debugLogger.Log($"[PlaySoundEffects] Error disposing waveOut: {ex.Message}");
+                _logger.Debug($"[PlaySoundEffects] Error disposing waveOut: {ex.Message}");
             }
         }
     }

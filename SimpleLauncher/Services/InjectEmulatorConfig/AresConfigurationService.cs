@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class AresConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -23,11 +23,11 @@ public static class AresConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[AresConfig] Created new settings.bml from sample: {configPath}");
+                    logger.Debug($"[AresConfig] Created new settings.bml from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[AresConfig] Failed to create settings.bml from sample: {ex.Message}");
+                    logger.Debug($"[AresConfig] Failed to create settings.bml from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[AresConfig] Failed to create settings.bml from sample: {ex.Message}");
                     throw;
                 }
@@ -38,7 +38,7 @@ public static class AresConfigurationService
             }
         }
 
-        debugLogger.Log($"[AresConfig] Injecting configuration into: {configPath}");
+        logger.Debug($"[AresConfig] Injecting configuration into: {configPath}");
 
         // Section-aware updates to prevent cross-section key collisions (e.g., Driver: appears in Video, Audio, Input)
         var updates = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase)
@@ -75,13 +75,13 @@ public static class AresConfigurationService
         }
         catch (UnauthorizedAccessException ex)
         {
-            debugLogger.Log($"[AresConfig] Access denied reading config: {configPath}");
+            logger.Debug($"[AresConfig] Access denied reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[AresConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
-            debugLogger.Log($"[AresConfig] I/O error reading config: {configPath}");
+            logger.Debug($"[AresConfig] I/O error reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[AresConfig] I/O error reading config: {configPath}");
             throw;
         }
@@ -132,18 +132,18 @@ public static class AresConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                debugLogger.Log("[AresConfig] Injected configuration changes..");
+                logger.Debug("[AresConfig] Injected configuration changes..");
             }
             catch (Exception ex)
             {
-                debugLogger.Log($"[AresConfig] Failed to inject configuration changes: {ex.Message}");
+                logger.Debug($"[AresConfig] Failed to inject configuration changes: {ex.Message}");
                 logErrors.LogAndForget(ex, $"[AresConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }
         else
         {
-            debugLogger.Log("[AresConfig] No changes needed.");
+            logger.Debug("[AresConfig] No changes needed.");
         }
     }
 }

@@ -60,15 +60,15 @@ public partial class SystemManager : ISystemManager
     /// Static logger shared across static methods. Set by the last instance created.
     /// This is intentional — static methods like SystemExists and LoadSystemManagers need logging.
     /// </summary>
-    private static IDebugLogger _debugLogger;
+    private static ILogger _logger;
 
     /// <summary>
     /// Initializes a new instance of the SystemManager with optional dependencies.
     /// </summary>
-    public SystemManager(IMessageBoxLibraryService messageBoxLibrary = null, IDebugLogger debugLogger = null)
+    public SystemManager(IMessageBoxLibraryService messageBoxLibrary = null, ILogger logger = null)
     {
         _messageBoxLibrary = messageBoxLibrary;
-        _debugLogger = debugLogger;
+        _logger = logger;
     }
 
     /// <summary>
@@ -133,7 +133,7 @@ public partial class SystemManager : ISystemManager
             catch (Exception ex) // Catch XmlException, IOException, etc.
             {
                 // If file is corrupt or locked, we can't check.
-                _debugLogger?.Log($"[SystemManager.SystemExists] Could not check system.xml: {ex.Message}");
+                _logger?.Debug($"[SystemManager.SystemExists] Could not check system.xml: {ex.Message}");
                 return false;
             }
         }
@@ -250,14 +250,14 @@ public partial class SystemManager : ISystemManager
 
                                 invalidManagers[structuralErrorKey] += $"- {sysName} (Unrecoverable XML block)\n";
 
-                                _debugLogger?.Log($"Failed to validate system configuration for '{sysName}'");
+                                _logger?.Debug($"Failed to validate system configuration for '{sysName}'");
                                 logErrors?.LogAndForget(innerEx, $"Failed to validate system configuration for '{sysName}'");
                             }
                         }
                     }
                     catch (Exception fatalEx)
                     {
-                        _debugLogger?.Log($"Failed to perform regex recovery on system.xml: {fatalEx.Message}");
+                        _logger?.Debug($"Failed to perform regex recovery on system.xml: {fatalEx.Message}");
                         logErrors?.LogAndForget(fatalEx, "Failed to perform regex recovery on system.xml.");
                     }
 
@@ -742,7 +742,7 @@ public partial class SystemManager : ISystemManager
                                 }
                                 catch (Exception fallbackEx)
                                 {
-                                    System.Diagnostics.Debug.WriteLine($"[SystemManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
+                                    Serilog.Log.Debug($"[SystemManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
                                 }
                             }
 
@@ -759,7 +759,7 @@ public partial class SystemManager : ISystemManager
                                 }
                                 catch (Exception cleanupEx)
                                 {
-                                    System.Diagnostics.Debug.WriteLine($"[SystemManager] Temp file cleanup failed: {cleanupEx.Message}");
+                                    Serilog.Log.Debug($"[SystemManager] Temp file cleanup failed: {cleanupEx.Message}");
                                 }
 
                                 Thread.Sleep(retryDelayMs);
@@ -796,7 +796,7 @@ public partial class SystemManager : ISystemManager
         }
         catch (Exception ex)
         {
-            _debugLogger?.Log($"Error saving system configuration: {ex.Message}");
+            _logger?.Debug($"Error saving system configuration: {ex.Message}");
             logErrors?.LogAndForget(ex, "Error saving system configuration.");
         }
     }
@@ -847,7 +847,7 @@ public partial class SystemManager : ISystemManager
         }
         catch (Exception ex)
         {
-            _debugLogger?.Log($"Error deleting system '{systemNameToDelete}': {ex.Message}");
+            _logger?.Debug($"Error deleting system '{systemNameToDelete}': {ex.Message}");
             logErrors?.LogAndForget(ex, $"Error deleting system '{systemNameToDelete}'.");
         }
     }

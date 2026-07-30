@@ -28,7 +28,7 @@ public class EasyModeManager : IDisposable
     private readonly ILogErrors _logErrors;
     private readonly IConfiguration _configuration;
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
 
     /// <summary>
     /// Gets or sets the list of EasyMode system configurations.
@@ -39,12 +39,12 @@ public class EasyModeManager : IDisposable
     /// <summary>
     /// Initializes a new instance of <see cref="EasyModeManager"/> with the specified dependencies for API loading and error logging.
     /// </summary>
-    public EasyModeManager(ILogErrors logErrors, IConfiguration configuration, IHttpClientFactory httpClientFactory, IDebugLogger debugLogger)
+    public EasyModeManager(ILogErrors logErrors, IConfiguration configuration, IHttpClientFactory httpClientFactory, ILogger logger)
     {
         _logErrors = logErrors;
         _configuration = configuration;
         _httpClientFactory = httpClientFactory;
-        _debugLogger = debugLogger;
+        _logger = logger;
     }
 
     /// <summary>
@@ -66,29 +66,29 @@ public class EasyModeManager : IDisposable
         var manager = LoadFromXml(_logErrors);
         if (manager != null && manager.Systems.Count != 0)
         {
-            _debugLogger.Log("Loaded EasyMode configuration from local XML file.");
+            _logger.Debug("Loaded EasyMode configuration from local XML file.");
             return manager;
         }
 
         // If XML fails or is empty, try loading from the API
-        _debugLogger.Log("Local EasyMode XML not found or is empty. Attempting to load from API.");
+        _logger.Debug("Local EasyMode XML not found or is empty. Attempting to load from API.");
         manager = await LoadFromApiAsync();
         if (manager != null && manager.Systems.Count != 0)
         {
-            _debugLogger.Log("Successfully loaded EasyMode configuration from API.");
+            _logger.Debug("Successfully loaded EasyMode configuration from API.");
             return manager;
         }
 
         // If both local XML and API fail, try loading from fallback URL
-        _debugLogger.Log("API load failed. Attempting to load from fallback XML URL.");
+        _logger.Debug("API load failed. Attempting to load from fallback XML URL.");
         manager = await LoadFromFallbackAsync();
         if (manager != null && manager.Systems.Count != 0)
         {
-            _debugLogger.Log("Successfully loaded EasyMode configuration from fallback URL.");
+            _logger.Debug("Successfully loaded EasyMode configuration from fallback URL.");
             return manager;
         }
 
-        _debugLogger.Log("Failed to load EasyMode configuration from all sources (local XML, API, and fallback URL).");
+        _logger.Debug("Failed to load EasyMode configuration from all sources (local XML, API, and fallback URL).");
         return null; // Return null if all methods fail
     }
 
@@ -161,18 +161,18 @@ public class EasyModeManager : IDisposable
             if (_apiCache.Manager != null &&
                 DateTime.UtcNow - _apiCache.Timestamp < TimeSpan.FromMinutes(cacheDurationMinutes))
             {
-                _debugLogger.Log($"Returning EasyMode configuration from session cache (valid for {cacheDurationMinutes} minutes).");
+                _logger.Debug($"Returning EasyMode configuration from session cache (valid for {cacheDurationMinutes} minutes).");
                 return _apiCache.Manager;
             }
 
             // Cache miss or expired, fetch from API
-            _debugLogger.Log("EasyMode session cache miss or expired. Fetching from API...");
+            _logger.Debug("EasyMode session cache miss or expired. Fetching from API...");
             var manager = await FetchFromApiAsync();
 
             if (manager is { Systems.Count: > 0 })
             {
                 _apiCache = (manager, DateTime.UtcNow);
-                _debugLogger.Log("EasyMode configuration fetched from API and cached for session.");
+                _logger.Debug("EasyMode configuration fetched from API and cached for session.");
             }
 
             return manager;
@@ -187,7 +187,7 @@ public class EasyModeManager : IDisposable
     {
         try
         {
-            _debugLogger.Log("Fetching EasyMode configuration from API...");
+            _logger.Debug("Fetching EasyMode configuration from API...");
             var client = _httpClientFactory.CreateClient("EasyModeClient");
 
             var architecture = RuntimeInformation.OSArchitecture switch
@@ -242,11 +242,11 @@ public class EasyModeManager : IDisposable
 
             if (string.IsNullOrEmpty(fallbackUrl))
             {
-                _debugLogger.Log("No fallback URL configured for EasyMode XML.");
+                _logger.Debug("No fallback URL configured for EasyMode XML.");
                 return null;
             }
 
-            _debugLogger.Log($"Attempting to download EasyMode XML from fallback URL: {fallbackUrl}");
+            _logger.Debug($"Attempting to download EasyMode XML from fallback URL: {fallbackUrl}");
 
             // Download the XML file from fallback URL
             var client = _httpClientFactory.CreateClient("EasyModeClient");
@@ -262,26 +262,26 @@ public class EasyModeManager : IDisposable
 
             if (string.IsNullOrWhiteSpace(xmlContent))
             {
-                _debugLogger.Log("Fallback URL returned empty XML content.");
+                _logger.Debug("Fallback URL returned empty XML content.");
                 return null;
             }
 
             // Save the downloaded XML to the application directory for future use
             var xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFile);
             await File.WriteAllTextAsync(xmlFilePath, xmlContent, cts.Token);
-            _debugLogger.Log($"Downloaded EasyMode XML saved to: {xmlFilePath}");
+            _logger.Debug($"Downloaded EasyMode XML saved to: {xmlFilePath}");
 
             // Load the saved XML file
             return LoadFromXml(_logErrors);
         }
         catch (OperationCanceledException)
         {
-            _debugLogger.Log("Fallback XML download timed out (30 seconds).");
+            _logger.Debug("Fallback XML download timed out (30 seconds).");
             return null;
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"Failed to load EasyMode configuration from fallback URL: {ex.Message}");
+            _logger.Debug($"Failed to load EasyMode configuration from fallback URL: {ex.Message}");
             _logErrors.LogAndForget(ex, "An error occurred while loading EasyMode configuration from the fallback URL.");
             return null;
         }

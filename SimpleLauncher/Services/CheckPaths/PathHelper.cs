@@ -219,7 +219,7 @@ public static partial class PathHelper
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"[PathHelper] Error resolving path '{path}' relative to app directory: {ex.Message}");
+            Serilog.Log.Debug($"[PathHelper] Error resolving path '{path}' relative to app directory: {ex.Message}");
             return null;
         }
     }
@@ -356,7 +356,7 @@ public static partial class PathHelper
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"[PathHelper] Error resolving '{folderPath}': {ex.Message}");
+            Serilog.Log.Debug($"[PathHelper] Error resolving '{folderPath}': {ex.Message}");
         }
 
         return null;
@@ -421,7 +421,7 @@ public static partial class PathHelper
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"[PathHelper] Error during normalization search: {ex.Message}");
+            Serilog.Log.Debug($"[PathHelper] Error during normalization search: {ex.Message}");
         }
 
         return null;

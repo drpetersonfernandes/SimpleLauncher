@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class StellaConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -23,11 +23,11 @@ public static class StellaConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[StellaConfig] Created new stella.sqlite3 from sample: {configPath}");
+                    logger.Debug($"[StellaConfig] Created new stella.sqlite3 from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[StellaConfig] Failed to create stella.sqlite3 from sample: {ex.Message}");
+                    logger.Debug($"[StellaConfig] Failed to create stella.sqlite3 from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[StellaConfig] Failed to create stella.sqlite3 from sample: {ex.Message}");
                     throw;
                 }
@@ -38,7 +38,7 @@ public static class StellaConfigurationService
             }
         }
 
-        debugLogger.Log($"[StellaConfig] Injecting configuration into: {configPath}");
+        logger.Debug($"[StellaConfig] Injecting configuration into: {configPath}");
 
         var updates = new Dictionary<string, string>
         {
@@ -74,6 +74,6 @@ public static class StellaConfigurationService
 
         transaction.Commit();
 
-        debugLogger.Log("[StellaConfig] Injection successful.");
+        logger.Debug("[StellaConfig] Injection successful.");
     }
 }

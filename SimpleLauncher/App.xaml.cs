@@ -8,6 +8,8 @@ using System.Windows.Media;
 using ControlzEx.Theming;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
+using Serilog.Events;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.CheckForFileLock;
 using SimpleLauncher.Services.CheckIfDirectoryIsWritable;
@@ -103,6 +105,28 @@ public partial class App : IDisposable
         // Parse args early for DI registration
         var isDebugMode = e.Args.Any(static arg => arg.Equals("-debug", StringComparison.OrdinalIgnoreCase));
 
+        var bugReportSink = new BugReportApiSink();
+
+        var appDataLogFolder = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "SimpleLauncher");
+        Directory.CreateDirectory(appDataLogFolder);
+
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .Enrich.FromLogContext()
+            .WriteTo.Debug(outputTemplate: "[{Level}] {Timestamp:HH:mm:ss.fff} - {Message}{NewLine}{Exception}")
+            .WriteTo.Sink(new DebugWindowSink())
+            .WriteTo.Async(a => a.File(
+                Path.Combine(appDataLogFolder,
+                    configuration.GetValue<string>("LogPath") ?? "error_user.log"),
+                restrictedToMinimumLevel: LogEventLevel.Warning,
+                rollingInterval: RollingInterval.Day,
+                retainedFileCountLimit: 7,
+                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}"))
+            .WriteTo.Sink(bugReportSink)
+            .CreateLogger();
+
         var serviceCollection = new ServiceCollection();
 
         serviceCollection.AddHttpClient("LogErrorsClient").ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
@@ -175,6 +199,7 @@ public partial class App : IDisposable
 
         // Register Managers as singletons
         serviceCollection.AddSingleton<ILogErrors, LogErrorsService>();
+        serviceCollection.AddSingleton(Log.Logger);
         serviceCollection.AddSingleton<ICredentialProtector, WindowsCredentialProtector>();
         serviceCollection.AddSingleton(static provider =>
         {
@@ -196,7 +221,6 @@ public partial class App : IDisposable
         serviceCollection.AddTransient<DownloadManager>();
         serviceCollection.AddSingleton<GameLauncher>();
         serviceCollection.AddSingleton<ILaunchTools, LaunchTools>();
-        serviceCollection.AddSingleton<IDebugLogger>(_ => new DebugLogger(isDebugMode));
         serviceCollection.AddSingleton<IDeleteFilesService, DeleteFilesService>();
         serviceCollection.AddSingleton<ICleanTempFolderService, CleanTempFolderService>();
         serviceCollection.AddSingleton<ICleanSimpleLauncherFolderService, CleanSimpleLauncherFolderService>();
@@ -223,8 +247,8 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton(static sp =>
         {
             var logErrors = sp.GetRequiredService<ILogErrors>();
-            var debugLogger = sp.GetRequiredService<IDebugLogger>();
-            return RetroAchievementsManager.LoadRetroAchievement(logErrors, debugLogger);
+            var logger = sp.GetRequiredService<ILogger>();
+            return RetroAchievementsManager.LoadRetroAchievement(logErrors, logger);
         });
         // Game platform scanners
         serviceCollection.AddSingleton<ISteamVdfParser, SteamVdfParser>();
@@ -283,12 +307,12 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IGameItemRenderService, GameItemRenderService>();
         serviceCollection.AddSingleton<IRetroAchievementsHasherTool>(static sp =>
         {
-            var debugLogger = sp.GetRequiredService<IDebugLogger>();
+            var logger = sp.GetRequiredService<ILogger>();
             var extractionService = sp.GetRequiredService<IExtractionService>();
             var systemMatcher = sp.GetRequiredService<IRetroAchievementsSystemMatcher>();
             var fileHasher = sp.GetRequiredService<IRetroAchievementsFileHasher>();
             var discConverter = sp.GetRequiredService<IDiscConverter>();
-            return new RetroAchievementsHasherTool(debugLogger, extractionService, SystemSelectionWindowFactory, MainWindowFactory, systemMatcher, fileHasher, discConverter);
+            return new RetroAchievementsHasherTool(logger, extractionService, SystemSelectionWindowFactory, MainWindowFactory, systemMatcher, fileHasher, discConverter);
 
             SystemSelectionWindow SystemSelectionWindowFactory()
             {
@@ -308,7 +332,6 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IDirectoryValidationService, DirectoryValidationService>();
         serviceCollection.AddSingleton<IFileLockService, FileLockService>();
         serviceCollection.AddSingleton<IInputSanitizerService, InputSanitizerService>();
-        serviceCollection.AddSingleton<IBugReportFormatter, BugReportFormatterService>();
         serviceCollection.AddSingleton<IFileFinderService, FileFinderService>();
         serviceCollection.AddSingleton<IFormatFileSizeService, FormatFileSizeService>();
         serviceCollection.AddSingleton<IDiscConverter, Services.Converters.DiscConverter>();
@@ -458,6 +481,12 @@ public partial class App : IDisposable
 
         ServiceProvider = serviceCollection.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true });
 
+        bugReportSink.Initialize(
+            ServiceProvider.GetRequiredService<IHttpClientFactory>(),
+            ServiceProvider.GetRequiredService<IConfiguration>(),
+            ServiceProvider.GetRequiredService<IDeleteFilesService>(),
+            appDataLogFolder);
+
         // --- Single Instance Check ---
         // Catch args
         var isRestarting = e.Args.Any(static arg => arg.Equals("--restarting", StringComparison.OrdinalIgnoreCase));
@@ -474,7 +503,7 @@ public partial class App : IDisposable
             }
             catch (Exception ex)
             {
-                ServiceProvider.GetRequiredService<IDebugLogger>().LogException(ex, "Failed to cleanup trash in SimpleLauncher folder.");
+                Log.Error(ex, "Failed to cleanup trash in SimpleLauncher folder.");
             }
         });
         if (!isRestarting) // Only perform the mutex check if NOT restarting
@@ -493,7 +522,7 @@ public partial class App : IDisposable
                 // The 'out _isFirstInstance' parameter would already be true in this case,
                 // but we explicitly set it for clarity and to ensure the flow continues as a first instance.
                 _isFirstInstance = true;
-                ServiceProvider.GetRequiredService<IDebugLogger>().Log("Mutex was abandoned by a previous instance, but successfully acquired by this instance. Proceeding as first instance.");
+                Log.Logger.Debug("Mutex was abandoned by a previous instance, but successfully acquired by this instance. Proceeding as first instance.");
                 // No need to call ILogErrors.LogErrorAsync here, as it's not a critical error preventing startup,
                 // but rather an informational event about a previous abnormal shutdown.
             }
@@ -538,7 +567,7 @@ public partial class App : IDisposable
                 }
                 catch (Exception ex)
                 {
-                    ServiceProvider.GetRequiredService<IDebugLogger>().LogException(ex, "Failed to signal existing instance.");
+                    Log.Error(ex, "Failed to signal existing instance.");
                     RestoreExistingWindow();
                 }
 
@@ -556,7 +585,7 @@ public partial class App : IDisposable
             }
             catch (Exception ex)
             {
-                ServiceProvider.GetRequiredService<IDebugLogger>().LogException(ex, "Failed to create instance signal event.");
+                Log.Error(ex, "Failed to create instance signal event.");
             }
         }
         // --- End Single Instance Check ---
@@ -584,7 +613,7 @@ public partial class App : IDisposable
             }
             catch (Exception ex)
             {
-                ServiceProvider.GetRequiredService<IDebugLogger>().LogException(ex, "Failed to call ApplicationStats API on startup.");
+                Log.Error(ex, "Failed to call ApplicationStats API on startup.");
             }
         });
 
@@ -631,57 +660,17 @@ public partial class App : IDisposable
     {
         try
         {
-            // Detect WPF Render Thread Failure (UCEERR_RENDERTHREADFAILURE 0x88980406)
-            // This is often caused by outdated GPU drivers, remote desktop sessions,
-            // or WPF windows with AllowsTransparency=True (layered windows).
             if (ex is COMException { HResult: unchecked((int)0x88980406) })
             {
                 contextMessage = $"[RenderingEngineFailure] {contextMessage} | HResult=0x88980406 (UCEERR_RENDERTHREADFAILURE). Commonly triggered by GPU driver issues or WPF per-pixel transparency.";
             }
 
-            if (ServiceProvider == null)
-            {
-                Debug.WriteLine($"[SimpleLauncher] {contextMessage}: {ex}");
-                return;
-            }
-
-            var logErrors = ServiceProvider.GetRequiredService<ILogErrors>();
-            // Fire-and-forget pattern with proper exception handling
-            _ = Task.Run(async () =>
-            {
-                try
-                {
-                    await logErrors.LogErrorAsync(ex, contextMessage);
-                }
-                catch (Exception fireForgetEx)
-                {
-                    ServiceProvider.GetRequiredService<IDebugLogger>().LogException(fireForgetEx, $"Failed to forward exception to bug report API (fire-and-forget): {contextMessage}");
-                }
-            });
+            Log.Error(ex, contextMessage);
         }
-        catch (HttpRequestException reportEx)
+        catch
         {
-            ServiceProvider.GetRequiredService<IDebugLogger>().LogException(reportEx, $"Failed to forward exception to bug report API: {contextMessage}");
-        }
-        catch (TaskCanceledException reportEx)
-        {
-            ServiceProvider.GetRequiredService<IDebugLogger>().LogException(reportEx, $"Failed to forward exception to bug report API: {contextMessage}");
-        }
-        catch (IOException reportEx)
-        {
-            ServiceProvider.GetRequiredService<IDebugLogger>().LogException(reportEx, $"Failed to forward exception to bug report API: {contextMessage}");
-        }
-        catch (UnauthorizedAccessException reportEx)
-        {
-            ServiceProvider.GetRequiredService<IDebugLogger>().LogException(reportEx, $"Failed to forward exception to bug report API: {contextMessage}");
-        }
-        catch (ObjectDisposedException reportEx)
-        {
-            ServiceProvider.GetRequiredService<IDebugLogger>().LogException(reportEx, $"Failed to forward exception to bug report API: {contextMessage}");
-        }
-        catch (InvalidOperationException reportEx)
-        {
-            ServiceProvider.GetRequiredService<IDebugLogger>().LogException(reportEx, $"Failed to forward exception to bug report API: {contextMessage}");
+            // If even Serilog fails, fall back to debug output
+            System.Diagnostics.Debug.WriteLine($"[SimpleLauncher] {contextMessage}: {ex}");
         }
     }
 
@@ -778,6 +767,8 @@ public partial class App : IDisposable
             }
         }
 
+        DebugWindow.ShutdownWindow();
+        Log.CloseAndFlush();
         Dispose();
         base.OnExit(e);
     }
@@ -1066,8 +1057,8 @@ public partial class App : IDisposable
             ApplyThemeToWindow(window);
         }
 
-        ServiceProvider.GetRequiredService<IDebugLogger>().Log("Theme has been applied to all windows.");
-        ServiceProvider.GetRequiredService<IDebugLogger>().Log($"Saved theme settings: {baseTheme}.{accentColor}");
+        Log.Logger.Debug("Theme has been applied to all windows.");
+        Log.Logger.Debug($"Saved theme settings: {baseTheme}.{accentColor}");
     }
 
     /// <summary>
@@ -1105,7 +1096,7 @@ public partial class App : IDisposable
             }
             catch (Exception ex)
             {
-                ServiceProvider.GetRequiredService<IDebugLogger>().LogException(ex, "Error in instance signal listener.");
+                Log.Error(ex, "Error in instance signal listener.");
             }
         }
     }
@@ -1140,7 +1131,7 @@ public partial class App : IDisposable
         }
         catch (Exception ex)
         {
-            ServiceProvider.GetRequiredService<IDebugLogger>().LogException(ex, "Failed to restore existing SimpleLauncher window.");
+            Log.Error(ex, "Failed to restore existing SimpleLauncher window.");
         }
     }
 }

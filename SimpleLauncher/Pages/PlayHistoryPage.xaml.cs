@@ -44,7 +44,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
     private readonly IConfiguration _configuration;
     private readonly PlayHistoryManager _playHistoryManager;
     private readonly IContextMenuFunctions _contextMenuFunctions;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IContextMenuService _contextMenuService;
     private CancellationTokenSource? _cancellationTokenSource;
 
@@ -62,7 +62,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         IContextMenuFunctions contextMenuFunctions,
-        IDebugLogger debugLogger,
+        ILogger logger,
         IContextMenuService contextMenuService)
     {
         InitializeComponent();
@@ -79,7 +79,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _playHistoryManager = playHistoryManager ?? throw new ArgumentNullException(nameof(playHistoryManager));
         _contextMenuFunctions = contextMenuFunctions ?? throw new ArgumentNullException(nameof(contextMenuFunctions));
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _contextMenuService = contextMenuService ?? throw new ArgumentNullException(nameof(contextMenuService));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
@@ -165,7 +165,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
                 if (result == CoreMessageBoxResult.Yes)
                 {
                     _viewModel.RemoveItem(selectedItem);
-                    _debugLogger.Log($"The entry {selectedItem} was removed from the history by user request.");
+                    _logger.Debug($"The entry {selectedItem} was removed from the history by user request.");
                 }
 
                 return;
@@ -498,7 +498,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         _cancellationTokenSource?.Cancel();
         LoadingOverlay.Visibility = Visibility.Collapsed;
 
-        _debugLogger.Log("[Emergency] User forced overlay dismissal in PlayHistoryPage.");
+        _logger.Debug("[Emergency] User forced overlay dismissal in PlayHistoryPage.");
         _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 

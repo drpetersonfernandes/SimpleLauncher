@@ -14,7 +14,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
@@ -29,11 +29,11 @@ public partial class InjectYumirConfigViewModel : ObservableObject
     [ObservableProperty] private double _yumirForcedAspect;
     [ObservableProperty] private bool _yumirShowSettingsBeforeLaunch;
 
-    public InjectYumirConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
+    public InjectYumirConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _messageBox = messageBox;
     }
 
@@ -155,7 +155,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
 
         try
         {
-            YumirConfigurationService.InjectSettings(path, _settings, _logErrors, _debugLogger);
+            YumirConfigurationService.InjectSettings(path, _settings, _logErrors, _logger);
             return true;
         }
         catch (InvalidOperationException ex)

@@ -13,12 +13,12 @@ using Interfaces;
 public static class ConvertChdToIso
 {
     private static readonly string TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
-    private static readonly Lazy<IDebugLogger> DebugLogger2 = new(() =>
+    private static readonly Lazy<ILogger> DebugLogger2 = new(() =>
     {
         var sp = App.ServiceProvider;
-        return sp?.GetService<IDebugLogger>() ?? new FallbackDebugLogger();
+        return sp?.GetService<ILogger>() ?? Log.Logger;
     });
-    private static IDebugLogger DebugLogger => DebugLogger2.Value;
+    private static ILogger logger => DebugLogger2.Value;
 
     /// <summary>
     /// Converts a CHD file to a temporary ISO using chdman.exe.
@@ -33,7 +33,7 @@ public static class ConvertChdToIso
 
             if (!File.Exists(chdmanPath))
             {
-                DebugLogger.Log($"[ConvertChdToIso] chdman not found at {chdmanPath}. Cannot convert CHD.");
+                logger.Debug($"[ConvertChdToIso] chdman not found at {chdmanPath}. Cannot convert CHD.");
                 return null;
             }
 
@@ -59,8 +59,8 @@ public static class ConvertChdToIso
             using var process = new Process();
             process.StartInfo = processStartInfo;
 
-            DebugLogger.Log($"[ConvertChdToIso] Running chdman with args: {args}");
-            DebugLogger.Log("[ConvertChdToIso] Converting from CHD to ISO.");
+            logger.Debug($"[ConvertChdToIso] Running chdman with args: {args}");
+            logger.Debug("[ConvertChdToIso] Converting from CHD to ISO.");
 
             var errorBuilder = new StringBuilder();
             process.ErrorDataReceived += (_, e) =>
@@ -79,7 +79,7 @@ public static class ConvertChdToIso
             }
             catch (OperationCanceledException)
             {
-                DebugLogger.Log("[ConvertChdToIso] Conversion timed out after 5 minutes.");
+                logger.Debug("[ConvertChdToIso] Conversion timed out after 5 minutes.");
                 try
                 {
                     process.Kill();
@@ -94,16 +94,16 @@ public static class ConvertChdToIso
 
             if (process.ExitCode == 0 && File.Exists(tempIsoPath))
             {
-                DebugLogger.Log("[ConvertChdToIso] Conversion successful.");
+                logger.Debug("[ConvertChdToIso] Conversion successful.");
                 return tempIsoPath;
             }
 
-            DebugLogger.Log($"[ConvertChdToIso] chdman failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
+            logger.Debug($"[ConvertChdToIso] chdman failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
             return null;
         }
         catch (Exception ex)
         {
-            DebugLogger.LogException(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
+            logger.Error(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
             App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
             return null;
         }

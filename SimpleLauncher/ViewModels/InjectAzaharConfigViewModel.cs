@@ -15,7 +15,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
@@ -30,11 +30,11 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     [ObservableProperty] private bool _showBeforeLaunch;
     [ObservableProperty] private bool _audioStretching;
 
-    public InjectAzaharConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
+    public InjectAzaharConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _messageBox = messageBox;
     }
 
@@ -158,7 +158,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
 
         try
         {
-            AzaharConfigurationService.InjectSettings(path, _settings, _logErrors, _debugLogger);
+            AzaharConfigurationService.InjectSettings(path, _settings, _logErrors, _logger);
             return true;
         }
         catch (AzaharPermissionException)

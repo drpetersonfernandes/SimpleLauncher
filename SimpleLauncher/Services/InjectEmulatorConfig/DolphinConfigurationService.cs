@@ -6,7 +6,7 @@ using Interfaces;
 
 public static class DolphinConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -42,11 +42,11 @@ public static class DolphinConfigurationService
         // Inject into all determined paths
         foreach (var configPath in configPaths)
         {
-            InjectIntoConfigFile(configPath, settings, logErrors, debugLogger);
+            InjectIntoConfigFile(configPath, settings, logErrors, logger);
         }
     }
 
-    private static void InjectIntoConfigFile(string configPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    private static void InjectIntoConfigFile(string configPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var configDir = Path.GetDirectoryName(configPath);
 
@@ -60,7 +60,7 @@ public static class DolphinConfigurationService
                 {
                     if (configDir != null) Directory.CreateDirectory(configDir);
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[DolphinConfig] Created new Dolphin.ini from sample: {configPath}");
+                    logger.Debug($"[DolphinConfig] Created new Dolphin.ini from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -75,7 +75,7 @@ public static class DolphinConfigurationService
             }
         }
 
-        debugLogger.Log($"[DolphinConfig] Injecting configuration into: {configPath}");
+        logger.Debug($"[DolphinConfig] Injecting configuration into: {configPath}");
 
         var coreUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
@@ -96,13 +96,13 @@ public static class DolphinConfigurationService
         }
         catch (UnauthorizedAccessException ex)
         {
-            debugLogger.Log($"[DolphinConfig] Access denied reading config: {configPath}");
+            logger.Debug($"[DolphinConfig] Access denied reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[DolphinConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
-            debugLogger.Log($"[DolphinConfig] I/O error reading config: {configPath}");
+            logger.Debug($"[DolphinConfig] I/O error reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[DolphinConfig] I/O error reading config: {configPath}");
             throw;
         }
@@ -166,18 +166,18 @@ public static class DolphinConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                debugLogger.Log("[DolphinConfig] Injected configuration changes..");
+                logger.Debug("[DolphinConfig] Injected configuration changes..");
             }
             catch (Exception ex)
             {
-                debugLogger.Log($"[DolphinConfig] Failed to inject configuration changes: {ex.Message}");
+                logger.Debug($"[DolphinConfig] Failed to inject configuration changes: {ex.Message}");
                 logErrors.LogAndForget(ex, $"[DolphinConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }
         else
         {
-            debugLogger.Log("[DolphinConfig] No changes needed.");
+            logger.Debug("[DolphinConfig] No changes needed.");
         }
     }
 

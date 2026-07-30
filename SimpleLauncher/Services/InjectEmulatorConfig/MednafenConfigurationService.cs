@@ -16,7 +16,7 @@ public static class MednafenConfigurationService
 
     private static readonly char[] Separator = [' ', '\t'];
 
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -32,11 +32,11 @@ public static class MednafenConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[MednafenConfig] Created new mednafen.cfg from sample: {configPath}");
+                    logger.Debug($"[MednafenConfig] Created new mednafen.cfg from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[MednafenConfig] Failed to create mednafen.cfg from sample: {ex.Message}");
+                    logger.Debug($"[MednafenConfig] Failed to create mednafen.cfg from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[MednafenConfig] Failed to create mednafen.cfg from sample: {ex.Message}");
                     throw;
                 }
@@ -48,7 +48,7 @@ public static class MednafenConfigurationService
             }
         }
 
-        debugLogger.Log($"[MednafenConfig] Injecting configuration into: {configPath}");
+        logger.Debug($"[MednafenConfig] Injecting configuration into: {configPath}");
 
         var updates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
@@ -79,13 +79,13 @@ public static class MednafenConfigurationService
         }
         catch (UnauthorizedAccessException ex)
         {
-            debugLogger.Log($"[MednafenConfig] Access denied reading config: {configPath}");
+            logger.Debug($"[MednafenConfig] Access denied reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[MednafenConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
-            debugLogger.Log($"[MednafenConfig] I/O error reading config: {configPath}");
+            logger.Debug($"[MednafenConfig] I/O error reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[MednafenConfig] I/O error reading config: {configPath}");
             throw;
         }
@@ -130,18 +130,18 @@ public static class MednafenConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                debugLogger.Log("[MednafenConfig] Injected configuration changes..");
+                logger.Debug("[MednafenConfig] Injected configuration changes..");
             }
             catch (Exception ex)
             {
-                debugLogger.Log($"[MednafenConfig] Failed to inject configuration changes: {ex.Message}");
+                logger.Debug($"[MednafenConfig] Failed to inject configuration changes: {ex.Message}");
                 logErrors.LogAndForget(ex, $"[MednafenConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }
         else
         {
-            debugLogger.Log("[MednafenConfig] No changes needed.");
+            logger.Debug("[MednafenConfig] No changes needed.");
         }
     }
 }

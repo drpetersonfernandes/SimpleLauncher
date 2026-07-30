@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class SupermodelConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir)) throw new InvalidOperationException("Emulator directory not found.");
@@ -34,11 +34,11 @@ public static class SupermodelConfigurationService
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(configPath) ?? throw new InvalidOperationException("Could not create directory for Supermodel.ini"));
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[SupermodelConfig] Created Supermodel.ini from sample: {configPath}");
+                    logger.Debug($"[SupermodelConfig] Created Supermodel.ini from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[SupermodelConfig] Failed to create Supermodel.ini from sample: {ex.Message}");
+                    logger.Debug($"[SupermodelConfig] Failed to create Supermodel.ini from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[SupermodelConfig] Failed to create Supermodel.ini from sample: {ex.Message}");
                     throw;
                 }
@@ -74,13 +74,13 @@ public static class SupermodelConfigurationService
         }
         catch (UnauthorizedAccessException ex)
         {
-            debugLogger.Log($"[SupermodelConfig] Access denied reading config: {configPath}");
+            logger.Debug($"[SupermodelConfig] Access denied reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[SupermodelConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
-            debugLogger.Log($"[SupermodelConfig] I/O error reading config: {configPath}");
+            logger.Debug($"[SupermodelConfig] I/O error reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[SupermodelConfig] I/O error reading config: {configPath}");
             throw;
         }
@@ -151,11 +151,11 @@ public static class SupermodelConfigurationService
         try
         {
             File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-            debugLogger.Log("[SupermodelConfig] Injected configuration changes.");
+            logger.Debug("[SupermodelConfig] Injected configuration changes.");
         }
         catch (Exception ex)
         {
-            debugLogger.Log($"[SupermodelConfig] Fail to inject configuration changes: {ex.Message}");
+            logger.Debug($"[SupermodelConfig] Fail to inject configuration changes: {ex.Message}");
             logErrors.LogAndForget(ex, $"[SupermodelConfig] Fail to inject configuration changes: {ex.Message}");
             throw;
         }

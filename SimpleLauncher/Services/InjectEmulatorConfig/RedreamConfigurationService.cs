@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class RedreamConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -23,11 +23,11 @@ public static class RedreamConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[RedreamConfig] Created new redream.cfg from sample: {configPath}");
+                    logger.Debug($"[RedreamConfig] Created new redream.cfg from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[RedreamConfig] Failed to create redream.cfg from sample: {ex.Message}");
+                    logger.Debug($"[RedreamConfig] Failed to create redream.cfg from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[RedreamConfig] Failed to create redream.cfg from sample: {ex.Message}");
                     throw;
                 }
@@ -38,7 +38,7 @@ public static class RedreamConfigurationService
             }
         }
 
-        debugLogger.Log($"[RedreamConfig] Injecting configuration into: {configPath}");
+        logger.Debug($"[RedreamConfig] Injecting configuration into: {configPath}");
 
         var isWindowed = IsWindowedMode(settings.Redream.Fullmode);
 
@@ -80,13 +80,13 @@ public static class RedreamConfigurationService
         }
         catch (UnauthorizedAccessException ex)
         {
-            debugLogger.Log($"[RedreamConfig] Access denied reading config: {configPath}");
+            logger.Debug($"[RedreamConfig] Access denied reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[RedreamConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
-            debugLogger.Log($"[RedreamConfig] I/O error reading config: {configPath}");
+            logger.Debug($"[RedreamConfig] I/O error reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[RedreamConfig] I/O error reading config: {configPath}");
             throw;
         }
@@ -131,11 +131,11 @@ public static class RedreamConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                debugLogger.Log("[RedreamConfig] Injected configuration changes..");
+                logger.Debug("[RedreamConfig] Injected configuration changes..");
             }
             catch (Exception ex)
             {
-                debugLogger.Log($"[RedreamConfig] Failed to inject configuration changes: {ex.Message}");
+                logger.Debug($"[RedreamConfig] Failed to inject configuration changes: {ex.Message}");
                 logErrors.LogAndForget(ex, $"[RedreamConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }

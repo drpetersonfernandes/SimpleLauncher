@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Moq;
+using Serilog;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.GameLauncher.Strategies;
@@ -21,7 +22,7 @@ public class DosBoxLaunchStrategyTests
         var messageBoxMock = new Mock<IMessageBoxLibraryService>();
         var mountChdFilesMock = new Mock<IMountChdFiles>();
         var mountIsoFilesMock = new Mock<IMountIsoFiles>();
-        var debugLoggerMock = new Mock<IDebugLogger>();
+        var debugLoggerMock = new Mock<ILogger>();
 
         return new DosBoxLaunchStrategy(
             extractionServiceMock.Object,

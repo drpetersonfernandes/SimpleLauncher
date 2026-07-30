@@ -13,16 +13,16 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 public class RedreamConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RedreamConfigHandler"/> class.
     /// </summary>
-    public RedreamConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
+    public RedreamConfigHandler(ILogErrors logErrors, ILogger logger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _scopeFactory = scopeFactory;
     }
 
@@ -58,7 +58,7 @@ public class RedreamConfigHandler : IEmulatorConfigHandler
                 shouldRun = true;
                 if (File.Exists(resolvedExe))
                 {
-                    RedreamConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
+                    RedreamConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _logger);
                 }
             }
 

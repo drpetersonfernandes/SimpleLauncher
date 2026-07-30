@@ -15,7 +15,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
@@ -28,11 +28,11 @@ public partial class InjectCemuConfigViewModel : ObservableObject
     [ObservableProperty] private string _language;
     [ObservableProperty] private bool _showBeforeLaunch;
 
-    public InjectCemuConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
+    public InjectCemuConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _messageBox = messageBox;
     }
 
@@ -147,7 +147,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
 
         try
         {
-            CemuConfigurationService.InjectSettings(path, _settings, _logErrors, _debugLogger);
+            CemuConfigurationService.InjectSettings(path, _settings, _logErrors, _logger);
             return true;
         }
         catch (InvalidOperationException ex)

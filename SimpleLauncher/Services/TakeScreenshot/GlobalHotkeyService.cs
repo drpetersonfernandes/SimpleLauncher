@@ -24,7 +24,7 @@ public partial class GlobalHotkeyService : IDisposable
     [return: MarshalAs(UnmanagedType.Bool)]
     private static partial bool UnregisterHotKey(IntPtr hWnd, int id);
 
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly ILogErrors _logErrors;
     private HwndSource _hwndSource;
     private IntPtr _windowHandle;
@@ -40,9 +40,9 @@ public partial class GlobalHotkeyService : IDisposable
     /// </summary>
     public event Func<Task> F8Pressed;
 
-    public GlobalHotkeyService(IDebugLogger debugLogger, ILogErrors logErrors)
+    public GlobalHotkeyService(ILogger logger, ILogErrors logErrors)
     {
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
     }
 
@@ -63,12 +63,12 @@ public partial class GlobalHotkeyService : IDisposable
         if (!RegisterHotKey(_windowHandle, HotkeyId, 0, VkF8))
         {
             var error = Marshal.GetLastWin32Error();
-            _debugLogger.Log($"[GlobalHotkeyService] Failed to register F8 hotkey. Win32 error code: {error}");
+            _logger.Debug($"[GlobalHotkeyService] Failed to register F8 hotkey. Win32 error code: {error}");
             IsRegistered = false;
         }
         else
         {
-            _debugLogger.Log("[GlobalHotkeyService] F8 hotkey registered successfully.");
+            _logger.Debug("[GlobalHotkeyService] F8 hotkey registered successfully.");
             IsRegistered = true;
         }
     }
@@ -110,12 +110,12 @@ public partial class GlobalHotkeyService : IDisposable
             if (_windowHandle != IntPtr.Zero)
             {
                 _ = UnregisterHotKey(_windowHandle, HotkeyId);
-                _debugLogger.Log("[GlobalHotkeyService] F8 hotkey unregistered.");
+                _logger.Debug("[GlobalHotkeyService] F8 hotkey unregistered.");
             }
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"[GlobalHotkeyService] Error unregistering hotkey: {ex.Message}");
+            _logger.Debug($"[GlobalHotkeyService] Error unregistering hotkey: {ex.Message}");
         }
 
         _hwndSource?.RemoveHook(WndProc);

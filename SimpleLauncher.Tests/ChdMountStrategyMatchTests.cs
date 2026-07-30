@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Moq;
+using Serilog;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.GameLauncher.Strategies;
@@ -17,7 +18,7 @@ public class ChdMountStrategyMatchTests
         var logErrorsMock = new Mock<ILogErrors>();
         var messageBoxMock = new Mock<IMessageBoxLibraryService>();
         var mountChdMock = new Mock<IMountChdFiles>();
-        var debugLoggerMock = new Mock<NoOpDebugLogger>();
+        var debugLoggerMock = new Mock<ILogger>();
 
         return new ChdMountStrategy(
             configurationMock.Object,

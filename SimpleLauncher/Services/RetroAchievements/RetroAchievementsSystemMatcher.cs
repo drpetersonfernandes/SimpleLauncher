@@ -8,13 +8,13 @@ using Interfaces;
 public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
 {
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly HashSet<string> _loggedUnmatchedSystems = new(StringComparer.OrdinalIgnoreCase);
 
-    public RetroAchievementsSystemMatcher(ILogErrors logErrors, IDebugLogger debugLogger)
+    public RetroAchievementsSystemMatcher(ILogErrors logErrors, ILogger logger)
     {
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
     }
 
     /// <summary>
@@ -192,7 +192,7 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         // No match found, log it once per unique system name for future improvement
         if (_loggedUnmatchedSystems.Add(inputSystemName))
         {
-            _debugLogger?.Log($"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
+            _logger?.Debug($"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
             _logErrors?.LogAndForget(null, $"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
         }
 
@@ -216,9 +216,9 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
     /// <returns>The console ID, or -1 if not found.</returns>
     public int GetSystemId(string inputSystemName)
     {
-        _debugLogger.Log($"[GetSystemId] Looking up system ID for '{inputSystemName}'");
+        _logger.Debug($"[GetSystemId] Looking up system ID for '{inputSystemName}'");
         var bestMatch = GetBestMatchSystemName(inputSystemName);
-        _debugLogger.Log($"[GetSystemId] Best match: '{bestMatch}'");
+        _logger.Debug($"[GetSystemId] Best match: '{bestMatch}'");
         return SystemMappings.TryGetValue(bestMatch, out var systemInfo) ? systemInfo.Id : -1;
     }
 

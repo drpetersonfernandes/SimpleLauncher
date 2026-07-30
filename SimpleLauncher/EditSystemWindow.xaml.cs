@@ -33,11 +33,11 @@ internal partial class EditSystemWindow : ILoadingState
     private readonly string _preSelectedSystemName;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IParameterResolverService _parameterResolverService;
     private Button _emergencyReturnButton;
 
-    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, IHelpUserService helpUserService, IImageLoader imageLoader, IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, IDebugLogger debugLogger, IParameterResolverService parameterResolverService, string preSelectedSystemName = null)
+    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, IHelpUserService helpUserService, IImageLoader imageLoader, IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, ILogger logger, IParameterResolverService parameterResolverService, string preSelectedSystemName = null)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -51,7 +51,7 @@ internal partial class EditSystemWindow : ILoadingState
         _preSelectedSystemName = preSelectedSystemName;
         _messageBox = messageBox;
         _quitSimpleLauncher = quitSimpleLauncher;
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _parameterResolverService = parameterResolverService;
 
         ApplyExpanderSettings();
@@ -583,7 +583,7 @@ internal partial class EditSystemWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"Error in method DeleteSystemButton_ClickAsync: {ex.Message}");
+            _logger.Debug($"Error in method DeleteSystemButton_ClickAsync: {ex.Message}");
             _logErrors.LogAndForget(ex, "Error in method DeleteSystemButton_ClickAsync");
         }
     }
@@ -703,7 +703,7 @@ internal partial class EditSystemWindow : ILoadingState
         LoadingOverlay.Visibility = Visibility.Collapsed;
         MainContentGrid?.IsEnabled = true;
 
-        _debugLogger.Log("[Emergency] User forced overlay dismissal in EditSystemWindow.");
+        _logger.Debug("[Emergency] User forced overlay dismissal in EditSystemWindow.");
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 

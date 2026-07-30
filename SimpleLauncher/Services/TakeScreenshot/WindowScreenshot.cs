@@ -9,12 +9,12 @@ using Interfaces;
 /// </summary>
 public static partial class WindowScreenshot
 {
-    private static IDebugLogger _debugLogger;
+    private static ILogger _logger;
 
     /// <summary>Initializes the WindowScreenshot with a debug logger instance.</summary>
-    public static void Initialize(IDebugLogger debugLogger)
+    public static void Initialize(ILogger logger)
     {
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     /// <summary>Gets the bounding rectangle of a window including its borders.</summary>
@@ -47,7 +47,7 @@ public static partial class WindowScreenshot
         // Check if the window is minimized (iconic)
         if (IsIconic(hWnd))
         {
-            _debugLogger.Log($"[WindowScreenshot] Window {hWnd} is iconic (minimized). Cannot get client area.");
+            _logger.Debug($"[WindowScreenshot] Window {hWnd} is iconic (minimized). Cannot get client area.");
             return false; // Indicate failure for minimized windows
         }
 
@@ -61,7 +61,7 @@ public static partial class WindowScreenshot
         var clientTopLeft = new SimpleLauncher.Models.WindowScreenshot.Point { X = localClientRect.Left, Y = localClientRect.Top };
         if (!ClientToScreen(hWnd, ref clientTopLeft))
         {
-            _debugLogger.Log($"[WindowScreenshot] ClientToScreen failed for window {hWnd}.");
+            _logger.Debug($"[WindowScreenshot] ClientToScreen failed for window {hWnd}.");
             return false;
         }
 

@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class DuckStationConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -23,11 +23,11 @@ public static class DuckStationConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[DuckStationConfig] Created new settings.ini from sample: {configPath}");
+                    logger.Debug($"[DuckStationConfig] Created new settings.ini from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[DuckStationConfig] Failed to create settings.ini from sample: {ex.Message}");
+                    logger.Debug($"[DuckStationConfig] Failed to create settings.ini from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[DuckStationConfig] Failed to create settings.ini from sample: {ex.Message}");
                     throw;
                 }
@@ -38,7 +38,7 @@ public static class DuckStationConfigurationService
             }
         }
 
-        debugLogger.Log($"[DuckStationConfig] Injecting configuration into: {configPath}");
+        logger.Debug($"[DuckStationConfig] Injecting configuration into: {configPath}");
 
         var mainUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
@@ -77,13 +77,13 @@ public static class DuckStationConfigurationService
         }
         catch (UnauthorizedAccessException ex)
         {
-            debugLogger.Log($"[DuckStationConfig] Access denied reading config: {configPath}");
+            logger.Debug($"[DuckStationConfig] Access denied reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[DuckStationConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
-            debugLogger.Log($"[DuckStationConfig] I/O error reading config: {configPath}");
+            logger.Debug($"[DuckStationConfig] I/O error reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[DuckStationConfig] I/O error reading config: {configPath}");
             throw;
         }
@@ -167,18 +167,18 @@ public static class DuckStationConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                debugLogger.Log("[DuckStationConfig] Injected configuration changes..");
+                logger.Debug("[DuckStationConfig] Injected configuration changes..");
             }
             catch (Exception ex)
             {
-                debugLogger.Log($"[DuckStationConfig] Failed to inject configuration changes: {ex.Message}");
+                logger.Debug($"[DuckStationConfig] Failed to inject configuration changes: {ex.Message}");
                 logErrors.LogAndForget(ex, $"[DuckStationConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }
         else
         {
-            debugLogger.Log("[DuckStationConfig] No changes needed.");
+            logger.Debug("[DuckStationConfig] No changes needed.");
         }
     }
 

@@ -14,7 +14,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
     private string _gameFilePath;
@@ -37,11 +37,11 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     [ObservableProperty] private bool _raineMuteMusic;
     [ObservableProperty] private string _raineRomDirectory;
 
-    public InjectRaineConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
+    public InjectRaineConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _messageBox = messageBox;
     }
 
@@ -189,7 +189,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
 
         try
         {
-            RaineConfigurationService.InjectSettings(path, _settings, _logErrors, _debugLogger, _gameFilePath, _systemRomPath, _settings.Raine.RomDirectory);
+            RaineConfigurationService.InjectSettings(path, _settings, _logErrors, _logger, _gameFilePath, _systemRomPath, _settings.Raine.RomDirectory);
             return true;
         }
         catch (InvalidOperationException ex)

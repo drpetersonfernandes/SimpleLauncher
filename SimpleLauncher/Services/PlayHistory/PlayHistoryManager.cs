@@ -275,7 +275,7 @@ public class PlayHistoryManager
                         }
                         catch (Exception fallbackEx)
                         {
-                            System.Diagnostics.Debug.WriteLine($"[PlayHistoryManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
+                            Serilog.Log.Debug($"[PlayHistoryManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
                         }
                     }
 
@@ -291,7 +291,7 @@ public class PlayHistoryManager
                         }
                         catch (Exception cleanupEx)
                         {
-                            System.Diagnostics.Debug.WriteLine($"[PlayHistoryManager] Temp file cleanup failed: {cleanupEx.Message}");
+                            Serilog.Log.Debug($"[PlayHistoryManager] Temp file cleanup failed: {cleanupEx.Message}");
                         }
 
                         Thread.Sleep(retryDelayMs);

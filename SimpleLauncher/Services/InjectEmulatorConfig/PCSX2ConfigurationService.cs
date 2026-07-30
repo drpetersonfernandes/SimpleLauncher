@@ -7,13 +7,13 @@ using Interfaces;
 
 public static class Pcsx2ConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
             throw new InvalidOperationException("Emulator directory not found.");
 
-        var configPath = ResolveConfigPath(emuDir, debugLogger);
+        var configPath = ResolveConfigPath(emuDir, logger);
 
         if (!File.Exists(configPath))
         {
@@ -24,17 +24,17 @@ public static class Pcsx2ConfigurationService
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(configPath) ?? throw new InvalidOperationException("Could not create directory for PCSX2.ini"));
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[PCSX2Config] Created new PCSX2.ini from sample: {configPath}");
+                    logger.Debug($"[PCSX2Config] Created new PCSX2.ini from sample: {configPath}");
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    debugLogger.Log($"[PCSX2Config] Failed to create PCSX2.ini from sample due to permissions: {ex.Message}");
+                    logger.Debug($"[PCSX2Config] Failed to create PCSX2.ini from sample due to permissions: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
                     throw new Pcsx2PermissionException($"Cannot write to configuration directory: {Path.GetDirectoryName(configPath)}", ex);
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
+                    logger.Debug($"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
                     throw;
                 }
@@ -82,13 +82,13 @@ public static class Pcsx2ConfigurationService
         }
         catch (UnauthorizedAccessException ex)
         {
-            debugLogger.Log($"[PCSX2Config] Failed to read PCSX2.ini due to permissions: {ex.Message}");
+            logger.Debug($"[PCSX2Config] Failed to read PCSX2.ini due to permissions: {ex.Message}");
             logErrors.LogAndForget(ex, $"[PCSX2Config] Failed to read PCSX2.ini: {ex.Message}");
             throw new Pcsx2PermissionException($"Cannot read configuration file: {configPath}", ex);
         }
         catch (IOException ex)
         {
-            debugLogger.Log($"[PCSX2Config] I/O error reading PCSX2.ini: {configPath}");
+            logger.Debug($"[PCSX2Config] I/O error reading PCSX2.ini: {configPath}");
             logErrors.LogAndForget(ex, $"[PCSX2Config] I/O error reading PCSX2.ini: {configPath}");
             throw;
         }
@@ -163,24 +163,24 @@ public static class Pcsx2ConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                debugLogger.Log("[PCSX2Config] Injected configuration changes..");
+                logger.Debug("[PCSX2Config] Injected configuration changes..");
             }
             catch (UnauthorizedAccessException ex)
             {
-                debugLogger.Log($"[PCSX2Config] Failed to inject configuration changes due to permissions: {ex.Message}");
+                logger.Debug($"[PCSX2Config] Failed to inject configuration changes due to permissions: {ex.Message}");
                 logErrors.LogAndForget(ex, $"[PCSX2Config] Failed to inject configuration changes: {ex.Message}");
                 throw new Pcsx2PermissionException($"Cannot write to configuration file: {configPath}", ex);
             }
             catch (Exception ex)
             {
-                debugLogger.Log($"[PCSX2Config] Failed to inject configuration changes: {ex.Message}");
+                logger.Debug($"[PCSX2Config] Failed to inject configuration changes: {ex.Message}");
                 logErrors.LogAndForget(ex, $"[PCSX2Config] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }
     }
 
-    private static string ResolveConfigPath(string emuDir, IDebugLogger debugLogger)
+    private static string ResolveConfigPath(string emuDir, ILogger logger)
     {
         // 1. Portable mode: PCSX2 uses a 'portable.ini' marker next to the executable.
         //    In this mode, config lives in '<emuDir>\inis\PCSX2.ini'.
@@ -188,7 +188,7 @@ public static class Pcsx2ConfigurationService
         if (File.Exists(portableMarker))
         {
             var portableConfigPath = Path.Combine(emuDir, "inis", "PCSX2.ini");
-            debugLogger.Log($"[PCSX2Config] Portable mode detected (portable.ini found). Using: {portableConfigPath}");
+            logger.Debug($"[PCSX2Config] Portable mode detected (portable.ini found). Using: {portableConfigPath}");
             return portableConfigPath;
         }
 
@@ -196,14 +196,14 @@ public static class Pcsx2ConfigurationService
         var localInisPath = Path.Combine(emuDir, "inis", "PCSX2.ini");
         if (File.Exists(localInisPath))
         {
-            debugLogger.Log($"[PCSX2Config] Using existing config in emulator directory: {localInisPath}");
+            logger.Debug($"[PCSX2Config] Using existing config in emulator directory: {localInisPath}");
             return localInisPath;
         }
 
         var localRootPath = Path.Combine(emuDir, "PCSX2.ini");
         if (File.Exists(localRootPath))
         {
-            debugLogger.Log($"[PCSX2Config] Using existing config in emulator directory: {localRootPath}");
+            logger.Debug($"[PCSX2Config] Using existing config in emulator directory: {localRootPath}");
             return localRootPath;
         }
 
@@ -215,7 +215,7 @@ public static class Pcsx2ConfigurationService
             "PCSX2",
             "inis",
             "PCSX2.ini");
-        debugLogger.Log($"[PCSX2Config] No portable config found. Using standard install location: {documentsConfigPath}");
+        logger.Debug($"[PCSX2Config] No portable config found. Using standard install location: {documentsConfigPath}");
         return documentsConfigPath;
     }
 

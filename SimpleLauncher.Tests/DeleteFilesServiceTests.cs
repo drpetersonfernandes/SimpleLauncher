@@ -1,3 +1,4 @@
+using Serilog;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
@@ -15,7 +16,7 @@ public class DeleteFilesServiceTests : IDisposable
 
     public DeleteFilesServiceTests()
     {
-        _service = new DeleteFilesService(new NoOpDebugLogger());
+        _service = new DeleteFilesService(Log.Logger);
         _testDirectory = Path.Combine(Path.GetTempPath(), $"SL_DeleteFilesTest_{Guid.NewGuid():N}");
         Directory.CreateDirectory(_testDirectory);
     }

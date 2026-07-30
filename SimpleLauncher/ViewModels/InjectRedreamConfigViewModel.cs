@@ -14,7 +14,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
@@ -35,11 +35,11 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     [ObservableProperty] private bool _redreamFramerate;
     [ObservableProperty] private bool _redreamShowSettingsBeforeLaunch;
 
-    public InjectRedreamConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
+    public InjectRedreamConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _messageBox = messageBox;
     }
 
@@ -208,7 +208,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
 
         try
         {
-            RedreamConfigurationService.InjectSettings(path, _settings, _logErrors, _debugLogger);
+            RedreamConfigurationService.InjectSettings(path, _settings, _logErrors, _logger);
             return true;
         }
         catch (InvalidOperationException ex)

@@ -13,12 +13,12 @@ using Interfaces;
 public static class ConvertPbpToCueBin
 {
     private static readonly string TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
-    private static readonly Lazy<IDebugLogger> DebugLogger2 = new(() =>
+    private static readonly Lazy<ILogger> DebugLogger2 = new(() =>
     {
         var sp = App.ServiceProvider;
-        return sp?.GetService<IDebugLogger>() ?? new FallbackDebugLogger();
+        return sp?.GetService<ILogger>() ?? Log.Logger;
     });
-    private static IDebugLogger DebugLogger => DebugLogger2.Value;
+    private static ILogger logger => DebugLogger2.Value;
 
     /// <summary>
     /// Converts a PBP file to a temporary Cue/Bin using psxpackager.exe.
@@ -32,7 +32,7 @@ public static class ConvertPbpToCueBin
             var arch = RuntimeInformation.ProcessArchitecture;
             if (arch == Architecture.Arm64)
             {
-                DebugLogger.Log("[ConvertPbpToCueBin] PSXPackager is not available for ARM64 architecture.");
+                logger.Debug("[ConvertPbpToCueBin] PSXPackager is not available for ARM64 architecture.");
                 return null;
             }
 
@@ -40,7 +40,7 @@ public static class ConvertPbpToCueBin
 
             if (!File.Exists(psxPackagerPath))
             {
-                DebugLogger.Log($"[ConvertPbpToCueBin] psxpackager not found at {psxPackagerPath}. Cannot convert PBP.");
+                logger.Debug($"[ConvertPbpToCueBin] psxpackager not found at {psxPackagerPath}. Cannot convert PBP.");
                 return null;
             }
 
@@ -71,8 +71,8 @@ public static class ConvertPbpToCueBin
             using var process = new Process();
             process.StartInfo = processStartInfo;
 
-            DebugLogger.Log($"[ConvertPbpToCueBin] Running psxpackager with args: {args}");
-            DebugLogger.Log("[ConvertPbpToCueBin] Converting from PBP to CUE/BIN.");
+            logger.Debug($"[ConvertPbpToCueBin] Running psxpackager with args: {args}");
+            logger.Debug("[ConvertPbpToCueBin] Converting from PBP to CUE/BIN.");
 
             var errorBuilder = new StringBuilder();
             process.ErrorDataReceived += (_, e) =>
@@ -92,7 +92,7 @@ public static class ConvertPbpToCueBin
             }
             catch (OperationCanceledException)
             {
-                DebugLogger.Log("[ConvertPbpToCueBin] Conversion timed out after 5 minutes. Killing process.");
+                logger.Debug("[ConvertPbpToCueBin] Conversion timed out after 5 minutes. Killing process.");
                 try
                 {
                     process.Kill();
@@ -110,7 +110,7 @@ public static class ConvertPbpToCueBin
                 // Check for the expected .cue file, or the _disc1 variant
                 if (File.Exists(tempCuePath))
                 {
-                    DebugLogger.Log("[ConvertPbpToCueBin] Conversion successful.");
+                    logger.Debug("[ConvertPbpToCueBin] Conversion successful.");
                     return tempCuePath;
                 }
 
@@ -118,17 +118,17 @@ public static class ConvertPbpToCueBin
                 var disc1CuePath = Path.Combine(TempFolder, $"{tempFileName}_disc1.cue");
                 if (File.Exists(disc1CuePath))
                 {
-                    DebugLogger.Log("[ConvertPbpToCueBin] Conversion successful (disc 1 variant).");
+                    logger.Debug("[ConvertPbpToCueBin] Conversion successful (disc 1 variant).");
                     return disc1CuePath;
                 }
             }
 
-            DebugLogger.Log($"[ConvertPbpToCueBin] psxpackager failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
+            logger.Debug($"[ConvertPbpToCueBin] psxpackager failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
             return null;
         }
         catch (Exception ex)
         {
-            DebugLogger.Log($"[ConvertPbpToCueBin] Exception during conversion: {ex.Message}");
+            logger.Debug($"[ConvertPbpToCueBin] Exception during conversion: {ex.Message}");
             return null;
         }
     }

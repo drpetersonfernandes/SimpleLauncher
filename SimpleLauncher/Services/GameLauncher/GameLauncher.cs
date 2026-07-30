@@ -33,7 +33,7 @@ public partial class GameLauncher : ILauncherService
     private readonly PlayHistoryManager _playHistoryManager;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IMountZipFiles _mountZipFiles;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IParameterResolverService _parameterResolverService;
     private readonly IServiceProvider _serviceProvider;
     private const int MemoryAccessViolation = -1073741819;
@@ -53,7 +53,7 @@ public partial class GameLauncher : ILauncherService
         PlayHistoryManager playHistoryManager,
         IMessageBoxLibraryService messageBoxLibrary,
         IMountZipFiles mountZipFiles,
-        IDebugLogger debugLogger,
+        ILogger logger,
         IParameterResolverService parameterResolverService,
         IServiceProvider serviceProvider)
     {
@@ -67,7 +67,7 @@ public partial class GameLauncher : ILauncherService
         _playHistoryManager = playHistoryManager;
         _messageBoxLibrary = messageBoxLibrary;
         _mountZipFiles = mountZipFiles;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _parameterResolverService = parameterResolverService;
         _serviceProvider = serviceProvider;
     }
@@ -224,7 +224,7 @@ public partial class GameLauncher : ILauncherService
                 fileExists = true;
                 // Update the resolved path to use the normalized version that actually exists
                 context.ResolvedFilePath = normalizedPath;
-                _debugLogger.Log($"[ValidateContextAsync] Found file using Unicode normalization: {normalizedPath}");
+                _logger.Debug($"[ValidateContextAsync] Found file using Unicode normalization: {normalizedPath}");
             }
         }
 
@@ -274,7 +274,7 @@ public partial class GameLauncher : ILauncherService
                                   $"  Long Path Directory.Exists: {longDirExists}\n" +
                                   $"  This may indicate a Unicode normalization or path handling issue.";
 
-            _debugLogger.Log(mismatchDetails);
+            _logger.Debug(mismatchDetails);
 
             // Send to developer for investigation but don't block the launch
             _logErrors.LogAndForget(new InvalidOperationException("Path validation mismatch"), mismatchDetails);
@@ -384,9 +384,9 @@ public partial class GameLauncher : ILauncherService
             return;
         }
 
-        _debugLogger.Log("RunBatchFileAsync:\n\n");
-        _debugLogger.Log($"Command: {psi.FileName}");
-        _debugLogger.Log($"Working Directory: {psi.WorkingDirectory}\n");
+        _logger.Debug("RunBatchFileAsync:\n\n");
+        _logger.Debug($"Command: {psi.FileName}");
+        _logger.Debug($"Working Directory: {psi.WorkingDirectory}\n");
 
         try
         {
@@ -411,7 +411,7 @@ public partial class GameLauncher : ILauncherService
                 }
                 catch (Exception killEx)
                 {
-                    _debugLogger?.Log($"Failed to kill timed-out batch process: {killEx.Message}");
+                    _logger?.Debug($"Failed to kill timed-out batch process: {killEx.Message}");
                 }
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
@@ -508,13 +508,13 @@ public partial class GameLauncher : ILauncherService
             if (File.Exists(batchFilePath))
             {
                 var contents = File.ReadAllText(batchFilePath);
-                _debugLogger.Log($"Batch file contents for '{batchFilePath}':\n{contents}");
-                _debugLogger.Log("End of batch file contents.");
+                _logger.Debug($"Batch file contents for '{batchFilePath}':\n{contents}");
+                _logger.Debug("End of batch file contents.");
             }
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"Could not read batch file contents for logging: {ex.Message}");
+            _logger.Debug($"Could not read batch file contents for logging: {ex.Message}");
         }
     }
 
@@ -551,7 +551,7 @@ public partial class GameLauncher : ILauncherService
                 }
 
                 var targetUrl = urlMatch.Groups[1].Value.Trim();
-                _debugLogger.Log($"LaunchShortcutFileAsync (.URL):\n\nShortcut File: {resolvedFilePath}\nTarget URL: {targetUrl}\n");
+                _logger.Debug($"LaunchShortcutFileAsync (.URL):\n\nShortcut File: {resolvedFilePath}\nTarget URL: {targetUrl}\n");
 
                 // Verify protocol handler is registered ONLY if it's a real URI (contains ://)
                 // This prevents treating drive letters (C:\) as protocols.
@@ -590,7 +590,7 @@ public partial class GameLauncher : ILauncherService
                     WorkingDirectory = Path.GetDirectoryName(resolvedFilePath) ?? AppDomain.CurrentDomain.BaseDirectory
                 };
 
-                _debugLogger.Log($"LaunchShortcutFileAsync (.LNK):\n\nShortcut File: {psi.FileName}\nWorking Directory: {psi.WorkingDirectory}\n");
+                _logger.Debug($"LaunchShortcutFileAsync (.LNK):\n\nShortcut File: {psi.FileName}\nWorking Directory: {psi.WorkingDirectory}\n");
 
                 using var process = new Process();
                 process.StartInfo = psi;
@@ -696,9 +696,9 @@ public partial class GameLauncher : ILauncherService
         }
 
         var launched = (string)Application.Current.TryFindResource("Launched") ?? "launched";
-        _debugLogger.Log("LaunchExecutableAsync:\n\n");
-        _debugLogger.Log($"Executable File: {psi.FileName}");
-        _debugLogger.Log($"Working Directory: {psi.WorkingDirectory}\n");
+        _logger.Debug("LaunchExecutableAsync:\n\n");
+        _logger.Debug($"Executable File: {psi.FileName}");
+        _logger.Debug($"Working Directory: {psi.WorkingDirectory}\n");
 
         TrayIconManager.ShowTrayMessage($"{Path.GetFileName(psi.FileName)} {launched}");
         _updateStatusBar.UpdateContent($"{Path.GetFileName(psi.FileName)} {launched}");
@@ -828,7 +828,7 @@ public partial class GameLauncher : ILauncherService
             // Notify developer
             const string contextMessage = "[LaunchRegularEmulatorAsync] selectedEmulatorName is null or empty.";
             _logErrors.LogAndForget(null, contextMessage);
-            _debugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+            _logger.Debug($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
             await _messageBoxLibrary.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
@@ -895,7 +895,7 @@ public partial class GameLauncher : ILauncherService
         if (isRetroArch && (selectedEmulatorManager != null) && (!selectedEmulatorManager.EmulatorParameters.Contains("-L", StringComparison.OrdinalIgnoreCase)))
         {
             var errorMessage = $"[LaunchRegularEmulatorAsync] RetroArch parameter should contain -L. Parameter field: {selectedEmulatorManager.EmulatorParameters}";
-            _debugLogger.Log(errorMessage);
+            _logger.Debug(errorMessage);
             _logErrors.LogAndForget(null, errorMessage);
 
             await _messageBoxLibrary.RetroArchParameterShouldContainLMessageBoxAsync();
@@ -906,7 +906,7 @@ public partial class GameLauncher : ILauncherService
         if (isXemu && (selectedEmulatorManager != null) && (!selectedEmulatorManager.EmulatorParameters.Contains("-dvd_path", StringComparison.OrdinalIgnoreCase)))
         {
             var errorMessage = $"[LaunchRegularEmulatorAsync] Xemu parameter should contain '-dvd_path'. Parameter field: {selectedEmulatorManager.EmulatorParameters}";
-            _debugLogger.Log(errorMessage);
+            _logger.Debug(errorMessage);
             _logErrors.LogAndForget(null, errorMessage);
 
             await _messageBoxLibrary.XemuParameterShouldContainDvdPathMessageBoxAsync();
@@ -963,7 +963,7 @@ public partial class GameLauncher : ILauncherService
             // Notify developer
             const string contextMessage = "resolvedFilePath is null or empty after extraction attempt (or for mounted files).";
             _logErrors.LogAndForget(null, contextMessage);
-            _debugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+            _logger.Debug($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
             await _messageBoxLibrary.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
@@ -978,7 +978,7 @@ public partial class GameLauncher : ILauncherService
             // Notify developer
             var contextMessage = $"Mounted file {resolvedFilePath} not found when trying to launch with emulator.";
             _logErrors.LogAndForget(null, contextMessage);
-            _debugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+            _logger.Debug($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
             await _messageBoxLibrary.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
@@ -997,7 +997,7 @@ public partial class GameLauncher : ILauncherService
                                      $"This typically means the system was configured to run directly executable files (.bat, .exe, .lnk) " +
                                      $"but the user is trying to launch a non-executable file that requires an emulator.";
                 _logErrors.LogAndForget(null, contextMessage);
-                _debugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+                _logger.Debug($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
                 // Notify user with a helpful message
                 await _messageBoxLibrary.EmulatorPathNotConfiguredMessageBoxAsync();
@@ -1011,7 +1011,7 @@ public partial class GameLauncher : ILauncherService
                 // Notify developer
                 var contextMessage = $"Emulator executable path is null, empty, or does not exist after resolving: '{selectedEmulatorManager.EmulatorLocation}' -> '{resolvedEmulatorExePath}'";
                 _logErrors.LogAndForget(new FileNotFoundException(contextMessage), "Emulator configuration error.");
-                _debugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+                _logger.Debug($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
                 // Notify user
                 await _messageBoxLibrary.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
@@ -1026,7 +1026,7 @@ public partial class GameLauncher : ILauncherService
                 // Notify developer
                 var contextMessage = $"Could not determine emulator folder path from executable path: '{resolvedEmulatorExePath}'";
                 _logErrors.LogAndForget(null, contextMessage);
-                _debugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+                _logger.Debug($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
                 // Notify user
                 await _messageBoxLibrary.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
@@ -1075,7 +1075,7 @@ public partial class GameLauncher : ILauncherService
                 // Will load the filename without the extension
                 if ((isMame || isRaine) && !isNeoGeoCd)
                 {
-                    _debugLogger.Log($"Stripped path call detected. Launching: {romName}");
+                    _logger.Debug($"Stripped path call detected. Launching: {romName}");
                     arguments = $"{trimmedParameters}{space}\"{romName}\"";
                 }
                 else
@@ -1095,7 +1095,7 @@ public partial class GameLauncher : ILauncherService
             {
                 // Notify developer
                 _logErrors.LogAndForget(ex, $"Could not get workingDirectory for emulator: '{resolvedEmulatorFolderPath}'. Using default.");
-                _debugLogger.Log($"Could not get workingDirectory for emulator: '{resolvedEmulatorFolderPath}'. Using default.");
+                _logger.Debug($"Could not get workingDirectory for emulator: '{resolvedEmulatorFolderPath}'. Using default.");
 
                 workingDirectory = AppDomain.CurrentDomain.BaseDirectory; // fallback
             }
@@ -1113,7 +1113,7 @@ public partial class GameLauncher : ILauncherService
                 StandardErrorEncoding = Encoding.UTF8
             };
 
-            _debugLogger.Log($"LaunchRegularEmulatorAsync:\n\n" +
+            _logger.Debug($"LaunchRegularEmulatorAsync:\n\n" +
                              $"Program Location: {resolvedEmulatorExePath}\n" +
                              $"Arguments: {arguments}\n" +
                              $"Working Directory: {psi.WorkingDirectory}\n" +
@@ -1176,7 +1176,7 @@ public partial class GameLauncher : ILauncherService
                     // Notify developer
                     const string contextMessage = "InvalidOperationException while launching emulator.";
                     _logErrors.LogAndForget(ex, contextMessage);
-                    _debugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+                    _logger.Debug($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
                     if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                     {
@@ -1184,7 +1184,7 @@ public partial class GameLauncher : ILauncherService
                         await _messageBoxLibrary.InvalidOperationExceptionMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
                         // Offer AI parameter fix
-                        await AskAiToFixParameters.ExecuteAsync(selectedSystemManager, selectedEmulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
+                        await AskAiToFixParameters.ExecuteAsync(selectedSystemManager, selectedEmulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _logger);
                     }
                 }
                 catch (Win32Exception ex) // Catch Win32Exception specifically
@@ -1236,7 +1236,7 @@ public partial class GameLauncher : ILauncherService
                             await _messageBoxLibrary.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
                             // Offer AI parameter fix
-                            await AskAiToFixParameters.ExecuteAsync(selectedSystemManager, selectedEmulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
+                            await AskAiToFixParameters.ExecuteAsync(selectedSystemManager, selectedEmulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _logger);
                         }
                     }
                 }
@@ -1272,7 +1272,7 @@ public partial class GameLauncher : ILauncherService
                         await _messageBoxLibrary.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
                         // Offer AI parameter fix
-                        await AskAiToFixParameters.ExecuteAsync(selectedSystemManager, selectedEmulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
+                        await AskAiToFixParameters.ExecuteAsync(selectedSystemManager, selectedEmulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _logger);
                     }
                 }
             }
@@ -1282,15 +1282,15 @@ public partial class GameLauncher : ILauncherService
             {
                 try
                 {
-                    _debugLogger.Log($"[LaunchRegularEmulatorAsync] Attempting to delete temporary extraction directory: {tempExtractionPath}");
+                    _logger.Debug($"[LaunchRegularEmulatorAsync] Attempting to delete temporary extraction directory: {tempExtractionPath}");
                     Directory.Delete(tempExtractionPath, true); // Use Directory.Delete with recursive=true
-                    _debugLogger.Log($"[LaunchRegularEmulatorAsync] Successfully deleted temporary extraction directory: {tempExtractionPath}");
+                    _logger.Debug($"[LaunchRegularEmulatorAsync] Successfully deleted temporary extraction directory: {tempExtractionPath}");
                 }
                 catch (Exception ex)
                 {
                     // Log the error but don't prevent other cleanup actions
                     _logErrors.LogAndForget(ex, $"Failed to delete temporary extraction directory: {tempExtractionPath}");
-                    _debugLogger.Log($"[LaunchRegularEmulatorAsync] Error deleting temporary extraction directory {tempExtractionPath}: {ex.Message}");
+                    _logger.Debug($"[LaunchRegularEmulatorAsync] Error deleting temporary extraction directory {tempExtractionPath}: {ex.Message}");
                 }
             }
         }
@@ -1316,7 +1316,7 @@ public partial class GameLauncher : ILauncherService
         // Handle common RetroArch error that should be ignored
         if (output.ToString().Contains("File open/read error", StringComparison.OrdinalIgnoreCase))
         {
-            _debugLogger.Log($"[CheckForExitCodeWithErrorAnyAsync] Ignored exit code {process.ExitCode} due to 'File open/read error' in output.");
+            _logger.Debug($"[CheckForExitCodeWithErrorAnyAsync] Ignored exit code {process.ExitCode} due to 'File open/read error' in output.");
             return;
         }
 
@@ -1326,7 +1326,7 @@ public partial class GameLauncher : ILauncherService
             output.ToString().Contains("mkdir(", StringComparison.OrdinalIgnoreCase) &&
             output.ToString().Contains("Permission denied", StringComparison.OrdinalIgnoreCase))
         {
-            _debugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] RetroArch mkdir permission denied due to special characters in path.");
+            _logger.Debug("[CheckForExitCodeWithErrorAnyAsync] RetroArch mkdir permission denied due to special characters in path.");
             _logErrors.LogAndForget(null, contextMessage);
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
@@ -1335,7 +1335,7 @@ public partial class GameLauncher : ILauncherService
                 await _messageBoxLibrary.WouldYouLikeToOpenTheLogMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
                 // Offer AI parameter fix
-                await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
+                await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _logger);
             }
 
             return;
@@ -1345,7 +1345,7 @@ public partial class GameLauncher : ILauncherService
         if (emulatorManager.EmulatorName.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ||
             emulatorManager.EmulatorLocation.Contains("retroarch", StringComparison.OrdinalIgnoreCase))
         {
-            _debugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] RetroArch parameter issues.");
+            _logger.Debug("[CheckForExitCodeWithErrorAnyAsync] RetroArch parameter issues.");
             _logErrors.LogAndForget(null, contextMessage);
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
@@ -1353,7 +1353,7 @@ public partial class GameLauncher : ILauncherService
                 await _messageBoxLibrary.RetroArchParameterIssueMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
                 // Offer AI parameter fix
-                await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
+                await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _logger);
             }
 
             return;
@@ -1368,7 +1368,7 @@ public partial class GameLauncher : ILauncherService
              output.ToString().Contains("WRONG LENGTH", StringComparison.OrdinalIgnoreCase) ||
              output.ToString().Contains("Required files are missing", StringComparison.OrdinalIgnoreCase)))
         {
-            _debugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME ROM set error.");
+            _logger.Debug("[CheckForExitCodeWithErrorAnyAsync] MAME ROM set error.");
             _logErrors.LogAndForget(null, contextMessage);
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
@@ -1377,7 +1377,7 @@ public partial class GameLauncher : ILauncherService
                 await _messageBoxLibrary.WouldYouLikeToOpenTheLogMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
                 // Offer AI parameter fix
-                await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
+                await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _logger);
             }
 
             return;
@@ -1391,7 +1391,7 @@ public partial class GameLauncher : ILauncherService
             (output.ToString().Contains("Unknown system", StringComparison.OrdinalIgnoreCase) ||
              output.ToString().Contains("approximately matches the following", StringComparison.OrdinalIgnoreCase)))
         {
-            _debugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME Unknown system error.");
+            _logger.Debug("[CheckForExitCodeWithErrorAnyAsync] MAME Unknown system error.");
             _logErrors.LogAndForget(null, contextMessage);
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
@@ -1400,7 +1400,7 @@ public partial class GameLauncher : ILauncherService
                 await _messageBoxLibrary.WouldYouLikeToOpenTheLogMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
                 // Offer AI parameter fix
-                await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
+                await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _logger);
             }
 
             return;
@@ -1412,7 +1412,7 @@ public partial class GameLauncher : ILauncherService
             (output.ToString().Contains("Unable to load image", StringComparison.OrdinalIgnoreCase) ||
              output.ToString().Contains("No such file or directory", StringComparison.OrdinalIgnoreCase)))
         {
-            _debugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME Unable to load image error.");
+            _logger.Debug("[CheckForExitCodeWithErrorAnyAsync] MAME Unable to load image error.");
             _logErrors.LogAndForget(null, contextMessage);
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
@@ -1421,7 +1421,7 @@ public partial class GameLauncher : ILauncherService
                 await _messageBoxLibrary.WouldYouLikeToOpenTheLogMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
                 // Offer AI parameter fix
-                await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
+                await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _logger);
             }
 
             return;
@@ -1433,21 +1433,21 @@ public partial class GameLauncher : ILauncherService
              emulatorManager.EmulatorLocation.Contains("mame64", StringComparison.OrdinalIgnoreCase)) &&
             error.ToString().Contains("Warning: unknown option in INI", StringComparison.OrdinalIgnoreCase))
         {
-            _debugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME unknown option in INI detected. Restoring mame.ini from sample.");
-            var restored = MameConfigurationService.RestoreMameIniFromSample(psi.FileName, _logErrors, _debugLogger);
+            _logger.Debug("[CheckForExitCodeWithErrorAnyAsync] MAME unknown option in INI detected. Restoring mame.ini from sample.");
+            var restored = MameConfigurationService.RestoreMameIniFromSample(psi.FileName, _logErrors, _logger);
             if (restored)
             {
-                _debugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] mame.ini restored successfully. User should retry.");
+                _logger.Debug("[CheckForExitCodeWithErrorAnyAsync] mame.ini restored successfully. User should retry.");
             }
             else
             {
-                _debugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] Failed to restore mame.ini from sample.");
+                _logger.Debug("[CheckForExitCodeWithErrorAnyAsync] Failed to restore mame.ini from sample.");
             }
 
             return;
         }
 
-        _debugLogger.Log($"[CheckForExitCodeWithErrorAnyAsync] Exit code {process.ExitCode} detected.");
+        _logger.Debug($"[CheckForExitCodeWithErrorAnyAsync] Exit code {process.ExitCode} detected.");
         _logErrors.LogAndForget(null, contextMessage);
 
         // Generic error handler
@@ -1456,7 +1456,7 @@ public partial class GameLauncher : ILauncherService
             await _messageBoxLibrary.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
             // Offer AI parameter fix
-            await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _debugLogger);
+            await AskAiToFixParameters.ExecuteAsync(systemManager, emulatorManager, _messageBoxLibrary, _parameterResolverService, _logErrors, _configuration, _serviceProvider, _logger);
         }
     }
 
@@ -1542,7 +1542,7 @@ public partial class GameLauncher : ILauncherService
             using var protocolKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(protocol.ToLowerInvariant());
             if (protocolKey == null)
             {
-                _debugLogger.Log($"[IsProtocolRegistered] Protocol key '{protocol.ToLowerInvariant()}' not found in HKEY_CLASSES_ROOT.");
+                _logger.Debug($"[IsProtocolRegistered] Protocol key '{protocol.ToLowerInvariant()}' not found in HKEY_CLASSES_ROOT.");
                 return false;
             }
 
@@ -1551,25 +1551,25 @@ public partial class GameLauncher : ILauncherService
             using var shellOpenCommandKey = protocolKey.OpenSubKey(@"shell\open\command");
             if (shellOpenCommandKey == null)
             {
-                _debugLogger.Log($"[IsProtocolRegistered] 'shell\\open\\command' subkey not found for protocol '{protocol.ToLowerInvariant()}'.");
+                _logger.Debug($"[IsProtocolRegistered] 'shell\\open\\command' subkey not found for protocol '{protocol.ToLowerInvariant()}'.");
                 return false;
             }
 
             var command = shellOpenCommandKey.GetValue(null) as string; // Default value
             if (string.IsNullOrWhiteSpace(command))
             {
-                _debugLogger.Log($"[IsProtocolRegistered] Command handler is empty for protocol '{protocol.ToLowerInvariant()}'.");
+                _logger.Debug($"[IsProtocolRegistered] Command handler is empty for protocol '{protocol.ToLowerInvariant()}'.");
                 return false;
             }
 
-            _debugLogger.Log($"[IsProtocolRegistered] Protocol '{protocol.ToLowerInvariant()}' is registered with command: '{command}'.");
+            _logger.Debug($"[IsProtocolRegistered] Protocol '{protocol.ToLowerInvariant()}' is registered with command: '{command}'.");
             return true;
         }
         catch (Exception ex)
         {
             // Log any exceptions during registry access.
             _logErrors.LogAndForget(ex, $"Error checking if protocol '{protocol}' is registered.");
-            _debugLogger.Log($"[IsProtocolRegistered] Error checking protocol '{protocol}': {ex.Message}");
+            _logger.Debug($"[IsProtocolRegistered] Error checking protocol '{protocol}': {ex.Message}");
             return false;
         }
     }

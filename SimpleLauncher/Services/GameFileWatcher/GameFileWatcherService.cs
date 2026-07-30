@@ -13,17 +13,17 @@ public sealed class GameFileWatcherService : IDisposable
 {
     private readonly Dictionary<FileSystemWatcher, WatcherTag> _watchers = new();
     private readonly object _lock = new();
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private CancellationTokenSource _debounceCts;
     private bool _disposed;
 
     /// <summary>
     /// Initializes a new instance of <see cref="GameFileWatcherService"/>.
     /// </summary>
-    /// <param name="debugLogger">Debug logging service.</param>
-    public GameFileWatcherService(IDebugLogger debugLogger)
+    /// <param name="logger">Debug logging service.</param>
+    public GameFileWatcherService(ILogger logger)
     {
-        _debugLogger = debugLogger;
+        _logger = logger;
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public sealed class GameFileWatcherService : IDisposable
 
         if (resolvedFolders.Count == 0)
         {
-            _debugLogger.Log($"[GameFileWatcherService] No valid folders to watch for system '{systemName}'.");
+            _logger.Debug($"[GameFileWatcherService] No valid folders to watch for system '{systemName}'.");
             return;
         }
 
@@ -90,18 +90,18 @@ public sealed class GameFileWatcherService : IDisposable
                         watcher.EnableRaisingEvents = true;
                     }
 
-                    _debugLogger.Log($"[GameFileWatcherService] Watching '{folder}' for system '{systemName}'.");
+                    _logger.Debug($"[GameFileWatcherService] Watching '{folder}' for system '{systemName}'.");
                 }
                 catch (Exception ex)
                 {
-                    _debugLogger.Log($"[GameFileWatcherService] Failed to watch '{folder}': {ex.Message}");
+                    _logger.Debug($"[GameFileWatcherService] Failed to watch '{folder}': {ex.Message}");
                 }
             }
         }
 
         lock (_lock)
         {
-            _debugLogger.Log($"[GameFileWatcherService] Started watching {_watchers.Count} folder(s) for system '{systemName}'.");
+            _logger.Debug($"[GameFileWatcherService] Started watching {_watchers.Count} folder(s) for system '{systemName}'.");
         }
     }
 
@@ -125,7 +125,7 @@ public sealed class GameFileWatcherService : IDisposable
                 }
                 catch (Exception ex)
                 {
-                    _debugLogger.Log($"[GameFileWatcherService] Error disposing watcher: {ex.Message}");
+                    _logger.Debug($"[GameFileWatcherService] Error disposing watcher: {ex.Message}");
                 }
             }
 
@@ -133,7 +133,7 @@ public sealed class GameFileWatcherService : IDisposable
         }
 
         CancelPendingDebounce();
-        _debugLogger.Log("[GameFileWatcherService] Stopped all watchers.");
+        _logger.Debug("[GameFileWatcherService] Stopped all watchers.");
     }
 
     private void OnFileChanged(object sender, FileSystemEventArgs e)
@@ -159,14 +159,14 @@ public sealed class GameFileWatcherService : IDisposable
             }
         }
 
-        _debugLogger.Log($"[GameFileWatcherService] File change detected: {e.ChangeType} - {e.FullPath} (System: {tag.SystemName})");
+        _logger.Debug($"[GameFileWatcherService] File change detected: {e.ChangeType} - {e.FullPath} (System: {tag.SystemName})");
 
         DebounceAndRaiseEvent(tag.SystemName);
     }
 
     private void OnWatcherError(object sender, ErrorEventArgs e)
     {
-        _debugLogger.Log($"[GameFileWatcherService] Watcher error: {e.GetException().Message}");
+        _logger.Debug($"[GameFileWatcherService] Watcher error: {e.GetException().Message}");
     }
 
     private void DebounceAndRaiseEvent(string systemName)
@@ -187,7 +187,7 @@ public sealed class GameFileWatcherService : IDisposable
 
                     if (!token.IsCancellationRequested)
                     {
-                        _debugLogger.Log($"[GameFileWatcherService] Debounce complete. Raising GameFilesChanged for system '{systemName}'.");
+                        _logger.Debug($"[GameFileWatcherService] Debounce complete. Raising GameFilesChanged for system '{systemName}'.");
                         GameFilesChanged?.Invoke(systemName);
                     }
                 }

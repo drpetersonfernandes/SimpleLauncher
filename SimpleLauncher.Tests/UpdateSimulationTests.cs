@@ -1,3 +1,4 @@
+using Serilog;
 using System.IO.Compression;
 using SimpleLauncher.Services.CheckForUpdates;
 using SimpleLauncher.Tests.TestHelpers;
@@ -311,7 +312,7 @@ public class UpdateSimulationTests : IDisposable
         var constructor = typeof(UpdateChecker).GetConstructors(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).First();
         var factory = new MockHttpClientFactory();
         var logErrors = new NoOpLogErrors();
-        var debugLogger = new NoOpDebugLogger();
+        var debugLogger = Log.Logger;
         return (UpdateChecker)constructor.Invoke([factory, logErrors, null, null, debugLogger, null, null]);
     }
 
@@ -330,19 +331,4 @@ public class UpdateSimulationTests : IDisposable
             return Task.CompletedTask;
         }
     }
-
-    private sealed class NoOpDebugLogger : IDebugLogger
-    {
-        public void Log(string message)
-        {
-        }
-
-        public void LogException(Exception ex, string? contextMessage = null)
-        {
-        }
-
-        public void OpenDebugWindow()
-        {
-        }
     }
-}

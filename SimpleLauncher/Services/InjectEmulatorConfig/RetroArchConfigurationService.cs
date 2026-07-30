@@ -6,7 +6,7 @@ using Interfaces;
 
 public static class RetroArchConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -23,11 +23,11 @@ public static class RetroArchConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[RetroArchConfig] Created new retroarch.cfg from sample: {configPath}");
+                    logger.Debug($"[RetroArchConfig] Created new retroarch.cfg from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[RetroArchConfig] Failed to create retroarch.cfg from sample: {ex.Message}");
+                    logger.Debug($"[RetroArchConfig] Failed to create retroarch.cfg from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[RetroArchConfig] Failed to create retroarch.cfg from sample: {ex.Message}");
                     throw;
                 }
@@ -38,7 +38,7 @@ public static class RetroArchConfigurationService
             }
         }
 
-        debugLogger.Log($"[RetroArchConfig] Injecting configuration into: {configPath}");
+        logger.Debug($"[RetroArchConfig] Injecting configuration into: {configPath}");
 
         // Prepare settings dictionary
         var updates = new Dictionary<string, string>
@@ -84,13 +84,13 @@ public static class RetroArchConfigurationService
         }
         catch (UnauthorizedAccessException ex)
         {
-            debugLogger.Log($"[RetroArchConfig] Access denied reading config: {configPath}");
+            logger.Debug($"[RetroArchConfig] Access denied reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[RetroArchConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
-            debugLogger.Log($"[RetroArchConfig] I/O error reading config: {configPath}");
+            logger.Debug($"[RetroArchConfig] I/O error reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[RetroArchConfig] I/O error reading config: {configPath}");
             throw;
         }
@@ -127,11 +127,11 @@ public static class RetroArchConfigurationService
         try
         {
             File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-            debugLogger.Log("[RetroArchConfig] Injected configuration changes..");
+            logger.Debug("[RetroArchConfig] Injected configuration changes..");
         }
         catch (Exception ex)
         {
-            debugLogger.Log($"[RetroArchConfig] Failed to inject configuration changes: {ex.Message}");
+            logger.Debug($"[RetroArchConfig] Failed to inject configuration changes: {ex.Message}");
             logErrors.LogAndForget(ex, $"[RetroArchConfig] Failed to inject configuration changes: {ex.Message}");
             throw;
         }

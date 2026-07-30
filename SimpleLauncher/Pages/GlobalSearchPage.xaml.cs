@@ -38,7 +38,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
     private readonly IConfiguration _configuration;
     private readonly SettingsManager _settings;
     private readonly IContextMenuFunctions _contextMenuFunctions;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IContextMenuService _contextMenuService;
 
     public GlobalSearchPage(
@@ -57,7 +57,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         IContextMenuFunctions contextMenuFunctions,
-        IDebugLogger debugLogger,
+        ILogger logger,
         IContextMenuService contextMenuService)
     {
         InitializeComponent();
@@ -73,7 +73,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _contextMenuFunctions = contextMenuFunctions ?? throw new ArgumentNullException(nameof(contextMenuFunctions));
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _contextMenuService = contextMenuService ?? throw new ArgumentNullException(nameof(contextMenuService));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
@@ -345,7 +345,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         _viewModel.CancelSearch();
         LoadingOverlay.Visibility = Visibility.Collapsed;
 
-        _debugLogger.Log("[Emergency] User forced overlay dismissal in GlobalSearchPage.");
+        _logger.Debug("[Emergency] User forced overlay dismissal in GlobalSearchPage.");
         _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 

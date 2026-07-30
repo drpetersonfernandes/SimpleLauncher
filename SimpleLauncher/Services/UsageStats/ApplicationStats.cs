@@ -15,12 +15,12 @@ using Interfaces;
 /// </summary>
 public class ApplicationStats
 {
-    private static readonly Lazy<IDebugLogger> DebugLogger2 = new(() =>
+    private static readonly Lazy<ILogger> DebugLogger2 = new(() =>
     {
         var sp = App.ServiceProvider;
-        return sp?.GetService<IDebugLogger>() ?? new FallbackDebugLogger();
+        return sp?.GetService<ILogger>() ?? Log.Logger;
     });
-    private static IDebugLogger DebugLogger => DebugLogger2.Value;
+    private static ILogger logger => DebugLogger2.Value;
 
     /// <summary>Asynchronously sends application version statistics to the remote API.</summary>
     public static async Task CallApplicationStatsAsync(IConfiguration configuration, ILogErrors logErrors)
@@ -45,7 +45,7 @@ public class ApplicationStats
             using var response = await client.PostAsync(statsUrl, content, cts.Token);
             if (!response.IsSuccessStatusCode)
             {
-                DebugLogger.Log($"ApplicationStats API returned: {response.StatusCode}");
+                logger.Debug($"ApplicationStats API returned: {response.StatusCode}");
 
                 var ex = new HttpRequestException($"ApplicationStats API returned: {response.StatusCode}");
                 if (response.StatusCode == HttpStatusCode.TooManyRequests)
@@ -60,11 +60,11 @@ public class ApplicationStats
         }
         catch (OperationCanceledException)
         {
-            DebugLogger.Log("ApplicationStats API call timed out.");
+            logger.Debug("ApplicationStats API call timed out.");
         }
         catch (Exception ex)
         {
-            DebugLogger.Log($"ApplicationStats API call failed: {ex.Message}");
+            logger.Debug($"ApplicationStats API call failed: {ex.Message}");
             logErrors.LogAndForget(ex, $"ApplicationStats API call failed: {ex.Message}");
         }
     }

@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class CemuConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -23,11 +23,11 @@ public static class CemuConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[CemuConfig] Created new settings.xml from sample: {configPath}");
+                    logger.Debug($"[CemuConfig] Created new settings.xml from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[CemuConfig] Failed to create settings.xml from sample: {ex.Message}");
+                    logger.Debug($"[CemuConfig] Failed to create settings.xml from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[CemuConfig] Failed to create settings.xml from sample: {ex.Message}");
                     throw;
                 }
@@ -38,7 +38,7 @@ public static class CemuConfigurationService
             }
         }
 
-        debugLogger.Log($"[CemuConfig] Injecting configuration into: {configPath}");
+        logger.Debug($"[CemuConfig] Injecting configuration into: {configPath}");
 
         try
         {
@@ -72,11 +72,11 @@ public static class CemuConfigurationService
             using var writer = System.Xml.XmlWriter.Create(configPath, writerSettings);
             doc.Save(writer);
 
-            debugLogger.Log("[CemuConfig] Injection successful.");
+            logger.Debug("[CemuConfig] Injection successful.");
         }
         catch (Exception ex)
         {
-            debugLogger.Log($"[CemuConfig] Error: {ex.Message}");
+            logger.Debug($"[CemuConfig] Error: {ex.Message}");
             throw;
         }
     }

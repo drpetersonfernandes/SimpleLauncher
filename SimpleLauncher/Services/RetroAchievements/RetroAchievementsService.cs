@@ -18,7 +18,7 @@ public class RetroAchievementsService
 
     private readonly HttpClient _httpClient;
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
 
     /// <summary>
     /// Gets the RetroAchievements manager containing the local game database.
@@ -33,11 +33,11 @@ public class RetroAchievementsService
         RetroAchievementsManager raManager,
         ILogErrors logErrors,
         IConfiguration configuration,
-        IDebugLogger debugLogger)
+        ILogger logger)
     {
         _httpClient = httpClientFactory?.CreateClient("RetroAchievementsClient") ?? throw new ArgumentNullException(nameof(httpClientFactory));
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         RaManager = raManager ?? throw new ArgumentNullException(nameof(raManager));
 
         // Load URLs from appsettings.json
@@ -88,13 +88,13 @@ public class RetroAchievementsService
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey))
         {
-            _debugLogger.Log("[RA Service] Username or API Key is missing.");
+            _logger.Debug("[RA Service] Username or API Key is missing.");
             return (null, null);
         }
 
         try
         {
-            _debugLogger.Log($"[RA Service] Fetching user progress for GameID {gameId}...");
+            _logger.Debug($"[RA Service] Fetching user progress for GameID {gameId}...");
 
             var url = $"{_apiBaseUrl}API_GetGameInfoAndUserProgress.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}";
 

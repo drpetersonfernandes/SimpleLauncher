@@ -20,7 +20,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
     private readonly ILogErrors _logErrors;
     private readonly IUpdateStatusBar _updateStatusBar;
     private readonly IMessageBoxLibraryService _messageBox;
-    private static IDebugLogger _debugLogger;
+    private static ILogger _logger;
 
     private static readonly string[] KeenDataExtensions =
     [
@@ -30,14 +30,14 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
     /// <summary>
     /// Initializes a new instance of the <see cref="CommanderGeniusLaunchStrategy"/> class.
     /// </summary>
-    public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, ILogErrors logErrors, IUpdateStatusBar updateStatusBar, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
+    public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, ILogErrors logErrors, IUpdateStatusBar updateStatusBar, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _extractionService = extractionService;
         _configuration = configuration;
         _logErrors = logErrors;
         _updateStatusBar = updateStatusBar;
         _messageBox = messageBox;
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     /// <inheritdoc />
@@ -67,7 +67,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
             var cgDataPath = GetCommanderGeniusDataPath(context.EmulatorManager?.EmulatorLocation);
             if (string.IsNullOrEmpty(cgDataPath))
             {
-                _debugLogger.Log("[CommanderGeniusLaunchStrategy] Could not resolve CG data path.");
+                _logger.Debug("[CommanderGeniusLaunchStrategy] Could not resolve CG data path.");
                 LogErrorAsync("Could not resolve Commander Genius data path.");
                 return;
             }
@@ -86,7 +86,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
             if (!extracted || !Directory.Exists(extractionDir))
             {
-                _debugLogger.Log("[CommanderGeniusLaunchStrategy] Extraction failed or directory not found.");
+                _logger.Debug("[CommanderGeniusLaunchStrategy] Extraction failed or directory not found.");
                 return;
             }
 
@@ -98,7 +98,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
                 if (string.IsNullOrEmpty(emulatorLocation) || !File.Exists(PathHelper.GetLongPath(emulatorLocation)))
                 {
-                    _debugLogger.Log("[CommanderGeniusLaunchStrategy] Emulator executable not found.");
+                    _logger.Debug("[CommanderGeniusLaunchStrategy] Emulator executable not found.");
                     LogErrorAsync($"Emulator executable not found: {emulatorLocation}");
                     await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                     return;
@@ -106,7 +106,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
                 var arguments = $"dir=\"games/{zipName}\"";
 
-                _debugLogger.Log($"CommanderGeniusLaunchStrategy:\n\n" +
+                _logger.Debug($"CommanderGeniusLaunchStrategy:\n\n" +
                                  $"Program Location: {emulatorLocation}\n" +
                                  $"Arguments: {arguments}\n" +
                                  $"Working Directory: {cgDataPath}\n" +
@@ -206,7 +206,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"[CommanderGeniusLaunchStrategy] Unexpected error: {ex}");
+            _logger.Debug($"[CommanderGeniusLaunchStrategy] Unexpected error: {ex}");
             LogErrorAsync($"Unexpected error: {ex.Message}\nFile: {context?.FilePath}");
         }
         finally
@@ -234,20 +234,20 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                 var resolved = ResolveCgPath(searchPath1, emulatorLocation);
                 if (!string.IsNullOrEmpty(resolved) && Directory.Exists(resolved))
                 {
-                    _debugLogger.Log($"[CommanderGenius] Using SearchPath1 from config: {resolved}");
+                    _logger.Debug($"[CommanderGenius] Using SearchPath1 from config: {resolved}");
                     return resolved;
                 }
 
-                _debugLogger.Log($"[CommanderGenius] SearchPath1 '{searchPath1}' resolved to '{resolved}' but directory does not exist. Falling back to default.");
+                _logger.Debug($"[CommanderGenius] SearchPath1 '{searchPath1}' resolved to '{resolved}' but directory does not exist. Falling back to default.");
             }
             else
             {
-                _debugLogger.Log("[CommanderGenius] SearchPath1 not found in config. Falling back to default.");
+                _logger.Debug("[CommanderGenius] SearchPath1 not found in config. Falling back to default.");
             }
         }
         else
         {
-            _debugLogger.Log($"[CommanderGenius] Config file not found at {configPath}. Commander Genius may not be properly installed.");
+            _logger.Debug($"[CommanderGenius] Config file not found at {configPath}. Commander Genius may not be properly installed.");
         }
 
         if (Directory.Exists(cgDataDir)) return cgDataDir;
@@ -295,7 +295,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"[CommanderGenius] Error reading config: {ex.Message}");
+            _logger.Debug($"[CommanderGenius] Error reading config: {ex.Message}");
         }
 
         return null;
@@ -325,7 +325,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
             }
             else
             {
-                _debugLogger.Log("[CommanderGenius] ${BIN} variable found but emulator location is unknown.");
+                _logger.Debug("[CommanderGenius] ${BIN} variable found but emulator location is unknown.");
                 return null;
             }
         }
@@ -352,7 +352,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"[CommanderGenius] Error enumerating directories: {ex.Message}");
+            _logger.Debug($"[CommanderGenius] Error enumerating directories: {ex.Message}");
         }
 
         var dirScores = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
@@ -370,7 +370,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
             }
             catch (Exception ex)
             {
-                _debugLogger.Log($"[CommanderGenius] Error scanning directory '{dir}': {ex.Message}");
+                _logger.Debug($"[CommanderGenius] Error scanning directory '{dir}': {ex.Message}");
             }
         }
 
@@ -378,14 +378,14 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         if (dirScores.Count > 0)
         {
             bestDir = dirScores.OrderByDescending(static kvp => kvp.Value).First().Key;
-            _debugLogger.Log($"[CommanderGenius] Game root identified by Keen files: {bestDir} (score: {dirScores[bestDir]})");
+            _logger.Debug($"[CommanderGenius] Game root identified by Keen files: {bestDir} (score: {dirScores[bestDir]})");
         }
         else
         {
             bestDir = ResolveSingleFolderChain(extractionDir);
             if (bestDir != extractionDir)
             {
-                _debugLogger.Log($"[CommanderGenius] Game root identified by single-folder chain: {bestDir}");
+                _logger.Debug($"[CommanderGenius] Game root identified by single-folder chain: {bestDir}");
             }
         }
 
@@ -420,7 +420,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"[CommanderGenius] Error resolving folder chain: {ex.Message}");
+            _logger.Debug($"[CommanderGenius] Error resolving folder chain: {ex.Message}");
             return rootDir;
         }
     }
@@ -437,7 +437,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
             }
             catch (Exception ex)
             {
-                _debugLogger.Log($"[CommanderGenius] Failed to move file '{file}': {ex.Message}");
+                _logger.Debug($"[CommanderGenius] Failed to move file '{file}': {ex.Message}");
             }
         }
 
@@ -451,7 +451,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
             }
             catch (Exception ex)
             {
-                _debugLogger.Log($"[CommanderGenius] Failed to move directory '{subdir}': {ex.Message}");
+                _logger.Debug($"[CommanderGenius] Failed to move directory '{subdir}': {ex.Message}");
             }
         }
 
@@ -461,7 +461,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"[CommanderGenius] Failed to delete source directory '{sourceDir}': {ex.Message}");
+            _logger.Debug($"[CommanderGenius] Failed to delete source directory '{sourceDir}': {ex.Message}");
         }
     }
 
@@ -486,7 +486,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"[CommanderGenius] Error cleaning subdirectories: {ex.Message}");
+            _logger.Debug($"[CommanderGenius] Error cleaning subdirectories: {ex.Message}");
         }
     }
 

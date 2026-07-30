@@ -17,17 +17,17 @@ public class Stats
     private string _statsApiUrl;
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private bool _isApiEnabled;
 
     /// <summary>
     /// Initializes a new instance of the Stats class, loading API configuration.
     /// </summary>
-    public Stats(IHttpClientFactory httpClientFactory, IConfiguration configuration, ILogErrors logErrors, IDebugLogger debugLogger)
+    public Stats(IHttpClientFactory httpClientFactory, IConfiguration configuration, ILogErrors logErrors, ILogger logger)
     {
         _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
         _logErrors = logErrors;
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         LoadConfiguration(configuration);
     }
 
@@ -142,7 +142,7 @@ public class Stats
 
                 if (response.IsSuccessStatusCode)
                 {
-                    _debugLogger.Log("The Stats was successfully sent. API response: OK");
+                    _logger.Debug("The Stats was successfully sent. API response: OK");
 
                     return true; // Success.
                 }

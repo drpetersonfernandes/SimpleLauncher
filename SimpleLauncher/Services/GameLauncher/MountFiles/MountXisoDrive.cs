@@ -14,7 +14,7 @@ public class MountXisoDrive : IAsyncDisposable
     private readonly Process _mountProcess;
     private readonly int _mountProcessId;
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
 
     public string MountedPath { get; }
     public bool IsMounted { get; }
@@ -22,12 +22,12 @@ public class MountXisoDrive : IAsyncDisposable
     /// <summary>
     /// Constructor for a successful mount.
     /// </summary>
-    public MountXisoDrive(Process mountProcess, string mountedPath, ILogErrors logErrors, IDebugLogger debugLogger)
+    public MountXisoDrive(Process mountProcess, string mountedPath, ILogErrors logErrors, ILogger logger)
     {
         _mountProcess = mountProcess;
         _mountProcessId = mountProcess?.Id ?? -1;
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         MountedPath = mountedPath;
         IsMounted = !string.IsNullOrEmpty(mountedPath) && _mountProcess != null;
     }
@@ -35,10 +35,10 @@ public class MountXisoDrive : IAsyncDisposable
     /// <summary>
     /// Constructor for a failed mount.
     /// </summary>
-    public MountXisoDrive(ILogErrors logErrors, IDebugLogger debugLogger)
+    public MountXisoDrive(ILogErrors logErrors, ILogger logger)
     {
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         IsMounted = false;
     }
 
@@ -58,19 +58,19 @@ public class MountXisoDrive : IAsyncDisposable
             try
             {
                 _mountProcess.Kill(true);
-                _debugLogger.Log($"[MountXisoDrive.DisposeAsync] Kill signal sent to mounting tool (ID: {_mountProcessId}).");
+                _logger.Debug($"[MountXisoDrive.DisposeAsync] Kill signal sent to mounting tool (ID: {_mountProcessId}).");
             }
             catch (InvalidOperationException)
             {
                 // Thrown when the process has already exited before Kill() was invoked
                 processExitedBeforeKill = true;
-                _debugLogger.Log($"[MountXisoDrive.DisposeAsync] Mounting tool (ID: {_mountProcessId}) had already exited before Kill could complete (race condition handled).");
+                _logger.Debug($"[MountXisoDrive.DisposeAsync] Mounting tool (ID: {_mountProcessId}) had already exited before Kill could complete (race condition handled).");
             }
             catch (ArgumentException)
             {
                 // Thrown when the process is not associated with a valid handle (already exited/disposed)
                 processExitedBeforeKill = true;
-                _debugLogger.Log(
+                _logger.Debug(
                     $"[MountXisoDrive.DisposeAsync] Mounting tool (ID: {_mountProcessId}) had already exited before explicit unmount was needed.");
             }
 
@@ -78,7 +78,7 @@ public class MountXisoDrive : IAsyncDisposable
             // If the process was already gone, we skip the wait logic.
             if (!processExitedBeforeKill)
             {
-                _debugLogger.Log(
+                _logger.Debug(
                     $"[MountXisoDrive.DisposeAsync] Waiting for mounting tool (ID: {_mountProcessId}) to exit (up to 20s).");
 
                 using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
@@ -88,25 +88,25 @@ public class MountXisoDrive : IAsyncDisposable
                 }
                 catch (TaskCanceledException)
                 {
-                    _debugLogger.Log(
+                    _logger.Debug(
                         $"[MountXisoDrive.DisposeAsync] Timeout (10s) waiting for mounting tool (ID: {_mountProcessId}) to exit after Kill.");
                 }
 
                 if (_mountProcess.HasExited)
                 {
-                    _debugLogger.Log(
+                    _logger.Debug(
                         $"[MountXisoDrive.DisposeAsync] Mounting tool (ID: {_mountProcessId}) terminated. Exit code: {_mountProcess.ExitCode}.");
                 }
                 else
                 {
-                    _debugLogger.Log(
+                    _logger.Debug(
                         $"[MountXisoDrive.DisposeAsync] xbox-iso-vfs.exe (ID: {_mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
                 }
             }
         }
         catch (Exception termEx)
         {
-            _debugLogger.Log(
+            _logger.Debug(
                 $"[MountXisoDrive.DisposeAsync] Exception while terminating mounting tool (ID: {_mountProcessId}): {termEx}");
             _logErrors.LogAndForget(termEx,
                 $"Failed to terminate mounting tool (ID: {_mountProcessId}) for unmounting.");
@@ -122,12 +122,12 @@ public class MountXisoDrive : IAsyncDisposable
             await Task.Delay(1000); // Give OS a moment to release the drive
             if (Directory.Exists(driveRoot))
             {
-                _debugLogger.Log(
+                _logger.Debug(
                     $"[MountXisoDrive.DisposeAsync] WARNING: {driveRoot} drive still exists after attempting to unmount.");
             }
             else
             {
-                _debugLogger.Log($"[MountXisoDrive.DisposeAsync] {driveRoot} drive successfully unmounted.");
+                _logger.Debug($"[MountXisoDrive.DisposeAsync] {driveRoot} drive successfully unmounted.");
             }
         }
 

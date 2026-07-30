@@ -8,7 +8,7 @@ using Interfaces;
 
 public static partial class MameConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger, string systemRomPath = null, string[] listOfSecondaryRomPath = null)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger, string systemRomPath = null, string[] listOfSecondaryRomPath = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(emulatorPath);
         ArgumentNullException.ThrowIfNull(settings);
@@ -30,11 +30,11 @@ public static partial class MameConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[MameConfig] Created new mame.ini from sample: {configPath}");
+                    logger.Debug($"[MameConfig] Created new mame.ini from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[MameConfig] Failed to create mame.ini from sample: {ex.Message}");
+                    logger.Debug($"[MameConfig] Failed to create mame.ini from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[MameConfig] Failed to create mame.ini from sample: {ex.Message}");
                     throw;
                 }
@@ -45,7 +45,7 @@ public static partial class MameConfigurationService
             }
         }
 
-        debugLogger.Log($"[MameConfig] Injecting configuration into: {configPath}");
+        logger.Debug($"[MameConfig] Injecting configuration into: {configPath}");
 
         // Prepare the settings dictionary
         var updates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -74,13 +74,13 @@ public static partial class MameConfigurationService
         }
         catch (UnauthorizedAccessException ex)
         {
-            debugLogger.Log($"[MameConfig] Access denied reading mame.ini: {configPath}");
+            logger.Debug($"[MameConfig] Access denied reading mame.ini: {configPath}");
             logErrors.LogAndForget(ex, $"[MameConfig] Access denied reading mame.ini: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
-            debugLogger.Log($"[MameConfig] I/O error reading mame.ini: {configPath}");
+            logger.Debug($"[MameConfig] I/O error reading mame.ini: {configPath}");
             logErrors.LogAndForget(ex, $"[MameConfig] I/O error reading mame.ini: {configPath}");
             throw;
         }
@@ -243,7 +243,7 @@ public static partial class MameConfigurationService
             {
                 File.WriteAllLines(tempPath, lines, new UTF8Encoding(false));
                 File.Move(tempPath, configPath, true);
-                debugLogger.Log("[MameConfig] Injected configuration changes.");
+                logger.Debug("[MameConfig] Injected configuration changes.");
             }
             catch (Exception ex)
             {
@@ -260,7 +260,7 @@ public static partial class MameConfigurationService
                     }
                 }
 
-                debugLogger.Log("[MameConfig] Failed to inject configuration changes.");
+                logger.Debug("[MameConfig] Failed to inject configuration changes.");
                 logErrors.LogAndForget(ex, "[MameConfig] Failed to inject configuration changes.");
                 throw;
             }
@@ -271,7 +271,7 @@ public static partial class MameConfigurationService
     /// Restores mame.ini from the bundled sample.
     /// Backs up the existing file to mame.ini.bak before overwriting.
     /// </summary>
-    public static bool RestoreMameIniFromSample(string emulatorPath, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static bool RestoreMameIniFromSample(string emulatorPath, ILogErrors logErrors, ILogger logger)
     {
         if (string.IsNullOrWhiteSpace(emulatorPath))
             return false;
@@ -285,7 +285,7 @@ public static partial class MameConfigurationService
 
         if (!File.Exists(samplePath))
         {
-            debugLogger.Log($"[MameConfig] Sample mame.ini not found at: {samplePath}");
+            logger.Debug($"[MameConfig] Sample mame.ini not found at: {samplePath}");
             return false;
         }
 
@@ -295,16 +295,16 @@ public static partial class MameConfigurationService
             {
                 var backupPath = configPath + ".bak";
                 File.Move(configPath, backupPath, true);
-                debugLogger.Log($"[MameConfig] Backed up existing mame.ini to: {backupPath}");
+                logger.Debug($"[MameConfig] Backed up existing mame.ini to: {backupPath}");
             }
 
             File.Copy(samplePath, configPath, true);
-            debugLogger.Log($"[MameConfig] Restored mame.ini from sample: {configPath}");
+            logger.Debug($"[MameConfig] Restored mame.ini from sample: {configPath}");
             return true;
         }
         catch (Exception ex)
         {
-            debugLogger.Log($"[MameConfig] Failed to restore mame.ini from sample: {ex.Message}");
+            logger.Debug($"[MameConfig] Failed to restore mame.ini from sample: {ex.Message}");
             logErrors.LogAndForget(ex, $"[MameConfig] Failed to restore mame.ini from sample: {ex.Message}");
             return false;
         }

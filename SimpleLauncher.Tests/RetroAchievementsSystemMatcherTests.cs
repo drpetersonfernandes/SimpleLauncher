@@ -1,3 +1,4 @@
+using Serilog;
 using SimpleLauncher.Services.RetroAchievements;
 using Xunit;
 
@@ -19,22 +20,7 @@ public class RetroAchievementsSystemMatcherTests
         }
     }
 
-    private sealed class NoOpDebugLogger : IDebugLogger
-    {
-        public void Log(string message)
-        {
-        }
-
-        public void LogException(Exception ex, string? contextMessage = null)
-        {
-        }
-
-        public void OpenDebugWindow()
-        {
-        }
-    }
-
-    private readonly RetroAchievementsSystemMatcher _matcher = new(new NoOpLogErrors(), new NoOpDebugLogger());
+    private readonly RetroAchievementsSystemMatcher _matcher = new(new NoOpLogErrors(), Log.Logger);
 
     /// <summary>
     /// Verifies that GetBestMatchSystemName maps known system aliases to their canonical RetroAchievements names.

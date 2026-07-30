@@ -14,7 +14,7 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
@@ -24,11 +24,11 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
     [ObservableProperty] private int _height;
     [ObservableProperty] private bool _showBeforeLaunch;
 
-    public InjectFlycastConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
+    public InjectFlycastConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _messageBox = messageBox;
     }
 
@@ -125,7 +125,7 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
 
         try
         {
-            FlycastConfigurationService.InjectSettings(path, _settings, _logErrors, _debugLogger);
+            FlycastConfigurationService.InjectSettings(path, _settings, _logErrors, _logger);
             return true;
         }
         catch (InvalidOperationException ex)

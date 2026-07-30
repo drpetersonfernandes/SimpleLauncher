@@ -11,15 +11,15 @@ namespace SimpleLauncher.Services.RetroAchievements;
 public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEmulatorConfiguratorService
 {
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RetroAchievementsEmulatorConfiguratorService"/> class.
     /// </summary>
-    public RetroAchievementsEmulatorConfiguratorService(ILogErrors logErrors, IDebugLogger debugLogger)
+    public RetroAchievementsEmulatorConfiguratorService(ILogErrors logErrors, ILogger logger)
     {
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
     }
 
     /// <summary>
@@ -239,7 +239,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
             if (!RestoreConfigFromSample("dolphin", configPath))
             {
                 // If no sample, create directory and empty file as fallback
-                _debugLogger.Log($"[RA Configurator] No sample found for Dolphin, creating empty config at {configPath}");
+                _logger.Debug($"[RA Configurator] No sample found for Dolphin, creating empty config at {configPath}");
             }
 
             if (!Directory.Exists(configDir)) Directory.CreateDirectory(configDir);

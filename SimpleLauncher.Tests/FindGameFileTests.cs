@@ -1,3 +1,4 @@
+using Serilog;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 using Xunit;
 
@@ -12,28 +13,13 @@ public class FindGameFileTests : IDisposable
 {
     private readonly string _testDirectory;
     private readonly ILogErrors _logErrors = new NoOpLogErrors();
-    private readonly IDebugLogger _debugLogger = new NoOpDebugLogger();
+    private readonly ILogger _logger = Log.Logger;
 
     private sealed class NoOpLogErrors : ILogErrors
     {
         public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
         {
             return Task.CompletedTask;
-        }
-    }
-
-    private sealed class NoOpDebugLogger : IDebugLogger
-    {
-        public void Log(string message)
-        {
-        }
-
-        public void LogException(Exception ex, string? contextMessage = null)
-        {
-        }
-
-        public void OpenDebugWindow()
-        {
         }
     }
 
@@ -366,7 +352,7 @@ public class FindGameFileTests : IDisposable
     [Fact]
     public void FindEbootBinNullPathReturnsNull()
     {
-        var result = FindEbootBin.FindEbootBinRecursive(null, _logErrors, _debugLogger);
+        var result = FindEbootBin.FindEbootBinRecursive(null, _logErrors, _logger);
         Assert.Null(result);
     }
 
@@ -376,7 +362,7 @@ public class FindGameFileTests : IDisposable
     [Fact]
     public void FindEbootBinEmptyPathReturnsNull()
     {
-        var result = FindEbootBin.FindEbootBinRecursive("", _logErrors, _debugLogger);
+        var result = FindEbootBin.FindEbootBinRecursive("", _logErrors, _logger);
         Assert.Null(result);
     }
 
@@ -389,7 +375,7 @@ public class FindGameFileTests : IDisposable
         var ebootPath = Path.Combine(_testDirectory, "EBOOT.BIN");
         File.WriteAllText(ebootPath, "fake");
 
-        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _debugLogger);
+        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _logger);
 
         Assert.NotNull(result);
         Assert.Equal(ebootPath, result);
@@ -404,7 +390,7 @@ public class FindGameFileTests : IDisposable
         var ebootPath = Path.Combine(usrDir, "EBOOT.BIN");
         File.WriteAllText(ebootPath, "fake");
 
-        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _debugLogger);
+        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _logger);
 
         Assert.NotNull(result);
         Assert.Equal(ebootPath, result);
@@ -418,7 +404,7 @@ public class FindGameFileTests : IDisposable
         var ebootPath = Path.Combine(nestedDir, "EBOOT.BIN");
         File.WriteAllText(ebootPath, "fake");
 
-        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _debugLogger);
+        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _logger);
 
         Assert.NotNull(result);
         Assert.Equal(ebootPath, result);
@@ -427,7 +413,7 @@ public class FindGameFileTests : IDisposable
     [Fact]
     public void FindEbootBinNotFoundReturnsNull()
     {
-        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _debugLogger);
+        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _logger);
         Assert.Null(result);
     }
 
@@ -441,7 +427,7 @@ public class FindGameFileTests : IDisposable
         Directory.CreateDirectory(nestedDir);
         File.WriteAllText(Path.Combine(nestedDir, "EBOOT.BIN"), "nested");
 
-        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _debugLogger);
+        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _logger);
 
         Assert.NotNull(result);
         Assert.Equal(topEboot, result);
@@ -460,7 +446,7 @@ public class FindGameFileTests : IDisposable
         Directory.CreateDirectory(deepDir);
         File.WriteAllText(Path.Combine(deepDir, "EBOOT.BIN"), "deep");
 
-        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _debugLogger);
+        var result = FindEbootBin.FindEbootBinRecursive(_testDirectory, _logErrors, _logger);
 
         Assert.NotNull(result);
         Assert.Equal(ps3Eboot, result);

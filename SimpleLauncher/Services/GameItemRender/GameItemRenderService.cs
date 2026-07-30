@@ -34,7 +34,7 @@ public class GameItemRenderService : IGameItemRenderService
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IRetroAchievementsHasherTool _raHasherTool;
     private readonly IContextMenuFunctions _contextMenuFunctions;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IContextMenuService _contextMenuService;
 
     private IGameItemRenderHost _host;
@@ -60,7 +60,7 @@ public class GameItemRenderService : IGameItemRenderService
         IMessageBoxLibraryService messageBox,
         IRetroAchievementsHasherTool raHasherTool,
         IContextMenuFunctions contextMenuFunctions,
-        IDebugLogger debugLogger,
+        ILogger logger,
         IContextMenuService contextMenuService)
     {
         _settings = settings;
@@ -78,7 +78,7 @@ public class GameItemRenderService : IGameItemRenderService
         _messageBox = messageBox;
         _raHasherTool = raHasherTool;
         _contextMenuFunctions = contextMenuFunctions;
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _contextMenuService = contextMenuService ?? throw new ArgumentNullException(nameof(contextMenuService));
     }
 
@@ -114,7 +114,7 @@ public class GameItemRenderService : IGameItemRenderService
             _messageBox,
             _raHasherTool,
             _contextMenuFunctions,
-            _debugLogger,
+            _logger,
             _contextMenuService);
 
         _gameListFactory = new GameListFactory(

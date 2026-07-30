@@ -39,7 +39,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
     private readonly IDisplaySystemInformation _displaySystemInformation;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IParameterResolverService _parameterResolverService;
 
     /// <summary>
@@ -63,7 +63,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         IMessageBoxLibraryService messageBox,
         QuitSimpleLauncher quitSimpleLauncher,
         IDisplaySystemInformation displaySystemInformation,
-        IDebugLogger debugLogger,
+        ILogger logger,
         IParameterResolverService parameterResolverService)
     {
         _settings = settings;
@@ -83,7 +83,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         _messageBox = messageBox;
         _quitSimpleLauncher = quitSimpleLauncher;
         _displaySystemInformation = displaySystemInformation;
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _parameterResolverService = parameterResolverService;
     }
 
@@ -339,7 +339,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
             _playSoundEffects.PlayNotificationSound();
             _updateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...");
 
-            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _logErrors, _helpUserService, _imageLoader, _messageBox, _quitSimpleLauncher, _debugLogger, _parameterResolverService, systemName)
+            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _logErrors, _helpUserService, _imageLoader, _messageBox, _quitSimpleLauncher, _logger, _parameterResolverService, systemName)
             {
                 Owner = Application.Current.MainWindow
             };

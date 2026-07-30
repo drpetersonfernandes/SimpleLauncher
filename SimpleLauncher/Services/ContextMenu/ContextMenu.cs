@@ -17,7 +17,7 @@ namespace SimpleLauncher.Services.ContextMenu;
 public class ContextMenuService : IContextMenuService
 {
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IRetroAchievementsHasherTool _raHasherTool;
 
@@ -25,13 +25,13 @@ public class ContextMenuService : IContextMenuService
     /// Initializes a new instance of the <see cref="ContextMenuService"/> class.
     /// </summary>
     /// <param name="logErrors">The service used to log errors.</param>
-    /// <param name="debugLogger">The logger used to record debug information.</param>
+    /// <param name="logger">The logger used to record debug information.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
     /// <param name="raHasherTool">The RetroAchievements hasher tool used to check system support.</param>
-    public ContextMenuService(ILogErrors logErrors, IDebugLogger debugLogger, IMessageBoxLibraryService messageBox, IRetroAchievementsHasherTool raHasherTool)
+    public ContextMenuService(ILogErrors logErrors, ILogger logger, IMessageBoxLibraryService messageBox, IRetroAchievementsHasherTool raHasherTool)
     {
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _messageBox = messageBox;
         _raHasherTool = raHasherTool;
     }
@@ -113,7 +113,7 @@ public class ContextMenuService : IContextMenuService
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "[CreateMenu] Error launching the game.");
-                _debugLogger.Log($"Error launching the game: {ex.Message}");
+                _logger.Debug($"Error launching the game: {ex.Message}");
             }
             finally
             {
@@ -251,7 +251,7 @@ public class ContextMenuService : IContextMenuService
                 catch (Exception ex)
                 {
                     _logErrors.LogAndForget(ex, "Error opening the RetroAchievements window.");
-                    _debugLogger.Log($"Error opening the RetroAchievements window: {ex.Message}");
+                    _logger.Debug($"Error opening the RetroAchievements window: {ex.Message}");
                 }
             };
         }
@@ -500,7 +500,7 @@ public class ContextMenuService : IContextMenuService
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Error taking the screenshot.");
-                _debugLogger.Log($"Error taking the screenshot: {ex.Message}");
+                _logger.Debug($"Error taking the screenshot: {ex.Message}");
             }
         };
 
@@ -552,7 +552,7 @@ public class ContextMenuService : IContextMenuService
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Error deleting the game.");
-                _debugLogger.Log($"Error deleting the game: {ex.Message}");
+                _logger.Debug($"Error deleting the game: {ex.Message}");
             }
         };
 
@@ -598,7 +598,7 @@ public class ContextMenuService : IContextMenuService
             catch (Exception ex)
             {
                 _logErrors.LogAndForget(ex, "Error deleting the cover image.");
-                _debugLogger.Log($"Error deleting the cover image: {ex.Message}");
+                _logger.Debug($"Error deleting the cover image: {ex.Message}");
             }
         };
 

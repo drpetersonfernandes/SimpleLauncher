@@ -24,7 +24,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     private readonly ILogErrors _logErrors;
     private readonly IServiceScope _scope;
     private readonly IMessageBoxLibraryService _messageBox;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly EasyModeManager _easyModeManager;
     private readonly IResourceProvider _resourceProvider;
     private EasyModeManager _manager;
@@ -39,11 +39,11 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     private string _loadingMessage;
     private bool _isSystemDropdownEnabled = true;
 
-    public DownloadImagePackViewModel(PlaySoundEffects playSoundEffects, ILogErrors logErrors, IDebugLogger debugLogger, EasyModeManager easyModeManager, IMessageBoxLibraryService messageBox, IServiceScopeFactory scopeFactory, IResourceProvider resourceProvider)
+    public DownloadImagePackViewModel(PlaySoundEffects playSoundEffects, ILogErrors logErrors, ILogger logger, EasyModeManager easyModeManager, IMessageBoxLibraryService messageBox, IServiceScopeFactory scopeFactory, IResourceProvider resourceProvider)
     {
         _playSoundEffects = playSoundEffects;
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _easyModeManager = easyModeManager;
         _messageBox = messageBox;
         _resourceProvider = resourceProvider;
@@ -547,7 +547,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
         IsLoading = false;
 
-        _debugLogger.Log("[Emergency] User forced overlay dismissal in DownloadImagePackWindow.");
+        _logger.Debug("[Emergency] User forced overlay dismissal in DownloadImagePackWindow.");
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 

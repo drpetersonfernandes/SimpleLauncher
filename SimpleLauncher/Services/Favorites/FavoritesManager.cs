@@ -135,7 +135,7 @@ public class FavoritesManager
                         }
                         catch (Exception fallbackEx)
                         {
-                            System.Diagnostics.Debug.WriteLine($"[FavoritesManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
+                            Serilog.Log.Debug($"[FavoritesManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
                         }
                     }
 
@@ -151,7 +151,7 @@ public class FavoritesManager
                         }
                         catch (Exception cleanupEx)
                         {
-                            System.Diagnostics.Debug.WriteLine($"[FavoritesManager] Temp file cleanup failed: {cleanupEx.Message}");
+                            Serilog.Log.Debug($"[FavoritesManager] Temp file cleanup failed: {cleanupEx.Message}");
                         }
 
                         Thread.Sleep(retryDelayMs);

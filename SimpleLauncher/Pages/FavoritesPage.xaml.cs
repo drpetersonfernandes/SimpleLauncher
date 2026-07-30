@@ -36,7 +36,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
     private readonly IContextMenuFunctions _contextMenuFunctions;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IContextMenuService _contextMenuService;
 
     internal FavoritesPage(
@@ -53,7 +53,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         IContextMenuFunctions contextMenuFunctions,
-        IDebugLogger debugLogger,
+        ILogger logger,
         IContextMenuService contextMenuService)
     {
         InitializeComponent();
@@ -69,7 +69,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         _machines = machines ?? throw new ArgumentNullException(nameof(machines));
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
         _contextMenuFunctions = contextMenuFunctions ?? throw new ArgumentNullException(nameof(contextMenuFunctions));
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _contextMenuService = contextMenuService ?? throw new ArgumentNullException(nameof(contextMenuService));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
@@ -416,7 +416,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         _playSoundEffects.PlayNotificationSound();
         LoadingOverlay.Visibility = Visibility.Collapsed;
 
-        _debugLogger.Log("[Emergency] User forced overlay dismissal in FavoritesPage.");
+        _logger.Debug("[Emergency] User forced overlay dismissal in FavoritesPage.");
         _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 

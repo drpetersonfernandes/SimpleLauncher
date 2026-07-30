@@ -13,15 +13,15 @@ public class DeleteFilesService : IDeleteFilesService
     private const int MaxDeleteRetries = 15;
     private const int DeleteRetryDelayMs = 1000;
 
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DeleteFilesService"/> class.
     /// </summary>
-    /// <param name="debugLogger">The logger used to record debug information.</param>
-    public DeleteFilesService(IDebugLogger debugLogger)
+    /// <param name="logger">The logger used to record debug information.</param>
+    public DeleteFilesService(ILogger logger)
     {
-        _debugLogger = debugLogger;
+        _logger = logger;
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ public class DeleteFilesService : IDeleteFilesService
             {
                 if (i == MaxDeleteRetries - 1)
                 {
-                    _debugLogger.Log($"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries: {ex.Message}");
+                    _logger.Debug($"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries: {ex.Message}");
                     return;
                 }
 
@@ -78,7 +78,7 @@ public class DeleteFilesService : IDeleteFilesService
 
                 if (i == MaxDeleteRetries - 1)
                 {
-                    _debugLogger.Log($"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions): {ex.Message}");
+                    _logger.Debug($"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions): {ex.Message}");
                     return;
                 }
 
@@ -86,7 +86,7 @@ public class DeleteFilesService : IDeleteFilesService
             }
             catch (Exception ex)
             {
-                _debugLogger.Log($"[DeleteFiles] Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}': {ex.Message}");
+                _logger.Debug($"[DeleteFiles] Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}': {ex.Message}");
                 return;
             }
         }
@@ -121,7 +121,7 @@ public class DeleteFilesService : IDeleteFilesService
             {
                 if (i == MaxDeleteRetries - 1)
                 {
-                    _debugLogger.Log($"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries: {ex.Message}");
+                    _logger.Debug($"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries: {ex.Message}");
                     return;
                 }
 
@@ -146,7 +146,7 @@ public class DeleteFilesService : IDeleteFilesService
 
                 if (i == MaxDeleteRetries - 1)
                 {
-                    _debugLogger.Log($"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions): {ex.Message}");
+                    _logger.Debug($"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions): {ex.Message}");
                     return;
                 }
 
@@ -154,7 +154,7 @@ public class DeleteFilesService : IDeleteFilesService
             }
             catch (Exception ex)
             {
-                _debugLogger.Log($"[DeleteFiles] Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}': {ex.Message}");
+                _logger.Debug($"[DeleteFiles] Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}': {ex.Message}");
                 return;
             }
         }
@@ -224,7 +224,7 @@ public class DeleteFilesService : IDeleteFilesService
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"[DeleteFiles] Failed to delete directory '{directoryPath}': {ex.Message}");
+            _logger.Debug($"[DeleteFiles] Failed to delete directory '{directoryPath}': {ex.Message}");
         }
     }
 }

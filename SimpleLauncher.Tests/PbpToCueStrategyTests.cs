@@ -1,4 +1,5 @@
 using Moq;
+using Serilog;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.GameLauncher.Strategies;
@@ -15,7 +16,7 @@ public class PbpToCueStrategyTests
     private static PbpToCueStrategy CreateStrategy()
     {
         var messageBoxMock = new Mock<IMessageBoxLibraryService>();
-        var debugLoggerMock = new Mock<IDebugLogger>();
+        var debugLoggerMock = new Mock<ILogger>();
         var discConverterMock = new Mock<IDiscConverter>();
 
         return new PbpToCueStrategy(

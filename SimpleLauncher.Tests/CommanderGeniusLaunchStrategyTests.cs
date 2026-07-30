@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Moq;
+using Serilog;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.GameLauncher.Strategies;
@@ -19,7 +20,7 @@ public class CommanderGeniusLaunchStrategyTests
         var logErrorsMock = new Mock<ILogErrors>();
         var updateStatusBarMock = new Mock<IUpdateStatusBar>();
         var messageBoxMock = new Mock<IMessageBoxLibraryService>();
-        var debugLoggerMock = new Mock<IDebugLogger>();
+        var debugLoggerMock = new Mock<ILogger>();
 
         return new CommanderGeniusLaunchStrategy(
             extractionServiceMock.Object,

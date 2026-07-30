@@ -13,11 +13,11 @@ public static class AzaharConfigurationService
     /// <param name="emulatorPath">Path to the Azahar executable.</param>
     /// <param name="settings">The settings manager containing Azahar configuration.</param>
     /// <param name="logErrors"></param>
-    /// <param name="debugLogger"></param>
+    /// <param name="logger"></param>
     /// <returns>True if injection was successful, false if it failed due to permissions but the game can still launch.</returns>
     /// <exception cref="InvalidOperationException">Thrown when emulator directory is not found.</exception>
     /// <exception cref="FileNotFoundException">Thrown when config file and sample are both missing.</exception>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir)) throw new InvalidOperationException("Emulator directory not found.");
@@ -27,9 +27,9 @@ public static class AzaharConfigurationService
         var configPath = Path.Combine(emuDir, "qt-config.ini");
 
         // Check if we have write access to the emulator directory
-        if (!IsDirectoryWritable(emuDir, debugLogger))
+        if (!IsDirectoryWritable(emuDir, logger))
         {
-            debugLogger.Log($"[AzaharConfig] Directory is not writable: {emuDir}");
+            logger.Debug($"[AzaharConfig] Directory is not writable: {emuDir}");
             throw new AzaharPermissionException($"Cannot write to emulator directory: {emuDir}");
         }
 
@@ -41,17 +41,17 @@ public static class AzaharConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[AzaharConfig] Created new qt-config.ini from sample: {configPath}");
+                    logger.Debug($"[AzaharConfig] Created new qt-config.ini from sample: {configPath}");
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    debugLogger.Log($"[AzaharConfig] Failed to create qt-config.ini from sample due to permissions: {ex.Message}");
+                    logger.Debug($"[AzaharConfig] Failed to create qt-config.ini from sample due to permissions: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[AzaharConfig] Failed to create qt-config.ini from sample: {ex.Message}");
                     throw new AzaharPermissionException($"Cannot write to emulator directory: {emuDir}", ex);
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[AzaharConfig] Failed to create qt-config.ini from sample: {ex.Message}");
+                    logger.Debug($"[AzaharConfig] Failed to create qt-config.ini from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[AzaharConfig] Failed to create qt-config.ini from sample: {ex.Message}");
                     throw;
                 }
@@ -97,13 +97,13 @@ public static class AzaharConfigurationService
         }
         catch (UnauthorizedAccessException ex)
         {
-            debugLogger.Log($"[AzaharConfig] Failed to read qt-config.ini due to permissions: {ex.Message}");
+            logger.Debug($"[AzaharConfig] Failed to read qt-config.ini due to permissions: {ex.Message}");
             logErrors.LogAndForget(ex, $"[AzaharConfig] Failed to read qt-config.ini: {ex.Message}");
             throw new AzaharPermissionException($"Cannot read configuration file: {configPath}", ex);
         }
         catch (IOException ex)
         {
-            debugLogger.Log($"[AzaharConfig] I/O error reading qt-config.ini: {configPath}");
+            logger.Debug($"[AzaharConfig] I/O error reading qt-config.ini: {configPath}");
             logErrors.LogAndForget(ex, $"[AzaharConfig] I/O error reading qt-config.ini: {configPath}");
             throw;
         }
@@ -193,17 +193,17 @@ public static class AzaharConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                debugLogger.Log("[AzaharConfig] Injected configuration changes..");
+                logger.Debug("[AzaharConfig] Injected configuration changes..");
             }
             catch (UnauthorizedAccessException ex)
             {
-                debugLogger.Log($"[AzaharConfig] Failed to inject configuration changes due to permissions: {ex.Message}");
+                logger.Debug($"[AzaharConfig] Failed to inject configuration changes due to permissions: {ex.Message}");
                 logErrors.LogAndForget(ex, $"[AzaharConfig] Failed to inject configuration changes: {ex.Message}");
                 throw new AzaharPermissionException($"Cannot write to configuration file: {configPath}", ex);
             }
             catch (Exception ex)
             {
-                debugLogger.Log($"[AzaharConfig] Failed to inject configuration changes: {ex.Message}");
+                logger.Debug($"[AzaharConfig] Failed to inject configuration changes: {ex.Message}");
                 logErrors.LogAndForget(ex, $"[AzaharConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
@@ -213,7 +213,7 @@ public static class AzaharConfigurationService
     /// <summary>
     /// Checks if a directory is writable by attempting to create a temporary file.
     /// </summary>
-    private static bool IsDirectoryWritable(string dirPath, IDebugLogger debugLogger)
+    private static bool IsDirectoryWritable(string dirPath, ILogger logger)
     {
         try
         {
@@ -228,7 +228,7 @@ public static class AzaharConfigurationService
         }
         catch (Exception ex)
         {
-            debugLogger.Log($"[AzaharConfig] Error checking directory writability: {ex.Message}");
+            logger.Debug($"[AzaharConfig] Error checking directory writability: {ex.Message}");
             return false;
         }
     }

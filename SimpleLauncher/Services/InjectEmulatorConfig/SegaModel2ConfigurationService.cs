@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class SegaModel2ConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -23,11 +23,11 @@ public static class SegaModel2ConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[SegaModel2Config] Created new EMULATOR.INI from sample: {configPath}");
+                    logger.Debug($"[SegaModel2Config] Created new EMULATOR.INI from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[SegaModel2Config] Failed to create EMULATOR.INI from sample: {ex.Message}");
+                    logger.Debug($"[SegaModel2Config] Failed to create EMULATOR.INI from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[SegaModel2Config] Failed to create EMULATOR.INI from sample: {ex.Message}");
                     throw;
                 }
@@ -38,7 +38,7 @@ public static class SegaModel2ConfigurationService
             }
         }
 
-        debugLogger.Log($"[SegaModel2Config] Injecting configuration into: {configPath}");
+        logger.Debug($"[SegaModel2Config] Injecting configuration into: {configPath}");
 
         var rendererUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
@@ -67,13 +67,13 @@ public static class SegaModel2ConfigurationService
         }
         catch (UnauthorizedAccessException ex)
         {
-            debugLogger.Log($"[SegaModel2Config] Access denied reading config: {configPath}");
+            logger.Debug($"[SegaModel2Config] Access denied reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[SegaModel2Config] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
-            debugLogger.Log($"[SegaModel2Config] I/O error reading config: {configPath}");
+            logger.Debug($"[SegaModel2Config] I/O error reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[SegaModel2Config] I/O error reading config: {configPath}");
             throw;
         }
@@ -186,18 +186,18 @@ public static class SegaModel2ConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                debugLogger.Log("[SegaModel2Config] Injected configuration changes.");
+                logger.Debug("[SegaModel2Config] Injected configuration changes.");
             }
             catch (Exception ex)
             {
-                debugLogger.Log($"[SegaModel2Config] Failed to inject configuration changes: {ex.Message}");
+                logger.Debug($"[SegaModel2Config] Failed to inject configuration changes: {ex.Message}");
                 logErrors.LogAndForget(ex, $"[SegaModel2Config] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }
         else
         {
-            debugLogger.Log("[SegaModel2Config] No changes needed.");
+            logger.Debug("[SegaModel2Config] No changes needed.");
         }
     }
 }

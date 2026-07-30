@@ -15,7 +15,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
 
@@ -35,11 +35,11 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     [ObservableProperty] private string _powerPcFrequency;
     [ObservableProperty] private bool _showBeforeLaunch;
 
-    public InjectSupermodelConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger)
+    public InjectSupermodelConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _messageBox = messageBox;
     }
 
@@ -170,7 +170,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
 
         try
         {
-            SupermodelConfigurationService.InjectSettings(path, _settings, _logErrors, _debugLogger);
+            SupermodelConfigurationService.InjectSettings(path, _settings, _logErrors, _logger);
             return true;
         }
         catch (InvalidOperationException ex)

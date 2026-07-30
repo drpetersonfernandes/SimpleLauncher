@@ -13,16 +13,16 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 public class YumirConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="YumirConfigHandler"/> class.
     /// </summary>
-    public YumirConfigHandler(ILogErrors logErrors, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
+    public YumirConfigHandler(ILogErrors logErrors, ILogger logger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _scopeFactory = scopeFactory;
     }
 
@@ -55,7 +55,7 @@ public class YumirConfigHandler : IEmulatorConfigHandler
             else
             {
                 shouldRun = true;
-                if (File.Exists(resolvedExe)) YumirConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
+                if (File.Exists(resolvedExe)) YumirConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _logger);
             }
 
             return shouldRun;

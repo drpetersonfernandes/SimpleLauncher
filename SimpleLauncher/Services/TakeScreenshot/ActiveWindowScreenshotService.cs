@@ -15,18 +15,18 @@ public partial class ActiveWindowScreenshotService
     [LibraryImport("user32.dll")]
     private static partial IntPtr GetForegroundWindow();
 
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly ILogErrors _logErrors;
     private readonly IPlaySoundEffects _playSoundEffects;
     private readonly IServiceProvider _serviceProvider;
 
     public ActiveWindowScreenshotService(
-        IDebugLogger debugLogger,
+        ILogger logger,
         ILogErrors logErrors,
         IPlaySoundEffects playSoundEffects,
         IServiceProvider serviceProvider)
     {
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
         _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
@@ -45,7 +45,7 @@ public partial class ActiveWindowScreenshotService
                 var hWnd = GetForegroundWindow();
                 if (hWnd == IntPtr.Zero)
                 {
-                    _debugLogger.Log("[ActiveWindowScreenshot] No foreground window found.");
+                    _logger.Debug("[ActiveWindowScreenshot] No foreground window found.");
                     return Task.CompletedTask;
                 }
 
@@ -55,7 +55,7 @@ public partial class ActiveWindowScreenshotService
                 {
                     if (!WindowScreenshot.GetWindowRect(hWnd, out rectangle))
                     {
-                        _debugLogger.Log("[ActiveWindowScreenshot] Failed to retrieve window dimensions.");
+                        _logger.Debug("[ActiveWindowScreenshot] Failed to retrieve window dimensions.");
                         return Task.CompletedTask;
                     }
                 }
@@ -69,7 +69,7 @@ public partial class ActiveWindowScreenshotService
 
                 if (width <= 0 || height <= 0)
                 {
-                    _debugLogger.Log("[ActiveWindowScreenshot] Cannot take a screenshot of a minimized or zero-size window.");
+                    _logger.Debug("[ActiveWindowScreenshot] Cannot take a screenshot of a minimized or zero-size window.");
                     return Task.CompletedTask;
                 }
 
@@ -92,7 +92,7 @@ public partial class ActiveWindowScreenshotService
                     bitmap.Save(screenshotPath, System.Drawing.Imaging.ImageFormat.Png);
                 }
 
-                _debugLogger.Log($"[ActiveWindowScreenshot] Screenshot saved: {screenshotPath}");
+                _logger.Debug($"[ActiveWindowScreenshot] Screenshot saved: {screenshotPath}");
 
                 PlaySoundAndFlash();
             }

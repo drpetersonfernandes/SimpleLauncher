@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class FlycastConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -23,11 +23,11 @@ public static class FlycastConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[FlycastConfig] Created new emu.cfg from sample: {configPath}");
+                    logger.Debug($"[FlycastConfig] Created new emu.cfg from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[FlycastConfig] Failed to create emu.cfg from sample: {ex.Message}");
+                    logger.Debug($"[FlycastConfig] Failed to create emu.cfg from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[FlycastConfig] Failed to create emu.cfg from sample: {ex.Message}");
                     throw;
                 }
@@ -38,7 +38,7 @@ public static class FlycastConfigurationService
             }
         }
 
-        debugLogger.Log($"[FlycastConfig] Injecting configuration into: {configPath}");
+        logger.Debug($"[FlycastConfig] Injecting configuration into: {configPath}");
 
         var windowUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
@@ -55,13 +55,13 @@ public static class FlycastConfigurationService
         }
         catch (UnauthorizedAccessException ex)
         {
-            debugLogger.Log($"[FlycastConfig] Access denied reading config: {configPath}");
+            logger.Debug($"[FlycastConfig] Access denied reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[FlycastConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
-            debugLogger.Log($"[FlycastConfig] I/O error reading config: {configPath}");
+            logger.Debug($"[FlycastConfig] I/O error reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[FlycastConfig] I/O error reading config: {configPath}");
             throw;
         }
@@ -132,18 +132,18 @@ public static class FlycastConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                debugLogger.Log("[FlycastConfig] Injected configuration changes..");
+                logger.Debug("[FlycastConfig] Injected configuration changes..");
             }
             catch (Exception ex)
             {
-                debugLogger.Log($"[FlycastConfig] Failed to inject configuration changes: {ex.Message}");
+                logger.Debug($"[FlycastConfig] Failed to inject configuration changes: {ex.Message}");
                 logErrors.LogAndForget(ex, $"[FlycastConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }
         else
         {
-            debugLogger.Log("[FlycastConfig] No changes needed.");
+            logger.Debug("[FlycastConfig] No changes needed.");
         }
     }
 }

@@ -11,7 +11,7 @@ public class GameCacheService : IGameCacheService, IDisposable
 {
     // ReSharper disable once NotAccessedField.Local
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly SemaphoreSlim _lock = new(1, 1);
     private List<string> _allGamesForCurrentSystem = [];
     private List<string> _currentSearchResults = [];
@@ -25,11 +25,11 @@ public class GameCacheService : IGameCacheService, IDisposable
     /// Initializes a new instance of <see cref="GameCacheService"/>.
     /// </summary>
     /// <param name="logErrors">Error logging service.</param>
-    /// <param name="debugLogger">Debug logging service.</param>
-    public GameCacheService(ILogErrors logErrors, IDebugLogger debugLogger)
+    /// <param name="logger">Debug logging service.</param>
+    public GameCacheService(ILogErrors logErrors, ILogger logger)
     {
         _logErrors = logErrors;
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     /// <summary>
@@ -91,7 +91,7 @@ public class GameCacheService : IGameCacheService, IDisposable
         {
             _allGamesForCurrentSystem = new List<string>(games);
             SelectedSystem = systemName;
-            _debugLogger.Log($"[GameCacheService] SetAllGames for '{systemName}'. Count: {games.Count}");
+            _logger.Debug($"[GameCacheService] SetAllGames for '{systemName}'. Count: {games.Count}");
         }
         finally
         {
@@ -147,11 +147,11 @@ public class GameCacheService : IGameCacheService, IDisposable
             if (_allGamesForCurrentSystem.Count > 0 &&
                 string.Equals(SelectedSystem, config.SystemName, StringComparison.OrdinalIgnoreCase))
             {
-                _debugLogger.Log($"[GameCacheService] Using cached list for '{config.SystemName}'. Count: {_allGamesForCurrentSystem.Count}");
+                _logger.Debug($"[GameCacheService] Using cached list for '{config.SystemName}'. Count: {_allGamesForCurrentSystem.Count}");
                 return;
             }
 
-            _debugLogger.Log($"[GameCacheService] Populating from disk for '{config.SystemName}'.");
+            _logger.Debug($"[GameCacheService] Populating from disk for '{config.SystemName}'.");
             var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
             foreach (var folder in config.SystemFolders)
@@ -172,7 +172,7 @@ public class GameCacheService : IGameCacheService, IDisposable
 
             _allGamesForCurrentSystem = uniqueFiles.Values.ToList();
             SelectedSystem = config.SystemName;
-            _debugLogger.Log($"[GameCacheService] Populated {_allGamesForCurrentSystem.Count} games.");
+            _logger.Debug($"[GameCacheService] Populated {_allGamesForCurrentSystem.Count} games.");
         }
         finally
         {
@@ -190,7 +190,7 @@ public class GameCacheService : IGameCacheService, IDisposable
         {
             _allGamesForCurrentSystem.Clear();
             _currentSearchResults.Clear();
-            _debugLogger.Log("[GameCacheService] All game file caches invalidated.");
+            _logger.Debug("[GameCacheService] All game file caches invalidated.");
         }
         finally
         {
@@ -219,7 +219,7 @@ public class GameCacheService : IGameCacheService, IDisposable
             }
             else
             {
-                _debugLogger?.Log("GameCacheService.ClearSync timed out waiting for lock after 5 seconds.");
+                _logger?.Debug("GameCacheService.ClearSync timed out waiting for lock after 5 seconds.");
             }
         }
         catch (ObjectDisposedException)

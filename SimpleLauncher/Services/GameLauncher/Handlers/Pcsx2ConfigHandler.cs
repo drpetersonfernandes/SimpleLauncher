@@ -13,17 +13,17 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 public class Pcsx2ConfigHandler : IEmulatorConfigHandler
 {
     private readonly ILogErrors _logErrors;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Pcsx2ConfigHandler"/> class.
     /// </summary>
-    public Pcsx2ConfigHandler(ILogErrors logErrors, IMessageBoxLibraryService messageBox, IDebugLogger debugLogger, IServiceScopeFactory scopeFactory)
+    public Pcsx2ConfigHandler(ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger, IServiceScopeFactory scopeFactory)
     {
         _logErrors = logErrors;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _messageBox = messageBox;
         _scopeFactory = scopeFactory;
     }
@@ -60,7 +60,7 @@ public class Pcsx2ConfigHandler : IEmulatorConfigHandler
             {
                 try
                 {
-                    Pcsx2ConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _debugLogger);
+                    Pcsx2ConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _logger);
                 }
                 catch (Pcsx2PermissionException)
                 {

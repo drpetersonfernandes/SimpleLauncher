@@ -1,3 +1,4 @@
+using Serilog;
 using SimpleLauncher.Services.GameCache;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
@@ -12,6 +13,7 @@ using Interfaces;
 public class GameCacheServiceTests : IDisposable
 {
     private readonly GameCacheService _cache;
+    private readonly ILogger _logger = Log.Logger;
 
     private sealed class NoOpLogErrors : ILogErrors
     {
@@ -21,25 +23,10 @@ public class GameCacheServiceTests : IDisposable
         }
     }
 
-    private sealed class NoOpDebugLogger : IDebugLogger
-    {
-        public void Log(string message)
-        {
-        }
-
-        public void LogException(Exception ex, string? contextMessage = null)
-        {
-        }
-
-        public void OpenDebugWindow()
-        {
-        }
-    }
-
     public GameCacheServiceTests()
     {
         ServiceProviderMock.Install();
-        _cache = new GameCacheService(new NoOpLogErrors(), new NoOpDebugLogger());
+        _cache = new GameCacheService(new NoOpLogErrors(), _logger);
     }
 
     public void Dispose()
@@ -273,7 +260,7 @@ public class GameCacheServiceTests : IDisposable
     [Fact]
     public void DisposeDoesNotThrow()
     {
-        var cache = new GameCacheService(new NoOpLogErrors(), new NoOpDebugLogger());
+        var cache = new GameCacheService(new NoOpLogErrors(), _logger);
         var exception = Record.Exception(cache.Dispose);
         Assert.Null(exception);
     }

@@ -1,3 +1,4 @@
+using Serilog;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.InjectEmulatorConfig;
@@ -73,7 +74,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     {
         var settings = CreateSettingsManager();
         Assert.ThrowsAny<Exception>(() =>
-            AresConfigurationService.InjectSettings("", settings, _logErrors, new NoOpDebugLogger()));
+            AresConfigurationService.InjectSettings("", settings, _logErrors, Log.Logger));
     }
 
     // --- DolphinConfigurationService Tests ---
@@ -83,7 +84,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     {
         var settings = CreateSettingsManager();
         Assert.ThrowsAny<Exception>(() =>
-            DolphinConfigurationService.InjectSettings("", settings, _logErrors, new NoOpDebugLogger()));
+            DolphinConfigurationService.InjectSettings("", settings, _logErrors, Log.Logger));
     }
 
     // --- FlycastConfigurationService Tests ---
@@ -93,7 +94,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     {
         var settings = CreateSettingsManager();
         Assert.ThrowsAny<Exception>(() =>
-            FlycastConfigurationService.InjectSettings("", settings, _logErrors, new NoOpDebugLogger()));
+            FlycastConfigurationService.InjectSettings("", settings, _logErrors, Log.Logger));
     }
 
     // --- MameConfigurationService Tests ---
@@ -103,7 +104,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     {
         var settings = CreateSettingsManager();
         Assert.ThrowsAny<Exception>(() =>
-            MameConfigurationService.InjectSettings("", settings, _logErrors, new NoOpDebugLogger()));
+            MameConfigurationService.InjectSettings("", settings, _logErrors, Log.Logger));
     }
 
     // --- CemuConfigurationService Tests ---
@@ -113,7 +114,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     {
         var settings = CreateSettingsManager();
         Assert.ThrowsAny<Exception>(() =>
-            CemuConfigurationService.InjectSettings("", settings, _logErrors, new NoOpDebugLogger()));
+            CemuConfigurationService.InjectSettings("", settings, _logErrors, Log.Logger));
     }
 
     // --- AzaharConfigurationService Tests ---
@@ -123,7 +124,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     {
         var settings = CreateSettingsManager();
         Assert.ThrowsAny<Exception>(() =>
-            AzaharConfigurationService.InjectSettings("", settings, _logErrors, new NoOpDebugLogger()));
+            AzaharConfigurationService.InjectSettings("", settings, _logErrors, Log.Logger));
     }
 
     // --- RaineConfigurationService Tests ---
@@ -133,7 +134,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     {
         var settings = CreateSettingsManager();
         Assert.ThrowsAny<Exception>(() =>
-            RaineConfigurationService.InjectSettings("", settings, _logErrors, new NoOpDebugLogger()));
+            RaineConfigurationService.InjectSettings("", settings, _logErrors, Log.Logger));
     }
 
     // --- SupermodelConfigurationService Tests ---
@@ -143,7 +144,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     {
         var settings = CreateSettingsManager();
         Assert.ThrowsAny<Exception>(() =>
-            SupermodelConfigurationService.InjectSettings("", settings, _logErrors, new NoOpDebugLogger()));
+            SupermodelConfigurationService.InjectSettings("", settings, _logErrors, Log.Logger));
     }
 
     // --- SegaModel2ConfigurationService Tests ---
@@ -153,7 +154,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     {
         var settings = CreateSettingsManager();
         Assert.ThrowsAny<Exception>(() =>
-            SegaModel2ConfigurationService.InjectSettings("", settings, _logErrors, new NoOpDebugLogger()));
+            SegaModel2ConfigurationService.InjectSettings("", settings, _logErrors, Log.Logger));
     }
 
     // --- YumirConfigurationService Tests ---
@@ -163,7 +164,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     {
         var settings = CreateSettingsManager();
         Assert.ThrowsAny<Exception>(() =>
-            YumirConfigurationService.InjectSettings("", settings, _logErrors, new NoOpDebugLogger()));
+            YumirConfigurationService.InjectSettings("", settings, _logErrors, Log.Logger));
     }
 
     // --- EmulatorPathResolver Tests ---

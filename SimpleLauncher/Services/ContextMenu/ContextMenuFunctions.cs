@@ -31,15 +31,15 @@ namespace SimpleLauncher.Services.ContextMenu;
 /// </summary>
 public class ContextMenuFunctions : IContextMenuFunctions
 {
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ContextMenuFunctions"/> class.
     /// </summary>
-    /// <param name="debugLogger">The logger used to record debug information.</param>
-    public ContextMenuFunctions(IDebugLogger debugLogger)
+    /// <param name="logger">The logger used to record debug information.</param>
+    public ContextMenuFunctions(ILogger logger)
     {
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     /// <summary>
@@ -355,17 +355,17 @@ public class ContextMenuFunctions : IContextMenuFunctions
 
             var raManager = App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
 
-            var debugLogger = App.ServiceProvider.GetRequiredService<IDebugLogger>();
-            debugLogger.Log($"[RA Service] Original system name: {systemManager.SystemName}");
+            var logger = Log.Logger;
+            logger.Debug($"[RA Service] Original system name: {systemManager.SystemName}");
             var systemMatcher = App.ServiceProvider.GetRequiredService<IRetroAchievementsSystemMatcher>();
             var systemName = systemMatcher.GetBestMatchSystemName(systemManager.SystemName);
-            debugLogger.Log($"[RA Service] Resolved system name: {systemName}");
+            logger.Debug($"[RA Service] Resolved system name: {systemName}");
 
             // Check if system is supported for RetroAchievements
             var raHasherTool = App.ServiceProvider.GetRequiredService<IRetroAchievementsHasherTool>();
             if (!raHasherTool.IsSystemSupportedForHashing(systemManager.SystemName))
             {
-                _debugLogger.Log($"[RA Service] System '{systemManager.SystemName}' is not supported for RetroAchievements.");
+                _logger.Debug($"[RA Service] System '{systemManager.SystemName}' is not supported for RetroAchievements.");
 
                 var messageBoxResult = await messageBox.GameNotSupportedByRetroAchievementsMessageBoxAsync();
                 if (messageBoxResult == CoreMessageBoxResult.Yes)
@@ -392,14 +392,14 @@ public class ContextMenuFunctions : IContextMenuFunctions
             if (systemManager.GroupByFolder)
             {
                 await messageBox.SimpleLauncherDoesNotSupportRaHashOfSystemGroupedByFolderMessageBoxAsync();
-                _debugLogger.Log("[RA Service] 'Simple Launcher' does not support RetroAchievements hash of systems Grouped by Folder.");
-                _debugLogger.Log("[RA Service] Please edit the system settings and disable the 'Group Files by Folder' option.");
+                _logger.Debug("[RA Service] 'Simple Launcher' does not support RetroAchievements hash of systems Grouped by Folder.");
+                _logger.Debug("[RA Service] Please edit the system settings and disable the 'Group Files by Folder' option.");
                 return;
             }
 
             if (!File.Exists(filePath))
             {
-                _debugLogger.Log($"[RA Service] File not found at {filePath}");
+                _logger.Debug($"[RA Service] File not found at {filePath}");
                 logErrors.LogAndForget(null, $"[RA Service] File not found at {filePath}");
 
                 await messageBox.CouldNotFindAFileMessageBoxAsync();
@@ -414,7 +414,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
 
             if (string.IsNullOrEmpty(fileNameWithoutExtension))
             {
-                _debugLogger.Log("[RA Service] FileNameWithoutExtension is null or empty.");
+                _logger.Debug("[RA Service] FileNameWithoutExtension is null or empty.");
                 logErrors.LogAndForget(null, "[RA Service] FileNameWithoutExtension is null or empty.");
                 await messageBox.ErrorMessageBoxAsync();
 
@@ -428,7 +428,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
 
             if (string.IsNullOrWhiteSpace(systemName))
             {
-                _debugLogger.Log("[RA Service] SystemName is null or empty.");
+                _logger.Debug("[RA Service] SystemName is null or empty.");
                 logErrors.LogAndForget(null, "[RA Service] SystemName is null or empty.");
 
                 var messageBoxResult = await messageBox.GameNotSupportedByRetroAchievementsMessageBoxAsync();
@@ -469,7 +469,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
 
             if (raHashResult.ExtractionErrorMessage == "System selection cancelled by user.")
             {
-                _debugLogger.Log("[RA Service] User cancelled RetroAchievements hashing.");
+                _logger.Debug("[RA Service] User cancelled RetroAchievements hashing.");
                 return;
             }
 
@@ -484,7 +484,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             // Prioritize checking if a hash was successfully obtained.
             if (string.IsNullOrEmpty(hash))
             {
-                _debugLogger.Log($"[RA Service] Failed to get hash for '{fileNameWithoutExtension}' (System: {systemName}). Reason: {raHashResult.ExtractionErrorMessage}");
+                _logger.Debug($"[RA Service] Failed to get hash for '{fileNameWithoutExtension}' (System: {systemName}). Reason: {raHashResult.ExtractionErrorMessage}");
 
                 // Check if the failure was due to "system not supported"
                 if (raHashResult.ExtractionErrorMessage?.Contains("not supported for RetroAchievements hashing", StringComparison.OrdinalIgnoreCase) == true)
@@ -542,7 +542,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             }
 
             // If we reach here, a hash was successfully obtained. Proceed with lookup.
-            _debugLogger.Log($"[RA Service] Successfully obtained hash: {hash}");
+            _logger.Debug($"[RA Service] Successfully obtained hash: {hash}");
 
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -554,7 +554,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
 
             if (matchedGame != null)
             {
-                _debugLogger.Log($"[RA Service] Found match for hash: {hash} -> {matchedGame.Title} (ID: {matchedGame.Id})");
+                _logger.Debug($"[RA Service] Found match for hash: {hash} -> {matchedGame.Title} (ID: {matchedGame.Id})");
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
@@ -572,7 +572,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             }
             else
             {
-                _debugLogger.Log($"[RA Service] No match found for hash: {hash}");
+                _logger.Debug($"[RA Service] No match found for hash: {hash}");
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
@@ -596,7 +596,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
         catch (Exception ex)
         {
             logErrors.LogAndForget(ex, $"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
-            _debugLogger.Log($"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
+            _logger.Debug($"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
             await messageBox.CouldNotOpenAchievementsWindowMessageBoxAsync();
         }
         finally
@@ -608,7 +608,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             if (!string.IsNullOrEmpty(tempExtractionPath))
             {
                 await CleanTempFolder.CleanupTempDirectoryAsync(tempExtractionPath);
-                _debugLogger.Log($"[RA Service] Cleaned up temporary extraction folder: {tempExtractionPath}");
+                _logger.Debug($"[RA Service] Cleaned up temporary extraction folder: {tempExtractionPath}");
             }
         }
     }
@@ -1045,7 +1045,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             // Capture initial window count before launch
             var initialWindows = WindowManager.GetOpenWindows();
             var initialCount = initialWindows.Count;
-            _debugLogger.Log($"[Screenshot] Initial window count: {initialCount}");
+            _logger.Debug($"[Screenshot] Initial window count: {initialCount}");
 
             // Launch game
             _ = gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, WpfWindowContext.FromMainWindow(mainWindow), gamePadController, loadingStateProvider);
@@ -1067,7 +1067,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
                 if (currentWindows.Count > initialCount)
                 {
                     // New window(s) appeared - assume game/emulator launched
-                    _debugLogger.Log($"[Screenshot] New window detected. Current count: {currentWindows.Count} (initial: {initialCount})");
+                    _logger.Debug($"[Screenshot] New window detected. Current count: {currentWindows.Count} (initial: {initialCount})");
                     newWindowDetected = true;
                     break;
                 }
@@ -1075,7 +1075,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
                 // Optional: Log progress every few polls
                 if (stopwatch.Elapsed.TotalSeconds % 5 < pollInterval.TotalMilliseconds / 1000.0)
                 {
-                    _debugLogger.Log($"[Screenshot] Polling... Elapsed: {stopwatch.Elapsed.TotalSeconds:F1}s / {maxWaitTime.TotalSeconds}s");
+                    _logger.Debug($"[Screenshot] Polling... Elapsed: {stopwatch.Elapsed.TotalSeconds:F1}s / {maxWaitTime.TotalSeconds}s");
                 }
             }
 
@@ -1084,7 +1084,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             if (!newWindowDetected)
             {
                 // Timeout - no new windows appeared
-                _debugLogger.Log($"[Screenshot] Timeout after {stopwatch.Elapsed.TotalSeconds:F1}s. No new windows detected.");
+                _logger.Debug($"[Screenshot] Timeout after {stopwatch.Elapsed.TotalSeconds:F1}s. No new windows detected.");
                 await messageBox.GameLaunchTimeoutMessageBoxAsync();
                 return;
             }
@@ -1129,7 +1129,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
                 {
                     // Notify the user that they can't screenshot a minimized window.
                     await messageBox.CannotScreenshotMinimizedWindowMessageBoxAsync();
-                    _debugLogger.Log("Cannot take a screenshot of a minimized window.");
+                    _logger.Debug("Cannot take a screenshot of a minimized window.");
 
                     return; // Exit the method gracefully
                 }

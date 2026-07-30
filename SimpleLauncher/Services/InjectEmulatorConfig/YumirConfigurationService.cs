@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class YumirConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -23,11 +23,11 @@ public static class YumirConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[YumirConfig] Created new Ymir.toml from sample: {configPath}");
+                    logger.Debug($"[YumirConfig] Created new Ymir.toml from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[YumirConfig] Failed to create Ymir.toml from sample: {ex.Message}");
+                    logger.Debug($"[YumirConfig] Failed to create Ymir.toml from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[YumirConfig] Failed to create Ymir.toml from sample: {ex.Message}");
                     throw;
                 }
@@ -38,7 +38,7 @@ public static class YumirConfigurationService
             }
         }
 
-        debugLogger.Log($"[YumirConfig] Injecting configuration into: {configPath}");
+        logger.Debug($"[YumirConfig] Injecting configuration into: {configPath}");
 
         var tomlContent = File.ReadAllText(configPath);
         var model = TomlSerializer.Deserialize<TomlTable>(tomlContent) ?? new TomlTable();
@@ -68,11 +68,11 @@ public static class YumirConfigurationService
         try
         {
             File.WriteAllText(configPath, updatedToml);
-            debugLogger.Log("[YumirConfig] Injected configuration changes.");
+            logger.Debug("[YumirConfig] Injected configuration changes.");
         }
         catch (Exception ex)
         {
-            debugLogger.Log($"[YumirConfig] Failed to inject configuration changes: {ex.Message}");
+            logger.Debug($"[YumirConfig] Failed to inject configuration changes: {ex.Message}");
             logErrors.LogAndForget(ex, $"[YumirConfig] Failed to inject configuration changes: {ex.Message}");
             throw;
         }

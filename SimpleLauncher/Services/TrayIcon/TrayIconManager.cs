@@ -6,9 +6,6 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.TrayIcon;
 
-/// <summary>
-/// Manages the system tray icon, its context menu, and associated actions (open, minimize, exit, debug window).
-/// </summary>
 public class TrayIconManager : IDisposable
 {
     private static TrayIconManager _instance;
@@ -17,7 +14,7 @@ public class TrayIconManager : IDisposable
     private readonly Window _mainWindow;
     private readonly ILogErrors _logErrors;
     private readonly IApplicationLifetime _applicationLifetime;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
 
     private readonly RoutedEventHandler _onOpenHandler;
     private readonly RoutedEventHandler _onMinimizeToTrayHandler;
@@ -25,31 +22,22 @@ public class TrayIconManager : IDisposable
     private readonly RoutedEventHandler _onOpenDebugWindowHandler;
     private readonly RoutedEventHandler _trayMouseDoubleClickHandler;
 
-    /// <summary>
-    /// Initializes a new instance of the TrayIconManager, creating the tray icon and context menu.
-    /// </summary>
-    public TrayIconManager(Window mainWindow, ILogErrors logErrors, IApplicationLifetime applicationLifetime, IDebugLogger debugLogger)
+    public TrayIconManager(Window mainWindow, ILogErrors logErrors, IApplicationLifetime applicationLifetime, ILogger logger)
     {
         _instance = this;
         _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _applicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-        // Initialize delegates with correct types
         _onOpenHandler = OnOpen;
         _onMinimizeToTrayHandler = OnMinimizeToTray;
         _onExitHandler = OnExit;
         _onOpenDebugWindowHandler = OnOpenDebugWindow;
         _trayMouseDoubleClickHandler = OnOpen;
 
-        // Create context menu
         _trayMenu = CreateContextMenu();
-
-        // Create and setup TaskbarIcon
         _taskbarIcon = CreateTaskbarIcon();
-
-        // Subscribe to events using stored delegates
         _taskbarIcon.TrayMouseDoubleClick += _trayMouseDoubleClickHandler;
     }
 
@@ -147,13 +135,11 @@ public class TrayIconManager : IDisposable
     {
         try
         {
-            _debugLogger.OpenDebugWindow();
+            DebugWindow.ShowDebugWindow();
         }
         catch (Exception ex)
         {
-            // Notify developer
             _logErrors.LogAndForget(ex, "Failed to open debug window from tray menu");
-
             ShowTrayMessage("Failed to open debug window");
         }
     }
@@ -164,13 +150,11 @@ public class TrayIconManager : IDisposable
         _applicationLifetime.Shutdown();
     }
 
-    /// <summary>Displays a balloon notification in the system tray.</summary>
     public static void ShowTrayMessage(string message)
     {
         _instance?._taskbarIcon.ShowBalloonTip("Simple Launcher", message, BalloonIcon.Info);
     }
 
-    /// <summary>Releases resources used by the TrayIconManager, removing the tray icon and unsubscribing events.</summary>
     public void Dispose()
     {
         if (_taskbarIcon != null)

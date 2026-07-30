@@ -18,7 +18,7 @@ public static class AskAiToFixParameters
         ILogErrors logErrors,
         IConfiguration configuration,
         IServiceProvider serviceProvider,
-        IDebugLogger debugLogger)
+        ILogger logger)
     {
         try
         {
@@ -29,7 +29,7 @@ public static class AskAiToFixParameters
             if (!wantAiHelp)
                 return;
 
-            debugLogger.Log("[AskAiToFixParameters] User accepted AI parameter suggestion.");
+            logger.Debug("[AskAiToFixParameters] User accepted AI parameter suggestion.");
 
             var loadingOverlayService = serviceProvider.GetRequiredService<LoadingOverlayService>();
             var loadingMessage = (string)Application.Current.TryFindResource("ParameterResolverLoading") ?? "Resolving parameters, please wait...";
@@ -54,7 +54,7 @@ public static class AskAiToFixParameters
                 var result = await parameterResolverService.ResolveParametersAsync(request);
                 if (result == null)
                 {
-                    debugLogger.Log("[AskAiToFixParameters] ParameterResolver API returned null.");
+                    logger.Debug("[AskAiToFixParameters] ParameterResolver API returned null.");
                     return;
                 }
 
@@ -84,7 +84,7 @@ public static class AskAiToFixParameters
                 var applyResult = await messageBoxLibrary.CustomQuestionMessageBoxAsync(aiSuggestionTitle, dialogMessage);
                 if (!applyResult)
                 {
-                    debugLogger.Log("[AskAiToFixParameters] User declined to apply AI suggestion.");
+                    logger.Debug("[AskAiToFixParameters] User declined to apply AI suggestion.");
                     return;
                 }
 
@@ -134,7 +134,7 @@ public static class AskAiToFixParameters
                 systemSelectionOrchestrator.LoadOrReloadSystemManager();
                 await systemSelectionOrchestrator.SystemComboBoxSelectionChangedAsync();
 
-                debugLogger.Log($"[AskAiToFixParameters] Parameter updated for emulator '{emulatorManager.EmulatorName}' in system '{systemManager.SystemName}'.");
+                logger.Debug($"[AskAiToFixParameters] Parameter updated for emulator '{emulatorManager.EmulatorName}' in system '{systemManager.SystemName}'.");
 
                 var appliedMessage = (string)Application.Current.TryFindResource("AiSuggestedParameterApplied") ?? "The parameter has been updated. Please try launching the game again.";
                 await messageBoxLibrary.CustomInfoMessageBoxAsync(aiSuggestionTitle, appliedMessage);
@@ -147,7 +147,7 @@ public static class AskAiToFixParameters
         catch (Exception ex)
         {
             logErrors.LogAndForget(ex, "Error in AskAiToFixParameters.");
-            debugLogger.Log($"[AskAiToFixParameters] Error: {ex.Message}");
+            logger.Debug($"[AskAiToFixParameters] Error: {ex.Message}");
         }
     }
 }

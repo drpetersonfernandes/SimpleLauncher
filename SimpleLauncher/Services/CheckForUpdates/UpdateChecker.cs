@@ -20,7 +20,7 @@ public partial class UpdateChecker
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IResourceProvider _resourceProvider;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
     private readonly IServiceProvider _serviceProvider;
 
@@ -39,14 +39,14 @@ public partial class UpdateChecker
         }
     }
 
-    public UpdateChecker(IHttpClientFactory httpClientFactory, ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider, IDebugLogger debugLogger, QuitSimpleLauncher quitSimpleLauncher, IServiceProvider serviceProvider)
+    public UpdateChecker(IHttpClientFactory httpClientFactory, ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider, ILogger logger, QuitSimpleLauncher quitSimpleLauncher, IServiceProvider serviceProvider)
     {
         ArgumentNullException.ThrowIfNull(httpClientFactory);
         _httpClient = httpClientFactory.CreateClient("UpdateCheckerClient");
         _logErrors = logErrors;
         _messageBoxLibrary = messageBoxLibrary;
         _resourceProvider = resourceProvider;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _quitSimpleLauncher = quitSimpleLauncher;
         _serviceProvider = serviceProvider;
     }
@@ -88,7 +88,7 @@ public partial class UpdateChecker
                 var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
                 if (response.IsSuccessStatusCode)
                 {
-                    _debugLogger.Log("Check for Updates Success");
+                    _logger.Debug("Check for Updates Success");
 
                     var content = await response.Content.ReadAsStringAsync();
                     var (latestVersion, releasePackageUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
@@ -113,11 +113,11 @@ public partial class UpdateChecker
         }
         catch (TaskCanceledException)
         {
-            _debugLogger.Log("Silent update check canceled (network timeout or user canceled).");
+            _logger.Debug("Silent update check canceled (network timeout or user canceled).");
         }
         catch (OperationCanceledException)
         {
-            _debugLogger.Log("Silent update check canceled.");
+            _logger.Debug("Silent update check canceled.");
         }
         catch (Exception ex)
         {
@@ -144,7 +144,7 @@ public partial class UpdateChecker
                 var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
                 if (response.IsSuccessStatusCode)
                 {
-                    _debugLogger.Log("Check for Updates Success");
+                    _logger.Debug("Check for Updates Success");
 
                     var content = await response.Content.ReadAsStringAsync();
                     var (latestVersion, releasePackageAssetUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
@@ -487,7 +487,7 @@ public partial class UpdateChecker
             var expectedReleaseFileName = $"release_{rawVersionStringFromTag}_{runtimeIdentifier}.zip";
             var expectedUpdaterFileName = $"updater_{runtimeIdentifier}.zip";
 
-            _debugLogger.Log($"Searching for assets: '{expectedReleaseFileName}' and '{expectedUpdaterFileName}'");
+            _logger.Debug($"Searching for assets: '{expectedReleaseFileName}' and '{expectedUpdaterFileName}'");
 
             if (root.TryGetProperty("assets", out var assetsElement) && assetsElement.ValueKind == JsonValueKind.Array)
             {

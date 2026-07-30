@@ -21,7 +21,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMountChdFiles _mountChdFiles;
     private readonly IMountIsoFiles _mountIsoFiles;
-    private static IDebugLogger _debugLogger;
+    private static ILogger _logger;
 
     private static readonly string[] PriorityGameFormats = [".conf", ".bat", ".exe", ".com"];
     private static readonly List<string> ExtractionFormats = ["conf", "bat", "exe", "com"];
@@ -29,7 +29,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
     /// <summary>
     /// Initializes a new instance of the <see cref="DosBoxLaunchStrategy"/> class.
     /// </summary>
-    public DosBoxLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IMountChdFiles mountChdFiles, IMountIsoFiles mountIsoFiles, IDebugLogger debugLogger)
+    public DosBoxLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IMountChdFiles mountChdFiles, IMountIsoFiles mountIsoFiles, ILogger logger)
     {
         _extractionService = extractionService;
         _configuration = configuration;
@@ -37,7 +37,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         _messageBox = messageBox;
         _mountChdFiles = mountChdFiles;
         _mountIsoFiles = mountIsoFiles;
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     /// <inheritdoc />
@@ -90,7 +90,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
 
                             if (string.IsNullOrEmpty(extractedDir) || !Directory.Exists(extractedDir))
                             {
-                                _debugLogger.Log("[DosBoxLaunchStrategy] Extraction failed or temp directory not created.");
+                                _logger.Debug("[DosBoxLaunchStrategy] Extraction failed or temp directory not created.");
                                 return;
                             }
 
@@ -101,7 +101,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                         var gameFiles = FindAllGameFiles(workingDir);
                         if (gameFiles.Count == 0)
                         {
-                            _debugLogger.Log($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found in {workingDir}");
+                            _logger.Debug($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found in {workingDir}");
                             await _logErrors.LogErrorAsync(null, $"No DOS game executable found in: {context.ResolvedFilePath}");
                             await _messageBox.CouldNotFindAFileMessageBoxAsync();
                             return;
@@ -111,7 +111,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                         if (gameFiles.Count == 1)
                         {
                             selectedFile = gameFiles[0];
-                            _debugLogger.Log($"[DosBoxLaunchStrategy] Single game file found, auto-selecting: {selectedFile}");
+                            _logger.Debug($"[DosBoxLaunchStrategy] Single game file found, auto-selecting: {selectedFile}");
                         }
                         else
                         {
@@ -121,12 +121,12 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
 
                             if (result != true || string.IsNullOrEmpty(dialog.SelectedFilePath))
                             {
-                                _debugLogger.Log("[DosBoxLaunchStrategy] User cancelled file selection.");
+                                _logger.Debug("[DosBoxLaunchStrategy] User cancelled file selection.");
                                 return;
                             }
 
                             selectedFile = dialog.SelectedFilePath;
-                            _debugLogger.Log($"[DosBoxLaunchStrategy] User selected file: {selectedFile}");
+                            _logger.Debug($"[DosBoxLaunchStrategy] User selected file: {selectedFile}");
                         }
 
                         string confPath;
@@ -197,11 +197,11 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             }
             catch (Exception ex)
             {
-                _debugLogger.Log($"[DosBoxLaunchStrategy] Error searching for *{format}: {ex.Message}");
+                _logger.Debug($"[DosBoxLaunchStrategy] Error searching for *{format}: {ex.Message}");
             }
         }
 
-        _debugLogger.Log($"[DosBoxLaunchStrategy] Found {foundFiles.Count} game file(s) in {directory}");
+        _logger.Debug($"[DosBoxLaunchStrategy] Found {foundFiles.Count} game file(s) in {directory}");
         return foundFiles;
     }
 
@@ -243,7 +243,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         }
 
         File.WriteAllText(confPath, confContent, Encoding.ASCII);
-        _debugLogger.Log($"[DosBoxLaunchStrategy] Generated conf file: {confPath}");
+        _logger.Debug($"[DosBoxLaunchStrategy] Generated conf file: {confPath}");
 
         return confPath;
     }
@@ -259,17 +259,17 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             var driveLetter = await _mountIsoFiles.ExecutePowerShellMountCommandAsync(context.ResolvedFilePath, _logErrors, _messageBox);
             if (string.IsNullOrEmpty(driveLetter))
             {
-                _debugLogger.Log("[DosBoxLaunchStrategy] Failed to mount ISO via PowerShell.");
+                _logger.Debug("[DosBoxLaunchStrategy] Failed to mount ISO via PowerShell.");
                 await _messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
                 return;
             }
 
             mountPath = $"{driveLetter}:\\";
-            _debugLogger.Log($"[DosBoxLaunchStrategy] ISO mounted to {mountPath} for scanning");
+            _logger.Debug($"[DosBoxLaunchStrategy] ISO mounted to {mountPath} for scanning");
 
             if (!await _mountIsoFiles.WaitForDirectoryToExistAsync(mountPath, 10000, 200, _logErrors))
             {
-                _debugLogger.Log($"[DosBoxLaunchStrategy] Mount path {mountPath} did not become available.");
+                _logger.Debug($"[DosBoxLaunchStrategy] Mount path {mountPath} did not become available.");
                 await _messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
                 return;
             }
@@ -278,13 +278,13 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             switch (gameFiles.Count)
             {
                 case 0:
-                    _debugLogger.Log($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found on mounted ISO at {mountPath}");
+                    _logger.Debug($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found on mounted ISO at {mountPath}");
                     await _logErrors.LogErrorAsync(null, $"No DOS game executable found in ISO: {context.ResolvedFilePath}");
                     await _messageBox.CouldNotFindAFileMessageBoxAsync();
                     return;
                 case 1:
                     selectedFile = gameFiles[0];
-                    _debugLogger.Log($"[DosBoxLaunchStrategy] Single game file found on ISO, auto-selecting: {selectedFile}");
+                    _logger.Debug($"[DosBoxLaunchStrategy] Single game file found on ISO, auto-selecting: {selectedFile}");
                     break;
                 default:
                     {
@@ -294,12 +294,12 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
 
                         if (result != true || string.IsNullOrEmpty(dialog.SelectedFilePath))
                         {
-                            _debugLogger.Log("[DosBoxLaunchStrategy] User cancelled file selection for ISO.");
+                            _logger.Debug("[DosBoxLaunchStrategy] User cancelled file selection for ISO.");
                             return;
                         }
 
                         selectedFile = dialog.SelectedFilePath;
-                        _debugLogger.Log($"[DosBoxLaunchStrategy] User selected file from ISO: {selectedFile}");
+                        _logger.Debug($"[DosBoxLaunchStrategy] User selected file from ISO: {selectedFile}");
                         break;
                     }
             }
@@ -315,7 +315,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             // 2. Dismount PowerShell ISO — no longer needed after scanning
             if (!string.IsNullOrEmpty(context.ResolvedFilePath))
             {
-                _debugLogger.Log($"[DosBoxLaunchStrategy] Dismounting PowerShell ISO mount after scanning: {context.ResolvedFilePath}");
+                _logger.Debug($"[DosBoxLaunchStrategy] Dismounting PowerShell ISO mount after scanning: {context.ResolvedFilePath}");
                 await _mountIsoFiles.ExecutePowerShellDismountCommandAsync(context.ResolvedFilePath, _logErrors, _messageBox);
             }
         }
@@ -375,7 +375,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         }
 
         File.WriteAllText(confPath, confContent, Encoding.ASCII);
-        _debugLogger.Log($"[DosBoxLaunchStrategy] Generated ISO conf file: {confPath}");
+        _logger.Debug($"[DosBoxLaunchStrategy] Generated ISO conf file: {confPath}");
 
         return confPath;
     }
@@ -403,17 +403,17 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
 
             if (!mountedDrive.IsMounted)
             {
-                _debugLogger.Log("[DosBoxLaunchStrategy] Failed to mount CHD via CHDMounter.");
+                _logger.Debug("[DosBoxLaunchStrategy] Failed to mount CHD via CHDMounter.");
                 return;
             }
 
             var mountPath = mountedDrive.MountedPath;
-            _debugLogger.Log($"[DosBoxLaunchStrategy] CHD mounted at {mountPath} via CHDMounter");
+            _logger.Debug($"[DosBoxLaunchStrategy] CHD mounted at {mountPath} via CHDMounter");
 
             var gameFiles = FindAllGameFiles(mountPath);
             if (gameFiles.Count == 0)
             {
-                _debugLogger.Log($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found on mounted CHD at {mountPath}");
+                _logger.Debug($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found on mounted CHD at {mountPath}");
                 await _logErrors.LogErrorAsync(null, $"No DOS game executable found in CHD: {context.ResolvedFilePath}");
                 await _messageBox.CouldNotFindAFileMessageBoxAsync();
                 return;
@@ -423,7 +423,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             if (gameFiles.Count == 1)
             {
                 selectedFile = gameFiles[0];
-                _debugLogger.Log($"[DosBoxLaunchStrategy] Single game file found on CHD, auto-selecting: {selectedFile}");
+                _logger.Debug($"[DosBoxLaunchStrategy] Single game file found on CHD, auto-selecting: {selectedFile}");
             }
             else
             {
@@ -433,12 +433,12 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
 
                 if (result != true || string.IsNullOrEmpty(dialog.SelectedFilePath))
                 {
-                    _debugLogger.Log("[DosBoxLaunchStrategy] User cancelled file selection for CHD.");
+                    _logger.Debug("[DosBoxLaunchStrategy] User cancelled file selection for CHD.");
                     return;
                 }
 
                 selectedFile = dialog.SelectedFilePath;
-                _debugLogger.Log($"[DosBoxLaunchStrategy] User selected file from CHD: {selectedFile}");
+                _logger.Debug($"[DosBoxLaunchStrategy] User selected file from CHD: {selectedFile}");
             }
 
             var confPath = GenerateChdConf(mountPath, selectedFile);
@@ -502,7 +502,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         }
 
         File.WriteAllText(confPath, confContent, Encoding.ASCII);
-        _debugLogger.Log($"[DosBoxLaunchStrategy] Generated CHD conf file: {confPath}");
+        _logger.Debug($"[DosBoxLaunchStrategy] Generated CHD conf file: {confPath}");
 
         return confPath;
     }

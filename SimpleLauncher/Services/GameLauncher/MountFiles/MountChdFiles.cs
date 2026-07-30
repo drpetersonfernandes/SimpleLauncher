@@ -13,14 +13,14 @@ public class MountChdFiles : IMountChdFiles
 {
     private const string ChdMounterRelativePath = @"tools\CHDMounter\CHDMounter.exe";
 
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MountChdFiles"/> class.
     /// </summary>
-    public MountChdFiles(IDebugLogger debugLogger)
+    public MountChdFiles(ILogger logger)
     {
-        _debugLogger = debugLogger;
+        _logger = logger;
     }
 
     private static HashSet<char> GetCurrentDriveLetters()
@@ -35,32 +35,32 @@ public class MountChdFiles : IMountChdFiles
     /// </summary>
     public async Task<MountChdDrive> MountAsync(string resolvedChdFilePath, int? consoleIndex, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
     {
-        _debugLogger.Log($"[MountChdFiles.MountAsync] Starting to mount CHD: {resolvedChdFilePath} (ConsoleIndex: {consoleIndex?.ToString(CultureInfo.InvariantCulture) ?? "default"})");
+        _logger.Debug($"[MountChdFiles.MountAsync] Starting to mount CHD: {resolvedChdFilePath} (ConsoleIndex: {consoleIndex?.ToString(CultureInfo.InvariantCulture) ?? "default"})");
 
         var resolvedToolPath = PathHelper.ResolveRelativeToAppDirectory(ChdMounterRelativePath);
 
-        _debugLogger.Log($"[MountChdFiles.MountAsync] Path to CHDMounter: {resolvedToolPath}");
+        _logger.Debug($"[MountChdFiles.MountAsync] Path to CHDMounter: {resolvedToolPath}");
 
         if (string.IsNullOrWhiteSpace(resolvedToolPath) || !File.Exists(resolvedToolPath))
         {
             const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
-            _debugLogger.Log($"[MountChdFiles.MountAsync] Error: {errorMessage}");
+            _logger.Debug($"[MountChdFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
-            return new MountChdDrive(logErrors, _debugLogger);
+            return new MountChdDrive(logErrors, _logger);
         }
 
         if (!DokanValidation.IsDokanInstalled())
         {
             const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
-            _debugLogger.Log($"[MountChdFiles.MountAsync] Error: {errorMessage}");
+            _logger.Debug($"[MountChdFiles.MountAsync] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
             await messageBox.DokanDriverNotInstalledMessageBoxAsync();
-            return new MountChdDrive(logErrors, _debugLogger);
+            return new MountChdDrive(logErrors, _logger);
         }
 
         var existingDrives = GetCurrentDriveLetters();
-        _debugLogger.Log($"[MountChdFiles.MountAsync] Existing drives before mount: {string.Join(", ", existingDrives)}");
+        _logger.Debug($"[MountChdFiles.MountAsync] Existing drives before mount: {string.Join(", ", existingDrives)}");
 
         var arguments = consoleIndex.HasValue
             ? $"/a \"{resolvedChdFilePath}\" /s:{consoleIndex.Value}"
@@ -76,8 +76,8 @@ public class MountChdFiles : IMountChdFiles
             WorkingDirectory = Path.GetDirectoryName(resolvedToolPath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
 
-        _debugLogger.Log("[MountChdFiles.MountAsync] Using auto-select drive letter (/a)");
-        _debugLogger.Log($"[MountChdFiles.MountAsync] Arguments: {psiMount.Arguments}");
+        _logger.Debug("[MountChdFiles.MountAsync] Using auto-select drive letter (/a)");
+        _logger.Debug($"[MountChdFiles.MountAsync] Arguments: {psiMount.Arguments}");
 
         var mountProcess = new Process { StartInfo = psiMount, EnableRaisingEvents = true };
         var errorOutput = new List<string>();
@@ -96,7 +96,7 @@ public class MountChdFiles : IMountChdFiles
             };
             mountProcess.BeginErrorReadLine();
 
-            _debugLogger.Log($"[MountChdFiles.MountAsync] CHDMounter process started (ID: {mountProcess.Id}).");
+            _logger.Debug($"[MountChdFiles.MountAsync] CHDMounter process started (ID: {mountProcess.Id}).");
 
             var chdFileName = Path.GetFileName(resolvedChdFilePath);
             var (mountSuccessful, detectedDrive, exitCode) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcess.Id, logErrors, errorOutput, chdFileName);
@@ -110,16 +110,16 @@ public class MountChdFiles : IMountChdFiles
 
                 mountProcess.Dispose();
                 await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync(exitCode);
-                return new MountChdDrive(logErrors, _debugLogger);
+                return new MountChdDrive(logErrors, _logger);
             }
 
             var driveRoot = $"{detectedDrive.Value}:\\";
-            _debugLogger.Log($"[MountChdFiles.MountAsync] CHD mounted successfully. Drive: {driveRoot}");
-            return new MountChdDrive(mountProcess, driveRoot, detectedDrive.Value.ToString(), logErrors, _debugLogger);
+            _logger.Debug($"[MountChdFiles.MountAsync] CHD mounted successfully. Drive: {driveRoot}");
+            return new MountChdDrive(mountProcess, driveRoot, detectedDrive.Value.ToString(), logErrors, _logger);
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"[MountChdFiles.MountAsync] Exception during CHD mounting: {ex}");
+            _logger.Debug($"[MountChdFiles.MountAsync] Exception during CHD mounting: {ex}");
             var contextMessage = $"Error during CHD mount process for {resolvedChdFilePath}.\nException: {ex.Message}";
             logErrors.LogAndForget(ex, contextMessage);
 
@@ -138,7 +138,7 @@ public class MountChdFiles : IMountChdFiles
             mountProcess.Dispose();
 
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
-            return new MountChdDrive(logErrors, _debugLogger);
+            return new MountChdDrive(logErrors, _logger);
         }
     }
 
@@ -157,17 +157,17 @@ public class MountChdFiles : IMountChdFiles
         ILogErrors logErrors,
         IMessageBoxLibraryService messageBox)
     {
-        _debugLogger.Log($"[MountChdFiles] Starting to mount CHD for game loading: {resolvedChdFilePath}");
-        _debugLogger.Log($"[MountChdFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
+        _logger.Debug($"[MountChdFiles] Starting to mount CHD for game loading: {resolvedChdFilePath}");
+        _logger.Debug($"[MountChdFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
         var resolvedToolPath = PathHelper.ResolveRelativeToAppDirectory(ChdMounterRelativePath);
 
-        _debugLogger.Log($"[MountChdFiles] Path to CHDMounter: {resolvedToolPath}");
+        _logger.Debug($"[MountChdFiles] Path to CHDMounter: {resolvedToolPath}");
 
         if (string.IsNullOrWhiteSpace(resolvedToolPath) || !File.Exists(resolvedToolPath))
         {
             const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
-            _debugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
+            _logger.Debug($"[MountChdFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
             return;
@@ -176,14 +176,14 @@ public class MountChdFiles : IMountChdFiles
         if (!DokanValidation.IsDokanInstalled())
         {
             const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
-            _debugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
+            _logger.Debug($"[MountChdFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
             await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return;
         }
 
         var existingDrives = GetCurrentDriveLetters();
-        _debugLogger.Log($"[MountChdFiles] Existing drives before mount: {string.Join(", ", existingDrives)}");
+        _logger.Debug($"[MountChdFiles] Existing drives before mount: {string.Join(", ", existingDrives)}");
 
         var psiMount = new ProcessStartInfo
         {
@@ -195,10 +195,10 @@ public class MountChdFiles : IMountChdFiles
             WorkingDirectory = Path.GetDirectoryName(resolvedToolPath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
 
-        _debugLogger.Log("[MountChdFiles] ProcessStartInfo:");
-        _debugLogger.Log($"[MountChdFiles] FileName: {psiMount.FileName}");
-        _debugLogger.Log($"[MountChdFiles] Arguments: {psiMount.Arguments}");
-        _debugLogger.Log($"[MountChdFiles] WorkingDirectory: {psiMount.WorkingDirectory}");
+        _logger.Debug("[MountChdFiles] ProcessStartInfo:");
+        _logger.Debug($"[MountChdFiles] FileName: {psiMount.FileName}");
+        _logger.Debug($"[MountChdFiles] Arguments: {psiMount.Arguments}");
+        _logger.Debug($"[MountChdFiles] WorkingDirectory: {psiMount.WorkingDirectory}");
 
         Process mountProcess = null;
         var mountProcessId = -1;
@@ -209,7 +209,7 @@ public class MountChdFiles : IMountChdFiles
         {
             mountProcess = new Process { StartInfo = psiMount, EnableRaisingEvents = true };
 
-            _debugLogger.Log("[MountChdFiles] Starting CHDMounter process...");
+            _logger.Debug("[MountChdFiles] Starting CHDMounter process...");
             if (!mountProcess.Start())
             {
                 throw new InvalidOperationException("Failed to start the CHDMounter process.");
@@ -223,7 +223,7 @@ public class MountChdFiles : IMountChdFiles
             mountProcess.BeginErrorReadLine();
 
             mountProcessId = mountProcess.Id;
-            _debugLogger.Log($"[MountChdFiles] CHDMounter process started (ID: {mountProcessId}).");
+            _logger.Debug($"[MountChdFiles] CHDMounter process started (ID: {mountProcessId}).");
 
             var chdFileName = Path.GetFileName(resolvedChdFilePath);
             var (mountSuccessful, drive, exitCode) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcessId, logErrors, errorOutput, chdFileName);
@@ -241,25 +241,25 @@ public class MountChdFiles : IMountChdFiles
             }
 
             driveRoot = $"{drive.Value}:\\";
-            _debugLogger.Log($"[MountChdFiles] CHD mounted successfully on drive {drive.Value}:. Searching for game file...");
+            _logger.Debug($"[MountChdFiles] CHD mounted successfully on drive {drive.Value}:. Searching for game file...");
 
             var gameFilePath = FindGameFile(driveRoot, logErrors);
 
             if (string.IsNullOrEmpty(gameFilePath))
             {
-                _debugLogger.Log($"[MountChdFiles] No suitable game file found in {driveRoot}.");
+                _logger.Debug($"[MountChdFiles] No suitable game file found in {driveRoot}.");
                 throw new FileNotFoundException($"Could not find a game file within the mounted CHD at {driveRoot}.");
             }
 
-            _debugLogger.Log($"[MountChdFiles] Game file found at: {gameFilePath}. Proceeding to launch with {selectedEmulatorName}.");
+            _logger.Debug($"[MountChdFiles] Game file found at: {gameFilePath}. Proceeding to launch with {selectedEmulatorName}.");
 
             await gameLauncher.LaunchRegularEmulatorAsync(gameFilePath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, windowContext, null, resolvedChdFilePath);
 
-            _debugLogger.Log($"[MountChdFiles] Emulator for {gameFilePath} has exited.");
+            _logger.Debug($"[MountChdFiles] Emulator for {gameFilePath} has exited.");
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"[MountChdFiles] Exception during CHD mounting or launching: {ex}");
+            _logger.Debug($"[MountChdFiles] Exception during CHD mounting or launching: {ex}");
             var exitCodeInfoInCatch = mountProcess is { HasExited: true } ? $"Exit Code: {mountProcess.ExitCode}" : "Process was still running or state unknown.";
             var contextMessage = $"Error during CHD mount/launch process for {resolvedChdFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
@@ -270,14 +270,14 @@ public class MountChdFiles : IMountChdFiles
         }
         finally
         {
-            _debugLogger.Log($"[MountChdFiles] Entering finally block for {resolvedChdFilePath}. Mount Process ID: {mountProcessId}");
+            _logger.Debug($"[MountChdFiles] Entering finally block for {resolvedChdFilePath}. Mount Process ID: {mountProcessId}");
             if (mountProcess != null && mountProcessId != -1 && !mountProcess.HasExited)
             {
-                _debugLogger.Log($"[MountChdFiles] Attempting to unmount by terminating CHDMounter (ID: {mountProcessId}).");
+                _logger.Debug($"[MountChdFiles] Attempting to unmount by terminating CHDMounter (ID: {mountProcessId}).");
                 try
                 {
                     mountProcess.Kill(true);
-                    _debugLogger.Log($"[MountChdFiles] Kill signal sent to CHDMounter (ID: {mountProcessId}). Waiting for process to exit (up to 20s).");
+                    _logger.Debug($"[MountChdFiles] Kill signal sent to CHDMounter (ID: {mountProcessId}). Waiting for process to exit (up to 20s).");
                     using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
                     try
                     {
@@ -285,16 +285,16 @@ public class MountChdFiles : IMountChdFiles
                     }
                     catch (TaskCanceledException)
                     {
-                        _debugLogger.Log($"[MountChdFiles] Timeout (10s) waiting for CHDMounter (ID: {mountProcessId}) to exit after Kill.");
+                        _logger.Debug($"[MountChdFiles] Timeout (10s) waiting for CHDMounter (ID: {mountProcessId}) to exit after Kill.");
                     }
 
                     if (mountProcess.HasExited)
                     {
-                        _debugLogger.Log($"[MountChdFiles] CHDMounter (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
+                        _logger.Debug($"[MountChdFiles] CHDMounter (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
                     }
                     else
                     {
-                        _debugLogger.Log($"[MountChdFiles] CHDMounter (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
+                        _logger.Debug($"[MountChdFiles] CHDMounter (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
                     }
                 }
                 catch (InvalidOperationException ioEx)
@@ -302,28 +302,28 @@ public class MountChdFiles : IMountChdFiles
                     if (ioEx.Message.Contains("process has already exited", StringComparison.OrdinalIgnoreCase) ||
                         ioEx.Message.Contains("No process is associated", StringComparison.OrdinalIgnoreCase))
                     {
-                        _debugLogger.Log($"[MountChdFiles] CHDMounter (ID: {mountProcessId}) already exited: {ioEx.Message}");
+                        _logger.Debug($"[MountChdFiles] CHDMounter (ID: {mountProcessId}) already exited: {ioEx.Message}");
                     }
                     else
                     {
-                        _debugLogger.Log($"[MountChdFiles] InvalidOperationException while terminating CHDMounter (ID: {mountProcessId}): {ioEx}");
+                        _logger.Debug($"[MountChdFiles] InvalidOperationException while terminating CHDMounter (ID: {mountProcessId}): {ioEx}");
                         logErrors.LogAndForget(ioEx, "Unexpected InvalidOperationException during CHDMounter termination.");
                     }
                 }
                 catch (Exception termEx)
                 {
-                    _debugLogger.Log($"[MountChdFiles] Exception while terminating CHDMounter (ID: {mountProcessId}): {termEx}");
+                    _logger.Debug($"[MountChdFiles] Exception while terminating CHDMounter (ID: {mountProcessId}): {termEx}");
                     logErrors.LogAndForget(termEx, $"Failed to terminate CHDMounter (ID: {mountProcessId}) for unmounting.");
                 }
             }
             else if (mountProcessId != -1)
             {
                 var exitCodeStr = mountProcess is { HasExited: true } ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A";
-                _debugLogger.Log($"[MountChdFiles] CHDMounter (ID: {mountProcessId}) had already exited. Exit code likely {exitCodeStr}.");
+                _logger.Debug($"[MountChdFiles] CHDMounter (ID: {mountProcessId}) had already exited. Exit code likely {exitCodeStr}.");
             }
             else
             {
-                _debugLogger.Log("[MountChdFiles] CHDMounter process was not started successfully. No termination needed.");
+                _logger.Debug("[MountChdFiles] CHDMounter process was not started successfully. No termination needed.");
             }
 
             mountProcess?.Dispose();
@@ -331,11 +331,11 @@ public class MountChdFiles : IMountChdFiles
             await Task.Delay(2000);
             if (Directory.Exists(driveRoot))
             {
-                _debugLogger.Log($"[MountChdFiles] WARNING: Drive {driveRoot} still exists after attempting to unmount.");
+                _logger.Debug($"[MountChdFiles] WARNING: Drive {driveRoot} still exists after attempting to unmount.");
             }
             else
             {
-                _debugLogger.Log($"[MountChdFiles] Drive {driveRoot} successfully unmounted.");
+                _logger.Debug($"[MountChdFiles] Drive {driveRoot} successfully unmounted.");
             }
         }
     }
@@ -356,17 +356,17 @@ public class MountChdFiles : IMountChdFiles
         ILogErrors logErrors,
         IMessageBoxLibraryService messageBox)
     {
-        _debugLogger.Log($"[MountChdFiles] Starting to mount CHD with console index for game loading: {resolvedChdFilePath}");
-        _debugLogger.Log($"[MountChdFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}, ConsoleIndex: {consoleIndex?.ToString(CultureInfo.InvariantCulture) ?? "auto"}");
+        _logger.Debug($"[MountChdFiles] Starting to mount CHD with console index for game loading: {resolvedChdFilePath}");
+        _logger.Debug($"[MountChdFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}, ConsoleIndex: {consoleIndex?.ToString(CultureInfo.InvariantCulture) ?? "auto"}");
 
         var resolvedToolPath = PathHelper.ResolveRelativeToAppDirectory(ChdMounterRelativePath);
 
-        _debugLogger.Log($"[MountChdFiles] Path to CHDMounter: {resolvedToolPath}");
+        _logger.Debug($"[MountChdFiles] Path to CHDMounter: {resolvedToolPath}");
 
         if (string.IsNullOrWhiteSpace(resolvedToolPath) || !File.Exists(resolvedToolPath))
         {
             const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
-            _debugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
+            _logger.Debug($"[MountChdFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
             return;
@@ -375,14 +375,14 @@ public class MountChdFiles : IMountChdFiles
         if (!DokanValidation.IsDokanInstalled())
         {
             const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
-            _debugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
+            _logger.Debug($"[MountChdFiles] Error: {errorMessage}");
             logErrors.LogAndForget(null, errorMessage);
             await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return;
         }
 
         var existingDrives = GetCurrentDriveLetters();
-        _debugLogger.Log($"[MountChdFiles] Existing drives before mount: {string.Join(", ", existingDrives)}");
+        _logger.Debug($"[MountChdFiles] Existing drives before mount: {string.Join(", ", existingDrives)}");
 
         var arguments = consoleIndex.HasValue
             ? $"\"{resolvedChdFilePath}\" /a /s:{consoleIndex.Value}"
@@ -398,10 +398,10 @@ public class MountChdFiles : IMountChdFiles
             WorkingDirectory = Path.GetDirectoryName(resolvedToolPath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
 
-        _debugLogger.Log("[MountChdFiles] ProcessStartInfo:");
-        _debugLogger.Log($"[MountChdFiles] FileName: {psiMount.FileName}");
-        _debugLogger.Log($"[MountChdFiles] Arguments: {psiMount.Arguments}");
-        _debugLogger.Log($"[MountChdFiles] WorkingDirectory: {psiMount.WorkingDirectory}");
+        _logger.Debug("[MountChdFiles] ProcessStartInfo:");
+        _logger.Debug($"[MountChdFiles] FileName: {psiMount.FileName}");
+        _logger.Debug($"[MountChdFiles] Arguments: {psiMount.Arguments}");
+        _logger.Debug($"[MountChdFiles] WorkingDirectory: {psiMount.WorkingDirectory}");
 
         Process mountProcess = null;
         var mountProcessId = -1;
@@ -412,7 +412,7 @@ public class MountChdFiles : IMountChdFiles
         {
             mountProcess = new Process { StartInfo = psiMount, EnableRaisingEvents = true };
 
-            _debugLogger.Log("[MountChdFiles] Starting CHDMounter process...");
+            _logger.Debug("[MountChdFiles] Starting CHDMounter process...");
             if (!mountProcess.Start())
             {
                 throw new InvalidOperationException("Failed to start the CHDMounter process.");
@@ -426,7 +426,7 @@ public class MountChdFiles : IMountChdFiles
             mountProcess.BeginErrorReadLine();
 
             mountProcessId = mountProcess.Id;
-            _debugLogger.Log($"[MountChdFiles] CHDMounter process started (ID: {mountProcessId}).");
+            _logger.Debug($"[MountChdFiles] CHDMounter process started (ID: {mountProcessId}).");
 
             var chdFileName = Path.GetFileName(resolvedChdFilePath);
             var (mountSuccessful, drive, exitCode) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcessId, logErrors, errorOutput, chdFileName);
@@ -444,25 +444,25 @@ public class MountChdFiles : IMountChdFiles
             }
 
             driveRoot = $"{drive.Value}:\\";
-            _debugLogger.Log($"[MountChdFiles] CHD mounted successfully on drive {drive.Value}:. Searching for game file...");
+            _logger.Debug($"[MountChdFiles] CHD mounted successfully on drive {drive.Value}:. Searching for game file...");
 
             var gameFilePath = FindGameFile(driveRoot, logErrors);
 
             if (string.IsNullOrEmpty(gameFilePath))
             {
-                _debugLogger.Log($"[MountChdFiles] No suitable game file found in {driveRoot}.");
+                _logger.Debug($"[MountChdFiles] No suitable game file found in {driveRoot}.");
                 throw new FileNotFoundException($"Could not find a game file within the mounted CHD at {driveRoot}.");
             }
 
-            _debugLogger.Log($"[MountChdFiles] Game file found at: {gameFilePath}. Proceeding to launch with {selectedEmulatorName}.");
+            _logger.Debug($"[MountChdFiles] Game file found at: {gameFilePath}. Proceeding to launch with {selectedEmulatorName}.");
 
             await gameLauncher.LaunchRegularEmulatorAsync(gameFilePath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, windowContext, null, resolvedChdFilePath);
 
-            _debugLogger.Log($"[MountChdFiles] Emulator for {gameFilePath} has exited.");
+            _logger.Debug($"[MountChdFiles] Emulator for {gameFilePath} has exited.");
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"[MountChdFiles] Exception during CHD mounting or launching: {ex}");
+            _logger.Debug($"[MountChdFiles] Exception during CHD mounting or launching: {ex}");
             var exitCodeInfoInCatch = mountProcess is { HasExited: true } ? $"Exit Code: {mountProcess.ExitCode}" : "Process was still running or state unknown.";
             var contextMessage = $"Error during CHD mount/launch process for {resolvedChdFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
@@ -473,14 +473,14 @@ public class MountChdFiles : IMountChdFiles
         }
         finally
         {
-            _debugLogger.Log($"[MountChdFiles] Entering finally block for {resolvedChdFilePath}. Mount Process ID: {mountProcessId}");
+            _logger.Debug($"[MountChdFiles] Entering finally block for {resolvedChdFilePath}. Mount Process ID: {mountProcessId}");
             if (mountProcess != null && mountProcessId != -1 && !mountProcess.HasExited)
             {
-                _debugLogger.Log($"[MountChdFiles] Attempting to unmount by terminating CHDMounter (ID: {mountProcessId}).");
+                _logger.Debug($"[MountChdFiles] Attempting to unmount by terminating CHDMounter (ID: {mountProcessId}).");
                 try
                 {
                     mountProcess.Kill(true);
-                    _debugLogger.Log($"[MountChdFiles] Kill signal sent to CHDMounter (ID: {mountProcessId}). Waiting for process to exit (up to 20s).");
+                    _logger.Debug($"[MountChdFiles] Kill signal sent to CHDMounter (ID: {mountProcessId}). Waiting for process to exit (up to 20s).");
                     using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
                     try
                     {
@@ -488,16 +488,16 @@ public class MountChdFiles : IMountChdFiles
                     }
                     catch (TaskCanceledException)
                     {
-                        _debugLogger.Log($"[MountChdFiles] Timeout (10s) waiting for CHDMounter (ID: {mountProcessId}) to exit after Kill.");
+                        _logger.Debug($"[MountChdFiles] Timeout (10s) waiting for CHDMounter (ID: {mountProcessId}) to exit after Kill.");
                     }
 
                     if (mountProcess.HasExited)
                     {
-                        _debugLogger.Log($"[MountChdFiles] CHDMounter (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
+                        _logger.Debug($"[MountChdFiles] CHDMounter (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
                     }
                     else
                     {
-                        _debugLogger.Log($"[MountChdFiles] CHDMounter (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
+                        _logger.Debug($"[MountChdFiles] CHDMounter (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
                     }
                 }
                 catch (InvalidOperationException ioEx)
@@ -505,28 +505,28 @@ public class MountChdFiles : IMountChdFiles
                     if (ioEx.Message.Contains("process has already exited", StringComparison.OrdinalIgnoreCase) ||
                         ioEx.Message.Contains("No process is associated", StringComparison.OrdinalIgnoreCase))
                     {
-                        _debugLogger.Log($"[MountChdFiles] CHDMounter (ID: {mountProcessId}) already exited: {ioEx.Message}");
+                        _logger.Debug($"[MountChdFiles] CHDMounter (ID: {mountProcessId}) already exited: {ioEx.Message}");
                     }
                     else
                     {
-                        _debugLogger.Log($"[MountChdFiles] InvalidOperationException while terminating CHDMounter (ID: {mountProcessId}): {ioEx}");
+                        _logger.Debug($"[MountChdFiles] InvalidOperationException while terminating CHDMounter (ID: {mountProcessId}): {ioEx}");
                         logErrors.LogAndForget(ioEx, "Unexpected InvalidOperationException during CHDMounter termination.");
                     }
                 }
                 catch (Exception termEx)
                 {
-                    _debugLogger.Log($"[MountChdFiles] Exception while terminating CHDMounter (ID: {mountProcessId}): {termEx}");
+                    _logger.Debug($"[MountChdFiles] Exception while terminating CHDMounter (ID: {mountProcessId}): {termEx}");
                     logErrors.LogAndForget(termEx, $"Failed to terminate CHDMounter (ID: {mountProcessId}) for unmounting.");
                 }
             }
             else if (mountProcessId != -1)
             {
                 var exitCodeStr = mountProcess is { HasExited: true } ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A";
-                _debugLogger.Log($"[MountChdFiles] CHDMounter (ID: {mountProcessId}) had already exited. Exit code likely {exitCodeStr}.");
+                _logger.Debug($"[MountChdFiles] CHDMounter (ID: {mountProcessId}) had already exited. Exit code likely {exitCodeStr}.");
             }
             else
             {
-                _debugLogger.Log("[MountChdFiles] CHDMounter process was not started successfully. No termination needed.");
+                _logger.Debug("[MountChdFiles] CHDMounter process was not started successfully. No termination needed.");
             }
 
             mountProcess?.Dispose();
@@ -534,11 +534,11 @@ public class MountChdFiles : IMountChdFiles
             await Task.Delay(2000);
             if (Directory.Exists(driveRoot))
             {
-                _debugLogger.Log($"[MountChdFiles] WARNING: Drive {driveRoot} still exists after attempting to unmount.");
+                _logger.Debug($"[MountChdFiles] WARNING: Drive {driveRoot} still exists after attempting to unmount.");
             }
             else
             {
-                _debugLogger.Log($"[MountChdFiles] Drive {driveRoot} successfully unmounted.");
+                _logger.Debug($"[MountChdFiles] Drive {driveRoot} successfully unmounted.");
             }
         }
     }
@@ -705,7 +705,7 @@ public class MountChdFiles : IMountChdFiles
         const int pollIntervalMs = 500;
         var retryCount = 0;
 
-        _debugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] Polling for new drive to appear for '{chdFileName}' (max {maxRetries * pollIntervalMs / 1000}s)...");
+        _logger.Debug($"[MountChdFiles.WaitForDriveMountAndDetectAsync] Polling for new drive to appear for '{chdFileName}' (max {maxRetries * pollIntervalMs / 1000}s)...");
 
         while (retryCount < maxRetries)
         {
@@ -715,7 +715,7 @@ public class MountChdFiles : IMountChdFiles
             if (newDrives.Count > 0)
             {
                 var detectedDrive = newDrives[0];
-                _debugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] Found new drive '{detectedDrive}:' after {retryCount * pollIntervalMs / 1000.0:F1} seconds. Mount successful!");
+                _logger.Debug($"[MountChdFiles.WaitForDriveMountAndDetectAsync] Found new drive '{detectedDrive}:' after {retryCount * pollIntervalMs / 1000.0:F1} seconds. Mount successful!");
                 return (true, detectedDrive, null);
             }
 
@@ -731,7 +731,7 @@ public class MountChdFiles : IMountChdFiles
                     contextMessage += "\n\n=== CHDMounter error output ===\n" + string.Join(Environment.NewLine, errorOutput);
                 }
 
-                _debugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] CHDMounter process (ID: {processId}) exited prematurely during polling. {contextMessage}");
+                _logger.Debug($"[MountChdFiles.WaitForDriveMountAndDetectAsync] CHDMounter process (ID: {processId}) exited prematurely during polling. {contextMessage}");
                 logErrors.LogAndForget(null, contextMessage);
                 return (false, null, exitCode);
             }
@@ -740,7 +740,7 @@ public class MountChdFiles : IMountChdFiles
             await Task.Delay(pollIntervalMs);
         }
 
-        _debugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] Timed out waiting for new drive after {maxRetries * pollIntervalMs / 1000} seconds.");
+        _logger.Debug($"[MountChdFiles.WaitForDriveMountAndDetectAsync] Timed out waiting for new drive after {maxRetries * pollIntervalMs / 1000} seconds.");
         var timeoutContextMessage = $"Timed out waiting for the CHD to mount '{chdFileName}'. No new drive detected.";
 
         if (errorOutput is { Count: > 0 })
@@ -756,33 +756,33 @@ public class MountChdFiles : IMountChdFiles
     {
         try
         {
-            _debugLogger.Log($"[MountChdFiles.FindGameFile] Searching for game file in {driveRoot}...");
+            _logger.Debug($"[MountChdFiles.FindGameFile] Searching for game file in {driveRoot}...");
 
             if (!Directory.Exists(driveRoot))
             {
-                _debugLogger.Log($"[MountChdFiles.FindGameFile] Drive {driveRoot} does not exist.");
+                _logger.Debug($"[MountChdFiles.FindGameFile] Drive {driveRoot} does not exist.");
                 return null;
             }
 
             var allFiles = Directory.GetFiles(driveRoot, "*", SearchOption.AllDirectories);
             if (allFiles.Length == 0)
             {
-                _debugLogger.Log($"[MountChdFiles.FindGameFile] No files found in {driveRoot}.");
+                _logger.Debug($"[MountChdFiles.FindGameFile] No files found in {driveRoot}.");
                 return null;
             }
 
-            _debugLogger.Log($"[MountChdFiles.FindGameFile] Found {allFiles.Length} files in {driveRoot}.");
+            _logger.Debug($"[MountChdFiles.FindGameFile] Found {allFiles.Length} files in {driveRoot}.");
 
             foreach (var file in allFiles)
             {
-                _debugLogger.Log($"[MountChdFiles.FindGameFile] Found: {file}");
+                _logger.Debug($"[MountChdFiles.FindGameFile] Found: {file}");
             }
 
             return allFiles[0];
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"[MountChdFiles.FindGameFile] Error searching for game file in {driveRoot}: {ex.Message}");
+            _logger.Debug($"[MountChdFiles.FindGameFile] Error searching for game file in {driveRoot}: {ex.Message}");
             logErrors.LogAndForget(ex, $"Error in FindGameFile searching {driveRoot}");
             return null;
         }
@@ -798,11 +798,11 @@ public class MountChdFiles : IMountChdFiles
             var processes = Process.GetProcessesByName("CHDMounter");
             if (processes.Length == 0)
             {
-                _debugLogger.Log("[MountChdFiles.KillAllChdMounterProcesses] No CHDMounter processes found.");
+                _logger.Debug("[MountChdFiles.KillAllChdMounterProcesses] No CHDMounter processes found.");
                 return;
             }
 
-            _debugLogger.Log($"[MountChdFiles.KillAllChdMounterProcesses] Found {processes.Length} CHDMounter process(es) to kill.");
+            _logger.Debug($"[MountChdFiles.KillAllChdMounterProcesses] Found {processes.Length} CHDMounter process(es) to kill.");
 
             foreach (var process in processes)
             {
@@ -810,15 +810,15 @@ public class MountChdFiles : IMountChdFiles
                 {
                     if (!process.HasExited)
                     {
-                        _debugLogger.Log($"[MountChdFiles.KillAllChdMounterProcesses] Killing CHDMounter (ID: {process.Id}).");
+                        _logger.Debug($"[MountChdFiles.KillAllChdMounterProcesses] Killing CHDMounter (ID: {process.Id}).");
                         process.Kill(true);
                         process.WaitForExit(5000);
-                        _debugLogger.Log($"[MountChdFiles.KillAllChdMounterProcesses] CHDMounter (ID: {process.Id}) terminated. Exit code: {process.ExitCode}.");
+                        _logger.Debug($"[MountChdFiles.KillAllChdMounterProcesses] CHDMounter (ID: {process.Id}) terminated. Exit code: {process.ExitCode}.");
                     }
                 }
                 catch (Exception ex)
                 {
-                    _debugLogger.Log($"[MountChdFiles.KillAllChdMounterProcesses] Failed to kill CHDMounter (ID: {process.Id}): {ex.Message}");
+                    _logger.Debug($"[MountChdFiles.KillAllChdMounterProcesses] Failed to kill CHDMounter (ID: {process.Id}): {ex.Message}");
                 }
                 finally
                 {
@@ -828,7 +828,7 @@ public class MountChdFiles : IMountChdFiles
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"[MountChdFiles.KillAllChdMounterProcesses] Error enumerating CHDMounter processes: {ex.Message}");
+            _logger.Debug($"[MountChdFiles.KillAllChdMounterProcesses] Error enumerating CHDMounter processes: {ex.Message}");
         }
     }
 }

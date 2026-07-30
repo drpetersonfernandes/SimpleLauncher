@@ -12,12 +12,12 @@ using Interfaces;
 /// </summary>
 public static class ConvertDiscImageToIso
 {
-    private static readonly Lazy<IDebugLogger> DebugLogger2 = new(() =>
+    private static readonly Lazy<ILogger> DebugLogger2 = new(() =>
     {
         var sp = App.ServiceProvider;
-        return sp?.GetService<IDebugLogger>() ?? new FallbackDebugLogger();
+        return sp?.GetService<ILogger>() ?? Log.Logger;
     });
-    private static IDebugLogger DebugLogger => DebugLogger2.Value;
+    private static ILogger logger => DebugLogger2.Value;
 
     /// <summary>
     /// Converts a disc image file (RVZ, WBFS, GCZ, CISO, WIA) to a temporary ISO using DolphinTool.exe.
@@ -32,7 +32,7 @@ public static class ConvertDiscImageToIso
 
             if (!File.Exists(dolphinToolPath))
             {
-                DebugLogger.Log($"[ConvertDiscImageToIso] DolphinTool not found at {dolphinToolPath}. Cannot convert disc image.");
+                logger.Debug($"[ConvertDiscImageToIso] DolphinTool not found at {dolphinToolPath}. Cannot convert disc image.");
                 return null;
             }
 
@@ -57,8 +57,8 @@ public static class ConvertDiscImageToIso
             using var process = new Process();
             process.StartInfo = processStartInfo;
 
-            DebugLogger.Log($"[ConvertDiscImageToIso] Running DolphinTool with args: {args}");
-            DebugLogger.Log($"[ConvertDiscImageToIso] Converting {Path.GetExtension(discImagePath)} to ISO.");
+            logger.Debug($"[ConvertDiscImageToIso] Running DolphinTool with args: {args}");
+            logger.Debug($"[ConvertDiscImageToIso] Converting {Path.GetExtension(discImagePath)} to ISO.");
 
             var errorBuilder = new StringBuilder();
             process.ErrorDataReceived += (_, e) =>
@@ -77,7 +77,7 @@ public static class ConvertDiscImageToIso
             }
             catch (OperationCanceledException)
             {
-                DebugLogger.Log("[ConvertDiscImageToIso] Conversion timed out after 5 minutes.");
+                logger.Debug("[ConvertDiscImageToIso] Conversion timed out after 5 minutes.");
                 try
                 {
                     process.Kill();
@@ -92,16 +92,16 @@ public static class ConvertDiscImageToIso
 
             if (process.ExitCode == 0 && File.Exists(tempIsoPath))
             {
-                DebugLogger.Log("[ConvertDiscImageToIso] Conversion successful.");
+                logger.Debug("[ConvertDiscImageToIso] Conversion successful.");
                 return tempIsoPath;
             }
 
-            DebugLogger.Log($"[ConvertDiscImageToIso] DolphinTool failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
+            logger.Debug($"[ConvertDiscImageToIso] DolphinTool failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
             return null;
         }
         catch (Exception ex)
         {
-            DebugLogger.LogException(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
+            logger.Error(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
             App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
             return null;
         }

@@ -10,7 +10,7 @@ public static partial class BlastemConfigurationService
 {
     private static readonly char[] Separator = [' ', '\t'];
 
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -26,11 +26,11 @@ public static partial class BlastemConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[BlastemConfig] Created new default.cfg from sample: {configPath}");
+                    logger.Debug($"[BlastemConfig] Created new default.cfg from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[BlastemConfig] Failed to create default.cfg from sample: {ex.Message}");
+                    logger.Debug($"[BlastemConfig] Failed to create default.cfg from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[BlastemConfig] Failed to create default.cfg from sample: {ex.Message}");
                     throw;
                 }
@@ -41,7 +41,7 @@ public static partial class BlastemConfigurationService
             }
         }
 
-        debugLogger.Log($"[BlastemConfig] Injecting configuration into: {configPath}");
+        logger.Debug($"[BlastemConfig] Injecting configuration into: {configPath}");
 
         var updates = new Dictionary<string, string>
         {
@@ -61,13 +61,13 @@ public static partial class BlastemConfigurationService
         }
         catch (UnauthorizedAccessException ex)
         {
-            debugLogger.Log($"[BlastemConfig] Access denied reading config: {configPath}");
+            logger.Debug($"[BlastemConfig] Access denied reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[BlastemConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
-            debugLogger.Log($"[BlastemConfig] I/O error reading config: {configPath}");
+            logger.Debug($"[BlastemConfig] I/O error reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[BlastemConfig] I/O error reading config: {configPath}");
             throw;
         }
@@ -146,18 +146,18 @@ public static partial class BlastemConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                debugLogger.Log("[BlastemConfig] Injected configuration changes..");
+                logger.Debug("[BlastemConfig] Injected configuration changes..");
             }
             catch (Exception ex)
             {
-                debugLogger.Log($"[BlastemConfig] Failed to inject configuration changes: {ex.Message}");
+                logger.Debug($"[BlastemConfig] Failed to inject configuration changes: {ex.Message}");
                 logErrors.LogAndForget(ex, $"[BlastemConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }
         else
         {
-            debugLogger.Log("[BlastemConfig] No changes needed for Blastem configuration.");
+            logger.Debug("[BlastemConfig] No changes needed for Blastem configuration.");
         }
     }
 

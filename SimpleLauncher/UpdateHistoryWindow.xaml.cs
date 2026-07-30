@@ -13,20 +13,20 @@ using Interfaces;
 public partial class UpdateHistoryWindow
 {
     private readonly UpdateHistoryViewModel _viewModel;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateHistoryWindow"/> class.
     /// </summary>
     /// <param name="viewModel">The view model providing update history data.</param>
-    /// <param name="debugLogger">The debug logger.</param>
-    public UpdateHistoryWindow(UpdateHistoryViewModel viewModel, IDebugLogger debugLogger)
+    /// <param name="logger">The debug logger.</param>
+    public UpdateHistoryWindow(UpdateHistoryViewModel viewModel, ILogger logger)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
         _viewModel = viewModel;
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
         DataContext = _viewModel;
 
@@ -43,7 +43,7 @@ public partial class UpdateHistoryWindow
         }
         catch (Exception ex)
         {
-            _debugLogger.LogException(ex, "Error initializing UpdateHistoryWindow.");
+            _logger.Error(ex, "Error initializing UpdateHistoryWindow.");
         }
     }
 

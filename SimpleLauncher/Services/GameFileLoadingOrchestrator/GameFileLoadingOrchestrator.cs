@@ -26,7 +26,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
     private readonly ILogErrors _logErrors;
     private readonly IUpdateStatusBar _updateStatusBarService;
     private readonly IMessageBoxLibraryService _messageBox;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly IRetroAchievementsSystemMatcher _systemMatcher;
 
     /// <summary>
@@ -45,7 +45,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         ILogErrors logErrors,
         IUpdateStatusBar updateStatusBarService,
         IMessageBoxLibraryService messageBox,
-        IDebugLogger debugLogger,
+        ILogger logger,
         IRetroAchievementsSystemMatcher systemMatcher)
     {
         _gameCacheService = gameCacheService;
@@ -60,7 +60,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         _logErrors = logErrors;
         _updateStatusBarService = updateStatusBarService;
         _messageBox = messageBox;
-        _debugLogger = debugLogger;
+        _logger = logger;
         _systemMatcher = systemMatcher;
     }
 
@@ -167,7 +167,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         }
         catch (OperationCanceledException)
         {
-            _debugLogger.Log("[LoadGameFilesAsync] Operation was canceled.");
+            _logger.Debug("[LoadGameFilesAsync] Operation was canceled.");
             _gameItemRenderService.ClearRenderedItems();
         }
         catch (Exception ex)
@@ -201,18 +201,18 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
             var currentSystem = _host.SystemComboBox.SelectedItem?.ToString();
             if (!string.Equals(currentSystem, systemName, StringComparison.OrdinalIgnoreCase))
             {
-                _debugLogger.Log($"[OnGameFilesChangedAsync] Ignoring change for system '{systemName}' (current: '{currentSystem}').");
+                _logger.Debug($"[OnGameFilesChangedAsync] Ignoring change for system '{systemName}' (current: '{currentSystem}').");
                 return;
             }
 
-            _debugLogger.Log($"[OnGameFilesChangedAsync] File change detected for system '{systemName}'. Reloading game list.");
+            _logger.Debug($"[OnGameFilesChangedAsync] File change detected for system '{systemName}'. Reloading game list.");
 
             await InvalidateGameFileCachesAsync();
             await LoadGameFilesAsync(cancellationToken: CancellationToken.None);
         }
         catch (Exception ex)
         {
-            _debugLogger.Log($"[OnGameFilesChangedAsync] Error reloading game list: {ex.Message}");
+            _logger.Debug($"[OnGameFilesChangedAsync] Error reloading game list: {ex.Message}");
         }
     }
 
@@ -233,7 +233,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
 
             if (sourceList.Count > 0)
             {
-                _debugLogger.Log($"[BuildListOfAllFilesToLoad] Re-sorting existing list. Count: {sourceList.Count}");
+                _logger.Debug($"[BuildListOfAllFilesToLoad] Re-sorting existing list. Count: {sourceList.Count}");
                 return sourceList;
             }
         }
@@ -306,7 +306,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
                 catch (Exception ex)
                 {
                     allFiles = [];
-                    _debugLogger.Log($"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
+                    _logger.Debug($"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
                     _logErrors.LogAndForget(ex, $"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
                 }
 
@@ -338,7 +338,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
                         if (isPopulated)
                         {
                             allFiles = await _gameCacheService.GetAllGamesAsync(token);
-                            _debugLogger.Log($"[BuildListOfAllFilesToLoad] Reusing cached list for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
+                            _logger.Debug($"[BuildListOfAllFilesToLoad] Reusing cached list for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
                         }
                         else
                         {
@@ -358,7 +358,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
 
                             allFiles = uniqueFiles.Values.ToList();
                             await _gameCacheService.SetAllGamesAsync(allFiles, selectedManager.SystemName, token);
-                            _debugLogger.Log($"[BuildListOfAllFilesToLoad] Populated cache for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
+                            _logger.Debug($"[BuildListOfAllFilesToLoad] Populated cache for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
                         }
                     }
                     else

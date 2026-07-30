@@ -30,7 +30,7 @@ public static class LogErrorsExtensions
             }
             catch (Exception fireForgetEx)
             {
-                Debug.WriteLine($"[LogAndForget] Failed to log error: {contextMessage}. Exception: {fireForgetEx.Message}");
+                Serilog.Log.Debug($"[LogAndForget] Failed to log error: {contextMessage}. Exception: {fireForgetEx.Message}");
             }
         });
     }

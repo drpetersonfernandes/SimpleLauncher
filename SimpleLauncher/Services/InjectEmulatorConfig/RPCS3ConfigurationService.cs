@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class Rpcs3ConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, IDebugLogger debugLogger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -23,11 +23,11 @@ public static class Rpcs3ConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[RPCS3Config] Created new config.yml from sample: {configPath}");
+                    logger.Debug($"[RPCS3Config] Created new config.yml from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
-                    debugLogger.Log($"[RPCS3Config] Failed to create config.yml from sample: {ex.Message}");
+                    logger.Debug($"[RPCS3Config] Failed to create config.yml from sample: {ex.Message}");
                     logErrors.LogAndForget(ex, $"[RPCS3Config] Failed to create config.yml from sample: {ex.Message}");
                     throw;
                 }
@@ -38,7 +38,7 @@ public static class Rpcs3ConfigurationService
             }
         }
 
-        debugLogger.Log($"[RPCS3Config] Injecting configuration into: {configPath}");
+        logger.Debug($"[RPCS3Config] Injecting configuration into: {configPath}");
 
         var deserializer = new DeserializerBuilder().Build();
         var serializer = new SerializerBuilder().Build();
@@ -65,7 +65,7 @@ public static class Rpcs3ConfigurationService
 
         var updatedYaml = serializer.Serialize(yamlObject);
         File.WriteAllText(configPath, updatedYaml, new UTF8Encoding(false));
-        debugLogger.Log("[RPCS3Config] Injection successful.");
+        logger.Debug("[RPCS3Config] Injection successful.");
         return;
 
         // Helper to navigate and set values

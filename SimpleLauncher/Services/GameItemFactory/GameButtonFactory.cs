@@ -38,7 +38,7 @@ internal partial class GameButtonFactory(
     IMessageBoxLibraryService messageBox,
     IRetroAchievementsHasherTool raHasherTool,
     IContextMenuFunctions contextMenuFunctions,
-    IDebugLogger debugLogger,
+    ILogger logger,
     IContextMenuService contextMenuService)
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox ?? throw new ArgumentNullException(nameof(emulatorComboBox));
@@ -59,7 +59,7 @@ internal partial class GameButtonFactory(
     private readonly IMessageBoxLibraryService _messageBox = messageBox ?? throw new ArgumentNullException(nameof(messageBox));
     private readonly IRetroAchievementsHasherTool _raHasherTool = raHasherTool ?? throw new ArgumentNullException(nameof(raHasherTool));
     private readonly IContextMenuFunctions _contextMenuFunctions = contextMenuFunctions ?? throw new ArgumentNullException(nameof(contextMenuFunctions));
-    private readonly IDebugLogger _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+    private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     private readonly IContextMenuService _contextMenuService = contextMenuService ?? throw new ArgumentNullException(nameof(contextMenuService));
 
     private Button _button;
@@ -372,7 +372,7 @@ internal partial class GameButtonFactory(
                 catch (Exception ex)
                 {
                     logErrors.LogAndForget(ex, "Error opening Retro Achievements Window.");
-                    _debugLogger.Log($"Error opening Retro Achievements Window: {ex.Message}");
+                    _logger.Debug($"Error opening Retro Achievements Window: {ex.Message}");
                 }
             };
 
@@ -434,7 +434,7 @@ internal partial class GameButtonFactory(
                 catch (Exception ex)
                 {
                     logErrors.LogAndForget(ex, "Error opening the video Link.");
-                    _debugLogger.Log($"Error opening the video link: {ex.Message}");
+                    _logger.Debug($"Error opening the video link: {ex.Message}");
                 }
             };
 
@@ -496,7 +496,7 @@ internal partial class GameButtonFactory(
                 catch (Exception ex)
                 {
                     logErrors.LogAndForget(ex, "Error opening the info Link.");
-                    _debugLogger.Log($"Error opening the info link: {ex.Message}");
+                    _logger.Debug($"Error opening the info link: {ex.Message}");
                 }
             };
 
@@ -639,7 +639,7 @@ internal partial class GameButtonFactory(
             catch (Exception ex)
             {
                 logErrors.LogAndForget(ex, $"[CreateGameButtonAsync] Error launching the game. entityPath: {entityPath}, systemName: {systemName}");
-                _debugLogger.Log($"Error launching the game: {ex.Message}");
+                _logger.Debug($"Error launching the game: {ex.Message}");
             }
         };
 

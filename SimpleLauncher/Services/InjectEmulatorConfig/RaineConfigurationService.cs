@@ -11,7 +11,7 @@ public static class RaineConfigurationService
         string emulatorPath,
         SettingsManager.SettingsManager settings,
         ILogErrors logErrors,
-        IDebugLogger debugLogger,
+        ILogger logger,
         string gameFilePath = null,
         string systemRomPath = null,
         string raineCustomRomDirectory = null)
@@ -35,7 +35,7 @@ public static class RaineConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    debugLogger.Log($"[RaineConfig] Created new config from sample: {configPath}");
+                    logger.Debug($"[RaineConfig] Created new config from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -118,13 +118,13 @@ public static class RaineConfigurationService
         }
         catch (UnauthorizedAccessException ex)
         {
-            debugLogger.Log($"[RaineConfig] Access denied reading config: {configPath}");
+            logger.Debug($"[RaineConfig] Access denied reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[RaineConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
-            debugLogger.Log($"[RaineConfig] I/O error reading config: {configPath}");
+            logger.Debug($"[RaineConfig] I/O error reading config: {configPath}");
             logErrors.LogAndForget(ex, $"[RaineConfig] I/O error reading config: {configPath}");
             throw;
         }
@@ -193,7 +193,7 @@ public static class RaineConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                debugLogger.Log("[RaineConfig] Configuration injected.");
+                logger.Debug("[RaineConfig] Configuration injected.");
             }
             catch (Exception ex)
             {

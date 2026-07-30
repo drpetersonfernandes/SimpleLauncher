@@ -17,7 +17,7 @@ public class GamePadController : IDisposable
     private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IConfiguration _configuration;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private bool _isDisposed;
 
     // Add an Action for error logging
@@ -59,12 +59,12 @@ public class GamePadController : IDisposable
     private const int DirectInputLeftThumbStickScalingFactor = 7;
     private const int DirectInputRightThumbStickScalingFactor = 1;
 
-    public GamePadController(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary, IConfiguration configuration, IDebugLogger debugLogger)
+    public GamePadController(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary, IConfiguration configuration, ILogger logger)
     {
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _messageBoxLibrary = messageBoxLibrary ?? throw new ArgumentNullException(nameof(messageBoxLibrary));
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
         // Initialize Xbox Controller using XInput
         _xinputController = new Controller(UserIndex.One);
@@ -369,7 +369,7 @@ public class GamePadController : IDisposable
                         // We will log it for debugging but not report it as a critical error to the user or developer.
                         if (ex.Message.Contains("User Interface Privacy Isolation (UIPI)", StringComparison.OrdinalIgnoreCase))
                         {
-                            _debugLogger.Log($"[GamePadController] UIPI blocked input simulation: {ex.Message}");
+                            _logger.Debug($"[GamePadController] UIPI blocked input simulation: {ex.Message}");
                             // Do not call ErrorLogger or show a message box. This is an expected OS behavior.
                         }
                         else

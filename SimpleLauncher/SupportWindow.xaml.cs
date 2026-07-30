@@ -13,7 +13,7 @@ using Interfaces;
 public partial class SupportWindow : ILoadingState
 {
     private readonly SupportViewModel _viewModel;
-    private readonly IDebugLogger _debugLogger;
+    private readonly ILogger _logger;
     private readonly Action _formClearedHandler;
     private Button _emergencyReturnButton;
 
@@ -21,13 +21,13 @@ public partial class SupportWindow : ILoadingState
     /// Initializes a new instance of the <see cref="SupportWindow"/> class.
     /// </summary>
     /// <param name="viewModel">The view model providing support form logic.</param>
-    /// <param name="debugLogger">The debug logger.</param>
-    public SupportWindow(SupportViewModel viewModel, IDebugLogger debugLogger)
+    /// <param name="logger">The debug logger.</param>
+    public SupportWindow(SupportViewModel viewModel, ILogger logger)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        _debugLogger = debugLogger ?? throw new ArgumentNullException(nameof(debugLogger));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _viewModel = viewModel;
 
         _formClearedHandler = () =>
@@ -101,7 +101,7 @@ public partial class SupportWindow : ILoadingState
         LoadingOverlay.Visibility = Visibility.Collapsed;
         MainContentGrid?.IsEnabled = true;
 
-        _debugLogger.Log("[Emergency] User forced overlay dismissal in SupportWindow.");
+        _logger.Debug("[Emergency] User forced overlay dismissal in SupportWindow.");
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 }

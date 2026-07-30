@@ -102,7 +102,7 @@ public sealed class DataFileLocation
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"[DataFileLocation] TryFallbackToLocalAppData failed: {ex.Message}");
+            Serilog.Log.Debug($"[DataFileLocation] TryFallbackToLocalAppData failed: {ex.Message}");
             return false;
         }
     }
@@ -121,7 +121,7 @@ public sealed class DataFileLocation
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"[DataFileLocation] IsDirectoryWritable failed for '{directoryPath}': {ex.Message}");
+            Serilog.Log.Debug($"[DataFileLocation] IsDirectoryWritable failed for '{directoryPath}': {ex.Message}");
             return false;
         }
     }
@@ -135,7 +135,7 @@ public sealed class DataFileLocation
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"[DataFileLocation] EnsureDirectoryExists failed for '{path}': {ex.Message}");
+            Serilog.Log.Debug($"[DataFileLocation] EnsureDirectoryExists failed for '{path}': {ex.Message}");
         }
     }
 }
