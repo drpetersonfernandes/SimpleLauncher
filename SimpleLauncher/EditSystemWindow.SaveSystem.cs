@@ -3,8 +3,10 @@ using System.Windows.Controls;
 using SimpleLauncher.Services.CreateFolders;
 using SimpleLauncher.Services.SanitizeInputString;
 using SimpleLauncher.Services.SystemManager;
-using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
+using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+
+using SimpleLauncher.Models;
 
 namespace SimpleLauncher;
 

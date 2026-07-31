@@ -6,9 +6,9 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.QuitOrReinstall;
-using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
-using CoreMessageBoxButton = SimpleLauncher.Interfaces.MessageBoxButton;
-using CoreMessageBoxImage = SimpleLauncher.Interfaces.MessageBoxImage;
+using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
+using CoreMessageBoxButton = SimpleLauncher.Models.MessageBoxButton;
+using CoreMessageBoxImage = SimpleLauncher.Models.MessageBoxImage;
 
 namespace SimpleLauncher.Services.MessageBox;
 

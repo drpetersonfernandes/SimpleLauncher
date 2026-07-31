@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.GlobalSearch.Models;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;

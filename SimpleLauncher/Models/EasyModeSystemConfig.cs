@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
-using SimpleLauncher.Services.EasyMode.Models;
 
 // Required for DefaultValueAttribute
 

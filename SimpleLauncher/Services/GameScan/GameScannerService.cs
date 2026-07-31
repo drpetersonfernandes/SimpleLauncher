@@ -2,7 +2,7 @@ using System.Net;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.GameScan.Models;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.SystemManager;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 

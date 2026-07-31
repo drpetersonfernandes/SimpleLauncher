@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using SimpleLauncher.Models;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using SharpCompress.Archives;

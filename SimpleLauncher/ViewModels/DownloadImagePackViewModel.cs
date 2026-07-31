@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DownloadService;
-using SimpleLauncher.Services.DownloadService.Models;
 using SimpleLauncher.Services.EasyMode;
 using SimpleLauncher.Services.PlaySound;
 using Application = System.Windows.Application;

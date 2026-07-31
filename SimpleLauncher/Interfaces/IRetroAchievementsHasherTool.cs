@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.RetroAchievements.Models;
+using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Interfaces;
 

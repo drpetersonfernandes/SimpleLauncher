@@ -11,7 +11,7 @@ using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
-using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
+using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 
 namespace SimpleLauncher.ViewModels;
 

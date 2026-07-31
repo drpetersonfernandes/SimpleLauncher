@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using SimpleLauncher.Models;
 using System.Text;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.SystemManager;

@@ -22,7 +22,7 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
 using WindowScreenshot = SimpleLauncher.Models.WindowScreenshot;
-using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
+using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 
 namespace SimpleLauncher.Services.ContextMenu;
 

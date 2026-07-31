@@ -1,5 +1,5 @@
 using System.Windows.Controls;
-using SimpleLauncher.Services.DisplaySystemInfo.Models;
+using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Interfaces;
 

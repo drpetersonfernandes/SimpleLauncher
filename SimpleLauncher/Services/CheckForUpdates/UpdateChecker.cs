@@ -8,7 +8,7 @@ using SharpCompress.Archives.Zip;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.QuitOrReinstall;
-using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
+using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 
 namespace SimpleLauncher.Services.CheckForUpdates;
 

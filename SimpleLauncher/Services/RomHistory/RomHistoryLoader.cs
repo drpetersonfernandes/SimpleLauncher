@@ -1,7 +1,7 @@
 using System.Xml;
 using System.Xml.Linq;
 using MessagePack;
-using SimpleLauncher.Services.RomHistory.Models;
+using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services.RomHistory;
 

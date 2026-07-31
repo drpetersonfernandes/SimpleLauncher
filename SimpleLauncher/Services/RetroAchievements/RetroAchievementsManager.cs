@@ -1,6 +1,6 @@
 using MessagePack;
 using SimpleLauncher.Services.AppDataFile;
-using SimpleLauncher.Services.RetroAchievements.Models;
+using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 

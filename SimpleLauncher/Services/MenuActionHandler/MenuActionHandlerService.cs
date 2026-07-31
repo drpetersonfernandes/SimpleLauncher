@@ -10,7 +10,7 @@ using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
-using MessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
+using MessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
 
 namespace SimpleLauncher.Services.MenuActionHandler;

@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.RomHistory;
-using MessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
+using MessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 
 namespace SimpleLauncher.ViewModels;
 

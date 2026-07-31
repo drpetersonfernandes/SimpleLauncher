@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
-using SimpleLauncher.Services.RetroAchievements.Models;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher;

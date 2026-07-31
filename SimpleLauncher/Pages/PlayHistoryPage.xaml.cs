@@ -18,7 +18,7 @@ using SimpleLauncher.Services.WpfServices;
 using SimpleLauncher.ViewModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
-using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
+using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 
 namespace SimpleLauncher.Pages;
 

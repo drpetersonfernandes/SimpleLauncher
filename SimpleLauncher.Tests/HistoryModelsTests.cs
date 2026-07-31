@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.RomHistory.Models;
+using SimpleLauncher.Models;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

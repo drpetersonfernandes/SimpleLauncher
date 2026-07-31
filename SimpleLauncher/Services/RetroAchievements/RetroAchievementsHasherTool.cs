@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using System.Windows;
-using SimpleLauncher.Services.RetroAchievements.Models;
+using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 

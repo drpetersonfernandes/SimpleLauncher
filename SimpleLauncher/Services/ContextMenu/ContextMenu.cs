@@ -4,7 +4,7 @@ using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
-using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
+using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.WpfServices;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;

@@ -1,4 +1,5 @@
 using System.Windows.Controls;
+using SimpleLauncher.Models;
 using System.Windows.Controls.Primitives;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.SystemManager;

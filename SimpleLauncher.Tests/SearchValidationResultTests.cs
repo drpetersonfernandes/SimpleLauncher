@@ -1,6 +1,8 @@
 using SimpleLauncher.Services.SearchOrchestrator;
 using Xunit;
 
+using SimpleLauncher.Models;
+
 namespace SimpleLauncher.Tests;
 
 /// <summary>

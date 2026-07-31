@@ -8,7 +8,7 @@ using Microsoft.Win32;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.CheckApplicationControlPolicy;
-using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
+using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;

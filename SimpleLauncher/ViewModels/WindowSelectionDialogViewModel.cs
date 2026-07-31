@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using SimpleLauncher.Services.TakeScreenshot.Models;
+using SimpleLauncher.Models;
 
 namespace SimpleLauncher.ViewModels;
 

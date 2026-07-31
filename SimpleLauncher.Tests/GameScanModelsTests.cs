@@ -1,5 +1,5 @@
 using System.Text.Json;
-using SimpleLauncher.Services.GameScan.Models;
+using SimpleLauncher.Models;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

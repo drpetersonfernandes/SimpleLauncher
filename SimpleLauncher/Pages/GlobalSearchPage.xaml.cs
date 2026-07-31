@@ -8,7 +8,6 @@ using SimpleLauncher.Models;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GamePad;
-using SimpleLauncher.Services.GlobalSearch.Models;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.PlaySound;

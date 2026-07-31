@@ -7,7 +7,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
-using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
+using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SimpleLauncher.Services.GameFileWatcher;
 using SimpleLauncher.Services.LoadImages;

@@ -1,5 +1,4 @@
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.EasyMode.Models;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
