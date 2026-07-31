@@ -5,8 +5,8 @@ public interface IUiResetHost
     // State
     bool IsUiUpdating { get; set; }
     bool IsLoadingGames { get; set; }
-    string CurrentFilter { get; set; }
-    string ActiveSearchQueryOrMode { get; set; }
+    string? CurrentFilter { get; set; }
+    string? ActiveSearchQueryOrMode { get; set; }
     string SelectedSystem { get; set; }
     string PlayTime { get; set; }
     string MameSortOrder { get; set; }

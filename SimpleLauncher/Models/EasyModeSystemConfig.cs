@@ -14,24 +14,24 @@ public class EasyModeSystemConfig
     /// <summary>
     /// Gets or sets the display name of the system.
     /// </summary>
-    public string SystemName { get; set; }
+    public string SystemName { get; set; } = "";
 
     /// <summary>
     /// Gets or sets the folder path containing ROM files.
     /// </summary>
-    public string SystemFolder { get; set; }
+    public string SystemFolder { get; set; } = "";
 
     /// <summary>
     /// Gets or sets the folder path containing system images.
     /// </summary>
-    public string SystemImageFolder { get; set; }
+    public string SystemImageFolder { get; set; } = "";
 
     /// <summary>
     /// Gets or sets the file extensions to search for ROMs.
     /// </summary>
     [XmlArray("FileFormatsToSearch")]
     [XmlArrayItem("FormatToSearch")]
-    public List<string> FileFormatsToSearch { get; set; }
+    public List<string> FileFormatsToSearch { get; set; } = [];
 
     /// <summary>
     /// Gets or sets whether compressed files should be extracted before launching.
@@ -53,13 +53,13 @@ public class EasyModeSystemConfig
     /// </summary>
     [XmlArray("FileFormatsToLaunch")]
     [XmlArrayItem("FormatToLaunch")]
-    public List<string> FileFormatsToLaunch { get; set; }
+    public List<string> FileFormatsToLaunch { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the emulator configuration for this system.
     /// </summary>
     [XmlElement("Emulators")]
-    public EmulatorsConfig Emulators { get; set; }
+    public EmulatorsConfig Emulators { get; set; } = null!;
 
     /// <summary>
     /// Validates that the configuration has the minimum required fields.

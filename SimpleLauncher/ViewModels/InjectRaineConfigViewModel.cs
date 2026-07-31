@@ -50,7 +50,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     /// <param name="gameFilePath">Optional path to the game file.</param>
     /// <param name="systemRomPath">Optional path to the system ROM.</param>
-    public void Initialize(string emulatorPath, bool isLauncherMode, string gameFilePath = null, string systemRomPath = null)
+    public void Initialize(string? emulatorPath, bool isLauncherMode, string? gameFilePath = null, string? systemRomPath = null)
     {
         _emulatorPath = emulatorPath ?? throw new ArgumentNullException(nameof(emulatorPath));
         _gameFilePath = gameFilePath ?? "";

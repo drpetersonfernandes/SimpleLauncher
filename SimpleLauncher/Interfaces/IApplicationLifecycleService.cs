@@ -11,7 +11,7 @@ public interface IApplicationLifecycleService
     void MigratePlayHistory(List<SystemManager> systemManagers);
 
     event Action<string> GameFilesChanged;
-    void StartWatching(IEnumerable<string> folders, string systemName, IEnumerable<string> fileExtensions = null);
+    void StartWatching(IEnumerable<string> folders, string systemName, IEnumerable<string>? fileExtensions = null);
     void StopWatching();
     void UnsubscribeGameFilesChanged(Action<string> handler);
 }

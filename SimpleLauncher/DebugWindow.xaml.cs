@@ -9,11 +9,11 @@ namespace SimpleLauncher;
 public partial class DebugWindow
 {
     private static readonly object InstanceLock = new();
-    private DebugViewModel _viewModel;
-    private PropertyChangedEventHandler _logTextPropertyChangedHandler;
+    private DebugViewModel _viewModel = null!;
+    private PropertyChangedEventHandler? _logTextPropertyChangedHandler;
     private bool _isReallyClosing;
 
-    internal static DebugWindow Instance { get; private set; }
+    internal static DebugWindow? Instance { get; private set; }
 
     internal static void Initialize()
     {

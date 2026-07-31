@@ -16,11 +16,11 @@ public interface IGameBrowserService
     List<SystemManager> SystemManagers { get; }
 
     // Game loading
-    Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null, CancellationToken ct = default);
+    Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null, CancellationToken ct = default);
     Task InvalidateGameFileCachesAsync(CancellationToken ct = default);
 
     // Search
-    Task<SearchValidationResult> ValidateAndPrepareAsync(string searchQuery, string selectedSystem, CancellationToken ct);
+    Task<SearchValidationResult> ValidateAndPrepareAsync(string searchQuery, string? selectedSystem, CancellationToken ct);
 
     // Rendering
     void ReloadFactories(List<SystemManager> systemManagers, List<MameManager> machines);

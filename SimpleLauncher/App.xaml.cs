@@ -77,14 +77,14 @@ public partial class App : IDisposable
     /// <summary>
     /// Gets the application's dependency injection service provider.
     /// </summary>
-    public static IServiceProvider ServiceProvider { get; private set; }
+    public static IServiceProvider ServiceProvider { get; private set; } = null!;
 
-    private Mutex _singleInstanceMutex;
+    private Mutex _singleInstanceMutex = null!;
     private bool _isFirstInstance;
     private const string UniqueMutexIdentifier = "A8E2B9C1-F5D7-4E0A-8B3C-6D1E9F0A7B4C";
     private const string MutexName = "SimpleLauncher_SingleInstanceMutex_" + UniqueMutexIdentifier;
     private const string EventName = "SimpleLauncher_SingleInstanceEvent_" + UniqueMutexIdentifier;
-    private EventWaitHandle _instanceSignal;
+    private EventWaitHandle _instanceSignal = null!;
 
     /// <summary>
     /// Handles application startup including DI registration, single-instance check, and theme initialization.
@@ -691,7 +691,7 @@ public partial class App : IDisposable
         e.Handled = true;
     }
 
-    private static void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+    private static void TaskScheduler_UnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
     {
         ReportException(e.Exception, "Unhandled task exception.");
         e.SetObserved();

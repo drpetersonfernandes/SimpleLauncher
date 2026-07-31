@@ -10,7 +10,7 @@ public partial class DownloadImagePackWindow : IDisposable
 {
     private readonly DownloadImagePackViewModel _viewModel;
     private readonly ILogger _logger;
-    private Button _emergencyReturnButton;
+    private Button? _emergencyReturnButton;
 
     public DownloadImagePackWindow(ILogger logErrors, DownloadImagePackViewModel viewModel)
     {
@@ -47,7 +47,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
     }
 
-    private async void CloseWindowRoutineAsync(object sender, EventArgs e)
+    private async void CloseWindowRoutineAsync(object? sender, EventArgs e)
     {
         try
         {

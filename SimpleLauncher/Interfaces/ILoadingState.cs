@@ -7,5 +7,5 @@ public interface ILoadingState
     /// </summary>
     /// <param name="isLoading">True to show the overlay, false to hide it.</param>
     /// <param name="message">The message to display on the overlay.</param>
-    void SetLoadingState(bool isLoading, string message = null);
+    void SetLoadingState(bool isLoading, string? message = null);
 }

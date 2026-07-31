@@ -6,7 +6,7 @@ namespace SimpleLauncher.Services.AppDataFile;
 public sealed class DataFileLocation
 {
     private readonly string _fileName;
-    public string FilePath { get; private set; }
+    public string FilePath { get; private set; } = null!;
     public string TempFilePath => FilePath + ".tmp";
     public bool IsPortableMode { get; private set; }
 

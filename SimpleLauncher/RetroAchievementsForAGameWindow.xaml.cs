@@ -23,10 +23,10 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
     private readonly ILogger _logger;
 
     private int _gameId;
-    private string _gameTitleForDisplay;
+    private string _gameTitleForDisplay = "";
     private readonly SettingsManager _settings;
     private readonly RetroAchievementsService _raService;
-    private Button _emergencyReturnButton;
+    private Button? _emergencyReturnButton;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RetroAchievementsForAGameWindow"/> class.
@@ -326,7 +326,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
     /// </summary>
     /// <param name="isLoading">Whether to show or hide the loading overlay.</param>
     /// <param name="message">Optional message to display while loading.</param>
-    public void SetLoadingState(bool isLoading, string message = null)
+    public void SetLoadingState(bool isLoading, string? message = null)
     {
         Dispatcher.Invoke(() =>
         {
@@ -1150,7 +1150,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
 
     private static readonly HttpClient SharedHttpClient = new();
 
-    private static async Task<BitmapImage> LoadImageFromUrlAsync(string url)
+    private static async Task<BitmapImage?> LoadImageFromUrlAsync(string url)
     {
         try
         {

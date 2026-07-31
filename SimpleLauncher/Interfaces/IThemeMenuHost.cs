@@ -4,5 +4,5 @@ namespace SimpleLauncher.Interfaces;
 
 public interface IThemeMenuHost
 {
-    MenuItem FindMenuItemByName(string name);
+    MenuItem? FindMenuItemByName(string name);
 }

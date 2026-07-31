@@ -374,7 +374,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays an error message when a game fails to launch, with an option to open the error log.
     /// </summary>
-    public async Task ErrorLaunchingGameMessageBoxAsync(string logPath)
+    public async Task ErrorLaunchingGameMessageBoxAsync(string? logPath)
     {
         var therewasanerrorlaunchingtheselected = _resourceProvider.GetString("Therewasanerrorlaunchingtheselected", "There was an error launching the selected game.");
         var dowanttoopenthefileerroruserlog = _resourceProvider.GetString("Dowanttoopenthefileerroruserlog", "Do want to open the file 'error_user.log' to debug the error?");
@@ -435,7 +435,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays an error when a specific game could not be launched, with an option to open the error log.
     /// </summary>
-    public async Task CouldNotLaunchThisGameMessageBoxAsync(string logPath)
+    public async Task CouldNotLaunchThisGameMessageBoxAsync(string? logPath)
     {
         var simpleLaunchercouldnotlaunchthisgame = _resourceProvider.GetString("SimpleLaunchercouldnotlaunchthisgame", "'Simple Launcher' could not launch this game.");
         var dowanttoopenthefileerroruserlog = _resourceProvider.GetString("Dowanttoopenthefileerroruserlog", "Do want to open the file 'error_user.log' to debug the error?");
@@ -544,7 +544,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays an error when launching a tool fails, with an option to open the error log.
     /// </summary>
-    public async Task ErrorLaunchingToolMessageBoxAsync(string logPath)
+    public async Task ErrorLaunchingToolMessageBoxAsync(string? logPath)
     {
         var anerroroccurredwhilelaunchingtheselectedtool = _resourceProvider.GetString("Anerroroccurredwhilelaunchingtheselectedtool", "An error occurred while launching the selected tool.");
         var grantSimpleLauncheradministrative = _resourceProvider.GetString("GrantSimpleLauncheradministrative", "Grant 'Simple Launcher' administrative access and try again.");

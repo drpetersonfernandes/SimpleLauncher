@@ -35,7 +35,7 @@ public partial class MainWindow : IGameFileLoadingHost
         return _gameBrowser.DisplaySystemSelectionScreenAsync(cancellationToken);
     }
 
-    void IGameFileLoadingHost.SetLoadingState(bool isLoading, string message)
+    void IGameFileLoadingHost.SetLoadingState(bool isLoading, string? message)
     {
         SetLoadingState(isLoading, message);
     }
@@ -50,12 +50,12 @@ public partial class MainWindow : IGameFileLoadingHost
         return SetPaginationOfListOfFiles(allFiles);
     }
 
-    string IGameFileLoadingHost.GetCurrentFilter()
+    string? IGameFileLoadingHost.GetCurrentFilter()
     {
         return ((IUiResetHost)this).CurrentFilter;
     }
 
-    string IGameFileLoadingHost.GetActiveSearchQueryOrMode()
+    string? IGameFileLoadingHost.GetActiveSearchQueryOrMode()
     {
         return ((IUiResetHost)this).ActiveSearchQueryOrMode;
     }

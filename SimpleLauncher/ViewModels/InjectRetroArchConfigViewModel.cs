@@ -53,7 +53,7 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     /// </summary>
     /// <param name="emulatorPath">The file path to the RetroArch emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
-    public void Initialize(string emulatorPath, bool isLauncherMode)
+    public void Initialize(string? emulatorPath, bool isLauncherMode)
     {
         _emulatorPath = emulatorPath;
         IsLauncherMode = isLauncherMode;

@@ -24,9 +24,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly ILogger _logger;
     private readonly EasyModeManager _easyModeManager;
-    private EasyModeManager _manager;
+    private EasyModeManager? _manager;
     private readonly IConfiguration _configuration;
-    private Button _emergencyReturnButton;
+    private Button? _emergencyReturnButton;
 
     // Track download states for all components
     private readonly Dictionary<string, DownloadButtonState> _downloadStates = new();
@@ -242,7 +242,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     }
 
-    private string _currentDownloadType;
+    private string? _currentDownloadType;
 
     // Backing field for DownloadStatus property
     private string _downloadStatus = "";
@@ -258,7 +258,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     }
 
-    public event PropertyChangedEventHandler PropertyChanged; // INotifyPropertyChanged implementation
+    public event PropertyChangedEventHandler? PropertyChanged; // INotifyPropertyChanged implementation
 
     // Thread-safe operation tracking
     private int _operationInProgressFlag;
@@ -279,12 +279,12 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         Interlocked.Exchange(ref _operationInProgressFlag, 0);
     }
 
-    private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    public void SetLoadingState(bool isLoading, string message = null)
+    public void SetLoadingState(bool isLoading, string? message = null)
     {
         Dispatcher.Invoke(() =>
         {
@@ -441,7 +441,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             return;
         }
 
-        var selectedSystem = _manager.Systems.FirstOrDefault(system => system.SystemName.Equals(SystemNameDropdown.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase));
+        var selectedSystem = _manager?.Systems.FirstOrDefault(system => system.SystemName.Equals(SystemNameDropdown.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase));
         if (selectedSystem == null)
         {
             // This should ideally not happen if PopulateSystemDropdown is correct, but handle defensively
@@ -818,9 +818,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             return;
         }
 
-        string downloadUrl;
+        string? downloadUrl;
         string componentName;
-        string easyModeExtractPath;
+        string? easyModeExtractPath;
 
         switch (type)
         {
@@ -1059,7 +1059,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     }
 
-    private void DownloadManager_ProgressChanged(object sender, DownloadProgressEventArgs e)
+    private void DownloadManager_ProgressChanged(object? sender, DownloadProgressEventArgs e)
     {
         if (_disposed) return;
 
@@ -1072,7 +1072,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         });
     }
 
-    private EasyModeSystemConfig GetSelectedSystem()
+    private EasyModeSystemConfig? GetSelectedSystem()
     {
         if (_disposed || _manager == null) return null;
 
@@ -1081,7 +1081,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             : null;
     }
 
-    private void StopDownloadButton_Click(object sender, RoutedEventArgs e)
+    private void StopDownloadButton_Click(object? sender, RoutedEventArgs? e)
     {
         _playSoundEffects.PlayNotificationSound();
         if (_disposed) return; // Early exit if window is already disposed
@@ -1158,12 +1158,15 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolderRaw);
                     var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderRaw);
 
-                    await CreateDefaultSystemFolders.CreateFoldersAsync(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logger, _messageBox);
+                    if (resolvedSystemFolder != null && resolvedSystemImageFolder != null)
+                    {
+                        await CreateDefaultSystemFolders.CreateFoldersAsync(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logger, _messageBox);
 
-                    var systemhasbeensuccessfullyadded = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
-                    DownloadStatus = systemhasbeensuccessfullyadded;
+                        var systemhasbeensuccessfullyadded = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
+                        DownloadStatus = systemhasbeensuccessfullyadded;
 
-                    await _messageBox.SystemAddedMessageBoxAsync(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
+                        await _messageBox.SystemAddedMessageBoxAsync(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
+                    }
 
                     Close();
                 }
@@ -1236,7 +1239,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     }
 
     // ReSharper disable once MemberCanBeMadeStatic.Local
-    private string GetBooleanPropertyNameForType(string type)
+    private string? GetBooleanPropertyNameForType(string type)
     {
         return type switch
         {
@@ -1251,7 +1254,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         };
     }
 
-    private async void CloseWindowRoutineAsync(object sender, EventArgs e)
+    private async void CloseWindowRoutineAsync(object? sender, EventArgs e)
     {
         try // Top-level catch for async Task method
         {

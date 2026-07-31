@@ -10,7 +10,7 @@ namespace SimpleLauncher;
 public partial class FlashOverlayWindow : IDisposable
 {
     private readonly FlashOverlayViewModel _viewModel;
-    private CancellationTokenSource _cts;
+    private CancellationTokenSource? _cts;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FlashOverlayWindow"/> class.

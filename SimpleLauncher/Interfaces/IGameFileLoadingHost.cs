@@ -21,10 +21,10 @@ public interface IGameFileLoadingHost
     List<SystemManager> GetSystemManagers();
 
     Task DisplaySystemSelectionScreenAsync(CancellationToken cancellationToken);
-    void SetLoadingState(bool isLoading, string message = null);
+    void SetLoadingState(bool isLoading, string? message = null);
     Task SetUiBeforeLoadGameFilesAsync();
     List<string> SetPaginationOfListOfFiles(List<string> allFiles);
-    string GetCurrentFilter();
-    string GetActiveSearchQueryOrMode();
+    string? GetCurrentFilter();
+    string? GetActiveSearchQueryOrMode();
     string GetMameSortOrder();
 }

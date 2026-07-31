@@ -41,13 +41,13 @@ public partial class MainWindow
     }
 
     // IThemeMenuHost
-    MenuItem IThemeMenuHost.FindMenuItemByName(string name)
+    MenuItem? IThemeMenuHost.FindMenuItemByName(string name)
     {
         return FindName(name) as MenuItem;
     }
 
     // ILanguageMenuHost
-    MenuItem ILanguageMenuHost.FindMenuItemByName(string name)
+    MenuItem? ILanguageMenuHost.FindMenuItemByName(string name)
     {
         return FindName(name) as MenuItem;
     }

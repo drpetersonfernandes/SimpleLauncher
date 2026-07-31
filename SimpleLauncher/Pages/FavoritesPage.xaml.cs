@@ -399,7 +399,7 @@ IFindCoverImageService findCoverImage,
         }
     }
 
-    public void SetLoadingState(bool isLoading, string message = null)
+    public void SetLoadingState(bool isLoading, string? message = null)
     {
         LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
         if (isLoading)

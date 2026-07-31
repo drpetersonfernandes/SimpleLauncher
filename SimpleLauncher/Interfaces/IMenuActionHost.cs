@@ -7,9 +7,9 @@ public interface IMenuActionHost
 {
     // Core operations
     void CancelAndRecreateToken();
-    void SetLoadingState(bool isLoading, string message = null);
-    Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null, CancellationToken cancellationToken = default);
-    (string startLetter, string searchQuery) GetLoadGameFilesParams();
+    void SetLoadingState(bool isLoading, string? message = null);
+    Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null, CancellationToken cancellationToken = default);
+    (string? startLetter, string? searchQuery) GetLoadGameFilesParams();
     Task ResetUiAsync();
     void LoadOrReloadSystemManager();
     void NavigateToPage(object page);

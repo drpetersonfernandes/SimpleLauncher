@@ -14,13 +14,13 @@ public class PlayHistoryItem : INotifyPropertyChanged
     /// Gets or sets the full file path of the played game.
     /// </summary>
     [Key(0)]
-    public string FileName { get; set; }
+    public string FileName { get; set; } = "";
 
     /// <summary>
     /// Gets or sets the name of the system this game belongs to.
     /// </summary>
     [Key(1)]
-    public string SystemName { get; set; }
+    public string SystemName { get; set; } = "";
 
     /// <summary>
     /// Gets or sets the total play time in seconds.
@@ -70,7 +70,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
             field = value;
             OnPropertyChanged();
         }
-    }
+    } = "";
 
     /// <summary>
     /// Gets or sets the time of the last play session in ISO format (HH:mm:ss).
@@ -86,7 +86,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
             field = value;
             OnPropertyChanged();
         }
-    }
+    } = "";
 
     /// <summary>
     /// Gets or sets the machine description from the ROM database.
@@ -102,7 +102,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
             field = value;
             OnPropertyChanged();
         }
-    }
+    } = "";
 
     /// <summary>
     /// Gets the file name portion of the game path for display.
@@ -124,7 +124,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
             field = value;
             OnPropertyChanged();
         }
-    }
+    } = "";
 
     /// <summary>
     /// Gets or sets the default emulator name for this game.
@@ -140,7 +140,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
             field = value;
             OnPropertyChanged();
         }
-    }
+    } = "";
 
     /// <summary>
     /// Gets the total play time formatted as a human-readable string (e.g. "2h 30m 15s").
@@ -157,9 +157,9 @@ public class PlayHistoryItem : INotifyPropertyChanged
         }
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

@@ -9,8 +9,8 @@ namespace SimpleLauncher;
 internal partial class GlobalStatsWindow : IDisposable
 {
     private readonly GlobalStatsViewModel _viewModel;
-    private Action _closeRequestedHandler;
-    private Button _emergencyReturnButton;
+    private Action? _closeRequestedHandler;
+    private Button? _emergencyReturnButton;
 
     public GlobalStatsWindow(GlobalStatsViewModel viewModel)
     {
@@ -49,7 +49,7 @@ internal partial class GlobalStatsWindow : IDisposable
         _viewModel.EmergencyOverlayRelease();
     }
 
-    private void GlobalStatsWindow_Closing(object sender, CancelEventArgs e)
+    private void GlobalStatsWindow_Closing(object? sender, CancelEventArgs e)
     {
         // Unsubscribe events
         if (_closeRequestedHandler != null)

@@ -47,7 +47,7 @@ public partial class MainWindow : ISystemSelectionHost
         set => IsPlayTimeVisible = value;
     }
 
-    void ISystemSelectionHost.SetLoadingState(bool isLoading, string message)
+    void ISystemSelectionHost.SetLoadingState(bool isLoading, string? message)
     {
         SetLoadingState(isLoading, message);
     }

@@ -22,17 +22,17 @@ public class RightClickContext(
     List<Services.MameManager.MameManager> machines,
     FavoritesManager favoritesManager,
     SettingsManager settings,
-    ComboBox emulatorComboBox,
-    Favorite favorite,
-    Emulator emulator,
-    WrapPanel gameFileGrid,
-    Button button,
+    ComboBox? emulatorComboBox,
+    Favorite? favorite,
+    Emulator? emulator,
+    WrapPanel? gameFileGrid,
+    Button? button,
     MainWindow mainWindow,
     GamePadController gamePadController,
-    Action onFavoriteRemoved = null,
-    Services.GameLauncher.GameLauncher gameLauncher = null,
-    PlaySoundEffects playSoundEffects = null,
-    ILoadingState loadingStateProvider = null)
+    Action? onFavoriteRemoved = null,
+    Services.GameLauncher.GameLauncher? gameLauncher = null,
+    PlaySoundEffects? playSoundEffects = null,
+    ILoadingState? loadingStateProvider = null)
 {
     /// <summary>Gets the full file path of the game ROM.</summary>
     public string FilePath { get; } = filePath ?? throw new ArgumentNullException(nameof(filePath));
@@ -59,19 +59,19 @@ public class RightClickContext(
     public SettingsManager Settings { get; } = settings ?? throw new ArgumentNullException(nameof(settings));
 
     /// <summary>Gets the emulator combo box control.</summary>
-    public ComboBox EmulatorComboBox { get; } = emulatorComboBox;
+    public ComboBox? EmulatorComboBox { get; } = emulatorComboBox;
 
     /// <summary>Gets the selected favorite entry, if any.</summary>
-    public Favorite Favorite { get; } = favorite;
+    public Favorite? Favorite { get; } = favorite;
 
     /// <summary>Gets the emulator configuration instance.</summary>
-    public Emulator Emulator { get; } = emulator;
+    public Emulator? Emulator { get; } = emulator;
 
     /// <summary>Gets the game file grid panel.</summary>
-    public WrapPanel GameFileGrid { get; } = gameFileGrid;
+    public WrapPanel? GameFileGrid { get; } = gameFileGrid;
 
     /// <summary>Gets or sets the button that was right-clicked.</summary>
-    public Button Button { get; set; } = button;
+    public Button? Button { get; set; } = button;
 
     /// <summary>Gets the main application window.</summary>
     public MainWindow MainWindow { get; } = mainWindow;
@@ -80,13 +80,13 @@ public class RightClickContext(
     public GamePadController GamePadController { get; } = gamePadController;
 
     /// <summary>Gets the callback invoked when a favorite is removed.</summary>
-    public Action OnFavoriteRemoved { get; } = onFavoriteRemoved;
+    public Action? OnFavoriteRemoved { get; } = onFavoriteRemoved;
 
     /// <summary>Gets the game launcher service, if available.</summary>
-    public Services.GameLauncher.GameLauncher GameLauncher { get; } = gameLauncher;
+    public Services.GameLauncher.GameLauncher? GameLauncher { get; } = gameLauncher;
 
     /// <summary>Gets the sound effects service, if available.</summary>
-    public PlaySoundEffects PlaySoundEffects { get; } = playSoundEffects;
+    public PlaySoundEffects? PlaySoundEffects { get; } = playSoundEffects;
 
     /// <summary>Gets the loading state provider for overlay display.</summary>
     public ILoadingState LoadingStateProvider { get; } = loadingStateProvider

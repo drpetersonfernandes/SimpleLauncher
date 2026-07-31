@@ -13,5 +13,5 @@ public class ParameterResolverResult
     /// <summary>
     /// Gets or sets a human-readable explanation of why this parameter was chosen.
     /// </summary>
-    public string Explanation { get; set; }
+    public string Explanation { get; set; } = "";
 }

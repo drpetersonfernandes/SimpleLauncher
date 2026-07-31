@@ -15,8 +15,8 @@ public interface ISystemSelectionHost
     Grid ListViewPreviewArea { get; }
     Image PreviewImage { get; }
     Label TotalFilesLabel { get; }
-    Button PrevPageButton2 { get; }
-    Button NextPageButton2 { get; }
+    Button? PrevPageButton2 { get; }
+    Button? NextPageButton2 { get; }
     TextBox SearchTextBox { get; }
     ComboBox SystemComboBox { get; }
     ComboBox EmulatorComboBox { get; }
@@ -27,7 +27,7 @@ public interface ISystemSelectionHost
     string PlayTime { get; set; }
     bool IsPlayTimeVisible { get; set; }
 
-    void SetLoadingState(bool isLoading, string message = null);
+    void SetLoadingState(bool isLoading, string? message = null);
     void CancelAndRecreateToken();
     CancellationToken CurrentCancellationToken { get; }
     Task ResetUiAsync();

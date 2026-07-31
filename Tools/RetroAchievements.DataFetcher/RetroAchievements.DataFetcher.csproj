@@ -8,11 +8,12 @@
         <Nullable>enable</Nullable>
         <ApplicationIcon>icon\icon.ico</ApplicationIcon>
         <IsPackable>false</IsPackable>
-        <AssemblyVersion>1.1</AssemblyVersion>
-        <FileVersion>1.1</FileVersion>
-        <NeutralLanguage>en-US</NeutralLanguage>
+        <AssemblyVersion>1.1.0</AssemblyVersion>
+        <FileVersion>1.1.0</FileVersion>
+        <NeutralLanguage>en</NeutralLanguage>
         <DebugType>embedded</DebugType>
         <DebugSymbols>true</DebugSymbols>
+        <Company>PureLogicCode.com</Company>
     </PropertyGroup>
 
     <ItemGroup>

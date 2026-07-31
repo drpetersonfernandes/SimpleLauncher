@@ -12,7 +12,7 @@ using Interfaces;
 /// </summary>
 public partial class MainWindow
 {
-    private void MainWindow_Closing(object sender, CancelEventArgs e)
+    private void MainWindow_Closing(object? sender, CancelEventArgs e)
     {
         SaveApplicationSettings();
 
@@ -22,7 +22,7 @@ public partial class MainWindow
         Dispose();
     }
 
-    private void MainWindow_StateChanged(object sender, EventArgs e)
+    private void MainWindow_StateChanged(object? sender, EventArgs e)
     {
         if (WindowState == System.Windows.WindowState.Minimized)
         {

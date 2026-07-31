@@ -57,7 +57,7 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
     }
 
     /// <summary>Sets the loading state, optionally displaying a loading overlay with a message.</summary>
-    public void SetLoadingState(bool isLoading, string message = null)
+    public void SetLoadingState(bool isLoading, string? message = null)
     {
         _loadingOverlayService.SetLoadingState(isLoading, message);
     }

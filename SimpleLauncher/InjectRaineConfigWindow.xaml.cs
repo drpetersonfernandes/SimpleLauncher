@@ -9,9 +9,9 @@ namespace SimpleLauncher;
 public partial class InjectRaineConfigWindow
 {
     private readonly InjectRaineConfigViewModel _viewModel;
-    private readonly Func<string> _requestEmulatorPathHandler;
-    private readonly Func<string> _requestFilePathHandler;
-    private readonly Func<string> _requestFolderPathHandler;
+    private readonly Func<string?> _requestEmulatorPathHandler;
+    private readonly Func<string?> _requestFilePathHandler;
+    private readonly Func<string?> _requestFolderPathHandler;
     private readonly Func<Window> _getOwnerWindowHandler;
 
     /// <summary>
@@ -54,7 +54,7 @@ public partial class InjectRaineConfigWindow
     /// <param name="isLauncherMode">If true, the window operates in launcher mode.</param>
     /// <param name="gameFilePath">Optional path to the game file.</param>
     /// <param name="systemRomPath">Optional path to the system ROM.</param>
-    public void Initialize(string emulatorPath = null, bool isLauncherMode = true, string gameFilePath = null, string systemRomPath = null)
+    public void Initialize(string? emulatorPath = null, bool isLauncherMode = true, string? gameFilePath = null, string? systemRomPath = null)
     {
         _viewModel.Initialize(emulatorPath, isLauncherMode, gameFilePath, systemRomPath);
 
@@ -69,7 +69,7 @@ public partial class InjectRaineConfigWindow
     /// </summary>
     public bool ShouldRun => _viewModel.ShouldRun;
 
-    private static string OnRequestEmulatorPath()
+    private static string? OnRequestEmulatorPath()
     {
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
@@ -80,7 +80,7 @@ public partial class InjectRaineConfigWindow
         return dialog.ShowDialog() == true ? dialog.FileName : null;
     }
 
-    private static string OnRequestFilePath()
+    private static string? OnRequestFilePath()
     {
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
@@ -91,7 +91,7 @@ public partial class InjectRaineConfigWindow
         return dialog.ShowDialog() == true ? dialog.FileName : null;
     }
 
-    private static string OnRequestFolderPath()
+    private static string? OnRequestFolderPath()
     {
         var dialog = new Microsoft.Win32.OpenFolderDialog
         {

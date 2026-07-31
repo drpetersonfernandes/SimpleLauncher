@@ -21,22 +21,22 @@ namespace SimpleLauncher;
 
 internal partial class EditSystemWindow : ILoadingState
 {
-    private List<SystemManager> _systems;
+    private List<SystemManager> _systems = null!;
     private static readonly char[] SplitSeparators = [',', '|', ';'];
     private readonly SettingsManager _settings;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IHelpUserService _helpUserService;
     private readonly IImageLoader _imageLoader;
-    private string _originalSystemName;
+    private string? _originalSystemName;
     private readonly IConfiguration _configuration;
-    private readonly string _preSelectedSystemName;
+    private readonly string? _preSelectedSystemName;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
     private readonly ILogger _logger;
     private readonly IParameterResolverService _parameterResolverService;
-    private Button _emergencyReturnButton;
+    private Button? _emergencyReturnButton;
 
-    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, IHelpUserService helpUserService, IImageLoader imageLoader, IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, ILogger logger, IParameterResolverService parameterResolverService, string preSelectedSystemName = null)
+    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, IHelpUserService helpUserService, IImageLoader imageLoader, IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, ILogger logger, IParameterResolverService parameterResolverService, string? preSelectedSystemName = null)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -72,7 +72,7 @@ internal partial class EditSystemWindow : ILoadingState
         DeleteSystemButton.IsEnabled = false;
     }
 
-    public void SetLoadingState(bool isLoading, string message = null)
+    public void SetLoadingState(bool isLoading, string? message = null)
     {
         Dispatcher.Invoke(() =>
         {
@@ -562,7 +562,7 @@ internal partial class EditSystemWindow : ILoadingState
                 return;
             }
 
-            var selectedSystemName = SystemNameDropdown.SelectedItem.ToString();
+            var selectedSystemName = SystemNameDropdown.SelectedItem.ToString()!;
 
             var result = await _messageBox.AreYouSureDoYouWantToDeleteThisSystemMessageBoxAsync();
             if (result != CoreMessageBoxResult.Yes) return;
@@ -591,7 +591,7 @@ internal partial class EditSystemWindow : ILoadingState
         Close();
     }
 
-    private void EditSystem_Closing(object sender, CancelEventArgs e)
+    private void EditSystem_Closing(object? sender, CancelEventArgs e)
     {
         // Unsubscribe emergency button
         if (_emergencyReturnButton != null)
@@ -777,7 +777,7 @@ internal partial class EditSystemWindow : ILoadingState
     {
         var systemName = SystemNameTextBox.Text.Trim();
         var imagesSystemsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "systems");
-        string imagePath = null;
+        string? imagePath = null;
 
         if (!string.IsNullOrEmpty(systemName))
         {
@@ -921,14 +921,14 @@ internal partial class EditSystemWindow : ILoadingState
             {
                 SystemName = SystemNameTextBox.Text.Trim(),
                 SystemFolder = SystemFolderTextBox.Text.Trim(),
-                FileFormatsToSearch = SplitAndTrim(FormatToSearchTextBox.Text),
+                FileFormatsToSearch = SplitAndTrim(FormatToSearchTextBox.Text) ?? [],
                 ExtractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem?.ToString() == "true",
-                FileFormatsToLaunch = SplitAndTrim(FormatToLaunchTextBox.Text),
+                FileFormatsToLaunch = SplitAndTrim(FormatToLaunchTextBox.Text) ?? [],
                 GroupByFolder = GroupByFolderComboBox.SelectedItem?.ToString() == "true",
                 DisableRecursiveSearch = DisableRecursiveSearchComboBox.SelectedItem?.ToString() == "true",
                 EmulatorName = emulatorName.Trim(),
-                EmulatorPath = emulatorPath?.Trim(),
-                CurrentParameters = currentParameters?.Trim()
+                EmulatorPath = emulatorPath?.Trim() ?? "",
+                CurrentParameters = currentParameters?.Trim() ?? ""
             };
 
             var result = await _parameterResolverService.ResolveParametersAsync(request);
@@ -981,7 +981,7 @@ internal partial class EditSystemWindow : ILoadingState
         }
     }
 
-    private TextBox FindParametersTextBox(string emulatorName)
+    private TextBox? FindParametersTextBox(string emulatorName)
     {
         if (emulatorName == Emulator1NameTextBox.Text) return Emulator1ParametersTextBox;
         if (emulatorName == Emulator2NameTextBox.Text) return Emulator2ParametersTextBox;
@@ -992,7 +992,7 @@ internal partial class EditSystemWindow : ILoadingState
         return null;
     }
 
-    private static List<string> SplitAndTrim(string text)
+    private static List<string>? SplitAndTrim(string text)
     {
         if (string.IsNullOrWhiteSpace(text))
             return null;

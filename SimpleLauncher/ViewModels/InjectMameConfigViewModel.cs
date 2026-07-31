@@ -51,7 +51,7 @@ public partial class InjectMameConfigViewModel : ObservableObject
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     /// <param name="systemRomPath">Optional path to the system ROM directory.</param>
     /// <param name="listOfSecondaryRomPaths">Optional list of secondary ROM folder paths.</param>
-    public void Initialize(string emulatorPath, bool isLauncherMode, string systemRomPath = null, string[] listOfSecondaryRomPaths = null)
+    public void Initialize(string? emulatorPath, bool isLauncherMode, string? systemRomPath = null, string[]? listOfSecondaryRomPaths = null)
     {
         _emulatorPath = emulatorPath;
         IsLauncherMode = isLauncherMode;

@@ -6,7 +6,7 @@ public interface IUiOrchestrator
 {
     void Initialize(IUiOrchestratorHost host);
 
-    void SetLoadingState(bool isLoading, string message = null);
+    void SetLoadingState(bool isLoading, string? message = null);
     void EmergencyRelease();
 
     void NavigateToPage(Page page);

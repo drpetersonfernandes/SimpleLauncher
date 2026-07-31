@@ -57,7 +57,7 @@ public class ApplicationLifecycleService : IApplicationLifecycleService
         remove => _gameFileWatcherService.GameFilesChanged -= value;
     }
 
-    public void StartWatching(IEnumerable<string> folders, string systemName, IEnumerable<string> fileExtensions = null)
+    public void StartWatching(IEnumerable<string> folders, string systemName, IEnumerable<string>? fileExtensions = null)
     {
         _gameFileWatcherService.StartWatching(folders, systemName, fileExtensions);
     }

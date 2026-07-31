@@ -24,7 +24,7 @@ public class LoadingOverlayService
         _host = host;
     }
 
-    public void SetLoadingState(bool isLoading, string message = null)
+    public void SetLoadingState(bool isLoading, string? message = null)
     {
         var host = _host;
         if (host == null) return;

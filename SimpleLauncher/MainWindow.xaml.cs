@@ -29,7 +29,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private bool _wasControllerRunningBeforeDeactivation;
 
     private bool _isDisposed;
-    internal DispatcherTimer StatusBarTimer { get; set; }
+    internal DispatcherTimer? StatusBarTimer { get; set; }
 
     /// <summary>
     /// Collection of game list items displayed in the UI.
@@ -37,19 +37,19 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     public ObservableCollection<GameListViewItem> GameListItems { get; } = [];
 
     // Event handler references for proper unsubscription to prevent memory leaks
-    private RoutedEventHandler _emergencyButtonClickHandler;
+    private RoutedEventHandler? _emergencyButtonClickHandler;
     private readonly RoutedEventHandler _asyncLoadedHandler;
 
     // F8 global hotkey for active window screenshots
-    private Services.TakeScreenshot.GlobalHotkeyService _globalHotkeyService;
-    private Services.TakeScreenshot.ActiveWindowScreenshotService _activeWindowScreenshotService;
+    private Services.TakeScreenshot.GlobalHotkeyService? _globalHotkeyService;
+    private Services.TakeScreenshot.ActiveWindowScreenshotService? _activeWindowScreenshotService;
 
     /// <summary>
     /// Occurs when a property value changes, supporting data binding updates.
     /// </summary>
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-    private string _selectedSystem;
+    private string _selectedSystem = "";
 
     /// <summary>
     /// Gets or sets the currently selected system name.
@@ -75,7 +75,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             field = value;
             OnPropertyChanged(nameof(PlayTime));
         }
-    }
+    } = "";
 
     /// <summary>
     /// Gets or sets whether the play time display is visible.
@@ -120,10 +120,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     }
 
     // Pagination
-    internal Button NextPageButton2;
-    internal Button PrevPageButton2;
+    internal Button? NextPageButton2;
+    internal Button? PrevPageButton2;
 
-    internal TrayIconManager TrayIconManager;
+    internal TrayIconManager? TrayIconManager;
     internal PlayHistoryManager PlayHistoryManager { get; }
     private List<SystemManager> _systemManagers;
     private readonly FilterMenu _topLetterNumberMenu;
@@ -225,7 +225,7 @@ IMessageBoxLibraryService messageBox,
         _topLetterNumberMenu.OnLetterSelected += TopLetterNumberMenu_OnLetterSelectedAsync;
 
         // Migrate old play history records to full paths
-        _lifecycle.MigratePlayHistory(_systemManagers);
+        _lifecycle.MigratePlayHistory(_systemManagers ?? []);
 
         Closing += MainWindow_Closing;
         Activated += MainWindow_Activated;
@@ -366,7 +366,7 @@ IMessageBoxLibraryService messageBox,
         }
     }
 
-    private void MainWindow_Activated(object sender, EventArgs e)
+    private void MainWindow_Activated(object? sender, EventArgs e)
     {
         if (_wasControllerRunningBeforeDeactivation)
         {
@@ -377,7 +377,7 @@ IMessageBoxLibraryService messageBox,
         _wasControllerRunningBeforeDeactivation = false; // Reset flag
     }
 
-    private void MainWindow_Deactivated(object sender, EventArgs e)
+    private void MainWindow_Deactivated(object? sender, EventArgs e)
     {
         if (_audioInput.IsGamepadRunning)
         {
@@ -490,7 +490,7 @@ IMessageBoxLibraryService messageBox,
         _audioInput.PlayNotificationSound();
     }
 
-    private (string startLetter, string searchQuery) GetLoadGameFilesParams()
+    private (string? startLetter, string? searchQuery) GetLoadGameFilesParams()
     {
         var searchQueryToUse = ((IUiResetHost)this).ActiveSearchQueryOrMode;
         var startLetterToUse = string.IsNullOrEmpty(searchQueryToUse) ? ((IUiResetHost)this).CurrentFilter : null;
@@ -694,7 +694,7 @@ IMessageBoxLibraryService messageBox,
         }
     }
 
-    public void SetLoadingState(bool isLoading, string message = null)
+    public void SetLoadingState(bool isLoading, string? message = null)
     {
         UiOrchestrator.SetLoadingState(isLoading, message);
     }
@@ -719,8 +719,8 @@ IMessageBoxLibraryService messageBox,
 
     internal void SetPaginationButtonsVisibility(Visibility visibility)
     {
-        PrevPageButton2.Visibility = visibility;
-        NextPageButton2.Visibility = visibility;
+        if (PrevPageButton2 != null) PrevPageButton2.Visibility = visibility;
+        if (NextPageButton2 != null) NextPageButton2.Visibility = visibility;
     }
 
     internal void SetTrayIconManager(TrayIconManager manager)
@@ -978,7 +978,7 @@ IMessageBoxLibraryService messageBox,
         }
     }
 
-    internal Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null, CancellationToken cancellationToken = default)
+    internal Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null, CancellationToken cancellationToken = default)
     {
         return _gameBrowser.LoadGameFilesAsync(startLetter, searchQuery, cancellationToken);
     }

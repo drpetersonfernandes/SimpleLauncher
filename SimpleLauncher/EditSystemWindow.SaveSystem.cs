@@ -70,7 +70,7 @@ internal partial class EditSystemWindow
             // Validate paths (now using potentially prefixed paths)
             // The ValidatePaths method itself doesn't need to understand %BASEFOLDER%
             // because CheckPath.IsValidPath can handle it.
-            ValidatePaths(systemNameText, allSystemFolders.FirstOrDefault(), varSystemImageFolderText, emulator1LocationText,
+            ValidatePaths(systemNameText, allSystemFolders.FirstOrDefault() ?? "", varSystemImageFolderText, emulator1LocationText,
                 emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText,
                 out var isSystemFolderValid, out var isSystemImageFolderValid, out var isEmulator1LocationValid,
                 out var isEmulator2LocationValid, out var isEmulator3LocationValid, out var isEmulator4LocationValid,
@@ -303,7 +303,7 @@ internal partial class EditSystemWindow
             try
             {
                 SaveSystemButton.IsEnabled = false;
-                await SystemManager.SaveSystemConfigurationAsync(systemToSave, originalSystemNameToUse);
+                await SystemManager.SaveSystemConfigurationAsync(systemToSave, originalSystemNameToUse!);
 
                 await LoadSystemsAsync();
                 SystemNameDropdown.SelectedItem = systemNameText;
@@ -315,14 +315,17 @@ internal partial class EditSystemWindow
                 // Create folders based on the resolved paths
                 var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? "");
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(varSystemImageFolderText);
-                await CreateDefaultSystemFolders.CreateFoldersAsync(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logger, _messageBox);
+                if (resolvedSystemFolder != null && resolvedSystemImageFolder != null)
+                {
+                    await CreateDefaultSystemFolders.CreateFoldersAsync(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logger, _messageBox);
+                }
 
                 _originalSystemName = systemNameText; // Update original name after successful save & UI refresh
             }
             catch (InvalidOperationException ex)
             {
                 // Notify user
-                await _messageBox.SaveSystemFailedMessageBoxAsync(ex.InnerException?.Message);
+                await _messageBox.SaveSystemFailedMessageBoxAsync(ex.InnerException?.Message ?? "Unknown error");
             }
             catch (Exception ex)
             {

@@ -15,7 +15,7 @@ public partial class SupportWindow : ILoadingState
     private readonly SupportViewModel _viewModel;
     private readonly ILogger _logger;
     private readonly Action _formClearedHandler;
-    private Button _emergencyReturnButton;
+    private Button? _emergencyReturnButton;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SupportWindow"/> class.
@@ -81,7 +81,7 @@ public partial class SupportWindow : ILoadingState
     /// </summary>
     /// <param name="isLoading">Whether to show or hide the loading overlay.</param>
     /// <param name="message">Optional message to display while loading.</param>
-    public void SetLoadingState(bool isLoading, string message = null)
+    public void SetLoadingState(bool isLoading, string? message = null)
     {
         Dispatcher.Invoke(() =>
         {

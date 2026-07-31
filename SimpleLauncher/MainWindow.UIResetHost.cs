@@ -17,9 +17,9 @@ public partial class MainWindow
         set => IsLoadingGames = value;
     }
 
-    string IUiResetHost.CurrentFilter { get; set; }
+    string? IUiResetHost.CurrentFilter { get; set; }
 
-    string IUiResetHost.ActiveSearchQueryOrMode { get; set; }
+    string? IUiResetHost.ActiveSearchQueryOrMode { get; set; }
 
     string IUiResetHost.SelectedSystem
     {

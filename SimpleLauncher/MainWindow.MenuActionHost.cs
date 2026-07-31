@@ -16,17 +16,17 @@ public partial class MainWindow : IMenuActionHost
         CancelAndRecreateToken();
     }
 
-    void IMenuActionHost.SetLoadingState(bool isLoading, string message)
+    void IMenuActionHost.SetLoadingState(bool isLoading, string? message)
     {
         SetLoadingState(isLoading, message);
     }
 
-    Task IMenuActionHost.LoadGameFilesAsync(string startLetter, string searchQuery, CancellationToken cancellationToken)
+    Task IMenuActionHost.LoadGameFilesAsync(string? startLetter, string? searchQuery, CancellationToken cancellationToken)
     {
         return _gameBrowser.LoadGameFilesAsync(startLetter, searchQuery, cancellationToken);
     }
 
-    (string startLetter, string searchQuery) IMenuActionHost.GetLoadGameFilesParams()
+    (string? startLetter, string? searchQuery) IMenuActionHost.GetLoadGameFilesParams()
     {
         return GetLoadGameFilesParams();
     }

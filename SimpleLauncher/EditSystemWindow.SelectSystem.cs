@@ -150,7 +150,7 @@ internal partial class EditSystemWindow
         }
     }
 
-    private static void PopulateEmulatorFields(Emulator emulator, TextBox nameTextBox, TextBox pathTextBox, TextBox paramsTextBox, Selector notificationComboBox)
+    private static void PopulateEmulatorFields(Emulator? emulator, TextBox nameTextBox, TextBox pathTextBox, TextBox paramsTextBox, Selector notificationComboBox)
     {
         if (emulator != null)
         {
@@ -173,7 +173,7 @@ internal partial class EditSystemWindow
     }
 
     // Accept a resolved path and compare against a default pattern
-    private void TryCreateDefaultFolder(string resolvedCurrentPath, string defaultPatternPathWithSystemName, string folderTypeForLog)
+    private void TryCreateDefaultFolder(string? resolvedCurrentPath, string defaultPatternPathWithSystemName, string folderTypeForLog)
     {
         // Ensure systemName is not empty before forming the pattern path
         var systemName = SystemNameTextBox.Text; // Get the current system name from UI

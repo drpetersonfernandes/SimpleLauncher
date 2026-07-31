@@ -55,7 +55,7 @@ public partial class RetroAchievementsSettingsWindow
         DataContext = _viewModel;
     }
 
-    private static string OnRequestExePath()
+    private static string? OnRequestExePath()
     {
         var openFileDialog = new OpenFileDialog
         {
