@@ -49,12 +49,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     /// </summary>
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    private string _selectedSystem = "";
+    private string? _selectedSystem = "";
 
     /// <summary>
     /// Gets or sets the currently selected system name.
     /// </summary>
-    public string SelectedSystem
+    public string? SelectedSystem
     {
         get => _selectedSystem;
         set
@@ -125,7 +125,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     internal TrayIconManager? TrayIconManager;
     internal PlayHistoryManager PlayHistoryManager { get; }
-    private List<SystemManager> _systemManagers;
+    private List<SystemManager> _systemManagers = null!;
     private readonly FilterMenu _topLetterNumberMenu;
     private readonly WrapPanel _gameFileGrid;
     private readonly SettingsManager _settings;
@@ -150,7 +150,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         SettingsManager settings,
         PlayHistoryManager playHistoryManager,
         ILaunchTools launchTools,
-IMessageBoxLibraryService messageBox,
+        IMessageBoxLibraryService messageBox,
         IUpdateStatusBar updateStatusBarService,
         IUiResetService uiResetService,
         ISystemConfigurationService systemConfigurationService,
@@ -206,7 +206,7 @@ IMessageBoxLibraryService messageBox,
         ToggleAnnotationStripping.IsChecked = _settings.EnableAnnotationStripping;
 
         // Initialize _gameFileGrid before LoadOrReloadSystemManager uses it
-        _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
+        _gameFileGrid = FindName("GameFileGrid") as WrapPanel ?? throw new InvalidOperationException("GameFileGrid not found");
         if (_gameFileGrid == null)
         {
             _logger.Warning("GameFileGrid not found");
@@ -257,7 +257,7 @@ IMessageBoxLibraryService messageBox,
                 if (!_globalHotkeyService.IsRegistered)
                 {
                     var msg = (string)Application.Current.TryFindResource("F8ShortcutInUse")
-                        ?? "The F8 shortcut key is already in use by another program. Because of this, the screenshot functionality is turned off.";
+                              ?? "The F8 shortcut key is already in use by another program. Because of this, the screenshot functionality is turned off.";
                     MessageBox.Show(msg, "SimpleLauncher", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
                 }
 
@@ -391,7 +391,7 @@ IMessageBoxLibraryService messageBox,
         }
     }
 
-    private async void TopLetterNumberMenu_OnLetterSelectedAsync(string selectedLetter)
+    private async void TopLetterNumberMenu_OnLetterSelectedAsync(string? selectedLetter)
     {
         try
         {
@@ -545,7 +545,7 @@ IMessageBoxLibraryService messageBox,
         }
     }
 
-    private async Task TopLetterNumberMenuClickAsync(string selectedLetter)
+    private async Task TopLetterNumberMenuClickAsync(string? selectedLetter)
     {
         try
         {
@@ -719,8 +719,8 @@ IMessageBoxLibraryService messageBox,
 
     internal void SetPaginationButtonsVisibility(Visibility visibility)
     {
-        if (PrevPageButton2 != null) PrevPageButton2.Visibility = visibility;
-        if (NextPageButton2 != null) NextPageButton2.Visibility = visibility;
+        PrevPageButton2?.Visibility = visibility;
+        NextPageButton2?.Visibility = visibility;
     }
 
     internal void SetTrayIconManager(TrayIconManager manager)
@@ -997,8 +997,8 @@ IMessageBoxLibraryService messageBox,
     Grid IUiOrchestratorHost.MainGameContent => MainGameContent;
     Grid IUiOrchestratorHost.MainContentGrid => MainContentGrid;
     Label IUiOrchestratorHost.TotalFilesLabel => TotalFilesLabel;
-    Button IUiOrchestratorHost.PrevPageButton2 => PrevPageButton2;
-    Button IUiOrchestratorHost.NextPageButton2 => NextPageButton2;
+    Button IUiOrchestratorHost.PrevPageButton2 => PrevPageButton2!;
+    Button IUiOrchestratorHost.NextPageButton2 => NextPageButton2!;
     UIElement IUiOrchestratorHost.LoadingOverlay => LoadingOverlay;
     Button IUiOrchestratorHost.SortOrderToggleButton => SortOrderToggleButton;
     TextBox IUiOrchestratorHost.SearchTextBox => SearchTextBox;

@@ -11,5 +11,5 @@ public class EmulatorsConfig
     /// Gets or sets the emulator configuration entry.
     /// </summary>
     [XmlElement("Emulator")]
-    public EmulatorConfig Emulator { get; set; }
+    public EmulatorConfig Emulator { get; set; } = new();
 }

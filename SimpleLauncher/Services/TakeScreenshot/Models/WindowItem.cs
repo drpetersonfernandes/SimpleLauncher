@@ -6,7 +6,7 @@ namespace SimpleLauncher.Services.TakeScreenshot.Models;
 public class WindowItem
 {
     /// <summary>Gets or sets the window title text.</summary>
-    public string Title { get; set; }
+    public string Title { get; set; } = null!;
 
     /// <summary>Gets the native window handle (HWND).</summary>
     public IntPtr Handle { get; init; }

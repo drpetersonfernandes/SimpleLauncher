@@ -5,14 +5,11 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
-using Interfaces;
-
 /// <summary>
 /// Tests for the <see cref="MameManager"/> class covering loading from .dat files.
 /// </summary>
 public class MameManagerTests : IDisposable
 {
-
     private readonly ILogger _logErrors = new NoOpLogger();
 
     public MameManagerTests()
@@ -48,8 +45,8 @@ public class MameManagerTests : IDisposable
 
             Assert.NotNull(result);
             Assert.Equal(2, result.Count);
-            Assert.Contains(result, static m => m.MachineName == "pacman" && m.Description == "Pac-Man (Midway)");
-            Assert.Contains(result, static m => m.MachineName == "mspacman" && m.Description == "Ms. Pac-Man");
+            Assert.Contains(result, static m => m is { MachineName: "pacman", Description: "Pac-Man (Midway)" });
+            Assert.Contains(result, static m => m is { MachineName: "mspacman", Description: "Ms. Pac-Man" });
         }
         finally
         {

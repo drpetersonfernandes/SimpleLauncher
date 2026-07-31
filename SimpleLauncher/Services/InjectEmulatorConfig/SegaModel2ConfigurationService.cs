@@ -3,8 +3,6 @@ using System.Text;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
-using Interfaces;
-
 public static class SegaModel2ConfigurationService
 {
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
@@ -97,7 +95,7 @@ public static class SegaModel2ConfigurationService
             if (parts.Length < 2) continue;
 
             var key = parts[0].Trim();
-            Dictionary<string, string> currentUpdates = null;
+            Dictionary<string, string>? currentUpdates = null;
 
             if (currentSection.Equals("[Renderer]", StringComparison.OrdinalIgnoreCase))
             {

@@ -8,7 +8,6 @@ using System.Windows.Media;
 using ControlzEx.Theming;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Serilog;
 using Serilog.Events;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.CheckForFileLock;
@@ -120,7 +119,7 @@ public partial class App : IDisposable
             .WriteTo.Async(a => a.File(
                 Path.Combine(appDataLogFolder,
                     configuration.GetValue<string>("LogPath") ?? "error_user.log"),
-                restrictedToMinimumLevel: LogEventLevel.Warning,
+                LogEventLevel.Warning,
                 rollingInterval: RollingInterval.Day,
                 retainedFileCountLimit: 7,
                 outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}"))
@@ -668,7 +667,7 @@ public partial class App : IDisposable
         catch
         {
             // If even Serilog fails, fall back to debug output
-            System.Diagnostics.Debug.WriteLine($"[SimpleLauncher] {contextMessage}: {ex}");
+            Debug.WriteLine($"[SimpleLauncher] {contextMessage}: {ex}");
         }
     }
 
@@ -838,18 +837,18 @@ public partial class App : IDisposable
                     return;
                 // Handle High Contrast
                 case "HighContrast":
-                    {
-                        InternalChangeTheme(Current, "Dark", accentColor);
-                        ApplyCustomThemeOverride("Theme.HighContrast.xaml");
-                        return;
-                    }
+                {
+                    InternalChangeTheme(Current, "Dark", accentColor);
+                    ApplyCustomThemeOverride("Theme.HighContrast.xaml");
+                    return;
+                }
                 // Handle Custom Theme (Midnight)
                 case "Midnight":
-                    {
-                        InternalChangeTheme(Current, "Dark", accentColor);
-                        ApplyCustomThemeOverride("Theme.Midnight.xaml");
-                        return;
-                    }
+                {
+                    InternalChangeTheme(Current, "Dark", accentColor);
+                    ApplyCustomThemeOverride("Theme.Midnight.xaml");
+                    return;
+                }
                 default:
                     // Standard Themes (Light/Dark)
                     RemoveCustomThemeOverrides();
@@ -989,17 +988,17 @@ public partial class App : IDisposable
 
                     return;
                 case "HighContrast":
-                    {
-                        InternalChangeTheme(window, "Dark", accentColor);
-                        ApplyCustomThemeOverrideToWindow(window, "Theme.HighContrast.xaml");
-                        return;
-                    }
+                {
+                    InternalChangeTheme(window, "Dark", accentColor);
+                    ApplyCustomThemeOverrideToWindow(window, "Theme.HighContrast.xaml");
+                    return;
+                }
                 case "Midnight":
-                    {
-                        InternalChangeTheme(window, "Dark", accentColor);
-                        ApplyCustomThemeOverrideToWindow(window, "Theme.Midnight.xaml");
-                        return;
-                    }
+                {
+                    InternalChangeTheme(window, "Dark", accentColor);
+                    ApplyCustomThemeOverrideToWindow(window, "Theme.Midnight.xaml");
+                    return;
+                }
                 default:
                     RemoveCustomThemeOverridesFromWindow(window);
                     InternalChangeTheme(window, baseTheme, accentColor);

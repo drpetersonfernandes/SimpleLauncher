@@ -19,15 +19,15 @@ public class BugReportApiSink : ILogEventSink, IDisposable
     });
 
     private readonly CancellationTokenSource _cts = new();
-    private IHttpClientFactory _httpClientFactory;
-    private IConfiguration _configuration;
-    private IDeleteFilesService _deleteFilesService;
-    private string _logFolder;
+    private IHttpClientFactory _httpClientFactory = null!;
+    private IConfiguration _configuration = null!;
+    private IDeleteFilesService _deleteFilesService = null!;
+    private string _logFolder = null!;
     private bool _disposed;
 
     private static readonly SemaphoreSlim InitLock = new(1, 1);
     private bool _initialized;
-    private Task _processTask;
+    private Task _processTask = null!;
 
     public void Initialize(
         IHttpClientFactory httpClientFactory,
@@ -213,7 +213,7 @@ public class BugReportApiSink : ILogEventSink, IDisposable
         message.AppendLine(CultureInfo.InvariantCulture, $"StackTrace: {exception.StackTrace}");
     }
 
-    private static string BuildStackTrace(LogEvent logEvent)
+    private static string? BuildStackTrace(LogEvent logEvent)
     {
         if (logEvent.Exception == null) return null;
 
@@ -248,7 +248,7 @@ public class BugReportApiSink : ILogEventSink, IDisposable
         return sb.ToString();
     }
 
-    private static string GetUserInfo()
+    private static string? GetUserInfo()
     {
         try { return Environment.MachineName; }
         catch { return null; }

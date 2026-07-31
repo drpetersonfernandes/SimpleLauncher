@@ -580,6 +580,7 @@
     <system:String x:Key="Extractionfailed">Échec de l'extraction.</system:String>
     <system:String x:Key="ExtractionFailedMessage">Le fichier a été téléchargé avec succès, mais l'extraction automatique a échoué. Cela peut se produire si un logiciel antivirus analyse ou verrouille le fichier.</system:String>
     <system:String x:Key="ExtractionFailedTitle">Extraction échouée</system:String>
+    <system:String x:Key="F8ShortcutInUse">La touche de raccourci F8 est déjà utilisée par un autre programme. Pour cette raison, la fonctionnalité de capture d'écran est désactivée.</system:String>
     <system:String x:Key="Failedtoconfiguretheemulator">Échec de la configuration de l'émulateur. Le fichier de configuration est peut-être manquant, se trouve à un emplacement inattendu ou est en lecture seule.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Échec de la copie du contenu du journal.</system:String>
     <system:String x:Key="FailedToCopySystemImage">Échec de la copie de l'image :</system:String>

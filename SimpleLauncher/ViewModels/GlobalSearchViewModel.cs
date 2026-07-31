@@ -1,5 +1,3 @@
-#nullable enable
-
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
@@ -212,24 +210,24 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
             {
                 true when systemManager.DisableRecursiveSearch => new SystemManager
                 {
-                    SystemName = systemManager.SystemName,
-                    SystemFolders = systemManager.SystemFolders,
-                    SystemImageFolder = systemManager.SystemImageFolder,
-                    FileFormatsToSearch = systemManager.FileFormatsToSearch,
+                    SystemName = systemManager.SystemName ?? "",
+                    SystemFolders = systemManager.SystemFolders ?? [],
+                    SystemImageFolder = systemManager.SystemImageFolder ?? "",
+                    FileFormatsToSearch = systemManager.FileFormatsToSearch ?? [],
                     ExtractFileBeforeLaunch = systemManager.ExtractFileBeforeLaunch,
-                    FileFormatsToLaunch = systemManager.FileFormatsToLaunch,
+                    FileFormatsToLaunch = systemManager.FileFormatsToLaunch ?? [],
                     Emulators = systemManager.Emulators,
                     GroupByFolder = systemManager.GroupByFolder,
                     DisableRecursiveSearch = false
                 },
                 false when !systemManager.DisableRecursiveSearch => new SystemManager
                 {
-                    SystemName = systemManager.SystemName,
-                    SystemFolders = systemManager.SystemFolders,
-                    SystemImageFolder = systemManager.SystemImageFolder,
-                    FileFormatsToSearch = systemManager.FileFormatsToSearch,
+                    SystemName = systemManager.SystemName ?? "",
+                    SystemFolders = systemManager.SystemFolders ?? [],
+                    SystemImageFolder = systemManager.SystemImageFolder ?? "",
+                    FileFormatsToSearch = systemManager.FileFormatsToSearch ?? [],
                     ExtractFileBeforeLaunch = systemManager.ExtractFileBeforeLaunch,
-                    FileFormatsToLaunch = systemManager.FileFormatsToLaunch,
+                    FileFormatsToLaunch = systemManager.FileFormatsToLaunch ?? [],
                     Emulators = systemManager.Emulators,
                     GroupByFolder = systemManager.GroupByFolder,
                     DisableRecursiveSearch = true
@@ -237,7 +235,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
                 _ => systemManager
             };
 
-            foreach (var systemFolderPathRaw in systemManager.SystemFolders)
+            foreach (var systemFolderPathRaw in systemManager.SystemFolders!)
             {
                 token.ThrowIfCancellationRequested();
 
@@ -285,13 +283,13 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
                     {
                         FileName = Path.GetFileNameWithoutExtension(filePath),
                         FileNameWithExtension = Path.GetFileName(filePath),
-                        FolderName = Path.GetDirectoryName(filePath)?.Split(Path.DirectorySeparatorChar).LastOrDefault(),
+                        FolderName = Path.GetDirectoryName(filePath)?.Split(Path.DirectorySeparatorChar).LastOrDefault() ?? "",
                         FilePath = filePath,
                         MachineName = machine?.Description ?? "",
-                        SystemName = systemManager.SystemName,
-                        EmulatorManager = systemManager.Emulators.FirstOrDefault(),
+                        SystemName = systemManager.SystemName ?? "",
+                        EmulatorManager = systemManager.Emulators.FirstOrDefault() ?? null!,
                         CoverImage = _findCoverImage.FindCoverImagePath(
-                            Path.GetFileNameWithoutExtension(filePath), systemManager.SystemName, systemManager.SystemImageFolder)
+                            Path.GetFileNameWithoutExtension(filePath), systemManager.SystemName ?? "", systemManager.SystemImageFolder ?? "")
                     });
                 }
             }

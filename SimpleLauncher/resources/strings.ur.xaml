@@ -580,6 +580,7 @@
     <system:String x:Key="Extractionfailed">فائل نکالنے میں ناکامی ہوئی۔</system:String>
     <system:String x:Key="ExtractionFailedMessage">فائل کامیابی سے ڈاؤن لوڈ ہو گئی، لیکن خودکار استخراج ناکام ہو گیا۔ یہ اس صورت میں ہو سکتا ہے جب اینٹی وائرس پروگرام فائل کو اسکین یا لاک کر رہا ہو۔</system:String>
     <system:String x:Key="ExtractionFailedTitle">استخراج ناکام</system:String>
+    <system:String x:Key="F8ShortcutInUse">F8 شارٹ کٹ کلید پہلے سے ہی کسی دوسرے پروگرام کے ذریعے استعمال میں ہے۔ اس وجہ سے، اسکرین شاٹ کی فعالیت بند کر دی گئی ہے۔</system:String>
     <system:String x:Key="Failedtoconfiguretheemulator">ایمولیٹر کو کنفیگر کرنے میں ناکامی۔ کنفیگریشن فائل غائب ہو سکتی ہے، کسی غیر متوقع جگہ پر ہو سکتی ہے، یا صرف پڑھنے کے قابل ہو سکتی ہے۔</system:String>
     <system:String x:Key="Failedtocopylogcontent">لاگ مواد کاپی کرنے میں ناکام رہا۔</system:String>
     <system:String x:Key="FailedToCopySystemImage">تصویر کاپی کرنے میں ناکامی:</system:String>

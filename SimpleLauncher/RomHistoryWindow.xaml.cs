@@ -4,8 +4,6 @@ using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
-using Interfaces;
-
 /// <summary>
 /// Window displaying ROM history information with hyperlinked references.
 /// </summary>

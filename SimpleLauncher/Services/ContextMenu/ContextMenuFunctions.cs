@@ -326,7 +326,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public async Task OpenRetroAchievementsWindowAsync(string filePath, string fileNameWithoutExtension, SystemManager.SystemManager systemManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
-        string tempExtractionPath = null;
+        string? tempExtractionPath = null;
         try
         {
             var settings = App.ServiceProvider.GetRequiredService<SettingsManager.SettingsManager>();
@@ -654,7 +654,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
         return Task.CompletedTask;
 
         // Function to search for the file in a given directory
-        bool TryFindImage(string directory, out string foundPath)
+        bool TryFindImage(string? directory, out string? foundPath)
         {
             foundPath = null;
             if (string.IsNullOrEmpty(directory) || !Directory.Exists(directory))
@@ -1006,7 +1006,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="loadingStateProvider">The loading state provider for showing/hiding overlays.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task TakeScreenshotOfSelectedWindowAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher.GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogger logErrors, IMessageBoxLibraryService messageBox)
+    public async Task TakeScreenshotOfSelectedWindowAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager settings, Button? button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher.GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TakingScreenshot") ?? "Taking screenshot...");
         try

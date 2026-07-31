@@ -1,11 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Moq;
-using Serilog;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.GameLauncher.Strategies;
 using SimpleLauncher.Services.SystemManager;
-using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

@@ -15,14 +15,13 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath;
-
-    [ObservableProperty] private string _videoDriver;
+    private string _emulatorPath = null!;
+    [ObservableProperty] private string _videoDriver = null!;
     [ObservableProperty] private bool _fullscreen;
     [ObservableProperty] private bool _vsync;
     [ObservableProperty] private bool _threadedVideo;
     [ObservableProperty] private bool _bilinear;
-    [ObservableProperty] private string _aspectRatioIndex;
+    [ObservableProperty] private string _aspectRatioIndex = null!;
     [ObservableProperty] private bool _scaleInteger;
     [ObservableProperty] private bool _shaderEnable;
     [ObservableProperty] private bool _hardSync;
@@ -34,13 +33,12 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     [ObservableProperty] private bool _autoLoadState;
     [ObservableProperty] private bool _rewind;
     [ObservableProperty] private bool _runAhead;
-    [ObservableProperty] private string _menuDriver;
+    [ObservableProperty] private string _menuDriver = null!;
     [ObservableProperty] private bool _showAdvancedSettings;
     [ObservableProperty] private bool _cheevosEnable;
     [ObservableProperty] private bool _cheevosHardcore;
     [ObservableProperty] private bool _discordAllow;
     [ObservableProperty] private bool _showBeforeLaunch;
-
     public InjectRetroArchConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
@@ -55,7 +53,7 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     public void Initialize(string? emulatorPath, bool isLauncherMode)
     {
-        _emulatorPath = emulatorPath;
+        _emulatorPath = emulatorPath!;
         IsLauncherMode = isLauncherMode;
         LoadSettings();
     }
@@ -93,8 +91,7 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
@@ -104,13 +101,11 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string> RequestEmulatorPath;
-
+    public event Func<string?> RequestEmulatorPath = null!;
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow;
-
+    public event Func<Window> GetOwnerWindow = null!;
     private void LoadSettings()
     {
         VideoDriver = _settings.RetroArch.VideoDriver;
@@ -166,7 +161,7 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
         _ = _settings.SaveAsync();
     }
 
-    private async Task<string> EnsureEmulatorPathAsync()
+    private async Task<string?> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {

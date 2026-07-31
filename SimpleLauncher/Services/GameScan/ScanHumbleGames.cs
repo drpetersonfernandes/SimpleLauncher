@@ -33,8 +33,8 @@ public class ScanHumbleGames : IGamePlatformScanner
                         if (string.IsNullOrEmpty(gameName) || ignoredGameNames.Contains(gameName)) continue;
 
                         // Determine install path
-                        string installDir = null;
-                        string exePath = null;
+                        string? installDir = null;
+                        string? exePath = null;
 
                         // Try 'filePath' first
                         if (game.TryGetProperty("filePath", out var fp) && !string.IsNullOrEmpty(fp.GetString()))
@@ -65,7 +65,7 @@ public class ScanHumbleGames : IGamePlatformScanner
                         var shortcutContent = $"[InternetShortcut]\nURL=humble://launch/{machineName}";
                         await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                        string fullExePath = null;
+                        string? fullExePath = null;
                         if (!string.IsNullOrEmpty(installDir) && !string.IsNullOrEmpty(exePath))
                         {
                             fullExePath = Path.Combine(installDir, exePath);

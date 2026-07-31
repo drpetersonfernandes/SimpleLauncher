@@ -61,7 +61,7 @@ public class PbpToCueStrategy : ILaunchStrategy
         {
             context.LoadingState.SetLoadingState(true, convertingMsg);
 
-            string cuePath;
+            string? cuePath;
             try
             {
                 cuePath = await _discConverter.ConvertPbpToCueBinAsync(context.ResolvedFilePath);
@@ -80,7 +80,7 @@ public class PbpToCueStrategy : ILaunchStrategy
 
             try
             {
-                await launcher.LaunchRegularEmulatorAsync(cuePath, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.WindowContext, context.LoadingState);
+                await launcher.LaunchRegularEmulatorAsync(cuePath, context.EmulatorName, context.SystemManager!, context.EmulatorManager!, context.Parameters, context.WindowContext!, context.LoadingState);
             }
             finally
             {

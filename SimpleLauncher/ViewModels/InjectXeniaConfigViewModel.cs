@@ -16,26 +16,24 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath;
-
-    [ObservableProperty] private string _xeniaGpu;
+    private string _emulatorPath = null!;
+    [ObservableProperty] private string _xeniaGpu = null!;
     [ObservableProperty] private bool _xeniaVsync;
     [ObservableProperty] private bool _xeniaFullscreen;
     [ObservableProperty] private int _xeniaResScaleX;
     [ObservableProperty] private int _xeniaResScaleY;
-    [ObservableProperty] private string _xeniaAa;
-    [ObservableProperty] private string _xeniaScaling;
-    [ObservableProperty] private string _xeniaReadbackResolve;
+    [ObservableProperty] private string _xeniaAa = null!;
+    [ObservableProperty] private string _xeniaScaling = null!;
+    [ObservableProperty] private string _xeniaReadbackResolve = null!;
     [ObservableProperty] private bool _xeniaGammaSrgb;
-    [ObservableProperty] private string _xeniaApu;
+    [ObservableProperty] private string _xeniaApu = null!;
     [ObservableProperty] private bool _xeniaMute;
     [ObservableProperty] private bool _xeniaMountCache;
     [ObservableProperty] private bool _xeniaVibration;
     [ObservableProperty] private bool _xeniaApplyPatches;
-    [ObservableProperty] private string _xeniaHid;
+    [ObservableProperty] private string _xeniaHid = null!;
     [ObservableProperty] private int _xeniaUserLanguage;
     [ObservableProperty] private bool _xeniaShowSettingsBeforeLaunch;
-
     public InjectXeniaConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
@@ -50,7 +48,7 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     public void Initialize(string? emulatorPath, bool isLauncherMode)
     {
-        _emulatorPath = emulatorPath;
+        _emulatorPath = emulatorPath!;
         IsLauncherMode = isLauncherMode;
         LoadSettings();
     }
@@ -124,8 +122,7 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
@@ -135,13 +132,11 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string> RequestEmulatorPath;
-
+    public event Func<string?> RequestEmulatorPath = null!;
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow;
-
+    public event Func<Window> GetOwnerWindow = null!;
     private void LoadSettings()
     {
         XeniaGpu = _settings.Xenia.Gpu;
@@ -185,7 +180,7 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
         _ = _settings.SaveAsync();
     }
 
-    private async Task<string> EnsureEmulatorPathAsync()
+    private async Task<string?> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {

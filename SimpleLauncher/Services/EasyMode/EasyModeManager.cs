@@ -3,7 +3,6 @@ using System.Text.Json;
 using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services.EasyMode;
@@ -25,15 +24,15 @@ public class EasyModeManager : IDisposable
     private static readonly SemaphoreSlim CacheLock = new(1, 1);
     private const int DefaultCacheDurationMinutes = 60;
 
-    private readonly ILogger _logger;
-    private readonly IConfiguration _configuration;
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ILogger _logger = null!;
+    private readonly IConfiguration _configuration = null!;
+    private readonly IHttpClientFactory _httpClientFactory = null!;
 
     /// <summary>
     /// Gets or sets the list of EasyMode system configurations.
     /// </summary>
     [XmlElement("EasyModeSystemConfig")]
-    public List<EasyModeSystemConfig> Systems { get; set; }
+    public List<EasyModeSystemConfig> Systems { get; set; } = null!;
 
     /// <summary>
     /// Initializes a new instance of <see cref="EasyModeManager"/> with the specified dependencies for API loading and error logging.
@@ -58,7 +57,7 @@ public class EasyModeManager : IDisposable
     /// If the API also fails, it attempts to download from a fallback XML URL.
     /// </summary>
     /// <returns>An EasyModeManager instance if successful, otherwise null.</returns>
-    public async Task<EasyModeManager> LoadAsync()
+    public async Task<EasyModeManager?> LoadAsync()
     {
         // Try loading from XML first
         var manager = LoadFromXml(_logger);
@@ -90,7 +89,7 @@ public class EasyModeManager : IDisposable
         return null; // Return null if all methods fail
     }
 
-    private static EasyModeManager LoadFromXml(ILogger logErrors)
+    private static EasyModeManager? LoadFromXml(ILogger logErrors)
     {
         // Determine the XML file based on system architecture
         var xmlFile = Environment.OSVersion.Platform == PlatformID.Win32NT
@@ -127,7 +126,7 @@ public class EasyModeManager : IDisposable
             // Create XmlReader with the settings
             using var xmlReader = XmlReader.Create(fileStream, settings);
 
-            var config = (EasyModeManager)serializer.Deserialize(xmlReader);
+            var config = serializer.Deserialize(xmlReader) as EasyModeManager;
 
             // Validate configuration if not null.
             if (config != null)
@@ -147,7 +146,7 @@ public class EasyModeManager : IDisposable
         }
     }
 
-    private async Task<EasyModeManager> LoadFromApiAsync()
+    private async Task<EasyModeManager?> LoadFromApiAsync()
     {
         await CacheLock.WaitAsync();
         try
@@ -181,7 +180,7 @@ public class EasyModeManager : IDisposable
         }
     }
 
-    private async Task<EasyModeManager> FetchFromApiAsync()
+    private async Task<EasyModeManager?> FetchFromApiAsync()
     {
         try
         {
@@ -220,7 +219,7 @@ public class EasyModeManager : IDisposable
         }
     }
 
-    private async Task<EasyModeManager> LoadFromFallbackAsync()
+    private async Task<EasyModeManager?> LoadFromFallbackAsync()
     {
         try
         {

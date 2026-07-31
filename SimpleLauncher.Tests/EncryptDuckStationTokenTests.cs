@@ -14,7 +14,7 @@ public class EncryptDuckStationTokenTests
     [Fact]
     public void EncryptDuckStationTokenMethodNullTokenReturnsEmpty()
     {
-        var result = EncryptDuckStationToken.EncryptDuckStationTokenMethod(null, "user", true, null);
+        var result = EncryptDuckStationToken.EncryptDuckStationTokenMethod(null!, "user", true, null!);
         Assert.Equal("", result);
     }
 
@@ -24,7 +24,7 @@ public class EncryptDuckStationTokenTests
     [Fact]
     public void EncryptDuckStationTokenMethodNullUsernameReturnsEmpty()
     {
-        var result = EncryptDuckStationToken.EncryptDuckStationTokenMethod("token", null, true, null);
+        var result = EncryptDuckStationToken.EncryptDuckStationTokenMethod("token", null!, true, null!);
         Assert.Equal("", result);
     }
 
@@ -34,7 +34,7 @@ public class EncryptDuckStationTokenTests
     [Fact]
     public void EncryptDuckStationTokenMethodEmptyTokenReturnsEmpty()
     {
-        var result = EncryptDuckStationToken.EncryptDuckStationTokenMethod("", "user", true, null);
+        var result = EncryptDuckStationToken.EncryptDuckStationTokenMethod("", "user", true, null!);
         Assert.Equal("", result);
     }
 
@@ -44,7 +44,7 @@ public class EncryptDuckStationTokenTests
     [Fact]
     public void EncryptDuckStationTokenMethodEmptyUsernameReturnsEmpty()
     {
-        var result = EncryptDuckStationToken.EncryptDuckStationTokenMethod("token", "", true, null);
+        var result = EncryptDuckStationToken.EncryptDuckStationTokenMethod("token", "", true, null!);
         Assert.Equal("", result);
     }
 
@@ -54,8 +54,8 @@ public class EncryptDuckStationTokenTests
     [Fact]
     public void EncryptDuckStationTokenMethodSameInputsReturnsSameOutput()
     {
-        var result1 = EncryptDuckStationToken.EncryptDuckStationTokenMethod("mytoken", "myuser", true, null);
-        var result2 = EncryptDuckStationToken.EncryptDuckStationTokenMethod("mytoken", "myuser", true, null);
+        var result1 = EncryptDuckStationToken.EncryptDuckStationTokenMethod("mytoken", "myuser", true, null!);
+        var result2 = EncryptDuckStationToken.EncryptDuckStationTokenMethod("mytoken", "myuser", true, null!);
         Assert.Equal(result1, result2);
     }
 
@@ -65,8 +65,8 @@ public class EncryptDuckStationTokenTests
     [Fact]
     public void EncryptDuckStationTokenMethodDifferentUsernamesReturnsDifferentOutput()
     {
-        var result1 = EncryptDuckStationToken.EncryptDuckStationTokenMethod("mytoken", "user1", true, null);
-        var result2 = EncryptDuckStationToken.EncryptDuckStationTokenMethod("mytoken", "user2", true, null);
+        var result1 = EncryptDuckStationToken.EncryptDuckStationTokenMethod("mytoken", "user1", true, null!);
+        var result2 = EncryptDuckStationToken.EncryptDuckStationTokenMethod("mytoken", "user2", true, null!);
         Assert.NotEqual(result1, result2);
     }
 
@@ -76,8 +76,8 @@ public class EncryptDuckStationTokenTests
     [Fact]
     public void EncryptDuckStationTokenMethodDifferentTokensReturnsDifferentOutput()
     {
-        var result1 = EncryptDuckStationToken.EncryptDuckStationTokenMethod("token1", "myuser", true, null);
-        var result2 = EncryptDuckStationToken.EncryptDuckStationTokenMethod("token2", "myuser", true, null);
+        var result1 = EncryptDuckStationToken.EncryptDuckStationTokenMethod("token1", "myuser", true, null!);
+        var result2 = EncryptDuckStationToken.EncryptDuckStationTokenMethod("token2", "myuser", true, null!);
         Assert.NotEqual(result1, result2);
     }
 
@@ -87,7 +87,7 @@ public class EncryptDuckStationTokenTests
     [Fact]
     public void EncryptDuckStationTokenMethodValidInputReturnsNonEmptyBase64()
     {
-        var result = EncryptDuckStationToken.EncryptDuckStationTokenMethod("mytoken123", "testuser", true, null);
+        var result = EncryptDuckStationToken.EncryptDuckStationTokenMethod("mytoken123", "testuser", true, null!);
         Assert.False(string.IsNullOrEmpty(result));
         // Verify it's valid Base64
         var bytes = Convert.FromBase64String(result);

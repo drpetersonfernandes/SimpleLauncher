@@ -1,13 +1,10 @@
 using System.IO.Compression;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
-using Serilog;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
-
-using Interfaces;
 
 public class MountZipFilesTests
 {
@@ -23,7 +20,7 @@ public class MountZipFilesTests
     {
         var configuration = new ConfigurationBuilder().Build();
         var constructor = typeof(MountZipFiles).GetConstructors(BindingFlags.Instance | BindingFlags.Public).First();
-        return (MountZipFiles)constructor.Invoke([configuration, _logger]);
+        return (MountZipFiles)constructor.Invoke([configuration, Logger]);
     }
 
     private static string CreateTestZip(string[] entryNames)
@@ -152,5 +149,5 @@ public class MountZipFilesTests
         }
     }
 
-    private static readonly ILogger _logger = Log.Logger;
+    private static readonly ILogger Logger = Log.Logger;
 }

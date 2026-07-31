@@ -3,8 +3,6 @@ using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
 
-using Interfaces;
-
 /// <summary>
 /// Partial MainWindow containing pagination button handlers and page navigation logic.
 /// </summary>

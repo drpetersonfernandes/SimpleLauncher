@@ -8,11 +8,11 @@ public class GogPlayTask
     public bool IsPrimary { get; set; }
 
     [JsonPropertyName("type")]
-    public string Type { get; set; } // "FileTask" or "URLTask"
+    public string Type { get; set; } = null!; // "FileTask" or "URLTask"
 
     [JsonPropertyName("path")]
-    public string Path { get; set; }
+    public string Path { get; set; } = null!;
 
     [JsonPropertyName("workingDir")]
-    public string WorkingDir { get; set; }
+    public string WorkingDir { get; set; } = null!;
 }

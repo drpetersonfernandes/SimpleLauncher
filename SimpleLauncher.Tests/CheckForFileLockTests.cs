@@ -25,7 +25,7 @@ public class CheckForFileLockTests
     [Fact]
     public void IsFileLockedNullReturnsFalse()
     {
-        var result = CheckForFileLock.IsFileLocked(null);
+        var result = CheckForFileLock.IsFileLocked(null!);
         Assert.False(result);
     }
 

@@ -3,8 +3,6 @@ using Microsoft.Data.Sqlite;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
-using Interfaces;
-
 public static class StellaConfigurationService
 {
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)

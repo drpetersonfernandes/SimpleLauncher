@@ -1,11 +1,8 @@
-using Serilog;
 using SimpleLauncher.Services.GameCache;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
-
-using Interfaces;
 
 /// <summary>
 /// Extended tests for the <see cref="GameCacheService"/> class covering additional edge cases.

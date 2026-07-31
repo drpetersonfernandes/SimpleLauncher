@@ -60,8 +60,8 @@ public class DefaultLaunchStrategyTests
 
         launcherMock.Verify(l => l.RunBatchFileAsync(
             context.ResolvedFilePath,
-            context.EmulatorManager,
-            context.WindowContext), Times.Once);
+            context.EmulatorManager!,
+            context.WindowContext!), Times.Once);
     }
 
     [Fact]
@@ -79,8 +79,8 @@ public class DefaultLaunchStrategyTests
 
         launcherMock.Verify(l => l.LaunchShortcutFileAsync(
             context.ResolvedFilePath,
-            context.EmulatorManager,
-            context.WindowContext), Times.Once);
+            context.EmulatorManager!,
+            context.WindowContext!), Times.Once);
     }
 
     [Fact]
@@ -98,8 +98,8 @@ public class DefaultLaunchStrategyTests
 
         launcherMock.Verify(l => l.LaunchShortcutFileAsync(
             context.ResolvedFilePath,
-            context.EmulatorManager,
-            context.WindowContext), Times.Once);
+            context.EmulatorManager!,
+            context.WindowContext!), Times.Once);
     }
 
     [Fact]
@@ -117,8 +117,8 @@ public class DefaultLaunchStrategyTests
 
         launcherMock.Verify(l => l.LaunchExecutableAsync(
             context.ResolvedFilePath,
-            context.EmulatorManager,
-            context.WindowContext), Times.Once);
+            context.EmulatorManager!,
+            context.WindowContext!), Times.Once);
     }
 
     [Theory]
@@ -155,11 +155,11 @@ public class DefaultLaunchStrategyTests
         launcherMock.Verify(l => l.LaunchRegularEmulatorAsync(
             context.ResolvedFilePath,
             context.EmulatorName,
-            context.SystemManager,
-            context.EmulatorManager,
+            context.SystemManager!,
+            context.EmulatorManager!,
             context.Parameters,
-            context.WindowContext,
-            context.LoadingState,
+            context.WindowContext!,
+            context.LoadingState!,
             null), Times.Once);
     }
 
@@ -178,8 +178,8 @@ public class DefaultLaunchStrategyTests
 
         launcherMock.Verify(l => l.RunBatchFileAsync(
             context.ResolvedFilePath,
-            context.EmulatorManager,
-            context.WindowContext), Times.Once);
+            context.EmulatorManager!,
+            context.WindowContext!), Times.Once);
     }
 
     [Fact]
@@ -197,7 +197,7 @@ public class DefaultLaunchStrategyTests
 
         launcherMock.Verify(l => l.LaunchExecutableAsync(
             context.ResolvedFilePath,
-            context.EmulatorManager,
-            context.WindowContext), Times.Once);
+            context.EmulatorManager!,
+            context.WindowContext!), Times.Once);
     }
 }

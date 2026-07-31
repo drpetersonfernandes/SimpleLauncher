@@ -131,7 +131,7 @@ public class DisplaySystemInformation : IDisplaySystemInformation
         var allFoldersValid = selectedManager.SystemFolders.All(static folder =>
         {
             var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(folder);
-            return CheckPath.IsValidPath(resolvedSystemFolder);
+            return resolvedSystemFolder != null && CheckPath.IsValidPath(resolvedSystemFolder);
         });
 
         if (!allFoldersValid)
@@ -146,7 +146,7 @@ public class DisplaySystemInformation : IDisplaySystemInformation
         if (!string.IsNullOrWhiteSpace(selectedManager.SystemImageFolder))
         {
             var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemImageFolder);
-            if (!CheckPath.IsValidPath(resolvedSystemImageFolder))
+            if (resolvedSystemImageFolder == null || !CheckPath.IsValidPath(resolvedSystemImageFolder))
             {
                 result.IsValid = false;
                 result.IsSystemImageFolderValid = false;

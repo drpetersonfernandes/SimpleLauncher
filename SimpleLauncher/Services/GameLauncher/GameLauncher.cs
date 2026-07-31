@@ -76,7 +76,7 @@ IUpdateStatusBar updateStatusBar,
         SettingsManager.SettingsManager settings,
         IWindowContext windowContext,
         GamePadController gamePadController,
-        ILoadingState loadingStateProvider)
+        ILoadingState? loadingStateProvider)
     {
         // 1. Create Context
         var context = new LaunchContext
@@ -142,7 +142,7 @@ IUpdateStatusBar updateStatusBar,
             if (wasGamePadRunning) await gamePadController.StopAsync();
 
             var startTime = DateTime.Now;
-            context.LoadingState.SetLoadingState(true);
+            context.LoadingState?.SetLoadingState(true);
 
             try
             {
@@ -161,7 +161,7 @@ IUpdateStatusBar updateStatusBar,
             finally
             {
                 // 9. Post-launch Cleanup & Stats
-                context.LoadingState.SetLoadingState(false);
+                context.LoadingState?.SetLoadingState(false);
                 if (wasGamePadRunning) await gamePadController.StartAsync();
 
                 var playTime = DateTime.Now - startTime;
@@ -212,7 +212,7 @@ IUpdateStatusBar updateStatusBar,
         // If file doesn't exist, try Unicode normalization variations
         // This handles cases where filenames have different normalization forms (NFC vs NFD)
         // commonly occurring when files are created on different operating systems (macOS vs Windows)
-        string normalizedPath = null;
+        string? normalizedPath = null;
         if (!fileExists && !directoryExists)
         {
             normalizedPath = PathHelper.TryFindFileWithNormalizedPath(standardPath);
@@ -809,8 +809,8 @@ IUpdateStatusBar updateStatusBar,
         Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         IWindowContext windowContext,
-        ILoadingState loadingStateProvider,
-        string originalFilePathForDisplay = null)
+        ILoadingState? loadingStateProvider,
+        string? originalFilePathForDisplay = null)
     {
         // Use the original file path for display if provided (e.g., for mounted files),
         // otherwise use the resolved file path.
@@ -885,7 +885,7 @@ IUpdateStatusBar updateStatusBar,
                                                                            selectedEmulatorManager.EmulatorLocation.Contains("xemu", StringComparison.OrdinalIgnoreCase));
 
         // Declare tempExtractionPath here to be accessible in the finally block
-        string tempExtractionPath = null;
+        string? tempExtractionPath = null;
 
         var fileExtension = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
 
@@ -916,7 +916,7 @@ IUpdateStatusBar updateStatusBar,
             if (fileExtension is ".zip" or ".rar" or ".7z")
             {
                 var extractingMsg = (string)Application.Current.TryFindResource("ExtractingEllipsis") ?? "Extracting file... Please wait.";
-                loadingStateProvider.SetLoadingState(true, extractingMsg);
+                loadingStateProvider?.SetLoadingState(true, extractingMsg);
                 _updateStatusBar.UpdateContent(extractingMsg);
 
                 try
@@ -934,7 +934,7 @@ IUpdateStatusBar updateStatusBar,
                 finally
                 {
                     // End extraction loading state before starting launch state
-                    loadingStateProvider.SetLoadingState(false);
+                    loadingStateProvider?.SetLoadingState(false);
                 }
 
                 // Update message for launching without incrementing count (caller already has loading state active)

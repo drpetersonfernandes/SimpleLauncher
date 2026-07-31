@@ -6,6 +6,6 @@ public interface IMountIsoFiles
 {
     Task MountIsoFileAsync(string resolvedIsoFilePath, string selectedSystemName, string selectedEmulatorName, ISystemManager selectedSystemManager, Emulator selectedEmulatorManager, string rawEmulatorParameters, IWindowContext windowContext, string logPath, ILauncherService gameLauncher, ILogger logErrors, IMessageBoxLibraryService messageBox);
     Task<bool> WaitForDirectoryToExistAsync(string directoryPath, int maxWaitTimeMs, int pollIntervalMs, ILogger logErrors);
-    Task<string> ExecutePowerShellMountCommandAsync(string isoPath, ILogger logErrors, IMessageBoxLibraryService messageBox);
+    Task<string?> ExecutePowerShellMountCommandAsync(string isoPath, ILogger logErrors, IMessageBoxLibraryService messageBox);
     Task ExecutePowerShellDismountCommandAsync(string isoPath, ILogger logErrors, IMessageBoxLibraryService messageBox);
 }

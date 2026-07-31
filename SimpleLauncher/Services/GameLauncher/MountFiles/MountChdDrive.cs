@@ -2,20 +2,18 @@ using System.Diagnostics;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
-using Interfaces;
-
 /// <summary>
 /// Represents a temporarily mounted CHD drive.
 /// Disposing this object will unmount the drive by terminating the CHDMounter process.
 /// </summary>
 public class MountChdDrive : IAsyncDisposable
 {
-    private readonly Process _mountProcess;
+    private readonly Process? _mountProcess;
     private readonly int _mountProcessId;
     private readonly ILogger _logger;
 
-    public string MountedPath { get; }
-    public string MountedDriveLetter { get; }
+    public string MountedPath { get; } = "";
+    public string MountedDriveLetter { get; } = "";
     public bool IsMounted { get; }
 
     /// <summary>

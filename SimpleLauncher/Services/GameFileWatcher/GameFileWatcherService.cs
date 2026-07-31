@@ -2,8 +2,6 @@ using SimpleLauncher.Services.CheckPaths;
 
 namespace SimpleLauncher.Services.GameFileWatcher;
 
-using Interfaces;
-
 /// <summary>
 /// Monitors ROM system folders for file changes (create, delete, rename, change)
 /// and raises an event when changes are detected. Uses debouncing to avoid
@@ -14,7 +12,7 @@ public sealed class GameFileWatcherService : IDisposable
     private readonly Dictionary<FileSystemWatcher, WatcherTag> _watchers = new();
     private readonly object _lock = new();
     private readonly ILogger _logger;
-    private CancellationTokenSource _debounceCts;
+    private CancellationTokenSource? _debounceCts = new();
     private bool _disposed;
 
     /// <summary>
@@ -30,7 +28,7 @@ public sealed class GameFileWatcherService : IDisposable
     /// Raised when a file change is detected in any monitored folder.
     /// The string parameter is the system name that was being monitored.
     /// </summary>
-    public event Action<string> GameFilesChanged;
+    public event Action<string> GameFilesChanged = null!;
 
     /// <summary>
     /// The debounce delay before raising the GameFilesChanged event.
@@ -45,7 +43,7 @@ public sealed class GameFileWatcherService : IDisposable
     /// <param name="folders">The folder paths to monitor (can be relative or contain %BASEFOLDER%).</param>
     /// <param name="systemName">The system name associated with these folders.</param>
     /// <param name="fileExtensions">Optional list of file extensions to filter (e.g., ["zip", "tap"]). If null, all files are monitored.</param>
-    public void StartWatching(IEnumerable<string> folders, string systemName, IEnumerable<string> fileExtensions = null)
+    public void StartWatching(IEnumerable<string> folders, string systemName, IEnumerable<string>? fileExtensions = null)
     {
         ObjectDisposedException.ThrowIf(_disposed, this);
 
@@ -143,7 +141,7 @@ public sealed class GameFileWatcherService : IDisposable
         if (sender is not FileSystemWatcher watcher) return;
 
         // Look up the tag for this watcher
-        WatcherTag tag;
+        WatcherTag? tag;
         lock (_lock)
         {
             if (!_watchers.TryGetValue(watcher, out tag)) return;
@@ -222,5 +220,5 @@ public sealed class GameFileWatcherService : IDisposable
     /// <summary>
     /// Stores the system name and optional extension filter for a FileSystemWatcher.
     /// </summary>
-    private sealed record WatcherTag(string SystemName, HashSet<string> Extensions);
+    private sealed record WatcherTag(string SystemName, HashSet<string>? Extensions);
 }

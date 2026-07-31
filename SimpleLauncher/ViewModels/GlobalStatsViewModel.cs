@@ -18,16 +18,16 @@ namespace SimpleLauncher.ViewModels;
 public class GlobalStatsViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
-    private List<SystemManager> _systemManagers;
+    private List<SystemManager> _systemManagers = [];
     private readonly ILogger _logger;
     private readonly IGetListOfFilesService _getListOfFiles;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
-    private CancellationTokenSource _cancellationTokenSource;
+    private CancellationTokenSource? _cancellationTokenSource = new();
     private readonly object _processingLock = new();
 
     private ObservableCollection<SystemStatsData> _systemStats = [];
-    private GlobalStatsData _globalStats;
+    private GlobalStatsData _globalStats = new();
     private string _infoText = "";
     private string _busyOverlayText = "";
     private bool _isProcessing;
@@ -48,7 +48,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         StartCommand = new AsyncRelayCommand(StartAsync, () => CanStart);
         CancelCommand = new RelayCommand(Cancel, () => CanCancel);
         SaveReportCommand = new AsyncRelayCommand(SaveReportAsync, () => CanSaveReport);
-        ClosingCommand = new AsyncRelayCommand<CancelEventArgs>(ClosingAsync);
+        ClosingCommand = new AsyncRelayCommand<CancelEventArgs?>(ClosingAsync);
     }
 
     public void Initialize(List<SystemManager> systemManagers)
@@ -162,14 +162,13 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
     /// <summary>
     /// Event raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     #endregion
 
     public IAsyncRelayCommand StartCommand { get; }
     public IRelayCommand CancelCommand { get; }
     public IAsyncRelayCommand SaveReportCommand { get; }
-    public IAsyncRelayCommand<CancelEventArgs> ClosingCommand { get; }
+    public IAsyncRelayCommand<CancelEventArgs?> ClosingCommand { get; }
 
     private async Task StartAsync()
     {
@@ -362,7 +361,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
                 }
 
                 // Image Matching
-                var romFileBaseNames = new HashSet<string>(allRomFiles.Select(Path.GetFileNameWithoutExtension), StringComparer.OrdinalIgnoreCase);
+                var romFileBaseNames = new HashSet<string>(allRomFiles.Select(static f => Path.GetFileNameWithoutExtension(f) ?? ""), StringComparer.OrdinalIgnoreCase);
                 var systemImageFolder = systemManager.SystemImageFolder;
                 var resolvedImagePath = string.IsNullOrEmpty(systemImageFolder)
                     ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemManager.SystemName)
@@ -375,7 +374,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
                         .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
                         .Select(Path.GetFileNameWithoutExtension);
 
-                    numberOfImages = imageFiles.Count(romFileBaseNames.Contains);
+                    numberOfImages = imageFiles.Count(f => romFileBaseNames.Contains(f ?? ""));
                 }
 
                 results.Add(new SystemStatsData
@@ -492,7 +491,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         Cancel();
     }
 
-    private async Task ClosingAsync(CancelEventArgs e)
+    private async Task ClosingAsync(CancelEventArgs? e)
     {
         try
         {
@@ -507,7 +506,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
                 }
 
                 // Processing is active - cancel the close and ask user to confirm
-                e.Cancel = true;
+                e!.Cancel = true;
                 needsConfirmation = true;
             }
 

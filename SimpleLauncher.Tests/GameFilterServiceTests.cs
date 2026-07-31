@@ -12,7 +12,6 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class GameFilterServiceTests
 {
-
     private static GameFilterService CreateService(string showGames = "ShowAll", bool enableFuzzy = false)
     {
         var configuration = new ConfigurationBuilder().Build();
@@ -61,7 +60,7 @@ public class GameFilterServiceTests
         var service = CreateService();
         var files = new List<string> { @"C:\roms\game1.zip", @"C:\roms\game2.nes" };
 
-        var result = await service.FilterByLetterAsync(files, null);
+        var result = await service.FilterByLetterAsync(files, null!);
         Assert.Equal(2, result.Count);
     }
 
@@ -242,7 +241,7 @@ public class GameFilterServiceTests
         var service = CreateService();
         var files = new List<string> { @"C:\roms\mario.zip" };
 
-        var result = await service.FilterBySearchQueryAsync(files, "mario", null);
+        var result = await service.FilterBySearchQueryAsync(files, "mario", null!);
         Assert.Single(result);
     }
 

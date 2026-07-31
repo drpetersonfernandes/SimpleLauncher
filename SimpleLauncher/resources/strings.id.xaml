@@ -580,6 +580,7 @@
     <system:String x:Key="Extractionfailed">Ekstraksi gagal.</system:String>
     <system:String x:Key="ExtractionFailedMessage">File berhasil diunduh, tetapi ekstraksi otomatis gagal. Ini bisa terjadi jika program antivirus sedang memindai atau mengunci file tersebut.</system:String>
     <system:String x:Key="ExtractionFailedTitle">Ekstraksi Gagal</system:String>
+    <system:String x:Key="F8ShortcutInUse">Tombol pintas F8 sudah digunakan oleh program lain. Karena itu, fungsionalitas tangkapan layar dimatikan.</system:String>
     <system:String x:Key="Failedtoconfiguretheemulator">Gagal mengonfigurasi emulator. File konfigurasi mungkin hilang, berada di lokasi yang tidak terduga, atau hanya-baca.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Gagal menyalin konten log.</system:String>
     <system:String x:Key="FailedToCopySystemImage">Gagal menyalin gambar:</system:String>

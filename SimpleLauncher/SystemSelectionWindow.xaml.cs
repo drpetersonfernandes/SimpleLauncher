@@ -46,5 +46,5 @@ public partial class SystemSelectionWindow
     /// <summary>
     /// Gets the system name selected by the user.
     /// </summary>
-    public string SelectedSystem => _viewModel.SelectedSystem;
+    public string? SelectedSystem => _viewModel.SelectedSystem;
 }

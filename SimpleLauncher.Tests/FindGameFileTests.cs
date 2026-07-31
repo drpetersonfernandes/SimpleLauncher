@@ -1,10 +1,7 @@
-using Serilog;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
-
-using Interfaces;
 
 /// <summary>
 /// Tests for game file finder utilities (FindDefaultXex, FindDefaultXbe, FindCueFile, FindBinFile, FindImageIso, FindEbootBin).
@@ -44,7 +41,7 @@ public class FindGameFileTests : IDisposable
     [Fact]
     public void FindDefaultXexNullPathReturnsNull()
     {
-        var result = FindDefaultXex.Find(null, _logErrors);
+        var result = FindDefaultXex.Find(null!, _logErrors);
         Assert.Null(result);
     }
 
@@ -100,7 +97,7 @@ public class FindGameFileTests : IDisposable
     [Fact]
     public void FindDefaultXbeNullPathReturnsNull()
     {
-        var result = FindDefaultXbe.Find(null, _logErrors);
+        var result = FindDefaultXbe.Find(null!, _logErrors);
         Assert.Null(result);
     }
 
@@ -156,7 +153,7 @@ public class FindGameFileTests : IDisposable
     [Fact]
     public void FindCueFileNullPathReturnsNull()
     {
-        var result = FindCueFile.Find(null, _logErrors);
+        var result = FindCueFile.Find(null!, _logErrors);
         Assert.Null(result);
     }
 
@@ -231,7 +228,7 @@ public class FindGameFileTests : IDisposable
     [Fact]
     public void FindBinFileNullPathReturnsNull()
     {
-        var result = FindBinFile.Find(null, _logErrors);
+        var result = FindBinFile.Find(null!, _logErrors);
         Assert.Null(result);
     }
 
@@ -289,7 +286,7 @@ public class FindGameFileTests : IDisposable
     [Fact]
     public void FindImageIsoNullPathReturnsNull()
     {
-        var result = FindImageIso.Find(null, _logErrors);
+        var result = FindImageIso.Find(null!, _logErrors);
         Assert.Null(result);
     }
 
@@ -345,7 +342,7 @@ public class FindGameFileTests : IDisposable
     [Fact]
     public void FindEbootBinNullPathReturnsNull()
     {
-        var result = FindEbootBin.FindEbootBinRecursive(null, _logErrors, _logger);
+        var result = FindEbootBin.FindEbootBinRecursive(null!, _logErrors, _logger);
         Assert.Null(result);
     }
 

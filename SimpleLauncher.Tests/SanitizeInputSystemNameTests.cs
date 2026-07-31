@@ -43,7 +43,7 @@ public class SanitizeInputSystemNameTests
     [Fact]
     public void ContainsInvalidCharactersNullReturnsFalse()
     {
-        var result = SanitizeInputSystemName.ContainsInvalidCharacters(null, out var invalidChars);
+        var result = SanitizeInputSystemName.ContainsInvalidCharacters(null!, out var invalidChars);
         Assert.False(result);
         Assert.Empty(invalidChars);
     }
@@ -80,7 +80,7 @@ public class SanitizeInputSystemNameTests
     [Fact]
     public void SanitizeFolderNameNullReturnsPlaceholder()
     {
-        var result = SanitizeInputSystemName.SanitizeFolderName(null);
+        var result = SanitizeInputSystemName.SanitizeFolderName(null!);
         Assert.Equal("_invalid_empty_name_", result);
     }
 
@@ -184,7 +184,7 @@ public class SanitizeInputSystemNameTests
     [Fact]
     public void ContainsInvalidPathCharactersNullReturnsFalse()
     {
-        var result = SanitizeInputSystemName.ContainsInvalidPathCharacters(null, out _);
+        var result = SanitizeInputSystemName.ContainsInvalidPathCharacters(null!, out _);
         Assert.False(result);
     }
 

@@ -230,7 +230,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// Does nothing. Does not display the error-launching-game message box.
     /// </summary>
     /// <param name="logPath">The path to the log file.</param>
-    public Task ErrorLaunchingGameMessageBoxAsync(string logPath)
+    public Task ErrorLaunchingGameMessageBoxAsync(string? logPath)
     {
         return Task.CompletedTask;
     }
@@ -265,7 +265,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// Does nothing. Does not display the could-not-launch-game message box.
     /// </summary>
     /// <param name="logPath">The path to the log file.</param>
-    public Task CouldNotLaunchThisGameMessageBoxAsync(string logPath)
+    public Task CouldNotLaunchThisGameMessageBoxAsync(string? logPath)
     {
         return Task.CompletedTask;
     }
@@ -323,7 +323,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// Does nothing. Does not display the error-launching-tool message box.
     /// </summary>
     /// <param name="logPath">The path to the log file.</param>
-    public Task ErrorLaunchingToolMessageBoxAsync(string logPath)
+    public Task ErrorLaunchingToolMessageBoxAsync(string? logPath)
     {
         return Task.CompletedTask;
     }
@@ -573,7 +573,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// Does nothing. Does not display the system-xml-corrupted message box.
     /// </summary>
     /// <param name="logPath">The path to the log file.</param>
-    public Task SystemXmlIsCorruptedMessageBoxAsync(string logPath)
+    public Task SystemXmlIsCorruptedMessageBoxAsync(string? logPath)
     {
         return Task.CompletedTask;
     }
@@ -582,7 +582,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// Does nothing. Does not display the would-you-like-to-open-log message box.
     /// </summary>
     /// <param name="logPath">The path to the log file.</param>
-    public Task WouldYouLikeToOpenTheLogMessageBoxAsync(string logPath)
+    public Task WouldYouLikeToOpenTheLogMessageBoxAsync(string? logPath)
     {
         return Task.CompletedTask;
     }
@@ -591,7 +591,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// Does nothing. Does not display the file-system-xml-corrupted message box.
     /// </summary>
     /// <param name="logPath">The path to the log file.</param>
-    public Task FileSystemXmlIsCorruptedMessageBoxAsync(string logPath)
+    public Task FileSystemXmlIsCorruptedMessageBoxAsync(string? logPath)
     {
         return Task.CompletedTask;
     }
@@ -696,7 +696,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// Does nothing. Does not display the file-is-locked message box.
     /// </summary>
     /// <param name="tempFolderPath">The temporary folder path.</param>
-    public Task FileIsLockedMessageBoxAsync(string tempFolderPath)
+    public Task FileIsLockedMessageBoxAsync(string? tempFolderPath)
     {
         return Task.CompletedTask;
     }
@@ -1050,7 +1050,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// Does nothing. Does not display the gamepad-error message box.
     /// </summary>
     /// <param name="logPath">The path to the log file.</param>
-    public Task GamePadErrorMessageBoxAsync(string logPath)
+    public Task GamePadErrorMessageBoxAsync(string? logPath)
     {
         return Task.CompletedTask;
     }
@@ -1059,7 +1059,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// Does nothing. Does not display the could-not-launch-game message box.
     /// </summary>
     /// <param name="logPath">The path to the log file.</param>
-    public Task CouldNotLaunchGameMessageBoxAsync(string logPath)
+    public Task CouldNotLaunchGameMessageBoxAsync(string? logPath)
     {
         return Task.CompletedTask;
     }
@@ -1068,7 +1068,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// Does nothing. Does not display the invalid-operation message box.
     /// </summary>
     /// <param name="logPath">The path to the log file.</param>
-    public Task InvalidOperationExceptionMessageBoxAsync(string logPath)
+    public Task InvalidOperationExceptionMessageBoxAsync(string? logPath)
     {
         return Task.CompletedTask;
     }
@@ -1077,7 +1077,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// Does nothing. Does not display the error-launching-this-game message box.
     /// </summary>
     /// <param name="logPath">The path to the log file.</param>
-    public Task ThereWasAnErrorLaunchingThisGameMessageBoxAsync(string logPath)
+    public Task ThereWasAnErrorLaunchingThisGameMessageBoxAsync(string? logPath)
     {
         return Task.CompletedTask;
     }
@@ -1089,7 +1089,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// <param name="errorDetail">The error detail.</param>
     /// <param name="logPath">The path to the log file.</param>
     /// <param name="exitCode">The optional exit code.</param>
-    public Task BatchFileFailedMessageBoxAsync(string batchFilePath, string errorDetail, string logPath, int? exitCode = null)
+    public Task BatchFileFailedMessageBoxAsync(string batchFilePath, string errorDetail, string? logPath, int? exitCode = null)
     {
         return Task.CompletedTask;
     }
@@ -1447,7 +1447,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// Does nothing. Does not display the file-path-is-invalid message box.
     /// </summary>
     /// <param name="logPath">The path to the log file.</param>
-    public Task FilePathIsInvalidMessageBoxAsync(string logPath)
+    public Task FilePathIsInvalidMessageBoxAsync(string? logPath)
     {
         return Task.CompletedTask;
     }
@@ -1690,7 +1690,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// <param name="message">The message text.</param>
     /// <param name="launchError">The launch error text.</param>
     /// <param name="logPath">The path to the log file.</param>
-    public Task ShowCustomMessageBoxAsync(string message, string launchError, string logPath)
+    public Task ShowCustomMessageBoxAsync(string message, string launchError, string? logPath)
     {
         return Task.CompletedTask;
     }
@@ -2445,7 +2445,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// Does nothing. Does not display the RetroArch-parameter-issue message box.
     /// </summary>
     /// <param name="logPath">The path to the log file.</param>
-    public Task RetroArchParameterIssueMessageBoxAsync(string logPath)
+    public Task RetroArchParameterIssueMessageBoxAsync(string? logPath)
     {
         return Task.CompletedTask;
     }

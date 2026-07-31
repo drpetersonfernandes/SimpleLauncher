@@ -14,11 +14,11 @@ public class BooleanToFavoriteStatusConverter : IValueConverter
         if (value is bool isFavorite)
         {
             return isFavorite
-                ? (string)Application.Current?.TryFindResource("FavoriteStatusLabel") ?? "Favorite"
-                : (string)Application.Current?.TryFindResource("NotFavoriteStatusLabel") ?? "Not Favorite";
+                ? (Application.Current?.TryFindResource("FavoriteStatusLabel") as string ?? "Favorite")
+                : (Application.Current?.TryFindResource("NotFavoriteStatusLabel") as string ?? "Not Favorite");
         }
 
-        return (string)Application.Current?.TryFindResource("UnknownFavoriteStatusLabel") ?? "Unknown Favorite Status";
+        return Application.Current?.TryFindResource("UnknownFavoriteStatusLabel") as string ?? "Unknown Favorite Status";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

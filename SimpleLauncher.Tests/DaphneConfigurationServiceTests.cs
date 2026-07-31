@@ -6,8 +6,6 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
-using Interfaces;
-
 /// <summary>
 /// Tests the <see cref="DaphneConfigurationService"/> command-line argument builder for the Daphne emulator.
 /// </summary>
@@ -47,7 +45,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     [Fact]
     public void BuildArgumentsNullSettingsThrowsArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(static () => DaphneConfigurationService.BuildArguments(null));
+        Assert.Throws<ArgumentNullException>(static () => DaphneConfigurationService.BuildArguments(null!));
     }
 
     /// <summary>
@@ -272,5 +270,4 @@ public class DaphneConfigurationServiceTests : IDisposable
         Assert.Contains("-nosound", args);
         Assert.Contains("-use_overlays 1", args);
     }
-
 }

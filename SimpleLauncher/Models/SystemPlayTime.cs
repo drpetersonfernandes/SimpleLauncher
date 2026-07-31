@@ -13,7 +13,7 @@ public class SystemPlayTime
     /// Gets the name of the system.
     /// </summary>
     [Key(0)]
-    public string SystemName { get; init; } = "";
+    public string SystemName { get; set; } = "";
 
     /// <summary>
     /// Gets or sets the total play time in seconds.

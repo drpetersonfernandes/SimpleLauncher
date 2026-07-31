@@ -580,6 +580,7 @@
     <system:String x:Key="Extractionfailed">निष्कर्षण विफल हुआ।</system:String>
     <system:String x:Key="ExtractionFailedMessage">फ़ाइल सफलतापूर्वक डाउनलोड हुई, लेकिन स्वचालित निष्कर्षण विफल हो गया। यह तब हो सकता है जब एंटीवायरस प्रोग्राम फ़ाइल को स्कैन या लॉक कर रहा हो।</system:String>
     <system:String x:Key="ExtractionFailedTitle">निष्कर्षण विफल</system:String>
+    <system:String x:Key="F8ShortcutInUse">F8 शॉर्टकट कुंजी पहले से ही किसी अन्य प्रोग्राम द्वारा उपयोग में है। इस कारण से, स्क्रीनशॉट कार्यक्षमता बंद कर दी गई है।</system:String>
     <system:String x:Key="Failedtoconfiguretheemulator">एमुलेटर को कॉन्फ़िगर करने में विफल। कॉन्फ़िगरेशन फ़ाइल गायब हो सकती है, किसी अप्रत्याशित स्थान पर हो सकती है, या केवल पढ़ने योग्य हो सकती है।</system:String>
     <system:String x:Key="Failedtocopylogcontent">लॉग सामग्री कॉपी करने में विफल रहा।</system:String>
     <system:String x:Key="FailedToCopySystemImage">छवि कॉपी करने में विफल रहा:</system:String>

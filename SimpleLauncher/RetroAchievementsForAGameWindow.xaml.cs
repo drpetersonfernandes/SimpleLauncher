@@ -31,11 +31,10 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
     /// <summary>
     /// Initializes a new instance of the <see cref="RetroAchievementsForAGameWindow"/> class.
     /// </summary>
-    /// <param name="logger">The error logging service.</param>
     /// <param name="playSoundEffects">The sound effects service.</param>
     /// <param name="settings">The application settings manager.</param>
     /// <param name="raService">The RetroAchievements API service.</param>
-    /// <param name="logger">The debug logger.</param>
+    /// <param name="logger">The error logging service.</param>
     public RetroAchievementsForAGameWindow(PlaySoundEffects playSoundEffects, SettingsManager settings, RetroAchievementsService raService, ILogger logger)
     {
         InitializeComponent();

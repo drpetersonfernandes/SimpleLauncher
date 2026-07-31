@@ -4,7 +4,7 @@ public interface ISystemManager
 {
     string SystemName { get; }
     List<string> SystemFolders { get; }
-    string PrimarySystemFolder { get; }
+    string? PrimarySystemFolder { get; }
     string SystemImageFolder { get; }
     List<string> FileFormatsToSearch { get; }
     bool ExtractFileBeforeLaunch { get; }

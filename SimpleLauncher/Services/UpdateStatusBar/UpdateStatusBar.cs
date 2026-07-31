@@ -7,7 +7,7 @@ using Interfaces;
 /// </summary>
 public class UpdateStatusBarService : IUpdateStatusBar
 {
-    private IStatusBarHost _host;
+    private IStatusBarHost _host = null!;
 
     /// <summary>Initializes the service with the specified status bar host.</summary>
     public void Initialize(IStatusBarHost host)

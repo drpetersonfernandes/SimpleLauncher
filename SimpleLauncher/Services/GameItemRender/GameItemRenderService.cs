@@ -36,9 +36,9 @@ public class GameItemRenderService : IGameItemRenderService
     private readonly ILogger _logger;
     private readonly IContextMenuService _contextMenuService;
 
-    private IGameItemRenderHost _host;
-    private GameButtonFactory _gameButtonFactory;
-    private GameListFactory _gameListFactory;
+    private IGameItemRenderHost _host = null!;
+    private GameButtonFactory _gameButtonFactory = null!;
+    private GameListFactory _gameListFactory = null!;
 
     /// <summary>
     /// Initializes a new instance of <see cref="GameItemRenderService"/> with all required dependencies.

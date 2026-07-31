@@ -535,7 +535,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
         catch (Exception ex)
         {
-            Serilog.Log.Debug($"Error in DownloadEmulatorButtonClickAsync: {ex}");
+            Log.Debug($"Error in DownloadEmulatorButtonClickAsync: {ex}");
             _logger.Error(ex, "Error in DownloadEmulatorButtonClickAsync.");
         }
     }
@@ -578,7 +578,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
         catch (Exception ex)
         {
-            Serilog.Log.Debug($"Error in DownloadCoreButtonClickAsync: {ex}");
+            Log.Debug($"Error in DownloadCoreButtonClickAsync: {ex}");
             _logger.Error(ex, "Error in DownloadCoreButtonClickAsync.");
         }
     }
@@ -621,7 +621,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
         catch (Exception ex)
         {
-            Serilog.Log.Debug($"Error in DownloadImagePackButton1ClickAsync: {ex}");
+            Log.Debug($"Error in DownloadImagePackButton1ClickAsync: {ex}");
             _logger.Error(ex, "Error in DownloadImagePackButton1ClickAsync.");
         }
     }
@@ -664,7 +664,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
         catch (Exception ex)
         {
-            Serilog.Log.Debug($"Error in DownloadImagePackButton2ClickAsync: {ex}");
+            Log.Debug($"Error in DownloadImagePackButton2ClickAsync: {ex}");
             _logger.Error(ex, "Error in DownloadImagePackButton2ClickAsync.");
         }
     }
@@ -707,7 +707,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
         catch (Exception ex)
         {
-            Serilog.Log.Debug($"Error in DownloadImagePackButton3ClickAsync: {ex}");
+            Log.Debug($"Error in DownloadImagePackButton3ClickAsync: {ex}");
             _logger.Error(ex, "Error in DownloadImagePackButton3ClickAsync.");
         }
     }
@@ -750,7 +750,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
         catch (Exception ex)
         {
-            Serilog.Log.Debug($"Error in DownloadImagePackButton4ClickAsync: {ex}");
+            Log.Debug($"Error in DownloadImagePackButton4ClickAsync: {ex}");
             _logger.Error(ex, "Error in DownloadImagePackButton4ClickAsync.");
         }
     }
@@ -793,7 +793,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
         catch (Exception ex)
         {
-            Serilog.Log.Debug($"Error in DownloadImagePackButton5ClickAsync: {ex}");
+            Log.Debug($"Error in DownloadImagePackButton5ClickAsync: {ex}");
             _logger.Error(ex, "Error in DownloadImagePackButton5ClickAsync.");
         }
     }

@@ -69,8 +69,7 @@ public class SystemManagerTests
         var system = new SystemManager
         {
             SystemName = "NES",
-            SystemFolders = null
-        };
+            SystemFolders = null!        };
 
         Assert.Null(system.PrimarySystemFolder);
     }

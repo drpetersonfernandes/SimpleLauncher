@@ -580,6 +580,7 @@
     <system:String x:Key="Extractionfailed">解压失败。</system:String>
     <system:String x:Key="ExtractionFailedMessage">文件下载成功，但自动解压失败。这可能发生在杀毒软件扫描或锁定文件时。</system:String>
     <system:String x:Key="ExtractionFailedTitle">解压失败</system:String>
+    <system:String x:Key="F8ShortcutInUse">F8 快捷键已被另一个程序使用。因此，截图功能已关闭。</system:String>
     <system:String x:Key="Failedtoconfiguretheemulator">配置模拟器失败。配置文件可能丢失、位于意外位置或只读。</system:String>
     <system:String x:Key="Failedtocopylogcontent">复制日志内容失败。</system:String>
     <system:String x:Key="FailedToCopySystemImage">复制图片失败：</system:String>

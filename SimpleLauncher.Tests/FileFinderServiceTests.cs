@@ -1,5 +1,4 @@
 using Moq;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 using Xunit;
 
@@ -24,8 +23,14 @@ public class FileFinderServiceTests : IDisposable
     {
         if (Directory.Exists(_tempDir))
         {
-            try { Directory.Delete(_tempDir, true); }
-            catch { /* best effort cleanup */ }
+            try
+            {
+                Directory.Delete(_tempDir, true);
+            }
+            catch
+            {
+                /* best effort cleanup */
+            }
         }
 
         GC.SuppressFinalize(this);
@@ -36,7 +41,7 @@ public class FileFinderServiceTests : IDisposable
     [Fact]
     public void FindDefaultXexNullPathReturnsNull()
     {
-        Assert.Null(_service.FindDefaultXex(null));
+        Assert.Null(_service.FindDefaultXex(null!));
     }
 
     [Fact]
@@ -71,7 +76,7 @@ public class FileFinderServiceTests : IDisposable
     [Fact]
     public void FindDefaultXbeNullPathReturnsNull()
     {
-        Assert.Null(_service.FindDefaultXbe(null));
+        Assert.Null(_service.FindDefaultXbe(null!));
     }
 
     [Fact]
@@ -106,7 +111,7 @@ public class FileFinderServiceTests : IDisposable
     [Fact]
     public void FindCueFileNullPathReturnsNull()
     {
-        Assert.Null(_service.FindCueFile(null));
+        Assert.Null(_service.FindCueFile(null!));
     }
 
     [Fact]
@@ -141,7 +146,7 @@ public class FileFinderServiceTests : IDisposable
     [Fact]
     public void FindBinFileNullPathReturnsNull()
     {
-        Assert.Null(_service.FindBinFile(null));
+        Assert.Null(_service.FindBinFile(null!));
     }
 
     [Fact]
@@ -176,7 +181,7 @@ public class FileFinderServiceTests : IDisposable
     [Fact]
     public void FindEbootBinNullPathReturnsNull()
     {
-        Assert.Null(_service.FindEbootBin(null));
+        Assert.Null(_service.FindEbootBin(null!));
     }
 
     [Fact]
@@ -234,7 +239,7 @@ public class FileFinderServiceTests : IDisposable
     [Fact]
     public void FindImageIsoNullPathReturnsNull()
     {
-        Assert.Null(_service.FindImageIso(null));
+        Assert.Null(_service.FindImageIso(null!));
     }
 
     [Fact]

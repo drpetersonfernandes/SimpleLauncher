@@ -21,7 +21,7 @@ public class FlashOverlayViewModel : ObservableObject
     /// <summary>
     /// Event raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
+    public event Action? CloseRequested;
 
     /// <summary>
     /// Completes the flash animation and requests window close.

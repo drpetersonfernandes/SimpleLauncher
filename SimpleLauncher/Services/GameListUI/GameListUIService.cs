@@ -11,7 +11,7 @@ using Interfaces;
 public class GameListUiService
 {
     private readonly Settings _settings;
-    private IGameListUiHost _host;
+    private IGameListUiHost _host = null!;
 
     public GameListUiService(Settings settings)
     {

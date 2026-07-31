@@ -59,7 +59,7 @@ public class MountXisoFiles : IMountXisoFiles
     /// <summary>
     /// Mounts an XISO file and returns a disposable drive handle with the mounted default.xbe path.
     /// </summary>
-    public async Task<MountXisoDrive> MountAsync(string resolvedIsoFilePath, string logPath, ILogger logErrors, IMessageBoxLibraryService messageBox)
+    public async Task<MountXisoDrive> MountAsync(string resolvedIsoFilePath, string? logPath, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         _logger.Debug($"[MountXisoFiles.MountAsync] Starting to mount ISO: {resolvedIsoFilePath}");
 

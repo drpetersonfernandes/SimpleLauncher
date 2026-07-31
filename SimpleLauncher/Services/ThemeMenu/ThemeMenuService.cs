@@ -13,7 +13,7 @@ public class ThemeMenuService
 {
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly Settings _settings;
-    private IThemeMenuHost _host;
+    private IThemeMenuHost _host = null!;
 
     private static readonly string[] BaseThemeNames = ["Light", "Dark", "Adaptive", "HighContrast", "Midnight"];
 

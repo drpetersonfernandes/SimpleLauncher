@@ -4,8 +4,6 @@ using System.Windows.Interop;
 
 namespace SimpleLauncher.Services.TakeScreenshot;
 
-using Interfaces;
-
 /// <summary>
 /// Registers a system-wide F8 hotkey and raises an event when it is pressed.
 /// Uses Win32 RegisterHotKey/UnregisterHotKey via a hidden HwndSource message hook.
@@ -25,7 +23,7 @@ public partial class GlobalHotkeyService : IDisposable
     private static partial bool UnregisterHotKey(IntPtr hWnd, int id);
 
     private readonly ILogger _logger;
-    private HwndSource _hwndSource;
+    private HwndSource? _hwndSource;
     private IntPtr _windowHandle;
     private bool _isDisposed;
 
@@ -37,7 +35,7 @@ public partial class GlobalHotkeyService : IDisposable
     /// <summary>
     /// Raised when the F8 global hotkey is pressed.
     /// </summary>
-    public event Func<Task> F8Pressed;
+    public event Func<Task> F8Pressed = null!;
 
     public GlobalHotkeyService(ILogger logger)
     {

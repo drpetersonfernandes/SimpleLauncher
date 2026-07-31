@@ -580,6 +580,7 @@
     <system:String x:Key="Extractionfailed">Extrahieren fehlgeschlagen.</system:String>
     <system:String x:Key="ExtractionFailedMessage">Die Datei wurde erfolgreich heruntergeladen, aber die automatische Extrahierung ist fehlgeschlagen. Dies kann passieren, wenn ein Antivirenprogramm die Datei scannt oder sperrt.</system:String>
     <system:String x:Key="ExtractionFailedTitle">Extrahierung fehlgeschlagen</system:String>
+    <system:String x:Key="F8ShortcutInUse">Die F8-Tastenkombination wird bereits von einem anderen Programm verwendet. Aus diesem Grund ist die Screenshot-Funktion deaktiviert.</system:String>
     <system:String x:Key="Failedtoconfiguretheemulator">Fehler beim Konfigurieren des Emulators. Die Konfigurationsdatei fehlt möglicherweise, befindet sich an einem unerwarteten Ort oder ist schreibgeschützt.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Protokollinhalt konnte nicht kopiert werden.</system:String>
     <system:String x:Key="FailedToCopySystemImage">Bild konnte nicht kopiert werden:</system:String>

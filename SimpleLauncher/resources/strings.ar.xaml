@@ -580,6 +580,7 @@
     <system:String x:Key="Extractionfailed">فشل الاستخراج.</system:String>
     <system:String x:Key="ExtractionFailedMessage">تم تنزيل الملف بنجاح، لكن فشل الاستخراج التلقائي. قد يحدث هذا إذا كان برنامج مكافحة الفيروسات يفحص الملف أو يقفله.</system:String>
     <system:String x:Key="ExtractionFailedTitle">فشل الاستخراج</system:String>
+    <system:String x:Key="F8ShortcutInUse">مفتاح الاختصار F8 قيد الاستخدام بالفعل بواسطة برنامج آخر. بسبب هذا، تم إيقاف تشغيل وظيفة لقطة الشاشة.</system:String>
     <system:String x:Key="Failedtoconfiguretheemulator">فشل في تكوين المحاكي. قد يكون ملف التكوين مفقودًا، أو في موقع غير متوقع، أو للقراءة فقط.</system:String>
     <system:String x:Key="Failedtocopylogcontent">فشل نسخ محتوى السجل.</system:String>
     <system:String x:Key="FailedToCopySystemImage">فشل نسخ الصورة:</system:String>

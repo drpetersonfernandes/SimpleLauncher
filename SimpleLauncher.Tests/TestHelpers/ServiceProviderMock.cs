@@ -3,8 +3,6 @@ using Microsoft.Extensions.Configuration;
 
 namespace SimpleLauncher.Tests.TestHelpers;
 
-using Interfaces;
-
 /// <summary>
 /// Provides a way to mock <see cref="App.ServiceProvider"/> for unit tests.
 /// The production code calls <c>App.ServiceProvider.GetRequiredService&lt;ILogger&gt;()</c>
@@ -102,5 +100,4 @@ public static class ServiceProviderMock
             return null;
         }
     }
-
 }

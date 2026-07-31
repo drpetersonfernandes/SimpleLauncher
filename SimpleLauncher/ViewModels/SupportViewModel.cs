@@ -22,9 +22,9 @@ public partial class SupportViewModel : ObservableObject
     private readonly IResourceProvider _resourceProvider;
     private readonly ILogger _logger;
 
-    [ObservableProperty] private string _name;
-    [ObservableProperty] private string _email;
-    [ObservableProperty] private string _supportRequest;
+    [ObservableProperty] private string _name = "";
+    [ObservableProperty] private string _email = "";
+    [ObservableProperty] private string _supportRequest = "";
     [ObservableProperty] private bool _isLoading;
 
     public SupportViewModel(PlaySoundEffects playSoundEffects, IHttpClientFactory httpClientFactory, IConfiguration configuration, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider, ILogger logger)
@@ -38,10 +38,10 @@ public partial class SupportViewModel : ObservableObject
     }
 
     /// <summary>Event raised when the window should be closed.</summary>
-    public event Action CloseRequested;
+    public event Action? CloseRequested;
 
     /// <summary>Event raised when the form fields have been cleared after successful submission.</summary>
-    public event Action FormCleared;
+    public event Action? FormCleared;
 
     [RelayCommand]
     private async Task SendSupportRequestAsync()

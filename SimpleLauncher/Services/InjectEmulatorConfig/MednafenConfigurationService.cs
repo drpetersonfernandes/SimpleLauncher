@@ -3,8 +3,6 @@ using System.Text;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
-using Interfaces;
-
 public static class MednafenConfigurationService
 {
     // List of common system prefixes used by Mednafen for per-system settings

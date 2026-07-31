@@ -1,5 +1,3 @@
-#nullable enable
-
 using System.Windows;
 using Microsoft.Win32;
 using SimpleLauncher.ViewModels;

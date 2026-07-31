@@ -44,38 +44,38 @@ public sealed class DataFileLocation
                 IsPortableMode = false;
                 break;
             case true when localExists:
+            {
+                var portableInfo = new FileInfo(portablePath);
+                var localInfo = new FileInfo(localAppDataPath);
+                if (portableInfo.LastWriteTimeUtc > localInfo.LastWriteTimeUtc)
                 {
-                    var portableInfo = new FileInfo(portablePath);
-                    var localInfo = new FileInfo(localAppDataPath);
-                    if (portableInfo.LastWriteTimeUtc > localInfo.LastWriteTimeUtc)
-                    {
-                        FilePath = portablePath;
-                        IsPortableMode = true;
-                    }
-                    else
-                    {
-                        FilePath = localAppDataPath;
-                        IsPortableMode = false;
-                    }
-
-                    break;
+                    FilePath = portablePath;
+                    IsPortableMode = true;
                 }
+                else
+                {
+                    FilePath = localAppDataPath;
+                    IsPortableMode = false;
+                }
+
+                break;
+            }
             default:
+            {
+                if (IsDirectoryWritable(AppDomain.CurrentDomain.BaseDirectory))
                 {
-                    if (IsDirectoryWritable(AppDomain.CurrentDomain.BaseDirectory))
-                    {
-                        FilePath = portablePath;
-                        IsPortableMode = true;
-                    }
-                    else
-                    {
-                        EnsureDirectoryExists(appDataFolder);
-                        FilePath = localAppDataPath;
-                        IsPortableMode = false;
-                    }
-
-                    break;
+                    FilePath = portablePath;
+                    IsPortableMode = true;
                 }
+                else
+                {
+                    EnsureDirectoryExists(appDataFolder);
+                    FilePath = localAppDataPath;
+                    IsPortableMode = false;
+                }
+
+                break;
+            }
         }
     }
 
@@ -102,7 +102,7 @@ public sealed class DataFileLocation
         }
         catch (Exception ex)
         {
-            Serilog.Log.Debug($"[DataFileLocation] TryFallbackToLocalAppData failed: {ex.Message}");
+            Log.Debug($"[DataFileLocation] TryFallbackToLocalAppData failed: {ex.Message}");
             return false;
         }
     }
@@ -121,7 +121,7 @@ public sealed class DataFileLocation
         }
         catch (Exception ex)
         {
-            Serilog.Log.Debug($"[DataFileLocation] IsDirectoryWritable failed for '{directoryPath}': {ex.Message}");
+            Log.Debug($"[DataFileLocation] IsDirectoryWritable failed for '{directoryPath}': {ex.Message}");
             return false;
         }
     }
@@ -135,7 +135,7 @@ public sealed class DataFileLocation
         }
         catch (Exception ex)
         {
-            Serilog.Log.Debug($"[DataFileLocation] EnsureDirectoryExists failed for '{path}': {ex.Message}");
+            Log.Debug($"[DataFileLocation] EnsureDirectoryExists failed for '{path}': {ex.Message}");
         }
     }
 }

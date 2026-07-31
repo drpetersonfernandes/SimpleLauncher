@@ -9,7 +9,6 @@ namespace SimpleLauncher.Tests;
 
 public class GameFilterServiceExtendedTests
 {
-
     private static GameFilterService CreateService(string showGames = "ShowAll", bool enableFuzzy = false)
     {
         var configuration = new ConfigurationBuilder().Build();

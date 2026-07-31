@@ -16,13 +16,12 @@ public partial class InjectMameConfigViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath;
-    private string _systemRomPath;
-    private string[] _listOfSecondarySystemFolders;
-
-    [ObservableProperty] private string _mameVideo;
-    [ObservableProperty] private string _mameBgfxBackend;
-    [ObservableProperty] private string _mameBgfxScreenChains;
+    private string _emulatorPath = null!;
+    private string _systemRomPath = null!;
+    private string[] _listOfSecondarySystemFolders = null!;
+    [ObservableProperty] private string _mameVideo = null!;
+    [ObservableProperty] private string _mameBgfxBackend = null!;
+    [ObservableProperty] private string _mameBgfxScreenChains = null!;
     [ObservableProperty] private bool _mameFilter;
     [ObservableProperty] private bool _mameAutoframeskip;
     [ObservableProperty] private bool _mameCheat;
@@ -36,7 +35,6 @@ public partial class InjectMameConfigViewModel : ObservableObject
     [ObservableProperty] private bool _mameConfirmQuit;
     [ObservableProperty] private bool _mameJoystick;
     [ObservableProperty] private bool _mameShowSettingsBeforeLaunch;
-
     public InjectMameConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
@@ -53,10 +51,10 @@ public partial class InjectMameConfigViewModel : ObservableObject
     /// <param name="listOfSecondaryRomPaths">Optional list of secondary ROM folder paths.</param>
     public void Initialize(string? emulatorPath, bool isLauncherMode, string? systemRomPath = null, string[]? listOfSecondaryRomPaths = null)
     {
-        _emulatorPath = emulatorPath;
+        _emulatorPath = emulatorPath!;
         IsLauncherMode = isLauncherMode;
-        _systemRomPath = systemRomPath;
-        _listOfSecondarySystemFolders = listOfSecondaryRomPaths;
+        _systemRomPath = systemRomPath!;
+        _listOfSecondarySystemFolders = listOfSecondaryRomPaths!;
         LoadSettings();
     }
 
@@ -88,8 +86,7 @@ public partial class InjectMameConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
@@ -99,13 +96,11 @@ public partial class InjectMameConfigViewModel : ObservableObject
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string> RequestEmulatorPath;
-
+    public event Func<string?> RequestEmulatorPath = null!;
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow;
-
+    public event Func<Window> GetOwnerWindow = null!;
     private void LoadSettings()
     {
         MameVideo = _settings.Mame.Video;
@@ -147,7 +142,7 @@ public partial class InjectMameConfigViewModel : ObservableObject
         _ = _settings.SaveAsync();
     }
 
-    private async Task<string> EnsureEmulatorPathAsync()
+    private async Task<string?> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {

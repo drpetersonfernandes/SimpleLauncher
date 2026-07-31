@@ -5,12 +5,12 @@ namespace SimpleLauncher.Services.RetroAchievements.Models;
 /// </summary>
 public struct RaHashResult
 {
-    public string Hash { get; }
-    public string TempExtractionPath { get; }
+    public string? Hash { get; }
+    public string? TempExtractionPath { get; }
     public bool IsExtractionSuccessful { get; }
-    public string ExtractionErrorMessage { get; }
+    public string? ExtractionErrorMessage { get; }
 
-    public RaHashResult(string hash, string tempExtractionPath, bool isExtractionSuccessful = true, string extractionErrorMessage = null)
+    public RaHashResult(string? hash, string? tempExtractionPath, bool isExtractionSuccessful = true, string? extractionErrorMessage = null)
     {
         Hash = hash;
         TempExtractionPath = tempExtractionPath;

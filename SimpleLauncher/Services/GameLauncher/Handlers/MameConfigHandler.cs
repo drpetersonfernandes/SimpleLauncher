@@ -62,7 +62,7 @@ public class MameConfigHandler : IEmulatorConfigHandler
                 {
                     try
                     {
-                        MameConfigurationService.InjectSettings(resolvedExe, context.Settings, _logger, resolvedSystemFolder, listOfSecondarySystemFolders);
+                        MameConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger, resolvedSystemFolder, listOfSecondarySystemFolders);
                     }
                     catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
                     {

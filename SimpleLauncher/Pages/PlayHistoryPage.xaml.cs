@@ -20,8 +20,6 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 using CoreMessageBoxResult = SimpleLauncher.Interfaces.MessageBoxResult;
 
-#nullable enable
-
 namespace SimpleLauncher.Pages;
 
 /// <summary>
@@ -57,7 +55,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         GameLauncher gameLauncher,
         PlaySoundEffects playSoundEffects,
         IConfiguration configuration,
-IFindCoverImageService findCoverImage,
+        IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         IContextMenuFunctions contextMenuFunctions,
         ILogger logger,
@@ -322,23 +320,23 @@ IFindCoverImageService findCoverImage,
             switch (e.Key)
             {
                 case Key.Delete:
+                {
+                    var selectedItems = PlayHistoryDataGrid.SelectedItems.Cast<PlayHistoryItem>().ToList();
+                    if (selectedItems.Count > 0)
                     {
-                        var selectedItems = PlayHistoryDataGrid.SelectedItems.Cast<PlayHistoryItem>().ToList();
-                        if (selectedItems.Count > 0)
-                        {
-                            _playSoundEffects.PlayTrashSound();
-                            _viewModel.RemoveItems(selectedItems);
-                            e.Handled = true;
-                            PreviewImage.Source = null;
-                        }
-                        else
-                        {
-                            await _messageBox.SelectAHistoryItemToRemoveMessageBoxAsync();
-                        }
-
+                        _playSoundEffects.PlayTrashSound();
+                        _viewModel.RemoveItems(selectedItems);
+                        e.Handled = true;
                         PreviewImage.Source = null;
-                        break;
                     }
+                    else
+                    {
+                        await _messageBox.SelectAHistoryItemToRemoveMessageBoxAsync();
+                    }
+
+                    PreviewImage.Source = null;
+                    break;
+                }
                 case Key.Enter when PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem:
                     _playSoundEffects.PlayNotificationSound();
                     _ = LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName);

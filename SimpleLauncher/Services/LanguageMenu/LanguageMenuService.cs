@@ -14,7 +14,7 @@ public class LanguageMenuService
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly ILogger _logger;
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
-    private ILanguageMenuHost _host;
+    private ILanguageMenuHost _host = null!;
 
     private static readonly Dictionary<string, string> NameToCode = new()
     {
@@ -52,7 +52,7 @@ public class LanguageMenuService
         _host = host;
     }
 
-    public static string GetLanguageCodeFromMenuItem(MenuItem menuItem)
+    public static string? GetLanguageCodeFromMenuItem(MenuItem menuItem)
     {
         return NameToCode.GetValueOrDefault(menuItem.Name);
     }

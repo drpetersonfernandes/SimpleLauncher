@@ -15,14 +15,13 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath;
+    private string _emulatorPath = "";
 
-    [ObservableProperty] private string _gfxBackend;
+    [ObservableProperty] private string _gfxBackend = "";
     [ObservableProperty] private bool _dspThread;
     [ObservableProperty] private bool _wiimoteContinuousScanning;
     [ObservableProperty] private bool _wiimoteEnableSpeaker;
     [ObservableProperty] private bool _showBeforeLaunch;
-
     public InjectDolphinConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
@@ -37,7 +36,7 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     public void Initialize(string? emulatorPath, bool isLauncherMode)
     {
-        _emulatorPath = emulatorPath;
+        _emulatorPath = emulatorPath ?? "";
         IsLauncherMode = isLauncherMode;
         LoadSettings();
     }
@@ -60,8 +59,7 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
@@ -71,13 +69,11 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string> RequestEmulatorPath;
-
+    public event Func<string?> RequestEmulatorPath = null!;
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow;
-
+    public event Func<Window> GetOwnerWindow = null!;
     private void LoadSettings()
     {
         GfxBackend = _settings.Dolphin.GfxBackend;
@@ -97,7 +93,7 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
         _ = _settings.SaveAsync();
     }
 
-    private async Task<string> EnsureEmulatorPathAsync()
+    private async Task<string?> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {
@@ -163,7 +159,7 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectDolphinConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
         }
     }
 
@@ -192,7 +188,7 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectDolphinConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
         }
     }
 }

@@ -6,8 +6,6 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
-using Interfaces;
-
 /// <summary>
 /// Tests for <see cref="RetroAchievementsFileHasher"/> covering MD5 calculation,
 /// filename hashing, N64 byte-swap hashing, Arduboy line-ending normalization, and hex encoding.

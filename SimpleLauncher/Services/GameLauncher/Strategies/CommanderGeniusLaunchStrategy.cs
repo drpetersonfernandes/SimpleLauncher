@@ -19,7 +19,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
     private readonly IConfiguration _configuration;
     private readonly IUpdateStatusBar _updateStatusBar;
     private readonly IMessageBoxLibraryService _messageBox;
-    private static ILogger _logger;
+    private static ILogger _logger = null!;
 
     private static readonly string[] KeenDataExtensions =
     [
@@ -58,7 +58,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
     /// <inheritdoc />
     public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
-        string extractionDir = null;
+        string? extractionDir = null;
 
         try
         {
@@ -216,7 +216,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         }
     }
 
-    private static string GetCommanderGeniusDataPath(string emulatorLocation = null)
+    private static string? GetCommanderGeniusDataPath(string? emulatorLocation = null)
     {
         var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         if (string.IsNullOrEmpty(documentsPath)) return null;
@@ -265,7 +265,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         return cgDataDir;
     }
 
-    private static string ReadSearchPathFromConfig(string configPath)
+    private static string? ReadSearchPathFromConfig(string configPath)
     {
         try
         {
@@ -299,7 +299,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         return null;
     }
 
-    private static string ResolveCgPath(string rawPath, string emulatorLocation)
+    private static string? ResolveCgPath(string rawPath, string? emulatorLocation)
     {
         if (string.IsNullOrWhiteSpace(rawPath)) return null;
 

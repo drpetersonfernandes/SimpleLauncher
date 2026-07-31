@@ -13,7 +13,7 @@ public class SearchValidationResult
     /// <summary>
     /// Gets the trimmed and validated search query.
     /// </summary>
-    public string ValidatedQuery { get; init; }
+    public string ValidatedQuery { get; init; } = null!;
 
     /// <summary>
     /// Creates a successful validation result with the sanitized query.

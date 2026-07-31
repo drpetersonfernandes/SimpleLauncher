@@ -44,7 +44,7 @@ public class SearchOrchestratorServiceTests
     [Fact]
     public async Task ValidateAndPrepareAsyncReturnsFailureForNullQuery()
     {
-        var result = await _service.ValidateAndPrepareAsync(null, "NES", CancellationToken.None);
+        var result = await _service.ValidateAndPrepareAsync(null!, "NES", CancellationToken.None);
         Assert.False(result.IsValid);
     }
 
@@ -106,7 +106,7 @@ public class SearchOrchestratorServiceTests
     public async Task ValidateAndPrepareAsyncFailureDoesNotClearSearchResults()
     {
         _gameCacheService.SearchResultsCleared = false;
-        await _service.ValidateAndPrepareAsync(null, "NES", CancellationToken.None);
+        await _service.ValidateAndPrepareAsync(null!, "NES", CancellationToken.None);
         Assert.False(_gameCacheService.SearchResultsCleared);
     }
 

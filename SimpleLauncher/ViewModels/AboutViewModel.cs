@@ -16,7 +16,7 @@ public partial class AboutViewModel : ObservableObject
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly UpdateChecker _updateChecker;
-    private string _appVersion;
+    private string _appVersion = "";
 
     public AboutViewModel(ILogger logErrors, IMessageBoxLibraryService messageBox, UpdateChecker updateChecker)
     {
@@ -55,17 +55,17 @@ public partial class AboutViewModel : ObservableObject
     /// <summary>
     /// Event raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
+    public event Action? CloseRequested;
 
     /// <summary>
     /// Event raised when the update history window should be opened.
     /// </summary>
-    public event Action OpenUpdateHistoryRequested;
+    public event Action? OpenUpdateHistoryRequested;
 
     /// <summary>
     /// Event raised to request the owner window for dialogs.
     /// </summary>
-    public event Func<Window> GetOwnerWindow;
+    public event Func<Window>? GetOwnerWindow;
 
     private bool CanCheckForUpdates => !IsCheckingForUpdates;
 
@@ -83,7 +83,8 @@ public partial class AboutViewModel : ObservableObject
         try
         {
             var ownerWindow = GetOwnerWindow?.Invoke();
-            await _updateChecker.ManualCheckForUpdatesAsync(ownerWindow);
+            if (ownerWindow != null)
+                await _updateChecker.ManualCheckForUpdatesAsync(ownerWindow);
         }
         catch (Exception ex)
         {

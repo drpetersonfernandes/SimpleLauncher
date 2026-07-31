@@ -580,6 +580,7 @@
     <system:String x:Key="Extractionfailed">압축 해제에 실패했습니다.</system:String>
     <system:String x:Key="ExtractionFailedMessage">파일은 성공적으로 다운로드되었으나 자동 추출이 실패했습니다. 백신 프로그램이 파일을 스캔하거나 잠그고 있는 경우 발생할 수 있습니다.</system:String>
     <system:String x:Key="ExtractionFailedTitle">추출 실패</system:String>
+    <system:String x:Key="F8ShortcutInUse">F8 바로 가기 키가 이미 다른 프로그램에서 사용 중입니다. 이 때문에 스크린샷 기능이 꺼져 있습니다.</system:String>
     <system:String x:Key="Failedtoconfiguretheemulator">에뮬레이터 구성에 실패했습니다. 구성 파일이 없거나, 예상치 못한 위치에 있거나, 읽기 전용일 수 있습니다.</system:String>
     <system:String x:Key="Failedtocopylogcontent">로그 콘텐츠를 복사하지 못했습니다.</system:String>
     <system:String x:Key="FailedToCopySystemImage">이미지 복사 실패:</system:String>

@@ -4,5 +4,5 @@ namespace SimpleLauncher.Interfaces;
 
 public interface IParameterResolverService
 {
-    Task<ParameterResolverResult> ResolveParametersAsync(ParameterResolverRequest request);
+    Task<ParameterResolverResult?> ResolveParametersAsync(ParameterResolverRequest request);
 }

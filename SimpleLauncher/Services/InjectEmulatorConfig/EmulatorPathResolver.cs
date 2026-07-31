@@ -3,11 +3,9 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
-using Interfaces;
-
 public static class EmulatorPathResolver
 {
-    public static string TryFindEmulatorPath(string emulatorNameHint, ILogger logErrors)
+    public static string? TryFindEmulatorPath(string emulatorNameHint, ILogger logErrors)
     {
         if (string.IsNullOrWhiteSpace(emulatorNameHint))
             return null;

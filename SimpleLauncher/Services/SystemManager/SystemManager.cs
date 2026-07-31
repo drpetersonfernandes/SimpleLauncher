@@ -18,34 +18,34 @@ public partial class SystemManager : ISystemManager
 {
     private static readonly object XmlLock = new();
 
-    private static DataFileLocation _fileLocation;
+    private static DataFileLocation? _fileLocation;
     private static readonly object FileLocationLock = new();
 
     /// <summary>Gets the name of the system (e.g., "NES", "SNES").</summary>
-    public string SystemName { get; init; }
+    public string SystemName { get; init; } = null!;
 
     /// <summary>Gets the list of ROM folder paths for this system.</summary>
-    public List<string> SystemFolders { get; init; }
+    public List<string> SystemFolders { get; init; } = null!;
 
     /// <summary>Gets the first (primary) system folder path.</summary>
-    public string PrimarySystemFolder => SystemFolders?.FirstOrDefault();
+    public string? PrimarySystemFolder => SystemFolders?.FirstOrDefault();
 
     /// <summary>Gets the path to the folder containing system images.</summary>
-    public string SystemImageFolder { get; init; }
+    public string SystemImageFolder { get; init; } = null!;
 
     /// <summary>Gets the list of file extensions to search for in ROM folders.</summary>
-    public List<string> FileFormatsToSearch { get; init; }
+    public List<string> FileFormatsToSearch { get; init; } = null!;
 
     /// <summary>Gets whether compressed files should be extracted before launching.</summary>
     public bool ExtractFileBeforeLaunch { get; init; }
 
     /// <summary>Gets the list of file extensions that can be launched directly.</summary>
-    public List<string> FileFormatsToLaunch { get; init; }
+    public List<string> FileFormatsToLaunch { get; init; } = null!;
 
     /// <summary>Gets the list of configured emulators for this system.</summary>
-    public List<Emulator> Emulators { get; init; }
+    public List<Emulator> Emulators { get; init; } = null!;
 
-    IReadOnlyList<IEmulator> ISystemManager.Emulators => Emulators?.Cast<IEmulator>().ToList();
+    IReadOnlyList<IEmulator> ISystemManager.Emulators => Emulators?.Cast<IEmulator>().ToList() ?? [];
 
     /// <summary>Gets whether games should be grouped by their parent folder.</summary>
     public bool GroupByFolder { get; init; }
@@ -54,21 +54,21 @@ public partial class SystemManager : ISystemManager
     public bool DisableRecursiveSearch { get; init; }
 
     // ReSharper disable once NotAccessedField.Local
-    private readonly IMessageBoxLibraryService _messageBoxLibrary;
+    private readonly IMessageBoxLibraryService _messageBoxLibrary = null!;
 
     /// <summary>
     /// Static logger shared across static methods. Set by the last instance created.
     /// This is intentional — static methods like SystemExists and LoadSystemManagers need logging.
     /// </summary>
-    private static ILogger _logger;
+    private static ILogger _logger = null!;
 
     /// <summary>
     /// Initializes a new instance of the SystemManager with optional dependencies.
     /// </summary>
-    public SystemManager(IMessageBoxLibraryService messageBoxLibrary = null, ILogger logger = null)
+    public SystemManager(IMessageBoxLibraryService? messageBoxLibrary = null, ILogger? logger = null)
     {
-        _messageBoxLibrary = messageBoxLibrary;
-        _logger = logger;
+        _messageBoxLibrary = messageBoxLibrary!;
+        _logger = logger!;
     }
 
     /// <summary>
@@ -88,7 +88,7 @@ public partial class SystemManager : ISystemManager
             }
         }
 
-        return _fileLocation.FilePath;
+        return Volatile.Read(ref _fileLocation)!.FilePath;
     }
 
     /// <summary>Gets whether the system.xml file is stored in portable mode (next to the executable).</summary>
@@ -142,7 +142,7 @@ public partial class SystemManager : ISystemManager
     /// <summary>
     /// Loads all system manager configurations from system.xml, validating and cleaning invalid entries.
     /// </summary>
-    public static List<SystemManager> LoadSystemManagers(IConfiguration configuration, ILogger logErrors = null, IMessageBoxLibraryService messageBoxLibrary = null)
+    public static List<SystemManager> LoadSystemManagers(IConfiguration configuration, ILogger? logErrors = null, IMessageBoxLibraryService? messageBoxLibrary = null)
     {
         var systemXmlPath = GetSystemXmlPath(configuration);
 
@@ -152,7 +152,7 @@ public partial class SystemManager : ISystemManager
 
             if (directoryPath != null)
             {
-                RestoreBackupFile(directoryPath, systemXmlPath, logErrors, messageBoxLibrary);
+                RestoreBackupFile(directoryPath!, systemXmlPath!, logErrors!, messageBoxLibrary!);
             }
 
             // If no backup was restored, create a new empty system.xml file
@@ -188,7 +188,7 @@ public partial class SystemManager : ISystemManager
             {
                 var systemManagers = new List<SystemManager>();
                 var invalidManagers = new Dictionary<XElement, string>();
-                XDocument doc = null;
+                XDocument? doc = null;
 
                 try
                 {
@@ -500,7 +500,7 @@ public partial class SystemManager : ISystemManager
                 SystemImageFolder = systemImageFolder, // Store the raw string
                 ExtractFileBeforeLaunch = extractFileBeforeLaunch,
                 FileFormatsToSearch = formatsToSearch,
-                FileFormatsToLaunch = formatsToLaunch,
+                FileFormatsToLaunch = formatsToLaunch ?? [],
                 Emulators = emulators,
                 GroupByFolder = groupByFolder,
                 DisableRecursiveSearch = disableRecursiveSearch
@@ -593,7 +593,7 @@ public partial class SystemManager : ISystemManager
     /// <summary>
     /// Asynchronously saves a system configuration to system.xml, creating or updating the entry with retry logic.
     /// </summary>
-    public static async Task SaveSystemConfigurationAsync(SystemManager systemConfig, string originalSystemName = null, ILogger logErrors = null, IConfiguration configuration = null)
+    public static async Task SaveSystemConfigurationAsync(SystemManager systemConfig, string? originalSystemName = null, ILogger? logErrors = null, IConfiguration? configuration = null)
     {
         try
         {
@@ -680,7 +680,7 @@ public partial class SystemManager : ISystemManager
 
                     const int maxRetries = 3;
                     var retryDelayMs = 500;
-                    Exception lastException = null;
+                    Exception? lastException = null;
 
                     for (var attempt = 0; attempt < maxRetries; attempt++)
                     {
@@ -742,7 +742,7 @@ public partial class SystemManager : ISystemManager
                                 }
                                 catch (Exception fallbackEx)
                                 {
-                                    Serilog.Log.Debug($"[SystemManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
+                                    Log.Debug($"[SystemManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
                                 }
                             }
 
@@ -759,7 +759,7 @@ public partial class SystemManager : ISystemManager
                                 }
                                 catch (Exception cleanupEx)
                                 {
-                                    Serilog.Log.Debug($"[SystemManager] Temp file cleanup failed: {cleanupEx.Message}");
+                                    Log.Debug($"[SystemManager] Temp file cleanup failed: {cleanupEx.Message}");
                                 }
 
                                 Thread.Sleep(retryDelayMs);
@@ -804,7 +804,7 @@ public partial class SystemManager : ISystemManager
     /// <summary>
     /// Asynchronously deletes a system configuration entry by name from system.xml.
     /// </summary>
-    public static async Task DeleteSystemAsync(string systemNameToDelete, ILogger logErrors = null, IConfiguration configuration = null)
+    public static async Task DeleteSystemAsync(string systemNameToDelete, ILogger? logErrors = null, IConfiguration? configuration = null)
     {
         try
         {

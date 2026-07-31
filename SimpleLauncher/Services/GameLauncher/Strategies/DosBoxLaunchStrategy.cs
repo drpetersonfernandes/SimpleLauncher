@@ -19,7 +19,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMountChdFiles _mountChdFiles;
     private readonly IMountIsoFiles _mountIsoFiles;
-    private static ILogger _logger;
+    private static ILogger _logger = null!;
 
     private static readonly string[] PriorityGameFormats = [".conf", ".bat", ".exe", ".com"];
     private static readonly List<string> ExtractionFormats = ["conf", "bat", "exe", "com"];
@@ -71,7 +71,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                 return;
             default:
                 {
-                    string tempDir = null;
+                    string? tempDir = null;
 
                     try
                     {
@@ -141,10 +141,10 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                         await launcher.LaunchRegularEmulatorAsync(
                             confPath,
                             context.EmulatorName,
-                            context.SystemManager,
-                            context.EmulatorManager,
+                            context.SystemManager!,
+                            context.EmulatorManager!,
                             launchParameters,
-                            context.WindowContext,
+                            context.WindowContext!,
                             context.LoadingState,
                             context.ResolvedFilePath);
                     }
@@ -324,10 +324,10 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         await launcher.LaunchRegularEmulatorAsync(
             confPath,
             context.EmulatorName,
-            context.SystemManager,
-            context.EmulatorManager,
+            context.SystemManager!,
+            context.EmulatorManager!,
             launchParameters,
-            context.WindowContext,
+            context.WindowContext!,
             context.LoadingState,
             context.ResolvedFilePath);
     }
@@ -444,10 +444,10 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             await launcher.LaunchRegularEmulatorAsync(
                 confPath,
                 context.EmulatorName,
-                context.SystemManager,
-                context.EmulatorManager,
+                context.SystemManager!,
+                context.EmulatorManager!,
                 launchParameters,
-                context.WindowContext,
+                context.WindowContext!,
                 context.LoadingState,
                 context.ResolvedFilePath);
         }

@@ -204,8 +204,8 @@ internal class ScanSteamGames : IGamePlatformScanner
             // 1. Parse gameinfo.txt using the existing VDF parser
             var vdfData = _vdfParser.Parse(gameInfoPath, logErrors);
 
-            string gameName = null;
-            string baseAppId = null;
+            string? gameName = null;
+            string? baseAppId = null;
 
             // Source mods store info under a "GameInfo" root key
             if (vdfData.TryGetValue("GameInfo", out var gi) && gi is Dictionary<string, object> gameInfo)
@@ -282,7 +282,7 @@ internal class ScanSteamGames : IGamePlatformScanner
     }
 
 
-    private static string GetSteamPathFromProcess()
+    private static string? GetSteamPathFromProcess()
     {
         try
         {

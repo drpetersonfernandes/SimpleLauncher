@@ -85,13 +85,11 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
     /// <summary>
     /// Event raised when the window should be closed with a success result.
     /// </summary>
-    public event Action SaveCompleted;
-
+    public event Action SaveCompleted = null!;
     /// <summary>
     /// Event raised when the window should be closed without saving.
     /// </summary>
-    public event Action CancelRequested;
-
+    public event Action CancelRequested = null!;
     [RelayCommand(CanExecute = nameof(CanSave))]
     private async Task SaveAsync()
     {

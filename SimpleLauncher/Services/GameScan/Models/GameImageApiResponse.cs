@@ -8,5 +8,5 @@ public class GameImageApiResponse
     public bool Success { get; set; }
 
     [JsonPropertyName("imageUrl")]
-    public string ImageUrl { get; set; }
+    public string ImageUrl { get; set; } = null!;
 }

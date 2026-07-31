@@ -15,25 +15,23 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath;
-
-    [ObservableProperty] private string _redreamCable;
-    [ObservableProperty] private string _redreamBroadcast;
+    private string _emulatorPath = null!;
+    [ObservableProperty] private string _redreamCable = null!;
+    [ObservableProperty] private string _redreamBroadcast = null!;
     [ObservableProperty] private bool _redreamVsync;
     [ObservableProperty] private bool _redreamFrameskip;
-    [ObservableProperty] private string _redreamAspect;
+    [ObservableProperty] private string _redreamAspect = null!;
     [ObservableProperty] private int _redreamRes;
-    [ObservableProperty] private string _redreamRenderer;
-    [ObservableProperty] private string _redreamFullmode;
+    [ObservableProperty] private string _redreamRenderer = null!;
+    [ObservableProperty] private string _redreamFullmode = null!;
     [ObservableProperty] private int _redreamWidth;
     [ObservableProperty] private int _redreamHeight;
-    [ObservableProperty] private string _redreamLanguage;
-    [ObservableProperty] private string _redreamRegion;
+    [ObservableProperty] private string _redreamLanguage = null!;
+    [ObservableProperty] private string _redreamRegion = null!;
     [ObservableProperty] private int _redreamVolume;
     [ObservableProperty] private int _redreamLatency;
     [ObservableProperty] private bool _redreamFramerate;
     [ObservableProperty] private bool _redreamShowSettingsBeforeLaunch;
-
     public InjectRedreamConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
@@ -48,7 +46,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     public void Initialize(string? emulatorPath, bool isLauncherMode)
     {
-        _emulatorPath = emulatorPath;
+        _emulatorPath = emulatorPath!;
         IsLauncherMode = isLauncherMode;
         LoadSettings();
     }
@@ -116,8 +114,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
@@ -127,13 +124,11 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string> RequestEmulatorPath;
-
+    public event Func<string?> RequestEmulatorPath = null!;
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow;
-
+    public event Func<Window> GetOwnerWindow = null!;
     private void LoadSettings()
     {
         RedreamCable = _settings.Redream.Cable;
@@ -175,7 +170,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
         _ = _settings.SaveAsync();
     }
 
-    private async Task<string> EnsureEmulatorPathAsync()
+    private async Task<string?> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {

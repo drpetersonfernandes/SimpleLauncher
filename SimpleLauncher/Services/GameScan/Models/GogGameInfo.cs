@@ -5,11 +5,11 @@ namespace SimpleLauncher.Services.GameScan.Models;
 public class GogGameInfo
 {
     [JsonPropertyName("gameId")]
-    public string GameId { get; set; }
+    public string GameId { get; set; } = null!;
 
     [JsonPropertyName("rootGameId")]
-    public string RootGameId { get; set; }
+    public string RootGameId { get; set; } = null!;
 
     [JsonPropertyName("playTasks")]
-    public List<GogPlayTask> PlayTasks { get; set; }
+    public List<GogPlayTask> PlayTasks { get; set; } = null!;
 }

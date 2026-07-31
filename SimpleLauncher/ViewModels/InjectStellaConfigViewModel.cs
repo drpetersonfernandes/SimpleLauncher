@@ -16,20 +16,18 @@ public partial class InjectStellaConfigViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath;
-
+    private string _emulatorPath = null!;
     [ObservableProperty] private bool _fullscreen;
     [ObservableProperty] private bool _vsync;
     [ObservableProperty] private bool _correctAspect;
-    [ObservableProperty] private string _videoDriver;
-    [ObservableProperty] private string _tvFilter;
+    [ObservableProperty] private string _videoDriver = null!;
+    [ObservableProperty] private string _tvFilter = null!;
     [ObservableProperty] private int _scanlines;
     [ObservableProperty] private bool _audioEnabled;
     [ObservableProperty] private int _audioVolume;
     [ObservableProperty] private bool _timeMachine;
     [ObservableProperty] private bool _confirmExit;
     [ObservableProperty] private bool _showBeforeLaunch;
-
     public InjectStellaConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
@@ -44,7 +42,7 @@ public partial class InjectStellaConfigViewModel : ObservableObject
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     public void Initialize(string? emulatorPath, bool isLauncherMode)
     {
-        _emulatorPath = emulatorPath;
+        _emulatorPath = emulatorPath!;
         IsLauncherMode = isLauncherMode;
         LoadSettings();
     }
@@ -72,8 +70,7 @@ public partial class InjectStellaConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
@@ -83,13 +80,11 @@ public partial class InjectStellaConfigViewModel : ObservableObject
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string> RequestEmulatorPath;
-
+    public event Func<string?> RequestEmulatorPath = null!;
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow;
-
+    public event Func<Window> GetOwnerWindow = null!;
     private void LoadSettings()
     {
         Fullscreen = _settings.Stella.Fullscreen;
@@ -125,7 +120,7 @@ public partial class InjectStellaConfigViewModel : ObservableObject
         _ = _settings.SaveAsync();
     }
 
-    private async Task<string> EnsureEmulatorPathAsync()
+    private async Task<string?> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {

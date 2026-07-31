@@ -81,12 +81,12 @@ public class GameBrowserService : IGameBrowserService
     {
         get;
         set;
-    }
+    } = [];
 
     /// <summary>
     /// Loads game files for the selected system, optionally filtered by start letter or search query.
     /// </summary>
-    public Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null, CancellationToken ct = default)
+    public Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null, CancellationToken ct = default)
     {
         return _gameFileLoadingOrchestrator.LoadGameFilesAsync(startLetter, searchQuery, ct);
     }
@@ -102,7 +102,7 @@ public class GameBrowserService : IGameBrowserService
     /// <summary>
     /// Validates a search query against the selected system and prepares it for execution.
     /// </summary>
-    public Task<SearchValidationResult> ValidateAndPrepareAsync(string searchQuery, string selectedSystem, CancellationToken ct)
+    public Task<SearchValidationResult> ValidateAndPrepareAsync(string searchQuery, string? selectedSystem, CancellationToken ct)
     {
         return _searchOrchestratorService.ValidateAndPrepareAsync(searchQuery, selectedSystem, ct);
     }

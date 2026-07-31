@@ -27,7 +27,7 @@ public class LaunchTools : ILaunchTools
     /// Launches an external executable with optional arguments and working directory.
     /// Handles basic file existence checks, PE validation, and generic launch exceptions.
     /// </summary>
-    private async Task LaunchExternalToolAsync(string toolPath, string arguments = null, string workingDirectory = null)
+    private async Task LaunchExternalToolAsync(string toolPath, string? arguments = null, string? workingDirectory = null)
     {
         if (string.IsNullOrEmpty(toolPath))
         {
@@ -127,7 +127,7 @@ public class LaunchTools : ILaunchTools
         }
     }
 
-    private async Task<string> GetToolExecutablePathAsync(string toolFolder, string baseName, bool useArchSubfolders = false)
+    private async Task<string?> GetToolExecutablePathAsync(string toolFolder, string baseName, bool useArchSubfolders = false)
     {
         var architecture = RuntimeInformation.ProcessArchitecture;
         var archPath = architecture switch
@@ -163,7 +163,7 @@ public class LaunchTools : ILaunchTools
         await LaunchExternalToolAsync(toolPath);
     }
 
-    public async Task FindRomCoverLaunchAsync(string selectedImageFolder, string selectedRomFolder)
+    public async Task FindRomCoverLaunchAsync(string? selectedImageFolder, string? selectedRomFolder)
     {
         var toolPath = await GetToolExecutablePathAsync("FindRomCover", "FindRomCover", true);
         if (toolPath == null) return;
@@ -198,7 +198,7 @@ public class LaunchTools : ILaunchTools
         await LaunchExternalToolAsync(toolPath);
     }
 
-    public async Task BatchConvertToChdAsync(string selectedRomFolder)
+    public async Task BatchConvertToChdAsync(string? selectedRomFolder)
     {
         var toolPath = await GetToolExecutablePathAsync("BatchConvertToCHD", "BatchConvertToCHD");
         if (toolPath == null) return;
@@ -248,7 +248,7 @@ public class LaunchTools : ILaunchTools
         await LaunchExternalToolAsync(toolPath);
     }
 
-    public async Task RetroGameCoverDownloaderAsync(string selectedImageFolder, string selectedRomFolder)
+    public async Task RetroGameCoverDownloaderAsync(string? selectedImageFolder, string? selectedRomFolder)
     {
         var toolPath = await GetToolExecutablePathAsync("RetroGameCoverDownloader", "RetroGameCoverDownloader");
         if (toolPath == null) return;

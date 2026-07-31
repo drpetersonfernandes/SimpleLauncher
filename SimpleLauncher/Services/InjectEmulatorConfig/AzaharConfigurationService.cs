@@ -3,8 +3,6 @@ using System.Text;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
-using Interfaces;
-
 public static class AzaharConfigurationService
 {
     /// <summary>

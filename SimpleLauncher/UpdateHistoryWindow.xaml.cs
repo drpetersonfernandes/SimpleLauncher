@@ -5,8 +5,6 @@ using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
-using Interfaces;
-
 /// <summary>
 /// Window displaying the application's update history in markdown format.
 /// </summary>
@@ -47,7 +45,7 @@ public partial class UpdateHistoryWindow
         }
     }
 
-    private void UpdateHistoryWindow_Closed(object sender, EventArgs e)
+    private void UpdateHistoryWindow_Closed(object? sender, EventArgs e)
     {
         HistoryMarkdownViewer.RemoveHandler(Hyperlink.RequestNavigateEvent, new RequestNavigateEventHandler(OnHyperlinkRequestNavigate));
     }

@@ -67,7 +67,7 @@ public partial class SupportWindow : ILoadingState
         DataContext = _viewModel;
     }
 
-    private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(SupportViewModel.IsLoading))
         {

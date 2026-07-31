@@ -14,13 +14,13 @@ public class PlayHistoryItem : INotifyPropertyChanged
     /// Gets or sets the full file path of the played game.
     /// </summary>
     [Key(0)]
-    public string FileName { get; set; } = "";
+    public string FileName { get; set; } = null!;
 
     /// <summary>
     /// Gets or sets the name of the system this game belongs to.
     /// </summary>
     [Key(1)]
-    public string SystemName { get; set; } = "";
+    public string SystemName { get; set; } = null!;
 
     /// <summary>
     /// Gets or sets the total play time in seconds.
@@ -70,7 +70,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
             field = value;
             OnPropertyChanged();
         }
-    } = "";
+    } = null!;
 
     /// <summary>
     /// Gets or sets the time of the last play session in ISO format (HH:mm:ss).
@@ -86,7 +86,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
             field = value;
             OnPropertyChanged();
         }
-    } = "";
+    } = null!;
 
     /// <summary>
     /// Gets or sets the machine description from the ROM database.

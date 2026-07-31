@@ -3,17 +3,15 @@ using System.Text;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
-using Interfaces;
-
 public static class RaineConfigurationService
 {
     public static void InjectSettings(
         string emulatorPath,
         SettingsManager.SettingsManager settings,
         ILogger logger,
-        string gameFilePath = null,
-        string systemRomPath = null,
-        string raineCustomRomDirectory = null)
+        string? gameFilePath = null,
+        string? systemRomPath = null,
+        string? raineCustomRomDirectory = null)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir)) throw new InvalidOperationException("Emulator directory not found.");
@@ -76,7 +74,7 @@ public static class RaineConfigurationService
 
         // Inject rom_dir_0
         // Priority: 1. Custom RaineRomDirectory from settings, 2. Game directory (if arcade), 3. System PrimarySystemFolder
-        string effectiveRomDir = null;
+        string? effectiveRomDir = null;
         if (!string.IsNullOrEmpty(raineCustomRomDirectory) && Directory.Exists(raineCustomRomDirectory))
         {
             effectiveRomDir = raineCustomRomDirectory;
@@ -129,7 +127,7 @@ public static class RaineConfigurationService
         }
 
         var modified = false;
-        string currentSection = null;
+        string? currentSection = null;
 
         for (var i = 0; i < lines.Count; i++)
         {

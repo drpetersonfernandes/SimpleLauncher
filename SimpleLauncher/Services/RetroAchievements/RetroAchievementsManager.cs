@@ -4,8 +4,6 @@ using SimpleLauncher.Services.RetroAchievements.Models;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 
-using Interfaces;
-
 /// <summary>
 /// Manages the local RetroAchievements game database, providing hash-to-game lookups loaded from a MessagePack file.
 /// </summary>
@@ -18,8 +16,8 @@ public class RetroAchievementsManager
     [Key(0)]
     public List<RaGameInfo> AllGames { get; set; } = [];
 
-    private Dictionary<string, RaGameInfo> _hashToGameInfoLookup;
-    private ILogger _logger;
+    private Dictionary<string, RaGameInfo> _hashToGameInfoLookup = null!;
+    private ILogger _logger = null!;
     private static readonly DataFileLocation FileLocation = new("RetroAchievements.dat");
     private static string DatFilePath => FileLocation.FilePath;
 
@@ -92,7 +90,7 @@ public class RetroAchievementsManager
     /// </summary>
     /// <param name="hash">The hash to look up.</param>
     /// <returns>The matching RaGameInfo, or null if not found.</returns>
-    public RaGameInfo GetGameInfoByHash(string hash)
+    public RaGameInfo? GetGameInfoByHash(string hash)
     {
         if (string.IsNullOrEmpty(hash))
         {

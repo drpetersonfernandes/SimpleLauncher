@@ -146,8 +146,7 @@ public class GogGameInfoTests
         var info = new GogGameInfo
         {
             GameId = "12345",
-            RootGameId = null
-        };
+            RootGameId = null!        };
 
         var isDlc = !string.IsNullOrEmpty(info.RootGameId) && info.RootGameId != info.GameId;
         Assert.False(isDlc);
@@ -230,7 +229,7 @@ public class GogGameInfoTests
             ]
         };
 
-        var primaryTask = info.PlayTasks.FirstOrDefault(t => t.IsPrimary && t.Type == "FileTask");
+        var primaryTask = info.PlayTasks.FirstOrDefault(t => t is { IsPrimary: true, Type: "FileTask" });
         Assert.NotNull(primaryTask);
         Assert.Equal("game.exe", primaryTask.Path);
     }
@@ -248,7 +247,7 @@ public class GogGameInfoTests
             ]
         };
 
-        var primaryTask = info.PlayTasks.FirstOrDefault(t => t.IsPrimary && t.Type == "FileTask");
+        var primaryTask = info.PlayTasks.FirstOrDefault(t => t is { IsPrimary: true, Type: "FileTask" });
         Assert.Null(primaryTask);
     }
 

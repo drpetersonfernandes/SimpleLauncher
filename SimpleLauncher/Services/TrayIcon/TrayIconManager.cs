@@ -8,7 +8,7 @@ namespace SimpleLauncher.Services.TrayIcon;
 
 public class TrayIconManager : IDisposable
 {
-    private static TrayIconManager _instance;
+    private static TrayIconManager? _instance;
     private readonly TaskbarIcon _taskbarIcon;
     private readonly System.Windows.Controls.ContextMenu _trayMenu;
     private readonly Window _mainWindow;

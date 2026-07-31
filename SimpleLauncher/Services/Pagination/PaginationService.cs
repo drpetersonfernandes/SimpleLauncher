@@ -9,7 +9,7 @@ using Interfaces;
 /// </summary>
 public class PaginationService : IPaginationService
 {
-    private IPaginationHost _host;
+    private IPaginationHost _host = null!;
 
     /// <summary>
     /// Gets the current 1-based page number.

@@ -1,4 +1,3 @@
-using Serilog;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Nodes;
 using Microsoft.Extensions.Configuration;
@@ -12,8 +11,6 @@ using YamlDotNet.Serialization;
 using BlastemConfigurationService = SimpleLauncher.Services.InjectEmulatorConfig.BlastemConfigurationService;
 
 namespace SimpleLauncher.Tests;
-
-using Interfaces;
 
 /// <summary>
 /// Tests for emulator configuration injection into various emulator config file formats (INI, JSON, TOML, YAML, flat key-value).
@@ -103,7 +100,7 @@ public class EmulatorConfigInjectionTests : IDisposable
         settings.DuckStation.OutputVolume = 50;
         settings.DuckStation.OutputMuted = true;
 
-        DuckStationConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        DuckStationConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var lines = File.ReadAllLines(destPath).ToList();
         var sectionValues = ParseIniSections(lines);
@@ -146,7 +143,7 @@ public class EmulatorConfigInjectionTests : IDisposable
         settings.Pcsx2.AchievementsEnabled = true;
         settings.Pcsx2.AchievementsHardcore = false;
 
-        Pcsx2ConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        Pcsx2ConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var lines = File.ReadAllLines(destPath).ToList();
         var sectionValues = ParseIniSections(lines);
@@ -177,7 +174,7 @@ public class EmulatorConfigInjectionTests : IDisposable
         var settings = CreateSettingsManager();
         settings.Pcsx2.EnableCheats = true;
 
-        Pcsx2ConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        Pcsx2ConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var expectedConfigPath = Path.Combine(emuDir, "inis", "PCSX2.ini");
         Assert.True(File.Exists(expectedConfigPath));
@@ -208,7 +205,7 @@ public class EmulatorConfigInjectionTests : IDisposable
         settings.Mesen.PauseInBackground = true;
 
         var emuDir = Path.Combine(_testDirectory, "Mesen");
-        MesenConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        MesenConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "settings.json");
         var root = JsonNode.Parse(File.ReadAllText(configPath))!.AsObject();
@@ -260,7 +257,7 @@ public class EmulatorConfigInjectionTests : IDisposable
         settings.Xenia.MountCache = false;
 
         var emuDir = Path.Combine(_testDirectory, "Xenia");
-        XeniaConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        XeniaConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "xenia.config.toml");
         var tomlContent = File.ReadAllText(configPath);
@@ -320,7 +317,7 @@ public class EmulatorConfigInjectionTests : IDisposable
         settings.Rpcs3.StartFullscreen = true;
 
         var emuDir = Path.Combine(_testDirectory, "RPCS3");
-        Rpcs3ConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        Rpcs3ConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "config.yml");
         var deserializer = new DeserializerBuilder().Build();
@@ -369,7 +366,7 @@ public class EmulatorConfigInjectionTests : IDisposable
         settings.Redream.Framerate = true;
 
         var emuDir = Path.Combine(_testDirectory, "Redream");
-        RedreamConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        RedreamConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var lines = File.ReadAllLines(Path.Combine(emuDir, "redream.cfg"));
         var values = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -429,7 +426,7 @@ public class EmulatorConfigInjectionTests : IDisposable
         settings.RetroArch.CheevosHardcore = true;
 
         var emuDir = Path.Combine(_testDirectory, "RetroArch");
-        RetroArchConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        RetroArchConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var lines = File.ReadAllLines(Path.Combine(emuDir, "retroarch.cfg"));
         var values = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -487,7 +484,7 @@ public class EmulatorConfigInjectionTests : IDisposable
         settings.Blastem.SyncSource = "video";
 
         var emuDir = Path.Combine(_testDirectory, "Blastem");
-        BlastemConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        BlastemConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "default.cfg");
         var content = File.ReadAllText(configPath);
@@ -532,5 +529,4 @@ public class EmulatorConfigInjectionTests : IDisposable
 
         return result;
     }
-
 }

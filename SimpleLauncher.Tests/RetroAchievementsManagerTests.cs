@@ -1,4 +1,3 @@
-using Serilog;
 using MessagePack;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.RetroAchievements.Models;
@@ -6,8 +5,6 @@ using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
-
-using Interfaces;
 
 /// <summary>
 /// Tests for <see cref="RetroAchievementsManager"/> covering loading from .dat files,

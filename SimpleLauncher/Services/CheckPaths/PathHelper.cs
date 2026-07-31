@@ -1,6 +1,3 @@
-#nullable enable
-
-using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -219,7 +216,7 @@ public static partial class PathHelper
         }
         catch (Exception ex)
         {
-            Serilog.Log.Debug($"[PathHelper] Error resolving path '{path}' relative to app directory: {ex.Message}");
+            Log.Debug($"[PathHelper] Error resolving path '{path}' relative to app directory: {ex.Message}");
             return null;
         }
     }
@@ -356,7 +353,7 @@ public static partial class PathHelper
         }
         catch (Exception ex)
         {
-            Serilog.Log.Debug($"[PathHelper] Error resolving '{folderPath}': {ex.Message}");
+            Log.Debug($"[PathHelper] Error resolving '{folderPath}': {ex.Message}");
         }
 
         return null;
@@ -421,7 +418,7 @@ public static partial class PathHelper
         }
         catch (Exception ex)
         {
-            Serilog.Log.Debug($"[PathHelper] Error during normalization search: {ex.Message}");
+            Log.Debug($"[PathHelper] Error during normalization search: {ex.Message}");
         }
 
         return null;

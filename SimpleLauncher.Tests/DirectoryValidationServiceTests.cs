@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.CheckIfDirectoryIsWritable;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
@@ -99,5 +98,4 @@ public class DirectoryValidationServiceTests : IDisposable
             File.Delete(tempFile);
         }
     }
-
 }

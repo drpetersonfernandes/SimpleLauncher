@@ -5,8 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services.Converters;
 
-using Interfaces;
-
 /// <summary>
 /// Provides conversion of PBP (PSP eboot) files to Cue/Bin format using psxpackager.exe.
 /// </summary>
@@ -24,7 +22,7 @@ public static class ConvertPbpToCueBin
     /// Converts a PBP file to a temporary Cue/Bin using psxpackager.exe.
     /// Returns the path to the generated CUE file, or null if conversion failed.
     /// </summary>
-    public static async Task<string> ConvertPbpToCueBinAsync(string pbpPath)
+    public static async Task<string?> ConvertPbpToCueBinAsync(string pbpPath)
     {
         try
         {

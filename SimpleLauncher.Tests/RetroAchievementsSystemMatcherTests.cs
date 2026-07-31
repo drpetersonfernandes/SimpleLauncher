@@ -1,10 +1,7 @@
-using Serilog;
 using SimpleLauncher.Services.RetroAchievements;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
-
-using Interfaces;
 
 /// <summary>
 /// Tests for <see cref="RetroAchievementsSystemMatcher"/> covering system name aliasing,
@@ -12,7 +9,6 @@ using Interfaces;
 /// </summary>
 public class RetroAchievementsSystemMatcherTests
 {
-
     private readonly RetroAchievementsSystemMatcher _matcher = new(new NoOpLogger(), Log.Logger);
 
     /// <summary>
@@ -45,7 +41,7 @@ public class RetroAchievementsSystemMatcherTests
     [Fact]
     public void GetBestMatchSystemNameNullOrWhitespaceReturnsOriginal()
     {
-        Assert.Null(_matcher.GetBestMatchSystemName(null));
+        Assert.Null(_matcher.GetBestMatchSystemName(null!));
         Assert.Equal("", _matcher.GetBestMatchSystemName(""));
         Assert.Equal("   ", _matcher.GetBestMatchSystemName("   "));
     }

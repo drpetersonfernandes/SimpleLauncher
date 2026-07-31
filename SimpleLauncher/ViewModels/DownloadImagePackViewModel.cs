@@ -26,16 +26,16 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     private readonly ILogger _logger;
     private readonly EasyModeManager _easyModeManager;
     private readonly IResourceProvider _resourceProvider;
-    private EasyModeManager _manager;
+    private EasyModeManager? _manager;
     private volatile bool _disposed;
     private int _operationInProgressFlag;
 
     private bool _isOperationInProgress;
     private bool _isStopEnabled;
     private double _progressPercentage;
-    private string _statusMessage;
+    private string _statusMessage = "";
     private bool _isLoading;
-    private string _loadingMessage;
+    private string _loadingMessage = "";
     private bool _isSystemDropdownEnabled = true;
 
     public DownloadImagePackViewModel(PlaySoundEffects playSoundEffects, ILogger logger, EasyModeManager easyModeManager, IMessageBoxLibraryService messageBox, IServiceScopeFactory scopeFactory, IResourceProvider resourceProvider)
@@ -52,7 +52,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         ImagePacksToDisplay = [];
         SystemNames = [];
 
-        DownloadImagePackCommand = new RelayCommand<object>(ExecuteDownloadAsync, _ => !IsOperationInProgress);
+        DownloadImagePackCommand = new RelayCommand<object?>(ExecuteDownloadAsync, _ => !IsOperationInProgress);
     }
 
     /// <summary>Gets the collection of system names available for image pack download.</summary>
@@ -121,7 +121,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         private set => SetProperty(ref _isSystemDropdownEnabled, value);
     }
 
-    private string _selectedSystemName;
+    private string _selectedSystemName = "";
 
     /// <summary>Gets or sets the currently selected system name.</summary>
     public string SelectedSystemName
@@ -140,7 +140,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     public bool IsMainContentEnabled => !IsOperationInProgress && !IsLoading;
 
     /// <summary>Gets the command to download the selected image pack.</summary>
-    public IRelayCommand<object> DownloadImagePackCommand { get; }
+    public IRelayCommand<object?> DownloadImagePackCommand { get; }
 
     private bool TryStartOperation()
     {
@@ -168,7 +168,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
             IsLoading = true;
             await Task.Yield();
 
-            _manager = await _easyModeManager.LoadAsync();
+            _manager = (await _easyModeManager.LoadAsync())!;
 
             IsLoading = false;
 
@@ -242,7 +242,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
             _resourceProvider.GetString("ImagePack5", "Image Pack 5"));
     }
 
-    private void AddImagePackItemIfValid(string downloadLink, string extractPath, string displayName)
+    private void AddImagePackItemIfValid(string? downloadLink, string? extractPath, string displayName)
     {
         if (!string.IsNullOrEmpty(downloadLink) && !string.IsNullOrEmpty(extractPath))
         {
@@ -256,7 +256,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         }
     }
 
-    private async void ExecuteDownloadAsync(object parameter)
+    private async void ExecuteDownloadAsync(object? parameter)
     {
         try
         {
@@ -470,14 +470,14 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         }
     }
 
-    private EasyModeSystemConfig GetSelectedSystem()
+    private EasyModeSystemConfig? GetSelectedSystem()
     {
         return !string.IsNullOrEmpty(SelectedSystemName)
             ? _manager?.Systems?.FirstOrDefault(system => system.SystemName.Equals(SelectedSystemName, StringComparison.OrdinalIgnoreCase))
             : null;
     }
 
-    private void DownloadManager_ProgressChanged(object sender, DownloadProgressEventArgs e)
+    private void DownloadManager_ProgressChanged(object? sender, DownloadProgressEventArgs e)
     {
         Application.Current?.Dispatcher?.InvokeAsync(() =>
         {

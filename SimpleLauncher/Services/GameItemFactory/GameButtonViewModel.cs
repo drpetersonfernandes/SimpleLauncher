@@ -1,5 +1,3 @@
-#nullable enable
-
 using System.ComponentModel;
 
 namespace SimpleLauncher.Services.GameItemFactory;

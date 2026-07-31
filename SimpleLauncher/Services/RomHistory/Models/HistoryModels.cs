@@ -1,5 +1,3 @@
-#nullable enable
-
 using MessagePack;
 
 namespace SimpleLauncher.Services.RomHistory.Models;

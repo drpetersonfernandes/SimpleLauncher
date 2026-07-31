@@ -48,7 +48,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         GameLauncher gameLauncher,
         PlaySoundEffects playSoundEffects,
         IConfiguration configuration,
-IFindCoverImageService findCoverImage,
+        IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         IContextMenuFunctions contextMenuFunctions,
         ILogger logger,
@@ -145,7 +145,7 @@ IFindCoverImageService findCoverImage,
             if (hitTestResult?.VisualHit == null) return;
 
             var visual = hitTestResult.VisualHit;
-            DataGridRow dataGridRow = null;
+            DataGridRow? dataGridRow = null;
             while (visual != null && visual != FavoritesDataGrid)
             {
                 if (visual is DataGridRow row)
@@ -358,39 +358,39 @@ IFindCoverImageService findCoverImage,
             switch (e.Key)
             {
                 case Key.Delete:
+                {
+                    e.Handled = true;
+
+                    var selectedItems = FavoritesDataGrid.SelectedItems.Cast<Favorite>().ToList();
+                    if (selectedItems.Count > 0)
                     {
-                        e.Handled = true;
-
-                        var selectedItems = FavoritesDataGrid.SelectedItems.Cast<Favorite>().ToList();
-                        if (selectedItems.Count > 0)
+                        _playSoundEffects.PlayTrashSound();
+                        foreach (var favorite in selectedItems)
                         {
-                            _playSoundEffects.PlayTrashSound();
-                            foreach (var favorite in selectedItems)
-                            {
-                                _viewModel.RemoveFavoriteFromCollection(favorite);
-                            }
-
-                            PreviewImage.Source = null;
-                            FavoritesDataGrid.ContextMenu = null;
-                        }
-                        else
-                        {
-                            await _messageBox.SelectAFavoriteToRemoveMessageBoxAsync();
+                            _viewModel.RemoveFavoriteFromCollection(favorite);
                         }
 
-                        break;
+                        PreviewImage.Source = null;
+                        FavoritesDataGrid.ContextMenu = null;
                     }
+                    else
+                    {
+                        await _messageBox.SelectAFavoriteToRemoveMessageBoxAsync();
+                    }
+
+                    break;
+                }
                 case Key.Enter:
+                {
+                    e.Handled = true;
+                    if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
                     {
-                        e.Handled = true;
-                        if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
-                        {
-                            _playSoundEffects.PlayNotificationSound();
-                            await LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName);
-                        }
-
-                        break;
+                        _playSoundEffects.PlayNotificationSound();
+                        await LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName);
                     }
+
+                    break;
+                }
             }
         }
         catch (Exception ex)

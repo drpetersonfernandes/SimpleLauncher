@@ -202,7 +202,7 @@ public partial class UpdateChecker
         }
     }
 
-    internal async Task<(string UpdaterZipUrl, string LatestVersion)> GetLatestUpdaterInfoAsync()
+    internal async Task<(string? UpdaterZipUrl, string? LatestVersion)> GetLatestUpdaterInfoAsync()
     {
         try
         {
@@ -239,9 +239,9 @@ public partial class UpdateChecker
         }
     }
 
-    private async Task ShowUpdateWindowAsync(string releasePackageUrl, string currentVersion, string latestVersion, Window owner)
+    private async Task ShowUpdateWindowAsync(string? releasePackageUrl, string currentVersion, string latestVersion, Window owner)
     {
-        UpdateLogWindow logWindow = null;
+        UpdateLogWindow? logWindow = null;
 
         try
         {
@@ -309,7 +309,7 @@ public partial class UpdateChecker
         memoryStream.Position = 0;
     }
 
-    internal static bool ExtractAllFromZip(MemoryStream zipStream, string destinationPath, UpdateLogWindow logWindow, ILogger logErrors)
+    internal static bool ExtractAllFromZip(MemoryStream zipStream, string destinationPath, UpdateLogWindow? logWindow, ILogger logErrors)
     {
         try
         {
@@ -439,14 +439,14 @@ public partial class UpdateChecker
         }
     }
 
-    private (string version, string releasePackageUrl, string updaterZipUrl) ParseVersionAndAssetUrlsFromResponse(string jsonResponse)
+    private (string? version, string? releasePackageUrl, string? updaterZipUrl) ParseVersionAndAssetUrlsFromResponse(string jsonResponse)
     {
         try
         {
             using var doc = JsonDocument.Parse(jsonResponse);
             var root = doc.RootElement;
 
-            string versionTag;
+            string? versionTag;
             if (root.TryGetProperty("tag_name", out var tagNameElement))
             {
                 versionTag = tagNameElement.GetString();
@@ -458,8 +458,8 @@ public partial class UpdateChecker
                 return (null, null, null);
             }
 
-            string rawVersionStringFromTag = null;
-            string extractedNormalizedVersion = null;
+            string? rawVersionStringFromTag = null;
+            string? extractedNormalizedVersion = null;
 
             if (!string.IsNullOrEmpty(versionTag))
             {
@@ -478,8 +478,8 @@ public partial class UpdateChecker
                 return (null, null, null);
             }
 
-            string foundReleasePackageUrl = null;
-            string foundUpdaterZipUrl = null;
+            string? foundReleasePackageUrl = null;
+            string? foundUpdaterZipUrl = null;
 
             var runtimeIdentifier = CurrentRuntimeIdentifier;
             var expectedReleaseFileName = $"release_{rawVersionStringFromTag}_{runtimeIdentifier}.zip";
@@ -547,7 +547,7 @@ public partial class UpdateChecker
         return (null, null, null);
     }
 
-    private static string NormalizeVersion(string version)
+    private static string NormalizeVersion(string? version)
     {
         if (string.IsNullOrEmpty(version)) return "0.0.0.0";
 

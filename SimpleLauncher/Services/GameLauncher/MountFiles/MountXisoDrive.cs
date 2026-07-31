@@ -2,8 +2,6 @@ using System.Diagnostics;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
-using Interfaces;
-
 /// <inheritdoc />
 /// <summary>
 /// Represents a temporarily mounted XISO drive.
@@ -11,11 +9,11 @@ using Interfaces;
 /// </summary>
 public class MountXisoDrive : IAsyncDisposable
 {
-    private readonly Process _mountProcess;
+    private readonly Process? _mountProcess;
     private readonly int _mountProcessId;
     private readonly ILogger _logger;
 
-    public string MountedPath { get; }
+    public string MountedPath { get; } = "";
     public bool IsMounted { get; }
 
     /// <summary>

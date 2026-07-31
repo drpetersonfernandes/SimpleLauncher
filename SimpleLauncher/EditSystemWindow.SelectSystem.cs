@@ -6,8 +6,6 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 
-using Interfaces;
-
 internal partial class EditSystemWindow
 {
     private void PopulateSystemNamesDropdown()
@@ -78,7 +76,7 @@ internal partial class EditSystemWindow
                 UpdateSystemImagePreview();
 
                 // Load system folders
-                SystemFolderTextBox.Text = selectedSystem.PrimarySystemFolder ?? "";
+                SystemFolderTextBox.Text = selectedSystem.PrimarySystemFolder;
                 AdditionalFoldersListBox.Items.Clear();
                 foreach (var folder in selectedSystem.SystemFolders.Skip(1))
                 {
@@ -121,7 +119,7 @@ internal partial class EditSystemWindow
 
 
                 // Mark validity. CheckPath.IsValidPath will now handle %BASEFOLDER% internally.
-                MarkInvalid(SystemFolderTextBox, CheckPath.IsValidPath(SystemFolderTextBox.Text) || string.IsNullOrWhiteSpace(SystemFolderTextBox.Text));
+                MarkInvalid(SystemFolderTextBox!, CheckPath.IsValidPath(SystemFolderTextBox!.Text!) || string.IsNullOrWhiteSpace(SystemFolderTextBox.Text));
                 MarkInvalid(SystemImageFolderTextBox, CheckPath.IsValidPath(SystemImageFolderTextBox.Text) || string.IsNullOrWhiteSpace(SystemImageFolderTextBox.Text));
                 MarkInvalid(Emulator1PathTextBox, string.IsNullOrWhiteSpace(Emulator1PathTextBox.Text) || CheckPath.IsValidPath(Emulator1PathTextBox.Text));
                 MarkInvalid(Emulator2PathTextBox, string.IsNullOrWhiteSpace(Emulator2PathTextBox.Text) || CheckPath.IsValidPath(Emulator2PathTextBox.Text));
@@ -154,10 +152,10 @@ internal partial class EditSystemWindow
     {
         if (emulator != null)
         {
-            nameTextBox.Text = emulator.EmulatorName ?? "";
+            nameTextBox.Text = emulator.EmulatorName;
             // Load the saved string directly into the UI, including %BASEFOLDER% if present
-            pathTextBox.Text = emulator.EmulatorLocation ?? "";
-            paramsTextBox.Text = emulator.EmulatorParameters ?? "";
+            pathTextBox.Text = emulator.EmulatorLocation;
+            paramsTextBox.Text = emulator.EmulatorParameters;
 
             if (!string.IsNullOrEmpty(nameTextBox.Text))
             {

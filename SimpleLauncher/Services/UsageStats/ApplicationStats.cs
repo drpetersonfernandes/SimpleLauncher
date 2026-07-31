@@ -8,8 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services.UsageStats;
 
-using Interfaces;
-
 /// <summary>
 /// Sends anonymous application usage statistics to the remote stats API.
 /// </summary>

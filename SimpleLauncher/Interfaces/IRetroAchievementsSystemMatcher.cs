@@ -6,6 +6,6 @@ public interface IRetroAchievementsSystemMatcher
     bool IsOfficialSystemName(string systemName);
     List<string> GetSupportedSystemNames();
     int GetSystemId(string inputSystemName);
-    string GetExactAliasMatch(string inputSystemName);
+    string? GetExactAliasMatch(string inputSystemName);
     bool IsSystemInMappings(string systemName);
 }

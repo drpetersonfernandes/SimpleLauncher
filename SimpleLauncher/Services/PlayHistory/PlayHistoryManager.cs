@@ -5,7 +5,6 @@ using MessagePack;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.AppDataFile;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
-using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.PlayHistory;
 
@@ -16,7 +15,7 @@ namespace SimpleLauncher.Services.PlayHistory;
 public class PlayHistoryManager
 {
     [IgnoreMember] private readonly object _historyLock = new();
-    [IgnoreMember] private ILogger _logger;
+    [IgnoreMember] private ILogger _logger = null!;
     [IgnoreMember] private static readonly DataFileLocation FileLocation = new("playhistory.dat");
 
     /// <summary>
@@ -52,11 +51,11 @@ public class PlayHistoryManager
     /// <summary>
     /// Loads play history from the MessagePack file. If the file doesn't exist, creates and saves a new instance.
     /// </summary>
-    internal static PlayHistoryManager LoadPlayHistory(ILogger logErrors = null)
+    internal static PlayHistoryManager LoadPlayHistory(ILogger? logErrors = null)
     {
         if (!File.Exists(FilePath))
         {
-            var defaultManager = new PlayHistoryManager { _logger = logErrors };
+            var defaultManager = new PlayHistoryManager { _logger = logErrors! };
             _ = defaultManager.SavePlayHistoryAsync();
             return defaultManager;
         }
@@ -65,7 +64,7 @@ public class PlayHistoryManager
         {
             var bytes = File.ReadAllBytes(FilePath);
             var manager = MessagePackSerializer.Deserialize<PlayHistoryManager>(bytes);
-            manager._logger = logErrors;
+            manager._logger = logErrors!;
 
             // Migrate old date formats to new ISO format if needed
             manager.MigrateOldDateFormats();
@@ -77,7 +76,7 @@ public class PlayHistoryManager
             // Notify developer
             logErrors?.Error(ex, "Error loading play history");
 
-            return new PlayHistoryManager { _logger = logErrors }; // Return default instance if error occurs
+            return new PlayHistoryManager { _logger = logErrors! }; // Return default instance if error occurs
         }
     }
 
@@ -234,7 +233,7 @@ public class PlayHistoryManager
         {
             const int maxRetries = 3;
             var retryDelayMs = 500;
-            Exception lastException = null;
+            Exception? lastException = null;
             var attempt = 0;
 
             while (attempt < maxRetries)
@@ -275,7 +274,7 @@ public class PlayHistoryManager
                         }
                         catch (Exception fallbackEx)
                         {
-                            Serilog.Log.Debug($"[PlayHistoryManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
+                            Log.Debug($"[PlayHistoryManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
                         }
                     }
 
@@ -291,7 +290,7 @@ public class PlayHistoryManager
                         }
                         catch (Exception cleanupEx)
                         {
-                            Serilog.Log.Debug($"[PlayHistoryManager] Temp file cleanup failed: {cleanupEx.Message}");
+                            Log.Debug($"[PlayHistoryManager] Temp file cleanup failed: {cleanupEx.Message}");
                         }
 
                         Thread.Sleep(retryDelayMs);
@@ -343,7 +342,7 @@ public class PlayHistoryManager
             var dateStr = now.ToString(IsoDateFormat, CultureInfo.InvariantCulture);
             var timeStr = now.ToString(IsoTimeFormat, CultureInfo.InvariantCulture);
 
-            PlayHistoryItem itemToAdd = null;
+            PlayHistoryItem? itemToAdd = null;
 
             lock (_historyLock)
             {

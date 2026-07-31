@@ -64,11 +64,9 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
     public string DeadZoneYText => _deadZoneY.ToString("F2", CultureInfo.InvariantCulture);
 
     /// <summary>Event raised when settings have been saved.</summary>
-    public event Action SaveCompleted;
-
+    public event Action SaveCompleted = null!;
     /// <summary>Event raised when the window should be closed.</summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     [RelayCommand]
     private async Task SaveAsync()
     {

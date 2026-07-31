@@ -18,8 +18,8 @@ public interface IUiOrchestratorHost
     Grid MainGameContent { get; }
     Grid MainContentGrid { get; }
     Label TotalFilesLabel { get; }
-    Button? PrevPageButton2 { get; }
-    Button? NextPageButton2 { get; }
+    Button PrevPageButton2 { get; }
+    Button NextPageButton2 { get; }
     UIElement LoadingOverlay { get; }
     Button SortOrderToggleButton { get; }
     TextBox SearchTextBox { get; }

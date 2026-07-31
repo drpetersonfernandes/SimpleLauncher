@@ -580,6 +580,7 @@
     <system:String x:Key="Extractionfailed">Arşivden çıkarma başarısız oldu.</system:String>
     <system:String x:Key="ExtractionFailedMessage">Dosya başarıyla indirildi ancak otomatik çıkarma başarısız oldu. Bu, bir antivirüs programının dosyayı taraması veya kilitlemesi durumunda olabilir.</system:String>
     <system:String x:Key="ExtractionFailedTitle">Çıkarma Başarısız</system:String>
+    <system:String x:Key="F8ShortcutInUse">F8 kısayol tuşu başka bir program tarafından zaten kullanılıyor. Bu nedenle, ekran görüntüsü işlevi kapatıldı.</system:String>
     <system:String x:Key="Failedtoconfiguretheemulator">Emülatör yapılandırılamadı. Yapılandırma dosyası eksik olabilir, beklenmedik bir konumda olabilir veya salt okunur olabilir.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Günlük içeriği kopyalanamadı.</system:String>
     <system:String x:Key="FailedToCopySystemImage">Resim kopyalanamadı:</system:String>

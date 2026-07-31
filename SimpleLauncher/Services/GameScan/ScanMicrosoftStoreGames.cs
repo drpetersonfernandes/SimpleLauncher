@@ -187,9 +187,9 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                     {
                         Name = name,
                         AppId = appId,
-                        InstallLocation = installLocation,
-                        PackageFamilyName = packageFamilyName,
-                        LogoRelativePath = logoRelativePath
+                        InstallLocation = installLocation ?? "",
+                        PackageFamilyName = packageFamilyName ?? "",
+                        LogoRelativePath = logoRelativePath ?? ""
                     });
                 }
                 catch (Exception ex)
@@ -552,7 +552,7 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
     /// Extracts the first complete JSON array from a string that may contain non-JSON content.
     /// Uses bracket depth counting to find the matching closing bracket.
     /// </summary>
-    private static string ExtractFirstJsonArray(string input)
+    private static string? ExtractFirstJsonArray(string input)
     {
         var startIndex = input.IndexOf('[');
         if (startIndex < 0) return null;
@@ -565,7 +565,7 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
     /// Extracts the first complete JSON object from a string that may contain non-JSON content.
     /// Uses brace depth counting to find the matching closing brace.
     /// </summary>
-    private static string ExtractFirstJsonObject(string input)
+    private static string? ExtractFirstJsonObject(string input)
     {
         var startIndex = input.IndexOf('{');
         if (startIndex < 0) return null;
@@ -573,7 +573,7 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
         return ExtractJsonAtPosition(input, startIndex, '{', '}');
     }
 
-    private static string ExtractJsonAtPosition(string input, int startIndex, char openChar, char closeChar)
+    private static string? ExtractJsonAtPosition(string input, int startIndex, char openChar, char closeChar)
     {
         var depth = 0;
         var inString = false;

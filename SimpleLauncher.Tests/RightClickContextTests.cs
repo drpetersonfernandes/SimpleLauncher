@@ -117,11 +117,11 @@ public class RightClickContextTests
         var favoritesManager = new FavoritesManager();
 
         return new RightClickContext(
-            filePath,
+            filePath!,
             fileNameWithExtension,
             fileNameWithoutExtension,
-            selectedSystemName,
-            new Services.SystemManager.SystemManager { SystemName = selectedSystemName },
+            selectedSystemName!,
+            new Services.SystemManager.SystemManager { SystemName = selectedSystemName! },
             machines ?? [],
             favoritesManager,
             settings,
@@ -130,8 +130,8 @@ public class RightClickContextTests
             null,
             null,
             null,
-            null,
-            null,
+            null!,
+            null!,
             loadingStateProvider: new NoOpLoadingState());
     }
 

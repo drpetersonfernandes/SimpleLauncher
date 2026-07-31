@@ -50,8 +50,12 @@ public partial class DebugWindow
                             Instance.Dispatcher.BeginInvoke(() => Instance.LogTextBox?.ScrollToEnd());
                         }
                     }
-                    catch (ObjectDisposedException) { }
-                    catch (InvalidOperationException) { }
+                    catch (ObjectDisposedException)
+                    {
+                    }
+                    catch (InvalidOperationException)
+                    {
+                    }
                 }
             };
 
@@ -77,12 +81,14 @@ public partial class DebugWindow
     {
         lock (InstanceLock)
         {
-            if (Instance == null) return;
-
-            if (Instance._logTextPropertyChangedHandler != null && Instance._viewModel != null)
+            switch (Instance)
             {
-                Instance._viewModel.PropertyChanged -= Instance._logTextPropertyChangedHandler;
-                Instance._logTextPropertyChangedHandler = null;
+                case null:
+                    return;
+                case { _logTextPropertyChangedHandler: not null }:
+                    Instance._viewModel.PropertyChanged -= Instance._logTextPropertyChangedHandler;
+                    Instance._logTextPropertyChangedHandler = null;
+                    break;
             }
 
             DebugWindowSink.Disconnect();

@@ -20,7 +20,7 @@ public class FileFinderService : IFileFinderService
     /// <summary>
     /// Finds the default.xex file (Xbox 360 executable) in the specified directory.
     /// </summary>
-    public string FindDefaultXex(string directory)
+    public string? FindDefaultXex(string directory)
     {
         try
         {
@@ -40,7 +40,7 @@ public class FileFinderService : IFileFinderService
     /// <summary>
     /// Finds the default.xbe file (Xbox executable) in the specified directory.
     /// </summary>
-    public string FindDefaultXbe(string directory)
+    public string? FindDefaultXbe(string directory)
     {
         try
         {
@@ -60,7 +60,7 @@ public class FileFinderService : IFileFinderService
     /// <summary>
     /// Finds the first .cue file in the specified directory.
     /// </summary>
-    public string FindCueFile(string directory)
+    public string? FindCueFile(string directory)
     {
         try
         {
@@ -80,7 +80,7 @@ public class FileFinderService : IFileFinderService
     /// <summary>
     /// Finds the first .bin file in the specified directory.
     /// </summary>
-    public string FindBinFile(string directory)
+    public string? FindBinFile(string directory)
     {
         try
         {
@@ -100,7 +100,7 @@ public class FileFinderService : IFileFinderService
     /// <summary>
     /// Finds the EBOOT.BIN file (PS3 executable) in the specified directory or its immediate subdirectories.
     /// </summary>
-    public string FindEbootBin(string directory)
+    public string? FindEbootBin(string directory)
     {
         try
         {
@@ -131,7 +131,7 @@ public class FileFinderService : IFileFinderService
     /// <summary>
     /// Finds the first .iso or .img file in the specified directory.
     /// </summary>
-    public string FindImageIso(string directory)
+    public string? FindImageIso(string directory)
     {
         try
         {

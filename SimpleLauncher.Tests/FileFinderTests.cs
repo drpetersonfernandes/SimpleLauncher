@@ -1,6 +1,4 @@
 using Moq;
-using Serilog;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 using Xunit;
 
@@ -25,8 +23,14 @@ public class FileFinderTests : IDisposable
     {
         if (Directory.Exists(_tempDir))
         {
-            try { Directory.Delete(_tempDir, true); }
-            catch { /* best effort cleanup */ }
+            try
+            {
+                Directory.Delete(_tempDir, true);
+            }
+            catch
+            {
+                /* best effort cleanup */
+            }
         }
 
         GC.SuppressFinalize(this);
@@ -42,7 +46,7 @@ public class FileFinderTests : IDisposable
     [Fact]
     public void FindBinFileNullPathReturnsNull()
     {
-        var result = FindBinFile.Find(null, CreateLogErrorsMock().Object);
+        var result = FindBinFile.Find(null!, CreateLogErrorsMock().Object);
         Assert.Null(result);
     }
 
@@ -94,7 +98,7 @@ public class FileFinderTests : IDisposable
     [Fact]
     public void FindCueFileNullPathReturnsNull()
     {
-        var result = FindCueFile.Find(null, CreateLogErrorsMock().Object);
+        var result = FindCueFile.Find(null!, CreateLogErrorsMock().Object);
         Assert.Null(result);
     }
 
@@ -146,7 +150,7 @@ public class FileFinderTests : IDisposable
     [Fact]
     public void FindDefaultXbeNullPathReturnsNull()
     {
-        var result = FindDefaultXbe.Find(null, CreateLogErrorsMock().Object);
+        var result = FindDefaultXbe.Find(null!, CreateLogErrorsMock().Object);
         Assert.Null(result);
     }
 
@@ -186,7 +190,7 @@ public class FileFinderTests : IDisposable
     [Fact]
     public void FindDefaultXexNullPathReturnsNull()
     {
-        var result = FindDefaultXex.Find(null, CreateLogErrorsMock().Object);
+        var result = FindDefaultXex.Find(null!, CreateLogErrorsMock().Object);
         Assert.Null(result);
     }
 
@@ -226,7 +230,7 @@ public class FileFinderTests : IDisposable
     [Fact]
     public void FindImageIsoNullPathReturnsNull()
     {
-        var result = FindImageIso.Find(null, CreateLogErrorsMock().Object);
+        var result = FindImageIso.Find(null!, CreateLogErrorsMock().Object);
         Assert.Null(result);
     }
 
@@ -267,7 +271,7 @@ public class FileFinderTests : IDisposable
     public void FindEbootBinNullPathReturnsNull()
     {
         var debugLoggerMock = new Mock<ILogger>();
-        var result = FindEbootBin.FindEbootBinRecursive(null, CreateLogErrorsMock().Object, debugLoggerMock.Object);
+        var result = FindEbootBin.FindEbootBinRecursive(null!, CreateLogErrorsMock().Object, debugLoggerMock.Object);
         Assert.Null(result);
     }
 

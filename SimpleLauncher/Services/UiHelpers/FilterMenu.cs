@@ -17,10 +17,10 @@ public class FilterMenu
     /// <summary>Gets the StackPanel containing the filter buttons.</summary>
     public StackPanel LetterPanel { get; } = new() { Orientation = Orientation.Horizontal };
 
-    private Button _selectedButton;
+    private Button? _selectedButton;
 
     /// <summary>Raised when a letter or filter option is selected, passing the selected letter or null for "All".</summary>
-    public event Action<string> OnLetterSelected;
+    public event Action<string?> OnLetterSelected = null!;
 
     private readonly IPlaySoundEffects _playSoundEffects;
 
@@ -130,7 +130,7 @@ public class FilterMenu
         // Get the center point of the current button in LetterPanel coordinates
         var currentCenter = currentButton.TranslatePoint(new Point(currentButton.ActualWidth / 2, currentButton.ActualHeight / 2), LetterPanel);
 
-        Button bestMatch = null;
+        Button? bestMatch = null;
         var bestDistance = double.MaxValue;
 
         foreach (var child in LetterPanel.Children)

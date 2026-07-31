@@ -25,7 +25,7 @@ public class ParameterResolverService : IParameterResolverService
         _logger = logErrors;
     }
 
-    public async Task<ParameterResolverResult> ResolveParametersAsync(ParameterResolverRequest request)
+    public async Task<ParameterResolverResult?> ResolveParametersAsync(ParameterResolverRequest request)
     {
         var apiKey = _configuration["ApiKey"];
         var client = _httpClientFactory.CreateClient("ParameterResolverClient");

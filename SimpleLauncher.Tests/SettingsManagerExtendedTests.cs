@@ -5,8 +5,6 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
-using Interfaces;
-
 /// <summary>
 /// Extended tests for <see cref="SettingsManager"/> covering additional edge cases for
 /// setting modifications, emulator settings, play time tracking, and reset behavior.
@@ -408,5 +406,4 @@ public class SettingsManagerExtendedTests : IDisposable
         using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("Default", settings.StyleVariant);
     }
-
 }

@@ -6,13 +6,13 @@ namespace SimpleLauncher.Services.GlobalSearch.Models;
 
 public class SearchResult : INotifyPropertyChanged
 {
-    public string FileName { get; init; }
-    public string FileNameWithExtension { get; init; }
-    public string MachineName { get; init; }
-    public string FolderName { get; init; }
-    public string FilePath { get; init; }
-    public string SystemName { get; init; }
-    public Emulator EmulatorManager { get; init; }
+    public string FileName { get; init; } = null!;
+    public string FileNameWithExtension { get; init; } = null!;
+    public string MachineName { get; init; } = null!;
+    public string FolderName { get; init; } = null!;
+    public string FilePath { get; init; } = null!;
+    public string SystemName { get; init; } = null!;
+    public Emulator EmulatorManager { get; init; } = null!;
 
     public int Score
     {
@@ -26,7 +26,7 @@ public class SearchResult : INotifyPropertyChanged
         }
     }
 
-    public string CoverImage { get; init; }
+    public string CoverImage { get; init; } = null!;
 
     public string DefaultEmulator
     {
@@ -43,9 +43,9 @@ public class SearchResult : INotifyPropertyChanged
         }
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

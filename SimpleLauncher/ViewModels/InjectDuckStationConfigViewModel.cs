@@ -16,24 +16,23 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath;
+    private string _emulatorPath = "";
 
     [ObservableProperty] private bool _duckStationStartFullscreen;
     [ObservableProperty] private bool _duckStationPauseOnFocusLoss;
     [ObservableProperty] private bool _duckStationSaveStateOnExit;
     [ObservableProperty] private bool _duckStationRewindEnable;
     [ObservableProperty] private int _duckStationRunaheadFrameCount;
-    [ObservableProperty] private string _duckStationRenderer;
+    [ObservableProperty] private string _duckStationRenderer = "";
     [ObservableProperty] private int _duckStationResolutionScale;
-    [ObservableProperty] private string _duckStationTextureFilter;
-    [ObservableProperty] private string _duckStationAspectRatio;
+    [ObservableProperty] private string _duckStationTextureFilter = "";
+    [ObservableProperty] private string _duckStationAspectRatio = "";
     [ObservableProperty] private bool _duckStationWidescreenHack;
     [ObservableProperty] private bool _duckStationPgxpEnable;
     [ObservableProperty] private bool _duckStationVsync;
     [ObservableProperty] private bool _duckStationOutputMuted;
     [ObservableProperty] private int _duckStationOutputVolume;
     [ObservableProperty] private bool _duckStationShowSettingsBeforeLaunch;
-
     public InjectDuckStationConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
@@ -48,7 +47,7 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     public void Initialize(string? emulatorPath, bool isLauncherMode)
     {
-        _emulatorPath = emulatorPath;
+        _emulatorPath = emulatorPath ?? "";
         IsLauncherMode = isLauncherMode;
         LoadSettings();
     }
@@ -96,8 +95,7 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
@@ -107,13 +105,11 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string> RequestEmulatorPath;
-
+    public event Func<string?> RequestEmulatorPath = null!;
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow;
-
+    public event Func<Window> GetOwnerWindow = null!;
     private void LoadSettings()
     {
         DuckStationStartFullscreen = _settings.DuckStation.StartFullscreen;
@@ -153,7 +149,7 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
         _ = _settings.SaveAsync();
     }
 
-    private async Task<string> EnsureEmulatorPathAsync()
+    private async Task<string?> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {

@@ -14,7 +14,7 @@ public class DownloadManager : IDisposable
     /// <summary>
     /// Event raised when download progress changes.
     /// </summary>
-    public event EventHandler<DownloadProgressEventArgs> DownloadProgressChanged;
+    public event EventHandler<DownloadProgressEventArgs> DownloadProgressChanged = null!;
 
     // Volatile backing fields for thread-safe state access across async/thread boundaries
     private volatile bool _isDownloadCompleted;
@@ -26,13 +26,13 @@ public class DownloadManager : IDisposable
     private const int RetryBaseDelayMs = 1000;
 
     // Private fields
-    private readonly HttpClient _httpClient;
+    private readonly HttpClient _httpClient = null!;
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IExtractionService _extractionService;
     private readonly ILogger _logger;
     private readonly IResourceProvider _resourceProvider;
     private readonly IDispatcherService _dispatcherService;
-    private CancellationTokenSource _cancellationTokenSource;
+    private CancellationTokenSource? _cancellationTokenSource = new();
     private readonly object _lock = new();
     private bool _disposed;
 
@@ -98,7 +98,7 @@ public class DownloadManager : IDisposable
     /// </summary>
     internal void CancelDownload()
     {
-        CancellationTokenSource cts;
+        CancellationTokenSource? cts;
         lock (_lock)
         {
             if (_disposed)
@@ -127,7 +127,7 @@ public class DownloadManager : IDisposable
 
     private void ResetCancellationToken()
     {
-        CancellationTokenSource oldCts;
+        CancellationTokenSource? oldCts;
         lock (_lock)
         {
             ObjectDisposedException.ThrowIf(_disposed, nameof(DownloadManager));
@@ -154,7 +154,7 @@ public class DownloadManager : IDisposable
     /// <param name="downloadUrl">The URL to download from.</param>
     /// <param name="fileName">Optional custom file name to use.</param>
     /// <returns>The path to the downloaded file, or null if the download failed.</returns>
-    internal async Task<string> DownloadFileAsync(string downloadUrl, string fileName = null)
+    internal async Task<string?> DownloadFileAsync(string downloadUrl, string? fileName = null)
     {
         // Reset the cancellation token source at the beginning of every download attempt.
         ResetCancellationToken();
@@ -463,7 +463,7 @@ public class DownloadManager : IDisposable
             return;
         }
 
-        CancellationTokenSource cts;
+        CancellationTokenSource? cts;
         lock (_lock)
         {
             if (_disposed)

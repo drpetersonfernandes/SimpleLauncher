@@ -52,7 +52,7 @@ public class DolphinConfigHandler : IEmulatorConfigHandler
             }
             else if (File.Exists(resolvedExe))
             {
-                DolphinConfigurationService.InjectSettings(resolvedExe, context.Settings, _logger);
+                DolphinConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger);
             }
 
             return shouldRun;

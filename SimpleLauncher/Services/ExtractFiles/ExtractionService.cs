@@ -1,5 +1,3 @@
-#nullable enable
-
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
@@ -493,7 +491,7 @@ public class ExtractionService : IExtractionService
                 }
                 catch (Exception ex)
                 {
-                    Serilog.Log.Debug($"[ExtractionService] process.Kill() failed: {ex.Message}");
+                    Log.Debug($"[ExtractionService] process.Kill() failed: {ex.Message}");
                 }
 
                 return false;

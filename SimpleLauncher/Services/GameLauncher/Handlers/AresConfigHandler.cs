@@ -56,7 +56,7 @@ public class AresConfigHandler : IEmulatorConfigHandler
                 shouldRun = true;
                 if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
                 {
-                    AresConfigurationService.InjectSettings(resolvedEmulatorExePath, context.Settings, _logger);
+                    AresConfigurationService.InjectSettings(resolvedEmulatorExePath!, context.Settings!, _logger);
                 }
             }
 

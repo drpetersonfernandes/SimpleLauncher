@@ -33,8 +33,8 @@ public interface IMenuActionHost
     void SetMameSortOrder(string sortOrder);
     void SetIsLoadingGames(bool value);
     void SetIsUiUpdating(bool value);
-    void SetCurrentFilter(string filter);
-    void SetActiveSearchQueryOrMode(string mode);
+    void SetCurrentFilter(string? filter);
+    void SetActiveSearchQueryOrMode(string? mode);
     void SetIsResortOperation(bool value);
 
     // UI state setters

@@ -15,7 +15,7 @@ public class SettingsManager : IDisposable
 {
     private readonly IConfiguration _configuration;
     private readonly ILogger _logger;
-    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IMessageBoxLibraryService _messageBox = null!;
     private readonly ICredentialProtector _credentialProtector;
 
     private readonly DataFileLocation _fileLocation;
@@ -237,7 +237,7 @@ public class SettingsManager : IDisposable
         }
     }
 
-    private string DecryptString(string storedValue)
+    private string? DecryptString(string storedValue)
     {
         if (string.IsNullOrEmpty(storedValue)) return storedValue;
 
@@ -267,12 +267,12 @@ public class SettingsManager : IDisposable
     /// <summary>
     /// Initializes a new instance of the SettingsManager with the specified dependencies.
     /// </summary>
-    public SettingsManager(IConfiguration configuration, ILogger logErrors, ICredentialProtector credentialProtector, IMessageBoxLibraryService messageBox = null)
+    public SettingsManager(IConfiguration configuration, ILogger logErrors, ICredentialProtector credentialProtector, IMessageBoxLibraryService? messageBox = null)
     {
         _configuration = configuration;
         _logger = logErrors;
         _credentialProtector = credentialProtector;
-        _messageBox = messageBox;
+        _messageBox = messageBox!;
         _fileLocation = new DataFileLocation(DefaultSettingsFilePath);
 
         VideoUrl = configuration.GetValue<string>("Urls:YouTubeSearch") ?? "https://www.youtube.com/results?search_query=";
@@ -287,7 +287,7 @@ public class SettingsManager : IDisposable
     /// </summary>
     public void Load()
     {
-        XElement settings = null;
+        XElement? settings = null;
 
         // Read from disk without holding any lock — disk I/O is slow and
         // does not mutate shared state, so concurrent readers are unaffected.
@@ -399,11 +399,11 @@ public class SettingsManager : IDisposable
 
         // Application Settings Fallback Logic
         var app = settings.Element("Application");
-        ThumbnailSize = ValidateThumbnailSize(app?.Element("ThumbnailSize")?.Value ?? settings.Element("ThumbnailSize")?.Value);
-        ThumbnailSizeForSystem = ValidateThumbnailSizeForSystem(app?.Element("ThumbnailSizeForSystem")?.Value ?? settings.Element("ThumbnailSizeForSystem")?.Value);
-        GamesPerPage = ValidateGamesPerPage(app?.Element("GamesPerPage")?.Value ?? settings.Element("GamesPerPage")?.Value);
-        ShowGames = ValidateShowGames(app?.Element("ShowGames")?.Value ?? settings.Element("ShowGames")?.Value);
-        ViewMode = ValidateViewMode(app?.Element("ViewMode")?.Value ?? settings.Element("ViewMode")?.Value);
+        ThumbnailSize = ValidateThumbnailSize(app?.Element("ThumbnailSize")?.Value ?? settings.Element("ThumbnailSize")?.Value ?? "");
+        ThumbnailSizeForSystem = ValidateThumbnailSizeForSystem(app?.Element("ThumbnailSizeForSystem")?.Value ?? settings.Element("ThumbnailSizeForSystem")?.Value ?? "");
+        GamesPerPage = ValidateGamesPerPage(app?.Element("GamesPerPage")?.Value ?? settings.Element("GamesPerPage")?.Value ?? "");
+        ShowGames = ValidateShowGames(app?.Element("ShowGames")?.Value ?? settings.Element("ShowGames")?.Value ?? "");
+        ViewMode = ValidateViewMode(app?.Element("ViewMode")?.Value ?? settings.Element("ViewMode")?.Value ?? "");
 
         if (bool.TryParse(app?.Element("EnableGamePadNavigation")?.Value ?? settings.Element("EnableGamePadNavigation")?.Value, out var gp))
         {
@@ -414,22 +414,22 @@ public class SettingsManager : IDisposable
         InfoUrl = app?.Element("InfoUrl")?.Value ?? settings.Element("InfoUrl")?.Value ?? InfoUrl;
         BaseTheme = ValidateBaseTheme(app?.Element("BaseTheme")?.Value ?? settings.Element("BaseTheme")?.Value ?? BaseTheme);
         AccentColor = ValidateAccentColor(app?.Element("AccentColor")?.Value ?? settings.Element("AccentColor")?.Value ?? AccentColor);
-        StyleVariant = ValidateStyleVariant(app?.Element("StyleVariant")?.Value ?? settings.Element("StyleVariant")?.Value);
+        StyleVariant = ValidateStyleVariant(app?.Element("StyleVariant")?.Value ?? settings.Element("StyleVariant")?.Value ?? "");
         Language = app?.Element("Language")?.Value ?? settings.Element("Language")?.Value ?? Language;
-        ButtonAspectRatio = ValidateButtonAspectRatio(app?.Element("ButtonAspectRatio")?.Value ?? settings.Element("ButtonAspectRatio")?.Value);
-        FilenameDisplayMode = ValidateFilenameDisplayMode(app?.Element("FilenameDisplayMode")?.Value ?? settings.Element("FilenameDisplayMode")?.Value);
+        ButtonAspectRatio = ValidateButtonAspectRatio(app?.Element("ButtonAspectRatio")?.Value ?? settings.Element("ButtonAspectRatio")?.Value ?? "");
+        FilenameDisplayMode = ValidateFilenameDisplayMode(app?.Element("FilenameDisplayMode")?.Value ?? settings.Element("FilenameDisplayMode")?.Value ?? "");
         if (bool.TryParse(app?.Element("DisplayMachineName")?.Value ?? settings.Element("DisplayMachineName")?.Value, out var dmn))
         {
             DisplayMachineName = dmn;
         }
 
-        FilenameFontSize = ValidateFontSize(app?.Element("FilenameFontSize")?.Value ?? settings.Element("FilenameFontSize")?.Value);
-        MachineNameFontSize = ValidateFontSize(app?.Element("MachineNameFontSize")?.Value ?? settings.Element("MachineNameFontSize")?.Value);
+        FilenameFontSize = ValidateFontSize(app?.Element("FilenameFontSize")?.Value ?? settings.Element("FilenameFontSize")?.Value ?? "");
+        MachineNameFontSize = ValidateFontSize(app?.Element("MachineNameFontSize")?.Value ?? settings.Element("MachineNameFontSize")?.Value ?? "");
 
         RaUsername = app?.Element("RaUsername")?.Value ?? settings.Element("RaUsername")?.Value ?? settings.Element("RA_Username")?.Value ?? RaUsername;
-        RaApiKey = DecryptString(app?.Element("RaApiKey")?.Value ?? settings.Element("RaApiKey")?.Value ?? settings.Element("RA_ApiKey")?.Value ?? RaApiKey);
-        RaPassword = DecryptString(app?.Element("RaPassword")?.Value ?? settings.Element("RaPassword")?.Value ?? RaPassword);
-        RaToken = DecryptString(app?.Element("RaToken")?.Value ?? settings.Element("RaToken")?.Value ?? RaToken);
+        RaApiKey = DecryptString(app?.Element("RaApiKey")?.Value ?? settings.Element("RaApiKey")?.Value ?? settings.Element("RA_ApiKey")?.Value ?? RaApiKey) ?? "";
+        RaPassword = DecryptString(app?.Element("RaPassword")?.Value ?? settings.Element("RaPassword")?.Value ?? RaPassword) ?? "";
+        RaToken = DecryptString(app?.Element("RaToken")?.Value ?? settings.Element("RaToken")?.Value ?? RaToken) ?? "";
 
         if (float.TryParse(app?.Element("DeadZoneX")?.Value ?? settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var dzx))
         {
@@ -582,7 +582,7 @@ public class SettingsManager : IDisposable
             var tempPath = _fileLocation.TempFilePath;
             const int maxRetries = 3;
             var retryDelayMs = 500;
-            Exception lastException = null;
+            Exception? lastException = null;
 
             var settingsDirectory = Path.GetDirectoryName(_fileLocation.FilePath);
             if (!string.IsNullOrEmpty(settingsDirectory) && !Directory.Exists(settingsDirectory))

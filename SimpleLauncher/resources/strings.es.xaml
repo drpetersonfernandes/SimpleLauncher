@@ -580,6 +580,7 @@
     <system:String x:Key="Extractionfailed">La extracción falló.</system:String>
     <system:String x:Key="ExtractionFailedMessage">El archivo se descargó correctamente, pero la extracción automática falló. Esto puede ocurrir si un programa antivirus está escaneando o bloqueando el archivo.</system:String>
     <system:String x:Key="ExtractionFailedTitle">Extracción fallida</system:String>
+    <system:String x:Key="F8ShortcutInUse">La tecla de acceso rápido F8 ya está en uso por otro programa. Debido a esto, la función de captura de pantalla está desactivada.</system:String>
     <system:String x:Key="Failedtoconfiguretheemulator">Fallo al configurar el emulador. El archivo de configuración podría faltar, estar en una ubicación inesperada o ser de solo lectura.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Error al copiar el contenido del registro.</system:String>
     <system:String x:Key="FailedToCopySystemImage">Error al copiar la imagen:</system:String>

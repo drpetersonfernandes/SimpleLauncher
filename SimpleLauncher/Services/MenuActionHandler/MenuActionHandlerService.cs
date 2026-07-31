@@ -39,7 +39,7 @@ public class MenuActionHandlerService
     private readonly ILogger _logger;
     private readonly IParameterResolverService _parameterResolverService;
 
-    private IMenuActionHost _host;
+    private IMenuActionHost _host = null!;
     private readonly IUpdateStatusBar _updateStatusBar;
 
     private readonly Dictionary<string, Action> _emulatorConfigWindowFactory;

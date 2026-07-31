@@ -1,7 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using MessagePack;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.AppDataFile;
 
@@ -15,7 +14,7 @@ namespace SimpleLauncher.Services.Favorites;
 public class FavoritesManager
 {
     [IgnoreMember] private static readonly object ListLock = new();
-    [IgnoreMember] private ILogger _logger;
+    [IgnoreMember] private ILogger? _logger;
     [IgnoreMember] private static readonly DataFileLocation FileLocation = new("favorites.dat");
 
     /// <summary>
@@ -39,7 +38,7 @@ public class FavoritesManager
     /// <summary>
     /// Loads favorites from the DAT file. If the DAT file doesn't exist, will create a new instance.
     /// </summary>
-    public static FavoritesManager LoadFavorites(ILogger logErrors = null)
+    public static FavoritesManager LoadFavorites(ILogger? logErrors = null)
     {
         if (File.Exists(DatFilePath))
         {
@@ -64,7 +63,7 @@ public class FavoritesManager
         {
             if (task.IsFaulted)
             {
-                ((ILogger)state)?.Error(task.Exception, "Error saving default favorites.");
+                (state as ILogger)?.Error(task.Exception, "Error saving default favorites.");
             }
         }, logErrors, TaskContinuationOptions.OnlyOnFaulted);
         return defaultManager; // Return default instance if error occurs
@@ -95,7 +94,7 @@ public class FavoritesManager
         {
             const int maxRetries = 3;
             var retryDelayMs = 500;
-            Exception lastException = null;
+            Exception? lastException = null;
             var attempt = 0;
 
             while (attempt < maxRetries)
@@ -135,7 +134,7 @@ public class FavoritesManager
                         }
                         catch (Exception fallbackEx)
                         {
-                            Serilog.Log.Debug($"[FavoritesManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
+                            Log.Debug($"[FavoritesManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
                         }
                     }
 
@@ -151,7 +150,7 @@ public class FavoritesManager
                         }
                         catch (Exception cleanupEx)
                         {
-                            Serilog.Log.Debug($"[FavoritesManager] Temp file cleanup failed: {cleanupEx.Message}");
+                            Log.Debug($"[FavoritesManager] Temp file cleanup failed: {cleanupEx.Message}");
                         }
 
                         Thread.Sleep(retryDelayMs);

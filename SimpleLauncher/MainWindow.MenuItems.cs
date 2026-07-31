@@ -3,8 +3,6 @@ using System.Windows.Controls;
 
 namespace SimpleLauncher;
 
-using Interfaces;
-
 /// <summary>
 /// Partial MainWindow containing menu item click handlers and system management operations.
 /// </summary>

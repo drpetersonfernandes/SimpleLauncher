@@ -3,8 +3,6 @@ using System.Text;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
-using Interfaces;
-
 public static class AresConfigurationService
 {
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
@@ -87,7 +85,7 @@ public static class AresConfigurationService
         }
 
         var modified = false;
-        string currentSection = null;
+        string? currentSection = null;
 
         for (var i = 0; i < lines.Count; i++)
         {

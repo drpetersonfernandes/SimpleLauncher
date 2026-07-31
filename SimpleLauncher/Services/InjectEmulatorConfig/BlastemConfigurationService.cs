@@ -4,8 +4,6 @@ using System.Text.RegularExpressions;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
-using Interfaces;
-
 public static partial class BlastemConfigurationService
 {
     private static readonly char[] Separator = [' ', '\t'];

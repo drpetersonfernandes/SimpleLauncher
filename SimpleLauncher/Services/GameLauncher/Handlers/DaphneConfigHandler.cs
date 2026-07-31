@@ -46,7 +46,7 @@ public class DaphneConfigHandler : IEmulatorConfigHandler
 
         if (shouldRun)
         {
-            var daphneArgs = DaphneConfigurationService.BuildArguments(context.Settings);
+            var daphneArgs = DaphneConfigurationService.BuildArguments(context.Settings!);
             context.Parameters = $"{context.Parameters} {daphneArgs}".Trim();
         }
 

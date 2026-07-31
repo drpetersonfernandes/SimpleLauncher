@@ -47,7 +47,7 @@ public class PlayHistoryItemTests
     {
         var item = new PlayHistoryItem
         {
-            FileName = null,
+            FileName = null!,
             SystemName = "Arcade"
         };
 

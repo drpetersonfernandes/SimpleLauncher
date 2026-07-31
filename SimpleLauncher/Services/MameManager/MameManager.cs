@@ -14,7 +14,7 @@ public class MameManager
 
     private static readonly string DefaultDatPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.dat");
 
-    public static List<MameManager> LoadFromDat(ILogger logErrors, string datPath = null, IMessageBoxLibraryService messageBox = null)
+    public static List<MameManager> LoadFromDat(ILogger logErrors, string? datPath = null, IMessageBoxLibraryService? messageBox = null)
     {
         datPath ??= DefaultDatPath;
 

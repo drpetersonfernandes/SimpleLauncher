@@ -5,7 +5,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class InjectionErrorHandler
 {
-    public static void HandleRunButtonFailure(ILogger logErrors, Exception ex, string emulatorName, string emulatorPath, Window window, IMessageBoxLibraryService messageBox)
+    public static void HandleRunButtonFailure(ILogger logErrors, Exception ex, string emulatorName, string emulatorPath, Window? window, IMessageBoxLibraryService messageBox)
     {
         // Notify user
         ShowGenericInjectionError(messageBox);
@@ -17,7 +17,7 @@ public static class InjectionErrorHandler
         window?.Close();
     }
 
-    public static void HandleSaveButtonFailure(ILogger logErrors, Exception ex, string emulatorName, string emulatorPath, Window window, IMessageBoxLibraryService messageBox)
+    public static void HandleSaveButtonFailure(ILogger logErrors, Exception ex, string emulatorName, string emulatorPath, Window? window, IMessageBoxLibraryService messageBox)
     {
         // Notify user
         ShowGenericInjectionError(messageBox);

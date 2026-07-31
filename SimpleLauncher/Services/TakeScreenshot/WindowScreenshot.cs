@@ -2,14 +2,12 @@ using System.Runtime.InteropServices;
 
 namespace SimpleLauncher.Services.TakeScreenshot;
 
-using Interfaces;
-
 /// <summary>
 /// Provides methods to capture screenshots of specific windows using Win32 API calls.
 /// </summary>
 public static partial class WindowScreenshot
 {
-    private static ILogger _logger;
+    private static ILogger _logger = null!;
 
     /// <summary>Initializes the WindowScreenshot with a debug logger instance.</summary>
     public static void Initialize(ILogger logger)

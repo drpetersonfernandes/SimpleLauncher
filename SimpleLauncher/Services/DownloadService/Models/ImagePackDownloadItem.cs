@@ -12,17 +12,17 @@ public class ImagePackDownloadItem : INotifyPropertyChanged
     /// <summary>
     /// Gets or sets the display name of the image pack.
     /// </summary>
-    public string DisplayName { get; set; }
+    public string DisplayName { get; set; } = null!;
 
     /// <summary>
     /// Gets or sets the URL to download the image pack from.
     /// </summary>
-    public string DownloadUrl { get; set; }
+    public string DownloadUrl { get; set; } = null!;
 
     /// <summary>
     /// Gets or sets the local path where the image pack will be extracted.
     /// </summary>
-    public string ExtractPath { get; set; }
+    public string ExtractPath { get; set; } = null!;
 
     /// <summary>
     /// Gets or sets the current download state of the image pack.
@@ -73,9 +73,9 @@ public class ImagePackDownloadItem : INotifyPropertyChanged
     /// <summary>
     /// Occurs when a property value changes.
     /// </summary>
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

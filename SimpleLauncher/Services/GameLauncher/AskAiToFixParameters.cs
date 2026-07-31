@@ -115,12 +115,12 @@ IConfiguration configuration,
 
                 var systemToSave = new Services.SystemManager.SystemManager
                 {
-                    SystemName = systemManager.SystemName,
-                    SystemFolders = systemManager.SystemFolders,
-                    SystemImageFolder = systemManager.SystemImageFolder,
-                    FileFormatsToSearch = systemManager.FileFormatsToSearch,
+                    SystemName = systemManager.SystemName ?? "",
+                    SystemFolders = systemManager.SystemFolders ?? [],
+                    SystemImageFolder = systemManager.SystemImageFolder ?? "",
+                    FileFormatsToSearch = systemManager.FileFormatsToSearch ?? [],
                     ExtractFileBeforeLaunch = systemManager.ExtractFileBeforeLaunch,
-                    FileFormatsToLaunch = systemManager.FileFormatsToLaunch,
+                    FileFormatsToLaunch = systemManager.FileFormatsToLaunch ?? [],
                     GroupByFolder = systemManager.GroupByFolder,
                     DisableRecursiveSearch = systemManager.DisableRecursiveSearch,
                     Emulators = updatedEmulators

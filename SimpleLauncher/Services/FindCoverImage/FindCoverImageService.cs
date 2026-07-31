@@ -98,7 +98,7 @@ public class FindCoverImageService : IFindCoverImageService
                     .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
                     .ToList();
 
-                string bestMatchPath = null;
+                string? bestMatchPath = null;
                 double highestSimilarity = 0;
                 var lowerRomName = fileNameWithoutExtension.ToLowerInvariant();
                 var normalizedRomName = _settings.EnableAnnotationStripping

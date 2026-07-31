@@ -15,27 +15,25 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath;
-    private string _gameFilePath;
-    private string _systemRomPath;
-
+    private string _emulatorPath = null!;
+    private string _gameFilePath = null!;
+    private string _systemRomPath = null!;
     [ObservableProperty] private bool _raineFullscreen;
     [ObservableProperty] private bool _raineFixAspectRatio;
     [ObservableProperty] private bool _raineVsync;
     [ObservableProperty] private int _raineResX;
     [ObservableProperty] private int _raineResY;
-    [ObservableProperty] private string _raineSoundDriver;
+    [ObservableProperty] private string _raineSoundDriver = null!;
     [ObservableProperty] private int _raineSampleRate;
     [ObservableProperty] private bool _raineShowSettingsBeforeLaunch;
     [ObservableProperty] private bool _raineShowFps;
     [ObservableProperty] private int _raineFrameSkip;
-    [ObservableProperty] private string _raineNeoCdBios;
+    [ObservableProperty] private string _raineNeoCdBios = null!;
     [ObservableProperty] private int _raineMusicVolume;
     [ObservableProperty] private int _raineSfxVolume;
     [ObservableProperty] private bool _raineMuteSfx;
     [ObservableProperty] private bool _raineMuteMusic;
-    [ObservableProperty] private string _raineRomDirectory;
-
+    [ObservableProperty] private string _raineRomDirectory = null!;
     public InjectRaineConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
@@ -87,8 +85,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
@@ -98,23 +95,19 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string> RequestEmulatorPath;
-
+    public event Func<string?> RequestEmulatorPath = null!;
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow;
-
+    public event Func<Window> GetOwnerWindow = null!;
     /// <summary>
     /// Requests the user to select a file path.
     /// </summary>
-    public event Func<string> RequestFilePath;
-
+    public event Func<string?> RequestFilePath = null!;
     /// <summary>
     /// Requests the user to select a folder path.
     /// </summary>
-    public event Func<string> RequestFolderPath;
-
+    public event Func<string?> RequestFolderPath = null!;
     private void LoadSettings()
     {
         RaineFullscreen = _settings.Raine.Fullscreen;
@@ -156,7 +149,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
         _ = _settings.SaveAsync();
     }
 
-    private async Task<string> EnsureEmulatorPathAsync()
+    private async Task<string?> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {

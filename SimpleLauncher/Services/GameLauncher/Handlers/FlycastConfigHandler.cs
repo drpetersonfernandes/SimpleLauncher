@@ -52,7 +52,7 @@ public class FlycastConfigHandler : IEmulatorConfigHandler
             }
             else if (File.Exists(resolvedExe))
             {
-                FlycastConfigurationService.InjectSettings(resolvedExe, context.Settings, _logger);
+                FlycastConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger);
             }
 
             return shouldRun;

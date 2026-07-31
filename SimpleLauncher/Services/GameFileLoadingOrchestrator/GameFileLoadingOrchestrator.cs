@@ -13,7 +13,7 @@ namespace SimpleLauncher.Services.GameFileLoadingOrchestrator;
 /// </summary>
 public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
 {
-    private IGameFileLoadingHost _host;
+    private IGameFileLoadingHost _host = null!;
     private readonly IGameCacheService _gameCacheService;
     private readonly IGameFilterService _gameFilterService;
     private readonly IMameDataService _mameDataService;
@@ -73,7 +73,7 @@ IUpdateStatusBar updateStatusBarService,
     /// Loads game files for the currently selected system, applying letter/search/favorites/RA filters,
     /// sorting, pagination, and rendering the results to the UI.
     /// </summary>
-    public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null, CancellationToken cancellationToken = default)
+    public async Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null, CancellationToken cancellationToken = default)
     {
         _updateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("Loading") ?? "Loading...");
 
@@ -89,7 +89,7 @@ IUpdateStatusBar updateStatusBarService,
                 return;
             }
 
-            var selectedSystem = _host.SystemComboBox.SelectedItem.ToString();
+            var selectedSystem = _host.SystemComboBox.SelectedItem.ToString() ?? "";
             var systemManagers = _host.GetSystemManagers();
             var selectedManager = systemManagers.FirstOrDefault(c => c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
             if (selectedManager == null)
@@ -109,10 +109,10 @@ IUpdateStatusBar updateStatusBarService,
 
             if (selectedManager.GroupByFolder)
             {
-                static string EnsureTrailingSlash(string path)
+                static string EnsureTrailingSlash(string? path)
                 {
                     if (string.IsNullOrEmpty(path))
-                        return path;
+                        return path ?? "";
 
                     return path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
                 }
@@ -126,7 +126,7 @@ IUpdateStatusBar updateStatusBarService,
                 var groupedFiles = allFiles
                     .GroupBy(f =>
                     {
-                        var fileDir = Path.GetDirectoryName(f);
+                        var fileDir = Path.GetDirectoryName(f) ?? "";
                         var normalizedFileDir = EnsureTrailingSlash(fileDir);
 
                         if (rootFolders.Contains(normalizedFileDir))
@@ -220,7 +220,7 @@ IUpdateStatusBar updateStatusBarService,
     /// <param name="startLetter">The start letter.</param>
     /// <param name="searchQuery">The search query.</param>
     /// <param name="token">The token.</param>
-    private async Task<List<string>> BuildListOfAllFilesToLoad(SystemManager.SystemManager selectedManager, string startLetter, string searchQuery, CancellationToken token)
+    private async Task<List<string>> BuildListOfAllFilesToLoad(SystemManager.SystemManager selectedManager, string? startLetter, string? searchQuery, CancellationToken token)
     {
         if (_host.IsResortOperation)
         {
@@ -423,6 +423,7 @@ IUpdateStatusBar updateStatusBarService,
             .Where(fav => fav.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase))
             .Select(fav => PathHelper.FindFileInSystemFolders(selectedManager.SystemFolders, fav.FileName))
             .Where(static path => !string.IsNullOrEmpty(path))
+            .Select(static path => path!)
             .ToList();
 
         return favoriteGamePaths;

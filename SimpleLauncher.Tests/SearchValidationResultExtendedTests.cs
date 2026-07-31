@@ -97,7 +97,7 @@ public class SearchValidationResultExtendedTests
     [Fact]
     public void SuccessWithNullQueryStillValid()
     {
-        var result = SearchValidationResult.Success(null);
+        var result = SearchValidationResult.Success(null!);
         Assert.True(result.IsValid);
         Assert.Null(result.ValidatedQuery);
     }

@@ -1031,7 +1031,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays an error when system.xml is corrupted, with an option to open the error log, then shuts down.
     /// </summary>
-    public async Task SystemXmlIsCorruptedMessageBoxAsync(string logPath)
+    public async Task SystemXmlIsCorruptedMessageBoxAsync(string? logPath)
     {
         var systemxmliscorrupted = _resourceProvider.GetString("systemxmliscorrupted", "'system.xml' is corrupted or could not be opened.");
         var pleasefixitmanuallyordeleteit = _resourceProvider.GetString("Pleasefixitmanuallyordeleteit", "Please fix it manually or delete it.");
@@ -1069,7 +1069,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays an error when a game could not be launched, with an option to open the error log.
     /// </summary>
-    public async Task WouldYouLikeToOpenTheLogMessageBoxAsync(string logPath)
+    public async Task WouldYouLikeToOpenTheLogMessageBoxAsync(string? logPath)
     {
         var simpleLauncherWasUnableToLaunchThisGame = _resourceProvider.GetString("SimpleLauncherWasUnableToLaunchThisGame", "'Simple Launcher' was unable to launch this game.");
         var wouldyouliketoopentheerroruserlogfiletodebug = _resourceProvider.GetString("Wouldyouliketoopentheerroruserlogfiletodebug", "Would you like to open the 'error_user.log' file to debug the error?");
@@ -1099,7 +1099,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays an error when the file system.xml is badly corrupted, with an option to open the error log.
     /// </summary>
-    public async Task FileSystemXmlIsCorruptedMessageBoxAsync(string logPath)
+    public async Task FileSystemXmlIsCorruptedMessageBoxAsync(string? logPath)
     {
         var thefilesystemxmlisbadlycorrupted = _resourceProvider.GetString("Thefilesystemxmlisbadlycorrupted", "The file 'system.xml' is badly corrupted.");
         var wouldyouliketoopentheerroruserlog = _resourceProvider.GetString("Wouldyouliketoopentheerroruserlog", "Would you like to open the 'error_user.log' file to investigate the issue?");
@@ -1343,7 +1343,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays an error when a downloaded file is locked, with an option to open the temp folder.
     /// </summary>
-    public async Task FileIsLockedMessageBoxAsync(string tempFolderPath)
+    public async Task FileIsLockedMessageBoxAsync(string? tempFolderPath)
     {
         var downloadedfileislocked = _resourceProvider.GetString("Downloadedfileislocked", "Downloaded file is locked.");
         var grantSimpleLauncheradministrative = _resourceProvider.GetString("GrantSimpleLauncheradministrative", "Grant 'Simple Launcher' administrative access and try again.");
@@ -1604,7 +1604,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays an error message when adding a system fails, with optional error details.
     /// </summary>
-    public Task AddSystemFailedMessageBoxAsync(string details = null)
+    public Task AddSystemFailedMessageBoxAsync(string? details = null)
     {
         var therewasanerroradding = _resourceProvider.GetString("Therewasanerroradding", "There was an error adding this system.");
         var theerrorwasreportedtothedeveloper = _resourceProvider.GetString("Theerrorwasreportedtothedeveloper", "The error was reported to the developer who will try to fix the issue.");
@@ -1974,7 +1974,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays an error when the gamepad controller encounters an error, with an option to open the error log.
     /// </summary>
-    public async Task GamePadErrorMessageBoxAsync(string logPath)
+    public async Task GamePadErrorMessageBoxAsync(string? logPath)
     {
         var therewasanerrorwiththeGamePadController = _resourceProvider.GetString("TherewasanerrorwiththeGamePadController", "There was an error with the GamePad Controller.");
         var grantSimpleLauncheradministrative = _resourceProvider.GetString("GrantSimpleLauncheradministrative", "Grant 'Simple Launcher' administrative access and try again.");
@@ -2008,7 +2008,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays an error when a game could not be launched, with troubleshooting tips and an option to open the error log.
     /// </summary>
-    public async Task CouldNotLaunchGameMessageBoxAsync(string logPath)
+    public async Task CouldNotLaunchGameMessageBoxAsync(string? logPath)
     {
         var simpleLaunchercouldnotlaunch = _resourceProvider.GetString("SimpleLaunchercouldnotlaunch", "'Simple Launcher' could not launch the selected game.");
         var makesuretheRoMorIsOyouretrying = _resourceProvider.GetString("MakesuretheROMorISOyouretrying", "Make sure the ROM or ISO you're trying to run is not corrupted.");
@@ -2046,7 +2046,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays an error when an invalid operation occurs during game launch, with an option to open the error log.
     /// </summary>
-    public async Task InvalidOperationExceptionMessageBoxAsync(string logPath)
+    public async Task InvalidOperationExceptionMessageBoxAsync(string? logPath)
     {
         var simpleLaunchercouldnotlaunch = _resourceProvider.GetString("SimpleLaunchercouldnotlaunch", "'Simple Launcher' could not launch the selected game.");
         var makesuretheRoMorIsOyouretrying = _resourceProvider.GetString("MakesuretheROMorISOyouretrying", "Make sure the ROM or ISO you're trying to run is not corrupted.");
@@ -2084,7 +2084,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays an error when a game fails to launch, with an option to open the error log.
     /// </summary>
-    public async Task ThereWasAnErrorLaunchingThisGameMessageBoxAsync(string logPath)
+    public async Task ThereWasAnErrorLaunchingThisGameMessageBoxAsync(string? logPath)
     {
         var therewasanerrorlaunchingthisgame = _resourceProvider.GetString("Therewasanerrorlaunchingthisgame", "There was an error launching this game.");
         var youcanturnoffthistypeoferrormessageinExpertmode = _resourceProvider.GetString("YoucanturnoffthiserrormessageinExpertmode", "You can turn off this error message in Expert mode.");
@@ -2117,7 +2117,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays an error when a batch file fails to execute, with error details and an option to open the error log.
     /// </summary>
-    public async Task BatchFileFailedMessageBoxAsync(string batchFilePath, string errorDetail, string logPath, int? exitCode = null)
+    public async Task BatchFileFailedMessageBoxAsync(string batchFilePath, string errorDetail, string? logPath, int? exitCode = null)
     {
         var batchFileName = Path.GetFileName(batchFilePath);
         var batchfilefailed = _resourceProvider.GetString("Batchfilefailed", "The batch file failed to run.");
@@ -2551,7 +2551,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays an error message when saving the system configuration fails.
     /// </summary>
-    public Task SaveSystemFailedMessageBoxAsync(string details = null)
+    public Task SaveSystemFailedMessageBoxAsync(string? details = null)
     {
         var failedToSaveSystem = _resourceProvider.GetString("FailedToSaveSystem", "Failed to save system configuration.");
         var checkPermissions = _resourceProvider.GetString("CheckFilePermissions", "Please check file permissions and ensure the file is not locked.");
@@ -2672,7 +2672,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays an error when a game file path is invalid, with troubleshooting suggestions and an option to open the error log.
     /// </summary>
-    public async Task FilePathIsInvalidMessageBoxAsync(string logPath)
+    public async Task FilePathIsInvalidMessageBoxAsync(string? logPath)
     {
         var simpleLaunchercouldnotlaunch = _resourceProvider.GetString("SimpleLaunchercouldnotlaunch", "'Simple Launcher' could not launch the selected game.");
         var thefilepathisinvalid = _resourceProvider.GetString("Thefilepathisinvalid", "The filepath is invalid or the file does not exist!");
@@ -3141,7 +3141,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays a custom game launch error message with an option to open the error log.
     /// </summary>
-    public async Task ShowCustomMessageBoxAsync(string message, string launchError, string logPath)
+    public async Task ShowCustomMessageBoxAsync(string message, string launchError, string? logPath)
     {
         var therewasanerrorlaunchingtheselected = _resourceProvider.GetString("Therewasanerrorlaunchingtheselected", "There was an error launching the selected game.");
         var dowanttoopenthefileerroruserlog = _resourceProvider.GetString("Dowanttoopenthefileerroruserlog", "Do want to open the file 'error_user.log' to debug the error?");
@@ -4236,7 +4236,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays a RetroArch parameter issue with troubleshooting tips and an option to open the error log.
     /// </summary>
-    public async Task RetroArchParameterIssueMessageBoxAsync(string logPath)
+    public async Task RetroArchParameterIssueMessageBoxAsync(string? logPath)
     {
         var title = _resourceProvider.GetString("Error", "Error");
         var message = _resourceProvider.GetString("RetroArchParameterIssue", "RetroArch could not launch your game.");

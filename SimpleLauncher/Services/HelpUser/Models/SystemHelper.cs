@@ -2,6 +2,6 @@ namespace SimpleLauncher.Services.HelpUser.Models;
 
 public class SystemHelper
 {
-    public string SystemName { get; init; }
-    public string SystemHelperText { get; init; }
+    public string SystemName { get; init; } = null!;
+    public string SystemHelperText { get; init; } = null!;
 }

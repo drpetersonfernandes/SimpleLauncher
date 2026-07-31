@@ -7,8 +7,6 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 
-using Interfaces;
-
 internal partial class EditSystemWindow
 {
     private void MarkInvalid(Control textBox, bool isValid)

@@ -1,5 +1,3 @@
-#nullable enable
-
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows;

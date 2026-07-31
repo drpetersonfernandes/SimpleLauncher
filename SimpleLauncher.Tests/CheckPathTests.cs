@@ -26,7 +26,7 @@ public class CheckPathTests
     [Fact]
     public void IsValidPathNullReturnsFalse()
     {
-        var result = CheckPath.IsValidPath(null);
+        var result = CheckPath.IsValidPath(null!);
         Assert.False(result);
     }
 
@@ -48,7 +48,7 @@ public class CheckPathTests
     [Fact]
     public void IsValidEmulatorExecutablePathNullReturnsFalse()
     {
-        var result = CheckPath.IsValidEmulatorExecutablePath(null);
+        var result = CheckPath.IsValidEmulatorExecutablePath(null!);
         Assert.False(result);
     }
 

@@ -4,11 +4,9 @@ using SimpleLauncher.Services.CheckPaths;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
-using Interfaces;
-
 public static partial class MameConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger, string systemRomPath = null, string[] listOfSecondaryRomPath = null)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger, string? systemRomPath = null, string[]? listOfSecondaryRomPath = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(emulatorPath);
         ArgumentNullException.ThrowIfNull(settings);
@@ -125,7 +123,7 @@ public static partial class MameConfigurationService
                 var existingPathsRaw = SplitRomPath(existingValue);
                 foreach (var path in existingPathsRaw)
                 {
-                    var fullPath = NormalizePath(GetFullPathSafe(path, emuDir));
+                    var fullPath = NormalizePath(GetFullPathSafe(path, emuDir)!);
                     if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) && uniqueFullPaths.Add(fullPath))
                     {
                         finalPathList.Add(path); // Add the original (but unquoted) path
@@ -135,7 +133,7 @@ public static partial class MameConfigurationService
                 // 2. Process the primary system ROM path
                 if (!string.IsNullOrEmpty(systemRomPath))
                 {
-                    var fullPath = NormalizePath(GetFullPathSafe(systemRomPath, emuDir));
+                    var fullPath = NormalizePath(GetFullPathSafe(systemRomPath, emuDir)!);
                     if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) && uniqueFullPaths.Add(fullPath))
                     {
                         finalPathList.Add(RemoveQuotes(systemRomPath));
@@ -157,7 +155,7 @@ public static partial class MameConfigurationService
                         if (string.IsNullOrEmpty(resolvedSecondaryPath))
                             continue;
 
-                        var fullPath = NormalizePath(GetFullPathSafe(resolvedSecondaryPath, emuDir));
+                        var fullPath = NormalizePath(GetFullPathSafe(resolvedSecondaryPath, emuDir)!);
                         if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) && uniqueFullPaths.Add(fullPath))
                         {
                             finalPathList.Add(RemoveQuotes(resolvedSecondaryPath));
@@ -194,7 +192,7 @@ public static partial class MameConfigurationService
             // Process the primary system ROM path if it exists
             if (!string.IsNullOrEmpty(systemRomPath))
             {
-                var fullPath = NormalizePath(GetFullPathSafe(systemRomPath, emuDir));
+                var fullPath = NormalizePath(GetFullPathSafe(systemRomPath, emuDir)!);
                 if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) && uniqueFullPaths.Add(fullPath))
                 {
                     finalPathList.Add(RemoveQuotes(systemRomPath));
@@ -216,7 +214,7 @@ public static partial class MameConfigurationService
                     if (string.IsNullOrEmpty(resolvedSecondaryPath))
                         continue;
 
-                    var fullPath = NormalizePath(GetFullPathSafe(resolvedSecondaryPath, emuDir));
+                    var fullPath = NormalizePath(GetFullPathSafe(resolvedSecondaryPath, emuDir)!);
                     if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) && uniqueFullPaths.Add(fullPath))
                     {
                         finalPathList.Add(RemoveQuotes(resolvedSecondaryPath));
@@ -347,7 +345,7 @@ public static partial class MameConfigurationService
     /// <summary>
     /// Safely gets full path, returning null if the path is invalid.
     /// </summary>
-    private static string GetFullPathSafe(string path, string basePath)
+    private static string? GetFullPathSafe(string path, string basePath)
     {
         try
         {

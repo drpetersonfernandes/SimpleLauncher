@@ -60,7 +60,7 @@ IGetListOfFilesService getListOfFiles,
     private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     private readonly IContextMenuService _contextMenuService = contextMenuService ?? throw new ArgumentNullException(nameof(contextMenuService));
 
-    private Button _button;
+    private Button _button = null!;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
 
     public async Task<Button> CreateGameButtonAsync(string entityPath, string systemName, SystemManager.SystemManager systemManager)
@@ -627,7 +627,7 @@ IGetListOfFilesService getListOfFiles,
                         return;
                     }
 
-                    await gameLauncher.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, WpfWindowContext.FromMainWindow(mainWindow), gamePadCtrl, mainWindow);
+                    await gameLauncher.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, WpfWindowContext.FromMainWindow(mainWindow!), gamePadCtrl, mainWindow);
                 }
                 finally
                 {

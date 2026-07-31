@@ -333,7 +333,7 @@ public class PaginationServiceTests
             ScrolledToTop = true;
         }
 
-        public void UpdateTotalFilesLabel(string label)
+        public void UpdateTotalFilesLabel(string? label)
         {
             LastStatusLabel = label;
         }

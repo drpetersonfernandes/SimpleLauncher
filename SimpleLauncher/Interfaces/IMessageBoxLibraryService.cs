@@ -74,9 +74,9 @@ public interface IMessageBoxLibraryService
     Task ErrorLoadingRomHistoryMessageBoxAsync();
     Task NoHistoryXmlOrDatFoundMessageBoxAsync();
     Task ErrorOpeningBrowserMessageBoxAsync();
-    Task SystemXmlIsCorruptedMessageBoxAsync(string logPath);
-    Task WouldYouLikeToOpenTheLogMessageBoxAsync(string logPath);
-    Task FileSystemXmlIsCorruptedMessageBoxAsync(string logPath);
+    Task SystemXmlIsCorruptedMessageBoxAsync(string? logPath);
+    Task WouldYouLikeToOpenTheLogMessageBoxAsync(string? logPath);
+    Task FileSystemXmlIsCorruptedMessageBoxAsync(string? logPath);
     Task InstallUpdateManuallyMessageBoxAsync();
     Task UpdaterLaunchFailedMessageBoxAsync();
     Task RequiredFileMissingMessageBoxAsync();
@@ -89,7 +89,7 @@ public interface IMessageBoxLibraryService
     Task ExtractionFailedMessageBoxAsync();
     Task FileNeedToBeCompressedMessageBoxAsync();
     Task DownloadedFileIsMissingMessageBoxAsync();
-    Task FileIsLockedMessageBoxAsync(string tempFolderPath);
+    Task FileIsLockedMessageBoxAsync(string? tempFolderPath);
     Task LinksSavedMessageBoxAsync();
     Task DeadZonesSavedMessageBoxAsync();
     Task DeadZonesRevertedMessageBoxAsync();
@@ -131,11 +131,11 @@ public interface IMessageBoxLibraryService
     Task SelectASystemToDeleteMessageBoxAsync();
     Task SystemNotFoundInTheXmlMessageBoxAsync();
     Task ErrorFindingGameFilesMessageBoxAsync(string logPath);
-    Task GamePadErrorMessageBoxAsync(string logPath);
-    Task CouldNotLaunchGameMessageBoxAsync(string logPath);
-    Task InvalidOperationExceptionMessageBoxAsync(string logPath);
-    Task ThereWasAnErrorLaunchingThisGameMessageBoxAsync(string logPath);
-    Task BatchFileFailedMessageBoxAsync(string batchFilePath, string errorDetail, string logPath, int? exitCode = null);
+    Task GamePadErrorMessageBoxAsync(string? logPath);
+    Task CouldNotLaunchGameMessageBoxAsync(string? logPath);
+    Task InvalidOperationExceptionMessageBoxAsync(string? logPath);
+    Task ThereWasAnErrorLaunchingThisGameMessageBoxAsync(string? logPath);
+    Task BatchFileFailedMessageBoxAsync(string batchFilePath, string errorDetail, string? logPath, int? exitCode = null);
     Task<bool> BatchFilePathsMissingMessageBoxAsync(List<string> missingPaths);
     Task ElevationRequiredMessageBoxAsync();
     Task NullFileExtensionMessageBoxAsync();
@@ -177,7 +177,7 @@ public interface IMessageBoxLibraryService
     Task NoSoundFileIsSelectedMessageBoxAsync();
     Task SettingsSavedSuccessfullyMessageBoxAsync();
     Task FailedToSaveSettingsMessageBoxAsync();
-    Task FilePathIsInvalidMessageBoxAsync(string logPath);
+    Task FilePathIsInvalidMessageBoxAsync(string? logPath);
     Task ThereWasAnErrorMountingTheFileMessageBoxAsync(int? exitCode = null);
     Task DokanDriverNotInstalledMessageBoxAsync();
     Task LaunchToolInformationMessageBoxAsync(string info);
@@ -206,7 +206,7 @@ public interface IMessageBoxLibraryService
     Task FailedToInitializeSevenZipMessageBoxAsync();
     Task ShowExtractionFailedMessageBoxAsync(string tempFolderPath);
     Task ShowDownloadFileLockedMessageBoxAsync(string tempFolderPath);
-    Task ShowCustomMessageBoxAsync(string message, string launchError, string logPath);
+    Task ShowCustomMessageBoxAsync(string message, string launchError, string? logPath);
     Task EnterValidSearchTermsMessageBoxAsync();
     Task OperationCancelledMessageBoxAsync();
     Task<MessageBoxResult> DoYouWantToCancelAndCloseMessageBoxAsync();
@@ -300,7 +300,7 @@ public interface IMessageBoxLibraryService
     Task OotakeDoesNotSupportImageFilesMessageBoxAsync();
     Task GeolithDoesNotSupportCompressedFilesMessageBoxAsync();
     Task RetroArchParameterShouldContainLMessageBoxAsync();
-    Task RetroArchParameterIssueMessageBoxAsync(string logPath);
+    Task RetroArchParameterIssueMessageBoxAsync(string? logPath);
     Task RetroArchSpecialCharactersInPathMessageBoxAsync();
     Task AzaharConfigurationInjectionPermissionErrorMessageBoxAsync();
     Task AzaharConfigurationSavedSuccessfullyMessageBoxAsync();

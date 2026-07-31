@@ -16,11 +16,11 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath;
+    private string _emulatorPath = "";
 
-    [ObservableProperty] private string _graphicsApi;
-    [ObservableProperty] private string _resolution;
-    [ObservableProperty] private string _layout;
+    [ObservableProperty] private string _graphicsApi = "";
+    [ObservableProperty] private string _resolution = "";
+    [ObservableProperty] private string _layout = "";
     [ObservableProperty] private bool _fullscreen;
     [ObservableProperty] private bool _vsync;
     [ObservableProperty] private bool _asyncShader;
@@ -28,7 +28,6 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     [ObservableProperty] private int _volume;
     [ObservableProperty] private bool _showBeforeLaunch;
     [ObservableProperty] private bool _audioStretching;
-
     public InjectAzaharConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
@@ -43,7 +42,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     public void Initialize(string? emulatorPath, bool isLauncherMode)
     {
-        _emulatorPath = emulatorPath;
+        _emulatorPath = emulatorPath ?? "";
         IsLauncherMode = isLauncherMode;
         LoadSettings();
     }
@@ -61,8 +60,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
@@ -72,13 +70,11 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string> RequestEmulatorPath;
-
+    public event Func<string?> RequestEmulatorPath = null!;
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow;
-
+    public event Func<Window> GetOwnerWindow = null!;
     private void LoadSettings()
     {
         GraphicsApi = _settings.Azahar.GraphicsApi.ToString(CultureInfo.InvariantCulture);
@@ -120,31 +116,31 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         _ = _settings.SaveAsync();
     }
 
-    private Task<string> EnsureEmulatorPathAsync()
+    private Task<string?> EnsureEmulatorPathAsync()
     {
         try
         {
             if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
             {
-                return Task.FromResult(_emulatorPath);
+                return Task.FromResult<string?>(_emulatorPath);
             }
 
             var resolved = EmulatorPathResolver.TryFindEmulatorPath("Azahar", _logger);
             if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
             {
                 _emulatorPath = resolved;
-                return Task.FromResult(_emulatorPath);
+                return Task.FromResult<string?>(_emulatorPath);
             }
 
             var result = RequestEmulatorPath?.Invoke();
-            if (string.IsNullOrEmpty(result)) return Task.FromResult<string>(null);
+            if (string.IsNullOrEmpty(result)) return Task.FromResult<string?>(null);
 
             _emulatorPath = result;
-            return Task.FromResult(_emulatorPath);
+            return Task.FromResult<string?>(_emulatorPath);
         }
         catch (Exception exception)
         {
-            return Task.FromException<string>(exception);
+            return Task.FromException<string?>(exception);
         }
     }
 
@@ -202,7 +198,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectAzaharConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
         }
     }
 
@@ -235,7 +231,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectAzaharConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
         }
     }
 }

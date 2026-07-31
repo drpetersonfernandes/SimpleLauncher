@@ -16,8 +16,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath;
-
+    private string _emulatorPath = null!;
     [ObservableProperty] private bool _new3DEngine;
     [ObservableProperty] private bool _quadRendering;
     [ObservableProperty] private bool _fullscreen;
@@ -30,10 +29,9 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     [ObservableProperty] private int _soundVolume;
     [ObservableProperty] private bool _throttle;
     [ObservableProperty] private bool _multiThreaded;
-    [ObservableProperty] private string _inputSystem;
-    [ObservableProperty] private string _powerPcFrequency;
+    [ObservableProperty] private string _inputSystem = null!;
+    [ObservableProperty] private string _powerPcFrequency = null!;
     [ObservableProperty] private bool _showBeforeLaunch;
-
     public InjectSupermodelConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
@@ -48,7 +46,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     public void Initialize(string? emulatorPath, bool isLauncherMode)
     {
-        _emulatorPath = emulatorPath;
+        _emulatorPath = emulatorPath!;
         IsLauncherMode = isLauncherMode;
         LoadSettings();
     }
@@ -76,8 +74,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
@@ -87,13 +84,11 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string> RequestEmulatorPath;
-
+    public event Func<string?> RequestEmulatorPath = null!;
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow;
-
+    public event Func<Window> GetOwnerWindow = null!;
     private void LoadSettings()
     {
         New3DEngine = _settings.Supermodel.New3DEngine;
@@ -137,7 +132,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
         _ = _settings.SaveAsync();
     }
 
-    private async Task<string> EnsureEmulatorPathAsync()
+    private async Task<string?> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {

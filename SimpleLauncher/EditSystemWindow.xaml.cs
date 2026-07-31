@@ -935,8 +935,8 @@ internal partial class EditSystemWindow : ILoadingState
 
             if (result != null)
             {
-                var suggestedParam = result.SuggestedParameter ?? "";
-                var explanation = result.Explanation ?? "";
+                var suggestedParam = result.SuggestedParameter;
+                var explanation = result.Explanation;
 
                 if (!string.IsNullOrWhiteSpace(suggestedParam) && suggestedParam.StartsWith("Explanation:", StringComparison.OrdinalIgnoreCase))
                 {

@@ -1,6 +1,4 @@
-using Serilog;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
-using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
@@ -39,7 +37,7 @@ public class DeleteFilesServiceTests : IDisposable
     [Fact]
     public void TryDeleteFileNullPathDoesNotThrow()
     {
-        var ex = Record.Exception(() => _service.TryDeleteFile(null));
+        var ex = Record.Exception(() => _service.TryDeleteFile(null!));
         Assert.Null(ex);
     }
 
@@ -88,7 +86,7 @@ public class DeleteFilesServiceTests : IDisposable
     [Fact]
     public async Task TryDeleteFileAsyncNullPathDoesNotThrow()
     {
-        var ex = await Record.ExceptionAsync(() => _service.TryDeleteFileAsync(null));
+        var ex = await Record.ExceptionAsync(() => _service.TryDeleteFileAsync(null!));
         Assert.Null(ex);
     }
 
@@ -137,7 +135,7 @@ public class DeleteFilesServiceTests : IDisposable
     [Fact]
     public void TryDeleteDirectoryNullPathDoesNotThrow()
     {
-        var ex = Record.Exception(() => _service.TryDeleteDirectory(null));
+        var ex = Record.Exception(() => _service.TryDeleteDirectory(null!));
         Assert.Null(ex);
     }
 

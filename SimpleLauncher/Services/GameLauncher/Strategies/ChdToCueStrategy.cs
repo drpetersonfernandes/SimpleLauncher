@@ -61,7 +61,7 @@ public class ChdToCueStrategy : ILaunchStrategy
         {
             context.LoadingState.SetLoadingState(true, convertingMsg);
 
-            string cuePath;
+            string? cuePath;
             try
             {
                 cuePath = await _discConverter.ConvertChdToCueBinAsync(context.ResolvedFilePath);
@@ -80,7 +80,7 @@ public class ChdToCueStrategy : ILaunchStrategy
 
             try
             {
-                await launcher.LaunchRegularEmulatorAsync(cuePath, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.WindowContext, context.LoadingState);
+                await launcher.LaunchRegularEmulatorAsync(cuePath, context.EmulatorName, context.SystemManager!, context.EmulatorManager!, context.Parameters, context.WindowContext!, context.LoadingState);
             }
             finally
             {

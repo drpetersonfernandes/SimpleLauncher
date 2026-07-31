@@ -21,7 +21,7 @@ public partial class MainWindow
 
     string? IUiResetHost.ActiveSearchQueryOrMode { get; set; }
 
-    string IUiResetHost.SelectedSystem
+    string? IUiResetHost.SelectedSystem
     {
         get => SelectedSystem;
         set => SelectedSystem = value;
@@ -67,12 +67,12 @@ public partial class MainWindow
         PreviewImage.Source = null;
     }
 
-    void IUiResetHost.SetSystemComboBoxSelectedItem(object item)
+    void IUiResetHost.SetSystemComboBoxSelectedItem(object? item)
     {
         SystemComboBox.SelectedItem = item;
     }
 
-    void IUiResetHost.SetEmulatorComboBoxSelectedItem(object item)
+    void IUiResetHost.SetEmulatorComboBoxSelectedItem(object? item)
     {
         EmulatorComboBox.SelectedItem = item;
     }

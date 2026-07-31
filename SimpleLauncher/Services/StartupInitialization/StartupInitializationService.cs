@@ -25,7 +25,7 @@ public class StartupInitializationService
     private readonly IApplicationLifetime _applicationLifetime;
     private readonly ILogger _logger;
     private readonly RequiredFiles _requiredFiles;
-    private IStartupInitializationHost _host;
+    private IStartupInitializationHost _host = null!;
 
     /// <summary>
     /// Initializes a new instance of the StartupInitializationService with the specified dependencies.

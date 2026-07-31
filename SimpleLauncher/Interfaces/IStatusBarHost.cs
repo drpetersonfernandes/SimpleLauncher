@@ -7,5 +7,5 @@ public interface IStatusBarHost
 {
     Dispatcher Dispatcher { get; }
     Label StatusBarText { get; }
-    DispatcherTimer StatusBarTimer { get; }
+    DispatcherTimer? StatusBarTimer { get; }
 }

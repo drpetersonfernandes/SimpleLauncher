@@ -2,8 +2,6 @@ using SimpleLauncher.Services.CleanAndDeleteFiles;
 
 namespace SimpleLauncher.Services.CheckIfDirectoryIsWritable;
 
-using Interfaces;
-
 public static class CheckIfDirectoryIsWritable
 {
     public static bool IsWritableDirectory(string path, ILogger logErrors)

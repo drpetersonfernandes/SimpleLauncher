@@ -1,7 +1,5 @@
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
-using Interfaces;
-
 /// <summary>
 /// Locates the default.xbe file (original Xbox executable) in a given directory.
 /// </summary>
@@ -10,7 +8,7 @@ public static class FindDefaultXbe
     /// <summary>
     /// Searches for default.xbe in the specified root directory.
     /// </summary>
-    public static string Find(string rootPath, ILogger logErrors)
+    public static string? Find(string rootPath, ILogger logErrors)
     {
         try
         {

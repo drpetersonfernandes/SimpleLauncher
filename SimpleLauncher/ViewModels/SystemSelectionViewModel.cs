@@ -12,7 +12,7 @@ using Interfaces;
 public partial class SystemSelectionViewModel : ObservableObject
 {
     private readonly IRetroAchievementsSystemMatcher _systemMatcher;
-    private string _selectedSystem;
+    private string? _selectedSystem;
 
     public SystemSelectionViewModel(IRetroAchievementsSystemMatcher systemMatcher)
     {
@@ -36,7 +36,7 @@ public partial class SystemSelectionViewModel : ObservableObject
     /// <summary>
     /// Gets or sets the selected system name.
     /// </summary>
-    public string SelectedSystem
+    public string? SelectedSystem
     {
         get => _selectedSystem;
         set => SetProperty(ref _selectedSystem, value);
@@ -45,7 +45,7 @@ public partial class SystemSelectionViewModel : ObservableObject
     /// <summary>
     /// Event raised when the window should be closed with a dialog result.
     /// </summary>
-    public event Action<bool?> DialogResultRequested;
+    public event Action<bool?>? DialogResultRequested;
 
     [RelayCommand]
     private void Confirm()

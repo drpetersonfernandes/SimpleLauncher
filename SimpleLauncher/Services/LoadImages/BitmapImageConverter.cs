@@ -1,5 +1,3 @@
-#nullable enable
-
 using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher.Services.LoadImages;
@@ -27,7 +25,7 @@ public static class BitmapImageConverter
         }
         catch (Exception ex)
         {
-            Serilog.Log.Debug($"[BitmapImageConverter] ToBitmapImage failed: {ex.Message}");
+            Log.Debug($"[BitmapImageConverter] ToBitmapImage failed: {ex.Message}");
             stream.Dispose();
             return null;
         }

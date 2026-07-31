@@ -3,8 +3,6 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
-using Interfaces;
-
 /// <summary>
 /// Tests the <see cref="CheckIfDirectoryIsWritable"/> utility for verifying directory write access.
 /// </summary>
@@ -61,5 +59,4 @@ public class CheckIfDirectoryIsWritableTests
             Directory.Delete(tempDir);
         }
     }
-
 }

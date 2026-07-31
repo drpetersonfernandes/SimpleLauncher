@@ -1,4 +1,3 @@
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.GetListOfFiles;
 using Xunit;
 

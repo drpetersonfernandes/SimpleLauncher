@@ -53,7 +53,7 @@ public class SupermodelConfigHandler : IEmulatorConfigHandler
             else
             {
                 shouldRun = true;
-                if (File.Exists(resolvedExe)) SupermodelConfigurationService.InjectSettings(resolvedExe, context.Settings, _logger);
+                if (File.Exists(resolvedExe)) SupermodelConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger);
             }
 
             return shouldRun;

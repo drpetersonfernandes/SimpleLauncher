@@ -5,7 +5,10 @@ namespace SimpleLauncher.Tests;
 
 public class DebugViewModelTests
 {
-    private static DebugViewModel CreateViewModel() => new();
+    private static DebugViewModel CreateViewModel()
+    {
+        return new DebugViewModel();
+    }
 
     [Fact]
     public void ConstructorInitializesEmptyLog()
@@ -114,7 +117,13 @@ public class DebugViewModelTests
     {
         var viewModel = CreateViewModel();
         var raised = false;
-        viewModel.PropertyChanged += (_, e) => { if (e.PropertyName == nameof(DebugViewModel.CanClearLog)) raised = true; };
+        viewModel.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName == nameof(DebugViewModel.CanClearLog))
+            {
+                raised = true;
+            }
+        };
         viewModel.AppendLogMessage("Test");
         Assert.True(raised);
     }
@@ -124,7 +133,13 @@ public class DebugViewModelTests
     {
         var viewModel = CreateViewModel();
         var raised = false;
-        viewModel.PropertyChanged += (_, e) => { if (e.PropertyName == nameof(DebugViewModel.CanCopyLog)) raised = true; };
+        viewModel.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName == nameof(DebugViewModel.CanCopyLog))
+            {
+                raised = true;
+            }
+        };
         viewModel.AppendLogMessage("Test");
         Assert.True(raised);
     }
@@ -134,7 +149,13 @@ public class DebugViewModelTests
     {
         var viewModel = CreateViewModel();
         var raised = false;
-        viewModel.PropertyChanged += (_, e) => { if (e.PropertyName == nameof(DebugViewModel.LogText)) raised = true; };
+        viewModel.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName == nameof(DebugViewModel.LogText))
+            {
+                raised = true;
+            }
+        };
         viewModel.AppendLogMessage("Test");
         Assert.True(raised);
     }

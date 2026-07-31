@@ -8,30 +8,30 @@ namespace SimpleLauncher.Services.SystemManager;
 public class SystemManagerConfig : ISystemManager
 {
     /// <summary>Gets the name of the system.</summary>
-    public string SystemName { get; init; }
+    public string SystemName { get; init; } = null!;
 
     /// <summary>Gets the list of ROM folder paths for this system.</summary>
-    public List<string> SystemFolders { get; init; }
+    public List<string> SystemFolders { get; init; } = null!;
 
     /// <summary>Gets the first (primary) system folder path.</summary>
-    public string PrimarySystemFolder => SystemFolders?.FirstOrDefault();
+    public string? PrimarySystemFolder => SystemFolders?.FirstOrDefault();
 
     /// <summary>Gets the path to the folder containing system images.</summary>
-    public string SystemImageFolder { get; init; }
+    public string SystemImageFolder { get; init; } = null!;
 
     /// <summary>Gets the list of file extensions to search for in ROM folders.</summary>
-    public List<string> FileFormatsToSearch { get; init; }
+    public List<string> FileFormatsToSearch { get; init; } = null!;
 
     /// <summary>Gets whether compressed files should be extracted before launching.</summary>
     public bool ExtractFileBeforeLaunch { get; init; }
 
     /// <summary>Gets the list of file extensions that can be launched directly.</summary>
-    public List<string> FileFormatsToLaunch { get; init; }
+    public List<string> FileFormatsToLaunch { get; init; } = null!;
 
     /// <summary>Gets the list of configured emulators for this system.</summary>
-    public List<Emulator> Emulators { get; init; }
+    public List<Emulator> Emulators { get; init; } = null!;
 
-    IReadOnlyList<IEmulator> ISystemManager.Emulators => Emulators?.Cast<IEmulator>().ToList();
+    IReadOnlyList<IEmulator> ISystemManager.Emulators => Emulators?.Cast<IEmulator>().ToList() ?? [];
 
     /// <summary>Gets whether games should be grouped by their parent folder.</summary>
     public bool GroupByFolder { get; init; }

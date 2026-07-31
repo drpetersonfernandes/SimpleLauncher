@@ -31,7 +31,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
     /// <summary>
     /// Asynchronously saves a system configuration to the XML file, creating or updating the entry.
     /// </summary>
-    public async Task SaveSystemAsync(ISystemManager systemConfig, string originalSystemName = null)
+    public async Task SaveSystemAsync(ISystemManager systemConfig, string? originalSystemName = null)
     {
         try
         {
@@ -95,7 +95,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                     // Save with retry logic
                     const int maxRetries = 3;
                     var retryDelayMs = 500;
-                    Exception lastException = null;
+                    Exception? lastException = null;
 
                     for (var attempt = 0; attempt < maxRetries; attempt++)
                     {

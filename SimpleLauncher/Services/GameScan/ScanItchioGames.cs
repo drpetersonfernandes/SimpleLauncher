@@ -26,8 +26,8 @@ public class ScanItchioGames : IGamePlatformScanner
                     var dirInfo = new DirectoryInfo(gameDir);
                     var gameName = dirInfo.Name;
                     var manifestPath = Path.Combine(gameDir, ".itch.toml");
-                    string prettyName = null;
-                    string launchExe = null;
+                    string? prettyName = null;
+                    string? launchExe = null;
 
                     if (File.Exists(manifestPath))
                     {

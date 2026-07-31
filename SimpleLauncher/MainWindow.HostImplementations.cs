@@ -13,7 +13,7 @@ using Interfaces;
 public partial class MainWindow
 {
     // IStartupInitializationHost
-    DispatcherTimer IStartupInitializationHost.StatusBarTimer
+    DispatcherTimer? IStartupInitializationHost.StatusBarTimer
     {
         get => StatusBarTimer;
         set => StatusBarTimer = value;
@@ -57,5 +57,5 @@ public partial class MainWindow
     // IStatusBarHost
     Dispatcher IStatusBarHost.Dispatcher => Dispatcher;
     Label IStatusBarHost.StatusBarText => StatusBarText;
-    DispatcherTimer IStatusBarHost.StatusBarTimer => StatusBarTimer;
+    DispatcherTimer? IStatusBarHost.StatusBarTimer => StatusBarTimer;
 }

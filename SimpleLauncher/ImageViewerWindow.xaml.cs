@@ -26,7 +26,7 @@ public partial class ImageViewerWindow
     /// Loads an image from a file path.
     /// </summary>
     /// <param name="imagePath">The path to the image file.</param>
-    public void LoadImagePath(string imagePath)
+    public void LoadImagePath(string? imagePath)
     {
         _ = _viewModel.LoadImageFromPathAsync(imagePath);
     }

@@ -126,7 +126,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Log but don't throw during disposal
-            Serilog.Log.Debug($"Error during Dispose: {ex.Message}");
+            Log.Debug($"Error during Dispose: {ex.Message}");
         }
 
         GC.SuppressFinalize(this);

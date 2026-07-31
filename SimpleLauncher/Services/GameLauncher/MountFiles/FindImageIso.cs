@@ -1,7 +1,5 @@
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
-using Interfaces;
-
 /// <summary>
 /// Locates the image.iso file in a given directory.
 /// </summary>
@@ -10,7 +8,7 @@ public static class FindImageIso
     /// <summary>
     /// Searches for image.iso in the specified root directory.
     /// </summary>
-    public static string Find(string rootPath, ILogger logErrors)
+    public static string? Find(string rootPath, ILogger logErrors)
     {
         try
         {

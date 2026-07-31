@@ -3,8 +3,6 @@ using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
 
-using Interfaces;
-
 /// <summary>
 /// Partial MainWindow containing launch tool click handlers for batch file creation and emulator utilities.
 /// </summary>

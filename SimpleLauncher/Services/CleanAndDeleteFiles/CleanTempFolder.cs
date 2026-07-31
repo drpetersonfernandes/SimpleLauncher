@@ -6,7 +6,7 @@ public static class CleanTempFolder
     /// Cleans up the specified temporary directory by removing all its contents and the directory itself.
     /// </summary>
     /// <param name="directoryPath">The path to the temporary directory to be cleaned up.</param>
-    public static async Task CleanupTempDirectoryAsync(string directoryPath)
+    public static async Task CleanupTempDirectoryAsync(string? directoryPath)
     {
         if (string.IsNullOrEmpty(directoryPath) || !Directory.Exists(directoryPath)) return;
 

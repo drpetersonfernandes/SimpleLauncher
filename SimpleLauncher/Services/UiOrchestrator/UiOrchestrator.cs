@@ -16,7 +16,7 @@ using Interfaces;
 /// </summary>
 public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiHost, IPaginationHost
 {
-    private IUiOrchestratorHost _host;
+    private IUiOrchestratorHost _host = null!;
     private readonly LoadingOverlayService _loadingOverlayService;
     private readonly GameListUiService _gameListUiService;
     private readonly IPaginationService _paginationService;
@@ -53,7 +53,7 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
         _loadingOverlayService.Initialize(this);
         _gameListUiService.Initialize(this);
         _paginationService.Initialize(this);
-        _uiResetService.Initialize(host as IUiResetHost);
+        _uiResetService.Initialize((host as IUiResetHost)!);
     }
 
     /// <summary>Sets the loading state, optionally displaying a loading overlay with a message.</summary>
@@ -276,7 +276,7 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
         _host.Scroller.ScrollToTop();
     }
 
-    void IPaginationHost.UpdateTotalFilesLabel(string text)
+    void IPaginationHost.UpdateTotalFilesLabel(string? text)
     {
         _host.TotalFilesLabel.Dispatcher.Invoke(() => _host.TotalFilesLabel.Content = text);
     }

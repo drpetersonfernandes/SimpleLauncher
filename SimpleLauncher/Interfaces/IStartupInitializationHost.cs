@@ -7,9 +7,9 @@ namespace SimpleLauncher.Interfaces;
 
 public interface IStartupInitializationHost
 {
-    DispatcherTimer StatusBarTimer { get; set; }
+    DispatcherTimer? StatusBarTimer { get; set; }
     Label StatusBarText { get; }
-    string SelectedSystem { get; set; }
+    string? SelectedSystem { get; set; }
     string PlayTime { get; set; }
     MenuItem RetroAchievementButton { get; }
     MenuItem VideoLinkButton { get; }

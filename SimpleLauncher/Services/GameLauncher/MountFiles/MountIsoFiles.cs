@@ -30,7 +30,7 @@ public class MountIsoFiles : IMountIsoFiles
         _logger.Debug($"[MountIsoFiles] Starting to mount ISO using PowerShell: {resolvedIsoFilePath}");
         _logger.Debug($"[MountIsoFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
-        string mountPath = null;
+        string? mountPath = null;
 
         if (resolvedIsoFilePath == null)
         {
@@ -162,7 +162,7 @@ public class MountIsoFiles : IMountIsoFiles
         return false;
     }
 
-    public async Task<string> ExecutePowerShellMountCommandAsync(string isoPath, ILogger logErrors, IMessageBoxLibraryService messageBox)
+    public async Task<string?> ExecutePowerShellMountCommandAsync(string isoPath, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         var escapedIsoPath = isoPath.Replace("'", "''"); // Escape single quotes for PowerShell
         var command = $"$isoPath = '{escapedIsoPath}'; " +

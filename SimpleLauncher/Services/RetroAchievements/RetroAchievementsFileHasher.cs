@@ -21,12 +21,12 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
     /// <summary>
     /// Calculates the MD5 hash of the entire file.
     /// </summary>
-    public Task<string> CalculateStandardMd5Async(string filePath)
+    public Task<string?> CalculateStandardMd5Async(string filePath)
     {
         return CalculateMd5WithOffsetAsync(filePath, 0);
     }
 
-    private async Task<string> CalculateMd5WithOffsetAsync(string filePath, long offset)
+    private async Task<string?> CalculateMd5WithOffsetAsync(string filePath, long offset)
     {
         try
         {
@@ -51,7 +51,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
     /// <summary>
     /// Calculates the hash for Arcade games by hashing the filename without its extension.
     /// </summary>
-    public string CalculateFilenameHash(string filePath)
+    public string? CalculateFilenameHash(string filePath)
     {
         try
         {
@@ -91,7 +91,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
     /// <param name="filePath">The full path to the game file.</param>
     /// <param name="systemName">The normalized RetroAchievements system name.</param>
     /// <returns>The calculated hash as a string, or null if an error occurs.</returns>
-    public async Task<string> CalculateHeaderBasedMd5Async(string filePath, string systemName)
+    public async Task<string?> CalculateHeaderBasedMd5Async(string filePath, string systemName)
     {
         long offset = 0;
         try
@@ -183,7 +183,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
     /// <summary>
     /// Calculates the hash for Arduboy files by normalizing line endings.
     /// </summary>
-    public async Task<string> CalculateArduboyHashAsync(string filePath)
+    public async Task<string?> CalculateArduboyHashAsync(string filePath)
     {
         try
         {
@@ -205,7 +205,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
     /// .z64 (Big Endian) is hashed directly.
     /// .v64 (Byte Swapped) and .n64 (Little Endian) are byte-swapped to Big Endian before hashing.
     /// </summary>
-    public async Task<string> CalculateN64HashAsync(string filePath)
+    public async Task<string?> CalculateN64HashAsync(string filePath)
     {
         var extension = Path.GetExtension(filePath).ToLowerInvariant();
         try
@@ -236,7 +236,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
     /// <summary>
     /// Calculates the MD5 hash of a file with byte-swapping, streaming to avoid loading the entire file into memory.
     /// </summary>
-    private async Task<string> CalculateByteSwappedMd5Async(string filePath)
+    private async Task<string?> CalculateByteSwappedMd5Async(string filePath)
     {
         try
         {
@@ -266,7 +266,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
             }
 
             md5.TransformFinalBlock([], 0, 0);
-            return ToHexString(md5.Hash);
+            return ToHexString(md5.Hash!);
         }
         catch (Exception ex)
         {

@@ -8,8 +8,6 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 
-using Interfaces;
-
 internal partial class EditSystemWindow
 {
     private async void SaveSystemButtonClickAsync(object sender, RoutedEventArgs e)

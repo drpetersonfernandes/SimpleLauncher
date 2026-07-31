@@ -16,17 +16,16 @@ public partial class InjectCemuConfigViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath;
+    private string _emulatorPath = "";
 
     [ObservableProperty] private bool _fullscreen;
-    [ObservableProperty] private string _graphicApi;
-    [ObservableProperty] private string _vsync;
+    [ObservableProperty] private string _graphicApi = "";
+    [ObservableProperty] private string _vsync = "";
     [ObservableProperty] private bool _asyncCompile;
     [ObservableProperty] private int _volume;
     [ObservableProperty] private bool _discord;
-    [ObservableProperty] private string _language;
+    [ObservableProperty] private string _language = "";
     [ObservableProperty] private bool _showBeforeLaunch;
-
     public InjectCemuConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
@@ -41,7 +40,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     public void Initialize(string? emulatorPath, bool isLauncherMode)
     {
-        _emulatorPath = emulatorPath;
+        _emulatorPath = emulatorPath ?? "";
         IsLauncherMode = isLauncherMode;
         LoadSettings();
     }
@@ -59,8 +58,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
@@ -70,13 +68,11 @@ public partial class InjectCemuConfigViewModel : ObservableObject
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string> RequestEmulatorPath;
-
+    public event Func<string?> RequestEmulatorPath = null!;
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow;
-
+    public event Func<Window> GetOwnerWindow = null!;
     private void LoadSettings()
     {
         Fullscreen = _settings.Cemu.Fullscreen;
@@ -114,7 +110,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
         _ = _settings.SaveAsync();
     }
 
-    private async Task<string> EnsureEmulatorPathAsync()
+    private async Task<string?> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {
@@ -180,7 +176,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectCemuConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
         }
     }
 
@@ -210,7 +206,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectCemuConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
         }
     }
 }

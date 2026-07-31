@@ -16,12 +16,11 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath;
-
+    private string _emulatorPath = null!;
     [ObservableProperty] private int _resX;
     [ObservableProperty] private int _resY;
-    [ObservableProperty] private string _wideScreen;
-    [ObservableProperty] private string _fsaa;
+    [ObservableProperty] private string _wideScreen = null!;
+    [ObservableProperty] private string _fsaa = null!;
     [ObservableProperty] private bool _bilinear;
     [ObservableProperty] private bool _trilinear;
     [ObservableProperty] private bool _filterTilemaps;
@@ -31,7 +30,6 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     [ObservableProperty] private bool _holdGears;
     [ObservableProperty] private bool _useRawInput;
     [ObservableProperty] private bool _showBeforeLaunch;
-
     public InjectSegaModel2ConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
@@ -46,7 +44,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     public void Initialize(string? emulatorPath, bool isLauncherMode)
     {
-        _emulatorPath = emulatorPath;
+        _emulatorPath = emulatorPath!;
         IsLauncherMode = isLauncherMode;
         LoadSettings();
     }
@@ -74,8 +72,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
@@ -85,13 +82,11 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string> RequestEmulatorPath;
-
+    public event Func<string?> RequestEmulatorPath = null!;
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow;
-
+    public event Func<Window> GetOwnerWindow = null!;
     private void LoadSettings()
     {
         ResX = _settings.SegaModel2.ResX;
@@ -135,7 +130,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
         _ = _settings.SaveAsync();
     }
 
-    private async Task<string> EnsureEmulatorPathAsync()
+    private async Task<string?> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {

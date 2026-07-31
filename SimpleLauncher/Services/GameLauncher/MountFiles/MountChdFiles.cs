@@ -200,9 +200,9 @@ public class MountChdFiles : IMountChdFiles
         _logger.Debug($"[MountChdFiles] Arguments: {psiMount.Arguments}");
         _logger.Debug($"[MountChdFiles] WorkingDirectory: {psiMount.WorkingDirectory}");
 
-        Process mountProcess = null;
+        Process? mountProcess = null;
         var mountProcessId = -1;
-        string driveRoot = null;
+        string? driveRoot = null;
         var errorOutput = new List<string>();
 
         try
@@ -403,9 +403,9 @@ public class MountChdFiles : IMountChdFiles
         _logger.Debug($"[MountChdFiles] Arguments: {psiMount.Arguments}");
         _logger.Debug($"[MountChdFiles] WorkingDirectory: {psiMount.WorkingDirectory}");
 
-        Process mountProcess = null;
+        Process? mountProcess = null;
         var mountProcessId = -1;
-        string driveRoot = null;
+        string? driveRoot = null;
         var errorOutput = new List<string>();
 
         try
@@ -752,7 +752,7 @@ public class MountChdFiles : IMountChdFiles
         return (false, null, null);
     }
 
-    private string FindGameFile(string driveRoot, ILogger logErrors)
+    private string? FindGameFile(string driveRoot, ILogger logErrors)
     {
         try
         {

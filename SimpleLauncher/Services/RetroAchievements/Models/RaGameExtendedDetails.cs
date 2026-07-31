@@ -20,7 +20,7 @@ public record RaGameExtendedDetails
     public int? ForumTopicId { get; init; }
 
     [JsonPropertyName("Flags")]
-    public object Flags { get; init; }
+    public object Flags { get; init; } = null!;
 
     [JsonPropertyName("ImageIcon")]
     public string ImageIcon { get; init; } = "";

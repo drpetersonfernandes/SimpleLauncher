@@ -21,15 +21,15 @@ public partial class MainWindow : ISystemSelectionHost
     Grid ISystemSelectionHost.ListViewPreviewArea => ListViewPreviewArea;
     Image ISystemSelectionHost.PreviewImage => PreviewImage;
     Label ISystemSelectionHost.TotalFilesLabel => TotalFilesLabel;
-    Button ISystemSelectionHost.PrevPageButton2 => PrevPageButton2;
-    Button ISystemSelectionHost.NextPageButton2 => NextPageButton2;
+    Button ISystemSelectionHost.PrevPageButton2 => PrevPageButton2!;
+    Button ISystemSelectionHost.NextPageButton2 => NextPageButton2!;
     TextBox ISystemSelectionHost.SearchTextBox => SearchTextBox;
     ComboBox ISystemSelectionHost.SystemComboBox => SystemComboBox;
     ComboBox ISystemSelectionHost.EmulatorComboBox => EmulatorComboBox;
     Button ISystemSelectionHost.SortOrderToggleButton => SortOrderToggleButton;
     ObservableCollection<GameListViewItem> ISystemSelectionHost.GameListItems => GameListItems;
 
-    string ISystemSelectionHost.SelectedSystem
+    string? ISystemSelectionHost.SelectedSystem
     {
         get => SelectedSystem;
         set => SelectedSystem = value;

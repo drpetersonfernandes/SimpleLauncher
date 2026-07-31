@@ -35,7 +35,7 @@ public record RaGameProgressResponse
     public int? ForumTopicId { get; init; }
 
     [JsonPropertyName("Flags")]
-    public object Flags { get; init; }
+    public object Flags { get; init; } = null!;
 
     [JsonPropertyName("ImageTitle")]
     public string ImageTitle { get; init; } = "";

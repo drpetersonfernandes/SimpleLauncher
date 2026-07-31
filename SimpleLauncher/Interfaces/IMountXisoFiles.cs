@@ -4,5 +4,5 @@ namespace SimpleLauncher.Interfaces;
 
 public interface IMountXisoFiles
 {
-    Task<MountXisoDrive> MountAsync(string resolvedIsoFilePath, string logPath, ILogger logErrors, IMessageBoxLibraryService messageBox);
+    Task<MountXisoDrive> MountAsync(string resolvedIsoFilePath, string? logPath, ILogger logErrors, IMessageBoxLibraryService messageBox);
 }

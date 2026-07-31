@@ -21,7 +21,7 @@ namespace SimpleLauncher.Services.SystemSelectionOrchestrator;
 /// </summary>
 public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
 {
-    private ISystemSelectionHost _host;
+    private ISystemSelectionHost _host = null!;
     private readonly SettingsManager.SettingsManager _settings;
     private readonly ISystemImageResolverService _systemImageResolverService;
     private readonly IImageLoader _imageLoader;
@@ -442,7 +442,7 @@ IGameCacheService gameCacheService,
 
                     var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemImageFolder);
 
-                    var selectedRomFolders = selectedManager.SystemFolders.Select(PathHelper.ResolveRelativeToAppDirectory).ToList();
+                    var selectedRomFolders = selectedManager.SystemFolders.Select(static path => PathHelper.ResolveRelativeToAppDirectory(path) ?? path).ToList();
                     var selectedImageFolder = string.IsNullOrWhiteSpace(resolvedSystemImageFolderPath)
                         ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedManager.SystemName)
                         : resolvedSystemImageFolderPath;

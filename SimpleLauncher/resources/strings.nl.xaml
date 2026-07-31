@@ -580,6 +580,7 @@
     <system:String x:Key="Extractionfailed">Uitpakken mislukt.</system:String>
     <system:String x:Key="ExtractionFailedMessage">Het bestand is succesvol gedownload, maar automatische extractie is mislukt. Dit kan gebeuren als een antivirusprogramma het bestand scant of vergrendelt.</system:String>
     <system:String x:Key="ExtractionFailedTitle">Extractie mislukt</system:String>
+    <system:String x:Key="F8ShortcutInUse">De F8-sneltoets is al in gebruik door een ander programma. Hierdoor is de screenshot-functionaliteit uitgeschakeld.</system:String>
     <system:String x:Key="Failedtoconfiguretheemulator">Het configureren van de emulator is mislukt. Het configuratiebestand is mogelijk zoek, bevindt zich op een onverwachte locatie of is alleen-lezen.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Kopiëren van loginhoud mislukt.</system:String>
     <system:String x:Key="FailedToCopySystemImage">Kopiëren van de afbeelding mislukt:</system:String>

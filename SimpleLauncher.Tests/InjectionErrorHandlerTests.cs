@@ -34,7 +34,7 @@ public class InjectionErrorHandlerTests
     [Fact]
     public void GetEmulatorNameWithNullPathFallsBackToWindowType()
     {
-        var result = InjectionErrorHandler.GetEmulatorName(null, typeof(InjectDuckStationConfigWindow));
+        var result = InjectionErrorHandler.GetEmulatorName(null!, typeof(InjectDuckStationConfigWindow));
         Assert.Equal("DuckStation", result);
     }
 
@@ -54,7 +54,7 @@ public class InjectionErrorHandlerTests
     [Fact]
     public void GetEmulatorNameWithNullPathAndGenericTypeNameReturnsTypeName()
     {
-        var result = InjectionErrorHandler.GetEmulatorName(null, typeof(object));
+        var result = InjectionErrorHandler.GetEmulatorName(null!, typeof(object));
         Assert.Equal("Object", result);
     }
 
@@ -64,7 +64,7 @@ public class InjectionErrorHandlerTests
     [Fact]
     public void GetEmulatorNameStripsInjectPrefixAndConfigWindowSuffix()
     {
-        var result = InjectionErrorHandler.GetEmulatorName(null, typeof(InjectMameConfigWindow));
+        var result = InjectionErrorHandler.GetEmulatorName(null!, typeof(InjectMameConfigWindow));
         Assert.Equal("Mame", result);
     }
 

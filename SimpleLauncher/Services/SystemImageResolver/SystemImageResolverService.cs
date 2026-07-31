@@ -84,7 +84,7 @@ public class SystemImageResolverService : ISystemImageResolverService
                 .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
                 .ToList();
 
-            string bestMatchPath = null;
+            string? bestMatchPath = null;
             double highestSimilarity = 0;
             var lowerSystemName = systemName.ToLowerInvariant();
             var normalizedSystemName = enableAnnotationStripping

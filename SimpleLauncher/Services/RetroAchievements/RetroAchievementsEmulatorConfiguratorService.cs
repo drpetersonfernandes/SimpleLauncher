@@ -131,7 +131,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
             }
 
             // Encrypt the token using DuckStation's logic
-            var encryptedToken = EncryptDuckStationToken.EncryptDuckStationTokenMethod(token, username, isPortable, null);
+            var encryptedToken = EncryptDuckStationToken.EncryptDuckStationTokenMethod(token, username, isPortable, Log.Logger);
 
             // Validate encryption succeeded
             if (string.IsNullOrEmpty(encryptedToken))

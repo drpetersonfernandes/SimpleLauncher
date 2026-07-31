@@ -48,7 +48,7 @@ internal class ScanGogGames : IGamePlatformScanner
                         if (ignoredGameNames.Contains(displayName)) continue;
 
                         // --- FIX: Check for DLC via goggame-*.info ---
-                        string mainExePath = null;
+                        string? mainExePath = null;
                         var infoFile = Path.Combine(installLocation, $"goggame-{gameId}.info");
                         var isDlc = false;
 

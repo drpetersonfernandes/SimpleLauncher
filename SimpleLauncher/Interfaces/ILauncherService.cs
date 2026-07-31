@@ -11,7 +11,7 @@ public interface ILauncherService
         Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         IWindowContext windowContext,
-        ILoadingState loadingStateProvider,
+        ILoadingState? loadingStateProvider,
         string? originalFilePathForDisplay = null);
 
     Task RunBatchFileAsync(

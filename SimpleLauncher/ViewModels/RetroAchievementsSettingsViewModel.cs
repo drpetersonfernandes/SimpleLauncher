@@ -20,10 +20,9 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     private readonly IResourceProvider _resourceProvider;
     private readonly IRetroAchievementsEmulatorConfiguratorService _configurator;
 
-    [ObservableProperty] private string _username;
-    [ObservableProperty] private string _apiKey;
-    [ObservableProperty] private string _password;
-
+    [ObservableProperty] private string _username = null!;
+    [ObservableProperty] private string _apiKey = null!;
+    [ObservableProperty] private string _password = null!;
     public RetroAchievementsSettingsViewModel(SettingsManager settings, ILogger logErrors, IMessageBoxLibraryService messageBox, RetroAchievementsService raService, IResourceProvider resourceProvider, IRetroAchievementsEmulatorConfiguratorService configurator)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
@@ -39,11 +38,9 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     }
 
     /// <summary>Event raised when settings have been saved successfully.</summary>
-    public event Action SaveCompleted;
-
+    public event Action SaveCompleted = null!;
     /// <summary>Event raised to request the emulator executable path from the view.</summary>
-    public event Func<string> RequestExePath;
-
+    public event Func<string?> RequestExePath = null!;
     [RelayCommand]
     private async Task SaveAsync()
     {

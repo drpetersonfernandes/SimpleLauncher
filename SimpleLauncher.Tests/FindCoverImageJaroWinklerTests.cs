@@ -36,7 +36,7 @@ public class FindCoverImageJaroWinklerTests
     [Fact]
     public void JaroWinklerBothNullReturns1()
     {
-        var result = FindCoverImageService.CalculateJaroWinklerSimilarity(null, null);
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity(null!, null!);
         Assert.Equal(1.0, result, 10);
     }
 
@@ -46,7 +46,7 @@ public class FindCoverImageJaroWinklerTests
     [Fact]
     public void JaroWinklerOneEmptyOneNullReturns1()
     {
-        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("", null);
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("", null!);
         Assert.Equal(1.0, result, 10);
     }
 
@@ -66,7 +66,7 @@ public class FindCoverImageJaroWinklerTests
     [Fact]
     public void JaroWinklerOneNullReturns0()
     {
-        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("hello", null);
+        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("hello", null!);
         Assert.Equal(0.0, result, 10);
     }
 
@@ -273,7 +273,7 @@ public class FindCoverImageJaroWinklerTests
     [Fact]
     public void StripAnnotations_Null_ReturnsNull()
     {
-        var result = FindCoverImageService.StripAnnotations(null);
+        var result = FindCoverImageService.StripAnnotations(null!);
         Assert.Null(result);
     }
 

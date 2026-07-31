@@ -10,7 +10,7 @@ using Interfaces;
 public class UiResetService : IUiResetService
 {
     private readonly ILogger _logger;
-    private IUiResetHost _host;
+    private IUiResetHost _host = null!;
 
     /// <summary>Initializes a new instance of the UiResetService with error logging.</summary>
     public UiResetService(ILogger logErrors)

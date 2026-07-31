@@ -15,11 +15,10 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath;
-
+    private string _emulatorPath = null!;
     [ObservableProperty] private int _pcsx2Renderer;
     [ObservableProperty] private int _pcsx2UpscaleMultiplier;
-    [ObservableProperty] private string _pcsx2AspectRatio;
+    [ObservableProperty] private string _pcsx2AspectRatio = null!;
     [ObservableProperty] private bool _pcsx2Vsync;
     [ObservableProperty] private bool _pcsx2EnableWidescreenPatches;
     [ObservableProperty] private bool _pcsx2StartFullscreen;
@@ -28,7 +27,6 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     [ObservableProperty] private bool _pcsx2AchievementsEnabled;
     [ObservableProperty] private bool _pcsx2AchievementsHardcore;
     [ObservableProperty] private bool _pcsx2ShowSettingsBeforeLaunch;
-
     public InjectPcsx2ConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
@@ -43,7 +41,7 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     public void Initialize(string? emulatorPath, bool isLauncherMode)
     {
-        _emulatorPath = emulatorPath;
+        _emulatorPath = emulatorPath!;
         IsLauncherMode = isLauncherMode;
         LoadSettings();
     }
@@ -86,8 +84,7 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
@@ -97,13 +94,11 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string> RequestEmulatorPath;
-
+    public event Func<string?> RequestEmulatorPath = null!;
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow;
-
+    public event Func<Window> GetOwnerWindow = null!;
     private void LoadSettings()
     {
         Pcsx2Renderer = _settings.Pcsx2.Renderer;
@@ -135,31 +130,31 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
         _ = _settings.SaveAsync();
     }
 
-    private Task<string> EnsureEmulatorPathAsync()
+    private Task<string?> EnsureEmulatorPathAsync()
     {
         try
         {
             if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
             {
-                return Task.FromResult(_emulatorPath);
+                return Task.FromResult<string?>(_emulatorPath);
             }
 
             var resolved = EmulatorPathResolver.TryFindEmulatorPath("PCSX2", _logger);
             if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
             {
                 _emulatorPath = resolved;
-                return Task.FromResult(_emulatorPath);
+                return Task.FromResult<string?>(_emulatorPath);
             }
 
             var result = RequestEmulatorPath?.Invoke();
-            if (string.IsNullOrEmpty(result)) return Task.FromResult<string>(null);
+            if (string.IsNullOrEmpty(result)) return Task.FromResult<string?>(null);
 
             _emulatorPath = result;
-            return Task.FromResult(_emulatorPath);
+            return Task.FromResult<string?>(_emulatorPath);
         }
         catch (Exception exception)
         {
-            return Task.FromException<string>(exception);
+            return Task.FromException<string?>(exception);
         }
     }
 

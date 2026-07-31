@@ -1,5 +1,3 @@
-#nullable enable
-
 using NAudio.Wave;
 
 namespace SimpleLauncher.Services.PlaySound;

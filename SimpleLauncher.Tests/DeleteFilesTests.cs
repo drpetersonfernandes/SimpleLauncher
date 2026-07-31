@@ -14,7 +14,7 @@ public class DeleteFilesTests
     [Fact]
     public void TryDeleteFileNullPathDoesNotThrow()
     {
-        var ex = Record.Exception(static () => DeleteFiles.TryDeleteFile(null));
+        var ex = Record.Exception(static () => DeleteFiles.TryDeleteFile(null!));
         Assert.Null(ex);
     }
 
@@ -74,7 +74,7 @@ public class DeleteFilesTests
     [Fact]
     public async Task TryDeleteFileAsyncNullPathDoesNotThrow()
     {
-        var ex = await Record.ExceptionAsync(static () => DeleteFiles.TryDeleteFileAsync(null));
+        var ex = await Record.ExceptionAsync(static () => DeleteFiles.TryDeleteFileAsync(null!));
         Assert.Null(ex);
     }
 

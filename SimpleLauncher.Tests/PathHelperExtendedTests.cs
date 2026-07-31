@@ -188,7 +188,7 @@ public class PathHelperExtendedTests
     public void ResolveParameterStringNullSystemFoldersResolvesEmpty()
     {
         const string parameters = "-rompath %SYSTEMFOLDER%";
-        var result = PathHelper.ResolveParameterString(parameters, null);
+        var result = PathHelper.ResolveParameterString(parameters);
         Assert.Equal("-rompath ", result);
     }
 

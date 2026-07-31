@@ -4,8 +4,6 @@ using System.Text;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 
-using Interfaces;
-
 /// <summary>
 /// Provides DuckStation-compatible AES encryption for RetroAchievements API tokens.
 /// </summary>
@@ -79,7 +77,7 @@ public class EncryptDuckStationToken
     }
 
     [SupportedOSPlatform("windows")]
-    private static string GetWindowsMachineGuid()
+    private static string? GetWindowsMachineGuid()
     {
         try
         {

@@ -8,7 +8,7 @@ public class UpdateHistoryViewModel : ObservableObject
 {
     private readonly ILogger _logger;
     private readonly IResourceProvider _resourceProvider;
-    private string _markdownContent;
+    private string _markdownContent = "";
 
     public UpdateHistoryViewModel(ILogger logErrors, IResourceProvider resourceProvider)
     {

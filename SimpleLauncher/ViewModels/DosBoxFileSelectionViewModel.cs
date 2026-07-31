@@ -10,7 +10,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class DosBoxFileSelectionViewModel : ObservableObject
 {
-    private DosBoxFileItem _selectedItem;
+    private DosBoxFileItem _selectedItem = null!;
     private bool _isLaunchEnabled;
 
     public void Initialize(List<string> filePaths, string baseDirectory)
@@ -58,12 +58,12 @@ public partial class DosBoxFileSelectionViewModel : ObservableObject
     /// <summary>
     /// Gets the selected file path after dialog closes.
     /// </summary>
-    public string SelectedFilePath { get; private set; }
+    public string SelectedFilePath { get; private set; } = "";
 
     /// <summary>
     /// Event raised when the window should be closed with a dialog result.
     /// </summary>
-    public event Action<bool?> DialogResultRequested;
+    public event Action<bool?> DialogResultRequested = null!;
 
     [RelayCommand]
     private void Launch()

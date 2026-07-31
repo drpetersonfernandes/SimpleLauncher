@@ -249,7 +249,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
     /// <param name="systemId">The RetroAchievements console ID.</param>
     /// <param name="logErrors"></param>
     /// <returns>The calculated hash as a string, or null if an error occurs.</returns>
-    private async Task<string> GetHashAsync(string filePath, int systemId, ILogger logErrors)
+    private async Task<string?> GetHashAsync(string filePath, int systemId, ILogger logErrors)
     {
         if (!File.Exists(HasherPath))
         {
@@ -381,10 +381,10 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
             systemName = confirmedSystem;
         }
 
-        string tempExtractionPath = null;
-        string hash = null;
+        string? tempExtractionPath = null;
+        string? hash = null;
         var isExtractionSuccessful = true; // Assume success initially
-        string extractionErrorMessage = null;
+        string? extractionErrorMessage = null;
 
         // Report loading state if provided
         loadingState?.SetLoadingState(true, "Calculating game hash...");
@@ -507,7 +507,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
                             break;
                         }
 
-                        string tempIsoPath = null;
+                        string? tempIsoPath = null;
                         try
                         {
                             // Handle disc image conversion if necessary

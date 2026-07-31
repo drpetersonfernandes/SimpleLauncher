@@ -9,7 +9,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public class WindowSelectionDialogViewModel : ObservableObject
 {
-    private WindowItem _selectedItem;
+    private WindowItem? _selectedItem;
 
     public void Initialize(IEnumerable<(IntPtr Handle, string Title)> windows)
     {
@@ -30,7 +30,7 @@ public class WindowSelectionDialogViewModel : ObservableObject
     /// <summary>
     /// Gets or sets the selected window item.
     /// </summary>
-    public WindowItem SelectedItem
+    public WindowItem? SelectedItem
     {
         get => _selectedItem;
         set
@@ -51,5 +51,5 @@ public class WindowSelectionDialogViewModel : ObservableObject
     /// <summary>
     /// Event raised when the window should be closed with a dialog result.
     /// </summary>
-    public event Action<bool?> DialogResultRequested;
+    public event Action<bool?>? DialogResultRequested;
 }

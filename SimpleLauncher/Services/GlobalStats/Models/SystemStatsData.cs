@@ -2,7 +2,7 @@ namespace SimpleLauncher.Services.GlobalStats.Models;
 
 public class SystemStatsData
 {
-    public string SystemName { get; init; }
+    public string SystemName { get; init; } = null!;
     public int NumberOfFiles { get; init; }
     public int NumberOfImages { get; init; }
     public long TotalDiskSize { get; init; }

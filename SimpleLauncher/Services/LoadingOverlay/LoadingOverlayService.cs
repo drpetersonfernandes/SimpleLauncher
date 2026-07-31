@@ -7,7 +7,7 @@ using Interfaces;
 
 public class LoadingOverlayService
 {
-    private ILoadingOverlayHost _host;
+    private ILoadingOverlayHost _host = null!;
     private int _loadingOperationsCount;
     private readonly object _loadingStateLock = new();
     private readonly PlaySoundEffects _playSoundEffects;

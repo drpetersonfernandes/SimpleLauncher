@@ -19,8 +19,6 @@ using SimpleLauncher.ViewModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
-#nullable enable
-
 namespace SimpleLauncher.Pages;
 
 internal partial class GlobalSearchPage : IDisposable, ILoadingState
@@ -50,7 +48,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         GamePadController gamePadController,
         GameLauncher gameLauncher,
         PlaySoundEffects playSoundEffects,
-IConfiguration configuration,
+        IConfiguration configuration,
         IGetListOfFilesService getListOfFiles,
         IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,

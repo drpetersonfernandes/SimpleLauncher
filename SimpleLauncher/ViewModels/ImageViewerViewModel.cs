@@ -11,8 +11,8 @@ public class ImageViewerViewModel : ObservableObject
 {
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private BitmapSource _imageSource;
-    private string _errorMessage;
+    private BitmapSource? _imageSource;
+    private string _errorMessage = "";
 
     public ImageViewerViewModel(ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
@@ -23,7 +23,7 @@ public class ImageViewerViewModel : ObservableObject
     /// <summary>
     /// Gets or sets the image source to display.
     /// </summary>
-    public BitmapSource ImageSource
+    public BitmapSource? ImageSource
     {
         get => _imageSource;
         private set => SetProperty(ref _imageSource, value);
@@ -42,11 +42,11 @@ public class ImageViewerViewModel : ObservableObject
     /// Loads an image from a file path.
     /// </summary>
     /// <param name="imagePath">The path to the image file.</param>
-    public async Task LoadImageFromPathAsync(string imagePath)
+    public async Task LoadImageFromPathAsync(string? imagePath)
     {
         try
         {
-            var imageData = await File.ReadAllBytesAsync(imagePath);
+            var imageData = await File.ReadAllBytesAsync(imagePath!);
             using var ms = new MemoryStream(imageData);
             var bitmap = new BitmapImage();
             bitmap.BeginInit();
@@ -56,7 +56,7 @@ public class ImageViewerViewModel : ObservableObject
             bitmap.Freeze(); // Freeze the bitmap to make it cross-thread accessible
 
             ImageSource = bitmap;
-            ErrorMessage = null;
+            ErrorMessage = "";
         }
         catch (Exception ex)
         {
@@ -84,7 +84,7 @@ public class ImageViewerViewModel : ObservableObject
                 var bitmap = new BitmapImage(imageUri);
                 bitmap.Freeze();
                 ImageSource = bitmap;
-                ErrorMessage = null;
+                ErrorMessage = "";
             }
             else
             {
@@ -104,6 +104,6 @@ public class ImageViewerViewModel : ObservableObject
     public void ClearImage()
     {
         ImageSource = null;
-        ErrorMessage = null;
+        ErrorMessage = "";
     }
 }

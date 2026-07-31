@@ -1,5 +1,3 @@
-#nullable enable
-
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;

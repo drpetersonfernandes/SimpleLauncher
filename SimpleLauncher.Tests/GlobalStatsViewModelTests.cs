@@ -262,5 +262,4 @@ public class GlobalStatsViewModelTests : IDisposable
         Assert.NotNull(viewModel.BusyOverlayText);
         Assert.NotNull(viewModel.SystemStats);
     }
-
 }

@@ -8,9 +8,9 @@ public class DebugWindowSink : ILogEventSink
 {
     private static readonly object SinkLock = new();
     private static readonly List<string> MessageBuffer = [];
-    private static DebugViewModel _viewModel;
+    private static DebugViewModel? _viewModel;
 
-    public static DebugViewModel ViewModel
+    public static DebugViewModel? ViewModel
     {
         get
         {

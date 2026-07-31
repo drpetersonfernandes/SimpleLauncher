@@ -17,8 +17,8 @@ public partial class SetLinksViewModel : ObservableObject
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
 
-    [ObservableProperty] private string _videoUrl;
-    [ObservableProperty] private string _infoUrl;
+    [ObservableProperty] private string _videoUrl = "";
+    [ObservableProperty] private string _infoUrl = "";
 
     public SetLinksViewModel(SettingsManager settingsManager, IConfiguration configuration, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
@@ -32,11 +32,9 @@ public partial class SetLinksViewModel : ObservableObject
     }
 
     /// <summary>Event raised when settings have been saved.</summary>
-    public event Action SaveCompleted;
-
+    public event Action SaveCompleted = null!;
     /// <summary>Event raised when the window should be closed.</summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     [RelayCommand]
     private async Task SaveAsync()
     {

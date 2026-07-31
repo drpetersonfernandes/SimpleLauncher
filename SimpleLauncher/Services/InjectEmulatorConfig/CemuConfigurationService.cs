@@ -3,8 +3,6 @@ using System.Xml.Linq;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
-using Interfaces;
-
 public static class CemuConfigurationService
 {
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
@@ -54,13 +52,13 @@ public static class CemuConfigurationService
 
             // Graphic Section
             var graphic = GetOrCreateElement(content, "Graphic");
-            SetOrUpdateElement(graphic, "api", settings.Cemu.GraphicApi.ToString(CultureInfo.InvariantCulture));
-            SetOrUpdateElement(graphic, "VSync", settings.Cemu.Vsync.ToString(CultureInfo.InvariantCulture));
-            SetOrUpdateElement(graphic, "AsyncCompile", settings.Cemu.AsyncCompile.ToString().ToLowerInvariant());
+            SetOrUpdateElement(graphic!, "api", settings.Cemu.GraphicApi.ToString(CultureInfo.InvariantCulture));
+            SetOrUpdateElement(graphic!, "VSync", settings.Cemu.Vsync.ToString(CultureInfo.InvariantCulture));
+            SetOrUpdateElement(graphic!, "AsyncCompile", settings.Cemu.AsyncCompile.ToString().ToLowerInvariant());
 
             // Audio Section
             var audio = GetOrCreateElement(content, "Audio");
-            SetOrUpdateElement(audio, "TVVolume", settings.Cemu.TvVolume.ToString(CultureInfo.InvariantCulture));
+            SetOrUpdateElement(audio!, "TVVolume", settings.Cemu.TvVolume.ToString(CultureInfo.InvariantCulture));
 
             // Preserve original formatting by using XmlWriter
             var writerSettings = new System.Xml.XmlWriterSettings
@@ -81,7 +79,7 @@ public static class CemuConfigurationService
         }
     }
 
-    private static XElement GetOrCreateElement(XElement parent, string name)
+    private static XElement? GetOrCreateElement(XElement parent, string name)
     {
         if (name != null)
         {

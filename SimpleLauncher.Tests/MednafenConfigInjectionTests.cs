@@ -1,4 +1,3 @@
-using Serilog;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.SettingsManager;
@@ -6,8 +5,6 @@ using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
-
-using Interfaces;
 
 public class MednafenConfigInjectionTests : IDisposable
 {
@@ -81,7 +78,7 @@ public class MednafenConfigInjectionTests : IDisposable
         settings.Mednafen.Rewind = true;
 
         var emuDir = Path.Combine(_testDirectory, "Mednafen");
-        MednafenConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        MednafenConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "mednafen.cfg");
         var content = File.ReadAllText(configPath);
@@ -108,7 +105,7 @@ public class MednafenConfigInjectionTests : IDisposable
         settings.Mednafen.Special = "hq2x";
 
         var emuDir = Path.Combine(_testDirectory, "Mednafen");
-        MednafenConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        MednafenConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "mednafen.cfg");
         var content = File.ReadAllText(configPath);
@@ -143,7 +140,7 @@ public class MednafenConfigInjectionTests : IDisposable
         settings.Mednafen.Bilinear = false;
 
         var emuDir = Path.Combine(_testDirectory, "Mednafen");
-        MednafenConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        MednafenConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "mednafen.cfg");
         var content = File.ReadAllText(configPath);
@@ -165,7 +162,7 @@ public class MednafenConfigInjectionTests : IDisposable
         settings.Mednafen.VideoDriver = "sdl";
         settings.Mednafen.Fullscreen = true;
 
-        MednafenConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        MednafenConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "mednafen.cfg");
         Assert.True(File.Exists(configPath));
@@ -187,7 +184,7 @@ public class MednafenConfigInjectionTests : IDisposable
         settings.Mednafen.Special = "none";
 
         var emuDir = Path.Combine(_testDirectory, "Mednafen");
-        MednafenConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        MednafenConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "mednafen.cfg");
         var content = File.ReadAllText(configPath);
@@ -202,5 +199,4 @@ public class MednafenConfigInjectionTests : IDisposable
             Assert.Contains($"{prefix}.special none", content);
         }
     }
-
 }

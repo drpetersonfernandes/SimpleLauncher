@@ -176,7 +176,7 @@ public class ChdMountStrategy : ILaunchStrategy
 
     public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
-        string gameFilePath;
+        string? gameFilePath;
         ResolveEmulatorFlags(context);
 
         var logPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
@@ -241,10 +241,10 @@ public class ChdMountStrategy : ILaunchStrategy
         await launcher.LaunchRegularEmulatorAsync(
             gameFilePath,
             context.EmulatorName,
-            context.SystemManager,
-            context.EmulatorManager,
+            context.SystemManager!,
+            context.EmulatorManager!,
             context.Parameters,
-            context.WindowContext,
+            context.WindowContext!,
             context.LoadingState,
             context.ResolvedFilePath);
     }

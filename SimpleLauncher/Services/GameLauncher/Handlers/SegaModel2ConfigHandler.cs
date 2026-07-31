@@ -53,7 +53,7 @@ public class SegaModel2ConfigHandler : IEmulatorConfigHandler
             else
             {
                 shouldRun = true;
-                SegaModel2ConfigurationService.InjectSettings(resolvedExe, context.Settings, _logger);
+                SegaModel2ConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger);
             }
 
             return shouldRun;

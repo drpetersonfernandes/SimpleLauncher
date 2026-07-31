@@ -60,7 +60,7 @@ public class RaineConfigHandler : IEmulatorConfigHandler
                     else if (File.Exists(resolvedExe))
                     {
                         // Pass the resolved RaineRomDirectory to the service
-                        RaineConfigurationService.InjectSettings(resolvedExe, context.Settings, _logger, context.ResolvedFilePath, resolvedSystemFolder, resolvedRaineRomDirectory);
+                        RaineConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger, context.ResolvedFilePath, resolvedSystemFolder, resolvedRaineRomDirectory);
                     }
 
                     return shouldRun;

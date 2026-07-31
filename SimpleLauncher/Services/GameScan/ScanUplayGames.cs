@@ -42,7 +42,7 @@ public class ScanUplayGames : IGamePlatformScanner
                         var shortcutContent = $"[InternetShortcut]\nURL=uplay://launch/{gameId}";
                         await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                        string fullExePath = null;
+                        string? fullExePath = null;
                         if (!string.IsNullOrEmpty(gameExe) && File.Exists(gameExe))
                         {
                             fullExePath = gameExe;

@@ -58,7 +58,7 @@ public class Pcsx2ConfigHandler : IEmulatorConfigHandler
             {
                 try
                 {
-                    Pcsx2ConfigurationService.InjectSettings(resolvedExe, context.Settings, _logger);
+                    Pcsx2ConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger);
                 }
                 catch (Pcsx2PermissionException)
                 {

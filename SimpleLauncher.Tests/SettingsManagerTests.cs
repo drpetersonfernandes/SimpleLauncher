@@ -5,8 +5,6 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
-using Interfaces;
-
 /// <summary>
 /// Tests the SettingsManager for correct default values, modification behavior, and emulator-specific settings.
 /// </summary>
@@ -536,5 +534,4 @@ public class SettingsManagerTests : IDisposable
         Assert.True(settings.Stella.TimeMachine);
         Assert.False(settings.Stella.ConfirmExit);
     }
-
 }

@@ -43,7 +43,7 @@ public partial class ValidateBatchFile
         }
         catch (Exception ex)
         {
-            Serilog.Log.Debug($"[ValidateBatchFile] ValidateBatchFileContents failed: {ex.Message}");
+            Log.Debug($"[ValidateBatchFile] ValidateBatchFileContents failed: {ex.Message}");
         }
 
         return missingPaths;
@@ -93,7 +93,7 @@ public partial class ValidateBatchFile
         }
         catch (Exception ex)
         {
-            Serilog.Log.Debug($"[ValidateBatchFile] FindInvalidQuotedPathsSimple failed: {ex.Message}");
+            Log.Debug($"[ValidateBatchFile] FindInvalidQuotedPathsSimple failed: {ex.Message}");
         }
 
         return invalidPaths;

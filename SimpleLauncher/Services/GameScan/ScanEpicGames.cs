@@ -34,8 +34,8 @@ public class ScanEpicGames : IGamePlatformScanner
                             // We might need to cross-reference with Manifests to get the pretty DisplayName.
                             // So we use the InstallLocation to find the manifest or just use the folder name as fallback.
 
-                            string displayName = null;
-                            string launchExe = null;
+                            string? displayName = null;
+                            string? launchExe = null;
 
                             // Try to find matching manifest to get DisplayName and Executable
                             var manifestsPath = Path.Combine(allUsersPath, "EpicGamesLauncher", "Data", "Manifests");
@@ -151,10 +151,10 @@ public class ScanEpicGames : IGamePlatformScanner
         }
     }
 
-    private static async Task CreateEpicShortcutAsync(GameScannerService gameScannerService, ILogger logErrors, string displayName, string appName, string installLocation, string launchExecutable, string windowsRomsPath, string windowsImagesPath)
+    private static async Task CreateEpicShortcutAsync(GameScannerService gameScannerService, ILogger logErrors, string displayName, string? appName, string? installLocation, string? launchExecutable, string? windowsRomsPath, string? windowsImagesPath)
     {
         var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(displayName);
-        var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
+        var shortcutPath = Path.Combine(windowsRomsPath!, $"{sanitizedGameName}.url");
 
         var shortcutContent = $"[InternetShortcut]\nURL=com.epicgames.launcher://apps/{appName}?action=launch&silent=true";
         await File.WriteAllTextAsync(shortcutPath, shortcutContent);
@@ -164,12 +164,12 @@ public class ScanEpicGames : IGamePlatformScanner
             // Extract icon
             case false when !string.IsNullOrEmpty(launchExecutable):
                 {
-                    var fullExePath = Path.Combine(installLocation, launchExecutable);
-                    await gameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath, fullExePath);
+                    var fullExePath = Path.Combine(installLocation!, launchExecutable);
+                    await gameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation!, sanitizedGameName, windowsImagesPath!, fullExePath);
                     break;
                 }
             case false:
-                await gameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath);
+                await gameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation!, sanitizedGameName, windowsImagesPath!);
                 break;
         }
     }

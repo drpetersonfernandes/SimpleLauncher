@@ -56,7 +56,7 @@ public class AzaharConfigHandler : IEmulatorConfigHandler
             {
                 try
                 {
-                    AzaharConfigurationService.InjectSettings(resolvedExe, context.Settings, _logger);
+                    AzaharConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger);
                 }
                 catch (AzaharPermissionException)
                 {

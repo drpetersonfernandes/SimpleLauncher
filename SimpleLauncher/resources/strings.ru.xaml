@@ -580,6 +580,7 @@
     <system:String x:Key="Extractionfailed">Распаковка не удалась.</system:String>
     <system:String x:Key="ExtractionFailedMessage">Файл успешно загружен, но автоматическое извлечение не удалось. Это может произойти, если антивирусная программа сканирует или блокирует файл.</system:String>
     <system:String x:Key="ExtractionFailedTitle">Извлечение не удалось</system:String>
+    <system:String x:Key="F8ShortcutInUse">Клавиша быстрого доступа F8 уже используется другой программой. Из-за этого функция создания скриншотов отключена.</system:String>
     <system:String x:Key="Failedtoconfiguretheemulator">Не удалось настроить эмулятор. Файл конфигурации может отсутствовать, находиться в неожиданном месте или быть доступным только для чтения.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Не удалось скопировать содержимое журнала.</system:String>
     <system:String x:Key="FailedToCopySystemImage">Не удалось скопировать изображение:</system:String>

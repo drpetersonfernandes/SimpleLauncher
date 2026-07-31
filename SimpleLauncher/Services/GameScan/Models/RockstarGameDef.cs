@@ -2,7 +2,7 @@ namespace SimpleLauncher.Services.GameScan.Models;
 
 public class RockstarGameDef
 {
-    public string TitleId { get; set; }
-    public string Name { get; set; }
-    public string Exe { get; set; }
+    public string TitleId { get; set; } = null!;
+    public string Name { get; set; } = null!;
+    public string Exe { get; set; } = null!;
 }

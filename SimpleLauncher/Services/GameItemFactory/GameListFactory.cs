@@ -191,7 +191,7 @@ public class GameListFactory(
                     return;
                 }
 
-                string previewImagePath;
+                string? previewImagePath;
                 var isDirectory = Directory.Exists(filePath);
 
                 if (isDirectory) // GroupByFolder is true

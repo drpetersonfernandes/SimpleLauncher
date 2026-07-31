@@ -33,8 +33,8 @@ public class GameScannerService
         "Ubisoft Connect"
     };
 
-    private string _windowsRomsPath;
-    private string _windowsImagesPath;
+    private string _windowsRomsPath = null!;
+    private string _windowsImagesPath = null!;
 
     internal bool WasNewSystemCreated { get; private set; }
 
@@ -57,8 +57,8 @@ public class GameScannerService
         {
             // Initialize paths based on existing system configuration or create default
             var pathResult = await InitializeWindowsPathsAsync();
-            _windowsRomsPath = pathResult.RomsPath;
-            _windowsImagesPath = pathResult.ImagesPath;
+            _windowsRomsPath = pathResult.RomsPath ?? "";
+            _windowsImagesPath = pathResult.ImagesPath ?? "";
             WasNewSystemCreated = pathResult.WasNewSystemCreated;
 
             var tasks = _scanners.Select(s => s.ScanAsync(this, _logger, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames)).ToList();
@@ -73,7 +73,7 @@ public class GameScannerService
         }
     }
 
-    private async Task<(string RomsPath, string ImagesPath, bool WasNewSystemCreated)> InitializeWindowsPathsAsync()
+    private async Task<(string? RomsPath, string? ImagesPath, bool WasNewSystemCreated)> InitializeWindowsPathsAsync()
     {
         try
         {
@@ -226,7 +226,7 @@ public class GameScannerService
         return false;
     }
 
-    internal async Task FindAndSaveGameImageAsync(ILogger logErrors, string originalGameName, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string specificExePath = null)
+    internal async Task FindAndSaveGameImageAsync(ILogger logErrors, string originalGameName, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string? specificExePath = null)
     {
         try
         {
@@ -253,7 +253,7 @@ public class GameScannerService
     }
 
     // This is the final fallback for special cases like Steam/Microsoft Store
-    internal async Task ExtractIconFromGameFolderAsync(ILogger logErrors, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string specificExePath = null)
+    internal async Task ExtractIconFromGameFolderAsync(ILogger logErrors, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string? specificExePath = null)
     {
         try
         {
@@ -272,7 +272,7 @@ public class GameScannerService
         }
     }
 
-    private static string FindMainExecutable(string gameInstallPath, string sanitizedGameName, string specificExePath = null)
+    private static string? FindMainExecutable(string gameInstallPath, string sanitizedGameName, string? specificExePath = null)
     {
         if (!Directory.Exists(gameInstallPath)) return null;
 

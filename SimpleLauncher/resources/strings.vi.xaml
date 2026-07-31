@@ -580,6 +580,7 @@
     <system:String x:Key="Extractionfailed">Giải nén thất bại.</system:String>
     <system:String x:Key="ExtractionFailedMessage">Tệp đã được tải xuống thành công, nhưng giải nén tự động thất bại. Điều này có thể xảy ra nếu chương trình diệt virus đang quét hoặc khóa tệp.</system:String>
     <system:String x:Key="ExtractionFailedTitle">Giải nén thất bại</system:String>
+    <system:String x:Key="F8ShortcutInUse">Phím tắt F8 đã được sử dụng bởi một chương trình khác. Vì điều này, chức năng chụp màn hình đã bị tắt.</system:String>
     <system:String x:Key="Failedtoconfiguretheemulator">Không thể cấu hình trình giả lập. Tệp cấu hình có thể bị thiếu, ở một vị trí không mong muốn hoặc chỉ đọc.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Sao chép nội dung nhật ký không thành công.</system:String>
     <system:String x:Key="FailedToCopySystemImage">Không thể sao chép hình ảnh:</system:String>

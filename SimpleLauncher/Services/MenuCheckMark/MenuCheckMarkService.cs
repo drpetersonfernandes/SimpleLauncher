@@ -7,7 +7,7 @@ using Interfaces;
 /// </summary>
 public class MenuCheckMarkService : IMenuCheckMarkService
 {
-    private IMenuCheckMarkHost _host;
+    private IMenuCheckMarkHost _host = null!;
 
     /// <summary>
     /// Initializes the service with the specified host that provides access to menu check mark controls.

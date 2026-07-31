@@ -4,8 +4,6 @@ using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
-using Interfaces;
-
 public partial class DownloadImagePackWindow : IDisposable
 {
     private readonly DownloadImagePackViewModel _viewModel;

@@ -20,7 +20,7 @@ public class GamePadController : IDisposable
     private bool _isDisposed;
 
     // Add an Action for error logging
-    internal Action<Exception, string> ErrorLogger { get; set; }
+    internal Action<Exception?, string> ErrorLogger { get; set; } = null!;
 
     private const int RefreshRate = 60;
 
@@ -28,12 +28,12 @@ public class GamePadController : IDisposable
     private const float MaxThumbValue = 32767.0f;
 
     private readonly Controller _xinputController;
-    private Joystick _directInputController;
+    private Joystick? _directInputController;
     private readonly IMouseSimulator _mouseSimulator;
     private readonly InputSimulator _inputSimulator;
 
     // DirectInput object needs to be managed for its lifetime
-    private DirectInput _directInput;
+    private DirectInput? _directInput;
 
     // For XInput
     private volatile bool _wasADown;
@@ -101,7 +101,7 @@ public class GamePadController : IDisposable
 
     internal Task StartAsync()
     {
-        Exception startException = null;
+        Exception? startException = null;
         lock (_stateLock)
         {
             // Enforce proper disposal semantics: do not allow restarting a disposed instance.
@@ -137,7 +137,7 @@ public class GamePadController : IDisposable
 
     internal Task StopAsync()
     {
-        Exception stopException = null;
+        Exception? stopException = null;
         lock (_stateLock)
         {
             try
@@ -382,7 +382,7 @@ public class GamePadController : IDisposable
                                 .ContinueWith(static (t, state) =>
                                 {
                                     if (t.IsFaulted)
-                                        ((ILogger)state)?.Error(t.Exception, "Error showing GamePadErrorMessageBoxAsync");
+                                        (state as ILogger)?.Error(t.Exception, "Error showing GamePadErrorMessageBoxAsync");
                                 }, _logger, TaskContinuationOptions.OnlyOnFaulted);
                         }
 
@@ -477,7 +477,7 @@ public class GamePadController : IDisposable
                 var devices = _directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AttachedOnly);
 
                 var found = false;
-                DeviceInstance foundDevice = null;
+                DeviceInstance? foundDevice = null;
 
                 // First, try to find the specific controller by GUID if we had one
                 if (_playStationControllerGuid != Guid.Empty)

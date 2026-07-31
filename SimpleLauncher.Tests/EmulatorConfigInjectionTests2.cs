@@ -1,4 +1,3 @@
-using Serilog;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.SettingsManager;
@@ -9,8 +8,6 @@ using Xunit;
 using MameConfigurationService = SimpleLauncher.Services.InjectEmulatorConfig.MameConfigurationService;
 
 namespace SimpleLauncher.Tests;
-
-using Interfaces;
 
 public class EmulatorConfigInjectionTests2 : IDisposable
 {
@@ -89,7 +86,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         settings.Ares.AutoSaveMemory = false;
 
         var emuDir = Path.Combine(_testDirectory, "Ares");
-        AresConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        AresConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "settings.bml");
         var content = File.ReadAllText(configPath);
@@ -124,7 +121,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         settings.Azahar.LayoutOption = 1;
 
         var emuDir = Path.Combine(_testDirectory, "Azahar");
-        AzaharConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        AzaharConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "qt-config.ini");
         var lines = File.ReadAllLines(configPath).ToList();
@@ -150,7 +147,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         settings.Azahar.Fullscreen = true;
 
         var emuDir = Path.Combine(_testDirectory, "Azahar");
-        AzaharConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        AzaharConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "qt-config.ini");
         var lines = File.ReadAllLines(configPath).ToList();
@@ -175,7 +172,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         settings.Cemu.TvVolume = 80;
 
         var emuDir = Path.Combine(_testDirectory, "Cemu");
-        CemuConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        CemuConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "settings.xml");
         var doc = System.Xml.Linq.XDocument.Load(configPath);
@@ -213,7 +210,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         // Create portable.txt so Dolphin uses the local config
         File.WriteAllText(Path.Combine(emuDir, "portable.txt"), "");
 
-        DolphinConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        DolphinConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "User", "Config", "Dolphin.ini");
         Assert.True(File.Exists(configPath), $"Config file should exist at {configPath}");
@@ -239,7 +236,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         settings.Flycast.Maximized = true;
 
         var emuDir = Path.Combine(_testDirectory, "Flycast");
-        FlycastConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        FlycastConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "emu.cfg");
         var lines = File.ReadAllLines(configPath).ToList();
@@ -261,7 +258,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         settings.Flycast.Maximized = false;
 
         var emuDir = Path.Combine(_testDirectory, "Flycast");
-        FlycastConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        FlycastConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "emu.cfg");
         var lines = File.ReadAllLines(configPath).ToList();
@@ -294,7 +291,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         settings.Mame.NvramSave = false;
 
         var emuDir = Path.Combine(_testDirectory, "Mame");
-        MameConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        MameConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "mame.ini");
         var content = File.ReadAllText(configPath);
@@ -325,7 +322,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         settings.Supermodel.PowerPcFrequency = 50;
 
         var emuDir = Path.Combine(_testDirectory, "Supermodel");
-        SupermodelConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        SupermodelConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "Supermodel.ini");
         Assert.True(File.Exists(configPath), $"Config file should exist at {configPath}");
@@ -357,7 +354,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         settings.Supermodel.InputSystem = "invalid_value";
 
         var emuDir = Path.Combine(_testDirectory, "Supermodel");
-        SupermodelConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        SupermodelConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "Supermodel.ini");
         var content = File.ReadAllText(configPath);
@@ -385,7 +382,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         settings.SegaModel2.UseRawInput = true;
 
         var emuDir = Path.Combine(_testDirectory, "SegaModel2");
-        SegaModel2ConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        SegaModel2ConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "EMULATOR.INI");
         var lines = File.ReadAllLines(configPath).ToList();
@@ -422,7 +419,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         settings.Yumir.PauseWhenUnfocused = true;
 
         var emuDir = Path.Combine(_testDirectory, "Yumir");
-        YumirConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        YumirConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "Ymir.toml");
         var tomlContent = File.ReadAllText(configPath);
@@ -461,7 +458,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         settings.Raine.ShowFps = true;
 
         var emuDir = Path.Combine(_testDirectory, "Raine");
-        RaineConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
+        RaineConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "config", "raine32_sdl.cfg");
         Assert.True(File.Exists(configPath), $"Config file should exist at {configPath}");
@@ -508,5 +505,4 @@ public class EmulatorConfigInjectionTests2 : IDisposable
 
         return result;
     }
-
 }

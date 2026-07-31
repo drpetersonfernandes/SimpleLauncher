@@ -15,19 +15,17 @@ public partial class InjectYumirConfigViewModel : ObservableObject
     private readonly SettingsManager _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath;
-
+    private string _emulatorPath = null!;
     [ObservableProperty] private bool _yumirFullscreen;
     [ObservableProperty] private bool _yumirForceAspectRatio;
     [ObservableProperty] private bool _yumirReduceLatency;
     [ObservableProperty] private bool _yumirMute;
     [ObservableProperty] private double _yumirVolume;
     [ObservableProperty] private bool _yumirAutoDetectRegion;
-    [ObservableProperty] private string _yumirVideoStandard;
+    [ObservableProperty] private string _yumirVideoStandard = null!;
     [ObservableProperty] private bool _yumirPauseWhenUnfocused;
     [ObservableProperty] private double _yumirForcedAspect;
     [ObservableProperty] private bool _yumirShowSettingsBeforeLaunch;
-
     public InjectYumirConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
@@ -42,7 +40,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     public void Initialize(string? emulatorPath, bool isLauncherMode)
     {
-        _emulatorPath = emulatorPath;
+        _emulatorPath = emulatorPath!;
         IsLauncherMode = isLauncherMode;
         LoadSettings();
     }
@@ -75,8 +73,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested;
-
+    public event Action CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
@@ -86,13 +83,11 @@ public partial class InjectYumirConfigViewModel : ObservableObject
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string> RequestEmulatorPath;
-
+    public event Func<string?> RequestEmulatorPath = null!;
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow;
-
+    public event Func<Window> GetOwnerWindow = null!;
     private void LoadSettings()
     {
         YumirFullscreen = _settings.Yumir.Fullscreen;
@@ -122,7 +117,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
         _ = _settings.SaveAsync();
     }
 
-    private async Task<string> EnsureEmulatorPathAsync()
+    private async Task<string?> EnsureEmulatorPathAsync()
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
         {

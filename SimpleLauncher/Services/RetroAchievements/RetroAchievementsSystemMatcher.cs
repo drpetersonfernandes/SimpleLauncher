@@ -221,7 +221,7 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         return SystemMappings.TryGetValue(bestMatch, out var systemInfo) ? systemInfo.Id : -1;
     }
 
-    public string GetExactAliasMatch(string inputSystemName)
+    public string? GetExactAliasMatch(string inputSystemName)
     {
         if (string.IsNullOrWhiteSpace(inputSystemName)) return null;
 

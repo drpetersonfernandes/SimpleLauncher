@@ -123,12 +123,12 @@ public partial class MainWindow : IMenuActionHost
         ((IUiResetHost)this).IsUiUpdating = value;
     }
 
-    void IMenuActionHost.SetCurrentFilter(string filter)
+    void IMenuActionHost.SetCurrentFilter(string? filter)
     {
         ((IUiResetHost)this).CurrentFilter = filter;
     }
 
-    void IMenuActionHost.SetActiveSearchQueryOrMode(string mode)
+    void IMenuActionHost.SetActiveSearchQueryOrMode(string? mode)
     {
         ((IUiResetHost)this).ActiveSearchQueryOrMode = mode;
     }
@@ -197,7 +197,7 @@ public partial class MainWindow : IMenuActionHost
     // UI state getters
     string IMenuActionHost.GetSelectedSystem()
     {
-        return SelectedSystem;
+        return SelectedSystem ?? "";
     }
 
     bool IMenuActionHost.IsTopSystemSelectionVisible()

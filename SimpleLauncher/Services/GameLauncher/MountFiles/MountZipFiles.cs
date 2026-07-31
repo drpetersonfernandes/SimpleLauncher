@@ -222,7 +222,7 @@ public class MountZipFiles : IMountZipFiles
         Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         IWindowContext windowContext,
-        string logPath,
+        string? logPath,
         ILauncherService gameLauncher,
         ILogger logErrors,
         IMessageBoxLibraryService messageBox)
@@ -302,7 +302,7 @@ public class MountZipFiles : IMountZipFiles
         _logger.Debug($"[MountZipFiles] Arguments: {psiMount.Arguments}");
         _logger.Debug($"[MountZipFiles] WorkingDirectory: {psiMount.WorkingDirectory}");
 
-        Process mountProcess = null;
+        Process? mountProcess = null;
         var mountProcessId = -1;
 
         try
@@ -485,7 +485,7 @@ public class MountZipFiles : IMountZipFiles
         Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         IWindowContext windowContext,
-        string logPath,
+        string? logPath,
         ILauncherService gameLauncher,
         ILogger logErrors,
         IMessageBoxLibraryService messageBox)
@@ -564,7 +564,7 @@ public class MountZipFiles : IMountZipFiles
         _logger.Debug($"[MountZipFiles] Arguments: {psiMount.Arguments}");
         _logger.Debug($"[MountZipFiles] WorkingDirectory: {psiMount.WorkingDirectory}");
 
-        Process mountProcess = null;
+        Process? mountProcess = null;
         var mountProcessId = -1;
 
         try
@@ -719,7 +719,7 @@ public class MountZipFiles : IMountZipFiles
         }
     }
 
-    private string FindNestedFile(string directoryPath, ILogger logErrors)
+    private string? FindNestedFile(string directoryPath, ILogger logErrors)
     {
         const string targetFolderName = "000D0000";
         try
@@ -773,7 +773,7 @@ public class MountZipFiles : IMountZipFiles
         }
     }
 
-    private string FindScummVmGamePath(string mountDriveRootForChecks, ILogger logErrors)
+    private string? FindScummVmGamePath(string mountDriveRootForChecks, ILogger logErrors)
     {
         try
         {
@@ -825,7 +825,7 @@ public class MountZipFiles : IMountZipFiles
         ISystemManager selectedSystemManager,
         Emulator selectedEmulatorManager,
         string selectedEmulatorParameters,
-        string logPath,
+        string? logPath,
         ILogger logErrors,
         IMessageBoxLibraryService messageBox)
     {
@@ -903,7 +903,7 @@ public class MountZipFiles : IMountZipFiles
         _logger.Debug($"[MountZipFiles] Arguments: {psiMount.Arguments}");
         _logger.Debug($"[MountZipFiles] WorkingDirectory: {psiMount.WorkingDirectory}");
 
-        Process mountProcess = null;
+        Process? mountProcess = null;
         var mountProcessId = -1;
 
         try

@@ -6,15 +6,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace SimpleLauncher.Services.UsageStats;
 
-using Interfaces;
-
 /// <summary>
 /// Manages sending usage and emulator launch statistics to the remote stats API with configurable endpoints and authentication.
 /// </summary>
 public class Stats
 {
-    private string _apiKey;
-    private string _statsApiUrl;
+    private string _apiKey = "";
+    private string _statsApiUrl = "";
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ILogger _logger;
     private bool _isApiEnabled;
@@ -76,7 +74,7 @@ public class Stats
     /// If no emulator name is provided, then it is a general usage call.
     /// </summary>
     /// <param name="emulatorName">The name of the emulator (if applicable); otherwise, null.</param>
-    internal async Task CallApiAsync(string emulatorName = null)
+    internal async Task CallApiAsync(string? emulatorName = null)
     {
         // Check if API is enabled before proceeding
         if (!_isApiEnabled)
@@ -99,7 +97,7 @@ public class Stats
         }
     }
 
-    private async Task<bool> TryApiAsync(string callType, string emulatorName)
+    private async Task<bool> TryApiAsync(string callType, string? emulatorName)
     {
         // Check if HttpClient is initialized (should be if _isApiEnabled is true)
         if (_httpClientFactory == null)
@@ -198,7 +196,7 @@ public class Stats
     /// </summary>
     /// <param name="input">The input string.</param>
     /// <returns>The normalized string.</returns>
-    private static string NormalizeEmulatorName(string input)
+    private static string NormalizeEmulatorName(string? input)
     {
         if (string.IsNullOrWhiteSpace(input)) return "";
         // Use CultureInfo.InvariantCulture to ensure consistent title casing regardless of user's locale

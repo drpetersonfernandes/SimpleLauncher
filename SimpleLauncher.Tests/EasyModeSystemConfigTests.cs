@@ -31,8 +31,7 @@ public class EasyModeSystemConfigTests
     {
         var config = new EasyModeSystemConfig
         {
-            SystemName = null
-        };
+            SystemName = null!        };
 
         Assert.False(config.IsValid());
     }

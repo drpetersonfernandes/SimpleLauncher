@@ -580,6 +580,7 @@
     <system:String x:Key="Extractionfailed">উত্তোলন ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="ExtractionFailedMessage">ফাইলটি সফলভাবে ডাউনলোড হয়েছে, কিন্তু স্বয়ংক্রিয় এক্সট্রাকশন ব্যর্থ হয়েছে। এটি ঘটতে পারে যদি অ্যান্টিভাইরাস প্রোগ্রাম ফাইলটি স্ক্যান বা লক করছে।</system:String>
     <system:String x:Key="ExtractionFailedTitle">এক্সট্রাকশন ব্যর্থ</system:String>
+    <system:String x:Key="F8ShortcutInUse">F8 শর্টকাট কীটি ইতিমধ্যে অন্য একটি প্রোগ্রাম দ্বারা ব্যবহৃত হচ্ছে। এর কারণে, স্ক্রিনশট কার্যকারিতা বন্ধ করা হয়েছে।</system:String>
     <system:String x:Key="Failedtoconfiguretheemulator">এমুলেটর কনফিগার করতে ব্যর্থ হয়েছে। কনফিগারেশন ফাইলটি অনুপস্থিত থাকতে পারে, একটি অপ্রত্যাশিত অবস্থানে থাকতে পারে, অথবা শুধুমাত্র পঠনযোগ্য হতে পারে।</system:String>
     <system:String x:Key="Failedtocopylogcontent">লগ বিষয়বস্তু কপি করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="FailedToCopySystemImage">ছবি কপি করতে ব্যর্থ হয়েছে:</system:String>
