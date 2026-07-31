@@ -17,7 +17,6 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
 
     private static readonly Lock Lock = new();
     private readonly SettingsManager.SettingsManager _settingsManager;
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
 
     private WaveOutEvent? _waveOut;
@@ -26,10 +25,9 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     /// <summary>
     /// Initializes a new instance of the <see cref="PlaySoundEffects"/> class.
     /// </summary>
-    public PlaySoundEffects(SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
+    public PlaySoundEffects(SettingsManager.SettingsManager settings, ILogger logger)
     {
         _settingsManager = settings ?? throw new ArgumentNullException(nameof(settings));
-        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -69,7 +67,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     {
         if (string.IsNullOrWhiteSpace(soundFileName))
         {
-            _logErrors.LogAndForget(
+            _logger.Error(
                 new ArgumentNullException(nameof(soundFileName), @"PlayConfiguredSound called with null or empty soundFileName."),
                 "Attempted to play sound with an empty filename.");
             return;
@@ -82,7 +80,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     {
         if (string.IsNullOrWhiteSpace(soundFileName))
         {
-            _logErrors.LogAndForget(
+            _logger.Error(
                 new ArgumentNullException(nameof(soundFileName), @"Attempted to play sound with an empty filename."),
                 "Attempted to play sound with an empty filename.");
             return;
@@ -92,7 +90,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
         if (!File.Exists(soundPath))
         {
             var contextMessageMissing = $"Sound file not found: {soundPath}";
-            _logErrors.LogAndForget(
+            _logger.Error(
                 new FileNotFoundException(contextMessageMissing, soundPath),
                 contextMessageMissing);
             return;
@@ -112,7 +110,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex,
+                _logger.Error(ex,
                     $"Failed to play sound: {soundPath}");
                 StopCurrentPlayback();
             }

@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class CemuConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -28,7 +28,7 @@ public static class CemuConfigurationService
                 catch (Exception ex)
                 {
                     logger.Debug($"[CemuConfig] Failed to create settings.xml from sample: {ex.Message}");
-                    logErrors.LogAndForget(ex, $"[CemuConfig] Failed to create settings.xml from sample: {ex.Message}");
+                    logger.Error(ex, $"[CemuConfig] Failed to create settings.xml from sample: {ex.Message}");
                     throw;
                 }
             }

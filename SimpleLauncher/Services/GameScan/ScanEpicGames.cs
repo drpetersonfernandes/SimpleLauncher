@@ -7,7 +7,7 @@ namespace SimpleLauncher.Services.GameScan;
 
 public class ScanEpicGames : IGamePlatformScanner
 {
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -79,7 +79,7 @@ public class ScanEpicGames : IGamePlatformScanner
                 }
                 catch (Exception ex)
                 {
-                    await logErrors.LogErrorAsync(ex, "Error reading Epic LauncherInstalled.dat. Falling back to manifests.");
+                    logErrors.Error(ex, "Error reading Epic LauncherInstalled.dat. Falling back to manifests.");
                 }
             }
 
@@ -140,18 +140,18 @@ public class ScanEpicGames : IGamePlatformScanner
                     }
                     catch (Exception ex)
                     {
-                        await logErrors.LogErrorAsync(ex, $"Error processing Epic manifest: {manifestFile}");
+                        logErrors.Error(ex, $"Error processing Epic manifest: {manifestFile}");
                     }
                 }
             }
         }
         catch (Exception ex)
         {
-            await logErrors.LogErrorAsync(ex, "An error occurred while scanning for Epic games.");
+            logErrors.Error(ex, "An error occurred while scanning for Epic games.");
         }
     }
 
-    private static async Task CreateEpicShortcutAsync(GameScannerService gameScannerService, ILogErrors logErrors, string displayName, string appName, string installLocation, string launchExecutable, string windowsRomsPath, string windowsImagesPath)
+    private static async Task CreateEpicShortcutAsync(GameScannerService gameScannerService, ILogger logErrors, string displayName, string appName, string installLocation, string launchExecutable, string windowsRomsPath, string windowsImagesPath)
     {
         var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(displayName);
         var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");

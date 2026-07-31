@@ -26,7 +26,6 @@ public class GameItemRenderService : IGameItemRenderService
     private readonly GameLauncher.GameLauncher _gameLauncher;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors;
     private readonly IGetListOfFilesService _getListOfFiles;
     private readonly IFindCoverImageService _findCoverImage;
     private readonly IImageLoader _imageLoader;
@@ -52,8 +51,7 @@ public class GameItemRenderService : IGameItemRenderService
         GameLauncher.GameLauncher gameLauncher,
         PlaySoundEffects playSoundEffects,
         IConfiguration configuration,
-        ILogErrors logErrors,
-        IGetListOfFilesService getListOfFiles,
+IGetListOfFilesService getListOfFiles,
         IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         GameListUiService gameListUiService,
@@ -70,7 +68,6 @@ public class GameItemRenderService : IGameItemRenderService
         _gameLauncher = gameLauncher;
         _playSoundEffects = playSoundEffects;
         _configuration = configuration;
-        _logErrors = logErrors;
         _getListOfFiles = getListOfFiles;
         _findCoverImage = findCoverImage;
         _imageLoader = imageLoader;
@@ -107,7 +104,6 @@ public class GameItemRenderService : IGameItemRenderService
             _gamePadController,
             _gameLauncher,
             _playSoundEffects,
-            _logErrors,
             _getListOfFiles,
             _findCoverImage,
             _imageLoader,
@@ -130,7 +126,7 @@ public class GameItemRenderService : IGameItemRenderService
             _gameLauncher,
             _playSoundEffects,
             _configuration,
-            _logErrors,
+            _logger,
             _getListOfFiles,
             _findCoverImage,
             _imageLoader,

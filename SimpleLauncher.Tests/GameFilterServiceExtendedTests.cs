@@ -9,19 +9,12 @@ namespace SimpleLauncher.Tests;
 
 public class GameFilterServiceExtendedTests
 {
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 
     private static GameFilterService CreateService(string showGames = "ShowAll", bool enableFuzzy = false)
     {
         var configuration = new ConfigurationBuilder().Build();
         var findCoverImage = new FindCoverImageNoOp();
-        var settings = new SettingsManager(configuration, new NoOpLogErrors(), new NoOpCredentialProtector())
+        var settings = new SettingsManager(configuration, new NoOpLogger(), new NoOpCredentialProtector())
         {
             ShowGames = showGames,
             EnableFuzzyMatching = enableFuzzy
@@ -54,7 +47,7 @@ public class GameFilterServiceExtendedTests
     public async Task FilterByShowGamesSettingAsyncShowAllReturnsAllRegardlessOfCover()
     {
         var configuration = new ConfigurationBuilder().Build();
-        var settings = new SettingsManager(configuration, new NoOpLogErrors(), new NoOpCredentialProtector())
+        var settings = new SettingsManager(configuration, new NoOpLogger(), new NoOpCredentialProtector())
         {
             ShowGames = "ShowAll"
         };
@@ -73,7 +66,7 @@ public class GameFilterServiceExtendedTests
     public async Task FilterByShowGamesSettingAsyncShowWithCoverFiltersDefaultImages()
     {
         var configuration = new ConfigurationBuilder().Build();
-        var settings = new SettingsManager(configuration, new NoOpLogErrors(), new NoOpCredentialProtector())
+        var settings = new SettingsManager(configuration, new NoOpLogger(), new NoOpCredentialProtector())
         {
             ShowGames = "ShowWithCover"
         };
@@ -92,7 +85,7 @@ public class GameFilterServiceExtendedTests
     public async Task FilterByShowGamesSettingAsyncShowWithoutCoverReturnsDefaultImageGames()
     {
         var configuration = new ConfigurationBuilder().Build();
-        var settings = new SettingsManager(configuration, new NoOpLogErrors(), new NoOpCredentialProtector())
+        var settings = new SettingsManager(configuration, new NoOpLogger(), new NoOpCredentialProtector())
         {
             ShowGames = "ShowWithoutCover"
         };
@@ -111,7 +104,7 @@ public class GameFilterServiceExtendedTests
     public async Task FilterByShowGamesSettingAsyncEmptyShowGamesTreatsAsShowAll()
     {
         var configuration = new ConfigurationBuilder().Build();
-        var settings = new SettingsManager(configuration, new NoOpLogErrors(), new NoOpCredentialProtector())
+        var settings = new SettingsManager(configuration, new NoOpLogger(), new NoOpCredentialProtector())
         {
             ShowGames = ""
         };

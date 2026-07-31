@@ -21,7 +21,6 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 {
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly DownloadManager _downloadManager;
-    private readonly ILogErrors _logErrors;
     private readonly IServiceScope _scope;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly ILogger _logger;
@@ -39,10 +38,9 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     private string _loadingMessage;
     private bool _isSystemDropdownEnabled = true;
 
-    public DownloadImagePackViewModel(PlaySoundEffects playSoundEffects, ILogErrors logErrors, ILogger logger, EasyModeManager easyModeManager, IMessageBoxLibraryService messageBox, IServiceScopeFactory scopeFactory, IResourceProvider resourceProvider)
+    public DownloadImagePackViewModel(PlaySoundEffects playSoundEffects, ILogger logger, EasyModeManager easyModeManager, IMessageBoxLibraryService messageBox, IServiceScopeFactory scopeFactory, IResourceProvider resourceProvider)
     {
         _playSoundEffects = playSoundEffects;
-        _logErrors = logErrors;
         _logger = logger;
         _easyModeManager = easyModeManager;
         _messageBox = messageBox;
@@ -186,7 +184,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             IsLoading = false;
-            _logErrors.LogAndForget(ex, "Error initializing image pack downloader.");
+            _logger.Error(ex, "Error initializing image pack downloader.");
             await _messageBox.ImagePackDownloaderUnavailableMessageBoxAsync();
             IsSystemDropdownEnabled = false;
         }
@@ -218,7 +216,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error populating system dropdown.");
+            _logger.Error(ex, "Error populating system dropdown.");
             SystemNames.Clear();
         }
     }
@@ -288,7 +286,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                         return;
                     }
 
-                    _logErrors.LogAndForget(ex, $"Error in DownloadImagePackButtonClickAsync for {clickedItem.DisplayName}.");
+                    _logger.Error(ex, $"Error in DownloadImagePackButtonClickAsync for {clickedItem.DisplayName}.");
                     clickedItem.State = DownloadButtonState.Failed;
                     EndOperation();
                 }
@@ -298,13 +296,13 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                 if (!_disposed)
                 {
                     EndOperation();
-                    _logErrors.LogAndForget(ex, "Error in DownloadImagePackButtonClickAsync.");
+                    _logger.Error(ex, "Error in DownloadImagePackButtonClickAsync.");
                 }
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Critical error in DownloadImagePackButtonClickAsync.");
+            _logger.Error(ex, "Critical error in DownloadImagePackButtonClickAsync.");
             EndOperation();
         }
     }
@@ -345,7 +343,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
             StatusMessage = $"{errorInvalidDestinationPath} {componentName}";
 
-            _logErrors.LogAndForget(null, $"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
+            _logger.Warning($"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
             EndOperation();
             item.State = DownloadButtonState.Failed;
             return;
@@ -451,7 +449,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
             {
                 var contextMessage = $"Error downloading {componentName}.\n" +
                                      $"URL: {downloadUrl}";
-                _logErrors.LogAndForget(ex, contextMessage);
+                _logger.Error(ex, contextMessage);
             }
 
             if (_downloadManager.IsDownloadCompleted)
@@ -528,7 +526,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error opening the download link.");
+            _logger.Error(ex, "Error opening the download link.");
 
             await _messageBox.CouldNotOpenTheDownloadLinkMessageBoxAsync();
         }
@@ -569,7 +567,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error closing the Add System window.");
+            _logger.Error(ex, "Error closing the Add System window.");
         }
     }
 

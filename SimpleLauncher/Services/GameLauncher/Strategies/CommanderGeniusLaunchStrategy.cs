@@ -17,7 +17,6 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 {
     private readonly IExtractionService _extractionService;
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors;
     private readonly IUpdateStatusBar _updateStatusBar;
     private readonly IMessageBoxLibraryService _messageBox;
     private static ILogger _logger;
@@ -30,11 +29,10 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
     /// <summary>
     /// Initializes a new instance of the <see cref="CommanderGeniusLaunchStrategy"/> class.
     /// </summary>
-    public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, ILogErrors logErrors, IUpdateStatusBar updateStatusBar, IMessageBoxLibraryService messageBox, ILogger logger)
+    public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, IUpdateStatusBar updateStatusBar, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _extractionService = extractionService;
         _configuration = configuration;
-        _logErrors = logErrors;
         _updateStatusBar = updateStatusBar;
         _messageBox = messageBox;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -177,7 +175,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                                       $"Emulator: {psi.FileName}\n" +
                                       $"Arguments: {psi.Arguments}\n" +
                                       $"Error: {ex.Message}";
-                    _logErrors.LogAndForget(ex, errorDetail);
+                    _logger.Error(ex, errorDetail);
 
                     if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
                     {
@@ -194,7 +192,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                                       $"Output: {output}\n" +
                                       $"Error: {error}\n" +
                                       $"Exception: {ex.Message}";
-                    _logErrors.LogAndForget(ex, errorDetail);
+                    _logger.Error(ex, errorDetail);
 
                     if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
                     {
@@ -340,7 +338,6 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
         return Path.GetFullPath(resolved);
     }
-
 
     private static void FindAndFlattenGameData(string extractionDir)
     {
@@ -505,7 +502,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
     private void LogErrorAsync(string message)
     {
         var fullMessage = $"[CommanderGeniusLaunchStrategy] {message}";
-        _logErrors.LogAndForget(null, fullMessage);
+        _logger.Warning( fullMessage);
     }
 
     [GeneratedRegex(@"^SearchPath1\s*=\s*(.+)$", RegexOptions.IgnoreCase, "pt-BR")]

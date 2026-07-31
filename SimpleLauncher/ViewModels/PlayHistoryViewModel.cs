@@ -21,7 +21,7 @@ namespace SimpleLauncher.ViewModels;
 public partial class PlayHistoryViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly PlayHistoryManager _playHistoryManager;
     private readonly SettingsManager _settings;
     private readonly List<SystemManager> _systemManagers;
@@ -52,7 +52,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
 
     public PlayHistoryViewModel(
         IConfiguration configuration,
-        ILogErrors logErrors,
+        ILogger logErrors,
         PlayHistoryManager playHistoryManager,
         SettingsManager settings,
         List<SystemManager> systemManagers,
@@ -64,7 +64,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         IResourceProvider resourceProvider)
     {
         _configuration = configuration;
-        _logErrors = logErrors;
+        _logger = logErrors;
         _playHistoryManager = playHistoryManager;
         _settings = settings;
         _systemManagers = systemManagers;
@@ -121,7 +121,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error loading play history data.");
+            _logger.Error(ex, "Error loading play history data.");
             await _messageBox.ErrorLoadingRomHistoryMessageBoxAsync();
         }
         finally
@@ -192,7 +192,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in RemoveAllAsync.");
+            _logger.Error(ex, "Error in RemoveAllAsync.");
         }
     }
 
@@ -224,7 +224,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error loading preview image.");
+            _logger.Error(ex, "Error loading preview image.");
             PreviewImageSource = null;
         }
     }
@@ -300,7 +300,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Error parsing date: {dateStr} {timeStr}");
+            _logger.Error(ex, $"Error parsing date: {dateStr} {timeStr}");
             return DateTime.MinValue;
         }
     }

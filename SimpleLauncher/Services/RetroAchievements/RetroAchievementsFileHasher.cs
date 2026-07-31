@@ -11,11 +11,11 @@ using Interfaces;
 /// </summary>
 public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
 {
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
 
-    public RetroAchievementsFileHasher(ILogErrors logErrors)
+    public RetroAchievementsFileHasher(ILogger logErrors)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
     }
 
     /// <summary>
@@ -43,7 +43,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Failed to calculate MD5 for {filePath} with offset {offset}");
+            _logger.Error(ex, $"Failed to calculate MD5 for {filePath} with offset {offset}");
             return null;
         }
     }
@@ -62,7 +62,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Failed to calculate Arcade hash for {filePath}");
+            _logger.Error(ex, $"Failed to calculate Arcade hash for {filePath}");
             return null;
         }
     }
@@ -99,7 +99,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
             var fileInfo = new FileInfo(filePath);
             if (!fileInfo.Exists)
             {
-                _logErrors.LogAndForget(null, $"[RA File Hasher] File not found for header-based hashing: {filePath}");
+                _logger.Warning($"[RA File Hasher] File not found for header-based hashing: {filePath}");
                 return null;
             }
 
@@ -167,7 +167,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
                 default:
                     // Fallback for any unexpected system name, hash the whole file.
                     offset = 0;
-                    _logErrors.LogAndForget(null, $"[RA File Hasher] CalculateHeaderBasedMd5Async called with an unsupported or unexpected system: {systemName}. Hashing entire file.");
+                    _logger.Warning($"[RA File Hasher] CalculateHeaderBasedMd5Async called with an unsupported or unexpected system: {systemName}. Hashing entire file.");
                     break;
             }
 
@@ -175,7 +175,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Failed to calculate header-based MD5 for {filePath} (System: {systemName})");
+            _logger.Error(ex, $"Failed to calculate header-based MD5 for {filePath} (System: {systemName})");
             return null;
         }
     }
@@ -195,7 +195,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Failed to calculate Arduboy hash for {filePath}");
+            _logger.Error(ex, $"Failed to calculate Arduboy hash for {filePath}");
             return null;
         }
     }
@@ -228,7 +228,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Failed to calculate N64 hash for {filePath}");
+            _logger.Error(ex, $"Failed to calculate N64 hash for {filePath}");
             return null;
         }
     }
@@ -270,7 +270,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Failed to calculate byte-swapped MD5 for {filePath}");
+            _logger.Error(ex, $"Failed to calculate byte-swapped MD5 for {filePath}");
             return null;
         }
     }

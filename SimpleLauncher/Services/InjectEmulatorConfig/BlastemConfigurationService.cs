@@ -10,7 +10,7 @@ public static partial class BlastemConfigurationService
 {
     private static readonly char[] Separator = [' ', '\t'];
 
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -31,7 +31,7 @@ public static partial class BlastemConfigurationService
                 catch (Exception ex)
                 {
                     logger.Debug($"[BlastemConfig] Failed to create default.cfg from sample: {ex.Message}");
-                    logErrors.LogAndForget(ex, $"[BlastemConfig] Failed to create default.cfg from sample: {ex.Message}");
+                    logger.Error(ex, $"[BlastemConfig] Failed to create default.cfg from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -62,13 +62,13 @@ public static partial class BlastemConfigurationService
         catch (UnauthorizedAccessException ex)
         {
             logger.Debug($"[BlastemConfig] Access denied reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[BlastemConfig] Access denied reading config: {configPath}");
+            logger.Error(ex, $"[BlastemConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
             logger.Debug($"[BlastemConfig] I/O error reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[BlastemConfig] I/O error reading config: {configPath}");
+            logger.Error(ex, $"[BlastemConfig] I/O error reading config: {configPath}");
             throw;
         }
 
@@ -151,7 +151,7 @@ public static partial class BlastemConfigurationService
             catch (Exception ex)
             {
                 logger.Debug($"[BlastemConfig] Failed to inject configuration changes: {ex.Message}");
-                logErrors.LogAndForget(ex, $"[BlastemConfig] Failed to inject configuration changes: {ex.Message}");
+                logger.Error(ex, $"[BlastemConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }

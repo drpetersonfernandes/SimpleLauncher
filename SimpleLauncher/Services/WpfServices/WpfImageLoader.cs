@@ -9,9 +9,9 @@ namespace SimpleLauncher.Services.WpfServices;
 /// <summary>
 /// WPF implementation of IImageLoader, loading images from the filesystem with fallback to a default image.
 /// </summary>
-public class WpfImageLoader(ILogErrors logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBox) : IImageLoader
+public class WpfImageLoader(ILogger logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBox) : IImageLoader
 {
-    private readonly ILogErrors _logErrors = logErrors;
+    private readonly ILogger _logger = logErrors;
     private readonly IMessageBoxLibraryService _messageBox = messageBox;
 
     private readonly string _defaultImagePath = Path.Combine(
@@ -44,7 +44,7 @@ public class WpfImageLoader(ILogErrors logErrors, IConfiguration configuration, 
         catch (Exception ex)
         {
             var contextMessage = $"Failed to load primary image: {imagePath}. Attempting to load default.";
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logger.Error(ex, contextMessage);
             return await LoadDefaultImageAsync();
         }
     }
@@ -58,7 +58,7 @@ public class WpfImageLoader(ILogErrors logErrors, IConfiguration configuration, 
             if (imageBytes == null)
             {
                 const string contextMessage = "Failed to load global default image: images\\default.png.";
-                _logErrors.LogAndForget(null, contextMessage);
+                _logger.Warning( contextMessage);
                 await _messageBox.DefaultImageNotFoundMessageBoxAsync();
                 return (null, true);
             }
@@ -68,7 +68,7 @@ public class WpfImageLoader(ILogErrors logErrors, IConfiguration configuration, 
         catch (Exception ex)
         {
             const string contextMessage = "Failed to load global default image: images\\default.png.";
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logger.Error(ex, contextMessage);
             await _messageBox.DefaultImageNotFoundMessageBoxAsync();
             return (null, true);
         }
@@ -90,12 +90,12 @@ public class WpfImageLoader(ILogErrors logErrors, IConfiguration configuration, 
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            _logErrors.LogAndForget(ex, $"Failed to read image file '{filePath}'. It might be locked or permissions are insufficient.");
+            _logger.Error(ex, $"Failed to read image file '{filePath}'. It might be locked or permissions are insufficient.");
             return null;
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"An unexpected error occurred while reading image file '{filePath}'.");
+            _logger.Error(ex, $"An unexpected error occurred while reading image file '{filePath}'.");
             return null;
         }
     }

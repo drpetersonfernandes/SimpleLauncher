@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class SegaModel2ConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -28,7 +28,7 @@ public static class SegaModel2ConfigurationService
                 catch (Exception ex)
                 {
                     logger.Debug($"[SegaModel2Config] Failed to create EMULATOR.INI from sample: {ex.Message}");
-                    logErrors.LogAndForget(ex, $"[SegaModel2Config] Failed to create EMULATOR.INI from sample: {ex.Message}");
+                    logger.Error(ex, $"[SegaModel2Config] Failed to create EMULATOR.INI from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -68,13 +68,13 @@ public static class SegaModel2ConfigurationService
         catch (UnauthorizedAccessException ex)
         {
             logger.Debug($"[SegaModel2Config] Access denied reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[SegaModel2Config] Access denied reading config: {configPath}");
+            logger.Error(ex, $"[SegaModel2Config] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
             logger.Debug($"[SegaModel2Config] I/O error reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[SegaModel2Config] I/O error reading config: {configPath}");
+            logger.Error(ex, $"[SegaModel2Config] I/O error reading config: {configPath}");
             throw;
         }
 
@@ -191,7 +191,7 @@ public static class SegaModel2ConfigurationService
             catch (Exception ex)
             {
                 logger.Debug($"[SegaModel2Config] Failed to inject configuration changes: {ex.Message}");
-                logErrors.LogAndForget(ex, $"[SegaModel2Config] Failed to inject configuration changes: {ex.Message}");
+                logger.Error(ex, $"[SegaModel2Config] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }

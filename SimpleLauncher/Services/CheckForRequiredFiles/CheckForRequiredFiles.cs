@@ -12,7 +12,7 @@ public class CheckForRequiredFiles
         _messageBoxLibrary = messageBoxLibrary;
     }
 
-    public async Task CheckFilesAsync(IConfiguration configuration, ILogErrors logErrors)
+    public async Task CheckFilesAsync(IConfiguration configuration, ILogger logErrors)
     {
         var baseDirectory = AppContext.BaseDirectory;
         var requiredFiles = configuration.GetValue<string[]>("RequiredFiles") ??
@@ -43,7 +43,7 @@ public class CheckForRequiredFiles
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, "Failed to check for required files.");
+            logErrors.Error(ex, "Failed to check for required files.");
         }
     }
 }

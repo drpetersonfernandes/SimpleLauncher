@@ -12,16 +12,14 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 /// </summary>
 public class CemuConfigHandler : IEmulatorConfigHandler
 {
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CemuConfigHandler"/> class.
     /// </summary>
-    public CemuConfigHandler(ILogErrors logErrors, ILogger logger, IServiceScopeFactory scopeFactory)
+    public CemuConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {
-        _logErrors = logErrors;
         _logger = logger;
         _scopeFactory = scopeFactory;
     }
@@ -54,7 +52,7 @@ public class CemuConfigHandler : IEmulatorConfigHandler
             }
             else if (File.Exists(resolvedExe))
             {
-                CemuConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _logger);
+                CemuConfigurationService.InjectSettings(resolvedExe, context.Settings, _logger);
             }
 
             return shouldRun;

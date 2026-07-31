@@ -12,16 +12,9 @@ using Interfaces;
 public class FindGameFileTests : IDisposable
 {
     private readonly string _testDirectory;
-    private readonly ILogErrors _logErrors = new NoOpLogErrors();
+    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly ILogger _logger = Log.Logger;
 
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 
     public FindGameFileTests()
     {

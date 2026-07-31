@@ -6,7 +6,6 @@ using SimpleLauncher.Models;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
-
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
 /// <summary>
@@ -17,7 +16,6 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
 {
     private readonly IExtractionService _extractionService;
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMountChdFiles _mountChdFiles;
     private readonly IMountIsoFiles _mountIsoFiles;
@@ -29,11 +27,10 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
     /// <summary>
     /// Initializes a new instance of the <see cref="DosBoxLaunchStrategy"/> class.
     /// </summary>
-    public DosBoxLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IMountChdFiles mountChdFiles, IMountIsoFiles mountIsoFiles, ILogger logger)
+    public DosBoxLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, IMessageBoxLibraryService messageBox, IMountChdFiles mountChdFiles, IMountIsoFiles mountIsoFiles, ILogger logger)
     {
         _extractionService = extractionService;
         _configuration = configuration;
-        _logErrors = logErrors;
         _messageBox = messageBox;
         _mountChdFiles = mountChdFiles;
         _mountIsoFiles = mountIsoFiles;
@@ -102,7 +99,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                         if (gameFiles.Count == 0)
                         {
                             _logger.Debug($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found in {workingDir}");
-                            await _logErrors.LogErrorAsync(null, $"No DOS game executable found in: {context.ResolvedFilePath}");
+                            _logger.Warning($"No DOS game executable found in: {context.ResolvedFilePath}");
                             await _messageBox.CouldNotFindAFileMessageBoxAsync();
                             return;
                         }
@@ -153,7 +150,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                     }
                     catch (Exception ex)
                     {
-                        await _logErrors.LogErrorAsync(ex, $"[DosBoxLaunchStrategy] Error launching DOS game: {context.ResolvedFilePath}");
+                        _logger.Error(ex, $"[DosBoxLaunchStrategy] Error launching DOS game: {context.ResolvedFilePath}");
                         await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                     }
                     finally
@@ -256,7 +253,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         try
         {
             // 1. Mount ISO via PowerShell to scan for executables
-            var driveLetter = await _mountIsoFiles.ExecutePowerShellMountCommandAsync(context.ResolvedFilePath, _logErrors, _messageBox);
+            var driveLetter = await _mountIsoFiles.ExecutePowerShellMountCommandAsync(context.ResolvedFilePath, _logger, _messageBox);
             if (string.IsNullOrEmpty(driveLetter))
             {
                 _logger.Debug("[DosBoxLaunchStrategy] Failed to mount ISO via PowerShell.");
@@ -267,7 +264,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             mountPath = $"{driveLetter}:\\";
             _logger.Debug($"[DosBoxLaunchStrategy] ISO mounted to {mountPath} for scanning");
 
-            if (!await _mountIsoFiles.WaitForDirectoryToExistAsync(mountPath, 10000, 200, _logErrors))
+            if (!await _mountIsoFiles.WaitForDirectoryToExistAsync(mountPath, 10000, 200, _logger))
             {
                 _logger.Debug($"[DosBoxLaunchStrategy] Mount path {mountPath} did not become available.");
                 await _messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
@@ -279,7 +276,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             {
                 case 0:
                     _logger.Debug($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found on mounted ISO at {mountPath}");
-                    await _logErrors.LogErrorAsync(null, $"No DOS game executable found in ISO: {context.ResolvedFilePath}");
+                    _logger.Warning($"No DOS game executable found in ISO: {context.ResolvedFilePath}");
                     await _messageBox.CouldNotFindAFileMessageBoxAsync();
                     return;
                 case 1:
@@ -306,7 +303,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         }
         catch (Exception ex)
         {
-            await _logErrors.LogErrorAsync(ex, $"[DosBoxLaunchStrategy] Error scanning ISO: {context.ResolvedFilePath}");
+            _logger.Error(ex, $"[DosBoxLaunchStrategy] Error scanning ISO: {context.ResolvedFilePath}");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             return;
         }
@@ -316,7 +313,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             if (!string.IsNullOrEmpty(context.ResolvedFilePath))
             {
                 _logger.Debug($"[DosBoxLaunchStrategy] Dismounting PowerShell ISO mount after scanning: {context.ResolvedFilePath}");
-                await _mountIsoFiles.ExecutePowerShellDismountCommandAsync(context.ResolvedFilePath, _logErrors, _messageBox);
+                await _mountIsoFiles.ExecutePowerShellDismountCommandAsync(context.ResolvedFilePath, _logger, _messageBox);
             }
         }
 
@@ -399,7 +396,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
     {
         try
         {
-            await using var mountedDrive = await _mountChdFiles.MountAsync(context.ResolvedFilePath, 19, _logErrors, _messageBox);
+            await using var mountedDrive = await _mountChdFiles.MountAsync(context.ResolvedFilePath, 19, _logger, _messageBox);
 
             if (!mountedDrive.IsMounted)
             {
@@ -414,7 +411,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             if (gameFiles.Count == 0)
             {
                 _logger.Debug($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found on mounted CHD at {mountPath}");
-                await _logErrors.LogErrorAsync(null, $"No DOS game executable found in CHD: {context.ResolvedFilePath}");
+                _logger.Warning($"No DOS game executable found in CHD: {context.ResolvedFilePath}");
                 await _messageBox.CouldNotFindAFileMessageBoxAsync();
                 return;
             }
@@ -456,7 +453,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         }
         catch (Exception ex)
         {
-            await _logErrors.LogErrorAsync(ex, $"[DosBoxLaunchStrategy] Error launching CHD: {context.ResolvedFilePath}");
+            _logger.Error(ex, $"[DosBoxLaunchStrategy] Error launching CHD: {context.ResolvedFilePath}");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
         }
     }

@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class SupermodelConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir)) throw new InvalidOperationException("Emulator directory not found.");
@@ -39,7 +39,7 @@ public static class SupermodelConfigurationService
                 catch (Exception ex)
                 {
                     logger.Debug($"[SupermodelConfig] Failed to create Supermodel.ini from sample: {ex.Message}");
-                    logErrors.LogAndForget(ex, $"[SupermodelConfig] Failed to create Supermodel.ini from sample: {ex.Message}");
+                    logger.Error(ex, $"[SupermodelConfig] Failed to create Supermodel.ini from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -75,13 +75,13 @@ public static class SupermodelConfigurationService
         catch (UnauthorizedAccessException ex)
         {
             logger.Debug($"[SupermodelConfig] Access denied reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[SupermodelConfig] Access denied reading config: {configPath}");
+            logger.Error(ex, $"[SupermodelConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
             logger.Debug($"[SupermodelConfig] I/O error reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[SupermodelConfig] I/O error reading config: {configPath}");
+            logger.Error(ex, $"[SupermodelConfig] I/O error reading config: {configPath}");
             throw;
         }
 
@@ -156,7 +156,7 @@ public static class SupermodelConfigurationService
         catch (Exception ex)
         {
             logger.Debug($"[SupermodelConfig] Fail to inject configuration changes: {ex.Message}");
-            logErrors.LogAndForget(ex, $"[SupermodelConfig] Fail to inject configuration changes: {ex.Message}");
+            logger.Error(ex, $"[SupermodelConfig] Fail to inject configuration changes: {ex.Message}");
             throw;
         }
     }

@@ -20,7 +20,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method CreateBatchFilesForXbox360XBLAGames_ClickAsync");
+            _logger.Error(ex, "Error in the method CreateBatchFilesForXbox360XBLAGames_ClickAsync");
         }
     }
 
@@ -34,7 +34,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method BatchConvertIsoToXiso_ClickAsync");
+            _logger.Error(ex, "Error in the method BatchConvertIsoToXiso_ClickAsync");
         }
     }
 
@@ -49,7 +49,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method BatchConvertToCHD_ClickAsync");
+            _logger.Error(ex, "Error in the method BatchConvertToCHD_ClickAsync");
         }
     }
 
@@ -63,7 +63,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method BatchConvertToCompressedFile_ClickAsync");
+            _logger.Error(ex, "Error in the method BatchConvertToCompressedFile_ClickAsync");
         }
     }
 
@@ -77,7 +77,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method BatchConvertToRVZ_ClickAsync");
+            _logger.Error(ex, "Error in the method BatchConvertToRVZ_ClickAsync");
         }
     }
 
@@ -91,7 +91,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method CreateBatchFilesForPS3Games_ClickAsync");
+            _logger.Error(ex, "Error in the method CreateBatchFilesForPS3Games_ClickAsync");
         }
     }
 
@@ -105,7 +105,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method CreateBatchFilesForScummVMGames_ClickAsync");
+            _logger.Error(ex, "Error in the method CreateBatchFilesForScummVMGames_ClickAsync");
         }
     }
 
@@ -119,7 +119,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method CreateBatchFilesForWindowsGames_ClickAsync");
+            _logger.Error(ex, "Error in the method CreateBatchFilesForWindowsGames_ClickAsync");
         }
     }
 
@@ -134,7 +134,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method FindRomCover_ClickAsync");
+            _logger.Error(ex, "Error in the method FindRomCover_ClickAsync");
         }
     }
 
@@ -148,7 +148,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method RomValidator_ClickAsync");
+            _logger.Error(ex, "Error in the method RomValidator_ClickAsync");
         }
     }
 
@@ -163,7 +163,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method RetroGameCoverDownloader_ClickAsync");
+            _logger.Error(ex, "Error in the method RetroGameCoverDownloader_ClickAsync");
         }
     }
 }

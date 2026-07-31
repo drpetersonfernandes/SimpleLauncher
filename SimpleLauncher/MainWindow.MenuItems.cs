@@ -42,12 +42,12 @@ public partial class MainWindow
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in the method ScanForMicrosoftWindowsGames_ClickAsync");
+                _logger.Error(ex, "Error in the method ScanForMicrosoftWindowsGames_ClickAsync");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ScanForMicrosoftWindowsGames_ClickAsync");
+            _logger.Error(ex, "Error in the method ScanForMicrosoftWindowsGames_ClickAsync");
         }
     }
 
@@ -59,7 +59,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ResetUiAsync");
+            _logger.Error(ex, "Error in the method ResetUiAsync");
         }
     }
 
@@ -83,12 +83,12 @@ public partial class MainWindow
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in the method EditLinksClickAsync.");
+                _logger.Error(ex, "Error in the method EditLinksClickAsync.");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method EditLinksClickAsync.");
+            _logger.Error(ex, "Error in the method EditLinksClickAsync.");
         }
     }
 
@@ -106,12 +106,12 @@ public partial class MainWindow
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in the method ToggleGamepad_Click.");
+                _logger.Error(ex, "Error in the method ToggleGamepad_Click.");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ToggleGamepad_Click.");
+            _logger.Error(ex, "Error in the method ToggleGamepad_Click.");
         }
     }
 
@@ -134,12 +134,12 @@ public partial class MainWindow
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in the method ToggleFuzzyMatchingClickAsync.");
+                _logger.Error(ex, "Error in the method ToggleFuzzyMatchingClickAsync.");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ToggleFuzzyMatchingClickAsync.");
+            _logger.Error(ex, "Error in the method ToggleFuzzyMatchingClickAsync.");
         }
     }
 
@@ -155,12 +155,12 @@ public partial class MainWindow
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in the method SetFuzzyMatchingThresholdClickAsync.");
+                _logger.Error(ex, "Error in the method SetFuzzyMatchingThresholdClickAsync.");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method SetFuzzyMatchingThresholdClickAsync.");
+            _logger.Error(ex, "Error in the method SetFuzzyMatchingThresholdClickAsync.");
         }
     }
 
@@ -178,12 +178,12 @@ public partial class MainWindow
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in the method ToggleAnnotationStrippingClickAsync.");
+                _logger.Error(ex, "Error in the method ToggleAnnotationStrippingClickAsync.");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ToggleAnnotationStrippingClickAsync.");
+            _logger.Error(ex, "Error in the method ToggleAnnotationStrippingClickAsync.");
         }
     }
 
@@ -204,12 +204,12 @@ public partial class MainWindow
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in the method Donate_Click.");
+                _logger.Error(ex, "Error in the method Donate_Click.");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method Donate_Click.");
+            _logger.Error(ex, "Error in the method Donate_Click.");
         }
     }
 
@@ -231,7 +231,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ShowAllGamesClickAsync.");
+            _logger.Error(ex, "Error in the method ShowAllGamesClickAsync.");
         }
     }
 
@@ -243,7 +243,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ShowGamesWithCoverClickAsync.");
+            _logger.Error(ex, "Error in the method ShowGamesWithCoverClickAsync.");
         }
     }
 
@@ -255,7 +255,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ShowGamesWithoutCoverClickAsync.");
+            _logger.Error(ex, "Error in the method ShowGamesWithoutCoverClickAsync.");
         }
     }
 
@@ -272,7 +272,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ButtonSizeClickAsync.");
+            _logger.Error(ex, "Error in the method ButtonSizeClickAsync.");
         }
     }
 
@@ -286,7 +286,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ButtonAspectRatioClickAsync.");
+            _logger.Error(ex, "Error in the method ButtonAspectRatioClickAsync.");
         }
     }
 
@@ -303,7 +303,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method GamesPerPageClickAsync.");
+            _logger.Error(ex, "Error in the method GamesPerPageClickAsync.");
         }
     }
 
@@ -389,7 +389,7 @@ public partial class MainWindow
         {
             // Notify developer
             const string errorMessage = "Error in the method NavToggleButtonAspectRatioClickAsync.";
-            _logErrors.LogAndForget(ex, errorMessage);
+            _logger.Error(ex, errorMessage);
 
             // Notify user
             await _messageBox.ErrorMessageBoxAsync();
@@ -414,7 +414,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method FilenameDisplayMode_ClickAsync.");
+            _logger.Error(ex, "Error in the method FilenameDisplayMode_ClickAsync.");
         }
     }
 
@@ -428,7 +428,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method DisplayMachineName_ClickAsync.");
+            _logger.Error(ex, "Error in the method DisplayMachineName_ClickAsync.");
         }
     }
 
@@ -450,7 +450,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method FilenameFontSize_ClickAsync.");
+            _logger.Error(ex, "Error in the method FilenameFontSize_ClickAsync.");
         }
     }
 
@@ -472,7 +472,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method MachineNameFontSize_ClickAsync.");
+            _logger.Error(ex, "Error in the method MachineNameFontSize_ClickAsync.");
         }
     }
 
@@ -488,12 +488,12 @@ public partial class MainWindow
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in the method ChangeViewMode_Click.");
+                _logger.Error(ex, "Error in the method ChangeViewMode_Click.");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ChangeViewMode_Click.");
+            _logger.Error(ex, "Error in the method ChangeViewMode_Click.");
         }
     }
 
@@ -548,7 +548,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method NavSelectedSystemFavoriteButtonClickAsync.");
+            _logger.Error(ex, "Error in the method NavSelectedSystemFavoriteButtonClickAsync.");
         }
     }
 
@@ -560,7 +560,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method NavRandomLuckGameButtonClickAsync.");
+            _logger.Error(ex, "Error in the method NavRandomLuckGameButtonClickAsync.");
         }
     }
 
@@ -572,7 +572,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method NavShowGamesWithRetroAchievementsButtonClickAsync.");
+            _logger.Error(ex, "Error in the method NavShowGamesWithRetroAchievementsButtonClickAsync.");
         }
     }
 
@@ -587,7 +587,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method NavZoomInButtonClickAsync.");
+            _logger.Error(ex, "Error in the method NavZoomInButtonClickAsync.");
         }
     }
 
@@ -602,7 +602,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method NavZoomOutButtonClickAsync.");
+            _logger.Error(ex, "Error in the method NavZoomOutButtonClickAsync.");
         }
     }
 
@@ -614,7 +614,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method NavToggleViewModeClickAsync.");
+            _logger.Error(ex, "Error in the method NavToggleViewModeClickAsync.");
         }
     }
 
@@ -630,12 +630,12 @@ public partial class MainWindow
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in the method SoundConfiguration_Click.");
+                _logger.Error(ex, "Error in the method SoundConfiguration_Click.");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method SoundConfiguration_Click.");
+            _logger.Error(ex, "Error in the method SoundConfiguration_Click.");
         }
     }
 
@@ -647,7 +647,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ShowRetroAchievementsSettingsWindow_ClickAsync.");
+            _logger.Error(ex, "Error in the method ShowRetroAchievementsSettingsWindow_ClickAsync.");
         }
     }
 
@@ -661,7 +661,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ToggleRetroAchievementButton_ClickAsync.");
+            _logger.Error(ex, "Error in the method ToggleRetroAchievementButton_ClickAsync.");
         }
     }
 
@@ -675,7 +675,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ToggleVideoLinkButton_ClickAsync.");
+            _logger.Error(ex, "Error in the method ToggleVideoLinkButton_ClickAsync.");
         }
     }
 
@@ -689,7 +689,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ToggleInfoLinkButton_ClickAsync.");
+            _logger.Error(ex, "Error in the method ToggleInfoLinkButton_ClickAsync.");
         }
     }
 

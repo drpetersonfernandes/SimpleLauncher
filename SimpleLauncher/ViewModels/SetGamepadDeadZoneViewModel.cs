@@ -15,17 +15,17 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
     private readonly SettingsManager _settingsManager;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
 
     private double _deadZoneX;
     private double _deadZoneY;
 
-    public SetGamepadDeadZoneViewModel(SettingsManager settingsManager, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider, ILogErrors logErrors)
+    public SetGamepadDeadZoneViewModel(SettingsManager settingsManager, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider, ILogger logErrors)
     {
         _settingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
         _messageBox = messageBox;
         _resourceProvider = resourceProvider;
-        _logErrors = logErrors;
+        _logger = logErrors;
 
         _deadZoneX = _settingsManager.DeadZoneX;
         _deadZoneY = _settingsManager.DeadZoneY;
@@ -87,7 +87,7 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error saving gamepad dead zone settings.");
+            _logger.Error(ex, "Error saving gamepad dead zone settings.");
             await _messageBox.FailedToSaveSettingsMessageBoxAsync();
         }
     }

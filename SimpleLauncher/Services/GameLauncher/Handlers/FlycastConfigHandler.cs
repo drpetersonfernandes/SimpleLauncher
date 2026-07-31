@@ -12,16 +12,14 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 /// </summary>
 public class FlycastConfigHandler : IEmulatorConfigHandler
 {
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FlycastConfigHandler"/> class.
     /// </summary>
-    public FlycastConfigHandler(ILogErrors logErrors, ILogger logger, IServiceScopeFactory scopeFactory)
+    public FlycastConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {
-        _logErrors = logErrors;
         _logger = logger;
         _scopeFactory = scopeFactory;
     }
@@ -54,7 +52,7 @@ public class FlycastConfigHandler : IEmulatorConfigHandler
             }
             else if (File.Exists(resolvedExe))
             {
-                FlycastConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _logger);
+                FlycastConfigurationService.InjectSettings(resolvedExe, context.Settings, _logger);
             }
 
             return shouldRun;

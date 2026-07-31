@@ -41,7 +41,7 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
         new() { InternalId = "Warcraft III", Name = "Warcraft III", IsClassic = true, Exe = "Warcraft III.exe", ProductId = "W3" }
     ];
 
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -120,14 +120,14 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
                     }
                     catch (Exception ex)
                     {
-                        await logErrors.LogErrorAsync(ex, $"Error processing Battle.net game registry key: {subKeyName}");
+                        logErrors.Error(ex, $"Error processing Battle.net game registry key: {subKeyName}");
                     }
                 }
             }
         }
         catch (Exception ex)
         {
-            await logErrors.LogErrorAsync(ex, "An error occurred while scanning for Battle.net games.");
+            logErrors.Error(ex, "An error occurred while scanning for Battle.net games.");
         }
     }
 

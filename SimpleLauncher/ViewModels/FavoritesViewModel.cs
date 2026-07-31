@@ -21,7 +21,7 @@ namespace SimpleLauncher.ViewModels;
 public partial class FavoritesViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly FavoritesManager _favoritesManager;
     private readonly SettingsManager _settings;
     private readonly List<SystemManager> _systemManagers;
@@ -49,7 +49,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
 
     public FavoritesViewModel(
         IConfiguration configuration,
-        ILogErrors logErrors,
+        ILogger logErrors,
         FavoritesManager favoritesManager,
         SettingsManager settings,
         List<SystemManager> systemManagers,
@@ -61,7 +61,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         IResourceProvider resourceProvider)
     {
         _configuration = configuration;
-        _logErrors = logErrors;
+        _logger = logErrors;
         _favoritesManager = favoritesManager;
         _settings = settings;
         _systemManagers = systemManagers;
@@ -121,7 +121,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error loading favorites data in FavoritesViewModel.");
+            _logger.Error(ex, "Error loading favorites data in FavoritesViewModel.");
             await _messageBox.ErrorWhileAddingFavoritesMessageBoxAsync();
         }
         finally
@@ -151,7 +151,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in RemoveFavoriteAsync.");
+            _logger.Error(ex, "Error in RemoveFavoriteAsync.");
         }
     }
 
@@ -171,7 +171,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in LaunchGameAsync.");
+            _logger.Error(ex, "Error in LaunchGameAsync.");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
@@ -184,7 +184,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
             var selectedSystemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
             if (selectedSystemManager == null)
             {
-                _logErrors.LogAndForget(null, "[LaunchGameFromFavoritesAsync] selectedSystemManager is null.");
+                _logger.Warning("[LaunchGameFromFavoritesAsync] selectedSystemManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                     PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
@@ -204,14 +204,14 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
                     }
                 }
 
-                _logErrors.LogAndForget(null, $"[LaunchGameFromFavoritesAsync] File does not exist: {filePath}");
+                _logger.Warning($"[LaunchGameFromFavoritesAsync] File does not exist: {filePath}");
                 return;
             }
 
             var emulatorManager = selectedSystemManager.Emulators.FirstOrDefault();
             if (emulatorManager == null)
             {
-                _logErrors.LogAndForget(null, "[LaunchGameFromFavoritesAsync] emulatorManager is null.");
+                _logger.Warning("[LaunchGameFromFavoritesAsync] emulatorManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                     PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
             }
@@ -221,7 +221,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"[LaunchGameFromFavoritesAsync] Error launching: {fileName}, {selectedSystemName}");
+            _logger.Error(ex, $"[LaunchGameFromFavoritesAsync] Error launching: {fileName}, {selectedSystemName}");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
@@ -242,7 +242,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error loading preview image.");
+            _logger.Error(ex, "Error loading preview image.");
         }
     }
 

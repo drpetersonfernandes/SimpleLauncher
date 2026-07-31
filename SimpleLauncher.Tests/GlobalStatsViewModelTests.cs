@@ -15,7 +15,7 @@ namespace SimpleLauncher.Tests;
 public class GlobalStatsViewModelTests : IDisposable
 {
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors = new NoOpLogErrors();
+    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly IGetListOfFilesService _getListOfFiles = new NoOpGetListOfFiles();
 
     public GlobalStatsViewModelTests()
@@ -263,11 +263,4 @@ public class GlobalStatsViewModelTests : IDisposable
         Assert.NotNull(viewModel.SystemStats);
     }
 
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 }

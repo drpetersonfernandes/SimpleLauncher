@@ -24,7 +24,7 @@ public class MountIsoFiles : IMountIsoFiles
         IWindowContext windowContext,
         string logPath,
         ILauncherService gameLauncher,
-        ILogErrors logErrors,
+        ILogger logErrors,
         IMessageBoxLibraryService messageBox)
     {
         _logger.Debug($"[MountIsoFiles] Starting to mount ISO using PowerShell: {resolvedIsoFilePath}");
@@ -36,7 +36,7 @@ public class MountIsoFiles : IMountIsoFiles
         {
             // Notify developer
             var contextMessage = $"Resolved ISO path is null. ISO: {resolvedIsoFilePath}";
-            logErrors.LogAndForget(null, contextMessage);
+            logErrors.Warning( contextMessage);
 
             // Notify user
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
@@ -67,7 +67,7 @@ public class MountIsoFiles : IMountIsoFiles
                 _logger.Debug($"[MountIsoFiles] Error: {errorMessage}");
 
                 // Notify developer
-                logErrors.LogAndForget(null, errorMessage);
+                logErrors.Warning( errorMessage);
 
                 // Notify user
                 await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
@@ -90,7 +90,7 @@ public class MountIsoFiles : IMountIsoFiles
                 _logger.Debug($"[MountIsoFiles] Error: {errorMessage}");
 
                 // Notify developer
-                logErrors.LogAndForget(new FileNotFoundException(errorMessage), errorMessage);
+                logErrors.Error(new FileNotFoundException(errorMessage), errorMessage);
 
                 // Notify user
                 await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
@@ -112,7 +112,7 @@ public class MountIsoFiles : IMountIsoFiles
             var contextMessage = $"Error during ISO mount/launch process for {resolvedIsoFilePath}.\nException: {ex.Message}";
 
             // Notify developer
-            logErrors.LogAndForget(ex, contextMessage);
+            logErrors.Error(ex, contextMessage);
 
             // Notify user
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
@@ -141,7 +141,7 @@ public class MountIsoFiles : IMountIsoFiles
         }
     }
 
-    public async Task<bool> WaitForDirectoryToExistAsync(string directoryPath, int maxWaitTimeMs, int pollIntervalMs, ILogErrors logErrors)
+    public async Task<bool> WaitForDirectoryToExistAsync(string directoryPath, int maxWaitTimeMs, int pollIntervalMs, ILogger logErrors)
     {
         _logger.Debug($"[MountIsoFiles] Waiting for directory to exist: {directoryPath} (max wait: {maxWaitTimeMs}ms, poll interval: {pollIntervalMs}ms)");
 
@@ -162,7 +162,7 @@ public class MountIsoFiles : IMountIsoFiles
         return false;
     }
 
-    public async Task<string> ExecutePowerShellMountCommandAsync(string isoPath, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public async Task<string> ExecutePowerShellMountCommandAsync(string isoPath, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         var escapedIsoPath = isoPath.Replace("'", "''"); // Escape single quotes for PowerShell
         var command = $"$isoPath = '{escapedIsoPath}'; " +
@@ -220,7 +220,7 @@ public class MountIsoFiles : IMountIsoFiles
                 // Notify developer
                 var errorMessage = $"PowerShell command to mount ISO failed. Exit Code: {process.ExitCode}.\nPath: {isoPath}\nErrors: {errors}\nOutput: {outputBuilder}";
                 _logger.Debug($"[MountIsoFiles] Error: {errorMessage}");
-                logErrors.LogAndForget(null, errorMessage);
+                logErrors.Warning( errorMessage);
 
                 return null;
             }
@@ -235,7 +235,7 @@ public class MountIsoFiles : IMountIsoFiles
             // Notify developer
             var failureMessage = $"Failed to parse drive letter from PowerShell output for ISO {isoPath}. Output: '{driveLetter}'\nErrors: {errors}";
             _logger.Debug($"[MountIsoFiles] Error: {failureMessage}");
-            logErrors.LogAndForget(null, failureMessage);
+            logErrors.Warning( failureMessage);
 
             return null;
         }
@@ -251,7 +251,7 @@ public class MountIsoFiles : IMountIsoFiles
             // Notify developer
             var timeoutMessage = $"PowerShell mount command timed out (30s) for ISO {isoPath}.";
             _logger.Debug($"[MountIsoFiles] Timeout: {timeoutMessage}");
-            logErrors.LogAndForget(null, timeoutMessage);
+            logErrors.Warning( timeoutMessage);
 
             if (process.HasExited) return null;
 
@@ -277,13 +277,13 @@ public class MountIsoFiles : IMountIsoFiles
             // Notify developer
             var errorMessage = $"Exception while executing PowerShell mount command for ISO {isoPath}: {ex.Message}\nOutput: {outputBuilder}\nError: {errorBuilder}";
             _logger.Debug($"[MountIsoFiles] Exception: {errorMessage}");
-            logErrors.LogAndForget(ex, errorMessage);
+            logErrors.Error(ex, errorMessage);
 
             return null;
         }
     }
 
-    public async Task ExecutePowerShellDismountCommandAsync(string isoPath, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public async Task ExecutePowerShellDismountCommandAsync(string isoPath, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         var escapedIsoPath = isoPath.Replace("'", "''");
         var command = $"Dismount-DiskImage -ImagePath '{escapedIsoPath}' -ErrorAction SilentlyContinue";
@@ -346,7 +346,7 @@ public class MountIsoFiles : IMountIsoFiles
             // Notify developer
             var timeoutMessage = $"PowerShell dismount command timed out (30s) for ISO {isoPath}.";
             _logger.Debug($"[MountIsoFiles] Timeout: {timeoutMessage}");
-            logErrors.LogAndForget(null, timeoutMessage); // Log timeout as an error
+            logErrors.Warning( timeoutMessage); // Log timeout as an error
 
             if (!process.HasExited)
             {
@@ -371,7 +371,7 @@ public class MountIsoFiles : IMountIsoFiles
             // Notify developer
             var errorMessage = $"Exception while executing PowerShell dismount command for ISO {isoPath}: {ex.Message}";
             _logger.Debug($"[MountIsoFiles] Exception: {errorMessage}");
-            logErrors.LogAndForget(ex, errorMessage);
+            logErrors.Error(ex, errorMessage);
         }
     }
 

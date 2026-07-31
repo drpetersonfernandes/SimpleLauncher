@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class FlycastConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -28,7 +28,7 @@ public static class FlycastConfigurationService
                 catch (Exception ex)
                 {
                     logger.Debug($"[FlycastConfig] Failed to create emu.cfg from sample: {ex.Message}");
-                    logErrors.LogAndForget(ex, $"[FlycastConfig] Failed to create emu.cfg from sample: {ex.Message}");
+                    logger.Error(ex, $"[FlycastConfig] Failed to create emu.cfg from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -56,13 +56,13 @@ public static class FlycastConfigurationService
         catch (UnauthorizedAccessException ex)
         {
             logger.Debug($"[FlycastConfig] Access denied reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[FlycastConfig] Access denied reading config: {configPath}");
+            logger.Error(ex, $"[FlycastConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
             logger.Debug($"[FlycastConfig] I/O error reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[FlycastConfig] I/O error reading config: {configPath}");
+            logger.Error(ex, $"[FlycastConfig] I/O error reading config: {configPath}");
             throw;
         }
 
@@ -137,7 +137,7 @@ public static class FlycastConfigurationService
             catch (Exception ex)
             {
                 logger.Debug($"[FlycastConfig] Failed to inject configuration changes: {ex.Message}");
-                logErrors.LogAndForget(ex, $"[FlycastConfig] Failed to inject configuration changes: {ex.Message}");
+                logger.Error(ex, $"[FlycastConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }

@@ -111,7 +111,7 @@ public class RightClickContextTests
         List<Services.MameManager.MameManager>? machines = null)
     {
         var configuration = new Microsoft.Extensions.Configuration.ConfigurationBuilder().Build();
-        var logErrors = new NoOpLogErrors();
+        var logErrors = new NoOpLogger();
         var credentialProtector = new NoOpCredentialProtector();
         var settings = new SettingsManager(configuration, logErrors, credentialProtector);
         var favoritesManager = new FavoritesManager();
@@ -135,13 +135,6 @@ public class RightClickContextTests
             loadingStateProvider: new NoOpLoadingState());
     }
 
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 
     private sealed class NoOpLoadingState : ILoadingState
     {

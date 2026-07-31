@@ -12,19 +12,12 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class GameFilterServiceTests
 {
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 
     private static GameFilterService CreateService(string showGames = "ShowAll", bool enableFuzzy = false)
     {
         var configuration = new ConfigurationBuilder().Build();
         var findCoverImage = new FindCoverImageNoOp();
-        var settings = new SettingsManager(configuration, new NoOpLogErrors(), new NoOpCredentialProtector())
+        var settings = new SettingsManager(configuration, new NoOpLogger(), new NoOpCredentialProtector())
         {
             ShowGames = showGames,
             EnableFuzzyMatching = enableFuzzy

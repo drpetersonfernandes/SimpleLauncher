@@ -339,7 +339,7 @@ internal partial class EditSystemWindow
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, $"Error creating the system image folder: {resolvedImageFolder}");
+                _logger.Error(ex, $"Error creating the system image folder: {resolvedImageFolder}");
                 await _messageBox.FolderCreationFailedMessageBoxAsync();
                 return (true, systemImageFolderText);
             }
@@ -383,7 +383,7 @@ internal partial class EditSystemWindow
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, $"Error creating the system folder: {resolvedSystemFolder}");
+                _logger.Error(ex, $"Error creating the system folder: {resolvedSystemFolder}");
                 await _messageBox.FolderCreationFailedMessageBoxAsync();
                 return (true, systemFolderText);
             }

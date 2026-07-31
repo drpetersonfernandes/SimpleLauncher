@@ -4,5 +4,5 @@ namespace SimpleLauncher.Interfaces;
 
 public interface IGamePlatformScanner
 {
-    Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames);
+    Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames);
 }

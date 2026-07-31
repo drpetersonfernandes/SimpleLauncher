@@ -15,14 +15,12 @@ public class ChdMountStrategyMatchTests
     private static ChdMountStrategy CreateStrategy()
     {
         var configurationMock = new Mock<IConfiguration>();
-        var logErrorsMock = new Mock<ILogErrors>();
         var messageBoxMock = new Mock<IMessageBoxLibraryService>();
         var mountChdMock = new Mock<IMountChdFiles>();
         var debugLoggerMock = new Mock<ILogger>();
 
         return new ChdMountStrategy(
             configurationMock.Object,
-            logErrorsMock.Object,
             messageBoxMock.Object,
             mountChdMock.Object,
             debugLoggerMock.Object);

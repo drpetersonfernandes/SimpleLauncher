@@ -6,7 +6,7 @@ using Interfaces;
 
 public static class CheckIfDirectoryIsWritable
 {
-    public static bool IsWritableDirectory(string path, ILogErrors logErrors)
+    public static bool IsWritableDirectory(string path, ILogger logErrors)
     {
         try
         {
@@ -28,7 +28,7 @@ public static class CheckIfDirectoryIsWritable
         catch (Exception ex)
         {
             // Notify developer
-            logErrors.LogAndForget(ex, "Failed to check if directory is writable.");
+            logErrors.Error(ex, "Failed to check if directory is writable.");
 
             return false;
         }

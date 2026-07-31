@@ -15,7 +15,7 @@ public class ZipMountStrategyTests
     private static ZipMountStrategy CreateStrategy()
     {
         var configurationMock = new Mock<IConfiguration>();
-        var logErrorsMock = new Mock<ILogErrors>();
+        var logErrorsMock = new Mock<ILogger>();
         var messageBoxMock = new Mock<IMessageBoxLibraryService>();
         var mountZipFilesMock = new Mock<IMountZipFiles>();
 

@@ -26,7 +26,7 @@ public class RetroAchievementsManager
     /// <summary>
     /// Loads the RetroAchievements game database from the MessagePack .dat file.
     /// </summary>
-    public static RetroAchievementsManager LoadRetroAchievement(ILogErrors logErrors, ILogger logger)
+    public static RetroAchievementsManager LoadRetroAchievement(ILogger logErrors, ILogger logger)
     {
         var manager = new RetroAchievementsManager { _logger = logger };
         if (File.Exists(DatFilePath))
@@ -45,7 +45,7 @@ public class RetroAchievementsManager
             {
                 // Notify developer
                 const string contextMessage = "Error loading RetroAchievements.dat. The file might be corrupted or invalid. A new empty file will be created.";
-                logErrors.LogAndForget(ex, contextMessage);
+                logErrors.Error(ex, contextMessage);
 
                 logger.Debug($"[RA Manager] Failed to load RetroAchievements.dat: {ex.Message}");
             }
@@ -59,7 +59,7 @@ public class RetroAchievementsManager
         {
             // Notify developer
             const string contextMessage = "RetroAchievements.dat is missing or empty. Starting with an empty database.";
-            logErrors.LogAndForget(null, contextMessage);
+            logErrors.Warning( contextMessage);
 
             logger.Debug("[RA Manager] Starting with empty RetroAchievements database");
         }

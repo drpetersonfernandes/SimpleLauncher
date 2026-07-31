@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class Rpcs3ConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -28,7 +28,7 @@ public static class Rpcs3ConfigurationService
                 catch (Exception ex)
                 {
                     logger.Debug($"[RPCS3Config] Failed to create config.yml from sample: {ex.Message}");
-                    logErrors.LogAndForget(ex, $"[RPCS3Config] Failed to create config.yml from sample: {ex.Message}");
+                    logger.Error(ex, $"[RPCS3Config] Failed to create config.yml from sample: {ex.Message}");
                     throw;
                 }
             }

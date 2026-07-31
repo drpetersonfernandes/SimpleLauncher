@@ -6,7 +6,7 @@ namespace SimpleLauncher.Services.GameScan;
 
 public class ScanEaGames : IGamePlatformScanner
 {
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -37,13 +37,13 @@ public class ScanEaGames : IGamePlatformScanner
                 }
                 catch (Exception ex)
                 {
-                    await logErrors.LogErrorAsync(ex, $"Error processing EA game: {contentId}");
+                    logErrors.Error(ex, $"Error processing EA game: {contentId}");
                 }
             }
         }
         catch (Exception ex)
         {
-            await logErrors.LogErrorAsync(ex, "An error occurred while scanning for EA games.");
+            logErrors.Error(ex, "An error occurred while scanning for EA games.");
         }
     }
 }

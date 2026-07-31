@@ -12,16 +12,14 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 /// </summary>
 public class RetroArchConfigHandler : IEmulatorConfigHandler
 {
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RetroArchConfigHandler"/> class.
     /// </summary>
-    public RetroArchConfigHandler(ILogErrors logErrors, ILogger logger, IServiceScopeFactory scopeFactory)
+    public RetroArchConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {
-        _logErrors = logErrors;
         _logger = logger;
         _scopeFactory = scopeFactory;
     }
@@ -54,7 +52,7 @@ public class RetroArchConfigHandler : IEmulatorConfigHandler
             }
             else if (File.Exists(resolvedExe))
             {
-                RetroArchConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _logger);
+                RetroArchConfigurationService.InjectSettings(resolvedExe, context.Settings, _logger);
             }
 
             return shouldRun;

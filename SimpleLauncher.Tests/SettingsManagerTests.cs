@@ -14,7 +14,7 @@ public class SettingsManagerTests : IDisposable
 {
     private readonly string _testDirectory;
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors = new NoOpLogErrors();
+    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
 
     public SettingsManagerTests()
@@ -537,11 +537,4 @@ public class SettingsManagerTests : IDisposable
         Assert.False(settings.Stella.ConfirmExit);
     }
 
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 }

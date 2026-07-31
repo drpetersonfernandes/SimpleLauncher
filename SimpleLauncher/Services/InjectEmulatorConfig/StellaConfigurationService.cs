@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class StellaConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -28,7 +28,7 @@ public static class StellaConfigurationService
                 catch (Exception ex)
                 {
                     logger.Debug($"[StellaConfig] Failed to create stella.sqlite3 from sample: {ex.Message}");
-                    logErrors.LogAndForget(ex, $"[StellaConfig] Failed to create stella.sqlite3 from sample: {ex.Message}");
+                    logger.Error(ex, $"[StellaConfig] Failed to create stella.sqlite3 from sample: {ex.Message}");
                     throw;
                 }
             }

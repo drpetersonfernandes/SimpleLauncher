@@ -20,7 +20,7 @@ namespace SimpleLauncher.ViewModels;
 public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly SettingsManager _settings;
     private readonly List<SystemManager> _systemManagers;
     private readonly List<MameManager> _machines;
@@ -63,7 +63,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 
     public GlobalSearchViewModel(
         IConfiguration configuration,
-        ILogErrors logErrors,
+        ILogger logErrors,
         SettingsManager settings,
         List<SystemManager> systemManagers,
         List<MameManager> machines,
@@ -77,7 +77,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
         IResourceProvider resourceProvider)
     {
         _configuration = configuration;
-        _logErrors = logErrors;
+        _logger = logErrors;
         _settings = settings;
         _systemManagers = systemManagers;
         _machines = machines;
@@ -169,7 +169,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
             }
             catch (Exception ex)
             {
-                await _logErrors.LogErrorAsync(ex, "Error during search operation.");
+                _logger.Error(ex, "Error during search operation.");
                 await _messageBox.GlobalSearchErrorMessageBoxAsync();
                 NoResultsVisible = true;
                 ResultsCountText = "";
@@ -185,7 +185,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            await _logErrors.LogErrorAsync(ex, "Error in SearchAsync.");
+            _logger.Error(ex, "Error in SearchAsync.");
         }
     }
 
@@ -315,7 +315,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error loading preview image.");
+            _logger.Error(ex, "Error loading preview image.");
             PreviewImageSource = null;
         }
     }

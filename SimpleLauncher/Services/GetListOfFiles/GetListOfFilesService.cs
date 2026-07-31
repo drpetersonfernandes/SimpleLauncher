@@ -4,11 +4,11 @@ namespace SimpleLauncher.Services.GetListOfFiles;
 
 public class GetListOfFilesService : IGetListOfFilesService
 {
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
 
-    public GetListOfFilesService(ILogErrors logErrors)
+    public GetListOfFilesService(ILogger logErrors)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
     }
 
     public Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions, bool disableRecursiveSearch, bool groupByFolder, CancellationToken cancellationToken = default)
@@ -20,7 +20,7 @@ public class GetListOfFilesService : IGetListOfFilesService
             {
                 if (!Directory.Exists(directoryPath))
                 {
-                    _logErrors?.LogAndForget(null, $"Directory does not exist: '{directoryPath}'.");
+                    _logger?.Warning($"Directory does not exist: '{directoryPath}'.");
                     return new List<string>();
                 }
 
@@ -33,7 +33,7 @@ public class GetListOfFilesService : IGetListOfFilesService
 
                 if (restrictedFolders.Count > 0)
                 {
-                    _logErrors?.LogAndForget(null, $"Skipped {restrictedFolders.Count} restricted folders during file scan.");
+                    _logger?.Warning($"Skipped {restrictedFolders.Count} restricted folders during file scan.");
                 }
 
                 return foundFiles;
@@ -44,7 +44,7 @@ public class GetListOfFilesService : IGetListOfFilesService
             }
             catch (Exception ex)
             {
-                _logErrors?.LogAndForget(ex, $"Error scanning directory: {directoryPath}");
+                _logger?.Error(ex, $"Error scanning directory: {directoryPath}");
                 return new List<string>();
             }
         }, cancellationToken);
@@ -82,7 +82,7 @@ public class GetListOfFilesService : IGetListOfFilesService
         }
         catch (PathTooLongException ex)
         {
-            _logErrors?.LogAndForget(ex, $"Path too long during enumeration: {path}");
+            _logger?.Error(ex, $"Path too long during enumeration: {path}");
         }
         catch (DirectoryNotFoundException)
         {
@@ -90,7 +90,7 @@ public class GetListOfFilesService : IGetListOfFilesService
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
-            _logErrors?.LogAndForget(ex, $"Unexpected error accessing folder: {path}");
+            _logger?.Error(ex, $"Unexpected error accessing folder: {path}");
         }
     }
 }

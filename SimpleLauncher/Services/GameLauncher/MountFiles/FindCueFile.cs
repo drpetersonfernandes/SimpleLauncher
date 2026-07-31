@@ -10,7 +10,7 @@ public static class FindCueFile
     /// <summary>
     /// Searches for the first .cue file in the specified root directory.
     /// </summary>
-    public static string Find(string rootPath, ILogErrors logErrors)
+    public static string Find(string rootPath, ILogger logErrors)
     {
         try
         {
@@ -29,7 +29,7 @@ public static class FindCueFile
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"Error finding cue file in path: {rootPath}");
+            logErrors.Error(ex, $"Error finding cue file in path: {rootPath}");
             return null;
         }
     }

@@ -15,16 +15,9 @@ using Interfaces;
 /// </summary>
 public class RetroAchievementsManagerTests : IDisposable
 {
-    private readonly ILogErrors _logErrors = new NoOpLogErrors();
+    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly string _datFilePath;
 
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 
     public RetroAchievementsManagerTests()
     {

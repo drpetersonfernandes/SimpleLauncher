@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class RedreamConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -28,7 +28,7 @@ public static class RedreamConfigurationService
                 catch (Exception ex)
                 {
                     logger.Debug($"[RedreamConfig] Failed to create redream.cfg from sample: {ex.Message}");
-                    logErrors.LogAndForget(ex, $"[RedreamConfig] Failed to create redream.cfg from sample: {ex.Message}");
+                    logger.Error(ex, $"[RedreamConfig] Failed to create redream.cfg from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -81,13 +81,13 @@ public static class RedreamConfigurationService
         catch (UnauthorizedAccessException ex)
         {
             logger.Debug($"[RedreamConfig] Access denied reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[RedreamConfig] Access denied reading config: {configPath}");
+            logger.Error(ex, $"[RedreamConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
             logger.Debug($"[RedreamConfig] I/O error reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[RedreamConfig] I/O error reading config: {configPath}");
+            logger.Error(ex, $"[RedreamConfig] I/O error reading config: {configPath}");
             throw;
         }
 
@@ -136,7 +136,7 @@ public static class RedreamConfigurationService
             catch (Exception ex)
             {
                 logger.Debug($"[RedreamConfig] Failed to inject configuration changes: {ex.Message}");
-                logErrors.LogAndForget(ex, $"[RedreamConfig] Failed to inject configuration changes: {ex.Message}");
+                logger.Error(ex, $"[RedreamConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }

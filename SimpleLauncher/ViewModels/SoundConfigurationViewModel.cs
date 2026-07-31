@@ -14,7 +14,7 @@ public partial class SoundConfigurationViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly PlaySoundEffects _playSoundEffects;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
 
@@ -25,11 +25,11 @@ public partial class SoundConfigurationViewModel : ObservableObject
     [ObservableProperty] private string _notificationSoundFile;
     [ObservableProperty] private bool _isSoundControlsEnabled;
 
-    public SoundConfigurationViewModel(SettingsManager settings, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
+    public SoundConfigurationViewModel(SettingsManager settings, PlaySoundEffects playSoundEffects, ILogger logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
-        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
+        _logger = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _messageBox = messageBox;
         _resourceProvider = resourceProvider;
 
@@ -75,7 +75,7 @@ public partial class SoundConfigurationViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error choosing or copying sound file.");
+            _logger.Error(ex, "Error choosing or copying sound file.");
             await _messageBox.ErrorSettingSoundFileMessageBoxAsync();
         }
     }

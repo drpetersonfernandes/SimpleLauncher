@@ -142,7 +142,7 @@ public partial class SystemManager : ISystemManager
     /// <summary>
     /// Loads all system manager configurations from system.xml, validating and cleaning invalid entries.
     /// </summary>
-    public static List<SystemManager> LoadSystemManagers(IConfiguration configuration, ILogErrors logErrors = null, IMessageBoxLibraryService messageBoxLibrary = null)
+    public static List<SystemManager> LoadSystemManagers(IConfiguration configuration, ILogger logErrors = null, IMessageBoxLibraryService messageBoxLibrary = null)
     {
         var systemXmlPath = GetSystemXmlPath(configuration);
 
@@ -169,7 +169,7 @@ public partial class SystemManager : ISystemManager
                 {
                     // Notify developer
                     const string contextMessage = "Error creating empty 'system.xml'.";
-                    logErrors?.LogAndForget(createEx, contextMessage);
+                    logErrors?.Error(createEx, contextMessage);
 
                     // Notify user
                     if (messageBoxLibrary != null)
@@ -224,7 +224,7 @@ public partial class SystemManager : ISystemManager
                 }
                 catch (XmlException ex)
                 {
-                    logErrors?.LogAndForget(ex, "Structural corruption in 'system.xml'. Attempting partial recovery.");
+                    logErrors?.Error(ex, "Structural corruption in 'system.xml'. Attempting partial recovery.");
 
                     // Create a fresh document for rebuilding
                     doc = new XDocument(new XElement("SystemConfigs"));
@@ -251,20 +251,20 @@ public partial class SystemManager : ISystemManager
                                 invalidManagers[structuralErrorKey] += $"- {sysName} (Unrecoverable XML block)\n";
 
                                 _logger?.Debug($"Failed to validate system configuration for '{sysName}'");
-                                logErrors?.LogAndForget(innerEx, $"Failed to validate system configuration for '{sysName}'");
+                                logErrors?.Error(innerEx, $"Failed to validate system configuration for '{sysName}'");
                             }
                         }
                     }
                     catch (Exception fatalEx)
                     {
                         _logger?.Debug($"Failed to perform regex recovery on system.xml: {fatalEx.Message}");
-                        logErrors?.LogAndForget(fatalEx, "Failed to perform regex recovery on system.xml.");
+                        logErrors?.Error(fatalEx, "Failed to perform regex recovery on system.xml.");
                     }
 
                     // If no systems could be recovered, the file is completely corrupted
                     if (systemManagers.Count == 0 && invalidManagers.Count == 0)
                     {
-                        logErrors?.LogAndForget(ex, "No systems could be recovered from 'system.xml'. The file is completely corrupted.");
+                        logErrors?.Error(ex, "No systems could be recovered from 'system.xml'. The file is completely corrupted.");
 
                         if (messageBoxLibrary != null)
                         {
@@ -276,7 +276,7 @@ public partial class SystemManager : ISystemManager
                 }
                 catch (IOException ex)
                 {
-                    logErrors?.LogAndForget(ex, "The file 'system.xml' is locked.");
+                    logErrors?.Error(ex, "The file 'system.xml' is locked.");
                     if (messageBoxLibrary != null)
                     {
                         _ = messageBoxLibrary.FileSystemXmlIsLockedMessageBoxAsync();
@@ -346,7 +346,7 @@ public partial class SystemManager : ISystemManager
                 {
                     // Notify developer
                     const string contextMessage = "Error saving 'system.xml' after loading, cleaning, and sorting.";
-                    logErrors?.LogAndForget(saveEx, contextMessage);
+                    logErrors?.Error(saveEx, contextMessage);
                 }
 
                 // Return the list of valid system configurations (could be empty)
@@ -356,7 +356,7 @@ public partial class SystemManager : ISystemManager
             {
                 // Notify developer
                 const string contextMessage = "Error loading system configurations from 'system.xml'.";
-                logErrors?.LogAndForget(ex, contextMessage);
+                logErrors?.Error(ex, contextMessage);
 
                 // Notify user
                 if (messageBoxLibrary != null)
@@ -508,7 +508,7 @@ public partial class SystemManager : ISystemManager
         }
     }
 
-    private static void RestoreBackupFile(string directoryPath, string systemXmlPath, ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary)
+    private static void RestoreBackupFile(string directoryPath, string systemXmlPath, ILogger logErrors, IMessageBoxLibraryService messageBoxLibrary)
     {
         try
         {
@@ -532,7 +532,7 @@ public partial class SystemManager : ISystemManager
                     {
                         // Notify developer
                         const string contextMessage = "'Simple Launcher' was unable to restore the last backup.";
-                        logErrors?.LogAndForget(ex, contextMessage);
+                        logErrors?.Error(ex, contextMessage);
 
                         // Notify user
                         if (messageBoxLibrary != null)
@@ -548,7 +548,7 @@ public partial class SystemManager : ISystemManager
             // Notify developer
             // Error during backup search/restore attempt (e.g., directory access issues)
             const string contextMessage = "Error during backup file handling.";
-            logErrors?.LogAndForget(ex, contextMessage);
+            logErrors?.Error(ex, contextMessage);
         }
     }
 
@@ -593,7 +593,7 @@ public partial class SystemManager : ISystemManager
     /// <summary>
     /// Asynchronously saves a system configuration to system.xml, creating or updating the entry with retry logic.
     /// </summary>
-    public static async Task SaveSystemConfigurationAsync(SystemManager systemConfig, string originalSystemName = null, ILogErrors logErrors = null, IConfiguration configuration = null)
+    public static async Task SaveSystemConfigurationAsync(SystemManager systemConfig, string originalSystemName = null, ILogger logErrors = null, IConfiguration configuration = null)
     {
         try
         {
@@ -648,7 +648,7 @@ public partial class SystemManager : ISystemManager
                     }
                     catch (Exception ex)
                     {
-                        logErrors?.LogAndForget(ex, "Error loading/parsing system.xml for saving.");
+                        logErrors?.Error(ex, "Error loading/parsing system.xml for saving.");
                         throw new InvalidOperationException("Failed to load system configuration for saving.", ex);
                     }
 
@@ -774,7 +774,7 @@ public partial class SystemManager : ISystemManager
                     }
 
                     // All retries exhausted or non-transient error
-                    logErrors?.LogAndForget(lastException, "Error saving system.xml.");
+                    logErrors?.Error(lastException, "Error saving system.xml.");
 
                     // Attempt to clean up temp file if it exists
                     try
@@ -797,14 +797,14 @@ public partial class SystemManager : ISystemManager
         catch (Exception ex)
         {
             _logger?.Debug($"Error saving system configuration: {ex.Message}");
-            logErrors?.LogAndForget(ex, "Error saving system configuration.");
+            logErrors?.Error(ex, "Error saving system configuration.");
         }
     }
 
     /// <summary>
     /// Asynchronously deletes a system configuration entry by name from system.xml.
     /// </summary>
-    public static async Task DeleteSystemAsync(string systemNameToDelete, ILogErrors logErrors = null, IConfiguration configuration = null)
+    public static async Task DeleteSystemAsync(string systemNameToDelete, ILogger logErrors = null, IConfiguration configuration = null)
     {
         try
         {
@@ -828,7 +828,7 @@ public partial class SystemManager : ISystemManager
                     }
                     catch (Exception ex)
                     {
-                        logErrors?.LogAndForget(ex, $"Error loading system.xml for deleting system '{systemNameToDelete}'.");
+                        logErrors?.Error(ex, $"Error loading system.xml for deleting system '{systemNameToDelete}'.");
                         throw new InvalidOperationException("Failed to load system configuration for deletion.", ex);
                     }
 
@@ -848,7 +848,7 @@ public partial class SystemManager : ISystemManager
         catch (Exception ex)
         {
             _logger?.Debug($"Error deleting system '{systemNameToDelete}': {ex.Message}");
-            logErrors?.LogAndForget(ex, $"Error deleting system '{systemNameToDelete}'.");
+            logErrors?.Error(ex, $"Error deleting system '{systemNameToDelete}'.");
         }
     }
 

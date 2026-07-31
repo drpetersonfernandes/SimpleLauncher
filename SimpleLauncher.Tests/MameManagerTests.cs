@@ -12,15 +12,8 @@ using Interfaces;
 /// </summary>
 public class MameManagerTests : IDisposable
 {
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 
-    private readonly ILogErrors _logErrors = new NoOpLogErrors();
+    private readonly ILogger _logErrors = new NoOpLogger();
 
     public MameManagerTests()
     {

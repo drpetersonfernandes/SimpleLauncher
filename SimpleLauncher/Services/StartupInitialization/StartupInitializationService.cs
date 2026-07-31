@@ -19,7 +19,6 @@ public class StartupInitializationService
     private readonly IConfiguration _configuration;
     private readonly Settings _settings;
     private readonly GamePad.GamePadController _gamePadController;
-    private readonly ILogErrors _logErrors;
     private readonly ThemeMenuService _themeMenuService;
     private readonly LanguageMenuService _languageMenuService;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
@@ -35,8 +34,7 @@ public class StartupInitializationService
         IConfiguration configuration,
         Settings settings,
         GamePad.GamePadController gamePadController,
-        ILogErrors logErrors,
-        ThemeMenuService themeMenuService,
+ThemeMenuService themeMenuService,
         LanguageMenuService languageMenuService,
         IMessageBoxLibraryService messageBoxLibrary,
         IApplicationLifetime applicationLifetime,
@@ -45,7 +43,6 @@ public class StartupInitializationService
         _configuration = configuration;
         _settings = settings;
         _gamePadController = gamePadController;
-        _logErrors = logErrors;
         _themeMenuService = themeMenuService;
         _languageMenuService = languageMenuService;
         _messageBoxLibrary = messageBoxLibrary;
@@ -111,7 +108,7 @@ public class StartupInitializationService
 
     private async Task CheckWriteAccessAsync()
     {
-        if (!CheckDirWritable.IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory, _logErrors))
+        if (!CheckDirWritable.IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory, _logger))
         {
             await _messageBoxLibrary.MoveToWritableFolderMessageBoxAsync();
             _logger.Debug("Application does not have write access.");
@@ -126,7 +123,7 @@ public class StartupInitializationService
 
     private void InitializeTrayIcon()
     {
-        _host.SetTrayIconManager(new TrayIconManager(_host.HostWindow, _logErrors, _applicationLifetime, _logger));
+        _host.SetTrayIconManager(new TrayIconManager(_host.HostWindow, _applicationLifetime, _logger));
         _logger.Debug("TrayIconManager was initialized.");
     }
 
@@ -134,12 +131,12 @@ public class StartupInitializationService
     {
         try
         {
-            await _requiredFiles.CheckFilesAsync(_configuration, _logErrors);
+            await _requiredFiles.CheckFilesAsync(_configuration, _logger);
             _logger.Debug("Required files were checked.");
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method CheckRequiredFilesAsync.");
+            _logger.Error(ex, "Error in the method CheckRequiredFilesAsync.");
         }
     }
 
@@ -153,7 +150,7 @@ public class StartupInitializationService
 
     private void InitializeGamePad()
     {
-        _gamePadController.ErrorLogger = (ex, msg) => { _logErrors.LogAndForget(ex, msg); };
+        _gamePadController.ErrorLogger = (ex, msg) => { _logger.Error(ex, msg); };
         if (_settings.EnableGamePadNavigation)
         {
             _ = _gamePadController.StartAsync();

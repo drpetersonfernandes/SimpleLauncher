@@ -61,7 +61,7 @@ public class UpdateSimulationTests : IDisposable
         });
 
         // Act: use the real extraction logic from UpdateChecker
-        var result = UpdateChecker.ExtractAllFromZip(zipStream, _testDirectory, null, new NoOpLogErrors());
+        var result = UpdateChecker.ExtractAllFromZip(zipStream, _testDirectory, null, new NoOpLogger());
 
         // Assert: extraction reported success
         Assert.True(result, "ExtractAllFromZip should return true for a valid ZIP.");
@@ -89,7 +89,7 @@ public class UpdateSimulationTests : IDisposable
         zipStream.Position = 0;
 
         // Act
-        var result = UpdateChecker.ExtractAllFromZip(zipStream, _testDirectory, null, new NoOpLogErrors());
+        var result = UpdateChecker.ExtractAllFromZip(zipStream, _testDirectory, null, new NoOpLogger());
 
         // Assert
         Assert.False(result, "ExtractAllFromZip should return false for an empty ZIP.");
@@ -311,7 +311,7 @@ public class UpdateSimulationTests : IDisposable
     {
         var constructor = typeof(UpdateChecker).GetConstructors(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).First();
         var factory = new MockHttpClientFactory();
-        var logErrors = new NoOpLogErrors();
+        var logErrors = new NoOpLogger();
         var debugLogger = Log.Logger;
         return (UpdateChecker)constructor.Invoke([factory, logErrors, null, null, debugLogger, null, null]);
     }
@@ -324,11 +324,4 @@ public class UpdateSimulationTests : IDisposable
         }
     }
 
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
     }

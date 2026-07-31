@@ -8,7 +8,7 @@ namespace SimpleLauncher.Services.GameScan;
 
 internal class ScanGogGames : IGamePlatformScanner
 {
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -98,14 +98,14 @@ internal class ScanGogGames : IGamePlatformScanner
                     }
                     catch (Exception ex)
                     {
-                        await logErrors.LogErrorAsync(ex, $"Error processing GOG game registry key: {subKeyName}");
+                        logErrors.Error(ex, $"Error processing GOG game registry key: {subKeyName}");
                     }
                 }
             }
         }
         catch (Exception ex)
         {
-            await logErrors.LogErrorAsync(ex, "An error occurred while scanning for GOG games.");
+            logErrors.Error(ex, "An error occurred while scanning for GOG games.");
         }
     }
 }

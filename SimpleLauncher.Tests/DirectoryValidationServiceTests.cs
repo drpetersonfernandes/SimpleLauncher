@@ -17,7 +17,7 @@ public class DirectoryValidationServiceTests : IDisposable
     public DirectoryValidationServiceTests()
     {
         ServiceProviderMock.Install();
-        _service = new DirectoryValidationService(new NoOpLogErrors());
+        _service = new DirectoryValidationService(new NoOpLogger());
     }
 
     public void Dispose()
@@ -100,11 +100,4 @@ public class DirectoryValidationServiceTests : IDisposable
         }
     }
 
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 }

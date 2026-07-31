@@ -25,7 +25,6 @@ public partial class GlobalHotkeyService : IDisposable
     private static partial bool UnregisterHotKey(IntPtr hWnd, int id);
 
     private readonly ILogger _logger;
-    private readonly ILogErrors _logErrors;
     private HwndSource _hwndSource;
     private IntPtr _windowHandle;
     private bool _isDisposed;
@@ -40,10 +39,9 @@ public partial class GlobalHotkeyService : IDisposable
     /// </summary>
     public event Func<Task> F8Pressed;
 
-    public GlobalHotkeyService(ILogger logger, ILogErrors logErrors)
+    public GlobalHotkeyService(ILogger logger)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
     }
 
     /// <summary>
@@ -88,7 +86,7 @@ public partial class GlobalHotkeyService : IDisposable
                     }
                     catch (Exception ex)
                     {
-                        _logErrors.LogAndForget(ex, "[GlobalHotkeyService] Error invoking F8Pressed event.");
+                        _logger.Error(ex, "[GlobalHotkeyService] Error invoking F8Pressed event.");
                     }
                 });
             }

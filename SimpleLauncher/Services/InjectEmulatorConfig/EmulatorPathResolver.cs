@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class EmulatorPathResolver
 {
-    public static string TryFindEmulatorPath(string emulatorNameHint, ILogErrors logErrors)
+    public static string TryFindEmulatorPath(string emulatorNameHint, ILogger logErrors)
     {
         if (string.IsNullOrWhiteSpace(emulatorNameHint))
             return null;
@@ -45,7 +45,7 @@ public static class EmulatorPathResolver
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"Error resolving emulator path for hint: {emulatorNameHint}");
+            logErrors.Error(ex, $"Error resolving emulator path for hint: {emulatorNameHint}");
         }
 
         return null;

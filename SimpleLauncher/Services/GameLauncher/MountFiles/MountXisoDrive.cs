@@ -13,7 +13,6 @@ public class MountXisoDrive : IAsyncDisposable
 {
     private readonly Process _mountProcess;
     private readonly int _mountProcessId;
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
 
     public string MountedPath { get; }
@@ -22,11 +21,11 @@ public class MountXisoDrive : IAsyncDisposable
     /// <summary>
     /// Constructor for a successful mount.
     /// </summary>
-    public MountXisoDrive(Process mountProcess, string mountedPath, ILogErrors logErrors, ILogger logger)
+    public MountXisoDrive(Process mountProcess, string mountedPath, ILogger logErrors, ILogger logger)
     {
         _mountProcess = mountProcess;
         _mountProcessId = mountProcess?.Id ?? -1;
-        _logErrors = logErrors;
+        _logger = logErrors;
         _logger = logger;
         MountedPath = mountedPath;
         IsMounted = !string.IsNullOrEmpty(mountedPath) && _mountProcess != null;
@@ -35,9 +34,9 @@ public class MountXisoDrive : IAsyncDisposable
     /// <summary>
     /// Constructor for a failed mount.
     /// </summary>
-    public MountXisoDrive(ILogErrors logErrors, ILogger logger)
+    public MountXisoDrive(ILogger logErrors, ILogger logger)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
         _logger = logger;
         IsMounted = false;
     }
@@ -108,7 +107,7 @@ public class MountXisoDrive : IAsyncDisposable
         {
             _logger.Debug(
                 $"[MountXisoDrive.DisposeAsync] Exception while terminating mounting tool (ID: {_mountProcessId}): {termEx}");
-            _logErrors.LogAndForget(termEx,
+            _logger.Error(termEx,
                 $"Failed to terminate mounting tool (ID: {_mountProcessId}) for unmounting.");
         }
         finally

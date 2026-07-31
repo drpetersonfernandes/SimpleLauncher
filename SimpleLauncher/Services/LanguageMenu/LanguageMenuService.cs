@@ -12,7 +12,7 @@ public class LanguageMenuService
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly Settings _settings;
     private readonly IMessageBoxLibraryService _messageBox;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
     private ILanguageMenuHost _host;
 
@@ -38,12 +38,12 @@ public class LanguageMenuService
         { "LanguageChineseSimplified", "zh-hans" }
     };
 
-    public LanguageMenuService(PlaySoundEffects playSoundEffects, Settings settings, IMessageBoxLibraryService messageBox, ILogErrors logErrors, QuitSimpleLauncher quitSimpleLauncher)
+    public LanguageMenuService(PlaySoundEffects playSoundEffects, Settings settings, IMessageBoxLibraryService messageBox, ILogger logErrors, QuitSimpleLauncher quitSimpleLauncher)
     {
         _playSoundEffects = playSoundEffects;
         _settings = settings;
         _messageBox = messageBox;
-        _logErrors = logErrors;
+        _logger = logErrors;
         _quitSimpleLauncher = quitSimpleLauncher;
     }
 
@@ -73,7 +73,7 @@ public class LanguageMenuService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ChangeLanguageAsync");
+            _logger.Error(ex, "Error in the method ChangeLanguageAsync");
         }
     }
 

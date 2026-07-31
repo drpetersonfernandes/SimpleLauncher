@@ -29,7 +29,7 @@ public class DownloadManager : IDisposable
     private readonly HttpClient _httpClient;
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IExtractionService _extractionService;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly IResourceProvider _resourceProvider;
     private readonly IDispatcherService _dispatcherService;
     private CancellationTokenSource _cancellationTokenSource;
@@ -39,11 +39,11 @@ public class DownloadManager : IDisposable
     /// <summary>
     /// Initializes a new instance of the DownloadManager.
     /// </summary>
-    public DownloadManager(IHttpClientFactory httpClientFactory, IExtractionService extractionService, ILogErrors logErrors, IResourceProvider resourceProvider, IDispatcherService dispatcherService)
+    public DownloadManager(IHttpClientFactory httpClientFactory, IExtractionService extractionService, ILogger logErrors, IResourceProvider resourceProvider, IDispatcherService dispatcherService)
     {
         _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
         _extractionService = extractionService ?? throw new ArgumentNullException(nameof(extractionService));
-        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
+        _logger = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _resourceProvider = resourceProvider ?? throw new ArgumentNullException(nameof(resourceProvider));
         _dispatcherService = dispatcherService ?? throw new ArgumentNullException(nameof(dispatcherService));
 
@@ -57,7 +57,7 @@ public class DownloadManager : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _logErrors.LogAndForget(ex, $"Error creating temp folder: {TempFolder}");
+            _logger.Error(ex, $"Error creating temp folder: {TempFolder}");
         }
 
         // Get HttpClient from the factory
@@ -263,7 +263,7 @@ public class DownloadManager : IDisposable
                 if (currentRetry > RetryMaxAttempts)
                 {
                     // Notify developer
-                    _logErrors.LogAndForget(ex, $"Download error for {downloadUrl}");
+                    _logger.Error(ex, $"Download error for {downloadUrl}");
                     break;
                 }
 
@@ -348,7 +348,7 @@ public class DownloadManager : IDisposable
             });
 
             // Notify developer
-            _logErrors.LogAndForget(ex, $"Error extracting file: {filePath} to {destinationPath}");
+            _logger.Error(ex, $"Error extracting file: {filePath} to {destinationPath}");
 
             return false;
         }

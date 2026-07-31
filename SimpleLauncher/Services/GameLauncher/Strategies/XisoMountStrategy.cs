@@ -12,17 +12,17 @@ namespace SimpleLauncher.Services.GameLauncher.Strategies;
 public class XisoMountStrategy : ILaunchStrategy
 {
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMountXisoFiles _mountXisoFiles;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="XisoMountStrategy"/> class.
     /// </summary>
-    public XisoMountStrategy(IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IMountXisoFiles mountXisoFiles)
+    public XisoMountStrategy(IConfiguration configuration, ILogger logErrors, IMessageBoxLibraryService messageBox, IMountXisoFiles mountXisoFiles)
     {
         _configuration = configuration;
-        _logErrors = logErrors;
+        _logger = logErrors;
         _messageBox = messageBox;
         _mountXisoFiles = mountXisoFiles;
     }
@@ -46,7 +46,7 @@ public class XisoMountStrategy : ILaunchStrategy
     /// <inheritdoc />
     public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
-        await using var mountedDrive = await _mountXisoFiles.MountAsync(context.ResolvedFilePath, PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"), _logErrors, _messageBox);
+        await using var mountedDrive = await _mountXisoFiles.MountAsync(context.ResolvedFilePath, PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"), _logger, _messageBox);
         if (mountedDrive.IsMounted)
         {
             await launcher.LaunchRegularEmulatorAsync(mountedDrive.MountedPath, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.WindowContext, context.LoadingState, context.ResolvedFilePath);

@@ -315,7 +315,7 @@ internal partial class EditSystemWindow
                 // Create folders based on the resolved paths
                 var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? "");
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(varSystemImageFolderText);
-                await CreateDefaultSystemFolders.CreateFoldersAsync(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logErrors, _messageBox);
+                await CreateDefaultSystemFolders.CreateFoldersAsync(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logger, _messageBox);
 
                 _originalSystemName = systemNameText; // Update original name after successful save & UI refresh
             }
@@ -328,7 +328,7 @@ internal partial class EditSystemWindow
             {
                 // Notify developer
                 const string contextMessage = "Unexpected error during system save process.";
-                _logErrors.LogAndForget(ex, contextMessage);
+                _logger.Error(ex, contextMessage);
 
                 // Notify user
                 await _messageBox.SaveSystemFailedMessageBoxAsync("An unexpected error occurred.");
@@ -341,7 +341,7 @@ internal partial class EditSystemWindow
         catch (Exception ex)
         {
             // Notify developer
-            _logErrors.LogAndForget(ex, "Error saving system configuration.");
+            _logger.Error(ex, "Error saving system configuration.");
         }
     }
 

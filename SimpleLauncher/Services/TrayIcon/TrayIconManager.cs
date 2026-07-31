@@ -12,7 +12,6 @@ public class TrayIconManager : IDisposable
     private readonly TaskbarIcon _taskbarIcon;
     private readonly System.Windows.Controls.ContextMenu _trayMenu;
     private readonly Window _mainWindow;
-    private readonly ILogErrors _logErrors;
     private readonly IApplicationLifetime _applicationLifetime;
     private readonly ILogger _logger;
 
@@ -22,11 +21,10 @@ public class TrayIconManager : IDisposable
     private readonly RoutedEventHandler _onOpenDebugWindowHandler;
     private readonly RoutedEventHandler _trayMouseDoubleClickHandler;
 
-    public TrayIconManager(Window mainWindow, ILogErrors logErrors, IApplicationLifetime applicationLifetime, ILogger logger)
+    public TrayIconManager(Window mainWindow, IApplicationLifetime applicationLifetime, ILogger logger)
     {
         _instance = this;
         _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
-        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _applicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
@@ -54,7 +52,7 @@ public class TrayIconManager : IDisposable
             Header = open,
             Icon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/play.png")),
+                Source = new BitmapImage(new Uri("pack://application:,/images/play.png")),
                 Width = 16,
                 Height = 16
             }
@@ -66,7 +64,7 @@ public class TrayIconManager : IDisposable
             Header = minimizeToTray,
             Icon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/shrink.png")),
+                Source = new BitmapImage(new Uri("pack://application:,/images/shrink.png")),
                 Width = 16,
                 Height = 16
             }
@@ -78,7 +76,7 @@ public class TrayIconManager : IDisposable
             Header = debugWindow,
             Icon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/bug.png")),
+                Source = new BitmapImage(new Uri("pack://application:,/images/bug.png")),
                 Width = 16,
                 Height = 16
             }
@@ -90,7 +88,7 @@ public class TrayIconManager : IDisposable
             Header = exit,
             Icon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/exit.png")),
+                Source = new BitmapImage(new Uri("pack://application:,/images/exit.png")),
                 Width = 16,
                 Height = 16
             }
@@ -110,7 +108,7 @@ public class TrayIconManager : IDisposable
     {
         return new TaskbarIcon
         {
-            IconSource = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/icon/icon.ico")),
+            IconSource = new BitmapImage(new Uri("pack://application:,/SimpleLauncher;component/icon/icon.ico")),
             ToolTipText = "Simple Launcher",
             ContextMenu = _trayMenu,
             Visibility = Visibility.Visible
@@ -139,7 +137,7 @@ public class TrayIconManager : IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Failed to open debug window from tray menu");
+            _logger.Error(ex, "Failed to open debug window from tray menu");
             ShowTrayMessage("Failed to open debug window");
         }
     }

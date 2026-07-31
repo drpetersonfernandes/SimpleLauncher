@@ -12,16 +12,14 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 /// </summary>
 public class Rpcs3ConfigHandler : IEmulatorConfigHandler
 {
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Rpcs3ConfigHandler"/> class.
     /// </summary>
-    public Rpcs3ConfigHandler(ILogErrors logErrors, ILogger logger, IServiceScopeFactory scopeFactory)
+    public Rpcs3ConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {
-        _logErrors = logErrors;
         _logger = logger;
         _scopeFactory = scopeFactory;
     }
@@ -54,7 +52,7 @@ public class Rpcs3ConfigHandler : IEmulatorConfigHandler
             }
             else if (File.Exists(resolvedExe))
             {
-                Rpcs3ConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _logger);
+                Rpcs3ConfigurationService.InjectSettings(resolvedExe, context.Settings, _logger);
             }
 
             return shouldRun;

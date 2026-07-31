@@ -7,7 +7,7 @@ namespace SimpleLauncher.Services.HelpUser;
 public partial class HelpUserManager
 {
     private const string FilePath = "parameters.md";
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
 
     // Regex to match Markdown H2 headers: ## System Name
@@ -15,9 +15,9 @@ public partial class HelpUserManager
 
     public List<SystemHelper> Systems { get; private set; } = [];
 
-    public HelpUserManager(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary)
+    public HelpUserManager(ILogger logErrors, IMessageBoxLibraryService messageBoxLibrary)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
         _messageBoxLibrary = messageBoxLibrary;
     }
 
@@ -29,7 +29,7 @@ public partial class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "The file 'parameters.md' is missing.";
-                _logErrors.LogAndForget(null, contextMessage);
+                _logger.Warning( contextMessage);
 
                 // Notify user
                 await _messageBoxLibrary.FileParametersMdIsMissingMessageBoxAsync();
@@ -46,7 +46,7 @@ public partial class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "Unable to load 'parameters.md'. The file may be corrupted or in use.";
-                _logErrors.LogAndForget(ex, contextMessage);
+                _logger.Error(ex, contextMessage);
 
                 // Notify user
                 await _messageBoxLibrary.FailedToLoadParametersMdMessageBoxAsync();
@@ -58,7 +58,7 @@ public partial class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "The file 'parameters.md' is empty.";
-                _logErrors.LogAndForget(null, contextMessage);
+                _logger.Warning( contextMessage);
 
                 // Notify user
                 await _messageBoxLibrary.FileParametersMdIsEmptyMessageBoxAsync();
@@ -72,7 +72,7 @@ public partial class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "No valid systems found in 'parameters.md' after processing.";
-                _logErrors.LogAndForget(null, contextMessage);
+                _logger.Warning( contextMessage);
 
                 // Notify user
                 await _messageBoxLibrary.NoSystemInParametersMdMessageBoxAsync();
@@ -86,7 +86,7 @@ public partial class HelpUserManager
         {
             // Notify developer
             const string contextMessage = "Unexpected error while loading 'parameters.md'.";
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logger.Error(ex, contextMessage);
 
             // Notify user
             await _messageBoxLibrary.ErrorWhileLoadingParametersMdMessageBoxAsync();

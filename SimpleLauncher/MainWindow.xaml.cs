@@ -134,7 +134,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private List<string> _selectedRomFolders = [];
 
     private readonly ILaunchTools _launchTools;
-    private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMenuOrchestrator _menuOrchestrator;
     private readonly IApplicationLifecycleService _lifecycle;
@@ -151,8 +150,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         SettingsManager settings,
         PlayHistoryManager playHistoryManager,
         ILaunchTools launchTools,
-        ILogErrors logErrors,
-        IMessageBoxLibraryService messageBox,
+IMessageBoxLibraryService messageBox,
         IUpdateStatusBar updateStatusBarService,
         IUiResetService uiResetService,
         ISystemConfigurationService systemConfigurationService,
@@ -170,7 +168,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _settings = settings;
         PlayHistoryManager = playHistoryManager;
         _launchTools = launchTools;
-        _logErrors = logErrors;
         _messageBox = messageBox;
         UpdateStatusBarService = updateStatusBarService;
 
@@ -212,7 +209,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
         if (_gameFileGrid == null)
         {
-            _logErrors.LogAndForget(null, "GameFileGrid not found");
+            _logger.Warning("GameFileGrid not found");
             throw new InvalidOperationException("GameFileGrid not found");
         }
 
@@ -272,7 +269,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                     }
                     catch (Exception ex)
                     {
-                        _logErrors.LogAndForget(ex, "Error in F8 screenshot handler.");
+                        _logger.Error(ex, "Error in F8 screenshot handler.");
                     }
                 };
 
@@ -280,7 +277,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in the Loaded handler.");
+                _logger.Error(ex, "Error in the Loaded handler.");
             }
         };
         Loaded += _asyncLoadedHandler;
@@ -298,7 +295,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the DisplaySystemSelectionScreenAsync method.");
+            _logger.Error(ex, "Error in the DisplaySystemSelectionScreenAsync method.");
             _logger.Debug($"Error in the DisplaySystemSelectionScreenAsync method: {ex.Message}");
         }
 
@@ -311,7 +308,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the Loaded event.");
+            _logger.Error(ex, "Error in the Loaded event.");
             _logger.Debug($"Error in the Loaded event: {ex.Message}");
         }
 
@@ -338,7 +335,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 }
                 catch (Exception ex)
                 {
-                    _logErrors.LogAndForget(ex, "Error during initial Windows games scan.");
+                    _logger.Error(ex, "Error during initial Windows games scan.");
                 }
                 finally
                 {
@@ -364,7 +361,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the Loaded event's first-run logic.");
+            _logger.Error(ex, "Error in the Loaded event's first-run logic.");
             _logger.Debug($"Error in the Loaded event's first-run logic: {ex.Message}");
         }
     }
@@ -406,12 +403,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in method TopLetterNumberMenu_OnLetterSelectedAsync");
+                _logger.Error(ex, "Error in method TopLetterNumberMenu_OnLetterSelectedAsync");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method TopLetterNumberMenu_OnLetterSelectedAsync");
+            _logger.Error(ex, "Error in method TopLetterNumberMenu_OnLetterSelectedAsync");
         }
     }
 
@@ -431,7 +428,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in SystemComboBoxSelectionChangedAsync.");
+                _logger.Error(ex, "Error in SystemComboBoxSelectionChangedAsync.");
             }
         }
         catch (OperationCanceledException)
@@ -440,7 +437,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in SystemComboBoxSelectionChangedAsync.");
+            _logger.Error(ex, "Error in SystemComboBoxSelectionChangedAsync.");
         }
     }
 
@@ -531,7 +528,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 }
                 catch (Exception ex)
                 {
-                    _logErrors.LogAndForget(ex, "Error in the method MainWindow_MouseWheelAsync.");
+                    _logger.Error(ex, "Error in the method MainWindow_MouseWheelAsync.");
                 }
             }
             catch (OperationCanceledException)
@@ -539,12 +536,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in the method MainWindow_MouseWheelAsync.");
+                _logger.Error(ex, "Error in the method MainWindow_MouseWheelAsync.");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method MainWindow_MouseWheelAsync.");
+            _logger.Error(ex, "Error in the method MainWindow_MouseWheelAsync.");
         }
     }
 
@@ -573,7 +570,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         catch (Exception ex)
         {
             // Notify developer
-            _logErrors.LogAndForget(ex, "Error in TopLetterNumberMenuClickAsync.");
+            _logger.Error(ex, "Error in TopLetterNumberMenuClickAsync.");
         }
     }
 
@@ -606,7 +603,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         catch (Exception ex)
         {
             // Notify developer
-            _logErrors.LogAndForget(ex, "Error in ShowSystemFavoriteGamesClickAsync.");
+            _logger.Error(ex, "Error in ShowSystemFavoriteGamesClickAsync.");
         }
     }
 
@@ -643,7 +640,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in ShowSystemFeelingLuckyClickAsync.");
+            _logger.Error(ex, "Error in ShowSystemFeelingLuckyClickAsync.");
             await _messageBox.ErrorMessageBoxAsync();
         }
     }
@@ -693,7 +690,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         {
             // Notify developer
             const string contextMessage = "Error refreshing game list play time";
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logger.Error(ex, contextMessage);
         }
     }
 
@@ -776,12 +773,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in GameListSelectionChanged.");
+                _logger.Error(ex, "Error in GameListSelectionChanged.");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in GameListSelectionChanged.");
+            _logger.Error(ex, "Error in GameListSelectionChanged.");
         }
     }
 
@@ -809,12 +806,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error while using the method GameListDoubleClickOnSelectedItemAsync.");
+                _logger.Error(ex, "Error while using the method GameListDoubleClickOnSelectedItemAsync.");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error while using the method GameListDoubleClickOnSelectedItemAsync.");
+            _logger.Error(ex, "Error while using the method GameListDoubleClickOnSelectedItemAsync.");
         }
     }
 
@@ -833,7 +830,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                     s.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
                 if (systemManager == null)
                 {
-                    _logErrors.LogAndForget(null, "systemManager is null for the selected game item");
+                    _logger.Warning("systemManager is null for the selected game item");
                     await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
                     return;
                 }
@@ -885,13 +882,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "There was an error in the game list right-click context menu.");
+                _logger.Error(ex, "There was an error in the game list right-click context menu.");
                 await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "There was an error in the method GameListRightClickContextMenuAsync.");
+            _logger.Error(ex, "There was an error in the method GameListRightClickContextMenuAsync.");
         }
     }
 
@@ -951,13 +948,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in method SortOrderToggleButtonClickAsync.");
+                _logger.Error(ex, "Error in method SortOrderToggleButtonClickAsync.");
                 _logger.Debug("Error in method SortOrderToggleButtonClickAsync.");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method SortOrderToggleButtonClickAsync.");
+            _logger.Error(ex, "Error in method SortOrderToggleButtonClickAsync.");
             _logger.Debug("Error in method SortOrderToggleButtonClickAsync.");
         }
     }

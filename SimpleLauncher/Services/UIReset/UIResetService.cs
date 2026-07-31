@@ -9,13 +9,13 @@ using Interfaces;
 /// </summary>
 public class UiResetService : IUiResetService
 {
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private IUiResetHost _host;
 
     /// <summary>Initializes a new instance of the UiResetService with error logging.</summary>
-    public UiResetService(ILogErrors logErrors)
+    public UiResetService(ILogger logErrors)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
     }
 
     /// <summary>Initializes the service with the specified UI host.</summary>
@@ -68,7 +68,7 @@ public class UiResetService : IUiResetService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in the method ResetUiAsync.");
+                _logger.Error(ex, "Error in the method ResetUiAsync.");
             }
             finally
             {
@@ -81,7 +81,7 @@ public class UiResetService : IUiResetService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ResetUiAsync.");
+            _logger.Error(ex, "Error in the method ResetUiAsync.");
         }
     }
 }

@@ -7,7 +7,7 @@ public class MameDataService : IMameDataService
     public IReadOnlyList<MameManager.MameManager> Machines { get; }
     public Dictionary<string, string> Lookup { get; }
 
-    public MameDataService(ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public MameDataService(ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         var machines = MameManager.MameManager.LoadFromDat(logErrors, messageBox: messageBox);
         Machines = machines;

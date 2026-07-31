@@ -7,13 +7,12 @@ using Interfaces;
 /// </summary>
 public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
 {
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly HashSet<string> _loggedUnmatchedSystems = new(StringComparer.OrdinalIgnoreCase);
 
-    public RetroAchievementsSystemMatcher(ILogErrors logErrors, ILogger logger)
+    public RetroAchievementsSystemMatcher(ILogger logErrors, ILogger logger)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
         _logger = logger;
     }
 
@@ -193,7 +192,7 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         if (_loggedUnmatchedSystems.Add(inputSystemName))
         {
             _logger?.Debug($"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
-            _logErrors?.LogAndForget(null, $"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
+            _logger?.Warning($"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
         }
 
         return normalizedInput;

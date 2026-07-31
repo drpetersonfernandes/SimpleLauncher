@@ -25,10 +25,9 @@ public class EasyModeManager : IDisposable
     private static readonly SemaphoreSlim CacheLock = new(1, 1);
     private const int DefaultCacheDurationMinutes = 60;
 
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly IConfiguration _configuration;
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly ILogger _logger;
 
     /// <summary>
     /// Gets or sets the list of EasyMode system configurations.
@@ -39,9 +38,8 @@ public class EasyModeManager : IDisposable
     /// <summary>
     /// Initializes a new instance of <see cref="EasyModeManager"/> with the specified dependencies for API loading and error logging.
     /// </summary>
-    public EasyModeManager(ILogErrors logErrors, IConfiguration configuration, IHttpClientFactory httpClientFactory, ILogger logger)
+    public EasyModeManager(ILogger logErrors, IConfiguration configuration, IHttpClientFactory httpClientFactory, ILogger logger)
     {
-        _logErrors = logErrors;
         _configuration = configuration;
         _httpClientFactory = httpClientFactory;
         _logger = logger;
@@ -63,7 +61,7 @@ public class EasyModeManager : IDisposable
     public async Task<EasyModeManager> LoadAsync()
     {
         // Try loading from XML first
-        var manager = LoadFromXml(_logErrors);
+        var manager = LoadFromXml(_logger);
         if (manager != null && manager.Systems.Count != 0)
         {
             _logger.Debug("Loaded EasyMode configuration from local XML file.");
@@ -92,7 +90,7 @@ public class EasyModeManager : IDisposable
         return null; // Return null if all methods fail
     }
 
-    private static EasyModeManager LoadFromXml(ILogErrors logErrors)
+    private static EasyModeManager LoadFromXml(ILogger logErrors)
     {
         // Determine the XML file based on system architecture
         var xmlFile = Environment.OSVersion.Platform == PlatformID.Win32NT
@@ -144,7 +142,7 @@ public class EasyModeManager : IDisposable
         {
             // If the file exists but is corrupt, we log it but still return null to allow API fallback.
             var contextMessage = $"The file '{xmlFile}' could not be loaded. It might be corrupted.";
-            logErrors.LogAndForget(ex, contextMessage);
+            logErrors.Error(ex, contextMessage);
             return null;
         }
     }
@@ -207,7 +205,7 @@ public class EasyModeManager : IDisposable
 
             if (systems == null || systems.Count == 0)
             {
-                _logErrors.LogAndForget(null, "EasyMode API returned no systems.");
+                _logger.Warning("EasyMode API returned no systems.");
                 return null;
             }
 
@@ -217,7 +215,7 @@ public class EasyModeManager : IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "An error occurred while loading EasyMode configuration from the API.");
+            _logger.Error(ex, "An error occurred while loading EasyMode configuration from the API.");
             return null;
         }
     }
@@ -272,7 +270,7 @@ public class EasyModeManager : IDisposable
             _logger.Debug($"Downloaded EasyMode XML saved to: {xmlFilePath}");
 
             // Load the saved XML file
-            return LoadFromXml(_logErrors);
+            return LoadFromXml(_logger);
         }
         catch (OperationCanceledException)
         {
@@ -282,7 +280,7 @@ public class EasyModeManager : IDisposable
         catch (Exception ex)
         {
             _logger.Debug($"Failed to load EasyMode configuration from fallback URL: {ex.Message}");
-            _logErrors.LogAndForget(ex, "An error occurred while loading EasyMode configuration from the fallback URL.");
+            _logger.Error(ex, "An error occurred while loading EasyMode configuration from the fallback URL.");
             return null;
         }
     }

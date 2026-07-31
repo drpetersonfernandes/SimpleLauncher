@@ -53,7 +53,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="playSoundEffects">The service used to play sound effects.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task AddToFavoritesAsync(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public async Task AddToFavoritesAsync(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         try
         {
@@ -105,7 +105,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
         {
             // Notify developer
             const string contextMessage = "An error occurred while adding a game to the favorites.";
-            logErrors.LogAndForget(ex, contextMessage);
+            logErrors.Error(ex, contextMessage);
 
             // Notify user
             await messageBox.ErrorWhileAddingFavoritesMessageBoxAsync();
@@ -123,7 +123,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="playSoundEffects">The service used to play sound effects.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task RemoveFromFavoritesAsync(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public async Task RemoveFromFavoritesAsync(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         try
         {
@@ -171,7 +171,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
         {
             // Notify developer
             const string contextMessage = "An error occurred while removing a game from favorites.";
-            logErrors.LogAndForget(ex, contextMessage);
+            logErrors.Error(ex, contextMessage);
 
             // Notify user
             await messageBox.ErrorWhileRemovingGameFromFavoriteMessageBoxAsync();
@@ -188,7 +188,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="mainWindow">The main application window.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task OpenVideoLinkAsync(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, SettingsManager.SettingsManager settings, MainWindow mainWindow, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public async Task OpenVideoLinkAsync(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, SettingsManager.SettingsManager settings, MainWindow mainWindow, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         // Attempt to find a matching machine description
         var searchTerm = fileNameWithoutExtension;
@@ -211,14 +211,14 @@ public class ContextMenuFunctions : IContextMenuFunctions
         // Catch Win32Exception specifically for "No application associated" error
         catch (Win32Exception ex) when (ex.Message.Contains("No hay ninguna aplicación asociada", StringComparison.OrdinalIgnoreCase) || ex.Message.Contains("No application is associated", StringComparison.OrdinalIgnoreCase))
         {
-            logErrors.LogAndForget(ex, "Win32Exception: No default application configured for opening web links (Video Link).");
+            logErrors.Error(ex, "Win32Exception: No default application configured for opening web links (Video Link).");
             await messageBox.NoDefaultBrowserConfiguredMessageBoxAsync();
         }
         catch (Exception ex)
         {
             // Notify developer
             const string contextMessage = "There was a problem opening the Video Link.";
-            logErrors.LogAndForget(ex, contextMessage);
+            logErrors.Error(ex, contextMessage);
 
             // Notify user
             mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ErrorOpeningVideoLink") ?? "Error opening video link.");
@@ -236,7 +236,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="mainWindow">The main application window.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task OpenInfoLinkAsync(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, SettingsManager.SettingsManager settings, MainWindow mainWindow, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public async Task OpenInfoLinkAsync(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, SettingsManager.SettingsManager settings, MainWindow mainWindow, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         // Attempt to find a matching machine description
         var searchTerm = fileNameWithoutExtension;
@@ -259,14 +259,14 @@ public class ContextMenuFunctions : IContextMenuFunctions
         // Catch Win32Exception specifically for "No application associated" error
         catch (Win32Exception ex) when (ex.Message.Contains("No hay ninguna aplicación asociada", StringComparison.OrdinalIgnoreCase) || ex.Message.Contains("No application is associated", StringComparison.OrdinalIgnoreCase))
         {
-            logErrors.LogAndForget(ex, "Win32Exception: No default application configured for opening web links (Info Link).");
+            logErrors.Error(ex, "Win32Exception: No default application configured for opening web links (Info Link).");
             await messageBox.NoDefaultBrowserConfiguredMessageBoxAsync();
         }
         catch (Exception ex)
         {
             // Notify developer
             const string contextMessage = "There was a problem opening the Info Link.";
-            logErrors.LogAndForget(ex, contextMessage);
+            logErrors.Error(ex, contextMessage);
 
             // Notify user
             mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ErrorOpeningInfoLink") ?? "Error opening info link.");
@@ -283,7 +283,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="mainWindow">The main application window.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task OpenRomHistoryWindowAsync(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, MainWindow mainWindow, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public async Task OpenRomHistoryWindowAsync(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, MainWindow mainWindow, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         var romName = fileNameWithoutExtension.ToLowerInvariant();
 
@@ -305,7 +305,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
         {
             // Notify developer
             const string contextMessage = "There was a problem opening the History window.";
-            logErrors.LogAndForget(ex, contextMessage);
+            logErrors.Error(ex, contextMessage);
 
             // Notify user
             mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ErrorOpeningROMHistory") ?? "Error opening ROM history.");
@@ -324,7 +324,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="loadingStateProvider">The loading state provider for showing/hiding overlays.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task OpenRetroAchievementsWindowAsync(string filePath, string fileNameWithoutExtension, SystemManager.SystemManager systemManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public async Task OpenRetroAchievementsWindowAsync(string filePath, string fileNameWithoutExtension, SystemManager.SystemManager systemManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         string tempExtractionPath = null;
         try
@@ -400,7 +400,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             if (!File.Exists(filePath))
             {
                 _logger.Debug($"[RA Service] File not found at {filePath}");
-                logErrors.LogAndForget(null, $"[RA Service] File not found at {filePath}");
+                logErrors.Warning($"[RA Service] File not found at {filePath}");
 
                 await messageBox.CouldNotFindAFileMessageBoxAsync();
 
@@ -415,7 +415,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             if (string.IsNullOrEmpty(fileNameWithoutExtension))
             {
                 _logger.Debug("[RA Service] FileNameWithoutExtension is null or empty.");
-                logErrors.LogAndForget(null, "[RA Service] FileNameWithoutExtension is null or empty.");
+                logErrors.Warning("[RA Service] FileNameWithoutExtension is null or empty.");
                 await messageBox.ErrorMessageBoxAsync();
 
                 Application.Current.Dispatcher.Invoke(() =>
@@ -429,7 +429,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             if (string.IsNullOrWhiteSpace(systemName))
             {
                 _logger.Debug("[RA Service] SystemName is null or empty.");
-                logErrors.LogAndForget(null, "[RA Service] SystemName is null or empty.");
+                logErrors.Warning("[RA Service] SystemName is null or empty.");
 
                 var messageBoxResult = await messageBox.GameNotSupportedByRetroAchievementsMessageBoxAsync();
                 if (messageBoxResult == CoreMessageBoxResult.Yes)
@@ -595,7 +595,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
+            logErrors.Error(ex, $"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
             _logger.Debug($"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
             await messageBox.CouldNotOpenAchievementsWindowMessageBoxAsync();
         }
@@ -796,7 +796,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task OpenManualAsync(string systemName, string fileNameWithoutExtension, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public async Task OpenManualAsync(string systemName, string fileNameWithoutExtension, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningManual") ?? "Opening manual...");
@@ -823,7 +823,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
                 // No application is associated with the file format
                 // Notify developer
                 const string contextMessage = "There was a problem opening the manual. No PDF viewer is installed.";
-                logErrors.LogAndForget(ex, contextMessage);
+                logErrors.Error(ex, contextMessage);
 
                 // Notify user
                 await messageBox.NoPdfViewerInstalledMessageBoxAsync();
@@ -834,7 +834,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             {
                 // Notify developer
                 const string contextMessage = "There was a problem opening the manual.";
-                logErrors.LogAndForget(ex, contextMessage);
+                logErrors.Error(ex, contextMessage);
 
                 // Notify user
                 await messageBox.CouldNotOpenManualMessageBoxAsync();
@@ -854,7 +854,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task OpenWalkthroughAsync(string systemName, string fileNameWithoutExtension, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public async Task OpenWalkthroughAsync(string systemName, string fileNameWithoutExtension, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningWalkthrough") ?? "Opening walkthrough...");
@@ -882,7 +882,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
                 // No application is associated with the file format
                 // Notify developer
                 const string contextMessage = "There was a problem opening the walkthrough. No PDF viewer is installed.";
-                logErrors.LogAndForget(ex, contextMessage);
+                logErrors.Error(ex, contextMessage);
 
                 // Notify user
                 await messageBox.NoPdfViewerInstalledMessageBoxAsync();
@@ -893,7 +893,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             {
                 // Notify developer
                 const string contextMessage = "There was a problem opening the walkthrough.";
-                logErrors.LogAndForget(ex, contextMessage);
+                logErrors.Error(ex, contextMessage);
 
                 // Notify user
                 await messageBox.CouldNotOpenWalkthroughMessageBoxAsync();
@@ -1006,7 +1006,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="loadingStateProvider">The loading state provider for showing/hiding overlays.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task TakeScreenshotOfSelectedWindowAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher.GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public async Task TakeScreenshotOfSelectedWindowAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher.GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TakingScreenshot") ?? "Taking screenshot...");
         try
@@ -1018,7 +1018,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             }
             catch (Exception ex)
             {
-                logErrors.LogAndForget(ex, "Error clearing preview image source before taking screenshot.");
+                logErrors.Error(ex, "Error clearing preview image source before taking screenshot.");
             }
 
             var systemImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.SystemImageFolder);
@@ -1038,7 +1038,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
                 // Notify developer
                 if (App.ServiceProvider != null)
                 {
-                    logErrors.LogAndForget(ex, $"[TakeScreenshotOfSelectedWindow] Could not create the system image folder: {systemImageFolder}");
+                    logErrors.Error(ex, $"[TakeScreenshotOfSelectedWindow] Could not create the system image folder: {systemImageFolder}");
                 }
             }
 
@@ -1182,7 +1182,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
                     {
                         // Notify developer
                         const string contextMessage = "[TakeScreenshotOfSelectedWindow] Failed to update button image after screenshot.";
-                        logErrors.LogAndForget(ex, contextMessage);
+                        logErrors.Error(ex, contextMessage);
 
                         // Do not notify the user
                     }
@@ -1198,7 +1198,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             {
                 // Notify developer
                 const string contextMessage = "[TakeScreenshotOfSelectedWindow] There was a problem loading the Game Files.";
-                logErrors.LogAndForget(ex, contextMessage);
+                logErrors.Error(ex, contextMessage);
             }
         }
         catch (Exception ex)
@@ -1207,7 +1207,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             const string contextMessage = "[TakeScreenshotOfSelectedWindow] There was a problem saving the screenshot.";
             if (App.ServiceProvider != null)
             {
-                logErrors.LogAndForget(ex, contextMessage);
+                logErrors.Error(ex, contextMessage);
             }
 
             // Notify user
@@ -1224,7 +1224,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="playSoundEffects">The service used to play sound effects.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task DeleteGameAsync(string filePath, string fileNameWithExtension, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public async Task DeleteGameAsync(string filePath, string fileNameWithExtension, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("DeletingGame") ?? "Deleting game...");
         if (File.Exists(filePath))
@@ -1250,14 +1250,14 @@ public class ContextMenuFunctions : IContextMenuFunctions
                 {
                     // Notify developer
                     const string contextMessage = "There was a problem loading the Game Files after deletion.";
-                    logErrors.LogAndForget(ex, contextMessage);
+                    logErrors.Error(ex, contextMessage);
                 }
             }
             catch (Exception ex)
             {
                 // Notify developer
                 var errorMessage = $"An error occurred while trying to delete the file '{fileNameWithExtension}'.";
-                logErrors.LogAndForget(ex, errorMessage);
+                logErrors.Error(ex, errorMessage);
 
                 // Notify user
                 await messageBox.FileCouldNotBeDeletedMessageBoxAsync(fileNameWithExtension);
@@ -1276,7 +1276,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             catch (Exception ex)
             {
                 const string contextMessage = "There was a problem loading the Game Files after detecting a missing file.";
-                logErrors.LogAndForget(ex, contextMessage);
+                logErrors.Error(ex, contextMessage);
             }
         }
     }
@@ -1293,7 +1293,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="findCoverImage">The service used to locate cover images.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task DeleteCoverImageAsync(string fileNameWithoutExtension, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager contextSettings, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IFindCoverImageService findCoverImage, IMessageBoxLibraryService messageBox)
+    public async Task DeleteCoverImageAsync(string fileNameWithoutExtension, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager contextSettings, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogger logErrors, IFindCoverImageService findCoverImage, IMessageBoxLibraryService messageBox)
     {
         mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("DeletingCoverImage") ?? "Deleting cover image...");
         var coverPath = findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager.SystemImageFolder);
@@ -1322,7 +1322,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
         {
             // Notify developer
             var errorMessage = $"An error occurred while trying to delete the game cover '{coverPath}'.";
-            logErrors.LogAndForget(ex, errorMessage);
+            logErrors.Error(ex, errorMessage);
 
             // Notify user
             await messageBox.FileCouldNotBeDeletedMessageBoxAsync(coverPath);

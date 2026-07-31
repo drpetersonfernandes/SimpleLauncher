@@ -11,7 +11,7 @@ namespace SimpleLauncher.Services.QuitOrReinstall;
 /// </summary>
 public class ReinstallSimpleLauncher
 {
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly IApplicationLifetime _applicationLifetime;
     private readonly IDispatcherService _dispatcherService;
     private readonly IServiceProvider _serviceProvider;
@@ -19,9 +19,9 @@ public class ReinstallSimpleLauncher
     /// <summary>
     /// Initializes a new instance of the <see cref="ReinstallSimpleLauncher"/> class.
     /// </summary>
-    public ReinstallSimpleLauncher(ILogErrors logErrors, IApplicationLifetime applicationLifetime, IDispatcherService dispatcherService, IServiceProvider serviceProvider)
+    public ReinstallSimpleLauncher(ILogger logErrors, IApplicationLifetime applicationLifetime, IDispatcherService dispatcherService, IServiceProvider serviceProvider)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
         _applicationLifetime = applicationLifetime;
         _dispatcherService = dispatcherService;
         _serviceProvider = serviceProvider;
@@ -56,7 +56,7 @@ public class ReinstallSimpleLauncher
                     catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
                     {
                         // Log the access denied error
-                        _logErrors.LogAndForget(ex, "Access denied when starting Updater.exe.");
+                        _logger.Error(ex, "Access denied when starting Updater.exe.");
 
                         // Notify user that update failed
                         await messageBoxLibrary.UpdaterLaunchFailedMessageBoxAsync();
@@ -82,7 +82,7 @@ public class ReinstallSimpleLauncher
                         await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
 
                         // 3. Extract the contents to the application directory
-                        var extractionSuccess = CheckForUpdates.UpdateChecker.ExtractAllFromZip(memoryStream, AppDomain.CurrentDomain.BaseDirectory, null, _logErrors);
+                        var extractionSuccess = CheckForUpdates.UpdateChecker.ExtractAllFromZip(memoryStream, AppDomain.CurrentDomain.BaseDirectory, null, _logger);
 
                         if (!extractionSuccess)
                         {
@@ -110,7 +110,7 @@ public class ReinstallSimpleLauncher
                             catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
                             {
                                 // Log the access denied error
-                                _logErrors.LogAndForget(ex, "Access denied when starting Updater.exe after download.");
+                                _logger.Error(ex, "Access denied when starting Updater.exe after download.");
 
                                 // Notify user that update failed
                                 await messageBoxLibrary.UpdaterLaunchFailedMessageBoxAsync();
@@ -125,7 +125,7 @@ public class ReinstallSimpleLauncher
                     catch (Exception ex)
                     {
                         // Notify developer
-                        _logErrors.LogAndForget(ex, "Failed to download and reinstall the updater.");
+                        _logger.Error(ex, "Failed to download and reinstall the updater.");
 
                         // Notify user
                         await messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
@@ -135,7 +135,7 @@ public class ReinstallSimpleLauncher
             catch (Exception ex)
             {
                 // Notify developer
-                _logErrors.LogAndForget(ex, "Failed to reinstall SimpleLauncher.");
+                _logger.Error(ex, "Failed to reinstall SimpleLauncher.");
 
                 // Notify user
                 await messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
@@ -143,7 +143,7 @@ public class ReinstallSimpleLauncher
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method StartUpdaterAndShutdownAsync.");
+            _logger.Error(ex, "Error in the method StartUpdaterAndShutdownAsync.");
         }
     }
 

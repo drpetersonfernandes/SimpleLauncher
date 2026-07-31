@@ -27,7 +27,6 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
     private readonly MainWindow _mainWindow;
     private readonly GamePadController _gamePadController;
     private readonly GameLauncher _gameLauncher;
-    private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IFindCoverImageService _findCoverImage;
     private readonly List<MameManager> _machines;
@@ -49,8 +48,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         GameLauncher gameLauncher,
         PlaySoundEffects playSoundEffects,
         IConfiguration configuration,
-        ILogErrors logErrors,
-        IFindCoverImageService findCoverImage,
+IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         IContextMenuFunctions contextMenuFunctions,
         ILogger logger,
@@ -64,7 +62,6 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _findCoverImage = findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
         _machines = machines ?? throw new ArgumentNullException(nameof(machines));
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
@@ -75,7 +72,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
 
         _viewModel = new FavoritesViewModel(
             configuration,
-            logErrors,
+            logger,
             favoritesManager,
             settings,
             systemManagers,
@@ -109,7 +106,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the FavoritesPageLoadedAsync method.");
+            _logger.Error(ex, "Error in the FavoritesPageLoadedAsync method.");
         }
     }
 
@@ -136,7 +133,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method RemoveFavoriteButton_ClickAsync");
+            _logger.Error(ex, "Error in method RemoveFavoriteButton_ClickAsync");
         }
     }
 
@@ -169,7 +166,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
             var systemManager = _viewModel.GetSystemManager(selectedFavorite.SystemName);
             if (systemManager == null)
             {
-                _logErrors.LogAndForget(null, "systemManager is null for the selected favorite");
+                _logger.Warning("systemManager is null for the selected favorite");
                 await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
                 return;
             }
@@ -189,7 +186,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
             var emulatorManager = systemManager.Emulators.FirstOrDefault();
             if (emulatorManager == null)
             {
-                _logErrors.LogAndForget(null, "emulatorManager is null.");
+                _logger.Warning("emulatorManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                     PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
@@ -237,7 +234,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "There was an error in the right-click context menu.");
+            _logger.Error(ex, "There was an error in the right-click context menu.");
             await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
         }
     }
@@ -257,7 +254,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method LaunchGameClickAsync");
+            _logger.Error(ex, "Error in method LaunchGameClickAsync");
         }
     }
 
@@ -268,7 +265,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
             var selectedSystemManager = _viewModel.GetSystemManager(selectedSystemName);
             if (selectedSystemManager == null)
             {
-                _logErrors.LogAndForget(null, "[LaunchGameFromFavoritesAsync] selectedSystemManager is null.");
+                _logger.Warning("[LaunchGameFromFavoritesAsync] selectedSystemManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                     PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
@@ -288,14 +285,14 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
                     }
                 }
 
-                _logErrors.LogAndForget(null, $"[LaunchGameFromFavoritesAsync] File does not exist: {filePath}");
+                _logger.Warning($"[LaunchGameFromFavoritesAsync] File does not exist: {filePath}");
                 return;
             }
 
             var emulatorManager = selectedSystemManager.Emulators.FirstOrDefault();
             if (emulatorManager == null)
             {
-                _logErrors.LogAndForget(null, "[LaunchGameFromFavoritesAsync] emulatorManager is null.");
+                _logger.Warning("[LaunchGameFromFavoritesAsync] emulatorManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                     PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
@@ -306,7 +303,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"[LaunchGameFromFavoritesAsync] Error launching: {fileName}, {selectedSystemName}");
+            _logger.Error(ex, $"[LaunchGameFromFavoritesAsync] Error launching: {fileName}, {selectedSystemName}");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
@@ -323,7 +320,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method MouseDoubleClick.");
+            _logger.Error(ex, "Error in the method MouseDoubleClick.");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
@@ -350,7 +347,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the SetPreviewImageOnSelectionChangedAsync method.");
+            _logger.Error(ex, "Error in the SetPreviewImageOnSelectionChangedAsync method.");
         }
     }
 
@@ -398,7 +395,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error handling key press in FavoritesDataGrid.");
+            _logger.Error(ex, "Error handling key press in FavoritesDataGrid.");
         }
     }
 

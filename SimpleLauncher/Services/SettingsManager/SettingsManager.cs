@@ -14,7 +14,7 @@ namespace SimpleLauncher.Services.SettingsManager;
 public class SettingsManager : IDisposable
 {
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly ICredentialProtector _credentialProtector;
 
@@ -267,10 +267,10 @@ public class SettingsManager : IDisposable
     /// <summary>
     /// Initializes a new instance of the SettingsManager with the specified dependencies.
     /// </summary>
-    public SettingsManager(IConfiguration configuration, ILogErrors logErrors, ICredentialProtector credentialProtector, IMessageBoxLibraryService messageBox = null)
+    public SettingsManager(IConfiguration configuration, ILogger logErrors, ICredentialProtector credentialProtector, IMessageBoxLibraryService messageBox = null)
     {
         _configuration = configuration;
-        _logErrors = logErrors;
+        _logger = logErrors;
         _credentialProtector = credentialProtector;
         _messageBox = messageBox;
         _fileLocation = new DataFileLocation(DefaultSettingsFilePath);
@@ -299,7 +299,7 @@ public class SettingsManager : IDisposable
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error loading settings.xml.");
+                _logger.Error(ex, "Error loading settings.xml.");
             }
         }
 
@@ -569,7 +569,7 @@ public class SettingsManager : IDisposable
         _settingsLock.EnterReadLock();
         try
         {
-            snapshot = new SettingsManager(_configuration, _logErrors, _credentialProtector, _messageBox);
+            snapshot = new SettingsManager(_configuration, _logger, _credentialProtector, _messageBox);
             snapshot.CopyFrom(this);
         }
         finally
@@ -593,7 +593,7 @@ public class SettingsManager : IDisposable
                 }
                 catch (Exception ex)
                 {
-                    _logErrors.LogAndForget(ex, "Error creating settings directory.");
+                    _logger.Error(ex, "Error creating settings directory.");
                 }
             }
 
@@ -667,7 +667,7 @@ public class SettingsManager : IDisposable
                 }
             }
 
-            _logErrors.LogAndForget(lastException, "Error saving settings.xml");
+            _logger.Error(lastException, "Error saving settings.xml");
 
             try
             {
@@ -827,7 +827,7 @@ public class SettingsManager : IDisposable
     /// </summary>
     public void ResetToDefaults()
     {
-        CopyFrom(new SettingsManager(_configuration, _logErrors, _credentialProtector, _messageBox));
+        CopyFrom(new SettingsManager(_configuration, _logger, _credentialProtector, _messageBox));
     }
 
     private void SetDefaultsAndSave()

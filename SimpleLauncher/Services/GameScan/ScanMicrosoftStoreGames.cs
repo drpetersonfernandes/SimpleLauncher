@@ -20,7 +20,7 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
         _httpClientFactory = httpClientFactory;
     }
 
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -194,7 +194,7 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                 }
                 catch (Exception ex)
                 {
-                    await logErrors.LogErrorAsync(ex, "Error processing Microsoft Store game entry.");
+                    logErrors.Error(ex, "Error processing Microsoft Store game entry.");
                 }
             }
 
@@ -239,11 +239,11 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
         }
         catch (Exception ex)
         {
-            await logErrors.LogErrorAsync(ex, "An error occurred while scanning for Microsoft Store games.");
+            logErrors.Error(ex, "An error occurred while scanning for Microsoft Store games.");
         }
     }
 
-    private async Task<List<StoreAppInfo>> ClassifyGamesViaApiAsync(List<StoreAppInfo> installedApps, ILogErrors logErrors)
+    private async Task<List<StoreAppInfo>> ClassifyGamesViaApiAsync(List<StoreAppInfo> installedApps, ILogger logErrors)
     {
         try
         {
@@ -270,7 +270,7 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
             if (!response.IsSuccessStatusCode)
             {
                 _logger.Debug($"[ScanMicrosoftStoreGames] Game classification API returned status: {response.StatusCode}");
-                await logErrors.LogErrorAsync(null, $"Game classification API failed with status {response.StatusCode}. Returning empty game list.");
+                logErrors.Warning($"Game classification API failed with status {response.StatusCode}. Returning empty game list.");
                 return [];
             }
 
@@ -313,12 +313,12 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
         catch (Exception ex)
         {
             _logger.Debug($"[ScanMicrosoftStoreGames] Game classification API error: {ex.Message}. Returning empty game list.");
-            await logErrors.LogErrorAsync(ex, "Failed to classify games via API.");
+            logErrors.Error(ex, "Failed to classify games via API.");
             return [];
         }
     }
 
-    private static async Task TryExtractStoreIconAsync(GameScannerService gameScannerService, ILogErrors logErrors, string gameName, string installPath, string logoRelativePath, string sanitizedGameName, string windowsImagesPath)
+    private static async Task TryExtractStoreIconAsync(GameScannerService gameScannerService, ILogger logErrors, string gameName, string installPath, string logoRelativePath, string sanitizedGameName, string windowsImagesPath)
     {
         // Ensure the destination directory exists
         if (!Directory.Exists(windowsImagesPath))
@@ -369,12 +369,12 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                         }
                         catch (Exception fallbackEx)
                         {
-                            await logErrors.LogErrorAsync(fallbackEx, $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
+                            logErrors.Error(fallbackEx, $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
                         }
                     }
                     catch (Exception ex)
                     {
-                        await logErrors.LogErrorAsync(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
+                        logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
                     }
                 }
             }
@@ -420,12 +420,12 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                             }
                             catch (Exception fallbackEx)
                             {
-                                await logErrors.LogErrorAsync(fallbackEx, $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
+                                logErrors.Error(fallbackEx, $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
                             }
                         }
                         catch (Exception ex)
                         {
-                            await logErrors.LogErrorAsync(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
+                            logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
                             // Continue to next possibility
                         }
                     }
@@ -484,12 +484,12 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                         }
                         catch (Exception fallbackEx)
                         {
-                            await logErrors.LogErrorAsync(fallbackEx, $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
+                            logErrors.Error(fallbackEx, $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
                         }
                     }
                     catch (Exception ex)
                     {
-                        await logErrors.LogErrorAsync(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
+                        logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
                     }
                 }
 
@@ -528,12 +528,12 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                             }
                             catch (Exception fallbackEx)
                             {
-                                await logErrors.LogErrorAsync(fallbackEx, $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
+                                logErrors.Error(fallbackEx, $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
                             }
                         }
                         catch (Exception ex)
                         {
-                            await logErrors.LogErrorAsync(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
+                            logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
                         }
                     }
                 }
@@ -544,7 +544,7 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
         }
         catch (Exception ex)
         {
-            await logErrors.LogErrorAsync(ex, $"Failed to extract Microsoft Store icon for {sanitizedGameName}");
+            logErrors.Error(ex, $"Failed to extract Microsoft Store icon for {sanitizedGameName}");
         }
     }
 

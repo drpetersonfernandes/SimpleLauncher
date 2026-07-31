@@ -12,7 +12,7 @@ namespace SimpleLauncher.Services.QuitOrReinstall;
 /// </summary>
 public class QuitSimpleLauncher
 {
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly IApplicationLifetime _applicationLifetime;
     private readonly IDispatcherService _dispatcherService;
     private readonly IServiceProvider _serviceProvider;
@@ -20,9 +20,9 @@ public class QuitSimpleLauncher
     /// <summary>
     /// Initializes a new instance of the <see cref="QuitSimpleLauncher"/> class.
     /// </summary>
-    public QuitSimpleLauncher(ILogErrors logErrors, IApplicationLifetime applicationLifetime, IDispatcherService dispatcherService, IServiceProvider serviceProvider)
+    public QuitSimpleLauncher(ILogger logErrors, IApplicationLifetime applicationLifetime, IDispatcherService dispatcherService, IServiceProvider serviceProvider)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
         _applicationLifetime = applicationLifetime;
         _dispatcherService = dispatcherService;
         _serviceProvider = serviceProvider;
@@ -51,7 +51,7 @@ public class QuitSimpleLauncher
         catch (Exception ex)
         {
             // Notify developer
-            _logErrors.LogAndForget(ex, "Failed to start new process during application restart.");
+            _logger.Error(ex, "Failed to start new process during application restart.");
 
             // Notify user
             await messageBox.FailedToRestartMessageBoxAsync();
@@ -91,7 +91,7 @@ public class QuitSimpleLauncher
             {
                 using var memoryStream = new MemoryStream();
                 await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
-                UpdateChecker.ExtractAllFromZip(memoryStream, appDirectory, null, _logErrors);
+                UpdateChecker.ExtractAllFromZip(memoryStream, appDirectory, null, _logger);
                 if (File.Exists(updaterPath))
                 {
                     downloaded = true;
@@ -130,13 +130,13 @@ public class QuitSimpleLauncher
         }
         catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
         {
-            _logErrors.LogAndForget(ex, "Access denied when starting Updater.exe.");
+            _logger.Error(ex, "Access denied when starting Updater.exe.");
 
             await messageBox.UpdaterLaunchFailedMessageBoxAsync();
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Failed to start updater and shut down.");
+            _logger.Error(ex, "Failed to start updater and shut down.");
 
             await messageBox.UpdaterLaunchFailedMessageBoxAsync();
         }

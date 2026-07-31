@@ -10,7 +10,7 @@ using Interfaces;
 /// </summary>
 public class CheckIfDirectoryIsWritableTests
 {
-    private static readonly ILogErrors NullLogErrors = new NullLogErrorsImpl();
+    private static readonly ILogger NullLogErrors = new NoOpLogger();
 
     /// <summary>
     /// Verifies that a non-existent directory path returns false (not writable).
@@ -62,11 +62,4 @@ public class CheckIfDirectoryIsWritableTests
         }
     }
 
-    private sealed class NullLogErrorsImpl : ILogErrors
-    {
-        public Task LogErrorAsync(Exception ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 }

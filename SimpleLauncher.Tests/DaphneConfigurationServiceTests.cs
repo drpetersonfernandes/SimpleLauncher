@@ -14,7 +14,7 @@ using Interfaces;
 public class DaphneConfigurationServiceTests : IDisposable
 {
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors = new NoOpLogErrors();
+    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
 
     public DaphneConfigurationServiceTests()
@@ -273,11 +273,4 @@ public class DaphneConfigurationServiceTests : IDisposable
         Assert.Contains("-use_overlays 1", args);
     }
 
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 }

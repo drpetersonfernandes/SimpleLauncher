@@ -16,7 +16,7 @@ public static class MednafenConfigurationService
 
     private static readonly char[] Separator = [' ', '\t'];
 
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -37,7 +37,7 @@ public static class MednafenConfigurationService
                 catch (Exception ex)
                 {
                     logger.Debug($"[MednafenConfig] Failed to create mednafen.cfg from sample: {ex.Message}");
-                    logErrors.LogAndForget(ex, $"[MednafenConfig] Failed to create mednafen.cfg from sample: {ex.Message}");
+                    logger.Error(ex, $"[MednafenConfig] Failed to create mednafen.cfg from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -80,13 +80,13 @@ public static class MednafenConfigurationService
         catch (UnauthorizedAccessException ex)
         {
             logger.Debug($"[MednafenConfig] Access denied reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[MednafenConfig] Access denied reading config: {configPath}");
+            logger.Error(ex, $"[MednafenConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
             logger.Debug($"[MednafenConfig] I/O error reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[MednafenConfig] I/O error reading config: {configPath}");
+            logger.Error(ex, $"[MednafenConfig] I/O error reading config: {configPath}");
             throw;
         }
 
@@ -135,7 +135,7 @@ public static class MednafenConfigurationService
             catch (Exception ex)
             {
                 logger.Debug($"[MednafenConfig] Failed to inject configuration changes: {ex.Message}");
-                logErrors.LogAndForget(ex, $"[MednafenConfig] Failed to inject configuration changes: {ex.Message}");
+                logger.Error(ex, $"[MednafenConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }

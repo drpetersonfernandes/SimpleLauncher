@@ -7,7 +7,7 @@ public class ScanItchioGames : IGamePlatformScanner
 {
     private static readonly char[] Separator = ['='];
 
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -72,7 +72,7 @@ public class ScanItchioGames : IGamePlatformScanner
                         }
                         catch (Exception ex)
                         {
-                            logErrors.LogAndForget(ex, "Error parsing itch.io manifest file.");
+                            logErrors.Error(ex, "Error parsing itch.io manifest file.");
                         }
                     }
 
@@ -108,13 +108,13 @@ public class ScanItchioGames : IGamePlatformScanner
                 }
                 catch (Exception ex)
                 {
-                    await logErrors.LogErrorAsync(ex, $"Error processing Itch.io game directory: {gameDir}");
+                    logErrors.Error(ex, $"Error processing Itch.io game directory: {gameDir}");
                 }
             }
         }
         catch (Exception ex)
         {
-            await logErrors.LogErrorAsync(ex, "An error occurred while scanning for Itch.io games.");
+            logErrors.Error(ex, "An error occurred while scanning for Itch.io games.");
         }
     }
 }

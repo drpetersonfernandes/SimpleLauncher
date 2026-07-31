@@ -9,14 +9,14 @@ using Interfaces;
 public partial class DownloadImagePackWindow : IDisposable
 {
     private readonly DownloadImagePackViewModel _viewModel;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private Button _emergencyReturnButton;
 
-    public DownloadImagePackWindow(ILogErrors logErrors, DownloadImagePackViewModel viewModel)
+    public DownloadImagePackWindow(ILogger logErrors, DownloadImagePackViewModel viewModel)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
-        _logErrors = logErrors;
+        _logger = logErrors;
 
         _viewModel = viewModel;
         DataContext = _viewModel;
@@ -43,7 +43,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "[DownloadImagePackWindowLoadedAsync] Error initializing EasyModeManager.");
+            _logger.Error(ex, "[DownloadImagePackWindowLoadedAsync] Error initializing EasyModeManager.");
         }
     }
 
@@ -61,7 +61,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method CloseWindowRoutineAsync.");
+            _logger.Error(ex, "Error in method CloseWindowRoutineAsync.");
         }
         finally
         {

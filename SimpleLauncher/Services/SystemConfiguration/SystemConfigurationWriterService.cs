@@ -14,17 +14,17 @@ namespace SimpleLauncher.Services.SystemConfiguration;
 public class SystemConfigurationWriterService : ISystemConfigurationWriterService
 {
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly DataFileLocation _fileLocation;
     private static readonly object XmlLock = new();
 
     /// <summary>
     /// Initializes a new instance of the SystemConfigurationWriterService with the specified dependencies.
     /// </summary>
-    public SystemConfigurationWriterService(IConfiguration configuration, ILogErrors logErrors)
+    public SystemConfigurationWriterService(IConfiguration configuration, ILogger logErrors)
     {
         _configuration = configuration;
-        _logErrors = logErrors;
+        _logger = logErrors;
         _fileLocation = new DataFileLocation(configuration, "SystemXmlPath", "system.xml");
     }
 
@@ -63,7 +63,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                     }
                     catch (Exception ex)
                     {
-                        _logErrors?.LogAndForget(ex, "Error loading system.xml for saving.");
+                        _logger?.Error(ex, "Error loading system.xml for saving.");
                         throw new InvalidOperationException("Failed to load system configuration for saving.", ex);
                     }
 
@@ -156,7 +156,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
         }
         catch (Exception ex)
         {
-            _logErrors?.LogAndForget(ex, "Error saving system configuration.");
+            _logger?.Error(ex, "Error saving system configuration.");
             throw;
         }
     }
@@ -188,7 +188,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                     }
                     catch (Exception ex)
                     {
-                        _logErrors?.LogAndForget(ex, $"Error loading system.xml for deleting system '{systemName}'.");
+                        _logger?.Error(ex, $"Error loading system.xml for deleting system '{systemName}'.");
                         return;
                     }
 
@@ -205,7 +205,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
         }
         catch (Exception ex)
         {
-            _logErrors?.LogAndForget(ex, $"Error deleting system '{systemName}'.");
+            _logger?.Error(ex, $"Error deleting system '{systemName}'.");
         }
     }
 

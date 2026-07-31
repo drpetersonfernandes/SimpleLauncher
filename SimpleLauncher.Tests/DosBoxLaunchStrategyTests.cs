@@ -18,7 +18,6 @@ public class DosBoxLaunchStrategyTests
     {
         var extractionServiceMock = new Mock<IExtractionService>();
         var configurationMock = new Mock<IConfiguration>();
-        var logErrorsMock = new Mock<ILogErrors>();
         var messageBoxMock = new Mock<IMessageBoxLibraryService>();
         var mountChdFilesMock = new Mock<IMountChdFiles>();
         var mountIsoFilesMock = new Mock<IMountIsoFiles>();
@@ -27,7 +26,6 @@ public class DosBoxLaunchStrategyTests
         return new DosBoxLaunchStrategy(
             extractionServiceMock.Object,
             configurationMock.Object,
-            logErrorsMock.Object,
             messageBoxMock.Object,
             mountChdFilesMock.Object,
             mountIsoFilesMock.Object,

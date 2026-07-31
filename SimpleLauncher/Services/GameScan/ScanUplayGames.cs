@@ -6,7 +6,7 @@ namespace SimpleLauncher.Services.GameScan;
 
 public class ScanUplayGames : IGamePlatformScanner
 {
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -52,14 +52,14 @@ public class ScanUplayGames : IGamePlatformScanner
                     }
                     catch (Exception ex)
                     {
-                        await logErrors.LogErrorAsync(ex, $"Error processing Ubisoft game registry key: {gameId}");
+                        logErrors.Error(ex, $"Error processing Ubisoft game registry key: {gameId}");
                     }
                 }
             }
         }
         catch (Exception ex)
         {
-            await logErrors.LogErrorAsync(ex, "An error occurred while scanning for Ubisoft games.");
+            logErrors.Error(ex, "An error occurred while scanning for Ubisoft games.");
         }
     }
 }

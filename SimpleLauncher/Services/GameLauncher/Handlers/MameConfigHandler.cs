@@ -12,7 +12,6 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 /// </summary>
 public class MameConfigHandler : IEmulatorConfigHandler
 {
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IServiceScopeFactory _scopeFactory;
@@ -20,9 +19,8 @@ public class MameConfigHandler : IEmulatorConfigHandler
     /// <summary>
     /// Initializes a new instance of the <see cref="MameConfigHandler"/> class.
     /// </summary>
-    public MameConfigHandler(ILogErrors logErrors, ILogger logger, IMessageBoxLibraryService messageBoxLibrary, IServiceScopeFactory scopeFactory)
+    public MameConfigHandler(ILogger logger, IMessageBoxLibraryService messageBoxLibrary, IServiceScopeFactory scopeFactory)
     {
-        _logErrors = logErrors;
         _logger = logger;
         _messageBoxLibrary = messageBoxLibrary;
         _scopeFactory = scopeFactory;
@@ -64,12 +62,12 @@ public class MameConfigHandler : IEmulatorConfigHandler
                 {
                     try
                     {
-                        MameConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _logger, resolvedSystemFolder, listOfSecondarySystemFolders);
+                        MameConfigurationService.InjectSettings(resolvedExe, context.Settings, _logger, resolvedSystemFolder, listOfSecondarySystemFolders);
                     }
                     catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
                     {
                         _logger.Debug($"[MameConfigHandler] Failed to inject MAME configuration: {ex.Message}");
-                        _logErrors.LogAndForget(ex, "[MameConfigHandler] Failed to inject MAME configuration. The game will launch with existing MAME settings.");
+                        _logger.Error(ex, "[MameConfigHandler] Failed to inject MAME configuration. The game will launch with existing MAME settings.");
                         await _messageBoxLibrary.FailedToInjectMameConfigurationMessageBoxAsync();
                     }
                 }

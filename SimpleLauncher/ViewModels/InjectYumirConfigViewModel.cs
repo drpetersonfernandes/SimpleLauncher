@@ -13,7 +13,6 @@ namespace SimpleLauncher.ViewModels;
 public partial class InjectYumirConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
@@ -29,10 +28,9 @@ public partial class InjectYumirConfigViewModel : ObservableObject
     [ObservableProperty] private double _yumirForcedAspect;
     [ObservableProperty] private bool _yumirShowSettingsBeforeLaunch;
 
-    public InjectYumirConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectYumirConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
-        _logErrors = logErrors;
         _logger = logger;
         _messageBox = messageBox;
     }
@@ -131,7 +129,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Yumir", _logErrors);
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Yumir", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -155,12 +153,12 @@ public partial class InjectYumirConfigViewModel : ObservableObject
 
         try
         {
-            YumirConfigurationService.InjectSettings(path, _settings, _logErrors, _logger);
+            YumirConfigurationService.InjectSettings(path, _settings, _logger);
             return true;
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogAndForget(ex, $"Yumir configuration injection failed for path: {path}");
+            _logger.Error(ex, $"Yumir configuration injection failed for path: {path}");
             return false;
         }
     }
@@ -190,7 +188,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectYumirConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 
@@ -219,7 +217,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectYumirConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 }

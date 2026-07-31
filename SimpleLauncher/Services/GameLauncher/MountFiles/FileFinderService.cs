@@ -7,14 +7,14 @@ namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 /// </summary>
 public class FileFinderService : IFileFinderService
 {
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FileFinderService"/> class.
     /// </summary>
-    public FileFinderService(ILogErrors logErrors)
+    public FileFinderService(ILogger logErrors)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
     }
 
     /// <summary>
@@ -32,7 +32,7 @@ public class FileFinderService : IFileFinderService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Error finding default.xex in path: {directory}");
+            _logger.Error(ex, $"Error finding default.xex in path: {directory}");
             return null;
         }
     }
@@ -52,7 +52,7 @@ public class FileFinderService : IFileFinderService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Error finding default.xbe in path: {directory}");
+            _logger.Error(ex, $"Error finding default.xbe in path: {directory}");
             return null;
         }
     }
@@ -72,7 +72,7 @@ public class FileFinderService : IFileFinderService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Error finding cue file in path: {directory}");
+            _logger.Error(ex, $"Error finding cue file in path: {directory}");
             return null;
         }
     }
@@ -92,7 +92,7 @@ public class FileFinderService : IFileFinderService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Error finding bin file in path: {directory}");
+            _logger.Error(ex, $"Error finding bin file in path: {directory}");
             return null;
         }
     }
@@ -123,7 +123,7 @@ public class FileFinderService : IFileFinderService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Error finding EBOOT.BIN in path: {directory}");
+            _logger.Error(ex, $"Error finding EBOOT.BIN in path: {directory}");
             return null;
         }
     }
@@ -150,7 +150,7 @@ public class FileFinderService : IFileFinderService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Error finding ISO/IMG file in path: {directory}");
+            _logger.Error(ex, $"Error finding ISO/IMG file in path: {directory}");
             return null;
         }
     }

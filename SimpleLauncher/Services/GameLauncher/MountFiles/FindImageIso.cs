@@ -10,7 +10,7 @@ public static class FindImageIso
     /// <summary>
     /// Searches for image.iso in the specified root directory.
     /// </summary>
-    public static string Find(string rootPath, ILogErrors logErrors)
+    public static string Find(string rootPath, ILogger logErrors)
     {
         try
         {
@@ -29,7 +29,7 @@ public static class FindImageIso
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"Error finding image.iso in path: {rootPath}");
+            logErrors.Error(ex, $"Error finding image.iso in path: {rootPath}");
             return null;
         }
     }

@@ -14,7 +14,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class RomHistoryViewModel : ObservableObject
 {
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
 
@@ -27,9 +27,9 @@ public partial class RomHistoryViewModel : ObservableObject
     [ObservableProperty] private string _historyMarkdown;
     [ObservableProperty] private Visibility _descriptionVisibility = Visibility.Collapsed;
 
-    public RomHistoryViewModel(ILogErrors logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
+    public RomHistoryViewModel(ILogger logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
         _messageBox = messageBox;
         _resourceProvider = resourceProvider;
     }
@@ -67,7 +67,7 @@ public partial class RomHistoryViewModel : ObservableObject
             if (!datExists && !xmlExists)
             {
                 const string contextMessage = "'history.dat' and 'history.xml' are both missing.";
-                _logErrors.LogAndForget(null, contextMessage);
+                _logger.Warning( contextMessage);
 
                 var nohistoryxmlfilefound2 = _resourceProvider.GetString("Nohistoryxmlfilefound2", "No 'history.dat' or 'history.xml' file found in the application folder.");
                 HistoryMarkdown = nohistoryxmlfilefound2;
@@ -97,7 +97,7 @@ public partial class RomHistoryViewModel : ObservableObject
         catch (Exception ex)
         {
             const string contextMessage = "An error occurred while loading ROM history.";
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logger.Error(ex, contextMessage);
             await _messageBox.ErrorLoadingRomHistoryMessageBoxAsync();
         }
     }
@@ -131,7 +131,7 @@ public partial class RomHistoryViewModel : ObservableObject
         catch (Exception ex)
         {
             const string contextMessage = "An error occurred while opening the browser.";
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logger.Error(ex, contextMessage);
             await _messageBox.ErrorOpeningBrowserMessageBoxAsync();
         }
     }

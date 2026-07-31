@@ -5,11 +5,11 @@ namespace SimpleLauncher.Services.CheckIfDirectoryIsWritable;
 
 public class DirectoryValidationService : IDirectoryValidationService
 {
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
 
-    public DirectoryValidationService(ILogErrors logErrors)
+    public DirectoryValidationService(ILogger logErrors)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
     }
 
     public bool IsWritableDirectory(string path)
@@ -32,7 +32,7 @@ public class DirectoryValidationService : IDirectoryValidationService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Failed to check if directory is writable.");
+            _logger.Error(ex, "Failed to check if directory is writable.");
             return false;
         }
     }

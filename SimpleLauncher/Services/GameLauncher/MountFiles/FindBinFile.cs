@@ -10,7 +10,7 @@ public static class FindBinFile
     /// <summary>
     /// Searches for the first .bin file in the specified root directory.
     /// </summary>
-    public static string Find(string rootPath, ILogErrors logErrors)
+    public static string Find(string rootPath, ILogger logErrors)
     {
         try
         {
@@ -29,7 +29,7 @@ public static class FindBinFile
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"Error finding bin file in path: {rootPath}");
+            logErrors.Error(ex, $"Error finding bin file in path: {rootPath}");
             return null;
         }
     }

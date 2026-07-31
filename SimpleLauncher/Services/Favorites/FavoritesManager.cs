@@ -15,7 +15,7 @@ namespace SimpleLauncher.Services.Favorites;
 public class FavoritesManager
 {
     [IgnoreMember] private static readonly object ListLock = new();
-    [IgnoreMember] private ILogErrors _logErrors;
+    [IgnoreMember] private ILogger _logger;
     [IgnoreMember] private static readonly DataFileLocation FileLocation = new("favorites.dat");
 
     /// <summary>
@@ -39,7 +39,7 @@ public class FavoritesManager
     /// <summary>
     /// Loads favorites from the DAT file. If the DAT file doesn't exist, will create a new instance.
     /// </summary>
-    public static FavoritesManager LoadFavorites(ILogErrors logErrors = null)
+    public static FavoritesManager LoadFavorites(ILogger logErrors = null)
     {
         if (File.Exists(DatFilePath))
         {
@@ -47,24 +47,24 @@ public class FavoritesManager
             {
                 var bytes = File.ReadAllBytes(DatFilePath);
                 var manager = MessagePackSerializer.Deserialize<FavoritesManager>(bytes);
-                manager._logErrors = logErrors;
+                manager._logger = logErrors;
                 return manager;
             }
             catch (Exception ex)
             {
                 // Notify developer
                 const string contextMessage = "Error loading favorites.dat";
-                logErrors?.LogAndForget(ex, contextMessage);
+                logErrors?.Error(ex, contextMessage);
             }
         }
 
         // If no files exist, create a new instance
-        var defaultManager = new FavoritesManager { _logErrors = logErrors };
+        var defaultManager = new FavoritesManager { _logger = logErrors };
         _ = defaultManager.SaveFavoritesAsync().ContinueWith(static (task, state) =>
         {
             if (task.IsFaulted)
             {
-                ((ILogErrors)state)?.LogAndForget(task.Exception, "Error saving default favorites.");
+                ((ILogger)state)?.Error(task.Exception, "Error saving default favorites.");
             }
         }, logErrors, TaskContinuationOptions.OnlyOnFaulted);
         return defaultManager; // Return default instance if error occurs
@@ -166,7 +166,7 @@ public class FavoritesManager
             }
 
             // All retries exhausted or non-transient error
-            _logErrors?.LogAndForget(lastException, "Error saving favorites.dat");
+            _logger?.Error(lastException, "Error saving favorites.dat");
 
             // Attempt to clean up temp file if it exists
             try
@@ -178,7 +178,7 @@ public class FavoritesManager
             }
             catch (Exception cleanupEx)
             {
-                _logErrors?.LogAndForget(cleanupEx, "Error cleaning up temporary favorites file after failed save");
+                _logger?.Error(cleanupEx, "Error cleaning up temporary favorites file after failed save");
             }
         });
     }

@@ -14,7 +14,6 @@ namespace SimpleLauncher.ViewModels;
 public partial class InjectXeniaConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
@@ -37,10 +36,9 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
     [ObservableProperty] private int _xeniaUserLanguage;
     [ObservableProperty] private bool _xeniaShowSettingsBeforeLaunch;
 
-    public InjectXeniaConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectXeniaConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
-        _logErrors = logErrors;
         _logger = logger;
         _messageBox = messageBox;
     }
@@ -194,7 +192,7 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Xenia", _logErrors);
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Xenia", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -218,12 +216,12 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
 
         try
         {
-            XeniaConfigurationService.InjectSettings(path, _settings, _logErrors, _logger);
+            XeniaConfigurationService.InjectSettings(path, _settings, _logger);
             return true;
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogAndForget(ex, $"Xenia configuration injection failed for path: {path}");
+            _logger.Error(ex, $"Xenia configuration injection failed for path: {path}");
             return false;
         }
     }
@@ -253,7 +251,7 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectXeniaConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 
@@ -282,7 +280,7 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectXeniaConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 }

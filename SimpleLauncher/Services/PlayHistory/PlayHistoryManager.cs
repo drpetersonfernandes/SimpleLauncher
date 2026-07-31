@@ -16,7 +16,7 @@ namespace SimpleLauncher.Services.PlayHistory;
 public class PlayHistoryManager
 {
     [IgnoreMember] private readonly object _historyLock = new();
-    [IgnoreMember] private ILogErrors _logErrors;
+    [IgnoreMember] private ILogger _logger;
     [IgnoreMember] private static readonly DataFileLocation FileLocation = new("playhistory.dat");
 
     /// <summary>
@@ -44,19 +44,19 @@ public class PlayHistoryManager
     /// <summary>
     /// Sets the error logger for this instance.
     /// </summary>
-    internal void SetLogger(ILogErrors logErrors)
+    internal void SetLogger(ILogger logErrors)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
     }
 
     /// <summary>
     /// Loads play history from the MessagePack file. If the file doesn't exist, creates and saves a new instance.
     /// </summary>
-    internal static PlayHistoryManager LoadPlayHistory(ILogErrors logErrors = null)
+    internal static PlayHistoryManager LoadPlayHistory(ILogger logErrors = null)
     {
         if (!File.Exists(FilePath))
         {
-            var defaultManager = new PlayHistoryManager { _logErrors = logErrors };
+            var defaultManager = new PlayHistoryManager { _logger = logErrors };
             _ = defaultManager.SavePlayHistoryAsync();
             return defaultManager;
         }
@@ -65,7 +65,7 @@ public class PlayHistoryManager
         {
             var bytes = File.ReadAllBytes(FilePath);
             var manager = MessagePackSerializer.Deserialize<PlayHistoryManager>(bytes);
-            manager._logErrors = logErrors;
+            manager._logger = logErrors;
 
             // Migrate old date formats to new ISO format if needed
             manager.MigrateOldDateFormats();
@@ -75,9 +75,9 @@ public class PlayHistoryManager
         catch (Exception ex)
         {
             // Notify developer
-            logErrors?.LogAndForget(ex, "Error loading play history");
+            logErrors?.Error(ex, "Error loading play history");
 
-            return new PlayHistoryManager { _logErrors = logErrors }; // Return default instance if error occurs
+            return new PlayHistoryManager { _logger = logErrors }; // Return default instance if error occurs
         }
     }
 
@@ -209,7 +209,7 @@ public class PlayHistoryManager
 
             // Notify developer
             const string contextMessage = "Failed to parse date/time, using current time as fallback";
-            _logErrors?.LogAndForget(null, contextMessage);
+            _logger?.Warning( contextMessage);
 
             return true;
         }
@@ -217,7 +217,7 @@ public class PlayHistoryManager
         {
             // Notify developer
             const string contextMessage = "Error in date format migration";
-            _logErrors?.LogAndForget(ex, contextMessage);
+            _logger?.Error(ex, contextMessage);
 
             return false;
         }
@@ -306,7 +306,7 @@ public class PlayHistoryManager
             }
 
             // All retries exhausted or non-transient error
-            _logErrors?.LogAndForget(lastException, "Error saving playhistory.dat");
+            _logger?.Error(lastException, "Error saving playhistory.dat");
 
             // Attempt to clean up temp file if it exists
             try
@@ -318,7 +318,7 @@ public class PlayHistoryManager
             }
             catch (Exception cleanupEx)
             {
-                _logErrors?.LogAndForget(cleanupEx, "Error cleaning up temporary play history file after failed save");
+                _logger?.Error(cleanupEx, "Error cleaning up temporary play history file after failed save");
             }
         });
     }
@@ -386,7 +386,7 @@ public class PlayHistoryManager
         {
             // Notify developer
             const string contextMessage = "Error in AddOrUpdatePlayHistoryItem method.";
-            _logErrors?.LogAndForget(ex, contextMessage);
+            _logger?.Error(ex, contextMessage);
         }
     }
 

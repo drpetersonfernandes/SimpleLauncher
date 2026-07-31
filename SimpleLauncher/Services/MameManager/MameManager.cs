@@ -14,7 +14,7 @@ public class MameManager
 
     private static readonly string DefaultDatPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.dat");
 
-    public static List<MameManager> LoadFromDat(ILogErrors logErrors, string datPath = null, IMessageBoxLibraryService messageBox = null)
+    public static List<MameManager> LoadFromDat(ILogger logErrors, string datPath = null, IMessageBoxLibraryService messageBox = null)
     {
         datPath ??= DefaultDatPath;
 
@@ -22,7 +22,7 @@ public class MameManager
         {
             // Notify developer
             const string contextMessage = "The file 'mame.dat' could not be found in the application folder.";
-            logErrors.LogAndForget(null, contextMessage);
+            logErrors.Warning( contextMessage);
 
             // Notify user
             if (messageBox != null)
@@ -45,7 +45,7 @@ public class MameManager
         {
             // Notify developer
             const string contextMessage = "The file mame.dat could not be loaded or is corrupted.";
-            logErrors.LogAndForget(ex, contextMessage);
+            logErrors.Error(ex, contextMessage);
 
             // Notify user
             if (messageBox != null)

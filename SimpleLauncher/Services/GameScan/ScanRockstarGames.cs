@@ -28,7 +28,7 @@ public partial class ScanRockstarGames : IGamePlatformScanner
         new() { TitleId = "gtasaunreal", Name = "GTA San Andreas Definitive Edition", Exe = "Gameface/Binaries/Win64/SanAndreas.exe" }
     ];
 
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -85,14 +85,14 @@ public partial class ScanRockstarGames : IGamePlatformScanner
                     }
                     catch (Exception ex)
                     {
-                        await logErrors.LogErrorAsync(ex, $"Error processing Rockstar game registry key: {subKeyName}");
+                        logErrors.Error(ex, $"Error processing Rockstar game registry key: {subKeyName}");
                     }
                 }
             }
         }
         catch (Exception ex)
         {
-            await logErrors.LogErrorAsync(ex, "An error occurred while scanning for Rockstar games.");
+            logErrors.Error(ex, "An error occurred while scanning for Rockstar games.");
         }
     }
 

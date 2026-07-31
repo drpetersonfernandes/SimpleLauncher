@@ -13,7 +13,7 @@ public class ScanAmazonGames : IGamePlatformScanner
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -58,7 +58,7 @@ public class ScanAmazonGames : IGamePlatformScanner
                 }
                 catch (Exception ex)
                 {
-                    await logErrors.LogErrorAsync(ex, "Error processing an Amazon game entry.");
+                    logErrors.Error(ex, "Error processing an Amazon game entry.");
                 }
             }
         }
@@ -66,7 +66,7 @@ public class ScanAmazonGames : IGamePlatformScanner
         {
             // Log but don't crash if SQLite is missing or DB is locked
             _logger.Debug($"[ScanAmazonGames] Error scanning Amazon games: {ex.Message}");
-            await logErrors.LogErrorAsync(ex, "Error scanning Amazon games.");
+            logErrors.Error(ex, "Error scanning Amazon games.");
         }
     }
 }

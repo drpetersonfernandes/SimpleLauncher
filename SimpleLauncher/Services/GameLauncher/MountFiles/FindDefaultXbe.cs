@@ -10,7 +10,7 @@ public static class FindDefaultXbe
     /// <summary>
     /// Searches for default.xbe in the specified root directory.
     /// </summary>
-    public static string Find(string rootPath, ILogErrors logErrors)
+    public static string Find(string rootPath, ILogger logErrors)
     {
         try
         {
@@ -29,7 +29,7 @@ public static class FindDefaultXbe
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"Error finding default.xbe in path: {rootPath}");
+            logErrors.Error(ex, $"Error finding default.xbe in path: {rootPath}");
             return null;
         }
     }

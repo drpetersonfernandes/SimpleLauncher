@@ -24,7 +24,7 @@ public class IconExtractor : IIconExtractor
     /// <param name="exePath">The path to the executable file.</param>
     /// <param name="savePath">The path where the PNG icon should be saved.</param>
     /// <param name="logErrors"></param>
-    public void SaveIconFromExe(string exePath, string savePath, ILogErrors logErrors)
+    public void SaveIconFromExe(string exePath, string savePath, ILogger logErrors)
     {
         if (!File.Exists(exePath) || !savePath.EndsWith(".png", StringComparison.OrdinalIgnoreCase)) return;
 
@@ -49,7 +49,7 @@ public class IconExtractor : IIconExtractor
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, $"Failed to extract icon from {exePath}");
+            logErrors.Error(ex, $"Failed to extract icon from {exePath}");
         }
         finally
         {

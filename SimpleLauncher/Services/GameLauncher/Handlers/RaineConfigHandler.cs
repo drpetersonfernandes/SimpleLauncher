@@ -12,16 +12,14 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 /// </summary>
 public class RaineConfigHandler : IEmulatorConfigHandler
 {
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RaineConfigHandler"/> class.
     /// </summary>
-    public RaineConfigHandler(ILogErrors logErrors, ILogger logger, IServiceScopeFactory scopeFactory)
+    public RaineConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {
-        _logErrors = logErrors;
         _logger = logger;
         _scopeFactory = scopeFactory;
     }
@@ -62,7 +60,7 @@ public class RaineConfigHandler : IEmulatorConfigHandler
                     else if (File.Exists(resolvedExe))
                     {
                         // Pass the resolved RaineRomDirectory to the service
-                        RaineConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _logger, context.ResolvedFilePath, resolvedSystemFolder, resolvedRaineRomDirectory);
+                        RaineConfigurationService.InjectSettings(resolvedExe, context.Settings, _logger, context.ResolvedFilePath, resolvedSystemFolder, resolvedRaineRomDirectory);
                     }
 
                     return shouldRun;

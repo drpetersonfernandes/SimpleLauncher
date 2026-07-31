@@ -8,7 +8,7 @@ using Interfaces;
 
 public static partial class MameConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger, string systemRomPath = null, string[] listOfSecondaryRomPath = null)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger, string systemRomPath = null, string[] listOfSecondaryRomPath = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(emulatorPath);
         ArgumentNullException.ThrowIfNull(settings);
@@ -35,7 +35,7 @@ public static partial class MameConfigurationService
                 catch (Exception ex)
                 {
                     logger.Debug($"[MameConfig] Failed to create mame.ini from sample: {ex.Message}");
-                    logErrors.LogAndForget(ex, $"[MameConfig] Failed to create mame.ini from sample: {ex.Message}");
+                    logger.Error(ex, $"[MameConfig] Failed to create mame.ini from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -75,13 +75,13 @@ public static partial class MameConfigurationService
         catch (UnauthorizedAccessException ex)
         {
             logger.Debug($"[MameConfig] Access denied reading mame.ini: {configPath}");
-            logErrors.LogAndForget(ex, $"[MameConfig] Access denied reading mame.ini: {configPath}");
+            logger.Error(ex, $"[MameConfig] Access denied reading mame.ini: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
             logger.Debug($"[MameConfig] I/O error reading mame.ini: {configPath}");
-            logErrors.LogAndForget(ex, $"[MameConfig] I/O error reading mame.ini: {configPath}");
+            logger.Error(ex, $"[MameConfig] I/O error reading mame.ini: {configPath}");
             throw;
         }
 
@@ -261,7 +261,7 @@ public static partial class MameConfigurationService
                 }
 
                 logger.Debug("[MameConfig] Failed to inject configuration changes.");
-                logErrors.LogAndForget(ex, "[MameConfig] Failed to inject configuration changes.");
+                logger.Error(ex, "[MameConfig] Failed to inject configuration changes.");
                 throw;
             }
         }
@@ -271,7 +271,7 @@ public static partial class MameConfigurationService
     /// Restores mame.ini from the bundled sample.
     /// Backs up the existing file to mame.ini.bak before overwriting.
     /// </summary>
-    public static bool RestoreMameIniFromSample(string emulatorPath, ILogErrors logErrors, ILogger logger)
+    public static bool RestoreMameIniFromSample(string emulatorPath, ILogger logger)
     {
         if (string.IsNullOrWhiteSpace(emulatorPath))
             return false;
@@ -305,7 +305,7 @@ public static partial class MameConfigurationService
         catch (Exception ex)
         {
             logger.Debug($"[MameConfig] Failed to restore mame.ini from sample: {ex.Message}");
-            logErrors.LogAndForget(ex, $"[MameConfig] Failed to restore mame.ini from sample: {ex.Message}");
+            logger.Error(ex, $"[MameConfig] Failed to restore mame.ini from sample: {ex.Message}");
             return false;
         }
     }

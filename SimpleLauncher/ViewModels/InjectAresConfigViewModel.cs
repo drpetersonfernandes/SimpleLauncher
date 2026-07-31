@@ -14,7 +14,6 @@ namespace SimpleLauncher.ViewModels;
 public partial class InjectAresConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
@@ -32,10 +31,9 @@ public partial class InjectAresConfigViewModel : ObservableObject
     [ObservableProperty] private bool _autoSaveMemory;
     [ObservableProperty] private bool _showBeforeLaunch;
 
-    public InjectAresConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectAresConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
-        _logErrors = logErrors;
         _logger = logger;
         _messageBox = messageBox;
     }
@@ -147,7 +145,7 @@ public partial class InjectAresConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Ares", _logErrors);
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Ares", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -171,12 +169,12 @@ public partial class InjectAresConfigViewModel : ObservableObject
 
         try
         {
-            AresConfigurationService.InjectSettings(path, _settings, _logErrors, _logger);
+            AresConfigurationService.InjectSettings(path, _settings, _logger);
             return true;
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogAndForget(ex, $"Ares configuration injection failed for path: {path}");
+            _logger.Error(ex, $"Ares configuration injection failed for path: {path}");
             return false;
         }
     }
@@ -206,7 +204,7 @@ public partial class InjectAresConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectAresConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 
@@ -235,7 +233,7 @@ public partial class InjectAresConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectAresConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 }

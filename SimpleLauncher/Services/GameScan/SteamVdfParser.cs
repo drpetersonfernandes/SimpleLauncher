@@ -12,7 +12,7 @@ public partial class SteamVdfParser : ISteamVdfParser
     // Improved regex to handle escaped quotes within strings: "some \"value\" here"
     private static readonly Regex TokenRegex = MyRegex();
 
-    public Dictionary<string, object> Parse(string filePath, ILogErrors logErrors = null, ILogger logger = null)
+    public Dictionary<string, object> Parse(string filePath, ILogger logErrors = null, ILogger logger = null)
     {
         try
         {
@@ -85,7 +85,7 @@ public partial class SteamVdfParser : ISteamVdfParser
         {
             if (logErrors != null)
             {
-                logErrors.LogAndForget(ex, $"[SteamVdfParser] Failed to parse VDF file: {filePath}");
+                logErrors.Error(ex, $"[SteamVdfParser] Failed to parse VDF file: {filePath}");
             }
             else
             {

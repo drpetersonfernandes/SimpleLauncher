@@ -14,7 +14,6 @@ namespace SimpleLauncher.ViewModels;
 public partial class InjectAzaharConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
@@ -30,10 +29,9 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     [ObservableProperty] private bool _showBeforeLaunch;
     [ObservableProperty] private bool _audioStretching;
 
-    public InjectAzaharConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectAzaharConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
-        _logErrors = logErrors;
         _logger = logger;
         _messageBox = messageBox;
     }
@@ -131,7 +129,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
                 return Task.FromResult(_emulatorPath);
             }
 
-            var resolved = EmulatorPathResolver.TryFindEmulatorPath("Azahar", _logErrors);
+            var resolved = EmulatorPathResolver.TryFindEmulatorPath("Azahar", _logger);
             if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
             {
                 _emulatorPath = resolved;
@@ -158,7 +156,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
 
         try
         {
-            AzaharConfigurationService.InjectSettings(path, _settings, _logErrors, _logger);
+            AzaharConfigurationService.InjectSettings(path, _settings, _logger);
             return true;
         }
         catch (AzaharPermissionException)
@@ -168,7 +166,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogAndForget(ex, "Azahar injection failed");
+            _logger.Error(ex, "Azahar injection failed");
             await _messageBox.FailedToSaveAzaharConfigurationMessageBoxAsync();
             return false;
         }
@@ -204,7 +202,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectAzaharConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 
@@ -237,7 +235,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectAzaharConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 }

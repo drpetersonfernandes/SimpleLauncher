@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class MesenConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -29,7 +29,7 @@ public static class MesenConfigurationService
                 catch (Exception ex)
                 {
                     logger.Debug($"[MesenConfig] Failed to create settings.json from sample: {ex.Message}");
-                    logErrors.LogAndForget(ex, $"[MesenConfig] Failed to create settings.json from sample: {ex.Message}");
+                    logger.Error(ex, $"[MesenConfig] Failed to create settings.json from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -91,7 +91,7 @@ public static class MesenConfigurationService
         catch (Exception ex)
         {
             logger.Debug($"[MesenConfig] Error injecting settings: {ex.Message}");
-            logErrors.LogAndForget(ex, $"[MesenConfig] Error injecting settings: {ex.Message}");
+            logger.Error(ex, $"[MesenConfig] Error injecting settings: {ex.Message}");
             throw; // Re-throw to be caught by the caller
         }
     }

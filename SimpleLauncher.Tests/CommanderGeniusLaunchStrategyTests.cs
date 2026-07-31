@@ -17,7 +17,6 @@ public class CommanderGeniusLaunchStrategyTests
     {
         var extractionServiceMock = new Mock<IExtractionService>();
         var configurationMock = new Mock<IConfiguration>();
-        var logErrorsMock = new Mock<ILogErrors>();
         var updateStatusBarMock = new Mock<IUpdateStatusBar>();
         var messageBoxMock = new Mock<IMessageBoxLibraryService>();
         var debugLoggerMock = new Mock<ILogger>();
@@ -25,7 +24,6 @@ public class CommanderGeniusLaunchStrategyTests
         return new CommanderGeniusLaunchStrategy(
             extractionServiceMock.Object,
             configurationMock.Object,
-            logErrorsMock.Object,
             updateStatusBarMock.Object,
             messageBoxMock.Object,
             debugLoggerMock.Object);

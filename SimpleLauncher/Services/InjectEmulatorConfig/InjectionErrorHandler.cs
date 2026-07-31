@@ -5,25 +5,25 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class InjectionErrorHandler
 {
-    public static void HandleRunButtonFailure(ILogErrors logErrors, Exception ex, string emulatorName, string emulatorPath, Window window, IMessageBoxLibraryService messageBox)
+    public static void HandleRunButtonFailure(ILogger logErrors, Exception ex, string emulatorName, string emulatorPath, Window window, IMessageBoxLibraryService messageBox)
     {
         // Notify user
         ShowGenericInjectionError(messageBox);
 
         // Notify developer
-        logErrors.LogAndForget(ex, $"Run button failed for {emulatorName} at path: {emulatorPath}");
+        logErrors.Error(ex, $"Run button failed for {emulatorName} at path: {emulatorPath}");
 
         // Close injection window
         window?.Close();
     }
 
-    public static void HandleSaveButtonFailure(ILogErrors logErrors, Exception ex, string emulatorName, string emulatorPath, Window window, IMessageBoxLibraryService messageBox)
+    public static void HandleSaveButtonFailure(ILogger logErrors, Exception ex, string emulatorName, string emulatorPath, Window window, IMessageBoxLibraryService messageBox)
     {
         // Notify user
         ShowGenericInjectionError(messageBox);
 
         // Notify developer
-        logErrors.LogAndForget(ex, $"Save button failed for {emulatorName} at path: {emulatorPath}");
+        logErrors.Error(ex, $"Save button failed for {emulatorName} at path: {emulatorPath}");
 
         // Close injection window
         window?.Close();

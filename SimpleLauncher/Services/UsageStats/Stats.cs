@@ -16,17 +16,15 @@ public class Stats
     private string _apiKey;
     private string _statsApiUrl;
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private bool _isApiEnabled;
 
     /// <summary>
     /// Initializes a new instance of the Stats class, loading API configuration.
     /// </summary>
-    public Stats(IHttpClientFactory httpClientFactory, IConfiguration configuration, ILogErrors logErrors, ILogger logger)
+    public Stats(IHttpClientFactory httpClientFactory, IConfiguration configuration, ILogger logger)
     {
         _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
-        _logErrors = logErrors;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         LoadConfiguration(configuration);
     }
@@ -43,7 +41,7 @@ public class Stats
                 _isApiEnabled = false;
 
                 // Notify developer
-                _logErrors.LogAndForget(new InvalidOperationException("API Key is missing or empty in the configuration file."), "Stats API Key missing.");
+                _logger.Error(new InvalidOperationException("API Key is missing or empty in the configuration file."), "Stats API Key missing.");
 
                 return;
             }
@@ -55,7 +53,7 @@ public class Stats
                 _isApiEnabled = false;
 
                 // Notify developer
-                _logErrors.LogAndForget(new InvalidOperationException("Stats API URL is missing or empty in the configuration file."), "Stats API URL missing.");
+                _logger.Error(new InvalidOperationException("Stats API URL is missing or empty in the configuration file."), "Stats API URL missing.");
 
                 return;
             }
@@ -68,7 +66,7 @@ public class Stats
             // Notify developer
             // Catch any other errors during loading (e.g., invalid JSON format)
             _isApiEnabled = false;
-            _logErrors.LogAndForget(ex, "Error loading Stats API configuration from appsettings.json.");
+            _logger.Error(ex, "Error loading Stats API configuration from appsettings.json.");
         }
     }
 
@@ -84,7 +82,7 @@ public class Stats
         if (!_isApiEnabled)
         {
             // Notify developer
-            _logErrors.LogAndForget(null, "Stats API call skipped: API not enabled.");
+            _logger.Warning("Stats API call skipped: API not enabled.");
 
             return;
         }
@@ -108,7 +106,7 @@ public class Stats
         {
             // Notify developer
             // This indicates a logic error if _isApiEnabled is true but _httpClient is null
-            _logErrors.LogAndForget(new InvalidOperationException("HttpClient is null when attempting Stats API call."), "Stats API call failed: HttpClient not initialized.");
+            _logger.Error(new InvalidOperationException("HttpClient is null when attempting Stats API call."), "Stats API call failed: HttpClient not initialized.");
 
             return false;
         }
@@ -155,7 +153,7 @@ public class Stats
                                      $"Response Body: '{errorContent}'\n" +
                                      $"CallType: {callType}" +
                                      (callType == "emulator" ? $", EmulatorName: {emulatorName}" : "");
-                _logErrors.LogAndForget(new HttpRequestException($"Stats API error: {response.StatusCode}"), contextMessage);
+                _logger.Error(new HttpRequestException($"Stats API error: {response.StatusCode}"), contextMessage);
             }
 
             return false;
@@ -167,7 +165,7 @@ public class Stats
                                  $"Stats API URL: '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : "");
-            _logErrors.LogAndForget(null, contextMessage);
+            _logger.Warning( contextMessage);
 
             return false;
         }
@@ -178,7 +176,7 @@ public class Stats
             var contextMessage = $"Error communicating with the Stats API at '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : "");
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logger.Error(ex, contextMessage);
 
             return false;
         }
@@ -189,7 +187,7 @@ public class Stats
             var contextMessage = $"Unexpected error while using Stats API at '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : "");
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logger.Error(ex, contextMessage);
 
             return false;
         }

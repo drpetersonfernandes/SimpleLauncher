@@ -108,7 +108,7 @@ public static class ConvertChdToCueBin
         catch (Exception ex)
         {
             logger.Error(ex, "[ConvertChdToCueBin] Error converting CHD to CUE/BIN.");
-            App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "[ConvertChdToCueBin] Error converting CHD to CUE/BIN.");
+            App.ServiceProvider.GetRequiredService<ILogger>().Error(ex, "[ConvertChdToCueBin] Error converting CHD to CUE/BIN.");
             return null;
         }
     }

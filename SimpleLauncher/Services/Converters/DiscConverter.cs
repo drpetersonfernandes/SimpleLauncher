@@ -13,12 +13,9 @@ public class DiscConverter : IDiscConverter
     private static readonly string TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
     private readonly ILogger _logger;
-    private readonly ILogErrors _logErrors;
-
-    public DiscConverter(ILogger logger, ILogErrors logErrors)
+    public DiscConverter(ILogger logger)
     {
         _logger = logger;
-        _logErrors = logErrors;
     }
 
     public async Task<string?> ConvertChdToIsoAsync(string chdPath)
@@ -94,7 +91,7 @@ public class DiscConverter : IDiscConverter
         catch (Exception ex)
         {
             _logger.Error(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
-            _logErrors.LogAndForget(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
+            _logger.Error(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
             return null;
         }
     }
@@ -172,7 +169,7 @@ public class DiscConverter : IDiscConverter
         catch (Exception ex)
         {
             _logger.Error(ex, "[ConvertChdToCueBin] Error converting CHD to CUE/BIN.");
-            _logErrors.LogAndForget(ex, "[ConvertChdToCueBin] Error converting CHD to CUE/BIN.");
+            _logger.Error(ex, "[ConvertChdToCueBin] Error converting CHD to CUE/BIN.");
             return null;
         }
     }
@@ -343,7 +340,7 @@ public class DiscConverter : IDiscConverter
         catch (Exception ex)
         {
             _logger.Error(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
-            _logErrors.LogAndForget(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
+            _logger.Error(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
             return null;
         }
     }

@@ -14,7 +14,6 @@ namespace SimpleLauncher.ViewModels;
 public partial class InjectCemuConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
@@ -28,10 +27,9 @@ public partial class InjectCemuConfigViewModel : ObservableObject
     [ObservableProperty] private string _language;
     [ObservableProperty] private bool _showBeforeLaunch;
 
-    public InjectCemuConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectCemuConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
-        _logErrors = logErrors;
         _logger = logger;
         _messageBox = messageBox;
     }
@@ -123,7 +121,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Cemu", _logErrors);
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Cemu", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -147,12 +145,12 @@ public partial class InjectCemuConfigViewModel : ObservableObject
 
         try
         {
-            CemuConfigurationService.InjectSettings(path, _settings, _logErrors, _logger);
+            CemuConfigurationService.InjectSettings(path, _settings, _logger);
             return true;
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogAndForget(ex, $"Cemu injection failed: {path}");
+            _logger.Error(ex, $"Cemu injection failed: {path}");
             return false;
         }
     }
@@ -182,7 +180,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectCemuConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 
@@ -212,7 +210,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectCemuConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 }

@@ -12,7 +12,6 @@ public class MountChdDrive : IAsyncDisposable
 {
     private readonly Process _mountProcess;
     private readonly int _mountProcessId;
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
 
     public string MountedPath { get; }
@@ -22,11 +21,11 @@ public class MountChdDrive : IAsyncDisposable
     /// <summary>
     /// Constructor for a successful mount.
     /// </summary>
-    public MountChdDrive(Process mountProcess, string mountedPath, string mountedDriveLetter, ILogErrors logErrors, ILogger logger)
+    public MountChdDrive(Process mountProcess, string mountedPath, string mountedDriveLetter, ILogger logErrors, ILogger logger)
     {
         _mountProcess = mountProcess;
         _mountProcessId = mountProcess?.Id ?? -1;
-        _logErrors = logErrors;
+        _logger = logErrors;
         _logger = logger;
         MountedPath = mountedPath;
         MountedDriveLetter = mountedDriveLetter;
@@ -36,9 +35,9 @@ public class MountChdDrive : IAsyncDisposable
     /// <summary>
     /// Constructor for a failed mount.
     /// </summary>
-    public MountChdDrive(ILogErrors logErrors, ILogger logger)
+    public MountChdDrive(ILogger logErrors, ILogger logger)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
         _logger = logger;
         IsMounted = false;
     }
@@ -96,7 +95,7 @@ public class MountChdDrive : IAsyncDisposable
         catch (Exception termEx)
         {
             _logger.Debug($"[MountChdDrive.DisposeAsync] Exception while terminating CHDMounter (ID: {_mountProcessId}): {termEx}");
-            _logErrors.LogAndForget(termEx, $"Failed to terminate CHDMounter (ID: {_mountProcessId}) for unmounting.");
+            _logger.Error(termEx, $"Failed to terminate CHDMounter (ID: {_mountProcessId}) for unmounting.");
         }
         finally
         {

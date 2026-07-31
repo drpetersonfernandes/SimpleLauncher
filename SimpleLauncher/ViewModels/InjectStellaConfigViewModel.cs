@@ -14,7 +14,6 @@ namespace SimpleLauncher.ViewModels;
 public partial class InjectStellaConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
@@ -31,10 +30,9 @@ public partial class InjectStellaConfigViewModel : ObservableObject
     [ObservableProperty] private bool _confirmExit;
     [ObservableProperty] private bool _showBeforeLaunch;
 
-    public InjectStellaConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectStellaConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
-        _logErrors = logErrors;
         _logger = logger;
         _messageBox = messageBox;
     }
@@ -134,7 +132,7 @@ public partial class InjectStellaConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Stella", _logErrors);
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Stella", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -158,12 +156,12 @@ public partial class InjectStellaConfigViewModel : ObservableObject
 
         try
         {
-            StellaConfigurationService.InjectSettings(path, _settings, _logErrors, _logger);
+            StellaConfigurationService.InjectSettings(path, _settings, _logger);
             return true;
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogAndForget(ex, $"Stella configuration injection failed for path: {path}");
+            _logger.Error(ex, $"Stella configuration injection failed for path: {path}");
             return false;
         }
     }
@@ -193,7 +191,7 @@ public partial class InjectStellaConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectStellaConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 
@@ -222,7 +220,7 @@ public partial class InjectStellaConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectStellaConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 }

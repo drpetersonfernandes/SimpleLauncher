@@ -10,15 +10,14 @@ namespace SimpleLauncher.Services.RetroAchievements;
 /// </summary>
 public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEmulatorConfiguratorService
 {
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RetroAchievementsEmulatorConfiguratorService"/> class.
     /// </summary>
-    public RetroAchievementsEmulatorConfiguratorService(ILogErrors logErrors, ILogger logger)
+    public RetroAchievementsEmulatorConfiguratorService(ILogger logErrors, ILogger logger)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
         _logger = logger;
     }
 
@@ -46,7 +45,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Failed to restore {emulatorFolderName} config from sample: {samplePath} -> {targetConfigPath}");
+            _logger.Error(ex, $"Failed to restore {emulatorFolderName} config from sample: {samplePath} -> {targetConfigPath}");
             return false;
         }
     }
@@ -64,7 +63,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
             // Restore from sample if missing
             if (!RestoreConfigFromSample("retroarch", configPath))
             {
-                _logErrors.LogAndForget(null, $"RetroArch config not found and no sample available at {configPath}");
+                _logger.Warning($"RetroArch config not found and no sample available at {configPath}");
                 return false;
             }
 
@@ -97,7 +96,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         // Restore from sample if missing
         if (!RestoreConfigFromSample("pcsx2", configPath))
         {
-            _logErrors.LogAndForget(null, $"PCSX2 config not found and no sample available at {configPath}");
+            _logger.Warning($"PCSX2 config not found and no sample available at {configPath}");
             return false;
         }
 
@@ -127,7 +126,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
             // Restore from sample if missing
             if (!RestoreConfigFromSample("duckstation", configPath))
             {
-                _logErrors.LogAndForget(null, $"DuckStation config not found and no sample available at {configPath}");
+                _logger.Warning($"DuckStation config not found and no sample available at {configPath}");
                 return false;
             }
 
@@ -137,7 +136,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
             // Validate encryption succeeded
             if (string.IsNullOrEmpty(encryptedToken))
             {
-                _logErrors.LogAndForget(null, "Failed to encrypt DuckStation token - cannot configure emulator");
+                _logger.Warning("Failed to encrypt DuckStation token - cannot configure emulator");
                 return false;
             }
 
@@ -182,7 +181,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
             // Restore from sample if missing
             if (!RestoreConfigFromSample("ppsspp", configPath))
             {
-                _logErrors.LogAndForget(null, $"PPSSPP config not found and no sample available at {configPath}");
+                _logger.Warning($"PPSSPP config not found and no sample available at {configPath}");
                 return false;
             }
 
@@ -205,7 +204,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, $"Failed to create PPSSPP session file at {configDir}");
+                _logger.Error(ex, $"Failed to create PPSSPP session file at {configDir}");
                 return false;
             }
         }
@@ -247,7 +246,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Failed to prepare Dolphin config path at {configDir}");
+            _logger.Error(ex, $"Failed to prepare Dolphin config path at {configDir}");
             return false;
         }
 
@@ -287,7 +286,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
                 // Try restoring to appdata if portable failed
                 if (!RestoreConfigFromSample("flycast", configPath))
                 {
-                    _logErrors.LogAndForget(null, "Flycast config not found and no sample available");
+                    _logger.Warning("Flycast config not found and no sample available");
                     return false;
                 }
             }
@@ -319,7 +318,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
             // Restore from sample if missing
             if (!RestoreConfigFromSample("bizhawk", configPath))
             {
-                _logErrors.LogAndForget(null, $"BizHawk config not found and no sample available at {configPath}");
+                _logger.Warning($"BizHawk config not found and no sample available at {configPath}");
                 return false;
             }
 
@@ -347,7 +346,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, $"Failed to configure BizHawk at {configPath}");
+                _logger.Error(ex, $"Failed to configure BizHawk at {configPath}");
                 return false;
             }
         }
@@ -390,7 +389,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Failed to update simple INI file: {filePath}");
+            _logger.Error(ex, $"Failed to update simple INI file: {filePath}");
             return false;
         }
 
@@ -488,7 +487,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Failed to update INI file: {filePath}");
+            _logger.Error(ex, $"Failed to update INI file: {filePath}");
             return false;
         }
     }

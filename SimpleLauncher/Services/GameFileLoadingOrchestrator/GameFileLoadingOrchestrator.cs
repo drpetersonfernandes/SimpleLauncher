@@ -23,7 +23,6 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
     private readonly IFindCoverImageService _findCoverImage;
     private readonly IGameItemRenderService _gameItemRenderService;
     private readonly SettingsManager.SettingsManager _settings;
-    private readonly ILogErrors _logErrors;
     private readonly IUpdateStatusBar _updateStatusBarService;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly ILogger _logger;
@@ -42,8 +41,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         IFindCoverImageService findCoverImage,
         IGameItemRenderService gameItemRenderService,
         SettingsManager.SettingsManager settings,
-        ILogErrors logErrors,
-        IUpdateStatusBar updateStatusBarService,
+IUpdateStatusBar updateStatusBarService,
         IMessageBoxLibraryService messageBox,
         ILogger logger,
         IRetroAchievementsSystemMatcher systemMatcher)
@@ -57,7 +55,6 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         _findCoverImage = findCoverImage;
         _gameItemRenderService = gameItemRenderService;
         _settings = settings;
-        _logErrors = logErrors;
         _updateStatusBarService = updateStatusBarService;
         _messageBox = messageBox;
         _logger = logger;
@@ -98,7 +95,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
             if (selectedManager == null)
             {
                 const string contextMessage = "selectedConfig is null.";
-                _logErrors.LogAndForget(null, contextMessage);
+                _logger.Warning( contextMessage);
 
                 await _messageBox.InvalidSystemConfigMessageBoxAsync();
 
@@ -173,7 +170,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         catch (Exception ex)
         {
             const string contextMessage = "Error in the method LoadGameFilesAsync.";
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logger.Error(ex, contextMessage);
 
             await _messageBox.ErrorMethodLoadGameFilesAsyncMessageBoxAsync();
         }
@@ -307,7 +304,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
                 {
                     allFiles = [];
                     _logger.Debug($"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
-                    _logErrors.LogAndForget(ex, $"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
+                    _logger.Error(ex, $"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
                 }
 
                 break;

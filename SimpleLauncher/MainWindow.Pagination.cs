@@ -44,7 +44,7 @@ public partial class MainWindow
 
             // Notify developer
             const string errorMessage = "Previous page button error.";
-            _logErrors.LogAndForget(ex, errorMessage);
+            _logger.Error(ex, errorMessage);
 
             // Notify user
             await _messageBox.NavigationButtonErrorMessageBoxAsync();
@@ -78,7 +78,7 @@ public partial class MainWindow
         {
             SetLoadingState(false);
 
-            _logErrors.LogAndForget(ex, "Error in the NextPageButtonClickAsync method.");
+            _logger.Error(ex, "Error in the NextPageButtonClickAsync method.");
 
             // Notify user
             await _messageBox.NavigationButtonErrorMessageBoxAsync();

@@ -16,7 +16,6 @@ namespace SimpleLauncher.Services.ContextMenu;
 /// </summary>
 public class ContextMenuService : IContextMenuService
 {
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IRetroAchievementsHasherTool _raHasherTool;
@@ -24,13 +23,12 @@ public class ContextMenuService : IContextMenuService
     /// <summary>
     /// Initializes a new instance of the <see cref="ContextMenuService"/> class.
     /// </summary>
-    /// <param name="logErrors">The service used to log errors.</param>
+    /// <param name="logger">The service used to log errors.</param>
     /// <param name="logger">The logger used to record debug information.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
     /// <param name="raHasherTool">The RetroAchievements hasher tool used to check system support.</param>
-    public ContextMenuService(ILogErrors logErrors, ILogger logger, IMessageBoxLibraryService messageBox, IRetroAchievementsHasherTool raHasherTool)
+    public ContextMenuService(ILogger logger, IMessageBoxLibraryService messageBox, IRetroAchievementsHasherTool raHasherTool)
     {
-        _logErrors = logErrors;
         _logger = logger;
         _messageBox = messageBox;
         _raHasherTool = raHasherTool;
@@ -68,7 +66,7 @@ public class ContextMenuService : IContextMenuService
         // Launch Game Context Menu
         var launchMenuItemIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/launch.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/launch.png")),
             Width = 16,
             Height = 16
         };
@@ -112,7 +110,7 @@ public class ContextMenuService : IContextMenuService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "[CreateMenu] Error launching the game.");
+                _logger.Error(ex, "[CreateMenu] Error launching the game.");
                 _logger.Debug($"Error launching the game: {ex.Message}");
             }
             finally
@@ -124,7 +122,7 @@ public class ContextMenuService : IContextMenuService
         // Add To Favorites Context Menu
         var addToFavoritesIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/heart.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/heart.png")),
             Width = 16,
             Height = 16
         };
@@ -138,13 +136,13 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("AddingToFavorites") ?? "Adding to favorites...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.AddToFavoritesAsync(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects, _logErrors, _messageBox);
+            _ = contextMenuFunctions.AddToFavoritesAsync(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects, _logger, _messageBox);
         };
 
         // Remove From Favorites Context Menu
         var removeFromFavoritesIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/brokenheart.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/brokenheart.png")),
             Width = 16,
             Height = 16
         };
@@ -158,7 +156,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingFromFavorites") ?? "Removing from favorites...");
             context.PlaySoundEffects.PlayTrashSound();
-            _ = contextMenuFunctions.RemoveFromFavoritesAsync(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects, _logErrors, _messageBox);
+            _ = contextMenuFunctions.RemoveFromFavoritesAsync(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects, _logger, _messageBox);
 
             // Invoke the callback if it exists
             context.OnFavoriteRemoved?.Invoke();
@@ -167,7 +165,7 @@ public class ContextMenuService : IContextMenuService
         // Open Video Link Context Menu
         var openVideoLinkIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/video.png")),
             Width = 16,
             Height = 16
         };
@@ -181,13 +179,13 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningVideoLink") ?? "Opening video link...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenVideoLinkAsync(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.Settings, context.MainWindow, _logErrors, _messageBox);
+            _ = contextMenuFunctions.OpenVideoLinkAsync(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.Settings, context.MainWindow, _logger, _messageBox);
         };
 
         // Open Info Link Context Menu
         var openInfoLinkIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/info.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/info.png")),
             Width = 16,
             Height = 16
         };
@@ -201,13 +199,13 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningInfoLink") ?? "Opening info link...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenInfoLinkAsync(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.Settings, context.MainWindow, _logErrors, _messageBox);
+            _ = contextMenuFunctions.OpenInfoLinkAsync(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.Settings, context.MainWindow, _logger, _messageBox);
         };
 
         // Open History Context Menu
         var openHistoryIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/romhistory.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/romhistory.png")),
             Width = 16,
             Height = 16
         };
@@ -221,7 +219,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningROMHistory") ?? "Opening ROM history...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenRomHistoryWindowAsync(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.MainWindow, _logErrors, _messageBox);
+            _ = contextMenuFunctions.OpenRomHistoryWindowAsync(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.MainWindow, _logger, _messageBox);
         };
 
         // View Achievements Context Menu - Only add for supported systems
@@ -231,7 +229,7 @@ public class ContextMenuService : IContextMenuService
         {
             var viewAchievementsIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/trophy.png")),
+                Source = new BitmapImage(new Uri("pack://application:,/images/trophy.png")),
                 Width = 16,
                 Height = 16
             };
@@ -246,11 +244,11 @@ public class ContextMenuService : IContextMenuService
                 try
                 {
                     context.PlaySoundEffects.PlayNotificationSound();
-                    await contextMenuFunctions.OpenRetroAchievementsWindowAsync(context.FilePath, context.FileNameWithoutExtension, context.SelectedSystemManager, context.MainWindow, context.PlaySoundEffects, context.LoadingStateProvider, _logErrors, _messageBox);
+                    await contextMenuFunctions.OpenRetroAchievementsWindowAsync(context.FilePath, context.FileNameWithoutExtension, context.SelectedSystemManager, context.MainWindow, context.PlaySoundEffects, context.LoadingStateProvider, _logger, _messageBox);
                 }
                 catch (Exception ex)
                 {
-                    _logErrors.LogAndForget(ex, "Error opening the RetroAchievements window.");
+                    _logger.Error(ex, "Error opening the RetroAchievements window.");
                     _logger.Debug($"Error opening the RetroAchievements window: {ex.Message}");
                 }
             };
@@ -259,7 +257,7 @@ public class ContextMenuService : IContextMenuService
         // Open Cover Context Menu
         var openCoverIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/cover.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/cover.png")),
             Width = 16,
             Height = 16
         };
@@ -279,7 +277,7 @@ public class ContextMenuService : IContextMenuService
         // Open Title Snapshot Context Menu
         var openTitleSnapshotIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/snapshot.png")),
             Width = 16,
             Height = 16
         };
@@ -299,7 +297,7 @@ public class ContextMenuService : IContextMenuService
         // Open Gameplay Snapshot Context Menu
         var openGameplaySnapshotIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/snapshot.png")),
             Width = 16,
             Height = 16
         };
@@ -319,7 +317,7 @@ public class ContextMenuService : IContextMenuService
         // Open Cart Context Menu
         var openCartIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/cart.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/cart.png")),
             Width = 16,
             Height = 16
         };
@@ -339,7 +337,7 @@ public class ContextMenuService : IContextMenuService
         // Open Video Context Menu
         var openVideoIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/video.png")),
             Width = 16,
             Height = 16
         };
@@ -359,7 +357,7 @@ public class ContextMenuService : IContextMenuService
         // Open Manual Context Menu
         var openManualIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/manual.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/manual.png")),
             Width = 16,
             Height = 16
         };
@@ -373,13 +371,13 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningManual") ?? "Opening manual...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenManualAsync(context.SelectedSystemName, context.FileNameWithoutExtension, _logErrors, _messageBox);
+            _ = contextMenuFunctions.OpenManualAsync(context.SelectedSystemName, context.FileNameWithoutExtension, _logger, _messageBox);
         };
 
         // Open Walkthrough Context Menu
         var openWalkthroughIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/walkthrough.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/walkthrough.png")),
             Width = 16,
             Height = 16
         };
@@ -393,13 +391,13 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningWalkthrough") ?? "Opening walkthrough...");
             context.PlaySoundEffects.PlayNotificationSound();
-            _ = contextMenuFunctions.OpenWalkthroughAsync(context.SelectedSystemName, context.FileNameWithoutExtension, _logErrors, _messageBox);
+            _ = contextMenuFunctions.OpenWalkthroughAsync(context.SelectedSystemName, context.FileNameWithoutExtension, _logger, _messageBox);
         };
 
         // Open Cabinet Context Menu
         var openCabinetIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/cabinet.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/cabinet.png")),
             Width = 16,
             Height = 16
         };
@@ -419,7 +417,7 @@ public class ContextMenuService : IContextMenuService
         // Open Flyer Context Menu
         var openFlyerIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/flyer.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/flyer.png")),
             Width = 16,
             Height = 16
         };
@@ -439,7 +437,7 @@ public class ContextMenuService : IContextMenuService
         // Open PCB Context Menu
         var openPcbIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/pcb.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/pcb.png")),
             Width = 16,
             Height = 16
         };
@@ -459,7 +457,7 @@ public class ContextMenuService : IContextMenuService
         // Take Screenshot Context Menu
         var takeScreenshotIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/snapshot.png")),
             Width = 16,
             Height = 16
         };
@@ -495,11 +493,11 @@ public class ContextMenuService : IContextMenuService
                     selectedEmulatorName = null;
                 }
 
-                _ = contextMenuFunctions.TakeScreenshotOfSelectedWindowAsync(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, null, context.MainWindow, context.GamePadController, context.GameLauncher, context.PlaySoundEffects, context.LoadingStateProvider, _logErrors, _messageBox);
+                _ = contextMenuFunctions.TakeScreenshotOfSelectedWindowAsync(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, null, context.MainWindow, context.GamePadController, context.GameLauncher, context.PlaySoundEffects, context.LoadingStateProvider, _logger, _messageBox);
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error taking the screenshot.");
+                _logger.Error(ex, "Error taking the screenshot.");
                 _logger.Debug($"Error taking the screenshot: {ex.Message}");
             }
         };
@@ -507,7 +505,7 @@ public class ContextMenuService : IContextMenuService
         // Delete Game Context Menu
         var deleteGameIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/delete.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/delete.png")),
             Width = 16,
             Height = 16
         };
@@ -530,19 +528,19 @@ public class ContextMenuService : IContextMenuService
                 {
                     try
                     {
-                        await contextMenuFunctions.RemoveFromFavoritesAsync(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects, _logErrors, _messageBox);
+                        await contextMenuFunctions.RemoveFromFavoritesAsync(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects, _logger, _messageBox);
 
                         // Invoke the callback if it exists
                         context.OnFavoriteRemoved?.Invoke();
 
                         await Task.Delay(500);
-                        await contextMenuFunctions.DeleteGameAsync(context.FilePath, context.FileNameWithExtension, context.MainWindow, context.PlaySoundEffects, _logErrors, _messageBox);
+                        await contextMenuFunctions.DeleteGameAsync(context.FilePath, context.FileNameWithExtension, context.MainWindow, context.PlaySoundEffects, _logger, _messageBox);
                     }
                     catch (Exception ex)
                     {
                         // Notify developer
                         const string contextMessage = "Error deleting the game.";
-                        _logErrors.LogAndForget(ex, contextMessage);
+                        _logger.Error(ex, contextMessage);
 
                         // Notify user
                         await _messageBox.ThereWasAnErrorDeletingTheGameMessageBoxAsync();
@@ -551,7 +549,7 @@ public class ContextMenuService : IContextMenuService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error deleting the game.");
+                _logger.Error(ex, "Error deleting the game.");
                 _logger.Debug($"Error deleting the game: {ex.Message}");
             }
         };
@@ -559,7 +557,7 @@ public class ContextMenuService : IContextMenuService
         // Delete Cover Image Context Menu
         var deleteCoverImageIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/delete.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/delete.png")),
             Width = 16,
             Height = 16
         };
@@ -582,13 +580,13 @@ public class ContextMenuService : IContextMenuService
                 {
                     try
                     {
-                        await contextMenuFunctions.DeleteCoverImageAsync(context.FileNameWithoutExtension, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow, context.PlaySoundEffects, _logErrors, findCoverImage, _messageBox);
+                        await contextMenuFunctions.DeleteCoverImageAsync(context.FileNameWithoutExtension, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow, context.PlaySoundEffects, _logger, findCoverImage, _messageBox);
                     }
                     catch (Exception ex)
                     {
                         // Notify developer
                         var contextMessage = $"Error deleting the cover image of {context.FileNameWithoutExtension}.";
-                        _logErrors.LogAndForget(ex, contextMessage);
+                        _logger.Error(ex, contextMessage);
 
                         // Notify user
                         await _messageBox.ThereWasAnErrorDeletingTheCoverImageMessageBoxAsync();
@@ -597,7 +595,7 @@ public class ContextMenuService : IContextMenuService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error deleting the cover image.");
+                _logger.Error(ex, "Error deleting the cover image.");
                 _logger.Debug($"Error deleting the cover image: {ex.Message}");
             }
         };
@@ -639,7 +637,7 @@ public class ContextMenuService : IContextMenuService
             if (string.IsNullOrEmpty(context.FilePath))
             {
                 // Notify developer
-                await _logErrors.LogErrorAsync(null, "Right click context menu was invoked, but the FilePath is null or empty.");
+                _logger.Warning("Right click context menu was invoked, but the FilePath is null or empty.");
 
                 // Notify user
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
@@ -650,7 +648,7 @@ public class ContextMenuService : IContextMenuService
             if (string.IsNullOrEmpty(selectedEmulatorName))
             {
                 // Notify developer
-                await _logErrors.LogErrorAsync(null, "[CheckParametersForNullOrEmptyAsync] Right click context menu was invoked, but the SelectedEmulatorName is null or empty.");
+                _logger.Warning("[CheckParametersForNullOrEmptyAsync] Right click context menu was invoked, but the SelectedEmulatorName is null or empty.");
 
                 // Notify user
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
@@ -661,7 +659,7 @@ public class ContextMenuService : IContextMenuService
             if (string.IsNullOrEmpty(context.SelectedSystemName))
             {
                 // Notify developer
-                await _logErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedSystemName is null or empty.");
+                _logger.Warning("Right click context menu was invoked, but the SelectedSystemName is null or empty.");
 
                 // Notify user
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
@@ -672,7 +670,7 @@ public class ContextMenuService : IContextMenuService
             if (context.SelectedSystemManager == null)
             {
                 // Notify developer
-                await _logErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedSystemManager is null.");
+                _logger.Warning("Right click context menu was invoked, but the SelectedSystemManager is null.");
 
                 // Notify user
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));

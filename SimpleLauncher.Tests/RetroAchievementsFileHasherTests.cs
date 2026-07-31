@@ -16,15 +16,8 @@ public class RetroAchievementsFileHasherTests : IDisposable
 {
     private readonly string _testDirectory;
 
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 
-    private readonly RetroAchievementsFileHasher _hasher = new(new NoOpLogErrors());
+    private readonly RetroAchievementsFileHasher _hasher = new(new NoOpLogger());
 
     public RetroAchievementsFileHasherTests()
     {

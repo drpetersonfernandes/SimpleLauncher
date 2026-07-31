@@ -19,7 +19,6 @@ namespace SimpleLauncher;
 public partial class RetroAchievementsForAGameWindow : ILoadingState
 {
     private readonly PlaySoundEffects _playSoundEffects;
-    private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly ILogger _logger;
 
@@ -32,12 +31,12 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
     /// <summary>
     /// Initializes a new instance of the <see cref="RetroAchievementsForAGameWindow"/> class.
     /// </summary>
-    /// <param name="logErrors">The error logging service.</param>
+    /// <param name="logger">The error logging service.</param>
     /// <param name="playSoundEffects">The sound effects service.</param>
     /// <param name="settings">The application settings manager.</param>
     /// <param name="raService">The RetroAchievements API service.</param>
     /// <param name="logger">The debug logger.</param>
-    public RetroAchievementsForAGameWindow(ILogErrors logErrors, PlaySoundEffects playSoundEffects, SettingsManager settings, RetroAchievementsService raService, ILogger logger)
+    public RetroAchievementsForAGameWindow(PlaySoundEffects playSoundEffects, SettingsManager settings, RetroAchievementsService raService, ILogger logger)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -46,7 +45,6 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         _settings = settings;
         _raService = raService;
         _playSoundEffects = playSoundEffects;
-        _logErrors = logErrors;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
@@ -94,7 +92,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Failed to initialize RetroAchievementsForAGameWindow.");
+            _logger.Error(ex, "Failed to initialize RetroAchievementsForAGameWindow.");
         }
     }
 
@@ -145,7 +143,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in TabControl_SelectionChanged of RetroAchievementsForAGameWindow.");
+            _logger.Error(ex, "Error in TabControl_SelectionChanged of RetroAchievementsForAGameWindow.");
         }
     }
 
@@ -164,7 +162,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                     var casualText = progress.UserCompletion.Replace("%", "").Trim();
                     if (!double.TryParse(casualText, NumberStyles.Float, CultureInfo.InvariantCulture, out casualCompletion))
                     {
-                        _logErrors.LogAndForget(null, $"Failed to parse casual completion percentage: '{casualText}' (original: '{progress.UserCompletion}')");
+                        _logger.Warning($"Failed to parse casual completion percentage: '{casualText}' (original: '{progress.UserCompletion}')");
                     }
                 }
 
@@ -173,7 +171,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                     var hardcoreText = progress.UserCompletionHardcore.Replace("%", "").Trim();
                     if (!double.TryParse(hardcoreText, NumberStyles.Float, CultureInfo.InvariantCulture, out hardcoreCompletion))
                     {
-                        _logErrors.LogAndForget(null, $"Failed to parse hardcore completion percentage: '{hardcoreText}' (original: '{progress.UserCompletionHardcore}')");
+                        _logger.Warning($"Failed to parse hardcore completion percentage: '{hardcoreText}' (original: '{progress.UserCompletionHardcore}')");
                     }
                 }
 
@@ -208,7 +206,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                 // Set Highest Award Icon (using existing trophy.png from ContextMenu.cs)
                 if (progress.HighestAwardKind?.Equals("mastered", StringComparison.OrdinalIgnoreCase) == true)
                 {
-                    HighestAwardIcon.Source = new BitmapImage(new Uri("pack://application:,,,/images/trophy.png"));
+                    HighestAwardIcon.Source = new BitmapImage(new Uri("pack://application:,/images/trophy.png"));
                     HighestAwardIcon.Visibility = Visibility.Visible;
                 }
                 else
@@ -240,7 +238,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                 HighestAwardDateText.Text = (string)Application.Current.TryFindResource("RaStatusNotApplicable") ?? "N/A";
                 HighestAwardIcon.Visibility = Visibility.Collapsed; // Ensure icon is hidden on error
 
-                _logErrors.LogAndForget(ex, "Failed to parse progress data for achievements display");
+                _logger.Error(ex, "Failed to parse progress data for achievements display");
             }
         });
     }
@@ -262,7 +260,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Error opening URL: {url}");
+            _logger.Error(ex, $"Error opening URL: {url}");
             await _messageBox.UnableToOpenLinkMessageBoxAsync();
         }
     }
@@ -296,14 +294,14 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                 else
                 {
                     // Log and potentially inform the user if the image source is not a valid URI
-                    _logErrors.LogAndForget(null, "Clicked image has no valid URI source to display in viewer.");
+                    _logger.Warning("Clicked image has no valid URI source to display in viewer.");
                     await _messageBox.ErrorMessageBoxAsync(); // Generic error for the user
                 }
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method GameImage_MouseLeftButtonDownAsync.");
+            _logger.Error(ex, "Error in the method GameImage_MouseLeftButtonDownAsync.");
         }
     }
 
@@ -318,7 +316,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Failed to open RetroAchievements image viewer for URI: {imageUri}");
+            _logger.Error(ex, $"Failed to open RetroAchievements image viewer for URI: {imageUri}");
             _logger.Debug($"Failed to open RetroAchievements image viewer for URI: {imageUri}");
         }
     }
@@ -407,7 +405,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in OpenRaSettings_Click of RetroAchievementsForAGameWindow.");
+            _logger.Error(ex, "Error in OpenRaSettings_Click of RetroAchievementsForAGameWindow.");
         }
     }
 
@@ -479,7 +477,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         {
             NoAchievementsOverlay.Visibility = Visibility.Visible;
             NoAchievementsMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingAchievements") ?? "An error occurred while loading achievements. Please try again.";
-            _logErrors.LogAndForget(ex, $"Failed to load achievements for game ID: {_gameId}");
+            _logger.Error(ex, $"Failed to load achievements for game ID: {_gameId}");
         }
         finally
         {
@@ -530,7 +528,6 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                 {
                     GameInfoImageIcon.Source = null;
                 }
-
 
                 // Game images
                 if (!string.IsNullOrEmpty(gameInfo.ImageTitle))
@@ -653,7 +650,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         {
             NoGameInfoOverlay.Visibility = Visibility.Visible;
             NoGameInfoMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingGameInfo") ?? "An error occurred while loading game info. Please try again.";
-            _logErrors.LogAndForget(ex, $"Failed to load extended game info for game ID: {_gameId}");
+            _logger.Error(ex, $"Failed to load extended game info for game ID: {_gameId}");
         }
         finally
         {
@@ -796,7 +793,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Failed to load game ranking tab for game ID: {_gameId}");
+            _logger.Error(ex, $"Failed to load game ranking tab for game ID: {_gameId}");
             // Show error state
             LatestMastersDataGrid.ItemsSource = null;
             LatestMastersDataGrid.Visibility = Visibility.Collapsed;
@@ -939,7 +936,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
             // Update messages for exception
             NoProfileMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUserProfile") ?? "An error occurred while loading user profile.";
             NoProfileSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoCheckConnection") ?? "Please try again or check your internet connection.";
-            _logErrors.LogAndForget(ex, $"Failed to load user profile for {_settings.RaUsername}");
+            _logger.Error(ex, $"Failed to load user profile for {_settings.RaUsername}");
         }
         finally
         {
@@ -1022,7 +1019,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
             TotalPointsEarnedInRangeText.Text = "0";
             NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay on error
             NoUnlocksMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUnlocks") ?? "An error occurred while loading unlocks. Please try again.";
-            _logErrors.LogAndForget(ex, $"Failed to load unlocks by date for user {_settings.RaUsername}");
+            _logger.Error(ex, $"Failed to load unlocks by date for user {_settings.RaUsername}");
             _logger.Debug($"[RA Window] Failed to load unlocks by date for user {_settings.RaUsername}: {ex.Message}");
         }
         finally
@@ -1052,7 +1049,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Failed to fetch unlocks by date");
+            _logger.Error(ex, "Failed to fetch unlocks by date");
             _logger.Debug($"[RA Window] Failed to fetch unlocks by date for user {_settings.RaUsername}: {ex.Message}");
         }
     }
@@ -1078,7 +1075,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         catch (Exception ex)
         {
             // Notify developer
-            _logErrors.LogAndForget(ex, "Failed to reset date range");
+            _logger.Error(ex, "Failed to reset date range");
             _logger.Debug($"[RA Window] Failed to reset date range for user {_settings.RaUsername}: {ex.Message}");
         }
     }
@@ -1141,7 +1138,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
             NoUserProgressOverlay.Visibility = Visibility.Visible;
             NoUserProgressMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUserProgress") ?? "An error occurred while loading user completion progress.";
             NoUserProgressSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoCheckConnection") ?? "Please try again or check your internet connection.";
-            _logErrors.LogAndForget(ex, $"Failed to load user completion progress for user {_settings.RaUsername}");
+            _logger.Error(ex, $"Failed to load user completion progress for user {_settings.RaUsername}");
             _logger.Debug($"[RA Window] Failed to load user completion progress for user {_settings.RaUsername}: {ex.Message}");
         }
         finally

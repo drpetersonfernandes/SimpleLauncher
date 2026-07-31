@@ -26,7 +26,6 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
     private readonly ISystemImageResolverService _systemImageResolverService;
     private readonly IImageLoader _imageLoader;
     private readonly PlaySoundEffects _playSoundEffects;
-    private readonly ILogErrors _logErrors;
     private readonly IGameCacheService _gameCacheService;
     private readonly GameFileWatcherService _gameFileWatcherService;
     private readonly IConfiguration _configuration;
@@ -50,8 +49,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         ISystemImageResolverService systemImageResolverService,
         IImageLoader imageLoader,
         PlaySoundEffects playSoundEffects,
-        ILogErrors logErrors,
-        IGameCacheService gameCacheService,
+IGameCacheService gameCacheService,
         GameFileWatcherService gameFileWatcherService,
         IConfiguration configuration,
         IHelpUserService helpUserService,
@@ -70,7 +68,6 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         _systemImageResolverService = systemImageResolverService;
         _imageLoader = imageLoader;
         _playSoundEffects = playSoundEffects;
-        _logErrors = logErrors;
         _gameCacheService = gameCacheService;
         _gameFileWatcherService = gameFileWatcherService;
         _configuration = configuration;
@@ -205,7 +202,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
 
             var selectIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/play.png")),
+                Source = new BitmapImage(new Uri("pack://application:,/images/play.png")),
                 Width = 16,
                 Height = 16
             };
@@ -218,7 +215,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
 
             var editIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/settings.png")),
+                Source = new BitmapImage(new Uri("pack://application:,/images/settings.png")),
                 Width = 16,
                 Height = 16
             };
@@ -231,7 +228,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
 
             var deleteIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/delete.png")),
+                Source = new BitmapImage(new Uri("pack://application:,/images/delete.png")),
                 Width = 16,
                 Height = 16
             };
@@ -283,7 +280,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in SystemButtonClickAsync.");
+                _logger.Error(ex, "Error in SystemButtonClickAsync.");
                 await _messageBox.InvalidSystemConfigMessageBoxAsync();
 
                 _host.SystemComboBox.SelectedItem = null;
@@ -302,7 +299,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in SystemButtonClickAsync.");
+            _logger.Error(ex, "Error in SystemButtonClickAsync.");
         }
     }
 
@@ -327,7 +324,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in DeleteSystemFromContextMenuAsync.");
+            _logger.Error(ex, "Error in DeleteSystemFromContextMenuAsync.");
         }
     }
 
@@ -339,7 +336,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
             _playSoundEffects.PlayNotificationSound();
             _updateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...");
 
-            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _logErrors, _helpUserService, _imageLoader, _messageBox, _quitSimpleLauncher, _logger, _parameterResolverService, systemName)
+            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _helpUserService, _imageLoader, _messageBox, _quitSimpleLauncher, _logger, _parameterResolverService, systemName)
             {
                 Owner = Application.Current.MainWindow
             };
@@ -350,7 +347,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in EditSystemFromContextMenu.");
+            _logger.Error(ex, "Error in EditSystemFromContextMenu.");
         }
     }
 
@@ -399,7 +396,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
                     if (selectedSystem == null || selectedManager == null)
                     {
                         const string errorMessage = "Selected system or its configuration is null.";
-                        _logErrors.LogAndForget(null, errorMessage);
+                        _logger.Warning( errorMessage);
 
                         await _messageBox.InvalidSystemConfigMessageBoxAsync();
 
@@ -468,7 +465,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
                 catch (Exception ex)
                 {
                     const string errorMessage = "Error in the method SystemComboBoxSelectionChangedAsync.";
-                    _logErrors.LogAndForget(ex, errorMessage);
+                    _logger.Error(ex, errorMessage);
 
                     await _messageBox.InvalidSystemConfigMessageBoxAsync();
 
@@ -486,7 +483,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in SystemComboBoxSelectionChangedAsync.");
+                _logger.Error(ex, "Error in SystemComboBoxSelectionChangedAsync.");
             }
         }
         catch (OperationCanceledException)
@@ -495,7 +492,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in SystemComboBoxSelectionChangedAsync.");
+            _logger.Error(ex, "Error in SystemComboBoxSelectionChangedAsync.");
         }
     }
 

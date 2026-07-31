@@ -12,17 +12,17 @@ namespace SimpleLauncher.Services.GameLauncher.Strategies;
 public class ZipMountStrategy : ILaunchStrategy
 {
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMountZipFiles _mountZipFiles;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ZipMountStrategy"/> class.
     /// </summary>
-    public ZipMountStrategy(IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IMountZipFiles mountZipFiles)
+    public ZipMountStrategy(IConfiguration configuration, ILogger logErrors, IMessageBoxLibraryService messageBox, IMountZipFiles mountZipFiles)
     {
         _configuration = configuration;
-        _logErrors = logErrors;
+        _logger = logErrors;
         _messageBox = messageBox;
         _mountZipFiles = mountZipFiles;
     }
@@ -61,15 +61,15 @@ public class ZipMountStrategy : ILaunchStrategy
         var log = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
         if (context.EmulatorName.Contains("RPCS3"))
         {
-            return _mountZipFiles.MountZipFileAndLoadEbootBinAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.WindowContext, log, launcher, _logErrors, _messageBox);
+            return _mountZipFiles.MountZipFileAndLoadEbootBinAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.WindowContext, log, launcher, _logger, _messageBox);
         }
         else if (context.SystemName.Contains("Scumm"))
         {
-            return _mountZipFiles.MountZipFileAndLoadWithScummVmAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, log, _logErrors, _messageBox);
+            return _mountZipFiles.MountZipFileAndLoadWithScummVmAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, log, _logger, _messageBox);
         }
         else
         {
-            return _mountZipFiles.MountZipFileAndSearchForFileToLoadAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.WindowContext, log, launcher, _logErrors, _messageBox);
+            return _mountZipFiles.MountZipFileAndSearchForFileToLoadAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.WindowContext, log, launcher, _logger, _messageBox);
         }
     }
 }

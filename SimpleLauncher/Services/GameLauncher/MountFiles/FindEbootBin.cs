@@ -10,7 +10,7 @@ public static class FindEbootBin
     /// <summary>
     /// Recursively searches for EBOOT.BIN, prioritizing the top directory and PS3_GAME/USRDIR structure.
     /// </summary>
-    public static string FindEbootBinRecursive(string directoryPath, ILogErrors logErrors, ILogger logger)
+    public static string FindEbootBinRecursive(string directoryPath, ILogger logErrors, ILogger logger)
     {
         if (string.IsNullOrEmpty(directoryPath))
         {
@@ -62,14 +62,14 @@ public static class FindEbootBin
             logger.Debug($"[FindEbootBin.FindEbootBinRecursive] UnauthorizedAccessException searching for {targetFileName} in {directoryPath}: {uaEx.Message}");
 
             // Notify developer
-            logErrors.LogAndForget(uaEx, $"Unauthorized access while searching for EBOOT.BIN in directory at {directoryPath}.");
+            logErrors.Error(uaEx, $"Unauthorized access while searching for EBOOT.BIN in directory at {directoryPath}.");
         }
         catch (Exception ex)
         {
             logger.Debug($"[FindEbootBin.FindEbootBinRecursive] Error searching for {targetFileName} in {directoryPath}: {ex.Message}");
 
             // Notify developer
-            logErrors.LogAndForget(ex, $"Error while searching for EBOOT.BIN in directory at {directoryPath}.");
+            logErrors.Error(ex, $"Error while searching for EBOOT.BIN in directory at {directoryPath}.");
         }
 
         logger.Debug($"[FindEbootBin.FindEbootBinRecursive] {targetFileName} not found in {directoryPath}.");

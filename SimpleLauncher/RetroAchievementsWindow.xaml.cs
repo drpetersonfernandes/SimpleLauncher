@@ -20,7 +20,6 @@ public partial class RetroAchievementsWindow : ILoadingState
 {
     private readonly RetroAchievementsViewModel _viewModel;
     private readonly PlaySoundEffects _playSoundEffects;
-    private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly ILogger _logger;
     private Button? _emergencyReturnButton;
@@ -29,23 +28,21 @@ public partial class RetroAchievementsWindow : ILoadingState
     /// Initializes a new instance of the <see cref="RetroAchievementsWindow"/> class.
     /// </summary>
     /// <param name="playSoundEffects">The sound effects service.</param>
-    /// <param name="logErrors">The error logging service.</param>
+    /// <param name="logger">The error logging service.</param>
     /// <param name="logger">The debug logger.</param>
     /// <param name="settings">The application settings manager.</param>
     /// <param name="raService">The RetroAchievements API service.</param>
-    public RetroAchievementsWindow(PlaySoundEffects playSoundEffects, ILogErrors logErrors, ILogger logger, SettingsManager settings, RetroAchievementsService raService)
+    public RetroAchievementsWindow(PlaySoundEffects playSoundEffects, ILogger logger, SettingsManager settings, RetroAchievementsService raService)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
         Owner = Application.Current.MainWindow;
 
         _playSoundEffects = playSoundEffects;
-        _logErrors = logErrors;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
         _viewModel = new RetroAchievementsViewModel(
-            logErrors,
             _messageBox,
             App.ServiceProvider.GetRequiredService<IResourceProvider>(),
             settings,
@@ -110,7 +107,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in TabControl_SelectionChanged of RetroAchievementsWindow.");
+            _logger.Error(ex, "Error in TabControl_SelectionChanged of RetroAchievementsWindow.");
         }
     }
 
@@ -122,7 +119,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in RetroAchievementsWindow_Loaded.");
+            _logger.Error(ex, "Error in RetroAchievementsWindow_Loaded.");
         }
     }
 
@@ -234,7 +231,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Failed to fetch unlocks by date");
+            _logger.Error(ex, "Failed to fetch unlocks by date");
         }
     }
 
@@ -260,7 +257,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Failed to reset date range");
+            _logger.Error(ex, "Failed to reset date range");
         }
     }
 
@@ -295,7 +292,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Error opening URL: {url}");
+            _logger.Error(ex, $"Error opening URL: {url}");
             await _messageBox.UnableToOpenLinkMessageBoxAsync();
         }
     }

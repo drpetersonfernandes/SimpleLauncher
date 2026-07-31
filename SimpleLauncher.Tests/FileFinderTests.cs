@@ -32,9 +32,9 @@ public class FileFinderTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    private static Mock<ILogErrors> CreateLogErrorsMock()
+    private static Mock<ILogger> CreateLogErrorsMock()
     {
-        return new Mock<ILogErrors>();
+        return new Mock<ILogger>();
     }
 
     // --- FindBinFile Tests ---

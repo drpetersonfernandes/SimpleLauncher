@@ -9,8 +9,7 @@ namespace SimpleLauncher.Services.GameCache;
 /// </summary>
 public class GameCacheService : IGameCacheService, IDisposable
 {
-    // ReSharper disable once NotAccessedField.Local
-    private readonly ILogErrors _logErrors;
+
     private readonly ILogger _logger;
     private readonly SemaphoreSlim _lock = new(1, 1);
     private List<string> _allGamesForCurrentSystem = [];
@@ -24,11 +23,10 @@ public class GameCacheService : IGameCacheService, IDisposable
     /// <summary>
     /// Initializes a new instance of <see cref="GameCacheService"/>.
     /// </summary>
-    /// <param name="logErrors">Error logging service.</param>
+    /// <param name="logger">Error logging service.</param>
     /// <param name="logger">Debug logging service.</param>
-    public GameCacheService(ILogErrors logErrors, ILogger logger)
+    public GameCacheService(ILogger logger)
     {
-        _logErrors = logErrors;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 

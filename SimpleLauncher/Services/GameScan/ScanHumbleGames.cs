@@ -6,7 +6,7 @@ namespace SimpleLauncher.Services.GameScan;
 
 public class ScanHumbleGames : IGamePlatformScanner
 {
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -75,14 +75,14 @@ public class ScanHumbleGames : IGamePlatformScanner
                     }
                     catch (Exception ex)
                     {
-                        await logErrors.LogErrorAsync(ex, "Error processing Humble game entry.");
+                        logErrors.Error(ex, "Error processing Humble game entry.");
                     }
                 }
             }
         }
         catch (Exception ex)
         {
-            await logErrors.LogErrorAsync(ex, "An error occurred while scanning for Humble games.");
+            logErrors.Error(ex, "An error occurred while scanning for Humble games.");
         }
     }
 }

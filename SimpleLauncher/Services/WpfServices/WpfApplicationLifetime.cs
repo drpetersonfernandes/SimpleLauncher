@@ -8,9 +8,9 @@ namespace SimpleLauncher.Services.WpfServices;
 /// <summary>
 /// WPF implementation of IApplicationLifetime, providing application shutdown and restart functionality.
 /// </summary>
-public class WpfApplicationLifetime(ILogErrors logErrors, IServiceProvider serviceProvider) : IApplicationLifetime
+public class WpfApplicationLifetime(ILogger logErrors, IServiceProvider serviceProvider) : IApplicationLifetime
 {
-    private readonly ILogErrors _logErrors = logErrors;
+    private readonly ILogger _logger = logErrors;
     private readonly Lazy<IMessageBoxLibraryService> _messageBoxLibraryService = new(serviceProvider.GetRequiredService<IMessageBoxLibraryService>);
 
     /// <summary>Shuts down the WPF application.</summary>
@@ -33,7 +33,7 @@ public class WpfApplicationLifetime(ILogErrors logErrors, IServiceProvider servi
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Restart failed: Process.Start threw an exception.");
+            _logger.Error(ex, "Restart failed: Process.Start threw an exception.");
             _ = _messageBoxLibraryService.Value.FailedToRestartMessageBoxAsync();
         }
     }

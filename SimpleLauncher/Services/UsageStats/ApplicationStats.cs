@@ -23,7 +23,7 @@ public class ApplicationStats
     private static ILogger logger => DebugLogger2.Value;
 
     /// <summary>Asynchronously sends application version statistics to the remote API.</summary>
-    public static async Task CallApplicationStatsAsync(IConfiguration configuration, ILogErrors logErrors)
+    public static async Task CallApplicationStatsAsync(IConfiguration configuration, ILogger logErrors)
     {
         try
         {
@@ -54,7 +54,7 @@ public class ApplicationStats
                 }
                 else
                 {
-                    logErrors.LogAndForget(ex, $"ApplicationStats API returned: {response.StatusCode}");
+                    logErrors.Error(ex, $"ApplicationStats API returned: {response.StatusCode}");
                 }
             }
         }
@@ -65,7 +65,7 @@ public class ApplicationStats
         catch (Exception ex)
         {
             logger.Debug($"ApplicationStats API call failed: {ex.Message}");
-            logErrors.LogAndForget(ex, $"ApplicationStats API call failed: {ex.Message}");
+            logErrors.Error(ex, $"ApplicationStats API call failed: {ex.Message}");
         }
     }
 }

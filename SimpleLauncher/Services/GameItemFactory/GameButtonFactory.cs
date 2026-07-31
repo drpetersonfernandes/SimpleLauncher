@@ -31,8 +31,7 @@ internal partial class GameButtonFactory(
     GamePadController gamePadController,
     GameLauncher.GameLauncher gameLauncher,
     PlaySoundEffects playSoundEffects,
-    ILogErrors logErrors,
-    IGetListOfFilesService getListOfFiles,
+IGetListOfFilesService getListOfFiles,
     IFindCoverImageService findCoverImage,
     IImageLoader imageLoader,
     IMessageBoxLibraryService messageBox,
@@ -52,7 +51,6 @@ internal partial class GameButtonFactory(
     private readonly GamePadController _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
     private readonly GameLauncher.GameLauncher _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
     private readonly PlaySoundEffects _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
-    private readonly ILogErrors _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
     private readonly IGetListOfFilesService _getListOfFiles = getListOfFiles ?? throw new ArgumentNullException(nameof(getListOfFiles));
     private readonly IFindCoverImageService _findCoverImage = findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
     private readonly IImageLoader _imageLoader = imageLoader ?? throw new ArgumentNullException(nameof(imageLoader));
@@ -255,7 +253,7 @@ internal partial class GameButtonFactory(
         // Create the star overlay image.
         var starImage = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/star.png")),
+            Source = new BitmapImage(new Uri("pack://application:,/images/star.png")),
             Width = 22,
             Height = 22,
             HorizontalAlignment = HorizontalAlignment.Left,
@@ -297,7 +295,7 @@ internal partial class GameButtonFactory(
         // while buttons are still alive.
         var playSound = _playSoundEffects;
         var mainWindow = _mainWindow;
-        var logErrors = _logErrors;
+        var logger = _logger;
         var messageBox = _messageBox;
         var machines = _machines;
         var settings = _settings;
@@ -329,7 +327,7 @@ internal partial class GameButtonFactory(
 
             var trophyImage = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/trophy.png")),
+                Source = new BitmapImage(new Uri("pack://application:,/images/trophy.png")),
                 Stretch = Stretch.Uniform
             };
             trophyButton.Content = trophyImage;
@@ -346,7 +344,7 @@ internal partial class GameButtonFactory(
                     // Null check for mainWindow before using it
                     if (mainWindow == null)
                     {
-                        logErrors.LogAndForget(null, "_mainWindow is null in trophy button click handler.");
+                        logger.Warning("_mainWindow is null in trophy button click handler.");
                         return;
                     }
 
@@ -354,12 +352,12 @@ internal partial class GameButtonFactory(
 
                     try
                     {
-                        await _contextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, mainWindow, playSound, context.LoadingStateProvider, logErrors, messageBox);
+                        await _contextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, mainWindow, playSound, context.LoadingStateProvider, logger, messageBox);
                     }
                     catch (Exception ex)
                     {
                         // Notify developer
-                        logErrors.LogAndForget(ex, $"Error opening achievements for {fileNameWithoutExtension}");
+                        logger.Error(ex, $"Error opening achievements for {fileNameWithoutExtension}");
 
                         // Notify user
                         await messageBox.CouldNotOpenAchievementsWindowMessageBoxAsync();
@@ -371,7 +369,7 @@ internal partial class GameButtonFactory(
                 }
                 catch (Exception ex)
                 {
-                    logErrors.LogAndForget(ex, "Error opening Retro Achievements Window.");
+                    logger.Error(ex, "Error opening Retro Achievements Window.");
                     _logger.Debug($"Error opening Retro Achievements Window: {ex.Message}");
                 }
             };
@@ -399,7 +397,7 @@ internal partial class GameButtonFactory(
 
             var videoLinkImage = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
+                Source = new BitmapImage(new Uri("pack://application:,/images/video.png")),
                 Stretch = Stretch.Uniform
             };
             videoLinkButton.Content = videoLinkImage;
@@ -416,12 +414,12 @@ internal partial class GameButtonFactory(
                     context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        await _contextMenuFunctions.OpenVideoLinkAsync(selectedSystemName, fileNameWithoutExtension, machines, settings, mainWindow, logErrors, messageBox);
+                        await _contextMenuFunctions.OpenVideoLinkAsync(selectedSystemName, fileNameWithoutExtension, machines, settings, mainWindow, logger, messageBox);
                     }
                     catch (Exception ex)
                     {
                         // Notify developer
-                        logErrors.LogAndForget(ex, $"Error opening video link for {fileNameWithoutExtension}");
+                        logger.Error(ex, $"Error opening video link for {fileNameWithoutExtension}");
 
                         // Notify user
                         await messageBox.ErrorOpeningVideoLinkMessageBoxAsync();
@@ -433,7 +431,7 @@ internal partial class GameButtonFactory(
                 }
                 catch (Exception ex)
                 {
-                    logErrors.LogAndForget(ex, "Error opening the video Link.");
+                    logger.Error(ex, "Error opening the video Link.");
                     _logger.Debug($"Error opening the video link: {ex.Message}");
                 }
             };
@@ -461,7 +459,7 @@ internal partial class GameButtonFactory(
 
             var infoLinkImage = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/info.png")),
+                Source = new BitmapImage(new Uri("pack://application:,/images/info.png")),
                 Stretch = Stretch.Uniform
             };
             infoLinkButton.Content = infoLinkImage;
@@ -478,12 +476,12 @@ internal partial class GameButtonFactory(
                     context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        await _contextMenuFunctions.OpenInfoLinkAsync(selectedSystemName, fileNameWithoutExtension, machines, settings, mainWindow, logErrors, messageBox);
+                        await _contextMenuFunctions.OpenInfoLinkAsync(selectedSystemName, fileNameWithoutExtension, machines, settings, mainWindow, logger, messageBox);
                     }
                     catch (Exception ex)
                     {
                         // Notify developer
-                        logErrors.LogAndForget(ex, $"Error opening info link for {fileNameWithoutExtension}");
+                        logger.Error(ex, $"Error opening info link for {fileNameWithoutExtension}");
 
                         // Notify user
                         await messageBox.ProblemOpeningInfoLinkMessageBoxAsync();
@@ -495,7 +493,7 @@ internal partial class GameButtonFactory(
                 }
                 catch (Exception ex)
                 {
-                    logErrors.LogAndForget(ex, "Error opening the info Link.");
+                    logger.Error(ex, "Error opening the info Link.");
                     _logger.Debug($"Error opening the info link: {ex.Message}");
                 }
             };
@@ -600,7 +598,7 @@ internal partial class GameButtonFactory(
 
                 if (emulatorCombo == null)
                 {
-                    logErrors.LogAndForget(null, "[CreateGameButtonAsync] _emulatorComboBox is null.");
+                    logger.Warning("[CreateGameButtonAsync] _emulatorComboBox is null.");
                     await messageBox.EmulatorNameIsRequiredMessageBoxAsync();
                     mainWindow?.SetGameButtonsEnabled(true);
                     return;
@@ -610,7 +608,7 @@ internal partial class GameButtonFactory(
                 if (string.IsNullOrEmpty(selectedEmulatorName))
                 {
                     // Notify developer
-                    logErrors.LogAndForget(null, "[CreateGameButtonAsync] selectedEmulatorName is null or empty.");
+                    logger.Warning("[CreateGameButtonAsync] selectedEmulatorName is null or empty.");
 
                     // Notify user
                     await messageBox.EmulatorNameIsRequiredMessageBoxAsync();
@@ -625,7 +623,7 @@ internal partial class GameButtonFactory(
 
                     if (gameLauncher == null)
                     {
-                        logErrors.LogAndForget(null, "[CreateGameButtonAsync] _gameLauncher is null.");
+                        logger.Warning("[CreateGameButtonAsync] _gameLauncher is null.");
                         return;
                     }
 
@@ -638,7 +636,7 @@ internal partial class GameButtonFactory(
             }
             catch (Exception ex)
             {
-                logErrors.LogAndForget(ex, $"[CreateGameButtonAsync] Error launching the game. entityPath: {entityPath}, systemName: {systemName}");
+                logger.Error(ex, $"[CreateGameButtonAsync] Error launching the game. entityPath: {entityPath}, systemName: {systemName}");
                 _logger.Debug($"Error launching the game: {ex.Message}");
             }
         };

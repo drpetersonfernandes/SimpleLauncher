@@ -10,7 +10,7 @@ public class ParameterResolverService : IParameterResolverService
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -18,11 +18,11 @@ public class ParameterResolverService : IParameterResolverService
         WriteIndented = false
     };
 
-    public ParameterResolverService(IHttpClientFactory httpClientFactory, IConfiguration configuration, ILogErrors logErrors)
+    public ParameterResolverService(IHttpClientFactory httpClientFactory, IConfiguration configuration, ILogger logErrors)
     {
         _httpClientFactory = httpClientFactory;
         _configuration = configuration;
-        _logErrors = logErrors;
+        _logger = logErrors;
     }
 
     public async Task<ParameterResolverResult> ResolveParametersAsync(ParameterResolverRequest request)
@@ -44,7 +44,7 @@ public class ParameterResolverService : IParameterResolverService
         }
 
         var apiException = new InvalidOperationException($"ParameterResolver API returned {(int)response.StatusCode}: {responseBody}");
-        _logErrors.LogAndForget(apiException, "ParameterResolver API error");
+        _logger.Error(apiException, "ParameterResolver API error");
         return null;
     }
 }

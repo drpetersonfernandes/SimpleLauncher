@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class AresConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -28,7 +28,7 @@ public static class AresConfigurationService
                 catch (Exception ex)
                 {
                     logger.Debug($"[AresConfig] Failed to create settings.bml from sample: {ex.Message}");
-                    logErrors.LogAndForget(ex, $"[AresConfig] Failed to create settings.bml from sample: {ex.Message}");
+                    logger.Error(ex, $"[AresConfig] Failed to create settings.bml from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -76,13 +76,13 @@ public static class AresConfigurationService
         catch (UnauthorizedAccessException ex)
         {
             logger.Debug($"[AresConfig] Access denied reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[AresConfig] Access denied reading config: {configPath}");
+            logger.Error(ex, $"[AresConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
             logger.Debug($"[AresConfig] I/O error reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[AresConfig] I/O error reading config: {configPath}");
+            logger.Error(ex, $"[AresConfig] I/O error reading config: {configPath}");
             throw;
         }
 
@@ -137,7 +137,7 @@ public static class AresConfigurationService
             catch (Exception ex)
             {
                 logger.Debug($"[AresConfig] Failed to inject configuration changes: {ex.Message}");
-                logErrors.LogAndForget(ex, $"[AresConfig] Failed to inject configuration changes: {ex.Message}");
+                logger.Error(ex, $"[AresConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }

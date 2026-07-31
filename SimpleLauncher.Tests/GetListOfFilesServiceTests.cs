@@ -13,19 +13,12 @@ public class GetListOfFilesServiceTests : IDisposable
     private readonly string _testDirectory;
     private readonly GetListOfFilesService _service;
 
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 
     public GetListOfFilesServiceTests()
     {
         _testDirectory = Path.Combine(Path.GetTempPath(), $"SL_GetListOfFiles_{Guid.NewGuid():N}");
         Directory.CreateDirectory(_testDirectory);
-        _service = new GetListOfFilesService(new NoOpLogErrors());
+        _service = new GetListOfFilesService(new NoOpLogger());
     }
 
     public void Dispose()

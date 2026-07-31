@@ -12,16 +12,14 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 /// </summary>
 public class SegaModel2ConfigHandler : IEmulatorConfigHandler
 {
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SegaModel2ConfigHandler"/> class.
     /// </summary>
-    public SegaModel2ConfigHandler(ILogErrors logErrors, ILogger logger, IServiceScopeFactory scopeFactory)
+    public SegaModel2ConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {
-        _logErrors = logErrors;
         _logger = logger;
         _scopeFactory = scopeFactory;
     }
@@ -55,7 +53,7 @@ public class SegaModel2ConfigHandler : IEmulatorConfigHandler
             else
             {
                 shouldRun = true;
-                SegaModel2ConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, _logger);
+                SegaModel2ConfigurationService.InjectSettings(resolvedExe, context.Settings, _logger);
             }
 
             return shouldRun;

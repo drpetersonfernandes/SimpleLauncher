@@ -15,18 +15,11 @@ public class GameCacheServiceExtendedTests : IDisposable
     private readonly GameCacheService _cache;
     private readonly ILogger _logger = Log.Logger;
 
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 
     public GameCacheServiceExtendedTests()
     {
         ServiceProviderMock.Install();
-        _cache = new GameCacheService(new NoOpLogErrors(), _logger);
+        _cache = new GameCacheService(_logger);
     }
 
     public void Dispose()
@@ -212,7 +205,7 @@ public class GameCacheServiceExtendedTests : IDisposable
     [Fact]
     public void DisposeTwiceDoesNotThrow()
     {
-        var cache = new GameCacheService(new NoOpLogErrors(), _logger);
+        var cache = new GameCacheService(_logger);
         cache.Dispose();
         var ex = Record.Exception(cache.Dispose);
         Assert.Null(ex);

@@ -102,7 +102,7 @@ public static class ConvertDiscImageToIso
         catch (Exception ex)
         {
             logger.Error(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
-            App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
+            App.ServiceProvider.GetRequiredService<ILogger>().Error(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
             return null;
         }
     }

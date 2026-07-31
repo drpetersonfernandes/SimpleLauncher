@@ -16,18 +16,15 @@ public partial class ActiveWindowScreenshotService
     private static partial IntPtr GetForegroundWindow();
 
     private readonly ILogger _logger;
-    private readonly ILogErrors _logErrors;
     private readonly IPlaySoundEffects _playSoundEffects;
     private readonly IServiceProvider _serviceProvider;
 
     public ActiveWindowScreenshotService(
         ILogger logger,
-        ILogErrors logErrors,
-        IPlaySoundEffects playSoundEffects,
+IPlaySoundEffects playSoundEffects,
         IServiceProvider serviceProvider)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
         _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
     }
@@ -98,7 +95,7 @@ public partial class ActiveWindowScreenshotService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "[ActiveWindowScreenshot] Error capturing the active window screenshot.");
+                _logger.Error(ex, "[ActiveWindowScreenshot] Error capturing the active window screenshot.");
             }
 
             return Task.CompletedTask;
@@ -127,13 +124,13 @@ public partial class ActiveWindowScreenshotService
                 }
                 catch (Exception ex)
                 {
-                    _logErrors.LogAndForget(ex, "[ActiveWindowScreenshot] Error showing flash overlay.");
+                    _logger.Error(ex, "[ActiveWindowScreenshot] Error showing flash overlay.");
                 }
             });
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "[ActiveWindowScreenshot] Error playing shutter sound or flash.");
+            _logger.Error(ex, "[ActiveWindowScreenshot] Error playing shutter sound or flash.");
         }
     }
 }

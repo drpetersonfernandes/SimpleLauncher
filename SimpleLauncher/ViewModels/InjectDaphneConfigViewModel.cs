@@ -12,7 +12,7 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly IMessageBoxLibraryService _messageBox;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
 
     [ObservableProperty] private bool _daphneFullscreen;
     [ObservableProperty] private bool _daphneBilinear;
@@ -23,11 +23,11 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     [ObservableProperty] private bool _daphneUseOverlays;
     [ObservableProperty] private bool _daphneShowSettingsBeforeLaunch;
 
-    public InjectDaphneConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogErrors logErrors)
+    public InjectDaphneConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logErrors)
     {
         _settings = settings;
         _messageBox = messageBox;
-        _logErrors = logErrors;
+        _logger = logErrors;
     }
 
     /// <summary>
@@ -98,7 +98,7 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
         catch (Exception ex)
         {
             ShouldRun = true;
-            _logErrors.LogAndForget(ex, "Error saving Daphne configuration.");
+            _logger.Error(ex, "Error saving Daphne configuration.");
             await _messageBox.ErrorMessageBoxAsync();
         }
     }
@@ -114,7 +114,7 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error saving Daphne configuration.");
+            _logger.Error(ex, "Error saving Daphne configuration.");
             await _messageBox.DaphneConfigurationSaveFailedMessageBoxAsync();
         }
     }

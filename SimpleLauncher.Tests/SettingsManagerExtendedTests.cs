@@ -15,7 +15,7 @@ public class SettingsManagerExtendedTests : IDisposable
 {
     private readonly string _testDirectory;
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors = new NoOpLogErrors();
+    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
 
     public SettingsManagerExtendedTests()
@@ -409,11 +409,4 @@ public class SettingsManagerExtendedTests : IDisposable
         Assert.Equal("Default", settings.StyleVariant);
     }
 
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 }

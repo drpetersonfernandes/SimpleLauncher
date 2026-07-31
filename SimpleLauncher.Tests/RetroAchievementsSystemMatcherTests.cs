@@ -12,15 +12,8 @@ using Interfaces;
 /// </summary>
 public class RetroAchievementsSystemMatcherTests
 {
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 
-    private readonly RetroAchievementsSystemMatcher _matcher = new(new NoOpLogErrors(), Log.Logger);
+    private readonly RetroAchievementsSystemMatcher _matcher = new(new NoOpLogger(), Log.Logger);
 
     /// <summary>
     /// Verifies that GetBestMatchSystemName maps known system aliases to their canonical RetroAchievements names.

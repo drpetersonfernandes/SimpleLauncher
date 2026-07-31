@@ -17,7 +17,6 @@ public class RetroAchievementsService
     private readonly string _siteBaseUrl;
 
     private readonly HttpClient _httpClient;
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
 
     /// <summary>
@@ -31,12 +30,12 @@ public class RetroAchievementsService
     public RetroAchievementsService(
         IHttpClientFactory httpClientFactory,
         RetroAchievementsManager raManager,
-        ILogErrors logErrors,
+        ILogger logErrors,
         IConfiguration configuration,
         ILogger logger)
     {
         _httpClient = httpClientFactory?.CreateClient("RetroAchievementsClient") ?? throw new ArgumentNullException(nameof(httpClientFactory));
-        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
+        _logger = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         RaManager = raManager ?? throw new ArgumentNullException(nameof(raManager));
 
@@ -76,7 +75,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "[RA Service] Failed to get session token.");
+            _logger.Error(ex, "[RA Service] Failed to get session token.");
             return null;
         }
     }
@@ -102,7 +101,7 @@ public class RetroAchievementsService
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                _logErrors.LogAndForget(null, $"[RA Service] API_GetGameInfoAndUserProgress failed with status {response.StatusCode} for gameId {gameId}: {error}");
+                _logger.Warning($"[RA Service] API_GetGameInfoAndUserProgress failed with status {response.StatusCode} for gameId {gameId}: {error}");
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
@@ -174,7 +173,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"[RA Service] Unexpected error in GetGameInfoAndUserProgressAsync for gameId {gameId}.");
+            _logger.Error(ex, $"[RA Service] Unexpected error in GetGameInfoAndUserProgressAsync for gameId {gameId}.");
             return (null, null);
         }
     }
@@ -206,7 +205,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"[RA Service] Error in GetGameExtendedAsync for gameId {gameId}.");
+            _logger.Error(ex, $"[RA Service] Error in GetGameExtendedAsync for gameId {gameId}.");
             return null;
         }
     }
@@ -238,7 +237,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"[RA Service] Error in GetUserGameRankAndScoreAsync for gameId {gameId}.");
+            _logger.Error(ex, $"[RA Service] Error in GetUserGameRankAndScoreAsync for gameId {gameId}.");
             return null;
         }
     }
@@ -271,7 +270,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"[RA Service] Error in GetGameRankAndScoreAsync for gameId {gameId}.");
+            _logger.Error(ex, $"[RA Service] Error in GetGameRankAndScoreAsync for gameId {gameId}.");
             return null;
         }
     }
@@ -303,7 +302,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"[RA Service] Error in GetUserProfileAsync for user {username}.");
+            _logger.Error(ex, $"[RA Service] Error in GetUserProfileAsync for user {username}.");
             return null;
         }
     }
@@ -335,7 +334,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"[RA Service] Error in GetUserRecentlyPlayedGamesAsync for user {username}.");
+            _logger.Error(ex, $"[RA Service] Error in GetUserRecentlyPlayedGamesAsync for user {username}.");
             return null;
         }
     }
@@ -370,7 +369,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"[RA Service] Error in GetAchievementsEarnedBetweenAsync for user {username}.");
+            _logger.Error(ex, $"[RA Service] Error in GetAchievementsEarnedBetweenAsync for user {username}.");
             return null;
         }
     }
@@ -414,7 +413,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"[RA Service] Error in GetUserCompletionProgressAsync for user {username}.");
+            _logger.Error(ex, $"[RA Service] Error in GetUserCompletionProgressAsync for user {username}.");
             return null;
         }
     }

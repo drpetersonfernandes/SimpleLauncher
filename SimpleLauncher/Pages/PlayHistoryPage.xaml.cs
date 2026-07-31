@@ -34,7 +34,6 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
     private readonly MainWindow _mainWindow;
     private readonly GamePadController _gamePadController;
     private readonly GameLauncher _gameLauncher;
-    private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IFindCoverImageService _findCoverImage;
     private readonly List<MameManager> _machines;
@@ -58,8 +57,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         GameLauncher gameLauncher,
         PlaySoundEffects playSoundEffects,
         IConfiguration configuration,
-        ILogErrors logErrors,
-        IFindCoverImageService findCoverImage,
+IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         IContextMenuFunctions contextMenuFunctions,
         ILogger logger,
@@ -72,7 +70,6 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _findCoverImage = findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
         _machines = machines ?? throw new ArgumentNullException(nameof(machines));
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
@@ -85,7 +82,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
 
         _viewModel = new PlayHistoryViewModel(
             configuration,
-            logErrors,
+            logger,
             playHistoryManager,
             settings,
             systemManagers,
@@ -129,7 +126,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the PlayHistoryPageLoadedAsync method.");
+            _logger.Error(ex, "Error in the PlayHistoryPageLoadedAsync method.");
         }
     }
 
@@ -146,7 +143,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
 
             if (selectedItem.FileName == null)
             {
-                _logErrors.LogAndForget(null, "History item filename is null");
+                _logger.Warning("History item filename is null");
                 await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
                 return;
             }
@@ -154,7 +151,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
             var systemManager = _viewModel.GetSystemManager(selectedItem.SystemName);
             if (systemManager == null)
             {
-                _logErrors.LogAndForget(null, "systemManager is null");
+                _logger.Warning("systemManager is null");
                 await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
                 return;
             }
@@ -174,7 +171,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
             var emulatorManager = systemManager.Emulators.FirstOrDefault();
             if (emulatorManager == null)
             {
-                _logErrors.LogAndForget(null, "emulatorManager is null.");
+                _logger.Warning("emulatorManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                     PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
@@ -211,7 +208,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "There was an error in the method PlayHistoryPrepareForRightClickContextAsync.");
+            _logger.Error(ex, "There was an error in the method PlayHistoryPrepareForRightClickContextAsync.");
             await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
         }
     }
@@ -221,7 +218,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         var selectedSystemManager = _viewModel.GetSystemManager(selectedSystemName);
         if (selectedSystemManager == null)
         {
-            _logErrors.LogAndForget(null, "[LaunchGameFromHistoryAsync] systemManager is null.");
+            _logger.Warning("[LaunchGameFromHistoryAsync] systemManager is null.");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
             return;
@@ -246,7 +243,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         var emulatorManager = selectedSystemManager.Emulators.FirstOrDefault();
         if (emulatorManager == null)
         {
-            _logErrors.LogAndForget(null, "[LaunchGameFromHistoryAsync] emulatorManager is null.");
+            _logger.Warning("[LaunchGameFromHistoryAsync] emulatorManager is null.");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
             return;
@@ -288,7 +285,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method MouseDoubleClick.");
+            _logger.Error(ex, "Error in the method MouseDoubleClick.");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
@@ -314,7 +311,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         catch (Exception ex)
         {
             PreviewImage.Source = null;
-            _logErrors.LogAndForget(ex, "Error in the SetPreviewImageOnSelectionChangedAsync method.");
+            _logger.Error(ex, "Error in the SetPreviewImageOnSelectionChangedAsync method.");
         }
     }
 
@@ -354,7 +351,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method DeleteHistoryItemWithDelButtonAsync.");
+            _logger.Error(ex, "Error in the method DeleteHistoryItemWithDelButtonAsync.");
         }
     }
 
@@ -437,7 +434,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method RemoveHistoryItemButton_ClickAsync.");
+            _logger.Error(ex, "Error in the method RemoveHistoryItemButton_ClickAsync.");
         }
     }
 
@@ -451,7 +448,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method RemoveAllHistoryItemButton_ClickAsync.");
+            _logger.Error(ex, "Error in the method RemoveAllHistoryItemButton_ClickAsync.");
         }
     }
 
@@ -472,7 +469,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the LaunchGameClickAsync method.");
+            _logger.Error(ex, "Error in the LaunchGameClickAsync method.");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }

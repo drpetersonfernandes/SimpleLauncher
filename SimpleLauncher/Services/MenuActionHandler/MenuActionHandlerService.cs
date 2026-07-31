@@ -19,7 +19,6 @@ public class MenuActionHandlerService
 {
     private readonly Settings _settings;
     private readonly PlaySoundEffects _playSoundEffects;
-    private readonly ILogErrors _logErrors;
     private readonly IConfiguration _configuration;
 
     // ReSharper disable once NotAccessedField.Local
@@ -48,8 +47,7 @@ public class MenuActionHandlerService
     public MenuActionHandlerService(
         Settings settings,
         PlaySoundEffects playSoundEffects,
-        ILogErrors logErrors,
-        IConfiguration configuration,
+IConfiguration configuration,
         IHttpClientFactory httpClientFactory,
         GamePadController gamePadController,
         GameLauncher.GameLauncher gameLauncher,
@@ -70,7 +68,6 @@ public class MenuActionHandlerService
     {
         _settings = settings;
         _playSoundEffects = playSoundEffects;
-        _logErrors = logErrors;
         _configuration = configuration;
         _httpClientFactory = httpClientFactory;
         _gamePadController = gamePadController;
@@ -258,7 +255,7 @@ public class MenuActionHandlerService
 
             if (!_emulatorConfigWindowFactory.TryGetValue(emulatorName, out var showWindow))
             {
-                _logErrors.LogAndForget(null, $"Unknown emulator config: {emulatorName}");
+                _logger.Warning($"Unknown emulator config: {emulatorName}");
                 return;
             }
 
@@ -266,7 +263,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Error opening {emulatorName} configuration window.");
+            _logger.Error(ex, $"Error opening {emulatorName} configuration window.");
         }
     }
 
@@ -288,7 +285,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method EasyMode_Click.");
+            _logger.Error(ex, "Error in the method EasyMode_Click.");
         }
     }
 
@@ -305,7 +302,7 @@ public class MenuActionHandlerService
                 ? selectedSystem
                 : null;
 
-            var editSystemWindow = new EditSystemWindow(_settings, _playSoundEffects, _configuration, _logErrors, _helpUserService, _imageLoader, _messageBoxLibrary, _quitSimpleLauncher, _logger, _parameterResolverService, systemToPreselect)
+            var editSystemWindow = new EditSystemWindow(_settings, _playSoundEffects, _configuration, _helpUserService, _imageLoader, _messageBoxLibrary, _quitSimpleLauncher, _logger, _parameterResolverService, systemToPreselect)
             {
                 Owner = Application.Current.MainWindow
             };
@@ -316,7 +313,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ExpertMode_Click.");
+            _logger.Error(ex, "Error in the method ExpertMode_Click.");
         }
     }
 
@@ -337,7 +334,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method DownloadImagePack_Click.");
+            _logger.Error(ex, "Error in the method DownloadImagePack_Click.");
         }
     }
 
@@ -359,7 +356,7 @@ public class MenuActionHandlerService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in method ScanForMicrosoftWindowsGames_ClickAsync.");
+                _logger.Error(ex, "Error in method ScanForMicrosoftWindowsGames_ClickAsync.");
             }
             finally
             {
@@ -368,7 +365,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ScanForMicrosoftWindowsGames_ClickAsync.");
+            _logger.Error(ex, "Error in the method ScanForMicrosoftWindowsGames_ClickAsync.");
         }
     }
 
@@ -393,7 +390,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method EditLinksClickAsync.");
+            _logger.Error(ex, "Error in the method EditLinksClickAsync.");
         }
     }
 
@@ -418,7 +415,7 @@ public class MenuActionHandlerService
         catch (Exception ex)
         {
             const string contextMessage = "Failed to toggle gamepad.";
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logger.Error(ex, contextMessage);
             await _messageBoxLibrary.ToggleGamepadFailureMessageBoxAsync();
         }
     }
@@ -473,13 +470,13 @@ public class MenuActionHandlerService
             catch (Exception ex)
             {
                 const string contextMessage = "Failed to toggle fuzzy matching.";
-                _logErrors.LogAndForget(ex, contextMessage);
+                _logger.Error(ex, contextMessage);
                 await _messageBoxLibrary.ToggleFuzzyMatchingFailureMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ToggleFuzzyMatchingClickAsync.");
+            _logger.Error(ex, "Error in the method ToggleFuzzyMatchingClickAsync.");
         }
     }
 
@@ -505,7 +502,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method SetFuzzyMatchingThresholdClickAsync");
+            _logger.Error(ex, "Error in method SetFuzzyMatchingThresholdClickAsync");
         }
     }
 
@@ -533,12 +530,12 @@ public class MenuActionHandlerService
             catch (Exception ex)
             {
                 const string contextMessage = "Failed to toggle annotation stripping.";
-                _logErrors.LogAndForget(ex, contextMessage);
+                _logger.Error(ex, contextMessage);
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method HandleToggleAnnotationStrippingAsync.");
+            _logger.Error(ex, "Error in the method HandleToggleAnnotationStrippingAsync.");
         }
     }
 
@@ -571,7 +568,7 @@ public class MenuActionHandlerService
         catch (Exception ex)
         {
             const string contextMessage = "Unable to open the Donation Link from the menu.";
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logger.Error(ex, contextMessage);
             await _messageBoxLibrary.ErrorOpeningDonationLinkMessageBoxAsync();
         }
     }
@@ -616,12 +613,12 @@ public class MenuActionHandlerService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, $"Error in the method ShowGames ({showGamesMode}).");
+                _logger.Error(ex, $"Error in the method ShowGames ({showGamesMode}).");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Error in the method ShowGames ({showGamesMode}).");
+            _logger.Error(ex, $"Error in the method ShowGames ({showGamesMode}).");
         }
     }
 
@@ -652,13 +649,13 @@ public class MenuActionHandlerService
             catch (Exception ex)
             {
                 const string errorMessage = "Error in method ButtonSizeClickAsync.";
-                _logErrors.LogAndForget(ex, errorMessage);
+                _logger.Error(ex, errorMessage);
                 await _messageBoxLibrary.ErrorMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ButtonSizeClickAsync.");
+            _logger.Error(ex, "Error in the method ButtonSizeClickAsync.");
         }
     }
 
@@ -688,13 +685,13 @@ public class MenuActionHandlerService
             catch (Exception ex)
             {
                 const string contextMessage = "Error in method ButtonAspectRatioClickAsync";
-                _logErrors.LogAndForget(ex, contextMessage);
+                _logger.Error(ex, contextMessage);
                 await _messageBoxLibrary.ErrorMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method ButtonAspectRatioClickAsync.");
+            _logger.Error(ex, "Error in the method ButtonAspectRatioClickAsync.");
         }
     }
 
@@ -733,12 +730,12 @@ public class MenuActionHandlerService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in the method GamesPerPageClickAsync.");
+                _logger.Error(ex, "Error in the method GamesPerPageClickAsync.");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method GamesPerPageClickAsync.");
+            _logger.Error(ex, "Error in the method GamesPerPageClickAsync.");
         }
     }
 
@@ -757,7 +754,7 @@ public class MenuActionHandlerService
             _host.GetSystemManagers(), _host.GetMachines(), _host.GetMameLookup(),
             _favoritesManager, _settings, mainWindow,
             _gamePadController, _gameLauncher, _playSoundEffects,
-            _logErrors, _configuration, _getListOfFiles, _findCoverImage, _imageLoader, contextMenuFunctions, _logger, contextMenuService);
+            _configuration, _getListOfFiles, _findCoverImage, _imageLoader, contextMenuFunctions, _logger, contextMenuService);
 
         _host.NavigateToPage(globalSearchPage);
     }
@@ -786,7 +783,7 @@ public class MenuActionHandlerService
         var contextMenuService = _serviceProvider.GetRequiredService<IContextMenuService>();
         var favoritesPage = new Pages.FavoritesPage(
             _settings, _host.GetSystemManagers(), _host.GetMachines(), _favoritesManager,
-            (MainWindow)Application.Current.MainWindow, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _findCoverImage, _imageLoader, contextMenuFunctions, _logger, contextMenuService);
+            (MainWindow)Application.Current.MainWindow, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _findCoverImage, _imageLoader, contextMenuFunctions, _logger, contextMenuService);
 
         _host.NavigateToPage(favoritesPage);
     }
@@ -805,7 +802,7 @@ public class MenuActionHandlerService
         var playHistoryPage = new Pages.PlayHistoryPage(
             _host.GetSystemManagers(), _host.GetMachines(), _settings,
             _favoritesManager, _playHistoryManager, mainWindow,
-            _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _findCoverImage, _imageLoader, contextMenuFunctions, _logger, contextMenuService);
+            _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _findCoverImage, _imageLoader, contextMenuFunctions, _logger, contextMenuService);
 
         _host.NavigateToPage(playHistoryPage);
     }
@@ -843,7 +840,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method NavSelectedSystemFavoriteButtonClickAsync.");
+            _logger.Error(ex, "Error in method NavSelectedSystemFavoriteButtonClickAsync.");
         }
     }
 
@@ -859,7 +856,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method NavRandomLuckGameButtonClickAsync.");
+            _logger.Error(ex, "Error in the method NavRandomLuckGameButtonClickAsync.");
         }
     }
 
@@ -886,7 +883,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method NavShowGamesWithRetroAchievementsButtonClickAsync.");
+            _logger.Error(ex, "Error in the method NavShowGamesWithRetroAchievementsButtonClickAsync.");
         }
     }
 
@@ -941,7 +938,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method HandleZoomInAsync.");
+            _logger.Error(ex, "Error in the method HandleZoomInAsync.");
         }
     }
 
@@ -989,7 +986,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method HandleZoomOutAsync.");
+            _logger.Error(ex, "Error in the method HandleZoomOutAsync.");
         }
     }
 
@@ -1028,7 +1025,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method NavToggleViewModeClickAsync.");
+            _logger.Error(ex, "Error in the method NavToggleViewModeClickAsync.");
         }
     }
 
@@ -1072,7 +1069,7 @@ public class MenuActionHandlerService
         catch (Exception ex)
         {
             const string errorMessage = "Error while using the method ChangeViewMode_Click.";
-            _logErrors.LogAndForget(ex, errorMessage);
+            _logger.Error(ex, errorMessage);
             await _messageBoxLibrary.ErrorChangingViewModeMessageBoxAsync();
         }
     }
@@ -1106,13 +1103,13 @@ public class MenuActionHandlerService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in method FilenameDisplayMode_ClickAsync.");
+                _logger.Error(ex, "Error in method FilenameDisplayMode_ClickAsync.");
                 await _messageBoxLibrary.ErrorMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method FilenameDisplayMode_ClickAsync.");
+            _logger.Error(ex, "Error in the method FilenameDisplayMode_ClickAsync.");
         }
     }
 
@@ -1143,13 +1140,13 @@ public class MenuActionHandlerService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in method DisplayMachineName_ClickAsync.");
+                _logger.Error(ex, "Error in method DisplayMachineName_ClickAsync.");
                 await _messageBoxLibrary.ErrorMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method DisplayMachineName_ClickAsync.");
+            _logger.Error(ex, "Error in the method DisplayMachineName_ClickAsync.");
         }
     }
 
@@ -1182,13 +1179,13 @@ public class MenuActionHandlerService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in method FilenameFontSize_ClickAsync.");
+                _logger.Error(ex, "Error in method FilenameFontSize_ClickAsync.");
                 await _messageBoxLibrary.ErrorMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method FilenameFontSize_ClickAsync.");
+            _logger.Error(ex, "Error in the method FilenameFontSize_ClickAsync.");
         }
     }
 
@@ -1221,13 +1218,13 @@ public class MenuActionHandlerService
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Error in method MachineNameFontSize_ClickAsync.");
+                _logger.Error(ex, "Error in method MachineNameFontSize_ClickAsync.");
                 await _messageBoxLibrary.ErrorMessageBoxAsync();
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method MachineNameFontSize_ClickAsync.");
+            _logger.Error(ex, "Error in the method MachineNameFontSize_ClickAsync.");
         }
     }
 
@@ -1246,7 +1243,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error opening Sound Configuration window.");
+            _logger.Error(ex, "Error opening Sound Configuration window.");
             await _messageBoxLibrary.CouldNotOpenSoundConfigurationWindowMessageBoxAsync();
         }
     }
@@ -1266,7 +1263,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error opening RetroAchievements settings window.");
+            _logger.Error(ex, "Error opening RetroAchievements settings window.");
             await _messageBoxLibrary.ErrorMessageBoxAsync();
         }
     }
@@ -1290,7 +1287,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error toggling RetroAchievements overlay button.");
+            _logger.Error(ex, "Error toggling RetroAchievements overlay button.");
             await _messageBoxLibrary.ErrorMessageBoxAsync();
         }
     }
@@ -1312,7 +1309,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error toggling video link overlay button.");
+            _logger.Error(ex, "Error toggling video link overlay button.");
             await _messageBoxLibrary.ErrorMessageBoxAsync();
         }
     }
@@ -1334,7 +1331,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error toggling info link overlay button.");
+            _logger.Error(ex, "Error toggling info link overlay button.");
             await _messageBoxLibrary.ErrorMessageBoxAsync();
         }
     }
@@ -1371,7 +1368,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in TopLetterNumberMenuClickAsync.");
+            _logger.Error(ex, "Error in TopLetterNumberMenuClickAsync.");
         }
     }
 
@@ -1407,7 +1404,7 @@ public class MenuActionHandlerService
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in SortOrderToggleButtonClickAsync.");
+            _logger.Error(ex, "Error in SortOrderToggleButtonClickAsync.");
             _logger.Debug("Error in SortOrderToggleButtonClickAsync.");
         }
     }

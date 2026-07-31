@@ -12,16 +12,14 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 /// </summary>
 public class AresConfigHandler : IEmulatorConfigHandler
 {
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AresConfigHandler"/> class.
     /// </summary>
-    public AresConfigHandler(ILogErrors logErrors, ILogger logger, IServiceScopeFactory scopeFactory)
+    public AresConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {
-        _logErrors = logErrors;
         _logger = logger;
         _scopeFactory = scopeFactory;
     }
@@ -58,7 +56,7 @@ public class AresConfigHandler : IEmulatorConfigHandler
                 shouldRun = true;
                 if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
                 {
-                    AresConfigurationService.InjectSettings(resolvedEmulatorExePath, context.Settings, _logErrors, _logger);
+                    AresConfigurationService.InjectSettings(resolvedEmulatorExePath, context.Settings, _logger);
                 }
             }
 

@@ -10,14 +10,14 @@ namespace SimpleLauncher.Services.LaunchTools;
 
 public class LaunchTools : ILaunchTools
 {
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly IConfiguration _configuration;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IResourceProvider _resourceProvider;
 
-    public LaunchTools(ILogErrors logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider)
+    public LaunchTools(ILogger logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
         _configuration = configuration;
         _messageBoxLibrary = messageBoxLibrary;
         _resourceProvider = resourceProvider;
@@ -31,21 +31,21 @@ public class LaunchTools : ILaunchTools
     {
         if (string.IsNullOrEmpty(toolPath))
         {
-            _logErrors.LogAndForget(null, "Tool path cannot be null or empty.");
+            _logger.Warning("Tool path cannot be null or empty.");
             await _messageBoxLibrary.SelectedToolNotFoundMessageBoxAsync();
             return;
         }
 
         if (!File.Exists(toolPath))
         {
-            _logErrors.LogAndForget(null, $"External tool not found: {toolPath}");
+            _logger.Warning($"External tool not found: {toolPath}");
             await _messageBoxLibrary.SelectedToolNotFoundMessageBoxAsync();
             return;
         }
 
         if (!IsValidPeFile(toolPath))
         {
-            _logErrors.LogAndForget(null, $"External tool is not a valid PE executable: {toolPath}");
+            _logger.Warning($"External tool is not a valid PE executable: {toolPath}");
             await _messageBoxLibrary.SelectedToolNotFoundMessageBoxAsync();
             return;
         }
@@ -81,7 +81,7 @@ public class LaunchTools : ILaunchTools
         {
             // 216 = ERROR_EXE_MACHINE_TYPE_MISMATCH
             // "The specified executable is not a valid application for this OS platform."
-            _logErrors.LogAndForget(ex, $"Tool executable architecture mismatch: {toolPath}.\n" +
+            _logger.Error(ex, $"Tool executable architecture mismatch: {toolPath}.\n" +
                                         $"NativeErrorCode: {ex.NativeErrorCode}, HResult: 0x{ex.HResult:X8}");
             await _messageBoxLibrary.SelectedToolNotFoundMessageBoxAsync();
         }
@@ -91,7 +91,7 @@ public class LaunchTools : ILaunchTools
                                  $"Arguments: {arguments ?? "None"}\n" +
                                  $"Working Directory: {workingDirectory ?? "Default"}\n" +
                                  $"NativeErrorCode: {(ex is Win32Exception w32 ? w32.NativeErrorCode : -1)}, HResult: 0x{ex.HResult:X8}";
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logger.Error(ex, contextMessage);
 
             await _messageBoxLibrary.ErrorLaunchingToolMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
         }

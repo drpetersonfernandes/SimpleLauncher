@@ -17,7 +17,7 @@ public class FileFinderServiceTests : IDisposable
     {
         _tempDir = Path.Combine(Path.GetTempPath(), $"SimpleLauncherTests_{Guid.NewGuid():N}");
         Directory.CreateDirectory(_tempDir);
-        _service = new FileFinderService(new Mock<ILogErrors>().Object);
+        _service = new FileFinderService(new Mock<ILogger>().Object);
     }
 
     public void Dispose()

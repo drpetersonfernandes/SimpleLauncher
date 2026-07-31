@@ -18,7 +18,7 @@ public static class CreateDefaultSystemFolders
     /// <param name="configuration">The application configuration for additional folder settings.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public static async Task CreateFoldersAsync(string systemName, string systemFolder, string systemImageFolder, IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public static async Task CreateFoldersAsync(string systemName, string systemFolder, string systemImageFolder, IConfiguration configuration, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var additionalFolders = configuration.GetValue<string[]>("AdditionalFolders") ??
@@ -39,7 +39,7 @@ public static class CreateDefaultSystemFolders
                 catch (Exception ex)
                 {
                     // Notify developer
-                    logErrors.LogAndForget(ex, "Error creating the primary system folder.");
+                    logErrors.Error(ex, "Error creating the primary system folder.");
 
                     // Notify user
                     await messageBox.FolderCreationFailedMessageBoxAsync();
@@ -55,7 +55,7 @@ public static class CreateDefaultSystemFolders
                 catch (Exception ex)
                 {
                     // Notify developer
-                    logErrors.LogAndForget(ex, "Error creating the primary image folder.");
+                    logErrors.Error(ex, "Error creating the primary image folder.");
 
                     // Notify user
                     await messageBox.FolderCreationFailedMessageBoxAsync();
@@ -77,7 +77,7 @@ public static class CreateDefaultSystemFolders
                 catch (Exception ex)
                 {
                     // Notify developer
-                    logErrors.LogAndForget(ex, $"Error creating the {folder} folder.");
+                    logErrors.Error(ex, $"Error creating the {folder} folder.");
 
                     // Notify user
                     await messageBox.FolderCreationFailedMessageBoxAsync();
@@ -88,7 +88,7 @@ public static class CreateDefaultSystemFolders
         {
             // Notify developer
             const string contextMessage = "The application failed to create the necessary folders for the newly added system.";
-            logErrors.LogAndForget(ex, contextMessage);
+            logErrors.Error(ex, contextMessage);
 
             // Notify user
             await messageBox.FolderCreationFailedMessageBoxAsync();

@@ -15,8 +15,7 @@ public static class AskAiToFixParameters
         Emulator emulatorManager,
         IMessageBoxLibraryService messageBoxLibrary,
         IParameterResolverService parameterResolverService,
-        ILogErrors logErrors,
-        IConfiguration configuration,
+IConfiguration configuration,
         IServiceProvider serviceProvider,
         ILogger logger)
     {
@@ -127,7 +126,7 @@ public static class AskAiToFixParameters
                     Emulators = updatedEmulators
                 };
 
-                await Services.SystemManager.SystemManager.SaveSystemConfigurationAsync(systemToSave, systemManager.SystemName, logErrors, configuration);
+                await Services.SystemManager.SystemManager.SaveSystemConfigurationAsync(systemToSave, systemManager.SystemName, logger, configuration);
 
                 // Reload system managers so the main window uses the updated parameters
                 var systemSelectionOrchestrator = serviceProvider.GetRequiredService<ISystemSelectionOrchestrator>();
@@ -146,7 +145,7 @@ public static class AskAiToFixParameters
         }
         catch (Exception ex)
         {
-            logErrors.LogAndForget(ex, "Error in AskAiToFixParameters.");
+            logger.Error(ex, "Error in AskAiToFixParameters.");
             logger.Debug($"[AskAiToFixParameters] Error: {ex.Message}");
         }
     }

@@ -104,7 +104,7 @@ public static class ConvertChdToIso
         catch (Exception ex)
         {
             logger.Error(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
-            App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
+            App.ServiceProvider.GetRequiredService<ILogger>().Error(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
             return null;
         }
     }

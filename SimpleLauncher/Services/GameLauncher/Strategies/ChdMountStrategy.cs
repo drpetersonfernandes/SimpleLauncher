@@ -12,7 +12,6 @@ namespace SimpleLauncher.Services.GameLauncher.Strategies;
 public class ChdMountStrategy : ILaunchStrategy
 {
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMountChdFiles _mountChdFiles;
     private readonly ILogger _logger;
@@ -38,10 +37,9 @@ public class ChdMountStrategy : ILaunchStrategy
     private bool _isYabause;
     private bool _isKegaFusion;
 
-    public ChdMountStrategy(IConfiguration configuration, ILogErrors logErrors, IMessageBoxLibraryService messageBox, IMountChdFiles mountChdFiles, ILogger logger)
+    public ChdMountStrategy(IConfiguration configuration, IMessageBoxLibraryService messageBox, IMountChdFiles mountChdFiles, ILogger logger)
     {
         _configuration = configuration;
-        _logErrors = logErrors;
         _messageBox = messageBox;
         _mountChdFiles = mountChdFiles;
         _logger = logger;
@@ -184,9 +182,9 @@ public class ChdMountStrategy : ILaunchStrategy
         var logPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
 
         // Get the console index for CHDMounter based on system and emulator
-        var consoleIndex = _mountChdFiles.GetConsoleIndexFromSystemName(context.SystemName, context.EmulatorName, _logErrors);
+        var consoleIndex = _mountChdFiles.GetConsoleIndexFromSystemName(context.SystemName, context.EmulatorName, _logger);
 
-        await using var mountedDrive = await _mountChdFiles.MountAsync(context.ResolvedFilePath, consoleIndex, _logErrors, _messageBox);
+        await using var mountedDrive = await _mountChdFiles.MountAsync(context.ResolvedFilePath, consoleIndex, _logger, _messageBox);
 
         if (!mountedDrive.IsMounted)
         {
@@ -197,33 +195,33 @@ public class ChdMountStrategy : ILaunchStrategy
         if (_isRpcs3)
         {
             // RPCS3 needs the path to EBOOT.BIN
-            gameFilePath = FindEbootBin.FindEbootBinRecursive(mountedDrive.MountedPath, _logErrors, _logger);
+            gameFilePath = FindEbootBin.FindEbootBinRecursive(mountedDrive.MountedPath, _logger, _logger);
         }
         else if (_isXenia)
         {
             // Xenia needs the path to default.xex
-            gameFilePath = FindDefaultXex.Find(mountedDrive.MountedPath, _logErrors);
+            gameFilePath = FindDefaultXex.Find(mountedDrive.MountedPath, _logger);
         }
         else if (_isXemu)
         {
             // Xemu needs the path to image.iso
-            gameFilePath = FindImageIso.Find(mountedDrive.MountedPath, _logErrors);
+            gameFilePath = FindImageIso.Find(mountedDrive.MountedPath, _logger);
         }
         else if (_isCxbxReloaded)
         {
             // Cxbx-Reloaded needs the path to default.xbe
-            gameFilePath = FindDefaultXbe.Find(mountedDrive.MountedPath, _logErrors);
+            gameFilePath = FindDefaultXbe.Find(mountedDrive.MountedPath, _logger);
         }
         else if (_isGens || _cDiEmu || _isKegaFusion)
         {
             // Path to a .bin file
-            gameFilePath = FindBinFile.Find(mountedDrive.MountedPath, _logErrors);
+            gameFilePath = FindBinFile.Find(mountedDrive.MountedPath, _logger);
         }
         else if (_isGenesisPlusGx || _is4Do || _isBlastem || _isFinalBurnAlpha || _isFinalBurnNeo || _isMednafen || _isMesen || _isNebula ||
                  _isPcsxRedux || _isPicoDrive || _isRaine || _isTsugaru || _isYabause)
         {
             // Path to a .cue file
-            gameFilePath = FindCueFile.Find(mountedDrive.MountedPath, _logErrors);
+            gameFilePath = FindCueFile.Find(mountedDrive.MountedPath, _logger);
         }
         else
         {
@@ -233,7 +231,7 @@ public class ChdMountStrategy : ILaunchStrategy
         if (string.IsNullOrEmpty(gameFilePath))
         {
             _logger.Debug($"[ChdMountStrategy] No suitable game file found in mounted CHD at {mountedDrive.MountedPath}");
-            await _logErrors.LogErrorAsync(null, $"No game file found in mounted CHD for emulator '{context.EmulatorName}'");
+            _logger.Warning($"No game file found in mounted CHD for emulator '{context.EmulatorName}'");
             await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(logPath);
             return; // will be handle by the next Strategy
         }

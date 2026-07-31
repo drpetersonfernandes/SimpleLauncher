@@ -198,16 +198,15 @@ public partial class App : IDisposable
         serviceCollection.AddMemoryCache();
 
         // Register Managers as singletons
-        serviceCollection.AddSingleton<ILogErrors, LogErrorsService>();
         serviceCollection.AddSingleton(Log.Logger);
         serviceCollection.AddSingleton<ICredentialProtector, WindowsCredentialProtector>();
         serviceCollection.AddSingleton(static provider =>
         {
             var config = provider.GetRequiredService<IConfiguration>();
-            var logErrors = provider.GetRequiredService<ILogErrors>();
+            var logger = provider.GetRequiredService<ILogger>();
             var messageBox = provider.GetRequiredService<IMessageBoxLibraryService>();
             var credentialProtector = provider.GetRequiredService<ICredentialProtector>();
-            var sm = new SettingsManager(config, logErrors, credentialProtector, messageBox);
+            var sm = new SettingsManager(config, logger, credentialProtector, messageBox);
             sm.Load();
             return sm;
         });
@@ -236,19 +235,18 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IContextMenuService, ContextMenuService>();
         serviceCollection.AddSingleton(static sp =>
         {
-            var logErrors = sp.GetRequiredService<ILogErrors>();
-            return FavoritesManager.LoadFavorites(logErrors);
-        });
-        serviceCollection.AddSingleton(static sp =>
-        {
-            var logErrors = sp.GetRequiredService<ILogErrors>();
-            return PlayHistoryManager.LoadPlayHistory(logErrors);
-        });
-        serviceCollection.AddSingleton(static sp =>
-        {
-            var logErrors = sp.GetRequiredService<ILogErrors>();
             var logger = sp.GetRequiredService<ILogger>();
-            return RetroAchievementsManager.LoadRetroAchievement(logErrors, logger);
+            return FavoritesManager.LoadFavorites(logger);
+        });
+        serviceCollection.AddSingleton(static sp =>
+        {
+            var logger = sp.GetRequiredService<ILogger>();
+            return PlayHistoryManager.LoadPlayHistory(logger);
+        });
+        serviceCollection.AddSingleton(static sp =>
+        {
+            var logger = sp.GetRequiredService<ILogger>();
+            return RetroAchievementsManager.LoadRetroAchievement(logger, logger);
         });
         // Game platform scanners
         serviceCollection.AddSingleton<ISteamVdfParser, SteamVdfParser>();
@@ -280,9 +278,9 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IFindCoverImageService>(static sp =>
         {
             var configuration = sp.GetRequiredService<IConfiguration>();
-            var logErrors = sp.GetRequiredService<ILogErrors>();
+            var logger = sp.GetRequiredService<ILogger>();
             var settings = sp.GetRequiredService<SettingsManager>();
-            return new FindCoverImageService(configuration, logErrors, settings);
+            return new FindCoverImageService(configuration, logger, settings);
         });
         serviceCollection.AddSingleton<IImageLoader, WpfImageLoader>();
         serviceCollection.AddSingleton<IMenuCheckMarkService, MenuCheckMarkService>();
@@ -523,12 +521,12 @@ public partial class App : IDisposable
                 // but we explicitly set it for clarity and to ensure the flow continues as a first instance.
                 _isFirstInstance = true;
                 Log.Logger.Debug("Mutex was abandoned by a previous instance, but successfully acquired by this instance. Proceeding as first instance.");
-                // No need to call ILogErrors.LogErrorAsync here, as it's not a critical error preventing startup,
+                // No need to call ILogger.LogErrorAsync here, as it's not a critical error preventing startup,
                 // but rather an informational event about a previous abnormal shutdown.
             }
             catch (UnauthorizedAccessException ex)
             {
-                ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to create or acquire single instance mutex.");
+                ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to create or acquire single instance mutex.");
 
                 var messageBox = ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
                 _ = messageBox.FailedToStartSimpleLauncherMessageBoxAsync();
@@ -540,7 +538,7 @@ public partial class App : IDisposable
             }
             catch (IOException ex)
             {
-                ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to create or acquire single instance mutex.");
+                ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to create or acquire single instance mutex.");
 
                 var messageBox = ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
                 _ = messageBox.FailedToStartSimpleLauncherMessageBoxAsync();
@@ -609,7 +607,7 @@ public partial class App : IDisposable
         {
             try
             {
-                await ApplicationStats.CallApplicationStatsAsync(configuration, ServiceProvider.GetRequiredService<ILogErrors>());
+                await ApplicationStats.CallApplicationStatsAsync(configuration, ServiceProvider.GetRequiredService<ILogger>());
             }
             catch (Exception ex)
             {
@@ -633,7 +631,7 @@ public partial class App : IDisposable
                 {
                     // Notify developer
                     const string contextMessage = "Error showing UpdateHistoryWindow with -whatsnew argument.";
-                    ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, contextMessage);
+                    ServiceProvider.GetRequiredService<ILogger>().Error(ex, contextMessage);
                 }
             }));
         }
@@ -708,15 +706,15 @@ public partial class App : IDisposable
         // Kill any lingering CHDMounter processes as a safety net
         try
         {
-            ServiceProvider.GetRequiredService<IMountChdFiles>().KillAllChdMounterProcesses(ServiceProvider.GetRequiredService<ILogErrors>());
+            ServiceProvider.GetRequiredService<IMountChdFiles>().KillAllChdMounterProcesses(ServiceProvider.GetRequiredService<ILogger>());
         }
         catch (InvalidOperationException ex)
         {
-            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to kill lingering CHDMounter processes on exit.");
+            ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to kill lingering CHDMounter processes on exit.");
         }
         catch (SystemException ex)
         {
-            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to kill lingering CHDMounter processes on exit.");
+            ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to kill lingering CHDMounter processes on exit.");
         }
 
         try
@@ -729,12 +727,12 @@ public partial class App : IDisposable
         catch (InvalidOperationException ex)
         {
             // Notify developer
-            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to dispose gamepad resources.");
+            ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to dispose gamepad resources.");
         }
         catch (SystemException ex)
         {
             // Notify developer
-            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to dispose gamepad resources.");
+            ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to dispose gamepad resources.");
         }
 
         // Release the mutex if this was the first instance and the mutex was successfully created
@@ -749,17 +747,17 @@ public partial class App : IDisposable
             catch (ApplicationException ex)
             {
                 // Notify developer
-                ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to release single instance mutex on exit.");
+                ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to release single instance mutex on exit.");
             }
             catch (ObjectDisposedException ex)
             {
                 // Notify developer
-                ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to release single instance mutex on exit.");
+                ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to release single instance mutex on exit.");
             }
             catch (InvalidOperationException ex)
             {
                 // Notify developer
-                ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to release single instance mutex on exit.");
+                ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to release single instance mutex on exit.");
             }
             finally
             {
@@ -802,7 +800,7 @@ public partial class App : IDisposable
         catch (Exception ex)
         {
             // Log the error using the LogErrorsService
-            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to Apply Language.");
+            ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to Apply Language.");
 
             // Fallback to English if loading the specified language fails
             if (languageCode != "en")
@@ -818,11 +816,11 @@ public partial class App : IDisposable
                 catch (Exception fallbackEx)
                 {
                     // If even English fails, something is seriously wrong
-                    ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(fallbackEx, "Failed to apply English as fallback language.");
+                    ServiceProvider.GetRequiredService<ILogger>().Error(fallbackEx, "Failed to apply English as fallback language.");
                 }
 
                 // Notify developer
-                ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(null, "Fallback to English language resources due to initial culture error.");
+                ServiceProvider.GetRequiredService<ILogger>().Warning("Fallback to English language resources due to initial culture error.");
             }
         }
     }
@@ -863,7 +861,7 @@ public partial class App : IDisposable
         {
             // Notify developer
             const string contextMessage = "Failed to Apply Theme.";
-            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, contextMessage);
+            ServiceProvider.GetRequiredService<ILogger>().Error(ex, contextMessage);
         }
     }
 
@@ -923,7 +921,7 @@ public partial class App : IDisposable
         }
         catch (Exception ex)
         {
-            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to apply custom theme override: {fileName}");
+            ServiceProvider.GetRequiredService<ILogger>().Error(ex, $"Failed to apply custom theme override: {fileName}");
         }
     }
 
@@ -952,7 +950,7 @@ public partial class App : IDisposable
         }
         catch (Exception ex)
         {
-            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to apply custom theme override to window {window.GetType().Name}: {fileName}");
+            ServiceProvider.GetRequiredService<ILogger>().Error(ex, $"Failed to apply custom theme override to window {window.GetType().Name}: {fileName}");
         }
     }
 
@@ -1011,7 +1009,7 @@ public partial class App : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to apply theme to window {window.GetType().Name}.");
+            ServiceProvider.GetRequiredService<ILogger>().Error(ex, $"Failed to apply theme to window {window.GetType().Name}.");
         }
     }
 

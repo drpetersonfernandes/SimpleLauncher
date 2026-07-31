@@ -19,7 +19,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
     private List<SystemManager> _systemManagers;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly IGetListOfFilesService _getListOfFiles;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
@@ -37,10 +37,10 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
     private bool _isStartButtonVisible = true;
     private bool _forceClose;
 
-    public GlobalStatsViewModel(IConfiguration configuration, ILogErrors logErrors, IGetListOfFilesService getListOfFiles, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
+    public GlobalStatsViewModel(IConfiguration configuration, ILogger logErrors, IGetListOfFilesService getListOfFiles, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-        _logErrors = logErrors;
+        _logger = logErrors;
         _getListOfFiles = getListOfFiles;
         _messageBox = messageBox;
         _resourceProvider = resourceProvider;
@@ -213,7 +213,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "An error occurred while calculating Global Statistics.");
+                _logger.Error(ex, "An error occurred while calculating Global Statistics.");
                 if (!_forceClose)
                 {
                     try
@@ -243,7 +243,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "An error occurred while calculating Global Statistics.");
+            _logger.Error(ex, "An error occurred while calculating Global Statistics.");
             ResetUiAfterProcessing();
         }
     }
@@ -427,7 +427,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method DoYouWantToSaveTheReportMessageBoxAsync");
+            _logger.Error(ex, "Error in method DoYouWantToSaveTheReportMessageBoxAsync");
         }
     }
 
@@ -452,7 +452,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
             }
             catch (Exception ex)
             {
-                _logErrors.LogAndForget(ex, "Failed to save report.");
+                _logger.Error(ex, "Failed to save report.");
                 await _messageBox.FailedSaveReportMessageBoxAsync();
             }
         }
@@ -523,7 +523,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in method Closing.");
+            _logger.Error(ex, "Error in method Closing.");
         }
     }
 

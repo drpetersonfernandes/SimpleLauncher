@@ -15,7 +15,6 @@ namespace SimpleLauncher.ViewModels;
 public partial class InjectBlastemConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
@@ -29,10 +28,9 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
     [ObservableProperty] private string _syncSource;
     [ObservableProperty] private bool _showBeforeLaunch;
 
-    public InjectBlastemConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectBlastemConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
-        _logErrors = logErrors;
         _logger = logger;
         _messageBox = messageBox;
     }
@@ -136,7 +134,7 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Blastem", _logErrors);
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Blastem", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -160,31 +158,31 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
 
         try
         {
-            BlastemConfigurationService.InjectSettings(path, _settings, _logErrors, _logger);
+            BlastemConfigurationService.InjectSettings(path, _settings, _logger);
             return true;
         }
         catch (FileNotFoundException ex)
         {
             var errorMsg = $"Configuration file not found for Blastem at: {path}. Details: {ex.Message}";
-            _logErrors.LogAndForget(ex, errorMsg);
+            _logger.Error(ex, errorMsg);
             return false;
         }
         catch (UnauthorizedAccessException ex)
         {
             var errorMsg = $"Permission denied accessing Blastem configuration at: {path}. Details: {ex.Message}";
-            _logErrors.LogAndForget(ex, errorMsg);
+            _logger.Error(ex, errorMsg);
             return false;
         }
         catch (IOException ex)
         {
             var errorMsg = $"I/O error while accessing Blastem configuration at: {path}. Details: {ex.Message}";
-            _logErrors.LogAndForget(ex, errorMsg);
+            _logger.Error(ex, errorMsg);
             return false;
         }
         catch (Exception ex)
         {
             var errorMsg = $"Blastem configuration injection failed for path: {path}. Details: {ex.Message}";
-            _logErrors.LogAndForget(ex, errorMsg);
+            _logger.Error(ex, errorMsg);
             return false;
         }
     }
@@ -214,7 +212,7 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectBlastemConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 
@@ -243,7 +241,7 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectBlastemConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 }

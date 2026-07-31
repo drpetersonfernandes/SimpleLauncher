@@ -15,7 +15,7 @@ public class XisoMountStrategyTests
     private static XisoMountStrategy CreateStrategy()
     {
         var configurationMock = new Mock<IConfiguration>();
-        var logErrorsMock = new Mock<ILogErrors>();
+        var logErrorsMock = new Mock<ILogger>();
         var messageBoxMock = new Mock<IMessageBoxLibraryService>();
         var mountXisoFilesMock = new Mock<IMountXisoFiles>();
 

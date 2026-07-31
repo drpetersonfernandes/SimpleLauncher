@@ -14,7 +14,7 @@ namespace SimpleLauncher.ViewModels;
 public partial class RetroAchievementsSettingsViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly RetroAchievementsService _raService;
     private readonly IResourceProvider _resourceProvider;
@@ -24,10 +24,10 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     [ObservableProperty] private string _apiKey;
     [ObservableProperty] private string _password;
 
-    public RetroAchievementsSettingsViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, RetroAchievementsService raService, IResourceProvider resourceProvider, IRetroAchievementsEmulatorConfiguratorService configurator)
+    public RetroAchievementsSettingsViewModel(SettingsManager settings, ILogger logErrors, IMessageBoxLibraryService messageBox, RetroAchievementsService raService, IResourceProvider resourceProvider, IRetroAchievementsEmulatorConfiguratorService configurator)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
-        _logErrors = logErrors;
+        _logger = logErrors;
         _messageBox = messageBox;
         _raService = raService;
         _resourceProvider = resourceProvider;
@@ -63,7 +63,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error saving RetroAchievements settings.");
+            _logger.Error(ex, "Error saving RetroAchievements settings.");
             await _messageBox.FailedToSaveSettingsMessageBoxAsync();
         }
     }
@@ -136,12 +136,12 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
             catch (Exception ex)
             {
                 await _messageBox.AnErrorOccurredWhileConfiguringTheEmulatorMessageBoxAsync();
-                _logErrors.LogAndForget(ex, $"Failed to configure {emulatorName}.");
+                _logger.Error(ex, $"Failed to configure {emulatorName}.");
             }
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in ConfigureEmulator method.");
+            _logger.Error(ex, "Error in ConfigureEmulator method.");
         }
     }
 

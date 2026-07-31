@@ -17,7 +17,7 @@ public class StellaConfigInjectionTests : IDisposable
 {
     private readonly string _testDirectory;
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors = new NoOpLogErrors();
+    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
 
     public StellaConfigInjectionTests()
@@ -110,7 +110,7 @@ public class StellaConfigInjectionTests : IDisposable
         settings.Stella.ConfirmExit = false;
 
         var emuDir = Path.Combine(_testDirectory, "Stella");
-        StellaConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors, Log.Logger);
+        StellaConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
 
         var configPath = Path.Combine(emuDir, "stella.sqlite3");
         Assert.True(File.Exists(configPath));
@@ -146,7 +146,7 @@ public class StellaConfigInjectionTests : IDisposable
         settings.Stella.ConfirmExit = true;
 
         var emuDir = Path.Combine(_testDirectory, "Stella");
-        StellaConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors, Log.Logger);
+        StellaConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
 
         var configPath = Path.Combine(emuDir, "stella.sqlite3");
         var values = ReadSqliteSettings(configPath);
@@ -173,7 +173,7 @@ public class StellaConfigInjectionTests : IDisposable
         settings.Stella.VideoDriver = "sdl";
         settings.Stella.AudioVolume = 50;
 
-        StellaConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors, Log.Logger);
+        StellaConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
 
         var configPath = Path.Combine(emuDir, "stella.sqlite3");
         Assert.True(File.Exists(configPath));
@@ -197,7 +197,7 @@ public class StellaConfigInjectionTests : IDisposable
         settings1.Stella.AudioVolume = 25;
 
         var emuDir = Path.Combine(_testDirectory, "Stella");
-        StellaConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings1, _logErrors, Log.Logger);
+        StellaConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings1,  Log.Logger);
 
         var configPath = Path.Combine(emuDir, "stella.sqlite3");
         var values1 = ReadSqliteSettings(configPath);
@@ -209,7 +209,7 @@ public class StellaConfigInjectionTests : IDisposable
         settings2.Stella.Fullscreen = true;
         settings2.Stella.AudioVolume = 100;
 
-        StellaConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings2, _logErrors, Log.Logger);
+        StellaConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings2,  Log.Logger);
 
         var values2 = ReadSqliteSettings(configPath);
         Assert.Equal("1", values2["fullscreen"]);
@@ -233,7 +233,7 @@ public class StellaConfigInjectionTests : IDisposable
         settings.Stella.ConfirmExit = true;
 
         var emuDir = Path.Combine(_testDirectory, "Stella");
-        StellaConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors, Log.Logger);
+        StellaConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings,  Log.Logger);
 
         var configPath = Path.Combine(emuDir, "stella.sqlite3");
         var values = ReadSqliteSettings(configPath);
@@ -249,11 +249,4 @@ public class StellaConfigInjectionTests : IDisposable
         Assert.Equal("true", values["tia.correct_aspect"]);
     }
 
-    private sealed class NoOpLogErrors : ILogErrors
-    {
-        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
-        {
-            return Task.CompletedTask;
-        }
-    }
 }

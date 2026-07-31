@@ -6,7 +6,7 @@ using Interfaces;
 
 public static class DolphinConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -42,11 +42,11 @@ public static class DolphinConfigurationService
         // Inject into all determined paths
         foreach (var configPath in configPaths)
         {
-            InjectIntoConfigFile(configPath, settings, logErrors, logger);
+            InjectIntoConfigFile(configPath, settings, logger);
         }
     }
 
-    private static void InjectIntoConfigFile(string configPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
+    private static void InjectIntoConfigFile(string configPath, SettingsManager.SettingsManager settings, ILogger logger)
     {
         var configDir = Path.GetDirectoryName(configPath);
 
@@ -65,7 +65,7 @@ public static class DolphinConfigurationService
                 catch (Exception ex)
                 {
                     var contextMessage = $"Failed to create Dolphin.ini from sample at {samplePath}";
-                    logErrors.LogAndForget(ex, contextMessage);
+                    logger.Error(ex, contextMessage);
                     throw;
                 }
             }
@@ -97,13 +97,13 @@ public static class DolphinConfigurationService
         catch (UnauthorizedAccessException ex)
         {
             logger.Debug($"[DolphinConfig] Access denied reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[DolphinConfig] Access denied reading config: {configPath}");
+            logger.Error(ex, $"[DolphinConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
             logger.Debug($"[DolphinConfig] I/O error reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[DolphinConfig] I/O error reading config: {configPath}");
+            logger.Error(ex, $"[DolphinConfig] I/O error reading config: {configPath}");
             throw;
         }
 
@@ -171,7 +171,7 @@ public static class DolphinConfigurationService
             catch (Exception ex)
             {
                 logger.Debug($"[DolphinConfig] Failed to inject configuration changes: {ex.Message}");
-                logErrors.LogAndForget(ex, $"[DolphinConfig] Failed to inject configuration changes: {ex.Message}");
+                logger.Error(ex, $"[DolphinConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }

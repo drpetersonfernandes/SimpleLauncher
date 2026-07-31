@@ -10,11 +10,10 @@ namespace SimpleLauncher.Services.GameScan;
 
 public class GameScannerService
 {
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IConfiguration _configuration;
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly ILogger _logger;
     private readonly IEnumerable<IGamePlatformScanner> _scanners;
     private readonly IIconExtractor _iconExtractor;
     private const string WindowsSystemName = "Microsoft Windows";
@@ -41,9 +40,9 @@ public class GameScannerService
 
     private bool _timeoutMessageShown;
 
-    public GameScannerService(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary, IConfiguration configuration, IHttpClientFactory httpClientFactory, ILogger logger, IEnumerable<IGamePlatformScanner> scanners, IIconExtractor iconExtractor)
+    public GameScannerService(ILogger logErrors, IMessageBoxLibraryService messageBoxLibrary, IConfiguration configuration, IHttpClientFactory httpClientFactory, ILogger logger, IEnumerable<IGamePlatformScanner> scanners, IIconExtractor iconExtractor)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
         _messageBoxLibrary = messageBoxLibrary;
         _configuration = configuration;
         _httpClientFactory = httpClientFactory;
@@ -62,7 +61,7 @@ public class GameScannerService
             _windowsImagesPath = pathResult.ImagesPath;
             WasNewSystemCreated = pathResult.WasNewSystemCreated;
 
-            var tasks = _scanners.Select(s => s.ScanAsync(this, _logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames)).ToList();
+            var tasks = _scanners.Select(s => s.ScanAsync(this, _logger, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames)).ToList();
 
             await Task.WhenAll(tasks);
 
@@ -70,7 +69,7 @@ public class GameScannerService
         }
         catch (Exception ex)
         {
-            await _logErrors.LogErrorAsync(ex, "An error occurred during the game scanning process.");
+            _logger.Error(ex, "An error occurred during the game scanning process.");
         }
     }
 
@@ -137,7 +136,7 @@ public class GameScannerService
         }
         catch (Exception ex)
         {
-            await _logErrors.LogErrorAsync(ex, "Failed to initialize 'Microsoft Windows' system paths.");
+            _logger.Error(ex, "Failed to initialize 'Microsoft Windows' system paths.");
 
             // Fall back to default paths even on error
             var fallbackRomsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", "Microsoft Windows");
@@ -147,7 +146,7 @@ public class GameScannerService
         }
     }
 
-    internal async Task<bool> TryDownloadImageFromApiAsync(string gameName, string destinationPath, ILogErrors logErrors)
+    internal async Task<bool> TryDownloadImageFromApiAsync(string gameName, string destinationPath, ILogger logErrors)
     {
         if (string.IsNullOrWhiteSpace(gameName)) return false;
 
@@ -212,7 +211,7 @@ public class GameScannerService
                 // Log persistent network errors to help identify API issues, but don't spam logs
                 if (ex is HttpRequestException or OperationCanceledException)
                 {
-                    logErrors?.LogAndForget(ex, $"Failed to download image for '{gameName}' from API after retry.");
+                    logErrors?.Error(ex, $"Failed to download image for '{gameName}' from API after retry.");
 
                     // Show message box for timeout/network errors on final attempt (attempt == 1)
                     if (attempt == 1 && !_timeoutMessageShown)
@@ -227,7 +226,7 @@ public class GameScannerService
         return false;
     }
 
-    internal async Task FindAndSaveGameImageAsync(ILogErrors logErrors, string originalGameName, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string specificExePath = null)
+    internal async Task FindAndSaveGameImageAsync(ILogger logErrors, string originalGameName, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string specificExePath = null)
     {
         try
         {
@@ -249,12 +248,12 @@ public class GameScannerService
         }
         catch (Exception ex)
         {
-            await logErrors.LogErrorAsync(ex, $"Failed to find/save image for {sanitizedGameName} in {gameInstallPath}");
+            logErrors.Error(ex, $"Failed to find/save image for {sanitizedGameName} in {gameInstallPath}");
         }
     }
 
     // This is the final fallback for special cases like Steam/Microsoft Store
-    internal async Task ExtractIconFromGameFolderAsync(ILogErrors logErrors, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string specificExePath = null)
+    internal async Task ExtractIconFromGameFolderAsync(ILogger logErrors, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string specificExePath = null)
     {
         try
         {
@@ -269,7 +268,7 @@ public class GameScannerService
         }
         catch (Exception ex)
         {
-            await logErrors.LogErrorAsync(ex, $"Failed to extract icon for {sanitizedGameName} in {gameInstallPath}");
+            logErrors.Error(ex, $"Failed to extract icon for {sanitizedGameName} in {gameInstallPath}");
         }
     }
 

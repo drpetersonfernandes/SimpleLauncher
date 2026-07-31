@@ -13,7 +13,6 @@ namespace SimpleLauncher.ViewModels;
 
 public partial class RetroAchievementsViewModel : ObservableObject
 {
-    private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
     private readonly SettingsManager _settings;
@@ -89,14 +88,12 @@ public partial class RetroAchievementsViewModel : ObservableObject
     [ObservableProperty] private bool _isLoading;
 
     public RetroAchievementsViewModel(
-        ILogErrors logErrors,
-        IMessageBoxLibraryService messageBox,
+IMessageBoxLibraryService messageBox,
         IResourceProvider resourceProvider,
         SettingsManager settings,
         RetroAchievementsService raService,
         ILogger logger)
     {
-        _logErrors = logErrors;
         _messageBox = messageBox;
         _resourceProvider = resourceProvider;
         _settings = settings;
@@ -209,7 +206,7 @@ public partial class RetroAchievementsViewModel : ObservableObject
             NoProfileVisible = true;
             NoProfileMainMessage = _resourceProvider.GetString("RaErrorLoadingUserProfile", "An error occurred while loading user profile.");
             NoProfileSubMessage = _resourceProvider.GetString("RaInfoCheckConnection", "Please try again or check your internet connection.");
-            _logErrors.LogAndForget(ex, $"Failed to load user profile for {_settings.RaUsername}");
+            _logger.Error(ex, $"Failed to load user profile for {_settings.RaUsername}");
         }
         finally
         {
@@ -273,7 +270,7 @@ public partial class RetroAchievementsViewModel : ObservableObject
             TotalPointsEarnedInRange = "0";
             NoUnlocksVisible = true;
             NoUnlocksMessage = _resourceProvider.GetString("RaErrorLoadingUnlocks", "An error occurred while loading unlocks. Please try again.");
-            _logErrors.LogAndForget(ex, $"Failed to load unlocks by date for user {_settings.RaUsername}");
+            _logger.Error(ex, $"Failed to load unlocks by date for user {_settings.RaUsername}");
         }
         finally
         {
@@ -362,7 +359,7 @@ public partial class RetroAchievementsViewModel : ObservableObject
             NoUserProgressVisible = true;
             NoUserProgressMainMessage = _resourceProvider.GetString("RaErrorLoadingUserProgress", "An error occurred while loading user completion progress.");
             NoUserProgressSubMessage = _resourceProvider.GetString("RaInfoCheckConnection", "Please try again or check your internet connection.");
-            _logErrors.LogAndForget(ex, $"Failed to load user completion progress for user {_settings.RaUsername}");
+            _logger.Error(ex, $"Failed to load user completion progress for user {_settings.RaUsername}");
         }
         finally
         {

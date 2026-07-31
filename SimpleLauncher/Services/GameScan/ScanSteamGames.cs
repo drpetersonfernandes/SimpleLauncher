@@ -18,7 +18,7 @@ internal class ScanSteamGames : IGamePlatformScanner
         _vdfParser = vdfParser;
     }
 
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         var libraryPaths = new List<string>();
 
@@ -101,7 +101,7 @@ internal class ScanSteamGames : IGamePlatformScanner
                 }
                 catch (Exception ex)
                 {
-                    await logErrors.LogErrorAsync(ex, "Error parsing libraryfolders.vdf");
+                    logErrors.Error(ex, "Error parsing libraryfolders.vdf");
                 }
             }
 
@@ -160,11 +160,11 @@ internal class ScanSteamGames : IGamePlatformScanner
         }
         catch (Exception ex)
         {
-            await logErrors.LogErrorAsync(ex, "An error occurred while scanning for Steam games.");
+            logErrors.Error(ex, "An error occurred while scanning for Steam games.");
         }
     }
 
-    private async Task ProcessSteamManifestAsync(GameScannerService gameScannerService, string manifestFile, string libraryPath, string steamPath, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    private async Task ProcessSteamManifestAsync(GameScannerService gameScannerService, string manifestFile, string libraryPath, string steamPath, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -190,11 +190,11 @@ internal class ScanSteamGames : IGamePlatformScanner
         }
         catch (Exception ex)
         {
-            await logErrors.LogErrorAsync(ex, $"Error processing Steam manifest: {manifestFile}");
+            logErrors.Error(ex, $"Error processing Steam manifest: {manifestFile}");
         }
     }
 
-    private async Task ProcessSourceModAsync(GameScannerService gameScannerService, string modDir, string windowsRomsPath, string windowsImagesPath, ILogErrors logErrors)
+    private async Task ProcessSourceModAsync(GameScannerService gameScannerService, string modDir, string windowsRomsPath, string windowsImagesPath, ILogger logErrors)
     {
         try
         {
@@ -277,7 +277,7 @@ internal class ScanSteamGames : IGamePlatformScanner
         }
         catch (Exception ex)
         {
-            await logErrors.LogErrorAsync(ex, $"Error processing Source Mod in {modDir}");
+            logErrors.Error(ex, $"Error processing Source Mod in {modDir}");
         }
     }
 
@@ -297,7 +297,7 @@ internal class ScanSteamGames : IGamePlatformScanner
         }
     }
 
-    private static async Task TryCopySteamArtworkAsync(GameScannerService gameScannerService, ILogErrors logErrors, string steamPath, string appId, string gameName, string sanitizedGameName, string gameInstallPath, string windowsImagesPath)
+    private static async Task TryCopySteamArtworkAsync(GameScannerService gameScannerService, ILogger logErrors, string steamPath, string appId, string gameName, string sanitizedGameName, string gameInstallPath, string windowsImagesPath)
     {
         var destArtworkPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
         if (File.Exists(destArtworkPath)) return;
@@ -333,7 +333,7 @@ internal class ScanSteamGames : IGamePlatformScanner
                     }
                     catch (Exception ex)
                     {
-                        await logErrors.LogErrorAsync(ex, $"Error converting Steam artwork from JPG to PNG for {sanitizedGameName} (Source: {sourcePath})");
+                        logErrors.Error(ex, $"Error converting Steam artwork from JPG to PNG for {sanitizedGameName} (Source: {sourcePath})");
                     }
                 }
             }

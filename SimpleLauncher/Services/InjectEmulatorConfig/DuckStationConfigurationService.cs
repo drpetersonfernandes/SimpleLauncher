@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class DuckStationConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -28,7 +28,7 @@ public static class DuckStationConfigurationService
                 catch (Exception ex)
                 {
                     logger.Debug($"[DuckStationConfig] Failed to create settings.ini from sample: {ex.Message}");
-                    logErrors.LogAndForget(ex, $"[DuckStationConfig] Failed to create settings.ini from sample: {ex.Message}");
+                    logger.Error(ex, $"[DuckStationConfig] Failed to create settings.ini from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -78,13 +78,13 @@ public static class DuckStationConfigurationService
         catch (UnauthorizedAccessException ex)
         {
             logger.Debug($"[DuckStationConfig] Access denied reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[DuckStationConfig] Access denied reading config: {configPath}");
+            logger.Error(ex, $"[DuckStationConfig] Access denied reading config: {configPath}");
             throw;
         }
         catch (IOException ex)
         {
             logger.Debug($"[DuckStationConfig] I/O error reading config: {configPath}");
-            logErrors.LogAndForget(ex, $"[DuckStationConfig] I/O error reading config: {configPath}");
+            logger.Error(ex, $"[DuckStationConfig] I/O error reading config: {configPath}");
             throw;
         }
 
@@ -172,7 +172,7 @@ public static class DuckStationConfigurationService
             catch (Exception ex)
             {
                 logger.Debug($"[DuckStationConfig] Failed to inject configuration changes: {ex.Message}");
-                logErrors.LogAndForget(ex, $"[DuckStationConfig] Failed to inject configuration changes: {ex.Message}");
+                logger.Error(ex, $"[DuckStationConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }

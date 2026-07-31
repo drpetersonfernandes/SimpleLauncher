@@ -12,15 +12,15 @@ public class SystemConfigurationService : ISystemConfigurationService
     private readonly IConfiguration _configuration;
 
     // ReSharper disable once NotAccessedField.Local
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
 
     /// <summary>
     /// Initializes a new instance of the SystemConfigurationService with the specified dependencies.
     /// </summary>
-    public SystemConfigurationService(IConfiguration configuration, ILogErrors logErrors)
+    public SystemConfigurationService(IConfiguration configuration, ILogger logErrors)
     {
         _configuration = configuration;
-        _logErrors = logErrors;
+        _logger = logErrors;
     }
 
     /// <summary>

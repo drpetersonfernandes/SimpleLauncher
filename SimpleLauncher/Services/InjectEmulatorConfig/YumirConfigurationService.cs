@@ -7,7 +7,7 @@ using Interfaces;
 
 public static class YumirConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -28,7 +28,7 @@ public static class YumirConfigurationService
                 catch (Exception ex)
                 {
                     logger.Debug($"[YumirConfig] Failed to create Ymir.toml from sample: {ex.Message}");
-                    logErrors.LogAndForget(ex, $"[YumirConfig] Failed to create Ymir.toml from sample: {ex.Message}");
+                    logger.Error(ex, $"[YumirConfig] Failed to create Ymir.toml from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -73,7 +73,7 @@ public static class YumirConfigurationService
         catch (Exception ex)
         {
             logger.Debug($"[YumirConfig] Failed to inject configuration changes: {ex.Message}");
-            logErrors.LogAndForget(ex, $"[YumirConfig] Failed to inject configuration changes: {ex.Message}");
+            logger.Error(ex, $"[YumirConfig] Failed to inject configuration changes: {ex.Message}");
             throw;
         }
     }

@@ -9,14 +9,14 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public class ImageViewerViewModel : ObservableObject
 {
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private BitmapSource _imageSource;
     private string _errorMessage;
 
-    public ImageViewerViewModel(ILogErrors logErrors, IMessageBoxLibraryService messageBox)
+    public ImageViewerViewModel(ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
         _messageBox = messageBox;
     }
 
@@ -62,7 +62,7 @@ public class ImageViewerViewModel : ObservableObject
         {
             // Notify developer
             const string contextMessage = "Failed to load the image in the Image Viewer window.";
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logger.Error(ex, contextMessage);
 
             // Notify user
             await _messageBox.ImageViewerErrorMessageBoxAsync();
@@ -93,7 +93,7 @@ public class ImageViewerViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, $"Failed to load image from URI in ImageViewerWindow: {imageUri}");
+            _logger.Error(ex, $"Failed to load image from URI in ImageViewerWindow: {imageUri}");
             ImageSource = null;
         }
     }

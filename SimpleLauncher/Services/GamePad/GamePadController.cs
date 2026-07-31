@@ -14,7 +14,6 @@ public class GamePadController : IDisposable
     private readonly SemaphoreSlim _updateLock = new(1, 1);
     private readonly Lock _stateLock = new();
     private readonly Timer _timer;
-    private readonly ILogErrors _logErrors;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IConfiguration _configuration;
     private readonly ILogger _logger;
@@ -59,9 +58,8 @@ public class GamePadController : IDisposable
     private const int DirectInputLeftThumbStickScalingFactor = 7;
     private const int DirectInputRightThumbStickScalingFactor = 1;
 
-    public GamePadController(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary, IConfiguration configuration, ILogger logger)
+    public GamePadController(IMessageBoxLibraryService messageBoxLibrary, IConfiguration configuration, ILogger logger)
     {
-        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _messageBoxLibrary = messageBoxLibrary ?? throw new ArgumentNullException(nameof(messageBoxLibrary));
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -384,8 +382,8 @@ public class GamePadController : IDisposable
                                 .ContinueWith(static (t, state) =>
                                 {
                                     if (t.IsFaulted)
-                                        ((ILogErrors)state).LogAndForget(t.Exception, "Error showing GamePadErrorMessageBoxAsync");
-                                }, _logErrors, TaskContinuationOptions.OnlyOnFaulted);
+                                        ((ILogger)state)?.Error(t.Exception, "Error showing GamePadErrorMessageBoxAsync");
+                                }, _logger, TaskContinuationOptions.OnlyOnFaulted);
                         }
 
                         // Attempt reconnection as a recovery step
@@ -397,7 +395,7 @@ public class GamePadController : IDisposable
             {
                 // Log but don't throw in async void
                 ErrorLogger?.Invoke(ex, "Update loop error");
-                _logErrors.LogAndForget(ex, "Error in method UpdateAsync");
+                _logger.Error(ex, "Error in method UpdateAsync");
             }
             finally
             {
@@ -417,7 +415,7 @@ public class GamePadController : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _logErrors.LogAndForget(ex, "Error in method UpdateAsync");
+            _logger.Error(ex, "Error in method UpdateAsync");
         }
     }
 

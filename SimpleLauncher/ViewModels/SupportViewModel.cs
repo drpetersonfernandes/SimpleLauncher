@@ -17,7 +17,6 @@ public partial class SupportViewModel : ObservableObject
 {
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly ILogErrors _logErrors;
     private readonly IConfiguration _configuration;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
@@ -28,11 +27,10 @@ public partial class SupportViewModel : ObservableObject
     [ObservableProperty] private string _supportRequest;
     [ObservableProperty] private bool _isLoading;
 
-    public SupportViewModel(PlaySoundEffects playSoundEffects, IHttpClientFactory httpClientFactory, ILogErrors logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider, ILogger logger)
+    public SupportViewModel(PlaySoundEffects playSoundEffects, IHttpClientFactory httpClientFactory, IConfiguration configuration, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider, ILogger logger)
     {
         _playSoundEffects = playSoundEffects;
         _httpClientFactory = httpClientFactory;
-        _logErrors = logErrors;
         _configuration = configuration;
         _messageBox = messageBox;
         _resourceProvider = resourceProvider;
@@ -91,7 +89,7 @@ public partial class SupportViewModel : ObservableObject
         catch (Exception ex)
         {
             _logger.Error(ex, "[Support] Exception in SendSupportRequestAsync.");
-            _logErrors.LogAndForget(ex, "Error in the SendSupportRequestClickAsync method.");
+            _logger.Error(ex, "Error in the SendSupportRequestClickAsync method.");
         }
         finally
         {
@@ -194,7 +192,7 @@ public partial class SupportViewModel : ObservableObject
                     _logger.Debug($"[Support] FAILURE: API returned error. Status={response.StatusCode}, Body='{responseContent}'");
 
                     var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {responseContent}";
-                    _logErrors.LogAndForget(null, contextMessage);
+                    _logger.Warning( contextMessage);
 
                     await _messageBox.SupportRequestSendErrorMessageBoxAsync();
                 }
@@ -203,14 +201,14 @@ public partial class SupportViewModel : ObservableObject
         catch (OperationCanceledException)
         {
             _logger.Debug("[Support] TIMEOUT: Request timed out after 20 seconds.");
-            _logErrors.LogAndForget(null, "The support request timed out after 20 seconds. Please check your internet connection and try again.");
+            _logger.Warning("The support request timed out after 20 seconds. Please check your internet connection and try again.");
 
             await _messageBox.SupportRequestSendErrorMessageBoxAsync();
         }
         catch (Exception ex)
         {
             _logger.Error(ex, "[Support] EXCEPTION: Error sending the Support Request.");
-            _logErrors.LogAndForget(ex, "Error sending the Support Request.");
+            _logger.Error(ex, "Error sending the Support Request.");
 
             await _messageBox.SupportRequestSendErrorMessageBoxAsync();
         }

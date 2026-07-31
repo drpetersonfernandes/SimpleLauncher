@@ -12,7 +12,7 @@ namespace SimpleLauncher.Services.FindCoverImage;
 public class FindCoverImageService : IFindCoverImageService
 {
     private readonly IConfiguration _configuration;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly SettingsManager.SettingsManager _settings;
     private static readonly string GlobalDefaultImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
 
@@ -25,10 +25,10 @@ public class FindCoverImageService : IFindCoverImageService
     /// <param name="configuration">The configuration.</param>
     /// <param name="logErrors">The log errors.</param>
     /// <param name="settings">The settings manager for reading dynamic matching preferences.</param>
-    public FindCoverImageService(IConfiguration configuration, ILogErrors logErrors, SettingsManager.SettingsManager settings)
+    public FindCoverImageService(IConfiguration configuration, ILogger logErrors, SettingsManager.SettingsManager settings)
     {
         _configuration = configuration;
-        _logErrors = logErrors;
+        _logger = logErrors;
         _settings = settings;
     }
 

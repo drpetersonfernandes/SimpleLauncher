@@ -6,13 +6,13 @@ namespace SimpleLauncher.ViewModels;
 
 public class UpdateHistoryViewModel : ObservableObject
 {
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
     private readonly IResourceProvider _resourceProvider;
     private string _markdownContent;
 
-    public UpdateHistoryViewModel(ILogErrors logErrors, IResourceProvider resourceProvider)
+    public UpdateHistoryViewModel(ILogger logErrors, IResourceProvider resourceProvider)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
         _resourceProvider = resourceProvider;
     }
 
@@ -36,7 +36,7 @@ public class UpdateHistoryViewModel : ObservableObject
         catch (Exception ex)
         {
             const string contextMessage = "Failed to load 'whatsnew.md'.";
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logger.Error(ex, contextMessage);
 
             MarkdownContent = _resourceProvider.GetString("UpdateHistoryLoadError", "Error. Could not load the update history. The error has been logged.");
         }
@@ -54,7 +54,7 @@ public class UpdateHistoryViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error opening hyperlink in browser.");
+            _logger.Error(ex, "Error opening hyperlink in browser.");
         }
     }
 }

@@ -14,7 +14,6 @@ namespace SimpleLauncher.ViewModels;
 public partial class InjectSegaModel2ConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
-    private readonly ILogErrors _logErrors;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath;
@@ -33,10 +32,9 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     [ObservableProperty] private bool _useRawInput;
     [ObservableProperty] private bool _showBeforeLaunch;
 
-    public InjectSegaModel2ConfigViewModel(SettingsManager settings, ILogErrors logErrors, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectSegaModel2ConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
-        _logErrors = logErrors;
         _logger = logger;
         _messageBox = messageBox;
     }
@@ -144,7 +142,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("SEGA Model 2", _logErrors);
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("SEGA Model 2", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -168,12 +166,12 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
 
         try
         {
-            SegaModel2ConfigurationService.InjectSettings(path, _settings, _logErrors, _logger);
+            SegaModel2ConfigurationService.InjectSettings(path, _settings, _logger);
             return true;
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogAndForget(ex, $"SEGA Model 2 configuration injection failed for path: {path}");
+            _logger.Error(ex, $"SEGA Model 2 configuration injection failed for path: {path}");
             return false;
         }
     }
@@ -203,7 +201,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectSegaModel2ConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 
@@ -232,7 +230,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectSegaModel2ConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
     }
 }

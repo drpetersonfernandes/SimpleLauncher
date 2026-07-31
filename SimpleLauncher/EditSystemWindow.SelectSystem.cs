@@ -146,7 +146,7 @@ internal partial class EditSystemWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogAndForget(ex, "Error in the method LoadSystemDetailsAsync.");
+            _logger.Error(ex, "Error in the method LoadSystemDetailsAsync.");
         }
     }
 
@@ -195,7 +195,7 @@ internal partial class EditSystemWindow
         catch (Exception ex)
         {
             // Notify developer
-            _logErrors.LogAndForget(ex, $"Unable to create default {folderTypeForLog}: {resolvedCurrentPath}");
+            _logger.Error(ex, $"Unable to create default {folderTypeForLog}: {resolvedCurrentPath}");
         }
     }
 }

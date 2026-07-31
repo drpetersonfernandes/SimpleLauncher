@@ -12,11 +12,11 @@ namespace SimpleLauncher.Services.HelpUser;
 public partial class HelpUserService : IHelpUserService
 {
     private readonly HelpUserManager _manager;
-    private readonly ILogErrors _logErrors;
+    private readonly ILogger _logger;
 
-    public HelpUserService(ILogErrors logErrors, IMessageBoxLibraryService messageBoxLibrary)
+    public HelpUserService(ILogger logErrors, IMessageBoxLibraryService messageBoxLibrary)
     {
-        _logErrors = logErrors;
+        _logger = logErrors;
         _manager = new HelpUserManager(logErrors, messageBoxLibrary);
         try
         {
@@ -26,7 +26,7 @@ public partial class HelpUserService : IHelpUserService
         {
             // Notify developer
             const string contextMessage = "Failed to load parameters.md.";
-            _logErrors.LogAndForget(ex, contextMessage);
+            _logger.Error(ex, contextMessage);
         }
     }
 
