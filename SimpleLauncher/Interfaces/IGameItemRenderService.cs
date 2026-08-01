@@ -7,8 +7,8 @@ namespace SimpleLauncher.Interfaces;
 public interface IGameItemRenderService
 {
     void Initialize(IGameItemRenderHost host);
-    void ReloadFactories(List<SystemManager> systemManagers, List<MameManager> machines);
-    Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManager systemManager, CancellationToken ct);
+    void ReloadFactories(IList<SystemManagerService> systemManagers, IList<MameManagerService> machines);
+    Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManagerService systemManager, CancellationToken ct);
     Task HandleSelectionChangedAsync(GameListViewItem selectedItem);
     Task HandleDoubleClickAsync(GameListViewItem selectedItem);
     void ClearRenderedItems();

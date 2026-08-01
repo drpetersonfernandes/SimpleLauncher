@@ -5,7 +5,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class RedreamConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -104,7 +104,7 @@ public static class RedreamConfigurationService
             if (updates.TryGetValue(key, out var newValue))
             {
                 var newLine = $"{key}={newValue}";
-                if (line != newLine)
+                if (!string.Equals(line, newLine, StringComparison.Ordinal))
                 {
                     lines[i] = newLine;
                     modified = true;

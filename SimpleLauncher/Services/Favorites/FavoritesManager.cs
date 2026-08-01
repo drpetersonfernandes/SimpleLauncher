@@ -13,7 +13,7 @@ namespace SimpleLauncher.Services.Favorites;
 [MessagePackObject(AllowPrivate = true)]
 public class FavoritesManager
 {
-    [IgnoreMember] private static readonly object ListLock = new();
+    [IgnoreMember] private static readonly Lock ListLock = new();
     [IgnoreMember] private ILogger? _logger;
     [IgnoreMember] private static readonly DataFileLocation FileLocation = new("favorites.dat");
 

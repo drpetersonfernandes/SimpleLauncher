@@ -73,6 +73,6 @@ public partial class DetectEmptyResourceValuesTests
         Assert.Fail(message.ToString());
     }
 
-    [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""", RegexOptions.Compiled)]
+    [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex();
 }

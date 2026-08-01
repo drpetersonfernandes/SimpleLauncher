@@ -76,7 +76,7 @@ public class ParameterResolverResultTests
             SuggestedParameter = "-L \"C:\\cores\\fceumm_libretro.dll\""
         };
 
-        Assert.Contains("fceumm_libretro.dll", result.SuggestedParameter);
+        Assert.Contains("fceumm_libretro.dll", result.SuggestedParameter, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -90,7 +90,7 @@ public class ParameterResolverResultTests
             Explanation = "Line 1\nLine 2\nLine 3"
         };
 
-        Assert.Contains("\n", result.Explanation);
+        Assert.Contains("\n", result.Explanation, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -102,6 +102,6 @@ public class ParameterResolverResultTests
         var r1 = new ParameterResolverResult { SuggestedParameter = "a" };
         var r2 = new ParameterResolverResult { SuggestedParameter = "b" };
 
-        Assert.NotEqual(r1.SuggestedParameter, r2.SuggestedParameter);
+        Assert.NotEqual(r1.SuggestedParameter, r2.SuggestedParameter, StringComparer.Ordinal);
     }
 }

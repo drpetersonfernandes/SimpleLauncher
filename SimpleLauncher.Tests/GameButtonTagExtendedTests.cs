@@ -55,8 +55,8 @@ public class GameButtonTagExtendedTests
             Key = "Arcade|game (v1.0) [!].zip"
         };
 
-        Assert.Contains("(", tag.Key);
-        Assert.Contains("[", tag.Key);
+        Assert.Contains("(", tag.Key, StringComparison.Ordinal);
+        Assert.Contains("[", tag.Key, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -70,7 +70,7 @@ public class GameButtonTagExtendedTests
             Key = "SystemName|FileName"
         };
 
-        Assert.Contains("|", tag.Key);
+        Assert.Contains("|", tag.Key, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -84,7 +84,7 @@ public class GameButtonTagExtendedTests
             Key = "GBA|ポケモン.zip"
         };
 
-        Assert.Contains("ポケモン", tag.Key);
+        Assert.Contains("ポケモン", tag.Key, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -111,7 +111,7 @@ public class GameButtonTagExtendedTests
             Key = "|game.zip"
         };
 
-        Assert.StartsWith("|", tag.Key);
+        Assert.StartsWith("|", tag.Key, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -126,6 +126,6 @@ public class GameButtonTagExtendedTests
             Key = $"NES|{longName}"
         };
 
-        Assert.Contains(longName, tag.Key);
+        Assert.Contains(longName, tag.Key, StringComparison.Ordinal);
     }
 }

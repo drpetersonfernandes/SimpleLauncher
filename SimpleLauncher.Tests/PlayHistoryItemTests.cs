@@ -212,7 +212,7 @@ public class PlayHistoryItemTests
         var raised = false;
         item.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(PlayHistoryItem.TotalPlayTime))
+            if (string.Equals(args.PropertyName, nameof(PlayHistoryItem.TotalPlayTime), StringComparison.Ordinal))
             {
                 raised = true;
             }
@@ -229,7 +229,7 @@ public class PlayHistoryItemTests
         var raised = false;
         item.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(PlayHistoryItem.FormattedPlayTime))
+            if (string.Equals(args.PropertyName, nameof(PlayHistoryItem.FormattedPlayTime), StringComparison.Ordinal))
             {
                 raised = true;
             }
@@ -270,7 +270,7 @@ public class PlayHistoryItemTests
         var item = new PlayHistoryItem { TotalPlayTime = 999999, TimesPlayed = 10000 };
         Assert.Equal(999999, item.TotalPlayTime);
         Assert.Equal(10000, item.TimesPlayed);
-        Assert.Contains("h", item.FormattedPlayTime);
+        Assert.Contains("h", item.FormattedPlayTime, StringComparison.Ordinal);
     }
 
     [Fact]

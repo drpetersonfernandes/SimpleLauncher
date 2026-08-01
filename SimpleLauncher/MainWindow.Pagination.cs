@@ -10,7 +10,7 @@ public partial class MainWindow
 {
     private void ResetPaginationButtons()
     {
-        UiOrchestrator.ResetPaginationButtons();
+        UiOrchestratorService.ResetPaginationButtons();
     }
 
     private async void PrevPageButtonClickAsync(object sender, RoutedEventArgs e)
@@ -22,13 +22,13 @@ public partial class MainWindow
                 return;
             }
 
-            if (!UiOrchestrator.CanGoToPrevPage())
+            if (!UiOrchestratorService.CanGoToPrevPage())
             {
                 return;
             }
 
             CancelAndRecreateToken();
-            UiOrchestrator.GoToPreviousPage();
+            UiOrchestratorService.GoToPreviousPage();
 
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingPrevPage") ?? "Loading previous page...");
             _audioInput.PlayNotificationSound();
@@ -58,13 +58,13 @@ public partial class MainWindow
                 return;
             }
 
-            if (!UiOrchestrator.CanGoToNextPage())
+            if (!UiOrchestratorService.CanGoToNextPage())
             {
                 return;
             }
 
             CancelAndRecreateToken();
-            UiOrchestrator.GoToNextPage();
+            UiOrchestratorService.GoToNextPage();
 
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingNextPage") ?? "Loading next page...");
             _audioInput.PlayNotificationSound();

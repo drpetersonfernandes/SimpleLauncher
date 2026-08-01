@@ -2,7 +2,6 @@ using System.Diagnostics;
 using SimpleLauncher.Models;
 using System.Globalization;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.SystemManager;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
@@ -669,7 +668,7 @@ public class MountChdFiles : IMountChdFiles
         }
 
         else if (systemName.Contains("XBOX", StringComparison.OrdinalIgnoreCase) &&
-                 !systemName.Contains("360"))
+                 !systemName.Contains("360", StringComparison.Ordinal))
         {
             if (!string.IsNullOrEmpty(emulatorName) &&
                 emulatorName.Contains("xemu", StringComparison.OrdinalIgnoreCase))

@@ -19,12 +19,12 @@ public class DokanService
     /// <summary>
     /// Event raised when a log message needs to be displayed.
     /// </summary>
-    public event Action<string>? LogMessage;
+    public event EventHandler<EventArgs<string>>? LogMessage;
 
     /// <summary>
     /// Event raised when download progress changes.
     /// </summary>
-    public event Action<DownloadProgressInfo>? ProgressChanged;
+    public event EventHandler<EventArgs<DownloadProgressInfo>>? ProgressChanged;
 
     /// <summary>
     /// Initializes a new instance of the DokanService class.
@@ -41,23 +41,23 @@ public class DokanService
     /// <returns>True if Dokan is detected, false otherwise.</returns>
     public bool IsDokanInstalled()
     {
-        LogMessage?.Invoke("Checking if Dokan is installed...");
+        LogMessage?.Invoke(this, new EventArgs<string>("Checking if Dokan is installed..."));
 
         // Check 1: Look for Dokan in installed programs (registry)
         if (IsDokanInRegistry())
         {
-            LogMessage?.Invoke("Dokan found in installed programs.");
+            LogMessage?.Invoke(this, new EventArgs<string>("Dokan found in installed programs."));
             return true;
         }
 
         // Check 2: Look for Dokan DLL in System32
         if (IsDokanDllPresent())
         {
-            LogMessage?.Invoke("Dokan DLL found in System32.");
+            LogMessage?.Invoke(this, new EventArgs<string>("Dokan DLL found in System32."));
             return true;
         }
 
-        LogMessage?.Invoke("Dokan is not installed.");
+        LogMessage?.Invoke(this, new EventArgs<string>("Dokan is not installed."));
         return false;
     }
 
@@ -84,24 +84,24 @@ public class DokanService
         var fileName = Path.GetFileName(new Uri(downloadUrl).LocalPath);
         var msiPath = Path.Combine(appDirectory, fileName);
 
-        LogMessage?.Invoke($"Downloading Dokan installer from: {downloadUrl}");
+        LogMessage?.Invoke(this, new EventArgs<string>($"Downloading Dokan installer from: {downloadUrl}"));
 
         try
         {
             // Download the MSI file
-            _downloadService.LogMessage += msg => LogMessage?.Invoke(msg);
-            _downloadService.ProgressChanged += info => ProgressChanged?.Invoke(info);
+            _downloadService.LogMessage += (_, e) => LogMessage?.Invoke(this, e);
+            _downloadService.ProgressChanged += (_, e) => ProgressChanged?.Invoke(this, e);
 
             using var memoryStream = await _downloadService.DownloadToMemoryAsync(downloadUrl);
 
             // Save to disk
-            LogMessage?.Invoke($"Saving installer to: {msiPath}");
+            LogMessage?.Invoke(this, new EventArgs<string>($"Saving installer to: {msiPath}"));
             await using var fileStream = File.Create(msiPath);
             memoryStream.Position = 0;
             await memoryStream.CopyToAsync(fileStream);
             await fileStream.FlushAsync();
 
-            LogMessage?.Invoke("Download complete. Launching Dokan installer...");
+            LogMessage?.Invoke(this, new EventArgs<string>("Download complete. Launching Dokan installer..."));
 
             // Launch the MSI installer (shows UI, handles its own elevation if needed)
             var process = Process.Start(new ProcessStartInfo
@@ -113,7 +113,7 @@ public class DokanService
             if (process != null)
             {
                 process.Dispose();
-                LogMessage?.Invoke("Dokan installer launched. Please follow the installation wizard.");
+                LogMessage?.Invoke(this, new EventArgs<string>("Dokan installer launched. Please follow the installation wizard."));
 
                 // Schedule cleanup of the MSI file after a delay (installer may lock it)
                 _ = Task.Run(async () =>
@@ -124,7 +124,7 @@ public class DokanService
                         if (File.Exists(msiPath))
                         {
                             File.Delete(msiPath);
-                            LogMessage?.Invoke($"Cleaned up Dokan installer: {msiPath}");
+                            LogMessage?.Invoke(this, new EventArgs<string>($"Cleaned up Dokan installer: {msiPath}"));
                         }
                     }
                     catch (Exception)
@@ -135,13 +135,13 @@ public class DokanService
             }
             else
             {
-                LogMessage?.Invoke("Failed to launch the Dokan installer.");
+                LogMessage?.Invoke(this, new EventArgs<string>("Failed to launch the Dokan installer."));
             }
         }
         catch (Exception ex)
         {
             await BugReportService.ReportBugAsync(ex, "Error downloading or installing Dokan");
-            LogMessage?.Invoke($"Error during Dokan installation: {ex.Message}");
+            LogMessage?.Invoke(this, new EventArgs<string>($"Error during Dokan installation: {ex.Message}"));
             throw;
         }
     }

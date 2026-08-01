@@ -57,8 +57,8 @@ public class GameCacheServiceTests : IDisposable
 
         var result = await _cache.GetAllGamesAsync(CancellationToken.None);
         Assert.Equal(2, result.Count);
-        Assert.Contains("game1.zip", result);
-        Assert.Contains("game2.nes", result);
+        Assert.Contains("game1.zip", result, StringComparer.Ordinal);
+        Assert.Contains("game2.nes", result, StringComparer.Ordinal);
     }
 
     /// <summary>

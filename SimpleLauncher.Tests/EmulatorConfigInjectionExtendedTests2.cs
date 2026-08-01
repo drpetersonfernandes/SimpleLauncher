@@ -20,7 +20,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     public EmulatorConfigInjectionExtendedTests2()
     {
         _configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?>
+            .AddInMemoryCollection(new Dictionary<string, string?>(StringComparer.Ordinal)
             {
                 ["Urls:YouTubeSearch"] = "https://www.youtube.com/results?search_query=",
                 ["Urls:IgdbSearch"] = "https://www.igdb.com/search?q="
@@ -48,9 +48,9 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    private SettingsManager CreateSettingsManager()
+    private SettingsManagerService CreateSettingsManager()
     {
-        return new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        return new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
     }
 
     private static string FakeEmulatorExePath(string emuDir)

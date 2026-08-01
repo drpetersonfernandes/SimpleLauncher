@@ -401,7 +401,7 @@ public partial class UpdateChecker
             if (string.IsNullOrEmpty(currentVersion) || string.IsNullOrEmpty(latestVersion))
             {
                 // Notify developer
-                _logger.Error(new ArgumentException("Current or latest version string is null or empty."), "Invalid version string for comparison.");
+                _logger.Error(new ArgumentException("Current or latest version string is null or empty.", nameof(currentVersion)), "Invalid version string for comparison.");
                 return false;
             }
 
@@ -411,7 +411,7 @@ public partial class UpdateChecker
             if (string.IsNullOrEmpty(currentNormalized) || string.IsNullOrEmpty(latestNormalized))
             {
                 // Notify developer
-                _logger.Error(new ArgumentException("Normalized version string is null or empty after regex replace."), "Invalid version string after normalization.");
+                _logger.Error(new ArgumentException("Normalized version string is null or empty after regex replace.", nameof(latestVersion)), "Invalid version string after normalization.");
                 return false;
             }
 
@@ -570,12 +570,12 @@ public partial class UpdateChecker
         return string.Join(".", parts);
     }
 
-    [GeneratedRegex(@"[^\d\.]")]
+    [GeneratedRegex(@"[^\d\.]", RegexOptions.None, 1000)]
     private static partial Regex MyRegex1();
 
-    [GeneratedRegex(@"(\d+(\.\d+){1,3})", RegexOptions.Compiled | RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"(\d+(\.\d+){1,3})", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex2();
 
-    [GeneratedRegex(@"\.{2,}")]
+    [GeneratedRegex(@"\.{2,}", RegexOptions.None, 1000)]
     private static partial Regex MyRegex();
 }

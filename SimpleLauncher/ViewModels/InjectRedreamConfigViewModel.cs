@@ -12,7 +12,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class InjectRedreamConfigViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath = null!;
@@ -32,7 +32,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     [ObservableProperty] private int _redreamLatency;
     [ObservableProperty] private bool _redreamFramerate;
     [ObservableProperty] private bool _redreamShowSettingsBeforeLaunch;
-    public InjectRedreamConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectRedreamConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -54,52 +54,52 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     /// <summary>
     /// Available video cable options for Redream.
     /// </summary>
-    public List<string> CableOptions { get; } = ["vga", "composite", "rgb"];
+    public IList<string> CableOptions { get; } = ["vga", "composite", "rgb"];
 
     /// <summary>
     /// Available broadcast standard options for Redream.
     /// </summary>
-    public List<string> BroadcastOptions { get; } = ["ntsc", "pal", "pal_m", "pal_n"];
+    public IList<string> BroadcastOptions { get; } = ["ntsc", "pal", "pal_m", "pal_n"];
 
     /// <summary>
     /// Available aspect ratio options for Redream.
     /// </summary>
-    public List<string> AspectOptions { get; } = ["4:3", "16:9", "stretch"];
+    public IList<string> AspectOptions { get; } = ["4:3", "16:9", "stretch"];
 
     /// <summary>
     /// Available internal resolution options for Redream.
     /// </summary>
-    public List<string> ResOptions { get; } = ["1", "2", "3", "4", "5", "6", "7", "8"];
+    public IList<string> ResOptions { get; } = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
     /// <summary>
     /// Available renderer options for Redream.
     /// </summary>
-    public List<string> RendererOptions { get; } = ["hle_perstrip", "hle_perpixel", "lle"];
+    public IList<string> RendererOptions { get; } = ["hle_perstrip", "hle_perpixel", "lle"];
 
     /// <summary>
     /// Available fullscreen mode options for Redream.
     /// </summary>
-    public List<string> FullmodeOptions { get; } = ["windowed", "exclusive fullscreen", "borderless fullscreen"];
+    public IList<string> FullmodeOptions { get; } = ["windowed", "exclusive fullscreen", "borderless fullscreen"];
 
     /// <summary>
     /// Tags corresponding to the fullscreen mode options for Redream.
     /// </summary>
-    public List<string> FullmodeTags { get; } = ["windowed", "exclusive fullscreen", "borderless fullscreen"];
+    public IList<string> FullmodeTags { get; } = ["windowed", "exclusive fullscreen", "borderless fullscreen"];
 
     /// <summary>
     /// Available window size options for Redream.
     /// </summary>
-    public List<string> WindowSizeOptions { get; } = ["640x480", "800x600", "1024x768", "1280x960", "1024x576", "1280x720", "1600x900", "1920x1080", "2560x1440", "3840x2160", "2560x1080", "3440x1440"];
+    public IList<string> WindowSizeOptions { get; } = ["640x480", "800x600", "1024x768", "1280x960", "1024x576", "1280x720", "1600x900", "1920x1080", "2560x1440", "3840x2160", "2560x1080", "3440x1440"];
 
     /// <summary>
     /// Available language options for Redream.
     /// </summary>
-    public List<string> LanguageOptions { get; } = ["english", "japanese", "german", "french", "spanish", "italian"];
+    public IList<string> LanguageOptions { get; } = ["english", "japanese", "german", "french", "spanish", "italian"];
 
     /// <summary>
     /// Available region options for Redream.
     /// </summary>
-    public List<string> RegionOptions { get; } = ["usa", "japan", "europe"];
+    public IList<string> RegionOptions { get; } = ["usa", "japan", "europe"];
 
     /// <summary>
     /// Gets whether the configuration is being injected from launcher mode.
@@ -114,21 +114,21 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string?> RequestEmulatorPath = null!;
+    public Func<string?>? RequestEmulatorPath { get; set; }
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow = null!;
+    public Func<Window>? GetOwnerWindow { get; set; }
     private void LoadSettings()
     {
         RedreamCable = _settings.Redream.Cable;
@@ -220,17 +220,17 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 ShouldRun = true;
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -249,17 +249,17 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 await _messageBox.ReDreamConfigurationInjectedSuccessfullyMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {

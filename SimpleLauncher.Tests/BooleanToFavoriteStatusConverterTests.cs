@@ -39,9 +39,9 @@ public class BooleanToFavoriteStatusConverterTests
     [Fact]
     public void ConvertTrueAndFalseReturnDifferentStrings()
     {
-        var trueResult = (string)_converter.Convert(true, typeof(string), null!, CultureInfo.InvariantCulture)!;
-        var falseResult = (string)_converter.Convert(false, typeof(string), null!, CultureInfo.InvariantCulture)!;
-        Assert.NotEqual(trueResult, falseResult);
+        var trueResult = (string)_converter.Convert(true, typeof(string), null!, CultureInfo.InvariantCulture);
+        var falseResult = (string)_converter.Convert(false, typeof(string), null!, CultureInfo.InvariantCulture);
+        Assert.NotEqual(trueResult, falseResult, StringComparer.Ordinal);
     }
 
     [Fact]

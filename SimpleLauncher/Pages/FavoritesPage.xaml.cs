@@ -16,7 +16,7 @@ using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.WpfServices;
 using SimpleLauncher.ViewModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
-using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 
 namespace SimpleLauncher.Pages;
@@ -26,12 +26,12 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
     private readonly FavoritesViewModel _viewModel;
     private readonly MainWindow _mainWindow;
     private readonly GamePadController _gamePadController;
-    private readonly GameLauncher _gameLauncher;
+    private readonly GameLauncherService _gameLauncher;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IFindCoverImageService _findCoverImage;
-    private readonly List<MameManager> _machines;
+    private readonly List<MameManagerService> _machines;
     private readonly FavoritesManager _favoritesManager;
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
     private readonly IContextMenuFunctions _contextMenuFunctions;
@@ -39,13 +39,13 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
     private readonly IContextMenuService _contextMenuService;
 
     internal FavoritesPage(
-        SettingsManager settings,
+        SettingsManagerService settings,
         List<SystemManager> systemManagers,
-        List<MameManager> machines,
+        List<MameManagerService> machines,
         FavoritesManager favoritesManager,
         MainWindow mainWindow,
         GamePadController gamePadController,
-        GameLauncher gameLauncher,
+        GameLauncherService gameLauncher,
         PlaySoundEffects playSoundEffects,
         IConfiguration configuration,
         IFindCoverImageService findCoverImage,
@@ -146,7 +146,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
 
             var visual = hitTestResult.VisualHit;
             DataGridRow? dataGridRow = null;
-            while (visual != null && visual != FavoritesDataGrid)
+            while (visual != null && !Equals(visual, FavoritesDataGrid))
             {
                 if (visual is DataGridRow row)
                 {

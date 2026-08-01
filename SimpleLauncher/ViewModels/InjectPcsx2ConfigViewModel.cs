@@ -12,7 +12,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class InjectPcsx2ConfigViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath = null!;
@@ -27,7 +27,7 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     [ObservableProperty] private bool _pcsx2AchievementsEnabled;
     [ObservableProperty] private bool _pcsx2AchievementsHardcore;
     [ObservableProperty] private bool _pcsx2ShowSettingsBeforeLaunch;
-    public InjectPcsx2ConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectPcsx2ConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -49,27 +49,27 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     /// <summary>
     /// Available renderer ID options for PCSX2.
     /// </summary>
-    public List<string> RendererOptions { get; } = ["14", "13", "12", "15", "11"];
+    public IList<string> RendererOptions { get; } = ["14", "13", "12", "15", "11"];
 
     /// <summary>
     /// Display names corresponding to the renderer options for PCSX2.
     /// </summary>
-    public List<string> RendererDisplayNames { get; } = ["Vulkan", "Direct3D 12", "Direct3D 11", "OpenGL", "Software"];
+    public IList<string> RendererDisplayNames { get; } = ["Vulkan", "Direct3D 12", "Direct3D 11", "OpenGL", "Software"];
 
     /// <summary>
     /// Available upscale multiplier options for PCSX2.
     /// </summary>
-    public List<string> UpscaleOptions { get; } = ["1", "2", "3", "4", "5", "6", "8"];
+    public IList<string> UpscaleOptions { get; } = ["1", "2", "3", "4", "5", "6", "8"];
 
     /// <summary>
     /// Display names corresponding to the upscale multiplier options for PCSX2.
     /// </summary>
-    public List<string> UpscaleDisplayNames { get; } = ["1x (Native)", "2x", "3x", "4x", "5x", "6x", "8x"];
+    public IList<string> UpscaleDisplayNames { get; } = ["1x (Native)", "2x", "3x", "4x", "5x", "6x", "8x"];
 
     /// <summary>
     /// Available aspect ratio options for PCSX2.
     /// </summary>
-    public List<string> AspectOptions { get; } = ["4:3", "16:9", "Stretch"];
+    public IList<string> AspectOptions { get; } = ["4:3", "16:9", "Stretch"];
 
     /// <summary>
     /// Gets whether the configuration is being injected from launcher mode.
@@ -84,21 +84,21 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string?> RequestEmulatorPath = null!;
+    public Func<string?>? RequestEmulatorPath { get; set; }
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow = null!;
+    public Func<Window>? GetOwnerWindow { get; set; }
     private void LoadSettings()
     {
         Pcsx2Renderer = _settings.Pcsx2.Renderer;
@@ -190,22 +190,22 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 ShouldRun = true;
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (Pcsx2PermissionException)
         {
             ShouldRun = true;
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -224,21 +224,21 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 await _messageBox.Pcsx2SettingssavedMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (Pcsx2PermissionException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {

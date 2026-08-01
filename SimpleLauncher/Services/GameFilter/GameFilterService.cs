@@ -11,12 +11,12 @@ namespace SimpleLauncher.Services.GameFilter;
 public partial class GameFilterService : IGameFilterService
 {
     private readonly IFindCoverImageService _findCoverImage;
-    private readonly SettingsManager.SettingsManager _settings;
+    private readonly SettingsManager.SettingsManagerService _settings;
 
     /// <summary>
     /// Initializes a new instance of <see cref="GameFilterService"/>.
     /// </summary>
-    public GameFilterService(IFindCoverImageService findCoverImage, SettingsManager.SettingsManager settings)
+    public GameFilterService(IFindCoverImageService findCoverImage, SettingsManager.SettingsManagerService settings)
     {
         _findCoverImage = findCoverImage;
         _settings = settings;
@@ -26,13 +26,13 @@ public partial class GameFilterService : IGameFilterService
     /// Filters the game file list based on the "ShowGames" setting, keeping only games
     /// with or without cover images depending on the configured mode.
     /// </summary>
-    public Task<List<string>> FilterByShowGamesSettingAsync(
-        List<string> files, string selectedSystem, SystemManager.SystemManager config)
+    public Task<IList<string>> FilterByShowGamesSettingAsync(
+        IList<string> files, string selectedSystem, SystemManager.SystemManagerService config)
     {
-        if (files.Count == 0 || _settings.ShowGames == "ShowAll")
+        if (files.Count == 0 || string.Equals(_settings.ShowGames, "ShowAll", StringComparison.Ordinal))
             return Task.FromResult(files);
 
-        var filteredFiles = new List<string>();
+        IList<string> filteredFiles = new List<string>();
 
         foreach (var filePath in files)
         {
@@ -67,14 +67,14 @@ public partial class GameFilterService : IGameFilterService
     /// <summary>
     /// Filters game files whose names start with the specified letter, or digits if "#" is provided.
     /// </summary>
-    public Task<List<string>> FilterByLetterAsync(List<string> files, string startLetter)
+    public Task<IList<string>> FilterByLetterAsync(IList<string> files, string startLetter)
     {
-        return Task.Run(() =>
+        return Task.Run<IList<string>>(() =>
         {
             if (string.IsNullOrEmpty(startLetter))
                 return files;
 
-            if (startLetter == "#")
+            if (string.Equals(startLetter, "#", StringComparison.Ordinal))
             {
                 return files.Where(static file => !string.IsNullOrEmpty(file) &&
                                                   file.Length > 0 &&
@@ -89,10 +89,10 @@ public partial class GameFilterService : IGameFilterService
     /// <summary>
     /// Sorts the game file list by MAME machine description or by filename, depending on the sort order setting.
     /// </summary>
-    public List<string> SortByMameDescription(
-        List<string> files, string mameSortOrder, Dictionary<string, string> mameLookup)
+    public IList<string> SortByMameDescription(
+        IList<string> files, string mameSortOrder, IDictionary<string, string> mameLookup)
     {
-        if (mameSortOrder == "MachineDescription")
+        if (string.Equals(mameSortOrder, "MachineDescription", StringComparison.Ordinal))
         {
             return files.OrderBy(f =>
             {
@@ -111,15 +111,15 @@ public partial class GameFilterService : IGameFilterService
     /// Supports logical operators AND, OR, and quoted phrases.
     /// Examples: "mario kart" (AND by default), "mario AND kart", "mario OR kart", "\"super mario\""
     /// </summary>
-    public Task<List<string>> FilterBySearchQueryAsync(
-        List<string> files, string searchQuery, Dictionary<string, string> mameLookup)
+    public Task<IList<string>> FilterBySearchQueryAsync(
+        IList<string> files, string searchQuery, IDictionary<string, string> mameLookup)
     {
         var searchTerms = ParseSearchTerms(searchQuery);
         if (searchTerms.Count == 0)
             return Task.FromResult(files);
 
-        return Task.Run(() =>
-            files.FindAll(file =>
+        return Task.Run<IList<string>>(() =>
+            files.Where(file =>
             {
                 var fileName = Path.GetFileNameWithoutExtension(file);
 
@@ -131,7 +131,7 @@ public partial class GameFilterService : IGameFilterService
                 }
 
                 return MatchesSearchQuery(searchText, searchTerms);
-            }));
+            }).ToList());
     }
 
     private static List<string> ParseSearchTerms(string searchTerm)
@@ -173,6 +173,6 @@ public partial class GameFilterService : IGameFilterService
         return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
     }
 
-    [GeneratedRegex("""[\"](.+?)[\"]|([^ ]+)""")]
+    [GeneratedRegex("""[\"](.+?)[\"]|([^ ]+)""", RegexOptions.None | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex SearchTermsRegex();
 }

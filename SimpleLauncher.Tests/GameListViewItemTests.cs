@@ -56,7 +56,7 @@ public class GameListViewItemTests
         var eventRaised = false;
         item.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(GameListViewItem.IsFavorite))
+            if (string.Equals(args.PropertyName, nameof(GameListViewItem.IsFavorite), StringComparison.Ordinal))
             {
                 eventRaised = true;
             }
@@ -93,7 +93,7 @@ public class GameListViewItemTests
         var eventRaised = false;
         item.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(GameListViewItem.MachineDescription))
+            if (string.Equals(args.PropertyName, nameof(GameListViewItem.MachineDescription), StringComparison.Ordinal))
             {
                 eventRaised = true;
             }
@@ -130,7 +130,7 @@ public class GameListViewItemTests
         var eventRaised = false;
         item.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(GameListViewItem.TimesPlayed))
+            if (string.Equals(args.PropertyName, nameof(GameListViewItem.TimesPlayed), StringComparison.Ordinal))
             {
                 eventRaised = true;
             }
@@ -167,7 +167,7 @@ public class GameListViewItemTests
         var eventRaised = false;
         item.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(GameListViewItem.PlayTime))
+            if (string.Equals(args.PropertyName, nameof(GameListViewItem.PlayTime), StringComparison.Ordinal))
             {
                 eventRaised = true;
             }
@@ -204,7 +204,7 @@ public class GameListViewItemTests
         var eventRaised = false;
         item.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(GameListViewItem.HasAchievements))
+            if (string.Equals(args.PropertyName, nameof(GameListViewItem.HasAchievements), StringComparison.Ordinal))
             {
                 eventRaised = true;
             }
@@ -226,7 +226,7 @@ public class GameListViewItemTests
         var eventRaised = false;
         item.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(GameListViewItem.AchievementsEarned))
+            if (string.Equals(args.PropertyName, nameof(GameListViewItem.AchievementsEarned), StringComparison.Ordinal))
             {
                 eventRaised = true;
             }
@@ -248,7 +248,7 @@ public class GameListViewItemTests
         var eventRaised = false;
         item.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(GameListViewItem.AchievementsTotal))
+            if (string.Equals(args.PropertyName, nameof(GameListViewItem.AchievementsTotal), StringComparison.Ordinal))
             {
                 eventRaised = true;
             }
@@ -328,22 +328,22 @@ public class GameListViewItemTests
     public void FilePathWithSpecialCharacters()
     {
         var item = new GameListViewItem { FilePath = @"C:\roms\game (v1.0) [!].zip" };
-        Assert.Contains("(", item.FilePath);
-        Assert.Contains("[", item.FilePath);
+        Assert.Contains("(", item.FilePath, StringComparison.Ordinal);
+        Assert.Contains("[", item.FilePath, StringComparison.Ordinal);
     }
 
     [Fact]
     public void FilePathWithUnicode()
     {
         var item = new GameListViewItem { FilePath = @"C:\roms\ポケモン.zip" };
-        Assert.Contains("ポケモン", item.FilePath);
+        Assert.Contains("ポケモン", item.FilePath, StringComparison.Ordinal);
     }
 
     [Fact]
     public void FolderPathWithSpaces()
     {
         var item = new GameListViewItem { FolderPath = @"C:\My Games\ROMs" };
-        Assert.Contains(" ", item.FolderPath);
+        Assert.Contains(" ", item.FolderPath, StringComparison.Ordinal);
     }
 
     [Fact]

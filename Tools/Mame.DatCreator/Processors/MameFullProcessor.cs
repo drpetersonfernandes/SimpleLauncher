@@ -7,7 +7,7 @@ namespace Mame.DatCreator.Processors;
 
 public static class MameFullProcessor
 {
-    public static Task<List<MachineInfo>> GetMachinesFromFullXmlAsync(string inputFilePath, WpfLogger logger)
+    public static Task<IList<MachineInfo>> GetMachinesFromFullXmlAsync(string inputFilePath, WpfLogger logger)
     {
         return Task.Run(() =>
         {
@@ -15,7 +15,7 @@ public static class MameFullProcessor
             var settings = new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
             using var reader = XmlReader.Create(inputFilePath, settings);
             var inputDoc = XDocument.Load(reader);
-            var machines = new List<MachineInfo>();
+            IList<MachineInfo> machines = new List<MachineInfo>();
 
             var machineElements = inputDoc.Descendants("machine").ToList();
             logger.Info($"Found {machineElements.Count} machine entries in the MAME full driver XML.");

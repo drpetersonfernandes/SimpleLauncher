@@ -391,6 +391,6 @@ public partial class DetectMissingResourceProviderKeysTests
     /// Matches: _resourceProvider.GetString("KEY") or _resourceProvider.GetString("KEY", "DEFAULT")
     /// Group 1 = key, Group 2 = optional default value
     /// </summary>
-    [GeneratedRegex("""_resourceProvider\.GetString\(\s*"([^"]+)"(?:\s*,\s*"([^"]*)")?\s*\)""", RegexOptions.Compiled)]
+    [GeneratedRegex("""_resourceProvider\.GetString\(\s*"([^"]+)"(?:\s*,\s*"([^"]*)")?\s*\)""", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex();
 }

@@ -2164,7 +2164,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     /// <summary>
     /// Displays a warning listing missing paths referenced by a batch file, with an option to continue.
     /// </summary>
-    public Task<bool> BatchFilePathsMissingMessageBoxAsync(List<string> missingPaths)
+    public Task<bool> BatchFilePathsMissingMessageBoxAsync(IList<string> missingPaths)
     {
         var batchfilepathsmissing = _resourceProvider.GetString("Batchfilepathsmissing", "The batch file references paths that do not exist:");
         var batchfilepathsmissingexplanation = _resourceProvider.GetString("Batchfilepathsmissingexplanation", "This may cause the batch file to fail. Not all paths may be detected — this is a best-effort check.");

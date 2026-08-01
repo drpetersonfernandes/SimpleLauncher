@@ -13,7 +13,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class InjectXeniaConfigViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath = null!;
@@ -34,7 +34,7 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
     [ObservableProperty] private string _xeniaHid = null!;
     [ObservableProperty] private int _xeniaUserLanguage;
     [ObservableProperty] private bool _xeniaShowSettingsBeforeLaunch;
-    public InjectXeniaConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectXeniaConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -56,17 +56,17 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
     /// <summary>
     /// Available GPU backend options for Xenia.
     /// </summary>
-    public List<string> GpuOptions { get; } = ["d3d12", "vulkan", "null"];
+    public IList<string> GpuOptions { get; } = ["d3d12", "vulkan", "null"];
 
     /// <summary>
     /// Available resolution scale options for Xenia.
     /// </summary>
-    public List<string> ResScaleOptions { get; } = ["1", "2", "3"];
+    public IList<string> ResScaleOptions { get; } = ["1", "2", "3"];
 
     /// <summary>
     /// Available anti-aliasing options for Xenia.
     /// </summary>
-    public List<TagOption> AaOptions { get; } =
+    public IList<TagOption> AaOptions { get; } =
     [
         new("", "None"),
         new("fxaa", "FXAA"),
@@ -76,27 +76,27 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
     /// <summary>
     /// Available scaling options for Xenia.
     /// </summary>
-    public List<string> ScalingOptions { get; } = ["fsr", "cas", "bilinear"];
+    public IList<string> ScalingOptions { get; } = ["fsr", "cas", "bilinear"];
 
     /// <summary>
     /// Available readback resolve options for Xenia.
     /// </summary>
-    public List<string> ReadbackOptions { get; } = ["none", "fast", "full"];
+    public IList<string> ReadbackOptions { get; } = ["none", "fast", "full"];
 
     /// <summary>
     /// Available APU (audio processing unit) options for Xenia.
     /// </summary>
-    public List<string> ApuOptions { get; } = ["xaudio2", "sdl", "nop", "any"];
+    public IList<string> ApuOptions { get; } = ["xaudio2", "sdl", "nop", "any"];
 
     /// <summary>
     /// Available HID (human interface device) input options for Xenia.
     /// </summary>
-    public List<string> HidOptions { get; } = ["xinput", "sdl", "winkey", "any"];
+    public IList<string> HidOptions { get; } = ["xinput", "sdl", "winkey", "any"];
 
     /// <summary>
     /// Available language options for Xenia.
     /// </summary>
-    public List<TagOption> LangOptions { get; } =
+    public IList<TagOption> LangOptions { get; } =
     [
         new("1", "English"),
         new("2", "Japanese"),
@@ -122,21 +122,21 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string?> RequestEmulatorPath = null!;
+    public Func<string?>? RequestEmulatorPath { get; set; }
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow = null!;
+    public Func<Window>? GetOwnerWindow { get; set; }
     private void LoadSettings()
     {
         XeniaGpu = _settings.Xenia.Gpu;
@@ -230,17 +230,17 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 ShouldRun = true;
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -259,17 +259,17 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 await _messageBox.XeniaconfigurationinjectedsuccessfullyMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {

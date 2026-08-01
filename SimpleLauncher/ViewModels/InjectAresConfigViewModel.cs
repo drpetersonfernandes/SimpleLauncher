@@ -13,7 +13,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class InjectAresConfigViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath = "";
@@ -30,7 +30,7 @@ public partial class InjectAresConfigViewModel : ObservableObject
     [ObservableProperty] private bool _runAhead;
     [ObservableProperty] private bool _autoSaveMemory;
     [ObservableProperty] private bool _showBeforeLaunch;
-    public InjectAresConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectAresConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -52,22 +52,22 @@ public partial class InjectAresConfigViewModel : ObservableObject
     /// <summary>
     /// Available video driver options for Ares.
     /// </summary>
-    public List<string> VideoDriverOptions { get; } = ["OpenGL 3.2", "Vulkan", "Direct3D 11", "Direct3D 12"];
+    public IList<string> VideoDriverOptions { get; } = ["OpenGL 3.2", "Vulkan", "Direct3D 11", "Direct3D 12"];
 
     /// <summary>
     /// Available shader options for Ares.
     /// </summary>
-    public List<string> ShaderOptions { get; } = ["None", "Blur"];
+    public IList<string> ShaderOptions { get; } = ["None", "Blur"];
 
     /// <summary>
     /// Available resolution multiplier options for Ares.
     /// </summary>
-    public List<string> MultiplierOptions { get; } = ["1", "2", "3", "4", "5"];
+    public IList<string> MultiplierOptions { get; } = ["1", "2", "3", "4", "5"];
 
     /// <summary>
     /// Available aspect correction options for Ares.
     /// </summary>
-    public List<string> AspectCorrectionOptions { get; } = ["Standard", "Center", "Scale", "Stretch"];
+    public IList<string> AspectCorrectionOptions { get; } = ["Standard", "Center", "Scale", "Stretch"];
 
     /// <summary>
     /// Gets whether the configuration is being injected from launcher mode.
@@ -82,21 +82,21 @@ public partial class InjectAresConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string?> RequestEmulatorPath = null!;
+    public Func<string?>? RequestEmulatorPath { get; set; }
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow = null!;
+    public Func<Window>? GetOwnerWindow { get; set; }
     private void LoadSettings()
     {
         VideoDriver = _settings.Ares.VideoDriver;
@@ -184,17 +184,17 @@ public partial class InjectAresConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 ShouldRun = true;
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -213,17 +213,17 @@ public partial class InjectAresConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 await _messageBox.AresConfigurationSavedSuccessfullyMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {

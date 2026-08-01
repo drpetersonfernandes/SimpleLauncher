@@ -10,7 +10,7 @@ public class MameManagerExtendedTests
     [Fact]
     public void MameManagerDefaultMachineNameIsNull()
     {
-        var manager = new Services.MameManager.MameManager();
+        var manager = new Services.MameManager.MameManagerService();
         Assert.Equal("", manager.MachineName);
     }
 
@@ -20,17 +20,17 @@ public class MameManagerExtendedTests
     [Fact]
     public void MameManagerDefaultDescriptionIsNull()
     {
-        var manager = new Services.MameManager.MameManager();
+        var manager = new Services.MameManager.MameManagerService();
         Assert.Equal("", manager.Description);
     }
 
     /// <summary>
-    /// Verifies that MameManager properties can be set.
+    /// Verifies that MameManagerService properties can be set.
     /// </summary>
     [Fact]
     public void MameManagerPropertiesCanBeSet()
     {
-        var manager = new Services.MameManager.MameManager
+        var manager = new Services.MameManager.MameManagerService
         {
             MachineName = "pacman",
             Description = "Pac-Man (Midway)"
@@ -41,25 +41,25 @@ public class MameManagerExtendedTests
     }
 
     /// <summary>
-    /// Verifies that MameManager properties support special characters.
+    /// Verifies that MameManagerService properties support special characters.
     /// </summary>
     [Fact]
     public void MameManagerWithSpecialCharacters()
     {
-        var manager = new Services.MameManager.MameManager
+        var manager = new Services.MameManager.MameManagerService
         {
             MachineName = "sf2ce",
             Description = "Street Fighter II': Champion Edition (World 920313)"
         };
 
-        Assert.Contains("'", manager.Description);
-        Assert.Contains("(", manager.Description);
+        Assert.Contains("'", manager.Description, StringComparison.Ordinal);
+        Assert.Contains("(", manager.Description, StringComparison.Ordinal);
     }
 
     [Fact]
     public void MameManagerWithUnicodeDescription()
     {
-        var manager = new Services.MameManager.MameManager
+        var manager = new Services.MameManager.MameManagerService
         {
             MachineName = "game",
             Description = "ゲーム"
@@ -71,7 +71,7 @@ public class MameManagerExtendedTests
     [Fact]
     public void MameManagerWithEmptyStrings()
     {
-        var manager = new Services.MameManager.MameManager
+        var manager = new Services.MameManager.MameManagerService
         {
             MachineName = "",
             Description = ""
@@ -85,7 +85,7 @@ public class MameManagerExtendedTests
     public void MameManagerWithLongDescription()
     {
         var longDesc = new string('A', 500);
-        var manager = new Services.MameManager.MameManager
+        var manager = new Services.MameManager.MameManagerService
         {
             Description = longDesc
         };

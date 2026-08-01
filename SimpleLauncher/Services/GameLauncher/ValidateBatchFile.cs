@@ -12,7 +12,7 @@ public partial class ValidateBatchFile
     /// <summary>
     /// Reads a batch file and returns a list of quoted paths that do not exist on disk.
     /// </summary>
-    public static List<string> ValidateBatchFileContents(string batchFilePath)
+    public static IList<string> ValidateBatchFileContents(string batchFilePath)
     {
         var missingPaths = new List<string>();
 
@@ -52,7 +52,7 @@ public partial class ValidateBatchFile
     /// <summary>
     /// Parses quoted strings from a batch file and returns those that look like paths but do not exist.
     /// </summary>
-    public static List<string> FindInvalidQuotedPathsSimple(string batchFilePath)
+    public static IList<string> FindInvalidQuotedPathsSimple(string batchFilePath)
     {
         var invalidPaths = new List<string>();
 
@@ -120,6 +120,6 @@ public partial class ValidateBatchFile
 
     [GeneratedRegex("""
                     "(?<path>(?:[A-Za-z]:|\\\\)[^"\r\n]+)"
-                    """, RegexOptions.Compiled | RegexOptions.CultureInvariant)]
+                    """, RegexOptions.Compiled | RegexOptions.CultureInvariant, 1000)]
     private static partial Regex MyRegex1();
 }

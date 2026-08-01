@@ -205,7 +205,7 @@ public partial class App : IDisposable
             var logger = provider.GetRequiredService<ILogger>();
             var messageBox = provider.GetRequiredService<IMessageBoxLibraryService>();
             var credentialProtector = provider.GetRequiredService<ICredentialProtector>();
-            var sm = new SettingsManager(config, logger, credentialProtector, messageBox);
+            var sm = new SettingsManagerService(config, logger, credentialProtector, messageBox);
             sm.Load();
             return sm;
         });
@@ -217,8 +217,8 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IPlaySoundEffects>(static sp => sp.GetRequiredService<PlaySoundEffects>());
         serviceCollection.AddSingleton<GamePadController>();
         serviceCollection.AddTransient<DownloadManager>();
-        serviceCollection.AddSingleton<GameLauncher>();
-        serviceCollection.AddSingleton<ILaunchTools, LaunchTools>();
+        serviceCollection.AddSingleton<GameLauncherService>();
+        serviceCollection.AddSingleton<ILaunchTools, LaunchToolsService>();
         serviceCollection.AddSingleton<IDeleteFilesService, DeleteFilesService>();
         serviceCollection.AddSingleton<ICleanTempFolderService, CleanTempFolderService>();
         serviceCollection.AddSingleton<ICleanSimpleLauncherFolderService, CleanSimpleLauncherFolderService>();
@@ -278,7 +278,7 @@ public partial class App : IDisposable
         {
             var configuration = sp.GetRequiredService<IConfiguration>();
             var logger = sp.GetRequiredService<ILogger>();
-            var settings = sp.GetRequiredService<SettingsManager>();
+            var settings = sp.GetRequiredService<SettingsManagerService>();
             return new FindCoverImageService(configuration, logger, settings);
         });
         serviceCollection.AddSingleton<IImageLoader, WpfImageLoader>();
@@ -300,7 +300,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IApplicationLifetime, WpfApplicationLifetime>();
         serviceCollection.AddSingleton<IMessageBoxLibraryService, MessageBoxLibraryService>();
         serviceCollection.AddSingleton<IParameterResolverService, ParameterResolverService>();
-        serviceCollection.AddSingleton<IUiOrchestrator, UiOrchestrator>();
+        serviceCollection.AddSingleton<IUiOrchestrator, UiOrchestratorService>();
         serviceCollection.AddSingleton<IGameItemRenderService, GameItemRenderService>();
         serviceCollection.AddSingleton<IRetroAchievementsHasherTool>(static sp =>
         {
@@ -321,8 +321,8 @@ public partial class App : IDisposable
                 return Current.MainWindow;
             }
         });
-        serviceCollection.AddSingleton<ISystemSelectionOrchestrator, SystemSelectionOrchestrator>();
-        serviceCollection.AddSingleton<IGameFileLoadingOrchestrator, GameFileLoadingOrchestrator>();
+        serviceCollection.AddSingleton<ISystemSelectionOrchestrator, SystemSelectionOrchestratorService>();
+        serviceCollection.AddSingleton<IGameFileLoadingOrchestrator, GameFileLoadingOrchestratorService>();
 
         // Core service implementations
         serviceCollection.AddSingleton<IWindowsVersionService, WindowsVersionService>();
@@ -336,7 +336,7 @@ public partial class App : IDisposable
         // Facade services
         serviceCollection.AddSingleton<IAudioInputService, Services.AudioInput.AudioInputService>();
         serviceCollection.AddSingleton<IApplicationLifecycleService, Services.ApplicationLifecycle.ApplicationLifecycleService>();
-        serviceCollection.AddSingleton<IMenuOrchestrator, Services.MenuOrchestrator.MenuOrchestrator>();
+        serviceCollection.AddSingleton<IMenuOrchestrator, Services.MenuOrchestrator.MenuOrchestratorService>();
         serviceCollection.AddSingleton<IGameBrowserService, Services.GameBrowser.GameBrowserService>();
 
         // F8 Screenshot Hotkey
@@ -470,8 +470,8 @@ public partial class App : IDisposable
         {
             MessageBox.Show("Please extract the application first.\n\nIt looks like you are running SimpleLauncher from inside a ZIP or RAR archive.\n\nPlease extract the archive to a folder on your computer and run the application from there.",
                 "SimpleLauncher",
-                System.Windows.MessageBoxButton.OK,
-                System.Windows.MessageBoxImage.Warning);
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
             Shutdown();
             return;
         }
@@ -591,8 +591,8 @@ public partial class App : IDisposable
 
         Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
-        // Get the singleton SettingsManager instance
-        var settingsManager = ServiceProvider.GetRequiredService<SettingsManager>();
+        // Get the singleton SettingsManagerService instance
+        var settingsManager = ServiceProvider.GetRequiredService<SettingsManagerService>();
         ApplyTheme(settingsManager.BaseTheme, settingsManager.AccentColor);
         ApplyLanguage(settingsManager.Language);
 
@@ -786,7 +786,7 @@ public partial class App : IDisposable
             // Add the new dictionary to the application's resources
             // Find and remove any existing language dictionaries first
             var existingLanguageDictionaries = Current.Resources.MergedDictionaries
-                .Where(static d => d.Source != null && d.Source.OriginalString.Contains("/resources/strings."))
+                .Where(static d => d.Source != null && d.Source.OriginalString.Contains("/resources/strings.", StringComparison.Ordinal))
                 .ToList();
 
             foreach (var dict in existingLanguageDictionaries)
@@ -802,7 +802,7 @@ public partial class App : IDisposable
             ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to Apply Language.");
 
             // Fallback to English if loading the specified language fails
-            if (languageCode != "en")
+            if (!string.Equals(languageCode, "en", StringComparison.Ordinal))
             {
                 try
                 {
@@ -829,7 +829,7 @@ public partial class App : IDisposable
         try
         {
             // Handle Theme Sync Mode (Adaptive)
-            ThemeManager.Current.ThemeSyncMode = baseTheme == "Adaptive" ? ThemeSyncMode.SyncAll : ThemeSyncMode.DoNotSync;
+            ThemeManager.Current.ThemeSyncMode = string.Equals(baseTheme, "Adaptive", StringComparison.Ordinal) ? ThemeSyncMode.SyncAll : ThemeSyncMode.DoNotSync;
             switch (baseTheme)
             {
                 case "Adaptive":
@@ -927,7 +927,7 @@ public partial class App : IDisposable
     private static void RemoveCustomThemeOverrides()
     {
         var customThemes = Current.Resources.MergedDictionaries
-            .Where(static d => d.Source != null && (d.Source.OriginalString.Contains("Theme.HighContrast.xaml") || d.Source.OriginalString.Contains("Theme.Midnight.xaml")))
+            .Where(static d => d.Source != null && (d.Source.OriginalString.Contains("Theme.HighContrast.xaml", StringComparison.Ordinal) || d.Source.OriginalString.Contains("Theme.Midnight.xaml", StringComparison.Ordinal)))
             .ToList();
 
         foreach (var dict in customThemes)
@@ -956,7 +956,7 @@ public partial class App : IDisposable
     private static void RemoveCustomThemeOverridesFromWindow(Window window)
     {
         var customThemes = window.Resources.MergedDictionaries
-            .Where(static d => d.Source != null && (d.Source.OriginalString.Contains("Theme.HighContrast.xaml") || d.Source.OriginalString.Contains("Theme.Midnight.xaml")))
+            .Where(static d => d.Source != null && (d.Source.OriginalString.Contains("Theme.HighContrast.xaml", StringComparison.Ordinal) || d.Source.OriginalString.Contains("Theme.Midnight.xaml", StringComparison.Ordinal)))
             .ToList();
 
         foreach (var dict in customThemes)
@@ -971,8 +971,8 @@ public partial class App : IDisposable
     /// <param name="window">The window to apply the theme to.</param>
     public static void ApplyThemeToWindow(Window window)
     {
-        // Get the singleton SettingsManager instance
-        var settings = ServiceProvider.GetRequiredService<SettingsManager>();
+        // Get the singleton SettingsManagerService instance
+        var settings = ServiceProvider.GetRequiredService<SettingsManagerService>();
         var baseTheme = settings.BaseTheme;
         var accentColor = settings.AccentColor;
         try
@@ -1040,8 +1040,8 @@ public partial class App : IDisposable
     /// <param name="accentColor">The accent color name.</param>
     public static void ChangeTheme(string baseTheme, string accentColor)
     {
-        // Get the singleton SettingsManager instance
-        var settings = ServiceProvider.GetRequiredService<SettingsManager>();
+        // Get the singleton SettingsManagerService instance
+        var settings = ServiceProvider.GetRequiredService<SettingsManagerService>();
         settings.BaseTheme = baseTheme;
         settings.AccentColor = accentColor;
         _ = settings.SaveAsync();

@@ -10,7 +10,6 @@ using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Services.UsageStats;
 using MameConfigurationService = SimpleLauncher.Services.InjectEmulatorConfig.MameConfigurationService;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
@@ -21,7 +20,7 @@ namespace SimpleLauncher.Services.GameLauncher;
 /// Orchestrates the game launch pipeline: validates context, resolves emulators, applies configuration,
 /// selects a launch strategy, and manages post-launch cleanup and statistics.
 /// </summary>
-public partial class GameLauncher : ILauncherService
+public partial class GameLauncherService : ILauncherService
 {
     private readonly IEnumerable<IEmulatorConfigHandler> _configHandlers;
     private readonly IEnumerable<ILaunchStrategy> _launchStrategies;
@@ -39,9 +38,9 @@ public partial class GameLauncher : ILauncherService
     private const int DepViolation = -1073740791;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GameLauncher"/> class with all required dependencies.
+    /// Initializes a new instance of the <see cref="GameLauncherService"/> class with all required dependencies.
     /// </summary>
-    public GameLauncher(
+    public GameLauncherService(
         IEnumerable<IEmulatorConfigHandler> configHandlers,
         IEnumerable<ILaunchStrategy> launchStrategies,
         IExtractionService extraction,
@@ -73,7 +72,7 @@ IUpdateStatusBar updateStatusBar,
         string selectedEmulatorName,
         string selectedSystemName,
         ISystemManager selectedSystemManager,
-        SettingsManager.SettingsManager settings,
+        SettingsManager.SettingsManagerService settings,
         IWindowContext windowContext,
         GamePadController gamePadController,
         ILoadingState? loadingStateProvider)
@@ -85,7 +84,7 @@ IUpdateStatusBar updateStatusBar,
             ResolvedFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath) ?? filePath,
             EmulatorName = selectedEmulatorName,
             SystemName = selectedSystemName,
-            SystemManager = selectedSystemManager,
+            SystemManagerService = selectedSystemManager,
             Settings = settings,
             WindowContext = windowContext,
             LoadingState = loadingStateProvider
@@ -93,19 +92,19 @@ IUpdateStatusBar updateStatusBar,
 
         try
         {
-            // 2. Validate SystemManager and Emulators before resolving
-            if (context.SystemManager == null)
+            // 2. Validate SystemManagerService and Emulators before resolving
+            if (context.SystemManagerService == null)
             {
-                var contextMessage = $"SystemManager is null when attempting to launch.\n" +
+                var contextMessage = $"SystemManagerService is null when attempting to launch.\n" +
                                      $"SystemName: '{context.SystemName}', EmulatorName: '{context.EmulatorName}', FilePath: '{context.FilePath}'";
                 _logger.Warning( contextMessage);
                 await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 return;
             }
 
-            if (context.SystemManager.Emulators == null || context.SystemManager.Emulators.Count == 0)
+            if (context.SystemManagerService.Emulators == null || context.SystemManagerService.Emulators.Count == 0)
             {
-                var contextMessage = $"SystemManager.Emulators is null or empty for system '{context.SystemName}'.\n" +
+                var contextMessage = $"SystemManagerService.Emulators is null or empty for system '{context.SystemName}'.\n" +
                                      $"EmulatorName: '{context.EmulatorName}', FilePath: '{context.FilePath}'";
                 _logger.Warning( contextMessage);
                 await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
@@ -113,7 +112,7 @@ IUpdateStatusBar updateStatusBar,
             }
 
             // 3. Resolve Emulator Manager
-            context.EmulatorManager = context.SystemManager.Emulators.FirstOrDefault(e => e.EmulatorName.Equals(context.EmulatorName, StringComparison.OrdinalIgnoreCase)) as Emulator;
+            context.EmulatorManager = context.SystemManagerService.Emulators.FirstOrDefault(e => e.EmulatorName.Equals(context.EmulatorName, StringComparison.OrdinalIgnoreCase)) as Emulator;
             if (context.EmulatorManager == null)
             {
                 await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
@@ -179,9 +178,9 @@ IUpdateStatusBar updateStatusBar,
                                   $"EmulatorName: '{context.EmulatorName ?? "null"}'\n" +
                                   $"FilePath: '{context.FilePath ?? "null"}'\n" +
                                   $"ResolvedFilePath: '{context.ResolvedFilePath ?? "null"}'\n" +
-                                  $"SystemManager is null: {context.SystemManager == null}\n" +
+                                  $"SystemManagerService is null: {context.SystemManagerService == null}\n" +
                                   $"EmulatorManager is null: {context.EmulatorManager == null}\n" +
-                                  $"SystemManager.Emulators is null: {context.SystemManager?.Emulators == null}\n" +
+                                  $"SystemManagerService.Emulators is null: {context.SystemManagerService?.Emulators == null}\n" +
                                   $"Stack Trace: {ex.StackTrace}";
             _logger.Error(ex, detailedMessage);
             await _messageBoxLibrary.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
@@ -285,7 +284,7 @@ IUpdateStatusBar updateStatusBar,
         }
 
         // Add the GroupByFolder check
-        if (context.SystemManager is { GroupByFolder: true })
+        if (context.SystemManagerService is { GroupByFolder: true })
         {
             var emulatorName = context.EmulatorName;
             var emulatorLocation = context.EmulatorManager?.EmulatorLocation ?? "";
@@ -447,19 +446,19 @@ IUpdateStatusBar updateStatusBar,
         }
         catch (Win32Exception ex)
         {
-            if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
             {
                 await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBoxAsync();
                 _logger.Error(ex, "Application control policy blocked launching batch file.");
                 _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsElevationRequired(ex))
             {
                 await _messageBoxLibrary.ElevationRequiredMessageBoxAsync();
                 _logger.Error(ex, "Elevation required to launch batch file.");
                 _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
             {
                 // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
             }
@@ -536,7 +535,7 @@ IUpdateStatusBar updateStatusBar,
                 throw new FileNotFoundException($"Shortcut file not found: {resolvedFilePath}");
             }
 
-            if (extension == ".URL")
+            if (string.Equals(extension, ".URL", StringComparison.Ordinal))
             {
                 // Read and validate the .url file content
                 var urlContent = await File.ReadAllTextAsync(resolvedFilePath);
@@ -598,17 +597,17 @@ IUpdateStatusBar updateStatusBar,
         }
         catch (Win32Exception ex) // Catch Win32Exception specifically
         {
-            if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
             {
                 await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBoxAsync();
                 _logger.Error(ex, "Application control policy blocked launching shortcut file.");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsElevationRequired(ex))
             {
                 await _messageBoxLibrary.ElevationRequiredMessageBoxAsync();
                 _logger.Error(ex, "Elevation required to launch shortcut file.");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
             {
                 // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
             }
@@ -731,17 +730,17 @@ IUpdateStatusBar updateStatusBar,
         }
         catch (Win32Exception ex)
         {
-            if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
             {
                 await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBoxAsync();
                 _logger.Error(ex, "Application control policy blocked launching executable.");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsElevationRequired(ex))
             {
                 await _messageBoxLibrary.ElevationRequiredMessageBoxAsync();
                 _logger.Error(ex, "Elevation required to launch executable.");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
             {
                 // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
             }
@@ -1186,17 +1185,17 @@ IUpdateStatusBar updateStatusBar,
                 }
                 catch (Win32Exception ex) // Catch Win32Exception specifically
                 {
-                    if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+                    if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
                     {
                         await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBoxAsync();
                         _logger.Error(ex, "Application control policy blocked launching emulator.");
                     }
-                    else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
+                    else if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsElevationRequired(ex))
                     {
                         await _messageBoxLibrary.ElevationRequiredMessageBoxAsync();
                         _logger.Error(ex, "Elevation required to launch emulator.");
                     }
-                    else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
+                    else if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
                     {
                         // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
                     }
@@ -1571,6 +1570,6 @@ IUpdateStatusBar updateStatusBar,
         }
     }
 
-    [GeneratedRegex(@"URL=(.+)", RegexOptions.IgnoreCase, "pt-BR")]
+    [GeneratedRegex(@"URL=(.+)", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, "pt-BR")]
     private static partial Regex MyRegex();
 }

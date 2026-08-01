@@ -53,7 +53,7 @@ public class YumirConfigHandler : IEmulatorConfigHandler
             else
             {
                 shouldRun = true;
-                if (File.Exists(resolvedExe)) YumirConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger);
+                if (File.Exists(resolvedExe)) YumirConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
             }
 
             return shouldRun;

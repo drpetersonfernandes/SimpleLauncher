@@ -59,17 +59,17 @@ public class ZipMountStrategy : ILaunchStrategy
     public Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
         var log = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
-        if (context.EmulatorName.Contains("RPCS3"))
+        if (context.EmulatorName.Contains("RPCS3", StringComparison.Ordinal))
         {
-            return _mountZipFiles.MountZipFileAndLoadEbootBinAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManager!, context.EmulatorManager!, context.Parameters, context.WindowContext!, log, launcher, _logger, _messageBox);
+            return _mountZipFiles.MountZipFileAndLoadEbootBinAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManagerService!, context.EmulatorManager!, context.Parameters, context.WindowContext!, log, launcher, _logger, _messageBox);
         }
-        else if (context.SystemName.Contains("Scumm"))
+        else if (context.SystemName.Contains("Scumm", StringComparison.Ordinal))
         {
-            return _mountZipFiles.MountZipFileAndLoadWithScummVmAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManager!, context.EmulatorManager!, context.Parameters, log, _logger, _messageBox);
+            return _mountZipFiles.MountZipFileAndLoadWithScummVmAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManagerService!, context.EmulatorManager!, context.Parameters, log, _logger, _messageBox);
         }
         else
         {
-            return _mountZipFiles.MountZipFileAndSearchForFileToLoadAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManager!, context.EmulatorManager!, context.Parameters, context.WindowContext!, log, launcher, _logger, _messageBox);
+            return _mountZipFiles.MountZipFileAndSearchForFileToLoadAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManagerService!, context.EmulatorManager!, context.Parameters, context.WindowContext!, log, launcher, _logger, _messageBox);
         }
     }
 }

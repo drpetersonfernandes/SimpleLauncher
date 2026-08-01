@@ -69,8 +69,8 @@ public class DosBoxFileItemExtendedTests
             RelativePath = "My Game\\GAME.EXE"
         };
 
-        Assert.Contains(" ", item.FullPath);
-        Assert.Contains(" ", item.DisplayName);
+        Assert.Contains(" ", item.FullPath, StringComparison.Ordinal);
+        Assert.Contains(" ", item.DisplayName, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -100,8 +100,8 @@ public class DosBoxFileItemExtendedTests
             DisplayName = "game (v1.0)"
         };
 
-        Assert.Contains("(", item.FullPath);
-        Assert.Contains("(", item.DisplayName);
+        Assert.Contains("(", item.FullPath, StringComparison.Ordinal);
+        Assert.Contains("(", item.DisplayName, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -116,8 +116,8 @@ public class DosBoxFileItemExtendedTests
             DisplayName = "ゲーム"
         };
 
-        Assert.Contains("ゲーム", item.FullPath);
-        Assert.Contains("ゲーム", item.DisplayName);
+        Assert.Contains("ゲーム", item.FullPath, StringComparison.Ordinal);
+        Assert.Contains("ゲーム", item.DisplayName, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -145,6 +145,6 @@ public class DosBoxFileItemExtendedTests
             RelativePath = "SUBDIR\\GAME.EXE"
         };
 
-        Assert.Contains("\\", item.RelativePath);
+        Assert.Contains("\\", item.RelativePath, StringComparison.Ordinal);
     }
 }

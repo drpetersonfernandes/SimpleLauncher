@@ -115,62 +115,62 @@ public class InputSanitizerServiceTests
     public void SanitizeFolderNameDoubleDotsReplaced()
     {
         var result = _sanitizer.SanitizeFolderName("NES..SNES");
-        Assert.DoesNotContain("..", result);
+        Assert.DoesNotContain("..", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameReservedConEscaped()
     {
         var result = _sanitizer.SanitizeFolderName("CON");
-        Assert.StartsWith("_", result);
-        Assert.EndsWith("_", result);
+        Assert.StartsWith("_", result, StringComparison.Ordinal);
+        Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameReservedPrnEscaped()
     {
         var result = _sanitizer.SanitizeFolderName("PRN");
-        Assert.StartsWith("_", result);
-        Assert.EndsWith("_", result);
+        Assert.StartsWith("_", result, StringComparison.Ordinal);
+        Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameReservedNulEscaped()
     {
         var result = _sanitizer.SanitizeFolderName("NUL");
-        Assert.StartsWith("_", result);
-        Assert.EndsWith("_", result);
+        Assert.StartsWith("_", result, StringComparison.Ordinal);
+        Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameReservedCaseInsensitive()
     {
         var result = _sanitizer.SanitizeFolderName("con");
-        Assert.StartsWith("_", result);
-        Assert.EndsWith("_", result);
+        Assert.StartsWith("_", result, StringComparison.Ordinal);
+        Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameCom1Reserved()
     {
         var result = _sanitizer.SanitizeFolderName("COM1");
-        Assert.StartsWith("_", result);
-        Assert.EndsWith("_", result);
+        Assert.StartsWith("_", result, StringComparison.Ordinal);
+        Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameLpt1Reserved()
     {
         var result = _sanitizer.SanitizeFolderName("LPT1");
-        Assert.StartsWith("_", result);
-        Assert.EndsWith("_", result);
+        Assert.StartsWith("_", result, StringComparison.Ordinal);
+        Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameInvalidCharsReplaced()
     {
         var result = _sanitizer.SanitizeFolderName("NES/SNES");
-        Assert.DoesNotContain("/", result);
+        Assert.DoesNotContain("/", result, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -184,7 +184,7 @@ public class InputSanitizerServiceTests
     public void SanitizeFolderNameTraversalAttack()
     {
         var result = _sanitizer.SanitizeFolderName("../../../etc/passwd");
-        Assert.DoesNotContain("..", result);
+        Assert.DoesNotContain("..", result, StringComparison.Ordinal);
     }
 
     [Fact]

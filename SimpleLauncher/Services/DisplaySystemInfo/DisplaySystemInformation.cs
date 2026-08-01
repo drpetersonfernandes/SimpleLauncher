@@ -23,7 +23,7 @@ public class DisplaySystemInformation : IDisplaySystemInformation
     /// <param name="gameFileGrid">The wrap panel to populate with system information UI elements.</param>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
     /// <returns>A <see cref="SystemValidationResult"/> indicating the validity of the system configuration.</returns>
-    public async Task<SystemValidationResult> DisplaySystemInfoAsync(SystemManager.SystemManager selectedManager, WrapPanel gameFileGrid, CancellationToken cancellationToken = default)
+    public async Task<SystemValidationResult> DisplaySystemInfoAsync(SystemManager.SystemManagerService selectedManager, WrapPanel gameFileGrid, CancellationToken cancellationToken = default)
     {
         // Clear image sources first to prevent memory leaks from BitmapImage references
         ClearGameButtonImages(gameFileGrid);
@@ -123,7 +123,7 @@ public class DisplaySystemInformation : IDisplaySystemInformation
     /// </summary>
     /// <param name="selectedManager">The system manager to validate.</param>
     /// <returns>A <see cref="SystemValidationResult"/> containing validation status and any error messages.</returns>
-    public SystemValidationResult ValidateSystemConfiguration(SystemManager.SystemManager selectedManager)
+    public SystemValidationResult ValidateSystemConfiguration(SystemManager.SystemManagerService selectedManager)
     {
         var result = new SystemValidationResult();
 

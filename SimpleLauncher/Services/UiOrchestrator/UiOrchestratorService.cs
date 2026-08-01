@@ -14,7 +14,7 @@ using Interfaces;
 /// <summary>
 /// Orchestrates UI operations including loading overlays, game list rendering, pagination, and page navigation.
 /// </summary>
-public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiHost, IPaginationHost
+public class UiOrchestratorService : IUiOrchestrator, ILoadingOverlayHost, IGameListUiHost, IPaginationHost
 {
     private IUiOrchestratorHost _host = null!;
     private readonly LoadingOverlayService _loadingOverlayService;
@@ -25,17 +25,17 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
     private readonly PlaySoundEffects _playSoundEffects;
 
     // ReSharper disable once NotAccessedField.Local
-    private readonly SettingsManager.SettingsManager _settings;
+    private readonly SettingsManager.SettingsManagerService _settings;
 
-    /// <summary>Initializes a new instance of the UiOrchestrator with the specified dependencies.</summary>
-    public UiOrchestrator(
+    /// <summary>Initializes a new instance of the UiOrchestratorService with the specified dependencies.</summary>
+    public UiOrchestratorService(
         LoadingOverlayService loadingOverlayService,
         GameListUiService gameListUiService,
         IPaginationService paginationService,
         IUiResetService uiResetService,
         IUpdateStatusBar updateStatusBarService,
         PlaySoundEffects playSoundEffects,
-        SettingsManager.SettingsManager settings)
+        SettingsManager.SettingsManagerService settings)
     {
         _loadingOverlayService = loadingOverlayService;
         _gameListUiService = gameListUiService;
@@ -176,7 +176,7 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
         set => _paginationService.PaginationThreshold = value;
     }
 
-    public List<string> ApplyPagination(List<string> allFiles)
+    public IList<string> ApplyPagination(IList<string> allFiles)
     {
         return _paginationService.ApplyPagination(allFiles);
     }

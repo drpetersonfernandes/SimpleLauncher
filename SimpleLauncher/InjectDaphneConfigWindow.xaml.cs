@@ -19,15 +19,17 @@ public partial class InjectDaphneConfigWindow
         App.ApplyThemeToWindow(this);
 
         _viewModel = viewModel;
-        _viewModel.CloseRequested += Close;
+        _viewModel.CloseRequested += OnCloseRequested;
 
         Closing += (_, _) =>
         {
-            _viewModel.CloseRequested -= Close;
+            _viewModel.CloseRequested -= OnCloseRequested;
         };
 
         DataContext = _viewModel;
     }
+
+    private void OnCloseRequested(object? sender, EventArgs e) => Close();
 
     /// <summary>
     /// Initializes the window with the specified launcher mode.

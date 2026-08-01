@@ -54,7 +54,7 @@ public class EncryptDuckStationToken
         var inputBytes = new List<byte>();
 
         // Only use machine key if not portable and on Windows
-        if (!isPortable && System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+        if (!isPortable && OperatingSystem.IsWindows())
         {
             var machineGuid = GetWindowsMachineGuid();
             if (!string.IsNullOrEmpty(machineGuid))

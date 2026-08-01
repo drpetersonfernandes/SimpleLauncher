@@ -14,7 +14,7 @@ public class RetroAchievementsManager
     /// Gets or sets the complete list of RetroAchievements game info entries.
     /// </summary>
     [Key(0)]
-    public List<RaGameInfo> AllGames { get; set; } = [];
+    public IList<RaGameInfo> AllGames { get; set; } = [];
 
     private Dictionary<string, RaGameInfo> _hashToGameInfoLookup = null!;
     private ILogger _logger = null!;

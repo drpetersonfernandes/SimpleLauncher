@@ -49,7 +49,7 @@ public class UpdateSimulationTests : IDisposable
     public void ExtractAllFromZipValidZipExtractsAllFilesSuccessfully()
     {
         // Arrange: build a ZIP in memory that mimics an updater package
-        var zipStream = CreateTestZip(new Dictionary<string, string>
+        var zipStream = CreateTestZip(new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["Updater.exe"] = "fake updater binary content",
             ["Updater.dll"] = "fake updater dll content",

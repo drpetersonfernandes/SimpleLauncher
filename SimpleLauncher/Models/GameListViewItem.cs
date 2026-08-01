@@ -55,7 +55,7 @@ public class GameListViewItem : INotifyPropertyChanged
         get;
         set
         {
-            if (field == value) return;
+            if (string.Equals(field, value, StringComparison.Ordinal)) return;
 
             field = value;
             OnPropertyChanged();
@@ -70,7 +70,7 @@ public class GameListViewItem : INotifyPropertyChanged
         get;
         set
         {
-            if (field == value) return;
+            if (string.Equals(field, value, StringComparison.Ordinal)) return;
 
             field = value;
             OnPropertyChanged();
@@ -85,7 +85,7 @@ public class GameListViewItem : INotifyPropertyChanged
         get;
         set
         {
-            if (field == value) return;
+            if (string.Equals(field, value, StringComparison.Ordinal)) return;
 
             field = value;
             OnPropertyChanged();

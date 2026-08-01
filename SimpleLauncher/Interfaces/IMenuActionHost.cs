@@ -58,9 +58,9 @@ public interface IMenuActionHost
     string ListViewMenuItemId { get; }
 
     // Data access for page construction
-    List<SystemManager> GetSystemManagers();
-    List<MameManager> GetMachines();
-    Dictionary<string, string> GetMameLookup();
+    IList<SystemManagerService> GetSystemManagers();
+    IList<MameManagerService> GetMachines();
+    IDictionary<string, string> GetMameLookup();
 
     // Language
     void ChangeLanguageAsync(string languageCode);

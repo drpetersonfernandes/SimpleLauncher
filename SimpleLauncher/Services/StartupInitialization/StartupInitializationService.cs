@@ -4,9 +4,9 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.ThemeMenu;
-using CheckDirWritable = SimpleLauncher.Services.CheckIfDirectoryIsWritable.CheckIfDirectoryIsWritable;
-using RequiredFiles = SimpleLauncher.Services.CheckForRequiredFiles.CheckForRequiredFiles;
-using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
+using CheckDirWritable = SimpleLauncher.Services.CheckIfDirectoryIsWritable.CheckIfDirectoryIsWritableService;
+using RequiredFiles = SimpleLauncher.Services.CheckForRequiredFiles.CheckForRequiredFilesService;
+using Settings = SimpleLauncher.Services.SettingsManager.SettingsManagerService;
 using TrayIconManager = SimpleLauncher.Services.TrayIcon.TrayIconManager;
 
 namespace SimpleLauncher.Services.StartupInitialization;

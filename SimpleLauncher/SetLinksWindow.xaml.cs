@@ -7,7 +7,7 @@ namespace SimpleLauncher;
 /// </summary>
 public partial class SetLinksWindow
 {
-    private readonly Action _saveCompletedHandler;
+    private readonly EventHandler _saveCompletedHandler;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SetLinksWindow"/> class.
@@ -18,7 +18,7 @@ public partial class SetLinksWindow
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        _saveCompletedHandler = () =>
+        _saveCompletedHandler = (_, _) =>
         {
             if (IsLoaded)
             {
@@ -29,14 +29,16 @@ public partial class SetLinksWindow
         };
 
         viewModel.SaveCompleted += _saveCompletedHandler;
-        viewModel.CloseRequested += Close;
+        viewModel.CloseRequested += OnCloseRequested;
 
         Closing += (_, _) =>
         {
             viewModel.SaveCompleted -= _saveCompletedHandler;
-            viewModel.CloseRequested -= Close;
+            viewModel.CloseRequested -= OnCloseRequested;
         };
 
         DataContext = viewModel;
     }
+
+    private void OnCloseRequested(object? sender, EventArgs e) => Close();
 }

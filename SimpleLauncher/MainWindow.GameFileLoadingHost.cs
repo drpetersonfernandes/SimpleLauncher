@@ -1,6 +1,6 @@
 using System.Windows.Controls;
 using System.Windows.Threading;
-using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 
 namespace SimpleLauncher;
 
@@ -25,7 +25,7 @@ public partial class MainWindow : IGameFileLoadingHost
     // ReSharper disable once ConvertToAutoProperty
     bool IGameFileLoadingHost.IsResortOperation => _isResortOperation;
 
-    List<SystemManager> IGameFileLoadingHost.GetSystemManagers()
+    IList<SystemManager> IGameFileLoadingHost.GetSystemManagers()
     {
         return _systemManagers?.ToList() ?? [];
     }
@@ -45,7 +45,7 @@ public partial class MainWindow : IGameFileLoadingHost
         return SetUiBeforeLoadGameFilesAsync();
     }
 
-    List<string> IGameFileLoadingHost.SetPaginationOfListOfFiles(List<string> allFiles)
+    IList<string> IGameFileLoadingHost.SetPaginationOfListOfFiles(IList<string> allFiles)
     {
         return SetPaginationOfListOfFiles(allFiles);
     }

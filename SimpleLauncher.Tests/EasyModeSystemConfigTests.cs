@@ -30,7 +30,8 @@ public class EasyModeSystemConfigTests
     {
         var config = new EasyModeSystemConfig
         {
-            SystemName = null!        };
+            SystemName = null!
+        };
 
         Assert.False(config.IsValid());
     }
@@ -252,7 +253,7 @@ public class EasyModeSystemConfigTests
             SystemFolder = @"C:\My ROMs\NES Games"
         };
 
-        Assert.Contains(" ", config.SystemName);
-        Assert.Contains(" ", config.SystemFolder);
+        Assert.Contains(" ", config.SystemName, StringComparison.Ordinal);
+        Assert.Contains(" ", config.SystemFolder, StringComparison.Ordinal);
     }
 }

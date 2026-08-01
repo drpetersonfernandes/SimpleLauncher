@@ -18,7 +18,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     public DaphneConfigurationServiceTests()
     {
         _configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?>
+            .AddInMemoryCollection(new Dictionary<string, string?>(StringComparer.Ordinal)
             {
                 ["Urls:YouTubeSearch"] = "https://www.youtube.com/results?search_query=",
                 ["Urls:IgdbSearch"] = "https://www.igdb.com/search?q="
@@ -34,9 +34,9 @@ public class DaphneConfigurationServiceTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    private SettingsManager CreateSettingsManager()
+    private SettingsManagerService CreateSettingsManager()
     {
-        return new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        return new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
     }
 
     /// <summary>
@@ -57,7 +57,7 @@ public class DaphneConfigurationServiceTests : IDisposable
         var settings = CreateSettingsManager();
         var args = DaphneConfigurationService.BuildArguments(settings);
 
-        Assert.Contains("-use_overlays", args);
+        Assert.Contains("-use_overlays", args, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -71,7 +71,7 @@ public class DaphneConfigurationServiceTests : IDisposable
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
-        Assert.Contains("-fullscreen", args);
+        Assert.Contains("-fullscreen", args, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -85,7 +85,7 @@ public class DaphneConfigurationServiceTests : IDisposable
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
-        Assert.DoesNotContain("-fullscreen", args);
+        Assert.DoesNotContain("-fullscreen", args, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -100,8 +100,8 @@ public class DaphneConfigurationServiceTests : IDisposable
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
-        Assert.Contains("-x 1920", args);
-        Assert.Contains("-y 1080", args);
+        Assert.Contains("-x 1920", args, StringComparison.Ordinal);
+        Assert.Contains("-y 1080", args, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -116,8 +116,8 @@ public class DaphneConfigurationServiceTests : IDisposable
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
-        Assert.DoesNotContain("-x", args);
-        Assert.DoesNotContain("-y", args);
+        Assert.DoesNotContain("-x", args, StringComparison.Ordinal);
+        Assert.DoesNotContain("-y", args, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -132,8 +132,8 @@ public class DaphneConfigurationServiceTests : IDisposable
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
-        Assert.DoesNotContain("-x", args);
-        Assert.DoesNotContain("-y", args);
+        Assert.DoesNotContain("-x", args, StringComparison.Ordinal);
+        Assert.DoesNotContain("-y", args, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -144,7 +144,7 @@ public class DaphneConfigurationServiceTests : IDisposable
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
-        Assert.Contains("-nocrosshairs", args);
+        Assert.Contains("-nocrosshairs", args, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -158,7 +158,7 @@ public class DaphneConfigurationServiceTests : IDisposable
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
-        Assert.DoesNotContain("-nocrosshairs", args);
+        Assert.DoesNotContain("-nocrosshairs", args, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -172,7 +172,7 @@ public class DaphneConfigurationServiceTests : IDisposable
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
-        Assert.Contains("-nolinear_scale", args);
+        Assert.Contains("-nolinear_scale", args, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -186,7 +186,7 @@ public class DaphneConfigurationServiceTests : IDisposable
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
-        Assert.DoesNotContain("-nolinear_scale", args);
+        Assert.DoesNotContain("-nolinear_scale", args, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -200,7 +200,7 @@ public class DaphneConfigurationServiceTests : IDisposable
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
-        Assert.Contains("-nosound", args);
+        Assert.Contains("-nosound", args, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -214,7 +214,7 @@ public class DaphneConfigurationServiceTests : IDisposable
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
-        Assert.DoesNotContain("-nosound", args);
+        Assert.DoesNotContain("-nosound", args, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -228,7 +228,7 @@ public class DaphneConfigurationServiceTests : IDisposable
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
-        Assert.Contains("-use_overlays 1", args);
+        Assert.Contains("-use_overlays 1", args, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -242,7 +242,7 @@ public class DaphneConfigurationServiceTests : IDisposable
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
-        Assert.Contains("-use_overlays 0", args);
+        Assert.Contains("-use_overlays 0", args, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -262,12 +262,12 @@ public class DaphneConfigurationServiceTests : IDisposable
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
-        Assert.Contains("-fullscreen", args);
-        Assert.Contains("-x 1920", args);
-        Assert.Contains("-y 1080", args);
-        Assert.Contains("-nocrosshairs", args);
-        Assert.Contains("-nolinear_scale", args);
-        Assert.Contains("-nosound", args);
-        Assert.Contains("-use_overlays 1", args);
+        Assert.Contains("-fullscreen", args, StringComparison.Ordinal);
+        Assert.Contains("-x 1920", args, StringComparison.Ordinal);
+        Assert.Contains("-y 1080", args, StringComparison.Ordinal);
+        Assert.Contains("-nocrosshairs", args, StringComparison.Ordinal);
+        Assert.Contains("-nolinear_scale", args, StringComparison.Ordinal);
+        Assert.Contains("-nosound", args, StringComparison.Ordinal);
+        Assert.Contains("-use_overlays 1", args, StringComparison.Ordinal);
     }
 }

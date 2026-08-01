@@ -153,6 +153,6 @@ public partial class RomHistoryViewModel : ObservableObject
         });
     }
 
-    [GeneratedRegex(@"https?://[^\s""\]>)]+", RegexOptions.Compiled)]
+    [GeneratedRegex(@"https?://[^\s""\]>)]+", RegexOptions.Compiled, 1000)]
     private static partial Regex MyRegex();
 }

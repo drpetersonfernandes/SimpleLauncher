@@ -12,7 +12,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class SetLinksViewModel : ObservableObject
 {
-    private readonly SettingsManager _settingsManager;
+    private readonly SettingsManagerService _settingsManager;
     private readonly IConfiguration _configuration;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
@@ -20,7 +20,7 @@ public partial class SetLinksViewModel : ObservableObject
     [ObservableProperty] private string _videoUrl = "";
     [ObservableProperty] private string _infoUrl = "";
 
-    public SetLinksViewModel(SettingsManager settingsManager, IConfiguration configuration, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
+    public SetLinksViewModel(SettingsManagerService settingsManager, IConfiguration configuration, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _settingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
         _configuration = configuration;
@@ -32,9 +32,9 @@ public partial class SetLinksViewModel : ObservableObject
     }
 
     /// <summary>Event raised when settings have been saved.</summary>
-    public event Action SaveCompleted = null!;
+    public event EventHandler SaveCompleted = null!;
     /// <summary>Event raised when the window should be closed.</summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     [RelayCommand]
     private async Task SaveAsync()
     {
@@ -53,13 +53,13 @@ public partial class SetLinksViewModel : ObservableObject
 
         await _messageBox.LinksSavedMessageBoxAsync();
 
-        SaveCompleted?.Invoke();
+        SaveCompleted?.Invoke(this, EventArgs.Empty);
     }
 
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     [RelayCommand]
@@ -78,6 +78,6 @@ public partial class SetLinksViewModel : ObservableObject
 
         await _messageBox.LinksRevertedMessageBoxAsync();
 
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 }

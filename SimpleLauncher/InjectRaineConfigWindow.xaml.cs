@@ -29,7 +29,7 @@ public partial class InjectRaineConfigWindow
         _requestFolderPathHandler = OnRequestFolderPath;
         _getOwnerWindowHandler = () => this;
 
-        _viewModel.CloseRequested += Close;
+        _viewModel.CloseRequested += OnCloseRequested;
         _viewModel.RequestEmulatorPath += _requestEmulatorPathHandler;
         _viewModel.RequestFilePath += _requestFilePathHandler;
         _viewModel.RequestFolderPath += _requestFolderPathHandler;
@@ -37,7 +37,7 @@ public partial class InjectRaineConfigWindow
 
         Closing += (_, _) =>
         {
-            _viewModel.CloseRequested -= Close;
+            _viewModel.CloseRequested -= OnCloseRequested;
             _viewModel.RequestEmulatorPath -= _requestEmulatorPathHandler;
             _viewModel.RequestFilePath -= _requestFilePathHandler;
             _viewModel.RequestFolderPath -= _requestFolderPathHandler;
@@ -46,6 +46,8 @@ public partial class InjectRaineConfigWindow
 
         DataContext = _viewModel;
     }
+
+    private void OnCloseRequested(object? sender, EventArgs e) => Close();
 
     /// <summary>
     /// Initializes the window with the specified emulator path, launcher mode, and file paths.

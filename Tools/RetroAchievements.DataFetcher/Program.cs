@@ -226,7 +226,7 @@ file static class Program
             Console.Write("Update credentials? (y/n): ");
             var response = Console.ReadLine()?.Trim().ToLowerInvariant();
 
-            if (response != "y" && response != "yes")
+            if (!string.Equals(response, "y", StringComparison.Ordinal) && !string.Equals(response, "yes", StringComparison.Ordinal))
             {
                 return Task.FromResult(settings);
             }

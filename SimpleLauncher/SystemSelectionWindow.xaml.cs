@@ -19,11 +19,11 @@ public partial class SystemSelectionWindow
         App.ApplyThemeToWindow(this);
 
         _viewModel = viewModel;
-        _viewModel.DialogResultRequested += result =>
+        _viewModel.DialogResultRequested += (_, e) =>
         {
             if (IsLoaded)
             {
-                DialogResult = result;
+                DialogResult = e.Value;
             }
 
             Close();

@@ -9,7 +9,7 @@ public class LoadingOverlayService
 {
     private ILoadingOverlayHost _host = null!;
     private int _loadingOperationsCount;
-    private readonly object _loadingStateLock = new();
+    private readonly Lock _loadingStateLock = new();
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly ILogger _logger;
 

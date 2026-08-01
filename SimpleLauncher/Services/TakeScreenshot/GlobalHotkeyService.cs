@@ -35,7 +35,7 @@ public partial class GlobalHotkeyService : IDisposable
     /// <summary>
     /// Raised when the F8 global hotkey is pressed.
     /// </summary>
-    public event Func<Task> F8Pressed = null!;
+    public Func<Task>? F8Pressed { get; set; }
 
     public GlobalHotkeyService(ILogger logger)
     {

@@ -12,7 +12,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class InjectRpcs3ConfigViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath = null!;
@@ -28,7 +28,7 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
     [ObservableProperty] private bool _rpcs3AudioBuffering;
     [ObservableProperty] private bool _rpcs3StartFullscreen;
     [ObservableProperty] private bool _rpcs3ShowSettingsBeforeLaunch;
-    public InjectRpcs3ConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectRpcs3ConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -50,42 +50,42 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
     /// <summary>
     /// Available renderer options for RPCS3.
     /// </summary>
-    public List<string> RendererOptions { get; } = ["Vulkan", "OpenGL", "Null"];
+    public IList<string> RendererOptions { get; } = ["Vulkan", "OpenGL", "Null"];
 
     /// <summary>
     /// Available resolution options for RPCS3.
     /// </summary>
-    public List<string> ResolutionOptions { get; } = ["1280x720", "1920x1080", "2560x1440", "3840x2160"];
+    public IList<string> ResolutionOptions { get; } = ["1280x720", "1920x1080", "2560x1440", "3840x2160"];
 
     /// <summary>
     /// Available aspect ratio options for RPCS3.
     /// </summary>
-    public List<string> AspectRatioOptions { get; } = ["16:9", "4:3", "Auto"];
+    public IList<string> AspectRatioOptions { get; } = ["16:9", "4:3", "Auto"];
 
     /// <summary>
     /// Available resolution scale percentage options for RPCS3.
     /// </summary>
-    public List<string> ResolutionScaleOptions { get; } = ["100", "150", "200", "300"];
+    public IList<string> ResolutionScaleOptions { get; } = ["100", "150", "200", "300"];
 
     /// <summary>
     /// Available anisotropic filtering options for RPCS3.
     /// </summary>
-    public List<string> AnisotropicFilterOptions { get; } = ["0", "2", "4", "8", "16"];
+    public IList<string> AnisotropicFilterOptions { get; } = ["0", "2", "4", "8", "16"];
 
     /// <summary>
     /// Available PPU decoder options for RPCS3.
     /// </summary>
-    public List<string> PpuDecoderOptions { get; } = ["Recompiler (LLVM)", "Interpreter (static)", "Interpreter (dynamic)"];
+    public IList<string> PpuDecoderOptions { get; } = ["Recompiler (LLVM)", "Interpreter (static)", "Interpreter (dynamic)"];
 
     /// <summary>
     /// Available SPU decoder options for RPCS3.
     /// </summary>
-    public List<string> SpuDecoderOptions { get; } = ["Recompiler (LLVM)", "Recompiler (ASMJIT)", "Interpreter (static)", "Interpreter (dynamic)"];
+    public IList<string> SpuDecoderOptions { get; } = ["Recompiler (LLVM)", "Recompiler (ASMJIT)", "Interpreter (static)", "Interpreter (dynamic)"];
 
     /// <summary>
     /// Available audio renderer options for RPCS3.
     /// </summary>
-    public List<string> AudioRendererOptions { get; } = ["Cubeb", "XAudio2", "Null"];
+    public IList<string> AudioRendererOptions { get; } = ["Cubeb", "XAudio2", "Null"];
 
     /// <summary>
     /// Gets whether the configuration is being injected from launcher mode.
@@ -100,21 +100,21 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string?> RequestEmulatorPath = null!;
+    public Func<string?>? RequestEmulatorPath { get; set; }
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow = null!;
+    public Func<Window>? GetOwnerWindow { get; set; }
     private void LoadSettings()
     {
         Rpcs3Renderer = _settings.Rpcs3.Renderer;
@@ -198,17 +198,17 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 ShouldRun = true;
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -227,17 +227,17 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 await _messageBox.Rpcs3ConfigurationSavedSuccessfullyMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {

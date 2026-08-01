@@ -5,7 +5,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class Pcsx2ConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -122,7 +122,7 @@ public static class Pcsx2ConfigurationService
             if (currentUpdates != null && currentUpdates.Remove(key, out var newValue))
             {
                 var newLine = $"{key} = {newValue}";
-                if (lines[i] != newLine)
+                if (!string.Equals(lines[i], newLine, StringComparison.Ordinal))
                 {
                     lines[i] = newLine;
                     modified = true;
@@ -238,19 +238,5 @@ public static class Pcsx2ConfigurationService
         {
             modified = true;
         }
-    }
-}
-
-/// <summary>
-/// Exception thrown when PCSX2 configuration cannot be modified due to file permission issues.
-/// </summary>
-public class Pcsx2PermissionException : Exception
-{
-    public Pcsx2PermissionException(string message) : base(message)
-    {
-    }
-
-    public Pcsx2PermissionException(string message, Exception innerException) : base(message, innerException)
-    {
     }
 }

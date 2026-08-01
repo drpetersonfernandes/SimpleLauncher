@@ -33,7 +33,7 @@ public class GameCacheService : IGameCacheService, IDisposable
     /// <summary>
     /// Returns a snapshot of all cached game file paths for the current system.
     /// </summary>
-    public async Task<List<string>> GetAllGamesAsync(CancellationToken ct)
+    public async Task<IList<string>> GetAllGamesAsync(CancellationToken ct)
     {
         await _lock.WaitAsync(ct);
         try
@@ -49,7 +49,7 @@ public class GameCacheService : IGameCacheService, IDisposable
     /// <summary>
     /// Returns a snapshot of the current search result file paths.
     /// </summary>
-    public async Task<List<string>> GetSearchResultsAsync(CancellationToken ct)
+    public async Task<IList<string>> GetSearchResultsAsync(CancellationToken ct)
     {
         await _lock.WaitAsync(ct);
         try
@@ -82,7 +82,7 @@ public class GameCacheService : IGameCacheService, IDisposable
     /// <summary>
     /// Replaces the cached list of all games for the specified system.
     /// </summary>
-    public async Task SetAllGamesAsync(List<string> games, string systemName, CancellationToken ct)
+    public async Task SetAllGamesAsync(IList<string> games, string systemName, CancellationToken ct)
     {
         await _lock.WaitAsync(ct);
         try
@@ -100,7 +100,7 @@ public class GameCacheService : IGameCacheService, IDisposable
     /// <summary>
     /// Replaces the cached search results with the provided file list.
     /// </summary>
-    public async Task SetSearchResultsAsync(List<string> results, CancellationToken ct)
+    public async Task SetSearchResultsAsync(IList<string> results, CancellationToken ct)
     {
         await _lock.WaitAsync(ct);
         try
@@ -137,7 +137,7 @@ public class GameCacheService : IGameCacheService, IDisposable
     /// Populates the cache from disk by scanning the system's configured folders,
     /// skipping if the cache is already populated for the same system.
     /// </summary>
-    public async Task PopulateFromDiskAsync(SystemManager.SystemManager config, IGetListOfFilesService fileService, CancellationToken ct)
+    public async Task PopulateFromDiskAsync(SystemManager.SystemManagerService config, IGetListOfFilesService fileService, CancellationToken ct)
     {
         await _lock.WaitAsync(ct);
         try

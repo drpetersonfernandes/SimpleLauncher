@@ -4,7 +4,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class RetroArchConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -39,7 +39,7 @@ public static class RetroArchConfigurationService
         logger.Debug($"[RetroArchConfig] Injecting configuration into: {configPath}");
 
         // Prepare settings dictionary
-        var updates = new Dictionary<string, string>
+        var updates = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             // --- Video ---
             { "video_fullscreen", FormatBool(settings.RetroArch.Fullscreen) },

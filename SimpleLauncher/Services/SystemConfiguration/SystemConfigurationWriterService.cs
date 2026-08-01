@@ -16,7 +16,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
     private readonly IConfiguration _configuration;
     private readonly ILogger _logger;
     private readonly DataFileLocation _fileLocation;
-    private static readonly object XmlLock = new();
+    private static readonly Lock XmlLock = new();
 
     /// <summary>
     /// Initializes a new instance of the SystemConfigurationWriterService with the specified dependencies.
@@ -73,7 +73,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                     if (root != null)
                     {
                         var existingSystem = root.Elements("SystemConfig")
-                            .FirstOrDefault(el => el.Element("SystemName")?.Value == systemIdentifier);
+                            .FirstOrDefault(el => string.Equals(el.Element("SystemName")?.Value, systemIdentifier, StringComparison.Ordinal));
 
                         if (existingSystem != null)
                         {
@@ -193,7 +193,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                     }
 
                     var systemNode = xmlDoc.Root?.Descendants("SystemConfig")
-                        .FirstOrDefault(el => el.Element("SystemName")?.Value == systemName);
+                        .FirstOrDefault(el => string.Equals(el.Element("SystemName")?.Value, systemName, StringComparison.Ordinal));
 
                     if (systemNode != null)
                     {

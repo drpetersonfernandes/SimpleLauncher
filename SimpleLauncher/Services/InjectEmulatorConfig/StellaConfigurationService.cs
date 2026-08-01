@@ -5,7 +5,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class StellaConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -38,7 +38,7 @@ public static class StellaConfigurationService
 
         logger.Debug($"[StellaConfig] Injecting configuration into: {configPath}");
 
-        var updates = new Dictionary<string, string>
+        var updates = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             { "fullscreen", settings.Stella.Fullscreen ? "1" : "0" },
             { "vsync", settings.Stella.Vsync ? "true" : "false" },

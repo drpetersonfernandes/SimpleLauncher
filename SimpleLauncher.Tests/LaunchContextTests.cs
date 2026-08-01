@@ -15,7 +15,7 @@ public class LaunchContextTests
         Assert.Equal("", context.EmulatorName);
         Assert.Equal("", context.SystemName);
         Assert.Equal("", context.Parameters);
-        Assert.Null(context.SystemManager);
+        Assert.Null(context.SystemManagerService);
         Assert.Null(context.EmulatorManager);
         Assert.Null(context.Settings);
         Assert.Null(context.WindowContext);
@@ -56,7 +56,7 @@ public class LaunchContextTests
             Parameters = "-L \"C:\\cores\\nestopia_libretro.dll\""
         };
 
-        Assert.Contains("nestopia_libretro.dll", context.Parameters);
+        Assert.Contains("nestopia_libretro.dll", context.Parameters, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -65,6 +65,6 @@ public class LaunchContextTests
         var c1 = new LaunchContext { FilePath = "a" };
         var c2 = new LaunchContext { FilePath = "b" };
 
-        Assert.NotEqual(c1.FilePath, c2.FilePath);
+        Assert.NotEqual(c1.FilePath, c2.FilePath, StringComparer.Ordinal);
     }
 }

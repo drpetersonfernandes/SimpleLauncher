@@ -55,7 +55,7 @@ public class MesenConfigHandler : IEmulatorConfigHandler
             {
                 shouldRun = true;
                 if (File.Exists(resolvedExe))
-                    MesenConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger);
+                    MesenConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
             }
 
             return shouldRun;

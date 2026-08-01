@@ -39,8 +39,8 @@ public static class RomHistoryLoader
         foreach (var entry in history.Entries)
         {
             if ((entry.Systems?.SystemItems != null &&
-                 entry.Systems.SystemItems.Any(s => s.Name == romName)) || (entry.Software?.Items != null &&
-                                                                            entry.Software.Items.Any(i => i.Name == romName)))
+                 entry.Systems.SystemItems.Any(s => string.Equals(s.Name, romName, StringComparison.Ordinal))) || (entry.Software?.Items != null &&
+                                                                            entry.Software.Items.Any(i => string.Equals(i.Name, romName, StringComparison.Ordinal))))
             {
                 return BuildEntryXElement(entry);
             }
@@ -103,9 +103,9 @@ public static class RomHistoryLoader
 
         return doc.Descendants("entry")
                    .FirstOrDefault(e => e.Element("systems")?.Elements("system")
-                       .Any(system => system.Attribute("name")?.Value == romName) == true)
+                       .Any(system => string.Equals(system.Attribute("name")?.Value, romName, StringComparison.Ordinal)) == true)
                ?? doc.Descendants("entry")
                    .FirstOrDefault(e => e.Element("software")?.Elements("item")
-                       .Any(item => item.Attribute("name")?.Value == romName) == true);
+                       .Any(item => string.Equals(item.Attribute("name")?.Value, romName, StringComparison.Ordinal)) == true);
     }
 }

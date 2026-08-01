@@ -56,27 +56,27 @@ public class FormatFileSizeTests
     public void FormatToHumanReadableJustUnder1MbUsesKbUnit()
     {
         var result = FormatFileSize.FormatToHumanReadable(1024L * 1024 - 1);
-        Assert.Contains("KB", result);
+        Assert.Contains("KB", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void FormatToHumanReadableJustUnder1GbUsesMbUnit()
     {
         var result = FormatFileSize.FormatToHumanReadable(1024L * 1024 * 1024 - 1);
-        Assert.Contains("MB", result);
+        Assert.Contains("MB", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void FormatToMbContainsMbSuffix()
     {
         var result = FormatFileSize.FormatToMb(1024 * 1024);
-        Assert.Contains("MB", result);
+        Assert.Contains("MB", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void FormatToHumanReadableLargeValueUsesTbUnit()
     {
         var result = FormatFileSize.FormatToHumanReadable(long.MaxValue);
-        Assert.Contains("TB", result);
+        Assert.Contains("TB", result, StringComparison.Ordinal);
     }
 }

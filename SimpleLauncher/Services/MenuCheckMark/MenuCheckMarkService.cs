@@ -63,9 +63,9 @@ public class MenuCheckMarkService : IMenuCheckMarkService
     /// </summary>
     public void UpdateShowGamesCheckMarks(string selectedValue)
     {
-        _host.ShowAll.IsChecked = selectedValue == "ShowAll";
-        _host.ShowWithCover.IsChecked = selectedValue == "ShowWithCover";
-        _host.ShowWithoutCover.IsChecked = selectedValue == "ShowWithoutCover";
+        _host.ShowAll.IsChecked = string.Equals(selectedValue, "ShowAll", StringComparison.Ordinal);
+        _host.ShowWithCover.IsChecked = string.Equals(selectedValue, "ShowWithCover", StringComparison.Ordinal);
+        _host.ShowWithoutCover.IsChecked = string.Equals(selectedValue, "ShowWithoutCover", StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -73,13 +73,13 @@ public class MenuCheckMarkService : IMenuCheckMarkService
     /// </summary>
     public void UpdateButtonAspectRatioCheckMarks(string selectedValue)
     {
-        _host.Square.IsChecked = selectedValue == "Square";
-        _host.Wider.IsChecked = selectedValue == "Wider";
-        _host.SuperWider.IsChecked = selectedValue == "SuperWider";
-        _host.SuperWider2.IsChecked = selectedValue == "SuperWider2";
-        _host.Taller.IsChecked = selectedValue == "Taller";
-        _host.SuperTaller.IsChecked = selectedValue == "SuperTaller";
-        _host.SuperTaller2.IsChecked = selectedValue == "SuperTaller2";
+        _host.Square.IsChecked = string.Equals(selectedValue, "Square", StringComparison.Ordinal);
+        _host.Wider.IsChecked = string.Equals(selectedValue, "Wider", StringComparison.Ordinal);
+        _host.SuperWider.IsChecked = string.Equals(selectedValue, "SuperWider", StringComparison.Ordinal);
+        _host.SuperWider2.IsChecked = string.Equals(selectedValue, "SuperWider2", StringComparison.Ordinal);
+        _host.Taller.IsChecked = string.Equals(selectedValue, "Taller", StringComparison.Ordinal);
+        _host.SuperTaller.IsChecked = string.Equals(selectedValue, "SuperTaller", StringComparison.Ordinal);
+        _host.SuperTaller2.IsChecked = string.Equals(selectedValue, "SuperTaller2", StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -87,9 +87,9 @@ public class MenuCheckMarkService : IMenuCheckMarkService
     /// </summary>
     public void UpdateFilenameDisplayModeCheckMarks(string selectedValue)
     {
-        _host.FilenameDisplayOriginal.IsChecked = selectedValue == "Original";
-        _host.FilenameDisplayCleanUp.IsChecked = selectedValue == "CleanUp";
-        _host.FilenameDisplayNoFilename.IsChecked = selectedValue == "NoFilename";
+        _host.FilenameDisplayOriginal.IsChecked = string.Equals(selectedValue, "Original", StringComparison.Ordinal);
+        _host.FilenameDisplayCleanUp.IsChecked = string.Equals(selectedValue, "CleanUp", StringComparison.Ordinal);
+        _host.FilenameDisplayNoFilename.IsChecked = string.Equals(selectedValue, "NoFilename", StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -97,9 +97,9 @@ public class MenuCheckMarkService : IMenuCheckMarkService
     /// </summary>
     public void UpdateFilenameFontSizeCheckMarks(string selectedValue)
     {
-        _host.FilenameFontSizeSmall.IsChecked = selectedValue == "Small";
-        _host.FilenameFontSizeNormal.IsChecked = selectedValue == "Normal";
-        _host.FilenameFontSizeBig.IsChecked = selectedValue == "Big";
+        _host.FilenameFontSizeSmall.IsChecked = string.Equals(selectedValue, "Small", StringComparison.Ordinal);
+        _host.FilenameFontSizeNormal.IsChecked = string.Equals(selectedValue, "Normal", StringComparison.Ordinal);
+        _host.FilenameFontSizeBig.IsChecked = string.Equals(selectedValue, "Big", StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -107,9 +107,9 @@ public class MenuCheckMarkService : IMenuCheckMarkService
     /// </summary>
     public void UpdateMachineNameFontSizeCheckMarks(string selectedValue)
     {
-        _host.MachineNameFontSizeSmall.IsChecked = selectedValue == "Small";
-        _host.MachineNameFontSizeNormal.IsChecked = selectedValue == "Normal";
-        _host.MachineNameFontSizeBig.IsChecked = selectedValue == "Big";
+        _host.MachineNameFontSizeSmall.IsChecked = string.Equals(selectedValue, "Small", StringComparison.Ordinal);
+        _host.MachineNameFontSizeNormal.IsChecked = string.Equals(selectedValue, "Normal", StringComparison.Ordinal);
+        _host.MachineNameFontSizeBig.IsChecked = string.Equals(selectedValue, "Big", StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -118,7 +118,7 @@ public class MenuCheckMarkService : IMenuCheckMarkService
     /// <param name="viewMode">The view mode to set ("ListView" or "GridView").</param>
     public void SetViewMode(string viewMode)
     {
-        if (viewMode == "ListView")
+        if (string.Equals(viewMode, "ListView", StringComparison.Ordinal))
         {
             _host.ListView.IsChecked = true;
             _host.GridView.IsChecked = false;

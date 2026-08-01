@@ -2,14 +2,14 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.ViewModels;
-using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 
 namespace SimpleLauncher;
 
 internal partial class GlobalStatsWindow : IDisposable
 {
     private readonly GlobalStatsViewModel _viewModel;
-    private Action? _closeRequestedHandler;
+    private EventHandler? _closeRequestedHandler;
     private Button? _emergencyReturnButton;
 
     public GlobalStatsWindow(GlobalStatsViewModel viewModel)
@@ -17,7 +17,7 @@ internal partial class GlobalStatsWindow : IDisposable
         InitializeComponent();
 
         _viewModel = viewModel;
-        _closeRequestedHandler = () =>
+        _closeRequestedHandler = (_, _) =>
         {
             Application.Current.Dispatcher.InvokeAsync(Close);
         };

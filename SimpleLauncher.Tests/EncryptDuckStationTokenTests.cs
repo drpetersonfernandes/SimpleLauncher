@@ -67,7 +67,7 @@ public class EncryptDuckStationTokenTests
     {
         var result1 = EncryptDuckStationToken.EncryptDuckStationTokenMethod("mytoken", "user1", true, null!);
         var result2 = EncryptDuckStationToken.EncryptDuckStationTokenMethod("mytoken", "user2", true, null!);
-        Assert.NotEqual(result1, result2);
+        Assert.NotEqual(result1, result2, StringComparer.Ordinal);
     }
 
     /// <summary>
@@ -78,7 +78,7 @@ public class EncryptDuckStationTokenTests
     {
         var result1 = EncryptDuckStationToken.EncryptDuckStationTokenMethod("token1", "myuser", true, null!);
         var result2 = EncryptDuckStationToken.EncryptDuckStationTokenMethod("token2", "myuser", true, null!);
-        Assert.NotEqual(result1, result2);
+        Assert.NotEqual(result1, result2, StringComparer.Ordinal);
     }
 
     /// <summary>

@@ -31,6 +31,6 @@ public static partial class XmlHelper
             .Replace("&quot;", "\"");
     }
 
-    [GeneratedRegex("""<system:String\s+x:Key="([^"]+)"[^>]*>([\s\S]*?)</system:String>""")]
+    [GeneratedRegex("""<system:String\s+x:Key="([^"]+)"[^>]*>([\s\S]*?)</system:String>""", RegexOptions.None | RegexOptions.ExplicitCapture, 1000)]
     public static partial Regex EntryRegex();
 }

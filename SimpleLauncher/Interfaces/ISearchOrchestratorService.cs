@@ -1,4 +1,3 @@
-using SimpleLauncher.Services.SearchOrchestrator;
 using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Interfaces;

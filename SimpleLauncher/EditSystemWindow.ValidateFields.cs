@@ -32,7 +32,7 @@ internal partial class EditSystemWindow
         var actualTheme = baseTheme;
 
         // Resolve "Adaptive" to actual theme based on system setting
-        if (baseTheme == "Adaptive")
+        if (string.Equals(baseTheme, "Adaptive", StringComparison.Ordinal))
         {
             actualTheme = IsSystemDarkMode() ? "Dark" : "Light";
         }

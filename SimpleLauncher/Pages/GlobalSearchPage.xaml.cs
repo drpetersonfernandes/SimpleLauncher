@@ -12,11 +12,10 @@ using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
-using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Services.WpfServices;
 using SimpleLauncher.ViewModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
-using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 
 namespace SimpleLauncher.Pages;
 
@@ -25,27 +24,27 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
     private readonly GlobalSearchViewModel _viewModel;
     private readonly MainWindow _mainWindow;
     private readonly GamePadController _gamePadController;
-    private readonly GameLauncher _gameLauncher;
+    private readonly GameLauncherService _gameLauncher;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IFindCoverImageService _findCoverImage;
-    private readonly List<MameManager> _machines;
+    private readonly List<MameManagerService> _machines;
     private readonly FavoritesManager _favoritesManager;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly IContextMenuFunctions _contextMenuFunctions;
     private readonly ILogger _logger;
     private readonly IContextMenuService _contextMenuService;
 
     public GlobalSearchPage(
         List<SystemManager> systemManagers,
-        List<MameManager> machines,
+        List<MameManagerService> machines,
         Dictionary<string, string> mameLookup,
         FavoritesManager favoritesManager,
-        SettingsManager settings,
+        SettingsManagerService settings,
         MainWindow mainWindow,
         GamePadController gamePadController,
-        GameLauncher gameLauncher,
+        GameLauncherService gameLauncher,
         PlaySoundEffects playSoundEffects,
         IConfiguration configuration,
         IGetListOfFilesService getListOfFiles,

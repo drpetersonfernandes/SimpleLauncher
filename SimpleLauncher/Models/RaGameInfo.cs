@@ -33,5 +33,5 @@ public record RaGameInfo
     public string DateModified { get; set; } = "";
 
     [Key(8)]
-    public List<string> Hashes { get; set; } = [];
+    public IList<string> Hashes { get; set; } = [];
 }

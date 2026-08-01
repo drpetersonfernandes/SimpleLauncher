@@ -3,11 +3,11 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.CheckForRequiredFiles;
 
-public class CheckForRequiredFiles
+public class CheckForRequiredFilesService
 {
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
 
-    public CheckForRequiredFiles(IMessageBoxLibraryService messageBoxLibrary)
+    public CheckForRequiredFilesService(IMessageBoxLibraryService messageBoxLibrary)
     {
         _messageBoxLibrary = messageBoxLibrary;
     }

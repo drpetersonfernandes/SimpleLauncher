@@ -40,10 +40,10 @@ public class MameConfigHandler : IEmulatorConfigHandler
         if (context.EmulatorManager != null)
         {
             var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
-            if (context.SystemManager != null)
+            if (context.SystemManagerService != null)
             {
-                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(context.SystemManager.PrimarySystemFolder);
-                var listOfSecondarySystemFolders = context.SystemManager.SystemFolders.ToArray();
+                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(context.SystemManagerService.PrimarySystemFolder);
+                var listOfSecondarySystemFolders = context.SystemManagerService.SystemFolders.ToArray();
 
                 var shouldRun = true;
                 if (context.Settings != null && context.Settings.Mame.ShowSettingsBeforeLaunch)

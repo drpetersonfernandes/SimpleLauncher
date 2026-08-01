@@ -93,7 +93,7 @@ public class PaginationService : IPaginationService
     /// <summary>
     /// Applies pagination to the file list, returning only the current page's files when the threshold is exceeded.
     /// </summary>
-    public List<string> ApplyPagination(List<string> allFiles)
+    public IList<string> ApplyPagination(IList<string> allFiles)
     {
         TotalFiles = allFiles.Count;
 

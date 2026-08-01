@@ -5,7 +5,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class MesenConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))

@@ -24,7 +24,7 @@ public class GeminiTranslationService
         _apiVersion = apiVersion;
     }
 
-    public static List<GeminiModelInfo> GetAvailableModels()
+    public static IList<GeminiModelInfo> GetAvailableModels()
     {
         return
         [
@@ -95,9 +95,9 @@ public class GeminiTranslationService
         ];
     }
 
-    public async Task<Dictionary<string, string>> TranslateBatchAsync(
+    public async Task<IDictionary<string, string>> TranslateBatchAsync(
         string targetLanguageName,
-        List<KeyValuePair<string, string>> entries,
+        IList<KeyValuePair<string, string>> entries,
         CancellationToken cancellationToken = default)
     {
         var apiUrl = $"https://generativelanguage.googleapis.com/{_apiVersion}/models/{_modelId}:generateContent?key={_apiKey}";
@@ -177,7 +177,7 @@ public class GeminiTranslationService
         if (first.TryGetProperty("finishReason", out var finishReason))
         {
             var reason = finishReason.GetString();
-            if (reason != "STOP")
+            if (!string.Equals(reason, "STOP", StringComparison.Ordinal))
             {
                 throw new InvalidOperationException($"Gemini generation stopped. Reason: {reason}");
             }

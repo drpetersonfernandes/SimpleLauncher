@@ -11,7 +11,7 @@ namespace SimpleLauncher.Services.GameFileLoadingOrchestrator;
 /// Orchestrates the game file loading pipeline: building file lists from disk or cache,
 /// applying filters (letter, search, favorites, RetroAchievements), sorting, and rendering.
 /// </summary>
-public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
+public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
 {
     private IGameFileLoadingHost _host = null!;
     private readonly IGameCacheService _gameCacheService;
@@ -22,16 +22,16 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
     private readonly RetroAchievementsService _retroAchievementsService;
     private readonly IFindCoverImageService _findCoverImage;
     private readonly IGameItemRenderService _gameItemRenderService;
-    private readonly SettingsManager.SettingsManager _settings;
+    private readonly SettingsManager.SettingsManagerService _settings;
     private readonly IUpdateStatusBar _updateStatusBarService;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly ILogger _logger;
     private readonly IRetroAchievementsSystemMatcher _systemMatcher;
 
     /// <summary>
-    /// Initializes a new instance of <see cref="GameFileLoadingOrchestrator"/> with all required dependencies.
+    /// Initializes a new instance of <see cref="GameFileLoadingOrchestratorService"/> with all required dependencies.
     /// </summary>
-    public GameFileLoadingOrchestrator(
+    public GameFileLoadingOrchestratorService(
         IGameCacheService gameCacheService,
         IGameFilterService gameFilterService,
         IMameDataService mameDataService,
@@ -40,7 +40,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
         RetroAchievementsService retroAchievementsService,
         IFindCoverImageService findCoverImage,
         IGameItemRenderService gameItemRenderService,
-        SettingsManager.SettingsManager settings,
+        SettingsManager.SettingsManagerService settings,
 IUpdateStatusBar updateStatusBarService,
         IMessageBoxLibraryService messageBox,
         ILogger logger,
@@ -104,7 +104,7 @@ IUpdateStatusBar updateStatusBarService,
                 return;
             }
 
-            var allFiles = await BuildListOfAllFilesToLoad(selectedManager, startLetter, searchQuery, cancellationToken);
+            IList<string> allFiles = await BuildListOfAllFilesToLoad(selectedManager, startLetter, searchQuery, cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
 
             if (selectedManager.GroupByFolder)
@@ -135,7 +135,7 @@ IUpdateStatusBar updateStatusBarService,
                         }
 
                         return fileDir;
-                    })
+                    }, StringComparer.Ordinal)
                     .Select(static g => g.Key)
                     .ToList();
                 allFiles = groupedFiles;
@@ -220,7 +220,7 @@ IUpdateStatusBar updateStatusBarService,
     /// <param name="startLetter">The start letter.</param>
     /// <param name="searchQuery">The search query.</param>
     /// <param name="token">The token.</param>
-    private async Task<List<string>> BuildListOfAllFilesToLoad(SystemManager.SystemManager selectedManager, string? startLetter, string? searchQuery, CancellationToken token)
+    private async Task<IList<string>> BuildListOfAllFilesToLoad(SystemManager.SystemManagerService selectedManager, string? startLetter, string? searchQuery, CancellationToken token)
     {
         if (_host.IsResortOperation)
         {
@@ -235,7 +235,7 @@ IUpdateStatusBar updateStatusBarService,
             }
         }
 
-        List<string> allFiles;
+        IList<string> allFiles;
 
         switch (searchQuery)
         {
@@ -392,7 +392,7 @@ IUpdateStatusBar updateStatusBarService,
                         await _gameCacheService.SetSearchResultsAsync(allFiles, token);
                     }
 
-                    if (!string.IsNullOrWhiteSpace(searchQuery) && searchQuery != "RANDOM_SELECTION" && searchQuery != "FAVORITES")
+                    if (!string.IsNullOrWhiteSpace(searchQuery) && !string.Equals(searchQuery, "RANDOM_SELECTION", StringComparison.Ordinal) && !string.Equals(searchQuery, "FAVORITES", StringComparison.Ordinal))
                     {
                         allFiles = await _gameFilterService.FilterBySearchQueryAsync(allFiles, searchQuery, _mameDataService.Lookup);
                         await _gameCacheService.SetSearchResultsAsync(allFiles, token);
@@ -409,7 +409,7 @@ IUpdateStatusBar updateStatusBarService,
     /// get favorite games for selected system.
     /// </summary>
     /// <param name="selectedManager">The selected manager.</param>
-    private List<string> GetFavoriteGamesForSelectedSystem(SystemManager.SystemManager selectedManager)
+    private List<string> GetFavoriteGamesForSelectedSystem(SystemManager.SystemManagerService selectedManager)
     {
         var favorites = _favoritesManager.FavoriteList;
 

@@ -62,7 +62,7 @@ public static partial class PathHelper
 
     public static string ResolveParameterString(
         string parameters,
-        List<string>? systemFolders = null,
+        IList<string>? systemFolders = null,
         string? resolvedEmulatorFolderPath = null,
         string? resolvedRomPath = null,
         string? romSystemFolder = null,
@@ -283,7 +283,7 @@ public static partial class PathHelper
         return @"\\?\" + path;
     }
 
-    public static string? FindFileInSystemFolders(List<string>? systemFolders, string? fileName)
+    public static string? FindFileInSystemFolders(IList<string>? systemFolders, string? fileName)
     {
         if (systemFolders == null || systemFolders.Count == 0 || string.IsNullOrEmpty(fileName))
         {
@@ -306,7 +306,7 @@ public static partial class PathHelper
         return null;
     }
 
-    public static string? FindContainingSystemFolder(List<string>? systemFolders, string? primarySystemFolder, string? filePath)
+    public static string? FindContainingSystemFolder(IList<string>? systemFolders, string? primarySystemFolder, string? filePath)
     {
         if (systemFolders == null || systemFolders.Count == 0 || string.IsNullOrEmpty(filePath))
         {
@@ -333,7 +333,7 @@ public static partial class PathHelper
 
     [GeneratedRegex("""
                     "[^"]*"|'[^']*'|\S+
-                    """)]
+                    """, RegexOptions.None, 1000)]
     private static partial Regex MyRegex();
 
     public static string? TryGetExistingDirectory(string? folderPath)

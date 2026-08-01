@@ -29,7 +29,7 @@ public partial class RetroAchievementsWindow : ILoadingState
     /// <param name="logger">The error logging service.</param>
     /// <param name="settings">The application settings manager.</param>
     /// <param name="raService">The RetroAchievements API service.</param>
-    public RetroAchievementsWindow(PlaySoundEffects playSoundEffects, ILogger logger, SettingsManager settings, RetroAchievementsService raService)
+    public RetroAchievementsWindow(PlaySoundEffects playSoundEffects, ILogger logger, SettingsManagerService settings, RetroAchievementsService raService)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);

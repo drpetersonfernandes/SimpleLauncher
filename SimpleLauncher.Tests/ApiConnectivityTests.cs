@@ -87,7 +87,7 @@ public class ApiConnectivityTests
                      ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
 
         HttpContent content;
-        if (url.Contains("simplelauncher/stats"))
+        if (url.Contains("simplelauncher/stats", StringComparison.Ordinal))
         {
             // Usage stats call (empty body, matching Stats.CallApiAsync behavior)
             content = new StringContent("", Encoding.UTF8, "application/json");

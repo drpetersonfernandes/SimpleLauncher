@@ -4,38 +4,6 @@ using System.Net.NetworkInformation;
 namespace Updater.Services;
 
 /// <summary>
-/// Event arguments for download progress updates.
-/// </summary>
-public class DownloadProgressEventArgs : EventArgs
-{
-    public double Percentage { get; set; }
-    public long BytesRead { get; set; }
-    public long TotalBytes { get; set; }
-    public string StatusText { get; set; } = "";
-}
-
-/// <summary>
-/// Event arguments for extraction progress updates.
-/// </summary>
-public class ExtractionProgressEventArgs : EventArgs
-{
-    public string? CurrentFile { get; set; }
-    public int ExtractedCount { get; set; }
-    public string StatusText { get; set; } = "";
-}
-
-/// <summary>
-/// Represents the result of an update operation.
-/// </summary>
-public class UpdateResult
-{
-    public bool Success { get; set; }
-    public string? Version { get; set; }
-    public string? ErrorMessage { get; set; }
-    public bool RequiresManualUpdate { get; set; }
-}
-
-/// <summary>
 /// Service that orchestrates the entire update process using other specialized services.
 /// </summary>
 public class UpdateService
@@ -50,7 +18,7 @@ public class UpdateService
     /// <summary>
     /// Event raised when a log message should be displayed.
     /// </summary>
-    public event Action<string>? LogMessage;
+    public event EventHandler<EventArgs<string>>? LogMessage;
 
     /// <summary>
     /// Event raised when download progress changes.
@@ -81,7 +49,7 @@ public class UpdateService
     /// Event raised when Dokan is not installed and the user should be prompted.
     /// Returns true if the user wants to install Dokan, false otherwise.
     /// </summary>
-    public event Func<Task<bool>>? DokanInstallationPrompt;
+    public Func<Task<bool>>? DokanInstallationPrompt { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the UpdateService class.
@@ -102,13 +70,13 @@ public class UpdateService
         _appDirectory = appDirectory;
 
         // Wire up service events
-        _gitHubService.LogMessage += msg => LogMessage?.Invoke(msg);
-        _downloadService.LogMessage += msg => LogMessage?.Invoke(msg);
+        _gitHubService.LogMessage += (_, e) => LogMessage?.Invoke(this, e);
+        _downloadService.LogMessage += (_, e) => LogMessage?.Invoke(this, e);
         _downloadService.ProgressChanged += OnDownloadProgressChanged;
-        _zipService.LogMessage += msg => LogMessage?.Invoke(msg);
+        _zipService.LogMessage += (_, e) => LogMessage?.Invoke(this, e);
         _zipService.ProgressChanged += OnExtractionProgressChanged;
-        _processService.LogMessage += msg => LogMessage?.Invoke(msg);
-        _dokanService.LogMessage += msg => LogMessage?.Invoke(msg);
+        _processService.LogMessage += (_, e) => LogMessage?.Invoke(this, e);
+        _dokanService.LogMessage += (_, e) => LogMessage?.Invoke(this, e);
         _dokanService.ProgressChanged += OnDownloadProgressChanged;
     }
 
@@ -204,7 +172,7 @@ public class UpdateService
                 await updateFileStream.DisposeAsync();
             }
 
-            LogMessage?.Invoke("Update installed successfully.");
+            LogMessage?.Invoke(this, new EventArgs<string>("Update installed successfully."));
 
             return new UpdateResult
             {
@@ -218,7 +186,7 @@ public class UpdateService
         }
         catch (Exception ex)
         {
-            LogMessage?.Invoke($"Automatic update failed: {ex.Message}");
+            LogMessage?.Invoke(this, new EventArgs<string>($"Automatic update failed: {ex.Message}"));
             return new UpdateResult
             {
                 Success = false,
@@ -254,42 +222,43 @@ public class UpdateService
         {
             if (_dokanService.IsDokanInstalled())
             {
-                LogMessage?.Invoke("Dokan is already installed. No action needed.");
+                LogMessage?.Invoke(this, new EventArgs<string>("Dokan is already installed. No action needed."));
                 return;
             }
 
             // Dokan is not installed - ask the user
-            LogMessage?.Invoke("Dokan library is not installed.");
+            LogMessage?.Invoke(this, new EventArgs<string>("Dokan library is not installed."));
 
             if (DokanInstallationPrompt != null)
             {
                 var shouldInstall = await DokanInstallationPrompt.Invoke();
                 if (!shouldInstall)
                 {
-                    LogMessage?.Invoke("Skipping Dokan installation.");
+                    LogMessage?.Invoke(this, new EventArgs<string>("Skipping Dokan installation."));
                     return;
                 }
             }
             else
             {
-                LogMessage?.Invoke("No prompt handler configured. Skipping Dokan installation.");
+                LogMessage?.Invoke(this, new EventArgs<string>("No prompt handler configured. Skipping Dokan installation."));
                 return;
             }
 
             // User chose to install Dokan
-            LogMessage?.Invoke("Starting Dokan download and installation...");
+            LogMessage?.Invoke(this, new EventArgs<string>("Starting Dokan download and installation..."));
             await _dokanService.DownloadAndInstallDokanAsync(_appDirectory);
-            LogMessage?.Invoke("Dokan installer has been launched.");
+            LogMessage?.Invoke(this, new EventArgs<string>("Dokan installer has been launched."));
         }
         catch (Exception ex)
         {
             await BugReportService.ReportBugAsync(ex, "Error during Dokan installation check");
-            LogMessage?.Invoke($"Error during Dokan check/installation: {ex.Message}");
+            LogMessage?.Invoke(this, new EventArgs<string>($"Error during Dokan check/installation: {ex.Message}"));
         }
     }
 
-    private void OnDownloadProgressChanged(DownloadProgressInfo info)
+    private void OnDownloadProgressChanged(object? sender, EventArgs<DownloadProgressInfo> e)
     {
+        var info = e.Value;
         string statusText;
         if (info.Percentage >= 0)
         {
@@ -310,8 +279,9 @@ public class UpdateService
         });
     }
 
-    private void OnExtractionProgressChanged(ExtractionProgressInfo info)
+    private void OnExtractionProgressChanged(object? sender, EventArgs<ExtractionProgressInfo> e)
     {
+        var info = e.Value;
         string statusText;
         if (info.CurrentFile != null)
         {

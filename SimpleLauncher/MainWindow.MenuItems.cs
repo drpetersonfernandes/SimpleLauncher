@@ -264,7 +264,7 @@ public partial class MainWindow
             if (sender is not MenuItem clickedItem) return;
 
             var sizeText = clickedItem.Name.Replace("Size", "");
-            if (!int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out var newSize)) return;
+            if (!int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), System.Globalization.CultureInfo.InvariantCulture, out var newSize)) return;
 
             await _menuOrchestrator.HandleButtonSizeAsync(newSize);
         }
@@ -295,7 +295,7 @@ public partial class MainWindow
             if (sender is not MenuItem clickedItem) return;
 
             var pageText = clickedItem.Name.Replace("Page", "");
-            if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out var newPage)) return;
+            if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), System.Globalization.CultureInfo.InvariantCulture, out var newPage)) return;
 
             await _menuOrchestrator.HandleGamesPerPageAsync(newPage);
         }

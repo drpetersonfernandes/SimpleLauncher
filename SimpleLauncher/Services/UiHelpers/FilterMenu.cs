@@ -4,6 +4,7 @@ using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services.UiHelpers;
 
@@ -20,7 +21,7 @@ public class FilterMenu
     private Button? _selectedButton;
 
     /// <summary>Raised when a letter or filter option is selected, passing the selected letter or null for "All".</summary>
-    public event Action<string?> OnLetterSelected = null!;
+    public event EventHandler<EventArgs<string?>> OnLetterSelected = null!;
 
     private readonly IPlaySoundEffects _playSoundEffects;
 
@@ -42,7 +43,7 @@ public class FilterMenu
         {
             _playSoundEffects.PlayNotificationSound();
             UpdateSelectedButton(numButton);
-            OnLetterSelected?.Invoke("#");
+            OnLetterSelected?.Invoke(this, new EventArgs<string?>("#"));
         };
         numButton.KeyDown += FilterButton_KeyDown;
         LetterPanel.Children.Add(numButton);
@@ -62,7 +63,7 @@ public class FilterMenu
             {
                 _playSoundEffects.PlayNotificationSound();
                 UpdateSelectedButton(button);
-                OnLetterSelected?.Invoke(c.ToString());
+                OnLetterSelected?.Invoke(this, new EventArgs<string?>(c.ToString()));
             };
             button.KeyDown += FilterButton_KeyDown;
             LetterPanel.Children.Add(button);
@@ -79,7 +80,7 @@ public class FilterMenu
         {
             _playSoundEffects.PlayNotificationSound();
             UpdateSelectedButton(allButton);
-            OnLetterSelected?.Invoke(null);
+            OnLetterSelected?.Invoke(this, new EventArgs<string?>(null));
         };
         allButton.KeyDown += FilterButton_KeyDown;
         LetterPanel.Children.Add(allButton);

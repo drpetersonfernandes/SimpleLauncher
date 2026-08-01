@@ -20,7 +20,7 @@ public class StellaConfigInjectionTests : IDisposable
     public StellaConfigInjectionTests()
     {
         _configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?>
+            .AddInMemoryCollection(new Dictionary<string, string?>(StringComparer.Ordinal)
             {
                 ["Urls:YouTubeSearch"] = "https://www.youtube.com/results?search_query=",
                 ["Urls:IgdbSearch"] = "https://www.igdb.com/search?q="
@@ -63,9 +63,9 @@ public class StellaConfigInjectionTests : IDisposable
         return Path.Combine(emuDir, "stella.exe");
     }
 
-    private SettingsManager CreateSettingsManager()
+    private SettingsManagerService CreateSettingsManager()
     {
-        return new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        return new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
     }
 
     private static Dictionary<string, string> ReadSqliteSettings(string dbPath)

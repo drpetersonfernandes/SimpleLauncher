@@ -16,7 +16,7 @@ public class MednafenConfigInjectionTests : IDisposable
     public MednafenConfigInjectionTests()
     {
         _configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?>
+            .AddInMemoryCollection(new Dictionary<string, string?>(StringComparer.Ordinal)
             {
                 ["Urls:YouTubeSearch"] = "https://www.youtube.com/results?search_query=",
                 ["Urls:IgdbSearch"] = "https://www.igdb.com/search?q="
@@ -59,9 +59,9 @@ public class MednafenConfigInjectionTests : IDisposable
         return Path.Combine(emuDir, "mednafen.exe");
     }
 
-    private SettingsManager CreateSettingsManager()
+    private SettingsManagerService CreateSettingsManager()
     {
-        return new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        return new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
     }
 
     [Fact]
@@ -83,13 +83,13 @@ public class MednafenConfigInjectionTests : IDisposable
         var configPath = Path.Combine(emuDir, "mednafen.cfg");
         var content = File.ReadAllText(configPath);
 
-        Assert.Contains("video.driver opengl", content);
-        Assert.Contains("video.fs 1", content);
-        Assert.Contains("video.glvsync 0", content);
-        Assert.Contains("video.blit_timesync 0", content);
-        Assert.Contains("sound.volume 75", content);
-        Assert.Contains("cheats 1", content);
-        Assert.Contains("state_rewind 1", content);
+        Assert.Contains("video.driver opengl", content, StringComparison.Ordinal);
+        Assert.Contains("video.fs 1", content, StringComparison.Ordinal);
+        Assert.Contains("video.glvsync 0", content, StringComparison.Ordinal);
+        Assert.Contains("video.blit_timesync 0", content, StringComparison.Ordinal);
+        Assert.Contains("sound.volume 75", content, StringComparison.Ordinal);
+        Assert.Contains("cheats 1", content, StringComparison.Ordinal);
+        Assert.Contains("state_rewind 1", content, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -111,20 +111,20 @@ public class MednafenConfigInjectionTests : IDisposable
         var content = File.ReadAllText(configPath);
 
         // Check a few system prefixes
-        Assert.Contains("nes.stretch full", content);
-        Assert.Contains("nes.videoip 1", content);
-        Assert.Contains("nes.scanlines 30", content);
-        Assert.Contains("nes.shader CRT", content);
-        Assert.Contains("nes.special hq2x", content);
+        Assert.Contains("nes.stretch full", content, StringComparison.Ordinal);
+        Assert.Contains("nes.videoip 1", content, StringComparison.Ordinal);
+        Assert.Contains("nes.scanlines 30", content, StringComparison.Ordinal);
+        Assert.Contains("nes.shader CRT", content, StringComparison.Ordinal);
+        Assert.Contains("nes.special hq2x", content, StringComparison.Ordinal);
 
-        Assert.Contains("snes.stretch full", content);
-        Assert.Contains("snes.videoip 1", content);
+        Assert.Contains("snes.stretch full", content, StringComparison.Ordinal);
+        Assert.Contains("snes.videoip 1", content, StringComparison.Ordinal);
 
-        Assert.Contains("psx.stretch full", content);
-        Assert.Contains("psx.videoip 1", content);
+        Assert.Contains("psx.stretch full", content, StringComparison.Ordinal);
+        Assert.Contains("psx.videoip 1", content, StringComparison.Ordinal);
 
-        Assert.Contains("gba.stretch full", content);
-        Assert.Contains("gba.videoip 1", content);
+        Assert.Contains("gba.stretch full", content, StringComparison.Ordinal);
+        Assert.Contains("gba.videoip 1", content, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -145,11 +145,11 @@ public class MednafenConfigInjectionTests : IDisposable
         var configPath = Path.Combine(emuDir, "mednafen.cfg");
         var content = File.ReadAllText(configPath);
 
-        Assert.Contains("video.fs 0", content);
-        Assert.Contains("video.glvsync 1", content);
-        Assert.Contains("cheats 0", content);
-        Assert.Contains("state_rewind 0", content);
-        Assert.Contains("nes.videoip 0", content);
+        Assert.Contains("video.fs 0", content, StringComparison.Ordinal);
+        Assert.Contains("video.glvsync 1", content, StringComparison.Ordinal);
+        Assert.Contains("cheats 0", content, StringComparison.Ordinal);
+        Assert.Contains("state_rewind 0", content, StringComparison.Ordinal);
+        Assert.Contains("nes.videoip 0", content, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -167,8 +167,8 @@ public class MednafenConfigInjectionTests : IDisposable
         var configPath = Path.Combine(emuDir, "mednafen.cfg");
         Assert.True(File.Exists(configPath));
         var content = File.ReadAllText(configPath);
-        Assert.Contains("video.driver sdl", content);
-        Assert.Contains("video.fs 1", content);
+        Assert.Contains("video.driver sdl", content, StringComparison.Ordinal);
+        Assert.Contains("video.fs 1", content, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -192,11 +192,11 @@ public class MednafenConfigInjectionTests : IDisposable
         var prefixes = new[] { "apple2", "gb", "gba", "gg", "lynx", "md", "nes", "ngp", "pce", "pce_fast", "pcfx", "psx", "sms", "snes", "snes_faust", "ss", "vb", "wswan" };
         foreach (var prefix in prefixes)
         {
-            Assert.Contains($"{prefix}.stretch aspect", content);
-            Assert.Contains($"{prefix}.videoip 0", content);
-            Assert.Contains($"{prefix}.scanlines 0", content);
-            Assert.Contains($"{prefix}.shader none", content);
-            Assert.Contains($"{prefix}.special none", content);
+            Assert.Contains($"{prefix}.stretch aspect", content, StringComparison.Ordinal);
+            Assert.Contains($"{prefix}.videoip 0", content, StringComparison.Ordinal);
+            Assert.Contains($"{prefix}.scanlines 0", content, StringComparison.Ordinal);
+            Assert.Contains($"{prefix}.shader none", content, StringComparison.Ordinal);
+            Assert.Contains($"{prefix}.special none", content, StringComparison.Ordinal);
         }
     }
 }

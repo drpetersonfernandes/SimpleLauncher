@@ -190,7 +190,7 @@ public class GameScannerServiceTests : IDisposable
 
         var result = method.Invoke(null, [gameDir, "MyGame", null]) as string;
         Assert.NotNull(result);
-        Assert.Contains("MyGame", Path.GetFileName(result));
+        Assert.Contains("MyGame", Path.GetFileName(result), StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -278,7 +278,7 @@ public class GameScannerServiceTests : IDisposable
     {
         var gameDir = Path.Combine(_testDirectory, "GameDir6");
         Directory.CreateDirectory(gameDir);
-        File.WriteAllText(Path.Combine(gameDir, "GameLauncher.exe"), "launcher");
+        File.WriteAllText(Path.Combine(gameDir, "GameLauncherService.exe"), "launcher");
         File.WriteAllText(Path.Combine(gameDir, "game.exe"), new string('x', 1000));
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);

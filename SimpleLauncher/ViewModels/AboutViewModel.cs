@@ -23,7 +23,7 @@ public partial class AboutViewModel : ObservableObject
         _logger = logErrors;
         _messageBox = messageBox;
         _updateChecker = updateChecker;
-        AppVersion = GetApplicationVersion.GetVersion;
+        AppVersion = GetApplicationVersionService.GetVersion;
     }
 
     /// <summary>
@@ -55,24 +55,24 @@ public partial class AboutViewModel : ObservableObject
     /// <summary>
     /// Event raised when the window should be closed.
     /// </summary>
-    public event Action? CloseRequested;
+    public event EventHandler? CloseRequested;
 
     /// <summary>
     /// Event raised when the update history window should be opened.
     /// </summary>
-    public event Action? OpenUpdateHistoryRequested;
+    public event EventHandler? OpenUpdateHistoryRequested;
 
     /// <summary>
     /// Event raised to request the owner window for dialogs.
     /// </summary>
-    public event Func<Window>? GetOwnerWindow;
+    public Func<Window>? GetOwnerWindow { get; set; }
 
     private bool CanCheckForUpdates => !IsCheckingForUpdates;
 
     [RelayCommand]
     private void Close()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     [RelayCommand(CanExecute = nameof(CanCheckForUpdates))]
@@ -104,7 +104,7 @@ public partial class AboutViewModel : ObservableObject
     [RelayCommand]
     private void OpenUpdateHistory()
     {
-        OpenUpdateHistoryRequested?.Invoke();
+        OpenUpdateHistoryRequested?.Invoke(this, EventArgs.Empty);
     }
 
     [RelayCommand]

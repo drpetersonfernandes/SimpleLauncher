@@ -35,8 +35,8 @@ public interface ISystemSelectionHost
     void UpdateSortOrderButtonUi();
     void ClearGameButtonImages(Panel panel);
 
-    List<Services.SystemManager.SystemManager> GetSystemManagers();
-    void SetSystemManagers(List<Services.SystemManager.SystemManager> managers);
+    IList<Services.SystemManager.SystemManagerService> GetSystemManagers();
+    void SetSystemManagers(IList<Services.SystemManager.SystemManagerService> managers);
     void SetSelectedImageFolder(string folder);
-    void SetSelectedRomFolders(List<string> folders);
+    void SetSelectedRomFolders(IList<string> folders);
 }

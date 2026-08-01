@@ -17,7 +17,7 @@ using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.WpfServices;
 using SimpleLauncher.ViewModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
-using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 
 namespace SimpleLauncher.Pages;
@@ -31,12 +31,12 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
     private readonly PlayHistoryViewModel _viewModel;
     private readonly MainWindow _mainWindow;
     private readonly GamePadController _gamePadController;
-    private readonly GameLauncher _gameLauncher;
+    private readonly GameLauncherService _gameLauncher;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IFindCoverImageService _findCoverImage;
-    private readonly List<MameManager> _machines;
+    private readonly IList<MameManagerService> _machines;
     private readonly FavoritesManager _favoritesManager;
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
     private readonly PlayHistoryManager _playHistoryManager;
@@ -45,14 +45,14 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
     private readonly IContextMenuService _contextMenuService;
     private CancellationTokenSource? _cancellationTokenSource;
 
-    public PlayHistoryPage(List<SystemManager> systemManagers,
-        List<MameManager> machines,
-        SettingsManager settings,
+    public PlayHistoryPage(IList<SystemManager> systemManagers,
+        IList<MameManagerService> machines,
+        SettingsManagerService settings,
         FavoritesManager favoritesManager,
         PlayHistoryManager playHistoryManager,
         MainWindow mainWindow,
         GamePadController gamePadController,
-        GameLauncher gameLauncher,
+        GameLauncherService gameLauncher,
         PlaySoundEffects playSoundEffects,
         IConfiguration configuration,
         IFindCoverImageService findCoverImage,
@@ -83,8 +83,8 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
             logger,
             playHistoryManager,
             settings,
-            systemManagers,
-            machines,
+            systemManagers.ToList(),
+            machines.ToList(),
             playSoundEffects,
             findCoverImage,
             imageLoader,
@@ -181,7 +181,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
                 Path.GetFileNameWithoutExtension(selectedItem.FileName),
                 selectedItem.SystemName,
                 systemManager,
-                _machines,
+                _machines.ToList(),
                 _favoritesManager,
                 _settings,
                 null,

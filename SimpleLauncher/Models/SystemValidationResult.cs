@@ -13,7 +13,7 @@ public class SystemValidationResult
     /// <summary>
     /// Gets the list of user-friendly error messages.
     /// </summary>
-    public List<string> ErrorMessages { get; } = new();
+    public IList<string> ErrorMessages { get; } = new List<string>();
 
     /// <summary>
     /// Gets or sets a value indicating whether the system folder path(s) are valid.
@@ -28,5 +28,5 @@ public class SystemValidationResult
     /// <summary>
     /// Gets the list of invalid emulator location paths.
     /// </summary>
-    public List<string> InvalidEmulatorLocations { get; } = new();
+    public IList<string> InvalidEmulatorLocations { get; } = new List<string>();
 }

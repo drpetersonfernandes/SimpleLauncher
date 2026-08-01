@@ -13,7 +13,7 @@ public class ScanAmazonGames : IGamePlatformScanner
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try
         {

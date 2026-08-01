@@ -12,7 +12,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class InjectRaineConfigViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath = null!;
@@ -34,7 +34,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     [ObservableProperty] private bool _raineMuteSfx;
     [ObservableProperty] private bool _raineMuteMusic;
     [ObservableProperty] private string _raineRomDirectory = null!;
-    public InjectRaineConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectRaineConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -60,17 +60,17 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     /// <summary>
     /// Available sound driver options for Raine.
     /// </summary>
-    public List<string> SoundDriverOptions { get; } = ["directsound", "sdl"];
+    public IList<string> SoundDriverOptions { get; } = ["directsound", "sdl"];
 
     /// <summary>
     /// Available audio sample rate options for Raine.
     /// </summary>
-    public List<string> SampleRateOptions { get; } = ["22050", "44100", "48000"];
+    public IList<string> SampleRateOptions { get; } = ["22050", "44100", "48000"];
 
     /// <summary>
     /// Available frame skip options for Raine.
     /// </summary>
-    public List<string> FrameSkipOptions { get; } = ["0", "1", "2", "3", "4", "5"];
+    public IList<string> FrameSkipOptions { get; } = ["0", "1", "2", "3", "4", "5"];
 
     /// <summary>
     /// Gets whether the configuration is being injected from launcher mode.
@@ -85,29 +85,29 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string?> RequestEmulatorPath = null!;
+    public Func<string?>? RequestEmulatorPath { get; set; }
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow = null!;
+    public Func<Window>? GetOwnerWindow { get; set; }
     /// <summary>
     /// Requests the user to select a file path.
     /// </summary>
-    public event Func<string?> RequestFilePath = null!;
+    public Func<string?>? RequestFilePath { get; set; }
     /// <summary>
     /// Requests the user to select a folder path.
     /// </summary>
-    public event Func<string?> RequestFolderPath = null!;
+    public Func<string?>? RequestFolderPath { get; set; }
     private void LoadSettings()
     {
         RaineFullscreen = _settings.Raine.Fullscreen;
@@ -219,17 +219,17 @@ public partial class InjectRaineConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 ShouldRun = true;
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -248,17 +248,17 @@ public partial class InjectRaineConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 await _messageBox.RaineSettingsSavedAndInjectedMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {

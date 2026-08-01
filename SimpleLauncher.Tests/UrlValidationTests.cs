@@ -317,6 +317,6 @@ public partial class UrlValidationTests
         return null;
     }
 
-    [GeneratedRegex(@"\((https?://[^)\s]+)\)", RegexOptions.IgnoreCase, "pt-BR")]
+    [GeneratedRegex(@"\((https?://[^)\s]+)\)", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, "pt-BR")]
     private static partial Regex MyRegex();
 }

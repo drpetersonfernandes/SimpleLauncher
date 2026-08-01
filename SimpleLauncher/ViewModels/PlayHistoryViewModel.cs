@@ -10,7 +10,7 @@ using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
-using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 
 namespace SimpleLauncher.ViewModels;
@@ -21,9 +21,9 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
     private readonly IConfiguration _configuration;
     private readonly ILogger _logger;
     private readonly PlayHistoryManager _playHistoryManager;
-    private readonly SettingsManager _settings;
-    private readonly List<SystemManager> _systemManagers;
-    private readonly List<MameManager> _machines;
+    private readonly SettingsManagerService _settings;
+    private readonly IList<SystemManager> _systemManagers;
+    private readonly IList<MameManagerService> _machines;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IFindCoverImageService _findCoverImage;
     private readonly IImageLoader _imageLoader;
@@ -52,9 +52,9 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         IConfiguration configuration,
         ILogger logErrors,
         PlayHistoryManager playHistoryManager,
-        SettingsManager settings,
-        List<SystemManager> systemManagers,
-        List<MameManager> machines,
+        SettingsManagerService settings,
+        IList<SystemManager> systemManagers,
+        IList<MameManagerService> machines,
         PlaySoundEffects playSoundEffects,
         IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,

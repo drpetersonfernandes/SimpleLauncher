@@ -118,8 +118,8 @@ public class ParameterResolverRequestTests
         request.FileFormatsToSearch.Add("nes");
 
         Assert.Equal(2, request.FileFormatsToSearch.Count);
-        Assert.Contains("zip", request.FileFormatsToSearch);
-        Assert.Contains("nes", request.FileFormatsToSearch);
+        Assert.Contains("zip", request.FileFormatsToSearch, StringComparer.Ordinal);
+        Assert.Contains("nes", request.FileFormatsToSearch, StringComparer.Ordinal);
     }
 
     [Fact]
@@ -130,8 +130,8 @@ public class ParameterResolverRequestTests
         request.FileFormatsToLaunch.Add("cue");
 
         Assert.Equal(2, request.FileFormatsToLaunch.Count);
-        Assert.Contains("iso", request.FileFormatsToLaunch);
-        Assert.Contains("cue", request.FileFormatsToLaunch);
+        Assert.Contains("iso", request.FileFormatsToLaunch, StringComparer.Ordinal);
+        Assert.Contains("cue", request.FileFormatsToLaunch, StringComparer.Ordinal);
     }
 
     [Fact]
@@ -162,7 +162,7 @@ public class ParameterResolverRequestTests
         var r1 = new ParameterResolverRequest { SystemName = "NES" };
         var r2 = new ParameterResolverRequest { SystemName = "SNES" };
 
-        Assert.NotEqual(r1.SystemName, r2.SystemName);
+        Assert.NotEqual(r1.SystemName, r2.SystemName, StringComparer.Ordinal);
     }
 
     [Fact]

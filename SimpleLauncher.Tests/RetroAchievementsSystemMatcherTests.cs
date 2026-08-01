@@ -126,7 +126,7 @@ public class RetroAchievementsSystemMatcherTests
     public void GetSupportedSystemNamesContainsKnownSystems()
     {
         var names = _matcher.GetSupportedSystemNames();
-        Assert.Contains("nintendo entertainment system", names);
+        Assert.Contains("nintendo entertainment system", names, StringComparer.Ordinal);
     }
 
     [Fact]

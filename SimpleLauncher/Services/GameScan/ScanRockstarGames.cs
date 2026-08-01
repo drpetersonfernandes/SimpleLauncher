@@ -28,7 +28,7 @@ public partial class ScanRockstarGames : IGamePlatformScanner
         new() { TitleId = "gtasaunreal", Name = "GTA San Andreas Definitive Edition", Exe = "Gameface/Binaries/Win64/SanAndreas.exe" }
     ];
 
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try
         {
@@ -96,6 +96,6 @@ public partial class ScanRockstarGames : IGamePlatformScanner
         }
     }
 
-    [GeneratedRegex(@"(?:Launcher|uninstall)\.exe.+uninstall=(.+)$", RegexOptions.IgnoreCase, "pt-BR")]
+    [GeneratedRegex(@"(?:Launcher|uninstall)\.exe.+uninstall=(.+)$", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, "pt-BR")]
     private static partial Regex MyRegex();
 }

@@ -38,10 +38,10 @@ public partial class SupportViewModel : ObservableObject
     }
 
     /// <summary>Event raised when the window should be closed.</summary>
-    public event Action? CloseRequested;
+    public event EventHandler? CloseRequested;
 
     /// <summary>Event raised when the form fields have been cleared after successful submission.</summary>
-    public event Action? FormCleared;
+    public event EventHandler? FormCleared;
 
     [RelayCommand]
     private async Task SendSupportRequestAsync()
@@ -101,7 +101,7 @@ public partial class SupportViewModel : ObservableObject
     [RelayCommand]
     private void Close()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     private async Task SendSupportRequestToApiAsync(string fullMessage)
@@ -183,7 +183,7 @@ public partial class SupportViewModel : ObservableObject
                     Email = "";
                     SupportRequest = "";
 
-                    FormCleared?.Invoke();
+                    FormCleared?.Invoke(this, EventArgs.Empty);
 
                     await _messageBox.SupportRequestSuccessMessageBoxAsync();
                 }

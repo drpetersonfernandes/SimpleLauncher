@@ -8,8 +8,8 @@ namespace SimpleLauncher;
 /// </summary>
 public partial class SetFuzzyMatchingWindow
 {
-    private readonly Action _saveCompletedHandler;
-    private readonly Action _cancelRequestedHandler;
+    private readonly EventHandler _saveCompletedHandler;
+    private readonly EventHandler _cancelRequestedHandler;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SetFuzzyMatchingWindow"/> class.
@@ -21,7 +21,7 @@ public partial class SetFuzzyMatchingWindow
         App.ApplyThemeToWindow(this);
         Owner = Application.Current.MainWindow;
 
-        _saveCompletedHandler = () =>
+        _saveCompletedHandler = (_, _) =>
         {
             if (IsLoaded)
             {
@@ -30,7 +30,7 @@ public partial class SetFuzzyMatchingWindow
 
             Close();
         };
-        _cancelRequestedHandler = () =>
+        _cancelRequestedHandler = (_, _) =>
         {
             if (IsLoaded)
             {

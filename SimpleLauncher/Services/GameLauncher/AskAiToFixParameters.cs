@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.LoadingOverlay;
-using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Services.GameLauncher;
 
@@ -113,7 +112,7 @@ IConfiguration configuration,
                     }
                 }
 
-                var systemToSave = new Services.SystemManager.SystemManager
+                var systemToSave = new SystemManager.SystemManagerService
                 {
                     SystemName = systemManager.SystemName ?? "",
                     SystemFolders = systemManager.SystemFolders ?? [],
@@ -126,7 +125,7 @@ IConfiguration configuration,
                     Emulators = updatedEmulators
                 };
 
-                await Services.SystemManager.SystemManager.SaveSystemConfigurationAsync(systemToSave, systemManager.SystemName, logger, configuration);
+                await SystemManager.SystemManagerService.SaveSystemConfigurationAsync(systemToSave, systemManager.SystemName, logger, configuration);
 
                 // Reload system managers so the main window uses the updated parameters
                 var systemSelectionOrchestrator = serviceProvider.GetRequiredService<ISystemSelectionOrchestrator>();

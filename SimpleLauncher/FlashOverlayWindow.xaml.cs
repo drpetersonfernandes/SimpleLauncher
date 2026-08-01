@@ -21,7 +21,7 @@ public partial class FlashOverlayWindow : IDisposable
         InitializeComponent();
 
         _viewModel = viewModel;
-        _viewModel.CloseRequested += Close;
+        _viewModel.CloseRequested += (_, _) => Close();
 
         DataContext = _viewModel;
 

@@ -10,7 +10,7 @@ using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
-using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 
 namespace SimpleLauncher.ViewModels;
 
@@ -19,10 +19,10 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
     private readonly ILogger _logger;
-    private readonly SettingsManager _settings;
-    private readonly List<SystemManager> _systemManagers;
-    private readonly List<MameManager> _machines;
-    private readonly Dictionary<string, string> _mameLookup;
+    private readonly SettingsManagerService _settings;
+    private readonly IList<SystemManager> _systemManagers;
+    private readonly IList<MameManagerService> _machines;
+    private readonly IDictionary<string, string> _mameLookup;
     private readonly FavoritesManager _favoritesManager;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IGetListOfFilesService _getListOfFiles;
@@ -62,10 +62,10 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
     public GlobalSearchViewModel(
         IConfiguration configuration,
         ILogger logErrors,
-        SettingsManager settings,
-        List<SystemManager> systemManagers,
-        List<MameManager> machines,
-        Dictionary<string, string> mameLookup,
+        SettingsManagerService settings,
+        IList<SystemManager> systemManagers,
+        IList<MameManagerService> machines,
+        IDictionary<string, string> mameLookup,
         FavoritesManager favoritesManager,
         PlaySoundEffects playSoundEffects,
         IGetListOfFilesService getListOfFiles,
@@ -96,7 +96,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
     {
         var allSystemsString = _resourceProvider.GetString("AllSystems", "All Systems");
         var names = new List<string> { allSystemsString };
-        names.AddRange(_systemManagers.Select(static sm => sm.SystemName).OrderBy(static name => name));
+        names.AddRange(_systemManagers.Select(static sm => sm.SystemName).OrderBy(static name => name, StringComparer.Ordinal));
         SystemNames = names;
         SelectedSystemIndex = 0;
     }
@@ -148,8 +148,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
                 {
                     SearchResults = new ObservableCollection<SearchResult>(results);
                     NoResultsVisible = false;
-                    ResultsCountText = string.Format(
-                        _resourceProvider.GetString("FoundResults", "Found {0} results"), results.Count);
+                    ResultsCountText = string.Format(System.Globalization.CultureInfo.InvariantCulture, _resourceProvider.GetString("FoundResults", "Found {0} results"), results.Count);
                     ResultsCountVisible = true;
                 }
                 else
@@ -196,7 +195,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 
         var allSystemsString = _resourceProvider.GetString("AllSystems", "All Systems");
         IEnumerable<SystemManager> systemsToSearch = _systemManagers;
-        if (selectedSystem != allSystemsString)
+        if (!string.Equals(selectedSystem, allSystemsString, StringComparison.Ordinal))
         {
             systemsToSearch = _systemManagers.Where(sm =>
                 sm.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
@@ -401,7 +400,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
         return terms.Where(static t => !string.IsNullOrWhiteSpace(t)).ToList();
     }
 
-    [GeneratedRegex("""[\"](.+?)[\"]|([^ ]+)""", RegexOptions.Compiled)]
+    [GeneratedRegex("""[\"](.+?)[\"]|([^ ]+)""", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex();
 
     public void Dispose()

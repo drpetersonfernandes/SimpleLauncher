@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
-using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
+using Settings = SimpleLauncher.Services.SettingsManager.SettingsManagerService;
 
 namespace SimpleLauncher.Services.LanguageMenu;
 
@@ -16,7 +16,7 @@ public class LanguageMenuService
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
     private ILanguageMenuHost _host = null!;
 
-    private static readonly Dictionary<string, string> NameToCode = new()
+    private static readonly Dictionary<string, string> NameToCode = new(StringComparer.Ordinal)
     {
         { "LanguageArabic", "ar" },
         { "LanguageBengali", "bn" },
@@ -83,7 +83,7 @@ public class LanguageMenuService
         {
             if (_host.FindMenuItemByName(name) is { } item)
             {
-                item.IsChecked = code == languageCode;
+                item.IsChecked = string.Equals(code, languageCode, StringComparison.Ordinal);
             }
         }
     }

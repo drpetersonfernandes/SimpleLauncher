@@ -5,7 +5,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class AresConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -117,7 +117,7 @@ public static class AresConfigurationService
             {
                 var indent = line[..^trimmedLine.Length];
                 var newLine = $"{indent}{lineKey} {newValue}";
-                if (lines[i] != newLine)
+                if (!string.Equals(lines[i], newLine, StringComparison.Ordinal))
                 {
                     lines[i] = newLine;
                     modified = true;

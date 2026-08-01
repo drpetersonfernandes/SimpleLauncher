@@ -102,9 +102,9 @@ public class ContextMenuService : IContextMenuService
                     return; // The finally block will still execute
                 }
 
-                if (context.GameLauncher != null)
+                if (context.GameLauncherService != null)
                 {
-                    await context.GameLauncher.HandleButtonClickAsync(context.FilePath, selectedEmulatorName!, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, WpfWindowContext.FromMainWindow(context.MainWindow), context.GamePadController, context.LoadingStateProvider);
+                    await context.GameLauncherService.HandleButtonClickAsync(context.FilePath, selectedEmulatorName!, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, WpfWindowContext.FromMainWindow(context.MainWindow), context.GamePadController, context.LoadingStateProvider);
                 }
 
                 // Notify user
@@ -138,7 +138,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("AddingToFavorites") ?? "Adding to favorites...");
             context.PlaySoundEffects?.PlayNotificationSound();
-            _ = contextMenuFunctions.AddToFavoritesAsync(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid!, context.FavoritesManager!, context.MainWindow, context.PlaySoundEffects!, _logger, _messageBox);
+            _ = contextMenuFunctions.AddToFavoritesAsync(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid!, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects!, _logger, _messageBox);
         };
 
         // Remove From Favorites Context Menu
@@ -158,7 +158,7 @@ public class ContextMenuService : IContextMenuService
         {
             context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingFromFavorites") ?? "Removing from favorites...");
             context.PlaySoundEffects?.PlayTrashSound();
-            _ = contextMenuFunctions.RemoveFromFavoritesAsync(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid!, context.FavoritesManager!, context.MainWindow, context.PlaySoundEffects!, _logger, _messageBox);
+            _ = contextMenuFunctions.RemoveFromFavoritesAsync(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid!, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects!, _logger, _messageBox);
 
             // Invoke the callback if it exists
             context.OnFavoriteRemoved?.Invoke();
@@ -246,7 +246,7 @@ public class ContextMenuService : IContextMenuService
                 try
                 {
                     context.PlaySoundEffects?.PlayNotificationSound();
-                    await contextMenuFunctions.OpenRetroAchievementsWindowAsync(context.FilePath, context.FileNameWithoutExtension, context.SelectedSystemManager, context.MainWindow, context.PlaySoundEffects!, context.LoadingStateProvider!, _logger, _messageBox);
+                    await contextMenuFunctions.OpenRetroAchievementsWindowAsync(context.FilePath, context.FileNameWithoutExtension, context.SelectedSystemManager, context.MainWindow, context.PlaySoundEffects!, context.LoadingStateProvider, _logger, _messageBox);
                 }
                 catch (Exception ex)
                 {
@@ -495,7 +495,7 @@ public class ContextMenuService : IContextMenuService
                     selectedEmulatorName = null;
                 }
 
-                _ = contextMenuFunctions.TakeScreenshotOfSelectedWindowAsync(context.FilePath, selectedEmulatorName!, context.SelectedSystemName, context.SelectedSystemManager, context.Settings!, null, context.MainWindow, context.GamePadController, context.GameLauncher!, context.PlaySoundEffects!, context.LoadingStateProvider!, _logger, _messageBox);
+                _ = contextMenuFunctions.TakeScreenshotOfSelectedWindowAsync(context.FilePath, selectedEmulatorName!, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, null, context.MainWindow, context.GamePadController, context.GameLauncherService!, context.PlaySoundEffects!, context.LoadingStateProvider, _logger, _messageBox);
             }
             catch (Exception ex)
             {
@@ -530,7 +530,7 @@ public class ContextMenuService : IContextMenuService
                 {
                     try
                     {
-                        await contextMenuFunctions.RemoveFromFavoritesAsync(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid!, context.FavoritesManager!, context.MainWindow, context.PlaySoundEffects!, _logger, _messageBox);
+                        await contextMenuFunctions.RemoveFromFavoritesAsync(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid!, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects!, _logger, _messageBox);
 
                         // Invoke the callback if it exists
                         context.OnFavoriteRemoved?.Invoke();

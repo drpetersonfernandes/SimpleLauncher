@@ -64,21 +64,21 @@ public class FormatFileSizeServiceExtendedTests
     public void FormatToHumanReadableExactlyOneMbBoundary()
     {
         var result = _service.FormatToHumanReadable(1024L * 1024 - 1);
-        Assert.EndsWith("KB", result);
+        Assert.EndsWith("KB", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void FormatToHumanReadableExactlyOneGbBoundary()
     {
         var result = _service.FormatToHumanReadable(1024L * 1024 * 1024 - 1);
-        Assert.EndsWith("MB", result);
+        Assert.EndsWith("MB", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void FormatToHumanReadableExactlyOneTbBoundary()
     {
         var result = _service.FormatToHumanReadable(1024L * 1024 * 1024 * 1024 - 1);
-        Assert.EndsWith("GB", result);
+        Assert.EndsWith("GB", result, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -129,15 +129,15 @@ public class FormatFileSizeServiceExtendedTests
     {
         // Ensure decimal point is '.' not ','
         var result = _service.FormatToMb(1536L * 1024);
-        Assert.Contains(".", result);
-        Assert.DoesNotContain(",", result);
+        Assert.Contains(".", result, StringComparison.Ordinal);
+        Assert.DoesNotContain(",", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void FormatToHumanReadableInvariantCultureDecimalPoint()
     {
         var result = _service.FormatToHumanReadable(1536);
-        Assert.Contains(".", result);
-        Assert.DoesNotContain(",", result);
+        Assert.Contains(".", result, StringComparison.Ordinal);
+        Assert.DoesNotContain(",", result, StringComparison.Ordinal);
     }
 }

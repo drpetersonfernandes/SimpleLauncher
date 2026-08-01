@@ -49,7 +49,7 @@ public class XisoMountStrategy : ILaunchStrategy
         await using var mountedDrive = await _mountXisoFiles.MountAsync(context.ResolvedFilePath, PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"), _logger, _messageBox);
         if (mountedDrive.IsMounted)
         {
-            await launcher.LaunchRegularEmulatorAsync(mountedDrive.MountedPath, context.EmulatorName, context.SystemManager!, context.EmulatorManager!, context.Parameters, context.WindowContext!, context.LoadingState, context.ResolvedFilePath);
+            await launcher.LaunchRegularEmulatorAsync(mountedDrive.MountedPath, context.EmulatorName, context.SystemManagerService!, context.EmulatorManager!, context.Parameters, context.WindowContext!, context.LoadingState, context.ResolvedFilePath);
         }
     }
 }

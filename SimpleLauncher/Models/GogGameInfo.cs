@@ -11,5 +11,5 @@ public class GogGameInfo
     public string RootGameId { get; set; } = null!;
 
     [JsonPropertyName("playTasks")]
-    public List<GogPlayTask> PlayTasks { get; set; } = null!;
+    public IList<GogPlayTask> PlayTasks { get; set; } = null!;
 }

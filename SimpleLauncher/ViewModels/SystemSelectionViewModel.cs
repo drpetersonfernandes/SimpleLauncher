@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SimpleLauncher.Models;
 
 namespace SimpleLauncher.ViewModels;
 
@@ -45,20 +46,20 @@ public partial class SystemSelectionViewModel : ObservableObject
     /// <summary>
     /// Event raised when the window should be closed with a dialog result.
     /// </summary>
-    public event Action<bool?>? DialogResultRequested;
+    public event EventHandler<EventArgs<bool?>>? DialogResultRequested;
 
     [RelayCommand]
     private void Confirm()
     {
         if (SelectedSystem != null)
         {
-            DialogResultRequested?.Invoke(true);
+            DialogResultRequested?.Invoke(this, new EventArgs<bool?>(true));
         }
     }
 
     [RelayCommand]
     private void Cancel()
     {
-        DialogResultRequested?.Invoke(false);
+        DialogResultRequested?.Invoke(this, new EventArgs<bool?>(false));
     }
 }

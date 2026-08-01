@@ -12,7 +12,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class SetGamepadDeadZoneViewModel : ObservableObject
 {
-    private readonly SettingsManager _settingsManager;
+    private readonly SettingsManagerService _settingsManager;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
     private readonly ILogger _logger;
@@ -20,7 +20,7 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
     private double _deadZoneX;
     private double _deadZoneY;
 
-    public SetGamepadDeadZoneViewModel(SettingsManager settingsManager, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider, ILogger logErrors)
+    public SetGamepadDeadZoneViewModel(SettingsManagerService settingsManager, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider, ILogger logErrors)
     {
         _settingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
         _messageBox = messageBox;
@@ -64,9 +64,9 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
     public string DeadZoneYText => _deadZoneY.ToString("F2", CultureInfo.InvariantCulture);
 
     /// <summary>Event raised when settings have been saved.</summary>
-    public event Action SaveCompleted = null!;
+    public event EventHandler SaveCompleted = null!;
     /// <summary>Event raised when the window should be closed.</summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     [RelayCommand]
     private async Task SaveAsync()
     {
@@ -81,7 +81,7 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
 
             await _messageBox.DeadZonesSavedMessageBoxAsync();
 
-            SaveCompleted?.Invoke();
+            SaveCompleted?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -93,24 +93,24 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     [RelayCommand]
     private async Task RevertAsync()
     {
-        _settingsManager.DeadZoneX = SettingsManager.DefaultDeadZoneX;
-        _settingsManager.DeadZoneY = SettingsManager.DefaultDeadZoneY;
+        _settingsManager.DeadZoneX = SettingsManagerService.DefaultDeadZoneX;
+        _settingsManager.DeadZoneY = SettingsManagerService.DefaultDeadZoneY;
         await _settingsManager.SaveAsync();
 
-        DeadZoneX = SettingsManager.DefaultDeadZoneX;
-        DeadZoneY = SettingsManager.DefaultDeadZoneY;
+        DeadZoneX = SettingsManagerService.DefaultDeadZoneX;
+        DeadZoneY = SettingsManagerService.DefaultDeadZoneY;
 
         (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
             _resourceProvider.GetString("RevertingGamepadDeadZoneSettings", "Reverting gamepad dead zone settings..."));
 
         await _messageBox.DeadZonesRevertedMessageBoxAsync();
 
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 }

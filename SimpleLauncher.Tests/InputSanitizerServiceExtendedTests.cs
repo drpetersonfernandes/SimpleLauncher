@@ -18,8 +18,8 @@ public class InputSanitizerServiceExtendedTests
     public void SanitizeFolderNameReservedAuxEscaped(string name)
     {
         var result = _sanitizer.SanitizeFolderName(name);
-        Assert.StartsWith("_", result);
-        Assert.EndsWith("_", result);
+        Assert.StartsWith("_", result, StringComparison.Ordinal);
+        Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
     [Theory]
@@ -34,8 +34,8 @@ public class InputSanitizerServiceExtendedTests
     public void SanitizeFolderNameReservedComAllEscaped(string name)
     {
         var result = _sanitizer.SanitizeFolderName(name);
-        Assert.StartsWith("_", result);
-        Assert.EndsWith("_", result);
+        Assert.StartsWith("_", result, StringComparison.Ordinal);
+        Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
     [Theory]
@@ -50,15 +50,15 @@ public class InputSanitizerServiceExtendedTests
     public void SanitizeFolderNameReservedLptAllEscaped(string name)
     {
         var result = _sanitizer.SanitizeFolderName(name);
-        Assert.StartsWith("_", result);
-        Assert.EndsWith("_", result);
+        Assert.StartsWith("_", result, StringComparison.Ordinal);
+        Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameDoubleDotsMultipleReplaced()
     {
         var result = _sanitizer.SanitizeFolderName("a..b..c..d");
-        Assert.DoesNotContain("..", result);
+        Assert.DoesNotContain("..", result, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -94,43 +94,43 @@ public class InputSanitizerServiceExtendedTests
     public void SanitizeFolderNameColonReplaced()
     {
         var result = _sanitizer.SanitizeFolderName("C:drive");
-        Assert.DoesNotContain(":", result);
+        Assert.DoesNotContain(":", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameAsteriskReplaced()
     {
         var result = _sanitizer.SanitizeFolderName("game*name");
-        Assert.DoesNotContain("*", result);
+        Assert.DoesNotContain("*", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameQuestionMarkReplaced()
     {
         var result = _sanitizer.SanitizeFolderName("game?name");
-        Assert.DoesNotContain("?", result);
+        Assert.DoesNotContain("?", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNamePipeReplaced()
     {
         var result = _sanitizer.SanitizeFolderName("game|name");
-        Assert.DoesNotContain("|", result);
+        Assert.DoesNotContain("|", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameAngleBracketsReplaced()
     {
         var result = _sanitizer.SanitizeFolderName("game<name>");
-        Assert.DoesNotContain("<", result);
-        Assert.DoesNotContain(">", result);
+        Assert.DoesNotContain("<", result, StringComparison.Ordinal);
+        Assert.DoesNotContain(">", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameQuotesReplaced()
     {
         var result = _sanitizer.SanitizeFolderName("game\"name");
-        Assert.DoesNotContain("\"", result);
+        Assert.DoesNotContain("\"", result, StringComparison.Ordinal);
     }
 
     [Fact]

@@ -12,7 +12,7 @@ public partial class SteamVdfParser : ISteamVdfParser
     // Improved regex to handle escaped quotes within strings: "some \"value\" here"
     private static readonly Regex TokenRegex = MyRegex();
 
-    public Dictionary<string, object> Parse(string filePath, ILogger? logErrors = null, ILogger? logger = null)
+    public IDictionary<string, object> Parse(string filePath, ILogger? logErrors = null, ILogger? logger = null)
     {
         try
         {
@@ -114,6 +114,6 @@ public partial class SteamVdfParser : ISteamVdfParser
             .Replace("\\t", "\t");
     }
 
-    [GeneratedRegex("\"((?:\\\\.|[^\\\\\"])*)\"", RegexOptions.Compiled)]
+    [GeneratedRegex("\"((?:\\\\.|[^\\\\\"])*)\"", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex();
 }

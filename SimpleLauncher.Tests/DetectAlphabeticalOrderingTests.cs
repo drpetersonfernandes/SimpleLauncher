@@ -48,7 +48,7 @@ public partial class DetectAlphabeticalOrderingTests
                         firstEntryIndex = i;
                     }
                 }
-                else if (lines[i].Trim() == "</ResourceDictionary>")
+                else if (string.Equals(lines[i].Trim(), "</ResourceDictionary>", StringComparison.Ordinal))
                 {
                     if (firstEntryIndex == -1)
                     {
@@ -93,6 +93,6 @@ public partial class DetectAlphabeticalOrderingTests
         Assert.Fail(message.ToString());
     }
 
-    [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""")]
+    [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""", RegexOptions.None | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex();
 }

@@ -29,7 +29,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     private Button? _emergencyReturnButton;
 
     // Track download states for all components
-    private readonly Dictionary<string, DownloadButtonState> _downloadStates = new();
+    private readonly Dictionary<string, DownloadButtonState> _downloadStates = new(StringComparer.Ordinal);
 
     /// <summary>
     /// Gets or sets a value indicating whether the emulator has been downloaded.
@@ -399,7 +399,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             var sortedSystemNames = _manager.Systems
                 .Where(static system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.EmulatorDownloadLink))
                 .Select(static system => system.SystemName)
-                .OrderBy(static name => name)
+                .OrderBy(static name => name, StringComparer.Ordinal)
                 .ToList();
 
             SystemNameDropdown.ItemsSource = sortedSystemNames;
@@ -997,7 +997,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
                 // Notify developer only if it's not a disk space error
                 // Disk space errors are user-environment issues, not code issues
-                if (!(ex is IOException ioEx && (ioEx.Message.Contains("Insufficient disk space") || ioEx.Message.Contains("Cannot check disk space"))))
+                if (!(ex is IOException ioEx && (ioEx.Message.Contains("Insufficient disk space", StringComparison.Ordinal) || ioEx.Message.Contains("Cannot check disk space", StringComparison.Ordinal))))
                 {
                     var contextMessage = $"Error downloading {componentName}.\n" +
                                          $"URL: {downloadUrl}";
@@ -1151,7 +1151,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     LoadingOverlay.Visibility = Visibility.Visible;
                     await Task.Yield();
 
-                    await Services.SystemManager.SystemManager.AddOrUpdateSystemFromEasyModeAsync(selectedSystem, systemFolderRaw);
+                    await Services.SystemManager.SystemManagerService.AddOrUpdateSystemFromEasyModeAsync(selectedSystem, systemFolderRaw);
                     LoadingOverlay.Content = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
                     await Task.Yield();
 

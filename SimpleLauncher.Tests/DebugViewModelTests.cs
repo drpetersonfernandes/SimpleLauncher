@@ -29,9 +29,9 @@ public class DebugViewModelTests
         var formattedMessage = $"{timestamp} [Debug] {message}";
         viewModel.AppendLogMessage(formattedMessage);
         Assert.Single(viewModel.LogMessages);
-        Assert.Contains(message, viewModel.LogMessages[0]);
-        Assert.Contains(timestamp.Substring(0, 7), viewModel.LogMessages[0]);
-        Assert.Contains(message, viewModel.LogText);
+        Assert.Contains(message, viewModel.LogMessages[0], StringComparison.Ordinal);
+        Assert.Contains(timestamp.Substring(0, 7), viewModel.LogMessages[0], StringComparison.Ordinal);
+        Assert.Contains(message, viewModel.LogText, StringComparison.Ordinal);
         Assert.True(viewModel.CanClearLog);
         Assert.True(viewModel.CanCopyLog);
     }
@@ -44,9 +44,9 @@ public class DebugViewModelTests
         viewModel.AppendLogMessage("Message 2");
         viewModel.AppendLogMessage("Message 3");
         Assert.Equal(3, viewModel.LogMessages.Count);
-        Assert.Contains("Message 1", viewModel.LogText);
-        Assert.Contains("Message 2", viewModel.LogText);
-        Assert.Contains("Message 3", viewModel.LogText);
+        Assert.Contains("Message 1", viewModel.LogText, StringComparison.Ordinal);
+        Assert.Contains("Message 2", viewModel.LogText, StringComparison.Ordinal);
+        Assert.Contains("Message 3", viewModel.LogText, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -107,9 +107,9 @@ public class DebugViewModelTests
         viewModel.AppendLogMessage("First");
         viewModel.AppendLogMessage("Second");
         var logText = viewModel.LogText;
-        Assert.Contains("First", logText);
-        Assert.Contains("Second", logText);
-        Assert.EndsWith(Environment.NewLine, logText);
+        Assert.Contains("First", logText, StringComparison.Ordinal);
+        Assert.Contains("Second", logText, StringComparison.Ordinal);
+        Assert.EndsWith(Environment.NewLine, logText, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -119,7 +119,7 @@ public class DebugViewModelTests
         var raised = false;
         viewModel.PropertyChanged += (_, e) =>
         {
-            if (e.PropertyName == nameof(DebugViewModel.CanClearLog))
+            if (string.Equals(e.PropertyName, nameof(DebugViewModel.CanClearLog), StringComparison.Ordinal))
             {
                 raised = true;
             }
@@ -135,7 +135,7 @@ public class DebugViewModelTests
         var raised = false;
         viewModel.PropertyChanged += (_, e) =>
         {
-            if (e.PropertyName == nameof(DebugViewModel.CanCopyLog))
+            if (string.Equals(e.PropertyName, nameof(DebugViewModel.CanCopyLog), StringComparison.Ordinal))
             {
                 raised = true;
             }
@@ -151,7 +151,7 @@ public class DebugViewModelTests
         var raised = false;
         viewModel.PropertyChanged += (_, e) =>
         {
-            if (e.PropertyName == nameof(DebugViewModel.LogText))
+            if (string.Equals(e.PropertyName, nameof(DebugViewModel.LogText), StringComparison.Ordinal))
             {
                 raised = true;
             }

@@ -17,8 +17,8 @@ public partial class AboutWindow
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        viewModel.CloseRequested += Close;
-        viewModel.OpenUpdateHistoryRequested += static () =>
+        viewModel.CloseRequested += (_, _) => Close();
+        viewModel.OpenUpdateHistoryRequested += static (_, _) =>
         {
             var updateHistoryWindow = App.ServiceProvider.GetRequiredService<UpdateHistoryWindow>();
             updateHistoryWindow.ShowDialog();

@@ -8,14 +8,14 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.LaunchTools;
 
-public class LaunchTools : ILaunchTools
+public class LaunchToolsService : ILaunchTools
 {
     private readonly ILogger _logger;
     private readonly IConfiguration _configuration;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IResourceProvider _resourceProvider;
 
-    public LaunchTools(ILogger logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider)
+    public LaunchToolsService(ILogger logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider)
     {
         _logger = logErrors;
         _configuration = configuration;

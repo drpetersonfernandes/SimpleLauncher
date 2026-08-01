@@ -13,7 +13,7 @@ public partial class DosBoxFileSelectionViewModel : ObservableObject
     private DosBoxFileItem _selectedItem = null!;
     private bool _isLaunchEnabled;
 
-    public void Initialize(List<string> filePaths, string baseDirectory)
+    public void Initialize(IList<string> filePaths, string baseDirectory)
     {
         var fileItems = filePaths.Select(path => new DosBoxFileItem
         {
@@ -63,7 +63,7 @@ public partial class DosBoxFileSelectionViewModel : ObservableObject
     /// <summary>
     /// Event raised when the window should be closed with a dialog result.
     /// </summary>
-    public event Action<bool?> DialogResultRequested = null!;
+    public event EventHandler<EventArgs<bool?>> DialogResultRequested = null!;
 
     [RelayCommand]
     private void Launch()
@@ -71,13 +71,13 @@ public partial class DosBoxFileSelectionViewModel : ObservableObject
         if (SelectedItem == null) return;
 
         SelectedFilePath = SelectedItem.FullPath;
-        DialogResultRequested?.Invoke(true);
+        DialogResultRequested?.Invoke(this, new EventArgs<bool?>(true));
     }
 
     [RelayCommand]
     private void Cancel()
     {
-        DialogResultRequested?.Invoke(false);
+        DialogResultRequested?.Invoke(this, new EventArgs<bool?>(false));
     }
 
     /// <summary>
@@ -88,7 +88,7 @@ public partial class DosBoxFileSelectionViewModel : ObservableObject
         if (SelectedItem == null) return;
 
         SelectedFilePath = SelectedItem.FullPath;
-        DialogResultRequested?.Invoke(true);
+        DialogResultRequested?.Invoke(this, new EventArgs<bool?>(true));
     }
 
     private static string GetRelativePath(string fullPath, string baseDirectory)

@@ -25,19 +25,21 @@ public partial class InjectStellaConfigWindow
         _requestEmulatorPathHandler = OnRequestEmulatorPath;
         _getOwnerWindowHandler = () => this;
 
-        _viewModel.CloseRequested += Close;
+        _viewModel.CloseRequested += OnCloseRequested;
         _viewModel.RequestEmulatorPath += _requestEmulatorPathHandler;
         _viewModel.GetOwnerWindow += _getOwnerWindowHandler;
 
         Closing += (_, _) =>
         {
-            _viewModel.CloseRequested -= Close;
+            _viewModel.CloseRequested -= OnCloseRequested;
             _viewModel.RequestEmulatorPath -= _requestEmulatorPathHandler;
             _viewModel.GetOwnerWindow -= _getOwnerWindowHandler;
         };
 
         DataContext = _viewModel;
     }
+
+    private void OnCloseRequested(object? sender, EventArgs e) => Close();
 
     /// <summary>
     /// Initializes the window with the specified emulator path and launcher mode.

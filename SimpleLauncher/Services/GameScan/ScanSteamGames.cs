@@ -18,7 +18,7 @@ internal class ScanSteamGames : IGamePlatformScanner
         _vdfParser = vdfParser;
     }
 
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         var libraryPaths = new List<string>();
 
@@ -106,7 +106,7 @@ internal class ScanSteamGames : IGamePlatformScanner
             }
 
             // 3. Scan for Games in all libraries
-            foreach (var libraryPath in libraryPaths.Distinct())
+            foreach (var libraryPath in libraryPaths.Distinct(StringComparer.Ordinal))
             {
                 if (!Directory.Exists(libraryPath)) continue;
 
@@ -164,7 +164,7 @@ internal class ScanSteamGames : IGamePlatformScanner
         }
     }
 
-    private async Task ProcessSteamManifestAsync(GameScannerService gameScannerService, string manifestFile, string libraryPath, string steamPath, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    private async Task ProcessSteamManifestAsync(GameScannerService gameScannerService, string manifestFile, string libraryPath, string steamPath, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try
         {

@@ -12,7 +12,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class InjectYumirConfigViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath = null!;
@@ -26,7 +26,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
     [ObservableProperty] private bool _yumirPauseWhenUnfocused;
     [ObservableProperty] private double _yumirForcedAspect;
     [ObservableProperty] private bool _yumirShowSettingsBeforeLaunch;
-    public InjectYumirConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectYumirConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -48,17 +48,17 @@ public partial class InjectYumirConfigViewModel : ObservableObject
     /// <summary>
     /// Available video standard options for Yumir.
     /// </summary>
-    public List<string> VideoStandardOptions { get; } = ["PAL", "NTSC"];
+    public IList<string> VideoStandardOptions { get; } = ["PAL", "NTSC"];
 
     /// <summary>
     /// Available forced aspect ratio display options for Yumir.
     /// </summary>
-    public List<string> ForcedAspectOptions { get; } = ["16:9", "4:3"];
+    public IList<string> ForcedAspectOptions { get; } = ["16:9", "4:3"];
 
     /// <summary>
     /// Tags corresponding to the forced aspect ratio options for Yumir.
     /// </summary>
-    public List<string> ForcedAspectTags { get; } = ["1.7777777777777777", "1.3333333333333333"];
+    public IList<string> ForcedAspectTags { get; } = ["1.7777777777777777", "1.3333333333333333"];
 
     /// <summary>
     /// Gets whether the configuration is being injected from launcher mode.
@@ -73,21 +73,21 @@ public partial class InjectYumirConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string?> RequestEmulatorPath = null!;
+    public Func<string?>? RequestEmulatorPath { get; set; }
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow = null!;
+    public Func<Window>? GetOwnerWindow { get; set; }
     private void LoadSettings()
     {
         YumirFullscreen = _settings.Yumir.Fullscreen;
@@ -167,17 +167,17 @@ public partial class InjectYumirConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 ShouldRun = true;
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -196,17 +196,17 @@ public partial class InjectYumirConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 await _messageBox.YumirConfigurationSavedSuccessfullyMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {

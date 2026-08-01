@@ -126,14 +126,14 @@ public class SearchOrchestratorServiceTests
         public bool SearchResultsCleared { get; set; }
         public string SelectedSystem { get; set; } = "";
 
-        public Task<List<string>> GetAllGamesAsync(CancellationToken ct)
+        public Task<IList<string>> GetAllGamesAsync(CancellationToken ct)
         {
-            return Task.FromResult(new List<string>());
+            return Task.FromResult<IList<string>>([]);
         }
 
-        public Task<List<string>> GetSearchResultsAsync(CancellationToken ct)
+        public Task<IList<string>> GetSearchResultsAsync(CancellationToken ct)
         {
-            return Task.FromResult(new List<string>());
+            return Task.FromResult<IList<string>>([]);
         }
 
         public Task<bool> IsCachePopulatedForSystemAsync(string systemName, CancellationToken ct)
@@ -141,12 +141,12 @@ public class SearchOrchestratorServiceTests
             return Task.FromResult(false);
         }
 
-        public Task SetAllGamesAsync(List<string> games, string systemName, CancellationToken ct)
+        public Task SetAllGamesAsync(IList<string> games, string systemName, CancellationToken ct)
         {
             return Task.CompletedTask;
         }
 
-        public Task SetSearchResultsAsync(List<string> results, CancellationToken ct)
+        public Task SetSearchResultsAsync(IList<string> results, CancellationToken ct)
         {
             SearchResultsCleared = true;
             return Task.CompletedTask;
@@ -157,7 +157,7 @@ public class SearchOrchestratorServiceTests
             return Task.FromResult((new List<string>(), new List<string>()));
         }
 
-        public Task PopulateFromDiskAsync(Services.SystemManager.SystemManager config, IGetListOfFilesService fileService, CancellationToken ct)
+        public Task PopulateFromDiskAsync(Services.SystemManager.SystemManagerService config, IGetListOfFilesService fileService, CancellationToken ct)
         {
             return Task.CompletedTask;
         }

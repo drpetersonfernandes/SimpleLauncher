@@ -14,7 +14,7 @@ public partial class SupportWindow : ILoadingState
 {
     private readonly SupportViewModel _viewModel;
     private readonly ILogger _logger;
-    private readonly Action _formClearedHandler;
+    private readonly EventHandler _formClearedHandler;
     private Button? _emergencyReturnButton;
 
     /// <summary>
@@ -30,20 +30,20 @@ public partial class SupportWindow : ILoadingState
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _viewModel = viewModel;
 
-        _formClearedHandler = () =>
+        _formClearedHandler = (_, _) =>
         {
             NameTextBox.Text = "";
             EmailTextBox.Text = "";
             SupportTextBox.Text = "";
         };
 
-        _viewModel.CloseRequested += Close;
+        _viewModel.CloseRequested += OnCloseRequested;
         _viewModel.FormCleared += _formClearedHandler;
         _viewModel.PropertyChanged += ViewModel_PropertyChanged;
 
         Closing += (_, _) =>
         {
-            _viewModel.CloseRequested -= Close;
+            _viewModel.CloseRequested -= OnCloseRequested;
             _viewModel.FormCleared -= _formClearedHandler;
             _viewModel.PropertyChanged -= ViewModel_PropertyChanged;
 
@@ -67,9 +67,11 @@ public partial class SupportWindow : ILoadingState
         DataContext = _viewModel;
     }
 
+    private void OnCloseRequested(object? sender, EventArgs e) => Close();
+
     private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(SupportViewModel.IsLoading))
+        if (string.Equals(e.PropertyName, nameof(SupportViewModel.IsLoading), StringComparison.Ordinal))
         {
             var loadingMessage = (string)Application.Current.TryFindResource("SendingSupportRequest") ?? "Sending support request...";
             SetLoadingState(_viewModel.IsLoading, loadingMessage);

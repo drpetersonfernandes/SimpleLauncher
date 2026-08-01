@@ -1099,7 +1099,7 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// </summary>
     /// <param name="missingPaths">The list of missing paths.</param>
     /// <returns><see langword="false"/>.</returns>
-    public Task<bool> BatchFilePathsMissingMessageBoxAsync(List<string> missingPaths)
+    public Task<bool> BatchFilePathsMissingMessageBoxAsync(IList<string> missingPaths)
     {
         return Task.FromResult(false);
     }

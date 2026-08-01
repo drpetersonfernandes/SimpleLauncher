@@ -335,7 +335,7 @@ public class PlayHistoryManagerTests : IDisposable
         var propertyChanged = false;
         item.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(PlayHistoryItem.TotalPlayTime))
+            if (string.Equals(args.PropertyName, nameof(PlayHistoryItem.TotalPlayTime), StringComparison.Ordinal))
             {
                 propertyChanged = true;
             }

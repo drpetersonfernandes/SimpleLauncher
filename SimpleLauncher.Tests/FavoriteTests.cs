@@ -74,7 +74,7 @@ public class FavoriteTests
         var eventRaised = false;
         favorite.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == "DefaultEmulator")
+            if (string.Equals(args.PropertyName, "DefaultEmulator", StringComparison.Ordinal))
             {
                 eventRaised = true;
             }
@@ -148,8 +148,8 @@ public class FavoriteTests
             MachineDescription = "ポケットモンスター"
         };
 
-        Assert.Contains("ポケモン", fav.FileName);
-        Assert.Contains("ポケットモンスター", fav.MachineDescription);
+        Assert.Contains("ポケモン", fav.FileName, StringComparison.Ordinal);
+        Assert.Contains("ポケットモンスター", fav.MachineDescription, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -169,8 +169,8 @@ public class FavoriteTests
             SystemName = "NES"
         };
 
-        Assert.Contains("(", fav.FileName);
-        Assert.Contains("[", fav.FileName);
-        Assert.Contains("{", fav.FileName);
+        Assert.Contains("(", fav.FileName, StringComparison.Ordinal);
+        Assert.Contains("[", fav.FileName, StringComparison.Ordinal);
+        Assert.Contains("{", fav.FileName, StringComparison.Ordinal);
     }
 }

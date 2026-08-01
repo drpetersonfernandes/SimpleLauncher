@@ -6,7 +6,7 @@ using System.Text;
 using SharpCompress.Archives;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
-using FileLock = SimpleLauncher.Services.CheckForFileLock.CheckForFileLock;
+using FileLock = SimpleLauncher.Services.CheckForFileLock.CheckForFileLockService;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.ExtractFiles;
@@ -33,7 +33,7 @@ public class ExtractionService : IExtractionService
         _logger = logger;
     }
 
-    public async Task<(string? gameFilePath, string? tempDirectoryPath)> ExtractToTempAndGetLaunchFileAsync(string archivePath, List<string> fileFormatsToLaunch)
+    public async Task<(string? gameFilePath, string? tempDirectoryPath)> ExtractToTempAndGetLaunchFileAsync(string archivePath, IList<string> fileFormatsToLaunch)
     {
         var pathToExtractionDirectory = await ExtractToTempAsync(archivePath);
 
@@ -118,7 +118,7 @@ public class ExtractionService : IExtractionService
         }
 
         var extension = Path.GetExtension(archivePath).ToLowerInvariant();
-        if (extension != ".7z" && extension != ".zip" && extension != ".rar")
+        if (!string.Equals(extension, ".7z", StringComparison.Ordinal) && !string.Equals(extension, ".zip", StringComparison.Ordinal) && !string.Equals(extension, ".rar", StringComparison.Ordinal))
         {
             // Notify developer
             var contextMessage = $"Only 7z, ZIP, and RAR files are supported by this extraction method.\n" + $"File type: {extension}";
@@ -255,7 +255,7 @@ public class ExtractionService : IExtractionService
         catch (Exception ex)
         {
             // For .7z files, try fallback extraction with 7za executable
-            if (extension == ".7z" && !string.IsNullOrEmpty(resolvedDestinationFolder))
+            if (string.Equals(extension, ".7z", StringComparison.Ordinal) && !string.IsNullOrEmpty(resolvedDestinationFolder))
             {
                 _logger.Debug($"[ExtractionService] SharpCompress failed for .7z file, trying 7za fallback: {archivePath}");
                 var fallbackSuccess = await ExtractWith7ZipAsync(archivePath, resolvedDestinationFolder);
@@ -318,7 +318,7 @@ public class ExtractionService : IExtractionService
         }
 
         var extension = Path.GetExtension(archivePath).ToLowerInvariant();
-        if (extension != ".7z" && extension != ".zip" && extension != ".rar")
+        if (!string.Equals(extension, ".7z", StringComparison.Ordinal) && !string.Equals(extension, ".zip", StringComparison.Ordinal) && !string.Equals(extension, ".rar", StringComparison.Ordinal))
         {
             // Notify user
             await _messageBoxLibrary.FileNeedToBeCompressedMessageBoxAsync();
@@ -343,7 +343,7 @@ public class ExtractionService : IExtractionService
             }
 
             var randomName = Path.GetRandomFileName();
-            if (randomName.Contains("..") || randomName.Contains('/') || randomName.Contains('\\'))
+            if (randomName.Contains("..", StringComparison.Ordinal) || randomName.Contains('/') || randomName.Contains('\\'))
             {
                 randomName = Guid.NewGuid().ToString("N");
             }
@@ -410,7 +410,7 @@ public class ExtractionService : IExtractionService
         catch (Exception ex)
         {
             // For .7z files, try fallback extraction with 7za executable
-            if (extension == ".7z" && !string.IsNullOrEmpty(tempDirectory))
+            if (string.Equals(extension, ".7z", StringComparison.Ordinal) && !string.IsNullOrEmpty(tempDirectory))
             {
                 _logger.Debug($"[ExtractionService] SharpCompress failed for .7z file, trying 7za fallback: {archivePath}");
                 var fallbackSuccess = await ExtractWith7ZipAsync(archivePath, tempDirectory);
@@ -532,7 +532,7 @@ public class ExtractionService : IExtractionService
         return sb.ToString();
     }
 
-    private async Task<string?> ValidateAndFindGameFileAsync(string tempExtractLocation, List<string> fileFormatsToLaunch)
+    private async Task<string?> ValidateAndFindGameFileAsync(string tempExtractLocation, IList<string> fileFormatsToLaunch)
     {
         _logger.Debug($"[ValidateAndFindGameFileAsync] Validating extracted path: {tempExtractLocation}");
         if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
@@ -590,7 +590,7 @@ public class ExtractionService : IExtractionService
         {
             try
             {
-                var allFiles = Directory.EnumerateFiles(tempExtractLocation, "*", SearchOption.AllDirectories).OrderBy(static f => f).ToList();
+                var allFiles = Directory.EnumerateFiles(tempExtractLocation, "*", SearchOption.AllDirectories).OrderBy(static f => f, StringComparer.Ordinal).ToList();
                 if (allFiles.Count > 0)
                 {
                     foundFile = allFiles.First();

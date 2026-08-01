@@ -380,7 +380,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         else
         {
             bestDir = ResolveSingleFolderChain(extractionDir);
-            if (bestDir != extractionDir)
+            if (!string.Equals(bestDir, extractionDir, StringComparison.Ordinal))
             {
                 _logger.Debug($"[CommanderGenius] Game root identified by single-folder chain: {bestDir}");
             }
@@ -505,6 +505,6 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         _logger.Warning( fullMessage);
     }
 
-    [GeneratedRegex(@"^SearchPath1\s*=\s*(.+)$", RegexOptions.IgnoreCase, "pt-BR")]
+    [GeneratedRegex(@"^SearchPath1\s*=\s*(.+)$", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, "pt-BR")]
     private static partial Regex MyRegex();
 }

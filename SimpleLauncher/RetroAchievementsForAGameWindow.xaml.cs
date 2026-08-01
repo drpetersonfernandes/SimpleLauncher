@@ -24,7 +24,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
 
     private int _gameId;
     private string _gameTitleForDisplay = "";
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly RetroAchievementsService _raService;
     private Button? _emergencyReturnButton;
 
@@ -35,7 +35,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
     /// <param name="settings">The application settings manager.</param>
     /// <param name="raService">The RetroAchievements API service.</param>
     /// <param name="logger">The error logging service.</param>
-    public RetroAchievementsForAGameWindow(PlaySoundEffects playSoundEffects, SettingsManager settings, RetroAchievementsService raService, ILogger logger)
+    public RetroAchievementsForAGameWindow(PlaySoundEffects playSoundEffects, SettingsManagerService settings, RetroAchievementsService raService, ILogger logger)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);

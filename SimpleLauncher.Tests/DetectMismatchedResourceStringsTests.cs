@@ -82,6 +82,6 @@ public partial class DetectMismatchedResourceStringsTests
 
     [GeneratedRegex("""
                     TryFindResource\(\s*"([^"]+)"\s*\)\s*\?\?\s*"([^"]+)"
-                    """, RegexOptions.Compiled)]
+                    """, RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex();
 }

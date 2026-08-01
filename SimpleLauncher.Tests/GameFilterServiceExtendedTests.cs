@@ -13,7 +13,7 @@ public class GameFilterServiceExtendedTests
     {
         var configuration = new ConfigurationBuilder().Build();
         var findCoverImage = new FindCoverImageNoOp();
-        var settings = new SettingsManager(configuration, new NoOpLogger(), new NoOpCredentialProtector())
+        var settings = new SettingsManagerService(configuration, new NoOpLogger(), new NoOpCredentialProtector())
         {
             ShowGames = showGames,
             EnableFuzzyMatching = enableFuzzy
@@ -46,13 +46,13 @@ public class GameFilterServiceExtendedTests
     public async Task FilterByShowGamesSettingAsyncShowAllReturnsAllRegardlessOfCover()
     {
         var configuration = new ConfigurationBuilder().Build();
-        var settings = new SettingsManager(configuration, new NoOpLogger(), new NoOpCredentialProtector())
+        var settings = new SettingsManagerService(configuration, new NoOpLogger(), new NoOpCredentialProtector())
         {
             ShowGames = "ShowAll"
         };
         var service = new GameFilterService(new FindCoverImageAlwaysHasCover(), settings);
         var files = new List<string> { "game1.zip", "game2.nes", "game3.smc" };
-        var config = new Services.SystemManager.SystemManager { SystemName = "NES", SystemImageFolder = "images" };
+        var config = new Services.SystemManager.SystemManagerService { SystemName = "NES", SystemImageFolder = "images" };
 
         var result = await service.FilterByShowGamesSettingAsync(files, "NES", config);
         Assert.Equal(3, result.Count);
@@ -65,13 +65,13 @@ public class GameFilterServiceExtendedTests
     public async Task FilterByShowGamesSettingAsyncShowWithCoverFiltersDefaultImages()
     {
         var configuration = new ConfigurationBuilder().Build();
-        var settings = new SettingsManager(configuration, new NoOpLogger(), new NoOpCredentialProtector())
+        var settings = new SettingsManagerService(configuration, new NoOpLogger(), new NoOpCredentialProtector())
         {
             ShowGames = "ShowWithCover"
         };
         var service = new GameFilterService(new FindCoverImageNoOp(), settings);
         var files = new List<string> { "game1.zip", "game2.nes" };
-        var config = new Services.SystemManager.SystemManager { SystemName = "NES", SystemImageFolder = "images" };
+        var config = new Services.SystemManager.SystemManagerService { SystemName = "NES", SystemImageFolder = "images" };
 
         var result = await service.FilterByShowGamesSettingAsync(files, "NES", config);
         Assert.Empty(result);
@@ -84,13 +84,13 @@ public class GameFilterServiceExtendedTests
     public async Task FilterByShowGamesSettingAsyncShowWithoutCoverReturnsDefaultImageGames()
     {
         var configuration = new ConfigurationBuilder().Build();
-        var settings = new SettingsManager(configuration, new NoOpLogger(), new NoOpCredentialProtector())
+        var settings = new SettingsManagerService(configuration, new NoOpLogger(), new NoOpCredentialProtector())
         {
             ShowGames = "ShowWithoutCover"
         };
         var service = new GameFilterService(new FindCoverImageNoOp(), settings);
         var files = new List<string> { "game1.zip", "game2.nes" };
-        var config = new Services.SystemManager.SystemManager { SystemName = "NES", SystemImageFolder = "images" };
+        var config = new Services.SystemManager.SystemManagerService { SystemName = "NES", SystemImageFolder = "images" };
 
         var result = await service.FilterByShowGamesSettingAsync(files, "NES", config);
         Assert.Equal(2, result.Count);
@@ -103,13 +103,13 @@ public class GameFilterServiceExtendedTests
     public async Task FilterByShowGamesSettingAsyncEmptyShowGamesTreatsAsShowAll()
     {
         var configuration = new ConfigurationBuilder().Build();
-        var settings = new SettingsManager(configuration, new NoOpLogger(), new NoOpCredentialProtector())
+        var settings = new SettingsManagerService(configuration, new NoOpLogger(), new NoOpCredentialProtector())
         {
             ShowGames = ""
         };
         var service = new GameFilterService(new FindCoverImageNoOp(), settings);
         var files = new List<string> { "game1.zip" };
-        var config = new Services.SystemManager.SystemManager { SystemName = "NES", SystemImageFolder = "images" };
+        var config = new Services.SystemManager.SystemManagerService { SystemName = "NES", SystemImageFolder = "images" };
 
         var result = await service.FilterByShowGamesSettingAsync(files, "NES", config);
         // Empty ShowGames doesn't match "ShowAll" so it goes through filtering
@@ -134,7 +134,7 @@ public class GameFilterServiceExtendedTests
 
         var result = await service.FilterByLetterAsync(files, "[");
         Assert.Single(result);
-        Assert.Contains("[BIOS]test.zip", result[0]);
+        Assert.Contains("[BIOS]test.zip", result[0], StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -195,7 +195,7 @@ public class GameFilterServiceExtendedTests
     {
         var service = CreateService();
         var files = new List<string> { @"C:\roms\game1.zip", @"C:\roms\game2.zip" };
-        var mameLookup = new Dictionary<string, string>
+        var mameLookup = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["game1"] = "zebra",
             ["game2"] = "APPLE"
@@ -214,7 +214,7 @@ public class GameFilterServiceExtendedTests
         var service = CreateService();
         var files = new List<string> { @"C:\roms\ZEBRA.zip", @"C:\roms\apple.zip" };
 
-        var result = service.SortByMameDescription(files, "FileName", new Dictionary<string, string>());
+        var result = service.SortByMameDescription(files, "FileName", new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Equal("apple.zip", Path.GetFileName(result[0]));
     }
 
@@ -225,7 +225,7 @@ public class GameFilterServiceExtendedTests
     public void SortByMameDescriptionEmptyFilesReturnsEmpty()
     {
         var service = CreateService();
-        var result = service.SortByMameDescription([], "MachineDescription", new Dictionary<string, string>());
+        var result = service.SortByMameDescription([], "MachineDescription", new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Empty(result);
     }
 
@@ -237,7 +237,7 @@ public class GameFilterServiceExtendedTests
     {
         var service = CreateService();
         var files = new List<string> { @"C:\roms\game1.zip", @"C:\roms\game2.zip", @"C:\roms\game3.zip" };
-        var mameLookup = new Dictionary<string, string>
+        var mameLookup = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["game1"] = "Zebra",
             ["game3"] = "Apple"
@@ -259,7 +259,7 @@ public class GameFilterServiceExtendedTests
         var service = CreateService();
         var files = new List<string> { @"C:\roms\zzz.zip", @"C:\roms\aaa.zip" };
 
-        var result = service.SortByMameDescription(files, "UnknownOrder", new Dictionary<string, string>());
+        var result = service.SortByMameDescription(files, "UnknownOrder", new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Equal("aaa.zip", Path.GetFileName(result[0]));
     }
 
@@ -274,7 +274,7 @@ public class GameFilterServiceExtendedTests
         var service = CreateService();
         var files = new List<string> { @"C:\roms\super mario bros.zip", @"C:\roms\zelda.zip" };
 
-        var result = await service.FilterBySearchQueryAsync(files, "mario", new Dictionary<string, string>());
+        var result = await service.FilterBySearchQueryAsync(files, "mario", new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Single(result);
     }
 
@@ -293,7 +293,7 @@ public class GameFilterServiceExtendedTests
             @"C:\roms\zelda.zip"
         };
 
-        var result = await service.FilterBySearchQueryAsync(files, "mario", new Dictionary<string, string>());
+        var result = await service.FilterBySearchQueryAsync(files, "mario", new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Equal(3, result.Count);
     }
 
@@ -306,7 +306,7 @@ public class GameFilterServiceExtendedTests
         var service = CreateService();
         var files = new List<string> { @"C:\roms\mario.zip", @"C:\roms\zelda.zip" };
 
-        var result = await service.FilterBySearchQueryAsync(files, "", new Dictionary<string, string>());
+        var result = await service.FilterBySearchQueryAsync(files, "", new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Equal(2, result.Count);
     }
 
@@ -318,7 +318,7 @@ public class GameFilterServiceExtendedTests
     {
         var service = CreateService();
 
-        var result = await service.FilterBySearchQueryAsync([], "mario", new Dictionary<string, string>());
+        var result = await service.FilterBySearchQueryAsync([], "mario", new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Empty(result);
     }
 
@@ -330,7 +330,7 @@ public class GameFilterServiceExtendedTests
     {
         var service = CreateService();
         var files = new List<string> { @"C:\roms\game1.zip" };
-        var mameLookup = new Dictionary<string, string>
+        var mameLookup = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["game1"] = "PAC-MAN"
         };
@@ -347,7 +347,7 @@ public class GameFilterServiceExtendedTests
     {
         var service = CreateService();
         var files = new List<string> { @"C:\roms\game1.zip" };
-        var mameLookup = new Dictionary<string, string>
+        var mameLookup = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["game1"] = "Super Mario Bros"
         };
@@ -364,7 +364,7 @@ public class GameFilterServiceExtendedTests
     {
         var service = CreateService();
         var files = new List<string> { @"C:\roms\game1.zip" };
-        var mameLookup = new Dictionary<string, string>
+        var mameLookup = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["game1"] = ""
         };
@@ -381,7 +381,7 @@ public class GameFilterServiceExtendedTests
     {
         var service = CreateService();
         var files = new List<string> { @"C:\roms\street fighter.zip" };
-        var mameLookup = new Dictionary<string, string>
+        var mameLookup = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["street fighter"] = "SF2"
         };
@@ -403,9 +403,9 @@ public class GameFilterServiceExtendedTests
             @"C:\roms\zelda.zip"
         };
 
-        var result = await service.FilterBySearchQueryAsync(files, "mario AND kart", new Dictionary<string, string>());
+        var result = await service.FilterBySearchQueryAsync(files, "mario AND kart", new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Single(result);
-        Assert.Contains("mario kart", result[0]);
+        Assert.Contains("mario kart", result[0], StringComparison.Ordinal);
     }
 
     [Fact]
@@ -419,7 +419,7 @@ public class GameFilterServiceExtendedTests
             @"C:\roms\metroid.zip"
         };
 
-        var result = await service.FilterBySearchQueryAsync(files, "mario OR zelda", new Dictionary<string, string>());
+        var result = await service.FilterBySearchQueryAsync(files, "mario OR zelda", new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Equal(2, result.Count);
     }
 
@@ -434,9 +434,9 @@ public class GameFilterServiceExtendedTests
             @"C:\roms\zelda.zip"
         };
 
-        var result = await service.FilterBySearchQueryAsync(files, "super mario", new Dictionary<string, string>());
+        var result = await service.FilterBySearchQueryAsync(files, "super mario", new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Single(result);
-        Assert.Contains("super mario", result[0]);
+        Assert.Contains("super mario", result[0], StringComparison.Ordinal);
     }
 
     [Fact]
@@ -450,9 +450,9 @@ public class GameFilterServiceExtendedTests
             @"C:\roms\zelda.zip"
         };
 
-        var result = await service.FilterBySearchQueryAsync(files, "\"super mario\"", new Dictionary<string, string>());
+        var result = await service.FilterBySearchQueryAsync(files, "\"super mario\"", new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Single(result);
-        Assert.Contains("super mario", result[0]);
+        Assert.Contains("super mario", result[0], StringComparison.Ordinal);
     }
 
     [Fact]
@@ -464,7 +464,7 @@ public class GameFilterServiceExtendedTests
             @"C:\roms\game1.zip",
             @"C:\roms\game2.zip"
         };
-        var mameLookup = new Dictionary<string, string>
+        var mameLookup = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["game1"] = "Super Mario Bros",
             ["game2"] = "Donkey Kong"
@@ -484,7 +484,7 @@ public class GameFilterServiceExtendedTests
             @"C:\roms\game2.zip",
             @"C:\roms\zelda.zip"
         };
-        var mameLookup = new Dictionary<string, string>
+        var mameLookup = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["game1"] = "Pac-Man",
             ["game2"] = "Donkey Kong"
@@ -504,7 +504,7 @@ public class GameFilterServiceExtendedTests
             @"C:\roms\zelda.zip"
         };
 
-        var result = await service.FilterBySearchQueryAsync(files, "mario AND zelda", new Dictionary<string, string>());
+        var result = await service.FilterBySearchQueryAsync(files, "mario AND zelda", new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Empty(result);
     }
 
@@ -517,7 +517,7 @@ public class GameFilterServiceExtendedTests
             @"C:\roms\mario.zip"
         };
 
-        var result = await service.FilterBySearchQueryAsync(files, "zelda OR metroid", new Dictionary<string, string>());
+        var result = await service.FilterBySearchQueryAsync(files, "zelda OR metroid", new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Empty(result);
     }
 }

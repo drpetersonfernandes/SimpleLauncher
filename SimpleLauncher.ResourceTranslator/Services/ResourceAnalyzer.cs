@@ -28,7 +28,7 @@ public static class ResourceAnalyzer
         ["zh-hans"] = "Simplified Chinese"
     };
 
-    public static Dictionary<string, string> ReadEnglishKeys(string englishFilePath)
+    public static IDictionary<string, string> ReadEnglishKeys(string englishFilePath)
     {
         var result = new Dictionary<string, string>(StringComparer.Ordinal);
         foreach (var line in File.ReadAllLines(englishFilePath))
@@ -43,7 +43,7 @@ public static class ResourceAnalyzer
         return result;
     }
 
-    public static List<MissingKeyBatch> AnalyzeAllLanguages(string resourcesPath, Dictionary<string, string> englishKeys)
+    public static IList<MissingKeyBatch> AnalyzeAllLanguages(string resourcesPath, IDictionary<string, string> englishKeys)
     {
         var batches = new List<MissingKeyBatch>();
 

@@ -13,7 +13,7 @@ public partial class HelpUserManager
     // Regex to match Markdown H2 headers: ## System Name
     private static readonly Regex HeaderRegex = MyRegex();
 
-    public List<SystemHelper> Systems { get; private set; } = [];
+    public IList<SystemHelper> Systems { get; private set; } = [];
 
     public HelpUserManager(ILogger logErrors, IMessageBoxLibraryService messageBoxLibrary)
     {
@@ -153,6 +153,6 @@ public partial class HelpUserManager
                 .Select(static line => line.TrimStart()));
     }
 
-    [GeneratedRegex(@"^##\s+(.+)$", RegexOptions.Multiline | RegexOptions.Compiled)]
+    [GeneratedRegex(@"^##\s+(.+)$", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex();
 }

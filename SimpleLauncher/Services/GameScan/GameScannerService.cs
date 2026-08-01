@@ -3,7 +3,6 @@ using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.SystemManager;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameScan;
@@ -78,7 +77,7 @@ public class GameScannerService
         try
         {
             // Check if the system already exists
-            var existingSystems = SystemManager.SystemManager.LoadSystemManagers(_configuration);
+            var existingSystems = SystemManager.SystemManagerService.LoadSystemManagers(_configuration);
             var existingWindowsSystem = existingSystems.FirstOrDefault(static s =>
                 s.SystemName.Equals(WindowsSystemName, StringComparison.OrdinalIgnoreCase));
 
@@ -103,7 +102,7 @@ public class GameScannerService
             var defaultRomsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", "Microsoft Windows");
             var defaultImagesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "Microsoft Windows");
 
-            var windowsSystem = new SystemManager.SystemManager
+            var windowsSystem = new SystemManager.SystemManagerService
             {
                 SystemName = WindowsSystemName,
                 SystemFolders = ["%BASEFOLDER%\\roms\\Microsoft Windows"],
@@ -124,7 +123,7 @@ public class GameScannerService
                 ]
             };
 
-            await SystemManager.SystemManager.SaveSystemConfigurationAsync(windowsSystem);
+            await SystemManager.SystemManagerService.SaveSystemConfigurationAsync(windowsSystem);
 
             // Create the necessary directories
             Directory.CreateDirectory(defaultRomsPath);

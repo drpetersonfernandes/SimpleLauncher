@@ -121,7 +121,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
         var hash1 = _hasher.CalculateFilenameHash(@"C:\game1.zip");
         var hash2 = _hasher.CalculateFilenameHash(@"C:\game2.zip");
 
-        Assert.NotEqual(hash1, hash2);
+        Assert.NotEqual(hash1, hash2, StringComparer.Ordinal);
     }
 
     /// <summary>

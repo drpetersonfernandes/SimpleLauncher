@@ -12,7 +12,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class SoundConfigurationViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
@@ -24,7 +24,7 @@ public partial class SoundConfigurationViewModel : ObservableObject
     [ObservableProperty] private bool _enableNotificationSound;
     [ObservableProperty] private string _notificationSoundFile = "";
     [ObservableProperty] private bool _isSoundControlsEnabled;
-    public SoundConfigurationViewModel(SettingsManager settings, PlaySoundEffects playSoundEffects, ILogger logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
+    public SoundConfigurationViewModel(SettingsManagerService settings, PlaySoundEffects playSoundEffects, ILogger logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
@@ -38,11 +38,11 @@ public partial class SoundConfigurationViewModel : ObservableObject
     }
 
     /// <summary>Event raised when settings have been saved.</summary>
-    public event Action SaveCompleted = null!;
+    public event EventHandler SaveCompleted = null!;
     /// <summary>Event raised when the window should be closed.</summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     /// <summary>Event raised to request a sound file path from the view.</summary>
-    public event Func<string?> RequestSoundFilePath = null!;
+    public Func<string?>? RequestSoundFilePath { get; set; }
     partial void OnEnableNotificationSoundChanged(bool value)
     {
         IsSoundControlsEnabled = value;
@@ -112,12 +112,12 @@ public partial class SoundConfigurationViewModel : ObservableObject
 
         await _messageBox.SettingsSavedSuccessfullyMessageBoxAsync();
 
-        SaveCompleted?.Invoke();
+        SaveCompleted?.Invoke(this, EventArgs.Empty);
     }
 
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 }

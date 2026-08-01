@@ -5,7 +5,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class XeniaConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -50,7 +50,7 @@ public static class XeniaConfigurationService
         }
     }
 
-    private static bool UpdateSingleConfigFile(string configPath, SettingsManager.SettingsManager settings, ILogger logger)
+    private static bool UpdateSingleConfigFile(string configPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         // Backup logic: Create from sample if missing
         if (!File.Exists(configPath))

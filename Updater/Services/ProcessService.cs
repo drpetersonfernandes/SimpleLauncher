@@ -14,7 +14,7 @@ public class ProcessService
     /// <summary>
     /// Event raised when a log message needs to be displayed.
     /// </summary>
-    public event Action<string>? LogMessage;
+    public event EventHandler<EventArgs<string>>? LogMessage;
 
     /// <summary>
     /// Waits for the main application process to exit.
@@ -31,7 +31,7 @@ public class ProcessService
             try
             {
                 using var mainAppProcess = Process.GetProcessById(processId.Value);
-                LogMessage?.Invoke($"Waiting for Simple Launcher (PID: {processId}) to exit...");
+                LogMessage?.Invoke(this, new EventArgs<string>($"Waiting for Simple Launcher (PID: {processId}) to exit..."));
 
                 var stopwatch = Stopwatch.StartNew();
                 while (!mainAppProcess.HasExited && stopwatch.ElapsedMilliseconds < ProcessExitTimeoutMs)
@@ -51,22 +51,22 @@ public class ProcessService
 
                 // Add a small delay to ensure file handles are released
                 await Task.Delay(500, cancellationToken);
-                LogMessage?.Invoke("Simple Launcher has exited.");
+                LogMessage?.Invoke(this, new EventArgs<string>("Simple Launcher has exited."));
             }
             catch (ArgumentException)
             {
-                LogMessage?.Invoke("Simple Launcher process not found. Assuming it has already exited.");
+                LogMessage?.Invoke(this, new EventArgs<string>("Simple Launcher process not found. Assuming it has already exited."));
             }
         }
         else
         {
-            LogMessage?.Invoke("No PID provided by Simple Launcher. Searching for SimpleLauncher process by name...");
+            LogMessage?.Invoke(this, new EventArgs<string>("No PID provided by Simple Launcher. Searching for SimpleLauncher process by name..."));
 
             var processes = Process.GetProcessesByName("SimpleLauncher");
             if (processes.Length > 0)
             {
                 var process = processes[0];
-                LogMessage?.Invoke($"Found SimpleLauncher process (PID: {process.Id}). Waiting for it to exit...");
+                LogMessage?.Invoke(this, new EventArgs<string>($"Found SimpleLauncher process (PID: {process.Id}). Waiting for it to exit..."));
 
                 var stopwatch = Stopwatch.StartNew();
                 while (!process.HasExited && stopwatch.ElapsedMilliseconds < ProcessExitTimeoutMs)
@@ -80,16 +80,16 @@ public class ProcessService
 
                 if (!process.HasExited)
                 {
-                    LogMessage?.Invoke($"SimpleLauncher process did not exit within {ProcessExitTimeoutMs / 1000} seconds. Proceeding anyway.");
+                    LogMessage?.Invoke(this, new EventArgs<string>($"SimpleLauncher process did not exit within {ProcessExitTimeoutMs / 1000} seconds. Proceeding anyway."));
                 }
                 else
                 {
-                    LogMessage?.Invoke("SimpleLauncher has exited.");
+                    LogMessage?.Invoke(this, new EventArgs<string>("SimpleLauncher has exited."));
                 }
             }
             else
             {
-                LogMessage?.Invoke("SimpleLauncher process not found. Proceeding immediately.");
+                LogMessage?.Invoke(this, new EventArgs<string>("SimpleLauncher process not found. Proceeding immediately."));
             }
 
             // Small delay to ensure file handles are released
@@ -113,7 +113,7 @@ public class ProcessService
             // Check if the executable exists before attempting to start it
             if (!File.Exists(exePath))
             {
-                LogMessage?.Invoke($"{executableName}.exe not found. Cannot restart automatically.");
+                LogMessage?.Invoke(this, new EventArgs<string>($"{executableName}.exe not found. Cannot restart automatically."));
                 return false;
             }
 
@@ -132,7 +132,7 @@ public class ProcessService
             // Fire-and-forget async bug report with exception logging
             _ = ReportBugFireAndForgetAsync(ex, $"Failed to restart application: {executableName}");
 
-            LogMessage?.Invoke($"Failed to restart the main application: {ex.Message}");
+            LogMessage?.Invoke(this, new EventArgs<string>($"Failed to restart the main application: {ex.Message}"));
             return false;
         }
     }

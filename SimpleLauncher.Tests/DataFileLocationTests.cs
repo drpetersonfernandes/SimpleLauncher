@@ -15,7 +15,7 @@ public class DataFileLocationTests
         var location = new DataFileLocation(uniqueName);
 
         Assert.NotNull(location.FilePath);
-        Assert.EndsWith(uniqueName, location.FilePath);
+        Assert.EndsWith(uniqueName, location.FilePath, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -55,8 +55,8 @@ public class DataFileLocationTests
         var localPath = location.GetLocalAppDataPath();
 
         Assert.NotNull(localPath);
-        Assert.EndsWith(uniqueName, localPath);
-        Assert.Contains("SimpleLauncher", localPath);
+        Assert.EndsWith(uniqueName, localPath, StringComparison.Ordinal);
+        Assert.Contains("SimpleLauncher", localPath, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -68,7 +68,7 @@ public class DataFileLocationTests
         var localPath = location.GetLocalAppDataPath();
         var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
-        Assert.StartsWith(localAppData, localPath);
+        Assert.StartsWith(localAppData, localPath, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -81,8 +81,8 @@ public class DataFileLocationTests
 
         Assert.True(result);
         Assert.False(location.IsPortableMode);
-        Assert.Contains("SimpleLauncher", location.FilePath);
-        Assert.EndsWith(uniqueName, location.FilePath);
+        Assert.Contains("SimpleLauncher", location.FilePath, StringComparison.Ordinal);
+        Assert.EndsWith(uniqueName, location.FilePath, StringComparison.Ordinal);
     }
 
     [Fact]

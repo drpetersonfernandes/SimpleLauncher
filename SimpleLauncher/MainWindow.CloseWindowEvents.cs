@@ -64,9 +64,9 @@ public partial class MainWindow
         }
 
         // Unsubscribe and stop game file watcher
-        if (_lifecycle != null)
+        if (_lifecycle != null && _gameFilesChangedHandler != null)
         {
-            _lifecycle.UnsubscribeGameFilesChanged(_gameBrowser.OnGameFilesChangedAsync);
+            _lifecycle.UnsubscribeGameFilesChanged(_gameFilesChangedHandler);
             _lifecycle.StopWatching();
         }
     }

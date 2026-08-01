@@ -12,7 +12,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class InjectDolphinConfigViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath = "";
@@ -22,7 +22,7 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
     [ObservableProperty] private bool _wiimoteContinuousScanning;
     [ObservableProperty] private bool _wiimoteEnableSpeaker;
     [ObservableProperty] private bool _showBeforeLaunch;
-    public InjectDolphinConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectDolphinConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -44,7 +44,7 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
     /// <summary>
     /// Available graphics backend options for Dolphin.
     /// </summary>
-    public List<string> GfxBackendOptions { get; } = ["Vulkan", "D3D12", "D3D11", "OpenGL", "Software Renderer"];
+    public IList<string> GfxBackendOptions { get; } = ["Vulkan", "D3D12", "D3D11", "OpenGL", "Software Renderer"];
 
     /// <summary>
     /// Gets whether the configuration is being injected from launcher mode.
@@ -59,21 +59,21 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string?> RequestEmulatorPath = null!;
+    public Func<string?>? RequestEmulatorPath { get; set; }
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow = null!;
+    public Func<Window>? GetOwnerWindow { get; set; }
     private void LoadSettings()
     {
         GfxBackend = _settings.Dolphin.GfxBackend;
@@ -143,17 +143,17 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 ShouldRun = true;
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -172,17 +172,17 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 await _messageBox.DolphinConfigurationSavedSuccessfullyMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {

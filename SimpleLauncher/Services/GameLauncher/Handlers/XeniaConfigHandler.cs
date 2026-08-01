@@ -56,7 +56,7 @@ public class XeniaConfigHandler : IEmulatorConfigHandler
             {
                 try
                 {
-                    XeniaConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger);
+                    XeniaConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
                 }
                 catch (Exception ex)
                 {

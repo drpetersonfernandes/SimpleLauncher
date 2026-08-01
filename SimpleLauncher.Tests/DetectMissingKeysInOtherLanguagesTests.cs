@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text;
+using System.Text.RegularExpressions;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
@@ -102,6 +103,6 @@ public partial class DetectMissingKeysInOtherLanguagesTests
             .ToHashSet(StringComparer.Ordinal);
     }
 
-    [System.Text.RegularExpressions.GeneratedRegex("x:Key=\"([^\"]+)\"", System.Text.RegularExpressions.RegexOptions.Compiled)]
-    private static partial System.Text.RegularExpressions.Regex MyRegex();
+    [GeneratedRegex("x:Key=\"([^\"]+)\"", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
+    private static partial Regex MyRegex();
 }

@@ -43,5 +43,5 @@ public class GameInfo
 
     [Key(8)]
     [JsonPropertyName("Hashes")]
-    public List<string> Hashes { get; set; } = [];
+    public IList<string> Hashes { get; set; } = [];
 }

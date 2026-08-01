@@ -3,7 +3,6 @@ using Moq;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.GameLauncher.Strategies;
-using SimpleLauncher.Services.SystemManager;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

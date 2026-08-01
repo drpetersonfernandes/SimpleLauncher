@@ -8,7 +8,7 @@ public static partial class BlastemConfigurationService
 {
     private static readonly char[] Separator = [' ', '\t'];
 
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -41,7 +41,7 @@ public static partial class BlastemConfigurationService
 
         logger.Debug($"[BlastemConfig] Injecting configuration into: {configPath}");
 
-        var updates = new Dictionary<string, string>
+        var updates = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             { "fullscreen", settings.Blastem.Fullscreen ? "on" : "off" },
             { "vsync", settings.Blastem.Vsync ? "on" : "off" },
@@ -73,7 +73,7 @@ public static partial class BlastemConfigurationService
         var modified = false;
 
         // Map configuration keys to their expected parent blocks for scope validation
-        var keyBlocks = new Dictionary<string, string>
+        var keyBlocks = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             { "fullscreen", "video" },
             { "vsync", "video" },
@@ -122,7 +122,7 @@ public static partial class BlastemConfigurationService
 
             // Validate scope: only update keys when inside their expected block
             var currentBlock = blockStack.Count > 0 ? blockStack.Peek() : "";
-            if (keyBlocks.TryGetValue(key, out var expectedBlock) && currentBlock != expectedBlock)
+            if (keyBlocks.TryGetValue(key, out var expectedBlock) && !string.Equals(currentBlock, expectedBlock, StringComparison.Ordinal))
                 continue; // Key found in wrong scope (e.g., comment or user custom section), skip it
 
             // Preserve original indentation and trailing comments
@@ -133,7 +133,7 @@ public static partial class BlastemConfigurationService
             var comment = commentIndex >= 0 ? originalLine.Substring(commentIndex) : "";
 
             var newLine = $"{indent}{key} {newValue}{(string.IsNullOrEmpty(comment) ? "" : " " + comment)}";
-            if (originalLine == newLine) continue;
+            if (string.Equals(originalLine, newLine, StringComparison.Ordinal)) continue;
 
             lines[i] = newLine;
             modified = true;
@@ -159,6 +159,6 @@ public static partial class BlastemConfigurationService
         }
     }
 
-    [GeneratedRegex(@"^\s*")]
+    [GeneratedRegex(@"^\s*", RegexOptions.None, 1000)]
     private static partial Regex MyRegex();
 }

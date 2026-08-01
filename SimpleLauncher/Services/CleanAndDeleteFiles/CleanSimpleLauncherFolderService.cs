@@ -199,8 +199,9 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
             DeleteFileSafely(file);
         }
 
-        CleanupArchitectureSpecificFiles();
-        CleanupArchitectureSpecificFolders();
+        var currentArchitecture = RuntimeInformation.OSArchitecture;
+        CleanupArchitectureSpecificFiles(currentArchitecture);
+        CleanupArchitectureSpecificFolders(currentArchitecture);
     }
 
     public void CleanupTempFiles()
@@ -210,10 +211,8 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
         _deleteFilesService.TryDeleteDirectory(Path.Combine(Path.GetTempPath(), "SimpleXisoDrive"));
     }
 
-    private void CleanupArchitectureSpecificFiles()
+    private void CleanupArchitectureSpecificFiles(Architecture currentArchitecture)
     {
-        var currentArchitecture = RuntimeInformation.OSArchitecture;
-
         string[] filesToDelete;
 
         switch (currentArchitecture)
@@ -225,7 +224,7 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
                 filesToDelete = FilesToDeleteIfCurrentArchitectureIsArm64;
                 break;
             default:
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(currentArchitecture));
         }
 
         foreach (var file in filesToDelete)
@@ -234,10 +233,8 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
         }
     }
 
-    private void CleanupArchitectureSpecificFolders()
+    private void CleanupArchitectureSpecificFolders(Architecture currentArchitecture)
     {
-        var currentArchitecture = RuntimeInformation.OSArchitecture;
-
         string[] foldersToDelete;
 
         switch (currentArchitecture)
@@ -249,7 +246,7 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
                 foldersToDelete = DirectoriesToDeleteIfCurrentArchitectureIsArm64;
                 break;
             default:
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(currentArchitecture));
         }
 
         foreach (var folder in foldersToDelete)

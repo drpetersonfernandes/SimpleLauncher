@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace SimpleLauncher.Services.GetApplicationVersion;
 
-public static class GetApplicationVersion
+public static class GetApplicationVersionService
 {
     public static string GetVersion
     {

@@ -8,7 +8,7 @@ using Microsoft.Win32;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
-using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 
 namespace SimpleLauncher.ViewModels;
 
@@ -18,13 +18,13 @@ namespace SimpleLauncher.ViewModels;
 public class GlobalStatsViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
-    private List<SystemManager> _systemManagers = [];
+    private IList<SystemManager> _systemManagers = [];
     private readonly ILogger _logger;
     private readonly IGetListOfFilesService _getListOfFiles;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
     private CancellationTokenSource? _cancellationTokenSource = new();
-    private readonly object _processingLock = new();
+    private readonly Lock _processingLock = new();
 
     private ObservableCollection<SystemStatsData> _systemStats = [];
     private GlobalStatsData _globalStats = new();
@@ -51,7 +51,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         ClosingCommand = new AsyncRelayCommand<CancelEventArgs?>(ClosingAsync);
     }
 
-    public void Initialize(List<SystemManager> systemManagers)
+    public void Initialize(IList<SystemManager> systemManagers)
     {
         _systemManagers = systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
 
@@ -162,7 +162,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
     /// <summary>
     /// Event raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     #endregion
 
     public IAsyncRelayCommand StartCommand { get; }
@@ -236,7 +236,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
                 // Close window if user requested it during processing
                 if (_forceClose)
                 {
-                    CloseRequested?.Invoke();
+                    CloseRequested?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
@@ -298,7 +298,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
 
             if (_forceClose)
             {
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
                 return;
             }
         }
@@ -386,7 +386,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
                 });
             }
 
-            return results.OrderBy(static s => s.SystemName).ToList();
+            return results.OrderBy(static s => s.SystemName, StringComparer.Ordinal).ToList();
         }, cancellationToken);
     }
 

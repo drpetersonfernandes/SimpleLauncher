@@ -12,7 +12,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class SetFuzzyMatchingViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
@@ -24,7 +24,7 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
     public const double MaximumThreshold = 0.95;
     public const double TickFrequency = 0.05;
 
-    public SetFuzzyMatchingViewModel(SettingsManager settings, ILogger logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
+    public SetFuzzyMatchingViewModel(SettingsManagerService settings, ILogger logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _logger = logErrors;
@@ -85,11 +85,11 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
     /// <summary>
     /// Event raised when the window should be closed with a success result.
     /// </summary>
-    public event Action SaveCompleted = null!;
+    public event EventHandler SaveCompleted = null!;
     /// <summary>
     /// Event raised when the window should be closed without saving.
     /// </summary>
-    public event Action CancelRequested = null!;
+    public event EventHandler CancelRequested = null!;
     [RelayCommand(CanExecute = nameof(CanSave))]
     private async Task SaveAsync()
     {
@@ -108,7 +108,7 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
             (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
                 _resourceProvider.GetString("SavingFuzzyMatchingSettings", "Saving fuzzy matching settings..."));
 
-            SaveCompleted?.Invoke();
+            SaveCompleted?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -125,6 +125,6 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
     [RelayCommand]
     private void Cancel()
     {
-        CancelRequested?.Invoke();
+        CancelRequested?.Invoke(this, EventArgs.Empty);
     }
 }

@@ -12,7 +12,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class InjectMesenConfigViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath = null!;
@@ -27,7 +27,7 @@ public partial class InjectMesenConfigViewModel : ObservableObject
     [ObservableProperty] private int _runAhead;
     [ObservableProperty] private bool _pauseInBackground;
     [ObservableProperty] private bool _showBeforeLaunch;
-    public InjectMesenConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectMesenConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -49,12 +49,12 @@ public partial class InjectMesenConfigViewModel : ObservableObject
     /// <summary>
     /// Available aspect ratio options for Mesen.
     /// </summary>
-    public List<string> AspectRatioOptions { get; } = ["NoStretching", "4:3", "16:9", "Auto"];
+    public IList<string> AspectRatioOptions { get; } = ["NoStretching", "4:3", "16:9", "Auto"];
 
     /// <summary>
     /// Available video filter options for Mesen.
     /// </summary>
-    public List<string> VideoFilterOptions { get; } = ["None", "NTSC", "CRT", "LCD"];
+    public IList<string> VideoFilterOptions { get; } = ["None", "NTSC", "CRT", "LCD"];
 
     /// <summary>
     /// Gets whether the configuration is being injected from launcher mode.
@@ -69,21 +69,21 @@ public partial class InjectMesenConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string?> RequestEmulatorPath = null!;
+    public Func<string?>? RequestEmulatorPath { get; set; }
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow = null!;
+    public Func<Window>? GetOwnerWindow { get; set; }
     private void LoadSettings()
     {
         Fullscreen = _settings.Mesen.Fullscreen;
@@ -165,17 +165,17 @@ public partial class InjectMesenConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 ShouldRun = true;
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -194,17 +194,17 @@ public partial class InjectMesenConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 await _messageBox.MesenConfigurationSavedSuccessfullyMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {

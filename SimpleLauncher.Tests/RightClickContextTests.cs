@@ -60,7 +60,7 @@ public class RightClickContextTests
     [Fact]
     public void ConstructorSetsMachines()
     {
-        var machines = new List<Services.MameManager.MameManager>();
+        var machines = new List<Services.MameManager.MameManagerService>();
         var context = CreateContext(machines: machines);
         Assert.Same(machines, context.Machines);
     }
@@ -108,12 +108,12 @@ public class RightClickContextTests
         string fileNameWithExtension = "game.zip",
         string fileNameWithoutExtension = "game",
         string? selectedSystemName = "NES",
-        List<Services.MameManager.MameManager>? machines = null)
+        List<Services.MameManager.MameManagerService>? machines = null)
     {
         var configuration = new Microsoft.Extensions.Configuration.ConfigurationBuilder().Build();
         var logErrors = new NoOpLogger();
         var credentialProtector = new NoOpCredentialProtector();
-        var settings = new SettingsManager(configuration, logErrors, credentialProtector);
+        var settings = new SettingsManagerService(configuration, logErrors, credentialProtector);
         var favoritesManager = new FavoritesManager();
 
         return new RightClickContext(
@@ -121,7 +121,7 @@ public class RightClickContextTests
             fileNameWithExtension,
             fileNameWithoutExtension,
             selectedSystemName!,
-            new Services.SystemManager.SystemManager { SystemName = selectedSystemName! },
+            new Services.SystemManager.SystemManagerService { SystemName = selectedSystemName! },
             machines ?? [],
             favoritesManager,
             settings,

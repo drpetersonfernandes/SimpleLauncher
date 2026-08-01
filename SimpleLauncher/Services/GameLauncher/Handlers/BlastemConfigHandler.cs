@@ -87,7 +87,7 @@ public class BlastemConfigHandler : IEmulatorConfigHandler
                 {
                     try
                     {
-                        BlastemConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger);
+                        BlastemConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
                         _logger.Debug("[BlastemConfigHandler] Configuration injected successfully");
                     }
                     catch (Exception ex)

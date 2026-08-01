@@ -1,4 +1,3 @@
-using SimpleLauncher.Services.SystemManager;
 using Xunit;
 
 using SimpleLauncher.Models;

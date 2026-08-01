@@ -2,7 +2,7 @@ using SimpleLauncher.Services.CheckPaths;
 
 namespace SimpleLauncher.Services.CheckForFileLock;
 
-public static class CheckForFileLock
+public static class CheckForFileLockService
 {
     public static bool IsFileLocked(string filePath)
     {

@@ -12,7 +12,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class InjectRetroArchConfigViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath = null!;
@@ -39,7 +39,7 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     [ObservableProperty] private bool _cheevosHardcore;
     [ObservableProperty] private bool _discordAllow;
     [ObservableProperty] private bool _showBeforeLaunch;
-    public InjectRetroArchConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectRetroArchConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -61,22 +61,22 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     /// <summary>
     /// Available video driver options for RetroArch.
     /// </summary>
-    public List<string> VideoDriverOptions { get; } = ["gl", "vulkan", "d3d11", "d3d12", "d3d10", "sdl2"];
+    public IList<string> VideoDriverOptions { get; } = ["gl", "vulkan", "d3d11", "d3d12", "d3d10", "sdl2"];
 
     /// <summary>
     /// Available aspect ratio display options for RetroArch.
     /// </summary>
-    public List<string> AspectRatioIndexOptions { get; } = ["Core Provided", "4:3", "16:9", "16:10"];
+    public IList<string> AspectRatioIndexOptions { get; } = ["Core Provided", "4:3", "16:9", "16:10"];
 
     /// <summary>
     /// Tags corresponding to the aspect ratio options for RetroArch.
     /// </summary>
-    public List<string> AspectRatioIndexTags { get; } = ["22", "0", "1", "2"];
+    public IList<string> AspectRatioIndexTags { get; } = ["22", "0", "1", "2"];
 
     /// <summary>
     /// Available menu driver options for RetroArch.
     /// </summary>
-    public List<string> MenuDriverOptions { get; } = ["ozone", "xmb", "rgui", "glui"];
+    public IList<string> MenuDriverOptions { get; } = ["ozone", "xmb", "rgui", "glui"];
 
     /// <summary>
     /// Gets whether the configuration is being injected from launcher mode.
@@ -91,21 +91,21 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string?> RequestEmulatorPath = null!;
+    public Func<string?>? RequestEmulatorPath { get; set; }
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow = null!;
+    public Func<Window>? GetOwnerWindow { get; set; }
     private void LoadSettings()
     {
         VideoDriver = _settings.RetroArch.VideoDriver;
@@ -211,17 +211,17 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 ShouldRun = true;
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -240,17 +240,17 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 await _messageBox.RetroArchConfigurationInjectedSuccessfullyMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {

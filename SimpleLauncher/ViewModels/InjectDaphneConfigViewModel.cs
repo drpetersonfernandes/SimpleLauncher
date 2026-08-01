@@ -10,7 +10,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class InjectDaphneConfigViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly ILogger _logger;
 
@@ -22,7 +22,7 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     [ObservableProperty] private bool _daphneDisableCrosshairs;
     [ObservableProperty] private bool _daphneUseOverlays;
     [ObservableProperty] private bool _daphneShowSettingsBeforeLaunch;
-    public InjectDaphneConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logErrors)
+    public InjectDaphneConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logErrors)
     {
         _settings = settings;
         _messageBox = messageBox;
@@ -52,11 +52,11 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     private void LoadSettings()
@@ -91,7 +91,7 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
         {
             SaveSettings();
             ShouldRun = true;
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -108,7 +108,7 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
         {
             SaveSettings();
             await _messageBox.DaphnesettingssavedsuccessfullyMessageBoxAsync();
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {

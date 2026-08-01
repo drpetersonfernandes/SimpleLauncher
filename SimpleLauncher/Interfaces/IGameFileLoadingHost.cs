@@ -18,12 +18,12 @@ public interface IGameFileLoadingHost
     string ViewMode { get; }
     bool IsResortOperation { get; }
 
-    List<SystemManager> GetSystemManagers();
+    IList<SystemManagerService> GetSystemManagers();
 
     Task DisplaySystemSelectionScreenAsync(CancellationToken cancellationToken);
     void SetLoadingState(bool isLoading, string? message = null);
     Task SetUiBeforeLoadGameFilesAsync();
-    List<string> SetPaginationOfListOfFiles(List<string> allFiles);
+    IList<string> SetPaginationOfListOfFiles(IList<string> allFiles);
     string? GetCurrentFilter();
     string? GetActiveSearchQueryOrMode();
     string GetMameSortOrder();

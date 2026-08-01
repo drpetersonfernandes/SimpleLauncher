@@ -6,7 +6,7 @@ namespace SimpleLauncher.Services.DebugAndBugReport;
 
 public class DebugWindowSink : ILogEventSink
 {
-    private static readonly object SinkLock = new();
+    private static readonly Lock SinkLock = new();
     private static readonly List<string> MessageBuffer = [];
     private static DebugViewModel? _viewModel;
 

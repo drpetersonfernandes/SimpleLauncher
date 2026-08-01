@@ -1,6 +1,5 @@
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.MameManager;
-using SimpleLauncher.Services.SearchOrchestrator;
 using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Interfaces;
@@ -13,7 +12,7 @@ public interface IGameBrowserService
     void LoadOrReloadSystemManager();
     Task DisplaySystemSelectionScreenAsync(CancellationToken ct = default);
     Task SystemComboBoxSelectionChangedAsync(CancellationToken ct = default);
-    List<SystemManager> SystemManagers { get; }
+    IList<SystemManagerService> SystemManagers { get; }
 
     // Game loading
     Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null, CancellationToken ct = default);
@@ -23,8 +22,8 @@ public interface IGameBrowserService
     Task<SearchValidationResult> ValidateAndPrepareAsync(string searchQuery, string? selectedSystem, CancellationToken ct);
 
     // Rendering
-    void ReloadFactories(List<SystemManager> systemManagers, List<MameManager> machines);
-    Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManager systemManager, CancellationToken ct);
+    void ReloadFactories(IList<SystemManagerService> systemManagers, IList<MameManagerService> machines);
+    Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManagerService systemManager, CancellationToken ct);
     Task HandleSelectionChangedAsync(GameListViewItem selectedItem);
     Task HandleDoubleClickAsync(GameListViewItem selectedItem);
     void ClearRenderedItems();
@@ -36,8 +35,8 @@ public interface IGameBrowserService
     bool WasNewSystemCreated { get; }
 
     // MAME data
-    IReadOnlyList<MameManager> Machines { get; }
-    Dictionary<string, string> MameLookup { get; }
+    IReadOnlyList<MameManagerService> Machines { get; }
+    IDictionary<string, string> MameLookup { get; }
 
     // File watcher
     void OnGameFilesChangedAsync(string systemName);

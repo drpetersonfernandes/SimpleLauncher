@@ -6,17 +6,17 @@ using SimpleLauncher.Models;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the SystemManager and Emulator model classes for property assignment, defaults, and collection behavior.
+/// Tests the SystemManagerService and Emulator model classes for property assignment, defaults, and collection behavior.
 /// </summary>
 public class SystemManagerTests
 {
     /// <summary>
-    /// Verifies that all SystemManager properties can be set and retrieved correctly.
+    /// Verifies that all SystemManagerService properties can be set and retrieved correctly.
     /// </summary>
     [Fact]
     public void SystemManagerPropertiesCanBeSetAndRetrieved()
     {
-        var system = new SystemManager
+        var system = new SystemManagerService
         {
             SystemName = "Arcade",
             SystemFolders = ["C:\\roms\\Arcade", "D:\\roms\\Arcade"],
@@ -53,7 +53,7 @@ public class SystemManagerTests
     [Fact]
     public void PrimarySystemFolderReturnsFirstFolder()
     {
-        var system = new SystemManager
+        var system = new SystemManagerService
         {
             SystemName = "NES",
             SystemFolders = ["C:\\roms\\NES", "D:\\backup\\NES"]
@@ -68,7 +68,7 @@ public class SystemManagerTests
     [Fact]
     public void PrimarySystemFolderWithNullFoldersReturnsNull()
     {
-        var system = new SystemManager
+        var system = new SystemManagerService
         {
             SystemName = "NES",
             SystemFolders = null!        };
@@ -82,7 +82,7 @@ public class SystemManagerTests
     [Fact]
     public void PrimarySystemFolderWithEmptyFoldersReturnsNull()
     {
-        var system = new SystemManager
+        var system = new SystemManagerService
         {
             SystemName = "NES",
             SystemFolders = []
@@ -141,7 +141,7 @@ public class SystemManagerTests
     [Fact]
     public void SystemManagerWithMultipleEmulatorsPreservesOrder()
     {
-        var system = new SystemManager
+        var system = new SystemManagerService
         {
             SystemName = "PlayStation",
             SystemFolders = ["C:\\roms\\PS1"],
@@ -160,12 +160,12 @@ public class SystemManagerTests
     }
 
     /// <summary>
-    /// Verifies that boolean properties on SystemManager default to false.
+    /// Verifies that boolean properties on SystemManagerService default to false.
     /// </summary>
     [Fact]
     public void SystemManagerDefaultBoolPropertiesAreFalse()
     {
-        var system = new SystemManager
+        var system = new SystemManagerService
         {
             SystemName = "Test"
         };

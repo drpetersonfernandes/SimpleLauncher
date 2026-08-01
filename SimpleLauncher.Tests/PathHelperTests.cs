@@ -171,7 +171,7 @@ public class PathHelperTests
             Directory.CreateDirectory(primaryFolder);
             File.WriteAllText(gameFile, "dummy");
 
-            var systemManager = new Services.SystemManager.SystemManager
+            var systemManager = new Services.SystemManager.SystemManagerService
             {
                 SystemFolders = [primaryFolder]
             };
@@ -203,7 +203,7 @@ public class PathHelperTests
             Directory.CreateDirectory(additionalFolder);
             File.WriteAllText(gameFile, "dummy");
 
-            var systemManager = new Services.SystemManager.SystemManager
+            var systemManager = new Services.SystemManager.SystemManagerService
             {
                 SystemFolders = [primaryFolder, additionalFolder]
             };
@@ -236,7 +236,7 @@ public class PathHelperTests
             Directory.CreateDirectory(Path.Combine(baseDir, "unrelated"));
             File.WriteAllText(gameFile, "dummy");
 
-            var systemManager = new Services.SystemManager.SystemManager
+            var systemManager = new Services.SystemManager.SystemManagerService
             {
                 SystemFolders = [primaryFolder, otherFolder]
             };
@@ -267,7 +267,7 @@ public class PathHelperTests
             Directory.CreateDirectory(nestedFolder);
             File.WriteAllText(gameFile, "dummy");
 
-            var systemManager = new Services.SystemManager.SystemManager
+            var systemManager = new Services.SystemManager.SystemManagerService
             {
                 SystemFolders = [primaryFolder]
             };
@@ -298,7 +298,7 @@ public class PathHelperTests
     [Fact]
     public void FindContainingSystemFolderNullFilePathReturnsPrimaryFolder()
     {
-        var systemManager = new Services.SystemManager.SystemManager
+        var systemManager = new Services.SystemManager.SystemManagerService
         {
             SystemFolders = ["C:\\roms\\Arcade"]
         };
@@ -316,7 +316,7 @@ public class PathHelperTests
         var result = PathHelper.ResolveRelativeToAppDirectory("%BASEFOLDER%\\roms\\test");
         Assert.NotNull(result);
         Assert.True(Path.IsPathRooted(result));
-        Assert.EndsWith("roms\\test", result);
+        Assert.EndsWith("roms\\test", result, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -338,7 +338,7 @@ public class PathHelperTests
         var result = PathHelper.ResolveRelativeToAppDirectory("roms\\test");
         Assert.NotNull(result);
         Assert.True(Path.IsPathRooted(result));
-        Assert.EndsWith("roms\\test", result);
+        Assert.EndsWith("roms\\test", result, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -351,8 +351,8 @@ public class PathHelperTests
         var result = PathHelper.ResolveParameterString(parameters);
 
         Assert.NotNull(result);
-        Assert.DoesNotContain("%BASEFOLDER%", result);
-        Assert.Contains("\\roms", result);
+        Assert.DoesNotContain("%BASEFOLDER%", result, StringComparison.Ordinal);
+        Assert.Contains("\\roms", result, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -388,10 +388,10 @@ public class PathHelperTests
         const string parameters = "-rompath %EMULATORFOLDER%\\roms;%SYSTEMFOLDER% -skip_gameinfo";
         var result = PathHelper.ResolveParameterString(parameters, ["C:\\roms\\Arcade"], "C:\\emulators\\mame");
 
-        Assert.Contains("C:\\emulators\\mame\\roms", result);
-        Assert.Contains("C:\\roms\\Arcade", result);
-        Assert.DoesNotContain("%EMULATORFOLDER%", result);
-        Assert.DoesNotContain("%SYSTEMFOLDER%", result);
+        Assert.Contains("C:\\emulators\\mame\\roms", result, StringComparison.Ordinal);
+        Assert.Contains("C:\\roms\\Arcade", result, StringComparison.Ordinal);
+        Assert.DoesNotContain("%EMULATORFOLDER%", result, StringComparison.Ordinal);
+        Assert.DoesNotContain("%SYSTEMFOLDER%", result, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -428,7 +428,7 @@ public class PathHelperTests
         var result = PathHelper.ResolveParameterString(parameters);
 
         // No longer rejects path traversal; placeholder should still be resolved
-        Assert.DoesNotContain("%BASEFOLDER%", result);
+        Assert.DoesNotContain("%BASEFOLDER%", result, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -464,10 +464,10 @@ public class PathHelperTests
         const string parameters = "-f -L core --fullscreen -rompath %SYSTEMFOLDER%";
         var result = PathHelper.ResolveParameterString(parameters, ["C:\\roms"]);
 
-        Assert.Contains("-f", result);
-        Assert.Contains("-L", result);
-        Assert.Contains("--fullscreen", result);
-        Assert.DoesNotContain("%SYSTEMFOLDER%", result);
+        Assert.Contains("-f", result, StringComparison.Ordinal);
+        Assert.Contains("-L", result, StringComparison.Ordinal);
+        Assert.Contains("--fullscreen", result, StringComparison.Ordinal);
+        Assert.DoesNotContain("%SYSTEMFOLDER%", result, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -486,7 +486,7 @@ public class PathHelperTests
             Directory.CreateDirectory(folder);
             File.WriteAllText(filePath, "dummy");
 
-            var systemManager = new Services.SystemManager.SystemManager
+            var systemManager = new Services.SystemManager.SystemManagerService
             {
                 SystemFolders = [folder]
             };
@@ -507,7 +507,7 @@ public class PathHelperTests
     [Fact]
     public void FindFileInSystemFoldersFileNotFoundReturnsNull()
     {
-        var systemManager = new Services.SystemManager.SystemManager
+        var systemManager = new Services.SystemManager.SystemManagerService
         {
             SystemFolders = ["C:\\nonexistent\\roms"]
         };
@@ -570,7 +570,7 @@ public class PathHelperTests
     [Fact]
     public void FindContainingSystemFolderEmptySystemFoldersListReturnsNull()
     {
-        var systemManager = new Services.SystemManager.SystemManager
+        var systemManager = new Services.SystemManager.SystemManagerService
         {
             SystemFolders = []
         };

@@ -13,7 +13,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class InjectSupermodelConfigViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath = null!;
@@ -32,7 +32,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     [ObservableProperty] private string _inputSystem = null!;
     [ObservableProperty] private string _powerPcFrequency = null!;
     [ObservableProperty] private bool _showBeforeLaunch;
-    public InjectSupermodelConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectSupermodelConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -54,12 +54,12 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     /// <summary>
     /// Available input system options for Supermodel.
     /// </summary>
-    public List<string> InputSystemOptions { get; } = ["xinput", "dinput", "rawinput"];
+    public IList<string> InputSystemOptions { get; } = ["xinput", "dinput", "rawinput"];
 
     /// <summary>
     /// Available PowerPC frequency options for Supermodel.
     /// </summary>
-    public List<string> PpcFrequencyOptions { get; } = ["50", "60", "75", "100"];
+    public IList<string> PpcFrequencyOptions { get; } = ["50", "60", "75", "100"];
 
     /// <summary>
     /// Gets whether the configuration is being injected from launcher mode.
@@ -74,21 +74,21 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string?> RequestEmulatorPath = null!;
+    public Func<string?>? RequestEmulatorPath { get; set; }
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow = null!;
+    public Func<Window>? GetOwnerWindow { get; set; }
     private void LoadSettings()
     {
         New3DEngine = _settings.Supermodel.New3DEngine;
@@ -182,17 +182,17 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 ShouldRun = true;
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -211,17 +211,17 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 await _messageBox.SupermodelConfigurationSavedSuccessfullyMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {

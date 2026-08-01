@@ -5,5 +5,5 @@ namespace SimpleLauncher.Models;
 public class EpicInstalledAppList
 {
     [JsonPropertyName("InstallationList")]
-    public List<EpicInstalledApp> InstallationList { get; set; } = null!;
+    public IList<EpicInstalledApp> InstallationList { get; set; } = null!;
 }

@@ -182,62 +182,62 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         var normalizedPattern = NormalizeSystemName(pattern);
 
         // Common Sony variations
-        if (normalizedInput.Contains("ps3") || normalizedInput.Contains("playstation3"))
-            return normalizedPattern.Contains("ps3") || normalizedPattern.Contains("playstation3");
-        if (normalizedInput.Contains("ps2") || normalizedInput.Contains("playstation2"))
-            return normalizedPattern.Contains("ps2") || normalizedPattern.Contains("playstation2");
-        if (normalizedInput.Contains("ps1") || normalizedInput.Contains("playstation1") || normalizedInput.Contains("psx"))
-            return normalizedPattern.Contains("ps1") || normalizedPattern.Contains("playstation1") || normalizedPattern.Contains("psx");
-        if (normalizedInput.Contains("psp") || normalizedInput.Contains("playstationportable"))
-            return normalizedPattern.Contains("psp") || normalizedPattern.Contains("playstationportable");
+        if (normalizedInput.Contains("ps3", StringComparison.Ordinal) || normalizedInput.Contains("playstation3", StringComparison.Ordinal))
+            return normalizedPattern.Contains("ps3", StringComparison.Ordinal) || normalizedPattern.Contains("playstation3", StringComparison.Ordinal);
+        if (normalizedInput.Contains("ps2", StringComparison.Ordinal) || normalizedInput.Contains("playstation2", StringComparison.Ordinal))
+            return normalizedPattern.Contains("ps2", StringComparison.Ordinal) || normalizedPattern.Contains("playstation2", StringComparison.Ordinal);
+        if (normalizedInput.Contains("ps1", StringComparison.Ordinal) || normalizedInput.Contains("playstation1", StringComparison.Ordinal) || normalizedInput.Contains("psx", StringComparison.Ordinal))
+            return normalizedPattern.Contains("ps1", StringComparison.Ordinal) || normalizedPattern.Contains("playstation1", StringComparison.Ordinal) || normalizedPattern.Contains("psx", StringComparison.Ordinal);
+        if (normalizedInput.Contains("psp", StringComparison.Ordinal) || normalizedInput.Contains("playstationportable", StringComparison.Ordinal))
+            return normalizedPattern.Contains("psp", StringComparison.Ordinal) || normalizedPattern.Contains("playstationportable", StringComparison.Ordinal);
 
         // Common Nintendo variations
-        if (normalizedInput.Contains("nes") || normalizedInput.Contains("nintendoentertainmentsystem"))
-            return normalizedPattern.Contains("nes") || normalizedPattern.Contains("nintendoentertainmentsystem");
-        if (normalizedInput.Contains("snes") || normalizedInput.Contains("supernintendo"))
-            return normalizedPattern.Contains("snes") || normalizedPattern.Contains("supernintendo");
-        if (normalizedInput.Contains("n64") || normalizedInput.Contains("nintendo64"))
-            return normalizedPattern.Contains("n64") || normalizedPattern.Contains("nintendo64");
-        if (normalizedInput.Contains("gc") || normalizedInput.Contains("gamecube"))
-            return normalizedPattern.Contains("gc") || normalizedPattern.Contains("gamecube");
-        if (normalizedInput.Contains("gb") || normalizedInput.Contains("gameboy"))
-            return normalizedPattern.Contains("gb") || normalizedPattern.Contains("gameboy");
-        if (normalizedInput.Contains("gba") || normalizedInput.Contains("gameboyadvance"))
-            return normalizedPattern.Contains("gba") || normalizedPattern.Contains("gameboyadvance");
-        if (normalizedInput.Contains("gbc") || normalizedInput.Contains("gameboycolor"))
-            return normalizedPattern.Contains("gbc") || normalizedPattern.Contains("gameboycolor");
-        if (normalizedInput.Contains("nds") || normalizedInput.Contains("nintendods"))
-            return normalizedPattern.Contains("nds") || normalizedPattern.Contains("nintendods");
-        if (normalizedInput.Contains("3ds") || normalizedInput.Contains("nintendo3ds"))
-            return normalizedPattern.Contains("3ds") || normalizedPattern.Contains("nintendo3ds");
-        if (normalizedInput.Contains("wiiu"))
-            return normalizedPattern.Contains("wiiu");
-        if (normalizedInput.Contains("switch") || normalizedInput.Contains("nintendoswitch"))
-            return normalizedPattern.Contains("switch") || normalizedPattern.Contains("nintendoswitch");
+        if (normalizedInput.Contains("nes", StringComparison.Ordinal) || normalizedInput.Contains("nintendoentertainmentsystem", StringComparison.Ordinal))
+            return normalizedPattern.Contains("nes", StringComparison.Ordinal) || normalizedPattern.Contains("nintendoentertainmentsystem", StringComparison.Ordinal);
+        if (normalizedInput.Contains("snes", StringComparison.Ordinal) || normalizedInput.Contains("supernintendo", StringComparison.Ordinal))
+            return normalizedPattern.Contains("snes", StringComparison.Ordinal) || normalizedPattern.Contains("supernintendo", StringComparison.Ordinal);
+        if (normalizedInput.Contains("n64", StringComparison.Ordinal) || normalizedInput.Contains("nintendo64", StringComparison.Ordinal))
+            return normalizedPattern.Contains("n64", StringComparison.Ordinal) || normalizedPattern.Contains("nintendo64", StringComparison.Ordinal);
+        if (normalizedInput.Contains("gc", StringComparison.Ordinal) || normalizedInput.Contains("gamecube", StringComparison.Ordinal))
+            return normalizedPattern.Contains("gc", StringComparison.Ordinal) || normalizedPattern.Contains("gamecube", StringComparison.Ordinal);
+        if (normalizedInput.Contains("gb", StringComparison.Ordinal) || normalizedInput.Contains("gameboy", StringComparison.Ordinal))
+            return normalizedPattern.Contains("gb", StringComparison.Ordinal) || normalizedPattern.Contains("gameboy", StringComparison.Ordinal);
+        if (normalizedInput.Contains("gba", StringComparison.Ordinal) || normalizedInput.Contains("gameboyadvance", StringComparison.Ordinal))
+            return normalizedPattern.Contains("gba", StringComparison.Ordinal) || normalizedPattern.Contains("gameboyadvance", StringComparison.Ordinal);
+        if (normalizedInput.Contains("gbc", StringComparison.Ordinal) || normalizedInput.Contains("gameboycolor", StringComparison.Ordinal))
+            return normalizedPattern.Contains("gbc", StringComparison.Ordinal) || normalizedPattern.Contains("gameboycolor", StringComparison.Ordinal);
+        if (normalizedInput.Contains("nds", StringComparison.Ordinal) || normalizedInput.Contains("nintendods", StringComparison.Ordinal))
+            return normalizedPattern.Contains("nds", StringComparison.Ordinal) || normalizedPattern.Contains("nintendods", StringComparison.Ordinal);
+        if (normalizedInput.Contains("3ds", StringComparison.Ordinal) || normalizedInput.Contains("nintendo3ds", StringComparison.Ordinal))
+            return normalizedPattern.Contains("3ds", StringComparison.Ordinal) || normalizedPattern.Contains("nintendo3ds", StringComparison.Ordinal);
+        if (normalizedInput.Contains("wiiu", StringComparison.Ordinal))
+            return normalizedPattern.Contains("wiiu", StringComparison.Ordinal);
+        if (normalizedInput.Contains("switch", StringComparison.Ordinal) || normalizedInput.Contains("nintendoswitch", StringComparison.Ordinal))
+            return normalizedPattern.Contains("switch", StringComparison.Ordinal) || normalizedPattern.Contains("nintendoswitch", StringComparison.Ordinal);
 
         // Common Sega variations
-        if (normalizedInput.Contains("genesis") || normalizedInput.Contains("megadrive") || normalizedInput.Contains("segagenesis"))
-            return normalizedPattern.Contains("genesis") || normalizedPattern.Contains("megadrive") || normalizedPattern.Contains("segagenesis");
-        if (normalizedInput.Contains("sms") || normalizedInput.Contains("mastersystem") || normalizedInput.Contains("segamastersystem"))
-            return normalizedPattern.Contains("sms") || normalizedPattern.Contains("mastersystem") || normalizedPattern.Contains("segamastersystem");
-        if (normalizedInput.Contains("gg") || normalizedInput.Contains("gamegear") || normalizedInput.Contains("segagamegear"))
-            return normalizedPattern.Contains("gg") || normalizedPattern.Contains("gamegear") || normalizedPattern.Contains("segagamegear");
-        if (normalizedInput.Contains("saturn") || normalizedInput.Contains("segasaturn"))
-            return normalizedPattern.Contains("saturn") || normalizedPattern.Contains("segasaturn");
-        if (normalizedInput.Contains("dreamcast") || normalizedInput.Contains("segadreamcast"))
-            return normalizedPattern.Contains("dreamcast") || normalizedPattern.Contains("segadreamcast");
+        if (normalizedInput.Contains("genesis", StringComparison.Ordinal) || normalizedInput.Contains("megadrive", StringComparison.Ordinal) || normalizedInput.Contains("segagenesis", StringComparison.Ordinal))
+            return normalizedPattern.Contains("genesis", StringComparison.Ordinal) || normalizedPattern.Contains("megadrive", StringComparison.Ordinal) || normalizedPattern.Contains("segagenesis", StringComparison.Ordinal);
+        if (normalizedInput.Contains("sms", StringComparison.Ordinal) || normalizedInput.Contains("mastersystem", StringComparison.Ordinal) || normalizedInput.Contains("segamastersystem", StringComparison.Ordinal))
+            return normalizedPattern.Contains("sms", StringComparison.Ordinal) || normalizedPattern.Contains("mastersystem", StringComparison.Ordinal) || normalizedPattern.Contains("segamastersystem", StringComparison.Ordinal);
+        if (normalizedInput.Contains("gg", StringComparison.Ordinal) || normalizedInput.Contains("gamegear", StringComparison.Ordinal) || normalizedInput.Contains("segagamegear", StringComparison.Ordinal))
+            return normalizedPattern.Contains("gg", StringComparison.Ordinal) || normalizedPattern.Contains("gamegear", StringComparison.Ordinal) || normalizedPattern.Contains("segagamegear", StringComparison.Ordinal);
+        if (normalizedInput.Contains("saturn", StringComparison.Ordinal) || normalizedInput.Contains("segasaturn", StringComparison.Ordinal))
+            return normalizedPattern.Contains("saturn", StringComparison.Ordinal) || normalizedPattern.Contains("segasaturn", StringComparison.Ordinal);
+        if (normalizedInput.Contains("dreamcast", StringComparison.Ordinal) || normalizedInput.Contains("segadreamcast", StringComparison.Ordinal))
+            return normalizedPattern.Contains("dreamcast", StringComparison.Ordinal) || normalizedPattern.Contains("segadreamcast", StringComparison.Ordinal);
 
         // Common Microsoft variations
-        if (normalizedInput.Contains("xbox360") || normalizedInput.Contains("xbox 360") || normalizedInput.Contains("xb360"))
-            return normalizedPattern.Contains("xbox360") || normalizedPattern.Contains("xbox 360") || normalizedPattern.Contains("xb360");
-        if (normalizedInput.Contains("xboxone") || normalizedInput.Contains("xbox one") || normalizedInput.Contains("xbone"))
-            return normalizedPattern.Contains("xboxone") || normalizedPattern.Contains("xbox one") || normalizedPattern.Contains("xbone");
+        if (normalizedInput.Contains("xbox360", StringComparison.Ordinal) || normalizedInput.Contains("xbox 360", StringComparison.Ordinal) || normalizedInput.Contains("xb360", StringComparison.Ordinal))
+            return normalizedPattern.Contains("xbox360", StringComparison.Ordinal) || normalizedPattern.Contains("xbox 360", StringComparison.Ordinal) || normalizedPattern.Contains("xb360", StringComparison.Ordinal);
+        if (normalizedInput.Contains("xboxone", StringComparison.Ordinal) || normalizedInput.Contains("xbox one", StringComparison.Ordinal) || normalizedInput.Contains("xbone", StringComparison.Ordinal))
+            return normalizedPattern.Contains("xboxone", StringComparison.Ordinal) || normalizedPattern.Contains("xbox one", StringComparison.Ordinal) || normalizedPattern.Contains("xbone", StringComparison.Ordinal);
 
         // Common arcade variations
-        if (normalizedInput.Contains("mame") || normalizedInput.Contains("arcade"))
-            return normalizedPattern.Contains("mame") || normalizedPattern.Contains("arcade");
-        if (normalizedInput.Contains("neogeo") || normalizedInput.Contains("neo geo"))
-            return normalizedPattern.Contains("neogeo") || normalizedPattern.Contains("neo geo");
+        if (normalizedInput.Contains("mame", StringComparison.Ordinal) || normalizedInput.Contains("arcade", StringComparison.Ordinal))
+            return normalizedPattern.Contains("mame", StringComparison.Ordinal) || normalizedPattern.Contains("arcade", StringComparison.Ordinal);
+        if (normalizedInput.Contains("neogeo", StringComparison.Ordinal) || normalizedInput.Contains("neo geo", StringComparison.Ordinal))
+            return normalizedPattern.Contains("neogeo", StringComparison.Ordinal) || normalizedPattern.Contains("neo geo", StringComparison.Ordinal);
 
         return false;
     }
@@ -347,7 +347,7 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         }
     }
 
-    public async Task<RaHashResult> GetGameHashForRetroAchievementsAsync(string filePath, string systemName, List<string> fileFormatsToLaunch, ILoadingState loadingState, ILogger logErrors)
+    public async Task<RaHashResult> GetGameHashForRetroAchievementsAsync(string filePath, string systemName, IList<string> fileFormatsToLaunch, ILoadingState loadingState, ILogger logErrors)
     {
         // 1. Try to get a 100% certain match
         var confirmedSystem = _systemMatcher.GetExactAliasMatch(systemName);

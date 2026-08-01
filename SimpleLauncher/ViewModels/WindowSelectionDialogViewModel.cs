@@ -38,7 +38,7 @@ public class WindowSelectionDialogViewModel : ObservableObject
             if (SetProperty(ref _selectedItem, value) && value != null)
             {
                 SelectedWindowHandle = value.Handle;
-                DialogResultRequested?.Invoke(true);
+                DialogResultRequested?.Invoke(this, new EventArgs<bool?>(true));
             }
         }
     }
@@ -51,5 +51,5 @@ public class WindowSelectionDialogViewModel : ObservableObject
     /// <summary>
     /// Event raised when the window should be closed with a dialog result.
     /// </summary>
-    public event Action<bool?>? DialogResultRequested;
+    public event EventHandler<EventArgs<bool?>>? DialogResultRequested;
 }

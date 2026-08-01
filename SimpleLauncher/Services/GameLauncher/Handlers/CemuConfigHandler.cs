@@ -52,7 +52,7 @@ public class CemuConfigHandler : IEmulatorConfigHandler
             }
             else if (File.Exists(resolvedExe))
             {
-                CemuConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger);
+                CemuConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
             }
 
             return shouldRun;

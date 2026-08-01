@@ -7,7 +7,7 @@ using SimpleLauncher.Models;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Provides extended test coverage for SystemManager and Emulator models, covering default states, property assignment, and edge cases.
+/// Provides extended test coverage for SystemManagerService and Emulator models, covering default states, property assignment, and edge cases.
 /// </summary>
 public class SystemManagerExtendedTests : IDisposable
 {
@@ -37,12 +37,12 @@ public class SystemManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a new SystemManager has null defaults for all reference-type properties.
+    /// Verifies that a new SystemManagerService has null defaults for all reference-type properties.
     /// </summary>
     [Fact]
     public void SystemManagerDefaultProperties()
     {
-        var sm = new SystemManager();
+        var sm = new SystemManagerService();
         Assert.Null(sm.SystemName);
         Assert.Null(sm.SystemImageFolder);
         Assert.Null(sm.SystemFolders);
@@ -51,12 +51,12 @@ public class SystemManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that SystemManager properties can be assigned and retrieved.
+    /// Verifies that SystemManagerService properties can be assigned and retrieved.
     /// </summary>
     [Fact]
     public void SystemManagerPropertiesCanBeSet()
     {
-        var sm = new SystemManager
+        var sm = new SystemManagerService
         {
             SystemName = "NES",
             SystemFolders = [@"C:\roms\NES"],
@@ -77,7 +77,7 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void SystemManagerEmulatorsListDefaultIsNull()
     {
-        var sm = new SystemManager();
+        var sm = new SystemManagerService();
         Assert.Null(sm.Emulators);
     }
 
@@ -87,7 +87,7 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void SystemManagerEmulatorsCanBeSet()
     {
-        var sm = new SystemManager
+        var sm = new SystemManagerService
         {
             Emulators =
             [
@@ -97,8 +97,8 @@ public class SystemManagerExtendedTests : IDisposable
         };
 
         Assert.Equal(2, sm.Emulators.Count);
-        Assert.Contains(sm.Emulators, static e => e.EmulatorName == "RetroArch");
-        Assert.Contains(sm.Emulators, static e => e.EmulatorName == "Mesen");
+        Assert.Contains(sm.Emulators, static e => string.Equals(e.EmulatorName, "RetroArch", StringComparison.Ordinal));
+        Assert.Contains(sm.Emulators, static e => string.Equals(e.EmulatorName, "Mesen", StringComparison.Ordinal));
     }
 
     /// <summary>
@@ -107,7 +107,7 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void SystemManagerFileFormatsCanBeSet()
     {
-        var sm = new SystemManager
+        var sm = new SystemManagerService
         {
             FileFormatsToSearch = ["nes", "fds", "unf"],
             FileFormatsToLaunch = ["nes", "fds"]
@@ -123,7 +123,7 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void SystemManagerDisableRecursiveSearch()
     {
-        var sm = new SystemManager
+        var sm = new SystemManagerService
         {
             DisableRecursiveSearch = true
         };
@@ -137,7 +137,7 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void SystemManagerGroupByFolder()
     {
-        var sm = new SystemManager
+        var sm = new SystemManagerService
         {
             GroupByFolder = true
         };
@@ -151,7 +151,7 @@ public class SystemManagerExtendedTests : IDisposable
     [Fact]
     public void SystemManagerSystemFoldersCanBeSet()
     {
-        var sm = new SystemManager
+        var sm = new SystemManagerService
         {
             SystemFolders = ["C:\\roms\\NES", "D:\\roms\\NES"]
         };
@@ -200,8 +200,8 @@ public class SystemManagerExtendedTests : IDisposable
             EmulatorLocation = @"C:\Program Files (x86)\RetroArch\retroarch.exe"
         };
 
-        Assert.Contains("(", emu.EmulatorLocation);
-        Assert.Contains(")", emu.EmulatorLocation);
+        Assert.Contains("(", emu.EmulatorLocation, StringComparison.Ordinal);
+        Assert.Contains(")", emu.EmulatorLocation, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -215,6 +215,6 @@ public class SystemManagerExtendedTests : IDisposable
             EmulatorLocation = @"C:\My Emulators\RetroArch\retroarch.exe"
         };
 
-        Assert.Contains(" ", emu.EmulatorLocation);
+        Assert.Contains(" ", emu.EmulatorLocation, StringComparison.Ordinal);
     }
 }

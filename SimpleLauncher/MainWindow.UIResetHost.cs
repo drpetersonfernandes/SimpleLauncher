@@ -44,7 +44,7 @@ public partial class MainWindow
 
     void IUiResetHost.ResetPaginationButtons()
     {
-        UiOrchestrator.ResetPaginationButtons();
+        UiOrchestratorService.ResetPaginationButtons();
     }
 
     Task IUiResetHost.DisplaySystemSelectionScreenAsync(CancellationToken cancellationToken)

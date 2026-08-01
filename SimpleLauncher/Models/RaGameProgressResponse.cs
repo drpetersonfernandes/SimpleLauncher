@@ -29,7 +29,7 @@ public record RaGameProgressResponse
     public int NumAwardedToUser { get; init; }
 
     [JsonPropertyName("Achievements")]
-    public IReadOnlyDictionary<string, RaApiAchievement> Achievements { get; init; } = new Dictionary<string, RaApiAchievement>();
+    public IReadOnlyDictionary<string, RaApiAchievement> Achievements { get; init; } = new Dictionary<string, RaApiAchievement>(StringComparer.Ordinal);
 
     [JsonPropertyName("ForumTopicID")]
     public int? ForumTopicId { get; init; }

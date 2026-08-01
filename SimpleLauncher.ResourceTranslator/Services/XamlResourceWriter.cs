@@ -7,8 +7,8 @@ public static class XamlResourceWriter
 {
     public static void UpdateResourceFile(
         string filePath,
-        Dictionary<string, string> newTranslations,
-        List<string> duplicatesToRemove)
+        IDictionary<string, string> newTranslations,
+        IList<string> duplicatesToRemove)
     {
         var content = File.ReadAllText(filePath);
 

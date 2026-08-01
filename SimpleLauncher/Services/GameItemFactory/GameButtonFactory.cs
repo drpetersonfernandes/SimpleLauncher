@@ -22,14 +22,14 @@ namespace SimpleLauncher.Services.GameItemFactory;
 internal partial class GameButtonFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
-    List<SystemManager.SystemManager> systemManagers,
-    List<MameManager.MameManager> machines,
-    SettingsManager.SettingsManager settings,
+    List<SystemManager.SystemManagerService> systemManagers,
+    List<MameManager.MameManagerService> machines,
+    SettingsManager.SettingsManagerService settings,
     FavoritesManager favoritesManager,
     WrapPanel gameFileGrid,
     MainWindow mainWindow,
     GamePadController gamePadController,
-    GameLauncher.GameLauncher gameLauncher,
+    GameLauncher.GameLauncherService gameLauncher,
     PlaySoundEffects playSoundEffects,
 IGetListOfFilesService getListOfFiles,
     IFindCoverImageService findCoverImage,
@@ -42,14 +42,14 @@ IGetListOfFilesService getListOfFiles,
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox ?? throw new ArgumentNullException(nameof(emulatorComboBox));
     private readonly ComboBox _systemComboBox = systemComboBox ?? throw new ArgumentNullException(nameof(systemComboBox));
-    private readonly List<SystemManager.SystemManager> _systemManagers = systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
-    private readonly List<MameManager.MameManager> _machines = machines ?? throw new ArgumentNullException(nameof(machines));
-    private readonly SettingsManager.SettingsManager _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+    private readonly List<SystemManager.SystemManagerService> _systemManagers = systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
+    private readonly List<MameManager.MameManagerService> _machines = machines ?? throw new ArgumentNullException(nameof(machines));
+    private readonly SettingsManager.SettingsManagerService _settings = settings ?? throw new ArgumentNullException(nameof(settings));
     private readonly FavoritesManager _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
     private readonly WrapPanel _gameFileGrid = gameFileGrid ?? throw new ArgumentNullException(nameof(gameFileGrid));
     private readonly MainWindow _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
     private readonly GamePadController _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
-    private readonly GameLauncher.GameLauncher _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
+    private readonly GameLauncher.GameLauncherService _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
     private readonly PlaySoundEffects _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
     private readonly IGetListOfFilesService _getListOfFiles = getListOfFiles ?? throw new ArgumentNullException(nameof(getListOfFiles));
     private readonly IFindCoverImageService _findCoverImage = findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
@@ -63,7 +63,7 @@ IGetListOfFilesService getListOfFiles,
     private Button _button = null!;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
 
-    public async Task<Button> CreateGameButtonAsync(string entityPath, string systemName, SystemManager.SystemManager systemManager)
+    public async Task<Button> CreateGameButtonAsync(string entityPath, string systemName, SystemManager.SystemManagerService systemManager)
     {
         var isDirectory = Directory.Exists(entityPath);
 
@@ -134,7 +134,7 @@ IGetListOfFilesService getListOfFiles,
         var displayName = GetDisplayName(fileNameWithoutExtension);
 
         // Show filename unless mode is "NoFilename"
-        if (_settings.FilenameDisplayMode != "NoFilename" && !string.IsNullOrEmpty(displayName))
+        if (!string.Equals(_settings.FilenameDisplayMode, "NoFilename", StringComparison.Ordinal) && !string.IsNullOrEmpty(displayName))
         {
             var filenameFontSize = GetFilenameFontSize();
             var filenameTextBlock = new TextBlock
@@ -294,11 +294,11 @@ IGetListOfFilesService getListOfFiles,
         // locals instead of capturing 'this', allowing the factory to be GC'd
         // while buttons are still alive.
         var playSound = _playSoundEffects;
-        var mainWindow = _mainWindow;
-        var logger = _logger;
-        var messageBox = _messageBox;
-        var machines = _machines;
-        var settings = _settings;
+        var mainWindowLocal = _mainWindow;
+        var loggerLocal = _logger;
+        var messageBoxLocal = _messageBox;
+        var machinesLocal = _machines;
+        var settingsLocal = _settings;
 
         const double overlayButtonWidth = 22;
         const double overlayButtonHeight = 22;
@@ -341,35 +341,35 @@ IGetListOfFilesService getListOfFiles,
 
                     playSound.PlayNotificationSound();
 
-                    // Null check for mainWindow before using it
-                    if (mainWindow == null)
+                    // Null check for mainWindowLocal before using it
+                    if (mainWindowLocal == null)
                     {
-                        logger.Warning("_mainWindow is null in trophy button click handler.");
+                        loggerLocal.Warning("_mainWindow is null in trophy button click handler.");
                         return;
                     }
 
-                    mainWindow.SetLoadingState(true, (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Preparing RetroAchievements...");
+                    mainWindowLocal.SetLoadingState(true, (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Preparing RetroAchievements...");
 
                     try
                     {
-                        await _contextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, mainWindow, playSound, context.LoadingStateProvider, logger, messageBox);
+                        await _contextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, mainWindowLocal, playSound, context.LoadingStateProvider, loggerLocal, messageBoxLocal);
                     }
                     catch (Exception ex)
                     {
                         // Notify developer
-                        logger.Error(ex, $"Error opening achievements for {fileNameWithoutExtension}");
+                        loggerLocal.Error(ex, $"Error opening achievements for {fileNameWithoutExtension}");
 
                         // Notify user
-                        await messageBox.CouldNotOpenAchievementsWindowMessageBoxAsync();
+                        await messageBoxLocal.CouldNotOpenAchievementsWindowMessageBoxAsync();
                     }
                     finally
                     {
-                        mainWindow.SetLoadingState(false);
+                        mainWindowLocal.SetLoadingState(false);
                     }
                 }
                 catch (Exception ex)
                 {
-                    logger.Error(ex, "Error opening Retro Achievements Window.");
+                    loggerLocal.Error(ex, "Error opening Retro Achievements Window.");
                     _logger.Debug($"Error opening Retro Achievements Window: {ex.Message}");
                 }
             };
@@ -414,15 +414,15 @@ IGetListOfFilesService getListOfFiles,
                     context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        await _contextMenuFunctions.OpenVideoLinkAsync(selectedSystemName, fileNameWithoutExtension, machines, settings, mainWindow, logger, messageBox);
+                        await _contextMenuFunctions.OpenVideoLinkAsync(selectedSystemName, fileNameWithoutExtension, machinesLocal, settingsLocal, mainWindowLocal, loggerLocal, messageBoxLocal);
                     }
                     catch (Exception ex)
                     {
                         // Notify developer
-                        logger.Error(ex, $"Error opening video link for {fileNameWithoutExtension}");
+                        loggerLocal.Error(ex, $"Error opening video link for {fileNameWithoutExtension}");
 
                         // Notify user
-                        await messageBox.ErrorOpeningVideoLinkMessageBoxAsync();
+                        await messageBoxLocal.ErrorOpeningVideoLinkMessageBoxAsync();
                     }
                     finally
                     {
@@ -431,7 +431,7 @@ IGetListOfFilesService getListOfFiles,
                 }
                 catch (Exception ex)
                 {
-                    logger.Error(ex, "Error opening the video Link.");
+                    loggerLocal.Error(ex, "Error opening the video Link.");
                     _logger.Debug($"Error opening the video link: {ex.Message}");
                 }
             };
@@ -476,15 +476,15 @@ IGetListOfFilesService getListOfFiles,
                     context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        await _contextMenuFunctions.OpenInfoLinkAsync(selectedSystemName, fileNameWithoutExtension, machines, settings, mainWindow, logger, messageBox);
+                        await _contextMenuFunctions.OpenInfoLinkAsync(selectedSystemName, fileNameWithoutExtension, machinesLocal, settingsLocal, mainWindowLocal, loggerLocal, messageBoxLocal);
                     }
                     catch (Exception ex)
                     {
                         // Notify developer
-                        logger.Error(ex, $"Error opening info link for {fileNameWithoutExtension}");
+                        loggerLocal.Error(ex, $"Error opening info link for {fileNameWithoutExtension}");
 
                         // Notify user
-                        await messageBox.ProblemOpeningInfoLinkMessageBoxAsync();
+                        await messageBoxLocal.ProblemOpeningInfoLinkMessageBoxAsync();
                     }
                     finally
                     {
@@ -493,7 +493,7 @@ IGetListOfFilesService getListOfFiles,
                 }
                 catch (Exception ex)
                 {
-                    logger.Error(ex, "Error opening the info Link.");
+                    loggerLocal.Error(ex, "Error opening the info Link.");
                     _logger.Debug($"Error opening the info link: {ex.Message}");
                 }
             };
@@ -582,7 +582,7 @@ IGetListOfFilesService getListOfFiles,
         // Lambda can safely capture 'context'.
         // Capture remaining fields as locals to avoid capturing 'this'.
         var emulatorCombo = _emulatorComboBox;
-        var gameLauncher = _gameLauncher;
+        var gameLauncherLocal = _gameLauncher;
         var gamePadCtrl = _gamePadController;
 
         _button.Click += async (sender, _) =>
@@ -594,13 +594,13 @@ IGetListOfFilesService getListOfFiles,
                 // Prevent multiple clicks while launching
                 if (!clickedButton.IsEnabled) return;
 
-                mainWindow?.SetGameButtonsEnabled(false); // Disable all game buttons
+                mainWindowLocal?.SetGameButtonsEnabled(false); // Disable all game buttons
 
                 if (emulatorCombo == null)
                 {
-                    logger.Warning("[CreateGameButtonAsync] _emulatorComboBox is null.");
-                    await messageBox.EmulatorNameIsRequiredMessageBoxAsync();
-                    mainWindow?.SetGameButtonsEnabled(true);
+                    loggerLocal.Warning("[CreateGameButtonAsync] _emulatorComboBox is null.");
+                    await messageBoxLocal.EmulatorNameIsRequiredMessageBoxAsync();
+                    mainWindowLocal?.SetGameButtonsEnabled(true);
                     return;
                 }
 
@@ -608,12 +608,12 @@ IGetListOfFilesService getListOfFiles,
                 if (string.IsNullOrEmpty(selectedEmulatorName))
                 {
                     // Notify developer
-                    logger.Warning("[CreateGameButtonAsync] selectedEmulatorName is null or empty.");
+                    loggerLocal.Warning("[CreateGameButtonAsync] selectedEmulatorName is null or empty.");
 
                     // Notify user
-                    await messageBox.EmulatorNameIsRequiredMessageBoxAsync();
+                    await messageBoxLocal.EmulatorNameIsRequiredMessageBoxAsync();
 
-                    mainWindow?.SetGameButtonsEnabled(true); // Re-enable buttons on error
+                    mainWindowLocal?.SetGameButtonsEnabled(true); // Re-enable buttons on error
                     return;
                 }
 
@@ -621,22 +621,22 @@ IGetListOfFilesService getListOfFiles,
                 {
                     playSound?.PlayNotificationSound();
 
-                    if (gameLauncher == null)
+                    if (gameLauncherLocal == null)
                     {
-                        logger.Warning("[CreateGameButtonAsync] _gameLauncher is null.");
+                        loggerLocal.Warning("[CreateGameButtonAsync] _gameLauncher is null.");
                         return;
                     }
 
-                    await gameLauncher.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, WpfWindowContext.FromMainWindow(mainWindow!), gamePadCtrl, mainWindow);
+                    await gameLauncherLocal.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settingsLocal, WpfWindowContext.FromMainWindow(mainWindowLocal!), gamePadCtrl, mainWindowLocal);
                 }
                 finally
                 {
-                    mainWindow?.SetGameButtonsEnabled(true); // Re-enable all game buttons
+                    mainWindowLocal?.SetGameButtonsEnabled(true); // Re-enable all game buttons
                 }
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"[CreateGameButtonAsync] Error launching the game. entityPath: {entityPath}, systemName: {systemName}");
+                loggerLocal.Error(ex, $"[CreateGameButtonAsync] Error launching the game. entityPath: {entityPath}, systemName: {systemName}");
                 _logger.Debug($"Error launching the game: {ex.Message}");
             }
         };
@@ -677,13 +677,13 @@ IGetListOfFilesService getListOfFiles,
         return string.IsNullOrWhiteSpace(result) ? fileName : result;
     }
 
-    [GeneratedRegex(@"\s*\([^)]*\)")]
+    [GeneratedRegex(@"\s*\([^)]*\)", RegexOptions.None, 1000)]
     private static partial Regex MyRegex();
 
-    [GeneratedRegex(@"\s*\[[^\]]*\]")]
+    [GeneratedRegex(@"\s*\[[^\]]*\]", RegexOptions.None, 1000)]
     private static partial Regex MyRegex1();
 
-    [GeneratedRegex(@"\s*\{[^}]*\}")]
+    [GeneratedRegex(@"\s*\{[^}]*\}", RegexOptions.None, 1000)]
     private static partial Regex MyRegex2();
 
     private double GetFilenameFontSize()

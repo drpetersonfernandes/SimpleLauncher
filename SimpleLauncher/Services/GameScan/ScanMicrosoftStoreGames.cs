@@ -20,7 +20,7 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
         _httpClientFactory = httpClientFactory;
     }
 
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try
         {
@@ -641,14 +641,14 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
         if (string.IsNullOrWhiteSpace(errorOutput)) return false;
 
         var lowerError = errorOutput.ToLowerInvariant();
-        return lowerError.Contains("execution of scripts is disabled") ||
-               (lowerError.Contains("execution policy") &&
-                (lowerError.Contains("prevents execution") ||
-                 lowerError.Contains("restricted") ||
-                 lowerError.Contains("cannot be loaded"))) ||
-               (lowerError.Contains("is not digitally signed") && lowerError.Contains("execution policy"));
+        return lowerError.Contains("execution of scripts is disabled", StringComparison.Ordinal) ||
+               (lowerError.Contains("execution policy", StringComparison.Ordinal) &&
+                (lowerError.Contains("prevents execution", StringComparison.Ordinal) ||
+                 lowerError.Contains("restricted", StringComparison.Ordinal) ||
+                 lowerError.Contains("cannot be loaded", StringComparison.Ordinal))) ||
+               (lowerError.Contains("is not digitally signed", StringComparison.Ordinal) && lowerError.Contains("execution policy", StringComparison.Ordinal));
     }
 
-    [GeneratedRegex("[\0-\b\v\f\x0E-\x1F]")]
+    [GeneratedRegex("[\0-\b\v\f\x0E-\x1F]", RegexOptions.None, 1000)]
     private static partial Regex MyRegex();
 }

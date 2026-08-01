@@ -10,7 +10,7 @@ namespace SimpleLauncher;
 public partial class RetroAchievementsSettingsWindow
 {
     private readonly RetroAchievementsSettingsViewModel _viewModel;
-    private readonly Action _saveCompletedHandler;
+    private readonly EventHandler _saveCompletedHandler;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RetroAchievementsSettingsWindow"/> class.
@@ -24,7 +24,7 @@ public partial class RetroAchievementsSettingsWindow
 
         _viewModel = viewModel;
 
-        _saveCompletedHandler = () =>
+        _saveCompletedHandler = (_, _) =>
         {
             if (IsLoaded)
             {

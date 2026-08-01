@@ -5,32 +5,6 @@ using System.IO;
 namespace Updater.Services;
 
 /// <summary>
-/// Provides progress information for download operations.
-/// </summary>
-public class DownloadProgressInfo
-{
-    /// <summary>
-    /// The percentage of completion (0-100), or -1 if the total size is unknown.
-    /// </summary>
-    public double Percentage { get; set; }
-
-    /// <summary>
-    /// The number of bytes read so far.
-    /// </summary>
-    public long BytesRead { get; set; }
-
-    /// <summary>
-    /// The total number of bytes to download, or 0 if unknown.
-    /// </summary>
-    public long TotalBytes { get; set; }
-
-    /// <summary>
-    /// The download speed in bytes per second.
-    /// </summary>
-    public double BytesPerSecond { get; set; }
-}
-
-/// <summary>
 /// Service for downloading files with progress reporting.
 /// </summary>
 public class DownloadService
@@ -42,12 +16,12 @@ public class DownloadService
     /// <summary>
     /// Event raised when download progress changes.
     /// </summary>
-    public event Action<DownloadProgressInfo>? ProgressChanged;
+    public event EventHandler<EventArgs<DownloadProgressInfo>>? ProgressChanged;
 
     /// <summary>
     /// Event raised when a log message needs to be displayed.
     /// </summary>
-    public event Action<string>? LogMessage;
+    public event EventHandler<EventArgs<string>>? LogMessage;
 
     /// <summary>
     /// Initializes a new instance of the DownloadService class.
@@ -68,7 +42,7 @@ public class DownloadService
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
     public async Task<MemoryStream> DownloadToMemoryAsync(string url, CancellationToken cancellationToken = default)
     {
-        LogMessage?.Invoke("Downloading the update file...");
+        LogMessage?.Invoke(this, new EventArgs<string>("Downloading the update file..."));
 
         HttpResponseMessage response;
         try
@@ -116,24 +90,24 @@ public class DownloadService
                             var elapsedSeconds = Math.Max(stopwatch.ElapsedMilliseconds / 1000.0, 0.001);
                             var speed = totalBytesRead / elapsedSeconds;
 
-                            ProgressChanged?.Invoke(new DownloadProgressInfo
+                            ProgressChanged?.Invoke(this, new EventArgs<DownloadProgressInfo>(new DownloadProgressInfo
                             {
                                 Percentage = percentage,
                                 BytesRead = totalBytesRead,
                                 TotalBytes = totalBytes,
                                 BytesPerSecond = speed
-                            });
+                            }));
                         }
                         else
                         {
                             // Unknown file size - report bytes downloaded only
-                            ProgressChanged?.Invoke(new DownloadProgressInfo
+                            ProgressChanged?.Invoke(this, new EventArgs<DownloadProgressInfo>(new DownloadProgressInfo
                             {
                                 Percentage = -1,
                                 BytesRead = totalBytesRead,
                                 TotalBytes = 0,
                                 BytesPerSecond = 0
-                            });
+                            }));
                         }
                     }
                     catch (Exception ex)
@@ -145,7 +119,7 @@ public class DownloadService
 
                 stopwatch.Stop();
                 memoryStream.Position = 0;
-                LogMessage?.Invoke("Download complete");
+                LogMessage?.Invoke(this, new EventArgs<string>("Download complete"));
                 return memoryStream;
             }
             catch (Exception ex)

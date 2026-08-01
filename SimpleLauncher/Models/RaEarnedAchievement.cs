@@ -62,7 +62,7 @@ public record RaEarnedAchievement
     [JsonPropertyName("GameURL")]
     public string GameUrl { get; init; } = "";
 
-    private DateTime? UnlockedDate => DateTime.TryParse(Date, out var dt) ? dt : null;
+    private DateTime? UnlockedDate => DateTime.TryParse(Date, CultureInfo.InvariantCulture, out var dt) ? dt : null;
 
     /// <summary>
     /// Gets a formatted display of the unlock date in local time.

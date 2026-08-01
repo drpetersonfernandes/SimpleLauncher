@@ -1,4 +1,5 @@
 using System.Windows;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.CheckForUpdates;
 using SimpleLauncher.Services.GameFileWatcher;
 using SimpleLauncher.Services.PlayHistory;
@@ -46,12 +47,12 @@ public class ApplicationLifecycleService : IApplicationLifecycleService
         return _stats.CallApiAsync();
     }
 
-    public void MigratePlayHistory(List<SystemManager.SystemManager> systemManagers)
+    public void MigratePlayHistory(IList<SystemManager.SystemManagerService> systemManagers)
     {
-        _playHistoryManager.MigrateFilenamesToFullPaths(systemManagers);
+        _playHistoryManager.MigrateFilenamesToFullPaths(systemManagers.ToList());
     }
 
-    public event Action<string> GameFilesChanged
+    public event EventHandler<EventArgs<string>> GameFilesChanged
     {
         add => _gameFileWatcherService.GameFilesChanged += value;
         remove => _gameFileWatcherService.GameFilesChanged -= value;
@@ -67,7 +68,7 @@ public class ApplicationLifecycleService : IApplicationLifecycleService
         _gameFileWatcherService.StopWatching();
     }
 
-    public void UnsubscribeGameFilesChanged(Action<string> handler)
+    public void UnsubscribeGameFilesChanged(EventHandler<EventArgs<string>> handler)
     {
         _gameFileWatcherService.GameFilesChanged -= handler;
     }

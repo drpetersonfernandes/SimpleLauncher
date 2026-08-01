@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using SimpleLauncher.Models;
-using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 
 namespace SimpleLauncher;
 
@@ -79,14 +79,14 @@ public partial class MainWindow : ISystemSelectionHost
         ClearGameButtonImages(panel);
     }
 
-    List<SystemManager> ISystemSelectionHost.GetSystemManagers()
+    IList<SystemManager> ISystemSelectionHost.GetSystemManagers()
     {
         return _systemManagers?.ToList() ?? [];
     }
 
-    void ISystemSelectionHost.SetSystemManagers(List<SystemManager> managers)
+    void ISystemSelectionHost.SetSystemManagers(IList<SystemManager> managers)
     {
-        _systemManagers = managers;
+        _systemManagers = managers.ToList();
     }
 
     void ISystemSelectionHost.SetSelectedImageFolder(string folder)
@@ -94,8 +94,8 @@ public partial class MainWindow : ISystemSelectionHost
         _selectedImageFolder = folder;
     }
 
-    void ISystemSelectionHost.SetSelectedRomFolders(List<string> folders)
+    void ISystemSelectionHost.SetSelectedRomFolders(IList<string> folders)
     {
-        _selectedRomFolders = folders;
+        _selectedRomFolders = folders.ToList();
     }
 }

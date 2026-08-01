@@ -52,7 +52,7 @@ public class RetroArchConfigHandler : IEmulatorConfigHandler
             }
             else if (File.Exists(resolvedExe))
             {
-                RetroArchConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger);
+                RetroArchConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
             }
 
             return shouldRun;

@@ -16,7 +16,7 @@ public static class EmulatorPathResolver
             if (configuration == null)
                 return null;
 
-            var systems = SystemManager.SystemManager.LoadSystemManagers(configuration);
+            var systems = SystemManager.SystemManagerService.LoadSystemManagers(configuration);
             if (systems == null || systems.Count == 0)
                 return null;
 

@@ -1,3 +1,4 @@
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.CheckPaths;
 
 namespace SimpleLauncher.Services.GameFileWatcher;
@@ -10,7 +11,7 @@ namespace SimpleLauncher.Services.GameFileWatcher;
 public sealed class GameFileWatcherService : IDisposable
 {
     private readonly Dictionary<FileSystemWatcher, WatcherTag> _watchers = new();
-    private readonly object _lock = new();
+    private readonly Lock _lock = new();
     private readonly ILogger _logger;
     private CancellationTokenSource? _debounceCts = new();
     private bool _disposed;
@@ -28,7 +29,7 @@ public sealed class GameFileWatcherService : IDisposable
     /// Raised when a file change is detected in any monitored folder.
     /// The string parameter is the system name that was being monitored.
     /// </summary>
-    public event Action<string> GameFilesChanged = null!;
+    public event EventHandler<EventArgs<string>> GameFilesChanged = null!;
 
     /// <summary>
     /// The debounce delay before raising the GameFilesChanged event.
@@ -49,7 +50,7 @@ public sealed class GameFileWatcherService : IDisposable
 
         StopWatching();
 
-        var extensionFilter = fileExtensions?.Select(static e => e.TrimStart('.').ToLowerInvariant()).ToHashSet();
+        var extensionFilter = fileExtensions?.Select(static e => e.TrimStart('.').ToLowerInvariant()).ToHashSet(StringComparer.Ordinal);
         var resolvedFolders = folders
             .Select(static f => PathHelper.TryGetExistingDirectory(f))
             .Where(static f => f != null)
@@ -186,7 +187,7 @@ public sealed class GameFileWatcherService : IDisposable
                     if (!token.IsCancellationRequested)
                     {
                         _logger.Debug($"[GameFileWatcherService] Debounce complete. Raising GameFilesChanged for system '{systemName}'.");
-                        GameFilesChanged?.Invoke(systemName);
+                        GameFilesChanged?.Invoke(this, new EventArgs<string>(systemName));
                     }
                 }
                 catch (TaskCanceledException)

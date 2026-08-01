@@ -6,7 +6,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static partial class MameConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger, string? systemRomPath = null, string[]? listOfSecondaryRomPath = null)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger, string? systemRomPath = null, string[]? listOfSecondaryRomPath = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(emulatorPath);
         ArgumentNullException.ThrowIfNull(settings);
@@ -366,6 +366,6 @@ public static partial class MameConfigurationService
         }
     }
 
-    [GeneratedRegex(@"^(\S+)(\s+)([^#\r\n]*)(#.*)?$")]
+    [GeneratedRegex(@"^(\S+)(\s+)([^#\r\n]*)(#.*)?$", RegexOptions.None | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex IniLineRegex();
 }

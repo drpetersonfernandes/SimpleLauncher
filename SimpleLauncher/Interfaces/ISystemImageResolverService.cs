@@ -4,5 +4,5 @@ namespace SimpleLauncher.Interfaces;
 
 public interface ISystemImageResolverService
 {
-    Task<string> ResolveDisplayImageAsync(SystemManager config);
+    Task<string> ResolveDisplayImageAsync(SystemManagerService config);
 }

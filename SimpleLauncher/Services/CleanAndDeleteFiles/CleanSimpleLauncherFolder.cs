@@ -193,8 +193,9 @@ public static class CleanSimpleLauncherFolder
             DeleteFileSafely(file);
         }
 
-        CleanupArchitectureSpecificFiles();
-        CleanupArchitectureSpecificFolders();
+        var currentArchitecture = RuntimeInformation.OSArchitecture;
+        CleanupArchitectureSpecificFiles(currentArchitecture);
+        CleanupArchitectureSpecificFolders(currentArchitecture);
     }
 
     public static void CleanupTempFiles()
@@ -204,10 +205,8 @@ public static class CleanSimpleLauncherFolder
         DeleteDirectorySafely(Path.Combine(Path.GetTempPath(), "SimpleXisoDrive"));
     }
 
-    private static void CleanupArchitectureSpecificFiles()
+    private static void CleanupArchitectureSpecificFiles(Architecture currentArchitecture)
     {
-        var currentArchitecture = RuntimeInformation.OSArchitecture;
-
         string[] filesToDelete;
 
         switch (currentArchitecture)
@@ -219,7 +218,7 @@ public static class CleanSimpleLauncherFolder
                 filesToDelete = FilesToDeleteIfCurrentArchitectureIsArm64;
                 break;
             default:
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(currentArchitecture));
         }
 
         foreach (var file in filesToDelete)
@@ -228,10 +227,8 @@ public static class CleanSimpleLauncherFolder
         }
     }
 
-    private static void CleanupArchitectureSpecificFolders()
+    private static void CleanupArchitectureSpecificFolders(Architecture currentArchitecture)
     {
-        var currentArchitecture = RuntimeInformation.OSArchitecture;
-
         string[] foldersToDelete;
 
         switch (currentArchitecture)
@@ -243,7 +240,7 @@ public static class CleanSimpleLauncherFolder
                 foldersToDelete = DirectoriesToDeleteIfCurrentArchitectureIsArm64;
                 break;
             default:
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(currentArchitecture));
         }
 
         foreach (var folder in foldersToDelete)

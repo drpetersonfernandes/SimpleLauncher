@@ -65,7 +65,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
         get => field;
         set
         {
-            if (field == value) return;
+            if (string.Equals(field, value, StringComparison.Ordinal)) return;
 
             field = value;
             OnPropertyChanged();
@@ -81,7 +81,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
         get => field;
         set
         {
-            if (field == value) return;
+            if (string.Equals(field, value, StringComparison.Ordinal)) return;
 
             field = value;
             OnPropertyChanged();
@@ -97,7 +97,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
         get => field;
         set
         {
-            if (field == value) return;
+            if (string.Equals(field, value, StringComparison.Ordinal)) return;
 
             field = value;
             OnPropertyChanged();
@@ -119,7 +119,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
         get => field;
         set
         {
-            if (field == value) return;
+            if (string.Equals(field, value, StringComparison.Ordinal)) return;
 
             field = value;
             OnPropertyChanged();
@@ -135,7 +135,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
         get => field;
         set
         {
-            if (field == value) return;
+            if (string.Equals(field, value, StringComparison.Ordinal)) return;
 
             field = value;
             OnPropertyChanged();

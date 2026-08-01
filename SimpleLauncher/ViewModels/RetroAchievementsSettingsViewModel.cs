@@ -13,7 +13,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class RetroAchievementsSettingsViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly RetroAchievementsService _raService;
@@ -23,7 +23,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     [ObservableProperty] private string _username = null!;
     [ObservableProperty] private string _apiKey = null!;
     [ObservableProperty] private string _password = null!;
-    public RetroAchievementsSettingsViewModel(SettingsManager settings, ILogger logErrors, IMessageBoxLibraryService messageBox, RetroAchievementsService raService, IResourceProvider resourceProvider, IRetroAchievementsEmulatorConfiguratorService configurator)
+    public RetroAchievementsSettingsViewModel(SettingsManagerService settings, ILogger logErrors, IMessageBoxLibraryService messageBox, RetroAchievementsService raService, IResourceProvider resourceProvider, IRetroAchievementsEmulatorConfiguratorService configurator)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _logger = logErrors;
@@ -38,9 +38,9 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     }
 
     /// <summary>Event raised when settings have been saved successfully.</summary>
-    public event Action SaveCompleted = null!;
+    public event EventHandler SaveCompleted = null!;
     /// <summary>Event raised to request the emulator executable path from the view.</summary>
-    public event Func<string?> RequestExePath = null!;
+    public Func<string?>? RequestExePath { get; set; }
     [RelayCommand]
     private async Task SaveAsync()
     {
@@ -56,7 +56,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
 
             Process.Start(new ProcessStartInfo("https://retroachievements.org/controlpanel.php") { UseShellExecute = true });
 
-            SaveCompleted?.Invoke();
+            SaveCompleted?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -82,7 +82,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
             SaveCurrentSettings();
 
             var token = _settings.RaToken;
-            if (emulatorName != "RetroArch")
+            if (!string.Equals(emulatorName, "RetroArch", StringComparison.Ordinal))
             {
                 if (string.IsNullOrEmpty(token) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
                 {

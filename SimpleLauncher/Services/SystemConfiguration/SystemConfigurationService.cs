@@ -26,8 +26,8 @@ public class SystemConfigurationService : ISystemConfigurationService
     /// <summary>
     /// Loads and returns the list of configured system managers.
     /// </summary>
-    public List<SystemManager.SystemManager> LoadSystemManagers()
+    public IList<SystemManager.SystemManagerService> LoadSystemManagers()
     {
-        return SystemManager.SystemManager.LoadSystemManagers(_configuration);
+        return SystemManager.SystemManagerService.LoadSystemManagers(_configuration);
     }
 }

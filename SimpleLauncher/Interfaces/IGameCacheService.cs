@@ -4,13 +4,13 @@ public interface IGameCacheService
 {
     string SelectedSystem { get; }
 
-    Task<List<string>> GetAllGamesAsync(CancellationToken ct);
-    Task<List<string>> GetSearchResultsAsync(CancellationToken ct);
+    Task<IList<string>> GetAllGamesAsync(CancellationToken ct);
+    Task<IList<string>> GetSearchResultsAsync(CancellationToken ct);
     Task<bool> IsCachePopulatedForSystemAsync(string systemName, CancellationToken ct);
 
-    Task SetAllGamesAsync(List<string> games, string systemName, CancellationToken ct);
-    Task SetSearchResultsAsync(List<string> results, CancellationToken ct);
-    Task PopulateFromDiskAsync(Services.SystemManager.SystemManager config, IGetListOfFilesService fileService, CancellationToken ct);
+    Task SetAllGamesAsync(IList<string> games, string systemName, CancellationToken ct);
+    Task SetSearchResultsAsync(IList<string> results, CancellationToken ct);
+    Task PopulateFromDiskAsync(Services.SystemManager.SystemManagerService config, IGetListOfFilesService fileService, CancellationToken ct);
 
     Task<(List<string> allGames, List<string> searchResults)> GetResortSourceAsync(
         bool hasActiveFilter, CancellationToken ct);

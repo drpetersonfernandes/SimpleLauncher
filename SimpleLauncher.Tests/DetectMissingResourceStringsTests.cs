@@ -193,7 +193,7 @@ public partial class DetectMissingResourceStringsTests
                     firstEntryIndex = i;
                 }
             }
-            else if (lines[i].Trim() == "</ResourceDictionary>")
+            else if (string.Equals(lines[i].Trim(), "</ResourceDictionary>", StringComparison.Ordinal))
             {
                 if (firstEntryIndex == -1)
                 {
@@ -254,17 +254,17 @@ public partial class DetectMissingResourceStringsTests
                || path.Contains("\\resources\\", StringComparison.OrdinalIgnoreCase);
     }
 
-    [GeneratedRegex("""TryFindResource\(\s*"([^"]+)"\s*\)(?:\s*\?\?\s*"([^"]+)")?""", RegexOptions.Compiled)]
+    [GeneratedRegex("""TryFindResource\(\s*"([^"]+)"\s*\)(?:\s*\?\?\s*"([^"]+)")?""", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex();
 
-    [GeneratedRegex(@"\{DynamicResource\s+([^}\s""]+)\}", RegexOptions.Compiled)]
+    [GeneratedRegex(@"\{DynamicResource\s+([^}\s""]+)\}", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex1();
 
     [GeneratedRegex("""
                     x:Key="([^"]+)"
-                    """, RegexOptions.Compiled)]
+                    """, RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex2();
 
-    [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""")]
+    [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""", RegexOptions.None | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex3();
 }

@@ -75,7 +75,7 @@ public record RaGameExtendedDetails
     public int NumAchievements { get; init; }
 
     [JsonPropertyName("Achievements")]
-    public IReadOnlyDictionary<string, RaApiAchievement> Achievements { get; init; } = new Dictionary<string, RaApiAchievement>();
+    public IReadOnlyDictionary<string, RaApiAchievement> Achievements { get; init; } = new Dictionary<string, RaApiAchievement>(StringComparer.Ordinal);
 
     [JsonPropertyName("Claims")]
     public IReadOnlyList<object> Claims { get; init; } = [];

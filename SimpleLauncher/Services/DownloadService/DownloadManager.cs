@@ -33,7 +33,7 @@ public class DownloadManager : IDisposable
     private readonly IResourceProvider _resourceProvider;
     private readonly IDispatcherService _dispatcherService;
     private CancellationTokenSource? _cancellationTokenSource = new();
-    private readonly object _lock = new();
+    private readonly Lock _lock = new();
     private bool _disposed;
 
     /// <summary>

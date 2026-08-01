@@ -32,7 +32,7 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
     }
 
     // Define system name mappings with their official RA Console ID and fuzzy matching patterns.
-    private static readonly Dictionary<string, RaSystemInfo> SystemMappings = new()
+    private static readonly Dictionary<string, RaSystemInfo> SystemMappings = new(StringComparer.Ordinal)
     {
         // Nintendo systems
         ["nintendo 64"] = new RaSystemInfo(2, ["nintendo 64", "n64", "nintendo64", "Nintendo 64DD", "Nintendo N64"]),
@@ -203,9 +203,9 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         return SystemMappings.ContainsKey(systemName.ToLowerInvariant());
     }
 
-    public List<string> GetSupportedSystemNames()
+    public IList<string> GetSupportedSystemNames()
     {
-        return SystemMappings.Keys.OrderBy(static s => s).ToList();
+        return SystemMappings.Keys.OrderBy(static s => s, StringComparer.Ordinal).ToList();
     }
 
     /// <summary>

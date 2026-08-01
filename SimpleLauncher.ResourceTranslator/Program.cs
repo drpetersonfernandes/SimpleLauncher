@@ -79,7 +79,7 @@ public class Program
         Console.WriteLine("Available Gemini models:");
         for (var i = 0; i < models.Count; i++)
         {
-            var marker = models[i].Id == "gemini-2.5-flash" ? " (default)" : "";
+            var marker = string.Equals(models[i].Id, "gemini-2.5-flash", StringComparison.Ordinal) ? " (default)" : "";
             Console.WriteLine($"  {i + 1}. {models[i].Name} - {models[i].Description}{marker}");
         }
 
@@ -88,9 +88,9 @@ public class Program
         var modelInput = Console.ReadLine()?.Trim();
 
         GeminiModelInfo selectedModel;
-        if (string.IsNullOrEmpty(modelInput) || !int.TryParse(modelInput, out var modelIndex) || modelIndex < 1 || modelIndex > models.Count)
+        if (string.IsNullOrEmpty(modelInput) || !int.TryParse(modelInput, System.Globalization.CultureInfo.InvariantCulture, out var modelIndex) || modelIndex < 1 || modelIndex > models.Count)
         {
-            selectedModel = models.First(static m => m.Id == "gemini-2.5-flash");
+            selectedModel = models.First(static m => string.Equals(m.Id, "gemini-2.5-flash", StringComparison.Ordinal));
             Console.WriteLine($"Using default model: {selectedModel.Name}");
         }
         else

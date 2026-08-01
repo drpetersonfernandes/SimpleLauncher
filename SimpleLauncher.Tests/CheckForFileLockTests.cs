@@ -4,7 +4,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the <see cref="CheckForFileLock"/> utility for detecting locked files.
+/// Tests the <see cref="CheckForFileLockService"/> utility for detecting locked files.
 /// </summary>
 public class CheckForFileLockTests
 {
@@ -15,7 +15,7 @@ public class CheckForFileLockTests
     [InlineData("")]
     public void IsFileLockedEmptyReturnsFalse(string filePath)
     {
-        var result = CheckForFileLock.IsFileLocked(filePath);
+        var result = CheckForFileLockService.IsFileLocked(filePath);
         Assert.False(result);
     }
 
@@ -25,7 +25,7 @@ public class CheckForFileLockTests
     [Fact]
     public void IsFileLockedNullReturnsFalse()
     {
-        var result = CheckForFileLock.IsFileLocked(null!);
+        var result = CheckForFileLockService.IsFileLocked(null!);
         Assert.False(result);
     }
 
@@ -36,7 +36,7 @@ public class CheckForFileLockTests
     public void IsFileLockedNonExistentFileReturnsFalse()
     {
         var fakePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString(), "fake.txt");
-        var result = CheckForFileLock.IsFileLocked(fakePath);
+        var result = CheckForFileLockService.IsFileLocked(fakePath);
         Assert.False(result);
     }
 
@@ -49,7 +49,7 @@ public class CheckForFileLockTests
         var tempFile = Path.GetTempFileName();
         try
         {
-            var result = CheckForFileLock.IsFileLocked(tempFile);
+            var result = CheckForFileLockService.IsFileLocked(tempFile);
             Assert.False(result);
         }
         finally
@@ -68,7 +68,7 @@ public class CheckForFileLockTests
         using var stream = new FileStream(tempFile, FileMode.Open, FileAccess.Read, FileShare.None);
         try
         {
-            var result = CheckForFileLock.IsFileLocked(tempFile);
+            var result = CheckForFileLockService.IsFileLocked(tempFile);
             Assert.True(result);
         }
         finally

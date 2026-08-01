@@ -9,9 +9,9 @@ namespace Mame.DatCreator.Processors;
 
 public static class MameSoftwareProcessor
 {
-    public static Task<List<MachineInfo>> GetMachinesFromSoftwareFolderAsync(string inputFolderPath, WpfLogger logger)
+    public static Task<IList<MachineInfo>> GetMachinesFromSoftwareFolderAsync(string inputFolderPath, WpfLogger logger)
     {
-        return Task.Run(() =>
+        return Task.Run<IList<MachineInfo>>(() =>
         {
             logger.Info($"Scanning for software list XMLs in: {inputFolderPath}");
             var files = Directory.GetFiles(inputFolderPath, "*.xml");

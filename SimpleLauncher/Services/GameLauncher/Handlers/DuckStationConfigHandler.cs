@@ -56,7 +56,7 @@ public class DuckStationConfigHandler : IEmulatorConfigHandler
                 shouldRun = true;
                 if (File.Exists(resolvedExe))
                 {
-                    DuckStationConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger);
+                    DuckStationConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
                 }
             }
 

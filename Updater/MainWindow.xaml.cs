@@ -94,7 +94,7 @@ public partial class MainWindow
     /// </summary>
     private void WireUpServiceEvents()
     {
-        _updateService.LogMessage += Log;
+        _updateService.LogMessage += (_, e) => Log(e.Value);
         _updateService.DownloadProgressChanged += (_, e) =>
         {
             Dispatcher.BeginInvoke(() =>
@@ -167,7 +167,7 @@ public partial class MainWindow
         {
             // Parse process ID from command line arguments
             int? processId = null;
-            if (_args.Length > 0 && int.TryParse(_args[0], out var pid) && pid > 0)
+            if (_args.Length > 0 && int.TryParse(_args[0], System.Globalization.CultureInfo.InvariantCulture, out var pid) && pid > 0)
             {
                 processId = pid;
             }

@@ -7,7 +7,7 @@ namespace SimpleLauncher.Services.GameScan;
 
 public class ScanEpicGames : IGamePlatformScanner
 {
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try
         {
@@ -46,7 +46,7 @@ public class ScanEpicGames : IGamePlatformScanner
                                 {
                                     // Simple check to avoid full parse if possible, or just parse
                                     var content = await File.ReadAllTextAsync(mFile);
-                                    if (content.Contains($"\"AppName\": \"{app.AppName}\""))
+                                    if (content.Contains($"\"AppName\": \"{app.AppName}\"", StringComparison.Ordinal))
                                     {
                                         using var doc = JsonDocument.Parse(content);
                                         if (doc.RootElement.TryGetProperty("DisplayName", out var dn))
@@ -108,7 +108,7 @@ public class ScanEpicGames : IGamePlatformScanner
                         // Filter DLCs: If MainGameAppName exists and is different from AppName, it's likely a DLC
                         if (root.TryGetProperty("MainGameAppName", out var mainGameAppName) && !string.IsNullOrEmpty(mainGameAppName.GetString()))
                         {
-                            if (appName != mainGameAppName.GetString()) continue;
+                            if (!string.Equals(appName, mainGameAppName.GetString(), StringComparison.Ordinal)) continue;
                         }
 
                         // Filter by Category (exclude plugins, editors, etc.)
@@ -118,7 +118,7 @@ public class ScanEpicGames : IGamePlatformScanner
                             foreach (var cat in cats.EnumerateArray())
                             {
                                 var s = cat.GetString();
-                                if (s == "games")
+                                if (string.Equals(s, "games", StringComparison.Ordinal))
                                 {
                                     isGame = true;
                                 }

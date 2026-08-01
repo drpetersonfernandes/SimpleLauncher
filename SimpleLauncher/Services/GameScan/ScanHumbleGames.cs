@@ -6,7 +6,7 @@ namespace SimpleLauncher.Services.GameScan;
 
 public class ScanHumbleGames : IGamePlatformScanner
 {
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try
         {
@@ -23,7 +23,7 @@ public class ScanHumbleGames : IGamePlatformScanner
                     try
                     {
                         var status = game.GetProperty("status").GetString();
-                        if (status != "installed" && status != "downloaded") continue;
+                        if (!string.Equals(status, "installed", StringComparison.Ordinal) && !string.Equals(status, "downloaded", StringComparison.Ordinal)) continue;
 
                         if (!game.TryGetProperty("machineName", out var machineNameProp)) continue;
 

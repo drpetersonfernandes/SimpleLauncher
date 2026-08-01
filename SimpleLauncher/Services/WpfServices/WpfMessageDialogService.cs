@@ -1,5 +1,4 @@
 using System.Windows;
-using SimpleLauncher.Models;
 using SimpleLauncher.Interfaces;
 using MessageBoxButton = SimpleLauncher.Models.MessageBoxButton;
 using MessageBoxImage = SimpleLauncher.Models.MessageBoxImage;
@@ -15,7 +14,7 @@ public class WpfMessageDialogService : IMessageDialogService
     /// <summary>Displays an informational message box.</summary>
     public Task ShowInfoAsync(string message, string title = "")
     {
-        const System.Windows.MessageBoxButton wpfButtons = (int)MessageBoxButton.Ok;
+        const System.Windows.MessageBoxButton wpfButtons = System.Windows.MessageBoxButton.OK;
         const System.Windows.MessageBoxImage wpfIcon = (System.Windows.MessageBoxImage)(int)MessageBoxImage.Information;
 
         Application.Current.Dispatcher.Invoke(() =>
@@ -27,7 +26,7 @@ public class WpfMessageDialogService : IMessageDialogService
     /// <summary>Displays a warning message box.</summary>
     public Task ShowWarningAsync(string message, string title = "")
     {
-        const System.Windows.MessageBoxButton wpfButtons = (int)MessageBoxButton.Ok;
+        const System.Windows.MessageBoxButton wpfButtons = System.Windows.MessageBoxButton.OK;
         const System.Windows.MessageBoxImage wpfIcon = (System.Windows.MessageBoxImage)(int)MessageBoxImage.Warning;
 
         Application.Current.Dispatcher.Invoke(() =>
@@ -39,7 +38,7 @@ public class WpfMessageDialogService : IMessageDialogService
     /// <summary>Displays an error message box.</summary>
     public Task ShowErrorAsync(string message, string title = "")
     {
-        const System.Windows.MessageBoxButton wpfButtons = (int)MessageBoxButton.Ok;
+        const System.Windows.MessageBoxButton wpfButtons = System.Windows.MessageBoxButton.OK;
         const System.Windows.MessageBoxImage wpfIcon = (System.Windows.MessageBoxImage)(int)MessageBoxImage.Error;
 
         Application.Current.Dispatcher.Invoke(() =>

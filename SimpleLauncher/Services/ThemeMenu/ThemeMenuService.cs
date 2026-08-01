@@ -1,6 +1,6 @@
 using System.Windows.Controls;
 using SimpleLauncher.Services.PlaySound;
-using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
+using Settings = SimpleLauncher.Services.SettingsManager.SettingsManagerService;
 
 namespace SimpleLauncher.Services.ThemeMenu;
 

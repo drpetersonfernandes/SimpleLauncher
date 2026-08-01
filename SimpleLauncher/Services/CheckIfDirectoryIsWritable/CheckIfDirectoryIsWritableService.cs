@@ -2,7 +2,7 @@ using SimpleLauncher.Services.CleanAndDeleteFiles;
 
 namespace SimpleLauncher.Services.CheckIfDirectoryIsWritable;
 
-public static class CheckIfDirectoryIsWritable
+public static class CheckIfDirectoryIsWritableService
 {
     public static bool IsWritableDirectory(string path, ILogger logErrors)
     {

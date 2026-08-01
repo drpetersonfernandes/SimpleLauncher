@@ -9,7 +9,7 @@ namespace SimpleLauncher.Services.MenuOrchestrator;
 /// <summary>
 /// Orchestrates menu operations by coordinating action handlers, check mark updates, theme changes, and language switching.
 /// </summary>
-public class MenuOrchestrator : IMenuOrchestrator
+public class MenuOrchestratorService : IMenuOrchestrator
 {
     private readonly MenuActionHandlerService _menuActionHandler;
     private readonly IMenuCheckMarkService _menuCheckMark;
@@ -17,13 +17,13 @@ public class MenuOrchestrator : IMenuOrchestrator
     private readonly LanguageMenuService _languageMenu;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MenuOrchestrator"/> class with the specified service dependencies.
+    /// Initializes a new instance of the <see cref="MenuOrchestratorService"/> class with the specified service dependencies.
     /// </summary>
     /// <param name="menuActionHandler">The service that handles menu action operations.</param>
     /// <param name="menuCheckMark">The service that manages menu check mark states.</param>
     /// <param name="themeMenu">The service that manages theme selection.</param>
     /// <param name="languageMenu">The service that manages language selection.</param>
-    public MenuOrchestrator(
+    public MenuOrchestratorService(
         MenuActionHandlerService menuActionHandler,
         IMenuCheckMarkService menuCheckMark,
         ThemeMenuService themeMenu,

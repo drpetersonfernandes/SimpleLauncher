@@ -113,7 +113,7 @@ public class DetectResourceKeyCountMismatchTests
         var doc = XDocument.Load(filePath, LoadOptions.None);
         var root = doc.Root;
         if (root == null)
-            return new HashSet<string>();
+            return new HashSet<string>(StringComparer.Ordinal);
 
         return root.Elements()
             .Select(static e => e.Attribute(XNamespace + "Key"))

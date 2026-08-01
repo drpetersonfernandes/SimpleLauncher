@@ -4,7 +4,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class DolphinConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -44,7 +44,7 @@ public static class DolphinConfigurationService
         }
     }
 
-    private static void InjectIntoConfigFile(string configPath, SettingsManager.SettingsManager settings, ILogger logger)
+    private static void InjectIntoConfigFile(string configPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var configDir = Path.GetDirectoryName(configPath);
 
@@ -138,7 +138,7 @@ public static class DolphinConfigurationService
             if (currentUpdates != null && currentUpdates.Remove(key, out var newValue))
             {
                 var newLine = $"{key} = {newValue}";
-                if (lines[i] != newLine)
+                if (!string.Equals(lines[i], newLine, StringComparison.Ordinal))
                 {
                     lines[i] = newLine;
                     modified = true;

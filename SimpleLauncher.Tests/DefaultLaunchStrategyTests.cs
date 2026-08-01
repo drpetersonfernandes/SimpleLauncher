@@ -155,7 +155,7 @@ public class DefaultLaunchStrategyTests
         launcherMock.Verify(l => l.LaunchRegularEmulatorAsync(
             context.ResolvedFilePath,
             context.EmulatorName,
-            context.SystemManager!,
+            context.SystemManagerService!,
             context.EmulatorManager!,
             context.Parameters,
             context.WindowContext!,

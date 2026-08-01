@@ -205,7 +205,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                     !string.IsNullOrEmpty(system.Emulators?.Emulator?.ImagePackDownloadLink4) ||
                     !string.IsNullOrEmpty(system.Emulators?.Emulator?.ImagePackDownloadLink5))
                 .Select(static system => system.SystemName)
-                .OrderBy(static name => name)
+                .OrderBy(static name => name, StringComparer.Ordinal)
                 .ToList();
 
             foreach (var name in systemsWithImagePacks)
@@ -444,7 +444,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
             var downloadprocess2 = _resourceProvider.GetString("downloadprocess", "download process.");
             StatusMessage = $"{errorduring2} {componentName} {downloadprocess2}";
 
-            if (!(ex is IOException ioEx && (ioEx.Message.Contains("Insufficient disk space") || ioEx.Message.Contains("Cannot check disk space"))))
+            if (!(ex is IOException ioEx && (ioEx.Message.Contains("Insufficient disk space", StringComparison.Ordinal) || ioEx.Message.Contains("Cannot check disk space", StringComparison.Ordinal))))
             {
                 var contextMessage = $"Error downloading {componentName}.\n" +
                                      $"URL: {downloadUrl}";

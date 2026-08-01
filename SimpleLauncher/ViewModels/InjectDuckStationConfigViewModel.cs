@@ -13,7 +13,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class InjectDuckStationConfigViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath = "";
@@ -33,7 +33,7 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     [ObservableProperty] private bool _duckStationOutputMuted;
     [ObservableProperty] private int _duckStationOutputVolume;
     [ObservableProperty] private bool _duckStationShowSettingsBeforeLaunch;
-    public InjectDuckStationConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectDuckStationConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -55,12 +55,12 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     /// <summary>
     /// Available renderer options for DuckStation.
     /// </summary>
-    public List<string> RendererOptions { get; } = ["Automatic", "Vulkan", "Direct3D 11", "Direct3D 12", "OpenGL", "Software"];
+    public IList<string> RendererOptions { get; } = ["Automatic", "Vulkan", "Direct3D 11", "Direct3D 12", "OpenGL", "Software"];
 
     /// <summary>
     /// Available resolution scale options for DuckStation.
     /// </summary>
-    public List<TagOption> ResolutionScaleOptions { get; } =
+    public IList<TagOption> ResolutionScaleOptions { get; } =
     [
         new("1", "1x (Native)"),
         new("2", "2x (720p)"),
@@ -75,12 +75,12 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     /// <summary>
     /// Available texture filter options for DuckStation.
     /// </summary>
-    public List<string> TextureFilterOptions { get; } = ["Nearest", "Bilinear", "Bilinear(Bilinear)"];
+    public IList<string> TextureFilterOptions { get; } = ["Nearest", "Bilinear", "Bilinear(Bilinear)"];
 
     /// <summary>
     /// Available aspect ratio options for DuckStation.
     /// </summary>
-    public List<string> AspectRatioOptions { get; } = ["Auto", "4:3", "16:9", "16:10", "Crop"];
+    public IList<string> AspectRatioOptions { get; } = ["Auto", "4:3", "16:9", "16:10", "Crop"];
 
     /// <summary>
     /// Gets whether the configuration is being injected from launcher mode.
@@ -95,21 +95,21 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string?> RequestEmulatorPath = null!;
+    public Func<string?>? RequestEmulatorPath { get; set; }
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow = null!;
+    public Func<Window>? GetOwnerWindow { get; set; }
     private void LoadSettings()
     {
         DuckStationStartFullscreen = _settings.DuckStation.StartFullscreen;
@@ -199,17 +199,17 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 ShouldRun = true;
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -228,17 +228,17 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 await _messageBox.DuckStationConfigurationSavedSuccessfullyMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {

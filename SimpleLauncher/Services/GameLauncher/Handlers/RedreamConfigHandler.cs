@@ -56,7 +56,7 @@ public class RedreamConfigHandler : IEmulatorConfigHandler
                 shouldRun = true;
                 if (File.Exists(resolvedExe))
                 {
-                    RedreamConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger);
+                    RedreamConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
                 }
             }
 

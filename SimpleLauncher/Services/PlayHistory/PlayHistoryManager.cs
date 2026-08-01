@@ -14,7 +14,7 @@ namespace SimpleLauncher.Services.PlayHistory;
 [MessagePackObject(AllowPrivate = true)]
 public class PlayHistoryManager
 {
-    [IgnoreMember] private readonly object _historyLock = new();
+    [IgnoreMember] private readonly Lock _historyLock = new();
     [IgnoreMember] private ILogger _logger = null!;
     [IgnoreMember] private static readonly DataFileLocation FileLocation = new("playhistory.dat");
 
@@ -392,7 +392,7 @@ public class PlayHistoryManager
     /// <summary>
     /// Migrates old records that only contain filenames to full absolute paths.
     /// </summary>
-    internal void MigrateFilenamesToFullPaths(List<SystemManager.SystemManager> systemManagers)
+    internal void MigrateFilenamesToFullPaths(List<SystemManager.SystemManagerService> systemManagers)
     {
         var needsSave = false;
         lock (_historyLock)

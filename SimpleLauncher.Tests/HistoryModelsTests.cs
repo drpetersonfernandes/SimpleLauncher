@@ -206,9 +206,9 @@ public class HistoryModelsTests
             Game = "game (v1.0) [!] {proto}.zip"
         };
 
-        Assert.Contains("(", item.Name);
-        Assert.Contains("[", item.Name);
-        Assert.Contains("{", item.Name);
+        Assert.Contains("(", item.Name, StringComparison.Ordinal);
+        Assert.Contains("[", item.Name, StringComparison.Ordinal);
+        Assert.Contains("{", item.Name, StringComparison.Ordinal);
     }
 
     // Full hierarchy integration test

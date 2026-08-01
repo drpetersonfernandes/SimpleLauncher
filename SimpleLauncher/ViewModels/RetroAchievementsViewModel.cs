@@ -13,7 +13,7 @@ public partial class RetroAchievementsViewModel : ObservableObject
 {
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly RetroAchievementsService _raService;
     private readonly ILogger _logger;
 
@@ -88,7 +88,7 @@ public partial class RetroAchievementsViewModel : ObservableObject
     public RetroAchievementsViewModel(
 IMessageBoxLibraryService messageBox,
         IResourceProvider resourceProvider,
-        SettingsManager settings,
+        SettingsManagerService settings,
         RetroAchievementsService raService,
         ILogger logger)
     {

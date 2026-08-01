@@ -241,7 +241,7 @@ public class ChdMountStrategy : ILaunchStrategy
         await launcher.LaunchRegularEmulatorAsync(
             gameFilePath,
             context.EmulatorName,
-            context.SystemManager!,
+            context.SystemManagerService!,
             context.EmulatorManager!,
             context.Parameters,
             context.WindowContext!,

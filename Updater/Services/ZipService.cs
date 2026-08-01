@@ -6,22 +6,6 @@ using SharpCompress.Readers.Zip;
 namespace Updater.Services;
 
 /// <summary>
-/// Provides progress information for ZIP extraction operations.
-/// </summary>
-public class ExtractionProgressInfo
-{
-    /// <summary>
-    /// The current file being extracted.
-    /// </summary>
-    public string? CurrentFile { get; set; }
-
-    /// <summary>
-    /// The number of files extracted so far.
-    /// </summary>
-    public int ExtractedCount { get; set; }
-}
-
-/// <summary>
 /// Service for extracting ZIP archives with security checks and progress reporting.
 /// </summary>
 public class ZipService
@@ -35,12 +19,12 @@ public class ZipService
     /// <summary>
     /// Event raised when extraction progress changes.
     /// </summary>
-    public event Action<ExtractionProgressInfo>? ProgressChanged;
+    public event EventHandler<EventArgs<ExtractionProgressInfo>>? ProgressChanged;
 
     /// <summary>
     /// Event raised when a log message needs to be displayed.
     /// </summary>
-    public event Action<string>? LogMessage;
+    public event EventHandler<EventArgs<string>>? LogMessage;
 
     /// <summary>
     /// Gets or sets the array of filenames to exclude from extraction.
@@ -68,7 +52,7 @@ public class ZipService
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
     public async Task<int> ExtractFromStreamAsync(MemoryStream zipStream, CancellationToken cancellationToken = default)
     {
-        LogMessage?.Invoke("Extracting update files...");
+        LogMessage?.Invoke(this, new EventArgs<string>("Extracting update files..."));
 
         zipStream.Position = 0;
         var extractedCount = 0;
@@ -94,7 +78,7 @@ public class ZipService
                 var fileName = Path.GetFileName(entryKey);
                 if (!string.IsNullOrEmpty(fileName) && IgnoredFiles.Contains(fileName, StringComparer.OrdinalIgnoreCase))
                 {
-                    LogMessage?.Invoke($"Skipping self-update file: {entryKey}");
+                    LogMessage?.Invoke(this, new EventArgs<string>($"Skipping self-update file: {entryKey}"));
                     continue;
                 }
 
@@ -119,16 +103,16 @@ public class ZipService
                 extractedCount++;
 
                 // Report extraction progress (current file only, no percentage)
-                ProgressChanged?.Invoke(new ExtractionProgressInfo
+                ProgressChanged?.Invoke(this, new EventArgs<ExtractionProgressInfo>(new ExtractionProgressInfo
                 {
                     CurrentFile = entryKey,
                     ExtractedCount = extractedCount
-                });
+                }));
 
                 // Extract with retry logic for locked files
                 await ExtractFileWithRetryAsync(reader, destinationPath, entryKey, cancellationToken);
 
-                LogMessage?.Invoke($"Extracted: {entryKey}");
+                LogMessage?.Invoke(this, new EventArgs<string>($"Extracted: {entryKey}"));
             }
             catch (Exception ex)
             {
@@ -138,13 +122,13 @@ public class ZipService
         }
 
         // Report completion
-        ProgressChanged?.Invoke(new ExtractionProgressInfo
+        ProgressChanged?.Invoke(this, new EventArgs<ExtractionProgressInfo>(new ExtractionProgressInfo
         {
             CurrentFile = null,
             ExtractedCount = extractedCount
-        });
+        }));
 
-        LogMessage?.Invoke($"Extraction complete ({extractedCount} files extracted)");
+        LogMessage?.Invoke(this, new EventArgs<string>($"Extraction complete ({extractedCount} files extracted)"));
         return extractedCount;
     }
 
@@ -198,7 +182,7 @@ public class ZipService
             {
                 // File is likely locked by another process or has permission issues, retry after delay
                 lastException = ex;
-                LogMessage?.Invoke($"File locked or access denied ({attempt}/{FileWriteRetryAttempts}): {entryKey} - retrying in {FileWriteRetryDelayMs}ms...");
+                LogMessage?.Invoke(this, new EventArgs<string>($"File locked or access denied ({attempt}/{FileWriteRetryAttempts}): {entryKey} - retrying in {FileWriteRetryDelayMs}ms..."));
                 await Task.Delay(FileWriteRetryDelayMs * attempt, cancellationToken); // Increasing delay for each attempt
             }
         }

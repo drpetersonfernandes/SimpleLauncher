@@ -87,7 +87,7 @@ public class Stats
 
         // Determine which payload to send based on whether emulator info is provided.
         var callType = string.IsNullOrWhiteSpace(emulatorName) ? "usage" : "emulator";
-        var payloadEmulatorName = callType == "emulator" ? NormalizeEmulatorName(emulatorName) : null;
+        var payloadEmulatorName = string.Equals(callType, "emulator", StringComparison.Ordinal) ? NormalizeEmulatorName(emulatorName) : null;
 
         // Use the loaded API URL
         if (await TryApiAsync(callType, payloadEmulatorName))
@@ -117,7 +117,7 @@ public class Stats
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
 
                 HttpContent jsonContent;
-                if (callType == "emulator")
+                if (string.Equals(callType, "emulator", StringComparison.Ordinal))
                 {
                     // For emulator calls, send ONLY the emulatorName
                     var requestData = new { emulatorName };
@@ -150,7 +150,7 @@ public class Stats
                                      $"Status Code: '{response.StatusCode}'.\n" +
                                      $"Response Body: '{errorContent}'\n" +
                                      $"CallType: {callType}" +
-                                     (callType == "emulator" ? $", EmulatorName: {emulatorName}" : "");
+                                     (string.Equals(callType, "emulator", StringComparison.Ordinal) ? $", EmulatorName: {emulatorName}" : "");
                 _logger.Error(new HttpRequestException($"Stats API error: {response.StatusCode}"), contextMessage);
             }
 
@@ -162,7 +162,7 @@ public class Stats
             var contextMessage = $"Stats API request timed out after 20 seconds.\n" +
                                  $"Stats API URL: '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
-                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : "");
+                                 (string.Equals(callType, "emulator", StringComparison.Ordinal) ? $", EmulatorName: {emulatorName}" : "");
             _logger.Warning( contextMessage);
 
             return false;
@@ -173,7 +173,7 @@ public class Stats
             // Log network/HTTP request errors
             var contextMessage = $"Error communicating with the Stats API at '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
-                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : "");
+                                 (string.Equals(callType, "emulator", StringComparison.Ordinal) ? $", EmulatorName: {emulatorName}" : "");
             _logger.Error(ex, contextMessage);
 
             return false;
@@ -184,7 +184,7 @@ public class Stats
             // Log any other unexpected errors
             var contextMessage = $"Unexpected error while using Stats API at '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
-                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : "");
+                                 (string.Equals(callType, "emulator", StringComparison.Ordinal) ? $", EmulatorName: {emulatorName}" : "");
             _logger.Error(ex, contextMessage);
 
             return false;

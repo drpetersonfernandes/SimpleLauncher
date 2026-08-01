@@ -4,13 +4,13 @@ namespace SimpleLauncher.Services.MameData;
 
 public class MameDataService : IMameDataService
 {
-    public IReadOnlyList<MameManager.MameManager> Machines { get; }
-    public Dictionary<string, string> Lookup { get; }
+    public IReadOnlyList<MameManager.MameManagerService> Machines { get; }
+    public IDictionary<string, string> Lookup { get; }
 
     public MameDataService(ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
-        var machines = MameManager.MameManager.LoadFromDat(logErrors, messageBox: messageBox);
-        Machines = machines;
+        var machines = MameManager.MameManagerService.LoadFromDat(logErrors, messageBox: messageBox);
+        Machines = machines.ToList();
 
         Lookup = machines
             .GroupBy(static m => m.MachineName, StringComparer.OrdinalIgnoreCase)

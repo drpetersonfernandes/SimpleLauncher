@@ -26,7 +26,7 @@ public class EmulatorConfigInjectionTests : IDisposable
     public EmulatorConfigInjectionTests()
     {
         _configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?>
+            .AddInMemoryCollection(new Dictionary<string, string?>(StringComparer.Ordinal)
             {
                 ["Urls:YouTubeSearch"] = "https://www.youtube.com/results?search_query=",
                 ["Urls:IgdbSearch"] = "https://www.igdb.com/search?q="
@@ -69,9 +69,9 @@ public class EmulatorConfigInjectionTests : IDisposable
         return Path.Combine(emuDir, "emulator.exe");
     }
 
-    private SettingsManager CreateSettingsManager()
+    private SettingsManagerService CreateSettingsManager()
     {
-        return new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        return new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
     }
 
     /// <summary>
@@ -489,13 +489,13 @@ public class EmulatorConfigInjectionTests : IDisposable
         var configPath = Path.Combine(emuDir, "default.cfg");
         var content = File.ReadAllText(configPath);
 
-        Assert.Contains("fullscreen on", content);
-        Assert.Contains("vsync off", content);
-        Assert.Contains("aspect 16:9", content);
-        Assert.Contains("scaling integer", content);
-        Assert.Contains("scanlines on", content);
-        Assert.Contains("rate 44100", content);
-        Assert.Contains("sync_source video", content);
+        Assert.Contains("fullscreen on", content, StringComparison.Ordinal);
+        Assert.Contains("vsync off", content, StringComparison.Ordinal);
+        Assert.Contains("aspect 16:9", content, StringComparison.Ordinal);
+        Assert.Contains("scaling integer", content, StringComparison.Ordinal);
+        Assert.Contains("scanlines on", content, StringComparison.Ordinal);
+        Assert.Contains("rate 44100", content, StringComparison.Ordinal);
+        Assert.Contains("sync_source video", content, StringComparison.Ordinal);
     }
 
     // --- Helpers ---

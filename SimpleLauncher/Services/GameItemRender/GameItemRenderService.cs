@@ -19,11 +19,11 @@ public class GameItemRenderService : IGameItemRenderService
 {
     private const int BatchSize = 100;
 
-    private readonly SettingsManager.SettingsManager _settings;
+    private readonly SettingsManager.SettingsManagerService _settings;
     private readonly FavoritesManager _favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager;
     private readonly GamePadController _gamePadController;
-    private readonly GameLauncher.GameLauncher _gameLauncher;
+    private readonly GameLauncher.GameLauncherService _gameLauncher;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
     private readonly IGetListOfFilesService _getListOfFiles;
@@ -44,11 +44,11 @@ public class GameItemRenderService : IGameItemRenderService
     /// Initializes a new instance of <see cref="GameItemRenderService"/> with all required dependencies.
     /// </summary>
     public GameItemRenderService(
-        SettingsManager.SettingsManager settings,
+        SettingsManager.SettingsManagerService settings,
         FavoritesManager favoritesManager,
         PlayHistoryManager playHistoryManager,
         GamePadController gamePadController,
-        GameLauncher.GameLauncher gameLauncher,
+        GameLauncher.GameLauncherService gameLauncher,
         PlaySoundEffects playSoundEffects,
         IConfiguration configuration,
 IGetListOfFilesService getListOfFiles,
@@ -90,13 +90,13 @@ IGetListOfFilesService getListOfFiles,
     /// <summary>
     /// Rebuilds the grid and list view factories with updated system and MAME machine data.
     /// </summary>
-    public void ReloadFactories(List<SystemManager.SystemManager> systemManagers, List<MameManager.MameManager> machines)
+    public void ReloadFactories(IList<SystemManager.SystemManagerService> systemManagers, IList<MameManager.MameManagerService> machines)
     {
         _gameButtonFactory = new GameButtonFactory(
             _host.EmulatorComboBox,
             _host.SystemComboBox,
-            systemManagers,
-            machines,
+            systemManagers.ToList(),
+            machines.ToList(),
             _settings,
             _favoritesManager,
             _host.GameFileGrid,
@@ -136,9 +136,9 @@ IGetListOfFilesService getListOfFiles,
     /// <summary>
     /// Renders the game items in the current view mode (grid or list) by delegating to the appropriate factory.
     /// </summary>
-    public Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManager.SystemManager systemManager, CancellationToken ct)
+    public Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManager.SystemManagerService systemManager, CancellationToken ct)
     {
-        if (_settings.ViewMode == "GridView")
+        if (string.Equals(_settings.ViewMode, "GridView", StringComparison.Ordinal))
         {
             return RenderGridViewAsync(files, systemName, systemManager, ct);
         }
@@ -194,7 +194,7 @@ IGetListOfFilesService getListOfFiles,
         set => _gameButtonFactory?.ImageHeight = value;
     }
 
-    private async Task RenderGridViewAsync(IList<string> files, string systemName, SystemManager.SystemManager systemManager, CancellationToken ct)
+    private async Task RenderGridViewAsync(IList<string> files, string systemName, SystemManager.SystemManagerService systemManager, CancellationToken ct)
     {
         var buttonBatch = new List<Button>(Math.Min(BatchSize, files.Count));
 
@@ -226,7 +226,7 @@ IGetListOfFilesService getListOfFiles,
         }
     }
 
-    private async Task RenderListViewAsync(IList<string> files, string systemName, SystemManager.SystemManager systemManager, CancellationToken ct)
+    private async Task RenderListViewAsync(IList<string> files, string systemName, SystemManager.SystemManagerService systemManager, CancellationToken ct)
     {
         var itemBatch = new List<GameListViewItem>(Math.Min(BatchSize, files.Count));
 

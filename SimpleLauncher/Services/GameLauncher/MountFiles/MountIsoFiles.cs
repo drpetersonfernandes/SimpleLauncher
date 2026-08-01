@@ -2,7 +2,6 @@ using System.Diagnostics;
 using SimpleLauncher.Models;
 using System.Text;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
@@ -384,11 +383,11 @@ public class MountIsoFiles : IMountIsoFiles
         if (string.IsNullOrWhiteSpace(errorOutput)) return false;
 
         var lowerError = errorOutput.ToLowerInvariant();
-        return lowerError.Contains("execution of scripts is disabled") ||
-               (lowerError.Contains("execution policy") &&
-                (lowerError.Contains("prevents execution") ||
-                 lowerError.Contains("restricted") ||
-                 lowerError.Contains("cannot be loaded"))) ||
-               (lowerError.Contains("is not digitally signed") && lowerError.Contains("execution policy"));
+        return lowerError.Contains("execution of scripts is disabled", StringComparison.Ordinal) ||
+               (lowerError.Contains("execution policy", StringComparison.Ordinal) &&
+                (lowerError.Contains("prevents execution", StringComparison.Ordinal) ||
+                 lowerError.Contains("restricted", StringComparison.Ordinal) ||
+                 lowerError.Contains("cannot be loaded", StringComparison.Ordinal))) ||
+               (lowerError.Contains("is not digitally signed", StringComparison.Ordinal) && lowerError.Contains("execution policy", StringComparison.Ordinal));
     }
 }

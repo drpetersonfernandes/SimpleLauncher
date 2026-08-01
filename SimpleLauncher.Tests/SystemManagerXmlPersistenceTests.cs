@@ -10,7 +10,7 @@ using SimpleLauncher.Models;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests XML persistence of SystemManager configurations including loading, saving, updating, renaming, and deleting system entries.
+/// Tests XML persistence of SystemManagerService configurations including loading, saving, updating, renaming, and deleting system entries.
 /// </summary>
 public class SystemManagerXmlPersistenceTests : IDisposable
 {
@@ -25,7 +25,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         _systemXmlPath = Path.Combine(_testDirectory, "system.xml");
 
         _configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?>
+            .AddInMemoryCollection(new Dictionary<string, string?>(StringComparer.Ordinal)
             {
                 ["SystemXmlPath"] = _systemXmlPath
             })
@@ -53,7 +53,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
 
     private static void ResetSystemXmlStaticState()
     {
-        var type = typeof(SystemManager);
+        var type = typeof(SystemManagerService);
         type.GetField("_fileLocation", BindingFlags.NonPublic | BindingFlags.Static)?.SetValue(null, null);
 
         var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
@@ -155,7 +155,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     [Fact]
     public void SystemExistsReturnsFalseWhenXmlFileDoesNotExist()
     {
-        var result = SystemManager.SystemExists("Arcade", _configuration);
+        var result = SystemManagerService.SystemExists("Arcade", _configuration);
         Assert.False(result);
     }
 
@@ -168,7 +168,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         File.WriteAllText(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
 
-        var result = SystemManager.SystemExists("Arcade", _configuration);
+        var result = SystemManagerService.SystemExists("Arcade", _configuration);
         Assert.True(result);
     }
 
@@ -181,7 +181,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         File.WriteAllText(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
 
-        var result = SystemManager.SystemExists("NES", _configuration);
+        var result = SystemManagerService.SystemExists("NES", _configuration);
         Assert.False(result);
     }
 
@@ -194,7 +194,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         File.WriteAllText(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
 
-        var result = SystemManager.SystemExists("aRcAdE", _configuration);
+        var result = SystemManagerService.SystemExists("aRcAdE", _configuration);
         Assert.True(result);
     }
 
@@ -204,7 +204,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     [Fact]
     public void LoadSystemManagersReturnsEmptyListWhenXmlFileDoesNotExist()
     {
-        var result = SystemManager.LoadSystemManagers(_configuration);
+        var result = SystemManagerService.LoadSystemManagers(_configuration);
         Assert.NotNull(result);
         Assert.Empty(result);
     }
@@ -215,7 +215,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     [Fact]
     public void LoadSystemManagersCreatesXmlFileWhenFileDoesNotExist()
     {
-        SystemManager.LoadSystemManagers(_configuration);
+        SystemManagerService.LoadSystemManagers(_configuration);
         Assert.True(File.Exists(_systemXmlPath));
     }
 
@@ -228,7 +228,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         ResetSystemXmlStaticState();
         File.WriteAllText(_systemXmlPath, BuildValidSystemXml());
 
-        var result = SystemManager.LoadSystemManagers(_configuration);
+        var result = SystemManagerService.LoadSystemManagers(_configuration);
 
         Assert.Single(result);
         var system = result[0];
@@ -256,7 +256,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         ResetSystemXmlStaticState();
         File.WriteAllText(_systemXmlPath, BuildMultiSystemXml());
 
-        var result = SystemManager.LoadSystemManagers(_configuration);
+        var result = SystemManagerService.LoadSystemManagers(_configuration);
 
         Assert.Equal(2, result.Count);
 
@@ -282,7 +282,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     [Fact]
     public async Task SaveSystemConfigurationAsyncAddsNewSystem()
     {
-        var system = new SystemManager
+        var system = new SystemManagerService
         {
             SystemName = "Genesis",
             SystemFolders = [@"C:\roms\Genesis"],
@@ -301,13 +301,13 @@ public class SystemManagerXmlPersistenceTests : IDisposable
             ]
         };
 
-        await SystemManager.SaveSystemConfigurationAsync(system);
+        await SystemManagerService.SaveSystemConfigurationAsync(system);
 
         Assert.True(File.Exists(_systemXmlPath));
 
         // Verify the saved content
         ResetSystemXmlStaticState();
-        var loaded = SystemManager.LoadSystemManagers(_configuration);
+        var loaded = SystemManagerService.LoadSystemManagers(_configuration);
 
         Assert.Single(loaded);
         Assert.Equal("Genesis", loaded[0].SystemName);
@@ -329,7 +329,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         await File.WriteAllTextAsync(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
 
-        var newSystem = new SystemManager
+        var newSystem = new SystemManagerService
         {
             SystemName = "Genesis",
             SystemFolders = [@"C:\roms\Genesis"],
@@ -348,14 +348,14 @@ public class SystemManagerXmlPersistenceTests : IDisposable
             ]
         };
 
-        await SystemManager.SaveSystemConfigurationAsync(newSystem);
+        await SystemManagerService.SaveSystemConfigurationAsync(newSystem);
 
         ResetSystemXmlStaticState();
-        var loaded = SystemManager.LoadSystemManagers(_configuration);
+        var loaded = SystemManagerService.LoadSystemManagers(_configuration);
 
         Assert.Equal(2, loaded.Count);
-        Assert.Contains(loaded, static s => s.SystemName == "Arcade");
-        Assert.Contains(loaded, static s => s.SystemName == "Genesis");
+        Assert.Contains(loaded, static s => string.Equals(s.SystemName, "Arcade", StringComparison.Ordinal));
+        Assert.Contains(loaded, static s => string.Equals(s.SystemName, "Genesis", StringComparison.Ordinal));
     }
 
     /// <summary>
@@ -367,7 +367,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         await File.WriteAllTextAsync(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
 
-        var updatedSystem = new SystemManager
+        var updatedSystem = new SystemManagerService
         {
             SystemName = "Arcade",
             SystemFolders = [@"C:\roms\Arcade", @"D:\backup\Arcade"],
@@ -386,10 +386,10 @@ public class SystemManagerXmlPersistenceTests : IDisposable
             ]
         };
 
-        await SystemManager.SaveSystemConfigurationAsync(updatedSystem);
+        await SystemManagerService.SaveSystemConfigurationAsync(updatedSystem);
 
         ResetSystemXmlStaticState();
-        var loaded = SystemManager.LoadSystemManagers(_configuration);
+        var loaded = SystemManagerService.LoadSystemManagers(_configuration);
 
         Assert.Single(loaded);
         Assert.Equal("Arcade", loaded[0].SystemName);
@@ -409,7 +409,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         await File.WriteAllTextAsync(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
 
-        var renamedSystem = new SystemManager
+        var renamedSystem = new SystemManagerService
         {
             SystemName = "ArcadeRenamed",
             SystemFolders = [@"C:\roms\Arcade"],
@@ -429,10 +429,10 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         };
 
         // originalSystemName = "Arcade" tells SaveSystemConfigurationAsync to update the old name
-        await SystemManager.SaveSystemConfigurationAsync(renamedSystem, "Arcade");
+        await SystemManagerService.SaveSystemConfigurationAsync(renamedSystem, "Arcade");
 
         ResetSystemXmlStaticState();
-        var loaded = SystemManager.LoadSystemManagers(_configuration);
+        var loaded = SystemManagerService.LoadSystemManagers(_configuration);
 
         Assert.Single(loaded);
         Assert.Equal("ArcadeRenamed", loaded[0].SystemName);
@@ -447,10 +447,10 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         await File.WriteAllTextAsync(_systemXmlPath, BuildMultiSystemXml());
         ResetSystemXmlStaticState();
 
-        await SystemManager.DeleteSystemAsync("Arcade");
+        await SystemManagerService.DeleteSystemAsync("Arcade");
 
         ResetSystemXmlStaticState();
-        var loaded = SystemManager.LoadSystemManagers(_configuration);
+        var loaded = SystemManagerService.LoadSystemManagers(_configuration);
 
         Assert.Single(loaded);
         Assert.Equal("NES", loaded[0].SystemName);
@@ -465,10 +465,10 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         await File.WriteAllTextAsync(_systemXmlPath, BuildValidSystemXml());
         ResetSystemXmlStaticState();
 
-        await SystemManager.DeleteSystemAsync("NonExistent");
+        await SystemManagerService.DeleteSystemAsync("NonExistent");
 
         ResetSystemXmlStaticState();
-        var loaded = SystemManager.LoadSystemManagers(_configuration);
+        var loaded = SystemManagerService.LoadSystemManagers(_configuration);
 
         Assert.Single(loaded);
         Assert.Equal("Arcade", loaded[0].SystemName);

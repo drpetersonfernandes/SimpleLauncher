@@ -53,7 +53,7 @@ public class StellaConfigHandler : IEmulatorConfigHandler
             else
             {
                 shouldRun = true;
-                if (File.Exists(resolvedExe)) StellaConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger);
+                if (File.Exists(resolvedExe)) StellaConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
             }
 
             return shouldRun;

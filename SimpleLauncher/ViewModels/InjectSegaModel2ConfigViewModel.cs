@@ -13,7 +13,7 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class InjectSegaModel2ConfigViewModel : ObservableObject
 {
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private string _emulatorPath = null!;
@@ -30,7 +30,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     [ObservableProperty] private bool _holdGears;
     [ObservableProperty] private bool _useRawInput;
     [ObservableProperty] private bool _showBeforeLaunch;
-    public InjectSegaModel2ConfigViewModel(SettingsManager settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectSegaModel2ConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -52,12 +52,12 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     /// <summary>
     /// Available widescreen mode options for Sega Model 2.
     /// </summary>
-    public List<string> WideScreenOptions { get; } = ["0", "1", "2"];
+    public IList<string> WideScreenOptions { get; } = ["0", "1", "2"];
 
     /// <summary>
     /// Available full-screen anti-aliasing options for Sega Model 2.
     /// </summary>
-    public List<string> FsaaOptions { get; } = ["0", "2", "4", "8"];
+    public IList<string> FsaaOptions { get; } = ["0", "2", "4", "8"];
 
     /// <summary>
     /// Gets whether the configuration is being injected from launcher mode.
@@ -72,21 +72,21 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event Action CloseRequested = null!;
+    public event EventHandler CloseRequested = null!;
     [RelayCommand]
     private void Cancel()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>
     /// Requests the user to provide the emulator executable path.
     /// </summary>
-    public event Func<string?> RequestEmulatorPath = null!;
+    public Func<string?>? RequestEmulatorPath { get; set; }
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
-    public event Func<Window> GetOwnerWindow = null!;
+    public Func<Window>? GetOwnerWindow { get; set; }
     private void LoadSettings()
     {
         ResX = _settings.SegaModel2.ResX;
@@ -180,17 +180,17 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 ShouldRun = true;
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {
@@ -209,17 +209,17 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
             if (await InjectConfigAsync())
             {
                 await _messageBox.SegaModel2ConfigurationSavedSuccessfullyMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 await _messageBox.InjectionFailedGenericMessageBoxAsync();
-                CloseRequested?.Invoke();
+                CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (OperationCanceledException)
         {
-            CloseRequested?.Invoke();
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
         catch (Exception ex)
         {

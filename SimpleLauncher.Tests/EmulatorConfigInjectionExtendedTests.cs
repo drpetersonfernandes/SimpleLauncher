@@ -24,7 +24,7 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
     public EmulatorConfigInjectionExtendedTests()
     {
         _configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?>
+            .AddInMemoryCollection(new Dictionary<string, string?>(StringComparer.Ordinal)
             {
                 ["Urls:YouTubeSearch"] = "https://www.youtube.com/results?search_query=",
                 ["Urls:IgdbSearch"] = "https://www.igdb.com/search?q="
@@ -67,9 +67,9 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
         return Path.Combine(emuDir, "emulator.exe");
     }
 
-    private SettingsManager CreateSettingsManager()
+    private SettingsManagerService CreateSettingsManager()
     {
-        return new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        return new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
     }
 
     // DuckStation edge cases
@@ -247,9 +247,9 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
         var configPath = Path.Combine(emuDir, "config.yml");
         var content = File.ReadAllText(configPath);
 
-        Assert.Contains("VSync: false", content);
-        Assert.Contains("Enable Buffering: false", content);
-        Assert.Contains("Start games in fullscreen mode: false", content);
+        Assert.Contains("VSync: false", content, StringComparison.Ordinal);
+        Assert.Contains("Enable Buffering: false", content, StringComparison.Ordinal);
+        Assert.Contains("Start games in fullscreen mode: false", content, StringComparison.Ordinal);
     }
 
     // Redream edge cases
@@ -376,9 +376,9 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
         var configPath = Path.Combine(emuDir, "default.cfg");
         var content = File.ReadAllText(configPath);
 
-        Assert.Contains("fullscreen off", content);
-        Assert.Contains("vsync on", content);
-        Assert.Contains("scanlines off", content);
+        Assert.Contains("fullscreen off", content, StringComparison.Ordinal);
+        Assert.Contains("vsync on", content, StringComparison.Ordinal);
+        Assert.Contains("scanlines off", content, StringComparison.Ordinal);
     }
 
     // Helper

@@ -11,7 +11,7 @@ public class SystemManagerConfig : ISystemManager
     public string SystemName { get; init; } = null!;
 
     /// <summary>Gets the list of ROM folder paths for this system.</summary>
-    public List<string> SystemFolders { get; init; } = null!;
+    public IList<string> SystemFolders { get; init; } = null!;
 
     /// <summary>Gets the first (primary) system folder path.</summary>
     public string? PrimarySystemFolder => SystemFolders?.FirstOrDefault();
@@ -20,16 +20,16 @@ public class SystemManagerConfig : ISystemManager
     public string SystemImageFolder { get; init; } = null!;
 
     /// <summary>Gets the list of file extensions to search for in ROM folders.</summary>
-    public List<string> FileFormatsToSearch { get; init; } = null!;
+    public IList<string> FileFormatsToSearch { get; init; } = null!;
 
     /// <summary>Gets whether compressed files should be extracted before launching.</summary>
     public bool ExtractFileBeforeLaunch { get; init; }
 
     /// <summary>Gets the list of file extensions that can be launched directly.</summary>
-    public List<string> FileFormatsToLaunch { get; init; } = null!;
+    public IList<string> FileFormatsToLaunch { get; init; } = null!;
 
     /// <summary>Gets the list of configured emulators for this system.</summary>
-    public List<Emulator> Emulators { get; init; } = null!;
+    public IList<Emulator> Emulators { get; init; } = null!;
 
     IReadOnlyList<IEmulator> ISystemManager.Emulators => Emulators?.Cast<IEmulator>().ToList() ?? [];
 

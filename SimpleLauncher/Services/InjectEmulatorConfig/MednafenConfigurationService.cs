@@ -14,7 +14,7 @@ public static class MednafenConfigurationService
 
     private static readonly char[] Separator = [' ', '\t'];
 
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -103,7 +103,7 @@ public static class MednafenConfigurationService
             if (updates.TryGetValue(key, out var newValue))
             {
                 var newLine = $"{key} {newValue}";
-                if (lines[i] != newLine)
+                if (!string.Equals(lines[i], newLine, StringComparison.Ordinal))
                 {
                     lines[i] = newLine;
                     modified = true;

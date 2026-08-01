@@ -100,12 +100,12 @@ public partial class MainWindow : IMenuActionHost
 
     void IMenuActionHost.SetFilesPerPage(int count)
     {
-        UiOrchestrator.PaginationFilesPerPage = count;
+        UiOrchestratorService.PaginationFilesPerPage = count;
     }
 
     void IMenuActionHost.SetPaginationThreshold(int threshold)
     {
-        UiOrchestrator.PaginationThreshold = threshold;
+        UiOrchestratorService.PaginationThreshold = threshold;
     }
 
     void IMenuActionHost.SetMameSortOrder(string sortOrder)
@@ -215,17 +215,17 @@ public partial class MainWindow : IMenuActionHost
     string IMenuActionHost.ListViewMenuItemId => "ListView";
 
     // Data access
-    List<Services.SystemManager.SystemManager> IMenuActionHost.GetSystemManagers()
+    IList<Services.SystemManager.SystemManagerService> IMenuActionHost.GetSystemManagers()
     {
         return _systemManagers?.ToList() ?? [];
     }
 
-    List<Services.MameManager.MameManager> IMenuActionHost.GetMachines()
+    IList<Services.MameManager.MameManagerService> IMenuActionHost.GetMachines()
     {
         return _gameBrowser.Machines.ToList();
     }
 
-    Dictionary<string, string> IMenuActionHost.GetMameLookup()
+    IDictionary<string, string> IMenuActionHost.GetMameLookup()
     {
         return _gameBrowser.MameLookup;
     }

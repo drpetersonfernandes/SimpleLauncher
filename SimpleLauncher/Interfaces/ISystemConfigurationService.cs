@@ -4,5 +4,5 @@ namespace SimpleLauncher.Interfaces;
 
 public interface ISystemConfigurationService
 {
-    List<SystemManager> LoadSystemManagers();
+    IList<SystemManagerService> LoadSystemManagers();
 }

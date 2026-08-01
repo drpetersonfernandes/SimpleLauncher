@@ -11,7 +11,7 @@ namespace SimpleLauncher.Services.SettingsManager;
 /// <summary>
 /// Manages application and emulator settings, providing thread-safe load/save operations against an XML configuration file.
 /// </summary>
-public class SettingsManager : IDisposable
+public class SettingsManagerService : IDisposable
 {
     private readonly IConfiguration _configuration;
     private readonly ILogger _logger;
@@ -153,7 +153,7 @@ public class SettingsManager : IDisposable
     public bool Emulator5Expanded { get; set; } = true;
 
     /// <summary>Gets or sets the list of per-system play time records.</summary>
-    public List<SystemPlayTime> SystemPlayTimes { get; set; } = [];
+    public IList<SystemPlayTime> SystemPlayTimes { get; set; } = [];
 
     // Emulator Settings (composition)
     /// <summary>Gets or sets the Ares emulator configuration.</summary>
@@ -265,9 +265,9 @@ public class SettingsManager : IDisposable
     }
 
     /// <summary>
-    /// Initializes a new instance of the SettingsManager with the specified dependencies.
+    /// Initializes a new instance of the SettingsManagerService with the specified dependencies.
     /// </summary>
-    public SettingsManager(IConfiguration configuration, ILogger logErrors, ICredentialProtector credentialProtector, IMessageBoxLibraryService? messageBox = null)
+    public SettingsManagerService(IConfiguration configuration, ILogger logErrors, ICredentialProtector credentialProtector, IMessageBoxLibraryService? messageBox = null)
     {
         _configuration = configuration;
         _logger = logErrors;
@@ -322,7 +322,7 @@ public class SettingsManager : IDisposable
         }
     }
 
-    private void CopyFrom(SettingsManager other)
+    private void CopyFrom(SettingsManagerService other)
     {
         ArgumentNullException.ThrowIfNull(other);
 
@@ -538,7 +538,7 @@ public class SettingsManager : IDisposable
             foreach (var pt in playTimes.Elements("SystemPlayTime"))
             {
                 var playTimeValue = pt.Element("PlayTime")?.Value ?? "0";
-                if (long.TryParse(playTimeValue, out var seconds))
+                if (long.TryParse(playTimeValue, CultureInfo.InvariantCulture, out var seconds))
                 {
                     // New format: stored as total seconds
                 }
@@ -565,11 +565,11 @@ public class SettingsManager : IDisposable
     /// </summary>
     public Task SaveAsync()
     {
-        SettingsManager snapshot;
+        SettingsManagerService snapshot;
         _settingsLock.EnterReadLock();
         try
         {
-            snapshot = new SettingsManager(_configuration, _logger, _credentialProtector, _messageBox);
+            snapshot = new SettingsManagerService(_configuration, _logger, _credentialProtector, _messageBox);
             snapshot.CopyFrom(this);
         }
         finally
@@ -685,7 +685,7 @@ public class SettingsManager : IDisposable
         });
     }
 
-    private static XElement BuildXElement(SettingsManager s)
+    private static XElement BuildXElement(SettingsManagerService s)
     {
         return new XElement("Settings",
             // Application Settings
@@ -766,17 +766,17 @@ public class SettingsManager : IDisposable
 
     private int ValidateThumbnailSize(string value)
     {
-        return int.TryParse(value, out var p) && _validThumbnailSizes.Contains(p) ? p : 250;
+        return int.TryParse(value, CultureInfo.InvariantCulture, out var p) && _validThumbnailSizes.Contains(p) ? p : 250;
     }
 
     private int ValidateThumbnailSizeForSystem(string value)
     {
-        return int.TryParse(value, out var p) && _validThumbnailSizesForSystem.Contains(p) ? p : 50;
+        return int.TryParse(value, CultureInfo.InvariantCulture, out var p) && _validThumbnailSizesForSystem.Contains(p) ? p : 50;
     }
 
     private int ValidateGamesPerPage(string value)
     {
-        return int.TryParse(value, out var p) && _validGamesPerPage.Contains(p) ? p : 200;
+        return int.TryParse(value, CultureInfo.InvariantCulture, out var p) && _validGamesPerPage.Contains(p) ? p : 200;
     }
 
     private string ValidateShowGames(string value)
@@ -827,7 +827,7 @@ public class SettingsManager : IDisposable
     /// </summary>
     public void ResetToDefaults()
     {
-        CopyFrom(new SettingsManager(_configuration, _logger, _credentialProtector, _messageBox));
+        CopyFrom(new SettingsManagerService(_configuration, _logger, _credentialProtector, _messageBox));
     }
 
     private void SetDefaultsAndSave()
@@ -862,7 +862,7 @@ public class SettingsManager : IDisposable
     }
 
     /// <summary>
-    /// Releases resources used by the SettingsManager.
+    /// Releases resources used by the SettingsManagerService.
     /// </summary>
     public void Dispose()
     {

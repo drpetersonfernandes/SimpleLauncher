@@ -60,7 +60,7 @@ public class GetListOfFilesServiceTests : IDisposable
         var result = await _service.GetFilesAsync(_testDirectory, ["zip"], false, false);
 
         Assert.Equal(2, result.Count);
-        Assert.All(result, f => Assert.EndsWith(".zip", f));
+        Assert.All(result, f => Assert.EndsWith(".zip", f, StringComparison.Ordinal));
     }
 
     [Fact]
@@ -115,7 +115,7 @@ public class GetListOfFilesServiceTests : IDisposable
         var result = await _service.GetFilesAsync(_testDirectory, ["zip"], true, false);
 
         Assert.Single(result);
-        Assert.Contains("game1.zip", result[0]);
+        Assert.Contains("game1.zip", result[0], StringComparison.Ordinal);
     }
 
     [Fact]
@@ -187,7 +187,7 @@ public class GetListOfFilesServiceTests : IDisposable
         var result = await _service.GetFilesAsync(_testDirectory, ["zip"], false, false);
 
         Assert.Single(result);
-        Assert.Contains("deep.zip", result[0]);
+        Assert.Contains("deep.zip", result[0], StringComparison.Ordinal);
     }
 
     [Fact]

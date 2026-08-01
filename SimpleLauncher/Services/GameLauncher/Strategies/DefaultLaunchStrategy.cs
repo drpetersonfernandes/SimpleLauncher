@@ -37,7 +37,7 @@ public class DefaultLaunchStrategy : ILaunchStrategy
                 return launcher.LaunchRegularEmulatorAsync(
                     context.ResolvedFilePath,
                     context.EmulatorName,
-                    context.SystemManager!,
+                    context.SystemManagerService!,
                     context.EmulatorManager!,
                     context.Parameters,
                     context.WindowContext!,

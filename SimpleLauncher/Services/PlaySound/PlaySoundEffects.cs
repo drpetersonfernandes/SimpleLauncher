@@ -14,7 +14,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     private const string TrashSoundFile = "trash.mp3";
 
     private static readonly Lock Lock = new();
-    private readonly SettingsManager.SettingsManager _settingsManager;
+    private readonly SettingsManager.SettingsManagerService _settingsManager;
     private readonly ILogger _logger;
 
     private WaveOutEvent? _waveOut;
@@ -23,7 +23,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     /// <summary>
     /// Initializes a new instance of the <see cref="PlaySoundEffects"/> class.
     /// </summary>
-    public PlaySoundEffects(SettingsManager.SettingsManager settings, ILogger logger)
+    public PlaySoundEffects(SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         _settingsManager = settings ?? throw new ArgumentNullException(nameof(settings));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));

@@ -37,9 +37,9 @@ public class RaineConfigHandler : IEmulatorConfigHandler
         if (context.EmulatorManager != null)
         {
             var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
-            if (context.SystemManager != null)
+            if (context.SystemManagerService != null)
             {
-                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(context.SystemManager.PrimarySystemFolder);
+                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(context.SystemManagerService.PrimarySystemFolder);
                 if (context.Settings != null)
                 {
                     var resolvedRaineRomDirectory = PathHelper.ResolveRelativeToAppDirectory(context.Settings.Raine.RomDirectory);
@@ -60,7 +60,7 @@ public class RaineConfigHandler : IEmulatorConfigHandler
                     else if (File.Exists(resolvedExe))
                     {
                         // Pass the resolved RaineRomDirectory to the service
-                        RaineConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger, context.ResolvedFilePath, resolvedSystemFolder, resolvedRaineRomDirectory);
+                        RaineConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger, context.ResolvedFilePath, resolvedSystemFolder, resolvedRaineRomDirectory);
                     }
 
                     return shouldRun;

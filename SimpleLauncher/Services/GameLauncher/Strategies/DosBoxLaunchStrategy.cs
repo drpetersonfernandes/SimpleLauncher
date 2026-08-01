@@ -141,7 +141,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                         await launcher.LaunchRegularEmulatorAsync(
                             confPath,
                             context.EmulatorName,
-                            context.SystemManager!,
+                            context.SystemManagerService!,
                             context.EmulatorManager!,
                             launchParameters,
                             context.WindowContext!,
@@ -324,7 +324,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         await launcher.LaunchRegularEmulatorAsync(
             confPath,
             context.EmulatorName,
-            context.SystemManager!,
+            context.SystemManagerService!,
             context.EmulatorManager!,
             launchParameters,
             context.WindowContext!,
@@ -444,7 +444,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             await launcher.LaunchRegularEmulatorAsync(
                 confPath,
                 context.EmulatorName,
-                context.SystemManager!,
+                context.SystemManagerService!,
                 context.EmulatorManager!,
                 launchParameters,
                 context.WindowContext!,

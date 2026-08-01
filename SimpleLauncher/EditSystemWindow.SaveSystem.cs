@@ -220,14 +220,14 @@ internal partial class EditSystemWindow
                 emulator1LocationText, emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText
             ];
 
-            var receiveNotification1 = ReceiveANotificationOnEmulatorError1.SelectedItem is not ComboBoxItem { Content: not null } item1 || item1.Content.ToString() == "true";
-            var receiveNotification2 = ReceiveANotificationOnEmulatorError2.SelectedItem is not ComboBoxItem { Content: not null } item2 || item2.Content.ToString() == "true";
-            var receiveNotification3 = ReceiveANotificationOnEmulatorError3.SelectedItem is not ComboBoxItem { Content: not null } item3 || item3.Content.ToString() == "true";
-            var receiveNotification4 = ReceiveANotificationOnEmulatorError4.SelectedItem is not ComboBoxItem { Content: not null } item4 || item4.Content.ToString() == "true";
-            var receiveNotification5 = ReceiveANotificationOnEmulatorError5.SelectedItem is not ComboBoxItem { Content: not null } item5 || item5.Content.ToString() == "true";
+            var receiveNotification1 = ReceiveANotificationOnEmulatorError1.SelectedItem is not ComboBoxItem { Content: not null } item1 || string.Equals(item1.Content.ToString(), "true", StringComparison.Ordinal);
+            var receiveNotification2 = ReceiveANotificationOnEmulatorError2.SelectedItem is not ComboBoxItem { Content: not null } item2 || string.Equals(item2.Content.ToString(), "true", StringComparison.Ordinal);
+            var receiveNotification3 = ReceiveANotificationOnEmulatorError3.SelectedItem is not ComboBoxItem { Content: not null } item3 || string.Equals(item3.Content.ToString(), "true", StringComparison.Ordinal);
+            var receiveNotification4 = ReceiveANotificationOnEmulatorError4.SelectedItem is not ComboBoxItem { Content: not null } item4 || string.Equals(item4.Content.ToString(), "true", StringComparison.Ordinal);
+            var receiveNotification5 = ReceiveANotificationOnEmulatorError5.SelectedItem is not ComboBoxItem { Content: not null } item5 || string.Equals(item5.Content.ToString(), "true", StringComparison.Ordinal);
 
             var emulators = new List<Emulator>();
-            var emulatorNames = new HashSet<string>();
+            var emulatorNames = new HashSet<string>(StringComparer.Ordinal);
 
             // Add Emulator 1
             if (!string.IsNullOrEmpty(emulator1NameText)) // Only add if name is provided
@@ -287,7 +287,7 @@ internal partial class EditSystemWindow
             var isUpdate = !string.IsNullOrEmpty(_originalSystemName) && SystemNameDropdown.SelectedItem != null && _originalSystemName.Equals(SystemNameDropdown.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase);
             var originalSystemNameToUse = isUpdate ? _originalSystemName : systemNameText;
 
-            var systemToSave = new SystemManager
+            var systemToSave = new SystemManagerService
             {
                 SystemName = systemNameText,
                 SystemFolders = allSystemFolders,
@@ -303,7 +303,7 @@ internal partial class EditSystemWindow
             try
             {
                 SaveSystemButton.IsEnabled = false;
-                await SystemManager.SaveSystemConfigurationAsync(systemToSave, originalSystemNameToUse!);
+                await SystemManagerService.SaveSystemConfigurationAsync(systemToSave, originalSystemNameToUse!);
 
                 await LoadSystemsAsync();
                 SystemNameDropdown.SelectedItem = systemNameText;

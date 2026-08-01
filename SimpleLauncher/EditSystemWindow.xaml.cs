@@ -21,9 +21,9 @@ namespace SimpleLauncher;
 
 internal partial class EditSystemWindow : ILoadingState
 {
-    private List<SystemManager> _systems = null!;
+    private List<SystemManagerService> _systems = null!;
     private static readonly char[] SplitSeparators = [',', '|', ';'];
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IHelpUserService _helpUserService;
     private readonly IImageLoader _imageLoader;
@@ -36,7 +36,7 @@ internal partial class EditSystemWindow : ILoadingState
     private readonly IParameterResolverService _parameterResolverService;
     private Button? _emergencyReturnButton;
 
-    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, IHelpUserService helpUserService, IImageLoader imageLoader, IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, ILogger logger, IParameterResolverService parameterResolverService, string? preSelectedSystemName = null)
+    public EditSystemWindow(SettingsManagerService settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, IHelpUserService helpUserService, IImageLoader imageLoader, IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, ILogger logger, IParameterResolverService parameterResolverService, string? preSelectedSystemName = null)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -100,7 +100,7 @@ internal partial class EditSystemWindow : ILoadingState
         try
         {
             SetLoadingState(true, (string)Application.Current.TryFindResource("Loadingsystems") ?? "Loading systems...");
-            var systems = await Task.Run(() => SystemManager.LoadSystemManagers(_configuration));
+            var systems = await Task.Run(() => SystemManagerService.LoadSystemManagers(_configuration));
 
             if (systems == null)
             {
@@ -110,7 +110,7 @@ internal partial class EditSystemWindow : ILoadingState
             }
             else
             {
-                _systems = systems;
+                _systems = systems.ToList();
                 PopulateSystemNamesDropdown();
 
                 if (!string.IsNullOrEmpty(_preSelectedSystemName))
@@ -567,7 +567,7 @@ internal partial class EditSystemWindow : ILoadingState
             var result = await _messageBox.AreYouSureDoYouWantToDeleteThisSystemMessageBoxAsync();
             if (result != CoreMessageBoxResult.Yes) return;
 
-            await SystemManager.DeleteSystemAsync(selectedSystemName, _logger);
+            await SystemManagerService.DeleteSystemAsync(selectedSystemName, _logger);
             _playSoundEffects.PlayNotificationSound();
 
             await LoadSystemsAsync();
@@ -644,7 +644,7 @@ internal partial class EditSystemWindow : ILoadingState
             }
             catch (Win32Exception ex) // Catch Win32Exception specifically
             {
-                if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+                if (CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
                 {
                     // Specific message for application control policy blocking links
                     await _messageBox.ApplicationControlPolicyBlockedManualLinkMessageBoxAsync(searchUrl);
@@ -727,7 +727,7 @@ internal partial class EditSystemWindow : ILoadingState
 
             var sourceFilePath = dialog.FileName;
             var extension = Path.GetExtension(sourceFilePath).ToLowerInvariant();
-            if (extension != ".png" && extension != ".jpg" && extension != ".jpeg")
+            if (!string.Equals(extension, ".png", StringComparison.Ordinal) && !string.Equals(extension, ".jpg", StringComparison.Ordinal) && !string.Equals(extension, ".jpeg", StringComparison.Ordinal))
             {
                 await _messageBox.InvalidImageFormatMessageBoxAsync();
                 return;
@@ -922,10 +922,10 @@ internal partial class EditSystemWindow : ILoadingState
                 SystemName = SystemNameTextBox.Text.Trim(),
                 SystemFolder = SystemFolderTextBox.Text.Trim(),
                 FileFormatsToSearch = SplitAndTrim(FormatToSearchTextBox.Text) ?? [],
-                ExtractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem?.ToString() == "true",
+                ExtractFileBeforeLaunch = string.Equals(ExtractFileBeforeLaunchComboBox.SelectedItem?.ToString(), "true", StringComparison.Ordinal),
                 FileFormatsToLaunch = SplitAndTrim(FormatToLaunchTextBox.Text) ?? [],
-                GroupByFolder = GroupByFolderComboBox.SelectedItem?.ToString() == "true",
-                DisableRecursiveSearch = DisableRecursiveSearchComboBox.SelectedItem?.ToString() == "true",
+                GroupByFolder = string.Equals(GroupByFolderComboBox.SelectedItem?.ToString(), "true", StringComparison.Ordinal),
+                DisableRecursiveSearch = string.Equals(DisableRecursiveSearchComboBox.SelectedItem?.ToString(), "true", StringComparison.Ordinal),
                 EmulatorName = emulatorName.Trim(),
                 EmulatorPath = emulatorPath?.Trim() ?? "",
                 CurrentParameters = currentParameters?.Trim() ?? ""
@@ -983,11 +983,11 @@ internal partial class EditSystemWindow : ILoadingState
 
     private TextBox? FindParametersTextBox(string emulatorName)
     {
-        if (emulatorName == Emulator1NameTextBox.Text) return Emulator1ParametersTextBox;
-        if (emulatorName == Emulator2NameTextBox.Text) return Emulator2ParametersTextBox;
-        if (emulatorName == Emulator3NameTextBox.Text) return Emulator3ParametersTextBox;
-        if (emulatorName == Emulator4NameTextBox.Text) return Emulator4ParametersTextBox;
-        if (emulatorName == Emulator5NameTextBox.Text) return Emulator5ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator1NameTextBox.Text, StringComparison.Ordinal)) return Emulator1ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator2NameTextBox.Text, StringComparison.Ordinal)) return Emulator2ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator3NameTextBox.Text, StringComparison.Ordinal)) return Emulator3ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator4NameTextBox.Text, StringComparison.Ordinal)) return Emulator4ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator5NameTextBox.Text, StringComparison.Ordinal)) return Emulator5ParametersTextBox;
 
         return null;
     }

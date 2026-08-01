@@ -4,9 +4,9 @@ public class ParameterResolverRequest
 {
     public string SystemName { get; set; } = "";
     public string SystemFolder { get; set; } = "";
-    public List<string> FileFormatsToSearch { get; set; } = [];
+    public IList<string> FileFormatsToSearch { get; set; } = [];
     public bool ExtractFileBeforeLaunch { get; set; }
-    public List<string> FileFormatsToLaunch { get; set; } = [];
+    public IList<string> FileFormatsToLaunch { get; set; } = [];
     public bool GroupByFolder { get; set; }
     public bool DisableRecursiveSearch { get; set; }
     public string EmulatorName { get; set; } = "";

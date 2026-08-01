@@ -15,7 +15,7 @@ public static class AzaharConfigurationService
     /// <returns>True if injection was successful, false if it failed due to permissions but the game can still launch.</returns>
     /// <exception cref="InvalidOperationException">Thrown when emulator directory is not found.</exception>
     /// <exception cref="FileNotFoundException">Thrown when config file and sample are both missing.</exception>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir)) throw new InvalidOperationException("Emulator directory not found.");
@@ -62,27 +62,27 @@ public static class AzaharConfigurationService
 
         var updates = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase)
         {
-            ["Renderer"] = new()
+            ["Renderer"] = new(StringComparer.Ordinal)
             {
                 { "graphics_api", settings.Azahar.GraphicsApi.ToString(CultureInfo.InvariantCulture) },
                 { "resolution_factor", settings.Azahar.ResolutionFactor.ToString(CultureInfo.InvariantCulture) },
                 { "use_vsync_new", BoolToString(settings.Azahar.UseVsync) },
                 { "async_shader_compilation", BoolToString(settings.Azahar.AsyncShaderCompilation) }
             },
-            ["UI"] = new()
+            ["UI"] = new(StringComparer.Ordinal)
             {
                 { "fullscreen", BoolToString(settings.Azahar.Fullscreen) }
             },
-            ["Audio"] = new()
+            ["Audio"] = new(StringComparer.Ordinal)
             {
                 { "volume", (settings.Azahar.Volume / 100.0).ToString("F2", CultureInfo.InvariantCulture) },
                 { "enable_audio_stretching", BoolToString(settings.Azahar.EnableAudioStretching) }
             },
-            ["System"] = new()
+            ["System"] = new(StringComparer.Ordinal)
             {
                 { "is_new_3ds", BoolToString(settings.Azahar.IsNew3Ds) }
             },
-            ["Layout"] = new()
+            ["Layout"] = new(StringComparer.Ordinal)
             {
                 { "layout_option", settings.Azahar.LayoutOption.ToString(CultureInfo.InvariantCulture) }
             }
@@ -153,7 +153,7 @@ public static class AzaharConfigurationService
                 var keyLine = $"{key}={value}";
                 if (keyIndex != -1)
                 {
-                    if (lines[keyIndex] != keyLine)
+                    if (!string.Equals(lines[keyIndex], keyLine, StringComparison.Ordinal))
                     {
                         lines[keyIndex] = keyLine;
                         modified = true;
@@ -171,7 +171,7 @@ public static class AzaharConfigurationService
                 var defaultLine = $"{defaultKey}=false";
                 if (defaultKeyIndex != -1)
                 {
-                    if (lines[defaultKeyIndex] != defaultLine)
+                    if (!string.Equals(lines[defaultKeyIndex], defaultLine, StringComparison.Ordinal))
                     {
                         lines[defaultKeyIndex] = defaultLine;
                         modified = true;
@@ -234,19 +234,5 @@ public static class AzaharConfigurationService
     private static string BoolToString(bool value)
     {
         return value ? "true" : "false";
-    }
-}
-
-/// <summary>
-/// Exception thrown when Azahar configuration cannot be modified due to file permission issues.
-/// </summary>
-public class AzaharPermissionException : Exception
-{
-    public AzaharPermissionException(string message) : base(message)
-    {
-    }
-
-    public AzaharPermissionException(string message, Exception innerException) : base(message, innerException)
-    {
     }
 }

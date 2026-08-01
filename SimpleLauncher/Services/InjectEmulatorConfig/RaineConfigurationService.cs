@@ -7,7 +7,7 @@ public static class RaineConfigurationService
 {
     public static void InjectSettings(
         string emulatorPath,
-        SettingsManager.SettingsManager settings,
+        SettingsManager.SettingsManagerService settings,
         ILogger logger,
         string? gameFilePath = null,
         string? systemRomPath = null,
@@ -151,7 +151,7 @@ public static class RaineConfigurationService
                     if (sectionUpdates.TryGetValue(key, out var newValue))
                     {
                         var newLine = $"{key} = {newValue}";
-                        if (lines[i].Trim() != newLine) // Compare trimmed to avoid false positives on indentation
+                        if (!string.Equals(lines[i].Trim(), newLine, StringComparison.Ordinal)) // Compare trimmed to avoid false positives on indentation
                         {
                             lines[i] = newLine;
                             modified = true;

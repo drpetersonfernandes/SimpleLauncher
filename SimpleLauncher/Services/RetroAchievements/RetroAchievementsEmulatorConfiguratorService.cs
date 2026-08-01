@@ -67,7 +67,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
                 return false;
             }
 
-            var settingsToUpdate = new Dictionary<string, string>
+            var settingsToUpdate = new Dictionary<string, string>(StringComparer.Ordinal)
             {
                 { "cheevos_enable", "true" },
                 { "cheevos_username", username },
@@ -100,7 +100,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
             return false;
         }
 
-        var settingsToUpdate = new Dictionary<string, string>
+        var settingsToUpdate = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             { "Enabled", "true" },
             { "Username", username },
@@ -140,7 +140,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
                 return false;
             }
 
-            var settingsToUpdate = new Dictionary<string, string>
+            var settingsToUpdate = new Dictionary<string, string>(StringComparer.Ordinal)
             {
                 { "Enabled", "true" },
                 { "ChallengeMode", "true" },
@@ -186,7 +186,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
             }
 
             // 1. Update the main INI file
-            var settingsToUpdate = new Dictionary<string, string>
+            var settingsToUpdate = new Dictionary<string, string>(StringComparer.Ordinal)
             {
                 { "AchievementsEnable", "True" }, // PPSSPP uses TitleCase
                 { "AchievementsChallengeMode", "True" },
@@ -250,7 +250,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
             return false;
         }
 
-        var settingsToUpdate = new Dictionary<string, string>
+        var settingsToUpdate = new Dictionary<string, string>(StringComparer.Ordinal)
         {
             { "ChallengeIndicatorsEnabled", "True" }, // Dolphin uses TitleCase
             { "DiscordPresenceEnabled", "False" },
@@ -291,7 +291,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
                 }
             }
 
-            var settingsToUpdate = new Dictionary<string, string>
+            var settingsToUpdate = new Dictionary<string, string>(StringComparer.Ordinal)
             {
                 { "Enabled", "yes" }, // Flycast uses yes/no
                 { "HardcoreMode", "yes" },
@@ -360,7 +360,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         try
         {
             var lines = File.ReadAllLines(filePath).ToList();
-            var updatedSettings = new HashSet<string>(settingsToUpdate.Keys);
+            var updatedSettings = new HashSet<string>(settingsToUpdate.Keys, StringComparer.Ordinal);
 
             for (var i = 0; i < lines.Count; i++)
             {

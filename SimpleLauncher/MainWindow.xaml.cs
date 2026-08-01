@@ -15,7 +15,7 @@ using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.UiHelpers;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
-using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 
 namespace SimpleLauncher;
 
@@ -39,6 +39,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     // Event handler references for proper unsubscription to prevent memory leaks
     private RoutedEventHandler? _emergencyButtonClickHandler;
     private readonly RoutedEventHandler _asyncLoadedHandler;
+    private EventHandler<EventArgs<string>>? _gameFilesChangedHandler;
 
     // F8 global hotkey for active window screenshots
     private Services.TakeScreenshot.GlobalHotkeyService? _globalHotkeyService;
@@ -128,7 +129,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private List<SystemManager> _systemManagers = null!;
     private readonly FilterMenu _topLetterNumberMenu;
     private readonly WrapPanel _gameFileGrid;
-    private readonly SettingsManager _settings;
+    private readonly SettingsManagerService _settings;
     private readonly IGameBrowserService _gameBrowser;
     private string _selectedImageFolder = "";
     private List<string> _selectedRomFolders = [];
@@ -144,10 +145,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     internal readonly IUpdateStatusBar UpdateStatusBarService;
     internal readonly IUiResetService UiResetService;
     internal readonly ISystemConfigurationService SystemConfigurationService;
-    internal readonly IUiOrchestrator UiOrchestrator;
+    internal readonly IUiOrchestrator UiOrchestratorService;
 
     public MainWindow(
-        SettingsManager settings,
+        SettingsManagerService settings,
         PlayHistoryManager playHistoryManager,
         ILaunchTools launchTools,
         IMessageBoxLibraryService messageBox,
@@ -181,9 +182,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
         UiResetService = uiResetService;
         SystemConfigurationService = systemConfigurationService;
-        UiOrchestrator = uiOrchestrator;
+        UiOrchestratorService = uiOrchestrator;
 
-        UiOrchestrator.Initialize(this);
+        UiOrchestratorService.Initialize(this);
         _gameBrowser.Initialize(this, this, this);
         _menuOrchestrator.Initialize(this, this, this, this);
         UiResetService.Initialize(this);
@@ -200,8 +201,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _menuOrchestrator.UpdateFilenameDisplayModeCheckMarks(_settings.FilenameDisplayMode);
         _menuOrchestrator.UpdateFilenameFontSizeCheckMarks(_settings.FilenameFontSize);
         _menuOrchestrator.UpdateMachineNameFontSizeCheckMarks(_settings.MachineNameFontSize);
-        UiOrchestrator.PaginationFilesPerPage = _settings.GamesPerPage;
-        UiOrchestrator.PaginationThreshold = _settings.GamesPerPage;
+        UiOrchestratorService.PaginationFilesPerPage = _settings.GamesPerPage;
+        UiOrchestratorService.PaginationThreshold = _settings.GamesPerPage;
         ToggleFuzzyMatching.IsChecked = _settings.EnableFuzzyMatching;
         ToggleAnnotationStripping.IsChecked = _settings.EnableAnnotationStripping;
 
@@ -232,55 +233,58 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         Deactivated += MainWindow_Deactivated;
 
         // Wire up game file watcher to detect external file changes
-        _lifecycle.GameFilesChanged += _gameBrowser.OnGameFilesChangedAsync;
+        _gameFilesChangedHandler = (_, e) => _gameBrowser.OnGameFilesChangedAsync(e.Value);
+        _lifecycle.GameFilesChanged += _gameFilesChangedHandler;
 
-        // Store the async Loaded handler reference so it can be unsubscribed later
-        _asyncLoadedHandler = async void (_, _) =>
-        {
-            try
-            {
-                // Wire Emergency Return Button from Template
-                LoadingOverlay.ApplyTemplate();
-                if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
-                {
-                    _emergencyButtonClickHandler = EmergencyOverlayRelease_Click;
-                    emergencyBtn.Click += _emergencyButtonClickHandler;
-                }
-
-                await _lifecycle.InitializeStartupAsync(this);
-
-                // F8 global hotkey for active window screenshots
-                _globalHotkeyService = App.ServiceProvider.GetRequiredService<Services.TakeScreenshot.GlobalHotkeyService>();
-                _activeWindowScreenshotService = App.ServiceProvider.GetRequiredService<Services.TakeScreenshot.ActiveWindowScreenshotService>();
-                _globalHotkeyService.Initialize(this);
-
-                if (!_globalHotkeyService.IsRegistered)
-                {
-                    var msg = (string)Application.Current.TryFindResource("F8ShortcutInUse")
-                              ?? "The F8 shortcut key is already in use by another program. Because of this, the screenshot functionality is turned off.";
-                    MessageBox.Show(msg, "SimpleLauncher", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-                }
-
-                _globalHotkeyService.F8Pressed += async () =>
-                {
-                    try
-                    {
-                        await _activeWindowScreenshotService.CaptureActiveWindowAsync();
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Error(ex, "Error in F8 screenshot handler.");
-                    }
-                };
-
-                await HandleLoadedAsync();
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Error in the Loaded handler.");
-            }
-        };
+        // Store the Loaded handler reference so it can be unsubscribed later
+        _asyncLoadedHandler = (_, _) => _ = OnLoadedAsync();
         Loaded += _asyncLoadedHandler;
+    }
+
+    private async Task OnLoadedAsync()
+    {
+        try
+        {
+            // Wire Emergency Return Button from Template
+            LoadingOverlay.ApplyTemplate();
+            if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
+            {
+                _emergencyButtonClickHandler = EmergencyOverlayRelease_Click;
+                emergencyBtn.Click += _emergencyButtonClickHandler;
+            }
+
+            await _lifecycle.InitializeStartupAsync(this);
+
+            // F8 global hotkey for active window screenshots
+            _globalHotkeyService = App.ServiceProvider.GetRequiredService<Services.TakeScreenshot.GlobalHotkeyService>();
+            _activeWindowScreenshotService = App.ServiceProvider.GetRequiredService<Services.TakeScreenshot.ActiveWindowScreenshotService>();
+            _globalHotkeyService.Initialize(this);
+
+            if (!_globalHotkeyService.IsRegistered)
+            {
+                var msg = (string)Application.Current.TryFindResource("F8ShortcutInUse")
+                          ?? "The F8 shortcut key is already in use by another program. Because of this, the screenshot functionality is turned off.";
+                MessageBox.Show(msg, "SimpleLauncher", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+            }
+
+            _globalHotkeyService.F8Pressed += async () =>
+            {
+                try
+                {
+                    await _activeWindowScreenshotService.CaptureActiveWindowAsync();
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(ex, "Error in F8 screenshot handler.");
+                }
+            };
+
+            await HandleLoadedAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error in the Loaded handler.");
+        }
     }
 
     private async Task HandleLoadedAsync()
@@ -391,8 +395,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
     }
 
-    private async void TopLetterNumberMenu_OnLetterSelectedAsync(string? selectedLetter)
+    private async void TopLetterNumberMenu_OnLetterSelectedAsync(object? sender, EventArgs<string?> e)
     {
+        var selectedLetter = e.Value;
         try
         {
             if (_isDisposed) return;
@@ -632,7 +637,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             await _gameBrowser.LoadGameFilesAsync(null, "RANDOM_SELECTION", _cancellationSource.Token);
 
             // If in list view, select the game in the DataGrid
-            if (_settings.ViewMode != "ListView" || GameDataGrid.Items.Count <= 0) return;
+            if (!string.Equals(_settings.ViewMode, "ListView", StringComparison.Ordinal) || GameDataGrid.Items.Count <= 0) return;
 
             GameDataGrid.SelectedIndex = 0;
             GameDataGrid.ScrollIntoView(GameDataGrid.SelectedItem);
@@ -651,7 +656,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         try
         {
             // Only update if in ListView mode
-            if (_settings.ViewMode != "ListView" || GameListItems.Count == 0)
+            if (!string.Equals(_settings.ViewMode, "ListView", StringComparison.Ordinal) || GameListItems.Count == 0)
                 return;
 
             // Get the current playtime from history
@@ -696,7 +701,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     public void SetLoadingState(bool isLoading, string? message = null)
     {
-        UiOrchestrator.SetLoadingState(isLoading, message);
+        UiOrchestratorService.SetLoadingState(isLoading, message);
     }
 
     internal void SetIsLoadingGamesInternal(bool value)
@@ -706,7 +711,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
     {
-        UiOrchestrator.EmergencyRelease();
+        UiOrchestratorService.EmergencyRelease();
     }
 
     internal void SetPaginationButtonsDefault()
@@ -732,7 +737,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     {
         // Save application's current state
         _settings.ThumbnailSize = _gameBrowser.ImageHeight;
-        _settings.GamesPerPage = UiOrchestrator.PaginationFilesPerPage;
+        _settings.GamesPerPage = UiOrchestratorService.PaginationFilesPerPage;
         _settings.EnableGamePadNavigation = ToggleGamepad.IsChecked;
         _settings.EnableFuzzyMatching = ToggleFuzzyMatching.IsChecked;
         _settings.EnableAnnotationStripping = ToggleAnnotationStripping.IsChecked;
@@ -838,7 +843,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 var fileNameWithExtension = Path.GetFileName(selectedItem.FilePath);
                 var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedItem.FilePath);
 
-                var gameLauncher = App.ServiceProvider.GetRequiredService<Services.GameLauncher.GameLauncher>();
+                var gameLauncher = App.ServiceProvider.GetRequiredService<Services.GameLauncher.GameLauncherService>();
                 var gamePadController = App.ServiceProvider.GetRequiredService<Services.GamePad.GamePadController>();
                 var playSoundEffects = App.ServiceProvider.GetRequiredService<Services.PlaySound.PlaySoundEffects>();
                 var machines = App.ServiceProvider.GetRequiredService<IMameDataService>().Machines.ToList();
@@ -894,7 +899,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     internal void SetGameButtonsEnabled(bool isEnabled)
     {
-        UiOrchestrator.SetGameButtonsEnabled(isEnabled);
+        UiOrchestratorService.SetGameButtonsEnabled(isEnabled);
     }
 
     internal static void ClearGameButtonImages(Panel panel)
@@ -904,12 +909,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private Task SetUiBeforeLoadGameFilesAsync()
     {
-        return UiOrchestrator.SetUiBeforeLoadGameFilesAsync();
+        return UiOrchestratorService.SetUiBeforeLoadGameFilesAsync();
     }
 
-    private List<string> SetPaginationOfListOfFiles(List<string> allFiles)
+    private IList<string> SetPaginationOfListOfFiles(IList<string> allFiles)
     {
-        return UiOrchestrator.ApplyPagination(allFiles);
+        return UiOrchestratorService.ApplyPagination(allFiles);
     }
 
     private async void SortOrderToggleButtonClickAsync(object sender, RoutedEventArgs e)
@@ -928,7 +933,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 CancelAndRecreateToken();
 
                 _audioInput.PlayNotificationSound();
-                ((IUiResetHost)this).MameSortOrder = ((IUiResetHost)this).MameSortOrder == "FileName" ? "MachineDescription" : "FileName";
+                ((IUiResetHost)this).MameSortOrder = string.Equals(((IUiResetHost)this).MameSortOrder, "FileName", StringComparison.Ordinal) ? "MachineDescription" : "FileName";
                 UpdateSortOrderButtonUi();
 
                 _isResortOperation = true; // Set flag before loading
@@ -966,7 +971,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             return;
         }
 
-        if (((IUiResetHost)this).MameSortOrder == "FileName")
+        if (string.Equals(((IUiResetHost)this).MameSortOrder, "FileName", StringComparison.Ordinal))
         {
             var tooltipText = (string)Application.Current.TryFindResource("SortByMachineDescriptionTooltip") ?? "Sort by Machine Description";
             SortOrderToggleButton.ToolTip = tooltipText;

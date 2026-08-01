@@ -11,9 +11,9 @@ public class GetListOfFilesService : IGetListOfFilesService
         _logger = logErrors;
     }
 
-    public Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions, bool disableRecursiveSearch, bool groupByFolder, CancellationToken cancellationToken = default)
+    public Task<IList<string>> GetFilesAsync(string directoryPath, IList<string> fileExtensions, bool disableRecursiveSearch, bool groupByFolder, CancellationToken cancellationToken = default)
     {
-        return Task.Run(() =>
+        return Task.Run<IList<string>>(() =>
         {
             cancellationToken.ThrowIfCancellationRequested();
             try

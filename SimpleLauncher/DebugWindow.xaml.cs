@@ -8,7 +8,7 @@ namespace SimpleLauncher;
 
 public partial class DebugWindow
 {
-    private static readonly object InstanceLock = new();
+    private static readonly Lock InstanceLock = new();
     private DebugViewModel _viewModel = null!;
     private PropertyChangedEventHandler? _logTextPropertyChangedHandler;
     private bool _isReallyClosing;
@@ -41,7 +41,7 @@ public partial class DebugWindow
 
             Instance._logTextPropertyChangedHandler = (_, args) =>
             {
-                if (args.PropertyName == nameof(DebugViewModel.LogText))
+                if (string.Equals(args.PropertyName, nameof(DebugViewModel.LogText), StringComparison.Ordinal))
                 {
                     try
                     {

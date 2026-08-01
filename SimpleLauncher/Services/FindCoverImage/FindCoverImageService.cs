@@ -13,7 +13,7 @@ public class FindCoverImageService : IFindCoverImageService
 {
     private readonly IConfiguration _configuration;
     private readonly ILogger _logger;
-    private readonly SettingsManager.SettingsManager _settings;
+    private readonly SettingsManager.SettingsManagerService _settings;
     private static readonly string GlobalDefaultImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
 
     private const double PrefixScale = 0.1;
@@ -25,7 +25,7 @@ public class FindCoverImageService : IFindCoverImageService
     /// <param name="configuration">The configuration.</param>
     /// <param name="logErrors">The log errors.</param>
     /// <param name="settings">The settings manager for reading dynamic matching preferences.</param>
-    public FindCoverImageService(IConfiguration configuration, ILogger logErrors, SettingsManager.SettingsManager settings)
+    public FindCoverImageService(IConfiguration configuration, ILogger logErrors, SettingsManager.SettingsManagerService settings)
     {
         _configuration = configuration;
         _logger = logErrors;
@@ -68,7 +68,7 @@ public class FindCoverImageService : IFindCoverImageService
             if (_settings.EnableAnnotationStripping)
             {
                 var strippedRomName = StripAnnotations(fileNameWithoutExtension);
-                if (strippedRomName != fileNameWithoutExtension)
+                if (!string.Equals(strippedRomName, fileNameWithoutExtension, StringComparison.Ordinal))
                 {
                     // Try exact match with stripped name
                     foreach (var ext in imageExtensions)

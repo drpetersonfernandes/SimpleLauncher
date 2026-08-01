@@ -6,7 +6,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the SettingsManager for correct default values, modification behavior, and emulator-specific settings.
+/// Tests the SettingsManagerService for correct default values, modification behavior, and emulator-specific settings.
 /// </summary>
 public class SettingsManagerTests : IDisposable
 {
@@ -22,7 +22,7 @@ public class SettingsManagerTests : IDisposable
         Directory.CreateDirectory(_testDirectory);
 
         _configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?>
+            .AddInMemoryCollection(new Dictionary<string, string?>(StringComparer.Ordinal)
             {
                 ["Urls:YouTubeSearch"] = "https://www.youtube.com/results?search_query=",
                 ["Urls:IgdbSearch"] = "https://www.igdb.com/search?q="
@@ -52,7 +52,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultThumbnailSizeIs250()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.Equal(250, settings.ThumbnailSize);
     }
 
@@ -62,7 +62,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultGamesPerPageIs200()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.Equal(200, settings.GamesPerPage);
     }
 
@@ -72,7 +72,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultShowGamesIsShowAll()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("ShowAll", settings.ShowGames);
     }
 
@@ -82,7 +82,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultViewModeIsGridView()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("GridView", settings.ViewMode);
     }
 
@@ -92,7 +92,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultBaseThemeIsDark()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("Dark", settings.BaseTheme);
     }
 
@@ -102,7 +102,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultAccentColorIsBlue()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("Blue", settings.AccentColor);
     }
 
@@ -112,7 +112,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultLanguageIsEn()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("en", settings.Language);
     }
 
@@ -122,7 +122,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultDeadZoneXIsCorrect()
     {
-        Assert.Equal(0.05f, SettingsManager.DefaultDeadZoneX);
+        Assert.Equal(0.05f, SettingsManagerService.DefaultDeadZoneX);
     }
 
     /// <summary>
@@ -131,7 +131,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultDeadZoneYIsCorrect()
     {
-        Assert.Equal(0.02f, SettingsManager.DefaultDeadZoneY);
+        Assert.Equal(0.02f, SettingsManagerService.DefaultDeadZoneY);
     }
 
     /// <summary>
@@ -140,7 +140,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultEnableFuzzyMatchingIsTrue()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.True(settings.EnableFuzzyMatching);
     }
 
@@ -150,7 +150,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultFuzzyMatchingThresholdIs080()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.Equal(0.80, settings.FuzzyMatchingThreshold);
     }
 
@@ -160,7 +160,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultEnableNotificationSoundIsTrue()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.True(settings.EnableNotificationSound);
     }
 
@@ -170,7 +170,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultButtonAspectRatioIsSquare()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("Square", settings.ButtonAspectRatio);
     }
 
@@ -180,7 +180,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultFilenameDisplayModeIsOriginal()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("Original", settings.FilenameDisplayMode);
     }
 
@@ -190,7 +190,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultFilenameFontSizeIsNormal()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("Normal", settings.FilenameFontSize);
     }
 
@@ -200,7 +200,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultMachineNameFontSizeIsNormal()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("Normal", settings.MachineNameFontSize);
     }
 
@@ -210,7 +210,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultStyleVariantIsDefault()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("Default", settings.StyleVariant);
     }
 
@@ -220,7 +220,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultOverlayOpenVideoButtonIsTrue()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.True(settings.OverlayOpenVideoButton);
     }
 
@@ -230,7 +230,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultAdditionalSystemFoldersExpandedIsTrue()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.True(settings.AdditionalSystemFoldersExpanded);
     }
 
@@ -240,7 +240,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultEmulatorExpandedStatesAreTrue()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.True(settings.Emulator1Expanded);
         Assert.True(settings.Emulator2Expanded);
         Assert.True(settings.Emulator3Expanded);
@@ -254,7 +254,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void SettingsCanBeModified()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
 
         settings.ThumbnailSize = 500;
         settings.GamesPerPage = 1000;
@@ -283,7 +283,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultDuckStationSettingsAreCorrect()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.False(settings.DuckStation.StartFullscreen);
         Assert.True(settings.DuckStation.PauseOnFocusLoss);
         Assert.True(settings.DuckStation.SaveStateOnExit);
@@ -300,7 +300,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultRetroArchSettingsAreCorrect()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.False(settings.RetroArch.Fullscreen);
         Assert.Equal("gl", settings.RetroArch.VideoDriver);
         Assert.True(settings.RetroArch.Vsync);
@@ -315,7 +315,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void SystemPlayTimesDefaultIsEmpty()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.Empty(settings.SystemPlayTimes);
     }
 
@@ -325,7 +325,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void VideoUrlDefaultsFromConfiguration()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("https://www.youtube.com/results?search_query=", settings.VideoUrl);
     }
 
@@ -335,14 +335,14 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void InfoUrlDefaultsFromConfiguration()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
         Assert.Equal("https://www.igdb.com/search?q=", settings.InfoUrl);
     }
 
     [Fact]
     public void ResetToDefaultsRestoresAllGeneralSettings()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
 
         settings.ThumbnailSize = 500;
         settings.GamesPerPage = 1000;
@@ -372,7 +372,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void ResetToDefaultsRestoresEmulatorSettings()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
 
         settings.DuckStation.StartFullscreen = true;
         settings.DuckStation.Renderer = "Vulkan";
@@ -390,7 +390,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void ThumbnailSizeValidationAcceptsValidValues()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
 
         settings.ThumbnailSize = 50;
         Assert.Equal(50, settings.ThumbnailSize);
@@ -402,7 +402,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void GamesPerPageValidationAcceptsValidValues()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
 
         settings.GamesPerPage = 100;
         Assert.Equal(100, settings.GamesPerPage);
@@ -414,7 +414,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void AccentColorValidationAcceptsAllValidColors()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
 
         var validColors = new[] { "Amber", "Blue", "Brown", "Cobalt", "Crimson", "Cyan", "Emerald", "Green", "Indigo", "Lime", "Magenta", "Maroon", "Mauve", "Olive", "OliveDrab", "Orange", "Pink", "Plum", "Purple", "Red", "Sienna", "SkyBlue", "Steel", "Taupe", "Teal", "Violet", "Yellow" };
 
@@ -428,7 +428,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void UpdateSystemPlayTimeAddsNewEntry()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
 
         settings.UpdateSystemPlayTime("NES", TimeSpan.FromMinutes(30));
 
@@ -440,7 +440,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void UpdateSystemPlayTimeAccumulatesExistingEntry()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
 
         settings.UpdateSystemPlayTime("NES", TimeSpan.FromMinutes(30));
         settings.UpdateSystemPlayTime("NES", TimeSpan.FromMinutes(15));
@@ -452,7 +452,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void UpdateSystemPlayTimeMultipleSystems()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
 
         settings.UpdateSystemPlayTime("NES", TimeSpan.FromMinutes(30));
         settings.UpdateSystemPlayTime("SNES", TimeSpan.FromMinutes(45));
@@ -467,7 +467,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultXeniaSettingsAreCorrect()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
 
         Assert.Equal("xaudio2", settings.Xenia.Apu);
         Assert.False(settings.Xenia.Mute);
@@ -485,7 +485,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultRpcs3SettingsAreCorrect()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
 
         Assert.Equal("Recompiler (LLVM)", settings.Rpcs3.PpuDecoder);
         Assert.Equal("Recompiler (LLVM)", settings.Rpcs3.SpuDecoder);
@@ -503,7 +503,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultMednafenSettingsAreCorrect()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
 
         Assert.Equal("opengl", settings.Mednafen.VideoDriver);
         Assert.False(settings.Mednafen.Fullscreen);
@@ -521,7 +521,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultStellaSettingsAreCorrect()
     {
-        using var settings = new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
 
         Assert.False(settings.Stella.Fullscreen);
         Assert.True(settings.Stella.Vsync);

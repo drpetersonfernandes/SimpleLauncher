@@ -133,7 +133,7 @@ public class GameClassificationModelsTests
             ]
         };
 
-        var actionGames = response.Games.Where(g => g.Name.Contains("Action")).ToList();
+        var actionGames = response.Games.Where(g => g.Name.Contains("Action", StringComparison.Ordinal)).ToList();
         Assert.Equal(2, actionGames.Count);
     }
 }

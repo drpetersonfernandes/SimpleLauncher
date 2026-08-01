@@ -18,10 +18,10 @@ public class RightClickContext(
     string fileNameWithExtension,
     string fileNameWithoutExtension,
     string selectedSystemName,
-    SystemManager selectedSystemManager,
-    List<Services.MameManager.MameManager> machines,
+    SystemManagerService selectedSystemManager,
+    IList<Services.MameManager.MameManagerService> machines,
     FavoritesManager favoritesManager,
-    SettingsManager settings,
+    SettingsManagerService settings,
     ComboBox? emulatorComboBox,
     Favorite? favorite,
     Emulator? emulator,
@@ -30,7 +30,7 @@ public class RightClickContext(
     MainWindow mainWindow,
     GamePadController gamePadController,
     Action? onFavoriteRemoved = null,
-    Services.GameLauncher.GameLauncher? gameLauncher = null,
+    Services.GameLauncher.GameLauncherService? gameLauncher = null,
     PlaySoundEffects? playSoundEffects = null,
     ILoadingState? loadingStateProvider = null)
 {
@@ -47,16 +47,16 @@ public class RightClickContext(
     public string SelectedSystemName { get; } = selectedSystemName ?? throw new ArgumentNullException(nameof(selectedSystemName));
 
     /// <summary>Gets the selected system manager instance.</summary>
-    public SystemManager SelectedSystemManager { get; } = selectedSystemManager ?? throw new ArgumentNullException(nameof(selectedSystemManager));
+    public SystemManagerService SelectedSystemManager { get; } = selectedSystemManager ?? throw new ArgumentNullException(nameof(selectedSystemManager));
 
     /// <summary>Gets the list of MAME machine entries.</summary>
-    public List<Services.MameManager.MameManager> Machines { get; } = machines ?? throw new ArgumentNullException(nameof(machines));
+    public IList<Services.MameManager.MameManagerService> Machines { get; } = machines ?? throw new ArgumentNullException(nameof(machines));
 
     /// <summary>Gets the favorites manager instance.</summary>
     public FavoritesManager FavoritesManager { get; } = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
 
     /// <summary>Gets the application settings manager.</summary>
-    public SettingsManager Settings { get; } = settings ?? throw new ArgumentNullException(nameof(settings));
+    public SettingsManagerService Settings { get; } = settings ?? throw new ArgumentNullException(nameof(settings));
 
     /// <summary>Gets the emulator combo box control.</summary>
     public ComboBox? EmulatorComboBox { get; } = emulatorComboBox;
@@ -83,7 +83,7 @@ public class RightClickContext(
     public Action? OnFavoriteRemoved { get; } = onFavoriteRemoved;
 
     /// <summary>Gets the game launcher service, if available.</summary>
-    public Services.GameLauncher.GameLauncher? GameLauncher { get; } = gameLauncher;
+    public Services.GameLauncher.GameLauncherService? GameLauncherService { get; } = gameLauncher;
 
     /// <summary>Gets the sound effects service, if available.</summary>
     public PlaySoundEffects? PlaySoundEffects { get; } = playSoundEffects;

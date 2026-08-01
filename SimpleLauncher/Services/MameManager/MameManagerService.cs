@@ -4,7 +4,7 @@ using SimpleLauncher.Interfaces;
 namespace SimpleLauncher.Services.MameManager;
 
 [MessagePackObject]
-public class MameManager
+public class MameManagerService
 {
     [Key(0)]
     public string MachineName { get; set; } = "";
@@ -14,7 +14,7 @@ public class MameManager
 
     private static readonly string DefaultDatPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.dat");
 
-    public static List<MameManager> LoadFromDat(ILogger logErrors, string? datPath = null, IMessageBoxLibraryService? messageBox = null)
+    public static IList<MameManagerService> LoadFromDat(ILogger logErrors, string? datPath = null, IMessageBoxLibraryService? messageBox = null)
     {
         datPath ??= DefaultDatPath;
 
@@ -38,8 +38,8 @@ public class MameManager
             // Read the binary data from the DAT file
             var binaryData = File.ReadAllBytes(datPath);
 
-            // Deserialize the binary data to a list of MameManager objects
-            return MessagePackSerializer.Deserialize<List<MameManager>>(binaryData);
+            // Deserialize the binary data to a list of MameManagerService objects
+            return MessagePackSerializer.Deserialize<List<MameManagerService>>(binaryData);
         }
         catch (Exception ex)
         {

@@ -51,7 +51,7 @@ public class SystemHelperTests
             SystemHelperText = "Line 1\nLine 2\nLine 3"
         };
 
-        Assert.Contains("\n", helper.SystemHelperText);
+        Assert.Contains("\n", helper.SystemHelperText, StringComparison.Ordinal);
         Assert.Equal(3, helper.SystemHelperText.Split('\n').Length);
     }
 
@@ -75,8 +75,8 @@ public class SystemHelperTests
             SystemHelperText = "Use <config> with \"quotes\" and |pipes|"
         };
 
-        Assert.Contains("<config>", helper.SystemHelperText);
-        Assert.Contains("\"quotes\"", helper.SystemHelperText);
+        Assert.Contains("<config>", helper.SystemHelperText, StringComparison.Ordinal);
+        Assert.Contains("\"quotes\"", helper.SystemHelperText, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -93,6 +93,6 @@ public class SystemHelperTests
         var h1 = new SystemHelper { SystemName = "NES" };
         var h2 = new SystemHelper { SystemName = "SNES" };
 
-        Assert.NotEqual(h1.SystemName, h2.SystemName);
+        Assert.NotEqual(h1.SystemName, h2.SystemName, StringComparer.Ordinal);
     }
 }

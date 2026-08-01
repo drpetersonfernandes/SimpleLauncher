@@ -116,12 +116,12 @@ public class ImagePackDownloadItemTests
 
         item.State = DownloadButtonState.Downloading;
 
-        Assert.Contains(nameof(ImagePackDownloadItem.State), changedProperties);
-        Assert.Contains(nameof(ImagePackDownloadItem.IsIdle), changedProperties);
-        Assert.Contains(nameof(ImagePackDownloadItem.IsDownloading), changedProperties);
-        Assert.Contains(nameof(ImagePackDownloadItem.IsDownloaded), changedProperties);
-        Assert.Contains(nameof(ImagePackDownloadItem.IsFailed), changedProperties);
-        Assert.Contains(nameof(ImagePackDownloadItem.CanStartDownload), changedProperties);
+        Assert.Contains(nameof(ImagePackDownloadItem.State), changedProperties, StringComparer.Ordinal);
+        Assert.Contains(nameof(ImagePackDownloadItem.IsIdle), changedProperties, StringComparer.Ordinal);
+        Assert.Contains(nameof(ImagePackDownloadItem.IsDownloading), changedProperties, StringComparer.Ordinal);
+        Assert.Contains(nameof(ImagePackDownloadItem.IsDownloaded), changedProperties, StringComparer.Ordinal);
+        Assert.Contains(nameof(ImagePackDownloadItem.IsFailed), changedProperties, StringComparer.Ordinal);
+        Assert.Contains(nameof(ImagePackDownloadItem.CanStartDownload), changedProperties, StringComparer.Ordinal);
     }
 
     /// <summary>

@@ -22,7 +22,7 @@ public class GlobalStatsViewModelTests : IDisposable
     {
         ServiceProviderMock.Install();
         _configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?>
+            .AddInMemoryCollection(new Dictionary<string, string?>(StringComparer.Ordinal)
             {
                 ["ImageExtensions:0"] = ".png",
                 ["ImageExtensions:1"] = ".jpg",
@@ -43,7 +43,7 @@ public class GlobalStatsViewModelTests : IDisposable
     [Fact]
     public void ConstructorWithEmptySystemManagersInitializesEmptyCollections()
     {
-        var systemManagers = new List<Services.SystemManager.SystemManager>();
+        var systemManagers = new List<Services.SystemManager.SystemManagerService>();
 
         var viewModel = new GlobalStatsViewModel(_configuration, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
         viewModel.Initialize(systemManagers);
@@ -62,7 +62,7 @@ public class GlobalStatsViewModelTests : IDisposable
     [Fact]
     public void ConstructorInitializesInfoText()
     {
-        var systemManagers = new List<Services.SystemManager.SystemManager>();
+        var systemManagers = new List<Services.SystemManager.SystemManagerService>();
 
         var viewModel = new GlobalStatsViewModel(_configuration, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
         viewModel.Initialize(systemManagers);
@@ -78,7 +78,7 @@ public class GlobalStatsViewModelTests : IDisposable
     [Fact]
     public void ConstructorInitializesBusyOverlayText()
     {
-        var systemManagers = new List<Services.SystemManager.SystemManager>();
+        var systemManagers = new List<Services.SystemManager.SystemManagerService>();
 
         var viewModel = new GlobalStatsViewModel(_configuration, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
         viewModel.Initialize(systemManagers);
@@ -93,7 +93,7 @@ public class GlobalStatsViewModelTests : IDisposable
     [Fact]
     public void ImplementsINotifyPropertyChanged()
     {
-        var systemManagers = new List<Services.SystemManager.SystemManager>();
+        var systemManagers = new List<Services.SystemManager.SystemManagerService>();
         var viewModel = new GlobalStatsViewModel(_configuration, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
         viewModel.Initialize(systemManagers);
 
@@ -106,7 +106,7 @@ public class GlobalStatsViewModelTests : IDisposable
     [Fact]
     public void StartCommandExists()
     {
-        var systemManagers = new List<Services.SystemManager.SystemManager>();
+        var systemManagers = new List<Services.SystemManager.SystemManagerService>();
         var viewModel = new GlobalStatsViewModel(_configuration, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
         viewModel.Initialize(systemManagers);
 
@@ -119,7 +119,7 @@ public class GlobalStatsViewModelTests : IDisposable
     [Fact]
     public void CancelCommandExists()
     {
-        var systemManagers = new List<Services.SystemManager.SystemManager>();
+        var systemManagers = new List<Services.SystemManager.SystemManagerService>();
         var viewModel = new GlobalStatsViewModel(_configuration, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
         viewModel.Initialize(systemManagers);
 
@@ -132,7 +132,7 @@ public class GlobalStatsViewModelTests : IDisposable
     [Fact]
     public void SaveReportCommandExists()
     {
-        var systemManagers = new List<Services.SystemManager.SystemManager>();
+        var systemManagers = new List<Services.SystemManager.SystemManagerService>();
         var viewModel = new GlobalStatsViewModel(_configuration, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
         viewModel.Initialize(systemManagers);
 
@@ -145,7 +145,7 @@ public class GlobalStatsViewModelTests : IDisposable
     [Fact]
     public void ClosingCommandExists()
     {
-        var systemManagers = new List<Services.SystemManager.SystemManager>();
+        var systemManagers = new List<Services.SystemManager.SystemManagerService>();
         var viewModel = new GlobalStatsViewModel(_configuration, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
         viewModel.Initialize(systemManagers);
 
@@ -158,7 +158,7 @@ public class GlobalStatsViewModelTests : IDisposable
     [Fact]
     public void CancelCommandCannotExecuteInitially()
     {
-        var systemManagers = new List<Services.SystemManager.SystemManager>();
+        var systemManagers = new List<Services.SystemManager.SystemManagerService>();
         var viewModel = new GlobalStatsViewModel(_configuration, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
         viewModel.Initialize(systemManagers);
 
@@ -172,7 +172,7 @@ public class GlobalStatsViewModelTests : IDisposable
     [Fact]
     public void SaveReportCommandCannotExecuteInitially()
     {
-        var systemManagers = new List<Services.SystemManager.SystemManager>();
+        var systemManagers = new List<Services.SystemManager.SystemManagerService>();
         var viewModel = new GlobalStatsViewModel(_configuration, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
         viewModel.Initialize(systemManagers);
 
@@ -185,7 +185,7 @@ public class GlobalStatsViewModelTests : IDisposable
     [Fact]
     public void StartCommandCanExecuteWhenNotProcessing()
     {
-        var systemManagers = new List<Services.SystemManager.SystemManager>();
+        var systemManagers = new List<Services.SystemManager.SystemManagerService>();
         var viewModel = new GlobalStatsViewModel(_configuration, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
         viewModel.Initialize(systemManagers);
 
@@ -218,7 +218,7 @@ public class GlobalStatsViewModelTests : IDisposable
     [Fact]
     public void DisposeDoesNotThrow()
     {
-        var systemManagers = new List<Services.SystemManager.SystemManager>();
+        var systemManagers = new List<Services.SystemManager.SystemManagerService>();
         var viewModel = new GlobalStatsViewModel(_configuration, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
         viewModel.Initialize(systemManagers);
 
@@ -233,13 +233,13 @@ public class GlobalStatsViewModelTests : IDisposable
     [Fact]
     public void CloseRequestedEventCanBeSubscribed()
     {
-        var systemManagers = new List<Services.SystemManager.SystemManager>();
+        var systemManagers = new List<Services.SystemManager.SystemManagerService>();
         var viewModel = new GlobalStatsViewModel(_configuration, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
         viewModel.Initialize(systemManagers);
 
         // Verify event can be subscribed to
         var eventRaised = false;
-        viewModel.CloseRequested += () => { eventRaised = true; };
+        viewModel.CloseRequested += (_, _) => { eventRaised = true; };
 
         Assert.False(eventRaised); // Event was just subscribed, not raised
     }
@@ -250,7 +250,7 @@ public class GlobalStatsViewModelTests : IDisposable
     [Fact]
     public void PropertyChangedEventCanBeSubscribed()
     {
-        var systemManagers = new List<Services.SystemManager.SystemManager>();
+        var systemManagers = new List<Services.SystemManager.SystemManagerService>();
         var viewModel = new GlobalStatsViewModel(_configuration, _logErrors, _getListOfFiles, new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
         viewModel.Initialize(systemManagers);
 

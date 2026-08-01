@@ -11,7 +11,7 @@ using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
 using MessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
-using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
+using Settings = SimpleLauncher.Services.SettingsManager.SettingsManagerService;
 
 namespace SimpleLauncher.Services.MenuActionHandler;
 
@@ -24,7 +24,7 @@ public class MenuActionHandlerService
     // ReSharper disable once NotAccessedField.Local
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly GamePadController _gamePadController;
-    private readonly GameLauncher.GameLauncher _gameLauncher;
+    private readonly GameLauncher.GameLauncherService _gameLauncher;
     private readonly GameScannerService _gameScannerService;
     private readonly FavoritesManager _favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager;
@@ -50,7 +50,7 @@ public class MenuActionHandlerService
 IConfiguration configuration,
         IHttpClientFactory httpClientFactory,
         GamePadController gamePadController,
-        GameLauncher.GameLauncher gameLauncher,
+        GameLauncher.GameLauncherService gameLauncher,
         GameScannerService gameScannerService,
         FavoritesManager favoritesManager,
         PlayHistoryManager playHistoryManager,
@@ -298,8 +298,8 @@ IConfiguration configuration,
 
             var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
             var selectedSystem = _host.GetSelectedSystem();
-            var systemToPreselect = !string.IsNullOrEmpty(selectedSystem) && selectedSystem != nosystemselected
-                ? selectedSystem
+            var systemToPreselect = !string.IsNullOrEmpty(selectedSystem) && !string.Equals(selectedSystem, nosystemselected
+, StringComparison.Ordinal) ? selectedSystem
                 : null;
 
             var editSystemWindow = new EditSystemWindow(_settings, _playSoundEffects, _configuration, _helpUserService, _imageLoader, _messageBoxLibrary, _quitSimpleLauncher, _logger, _parameterResolverService, systemToPreselect)
@@ -751,7 +751,7 @@ IConfiguration configuration,
         var contextMenuFunctions = _serviceProvider.GetRequiredService<IContextMenuFunctions>();
         var contextMenuService = _serviceProvider.GetRequiredService<IContextMenuService>();
         var globalSearchPage = new Pages.GlobalSearchPage(
-            _host.GetSystemManagers(), _host.GetMachines(), _host.GetMameLookup(),
+            _host.GetSystemManagers().ToList(), _host.GetMachines().ToList(), new Dictionary<string, string>(_host.GetMameLookup(), StringComparer.Ordinal),
             _favoritesManager, _settings, mainWindow,
             _gamePadController, _gameLauncher, _playSoundEffects,
             _configuration, _getListOfFiles, _findCoverImage, _imageLoader, contextMenuFunctions, _logger, contextMenuService);
@@ -768,7 +768,7 @@ IConfiguration configuration,
 
         var globalStatsWindow = _serviceProvider.GetRequiredService<GlobalStatsWindow>();
         globalStatsWindow.Owner = Application.Current.MainWindow;
-        globalStatsWindow.Initialize(_host.GetSystemManagers());
+        globalStatsWindow.Initialize(_host.GetSystemManagers().ToList());
         globalStatsWindow.Show();
     }
 
@@ -782,7 +782,7 @@ IConfiguration configuration,
         var contextMenuFunctions = _serviceProvider.GetRequiredService<IContextMenuFunctions>();
         var contextMenuService = _serviceProvider.GetRequiredService<IContextMenuService>();
         var favoritesPage = new Pages.FavoritesPage(
-            _settings, _host.GetSystemManagers(), _host.GetMachines(), _favoritesManager,
+            _settings, _host.GetSystemManagers().ToList(), _host.GetMachines().ToList(), _favoritesManager,
             (MainWindow)Application.Current.MainWindow, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _findCoverImage, _imageLoader, contextMenuFunctions, _logger, contextMenuService);
 
         _host.NavigateToPage(favoritesPage);
@@ -1001,7 +1001,7 @@ IConfiguration configuration,
             _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingViewMode") ?? "Toggling view mode...");
             _playSoundEffects.PlayNotificationSound();
 
-            if (_host.GetViewMode() == "GridView")
+            if (string.Equals(_host.GetViewMode(), "GridView", StringComparison.Ordinal))
             {
                 _host.SetGridViewChecked(false);
                 _host.SetListViewChecked(true);
@@ -1039,7 +1039,7 @@ IConfiguration configuration,
 
             switch (sender)
             {
-                case MenuItem mi when mi.Name == _host.GridViewMenuItemId:
+                case MenuItem mi when string.Equals(mi.Name, _host.GridViewMenuItemId, StringComparison.Ordinal):
                     _host.SetGridViewChecked(true);
                     _host.SetListViewChecked(false);
                     _settings.ViewMode = "GridView";
@@ -1049,7 +1049,7 @@ IConfiguration configuration,
 
                     _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...");
                     break;
-                case MenuItem mi2 when mi2.Name == _host.ListViewMenuItemId:
+                case MenuItem mi2 when string.Equals(mi2.Name, _host.ListViewMenuItemId, StringComparison.Ordinal):
                     _host.SetGridViewChecked(false);
                     _host.SetListViewChecked(true);
                     _settings.ViewMode = "ListView";
@@ -1093,7 +1093,7 @@ IConfiguration configuration,
 
                 _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingFilenameDisplayMode") ?? "Changing filename display mode...");
 
-                if (_host.GetViewMode() == "GridView")
+                if (string.Equals(_host.GetViewMode(), "GridView", StringComparison.Ordinal))
                 {
                     var (sl, sq) = _host.GetLoadGameFilesParams();
                     _host.SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
@@ -1130,7 +1130,7 @@ IConfiguration configuration,
 
                 _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingDisplayMachineName") ?? "Changing machine name display...");
 
-                if (_host.GetViewMode() == "GridView")
+                if (string.Equals(_host.GetViewMode(), "GridView", StringComparison.Ordinal))
                 {
                     var (sl, sq) = _host.GetLoadGameFilesParams();
                     _host.SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
@@ -1169,7 +1169,7 @@ IConfiguration configuration,
 
                 _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingFilenameFontSize") ?? "Changing filename font size...");
 
-                if (_host.GetViewMode() == "GridView")
+                if (string.Equals(_host.GetViewMode(), "GridView", StringComparison.Ordinal))
                 {
                     var (sl, sq) = _host.GetLoadGameFilesParams();
                     _host.SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
@@ -1208,7 +1208,7 @@ IConfiguration configuration,
 
                 _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingMachineNameFontSize") ?? "Changing machine name font size...");
 
-                if (_host.GetViewMode() == "GridView")
+                if (string.Equals(_host.GetViewMode(), "GridView", StringComparison.Ordinal))
                 {
                     var (sl, sq) = _host.GetLoadGameFilesParams();
                     _host.SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
@@ -1387,7 +1387,7 @@ IConfiguration configuration,
 
             _playSoundEffects.PlayNotificationSound();
             var currentSort = _host.GetMameSortOrder();
-            var newSort = currentSort == "FileName" ? "MachineDescription" : "FileName";
+            var newSort = string.Equals(currentSort, "FileName", StringComparison.Ordinal) ? "MachineDescription" : "FileName";
             _host.SetMameSortOrder(newSort);
             _host.UpdateSortOrderButtonUi();
 

@@ -22,7 +22,7 @@ public partial class GitHubService
     /// <summary>
     /// Event raised when a log message needs to be displayed.
     /// </summary>
-    public event Action<string>? LogMessage;
+    public event EventHandler<EventArgs<string>>? LogMessage;
 
     /// <summary>
     /// Initializes a new instance of the GitHubService class.
@@ -69,7 +69,7 @@ public partial class GitHubService
         }
 
         // If GitHub failed, fall back to secondary server
-        LogMessage?.Invoke($"GitHub not responding after {GitHubTimeoutSeconds} seconds. Using secondary server...");
+        LogMessage?.Invoke(this, new EventArgs<string>($"GitHub not responding after {GitHubTimeoutSeconds} seconds. Using secondary server..."));
         return await GetFallbackReleaseAsync(cancellationToken);
     }
 
@@ -82,7 +82,7 @@ public partial class GitHubService
     {
         try
         {
-            LogMessage?.Invoke("Fetching the latest release from GitHub...");
+            LogMessage?.Invoke(this, new EventArgs<string>("Fetching the latest release from GitHub..."));
 
             // Create a cancellation token that expires after 5 seconds, linked to the external token
             using var timeoutCts = new CancellationTokenSource(TimeSpan.FromSeconds(GitHubTimeoutSeconds));
@@ -92,7 +92,7 @@ public partial class GitHubService
 
             if (!response.IsSuccessStatusCode)
             {
-                LogMessage?.Invoke($"GitHub API returned status code: {response.StatusCode}");
+                LogMessage?.Invoke(this, new EventArgs<string>($"GitHub API returned status code: {response.StatusCode}"));
                 return null;
             }
 
@@ -105,7 +105,7 @@ public partial class GitHubService
             // Validate version tag format
             if (string.IsNullOrWhiteSpace(versionTag))
             {
-                LogMessage?.Invoke("Release tag_name is null or empty.");
+                LogMessage?.Invoke(this, new EventArgs<string>("Release tag_name is null or empty."));
                 return null;
             }
 
@@ -113,7 +113,7 @@ public partial class GitHubService
             var rawVersionString = ExtractVersionFromTag(versionTag);
             if (string.IsNullOrEmpty(rawVersionString))
             {
-                LogMessage?.Invoke($"Could not extract version from tag: '{versionTag}'");
+                LogMessage?.Invoke(this, new EventArgs<string>($"Could not extract version from tag: '{versionTag}'"));
                 return null;
             }
 
@@ -121,14 +121,14 @@ public partial class GitHubService
             var versionParts = rawVersionString.Split('.');
             if (versionParts.Length < 2)
             {
-                LogMessage?.Invoke($"Invalid version format: '{rawVersionString}'. Version must have at least major.minor components.");
+                LogMessage?.Invoke(this, new EventArgs<string>($"Invalid version format: '{rawVersionString}'. Version must have at least major.minor components."));
                 return null;
             }
 
             var normalizedVersion = NormalizeVersion(rawVersionString);
             var expectedAssetName = $"release_{rawVersionString}_{CurrentRuntimeIdentifier}.zip";
 
-            LogMessage?.Invoke($"Searching for asset: {expectedAssetName}");
+            LogMessage?.Invoke(this, new EventArgs<string>($"Searching for asset: {expectedAssetName}"));
 
             if (root.TryGetProperty("assets", out var assetsElement))
             {
@@ -140,25 +140,25 @@ public partial class GitHubService
                         var assetUrl = asset.GetProperty("browser_download_url").GetString();
                         if (!string.IsNullOrEmpty(assetUrl))
                         {
-                            LogMessage?.Invoke($"Latest version found: {normalizedVersion}");
-                            LogMessage?.Invoke($"Release package URL: {assetUrl}");
+                            LogMessage?.Invoke(this, new EventArgs<string>($"Latest version found: {normalizedVersion}"));
+                            LogMessage?.Invoke(this, new EventArgs<string>($"Release package URL: {assetUrl}"));
                             return (normalizedVersion, assetUrl);
                         }
                     }
                 }
             }
 
-            LogMessage?.Invoke($"Could not find the required asset '{expectedAssetName}' in the latest release.");
+            LogMessage?.Invoke(this, new EventArgs<string>($"Could not find the required asset '{expectedAssetName}' in the latest release."));
             return null;
         }
         catch (OperationCanceledException)
         {
-            LogMessage?.Invoke($"GitHub request timed out after {GitHubTimeoutSeconds} seconds.");
+            LogMessage?.Invoke(this, new EventArgs<string>($"GitHub request timed out after {GitHubTimeoutSeconds} seconds."));
             return null;
         }
         catch (Exception ex)
         {
-            LogMessage?.Invoke($"Error fetching from GitHub: {ex.Message}");
+            LogMessage?.Invoke(this, new EventArgs<string>($"Error fetching from GitHub: {ex.Message}"));
             return null;
         }
     }
@@ -175,7 +175,7 @@ public partial class GitHubService
     {
         try
         {
-            LogMessage?.Invoke("Checking secondary server for latest version...");
+            LogMessage?.Invoke(this, new EventArgs<string>("Checking secondary server for latest version..."));
 
             // The secondary server has a version.txt file with the current version
             const string versionUrl = SecondaryServerBaseUrl + "version.txt";
@@ -206,8 +206,8 @@ public partial class GitHubService
             var expectedAssetName = $"release_{rawVersionString}_{CurrentRuntimeIdentifier}.zip";
             var assetUrl = SecondaryServerBaseUrl + expectedAssetName;
 
-            LogMessage?.Invoke($"Latest version found: {normalizedVersion}");
-            LogMessage?.Invoke($"Release package URL: {assetUrl}");
+            LogMessage?.Invoke(this, new EventArgs<string>($"Latest version found: {normalizedVersion}"));
+            LogMessage?.Invoke(this, new EventArgs<string>($"Release package URL: {assetUrl}"));
 
             return (normalizedVersion, assetUrl);
         }
@@ -283,6 +283,6 @@ public partial class GitHubService
         return string.Join(".", parts.Take(4));
     }
 
-    [GeneratedRegex(@"(\d+(\.\d+){1,3})")]
+    [GeneratedRegex(@"(\d+(\.\d+){1,3})", RegexOptions.None | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex VersionRegex();
 }

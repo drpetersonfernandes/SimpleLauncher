@@ -91,9 +91,9 @@ public class TagOptionTests
         };
 
         Assert.Equal(3, options.Count);
-        Assert.Contains(options, o => o.Tag == "nes");
-        Assert.Contains(options, o => o.Tag == "snes");
-        Assert.Contains(options, o => o.Tag == "genesis");
+        Assert.Contains(options, o => string.Equals(o.Tag, "nes", StringComparison.Ordinal));
+        Assert.Contains(options, o => string.Equals(o.Tag, "snes", StringComparison.Ordinal));
+        Assert.Contains(options, o => string.Equals(o.Tag, "genesis", StringComparison.Ordinal));
     }
 
     [Fact]

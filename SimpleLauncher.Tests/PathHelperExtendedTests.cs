@@ -61,7 +61,7 @@ public class PathHelperExtendedTests
     {
         var result = PathHelper.ResolveRelativeToAppDirectory("%basefolder%\\test");
         Assert.NotNull(result);
-        Assert.EndsWith("test", result);
+        Assert.EndsWith("test", result, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -197,7 +197,7 @@ public class PathHelperExtendedTests
     {
         const string parameters = "-rom %ROM%";
         var result = PathHelper.ResolveParameterString(parameters, null, null, @"C:\my roms\game file.zip");
-        Assert.Contains("C:\\my roms\\game file.zip", result);
+        Assert.Contains("C:\\my roms\\game file.zip", result, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -293,7 +293,7 @@ public class PathHelperExtendedTests
     {
         var result = PathHelper.ResolveRelativeToCurrentWorkingDirectory("some\\relative\\path");
         Assert.True(Path.IsPathRooted(result));
-        Assert.EndsWith("some\\relative\\path", result);
+        Assert.EndsWith("some\\relative\\path", result, StringComparison.Ordinal);
     }
 
     [Fact]

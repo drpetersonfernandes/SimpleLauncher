@@ -52,7 +52,7 @@ public class Rpcs3ConfigHandler : IEmulatorConfigHandler
             }
             else if (File.Exists(resolvedExe))
             {
-                Rpcs3ConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger);
+                Rpcs3ConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
             }
 
             return shouldRun;

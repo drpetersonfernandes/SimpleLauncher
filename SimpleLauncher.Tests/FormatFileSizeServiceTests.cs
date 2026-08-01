@@ -84,7 +84,7 @@ public class FormatFileSizeServiceTests
     public void FormatToHumanReadableDoesNotExceedTb()
     {
         var result = _service.FormatToHumanReadable(long.MaxValue);
-        Assert.EndsWith("TB", result);
+        Assert.EndsWith("TB", result, StringComparison.Ordinal);
     }
 
     [Fact]

@@ -14,5 +14,5 @@ public record RaUserCompletionProgressResponse
     public int Total { get; init; }
 
     [JsonPropertyName("Results")]
-    public List<RaUserCompletionGame> Results { get; init; } = [];
+    public IList<RaUserCompletionGame> Results { get; init; } = [];
 }

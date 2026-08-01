@@ -77,7 +77,7 @@ public class ValidateBatchFileTests : IDisposable
         File.WriteAllText(batchFile, "@echo off\n\"C:\\nonexistent\\game.exe\" --arg\n");
 
         var result = ValidateBatchFile.ValidateBatchFileContents(batchFile);
-        Assert.Contains(result, static p => p.Contains("game.exe"));
+        Assert.Contains(result, static p => p.Contains("game.exe", StringComparison.Ordinal));
     }
 
     /// <summary>
@@ -140,7 +140,7 @@ public class ValidateBatchFileTests : IDisposable
 
         var result = ValidateBatchFile.FindInvalidQuotedPathsSimple(batchFile);
         Assert.Single(result);
-        Assert.Contains("file.exe", result[0]);
+        Assert.Contains("file.exe", result[0], StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -218,7 +218,7 @@ public class ValidateBatchFileTests : IDisposable
 
         var result = ValidateBatchFile.FindInvalidQuotedPathsSimple(batchFile);
         Assert.NotEmpty(result);
-        Assert.Contains("tool.exe", result[0]);
+        Assert.Contains("tool.exe", result[0], StringComparison.Ordinal);
     }
 
     [Fact]

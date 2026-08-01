@@ -41,7 +41,7 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
         new() { InternalId = "Warcraft III", Name = "Warcraft III", IsClassic = true, Exe = "Warcraft III.exe", ProductId = "W3" }
     ];
 
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try
         {
@@ -131,6 +131,6 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
         }
     }
 
-    [GeneratedRegex(@"Battle\.net.*--uid=(.*?)(?:\s|$)")]
+    [GeneratedRegex(@"Battle\.net.*--uid=(.*?)(?:\s|$)", RegexOptions.None | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex();
 }

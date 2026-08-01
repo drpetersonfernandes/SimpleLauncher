@@ -233,8 +233,8 @@ public class EasyModeManager : IDisposable
                 : "easymode.xml"; // Default fallback
 
             // Get the fallback URL from configuration
-            var fallbackUrl = xmlFile == "easymode_arm64.xml"
-                ? _configuration.GetValue<string>("Urls:EasyModeFallbackXmlArm64")
+            var fallbackUrl = string.Equals(xmlFile, "easymode_arm64.xml"
+, StringComparison.Ordinal) ? _configuration.GetValue<string>("Urls:EasyModeFallbackXmlArm64")
                 : _configuration.GetValue<string>("Urls:EasyModeFallbackXmlX64");
 
             if (string.IsNullOrEmpty(fallbackUrl))

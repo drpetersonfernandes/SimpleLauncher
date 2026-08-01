@@ -21,11 +21,11 @@ public partial class DosBoxFileSelectionWindow
         Owner = Application.Current.MainWindow;
 
         _viewModel = viewModel;
-        _viewModel.DialogResultRequested += result =>
+        _viewModel.DialogResultRequested += (_, e) =>
         {
             if (IsLoaded)
             {
-                DialogResult = result;
+                DialogResult = e.Value;
             }
 
             Close();
@@ -41,7 +41,7 @@ public partial class DosBoxFileSelectionWindow
     /// </summary>
     /// <param name="filePaths">The list of file paths to display.</param>
     /// <param name="baseDirectory">The base directory for resolving relative paths.</param>
-    public void Initialize(List<string> filePaths, string baseDirectory)
+    public void Initialize(IList<string> filePaths, string baseDirectory)
     {
         _viewModel.Initialize(filePaths, baseDirectory);
     }

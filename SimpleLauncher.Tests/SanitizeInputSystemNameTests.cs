@@ -101,7 +101,7 @@ public class SanitizeInputSystemNameTests
     public void SanitizeFolderNameDirectoryTraversalIsReplaced()
     {
         var result = SanitizeInputSystemName.SanitizeFolderName("../etc/passwd");
-        Assert.DoesNotContain("..", result);
+        Assert.DoesNotContain("..", result, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -199,62 +199,62 @@ public class SanitizeInputSystemNameTests
     public void SanitizeFolderNameWithDoubleDotsReplacesTraversal()
     {
         var result = SanitizeInputSystemName.SanitizeFolderName("NES..SNES");
-        Assert.DoesNotContain("..", result);
+        Assert.DoesNotContain("..", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameReservedCon()
     {
         var result = SanitizeInputSystemName.SanitizeFolderName("CON");
-        Assert.StartsWith("_", result);
-        Assert.EndsWith("_", result);
+        Assert.StartsWith("_", result, StringComparison.Ordinal);
+        Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameReservedAux()
     {
         var result = SanitizeInputSystemName.SanitizeFolderName("AUX");
-        Assert.StartsWith("_", result);
-        Assert.EndsWith("_", result);
+        Assert.StartsWith("_", result, StringComparison.Ordinal);
+        Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameReservedNul()
     {
         var result = SanitizeInputSystemName.SanitizeFolderName("NUL");
-        Assert.StartsWith("_", result);
-        Assert.EndsWith("_", result);
+        Assert.StartsWith("_", result, StringComparison.Ordinal);
+        Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameReservedCom1()
     {
         var result = SanitizeInputSystemName.SanitizeFolderName("COM1");
-        Assert.StartsWith("_", result);
-        Assert.EndsWith("_", result);
+        Assert.StartsWith("_", result, StringComparison.Ordinal);
+        Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameReservedLpt1()
     {
         var result = SanitizeInputSystemName.SanitizeFolderName("LPT1");
-        Assert.StartsWith("_", result);
-        Assert.EndsWith("_", result);
+        Assert.StartsWith("_", result, StringComparison.Ordinal);
+        Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameReservedCaseInsensitive()
     {
         var result = SanitizeInputSystemName.SanitizeFolderName("con");
-        Assert.StartsWith("_", result);
-        Assert.EndsWith("_", result);
+        Assert.StartsWith("_", result, StringComparison.Ordinal);
+        Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
     [Fact]
     public void SanitizeFolderNameWithInvalidChars()
     {
         var result = SanitizeInputSystemName.SanitizeFolderName("NES/SNES");
-        Assert.DoesNotContain("/", result);
+        Assert.DoesNotContain("/", result, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -268,15 +268,15 @@ public class SanitizeInputSystemNameTests
     public void SanitizeFolderNameWithMultipleInvalidChars()
     {
         var result = SanitizeInputSystemName.SanitizeFolderName("NES<>:\"/\\|?*SNES");
-        Assert.DoesNotContain("<", result);
-        Assert.DoesNotContain(">", result);
-        Assert.DoesNotContain(":", result);
-        Assert.DoesNotContain("\"", result);
-        Assert.DoesNotContain("/", result);
-        Assert.DoesNotContain("\\", result);
-        Assert.DoesNotContain("|", result);
-        Assert.DoesNotContain("?", result);
-        Assert.DoesNotContain("*", result);
+        Assert.DoesNotContain("<", result, StringComparison.Ordinal);
+        Assert.DoesNotContain(">", result, StringComparison.Ordinal);
+        Assert.DoesNotContain(":", result, StringComparison.Ordinal);
+        Assert.DoesNotContain("\"", result, StringComparison.Ordinal);
+        Assert.DoesNotContain("/", result, StringComparison.Ordinal);
+        Assert.DoesNotContain("\\", result, StringComparison.Ordinal);
+        Assert.DoesNotContain("|", result, StringComparison.Ordinal);
+        Assert.DoesNotContain("?", result, StringComparison.Ordinal);
+        Assert.DoesNotContain("*", result, StringComparison.Ordinal);
     }
 
     [Fact]

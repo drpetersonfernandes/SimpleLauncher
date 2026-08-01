@@ -13,18 +13,18 @@ namespace SimpleLauncher.Services.SystemManager;
 /// <summary>
 /// Represents a system (console/platform) configuration loaded from system.xml, including ROM folders, file formats, and emulators.
 /// </summary>
-public partial class SystemManager : ISystemManager
+public partial class SystemManagerService : ISystemManager
 {
-    private static readonly object XmlLock = new();
+    private static readonly Lock XmlLock = new();
 
     private static DataFileLocation? _fileLocation;
-    private static readonly object FileLocationLock = new();
+    private static readonly Lock FileLocationLock = new();
 
     /// <summary>Gets the name of the system (e.g., "NES", "SNES").</summary>
     public string SystemName { get; init; } = null!;
 
     /// <summary>Gets the list of ROM folder paths for this system.</summary>
-    public List<string> SystemFolders { get; init; } = null!;
+    public IList<string> SystemFolders { get; init; } = null!;
 
     /// <summary>Gets the first (primary) system folder path.</summary>
     public string? PrimarySystemFolder => SystemFolders?.FirstOrDefault();
@@ -33,16 +33,16 @@ public partial class SystemManager : ISystemManager
     public string SystemImageFolder { get; init; } = null!;
 
     /// <summary>Gets the list of file extensions to search for in ROM folders.</summary>
-    public List<string> FileFormatsToSearch { get; init; } = null!;
+    public IList<string> FileFormatsToSearch { get; init; } = null!;
 
     /// <summary>Gets whether compressed files should be extracted before launching.</summary>
     public bool ExtractFileBeforeLaunch { get; init; }
 
     /// <summary>Gets the list of file extensions that can be launched directly.</summary>
-    public List<string> FileFormatsToLaunch { get; init; } = null!;
+    public IList<string> FileFormatsToLaunch { get; init; } = null!;
 
     /// <summary>Gets the list of configured emulators for this system.</summary>
-    public List<Emulator> Emulators { get; init; } = null!;
+    public IList<Emulator> Emulators { get; init; } = null!;
 
     IReadOnlyList<IEmulator> ISystemManager.Emulators => Emulators?.Cast<IEmulator>().ToList() ?? [];
 
@@ -62,9 +62,9 @@ public partial class SystemManager : ISystemManager
     private static ILogger _logger = null!;
 
     /// <summary>
-    /// Initializes a new instance of the SystemManager with optional dependencies.
+    /// Initializes a new instance of the SystemManagerService with optional dependencies.
     /// </summary>
-    public SystemManager(IMessageBoxLibraryService? messageBoxLibrary = null, ILogger? logger = null)
+    public SystemManagerService(IMessageBoxLibraryService? messageBoxLibrary = null, ILogger? logger = null)
     {
         _messageBoxLibrary = messageBoxLibrary!;
         _logger = logger!;
@@ -132,7 +132,7 @@ public partial class SystemManager : ISystemManager
             catch (Exception ex) // Catch XmlException, IOException, etc.
             {
                 // If file is corrupt or locked, we can't check.
-                _logger?.Debug($"[SystemManager.SystemExists] Could not check system.xml: {ex.Message}");
+                _logger?.Debug($"[SystemManagerService.SystemExists] Could not check system.xml: {ex.Message}");
                 return false;
             }
         }
@@ -141,7 +141,7 @@ public partial class SystemManager : ISystemManager
     /// <summary>
     /// Loads all system manager configurations from system.xml, validating and cleaning invalid entries.
     /// </summary>
-    public static List<SystemManager> LoadSystemManagers(IConfiguration configuration, ILogger? logErrors = null, IMessageBoxLibraryService? messageBoxLibrary = null)
+    public static IList<SystemManagerService> LoadSystemManagers(IConfiguration configuration, ILogger? logErrors = null, IMessageBoxLibraryService? messageBoxLibrary = null)
     {
         var systemXmlPath = GetSystemXmlPath(configuration);
 
@@ -151,7 +151,7 @@ public partial class SystemManager : ISystemManager
 
             if (directoryPath != null)
             {
-                RestoreBackupFile(directoryPath!, systemXmlPath!, logErrors!, messageBoxLibrary!);
+                RestoreBackupFile(directoryPath, systemXmlPath, logErrors!, messageBoxLibrary!);
             }
 
             // If no backup was restored, create a new empty system.xml file
@@ -185,7 +185,7 @@ public partial class SystemManager : ISystemManager
         {
             try
             {
-                var systemManagers = new List<SystemManager>();
+                var systemManagers = new List<SystemManagerService>();
                 var invalidManagers = new Dictionary<XElement, string>();
                 XDocument? doc = null;
 
@@ -367,10 +367,10 @@ public partial class SystemManager : ISystemManager
             }
         }
 
-        static void ValidateSystemConfiguration(XElement sysConfigElement, List<SystemManager> systemManagers)
+        static void ValidateSystemConfiguration(XElement sysConfigElement, IList<SystemManagerService> systemManagers)
         {
             // Attempt to parse each system configuration.
-            // These validations will only run if SystemManager elements exist.
+            // These validations will only run if SystemManagerService elements exist.
             var systemName = sysConfigElement.Element("SystemName")?.Value;
             if (string.IsNullOrEmpty(systemName))
                 throw new InvalidOperationException("Missing or empty 'System Name' in XML.");
@@ -492,7 +492,7 @@ public partial class SystemManager : ISystemManager
                 });
             }
 
-            systemManagers.Add(new SystemManager
+            systemManagers.Add(new SystemManagerService
             {
                 SystemName = systemName,
                 SystemFolders = systemFolders, // Store the raw string
@@ -556,7 +556,7 @@ public partial class SystemManager : ISystemManager
     /// </summary>
     public static Task AddOrUpdateSystemFromEasyModeAsync(EasyModeSystemConfig selectedSystem, string systemFolder)
     {
-        var systemToSave = new SystemManager
+        var systemToSave = new SystemManagerService
         {
             SystemName = selectedSystem.SystemName,
             SystemFolders = [systemFolder],
@@ -592,7 +592,7 @@ public partial class SystemManager : ISystemManager
     /// <summary>
     /// Asynchronously saves a system configuration to system.xml, creating or updating the entry with retry logic.
     /// </summary>
-    public static async Task SaveSystemConfigurationAsync(SystemManager systemConfig, string? originalSystemName = null, ILogger? logErrors = null, IConfiguration? configuration = null)
+    public static async Task SaveSystemConfigurationAsync(SystemManagerService systemConfig, string? originalSystemName = null, ILogger? logErrors = null, IConfiguration? configuration = null)
     {
         try
         {
@@ -656,7 +656,7 @@ public partial class SystemManager : ISystemManager
                     if (root != null)
                     {
                         var existingSystem = root.Elements("SystemConfig")
-                            .FirstOrDefault(el => el.Element("SystemName")?.Value == systemIdentifier);
+                            .FirstOrDefault(el => string.Equals(el.Element("SystemName")?.Value, systemIdentifier, StringComparison.Ordinal));
 
                         if (existingSystem != null)
                         {
@@ -732,7 +732,7 @@ public partial class SystemManager : ISystemManager
                                         systemXmlPath = _fileLocation.FilePath;
 
                                         // If we successfully switched paths, retry the save
-                                        if (systemXmlPath != oldSystemXmlPath)
+                                        if (!string.Equals(systemXmlPath, oldSystemXmlPath, StringComparison.Ordinal))
                                         {
                                             attempt--; // Don't count this as an attempt, retry with new path
                                             continue;
@@ -741,7 +741,7 @@ public partial class SystemManager : ISystemManager
                                 }
                                 catch (Exception fallbackEx)
                                 {
-                                    Log.Debug($"[SystemManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
+                                    Log.Debug($"[SystemManagerService] FallbackToLocalAppData failed: {fallbackEx.Message}");
                                 }
                             }
 
@@ -758,7 +758,7 @@ public partial class SystemManager : ISystemManager
                                 }
                                 catch (Exception cleanupEx)
                                 {
-                                    Log.Debug($"[SystemManager] Temp file cleanup failed: {cleanupEx.Message}");
+                                    Log.Debug($"[SystemManagerService] Temp file cleanup failed: {cleanupEx.Message}");
                                 }
 
                                 Thread.Sleep(retryDelayMs);
@@ -832,7 +832,7 @@ public partial class SystemManager : ISystemManager
                     }
 
                     var systemNode = xmlDoc.Root?.Descendants("SystemConfig")
-                        .FirstOrDefault(element => element.Element("SystemName")?.Value == systemNameToDelete);
+                        .FirstOrDefault(element => string.Equals(element.Element("SystemName")?.Value, systemNameToDelete, StringComparison.Ordinal));
 
                     if (systemNode != null)
                     {
@@ -851,7 +851,7 @@ public partial class SystemManager : ISystemManager
         }
     }
 
-    private static XElement CreateSystemXElement(SystemManager config)
+    private static XElement CreateSystemXElement(SystemManagerService config)
     {
         var element = new XElement("SystemConfig",
             new XElement("SystemName", config.SystemName),
@@ -866,7 +866,7 @@ public partial class SystemManager : ISystemManager
         return element;
     }
 
-    private static void UpdateSystemXElement(XElement existingSystem, SystemManager config)
+    private static void UpdateSystemXElement(XElement existingSystem, SystemManagerService config)
     {
         existingSystem.SetElementValue("SystemName", config.SystemName);
 
@@ -915,9 +915,9 @@ public partial class SystemManager : ISystemManager
         return emulatorElement;
     }
 
-    [GeneratedRegex(@"<SystemConfig[^>]*>[\s\S]*?<\/SystemConfig>")]
+    [GeneratedRegex(@"<SystemConfig[^>]*>[\s\S]*?<\/SystemConfig>", RegexOptions.None, 1000)]
     private static partial Regex MyRegex();
 
-    [GeneratedRegex(@"<SystemName>(.*?)<\/SystemName>")]
+    [GeneratedRegex(@"<SystemName>(.*?)<\/SystemName>", RegexOptions.None | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex1();
 }

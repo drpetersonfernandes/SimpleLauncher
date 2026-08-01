@@ -29,19 +29,19 @@ public partial class HelpUserService : IHelpUserService
     }
 
     // Renamed for clarity: Matches **bold text**
-    [GeneratedRegex(@"\*\*(.*?)\*\*", RegexOptions.Compiled)]
+    [GeneratedRegex(@"\*\*(.*?)\*\*", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex BoldRegex();
 
     // Renamed for clarity: Matches ## headings
-    [GeneratedRegex(@"^##\s*(.*?)$", RegexOptions.Multiline)]
+    [GeneratedRegex(@"^##\s*(.*?)$", RegexOptions.Multiline | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex HeadingRegex();
 
     // New regex for Markdown links: [text](url)
-    [GeneratedRegex(@"\[(?<text>[^\]]+?)\]\((?<url>https?://\S+?)\)", RegexOptions.Compiled)]
+    [GeneratedRegex(@"\[(?<text>[^\]]+?)\]\((?<url>https?://\S+?)\)", RegexOptions.Compiled, 1000)]
     private static partial Regex MarkdownLinkRegex();
 
     // Renamed for clarity: Matches raw URLs like http://example.com or www.example.com
-    [GeneratedRegex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled)]
+    [GeneratedRegex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled, 1000)]
     private static partial Regex RawUrlRegex();
 
     public string GetHelpText(string systemName)

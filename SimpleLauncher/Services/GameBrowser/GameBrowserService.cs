@@ -1,6 +1,5 @@
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.GameScan;
-using SimpleLauncher.Services.SearchOrchestrator;
 using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.GameBrowser;
@@ -77,7 +76,7 @@ public class GameBrowserService : IGameBrowserService
     /// <summary>
     /// Gets or sets the list of available system managers.
     /// </summary>
-    public List<SystemManager.SystemManager> SystemManagers
+    public IList<SystemManager.SystemManagerService> SystemManagers
     {
         get;
         set;
@@ -110,7 +109,7 @@ public class GameBrowserService : IGameBrowserService
     /// <summary>
     /// Rebuilds the game button and list item factories with updated system and MAME machine data.
     /// </summary>
-    public void ReloadFactories(List<SystemManager.SystemManager> systemManagers, List<MameManager.MameManager> machines)
+    public void ReloadFactories(IList<SystemManager.SystemManagerService> systemManagers, IList<MameManager.MameManagerService> machines)
     {
         _gameItemRenderService.ReloadFactories(systemManagers, machines);
     }
@@ -118,7 +117,7 @@ public class GameBrowserService : IGameBrowserService
     /// <summary>
     /// Renders game items for the specified file list in the current view mode (grid or list).
     /// </summary>
-    public Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManager.SystemManager systemManager, CancellationToken ct)
+    public Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManager.SystemManagerService systemManager, CancellationToken ct)
     {
         return _gameItemRenderService.RenderGameItemsAsync(files, systemName, systemManager, ct);
     }
@@ -180,12 +179,12 @@ public class GameBrowserService : IGameBrowserService
     /// <summary>
     /// Gets the list of loaded MAME machine definitions.
     /// </summary>
-    public IReadOnlyList<MameManager.MameManager> Machines => _mameDataService.Machines;
+    public IReadOnlyList<MameManager.MameManagerService> Machines => _mameDataService.Machines;
 
     /// <summary>
     /// Gets the MAME filename-to-description lookup dictionary.
     /// </summary>
-    public Dictionary<string, string> MameLookup => _mameDataService.Lookup;
+    public IDictionary<string, string> MameLookup => _mameDataService.Lookup;
 
     /// <summary>
     /// Notifies the system that game files have changed for the specified system, triggering a reload.

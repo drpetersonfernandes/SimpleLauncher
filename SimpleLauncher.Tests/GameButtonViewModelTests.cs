@@ -58,7 +58,7 @@ public class GameButtonViewModelTests
         var raised = false;
         vm.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(GameButtonViewModel.IsFavorite))
+            if (string.Equals(args.PropertyName, nameof(GameButtonViewModel.IsFavorite), StringComparison.Ordinal))
             {
                 raised = true;
             }
@@ -78,7 +78,7 @@ public class GameButtonViewModelTests
         var raised = false;
         vm.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(GameButtonViewModel.HasAchievements))
+            if (string.Equals(args.PropertyName, nameof(GameButtonViewModel.HasAchievements), StringComparison.Ordinal))
             {
                 raised = true;
             }

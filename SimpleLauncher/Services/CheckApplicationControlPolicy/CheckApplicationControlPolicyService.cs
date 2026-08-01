@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 namespace SimpleLauncher.Services.CheckApplicationControlPolicy;
 
-public static class CheckApplicationControlPolicy
+public static class CheckApplicationControlPolicyService
 {
     /// <summary>
     /// Checks if the given exception is a Win32Exception indicating an application control policy block.

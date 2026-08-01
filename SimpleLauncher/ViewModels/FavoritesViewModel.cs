@@ -10,7 +10,7 @@ using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
-using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 
 namespace SimpleLauncher.ViewModels;
@@ -21,9 +21,9 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
     private readonly IConfiguration _configuration;
     private readonly ILogger _logger;
     private readonly FavoritesManager _favoritesManager;
-    private readonly SettingsManager _settings;
-    private readonly List<SystemManager> _systemManagers;
-    private readonly List<MameManager> _machines;
+    private readonly SettingsManagerService _settings;
+    private readonly IList<SystemManager> _systemManagers;
+    private readonly IList<MameManagerService> _machines;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IFindCoverImageService _findCoverImage;
     private readonly IImageLoader _imageLoader;
@@ -49,9 +49,9 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         IConfiguration configuration,
         ILogger logErrors,
         FavoritesManager favoritesManager,
-        SettingsManager settings,
-        List<SystemManager> systemManagers,
-        List<MameManager> machines,
+        SettingsManagerService settings,
+        IList<SystemManager> systemManagers,
+        IList<MameManagerService> machines,
         PlaySoundEffects playSoundEffects,
         IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,

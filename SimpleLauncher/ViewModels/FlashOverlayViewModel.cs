@@ -21,13 +21,13 @@ public class FlashOverlayViewModel : ObservableObject
     /// <summary>
     /// Event raised when the window should be closed.
     /// </summary>
-    public event Action? CloseRequested;
+    public event EventHandler? CloseRequested;
 
     /// <summary>
     /// Completes the flash animation and requests window close.
     /// </summary>
     public void OnAnimationCompleted()
     {
-        CloseRequested?.Invoke();
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 }

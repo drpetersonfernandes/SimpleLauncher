@@ -19,10 +19,10 @@ namespace SimpleLauncher.Services.SystemSelectionOrchestrator;
 /// <summary>
 /// Orchestrates system selection UI, including displaying the system grid, handling system clicks, combo box changes, and system CRUD operations.
 /// </summary>
-public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
+public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
 {
     private ISystemSelectionHost _host = null!;
-    private readonly SettingsManager.SettingsManager _settings;
+    private readonly SettingsManager.SettingsManagerService _settings;
     private readonly ISystemImageResolverService _systemImageResolverService;
     private readonly IImageLoader _imageLoader;
     private readonly PlaySoundEffects _playSoundEffects;
@@ -42,10 +42,10 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
     private readonly IParameterResolverService _parameterResolverService;
 
     /// <summary>
-    /// Initializes a new instance of the SystemSelectionOrchestrator with the specified dependencies.
+    /// Initializes a new instance of the SystemSelectionOrchestratorService with the specified dependencies.
     /// </summary>
-    public SystemSelectionOrchestrator(
-        SettingsManager.SettingsManager settings,
+    public SystemSelectionOrchestratorService(
+        SettingsManager.SettingsManagerService settings,
         ISystemImageResolverService systemImageResolverService,
         IImageLoader imageLoader,
         PlaySoundEffects playSoundEffects,
@@ -95,7 +95,7 @@ IGameCacheService gameCacheService,
     {
         var managers = _systemConfigurationService.LoadSystemManagers();
         _host.SetSystemManagers(managers);
-        var sortedSystemNames = managers.Select(static manager => manager.SystemName).OrderBy(static name => name)
+        var sortedSystemNames = managers.Select(static manager => manager.SystemName).OrderBy(static name => name, StringComparer.Ordinal)
             .ToList();
         _host.SystemComboBox.ItemsSource = sortedSystemNames;
 
@@ -146,7 +146,7 @@ IGameCacheService gameCacheService,
 
     private async Task PopulateSystemSelectionGridAsync(CancellationToken cancellationToken)
     {
-        foreach (var config in _host.GetSystemManagers().OrderBy(static s => s.SystemName))
+        foreach (var config in _host.GetSystemManagers().OrderBy(static s => s.SystemName, StringComparer.Ordinal))
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -313,7 +313,7 @@ IGameCacheService gameCacheService,
 
             _playSoundEffects.PlayNotificationSound();
 
-            await SystemManager.SystemManager.DeleteSystemAsync(systemName);
+            await SystemManager.SystemManagerService.DeleteSystemAsync(systemName);
 
             await Task.Delay(100, _host.CurrentCancellationToken);
 
@@ -496,7 +496,7 @@ IGameCacheService gameCacheService,
         }
     }
 
-    private async Task PopulateAllGamesForCurrentSystemAsync(SystemManager.SystemManager selectedManager, string currentSelectedSystem, List<string> selectedRomFolders, CancellationToken cancellationToken)
+    private async Task PopulateAllGamesForCurrentSystemAsync(SystemManager.SystemManagerService selectedManager, string currentSelectedSystem, List<string> selectedRomFolders, CancellationToken cancellationToken)
     {
         var uniqueFilesForSystem = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (var folder in selectedRomFolders)

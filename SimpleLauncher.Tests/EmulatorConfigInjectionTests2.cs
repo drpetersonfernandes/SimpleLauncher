@@ -19,7 +19,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     public EmulatorConfigInjectionTests2()
     {
         _configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?>
+            .AddInMemoryCollection(new Dictionary<string, string?>(StringComparer.Ordinal)
             {
                 ["Urls:YouTubeSearch"] = "https://www.youtube.com/results?search_query=",
                 ["Urls:IgdbSearch"] = "https://www.igdb.com/search?q="
@@ -62,9 +62,9 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         return Path.Combine(emuDir, "emulator.exe");
     }
 
-    private SettingsManager CreateSettingsManager()
+    private SettingsManagerService CreateSettingsManager()
     {
-        return new SettingsManager(_configuration, _logErrors, _credentialProtector);
+        return new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
     }
 
     [Fact]
@@ -91,17 +91,17 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         var configPath = Path.Combine(emuDir, "settings.bml");
         var content = File.ReadAllText(configPath);
 
-        Assert.Contains("Driver: OpenGL 3.2", content);
-        Assert.Contains("Exclusive: true", content);
-        Assert.Contains("Shader: CRT", content);
-        Assert.Contains("Multiplier: 4", content);
-        Assert.Contains("Output: Stretch", content);
-        Assert.Contains("Mute: true", content);
-        Assert.Contains("Volume: 0.5", content);
-        Assert.Contains("Fast: true", content);
-        Assert.Contains("Rewind: true", content);
-        Assert.Contains("RunAhead: false", content);
-        Assert.Contains("AutoSaveMemory: false", content);
+        Assert.Contains("Driver: OpenGL 3.2", content, StringComparison.Ordinal);
+        Assert.Contains("Exclusive: true", content, StringComparison.Ordinal);
+        Assert.Contains("Shader: CRT", content, StringComparison.Ordinal);
+        Assert.Contains("Multiplier: 4", content, StringComparison.Ordinal);
+        Assert.Contains("Output: Stretch", content, StringComparison.Ordinal);
+        Assert.Contains("Mute: true", content, StringComparison.Ordinal);
+        Assert.Contains("Volume: 0.5", content, StringComparison.Ordinal);
+        Assert.Contains("Fast: true", content, StringComparison.Ordinal);
+        Assert.Contains("Rewind: true", content, StringComparison.Ordinal);
+        Assert.Contains("RunAhead: false", content, StringComparison.Ordinal);
+        Assert.Contains("AutoSaveMemory: false", content, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -296,8 +296,8 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         var configPath = Path.Combine(emuDir, "mame.ini");
         var content = File.ReadAllText(configPath);
 
-        Assert.Contains("video", content);
-        Assert.Contains("d3d", content);
+        Assert.Contains("video", content, StringComparison.Ordinal);
+        Assert.Contains("d3d", content, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -329,20 +329,20 @@ public class EmulatorConfigInjectionTests2 : IDisposable
 
         var content = File.ReadAllText(configPath);
 
-        Assert.Contains("New3DEngine = 1", content);
-        Assert.Contains("QuadRendering = 1", content);
-        Assert.Contains("FullScreen = 1", content);
-        Assert.Contains("XResolution = 1920", content);
-        Assert.Contains("YResolution = 1080", content);
-        Assert.Contains("WideScreen = 1", content);
-        Assert.Contains("Stretch = 0", content);
-        Assert.Contains("VSync = 1", content);
-        Assert.Contains("Throttle = 1", content);
-        Assert.Contains("MusicVolume = 100", content);
-        Assert.Contains("SoundVolume = 100", content);
-        Assert.Contains("InputSystem = dinput", content);
-        Assert.Contains("MultiThreaded = 1", content);
-        Assert.Contains("PowerPCFrequency = 50", content);
+        Assert.Contains("New3DEngine = 1", content, StringComparison.Ordinal);
+        Assert.Contains("QuadRendering = 1", content, StringComparison.Ordinal);
+        Assert.Contains("FullScreen = 1", content, StringComparison.Ordinal);
+        Assert.Contains("XResolution = 1920", content, StringComparison.Ordinal);
+        Assert.Contains("YResolution = 1080", content, StringComparison.Ordinal);
+        Assert.Contains("WideScreen = 1", content, StringComparison.Ordinal);
+        Assert.Contains("Stretch = 0", content, StringComparison.Ordinal);
+        Assert.Contains("VSync = 1", content, StringComparison.Ordinal);
+        Assert.Contains("Throttle = 1", content, StringComparison.Ordinal);
+        Assert.Contains("MusicVolume = 100", content, StringComparison.Ordinal);
+        Assert.Contains("SoundVolume = 100", content, StringComparison.Ordinal);
+        Assert.Contains("InputSystem = dinput", content, StringComparison.Ordinal);
+        Assert.Contains("MultiThreaded = 1", content, StringComparison.Ordinal);
+        Assert.Contains("PowerPCFrequency = 50", content, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -359,7 +359,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         var configPath = Path.Combine(emuDir, "Supermodel.ini");
         var content = File.ReadAllText(configPath);
 
-        Assert.Contains("InputSystem = xinput", content);
+        Assert.Contains("InputSystem = xinput", content, StringComparison.Ordinal);
     }
 
     [Fact]

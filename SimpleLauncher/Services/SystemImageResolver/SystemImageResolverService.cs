@@ -13,12 +13,12 @@ public class SystemImageResolverService : ISystemImageResolverService
 {
     private readonly IConfiguration _configuration;
     private readonly IFindCoverImageService _findCoverImage;
-    private readonly SettingsManager.SettingsManager _settings;
+    private readonly SettingsManager.SettingsManagerService _settings;
 
     /// <summary>
     /// Initializes a new instance of the SystemImageResolverService with the specified dependencies.
     /// </summary>
-    public SystemImageResolverService(IConfiguration configuration, IFindCoverImageService findCoverImage, SettingsManager.SettingsManager settings)
+    public SystemImageResolverService(IConfiguration configuration, IFindCoverImageService findCoverImage, SettingsManager.SettingsManagerService settings)
     {
         _configuration = configuration;
         _findCoverImage = findCoverImage;
@@ -28,7 +28,7 @@ public class SystemImageResolverService : ISystemImageResolverService
     /// <summary>
     /// Asynchronously resolves the display image path for a system, using fuzzy matching if enabled.
     /// </summary>
-    public Task<string> ResolveDisplayImageAsync(SystemManager.SystemManager config)
+    public Task<string> ResolveDisplayImageAsync(SystemManager.SystemManagerService config)
     {
         var appBaseDir = AppDomain.CurrentDomain.BaseDirectory;
         var systemImageFolder = Path.Combine(appBaseDir, "images", "systems");
@@ -50,7 +50,7 @@ public class SystemImageResolverService : ISystemImageResolverService
         if (enableAnnotationStripping)
         {
             var strippedSystemName = FindCoverImageService.StripAnnotations(systemName);
-            if (strippedSystemName != systemName)
+            if (!string.Equals(strippedSystemName, systemName, StringComparison.Ordinal))
             {
                 // Try exact match with stripped name
                 foreach (var ext in imageExtensions)

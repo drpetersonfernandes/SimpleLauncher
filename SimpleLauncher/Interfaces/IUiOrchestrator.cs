@@ -33,7 +33,7 @@ public interface IUiOrchestrator
 
     int PaginationFilesPerPage { get; set; }
     int PaginationThreshold { get; set; }
-    List<string> ApplyPagination(List<string> allFiles);
+    IList<string> ApplyPagination(IList<string> allFiles);
     bool CanGoToPrevPage();
     bool CanGoToNextPage();
     void GoToPreviousPage();

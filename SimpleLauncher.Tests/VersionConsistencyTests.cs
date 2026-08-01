@@ -63,7 +63,7 @@ public class VersionConsistencyTests
         var currentVersion = identityElement.Attribute("version")?.Value;
         Assert.False(string.IsNullOrWhiteSpace(currentVersion), "assemblyIdentity version attribute not found in app.manifest");
 
-        if (currentVersion == expectedVersion)
+        if (string.Equals(currentVersion, expectedVersion, StringComparison.Ordinal))
         {
             return;
         }
@@ -89,7 +89,7 @@ public class VersionConsistencyTests
         Assert.True(File.Exists(versionTxtPath), $"Updater/version.txt not found at {versionTxtPath}");
 
         var currentContent = File.ReadAllText(versionTxtPath).Trim();
-        if (currentContent == expectedContent)
+        if (string.Equals(currentContent, expectedContent, StringComparison.Ordinal))
         {
             return;
         }

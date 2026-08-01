@@ -24,7 +24,7 @@ public static class WindowManager
     /// <summary>
     /// Returns a list of all visible open windows with their handles and titles.
     /// </summary>
-    public static List<(IntPtr Handle, string Title)> GetOpenWindows()
+    public static IList<(IntPtr Handle, string Title)> GetOpenWindows()
     {
         var windows = new List<(IntPtr, string)>();
 

@@ -136,7 +136,7 @@ public interface IMessageBoxLibraryService
     Task InvalidOperationExceptionMessageBoxAsync(string? logPath);
     Task ThereWasAnErrorLaunchingThisGameMessageBoxAsync(string? logPath);
     Task BatchFileFailedMessageBoxAsync(string batchFilePath, string errorDetail, string? logPath, int? exitCode = null);
-    Task<bool> BatchFilePathsMissingMessageBoxAsync(List<string> missingPaths);
+    Task<bool> BatchFilePathsMissingMessageBoxAsync(IList<string> missingPaths);
     Task ElevationRequiredMessageBoxAsync();
     Task NullFileExtensionMessageBoxAsync();
     Task CouldNotFindAFileMessageBoxAsync();

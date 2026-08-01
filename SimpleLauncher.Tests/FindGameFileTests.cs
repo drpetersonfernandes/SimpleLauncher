@@ -206,7 +206,7 @@ public class FindGameFileTests : IDisposable
         var result = FindCueFile.Find(_testDirectory, _logErrors);
 
         Assert.NotNull(result);
-        Assert.True(result == cue1 || result == cue2);
+        Assert.True(string.Equals(result, cue1, StringComparison.Ordinal) || string.Equals(result, cue2, StringComparison.Ordinal));
     }
 
     /// <summary>

@@ -20,14 +20,14 @@ namespace SimpleLauncher.Services.GameItemFactory;
 public class GameListFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
-    List<SystemManager.SystemManager> systemManagers,
-    List<MameManager.MameManager> machines,
-    SettingsManager.SettingsManager settings,
+    IList<SystemManager.SystemManagerService> systemManagers,
+    IList<MameManager.MameManagerService> machines,
+    SettingsManager.SettingsManagerService settings,
     FavoritesManager favoritesManager,
     PlayHistoryManager playHistoryManager,
     MainWindow mainWindow,
     GamePadController gamePadController,
-    GameLauncher.GameLauncher gameLauncher,
+    GameLauncher.GameLauncherService gameLauncher,
     PlaySoundEffects playSoundEffects,
     IConfiguration configuration,
     ILogger logErrors,
@@ -38,14 +38,14 @@ public class GameListFactory(
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox;
     private readonly ComboBox _systemComboBox = systemComboBox;
-    private readonly List<SystemManager.SystemManager> _systemManagers = systemManagers;
-    private readonly List<MameManager.MameManager> _machines = machines;
-    private readonly SettingsManager.SettingsManager _settings = settings;
+    private readonly IList<SystemManager.SystemManagerService> _systemManagers = systemManagers;
+    private readonly IList<MameManager.MameManagerService> _machines = machines;
+    private readonly SettingsManager.SettingsManagerService _settings = settings;
     private readonly FavoritesManager _favoritesManager = favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager = playHistoryManager;
     private readonly MainWindow _mainWindow = mainWindow;
     private readonly GamePadController _gamePadController = gamePadController;
-    private readonly GameLauncher.GameLauncher _gameLauncher = gameLauncher;
+    private readonly GameLauncher.GameLauncherService _gameLauncher = gameLauncher;
     private readonly PlaySoundEffects _playSoundEffects = playSoundEffects;
     private readonly IConfiguration _configuration = configuration;
     private readonly ILogger _logger = logErrors;
@@ -58,7 +58,7 @@ public class GameListFactory(
     /// Creates a <see cref="GameListViewItem"/> for the given game entity path,
     /// populating it with favorites status, play history, and MAME description data.
     /// </summary>
-    public Task<GameListViewItem> CreateGameListViewItemAsync(string entityPath, string systemName, SystemManager.SystemManager systemManager)
+    public Task<GameListViewItem> CreateGameListViewItemAsync(string entityPath, string systemName, SystemManager.SystemManagerService systemManager)
     {
         var isDirectory = Directory.Exists(entityPath);
         string fileNameWithExtension;
@@ -154,7 +154,7 @@ public class GameListFactory(
                 if (string.IsNullOrEmpty(filePath))
                 {
                     // Notify developer
-                    _logger.Error(new ArgumentException("selectedItem.FilePath is null or empty."), "Selected item has an invalid file path. Cannot load preview.");
+                    _logger.Error(new ArgumentException("selectedItem.FilePath is null or empty.", nameof(selectedItem)), "Selected item has an invalid file path. Cannot load preview.");
 
                     _mainWindow.PreviewImage.Source = null; // Clear preview
                     var (defaultStream, _) = await _imageLoader.LoadImageAsync(null); // Load global default

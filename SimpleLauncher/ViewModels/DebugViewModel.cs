@@ -7,7 +7,7 @@ namespace SimpleLauncher.ViewModels;
 
 public partial class DebugViewModel : ObservableObject
 {
-    private readonly object _logLock = new();
+    private readonly Lock _logLock = new();
     private string _logText = "";
 
     private const int MaxMessageCount = 5000;

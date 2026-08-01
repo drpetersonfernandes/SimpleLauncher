@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 using SharpCompress.Archives;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.SystemManager;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
@@ -186,7 +185,7 @@ public class MountZipFiles : IMountZipFiles
                     continue;
 
                 // Check for common path traversal indicators
-                if (entryName.Contains("..") ||
+                if (entryName.Contains("..", StringComparison.Ordinal) ||
                     Path.IsPathRooted(entryName) ||
                     entryName.StartsWith('/') ||
                     entryName.StartsWith('\\'))
@@ -1003,7 +1002,7 @@ public class MountZipFiles : IMountZipFiles
             // Navigate into nested single-folder directories to find the actual game files location
             var gamePath = FindScummVmGamePath(mountDriveRootForChecks, logErrors);
             // ScummVM -p expects just the drive letter (e.g. "Y:") for root paths, not "Y:\"
-            var scummVmPath = gamePath == mountDriveRootForChecks ? mountDriveRootForChecks.TrimEnd('\\') : gamePath;
+            var scummVmPath = string.Equals(gamePath, mountDriveRootForChecks, StringComparison.Ordinal) ? mountDriveRootForChecks.TrimEnd('\\') : gamePath;
             var arguments = $"-p \"{scummVmPath}\" {resolvedParameters} ";
 
             var psiEmulator = new ProcessStartInfo

@@ -2,7 +2,6 @@ using System.Windows.Controls;
 using SimpleLauncher.Models;
 using System.Windows.Controls.Primitives;
 using SimpleLauncher.Services.CheckPaths;
-using SimpleLauncher.Services.SystemManager;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
@@ -16,7 +15,7 @@ internal partial class EditSystemWindow
         var currentSelection = SystemNameDropdown.SelectedItem?.ToString();
         SystemNameDropdown.ItemsSource = _systems
             .Select(static s => s.SystemName)
-            .OrderBy(static name => name)
+            .OrderBy(static name => name, StringComparer.Ordinal)
             .ToList();
 
         // Try to restore selection if it still exists
@@ -90,12 +89,12 @@ internal partial class EditSystemWindow
 
                 var extractFileBeforeLaunchValue = selectedSystem.ExtractFileBeforeLaunch ? "true" : "false";
                 ExtractFileBeforeLaunchComboBox.SelectedItem = ExtractFileBeforeLaunchComboBox.Items.Cast<ComboBoxItem>()
-                    .FirstOrDefault(item => item.Content.ToString() == extractFileBeforeLaunchValue);
+                    .FirstOrDefault(item => string.Equals(item.Content.ToString(), extractFileBeforeLaunchValue, StringComparison.Ordinal));
 
                 var groupByFolderValue = selectedSystem.GroupByFolder ? "true" : "false";
-                GroupByFolderComboBox.SelectedItem = GroupByFolderComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == groupByFolderValue);
+                GroupByFolderComboBox.SelectedItem = GroupByFolderComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => string.Equals(item.Content.ToString(), groupByFolderValue, StringComparison.Ordinal));
                 var disableRecursiveSearchValue = selectedSystem.DisableRecursiveSearch ? "true" : "false";
-                DisableRecursiveSearchComboBox.SelectedItem = DisableRecursiveSearchComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == disableRecursiveSearchValue);
+                DisableRecursiveSearchComboBox.SelectedItem = DisableRecursiveSearchComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => string.Equals(item.Content.ToString(), disableRecursiveSearchValue, StringComparison.Ordinal));
 
                 FormatToLaunchTextBox.Text = string.Join(", ", selectedSystem.FileFormatsToLaunch);
 
@@ -162,7 +161,7 @@ internal partial class EditSystemWindow
             {
                 var receiveNotificationValue = emulator.ReceiveANotificationOnEmulatorError ? "true" : "false";
                 notificationComboBox.SelectedItem = notificationComboBox.Items.Cast<ComboBoxItem>()
-                    .FirstOrDefault(item => item.Content.ToString() == receiveNotificationValue);
+                    .FirstOrDefault(item => string.Equals(item.Content.ToString(), receiveNotificationValue, StringComparison.Ordinal));
             }
             else
             {

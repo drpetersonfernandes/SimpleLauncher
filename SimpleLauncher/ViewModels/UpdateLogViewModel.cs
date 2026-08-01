@@ -25,7 +25,7 @@ public class UpdateLogViewModel : ObservableObject
     /// </summary>
     public void AppendLog(string message)
     {
-        _logBuilder.Append(DateTime.Now.ToString("HH:mm:ss"));
+        _logBuilder.Append(DateTime.Now.ToString("HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture));
         _logBuilder.Append(" - ");
         _logBuilder.AppendLine(message);
         LogText = _logBuilder.ToString();

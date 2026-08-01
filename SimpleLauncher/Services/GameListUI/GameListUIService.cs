@@ -2,7 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using SimpleLauncher.Models;
-using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
+using Settings = SimpleLauncher.Services.SettingsManager.SettingsManagerService;
 
 namespace SimpleLauncher.Services.GameListUI;
 
@@ -38,7 +38,7 @@ public class GameListUiService
 
         await _host.Dispatcher.InvokeAsync(() =>
         {
-            if (_settings.ViewMode == "GridView")
+            if (string.Equals(_settings.ViewMode, "GridView", StringComparison.Ordinal))
             {
                 _host.SetGameFileGridVisible(true);
                 _host.SetListViewPreviewAreaVisible(false);
@@ -62,7 +62,7 @@ public class GameListUiService
             ? (string)Application.Current.TryFindResource("nogamesmatched") ?? "Unfortunately, no games matched your search query or the selected button."
             : Application.Current.Dispatcher.Invoke(static () => (string)Application.Current.TryFindResource("nogamesmatched") ?? "Unfortunately, no games matched your search query or the selected button.");
 
-        if (_settings.ViewMode == "GridView")
+        if (string.Equals(_settings.ViewMode, "GridView", StringComparison.Ordinal))
         {
             ClearGameButtonImages(_host.GameFileGrid);
             _host.GameFileGrid.Children.Clear();

@@ -9,7 +9,7 @@ public interface IPaginationService
 
     void Initialize(IPaginationHost host);
     void Reset();
-    List<string> ApplyPagination(List<string> allFiles);
+    IList<string> ApplyPagination(IList<string> allFiles);
     bool CanGoPrev();
     bool CanGoNext();
     void GoToPreviousPage();

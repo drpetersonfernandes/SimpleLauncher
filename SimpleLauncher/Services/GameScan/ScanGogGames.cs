@@ -8,7 +8,7 @@ namespace SimpleLauncher.Services.GameScan;
 
 internal class ScanGogGames : IGamePlatformScanner
 {
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try
         {
@@ -32,10 +32,10 @@ internal class ScanGogGames : IGamePlatformScanner
 
                         var publisher = subKey.GetValue("Publisher") as string;
                         // GOG entries usually have "GOG.com" as publisher
-                        if (publisher != "GOG.com") continue;
+                        if (!string.Equals(publisher, "GOG.com", StringComparison.Ordinal)) continue;
 
                         var gameId = subKeyName.Replace("_is1", "");
-                        if (!long.TryParse(gameId, out _)) continue;
+                        if (!long.TryParse(gameId, System.Globalization.CultureInfo.InvariantCulture, out _)) continue;
 
                         var installLocation = subKey.GetValue("InstallLocation") as string;
                         var displayName = subKey.GetValue("DisplayName") as string;
@@ -60,14 +60,14 @@ internal class ScanGogGames : IGamePlatformScanner
                                 var gameInfo = JsonSerializer.Deserialize<GogGameInfo>(json);
 
                                 // If RootGameId exists and is different from GameId, this is a DLC
-                                if (gameInfo != null && !string.IsNullOrEmpty(gameInfo.RootGameId) && gameInfo.RootGameId != gameInfo.GameId)
+                                if (gameInfo != null && !string.IsNullOrEmpty(gameInfo.RootGameId) && !string.Equals(gameInfo.RootGameId, gameInfo.GameId, StringComparison.Ordinal))
                                 {
                                     isDlc = true;
                                 }
 
                                 if (!isDlc)
                                 {
-                                    var primaryTask = gameInfo?.PlayTasks?.FirstOrDefault(static t => t.IsPrimary && t.Type == "FileTask");
+                                    var primaryTask = gameInfo?.PlayTasks?.FirstOrDefault(static t => t.IsPrimary && string.Equals(t.Type, "FileTask", StringComparison.Ordinal));
                                     if (primaryTask != null && !string.IsNullOrEmpty(primaryTask.Path))
                                     {
                                         mainExePath = Path.Combine(installLocation, primaryTask.Path);

@@ -6,7 +6,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="MameManager"/> class covering loading from .dat files.
+/// Tests for the <see cref="MameManagerService"/> class covering loading from .dat files.
 /// </summary>
 public class MameManagerTests : IDisposable
 {
@@ -29,7 +29,7 @@ public class MameManagerTests : IDisposable
     [Fact]
     public void LoadFromDatValidDatFileReturnsDeserializedList()
     {
-        var items = new List<MameManager>
+        var items = new List<MameManagerService>
         {
             new() { MachineName = "pacman", Description = "Pac-Man (Midway)" },
             new() { MachineName = "mspacman", Description = "Ms. Pac-Man" }
@@ -41,7 +41,7 @@ public class MameManagerTests : IDisposable
 
         try
         {
-            var result = MameManager.LoadFromDat(_logErrors, tempFile);
+            var result = MameManagerService.LoadFromDat(_logErrors, tempFile);
 
             Assert.NotNull(result);
             Assert.Equal(2, result.Count);
@@ -60,7 +60,7 @@ public class MameManagerTests : IDisposable
     [Fact]
     public void LoadFromDatSingleItemReturnsCorrectItem()
     {
-        var items = new List<MameManager>
+        var items = new List<MameManagerService>
         {
             new() { MachineName = "galaga", Description = "Galaga (Namco)" }
         };
@@ -71,7 +71,7 @@ public class MameManagerTests : IDisposable
 
         try
         {
-            var result = MameManager.LoadFromDat(_logErrors, tempFile);
+            var result = MameManagerService.LoadFromDat(_logErrors, tempFile);
 
             Assert.Single(result);
             Assert.Equal("galaga", result[0].MachineName);
@@ -94,7 +94,7 @@ public class MameManagerTests : IDisposable
 
         try
         {
-            var result = MameManager.LoadFromDat(_logErrors, tempFile);
+            var result = MameManagerService.LoadFromDat(_logErrors, tempFile);
 
             Assert.NotNull(result);
             Assert.Empty(result);
@@ -116,7 +116,7 @@ public class MameManagerTests : IDisposable
 
         try
         {
-            var result = MameManager.LoadFromDat(_logErrors, tempFile);
+            var result = MameManagerService.LoadFromDat(_logErrors, tempFile);
 
             Assert.NotNull(result);
             Assert.Empty(result);
@@ -138,7 +138,7 @@ public class MameManagerTests : IDisposable
 
         try
         {
-            var result = MameManager.LoadFromDat(_logErrors, tempFile);
+            var result = MameManagerService.LoadFromDat(_logErrors, tempFile);
 
             Assert.NotNull(result);
             Assert.Empty(result);
