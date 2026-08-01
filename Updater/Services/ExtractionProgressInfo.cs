@@ -3,7 +3,7 @@ namespace Updater.Services;
 /// <summary>
 /// Provides progress information for ZIP extraction operations.
 /// </summary>
-public class ExtractionProgressInfo
+internal class ExtractionProgressInfo
 {
     /// <summary>
     /// The current file being extracted.

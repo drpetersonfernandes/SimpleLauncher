@@ -3,8 +3,14 @@ using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for the <see cref="Emulator"/> model class covering default property values and initialization.
+/// </summary>
 public class EmulatorTests
 {
+    /// <summary>
+    /// Verifies that all properties on a new Emulator default to null or false.
+    /// </summary>
     [Fact]
     public void DefaultPropertiesAreNull()
     {
@@ -22,6 +28,9 @@ public class EmulatorTests
         Assert.False(emulator.ReceiveANotificationOnEmulatorError);
     }
 
+    /// <summary>
+    /// Verifies that all Emulator properties can be set via object initializer and retrieved correctly.
+    /// </summary>
     [Fact]
     public void InitPropertiesCanBeSet()
     {
@@ -51,6 +60,9 @@ public class EmulatorTests
         Assert.Equal(@"C:\images\nes", emulator.ImagePackDownloadExtractPath);
     }
 
+    /// <summary>
+    /// Verifies that partial initialization sets only specified properties while others remain null.
+    /// </summary>
     [Fact]
     public void PartialInitSetsOnlySpecifiedProperties()
     {

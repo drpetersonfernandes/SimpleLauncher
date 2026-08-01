@@ -9,7 +9,7 @@ namespace Updater.Services;
 /// Service for interacting with the GitHub API to fetch release information,
 /// with fallback to a secondary server.
 /// </summary>
-public partial class GitHubService
+internal partial class GitHubService
 {
     private const string RepoOwner = "drpetersonfernandes";
     private const string RepoName = "SimpleLauncher";
@@ -153,11 +153,13 @@ public partial class GitHubService
         }
         catch (OperationCanceledException)
         {
+            Log.Warning("GitHub request timed out after {Timeout} seconds", GitHubTimeoutSeconds);
             LogMessage?.Invoke(this, new EventArgs<string>($"GitHub request timed out after {GitHubTimeoutSeconds} seconds."));
             return null;
         }
         catch (Exception ex)
         {
+            Log.Warning(ex, "Error fetching from GitHub");
             LogMessage?.Invoke(this, new EventArgs<string>($"Error fetching from GitHub: {ex.Message}"));
             return null;
         }
@@ -213,6 +215,7 @@ public partial class GitHubService
         }
         catch (Exception ex)
         {
+            Log.Error(ex, "Secondary server fallback failed");
             await BugReportService.ReportBugAsync(ex, "Error in GetFallbackReleaseAsync - Secondary server fallback failed");
             throw;
         }

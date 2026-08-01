@@ -6,8 +6,19 @@ using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 
+/// <summary>
+/// Scans for installed GOG games via the Windows uninstall registry and creates shortcuts for them.
+/// </summary>
 internal class ScanGogGames : IGamePlatformScanner
 {
+    /// <summary>
+    /// Scans the registry for GOG.com installations and creates launch shortcuts and cover images.
+    /// </summary>
+    /// <param name="gameScannerService">The scanner service providing shared helpers.</param>
+    /// <param name="logErrors">The error logger.</param>
+    /// <param name="windowsRomsPath">The directory where game shortcuts are created.</param>
+    /// <param name="windowsImagesPath">The directory where game images are stored.</param>
+    /// <param name="ignoredGameNames">The set of game names to skip.</param>
     public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try

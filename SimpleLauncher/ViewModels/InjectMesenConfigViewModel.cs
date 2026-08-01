@@ -27,6 +27,10 @@ public partial class InjectMesenConfigViewModel : ObservableObject
     [ObservableProperty] private int _runAhead;
     [ObservableProperty] private bool _pauseInBackground;
     [ObservableProperty] private bool _showBeforeLaunch;
+    /// <summary>Initializes a new instance of the <see cref="InjectMesenConfigViewModel"/>.</summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="logger">The logger instance.</param>
     public InjectMesenConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;

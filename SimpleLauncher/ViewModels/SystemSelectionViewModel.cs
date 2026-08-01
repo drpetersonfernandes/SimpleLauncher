@@ -15,11 +15,15 @@ public partial class SystemSelectionViewModel : ObservableObject
     private readonly IRetroAchievementsSystemMatcher _systemMatcher;
     private string? _selectedSystem;
 
+    /// <summary>Initializes a new instance of the <see cref="SystemSelectionViewModel"/> class.</summary>
+    /// <param name="systemMatcher">The RetroAchievements system matcher for retrieving supported system names.</param>
     public SystemSelectionViewModel(IRetroAchievementsSystemMatcher systemMatcher)
     {
         _systemMatcher = systemMatcher;
     }
 
+    /// <summary>Initializes the system list and pre-selects the system matching the current guess.</summary>
+    /// <param name="currentGuess">The system name to pre-select if found in the list.</param>
     public void Initialize(string currentGuess)
     {
         var systems = _systemMatcher.GetSupportedSystemNames();

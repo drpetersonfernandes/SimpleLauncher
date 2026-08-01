@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.AppDataFile;
+using SimpleLauncher.Services;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
@@ -8,6 +8,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class DataFileLocationTests
 {
+    /// <summary>
+    /// Verifies that the constructor sets the file name to end with the specified name.
+    /// </summary>
     [Fact]
     public void ConstructorSetsFileName()
     {
@@ -18,6 +21,9 @@ public class DataFileLocationTests
         Assert.EndsWith(uniqueName, location.FilePath, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that TempFilePath appends a .tmp extension to the FilePath.
+    /// </summary>
     [Fact]
     public void TempFilePathAppendsTmpExtension()
     {
@@ -27,6 +33,9 @@ public class DataFileLocationTests
         Assert.Equal(location.FilePath + ".tmp", location.TempFilePath);
     }
 
+    /// <summary>
+    /// Verifies that FilePath is not empty after construction.
+    /// </summary>
     [Fact]
     public void FilePathIsNotEmpty()
     {
@@ -36,6 +45,9 @@ public class DataFileLocationTests
         Assert.NotEmpty(location.FilePath);
     }
 
+    /// <summary>
+    /// Verifies that IsPortableMode returns a valid boolean value.
+    /// </summary>
     [Fact]
     public void IsPortableModeIsSet()
     {
@@ -46,6 +58,9 @@ public class DataFileLocationTests
         _ = location.IsPortableMode;
     }
 
+    /// <summary>
+    /// Verifies that GetLocalAppDataPath returns a valid path ending with the file name.
+    /// </summary>
     [Fact]
     public void GetLocalAppDataPathReturnsValidPath()
     {
@@ -59,6 +74,9 @@ public class DataFileLocationTests
         Assert.Contains("SimpleLauncher", localPath, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that GetLocalAppDataPath starts with the LocalApplicationData folder path.
+    /// </summary>
     [Fact]
     public void GetLocalAppDataPathContainsLocalAppData()
     {
@@ -71,6 +89,9 @@ public class DataFileLocationTests
         Assert.StartsWith(localAppData, localPath, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that TryFallbackToLocalAppData returns true and updates the FilePath to the local app data location.
+    /// </summary>
     [Fact]
     public void TryFallbackToLocalAppDataReturnsTrueAndUpdatesState()
     {
@@ -85,6 +106,9 @@ public class DataFileLocationTests
         Assert.EndsWith(uniqueName, location.FilePath, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that TryFallbackToLocalAppData sets the FilePath to match GetLocalAppDataPath.
+    /// </summary>
     [Fact]
     public void TryFallbackToLocalAppDataSetsCorrectPath()
     {
@@ -97,6 +121,9 @@ public class DataFileLocationTests
         Assert.Equal(expectedPath, location.FilePath);
     }
 
+    /// <summary>
+    /// Verifies that multiple instances with the same file name produce the same local app data path.
+    /// </summary>
     [Fact]
     public void MultipleInstancesWithSameFileNameHaveSameLocalPath()
     {

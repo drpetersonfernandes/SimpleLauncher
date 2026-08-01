@@ -13,6 +13,9 @@ public class GetListOfFilesServiceTests : IDisposable
     private readonly GetListOfFilesService _service;
 
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetListOfFilesServiceTests"/> class, creating a temporary directory and service instance.
+    /// </summary>
     public GetListOfFilesServiceTests()
     {
         _testDirectory = Path.Combine(Path.GetTempPath(), $"SL_GetListOfFiles_{Guid.NewGuid():N}");
@@ -20,6 +23,9 @@ public class GetListOfFilesServiceTests : IDisposable
         _service = new GetListOfFilesService(new NoOpLogger());
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory.
+    /// </summary>
     public void Dispose()
     {
         try
@@ -34,6 +40,9 @@ public class GetListOfFilesServiceTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Verifies that GetFilesAsync returns an empty list for a non-existent directory.
+    /// </summary>
     [Fact]
     public async Task GetFilesAsyncNonExistentDirectoryReturnsEmptyList()
     {
@@ -42,6 +51,9 @@ public class GetListOfFilesServiceTests : IDisposable
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Verifies that GetFilesAsync returns an empty list for an empty directory.
+    /// </summary>
     [Fact]
     public async Task GetFilesAsyncEmptyDirectoryReturnsEmptyList()
     {
@@ -50,6 +62,9 @@ public class GetListOfFilesServiceTests : IDisposable
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Verifies that GetFilesAsync finds files with a matching extension.
+    /// </summary>
     [Fact]
     public async Task GetFilesAsyncFindsFilesWithMatchingExtension()
     {
@@ -63,6 +78,9 @@ public class GetListOfFilesServiceTests : IDisposable
         Assert.All(result, f => Assert.EndsWith(".zip", f, StringComparison.Ordinal));
     }
 
+    /// <summary>
+    /// Verifies that GetFilesAsync finds files with multiple matching extensions.
+    /// </summary>
     [Fact]
     public async Task GetFilesAsyncFindsFilesWithMultipleExtensions()
     {
@@ -76,6 +94,9 @@ public class GetListOfFilesServiceTests : IDisposable
         Assert.Equal(3, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that the extension filter matches files with uppercase extensions.
+    /// </summary>
     [Fact]
     public async Task GetListOfFilesServiceExtensionFilterMatchesUpperCaseExtension()
     {
@@ -87,6 +108,9 @@ public class GetListOfFilesServiceTests : IDisposable
         Assert.All(result, f => Assert.EndsWith(".ZIP", f, StringComparison.OrdinalIgnoreCase));
     }
 
+    /// <summary>
+    /// Verifies that recursive search finds files in subdirectories.
+    /// </summary>
     [Fact]
     public async Task GetFilesAsyncRecursiveSearchFindsFilesInSubdirectories()
     {
@@ -102,6 +126,9 @@ public class GetListOfFilesServiceTests : IDisposable
         Assert.Equal(2, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that non-recursive search does not search subdirectories.
+    /// </summary>
     [Fact]
     public async Task GetFilesAsyncNonRecursiveSearchDoesNotSearchSubdirectories()
     {
@@ -118,6 +145,9 @@ public class GetListOfFilesServiceTests : IDisposable
         Assert.Contains("game1.zip", result[0], StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that groupByFolder overrides disableRecursiveSearch and enables recursive search.
+    /// </summary>
     [Fact]
     public async Task GetFilesAsyncGroupByFolderOverridesDisableRecursiveSearch()
     {
@@ -133,6 +163,9 @@ public class GetListOfFilesServiceTests : IDisposable
         Assert.Equal(2, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that GetFilesAsync returns empty when no files match the extension filter.
+    /// </summary>
     [Fact]
     public async Task GetFilesAsyncNoMatchingExtensionsReturnsEmptyList()
     {
@@ -144,6 +177,9 @@ public class GetListOfFilesServiceTests : IDisposable
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Verifies that GetFilesAsync returns empty when the extension list is empty.
+    /// </summary>
     [Fact]
     public async Task GetFilesAsyncEmptyExtensionListReturnsEmptyList()
     {
@@ -154,6 +190,9 @@ public class GetListOfFilesServiceTests : IDisposable
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Verifies that GetFilesAsync throws OperationCanceledException when cancellation is requested.
+    /// </summary>
     [Fact]
     public async Task GetListOfFilesServiceCancellationThrowsCancellationException()
     {
@@ -166,6 +205,9 @@ public class GetListOfFilesServiceTests : IDisposable
             _service.GetFilesAsync(_testDirectory, ["zip"], false, false, cts.Token));
     }
 
+    /// <summary>
+    /// Verifies that GetFilesAsync returns full file paths.
+    /// </summary>
     [Fact]
     public async Task GetFilesAsyncReturnsFullPaths()
     {
@@ -177,6 +219,9 @@ public class GetListOfFilesServiceTests : IDisposable
         Assert.Equal(Path.Combine(_testDirectory, "game.zip"), result[0]);
     }
 
+    /// <summary>
+    /// Verifies that GetFilesAsync finds files in deeply nested directory structures.
+    /// </summary>
     [Fact]
     public async Task GetFilesAsyncDeepNestedDirectoryStructure()
     {
@@ -190,6 +235,9 @@ public class GetListOfFilesServiceTests : IDisposable
         Assert.Contains("deep.zip", result[0], StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that GetFilesAsync finds files across multiple subdirectories.
+    /// </summary>
     [Fact]
     public async Task GetFilesAsyncMultipleFilesInMultipleSubdirectories()
     {

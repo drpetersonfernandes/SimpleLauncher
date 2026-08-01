@@ -88,6 +88,9 @@ public class CleanTempFolderTests
         Assert.Null(ex);
     }
 
+    /// <summary>
+    /// Verifies that CleanupPartialExtractionAsync deletes the tracking file and all other files.
+    /// </summary>
     [Fact]
     public async Task CleanupPartialExtractionAsyncDeletesTrackingFile()
     {

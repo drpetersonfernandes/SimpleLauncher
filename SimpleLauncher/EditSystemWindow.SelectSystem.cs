@@ -76,7 +76,11 @@ internal partial class EditSystemWindow
                 UpdateSystemImagePreview();
 
                 // Load system folders
-                SystemFolderTextBox.Text = selectedSystem.PrimarySystemFolder;
+                if (selectedSystem.PrimarySystemFolder != null)
+                {
+                    SystemFolderTextBox.Text = selectedSystem.PrimarySystemFolder;
+                }
+
                 AdditionalFoldersListBox.Items.Clear();
                 foreach (var folder in selectedSystem.SystemFolders.Skip(1))
                 {

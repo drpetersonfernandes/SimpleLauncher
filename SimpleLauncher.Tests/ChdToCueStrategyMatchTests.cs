@@ -6,6 +6,9 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests the <see cref="ChdToCueStrategy.IsMatch"/> method for CHD-to-CUE conversion detection.
+/// </summary>
 public class ChdToCueStrategyMatchTests
 {
     private static ChdToCueStrategy CreateStrategy()
@@ -20,6 +23,9 @@ public class ChdToCueStrategyMatchTests
             discConverterMock.Object);
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns false when the emulator name is empty.
+    /// </summary>
     [Fact]
     public void IsMatchEmptyEmulatorNameReturnsFalse()
     {
@@ -33,6 +39,9 @@ public class ChdToCueStrategyMatchTests
         Assert.False(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns false when the file path is empty.
+    /// </summary>
     [Fact]
     public void IsMatchEmptyFilePathReturnsFalse()
     {
@@ -46,6 +55,9 @@ public class ChdToCueStrategyMatchTests
         Assert.False(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns false for non-CHD file extensions.
+    /// </summary>
     [Fact]
     public void IsMatchNonChdFileReturnsFalse()
     {
@@ -59,6 +71,9 @@ public class ChdToCueStrategyMatchTests
         Assert.False(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns false for an unsupported emulator name.
+    /// </summary>
     [Fact]
     public void IsMatchUnsupportedEmulatorReturnsFalse()
     {
@@ -72,6 +87,9 @@ public class ChdToCueStrategyMatchTests
         Assert.False(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns true for CHD files with the 4DO emulator.
+    /// </summary>
     [Fact]
     public void IsMatch4DoReturnsTrue()
     {
@@ -85,6 +103,9 @@ public class ChdToCueStrategyMatchTests
         Assert.True(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns true for CHD files with the Raine emulator.
+    /// </summary>
     [Fact]
     public void IsMatchRaineReturnsTrue()
     {
@@ -98,6 +119,9 @@ public class ChdToCueStrategyMatchTests
         Assert.True(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns true when the emulator location points to a 4DO executable.
+    /// </summary>
     [Fact]
     public void IsMatch4DoByEmulatorLocationReturnsTrue()
     {
@@ -112,6 +136,9 @@ public class ChdToCueStrategyMatchTests
         Assert.True(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns true when the emulator location points to a Raine executable.
+    /// </summary>
     [Fact]
     public void IsMatchRaineByEmulatorLocationReturnsTrue()
     {
@@ -126,6 +153,9 @@ public class ChdToCueStrategyMatchTests
         Assert.True(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that the strategy has a priority of 25.
+    /// </summary>
     [Fact]
     public void PriorityIs25()
     {

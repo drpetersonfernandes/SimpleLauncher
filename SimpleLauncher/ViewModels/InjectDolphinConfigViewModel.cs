@@ -22,6 +22,10 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
     [ObservableProperty] private bool _wiimoteContinuousScanning;
     [ObservableProperty] private bool _wiimoteEnableSpeaker;
     [ObservableProperty] private bool _showBeforeLaunch;
+    /// <summary>Initializes a new instance of the <see cref="InjectDolphinConfigViewModel"/>.</summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="logger">The logger instance.</param>
     public InjectDolphinConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;

@@ -3,8 +3,14 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for the <see cref="LaunchContext"/> model class covering default values, property assignment, and independence of instances.
+/// </summary>
 public class LaunchContextTests
 {
+    /// <summary>
+    /// Verifies that all properties on a new LaunchContext default to empty strings or null.
+    /// </summary>
     [Fact]
     public void DefaultPropertiesAreEmptyStrings()
     {
@@ -22,6 +28,9 @@ public class LaunchContextTests
         Assert.Null(context.LoadingState);
     }
 
+    /// <summary>
+    /// Verifies that LaunchContext properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void PropertiesCanBeSet()
     {
@@ -41,6 +50,9 @@ public class LaunchContextTests
         Assert.Equal("--fullscreen", context.Parameters);
     }
 
+    /// <summary>
+    /// Verifies that an empty FilePath is preserved as-is.
+    /// </summary>
     [Fact]
     public void EmptyFilePathReturnsEmpty()
     {
@@ -48,6 +60,9 @@ public class LaunchContextTests
         Assert.Equal("", context.FilePath);
     }
 
+    /// <summary>
+    /// Verifies that Parameters containing quotes are preserved correctly.
+    /// </summary>
     [Fact]
     public void ParametersWithQuotesIsPreserved()
     {
@@ -59,6 +74,9 @@ public class LaunchContextTests
         Assert.Contains("nestopia_libretro.dll", context.Parameters, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that multiple LaunchContext instances are independent of each other.
+    /// </summary>
     [Fact]
     public void MultipleInstancesAreIndependent()
     {

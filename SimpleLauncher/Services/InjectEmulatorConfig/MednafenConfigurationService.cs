@@ -3,6 +3,9 @@ using System.Text;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Provides functionality to inject Simple Launcher settings into the Mednafen emulator configuration file (mednafen.cfg).
+/// </summary>
 public static class MednafenConfigurationService
 {
     // List of common system prefixes used by Mednafen for per-system settings
@@ -14,6 +17,13 @@ public static class MednafenConfigurationService
 
     private static readonly char[] Separator = [' ', '\t'];
 
+    /// <summary>
+    /// Injects Simple Launcher configuration settings into the Mednafen emulator's mednafen.cfg file.
+    /// Creates the config from a sample if it does not exist, then updates or appends key-value pairs.
+    /// </summary>
+    /// <param name="emulatorPath">The full path to the Mednafen emulator executable.</param>
+    /// <param name="settings">The settings manager containing Mednafen configuration values.</param>
+    /// <param name="logger">The logger instance for diagnostic output.</param>
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);

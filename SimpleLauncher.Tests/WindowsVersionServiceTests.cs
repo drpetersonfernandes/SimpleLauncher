@@ -10,6 +10,9 @@ public class WindowsVersionServiceTests
 {
     private readonly WindowsVersionService _service = new();
 
+    /// <summary>
+    /// Verifies that <see cref="WindowsVersionService.GetVersion"/> returns a non-empty, non-whitespace string.
+    /// </summary>
     [Fact]
     public void GetVersionReturnsNonEmptyString()
     {
@@ -17,6 +20,9 @@ public class WindowsVersionServiceTests
         Assert.False(string.IsNullOrWhiteSpace(result));
     }
 
+    /// <summary>
+    /// Verifies that <see cref="WindowsVersionService.GetVersion"/> returns a recognized Windows version string.
+    /// </summary>
     [Fact]
     public void GetVersionReturnsKnownVersionString()
     {
@@ -36,6 +42,9 @@ public class WindowsVersionServiceTests
             $"Unexpected version string: {result}");
     }
 
+    /// <summary>
+    /// Verifies that <see cref="WindowsVersionService.GetVersion"/> does not throw any exceptions.
+    /// </summary>
     [Fact]
     public void GetVersionDoesNotThrow()
     {
@@ -43,6 +52,9 @@ public class WindowsVersionServiceTests
         Assert.Null(ex);
     }
 
+    /// <summary>
+    /// Verifies that <see cref="WindowsVersionService.GetVersion"/> returns the same result on repeated calls.
+    /// </summary>
     [Fact]
     public void GetVersionReturnsConsistentResults()
     {

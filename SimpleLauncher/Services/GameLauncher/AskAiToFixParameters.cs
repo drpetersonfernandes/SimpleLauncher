@@ -7,8 +7,21 @@ using SimpleLauncher.Services.LoadingOverlay;
 
 namespace SimpleLauncher.Services.GameLauncher;
 
+/// <summary>
+/// Provides functionality to ask an AI service to suggest corrected emulator parameters when a game fails to launch.
+/// </summary>
 public static class AskAiToFixParameters
 {
+    /// <summary>
+    /// Prompts the user with an AI-generated parameter suggestion and optionally applies the fix to the emulator configuration.
+    /// </summary>
+    /// <param name="systemManager">The system manager for the current system.</param>
+    /// <param name="emulatorManager">The emulator whose parameters may be updated.</param>
+    /// <param name="messageBoxLibrary">The message box service for user interaction.</param>
+    /// <param name="parameterResolverService">The AI parameter resolver service.</param>
+    /// <param name="configuration">The application configuration.</param>
+    /// <param name="serviceProvider">The service provider for resolving dependencies.</param>
+    /// <param name="logger">The logger instance.</param>
     public static async Task ExecuteAsync(
         ISystemManager systemManager,
         Emulator emulatorManager,

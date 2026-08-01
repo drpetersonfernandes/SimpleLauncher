@@ -10,12 +10,19 @@ public class ValidateBatchFileTests : IDisposable
 {
     private readonly string _testDirectory;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ValidateBatchFileTests"/> class,
+    /// creating a temporary test directory.
+    /// </summary>
     public ValidateBatchFileTests()
     {
         _testDirectory = Path.Combine(Path.GetTempPath(), $"SL_BatchTest_{Guid.NewGuid():N}");
         Directory.CreateDirectory(_testDirectory);
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory.
+    /// </summary>
     public void Dispose()
     {
         try
@@ -198,6 +205,9 @@ public class ValidateBatchFileTests : IDisposable
         Assert.Equal(2, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that an existing executable referenced in a batch file is not reported as missing.
+    /// </summary>
     [Fact]
     public void ValidateBatchFileContentsExistingFileNotReported()
     {
@@ -210,6 +220,9 @@ public class ValidateBatchFileTests : IDisposable
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Verifies that FindInvalidQuotedPathsSimple detects missing paths in batch files.
+    /// </summary>
     [Fact]
     public void FindInvalidQuotedPathsSimpleDetectsMissingPaths()
     {
@@ -221,6 +234,9 @@ public class ValidateBatchFileTests : IDisposable
         Assert.Contains("tool.exe", result[0], StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that FindInvalidQuotedPathsSimple skips non-path quoted strings.
+    /// </summary>
     [Fact]
     public void FindInvalidQuotedPathsSimpleSkipNonPaths()
     {

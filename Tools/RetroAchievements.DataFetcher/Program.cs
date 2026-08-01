@@ -3,6 +3,8 @@ using MessagePack;
 using System.Xml.Serialization;
 using System.Xml;
 using RetroAchievements.DataFetcher.Models;
+using RetroAchievements.DataFetcher.Services.DebugAndBugReport;
+using Serilog.Events;
 
 namespace RetroAchievements.DataFetcher;
 
@@ -16,18 +18,47 @@ file static class Program
 
     private static async Task Main(string[] args)
     {
-        if (args.Length == 1 && Path.GetExtension(args[0]).Equals(".json", StringComparison.OrdinalIgnoreCase))
-        {
-            await RunConversionModeAsync(args[0]);
-            return;
-        }
+        var appDataLogFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+        Directory.CreateDirectory(appDataLogFolder);
 
-        await RunFetchModeAsync();
+        var bugReportSink = new BugReportApiSink(appDataLogFolder);
+
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .Enrich.FromLogContext()
+            .WriteTo.Console(outputTemplate: "[{Level:u3}] {Timestamp:HH:mm:ss} {Message}{NewLine}{Exception}")
+            .WriteTo.Async(a => a.File(
+                Path.Combine(appDataLogFolder, "error_user.log"),
+                LogEventLevel.Warning,
+                rollingInterval: RollingInterval.Day,
+                retainedFileCountLimit: 7,
+                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}"))
+            .WriteTo.Sink(bugReportSink)
+            .CreateLogger();
+
+        try
+        {
+            if (args.Length == 1 && Path.GetExtension(args[0]).Equals(".json", StringComparison.OrdinalIgnoreCase))
+            {
+                await RunConversionModeAsync(args[0]);
+                return;
+            }
+
+            await RunFetchModeAsync();
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "An unhandled error occurred");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
     }
 
     private static async Task RunConversionModeAsync(string jsonFilePath)
     {
-        LogInfo($"Conversion mode: Processing JSON file '{jsonFilePath}'...");
+        Log.Information("Conversion mode: Processing JSON file '{FilePath}'...", jsonFilePath);
 
         try
         {
@@ -36,20 +67,20 @@ file static class Program
 
             if (games == null || games.Count == 0)
             {
-                LogError("The JSON file is empty or invalid. No data to convert.");
+                Log.Error("The JSON file is empty or invalid. No data to convert.");
             }
             else
             {
                 var msgPackFilePath = Path.ChangeExtension(jsonFilePath, ".dat");
-                LogInfo($"Converting {games.Count:N0} games to MessagePack...");
+                Log.Information("Converting {GameCount:N0} games to MessagePack...", games.Count);
                 var msgPackData = MessagePackSerializer.Serialize(games);
                 await File.WriteAllBytesAsync(msgPackFilePath, msgPackData);
-                LogSuccess($"MessagePack file saved as '{msgPackFilePath}'");
+                Log.Information("MessagePack file saved as '{FilePath}'", msgPackFilePath);
             }
         }
         catch (Exception ex)
         {
-            LogError($"Conversion failed: {ex.Message}");
+            Log.Error(ex, "Conversion failed");
         }
 
         Console.WriteLine("\nPress any key to exit...");
@@ -61,8 +92,8 @@ file static class Program
         var settings = await LoadOrPromptSettings();
         using HttpClient client = new();
 
-        LogInfo("Starting RetroAchievements game data fetcher...");
-        LogInfo($"Authenticated as: {settings.Username}");
+        Log.Information("Starting RetroAchievements game data fetcher...");
+        Log.Information("Authenticated as: {Username}", settings.Username);
 
         var allGames = new List<GameInfo>();
         var serializerOptions = new JsonSerializerOptions { WriteIndented = true };
@@ -70,28 +101,28 @@ file static class Program
         try
         {
             // Fetch consoles
-            LogInfo("Fetching console list...");
+            Log.Information("Fetching console list...");
             var consoles = await FetchConsoles(client, settings);
 
             if (consoles.Count == 0)
             {
-                LogError("No consoles found. Aborting.");
+                Log.Error("No consoles found. Aborting.");
                 Environment.Exit(1);
             }
 
-            LogSuccess($"Found {consoles.Count:N0} consoles");
+            Log.Information("Found {ConsoleCount:N0} consoles", consoles.Count);
             await SaveConsoleListAsync(consoles);
             Console.WriteLine();
 
             // Filter for active game systems only
             var activeConsoles = consoles.Where(static c => c is { Active: true, IsGameSystem: true }).ToList();
-            LogInfo($"Processing {activeConsoles.Count} active game consoles...");
+            Log.Information("Processing {ActiveCount} active game consoles...", activeConsoles.Count);
 
             // Fetch games for each console
             var totalGames = await FetchGamesForAllConsolesAsync(client, settings, activeConsoles, allGames);
 
             Console.WriteLine();
-            LogInfo($"Total games fetched: {totalGames:N0}");
+            Log.Information("Total games fetched: {TotalGames:N0}", totalGames);
 
             // Save results
             if (allGames.Count > 0)
@@ -100,13 +131,13 @@ file static class Program
             }
             else
             {
-                LogWarning("No games were found to save.");
+                Log.Warning("No games were found to save.");
             }
         }
         catch (Exception ex)
         {
-            LogError($"Critical error: {ex.Message}");
-            LogError("Process incomplete.");
+            Log.Error(ex, "Critical error during fetch");
+            Log.Error("Process incomplete.");
             Environment.Exit(1);
         }
 
@@ -116,16 +147,24 @@ file static class Program
 
     private static async Task<List<ConsoleInfo>> FetchConsoles(HttpClient client, RaSettings settings)
     {
-        var auth = $"u={settings.Username}&y={settings.WebApiKey}";
-        var url = $"{BaseApiUrl}/API_GetConsoleIDs.php?{auth}";
+        try
+        {
+            var auth = $"u={settings.Username}&y={settings.WebApiKey}";
+            var url = $"{BaseApiUrl}/API_GetConsoleIDs.php?{auth}";
 
-        var response = await client.GetAsync(url);
-        response.EnsureSuccessStatusCode();
+            var response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
 
-        var json = await response.Content.ReadAsStringAsync();
-        var consoles = JsonSerializer.Deserialize<List<ConsoleInfo>>(json);
+            var json = await response.Content.ReadAsStringAsync();
+            var consoles = JsonSerializer.Deserialize<List<ConsoleInfo>>(json);
 
-        return consoles ?? new List<ConsoleInfo>();
+            return consoles ?? new List<ConsoleInfo>();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to fetch consoles from RetroAchievements API");
+            throw;
+        }
     }
 
     private static async Task<int> FetchGamesForAllConsolesAsync(
@@ -140,7 +179,7 @@ file static class Program
         for (var i = 0; i < consoles.Count; i++)
         {
             var console = consoles[i];
-            LogInfo($"[{i + 1}/{consoles.Count}] Fetching games for '{console.Name}' (ID: {console.Id})...");
+            Log.Information("[{Index}/{Total}] Fetching games for '{ConsoleName}' (ID: {ConsoleId})...", i + 1, consoles.Count, console.Name, console.Id);
 
             try
             {
@@ -149,7 +188,7 @@ file static class Program
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    LogWarning($"  -> Failed: HTTP {response.StatusCode}");
+                    Log.Warning("Failed to fetch games for console {ConsoleName}: HTTP {StatusCode}", console.Name, response.StatusCode);
                     continue;
                 }
 
@@ -160,18 +199,18 @@ file static class Program
                 {
                     allGames.AddRange(games);
                     totalGames += games.Count;
-                    LogSuccess($"  -> Found {games.Count:N0} games");
+                    Log.Information("Found {GameCount:N0} games for {ConsoleName}", games.Count, console.Name);
                 }
                 else
                 {
-                    LogInfo("  -> No games with achievements");
+                    Log.Debug("No games with achievements for {ConsoleName}", console.Name);
                 }
 
                 await Task.Delay(500); // Rate limiting
             }
             catch (Exception ex)
             {
-                LogWarning($"  -> Error: {ex.Message}");
+                Log.Warning(ex, "Error fetching games for console {ConsoleName}", console.Name);
             }
         }
 
@@ -180,15 +219,23 @@ file static class Program
 
     private static async Task SaveGameDataAsync(List<GameInfo> games, JsonSerializerOptions options)
     {
-        LogInfo($"Saving {games.Count:N0} games to '{OutputFileNameJson}'...");
-        var json = JsonSerializer.Serialize(games, options);
-        await File.WriteAllTextAsync(OutputFileNameJson, json);
-        LogSuccess("JSON file saved successfully");
+        try
+        {
+            Log.Information("Saving {GameCount:N0} games to '{FileName}'...", games.Count, OutputFileNameJson);
+            var json = JsonSerializer.Serialize(games, options);
+            await File.WriteAllTextAsync(OutputFileNameJson, json);
+            Log.Information("JSON file saved successfully");
 
-        LogInfo($"Saving {games.Count:N0} games to '{OutputFileNameMsgPack}'...");
-        var msgPack = MessagePackSerializer.Serialize(games);
-        await File.WriteAllBytesAsync(OutputFileNameMsgPack, msgPack);
-        LogSuccess("MessagePack file saved successfully");
+            Log.Information("Saving {GameCount:N0} games to '{FileName}'...", games.Count, OutputFileNameMsgPack);
+            var msgPack = MessagePackSerializer.Serialize(games);
+            await File.WriteAllBytesAsync(OutputFileNameMsgPack, msgPack);
+            Log.Information("MessagePack file saved successfully");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to save game data");
+            throw;
+        }
     }
 
     private static Task<RaSettings> LoadOrPromptSettings()
@@ -208,11 +255,11 @@ file static class Program
                 var serializer = new XmlSerializer(typeof(RaSettings));
                 // ReSharper disable once NullableWarningSuppressionIsUsed
                 settings = (RaSettings)serializer.Deserialize(xmlReader)!;
-                LogInfo($"Loaded settings for user '{settings.Username}'");
+                Log.Information("Loaded settings for user '{Username}'", settings.Username);
             }
             catch (Exception ex)
             {
-                LogWarning($"Failed to load settings: {ex.Message}");
+                Log.Warning(ex, "Failed to load settings");
                 settings = new RaSettings();
             }
         }
@@ -244,7 +291,7 @@ file static class Program
 
         if (string.IsNullOrWhiteSpace(settings.Username) || string.IsNullOrWhiteSpace(settings.WebApiKey))
         {
-            LogError("Username and Web API Key cannot be empty.");
+            Log.Error("Username and Web API Key cannot be empty.");
             Environment.Exit(1);
         }
 
@@ -258,11 +305,11 @@ file static class Program
             });
             var serializer = new XmlSerializer(typeof(RaSettings));
             serializer.Serialize(xmlWriter, settings);
-            LogSuccess($"Settings saved to {SettingsFilePath}");
+            Log.Information("Settings saved to {SettingsFilePath}", SettingsFilePath);
         }
         catch (Exception ex)
         {
-            LogWarning($"Could not save settings: {ex.Message}");
+            Log.Warning(ex, "Could not save settings");
         }
 
         return Task.FromResult(settings);
@@ -274,43 +321,11 @@ file static class Program
         {
             var lines = consoles.Select(static c => $"{c.Id:D3}: {c.Name}");
             await File.WriteAllLinesAsync(ConsoleListFilePath, lines);
-            LogInfo($"Console list saved to '{ConsoleListFilePath}' ({consoles.Count} entries)");
+            Log.Information("Console list saved to '{FilePath}' ({Count} entries)", ConsoleListFilePath, consoles.Count);
         }
         catch (Exception ex)
         {
-            LogWarning($"Could not save console list: {ex.Message}");
+            Log.Warning(ex, "Could not save console list");
         }
     }
-
-    #region Logging Helpers
-
-    private static void LogInfo(string message)
-    {
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine($"[INFO] {DateTime.Now:T}: {message}");
-        Console.ResetColor();
-    }
-
-    private static void LogSuccess(string message)
-    {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"[SUCCESS] {DateTime.Now:T}: {message}");
-        Console.ResetColor();
-    }
-
-    private static void LogWarning(string message)
-    {
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"[WARNING] {DateTime.Now:T}: {message}");
-        Console.ResetColor();
-    }
-
-    private static void LogError(string message)
-    {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($"[ERROR] {DateTime.Now:T}: {message}");
-        Console.ResetColor();
-    }
-
-    #endregion
 }

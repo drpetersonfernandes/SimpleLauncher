@@ -6,6 +6,9 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for the <see cref="MountZipFiles"/> class covering zip path traversal validation.
+/// </summary>
 public class MountZipFilesTests
 {
     private static void InvokeValidateZipForPathTraversal(string zipPath)
@@ -38,6 +41,9 @@ public class MountZipFilesTests
         return tempFile;
     }
 
+    /// <summary>
+    /// Verifies that a zip archive with valid relative paths does not throw during path traversal validation.
+    /// </summary>
     [Fact]
     public void ValidateZipForPathTraversalValidZipDoesNotThrow()
     {
@@ -53,6 +59,9 @@ public class MountZipFilesTests
         }
     }
 
+    /// <summary>
+    /// Verifies that a zip entry containing a ".." directory traversal sequence throws an exception.
+    /// </summary>
     [Fact]
     public void ValidateZipForPathTraversalDotDotEntryThrowsInvalidOperationException()
     {
@@ -67,6 +76,9 @@ public class MountZipFilesTests
         }
     }
 
+    /// <summary>
+    /// Verifies that a zip entry with a rooted absolute path throws an exception.
+    /// </summary>
     [Fact]
     public void ValidateZipForPathTraversalRootedPathEntryThrowsInvalidOperationException()
     {
@@ -81,6 +93,9 @@ public class MountZipFilesTests
         }
     }
 
+    /// <summary>
+    /// Verifies that a zip entry starting with a forward slash throws an exception.
+    /// </summary>
     [Fact]
     public void ValidateZipForPathTraversalLeadingSlashEntryThrowsInvalidOperationException()
     {
@@ -95,6 +110,9 @@ public class MountZipFilesTests
         }
     }
 
+    /// <summary>
+    /// Verifies that a zip entry starting with a backslash throws an exception.
+    /// </summary>
     [Fact]
     public void ValidateZipForPathTraversalLeadingBackslashEntryThrowsInvalidOperationException()
     {
@@ -109,6 +127,9 @@ public class MountZipFilesTests
         }
     }
 
+    /// <summary>
+    /// Verifies that validating a non-existent zip file throws an exception.
+    /// </summary>
     [Fact]
     public void ValidateZipForPathTraversalNonExistentFileThrowsFileNotFoundException()
     {
@@ -116,6 +137,9 @@ public class MountZipFilesTests
         Assert.Throws<TargetInvocationException>(() => InvokeValidateZipForPathTraversal(fakePath));
     }
 
+    /// <summary>
+    /// Verifies that an empty zip archive does not throw during path traversal validation.
+    /// </summary>
     [Fact]
     public void ValidateZipForPathTraversalEmptyZipDoesNotThrow()
     {
@@ -131,6 +155,9 @@ public class MountZipFilesTests
         }
     }
 
+    /// <summary>
+    /// Verifies that deeply nested but valid relative paths do not throw during path traversal validation.
+    /// </summary>
     [Fact]
     public void ValidateZipForPathTraversalDeepNestedValidPathsDoesNotThrow()
     {

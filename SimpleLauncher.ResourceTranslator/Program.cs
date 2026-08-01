@@ -1,167 +1,214 @@
 using System.Text;
 using SimpleLauncher.ResourceTranslator.Models;
 using SimpleLauncher.ResourceTranslator.Services;
+using SimpleLauncher.ResourceTranslator.Services.DebugAndBugReport;
+using Serilog.Events;
 
 namespace SimpleLauncher.ResourceTranslator;
 
+/// <summary>
+/// Entry point for the SimpleLauncher Resource Translator tool.
+/// </summary>
 public class Program
 {
     private const int BatchSize = 40;
 
+    /// <summary>
+    /// Asynchronous entry point for the application.
+    /// </summary>
+    /// <param name="args">Command-line arguments.</param>
     public static async Task MainAsync(string[] args)
     {
         Console.OutputEncoding = Encoding.UTF8;
 
-        var resourcesPath = FindResourcesPath();
-        if (resourcesPath == null)
+        var appDataLogFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+        Directory.CreateDirectory(appDataLogFolder);
+
+        var bugReportSink = new BugReportApiSink(appDataLogFolder);
+
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .Enrich.FromLogContext()
+            .WriteTo.Console(outputTemplate: "[{Level:u3}] {Timestamp:HH:mm:ss} {Message}{NewLine}{Exception}")
+            .WriteTo.Async(a => a.File(
+                Path.Combine(appDataLogFolder, "error_user.log"),
+                LogEventLevel.Warning,
+                rollingInterval: RollingInterval.Day,
+                retainedFileCountLimit: 7,
+                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}"))
+            .WriteTo.Sink(bugReportSink)
+            .CreateLogger();
+
+        try
         {
-            Console.WriteLine("ERROR: Could not locate SimpleLauncher/resources directory.");
-            Environment.Exit(1);
-        }
-
-        var englishFile = Path.Combine(resourcesPath, "strings.en.xaml");
-        if (!File.Exists(englishFile))
-        {
-            Console.WriteLine($"ERROR: English resource file not found: {englishFile}");
-            Environment.Exit(1);
-        }
-
-        Console.WriteLine("Simple Launcher Resource Translator");
-        Console.WriteLine("===================================");
-        Console.WriteLine();
-
-        var englishKeys = ResourceAnalyzer.ReadEnglishKeys(englishFile);
-        Console.WriteLine($"English base file loaded: {englishKeys.Count} keys");
-
-        var batches = ResourceAnalyzer.AnalyzeAllLanguages(resourcesPath, englishKeys);
-
-        if (batches.Count == 0)
-        {
-            Console.WriteLine();
-            Console.WriteLine("All language files are fully synchronized with English. No action needed.");
-            return;
-        }
-
-        var totalMissing = batches.Sum(static b => b.MissingKeys.Count);
-        var totalDuplicates = batches.Sum(static b => b.DuplicateKeysRemoved.Count);
-
-        Console.WriteLine();
-        Console.WriteLine("Analysis Results:");
-        Console.WriteLine($"  Languages needing updates: {batches.Count}");
-        Console.WriteLine($"  Total missing keys: {totalMissing}");
-        if (totalDuplicates > 0)
-            Console.WriteLine($"  Total duplicate keys to remove: {totalDuplicates}");
-        Console.WriteLine();
-
-        foreach (var batch in batches)
-        {
-            Console.WriteLine($"  [{batch.LanguageCode}] {batch.LanguageName}: {batch.MissingKeys.Count} missing, {batch.DuplicateKeysRemoved.Count} duplicates");
-        }
-
-        Console.WriteLine();
-        Console.WriteLine("Press any key to proceed with translation, or Ctrl+C to cancel...");
-        Console.ReadKey(true);
-        Console.WriteLine();
-
-        // Prompt for API key (not stored)
-        Console.Write("Enter your Google Gemini API key: ");
-        var apiKey = Console.ReadLine()?.Trim();
-        if (string.IsNullOrEmpty(apiKey))
-        {
-            Console.WriteLine("ERROR: API key is required.");
-            Environment.Exit(1);
-        }
-
-        Console.WriteLine();
-
-        // Model selection
-        var models = GeminiTranslationService.GetAvailableModels();
-        Console.WriteLine("Available Gemini models:");
-        for (var i = 0; i < models.Count; i++)
-        {
-            var marker = string.Equals(models[i].Id, "gemini-2.5-flash", StringComparison.Ordinal) ? " (default)" : "";
-            Console.WriteLine($"  {i + 1}. {models[i].Name} - {models[i].Description}{marker}");
-        }
-
-        Console.WriteLine();
-        Console.Write("Select model number (press Enter for default): ");
-        var modelInput = Console.ReadLine()?.Trim();
-
-        GeminiModelInfo selectedModel;
-        if (string.IsNullOrEmpty(modelInput) || !int.TryParse(modelInput, System.Globalization.CultureInfo.InvariantCulture, out var modelIndex) || modelIndex < 1 || modelIndex > models.Count)
-        {
-            selectedModel = models.First(static m => string.Equals(m.Id, "gemini-2.5-flash", StringComparison.Ordinal));
-            Console.WriteLine($"Using default model: {selectedModel.Name}");
-        }
-        else
-        {
-            selectedModel = models[modelIndex - 1];
-            Console.WriteLine($"Selected model: {selectedModel.Name}");
-        }
-
-        Console.WriteLine();
-
-        var translator = new GeminiTranslationService(apiKey, selectedModel.Id, selectedModel.ApiVersion);
-        var overallStopwatch = System.Diagnostics.Stopwatch.StartNew();
-
-        foreach (var batch in batches)
-        {
-            Console.WriteLine($"Processing [{batch.LanguageCode}] {batch.LanguageName}...");
-            var languageStopwatch = System.Diagnostics.Stopwatch.StartNew();
-
-            var allTranslations = new Dictionary<string, string>(StringComparer.Ordinal);
-            var missingList = batch.MissingKeys;
-            var totalBatches = (int)Math.Ceiling(missingList.Count / (double)BatchSize);
-
-            for (var i = 0; i < missingList.Count; i += BatchSize)
+            var resourcesPath = FindResourcesPath();
+            if (resourcesPath == null)
             {
-                var currentBatch = missingList.Skip(i).Take(BatchSize).ToList();
-                var batchNumber = (i / BatchSize) + 1;
-
-                Console.Write($"  Batch {batchNumber}/{totalBatches} ({currentBatch.Count} keys)... ");
-                var sw = System.Diagnostics.Stopwatch.StartNew();
-
-                try
-                {
-                    var translations = await translator.TranslateBatchAsync(batch.LanguageName, currentBatch);
-                    foreach (var kvp in translations)
-                    {
-                        allTranslations[kvp.Key] = kvp.Value;
-                    }
-
-                    Console.WriteLine($"done in {sw.ElapsedMilliseconds}ms");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"FAILED: {ex.Message}");
-                    Console.WriteLine("  This batch was skipped and will not be written to the resource file.");
-                }
-
-                // Small delay to avoid rate limits
-                if (i + BatchSize < missingList.Count)
-                {
-                    await Task.Delay(500);
-                }
+                Log.Error("Could not locate SimpleLauncher/resources directory.");
+                Environment.Exit(1);
             }
 
-            // Write back to XAML
-            XamlResourceWriter.UpdateResourceFile(batch.FilePath, allTranslations, batch.DuplicateKeysRemoved);
+            var englishFile = Path.Combine(resourcesPath, "strings.en.xaml");
+            if (!File.Exists(englishFile))
+            {
+                Log.Error("English resource file not found: {FilePath}", englishFile);
+                Environment.Exit(1);
+            }
 
-            languageStopwatch.Stop();
-            Console.WriteLine($"  Written {allTranslations.Count} entries to {Path.GetFileName(batch.FilePath)} in {languageStopwatch.ElapsedMilliseconds}ms");
+            Log.Information("Simple Launcher Resource Translator");
+            Log.Information("===================================");
             Console.WriteLine();
-        }
 
-        overallStopwatch.Stop();
-        Console.WriteLine("===================================");
-        Console.WriteLine("Translation complete!");
-        Console.WriteLine($"Total time: {overallStopwatch.Elapsed.Minutes:D2}:{overallStopwatch.Elapsed.Seconds:D2}");
-        Console.WriteLine($"Languages updated: {batches.Count}");
-        Console.WriteLine($"Total keys translated: {totalMissing}");
-        if (totalDuplicates > 0)
-            Console.WriteLine($"Total duplicates removed: {totalDuplicates}");
+            var englishKeys = ResourceAnalyzer.ReadEnglishKeys(englishFile);
+            Log.Information("English base file loaded: {KeyCount} keys", englishKeys.Count);
+
+            var batches = ResourceAnalyzer.AnalyzeAllLanguages(resourcesPath, englishKeys);
+
+            if (batches.Count == 0)
+            {
+                Console.WriteLine();
+                Log.Information("All language files are fully synchronized with English. No action needed.");
+                return;
+            }
+
+            var totalMissing = batches.Sum(static b => b.MissingKeys.Count);
+            var totalDuplicates = batches.Sum(static b => b.DuplicateKeysRemoved.Count);
+
+            Console.WriteLine();
+            Log.Information("Analysis Results:");
+            Log.Information("  Languages needing updates: {BatchCount}", batches.Count);
+            Log.Information("  Total missing keys: {TotalMissing}", totalMissing);
+            if (totalDuplicates > 0)
+                Log.Information("  Total duplicate keys to remove: {TotalDuplicates}", totalDuplicates);
+            Console.WriteLine();
+
+            foreach (var batch in batches)
+            {
+                Log.Information("  [{LanguageCode}] {LanguageName}: {MissingCount} missing, {DuplicateCount} duplicates",
+                    batch.LanguageCode, batch.LanguageName, batch.MissingKeys.Count, batch.DuplicateKeysRemoved.Count);
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Press any key to proceed with translation, or Ctrl+C to cancel...");
+            Console.ReadKey(true);
+            Console.WriteLine();
+
+            // Prompt for API key (not stored)
+            Console.Write("Enter your Google Gemini API key: ");
+            var apiKey = Console.ReadLine()?.Trim();
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                Log.Error("API key is required.");
+                Environment.Exit(1);
+            }
+
+            Console.WriteLine();
+
+            // Model selection
+            var models = GeminiTranslationService.GetAvailableModels();
+            Log.Information("Available Gemini models:");
+            for (var i = 0; i < models.Count; i++)
+            {
+                var marker = string.Equals(models[i].Id, "gemini-2.5-flash", StringComparison.Ordinal) ? " (default)" : "";
+                Console.WriteLine($"  {i + 1}. {models[i].Name} - {models[i].Description}{marker}");
+            }
+
+            Console.WriteLine();
+            Console.Write("Select model number (press Enter for default): ");
+            var modelInput = Console.ReadLine()?.Trim();
+
+            GeminiModelInfo selectedModel;
+            if (string.IsNullOrEmpty(modelInput) || !int.TryParse(modelInput, System.Globalization.CultureInfo.InvariantCulture, out var modelIndex) || modelIndex < 1 || modelIndex > models.Count)
+            {
+                selectedModel = models.First(static m => string.Equals(m.Id, "gemini-2.5-flash", StringComparison.Ordinal));
+                Log.Information("Using default model: {ModelName}", selectedModel.Name);
+            }
+            else
+            {
+                selectedModel = models[modelIndex - 1];
+                Log.Information("Selected model: {ModelName}", selectedModel.Name);
+            }
+
+            Console.WriteLine();
+
+            var translator = new GeminiTranslationService(apiKey, selectedModel.Id, selectedModel.ApiVersion);
+            var overallStopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+            foreach (var batch in batches)
+            {
+                Log.Information("Processing [{LanguageCode}] {LanguageName}...", batch.LanguageCode, batch.LanguageName);
+                var languageStopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+                var allTranslations = new Dictionary<string, string>(StringComparer.Ordinal);
+                var missingList = batch.MissingKeys;
+                var totalBatches = (int)Math.Ceiling(missingList.Count / (double)BatchSize);
+
+                for (var i = 0; i < missingList.Count; i += BatchSize)
+                {
+                    var currentBatch = missingList.Skip(i).Take(BatchSize).ToList();
+                    var batchNumber = (i / BatchSize) + 1;
+
+                    Console.Write($"  Batch {batchNumber}/{totalBatches} ({currentBatch.Count} keys)... ");
+                    var sw = System.Diagnostics.Stopwatch.StartNew();
+
+                    try
+                    {
+                        var translations = await translator.TranslateBatchAsync(batch.LanguageName, currentBatch);
+                        foreach (var kvp in translations)
+                        {
+                            allTranslations[kvp.Key] = kvp.Value;
+                        }
+
+                        Console.WriteLine($"done in {sw.ElapsedMilliseconds}ms");
+                        Log.Debug("Batch {BatchNumber} completed in {ElapsedMs}ms", batchNumber, sw.ElapsedMilliseconds);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Warning(ex, "Batch {BatchNumber} failed for {LanguageName}", batchNumber, batch.LanguageName);
+                        Console.WriteLine($"FAILED: {ex.Message}");
+                        Console.WriteLine("  This batch was skipped and will not be written to the resource file.");
+                    }
+
+                    // Small delay to avoid rate limits
+                    if (i + BatchSize < missingList.Count)
+                    {
+                        await Task.Delay(500);
+                    }
+                }
+
+                // Write back to XAML
+                XamlResourceWriter.UpdateResourceFile(batch.FilePath, allTranslations, batch.DuplicateKeysRemoved);
+
+                languageStopwatch.Stop();
+                Log.Information("Written {TranslationCount} entries to {FileName} in {ElapsedMs}ms",
+                    allTranslations.Count, Path.GetFileName(batch.FilePath), languageStopwatch.ElapsedMilliseconds);
+                Console.WriteLine();
+            }
+
+            overallStopwatch.Stop();
+            Log.Information("===================================");
+            Log.Information("Translation complete!");
+            Log.Information("Total time: {Minutes:D2}:{Seconds:D2}", overallStopwatch.Elapsed.Minutes, overallStopwatch.Elapsed.Seconds);
+            Log.Information("Languages updated: {BatchCount}", batches.Count);
+            Log.Information("Total keys translated: {TotalMissing}", totalMissing);
+            if (totalDuplicates > 0)
+                Log.Information("Total duplicates removed: {TotalDuplicates}", totalDuplicates);
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "An unhandled error occurred during translation");
+            throw;
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
     }
 
+    /// <summary>
+    /// Synchronous entry point that invokes the asynchronous main method.
+    /// </summary>
+    /// <param name="args">Command-line arguments.</param>
     public static void Main(string[] args)
     {
         MainAsync(args).GetAwaiter().GetResult();

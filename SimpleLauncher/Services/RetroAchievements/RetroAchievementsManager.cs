@@ -1,5 +1,4 @@
 using MessagePack;
-using SimpleLauncher.Services.AppDataFile;
 using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services.RetroAchievements;

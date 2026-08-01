@@ -3,6 +3,9 @@ using System.Text;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Builds command-line arguments for the Daphne emulator from saved user settings.
+/// </summary>
 public static class DaphneConfigurationService
 {
     /// <summary>

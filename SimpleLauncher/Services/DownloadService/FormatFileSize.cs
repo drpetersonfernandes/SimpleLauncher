@@ -2,6 +2,9 @@ using System.Globalization;
 
 namespace SimpleLauncher.Services.DownloadService;
 
+/// <summary>
+/// Provides formatting helpers to display byte sizes in human-readable units.
+/// </summary>
 public static class FormatFileSize
 {
     /// <summary>

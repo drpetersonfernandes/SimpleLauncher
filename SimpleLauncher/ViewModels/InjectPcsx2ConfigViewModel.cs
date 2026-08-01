@@ -27,6 +27,10 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     [ObservableProperty] private bool _pcsx2AchievementsEnabled;
     [ObservableProperty] private bool _pcsx2AchievementsHardcore;
     [ObservableProperty] private bool _pcsx2ShowSettingsBeforeLaunch;
+    /// <summary>Initializes a new instance of the <see cref="InjectPcsx2ConfigViewModel"/>.</summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="logger">The logger instance.</param>
     public InjectPcsx2ConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;

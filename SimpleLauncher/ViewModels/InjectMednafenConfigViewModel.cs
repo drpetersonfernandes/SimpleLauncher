@@ -28,6 +28,10 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
     [ObservableProperty] private bool _mednafenCheats;
     [ObservableProperty] private bool _mednafenRewind;
     [ObservableProperty] private bool _mednafenShowSettingsBeforeLaunch;
+    /// <summary>Initializes a new instance of the <see cref="InjectMednafenConfigViewModel"/>.</summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="logger">The logger instance.</param>
     public InjectMednafenConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;

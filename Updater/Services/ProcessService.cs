@@ -6,7 +6,7 @@ namespace Updater.Services;
 /// <summary>
 /// Service for managing process operations like waiting for process exit and restarting applications.
 /// </summary>
-public class ProcessService
+internal class ProcessService
 {
     private const int ProcessExitTimeoutMs = 30000; // 30 seconds timeout for main app to exit
     private const int ProcessExitPollIntervalMs = 500; // Poll every 500ms to check if process exited
@@ -55,6 +55,7 @@ public class ProcessService
             }
             catch (ArgumentException)
             {
+                Log.Warning("Simple Launcher process not found (PID: {ProcessId}). Assuming it has already exited.", processId);
                 LogMessage?.Invoke(this, new EventArgs<string>("Simple Launcher process not found. Assuming it has already exited."));
             }
         }
@@ -143,11 +144,19 @@ public class ProcessService
     /// <param name="url">The URL to open.</param>
     public void OpenUrl(string url)
     {
-        Process.Start(new ProcessStartInfo
+        try
         {
-            FileName = url,
-            UseShellExecute = true
-        })?.Dispose();
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            })?.Dispose();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to open URL: {Url}", url);
+            LogMessage?.Invoke(this, new EventArgs<string>($"Failed to open URL: {ex.Message}"));
+        }
     }
 
     /// <summary>
@@ -162,9 +171,9 @@ public class ProcessService
         }
         catch (Exception ex)
         {
-            // If bug reporting fails, log to debug output - don't throw
-            Debug.WriteLine($"Failed to report bug: {ex.Message}");
-            Debug.WriteLine($"Original exception: {exception.Message}");
+            // If bug reporting fails, log via Serilog - don't throw
+            Log.Warning(ex, "Failed to report bug for context: {Context}", context);
+            Log.Warning(exception, "Original exception");
         }
     }
 }

@@ -12,6 +12,13 @@ public partial class SteamVdfParser : ISteamVdfParser
     // Improved regex to handle escaped quotes within strings: "some \"value\" here"
     private static readonly Regex TokenRegex = MyRegex();
 
+    /// <summary>
+    /// Parses a Valve KeyValue (VDF) file into a nested dictionary of key/value pairs.
+    /// </summary>
+    /// <param name="filePath">The path to the VDF file to parse.</param>
+    /// <param name="logErrors">The error logger used when parsing fails.</param>
+    /// <param name="logger">The fallback logger used when logErrors is not provided.</param>
+    /// <returns>A dictionary representing the parsed VDF content.</returns>
     public IDictionary<string, object> Parse(string filePath, ILogger? logErrors = null, ILogger? logger = null)
     {
         try

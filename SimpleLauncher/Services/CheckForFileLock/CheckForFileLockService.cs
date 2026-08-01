@@ -2,8 +2,16 @@ using SimpleLauncher.Services.CheckPaths;
 
 namespace SimpleLauncher.Services.CheckForFileLock;
 
+/// <summary>
+/// Provides methods to check whether a file is currently locked by another process.
+/// </summary>
 public static class CheckForFileLockService
 {
+    /// <summary>
+    /// Determines whether the file at the given path is locked by another process.
+    /// </summary>
+    /// <param name="filePath">The path of the file to check.</param>
+    /// <returns>True if the file is locked, false otherwise.</returns>
     public static bool IsFileLocked(string filePath)
     {
         if (string.IsNullOrEmpty(filePath))

@@ -21,6 +21,9 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
     private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="EmulatorConfigInjectionExtendedTests"/> with in-memory configuration and a temporary test directory.
+    /// </summary>
     public EmulatorConfigInjectionExtendedTests()
     {
         _configuration = new ConfigurationBuilder()
@@ -36,6 +39,9 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
         Directory.CreateDirectory(_testDirectory);
     }
 
+    /// <summary>
+    /// Cleans up the test directory and restores the service provider mock.
+    /// </summary>
     public void Dispose()
     {
         try
@@ -383,6 +389,9 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
 
     // Helper
 
+    /// <summary>
+    /// Parses an INI file with sections into a dictionary keyed by (section, key).
+    /// </summary>
     private static Dictionary<(string Section, string Key), string> ParseIniSections(List<string> lines)
     {
         var result = new Dictionary<(string, string), string>();

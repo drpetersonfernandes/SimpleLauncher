@@ -4,6 +4,9 @@ using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services.HelpUser;
 
+/// <summary>
+/// Loads and parses the 'parameters.md' file into a list of system help entries.
+/// </summary>
 public partial class HelpUserManager
 {
     private const string FilePath = "parameters.md";
@@ -13,14 +16,26 @@ public partial class HelpUserManager
     // Regex to match Markdown H2 headers: ## System Name
     private static readonly Regex HeaderRegex = MyRegex();
 
+    /// <summary>
+    /// Gets the list of systems parsed from the 'parameters.md' file.
+    /// </summary>
     public IList<SystemHelper> Systems { get; private set; } = [];
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="HelpUserManager"/> class.
+    /// </summary>
+    /// <param name="logErrors">The error logger.</param>
+    /// <param name="messageBoxLibrary">The message box service for user notifications.</param>
     public HelpUserManager(ILogger logErrors, IMessageBoxLibraryService messageBoxLibrary)
     {
         _logger = logErrors;
         _messageBoxLibrary = messageBoxLibrary;
     }
 
+    /// <summary>
+    /// Loads 'parameters.md', parses its contents, and populates the <see cref="Systems"/> list.
+    /// Notifies the user through message boxes when the file is missing, empty, or invalid.
+    /// </summary>
     public async Task LoadAsync()
     {
         try
@@ -29,7 +44,7 @@ public partial class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "The file 'parameters.md' is missing.";
-                _logger.Warning( contextMessage);
+                _logger.Warning(contextMessage);
 
                 // Notify user
                 await _messageBoxLibrary.FileParametersMdIsMissingMessageBoxAsync();
@@ -58,7 +73,7 @@ public partial class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "The file 'parameters.md' is empty.";
-                _logger.Warning( contextMessage);
+                _logger.Warning(contextMessage);
 
                 // Notify user
                 await _messageBoxLibrary.FileParametersMdIsEmptyMessageBoxAsync();
@@ -72,7 +87,7 @@ public partial class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "No valid systems found in 'parameters.md' after processing.";
-                _logger.Warning( contextMessage);
+                _logger.Warning(contextMessage);
 
                 // Notify user
                 await _messageBoxLibrary.NoSystemInParametersMdMessageBoxAsync();

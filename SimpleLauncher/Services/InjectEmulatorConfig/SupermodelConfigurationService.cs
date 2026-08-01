@@ -3,8 +3,18 @@ using System.Text;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Provides functionality to inject Simple Launcher settings into the Supermodel emulator configuration file (Supermodel.ini).
+/// </summary>
 public static class SupermodelConfigurationService
 {
+    /// <summary>
+    /// Injects Simple Launcher configuration settings into the Supermodel emulator's Supermodel.ini file under the [Global] section.
+    /// Creates the config from a sample if it does not exist, then updates rendering, display, audio, and input settings.
+    /// </summary>
+    /// <param name="emulatorPath">The full path to the Supermodel emulator executable.</param>
+    /// <param name="settings">The settings manager containing Supermodel configuration values.</param>
+    /// <param name="logger">The logger instance for diagnostic output.</param>
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);

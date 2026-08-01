@@ -3,6 +3,9 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.DownloadService;
 
+/// <summary>
+/// Provides formatting helpers to display byte sizes in human-readable units.
+/// </summary>
 public class FormatFileSizeService : IFormatFileSizeService
 {
     /// <summary>

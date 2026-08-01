@@ -136,6 +136,9 @@ public class SystemPlayTimeTests
         Assert.Equal("25:00:00", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays correctly for minutes-only durations.
+    /// </summary>
     [Fact]
     public void FormattedPlayTimeMinutesOnly()
     {
@@ -143,6 +146,9 @@ public class SystemPlayTimeTests
         Assert.Equal("0:02:00", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays correctly for seconds-only durations.
+    /// </summary>
     [Fact]
     public void FormattedPlayTimeSecondsOnly()
     {
@@ -150,6 +156,9 @@ public class SystemPlayTimeTests
         Assert.Equal("0:00:45", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays correctly for exactly 24 hours.
+    /// </summary>
     [Fact]
     public void FormattedPlayTimeLargeValue24Hours()
     {
@@ -157,6 +166,9 @@ public class SystemPlayTimeTests
         Assert.Equal("24:00:00", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that multiple SystemPlayTime instances maintain independent values.
+    /// </summary>
     [Fact]
     public void MultipleSystemsMaintainIndependentValues()
     {

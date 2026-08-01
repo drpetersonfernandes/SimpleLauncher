@@ -12,6 +12,10 @@ public partial class InjectRpcs3ConfigWindow
     private readonly Func<string?> _requestEmulatorPathHandler;
     private readonly Func<Window> _getOwnerWindowHandler;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InjectRpcs3ConfigWindow"/> class.
+    /// </summary>
+    /// <param name="viewModel">The view model providing RPCS3 configuration injection logic.</param>
     public InjectRpcs3ConfigWindow(InjectRpcs3ConfigViewModel viewModel)
     {
         InitializeComponent();
@@ -35,7 +39,10 @@ public partial class InjectRpcs3ConfigWindow
         DataContext = _viewModel;
     }
 
-    private void OnCloseRequested(object? sender, EventArgs e) => Close();
+    private void OnCloseRequested(object? sender, EventArgs e)
+    {
+        Close();
+    }
 
     /// <summary>
     /// Initializes the window with the specified emulator path and launcher mode.

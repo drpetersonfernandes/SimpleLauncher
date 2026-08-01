@@ -221,14 +221,14 @@ public class DisplaySystemInformation : IDisplaySystemInformation
         switch (border.Child)
         {
             case Image image:
+            {
+                if (image.Source is BitmapImage)
                 {
-                    if (image.Source is BitmapImage)
-                    {
-                        image.Source = null;
-                    }
-
-                    break;
+                    image.Source = null;
                 }
+
+                break;
+            }
             case Panel panel:
                 ClearGameButtonImages(panel);
                 break;

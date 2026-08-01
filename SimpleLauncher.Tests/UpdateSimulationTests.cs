@@ -1,14 +1,14 @@
 using System.IO.Compression;
-using SimpleLauncher.Services.CheckForUpdates;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
+using CheckForUpdatesService = SimpleLauncher.Services.CheckForUpdatesService;
 
 namespace SimpleLauncher.Tests;
 
 /// <inheritdoc />
 /// <summary>
 /// Simulates the update extraction logic used by SimpleLauncher.
-/// A test ZIP is created in memory, extracted via the real UpdateChecker
+/// A test ZIP is created in memory, extracted via the real CheckForUpdatesService
 /// extraction path, verified, and then every file created during the test
 /// is deleted.
 /// </summary>
@@ -16,6 +16,10 @@ public class UpdateSimulationTests : IDisposable
 {
     private readonly string _testDirectory;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UpdateSimulationTests"/> class,
+    /// installing the service provider mock and creating a temporary test directory.
+    /// </summary>
     public UpdateSimulationTests()
     {
         ServiceProviderMock.Install();
@@ -23,6 +27,9 @@ public class UpdateSimulationTests : IDisposable
         Directory.CreateDirectory(_testDirectory);
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory and restores the service provider mock.
+    /// </summary>
     public void Dispose()
     {
         // Aggressive cleanup: delete everything generated during the test
@@ -57,8 +64,8 @@ public class UpdateSimulationTests : IDisposable
             ["README.txt"] = "This is a test update package."
         });
 
-        // Act: use the real extraction logic from UpdateChecker
-        var result = UpdateChecker.ExtractAllFromZip(zipStream, _testDirectory, null!, new NoOpLogger());
+        // Act: use the real extraction logic from CheckForUpdatesService
+        var result = CheckForUpdatesService.ExtractAllFromZip(zipStream, _testDirectory, null!, new NoOpLogger());
 
         // Assert: extraction reported success
         Assert.True(result, "ExtractAllFromZip should return true for a valid ZIP.");
@@ -86,7 +93,7 @@ public class UpdateSimulationTests : IDisposable
         zipStream.Position = 0;
 
         // Act
-        var result = UpdateChecker.ExtractAllFromZip(zipStream, _testDirectory, null!, new NoOpLogger());
+        var result = CheckForUpdatesService.ExtractAllFromZip(zipStream, _testDirectory, null!, new NoOpLogger());
 
         // Assert
         Assert.False(result, "ExtractAllFromZip should return false for an empty ZIP.");
@@ -281,7 +288,7 @@ public class UpdateSimulationTests : IDisposable
     private static bool InvokeIsNewVersionAvailable(string? current, string? latest)
     {
         var checker = CreateCheckerInstance();
-        var method = typeof(UpdateChecker).GetMethod("IsNewVersionAvailable",
+        var method = typeof(CheckForUpdatesService).GetMethod("IsNewVersionAvailable",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         var result = method?.Invoke(checker, [current, latest]);
         return (bool)(result ?? throw new InvalidOperationException("Reflection invoke returned null."));
@@ -289,7 +296,7 @@ public class UpdateSimulationTests : IDisposable
 
     private static string InvokeNormalizeVersion(string version)
     {
-        var method = typeof(UpdateChecker).GetMethod("NormalizeVersion",
+        var method = typeof(CheckForUpdatesService).GetMethod("NormalizeVersion",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
         var result = method?.Invoke(null, [version]);
         return (string)(result ?? throw new InvalidOperationException("Reflection invoke returned null."));
@@ -298,23 +305,28 @@ public class UpdateSimulationTests : IDisposable
     private static (string version, string releaseUrl, string updaterUrl) InvokeParseVersionAndAssetUrls(string json)
     {
         var checker = CreateCheckerInstance();
-        var method = typeof(UpdateChecker).GetMethod("ParseVersionAndAssetUrlsFromResponse",
+        var method = typeof(CheckForUpdatesService).GetMethod("ParseVersionAndAssetUrlsFromResponse",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         var result = method?.Invoke(checker, [json]);
         return (ValueTuple<string, string, string>)(result ?? throw new InvalidOperationException("Reflection invoke returned null."));
     }
 
-    private static UpdateChecker CreateCheckerInstance()
+    private static CheckForUpdatesService CreateCheckerInstance()
     {
-        var constructor = typeof(UpdateChecker).GetConstructors(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).First();
+        var constructor = typeof(CheckForUpdatesService).GetConstructors(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).First();
         var factory = new MockHttpClientFactory();
         var logErrors = new NoOpLogger();
         var debugLogger = Log.Logger;
-        return (UpdateChecker)constructor.Invoke([factory, logErrors, null, null, debugLogger, null, null]);
+        return (CheckForUpdatesService)constructor.Invoke([factory, null, null, logErrors, null, null]);
     }
 
     private sealed class MockHttpClientFactory : IHttpClientFactory
     {
+        /// <summary>
+        /// Creates a new <see cref="HttpClient"/> instance, ignoring the requested logical client name.
+        /// </summary>
+        /// <param name="name">The logical name of the client to create.</param>
+        /// <returns>A new <see cref="HttpClient"/> instance.</returns>
         public HttpClient CreateClient(string name)
         {
             return new HttpClient();

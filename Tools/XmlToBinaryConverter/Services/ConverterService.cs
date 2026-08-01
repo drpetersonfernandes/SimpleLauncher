@@ -7,8 +7,17 @@ using XmlToBinaryConverter.Models;
 
 namespace XmlToBinaryConverter.Services;
 
+/// <summary>
+/// Provides XML to binary and binary to XML conversion functionality.
+/// </summary>
 public class ConverterService
 {
+    /// <summary>
+    /// Converts an XML file to binary MessagePack format asynchronously.
+    /// </summary>
+    /// <param name="inputPath">The path to the input XML file.</param>
+    /// <param name="outputPath">The path to save the output binary file.</param>
+    /// <param name="progress">Progress reporter for status updates.</param>
     public async Task ConvertXmlToBinaryAsync(string inputPath, string outputPath, IProgress<string> progress)
     {
         try
@@ -56,9 +65,11 @@ public class ConverterService
             await File.WriteAllBytesAsync(outputPath, binaryData);
 
             progress.Report("Conversion completed successfully!");
+            Log.Information("XML to binary conversion completed: {OutputPath}", outputPath);
         }
         catch (Exception ex)
         {
+            Log.Error(ex, "Error during XML to binary conversion from {InputPath}", inputPath);
             progress.Report($"Error during conversion: {ex.Message}");
             // Rethrow the exception so the caller (ViewModel) can handle it further (e.g., logging)
             throw;
@@ -66,6 +77,12 @@ public class ConverterService
     }
 
 
+    /// <summary>
+    /// Converts a binary MessagePack file to XML format asynchronously.
+    /// </summary>
+    /// <param name="inputPath">The path to the input binary file.</param>
+    /// <param name="outputPath">The path to save the output XML file.</param>
+    /// <param name="progress">Progress reporter for status updates.</param>
     public async Task ConvertBinaryToXmlAsync(string inputPath, string outputPath, IProgress<string> progress)
     {
         try
@@ -92,9 +109,11 @@ public class ConverterService
             }
 
             progress.Report("Conversion completed successfully!");
+            Log.Information("Binary to XML conversion completed: {OutputPath}", outputPath);
         }
         catch (Exception ex)
         {
+            Log.Error(ex, "Error during binary to XML conversion from {InputPath}", inputPath);
             progress.Report($"Error during conversion: {ex.Message}");
             // Rethrow the exception so the caller (ViewModel) can handle it further (e.g., logging)
             throw;

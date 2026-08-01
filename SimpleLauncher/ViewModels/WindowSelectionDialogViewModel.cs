@@ -11,6 +11,8 @@ public class WindowSelectionDialogViewModel : ObservableObject
 {
     private WindowItem? _selectedItem;
 
+    /// <summary>Initializes the window list from the provided window handles and titles.</summary>
+    /// <param name="windows">A collection of tuples containing window handles and their titles.</param>
     public void Initialize(IEnumerable<(IntPtr Handle, string Title)> windows)
     {
         var windowItems = windows

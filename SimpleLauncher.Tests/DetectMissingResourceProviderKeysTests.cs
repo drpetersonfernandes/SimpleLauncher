@@ -384,13 +384,15 @@ public partial class DetectMissingResourceProviderKeysTests
     {
         return path.Contains("\\bin\\", StringComparison.OrdinalIgnoreCase)
                || path.Contains("\\obj\\", StringComparison.OrdinalIgnoreCase)
-               || path.Contains("\\resources\\", StringComparison.OrdinalIgnoreCase);
+               || path.Contains("\\resources\\", StringComparison.OrdinalIgnoreCase)
+               || path.Contains("\\References\\", StringComparison.OrdinalIgnoreCase);
     }
 
     /// <summary>
     /// Matches: _resourceProvider.GetString("KEY") or _resourceProvider.GetString("KEY", "DEFAULT")
     /// Group 1 = key, Group 2 = optional default value
     /// </summary>
-    [GeneratedRegex("""_resourceProvider\.GetString\(\s*"([^"]+)"(?:\s*,\s*"([^"]*)")?\s*\)""", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing groups are needed to extract key and default value")]
+    [GeneratedRegex("""_resourceProvider\.GetString\(\s*"([^"]+)"(?:\s*,\s*"([^"]*)")?\s*\)""", RegexOptions.Compiled, 1000)]
     private static partial Regex MyRegex();
 }

@@ -40,7 +40,7 @@ public class XeniaConfigHandler : IEmulatorConfigHandler
             var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
             var shouldRun = true;
 
-            if (context.Settings != null && context.Settings.Xenia.ShowSettingsBeforeLaunch)
+            if (context.Settings is { Xenia.ShowSettingsBeforeLaunch: true })
             {
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>

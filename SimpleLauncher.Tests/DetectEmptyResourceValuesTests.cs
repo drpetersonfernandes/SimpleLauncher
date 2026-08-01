@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -73,6 +74,7 @@ public partial class DetectEmptyResourceValuesTests
         Assert.Fail(message.ToString());
     }
 
-    [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing groups are needed to extract key and value")]
+    [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""", RegexOptions.Compiled, 1000)]
     private static partial Regex MyRegex();
 }

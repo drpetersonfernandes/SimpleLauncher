@@ -16,6 +16,9 @@ using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 namespace SimpleLauncher.ViewModels;
 
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
+/// <summary>
+/// ViewModel for the play history window, managing the list of played games, sorting, and launching.
+/// </summary>
 public partial class PlayHistoryViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
@@ -48,6 +51,18 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
 
     [ObservableProperty] private string _loadingMessage = "";
 
+    /// <summary>Initializes a new instance of the <see cref="PlayHistoryViewModel"/>.</summary>
+    /// <param name="configuration">The application configuration.</param>
+    /// <param name="logErrors">The logger instance.</param>
+    /// <param name="playHistoryManager">The play history manager for persistence.</param>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="systemManagers">The list of configured system managers.</param>
+    /// <param name="machines">The list of MAME machine definitions.</param>
+    /// <param name="playSoundEffects">The sound effects service.</param>
+    /// <param name="findCoverImage">The cover image lookup service.</param>
+    /// <param name="imageLoader">The image loader service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="resourceProvider">The resource provider for localized strings.</param>
     public PlayHistoryViewModel(
         IConfiguration configuration,
         ILogger logErrors,
@@ -74,6 +89,8 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         _resourceProvider = resourceProvider;
     }
 
+    /// <summary>Loads the play history with cover images and machine descriptions.</summary>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task LoadHistoryAsync()
     {
         try
@@ -128,6 +145,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         }
     }
 
+    /// <summary>Sorts the play history list by last played date in descending order.</summary>
     public void SortByDate()
     {
         var sorted = new ObservableCollection<PlayHistoryItem>(
@@ -136,6 +154,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         PlayHistoryList = sorted;
     }
 
+    /// <summary>Sorts the play history list by total play time in descending order.</summary>
     public void SortByTotalPlayTime()
     {
         var sorted = new ObservableCollection<PlayHistoryItem>(
@@ -144,6 +163,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         PlayHistoryList = sorted;
     }
 
+    /// <summary>Sorts the play history list by times played in descending order.</summary>
     public void SortByTimesPlayed()
     {
         var sorted = new ObservableCollection<PlayHistoryItem>(
@@ -152,6 +172,8 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         PlayHistoryList = sorted;
     }
 
+    /// <summary>Removes a single item from the play history and persists the change.</summary>
+    /// <param name="item">The play history item to remove.</param>
     public void RemoveItem(PlayHistoryItem item)
     {
         PlayHistoryList.Remove(item);
@@ -160,6 +182,8 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         PreviewImageSource = null;
     }
 
+    /// <summary>Removes multiple items from the play history and persists the change.</summary>
+    /// <param name="items">The collection of play history items to remove.</param>
     public void RemoveItems(IEnumerable<PlayHistoryItem> items)
     {
         foreach (var item in items)
@@ -207,6 +231,9 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         // Game launching is handled by the caller (code-behind) since it needs WPF Window context
     }
 
+    /// <summary>Updates the preview image from the specified image path.</summary>
+    /// <param name="imagePath">The path to the image file, or null to clear.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task UpdatePreviewImageAsync(string? imagePath)
     {
         try
@@ -227,11 +254,15 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         }
     }
 
+    /// <summary>Gets the system manager for the specified system name.</summary>
+    /// <param name="systemName">The system name to look up.</param>
+    /// <returns>The matching <see cref="SystemManager"/>, or <c>null</c> if not found.</returns>
     public SystemManager? GetSystemManager(string systemName)
     {
         return _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
     }
 
+    /// <summary>Reloads the play history from the manager after a game launch.</summary>
     public void RefreshAfterGameLaunch()
     {
         var newList = new ObservableCollection<PlayHistoryItem>();
@@ -318,6 +349,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         return _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager.SystemImageFolder);
     }
 
+    /// <summary>Releases resources used by this ViewModel.</summary>
     public void Dispose()
     {
         PreviewImageSource?.Dispose();

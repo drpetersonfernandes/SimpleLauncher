@@ -126,10 +126,8 @@ public class EasyModeManager : IDisposable
             // Create XmlReader with the settings
             using var xmlReader = XmlReader.Create(fileStream, settings);
 
-            var config = serializer.Deserialize(xmlReader) as EasyModeManager;
-
             // Validate configuration if not null.
-            if (config != null)
+            if (serializer.Deserialize(xmlReader) is EasyModeManager config)
             {
                 config.Validate(); // Exclude invalid systems
                 return config;
@@ -234,7 +232,8 @@ public class EasyModeManager : IDisposable
 
             // Get the fallback URL from configuration
             var fallbackUrl = string.Equals(xmlFile, "easymode_arm64.xml"
-, StringComparison.Ordinal) ? _configuration.GetValue<string>("Urls:EasyModeFallbackXmlArm64")
+                , StringComparison.Ordinal)
+                ? _configuration.GetValue<string>("Urls:EasyModeFallbackXmlArm64")
                 : _configuration.GetValue<string>("Urls:EasyModeFallbackXmlX64");
 
             if (string.IsNullOrEmpty(fallbackUrl))

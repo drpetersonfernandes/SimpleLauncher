@@ -1,5 +1,6 @@
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.Favorites;
+using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
@@ -60,7 +61,7 @@ public class RightClickContextTests
     [Fact]
     public void ConstructorSetsMachines()
     {
-        var machines = new List<Services.MameManager.MameManagerService>();
+        var machines = new List<MameManagerService>();
         var context = CreateContext(machines: machines);
         Assert.Same(machines, context.Machines);
     }
@@ -108,7 +109,7 @@ public class RightClickContextTests
         string fileNameWithExtension = "game.zip",
         string fileNameWithoutExtension = "game",
         string? selectedSystemName = "NES",
-        List<Services.MameManager.MameManagerService>? machines = null)
+        List<MameManagerService>? machines = null)
     {
         var configuration = new Microsoft.Extensions.Configuration.ConfigurationBuilder().Build();
         var logErrors = new NoOpLogger();
@@ -138,6 +139,11 @@ public class RightClickContextTests
 
     private sealed class NoOpLoadingState : ILoadingState
     {
+        /// <summary>
+        /// Does nothing; the no-op loading state ignores every state change request.
+        /// </summary>
+        /// <param name="isLoading">Whether a loading operation is in progress.</param>
+        /// <param name="message">An optional message describing the loading operation.</param>
         public void SetLoadingState(bool isLoading, string? message = null)
         {
         }

@@ -16,12 +16,19 @@ public class RetroAchievementsManagerTests : IDisposable
     private readonly string _datFilePath;
 
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RetroAchievementsManagerTests"/> class,
+    /// installing the service provider mock and setting up the .dat file path.
+    /// </summary>
     public RetroAchievementsManagerTests()
     {
         ServiceProviderMock.Install();
         _datFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RetroAchievements.dat");
     }
 
+    /// <summary>
+    /// Cleans up the test .dat file and restores the service provider mock.
+    /// </summary>
     public void Dispose()
     {
         // Clean up the dat file if it was created during a test

@@ -7,6 +7,9 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Extended tests for the <see cref="GameFilterService"/> class covering additional edge cases for filtering, sorting, and search operators.
+/// </summary>
 public class GameFilterServiceExtendedTests
 {
     private static GameFilterService CreateService(string showGames = "ShowAll", bool enableFuzzy = false)
@@ -23,6 +26,13 @@ public class GameFilterServiceExtendedTests
 
     private class FindCoverImageNoOp : IFindCoverImageService
     {
+        /// <summary>
+        /// Always returns the default cover image name, simulating a game that has no cover.
+        /// </summary>
+        /// <param name="fileNameWithoutExtension">The game file name without its extension.</param>
+        /// <param name="systemName">The name of the system the game belongs to.</param>
+        /// <param name="systemImageFolder">The folder configured to hold the system cover images.</param>
+        /// <returns>The literal string <c>default.png</c>.</returns>
         public string FindCoverImagePath(string fileNameWithoutExtension, string systemName, string systemImageFolder)
         {
             return "default.png";
@@ -31,6 +41,13 @@ public class GameFilterServiceExtendedTests
 
     private class FindCoverImageAlwaysHasCover : IFindCoverImageService
     {
+        /// <summary>
+        /// Always returns a fabricated cover image path, simulating a game that has a cover.
+        /// </summary>
+        /// <param name="fileNameWithoutExtension">The game file name without its extension.</param>
+        /// <param name="systemName">The name of the system the game belongs to.</param>
+        /// <param name="systemImageFolder">The folder configured to hold the system cover images.</param>
+        /// <returns>A fake cover image path built from <paramref name="fileNameWithoutExtension"/>.</returns>
         public string FindCoverImagePath(string fileNameWithoutExtension, string systemName, string systemImageFolder)
         {
             return $"C:\\covers\\{fileNameWithoutExtension}.png";
@@ -392,6 +409,9 @@ public class GameFilterServiceExtendedTests
 
     // AND/OR operator tests for FilterBySearchQueryAsync
 
+    /// <summary>
+    /// Verifies that FilterBySearchQueryAsync with AND operator requires both terms to match.
+    /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncAndOperatorBothTermsMustMatch()
     {
@@ -408,6 +428,9 @@ public class GameFilterServiceExtendedTests
         Assert.Contains("mario kart", result[0], StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that FilterBySearchQueryAsync with OR operator matches when any term matches.
+    /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncOrOperatorAnyTermMatches()
     {
@@ -423,6 +446,9 @@ public class GameFilterServiceExtendedTests
         Assert.Equal(2, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that FilterBySearchQueryAsync treats multiple space-separated terms as AND by default.
+    /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncDefaultAndForMultipleTerms()
     {
@@ -439,6 +465,9 @@ public class GameFilterServiceExtendedTests
         Assert.Contains("super mario", result[0], StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that FilterBySearchQueryAsync supports quoted phrase matching.
+    /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncQuotedPhrase()
     {
@@ -455,6 +484,9 @@ public class GameFilterServiceExtendedTests
         Assert.Contains("super mario", result[0], StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that FilterBySearchQueryAsync with AND operator works with MAME descriptions.
+    /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncAndWithMameDescription()
     {
@@ -474,6 +506,9 @@ public class GameFilterServiceExtendedTests
         Assert.Single(result);
     }
 
+    /// <summary>
+    /// Verifies that FilterBySearchQueryAsync with OR operator works with MAME descriptions.
+    /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncOrWithMameDescription()
     {
@@ -494,6 +529,9 @@ public class GameFilterServiceExtendedTests
         Assert.Equal(2, result.Count);
     }
 
+    /// <summary>
+    /// Verifies that FilterBySearchQueryAsync with AND operator returns empty when no file matches both terms.
+    /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncAndOperatorNoMatch()
     {
@@ -508,6 +546,9 @@ public class GameFilterServiceExtendedTests
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Verifies that FilterBySearchQueryAsync with OR operator returns empty when no term matches.
+    /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncOrOperatorNoMatch()
     {

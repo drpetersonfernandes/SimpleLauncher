@@ -30,6 +30,9 @@ public class DosBoxLaunchStrategyTests
             debugLoggerMock.Object);
     }
 
+    /// <summary>
+    /// Verifies that the strategy has a priority of 25.
+    /// </summary>
     [Fact]
     public void PriorityIs25()
     {
@@ -37,6 +40,9 @@ public class DosBoxLaunchStrategyTests
         Assert.Equal(25, strategy.Priority);
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns false when the emulator name is empty.
+    /// </summary>
     [Fact]
     public void IsMatchEmptyEmulatorNameReturnsFalse()
     {
@@ -50,6 +56,9 @@ public class DosBoxLaunchStrategyTests
         Assert.False(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns false when the file path is empty.
+    /// </summary>
     [Fact]
     public void IsMatchEmptyFilePathReturnsFalse()
     {
@@ -63,6 +72,9 @@ public class DosBoxLaunchStrategyTests
         Assert.False(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns false for a non-DOSBox emulator.
+    /// </summary>
     [Fact]
     public void IsMatchNonDosBoxEmulatorReturnsFalse()
     {
@@ -76,6 +88,10 @@ public class DosBoxLaunchStrategyTests
         Assert.False(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns true for DOSBox emulator variants paired with archive files.
+    /// </summary>
+    /// <param name="emulatorName">The DOSBox emulator name variant to test.</param>
     [Theory]
     [InlineData("DOSBox-X")]
     [InlineData("DOSBox")]
@@ -94,6 +110,10 @@ public class DosBoxLaunchStrategyTests
         Assert.True(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns true for DOSBox with supported file formats.
+    /// </summary>
+    /// <param name="extension">The supported file extension to test.</param>
     [Theory]
     [InlineData(".zip")]
     [InlineData(".7z")]
@@ -112,6 +132,10 @@ public class DosBoxLaunchStrategyTests
         Assert.True(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns false for DOSBox with unsupported file formats.
+    /// </summary>
+    /// <param name="extension">The unsupported file extension to test.</param>
     [Theory]
     [InlineData(".exe")]
     [InlineData(".bat")]
@@ -129,6 +153,9 @@ public class DosBoxLaunchStrategyTests
         Assert.False(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns true when the emulator location points to a DOSBox executable.
+    /// </summary>
     [Fact]
     public void IsMatchDosBoxByEmulatorLocationReturnsTrue()
     {
@@ -143,6 +170,9 @@ public class DosBoxLaunchStrategyTests
         Assert.True(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsDosBoxEmulator returns true when the emulator name is DOSBox-X.
+    /// </summary>
     [Fact]
     public void IsDosBoxEmulatorWithDosBoxNameReturnsTrue()
     {
@@ -150,6 +180,9 @@ public class DosBoxLaunchStrategyTests
         Assert.True(DosBoxLaunchStrategy.IsDosBoxEmulator(context));
     }
 
+    /// <summary>
+    /// Verifies that IsDosBoxEmulator returns true when the emulator location points to a DOSBox executable.
+    /// </summary>
     [Fact]
     public void IsDosBoxEmulatorWithDosBoxPathReturnsTrue()
     {
@@ -161,6 +194,9 @@ public class DosBoxLaunchStrategyTests
         Assert.True(DosBoxLaunchStrategy.IsDosBoxEmulator(context));
     }
 
+    /// <summary>
+    /// Verifies that IsDosBoxEmulator returns false for a non-DOSBox emulator.
+    /// </summary>
     [Fact]
     public void IsDosBoxEmulatorWithNonDosBoxReturnsFalse()
     {
@@ -168,6 +204,9 @@ public class DosBoxLaunchStrategyTests
         Assert.False(DosBoxLaunchStrategy.IsDosBoxEmulator(context));
     }
 
+    /// <summary>
+    /// Verifies that IsDosBoxEmulator detection is case-insensitive.
+    /// </summary>
     [Fact]
     public void IsDosBoxEmulatorCaseInsensitive()
     {
@@ -180,6 +219,9 @@ public class DosBoxLaunchStrategyTests
         Assert.True(DosBoxLaunchStrategy.IsDosBoxEmulator(context3));
     }
 
+    /// <summary>
+    /// Verifies that IsDosBoxEmulator returns true for DOSBox Staging.
+    /// </summary>
     [Fact]
     public void IsDosBoxEmulatorWithDosBoxStagingReturnsTrue()
     {
@@ -187,6 +229,9 @@ public class DosBoxLaunchStrategyTests
         Assert.True(DosBoxLaunchStrategy.IsDosBoxEmulator(context));
     }
 
+    /// <summary>
+    /// Verifies that IsDosBoxEmulator returns true for dosbox_pure.
+    /// </summary>
     [Fact]
     public void IsDosBoxEmulatorWithDosBoxPureReturnsTrue()
     {

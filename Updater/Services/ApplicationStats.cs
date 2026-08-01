@@ -9,7 +9,7 @@ namespace Updater.Services;
 /// <summary>
 /// Service for reporting application usage statistics to the ApplicationStats API
 /// </summary>
-public static class ApplicationStats
+internal static class ApplicationStats
 {
     private const string StatsApiUrl = "https://www.purelogiccode.com/ApplicationStats/stats";
     private const string ApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
@@ -45,16 +45,16 @@ public static class ApplicationStats
 
             if (!response.IsSuccessStatusCode)
             {
-                System.Diagnostics.Debug.WriteLine($"ApplicationStats API returned: {response.StatusCode}");
+                Log.Warning("ApplicationStats API returned non-success status: {StatusCode}", response.StatusCode);
             }
         }
         catch (OperationCanceledException)
         {
-            System.Diagnostics.Debug.WriteLine("ApplicationStats API call timed out.");
+            Log.Warning("ApplicationStats API call timed out.");
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"ApplicationStats API call failed: {ex.Message}");
+            Log.Warning(ex, "ApplicationStats API call failed");
         }
     }
 }

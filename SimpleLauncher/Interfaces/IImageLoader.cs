@@ -1,5 +1,8 @@
 namespace SimpleLauncher.Interfaces;
 
+/// <summary>
+/// Provides methods to load images from file paths or return default images.
+/// </summary>
 public interface IImageLoader
 {
     /// <summary>
@@ -12,5 +15,10 @@ public interface IImageLoader
     /// </returns>
     Task<(Stream? image, bool isDefault)> LoadImageAsync(string? imagePath);
 
+    /// <summary>
+    /// Reads image file bytes from disk, handling long paths and access errors.
+    /// </summary>
+    /// <param name="filePath">The path to the image file.</param>
+    /// <returns>The image bytes, or null if the file could not be read.</returns>
     byte[]? LoadImageBytes(string filePath);
 }

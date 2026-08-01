@@ -7,15 +7,31 @@ using MessagePack;
 
 namespace Mame.DatCreator;
 
+/// <summary>
+/// Contains the core logic for creating merged MAME DAT files.
+/// </summary>
+/// <summary>
+/// Contains logic for creating merged MAME DAT files from XML sources.
+/// </summary>
 public class DatCreatorLogic
 {
     private readonly WpfLogger _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DatCreatorLogic"/> class.
+    /// </summary>
+    /// <param name="logger">The logger instance for output messages.</param>
     public DatCreatorLogic(WpfLogger logger)
     {
         _logger = logger;
     }
 
+    /// <summary>
+    /// Creates a merged DAT file from MAME full driver XML and software list folder.
+    /// </summary>
+    /// <param name="fullXmlPath">Path to the MAME full driver XML file.</param>
+    /// <param name="hashFolderPath">Path to the MAME hash folder containing software list XMLs.</param>
+    /// <param name="outputXmlPath">Path to save the output XML and DAT files.</param>
     public async Task CreateMergedDatAsync(string fullXmlPath, string hashFolderPath, string outputXmlPath)
     {
         try

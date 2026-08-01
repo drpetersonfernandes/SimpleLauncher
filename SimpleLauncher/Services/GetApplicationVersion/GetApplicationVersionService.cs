@@ -3,8 +3,14 @@ using System.Windows;
 
 namespace SimpleLauncher.Services.GetApplicationVersion;
 
+/// <summary>
+/// Provides the version information of the running application.
+/// </summary>
 public static class GetApplicationVersionService
 {
+    /// <summary>
+    /// Gets the localized application version string (e.g., "Version: 1.2.3.4").
+    /// </summary>
     public static string GetVersion
     {
         get

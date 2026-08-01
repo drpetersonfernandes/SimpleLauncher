@@ -34,6 +34,10 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
     [ObservableProperty] private string _xeniaHid = null!;
     [ObservableProperty] private int _xeniaUserLanguage;
     [ObservableProperty] private bool _xeniaShowSettingsBeforeLaunch;
+    /// <summary>Initializes a new instance of the <see cref="InjectXeniaConfigViewModel"/>.</summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="logger">The logger instance.</param>
     public InjectXeniaConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;

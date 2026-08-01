@@ -15,6 +15,10 @@ public class SettingsManagerTests : IDisposable
     private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SettingsManagerTests"/> class,
+    /// installing the service provider mock, creating a temporary test directory, and building configuration.
+    /// </summary>
     public SettingsManagerTests()
     {
         ServiceProviderMock.Install();
@@ -30,6 +34,9 @@ public class SettingsManagerTests : IDisposable
             .Build();
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory and restores the service provider mock.
+    /// </summary>
     public void Dispose()
     {
         try
@@ -339,6 +346,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal("https://www.igdb.com/search?q=", settings.InfoUrl);
     }
 
+    /// <summary>
+    /// Verifies that resetting to defaults restores all general settings to their default values.
+    /// </summary>
     [Fact]
     public void ResetToDefaultsRestoresAllGeneralSettings()
     {
@@ -369,6 +379,9 @@ public class SettingsManagerTests : IDisposable
         Assert.True(settings.EnableNotificationSound);
     }
 
+    /// <summary>
+    /// Verifies that resetting to defaults restores emulator-specific settings to their default values.
+    /// </summary>
     [Fact]
     public void ResetToDefaultsRestoresEmulatorSettings()
     {
@@ -387,6 +400,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal("gl", settings.RetroArch.VideoDriver);
     }
 
+    /// <summary>
+    /// Verifies that the ThumbnailSize property accepts valid values within the allowed range.
+    /// </summary>
     [Fact]
     public void ThumbnailSizeValidationAcceptsValidValues()
     {
@@ -399,6 +415,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal(800, settings.ThumbnailSize);
     }
 
+    /// <summary>
+    /// Verifies that the GamesPerPage property accepts valid values within the allowed range.
+    /// </summary>
     [Fact]
     public void GamesPerPageValidationAcceptsValidValues()
     {
@@ -411,6 +430,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal(1000000, settings.GamesPerPage);
     }
 
+    /// <summary>
+    /// Verifies that the AccentColor property accepts all valid color names.
+    /// </summary>
     [Fact]
     public void AccentColorValidationAcceptsAllValidColors()
     {
@@ -425,6 +447,9 @@ public class SettingsManagerTests : IDisposable
         }
     }
 
+    /// <summary>
+    /// Verifies that UpdateSystemPlayTime adds a new entry for a system not yet tracked.
+    /// </summary>
     [Fact]
     public void UpdateSystemPlayTimeAddsNewEntry()
     {
@@ -437,6 +462,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal(1800, settings.SystemPlayTimes[0].PlayTimeSeconds);
     }
 
+    /// <summary>
+    /// Verifies that UpdateSystemPlayTime accumulates play time for an existing system entry.
+    /// </summary>
     [Fact]
     public void UpdateSystemPlayTimeAccumulatesExistingEntry()
     {
@@ -449,6 +477,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal(2700, settings.SystemPlayTimes[0].PlayTimeSeconds);
     }
 
+    /// <summary>
+    /// Verifies that UpdateSystemPlayTime tracks play time for multiple independent systems.
+    /// </summary>
     [Fact]
     public void UpdateSystemPlayTimeMultipleSystems()
     {
@@ -464,6 +495,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal(3600, settings.SystemPlayTimes[2].PlayTimeSeconds);
     }
 
+    /// <summary>
+    /// Verifies that Xenia emulator settings have correct default values.
+    /// </summary>
     [Fact]
     public void DefaultXeniaSettingsAreCorrect()
     {
@@ -482,6 +516,9 @@ public class SettingsManagerTests : IDisposable
         Assert.True(settings.Xenia.DiscordPresence);
     }
 
+    /// <summary>
+    /// Verifies that RPCS3 emulator settings have correct default values.
+    /// </summary>
     [Fact]
     public void DefaultRpcs3SettingsAreCorrect()
     {
@@ -500,6 +537,9 @@ public class SettingsManagerTests : IDisposable
         Assert.False(settings.Rpcs3.StartFullscreen);
     }
 
+    /// <summary>
+    /// Verifies that Mednafen emulator settings have correct default values.
+    /// </summary>
     [Fact]
     public void DefaultMednafenSettingsAreCorrect()
     {
@@ -518,6 +558,9 @@ public class SettingsManagerTests : IDisposable
         Assert.Equal("none", settings.Mednafen.Special);
     }
 
+    /// <summary>
+    /// Verifies that Stella emulator settings have correct default values.
+    /// </summary>
     [Fact]
     public void DefaultStellaSettingsAreCorrect()
     {

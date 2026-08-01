@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Net.Http;
 using System.Reflection;
 using System.Windows;
@@ -193,6 +192,7 @@ public partial class MainWindow
         }
         catch (OperationCanceledException)
         {
+            Serilog.Log.Information("Update was cancelled by the user");
             Log("Update was cancelled by the user.");
             ProgressStatusText.Text = "Cancelled";
             CancelButton.IsEnabled = false;
@@ -200,6 +200,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Report bug to the bug report API
+            Serilog.Log.Error(ex, "Error during main update execution");
             await BugReportService.ReportBugAsync(ex, "Error during main update execution");
 
             Log($"An error occurred during update process: {ex.Message}");
@@ -262,9 +263,9 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            // If bug reporting fails, log to debug output - don't throw
-            Debug.WriteLine($"Failed to report bug: {ex.Message}");
-            Debug.WriteLine($"Original exception: {exception.Message}");
+            // If bug reporting fails, log via Serilog - don't throw
+            Serilog.Log.Warning(ex, "Failed to report bug for context: {Context}", context);
+            Serilog.Log.Warning(exception, "Original exception");
         }
     }
 }

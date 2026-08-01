@@ -18,6 +18,9 @@ public class GameScanModelsTests
 
     // StoreAppInfo tests
 
+    /// <summary>
+    /// Verifies that a new StoreAppInfo has all properties defaulting to null.
+    /// </summary>
     [Fact]
     public void StoreAppInfoDefaultValues()
     {
@@ -29,6 +32,9 @@ public class GameScanModelsTests
         Assert.Null(info.LogoRelativePath);
     }
 
+    /// <summary>
+    /// Verifies that StoreAppInfo properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void StoreAppInfoPropertiesCanBeSet()
     {
@@ -48,6 +54,9 @@ public class GameScanModelsTests
         Assert.Equal("Assets\\Logo.png", info.LogoRelativePath);
     }
 
+    /// <summary>
+    /// Verifies that StoreAppInfo supports Unicode characters in the Name property.
+    /// </summary>
     [Fact]
     public void StoreAppInfoSupportsUnicodeName()
     {
@@ -57,6 +66,9 @@ public class GameScanModelsTests
 
     // EpicInstalledApp tests
 
+    /// <summary>
+    /// Verifies that a new EpicInstalledApp has all properties defaulting to null.
+    /// </summary>
     [Fact]
     public void EpicInstalledAppDefaultValues()
     {
@@ -66,6 +78,9 @@ public class GameScanModelsTests
         Assert.Null(app.AppVersion);
     }
 
+    /// <summary>
+    /// Verifies that EpicInstalledApp properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void EpicInstalledAppPropertiesCanBeSet()
     {
@@ -81,6 +96,9 @@ public class GameScanModelsTests
         Assert.Equal("1.0.0", app.AppVersion);
     }
 
+    /// <summary>
+    /// Verifies that EpicInstalledApp can be deserialized from JSON with all properties populated.
+    /// </summary>
     [Fact]
     public void EpicInstalledAppDeserializeFromJson()
     {
@@ -100,6 +118,9 @@ public class GameScanModelsTests
         Assert.Equal("25.10", app.AppVersion);
     }
 
+    /// <summary>
+    /// Verifies that EpicInstalledApp can be deserialized from an empty JSON object.
+    /// </summary>
     [Fact]
     public void EpicInstalledAppDeserializeEmptyJson()
     {
@@ -114,6 +135,9 @@ public class GameScanModelsTests
 
     // EpicInstalledAppList tests
 
+    /// <summary>
+    /// Verifies that a new EpicInstalledAppList has InstallationList defaulting to null.
+    /// </summary>
     [Fact]
     public void EpicInstalledAppListDefaultInstallationListIsNull()
     {
@@ -121,6 +145,9 @@ public class GameScanModelsTests
         Assert.Null(list.InstallationList);
     }
 
+    /// <summary>
+    /// Verifies that EpicInstalledAppList can be deserialized from JSON with multiple apps.
+    /// </summary>
     [Fact]
     public void EpicInstalledAppListDeserializeFromJson()
     {
@@ -141,6 +168,9 @@ public class GameScanModelsTests
         Assert.Equal("Game2", list.InstallationList[1].AppName);
     }
 
+    /// <summary>
+    /// Verifies that EpicInstalledAppList can be deserialized from JSON with an empty installation list.
+    /// </summary>
     [Fact]
     public void EpicInstalledAppListDeserializeEmptyList()
     {
@@ -153,6 +183,9 @@ public class GameScanModelsTests
 
     // BNetAppDef tests
 
+    /// <summary>
+    /// Verifies that a new BNetAppDef has all properties defaulting to null or false.
+    /// </summary>
     [Fact]
     public void BNetAppDefDefaultValues()
     {
@@ -164,6 +197,9 @@ public class GameScanModelsTests
         Assert.Null(app.ProductId);
     }
 
+    /// <summary>
+    /// Verifies that BNetAppDef properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void BNetAppDefPropertiesCanBeSet()
     {
@@ -183,6 +219,9 @@ public class GameScanModelsTests
         Assert.Equal("WoW", app.ProductId);
     }
 
+    /// <summary>
+    /// Verifies that BNetAppDef IsClassic property can be set to true.
+    /// </summary>
     [Fact]
     public void BNetAppDefIsClassicCanBeSetToTrue()
     {
@@ -192,6 +231,9 @@ public class GameScanModelsTests
 
     // RockstarGameDef tests
 
+    /// <summary>
+    /// Verifies that a new RockstarGameDef has all properties defaulting to null.
+    /// </summary>
     [Fact]
     public void RockstarGameDefDefaultValues()
     {
@@ -201,6 +243,9 @@ public class GameScanModelsTests
         Assert.Null(game.Exe);
     }
 
+    /// <summary>
+    /// Verifies that RockstarGameDef properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void RockstarGameDefPropertiesCanBeSet()
     {
@@ -218,6 +263,9 @@ public class GameScanModelsTests
 
     // GameImageApiResponse tests
 
+    /// <summary>
+    /// Verifies that a new GameImageApiResponse has Success defaulting to false and ImageUrl to null.
+    /// </summary>
     [Fact]
     public void GameImageApiResponseDefaultValues()
     {
@@ -226,6 +274,9 @@ public class GameScanModelsTests
         Assert.Null(response.ImageUrl);
     }
 
+    /// <summary>
+    /// Verifies that GameImageApiResponse properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void GameImageApiResponsePropertiesCanBeSet()
     {
@@ -239,6 +290,9 @@ public class GameScanModelsTests
         Assert.Equal("https://example.com/image.png", response.ImageUrl);
     }
 
+    /// <summary>
+    /// Verifies that GameImageApiResponse can be deserialized from a successful JSON response.
+    /// </summary>
     [Fact]
     public void GameImageApiResponseDeserializeFromJson()
     {
@@ -256,6 +310,9 @@ public class GameScanModelsTests
         Assert.Equal("https://example.com/cover.png", response.ImageUrl);
     }
 
+    /// <summary>
+    /// Verifies that GameImageApiResponse can be deserialized from a failed JSON response.
+    /// </summary>
     [Fact]
     public void GameImageApiResponseDeserializeFailedResponse()
     {

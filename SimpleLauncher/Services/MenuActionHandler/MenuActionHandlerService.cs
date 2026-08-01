@@ -15,6 +15,10 @@ using Settings = SimpleLauncher.Services.SettingsManager.SettingsManagerService;
 
 namespace SimpleLauncher.Services.MenuActionHandler;
 
+/// <summary>
+/// Handles all menu actions for the main application window, including emulator configuration, mode switching,
+/// game scanning, navigation, view settings, and user preferences.
+/// </summary>
 public class MenuActionHandlerService
 {
     private readonly Settings _settings;
@@ -44,10 +48,13 @@ public class MenuActionHandlerService
 
     private readonly Dictionary<string, Action> _emulatorConfigWindowFactory;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MenuActionHandlerService"/> class with all required dependencies.
+    /// </summary>
     public MenuActionHandlerService(
         Settings settings,
         PlaySoundEffects playSoundEffects,
-IConfiguration configuration,
+        IConfiguration configuration,
         IHttpClientFactory httpClientFactory,
         GamePadController gamePadController,
         GameLauncher.GameLauncherService gameLauncher,
@@ -239,6 +246,10 @@ IConfiguration configuration,
         };
     }
 
+    /// <summary>
+    /// Initializes the menu action handler with the specified host.
+    /// </summary>
+    /// <param name="host">The host that provides UI interaction capabilities.</param>
     public void Initialize(IMenuActionHost host)
     {
         _host = host;
@@ -246,6 +257,10 @@ IConfiguration configuration,
 
     // ---- Emulator Config Windows ----
 
+    /// <summary>
+    /// Opens the configuration window for the specified emulator.
+    /// </summary>
+    /// <param name="emulatorName">The name of the emulator to configure.</param>
     public void ShowEmulatorConfigWindow(string emulatorName)
     {
         try
@@ -269,6 +284,9 @@ IConfiguration configuration,
 
     // ---- Easy Mode / Expert Mode ----
 
+    /// <summary>
+    /// Opens the Easy Mode configuration window and reloads the system manager upon closing.
+    /// </summary>
     public void HandleEasyMode()
     {
         try
@@ -289,6 +307,9 @@ IConfiguration configuration,
         }
     }
 
+    /// <summary>
+    /// Opens the Expert Mode (Edit System) configuration window and reloads the system manager upon closing.
+    /// </summary>
     public void HandleExpertMode()
     {
         try
@@ -299,7 +320,8 @@ IConfiguration configuration,
             var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
             var selectedSystem = _host.GetSelectedSystem();
             var systemToPreselect = !string.IsNullOrEmpty(selectedSystem) && !string.Equals(selectedSystem, nosystemselected
-, StringComparison.Ordinal) ? selectedSystem
+                , StringComparison.Ordinal)
+                ? selectedSystem
                 : null;
 
             var editSystemWindow = new EditSystemWindow(_settings, _playSoundEffects, _configuration, _helpUserService, _imageLoader, _messageBoxLibrary, _quitSimpleLauncher, _logger, _parameterResolverService, systemToPreselect)
@@ -319,6 +341,9 @@ IConfiguration configuration,
 
     // ---- Download Image Pack ----
 
+    /// <summary>
+    /// Opens the image pack downloader window.
+    /// </summary>
     public void HandleDownloadImagePack()
     {
         try
@@ -340,6 +365,9 @@ IConfiguration configuration,
 
     // ---- Scan for Windows Games ----
 
+    /// <summary>
+    /// Scans for Windows store games and reloads the system manager when complete.
+    /// </summary>
     public async Task HandleScanForWindowsGamesAsync()
     {
         try
@@ -371,6 +399,9 @@ IConfiguration configuration,
 
     // ---- Edit Links ----
 
+    /// <summary>
+    /// Opens the link settings window and reloads game files after links are updated.
+    /// </summary>
     public async Task HandleEditLinksAsync()
     {
         try
@@ -396,6 +427,10 @@ IConfiguration configuration,
 
     // ---- Toggle Gamepad ----
 
+    /// <summary>
+    /// Toggles gamepad navigation on or off and saves the setting.
+    /// </summary>
+    /// <param name="isChecked">True to enable gamepad navigation; false to disable it.</param>
     public async Task HandleToggleGamepadAsync(bool isChecked)
     {
         try
@@ -422,6 +457,9 @@ IConfiguration configuration,
 
     // ---- Set Gamepad Dead Zone ----
 
+    /// <summary>
+    /// Opens the gamepad dead zone settings window and applies the updated values.
+    /// </summary>
     public void HandleSetGamepadDeadZone()
     {
         _playSoundEffects.PlayNotificationSound();
@@ -446,6 +484,10 @@ IConfiguration configuration,
 
     // ---- Toggle Fuzzy Matching ----
 
+    /// <summary>
+    /// Toggles fuzzy matching on or off, saves the setting, and reloads the game list.
+    /// </summary>
+    /// <param name="isChecked">True to enable fuzzy matching; false to disable it.</param>
     public async Task HandleToggleFuzzyMatchingAsync(bool isChecked)
     {
         try
@@ -482,6 +524,9 @@ IConfiguration configuration,
 
     // ---- Set Fuzzy Matching Threshold ----
 
+    /// <summary>
+    /// Opens the fuzzy matching threshold settings window and reloads the game list with the new threshold.
+    /// </summary>
     public async Task HandleSetFuzzyMatchingThresholdAsync()
     {
         try
@@ -508,6 +553,10 @@ IConfiguration configuration,
 
     // ---- Toggle Annotation Stripping ----
 
+    /// <summary>
+    /// Toggles annotation stripping on or off, saves the setting, and reloads the game list.
+    /// </summary>
+    /// <param name="isChecked">True to enable annotation stripping; false to disable it.</param>
     public async Task HandleToggleAnnotationStrippingAsync(bool isChecked)
     {
         try
@@ -541,6 +590,9 @@ IConfiguration configuration,
 
     // ---- Support / Donate / About / Exit ----
 
+    /// <summary>
+    /// Opens the support request window.
+    /// </summary>
     public void HandleSupport()
     {
         _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningSupportWindow") ?? "Opening support window...");
@@ -551,6 +603,9 @@ IConfiguration configuration,
         supportRequestWindow.ShowDialog();
     }
 
+    /// <summary>
+    /// Opens the donation page in the default browser.
+    /// </summary>
     public async Task HandleDonateAsync()
     {
         try
@@ -573,6 +628,9 @@ IConfiguration configuration,
         }
     }
 
+    /// <summary>
+    /// Opens the About window.
+    /// </summary>
     public void HandleAbout()
     {
         _playSoundEffects.PlayNotificationSound();
@@ -583,6 +641,9 @@ IConfiguration configuration,
         aboutWindow.ShowDialog();
     }
 
+    /// <summary>
+    /// Closes the main application window.
+    /// </summary>
     public void HandleExit()
     {
         _playSoundEffects.PlayNotificationSound();
@@ -591,6 +652,10 @@ IConfiguration configuration,
 
     // ---- Show Games Settings ----
 
+    /// <summary>
+    /// Changes the game visibility mode (e.g., show all, show favorites only) and reloads the game list.
+    /// </summary>
+    /// <param name="showGamesMode">The visibility mode to apply.</param>
     public async Task HandleShowGamesAsync(string showGamesMode)
     {
         try
@@ -624,6 +689,10 @@ IConfiguration configuration,
 
     // ---- Button Size ----
 
+    /// <summary>
+    /// Changes the game button thumbnail size and reloads the game list.
+    /// </summary>
+    /// <param name="newSize">The new thumbnail size in pixels.</param>
     public async Task HandleButtonSizeAsync(int newSize)
     {
         try
@@ -661,6 +730,10 @@ IConfiguration configuration,
 
     // ---- Button Aspect Ratio ----
 
+    /// <summary>
+    /// Changes the game button aspect ratio and reloads the game list.
+    /// </summary>
+    /// <param name="aspectRatio">The aspect ratio string to apply (e.g., "16:9", "4:3").</param>
     public async Task HandleButtonAspectRatioAsync(string aspectRatio)
     {
         try
@@ -697,6 +770,10 @@ IConfiguration configuration,
 
     // ---- Games Per Page ----
 
+    /// <summary>
+    /// Changes the number of games displayed per page and reloads the game list.
+    /// </summary>
+    /// <param name="newPage">The number of games per page.</param>
     public async Task HandleGamesPerPageAsync(int newPage)
     {
         try
@@ -741,6 +818,9 @@ IConfiguration configuration,
 
     // ---- Navigation: Global Search ----
 
+    /// <summary>
+    /// Navigates to the global search page.
+    /// </summary>
     public void HandleShowGlobalSearch()
     {
         _playSoundEffects.PlayNotificationSound();
@@ -761,6 +841,9 @@ IConfiguration configuration,
 
     // ---- Navigation: Global Stats ----
 
+    /// <summary>
+    /// Opens the global statistics window.
+    /// </summary>
     public void HandleShowGlobalStats()
     {
         _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalStatistics") ?? "Opening Global Statistics...");
@@ -774,6 +857,9 @@ IConfiguration configuration,
 
     // ---- Navigation: Favorites ----
 
+    /// <summary>
+    /// Navigates to the favorites page.
+    /// </summary>
     public void HandleShowFavorites()
     {
         _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFavorites") ?? "Opening Favorites...");
@@ -783,6 +869,7 @@ IConfiguration configuration,
         var contextMenuService = _serviceProvider.GetRequiredService<IContextMenuService>();
         var favoritesPage = new Pages.FavoritesPage(
             _settings, _host.GetSystemManagers().ToList(), _host.GetMachines().ToList(), _favoritesManager,
+            // ReSharper disable once AssignNullToNotNullAttribute
             (MainWindow)Application.Current.MainWindow, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _findCoverImage, _imageLoader, contextMenuFunctions, _logger, contextMenuService);
 
         _host.NavigateToPage(favoritesPage);
@@ -790,6 +877,9 @@ IConfiguration configuration,
 
     // ---- Navigation: Play History ----
 
+    /// <summary>
+    /// Navigates to the play history page.
+    /// </summary>
     public void HandleShowPlayHistory()
     {
         _playSoundEffects.PlayNotificationSound();
@@ -809,6 +899,9 @@ IConfiguration configuration,
 
     // ---- Navigation: Retro Achievements ----
 
+    /// <summary>
+    /// Opens the RetroAchievements window.
+    /// </summary>
     public void HandleShowRetroAchievements()
     {
         _playSoundEffects.PlayNotificationSound();
@@ -821,6 +914,9 @@ IConfiguration configuration,
 
     // ---- Navigation: Restart ----
 
+    /// <summary>
+    /// Navigates back to the main content and resets the UI.
+    /// </summary>
     public void HandleRestart()
     {
         _playSoundEffects.PlayNotificationSound();
@@ -830,6 +926,9 @@ IConfiguration configuration,
 
     // ---- System Favorites ----
 
+    /// <summary>
+    /// Displays favorite games for the currently selected system.
+    /// </summary>
     public async Task HandleShowSystemFavoritesAsync()
     {
         try
@@ -846,6 +945,9 @@ IConfiguration configuration,
 
     // ---- Random / Feeling Lucky ----
 
+    /// <summary>
+    /// Selects and displays a random game from the current system.
+    /// </summary>
     public async Task HandleFeelingLuckyAsync()
     {
         try
@@ -862,6 +964,9 @@ IConfiguration configuration,
 
     // ---- Retro Achievements Filter ----
 
+    /// <summary>
+    /// Filters the game list to show only games that have RetroAchievements support.
+    /// </summary>
     public async Task HandleShowGamesWithRetroAchievementsAsync()
     {
         try
@@ -894,6 +999,9 @@ IConfiguration configuration,
     private const int MinThumbnailSize = 50;
     private const int ZoomStep = 50;
 
+    /// <summary>
+    /// Increases the thumbnail size by one zoom step and reloads the game list.
+    /// </summary>
     public async Task HandleZoomInAsync()
     {
         try
@@ -942,6 +1050,9 @@ IConfiguration configuration,
         }
     }
 
+    /// <summary>
+    /// Decreases the thumbnail size by one zoom step and reloads the game list.
+    /// </summary>
     public async Task HandleZoomOutAsync()
     {
         try
@@ -992,6 +1103,9 @@ IConfiguration configuration,
 
     // ---- View Mode ----
 
+    /// <summary>
+    /// Toggles between grid view and list view and reloads the game list.
+    /// </summary>
     public async Task HandleToggleViewModeAsync()
     {
         try
@@ -1029,6 +1143,10 @@ IConfiguration configuration,
         }
     }
 
+    /// <summary>
+    /// Changes the view mode based on the sender menu item and reloads the game list.
+    /// </summary>
+    /// <param name="sender">The menu item that triggered the view mode change.</param>
     public async Task HandleChangeViewModeAsync(object sender)
     {
         try
@@ -1076,6 +1194,10 @@ IConfiguration configuration,
 
     // ---- Filename Display Mode ----
 
+    /// <summary>
+    /// Changes the filename display mode and reloads the game list.
+    /// </summary>
+    /// <param name="mode">The filename display mode to apply.</param>
     public async Task HandleFilenameDisplayModeAsync(string mode)
     {
         try
@@ -1115,6 +1237,10 @@ IConfiguration configuration,
 
     // ---- Display Machine Name ----
 
+    /// <summary>
+    /// Toggles the display of MAME machine names on game buttons and reloads the game list.
+    /// </summary>
+    /// <param name="isChecked">True to display machine names; false to hide them.</param>
     public async Task HandleDisplayMachineNameAsync(bool isChecked)
     {
         try
@@ -1152,6 +1278,10 @@ IConfiguration configuration,
 
     // ---- Filename Font Size ----
 
+    /// <summary>
+    /// Changes the filename font size and reloads the game list.
+    /// </summary>
+    /// <param name="size">The font size to apply to filenames.</param>
     public async Task HandleFilenameFontSizeAsync(string size)
     {
         try
@@ -1191,6 +1321,10 @@ IConfiguration configuration,
 
     // ---- Machine Name Font Size ----
 
+    /// <summary>
+    /// Changes the machine name font size and reloads the game list.
+    /// </summary>
+    /// <param name="size">The font size to apply to machine names.</param>
     public async Task HandleMachineNameFontSizeAsync(string size)
     {
         try
@@ -1230,6 +1364,9 @@ IConfiguration configuration,
 
     // ---- Sound Configuration ----
 
+    /// <summary>
+    /// Opens the sound configuration window.
+    /// </summary>
     public async Task HandleSoundConfigurationAsync()
     {
         try
@@ -1250,6 +1387,9 @@ IConfiguration configuration,
 
     // ---- RetroAchievements Settings ----
 
+    /// <summary>
+    /// Opens the RetroAchievements settings window.
+    /// </summary>
     public async Task HandleShowRetroAchievementsSettingsAsync()
     {
         try
@@ -1270,6 +1410,10 @@ IConfiguration configuration,
 
     // ---- Overlay Button Toggles ----
 
+    /// <summary>
+    /// Toggles the RetroAchievements overlay button visibility and reloads the game list.
+    /// </summary>
+    /// <param name="isChecked">True to show the button; false to hide it.</param>
     public async Task HandleToggleRetroAchievementButtonAsync(bool isChecked)
     {
         _host.CancelAndRecreateToken();
@@ -1292,6 +1436,10 @@ IConfiguration configuration,
         }
     }
 
+    /// <summary>
+    /// Toggles the video link overlay button visibility and reloads the game list.
+    /// </summary>
+    /// <param name="isChecked">True to show the button; false to hide it.</param>
     public async Task HandleToggleVideoLinkButtonAsync(bool isChecked)
     {
         _host.CancelAndRecreateToken();
@@ -1314,6 +1462,10 @@ IConfiguration configuration,
         }
     }
 
+    /// <summary>
+    /// Toggles the info link overlay button visibility and reloads the game list.
+    /// </summary>
+    /// <param name="isChecked">True to show the button; false to hide it.</param>
     public async Task HandleToggleInfoLinkButtonAsync(bool isChecked)
     {
         _host.CancelAndRecreateToken();
@@ -1338,6 +1490,10 @@ IConfiguration configuration,
 
     // ---- Language ----
 
+    /// <summary>
+    /// Delegates the language change to the host's language menu service.
+    /// </summary>
+    /// <param name="languageCode">The two-letter language code to apply.</param>
     public void HandleChangeLanguage(string languageCode)
     {
         _host.ChangeLanguageAsync(languageCode);
@@ -1345,6 +1501,10 @@ IConfiguration configuration,
 
     // ---- Top Letter/Number Menu ----
 
+    /// <summary>
+    /// Filters the game list by the selected letter or number and reloads the display.
+    /// </summary>
+    /// <param name="selectedLetter">The letter or number to filter by.</param>
     public async Task HandleTopLetterNumberMenuClickAsync(string selectedLetter)
     {
         try
@@ -1374,6 +1534,9 @@ IConfiguration configuration,
 
     // ---- Sort Order Toggle ----
 
+    /// <summary>
+    /// Toggles the MAME sort order between filename and machine description, then reloads the game list.
+    /// </summary>
     public async Task HandleSortOrderToggleAsync()
     {
         try

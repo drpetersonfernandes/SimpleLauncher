@@ -7,7 +7,7 @@ namespace Updater.Services;
 /// <summary>
 /// Service for downloading files with progress reporting.
 /// </summary>
-public class DownloadService
+internal class DownloadService
 {
     private const int FileBufferSize = 81920; // 80KB buffer for efficient file I/O
 
@@ -57,6 +57,7 @@ public class DownloadService
         }
         catch (Exception ex)
         {
+            Log.Error(ex, "HTTP request failed for URL: {Url}", url);
             await BugReportService.ReportBugAsync(ex, $"HTTP request failed for URL: {url}");
             throw;
         }
@@ -112,6 +113,7 @@ public class DownloadService
                     }
                     catch (Exception ex)
                     {
+                        Log.Error(ex, "Error reading from download stream or writing to memory stream");
                         await BugReportService.ReportBugAsync(ex, "Error reading from download stream or writing to memory stream");
                         throw;
                     }
@@ -128,6 +130,7 @@ public class DownloadService
                 // Don't report here if it was already reported in the inner catch
                 if (ex is not HttpRequestException and not IOException)
                 {
+                    Log.Error(ex, "Error downloading update file");
                     await BugReportService.ReportBugAsync(ex, "Error downloading update file (outer catch)");
                 }
 

@@ -28,6 +28,10 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
     [ObservableProperty] private bool _rpcs3AudioBuffering;
     [ObservableProperty] private bool _rpcs3StartFullscreen;
     [ObservableProperty] private bool _rpcs3ShowSettingsBeforeLaunch;
+    /// <summary>Initializes a new instance of the <see cref="InjectRpcs3ConfigViewModel"/>.</summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="logger">The logger instance.</param>
     public InjectRpcs3ConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;

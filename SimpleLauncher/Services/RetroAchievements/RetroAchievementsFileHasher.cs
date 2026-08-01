@@ -13,6 +13,10 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
 {
     private readonly ILogger _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RetroAchievementsFileHasher"/> class.
+    /// </summary>
+    /// <param name="logErrors">The logger instance for error logging.</param>
     public RetroAchievementsFileHasher(ILogger logErrors)
     {
         _logger = logErrors;
@@ -51,6 +55,11 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
     /// <summary>
     /// Calculates the hash for Arcade games by hashing the filename without its extension.
     /// </summary>
+    /// <summary>
+    /// Calculates the hash for Arcade games by hashing the filename without its extension.
+    /// </summary>
+    /// <param name="filePath">The full path to the game file.</param>
+    /// <returns>The MD5 hash of the filename as a lowercase hex string, or null if an error occurs.</returns>
     public string? CalculateFilenameHash(string filePath)
     {
         try
@@ -217,9 +226,9 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
 
                 case ".v64": // Byte-swapped
                 case ".n64": // Little-endian
-                    {
-                        return await CalculateByteSwappedMd5Async(filePath);
-                    }
+                {
+                    return await CalculateByteSwappedMd5Async(filePath);
+                }
 
                 default:
                     // Fallback for unknown extensions like .rom, treat as standard.

@@ -586,6 +586,9 @@ public class EmulatorSettingsTests
         }
     }
 
+    /// <summary>
+    /// Verifies that Pcsx2Settings can be serialized to XElement and deserialized back with all properties preserved.
+    /// </summary>
     [Fact]
     public void Pcsx2SettingsFullRoundTrip()
     {
@@ -599,6 +602,9 @@ public class EmulatorSettingsTests
         Assert.Equal(original.UpscaleMultiplier, loaded.UpscaleMultiplier);
     }
 
+    /// <summary>
+    /// Verifies that DolphinSettings can be serialized to XElement and deserialized back with all properties preserved.
+    /// </summary>
     [Fact]
     public void DolphinSettingsFullRoundTrip()
     {
@@ -611,6 +617,9 @@ public class EmulatorSettingsTests
         Assert.Equal(original.DspThread, loaded.DspThread);
     }
 
+    /// <summary>
+    /// Verifies that LoadFromXml with missing elements preserves the default property values.
+    /// </summary>
     [Fact]
     public void LoadFromXmlWithMissingElementsKeepsDefaults()
     {
@@ -622,6 +631,9 @@ public class EmulatorSettingsTests
         Assert.Equal(originalDriver, ares.VideoDriver);
     }
 
+    /// <summary>
+    /// Verifies that CopyFrom preserves all properties from a source DuckStationSettings instance.
+    /// </summary>
     [Fact]
     public void CopyFromPreservesAllProperties()
     {

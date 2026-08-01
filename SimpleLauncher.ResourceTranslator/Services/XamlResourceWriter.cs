@@ -3,8 +3,17 @@ using System.Text.RegularExpressions;
 
 namespace SimpleLauncher.ResourceTranslator.Services;
 
+/// <summary>
+/// Provides functionality to update XAML resource files with translations.
+/// </summary>
 public static class XamlResourceWriter
 {
+    /// <summary>
+    /// Updates a XAML resource file with new translations and removes duplicate keys.
+    /// </summary>
+    /// <param name="filePath">The path to the XAML resource file.</param>
+    /// <param name="newTranslations">Dictionary of key-value pairs to add or update.</param>
+    /// <param name="duplicatesToRemove">List of duplicate keys to remove.</param>
     public static void UpdateResourceFile(
         string filePath,
         IDictionary<string, string> newTranslations,

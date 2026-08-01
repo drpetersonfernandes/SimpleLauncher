@@ -2,8 +2,18 @@ using System.Text;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Injects user settings into the Dolphin emulator's Dolphin.ini configuration file.
+/// </summary>
 public static class DolphinConfigurationService
 {
+    /// <summary>
+    /// Determines the active Dolphin configuration paths (portable or global) and
+    /// injects the saved settings into each of them.
+    /// </summary>
+    /// <param name="emulatorPath">Path to the Dolphin executable.</param>
+    /// <param name="settings">The settings manager containing Dolphin configuration.</param>
+    /// <param name="logger">The logger instance.</param>
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);

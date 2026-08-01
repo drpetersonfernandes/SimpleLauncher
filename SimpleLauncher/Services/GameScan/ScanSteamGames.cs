@@ -7,17 +7,35 @@ using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 
+/// <summary>
+/// Scans for installed Steam games by reading the Steam installation registry entry,
+/// library folders VDF, and app manifests, and creates shortcuts for them.
+/// </summary>
 internal class ScanSteamGames : IGamePlatformScanner
 {
     private readonly ILogger _logger;
     private readonly ISteamVdfParser _vdfParser;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ScanSteamGames"/> class.
+    /// </summary>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="vdfParser">The VDF parser used to read Steam configuration files.</param>
     public ScanSteamGames(ILogger logger, ISteamVdfParser vdfParser)
     {
         _logger = logger;
         _vdfParser = vdfParser;
     }
 
+    /// <summary>
+    /// Locates all Steam library folders, scans their app manifests and source mods,
+    /// and creates shortcuts for the installed games.
+    /// </summary>
+    /// <param name="gameScannerService">The scanner service providing shared helpers.</param>
+    /// <param name="logErrors">The error logger.</param>
+    /// <param name="windowsRomsPath">The directory where game shortcuts are created.</param>
+    /// <param name="windowsImagesPath">The directory where game images are stored.</param>
+    /// <param name="ignoredGameNames">The set of game names to skip.</param>
     public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         var libraryPaths = new List<string>();
@@ -77,24 +95,24 @@ internal class ScanSteamGames : IGamePlatformScanner
                                 case Dictionary<string, object> libData when
                                     libData.TryGetValue("path", out var pathObj) &&
                                     pathObj is string pathStr:
+                                {
+                                    if (!string.Equals(pathStr, steamPath, StringComparison.OrdinalIgnoreCase))
                                     {
-                                        if (!string.Equals(pathStr, steamPath, StringComparison.OrdinalIgnoreCase))
-                                        {
-                                            libraryPaths.Add(Path.Combine(pathStr, "steamapps"));
-                                        }
-
-                                        break;
+                                        libraryPaths.Add(Path.Combine(pathStr, "steamapps"));
                                     }
+
+                                    break;
+                                }
                                 // Legacy format: "1" "C:\\Games"
                                 case string legacyPath:
+                                {
+                                    if (!string.Equals(legacyPath, steamPath, StringComparison.OrdinalIgnoreCase))
                                     {
-                                        if (!string.Equals(legacyPath, steamPath, StringComparison.OrdinalIgnoreCase))
-                                        {
-                                            libraryPaths.Add(Path.Combine(legacyPath, "steamapps"));
-                                        }
-
-                                        break;
+                                        libraryPaths.Add(Path.Combine(legacyPath, "steamapps"));
                                     }
+
+                                    break;
+                                }
                             }
                         }
                     }

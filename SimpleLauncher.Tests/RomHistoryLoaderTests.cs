@@ -12,12 +12,19 @@ public class RomHistoryLoaderTests : IDisposable
 {
     private readonly string _tempDir;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RomHistoryLoaderTests"/> class,
+    /// creating a temporary test directory.
+    /// </summary>
     public RomHistoryLoaderTests()
     {
         _tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         Directory.CreateDirectory(_tempDir);
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory.
+    /// </summary>
     public void Dispose()
     {
         if (Directory.Exists(_tempDir))

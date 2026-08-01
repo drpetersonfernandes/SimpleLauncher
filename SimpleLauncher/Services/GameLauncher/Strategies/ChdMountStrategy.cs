@@ -37,6 +37,13 @@ public class ChdMountStrategy : ILaunchStrategy
     private bool _isYabause;
     private bool _isKegaFusion;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ChdMountStrategy"/> class with the specified dependencies.
+    /// </summary>
+    /// <param name="configuration">The application configuration.</param>
+    /// <param name="messageBox">The message box service for user notifications.</param>
+    /// <param name="mountChdFiles">The CHD mounting service.</param>
+    /// <param name="logger">The logger instance.</param>
     public ChdMountStrategy(IConfiguration configuration, IMessageBoxLibraryService messageBox, IMountChdFiles mountChdFiles, ILogger logger)
     {
         _configuration = configuration;
@@ -45,8 +52,10 @@ public class ChdMountStrategy : ILaunchStrategy
         _logger = logger;
     }
 
+    /// <inheritdoc />
     public int Priority => 10;
 
+    /// <inheritdoc />
     public bool IsMatch(LaunchContext context)
     {
         if (string.IsNullOrEmpty(context.ResolvedFilePath) ||
@@ -174,6 +183,7 @@ public class ChdMountStrategy : ILaunchStrategy
                      (context.EmulatorManager?.EmulatorLocation?.Contains("yabause.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
+    /// <inheritdoc />
     public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
         string? gameFilePath;

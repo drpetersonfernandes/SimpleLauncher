@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Globalization;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.CheckForUpdates;
 
 namespace SimpleLauncher.Services.QuitOrReinstall;
 
@@ -84,14 +83,14 @@ public class QuitSimpleLauncher
         var downloaded = false;
         try
         {
-            var updateChecker = _serviceProvider.GetRequiredService<UpdateChecker>();
+            var updateChecker = _serviceProvider.GetRequiredService<CheckForUpdatesService>();
             var (updaterZipUrl, _) = await updateChecker.GetLatestUpdaterInfoAsync();
 
             if (!string.IsNullOrEmpty(updaterZipUrl))
             {
                 using var memoryStream = new MemoryStream();
                 await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
-                UpdateChecker.ExtractAllFromZip(memoryStream, appDirectory, null, _logger);
+                CheckForUpdatesService.ExtractAllFromZip(memoryStream, appDirectory, null, _logger);
                 if (File.Exists(updaterPath))
                 {
                     downloaded = true;

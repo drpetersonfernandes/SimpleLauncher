@@ -8,6 +8,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class SearchValidationResultExtendedTests
 {
+    /// <summary>
+    /// Verifies that Success handles a very long query string correctly.
+    /// </summary>
     [Fact]
     public void SuccessWithLongQuery()
     {
@@ -17,6 +20,9 @@ public class SearchValidationResultExtendedTests
         Assert.Equal(longQuery, result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that Success handles queries containing newline characters.
+    /// </summary>
     [Fact]
     public void SuccessWithNewlines()
     {
@@ -25,6 +31,9 @@ public class SearchValidationResultExtendedTests
         Assert.Equal("line1\nline2\r\nline3", result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that Success handles queries containing tab characters.
+    /// </summary>
     [Fact]
     public void SuccessWithTabs()
     {
@@ -33,6 +42,9 @@ public class SearchValidationResultExtendedTests
         Assert.Equal("game\tname", result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that Success handles queries with mixed whitespace characters.
+    /// </summary>
     [Fact]
     public void SuccessWithMixedWhitespace()
     {
@@ -41,6 +53,9 @@ public class SearchValidationResultExtendedTests
         Assert.Equal(" \t\n ", result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that Success handles queries containing emoji characters.
+    /// </summary>
     [Fact]
     public void SuccessWithEmoji()
     {
@@ -49,6 +64,9 @@ public class SearchValidationResultExtendedTests
         Assert.Equal("🎮 Mario", result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that Success handles queries containing accented characters.
+    /// </summary>
     [Fact]
     public void SuccessWithAccentedCharacters()
     {
@@ -57,6 +75,9 @@ public class SearchValidationResultExtendedTests
         Assert.Equal("Pokémon", result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that Success handles queries containing Chinese characters.
+    /// </summary>
     [Fact]
     public void SuccessWithChineseCharacters()
     {
@@ -65,6 +86,9 @@ public class SearchValidationResultExtendedTests
         Assert.Equal("超级马里奥", result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that Success handles queries containing Arabic characters.
+    /// </summary>
     [Fact]
     public void SuccessWithArabicCharacters()
     {
@@ -73,6 +97,9 @@ public class SearchValidationResultExtendedTests
         Assert.Equal("ماريو", result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that multiple Failure calls return independent result instances.
+    /// </summary>
     [Fact]
     public void FailureMultipleCallsReturnIndependentResults()
     {
@@ -82,6 +109,9 @@ public class SearchValidationResultExtendedTests
         Assert.False(r2.IsValid);
     }
 
+    /// <summary>
+    /// Verifies that Success and Failure results are independent of each other.
+    /// </summary>
     [Fact]
     public void SuccessAndFailureAreIndependent()
     {
@@ -94,6 +124,9 @@ public class SearchValidationResultExtendedTests
         Assert.Null(failure.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that Success with null query still produces a valid result.
+    /// </summary>
     [Fact]
     public void SuccessWithNullQueryStillValid()
     {
@@ -102,6 +135,9 @@ public class SearchValidationResultExtendedTests
         Assert.Null(result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that ValidatedQuery is set correctly and can be read back.
+    /// </summary>
     [Fact]
     public void ValidatedQueryIsInitOnly()
     {
@@ -110,6 +146,9 @@ public class SearchValidationResultExtendedTests
         Assert.Equal("test", result.ValidatedQuery);
     }
 
+    /// <summary>
+    /// Verifies that IsValid is set correctly on a Success result.
+    /// </summary>
     [Fact]
     public void IsValidIsInitOnly()
     {

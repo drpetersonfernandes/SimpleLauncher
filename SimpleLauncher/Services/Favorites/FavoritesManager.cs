@@ -2,7 +2,6 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using MessagePack;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.AppDataFile;
 
 namespace SimpleLauncher.Services.Favorites;
 
@@ -20,12 +19,14 @@ public class FavoritesManager
     /// <summary>
     /// Gets or sets the collection of favorite game entries.
     /// </summary>
-    [Key(0)] public ObservableCollection<Favorite> FavoriteList { get; set; } = [];
+    [Key(0)]
+    public ObservableCollection<Favorite> FavoriteList { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the data format version for forward-compatible deserialization.
     /// </summary>
-    [Key(1)] public int Version { get; set; } = 1;
+    [Key(1)]
+    public int Version { get; set; } = 1;
 
     private static string DatFilePath => FileLocation.FilePath;
     private static string TempDatFilePath => FileLocation.TempFilePath;

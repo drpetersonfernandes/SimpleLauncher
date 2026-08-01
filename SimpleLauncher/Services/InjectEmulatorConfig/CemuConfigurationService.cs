@@ -3,8 +3,18 @@ using System.Xml.Linq;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Injects user settings into the Cemu emulator's settings.xml configuration file.
+/// </summary>
 public static class CemuConfigurationService
 {
+    /// <summary>
+    /// Applies the saved Cemu settings to the emulator's settings.xml file,
+    /// creating the file from a bundled sample when it does not exist.
+    /// </summary>
+    /// <param name="emulatorPath">Path to the Cemu executable.</param>
+    /// <param name="settings">The settings manager containing Cemu configuration.</param>
+    /// <param name="logger">The logger instance.</param>
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);

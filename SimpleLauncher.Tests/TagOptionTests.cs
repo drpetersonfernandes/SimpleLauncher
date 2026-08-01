@@ -8,6 +8,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class TagOptionTests
 {
+    /// <summary>
+    /// Verifies that a TagOption can be created with Tag and Display properties.
+    /// </summary>
     [Fact]
     public void TagOptionCanBeCreatedWithProperties()
     {
@@ -17,6 +20,9 @@ public class TagOptionTests
         Assert.Equal("Nintendo NES", option.Display);
     }
 
+    /// <summary>
+    /// Verifies that two TagOption records with the same values are equal.
+    /// </summary>
     [Fact]
     public void TagOptionRecordEquality()
     {
@@ -26,6 +32,9 @@ public class TagOptionTests
         Assert.Equal(option1, option2);
     }
 
+    /// <summary>
+    /// Verifies that two TagOption records with different Tag values are not equal.
+    /// </summary>
     [Fact]
     public void TagOptionRecordInequalityDifferentTag()
     {
@@ -35,6 +44,9 @@ public class TagOptionTests
         Assert.NotEqual(option1, option2);
     }
 
+    /// <summary>
+    /// Verifies that two TagOption records with different Display values are not equal.
+    /// </summary>
     [Fact]
     public void TagOptionRecordInequalityDifferentDisplay()
     {
@@ -44,6 +56,9 @@ public class TagOptionTests
         Assert.NotEqual(option1, option2);
     }
 
+    /// <summary>
+    /// Verifies that TagOption supports empty string values.
+    /// </summary>
     [Fact]
     public void TagOptionSupportsEmptyStrings()
     {
@@ -53,6 +68,9 @@ public class TagOptionTests
         Assert.Equal("", option.Display);
     }
 
+    /// <summary>
+    /// Verifies that TagOption supports Unicode characters in both Tag and Display.
+    /// </summary>
     [Fact]
     public void TagOptionSupportsUnicode()
     {
@@ -62,6 +80,9 @@ public class TagOptionTests
         Assert.Equal("ポケットモンスター", option.Display);
     }
 
+    /// <summary>
+    /// Verifies that TagOption supports special characters in Tag and Display.
+    /// </summary>
     [Fact]
     public void TagOptionSupportsSpecialCharacters()
     {
@@ -71,6 +92,9 @@ public class TagOptionTests
         Assert.Equal("Game (v1.0) [!]", option.Display);
     }
 
+    /// <summary>
+    /// Verifies that two TagOption records with the same values produce the same hash code.
+    /// </summary>
     [Fact]
     public void TagOptionWithMatchingValuesHaveSameHashCode()
     {
@@ -80,6 +104,9 @@ public class TagOptionTests
         Assert.Equal(option1.GetHashCode(), option2.GetHashCode());
     }
 
+    /// <summary>
+    /// Verifies that TagOption instances can be stored in a list and queried.
+    /// </summary>
     [Fact]
     public void TagOptionCanBeUsedInList()
     {
@@ -96,6 +123,9 @@ public class TagOptionTests
         Assert.Contains(options, o => string.Equals(o.Tag, "genesis", StringComparison.Ordinal));
     }
 
+    /// <summary>
+    /// Verifies that TagOption can be used as a dictionary key.
+    /// </summary>
     [Fact]
     public void TagOptionCanBeUsedAsDictionaryKey()
     {
@@ -109,6 +139,9 @@ public class TagOptionTests
         Assert.Equal(2, dict[new TagOption("snes", "Super Nintendo")]);
     }
 
+    /// <summary>
+    /// Verifies that TagOption supports deconstruction into its Tag and Display components.
+    /// </summary>
     [Fact]
     public void TagOptionCanBeDeconstructed()
     {

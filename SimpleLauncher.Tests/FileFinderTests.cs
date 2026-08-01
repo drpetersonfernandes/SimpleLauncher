@@ -13,12 +13,18 @@ public class FileFinderTests : IDisposable
 {
     private readonly string _tempDir;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FileFinderTests"/> class, creating a temporary test directory.
+    /// </summary>
     public FileFinderTests()
     {
         _tempDir = Path.Combine(Path.GetTempPath(), $"SimpleLauncherTests_{Guid.NewGuid():N}");
         Directory.CreateDirectory(_tempDir);
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory.
+    /// </summary>
     public void Dispose()
     {
         if (Directory.Exists(_tempDir))
@@ -43,6 +49,9 @@ public class FileFinderTests : IDisposable
 
     // --- FindBinFile Tests ---
 
+    /// <summary>
+    /// Verifies that FindBinFile returns null when the path is null.
+    /// </summary>
     [Fact]
     public void FindBinFileNullPathReturnsNull()
     {
@@ -50,6 +59,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindBinFile returns null when the path is empty.
+    /// </summary>
     [Fact]
     public void FindBinFileEmptyPathReturnsNull()
     {
@@ -57,6 +69,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindBinFile returns null when the directory does not exist.
+    /// </summary>
     [Fact]
     public void FindBinFileNonExistentDirectoryReturnsNull()
     {
@@ -64,6 +79,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindBinFile returns null when no .bin files exist in the directory.
+    /// </summary>
     [Fact]
     public void FindBinFileNoBinFilesReturnsNull()
     {
@@ -72,6 +90,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindBinFile returns the correct file path when a .bin file exists.
+    /// </summary>
     [Fact]
     public void FindBinFileFindsBinFile()
     {
@@ -81,6 +102,9 @@ public class FileFinderTests : IDisposable
         Assert.Equal(binPath, result);
     }
 
+    /// <summary>
+    /// Verifies that FindBinFile returns the first .bin file found when multiple exist.
+    /// </summary>
     [Fact]
     public void FindBinFileReturnsFirstBinFile()
     {
@@ -95,6 +119,9 @@ public class FileFinderTests : IDisposable
 
     // --- FindCueFile Tests ---
 
+    /// <summary>
+    /// Verifies that FindCueFile returns null when the path is null.
+    /// </summary>
     [Fact]
     public void FindCueFileNullPathReturnsNull()
     {
@@ -102,6 +129,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindCueFile returns null when the path is empty.
+    /// </summary>
     [Fact]
     public void FindCueFileEmptyPathReturnsNull()
     {
@@ -109,6 +139,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindCueFile returns null when the directory does not exist.
+    /// </summary>
     [Fact]
     public void FindCueFileNonExistentDirectoryReturnsNull()
     {
@@ -116,6 +149,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindCueFile returns null when no .cue files exist in the directory.
+    /// </summary>
     [Fact]
     public void FindCueFileNoCueFilesReturnsNull()
     {
@@ -124,6 +160,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindCueFile returns the correct file path when a .cue file exists.
+    /// </summary>
     [Fact]
     public void FindCueFileFindsCueFile()
     {
@@ -133,6 +172,9 @@ public class FileFinderTests : IDisposable
         Assert.Equal(cuePath, result);
     }
 
+    /// <summary>
+    /// Verifies that FindCueFile returns the first .cue file found when multiple exist.
+    /// </summary>
     [Fact]
     public void FindCueFileReturnsFirstCueFile()
     {
@@ -147,6 +189,9 @@ public class FileFinderTests : IDisposable
 
     // --- FindDefaultXbe Tests ---
 
+    /// <summary>
+    /// Verifies that FindDefaultXbe returns null when the path is null.
+    /// </summary>
     [Fact]
     public void FindDefaultXbeNullPathReturnsNull()
     {
@@ -154,6 +199,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindDefaultXbe returns null when the path is empty.
+    /// </summary>
     [Fact]
     public void FindDefaultXbeEmptyPathReturnsNull()
     {
@@ -161,6 +209,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindDefaultXbe returns null when the directory does not exist.
+    /// </summary>
     [Fact]
     public void FindDefaultXbeNonExistentDirectoryReturnsNull()
     {
@@ -168,6 +219,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindDefaultXbe returns null when no default.xbe file exists.
+    /// </summary>
     [Fact]
     public void FindDefaultXbeNoXbeFileReturnsNull()
     {
@@ -176,6 +230,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindDefaultXbe returns the correct file path when default.xbe exists.
+    /// </summary>
     [Fact]
     public void FindDefaultXbeFindsXbeFile()
     {
@@ -187,6 +244,9 @@ public class FileFinderTests : IDisposable
 
     // --- FindDefaultXex Tests ---
 
+    /// <summary>
+    /// Verifies that FindDefaultXex returns null when the path is null.
+    /// </summary>
     [Fact]
     public void FindDefaultXexNullPathReturnsNull()
     {
@@ -194,6 +254,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindDefaultXex returns null when the path is empty.
+    /// </summary>
     [Fact]
     public void FindDefaultXexEmptyPathReturnsNull()
     {
@@ -201,6 +264,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindDefaultXex returns null when the directory does not exist.
+    /// </summary>
     [Fact]
     public void FindDefaultXexNonExistentDirectoryReturnsNull()
     {
@@ -208,6 +274,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindDefaultXex returns null when no default.xex file exists.
+    /// </summary>
     [Fact]
     public void FindDefaultXexNoXexFileReturnsNull()
     {
@@ -216,6 +285,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindDefaultXex returns the correct file path when default.xex exists.
+    /// </summary>
     [Fact]
     public void FindDefaultXexFindsXexFile()
     {
@@ -227,6 +299,9 @@ public class FileFinderTests : IDisposable
 
     // --- FindImageIso Tests ---
 
+    /// <summary>
+    /// Verifies that FindImageIso returns null when the path is null.
+    /// </summary>
     [Fact]
     public void FindImageIsoNullPathReturnsNull()
     {
@@ -234,6 +309,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindImageIso returns null when the path is empty.
+    /// </summary>
     [Fact]
     public void FindImageIsoEmptyPathReturnsNull()
     {
@@ -241,6 +319,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindImageIso returns null when the directory does not exist.
+    /// </summary>
     [Fact]
     public void FindImageIsoNonExistentDirectoryReturnsNull()
     {
@@ -248,6 +329,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindImageIso returns null when no .iso or .img file exists.
+    /// </summary>
     [Fact]
     public void FindImageIsoNoImageFileReturnsNull()
     {
@@ -256,6 +340,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindImageIso returns the correct file path when a .iso file exists.
+    /// </summary>
     [Fact]
     public void FindImageIsoFindsImageIsoFile()
     {
@@ -267,6 +354,9 @@ public class FileFinderTests : IDisposable
 
     // --- FindEbootBin Tests ---
 
+    /// <summary>
+    /// Verifies that FindEbootBin returns null when the path is null.
+    /// </summary>
     [Fact]
     public void FindEbootBinNullPathReturnsNull()
     {
@@ -275,6 +365,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindEbootBin returns null when the path is empty.
+    /// </summary>
     [Fact]
     public void FindEbootBinEmptyPathReturnsNull()
     {
@@ -283,6 +376,9 @@ public class FileFinderTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindEbootBin finds EBOOT.BIN in the top-level directory.
+    /// </summary>
     [Fact]
     public void FindEbootBinInTopDirectory()
     {
@@ -293,6 +389,9 @@ public class FileFinderTests : IDisposable
         Assert.Equal(ebootPath, result);
     }
 
+    /// <summary>
+    /// Verifies that FindEbootBin finds EBOOT.BIN in the PS3_GAME/USRDIR directory structure.
+    /// </summary>
     [Fact]
     public void FindEbootBinInPs3GameUsrDir()
     {
@@ -306,6 +405,9 @@ public class FileFinderTests : IDisposable
         Assert.Equal(ebootPath, result);
     }
 
+    /// <summary>
+    /// Verifies that FindEbootBin prefers the top-level directory over PS3_GAME/USRDIR.
+    /// </summary>
     [Fact]
     public void FindEbootBinPrefersTopDirectoryOverPs3Game()
     {
@@ -322,6 +424,9 @@ public class FileFinderTests : IDisposable
         Assert.Equal(topEboot, result);
     }
 
+    /// <summary>
+    /// Verifies that FindEbootBin performs recursive search in nested directories.
+    /// </summary>
     [Fact]
     public void FindEbootBinRecursiveSearch()
     {
@@ -334,6 +439,9 @@ public class FileFinderTests : IDisposable
         Assert.Equal(ebootPath, result);
     }
 
+    /// <summary>
+    /// Verifies that FindEbootBin returns null when no EBOOT.BIN file exists.
+    /// </summary>
     [Fact]
     public void FindEbootBinNotFoundReturnsNull()
     {

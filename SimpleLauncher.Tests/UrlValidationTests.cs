@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -317,6 +318,7 @@ public partial class UrlValidationTests
         return null;
     }
 
-    [GeneratedRegex(@"\((https?://[^)\s]+)\)", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, "pt-BR")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the URL")]
+    [GeneratedRegex(@"\((https?://[^)\s]+)\)", RegexOptions.IgnoreCase, "pt-BR")]
     private static partial Regex MyRegex();
 }

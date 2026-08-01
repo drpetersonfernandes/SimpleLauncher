@@ -3,8 +3,22 @@ using System.Text;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Provides functionality to inject Simple Launcher settings into the Raine emulator configuration file (raine32_sdl.cfg).
+/// </summary>
 public static class RaineConfigurationService
 {
+    /// <summary>
+    /// Injects Simple Launcher configuration settings into the Raine emulator's raine32_sdl.cfg file.
+    /// Creates the config from a sample if it does not exist, then updates display, sound, general, and directory settings.
+    /// Also handles Neo Geo CD specific settings when a disc image is detected.
+    /// </summary>
+    /// <param name="emulatorPath">The full path to the Raine emulator executable.</param>
+    /// <param name="settings">The settings manager containing Raine configuration values.</param>
+    /// <param name="logger">The logger instance for diagnostic output.</param>
+    /// <param name="gameFilePath">The optional path to the game file being launched, used to detect Neo Geo CD mode and determine the ROM directory.</param>
+    /// <param name="systemRomPath">The optional system-level ROM directory path as a fallback for the ROM directory setting.</param>
+    /// <param name="raineCustomRomDirectory">The optional custom ROM directory configured specifically for Raine.</param>
     public static void InjectSettings(
         string emulatorPath,
         SettingsManager.SettingsManagerService settings,

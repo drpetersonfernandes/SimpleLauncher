@@ -1,15 +1,34 @@
 using Microsoft.Extensions.Configuration;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
-namespace SimpleLauncher.Services.AppDataFile;
+namespace SimpleLauncher.Services;
 
+/// <summary>
+/// Resolves the storage location of an application data file, choosing between a portable path next to the executable and the local app data folder.
+/// </summary>
 public sealed class DataFileLocation
 {
     private readonly string _fileName;
+
+    /// <summary>
+    /// Gets the resolved full path of the data file.
+    /// </summary>
     public string FilePath { get; private set; } = null!;
+
+    /// <summary>
+    /// Gets the temporary file path used while writing the data file.
+    /// </summary>
     public string TempFilePath => FilePath + ".tmp";
+
+    /// <summary>
+    /// Gets a value indicating whether the data file is stored in portable mode next to the executable.
+    /// </summary>
     public bool IsPortableMode { get; private set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DataFileLocation"/> class using the given file name.
+    /// </summary>
+    /// <param name="fileName">The name of the data file.</param>
     public DataFileLocation(string fileName)
     {
         _fileName = fileName;
@@ -17,6 +36,12 @@ public sealed class DataFileLocation
         Initialize(portablePath);
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DataFileLocation"/> class using the configured data file path.
+    /// </summary>
+    /// <param name="configuration">The application configuration containing the data file path setting.</param>
+    /// <param name="configKey">The configuration key that holds the data file path.</param>
+    /// <param name="defaultFileName">The default file name used when no path is configured.</param>
     public DataFileLocation(IConfiguration configuration, string configKey, string defaultFileName)
     {
         _fileName = defaultFileName;
@@ -79,6 +104,10 @@ public sealed class DataFileLocation
         }
     }
 
+    /// <summary>
+    /// Gets the path of the data file inside the local app data folder for SimpleLauncher.
+    /// </summary>
+    /// <returns>The full path of the data file in the local app data folder.</returns>
     public string GetLocalAppDataPath()
     {
         var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
@@ -86,6 +115,10 @@ public sealed class DataFileLocation
         return Path.Combine(appDataFolder, _fileName);
     }
 
+    /// <summary>
+    /// Switches the data file location to the local app data folder, falling back when the current location is not usable.
+    /// </summary>
+    /// <returns>True if the fallback to local app data succeeded, false otherwise.</returns>
     public bool TryFallbackToLocalAppData()
     {
         try

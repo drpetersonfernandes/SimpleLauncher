@@ -8,18 +8,36 @@ using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 
+/// <summary>
+/// Scans for installed Microsoft Store games using PowerShell, classifies them via an API,
+/// and creates launch shortcuts and cover images for confirmed games.
+/// </summary>
 internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
 {
     private readonly ILogger _logger;
     private readonly IHttpClientFactory _httpClientFactory;
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ScanMicrosoftStoreGames"/> class.
+    /// </summary>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="httpClientFactory">The HTTP client factory for classification API requests.</param>
     public ScanMicrosoftStoreGames(ILogger logger, IHttpClientFactory httpClientFactory)
     {
         _logger = logger;
         _httpClientFactory = httpClientFactory;
     }
 
+    /// <summary>
+    /// Enumerates installed Microsoft Store apps via PowerShell, classifies them as games through the API,
+    /// and creates shortcuts and images for the confirmed games.
+    /// </summary>
+    /// <param name="gameScannerService">The scanner service providing shared helpers.</param>
+    /// <param name="logErrors">The error logger.</param>
+    /// <param name="windowsRomsPath">The directory where game shortcuts are created.</param>
+    /// <param name="windowsImagesPath">The directory where game images are stored.</param>
+    /// <param name="ignoredGameNames">The set of game names to skip.</param>
     public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try

@@ -3,16 +3,49 @@ using System.Runtime.CompilerServices;
 
 namespace SimpleLauncher.Models;
 
+/// <summary>
+/// Represents a search result from a global game search, including file details, system info, and relevance score.
+/// </summary>
 public class SearchResult : INotifyPropertyChanged
 {
+    /// <summary>
+    /// The file name of the game without its extension.
+    /// </summary>
     public string FileName { get; init; } = null!;
+
+    /// <summary>
+    /// The file name of the game including its extension.
+    /// </summary>
     public string FileNameWithExtension { get; init; } = null!;
+
+    /// <summary>
+    /// The MAME machine name associated with this game, if applicable.
+    /// </summary>
     public string MachineName { get; init; } = null!;
+
+    /// <summary>
+    /// The folder name where the game file is located.
+    /// </summary>
     public string FolderName { get; init; } = null!;
+
+    /// <summary>
+    /// The full file path to the game file.
+    /// </summary>
     public string FilePath { get; init; } = null!;
+
+    /// <summary>
+    /// The name of the system this game belongs to.
+    /// </summary>
     public string SystemName { get; init; } = null!;
+
+    /// <summary>
+    /// The emulator configuration used to launch this game.
+    /// </summary>
     public Emulator EmulatorManager { get; init; } = null!;
 
+    /// <summary>
+    /// The relevance score of this search result used for ranking.
+    /// </summary>
     public int Score
     {
         get;
@@ -25,8 +58,14 @@ public class SearchResult : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// The URL or path to the cover image for this game.
+    /// </summary>
     public string CoverImage { get; init; } = null!;
 
+    /// <summary>
+    /// Gets the display name of the default emulator, or a localized fallback message if none is configured.
+    /// </summary>
     public string DefaultEmulator
     {
         get
@@ -42,6 +81,9 @@ public class SearchResult : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Occurs when a property value changes.
+    /// </summary>
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)

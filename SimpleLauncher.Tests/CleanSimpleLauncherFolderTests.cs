@@ -8,6 +8,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class CleanSimpleLauncherFolderTests
 {
+    /// <summary>
+    /// Verifies that CleanupTrash does not throw.
+    /// </summary>
     [Fact]
     public void CleanupTrashDoesNotThrow()
     {
@@ -15,6 +18,9 @@ public class CleanSimpleLauncherFolderTests
         Assert.Null(exception);
     }
 
+    /// <summary>
+    /// Verifies that CleanupTempFiles does not throw.
+    /// </summary>
     [Fact]
     public void CleanupTempFilesDoesNotThrow()
     {
@@ -22,6 +28,9 @@ public class CleanSimpleLauncherFolderTests
         Assert.Null(exception);
     }
 
+    /// <summary>
+    /// Verifies that calling CleanupTrash twice does not throw.
+    /// </summary>
     [Fact]
     public void CleanupTrashCalledTwiceDoesNotThrow()
     {
@@ -30,6 +39,9 @@ public class CleanSimpleLauncherFolderTests
         Assert.Null(exception);
     }
 
+    /// <summary>
+    /// Verifies that CleanupTempFiles removes the SimpleLauncher temp directory and its contents.
+    /// </summary>
     [Fact]
     public void CleanupTempFilesRemovesSimpleLauncherTempDirectory()
     {
@@ -45,6 +57,9 @@ public class CleanSimpleLauncherFolderTests
         Assert.False(Directory.Exists(tempDir));
     }
 
+    /// <summary>
+    /// Verifies that CleanupTempFiles removes the SimpleZipDrive temp directory.
+    /// </summary>
     [Fact]
     public void CleanupTempFilesRemovesSimpleZipDriveTempDirectory()
     {
@@ -58,6 +73,9 @@ public class CleanSimpleLauncherFolderTests
         Assert.False(Directory.Exists(tempDir));
     }
 
+    /// <summary>
+    /// Verifies that CleanupTempFiles removes the SimpleXisoDrive temp directory.
+    /// </summary>
     [Fact]
     public void CleanupTempFilesRemovesSimpleXisoDriveTempDirectory()
     {
@@ -71,6 +89,9 @@ public class CleanSimpleLauncherFolderTests
         Assert.False(Directory.Exists(tempDir));
     }
 
+    /// <summary>
+    /// Verifies that CleanupTempFiles does not throw when target directories do not exist.
+    /// </summary>
     [Fact]
     public void CleanupTempFilesDoesNotThrowWhenDirectoriesDoNotExist()
     {

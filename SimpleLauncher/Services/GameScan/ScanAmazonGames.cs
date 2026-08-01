@@ -4,15 +4,23 @@ using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 
+/// <summary>
+/// Scans for installed Amazon Games and creates shortcuts for them.
+/// </summary>
 public class ScanAmazonGames : IGamePlatformScanner
 {
     private readonly ILogger _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ScanAmazonGames"/> class.
+    /// </summary>
+    /// <param name="logger">The logger instance.</param>
     public ScanAmazonGames(ILogger logger)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    /// <inheritdoc />
     public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try

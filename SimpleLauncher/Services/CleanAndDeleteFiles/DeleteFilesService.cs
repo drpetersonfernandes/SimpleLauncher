@@ -160,7 +160,10 @@ public class DeleteFilesService : IDeleteFilesService
         }
     }
 
-    // Static helper for backward compatibility during migration
+    /// <summary>
+    /// Static helper for backward compatibility that attempts to delete a file with retry logic.
+    /// </summary>
+    /// <param name="filePath">The path of the file to delete.</param>
     internal static void TryDeleteFileStatic(string filePath)
     {
         if (string.IsNullOrEmpty(filePath)) return;
@@ -213,6 +216,10 @@ public class DeleteFilesService : IDeleteFilesService
         }
     }
 
+    /// <summary>
+    /// Attempts to delete the given directory recursively, ignoring failures.
+    /// </summary>
+    /// <param name="directoryPath">The path of the directory to delete.</param>
     public void TryDeleteDirectory(string directoryPath)
     {
         if (string.IsNullOrEmpty(directoryPath) || !Directory.Exists(directoryPath))

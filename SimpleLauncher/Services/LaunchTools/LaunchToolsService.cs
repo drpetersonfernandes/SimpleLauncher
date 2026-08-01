@@ -8,6 +8,9 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.LaunchTools;
 
+/// <summary>
+/// Provides methods to launch external tools such as batch file creators, converters, and ROM utilities.
+/// </summary>
 public class LaunchToolsService : ILaunchTools
 {
     private readonly ILogger _logger;
@@ -15,6 +18,13 @@ public class LaunchToolsService : ILaunchTools
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IResourceProvider _resourceProvider;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LaunchToolsService"/> class.
+    /// </summary>
+    /// <param name="logErrors">The logger instance for error logging.</param>
+    /// <param name="configuration">The application configuration for reading settings like log paths.</param>
+    /// <param name="messageBoxLibrary">The message box service for displaying user dialogs.</param>
+    /// <param name="resourceProvider">The resource provider for localized strings.</param>
     public LaunchToolsService(ILogger logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider)
     {
         _logger = logErrors;
@@ -82,7 +92,7 @@ public class LaunchToolsService : ILaunchTools
             // 216 = ERROR_EXE_MACHINE_TYPE_MISMATCH
             // "The specified executable is not a valid application for this OS platform."
             _logger.Error(ex, $"Tool executable architecture mismatch: {toolPath}.\n" +
-                                        $"NativeErrorCode: {ex.NativeErrorCode}, HResult: 0x{ex.HResult:X8}");
+                              $"NativeErrorCode: {ex.NativeErrorCode}, HResult: 0x{ex.HResult:X8}");
             await _messageBoxLibrary.SelectedToolNotFoundMessageBoxAsync();
         }
         catch (Exception ex)
@@ -147,6 +157,9 @@ public class LaunchToolsService : ILaunchTools
         return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", toolFolder, archPath);
     }
 
+    /// <summary>
+    /// Launches the external tool for creating batch files for Xbox 360 XBLA games.
+    /// </summary>
     public async Task CreateBatchFilesForXbox360XblaGamesAsync()
     {
         var toolPath = await GetToolExecutablePathAsync("CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames");
@@ -155,6 +168,9 @@ public class LaunchToolsService : ILaunchTools
         await LaunchExternalToolAsync(toolPath);
     }
 
+    /// <summary>
+    /// Launches the external tool for creating batch files for Windows games.
+    /// </summary>
     public async Task CreateBatchFilesForWindowsGamesAsync()
     {
         var toolPath = await GetToolExecutablePathAsync("CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames");
@@ -163,6 +179,11 @@ public class LaunchToolsService : ILaunchTools
         await LaunchExternalToolAsync(toolPath);
     }
 
+    /// <summary>
+    /// Launches the ROM cover finder tool with the specified image and ROM folders.
+    /// </summary>
+    /// <param name="selectedImageFolder">The optional path to the image folder to search for covers.</param>
+    /// <param name="selectedRomFolder">The optional path to the ROM folder to match covers against.</param>
     public async Task FindRomCoverLaunchAsync(string? selectedImageFolder, string? selectedRomFolder)
     {
         var toolPath = await GetToolExecutablePathAsync("FindRomCover", "FindRomCover", true);
@@ -182,6 +203,9 @@ public class LaunchToolsService : ILaunchTools
         await LaunchExternalToolAsync(toolPath, arguments, workingDirectory);
     }
 
+    /// <summary>
+    /// Launches the external tool for creating batch files for PS3 games.
+    /// </summary>
     public async Task CreateBatchFilesForPs3GamesAsync()
     {
         var toolPath = await GetToolExecutablePathAsync("CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games");
@@ -190,6 +214,9 @@ public class LaunchToolsService : ILaunchTools
         await LaunchExternalToolAsync(toolPath);
     }
 
+    /// <summary>
+    /// Launches the external tool for batch converting ISO files to XISO format.
+    /// </summary>
     public async Task BatchConvertIsoToXisoAsync()
     {
         var toolPath = await GetToolExecutablePathAsync("BatchConvertIsoToXiso", "BatchConvertIsoToXiso");
@@ -198,6 +225,10 @@ public class LaunchToolsService : ILaunchTools
         await LaunchExternalToolAsync(toolPath);
     }
 
+    /// <summary>
+    /// Launches the external tool for batch converting ROM files to CHD format.
+    /// </summary>
+    /// <param name="selectedRomFolder">The optional path to the folder containing ROMs to convert.</param>
     public async Task BatchConvertToChdAsync(string? selectedRomFolder)
     {
         var toolPath = await GetToolExecutablePathAsync("BatchConvertToCHD", "BatchConvertToCHD");
@@ -216,6 +247,9 @@ public class LaunchToolsService : ILaunchTools
         await LaunchExternalToolAsync(toolPath, arguments, workingDirectory);
     }
 
+    /// <summary>
+    /// Launches the external tool for batch converting files to compressed archive format.
+    /// </summary>
     public async Task BatchConvertToCompressedFileAsync()
     {
         var toolPath = await GetToolExecutablePathAsync("BatchConvertToCompressedFile", "BatchConvertToCompressedFile");
@@ -224,6 +258,9 @@ public class LaunchToolsService : ILaunchTools
         await LaunchExternalToolAsync(toolPath);
     }
 
+    /// <summary>
+    /// Launches the external tool for batch converting files to RVZ format.
+    /// </summary>
     public async Task BatchConvertToRvzAsync()
     {
         var toolPath = await GetToolExecutablePathAsync("BatchConvertToRVZ", "BatchConvertToRVZ");
@@ -232,6 +269,9 @@ public class LaunchToolsService : ILaunchTools
         await LaunchExternalToolAsync(toolPath);
     }
 
+    /// <summary>
+    /// Launches the external tool for creating batch files for ScummVM games.
+    /// </summary>
     public async Task CreateBatchFilesForScummVmGamesAsync()
     {
         var toolPath = await GetToolExecutablePathAsync("CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames");
@@ -240,6 +280,9 @@ public class LaunchToolsService : ILaunchTools
         await LaunchExternalToolAsync(toolPath);
     }
 
+    /// <summary>
+    /// Launches the ROM validator tool to verify ROM file integrity.
+    /// </summary>
     public async Task RomValidatorAsync()
     {
         var toolPath = await GetToolExecutablePathAsync("RomValidator", "RomValidator");
@@ -248,6 +291,11 @@ public class LaunchToolsService : ILaunchTools
         await LaunchExternalToolAsync(toolPath);
     }
 
+    /// <summary>
+    /// Launches the retro game cover downloader tool with the specified ROM and image folders.
+    /// </summary>
+    /// <param name="selectedImageFolder">The optional path to the folder where cover images will be saved.</param>
+    /// <param name="selectedRomFolder">The optional path to the folder containing ROMs to download covers for.</param>
     public async Task RetroGameCoverDownloaderAsync(string? selectedImageFolder, string? selectedRomFolder)
     {
         var toolPath = await GetToolExecutablePathAsync("RetroGameCoverDownloader", "RetroGameCoverDownloader");

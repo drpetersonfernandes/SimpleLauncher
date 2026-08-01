@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.IO;
+using System.Net.Http;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -10,7 +11,11 @@ using Serilog.Events;
 
 namespace Updater.Services.DebugAndBugReport;
 
-public class BugReportApiSink : ILogEventSink, IDisposable
+/// <summary>
+/// A Serilog sink that sends warning-level and above log events to the bug report API,
+/// with local file fallback when the API is unavailable.
+/// </summary>
+internal class BugReportApiSink : ILogEventSink, IDisposable
 {
     private const string ApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
     private const string ApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
@@ -23,14 +28,22 @@ public class BugReportApiSink : ILogEventSink, IDisposable
     private readonly CancellationTokenSource _cts = new();
     private readonly string _logFolder;
     private bool _disposed;
-    private Task _processTask = null!;
+    private Task _processTask;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BugReportApiSink"/> class and starts the background queue processor.
+    /// </summary>
+    /// <param name="logFolder">The folder where fallback log files will be written.</param>
     public BugReportApiSink(string logFolder)
     {
         _logFolder = logFolder;
         _processTask = ProcessQueueAsync(_cts.Token);
     }
 
+    /// <summary>
+    /// Emits a log event to the bug report queue if its level is Warning or above.
+    /// </summary>
+    /// <param name="logEvent">The log event to process.</param>
     public void Emit(LogEvent logEvent)
     {
         if (logEvent.Level < LogEventLevel.Warning) return;
@@ -210,8 +223,14 @@ public class BugReportApiSink : ILogEventSink, IDisposable
 
     private static string? GetUserInfo()
     {
-        try { return Environment.MachineName; }
-        catch { return null; }
+        try
+        {
+            return Environment.MachineName;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     private static string GetEnvironmentName()
@@ -223,9 +242,13 @@ public class BugReportApiSink : ILogEventSink, IDisposable
 #endif
     }
 
+    /// <summary>
+    /// Disposes the sink, cancelling the background queue processor.
+    /// </summary>
     public void Dispose()
     {
         if (_disposed) return;
+
         _disposed = true;
         _cts.Cancel();
         _cts.Dispose();

@@ -7,8 +7,20 @@ using Mame.DatCreator.Services;
 
 namespace Mame.DatCreator.Processors;
 
+/// <summary>
+/// Processes MAME software list XML files to extract machine information.
+/// </summary>
+/// <summary>
+/// Processes MAME software list XML files to extract machine information.
+/// </summary>
 public static class MameSoftwareProcessor
 {
+    /// <summary>
+    /// Extracts machine information from all software list XML files in a folder.
+    /// </summary>
+    /// <param name="inputFolderPath">The path to the folder containing software list XMLs.</param>
+    /// <param name="logger">The logger instance for output messages.</param>
+    /// <returns>A list of machine information extracted from software lists.</returns>
     public static Task<IList<MachineInfo>> GetMachinesFromSoftwareFolderAsync(string inputFolderPath, WpfLogger logger)
     {
         return Task.Run<IList<MachineInfo>>(() =>

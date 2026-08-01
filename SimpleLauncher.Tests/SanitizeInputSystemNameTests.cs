@@ -11,6 +11,8 @@ public class SanitizeInputSystemNameTests
     /// <summary>
     /// Verifies that ContainsInvalidCharacters returns the expected result for various system names including names with invalid filesystem characters.
     /// </summary>
+    /// <param name="name">The system name to check.</param>
+    /// <param name="expectedHasInvalid">Whether the name is expected to contain invalid characters.</param>
     [Theory]
     [InlineData("Nintendo NES", false)]
     [InlineData("Sega Genesis", false)]
@@ -51,6 +53,8 @@ public class SanitizeInputSystemNameTests
     /// <summary>
     /// Verifies that SanitizeFolderName produces the expected sanitized output for various inputs including reserved names and special characters.
     /// </summary>
+    /// <param name="name">The system name to sanitize.</param>
+    /// <param name="expected">The expected sanitized folder name.</param>
     [Theory]
     [InlineData("Nintendo NES", "Nintendo NES")]
     [InlineData("Game<Name>", "Game_Name_")]
@@ -104,6 +108,9 @@ public class SanitizeInputSystemNameTests
         Assert.DoesNotContain("..", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidCharacters returns false for a name containing only dots.
+    /// </summary>
     [Fact]
     public void ContainsInvalidCharactersWithDotsReturnsFalse()
     {
@@ -111,6 +118,9 @@ public class SanitizeInputSystemNameTests
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidCharacters returns true for a name containing a backslash.
+    /// </summary>
     [Fact]
     public void ContainsInvalidCharactersWithBackslashReturnsTrue()
     {
@@ -119,6 +129,9 @@ public class SanitizeInputSystemNameTests
         Assert.Contains('\\', invalidChars);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidCharacters returns true for a name containing a forward slash.
+    /// </summary>
     [Fact]
     public void ContainsInvalidCharactersWithSlashReturnsTrue()
     {
@@ -127,6 +140,9 @@ public class SanitizeInputSystemNameTests
         Assert.Contains('/', invalidChars);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidCharacters returns true for a name containing a colon.
+    /// </summary>
     [Fact]
     public void ContainsInvalidCharactersWithColonReturnsTrue()
     {
@@ -135,6 +151,9 @@ public class SanitizeInputSystemNameTests
         Assert.Contains(':', invalidChars);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidCharacters returns true for a name containing an asterisk.
+    /// </summary>
     [Fact]
     public void ContainsInvalidCharactersWithAsteriskReturnsTrue()
     {
@@ -143,6 +162,9 @@ public class SanitizeInputSystemNameTests
         Assert.Contains('*', invalidChars);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidCharacters returns true for a name containing a question mark.
+    /// </summary>
     [Fact]
     public void ContainsInvalidCharactersWithQuestionMarkReturnsTrue()
     {
@@ -151,6 +173,9 @@ public class SanitizeInputSystemNameTests
         Assert.Contains('?', invalidChars);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidCharacters returns true for a name containing a pipe character.
+    /// </summary>
     [Fact]
     public void ContainsInvalidCharactersWithPipeReturnsTrue()
     {
@@ -159,6 +184,9 @@ public class SanitizeInputSystemNameTests
         Assert.Contains('|', invalidChars);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidCharacters returns false for whitespace-only input.
+    /// </summary>
     [Fact]
     public void ContainsInvalidCharactersWhitespaceReturnsFalse()
     {
@@ -166,6 +194,9 @@ public class SanitizeInputSystemNameTests
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidPathCharacters returns false for a valid path.
+    /// </summary>
     [Fact]
     public void ContainsInvalidPathCharactersValidPathReturnsFalse()
     {
@@ -173,6 +204,9 @@ public class SanitizeInputSystemNameTests
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidPathCharacters returns false for empty input.
+    /// </summary>
     [Fact]
     public void ContainsInvalidPathCharactersEmptyReturnsFalse()
     {
@@ -181,6 +215,9 @@ public class SanitizeInputSystemNameTests
         Assert.Empty(invalidChars);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidPathCharacters returns false for null input.
+    /// </summary>
     [Fact]
     public void ContainsInvalidPathCharactersNullReturnsFalse()
     {
@@ -188,6 +225,9 @@ public class SanitizeInputSystemNameTests
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName returns a valid name with spaces unchanged.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameWithSpacesReturnsUnchanged()
     {
@@ -195,6 +235,9 @@ public class SanitizeInputSystemNameTests
         Assert.Equal("Super Nintendo", result);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName replaces double-dot directory traversal sequences.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameWithDoubleDotsReplacesTraversal()
     {
@@ -202,6 +245,9 @@ public class SanitizeInputSystemNameTests
         Assert.DoesNotContain("..", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName escapes the Windows reserved name "CON".
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameReservedCon()
     {
@@ -210,6 +256,9 @@ public class SanitizeInputSystemNameTests
         Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName escapes the Windows reserved name "AUX".
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameReservedAux()
     {
@@ -218,6 +267,9 @@ public class SanitizeInputSystemNameTests
         Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName escapes the Windows reserved name "NUL".
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameReservedNul()
     {
@@ -226,6 +278,9 @@ public class SanitizeInputSystemNameTests
         Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName escapes the Windows reserved name "COM1".
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameReservedCom1()
     {
@@ -234,6 +289,9 @@ public class SanitizeInputSystemNameTests
         Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName escapes the Windows reserved name "LPT1".
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameReservedLpt1()
     {
@@ -242,6 +300,9 @@ public class SanitizeInputSystemNameTests
         Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName treats reserved names case-insensitively.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameReservedCaseInsensitive()
     {
@@ -250,6 +311,9 @@ public class SanitizeInputSystemNameTests
         Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName removes invalid path characters from the input.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameWithInvalidChars()
     {
@@ -257,6 +321,9 @@ public class SanitizeInputSystemNameTests
         Assert.DoesNotContain("/", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName trims leading and trailing dots and spaces.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameTrimsDotsAndSpaces()
     {
@@ -264,6 +331,9 @@ public class SanitizeInputSystemNameTests
         Assert.Equal("NES", result);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName removes all invalid filesystem characters at once.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameWithMultipleInvalidChars()
     {
@@ -279,6 +349,9 @@ public class SanitizeInputSystemNameTests
         Assert.DoesNotContain("*", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName preserves valid characters including hyphens, underscores, and dots.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNamePreservesValidCharacters()
     {

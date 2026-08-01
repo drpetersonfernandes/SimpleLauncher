@@ -3,6 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace SimpleLauncher.Services.CheckPaths;
 
+/// <summary>
+/// Provides path resolution, token expansion, and file lookup helpers used across the application.
+/// </summary>
 public static partial class PathHelper
 {
     private const string BaseFolderPlaceholder = "%BASEFOLDER%";
@@ -52,6 +55,11 @@ public static partial class PathHelper
         return normalizedResolved.StartsWith(normalizedBase, StringComparison.OrdinalIgnoreCase);
     }
 
+    /// <summary>
+    /// Determines whether the given text contains any game-specific placeholder tokens such as %GAME% or %ROMNAME%.
+    /// </summary>
+    /// <param name="text">The text to inspect.</param>
+    /// <returns>True if the text contains a game-specific placeholder, false otherwise.</returns>
     public static bool ContainsGameSpecificPlaceholder(string? text)
     {
         if (string.IsNullOrWhiteSpace(text)) return false;
@@ -60,6 +68,16 @@ public static partial class PathHelper
             text.Contains(placeholder, StringComparison.OrdinalIgnoreCase));
     }
 
+    /// <summary>
+    /// Resolves placeholder tokens in an emulator parameter string, such as %BASEFOLDER%, %SYSTEMFOLDER%, %ROM%, and %NAME%.
+    /// </summary>
+    /// <param name="parameters">The parameter string containing tokens to resolve.</param>
+    /// <param name="systemFolders">The list of system folders used to resolve the %SYSTEMFOLDER% token.</param>
+    /// <param name="resolvedEmulatorFolderPath">The emulator folder path used to resolve the %EMULATORFOLDER% token.</param>
+    /// <param name="resolvedRomPath">The ROM file path used to resolve the %ROM% token.</param>
+    /// <param name="romSystemFolder">The ROM system folder used to resolve the %ROMSYSTEMFOLDER% token.</param>
+    /// <param name="resolvedRomName">The ROM name used to resolve the %NAME% token.</param>
+    /// <returns>The parameter string with all known tokens resolved.</returns>
     public static string ResolveParameterString(
         string parameters,
         IList<string>? systemFolders = null,
@@ -169,6 +187,11 @@ public static partial class PathHelper
         return resolvedParameters;
     }
 
+    /// <summary>
+    /// Resolves the given path to a full path relative to the current working directory.
+    /// </summary>
+    /// <param name="path">The path to resolve.</param>
+    /// <returns>The full resolved path, or an empty string if the path is null or blank.</returns>
     public static string ResolveRelativeToCurrentWorkingDirectory(string? path)
     {
         if (string.IsNullOrWhiteSpace(path))
@@ -179,6 +202,11 @@ public static partial class PathHelper
         return Path.GetFullPath(path);
     }
 
+    /// <summary>
+    /// Resolves the given path to a full path relative to the application directory, handling the %BASEFOLDER% placeholder.
+    /// </summary>
+    /// <param name="path">The path to resolve.</param>
+    /// <returns>The full resolved path, or null if the path could not be resolved.</returns>
     public static string? ResolveRelativeToAppDirectory(string? path)
     {
         if (string.IsNullOrWhiteSpace(path) || path.Length > MaxPathLength)
@@ -221,6 +249,11 @@ public static partial class PathHelper
         }
     }
 
+    /// <summary>
+    /// Determines whether the given path is relative and does not use the %BASEFOLDER% placeholder.
+    /// </summary>
+    /// <param name="path">The path to inspect.</param>
+    /// <returns>True if the path is relative without a base folder placeholder, false otherwise.</returns>
     public static bool IsRelativePathWithoutBaseFolder(string path)
     {
         if (string.IsNullOrWhiteSpace(path))
@@ -244,16 +277,31 @@ public static partial class PathHelper
         return ResolveRelativeToAppDirectory(combinedPath) ?? "";
     }
 
+    /// <summary>
+    /// Gets the file name of the given path without its extension.
+    /// </summary>
+    /// <param name="path">The path of the file.</param>
+    /// <returns>The file name without its extension.</returns>
     public static string GetFileNameWithoutExtension(string path)
     {
         return Path.GetFileNameWithoutExtension(path);
     }
 
+    /// <summary>
+    /// Gets the file name of the given path.
+    /// </summary>
+    /// <param name="path">The path of the file.</param>
+    /// <returns>The file name including its extension.</returns>
     public static string GetFileName(string path)
     {
         return Path.GetFileName(path);
     }
 
+    /// <summary>
+    /// Trims trailing directory separators from the given path token value.
+    /// </summary>
+    /// <param name="pathTokenValue">The path token value to sanitize.</param>
+    /// <returns>The sanitized path token value, or an empty string if null or blank.</returns>
     public static string SanitizePathToken(string? pathTokenValue)
     {
         if (string.IsNullOrEmpty(pathTokenValue))
@@ -264,6 +312,11 @@ public static partial class PathHelper
         return pathTokenValue.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
     }
 
+    /// <summary>
+    /// Converts the given path to a long path format supported by Windows APIs, if it is not already.
+    /// </summary>
+    /// <param name="path">The path to convert.</param>
+    /// <returns>The long path representation of the given path, or null if the path is null.</returns>
     public static string? GetLongPath(string? path)
     {
         if (path == null) return null;
@@ -283,6 +336,12 @@ public static partial class PathHelper
         return @"\\?\" + path;
     }
 
+    /// <summary>
+    /// Searches the given system folders for a file matching the given file name and returns its full path.
+    /// </summary>
+    /// <param name="systemFolders">The list of system folders to search.</param>
+    /// <param name="fileName">The name of the file to find.</param>
+    /// <returns>The full path of the found file, or null if it was not found.</returns>
     public static string? FindFileInSystemFolders(IList<string>? systemFolders, string? fileName)
     {
         if (systemFolders == null || systemFolders.Count == 0 || string.IsNullOrEmpty(fileName))
@@ -306,6 +365,13 @@ public static partial class PathHelper
         return null;
     }
 
+    /// <summary>
+    /// Finds which of the given system folders contains the given file path.
+    /// </summary>
+    /// <param name="systemFolders">The list of system folders to check.</param>
+    /// <param name="primarySystemFolder">The primary system folder returned when no match is found.</param>
+    /// <param name="filePath">The file path to locate within the folders.</param>
+    /// <returns>The resolved folder containing the file, or the primary system folder if none contains it.</returns>
     public static string? FindContainingSystemFolder(IList<string>? systemFolders, string? primarySystemFolder, string? filePath)
     {
         if (systemFolders == null || systemFolders.Count == 0 || string.IsNullOrEmpty(filePath))
@@ -336,6 +402,11 @@ public static partial class PathHelper
                     """, RegexOptions.None, 1000)]
     private static partial Regex MyRegex();
 
+    /// <summary>
+    /// Resolves the given folder path and returns it if the directory exists.
+    /// </summary>
+    /// <param name="folderPath">The folder path to resolve and validate.</param>
+    /// <returns>The resolved existing directory path, or null if it does not exist.</returns>
     public static string? TryGetExistingDirectory(string? folderPath)
     {
         if (string.IsNullOrWhiteSpace(folderPath))
@@ -359,6 +430,11 @@ public static partial class PathHelper
         return null;
     }
 
+    /// <summary>
+    /// Attempts to find a file on disk matching the given path, tolerating Unicode normalization differences in the file name.
+    /// </summary>
+    /// <param name="filePath">The file path to find.</param>
+    /// <returns>The path of the matching file or directory, or null if none was found.</returns>
     public static string? TryFindFileWithNormalizedPath(string? filePath)
     {
         if (string.IsNullOrWhiteSpace(filePath))

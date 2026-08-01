@@ -13,6 +13,10 @@ public class PlayHistoryManagerTests : IDisposable
 {
     private readonly string _testDirectory;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PlayHistoryManagerTests"/> class,
+    /// installing the service provider mock and creating a temporary test directory.
+    /// </summary>
     public PlayHistoryManagerTests()
     {
         ServiceProviderMock.Install();
@@ -20,6 +24,9 @@ public class PlayHistoryManagerTests : IDisposable
         Directory.CreateDirectory(_testDirectory);
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory and restores the service provider mock.
+    /// </summary>
     public void Dispose()
     {
         try
@@ -201,6 +208,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Equal(100, deserialized.PlayHistoryList[0].TimesPlayed);
     }
 
+    /// <summary>
+    /// Verifies that DisplayName returns just the file name when given only a file name without a path.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemDisplayNameHandlesJustFileName()
     {
@@ -208,6 +218,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Equal("game.zip", item.DisplayName);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays correctly for seconds-only durations.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemFormattedPlayTimeSecondsOnly()
     {
@@ -215,6 +228,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Equal("0m 45s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays minutes and seconds correctly.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemFormattedPlayTimeMinutesAndSeconds()
     {
@@ -222,6 +238,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Equal("2m 30s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays correctly for large play time values.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemFormattedPlayTimeLargeValue()
     {
@@ -229,6 +248,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Equal("24h 0m 0s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that special characters in file names are preserved through serialization.
+    /// </summary>
     [Fact]
     public void PlayHistoryManagerWithSpecialCharactersInFileName()
     {
@@ -250,6 +272,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Equal("C:\\roms\\game (v2.0).zip", deserialized.PlayHistoryList[1].FileName);
     }
 
+    /// <summary>
+    /// Verifies that Unicode characters in file names are preserved through serialization.
+    /// </summary>
     [Fact]
     public void PlayHistoryManagerWithUnicodeCharacters()
     {
@@ -268,6 +293,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Equal("C:\\roms\\ポケモン.zip", deserialized.PlayHistoryList[0].FileName);
     }
 
+    /// <summary>
+    /// Verifies that the Version property is preserved through serialization.
+    /// </summary>
     [Fact]
     public void PlayHistoryManagerVersionPreservedAfterSerialization()
     {
@@ -283,6 +311,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Equal(99, deserialized.Version);
     }
 
+    /// <summary>
+    /// Verifies that a large list of 1000 play history items serializes and deserializes correctly.
+    /// </summary>
     [Fact]
     public void PlayHistoryManagerLargeListSerializesCorrectly()
     {
@@ -312,6 +343,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Equal(10000, deserialized.PlayHistoryList[999].TotalPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that a PlayHistoryItem with zero TimesPlayed and TotalPlayTime stores those values correctly.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemZeroTimesPlayed()
     {
@@ -320,6 +354,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Equal(0, item.TotalPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that empty date and time strings are preserved correctly.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemEmptyDateAndTime()
     {
@@ -328,6 +365,9 @@ public class PlayHistoryManagerTests : IDisposable
         Assert.Equal("", item.LastPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that PropertyChanged fires for TotalPlayTime after deserialization.
+    /// </summary>
     [Fact]
     public void PlayHistoryItemPropertyChangedOnTotalPlayTime()
     {

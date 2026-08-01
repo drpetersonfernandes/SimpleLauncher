@@ -29,6 +29,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private bool _wasControllerRunningBeforeDeactivation;
 
     private bool _isDisposed;
+
+    /// <summary>
+    /// Gets or sets the timer used for temporary status bar messages.
+    /// </summary>
     internal DispatcherTimer? StatusBarTimer { get; set; }
 
     /// <summary>
@@ -39,7 +43,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     // Event handler references for proper unsubscription to prevent memory leaks
     private RoutedEventHandler? _emergencyButtonClickHandler;
     private readonly RoutedEventHandler _asyncLoadedHandler;
-    private EventHandler<EventArgs<string>>? _gameFilesChangedHandler;
+    private readonly EventHandler<EventArgs<string>>? _gameFilesChangedHandler;
 
     // F8 global hotkey for active window screenshots
     private Services.TakeScreenshot.GlobalHotkeyService? _globalHotkeyService;
@@ -121,10 +125,22 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     }
 
     // Pagination
+    /// <summary>
+    /// The next page navigation button used for pagination.
+    /// </summary>
     internal Button? NextPageButton2;
+    /// <summary>
+    /// The previous page navigation button used for pagination.
+    /// </summary>
     internal Button? PrevPageButton2;
 
+    /// <summary>
+    /// The tray icon manager instance for system tray integration.
+    /// </summary>
     internal TrayIconManager? TrayIconManager;
+    /// <summary>
+    /// The play history manager that tracks play history for games.
+    /// </summary>
     internal PlayHistoryManager PlayHistoryManager { get; }
     private List<SystemManager> _systemManagers = null!;
     private readonly FilterMenu _topLetterNumberMenu;
@@ -142,11 +158,41 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly IContextMenuFunctions _contextMenuFunctions;
     private readonly ILogger _logger;
     private readonly IContextMenuService _contextMenuService;
+    /// <summary>
+    /// The status bar update service used to display messages in the status bar.
+    /// </summary>
     internal readonly IUpdateStatusBar UpdateStatusBarService;
+    /// <summary>
+    /// The UI reset service used to reset the UI to its default state.
+    /// </summary>
     internal readonly IUiResetService UiResetService;
+    /// <summary>
+    /// The system configuration service for system-related settings.
+    /// </summary>
     internal readonly ISystemConfigurationService SystemConfigurationService;
+    /// <summary>
+    /// The UI orchestrator service that coordinates UI updates.
+    /// </summary>
     internal readonly IUiOrchestrator UiOrchestratorService;
 
+    /// <summary>
+    /// Initializes a new instance of the MainWindow class with the required services.
+    /// </summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="playHistoryManager">The play history manager.</param>
+    /// <param name="launchTools">The launch tools service.</param>
+    /// <param name="messageBox">The message box library service.</param>
+    /// <param name="updateStatusBarService">The status bar update service.</param>
+    /// <param name="uiResetService">The UI reset service.</param>
+    /// <param name="systemConfigurationService">The system configuration service.</param>
+    /// <param name="uiOrchestrator">The UI orchestrator service.</param>
+    /// <param name="gameBrowser">The game browser service.</param>
+    /// <param name="menuOrchestrator">The menu orchestrator service.</param>
+    /// <param name="lifecycle">The application lifecycle service.</param>
+    /// <param name="audioInput">The audio input service.</param>
+    /// <param name="contextMenuFunctions">The context menu functions service.</param>
+    /// <param name="logger">The logger service.</param>
+    /// <param name="contextMenuService">The context menu service.</param>
     public MainWindow(
         SettingsManagerService settings,
         PlayHistoryManager playHistoryManager,
@@ -237,7 +283,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _lifecycle.GameFilesChanged += _gameFilesChangedHandler;
 
         // Store the Loaded handler reference so it can be unsubscribed later
-        _asyncLoadedHandler = (_, _) => _ = OnLoadedAsync();
+        _asyncLoadedHandler = (_, _) => { _ = OnLoadedAsync(); };
         Loaded += _asyncLoadedHandler;
     }
 
@@ -397,14 +443,21 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private async void TopLetterNumberMenu_OnLetterSelectedAsync(object? sender, EventArgs<string?> e)
     {
-        var selectedLetter = e.Value;
         try
         {
-            if (_isDisposed) return;
-
+            var selectedLetter = e.Value;
             try
             {
-                await TopLetterNumberMenuClickAsync(selectedLetter);
+                if (_isDisposed) return;
+
+                try
+                {
+                    await TopLetterNumberMenuClickAsync(selectedLetter);
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(ex, "Error in method TopLetterNumberMenu_OnLetterSelectedAsync");
+                }
             }
             catch (Exception ex)
             {
@@ -446,6 +499,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
     }
 
+    /// <summary>
+    /// Cancels the current operation token and replaces it with a new one.
+    /// </summary>
     internal void CancelAndRecreateToken()
     {
         // Atomically exchange the old CancellationTokenSource with a new one
@@ -650,6 +706,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
     }
 
+    /// <summary>
+    /// Refreshes the game list play time and times played after a game has been played.
+    /// </summary>
+    /// <param name="fileName">The file name of the played game.</param>
+    /// <param name="systemName">The system name the game belongs to.</param>
     internal void RefreshGameListAfterPlay(string fileName, string systemName)
     {
         UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RefreshingGameList") ?? "Refreshing game list...");
@@ -699,11 +760,20 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
     }
 
+    /// <summary>
+    /// Sets the loading state of the UI, optionally displaying a message.
+    /// </summary>
+    /// <param name="isLoading">Whether the UI is in a loading state.</param>
+    /// <param name="message">An optional message to display during loading.</param>
     public void SetLoadingState(bool isLoading, string? message = null)
     {
         UiOrchestratorService.SetLoadingState(isLoading, message);
     }
 
+    /// <summary>
+    /// Sets the internal loading games flag for UI state tracking.
+    /// </summary>
+    /// <param name="value">Whether games are currently loading.</param>
     internal void SetIsLoadingGamesInternal(bool value)
     {
         IsLoadingGames = value;
@@ -714,6 +784,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         UiOrchestratorService.EmergencyRelease();
     }
 
+    /// <summary>
+    /// Initializes the pagination buttons to their default disabled state.
+    /// </summary>
     internal void SetPaginationButtonsDefault()
     {
         PrevPageButton2 = PrevPageButton;
@@ -722,12 +795,20 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         NextPageButton2.IsEnabled = false;
     }
 
+    /// <summary>
+    /// Sets the visibility of the pagination buttons.
+    /// </summary>
+    /// <param name="visibility">The visibility state to apply to the pagination buttons.</param>
     internal void SetPaginationButtonsVisibility(Visibility visibility)
     {
         PrevPageButton2?.Visibility = visibility;
         NextPageButton2?.Visibility = visibility;
     }
 
+    /// <summary>
+    /// Sets the tray icon manager instance for system tray integration.
+    /// </summary>
+    /// <param name="manager">The tray icon manager to use.</param>
     internal void SetTrayIconManager(TrayIconManager manager)
     {
         TrayIconManager = manager;
@@ -897,11 +978,19 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
     }
 
+    /// <summary>
+    /// Enables or disables the game launch buttons in the UI.
+    /// </summary>
+    /// <param name="isEnabled">Whether the game buttons should be enabled.</param>
     internal void SetGameButtonsEnabled(bool isEnabled)
     {
         UiOrchestratorService.SetGameButtonsEnabled(isEnabled);
     }
 
+    /// <summary>
+    /// Clears all game button images from the specified panel.
+    /// </summary>
+    /// <param name="panel">The panel containing game button images to clear.</param>
     internal static void ClearGameButtonImages(Panel panel)
     {
         GameListUiService.ClearGameButtonImages(panel);
@@ -983,11 +1072,23 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
     }
 
+    /// <summary>
+    /// Loads game files asynchronously based on the specified filter and search query.
+    /// </summary>
+    /// <param name="startLetter">An optional starting letter filter for game names.</param>
+    /// <param name="searchQuery">An optional search query to filter games.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task representing the asynchronous load operation.</returns>
     internal Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null, CancellationToken cancellationToken = default)
     {
         return _gameBrowser.LoadGameFilesAsync(startLetter, searchQuery, cancellationToken);
     }
 
+    /// <summary>
+    /// Invalidates all game file caches so they are reloaded on the next request.
+    /// </summary>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A task representing the asynchronous invalidation operation.</returns>
     internal Task InvalidateGameFileCachesAsync(CancellationToken cancellationToken = default)
     {
         return _gameBrowser.InvalidateGameFileCachesAsync(cancellationToken);

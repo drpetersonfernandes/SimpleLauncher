@@ -9,6 +9,9 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
+/// <summary>
+/// Handles mounting ZIP archives as virtual drives using SimpleZipDrive and launching games from the mounted drive.
+/// </summary>
 public class MountZipFiles : IMountZipFiles
 {
     private readonly ILogger _logger;
@@ -16,8 +19,16 @@ public class MountZipFiles : IMountZipFiles
     private readonly string _zipMountExecutableName;
     private readonly string _zipMountExecutableRelativePath;
 
+    /// <summary>
+    /// Gets the configured mount drive root path (e.g., "Z:\").
+    /// </summary>
     public string ConfiguredMountDriveRoot => _preferredMountDriveLetterOnly + ":\\";
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MountZipFiles"/> class.
+    /// </summary>
+    /// <param name="configuration">The application configuration for mount settings.</param>
+    /// <param name="logger">The logger instance.</param>
     public MountZipFiles(IConfiguration configuration, ILogger logger)
     {
         _logger = logger;
@@ -121,6 +132,10 @@ public class MountZipFiles : IMountZipFiles
         }
     }
 
+    /// <summary>
+    /// Terminates all running SimpleZipDrive processes to ensure clean unmounting.
+    /// </summary>
+    /// <param name="logErrors">The error logger.</param>
     public void KillAllSimpleZipDriveProcesses(ILogger logErrors)
     {
         try
@@ -214,6 +229,9 @@ public class MountZipFiles : IMountZipFiles
         }
     }
 
+    /// <summary>
+    /// Mounts a ZIP archive and launches the EBOOT.BIN file found within it using the specified emulator.
+    /// </summary>
     public async Task MountZipFileAndLoadEbootBinAsync(
         string resolvedZipFilePath,
         string selectedSystemName,
@@ -477,6 +495,9 @@ public class MountZipFiles : IMountZipFiles
         }
     }
 
+    /// <summary>
+    /// Mounts a ZIP archive and searches for a nested file to launch using the specified emulator.
+    /// </summary>
     public async Task MountZipFileAndSearchForFileToLoadAsync(
         string resolvedZipFilePath,
         string selectedSystemName,
@@ -818,6 +839,9 @@ public class MountZipFiles : IMountZipFiles
         }
     }
 
+    /// <summary>
+    /// Mounts a ZIP archive and launches ScummVM with the mounted game path.
+    /// </summary>
     public async Task MountZipFileAndLoadWithScummVmAsync(
         string resolvedZipFilePath,
         string selectedSystemName,

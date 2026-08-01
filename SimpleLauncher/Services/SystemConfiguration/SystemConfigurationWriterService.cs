@@ -3,7 +3,6 @@ using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.AppDataFile;
 
 namespace SimpleLauncher.Services.SystemConfiguration;
 

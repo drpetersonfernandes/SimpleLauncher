@@ -39,6 +39,10 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     [ObservableProperty] private bool _cheevosHardcore;
     [ObservableProperty] private bool _discordAllow;
     [ObservableProperty] private bool _showBeforeLaunch;
+    /// <summary>Initializes a new instance of the <see cref="InjectRetroArchConfigViewModel"/>.</summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="logger">The logger instance.</param>
     public InjectRetroArchConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;

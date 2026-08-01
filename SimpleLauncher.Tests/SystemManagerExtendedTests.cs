@@ -1,7 +1,6 @@
 using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
-
 using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Tests;
@@ -13,6 +12,10 @@ public class SystemManagerExtendedTests : IDisposable
 {
     private readonly string _testDirectory;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SystemManagerExtendedTests"/> class,
+    /// installing the service provider mock and creating a temporary test directory.
+    /// </summary>
     public SystemManagerExtendedTests()
     {
         ServiceProviderMock.Install();
@@ -20,6 +23,9 @@ public class SystemManagerExtendedTests : IDisposable
         Directory.CreateDirectory(_testDirectory);
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory and restores the service provider mock.
+    /// </summary>
     public void Dispose()
     {
         try

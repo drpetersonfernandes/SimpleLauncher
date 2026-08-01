@@ -80,11 +80,21 @@ public static class ServiceProviderMock
     {
         private readonly IConfiguration? _configuration;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MockServiceProvider"/> class.
+        /// </summary>
+        /// <param name="configuration">The configuration instance to hand out, or <c>null</c> when none is available.</param>
         public MockServiceProvider(IConfiguration? configuration)
         {
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Resolves a service, returning a no-op logger for <see cref="ILogger"/>, the supplied
+        /// configuration for <see cref="IConfiguration"/>, and <c>null</c> for every other type.
+        /// </summary>
+        /// <param name="serviceType">The type of service being requested.</param>
+        /// <returns>The resolved service instance, or <c>null</c> when the type is not supported.</returns>
         public object? GetService(Type serviceType)
         {
             if (serviceType == typeof(ILogger))

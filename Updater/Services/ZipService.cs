@@ -8,7 +8,7 @@ namespace Updater.Services;
 /// <summary>
 /// Service for extracting ZIP archives with security checks and progress reporting.
 /// </summary>
-public class ZipService
+internal class ZipService
 {
     private const int FileBufferSize = 81920; // 80KB buffer for efficient file I/O
     private const int FileWriteRetryAttempts = 5; // Number of retry attempts for locked files
@@ -116,6 +116,7 @@ public class ZipService
             }
             catch (Exception ex)
             {
+                Log.Error(ex, "Error extracting file: {EntryKey}", entryKey);
                 await BugReportService.ReportBugAsync(ex, $"Error extracting file: {entryKey}");
                 throw;
             }

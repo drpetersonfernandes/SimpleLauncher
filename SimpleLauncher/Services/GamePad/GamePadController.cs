@@ -9,6 +9,10 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GamePad;
 
+/// <summary>
+/// Manages gamepad input from Xbox (XInput) and PlayStation (DirectInput) controllers,
+/// translating thumbstick and button events into mouse movement, clicks, and scrolling.
+/// </summary>
 public class GamePadController : IDisposable
 {
     private readonly SemaphoreSlim _updateLock = new(1, 1);
@@ -19,7 +23,9 @@ public class GamePadController : IDisposable
     private readonly ILogger _logger;
     private bool _isDisposed;
 
-    // Add an Action for error logging
+    /// <summary>
+    /// Gets or sets the action used to log gamepad-related errors and notify the developer.
+    /// </summary>
     internal Action<Exception?, string> ErrorLogger { get; set; } = null!;
 
     private const int RefreshRate = 60;
@@ -43,10 +49,19 @@ public class GamePadController : IDisposable
     private volatile bool _wasCrossDown;
     private volatile bool _wasCircleDown;
 
-    // DeadZone settings — accessed from UI thread (SetGamepadDeadZone) and timer thread (UpdateAsync)
+    /// <summary>
+    /// Gets or sets the dead zone for the X axis of the thumbsticks.
+    /// </summary>
     internal float DeadZoneX { get; set; } = 0.05f;
+
+    /// <summary>
+    /// Gets or sets the dead zone for the Y axis of the thumbsticks.
+    /// </summary>
     internal float DeadZoneY { get; set; } = 0.02f;
 
+    /// <summary>
+    /// Gets a value indicating whether the controller polling loop is running.
+    /// </summary>
     internal bool IsRunning { get; private set; }
 
     // Handle DirectInput reconnection
@@ -58,6 +73,12 @@ public class GamePadController : IDisposable
     private const int DirectInputLeftThumbStickScalingFactor = 7;
     private const int DirectInputRightThumbStickScalingFactor = 1;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GamePadController"/> class with the specified dependencies.
+    /// </summary>
+    /// <param name="messageBoxLibrary">The message box service for error notifications.</param>
+    /// <param name="configuration">The application configuration.</param>
+    /// <param name="logger">The logger instance.</param>
     public GamePadController(IMessageBoxLibraryService messageBoxLibrary, IConfiguration configuration, ILogger logger)
     {
         _messageBoxLibrary = messageBoxLibrary ?? throw new ArgumentNullException(nameof(messageBoxLibrary));
@@ -99,6 +120,10 @@ public class GamePadController : IDisposable
         _timer = new Timer(_ => UpdateAsync(), null, Timeout.Infinite, Timeout.Infinite);
     }
 
+    /// <summary>
+    /// Starts the gamepad polling timer and marks the controller as running.
+    /// </summary>
+    /// <returns>A task that completes when the controller has started, or a message box task if starting failed.</returns>
     internal Task StartAsync()
     {
         Exception? startException = null;
@@ -135,6 +160,10 @@ public class GamePadController : IDisposable
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Stops the gamepad polling timer and marks the controller as not running.
+    /// </summary>
+    /// <returns>A task that completes when the controller has stopped, or a message box task if stopping failed.</returns>
     internal Task StopAsync()
     {
         Exception? stopException = null;
@@ -165,6 +194,9 @@ public class GamePadController : IDisposable
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Releases all resources used by the gamepad controller, including the polling timer and DirectInput devices.
+    /// </summary>
     public void Dispose()
     {
         Dispose(true);
@@ -419,6 +451,9 @@ public class GamePadController : IDisposable
         }
     }
 
+    /// <summary>
+    /// Checks for available gamepad controllers and attempts to reconnect a DirectInput device if disconnected.
+    /// </summary>
     public void CheckAndReconnectControllers()
     {
         // *** Acquire _stateLock to prevent race conditions with Update/Dispose ***

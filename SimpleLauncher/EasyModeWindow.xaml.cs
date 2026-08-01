@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.CreateFolders;
+using SimpleLauncher.Services;
 using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.EasyMode;
 using SimpleLauncher.Services.PlaySound;
@@ -258,6 +258,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     }
 
+    /// <summary>
+    /// Occurs when a property value changes.
+    /// </summary>
     public event PropertyChangedEventHandler? PropertyChanged; // INotifyPropertyChanged implementation
 
     // Thread-safe operation tracking
@@ -284,6 +287,11 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
+    /// <summary>
+    /// Sets the loading state of the window, showing or hiding the loading overlay.
+    /// </summary>
+    /// <param name="isLoading">Whether the window is in a loading state.</param>
+    /// <param name="message">Optional message to display on the loading overlay.</param>
     public void SetLoadingState(bool isLoading, string? message = null)
     {
         Dispatcher.Invoke(() =>
@@ -300,6 +308,14 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         });
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EasyModeWindow"/> class.
+    /// </summary>
+    /// <param name="playSoundEffects">The sound effects service for notification sounds.</param>
+    /// <param name="configuration">The application configuration.</param>
+    /// <param name="downloadManager">The download manager for handling file downloads.</param>
+    /// <param name="easyModeManager">The easy mode manager for system configuration.</param>
+    /// <param name="logger">The logger for error logging.</param>
     public EasyModeWindow(PlaySoundEffects playSoundEffects, IConfiguration configuration, DownloadManager downloadManager, EasyModeManager easyModeManager, ILogger logger)
     {
         InitializeComponent();
@@ -1160,7 +1176,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
                     if (resolvedSystemFolder != null && resolvedSystemImageFolder != null)
                     {
-                        await CreateDefaultSystemFolders.CreateFoldersAsync(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logger, _messageBox);
+                        await CreateDefaultSystemFoldersService.CreateFoldersAsync(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logger, _messageBox);
 
                         var systemhasbeensuccessfullyadded = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
                         DownloadStatus = systemhasbeensuccessfullyadded;
@@ -1320,6 +1336,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
     }
 
+    /// <summary>
+    /// Disposes of resources used by the window.
+    /// </summary>
     public void Dispose()
     {
         if (_disposed) return;

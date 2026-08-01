@@ -20,10 +20,18 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
     private double _thresholdValue;
 
     // Slider constraints
+    /// <summary>The minimum fuzzy matching threshold allowed by the slider.</summary>
     public const double MinimumThreshold = 0.7;
+    /// <summary>The maximum fuzzy matching threshold allowed by the slider.</summary>
     public const double MaximumThreshold = 0.95;
+    /// <summary>The tick frequency of the slider.</summary>
     public const double TickFrequency = 0.05;
 
+    /// <summary>Initializes a new instance of the <see cref="SetFuzzyMatchingViewModel"/>.</summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="logErrors">The logger instance.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="resourceProvider">The resource provider for localized strings.</param>
     public SetFuzzyMatchingViewModel(SettingsManagerService settings, ILogger logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));

@@ -7,15 +7,27 @@ namespace SimpleLauncher.Models;
 /// </summary>
 public record RaGameRankAndScore
 {
+    /// <summary>
+    /// Gets the username of the player.
+    /// </summary>
     [JsonPropertyName("User")]
     public string User { get; init; } = "";
 
+    /// <summary>
+    /// Gets the ULID identifier of the player.
+    /// </summary>
     [JsonPropertyName("ULID")]
     public string Ulid { get; init; } = "";
 
+    /// <summary>
+    /// Gets the number of achievements earned by the player.
+    /// </summary>
     [JsonPropertyName("NumAchievements")]
     public int NumAchievements { get; init; }
 
+    /// <summary>
+    /// Gets the total score of the player.
+    /// </summary>
     [JsonPropertyName("TotalScore")]
     public int TotalScore { get; init; }
 
@@ -25,9 +37,15 @@ public record RaGameRankAndScore
     [JsonIgnore]
     public int Score => TotalScore;
 
+    /// <summary>
+    /// Gets the date of the player's last award.
+    /// </summary>
     [JsonPropertyName("LastAward")]
     public string LastAward { get; init; } = "";
 
+    /// <summary>
+    /// Gets the total true points of the player.
+    /// </summary>
     [JsonPropertyName("TotalTruePoints")]
     public int? TotalTruePoints { get; init; }
 

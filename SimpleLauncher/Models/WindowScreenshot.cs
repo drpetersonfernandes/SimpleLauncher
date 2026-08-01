@@ -5,7 +5,7 @@ namespace SimpleLauncher.Models;
 /// <summary>
 /// Contains native interop structures for window screenshot capture.
 /// </summary>
-public static partial class WindowScreenshot
+public static class WindowScreenshot
 {
     /// <summary>
     /// Represents a point with X and Y coordinates, matching the native POINT struct.

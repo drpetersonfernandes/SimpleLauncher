@@ -17,6 +17,9 @@ public class GogGameInfoTests
 
     // GogGameInfo tests
 
+    /// <summary>
+    /// Verifies that a new GogGameInfo has all properties defaulting to null.
+    /// </summary>
     [Fact]
     public void GogGameInfoDefaultPropertiesAreNull()
     {
@@ -26,6 +29,9 @@ public class GogGameInfoTests
         Assert.Null(info.PlayTasks);
     }
 
+    /// <summary>
+    /// Verifies that GogGameInfo properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void GogGameInfoPropertiesCanBeSet()
     {
@@ -41,6 +47,9 @@ public class GogGameInfoTests
         Assert.NotNull(info.PlayTasks);
     }
 
+    /// <summary>
+    /// Verifies that GogGameInfo can be deserialized from JSON with empty play tasks.
+    /// </summary>
     [Fact]
     public void GogGameInfoDeserializeFromJson()
     {
@@ -61,6 +70,9 @@ public class GogGameInfoTests
         Assert.Empty(info.PlayTasks);
     }
 
+    /// <summary>
+    /// Verifies that GogGameInfo can be deserialized from JSON with play tasks populated.
+    /// </summary>
     [Fact]
     public void GogGameInfoDeserializeWithPlayTasks()
     {
@@ -88,6 +100,9 @@ public class GogGameInfoTests
         Assert.Equal("game.exe", info.PlayTasks[0].Path);
     }
 
+    /// <summary>
+    /// Verifies that GogGameInfo can be deserialized from an empty JSON object.
+    /// </summary>
     [Fact]
     public void GogGameInfoDeserializeEmptyJson()
     {
@@ -101,6 +116,9 @@ public class GogGameInfoTests
         Assert.Null(info.PlayTasks);
     }
 
+    /// <summary>
+    /// Verifies that GogGameInfo detects DLC when RootGameId differs from GameId.
+    /// </summary>
     [Fact]
     public void GogGameInfoDetectsDlcWhenRootGameIdDiffers()
     {
@@ -114,6 +132,9 @@ public class GogGameInfoTests
         Assert.True(isDlc);
     }
 
+    /// <summary>
+    /// Verifies that GogGameInfo does not detect DLC when RootGameId matches GameId.
+    /// </summary>
     [Fact]
     public void GogGameInfoNotDlcWhenRootGameIdMatches()
     {
@@ -127,6 +148,9 @@ public class GogGameInfoTests
         Assert.False(isDlc);
     }
 
+    /// <summary>
+    /// Verifies that GogGameInfo does not detect DLC when RootGameId is empty.
+    /// </summary>
     [Fact]
     public void GogGameInfoNotDlcWhenRootGameIdIsEmpty()
     {
@@ -140,6 +164,9 @@ public class GogGameInfoTests
         Assert.False(isDlc);
     }
 
+    /// <summary>
+    /// Verifies that GogGameInfo does not detect DLC when RootGameId is null.
+    /// </summary>
     [Fact]
     public void GogGameInfoNotDlcWhenRootGameIdIsNull()
     {
@@ -155,6 +182,9 @@ public class GogGameInfoTests
 
     // GogPlayTask tests
 
+    /// <summary>
+    /// Verifies that a new GogPlayTask has all properties defaulting to null or false.
+    /// </summary>
     [Fact]
     public void GogPlayTaskDefaultValues()
     {
@@ -165,6 +195,9 @@ public class GogGameInfoTests
         Assert.Null(task.WorkingDir);
     }
 
+    /// <summary>
+    /// Verifies that GogPlayTask properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void GogPlayTaskPropertiesCanBeSet()
     {
@@ -182,6 +215,9 @@ public class GogGameInfoTests
         Assert.Equal("bin", task.WorkingDir);
     }
 
+    /// <summary>
+    /// Verifies that GogPlayTask can be deserialized from JSON with all properties populated.
+    /// </summary>
     [Fact]
     public void GogPlayTaskDeserializeFromJson()
     {
@@ -202,6 +238,9 @@ public class GogGameInfoTests
         Assert.Equal("https://example.com", task.Path);
     }
 
+    /// <summary>
+    /// Verifies that GogPlayTask can be deserialized from an empty JSON object.
+    /// </summary>
     [Fact]
     public void GogPlayTaskDeserializeEmptyJson()
     {
@@ -216,6 +255,9 @@ public class GogGameInfoTests
         Assert.Null(task.WorkingDir);
     }
 
+    /// <summary>
+    /// Verifies that the primary FileTask can be found among multiple play tasks.
+    /// </summary>
     [Fact]
     public void GogGameInfoFindPrimaryFileTask()
     {
@@ -235,6 +277,9 @@ public class GogGameInfoTests
         Assert.Equal("game.exe", primaryTask.Path);
     }
 
+    /// <summary>
+    /// Verifies that null is returned when no primary FileTask exists.
+    /// </summary>
     [Fact]
     public void GogGameInfoNoPrimaryFileTaskReturnsNull()
     {
@@ -252,6 +297,9 @@ public class GogGameInfoTests
         Assert.Null(primaryTask);
     }
 
+    /// <summary>
+    /// Verifies that GogGameInfo can be deserialized from JSON with multiple play tasks.
+    /// </summary>
     [Fact]
     public void GogGameInfoDeserializeMultiplePlayTasks()
     {

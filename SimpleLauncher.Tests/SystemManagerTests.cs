@@ -1,6 +1,5 @@
 using SimpleLauncher.Services.SystemManager;
 using Xunit;
-
 using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Tests;
@@ -71,7 +70,8 @@ public class SystemManagerTests
         var system = new SystemManagerService
         {
             SystemName = "NES",
-            SystemFolders = null!        };
+            SystemFolders = null!
+        };
 
         Assert.Null(system.PrimarySystemFolder);
     }

@@ -12,8 +12,19 @@ public class MountChdDrive : IAsyncDisposable
     private readonly int _mountProcessId;
     private readonly ILogger _logger;
 
+    /// <summary>
+    /// Gets the path where the CHD was mounted.
+    /// </summary>
     public string MountedPath { get; } = "";
+
+    /// <summary>
+    /// Gets the drive letter assigned to the mounted CHD.
+    /// </summary>
     public string MountedDriveLetter { get; } = "";
+
+    /// <summary>
+    /// Gets a value indicating whether the CHD was successfully mounted.
+    /// </summary>
     public bool IsMounted { get; }
 
     /// <summary>
@@ -40,6 +51,9 @@ public class MountChdDrive : IAsyncDisposable
         IsMounted = false;
     }
 
+    /// <summary>
+    /// Unmounts the CHD drive by terminating the CHDMounter process and waiting for it to exit.
+    /// </summary>
     public async ValueTask DisposeAsync()
     {
         if (!IsMounted || _mountProcess == null)

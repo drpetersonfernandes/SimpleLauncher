@@ -2,7 +2,7 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.CheckPaths;
 
-namespace SimpleLauncher.Services.CreateFolders;
+namespace SimpleLauncher.Services;
 
 /// <summary>
 /// Creates default system and image folders for a newly added system.

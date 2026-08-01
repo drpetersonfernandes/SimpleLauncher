@@ -8,21 +8,35 @@ namespace SimpleLauncher.Services.GameListUI;
 
 using Interfaces;
 
+/// <summary>
+/// Manages the game list UI, including grid/list view switching, pagination, and game button image cleanup.
+/// </summary>
 public class GameListUiService
 {
     private readonly Settings _settings;
     private IGameListUiHost _host = null!;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GameListUiService"/> class.
+    /// </summary>
+    /// <param name="settings">The application settings manager.</param>
     public GameListUiService(Settings settings)
     {
         _settings = settings;
     }
 
+    /// <summary>
+    /// Initializes the service with the specified host that provides UI elements and dispatcher access.
+    /// </summary>
+    /// <param name="host">The game list UI host.</param>
     public void Initialize(IGameListUiHost host)
     {
         _host = host;
     }
 
+    /// <summary>
+    /// Prepares the UI before loading game files by clearing existing content, scrolling to top, and setting the appropriate view mode.
+    /// </summary>
     public async Task SetUiBeforeLoadGameFilesAsync()
     {
         _host.Scroller.Dispatcher.Invoke(() => _host.Scroller.ScrollToTop());
@@ -56,6 +70,9 @@ public class GameListUiService
         });
     }
 
+    /// <summary>
+    /// Displays a message indicating that no games matched the current search or filter.
+    /// </summary>
     public void AddNoFilesMessage()
     {
         var noGamesMatched = Application.Current.Dispatcher.CheckAccess()
@@ -83,6 +100,10 @@ public class GameListUiService
         }
     }
 
+    /// <summary>
+    /// Enables or disables all game buttons in the grid.
+    /// </summary>
+    /// <param name="isEnabled">True to enable buttons; false to disable them.</param>
     public void SetGameButtonsEnabled(bool isEnabled)
     {
         if (_host.GameFileGrid == null) return;
@@ -96,6 +117,10 @@ public class GameListUiService
         }
     }
 
+    /// <summary>
+    /// Recursively clears all BitmapImage sources from Image elements within the specified panel and its children.
+    /// </summary>
+    /// <param name="panel">The panel whose game button images should be cleared.</param>
     public static void ClearGameButtonImages(Panel panel)
     {
         foreach (var child in panel.Children)
@@ -134,6 +159,10 @@ public class GameListUiService
         }
     }
 
+    /// <summary>
+    /// Clears the BitmapImage source of an Image element contained within a Border, if present.
+    /// </summary>
+    /// <param name="border">The border whose child image source should be cleared.</param>
     public static void ClearImageFromBorder(Border border)
     {
         switch (border.Child)

@@ -6,7 +6,7 @@ namespace Updater.Services;
 /// <summary>
 /// Service that orchestrates the entire update process using other specialized services.
 /// </summary>
-public class UpdateService
+internal class UpdateService
 {
     private readonly GitHubService _gitHubService;
     private readonly DownloadService _downloadService;
@@ -118,6 +118,7 @@ public class UpdateService
             }
             catch (Exception ex) when (ex is not OperationCanceledException)
             {
+                Log.Error(ex, "Error waiting for main application to exit");
                 await BugReportService.ReportBugAsync(ex, "Error waiting for main application to exit");
                 throw;
             }
@@ -131,6 +132,7 @@ public class UpdateService
             }
             catch (Exception ex) when (ex is not OperationCanceledException)
             {
+                Log.Error(ex, "Error fetching latest release from GitHub");
                 await BugReportService.ReportBugAsync(ex, "Error fetching latest release from GitHub");
                 throw;
             }
@@ -144,6 +146,7 @@ public class UpdateService
             }
             catch (Exception ex) when (ex is not OperationCanceledException)
             {
+                Log.Error(ex, "Error downloading update file from: {AssetUrl}", assetUrl);
                 await BugReportService.ReportBugAsync(ex, $"Error downloading update file from: {assetUrl}");
                 throw;
             }
@@ -164,6 +167,7 @@ public class UpdateService
             // are genuine errors that should be reported.
             catch (Exception ex) when (ex is not InvalidOperationException and not OperationCanceledException)
             {
+                Log.Error(ex, "Error extracting ZIP archive");
                 await BugReportService.ReportBugAsync(ex, "Error extracting ZIP archive");
                 throw;
             }
@@ -186,6 +190,7 @@ public class UpdateService
         }
         catch (Exception ex)
         {
+            Log.Error(ex, "Automatic update failed");
             LogMessage?.Invoke(this, new EventArgs<string>($"Automatic update failed: {ex.Message}"));
             return new UpdateResult
             {
@@ -251,6 +256,7 @@ public class UpdateService
         }
         catch (Exception ex)
         {
+            Log.Error(ex, "Error during Dokan installation check");
             await BugReportService.ReportBugAsync(ex, "Error during Dokan installation check");
             LogMessage?.Invoke(this, new EventArgs<string>($"Error during Dokan check/installation: {ex.Message}"));
         }

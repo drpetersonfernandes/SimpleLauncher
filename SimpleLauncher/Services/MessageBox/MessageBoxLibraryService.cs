@@ -4438,11 +4438,20 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return result;
     }
 
+    /// <summary>
+    /// Displays a custom informational message with the specified title and message.
+    /// </summary>
+    /// <param name="title">The title of the message box.</param>
+    /// <param name="message">The message text to display.</param>
     public Task CustomInfoMessageBoxAsync(string title, string message)
     {
         return _messageDialog.ShowInfoAsync(message, title);
     }
 
+    /// <summary>
+    /// Displays a prompt asking whether Simple Launcher AI should suggest corrected launch parameters after a failed launch.
+    /// </summary>
+    /// <returns>True if the user accepted; otherwise, false.</returns>
     public async Task<bool> AskAiToFixParametersMessageBoxAsync()
     {
         var askAiMessage = _resourceProvider.GetString("AskAiToFixParameters", "The launch failed. Would you like 'Simple Launcher AI' to suggest correct parameters for this emulator?");

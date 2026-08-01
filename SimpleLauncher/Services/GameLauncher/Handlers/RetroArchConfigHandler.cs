@@ -38,7 +38,7 @@ public class RetroArchConfigHandler : IEmulatorConfigHandler
             var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
             var shouldRun = true;
 
-            if (context.Settings != null && context.Settings.RetroArch.ShowSettingsBeforeLaunch)
+            if (context.Settings is { RetroArch.ShowSettingsBeforeLaunch: true })
             {
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>

@@ -3,10 +3,21 @@ using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 
+/// <summary>
+/// Scans for installed itch.io games by inspecting the itch app library folder and creates shortcuts for them.
+/// </summary>
 public class ScanItchioGames : IGamePlatformScanner
 {
     private static readonly char[] Separator = ['='];
 
+    /// <summary>
+    /// Scans the itch.io apps directory, parses each game's manifest, and creates launch shortcuts.
+    /// </summary>
+    /// <param name="gameScannerService">The scanner service providing shared helpers.</param>
+    /// <param name="logErrors">The error logger.</param>
+    /// <param name="windowsRomsPath">The directory where game shortcuts are created.</param>
+    /// <param name="windowsImagesPath">The directory where game images are stored.</param>
+    /// <param name="ignoredGameNames">The set of game names to skip.</param>
     public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try

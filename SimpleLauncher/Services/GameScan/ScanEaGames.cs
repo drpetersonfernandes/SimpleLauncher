@@ -4,8 +4,12 @@ using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 
+/// <summary>
+/// Scans for installed EA (Electronic Arts) games and creates shortcuts for them.
+/// </summary>
 public class ScanEaGames : IGamePlatformScanner
 {
+    /// <inheritdoc />
     public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try

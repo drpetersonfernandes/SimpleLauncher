@@ -19,6 +19,10 @@ using Image = System.Windows.Controls.Image;
 
 namespace SimpleLauncher.Services.GameItemFactory;
 
+/// <summary>
+/// Factory that creates WPF game buttons with cover images, favorite star overlays,
+/// achievement/video/info shortcut buttons, and context menus for game entities.
+/// </summary>
 internal partial class GameButtonFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
@@ -61,8 +65,19 @@ IGetListOfFilesService getListOfFiles,
     private readonly IContextMenuService _contextMenuService = contextMenuService ?? throw new ArgumentNullException(nameof(contextMenuService));
 
     private Button _button = null!;
+
+    /// <summary>
+    /// Gets or sets the height of the game cover image displayed on the button.
+    /// </summary>
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
 
+    /// <summary>
+    /// Creates a game button with cover image, favorite star overlay, and context menu for the specified entity.
+    /// </summary>
+    /// <param name="entityPath">The file or directory path of the game entity.</param>
+    /// <param name="systemName">The name of the system this game belongs to.</param>
+    /// <param name="systemManager">The system manager service providing configuration for the system.</param>
+    /// <returns>A configured WPF Button control representing the game.</returns>
     public async Task<Button> CreateGameButtonAsync(string entityPath, string systemName, SystemManager.SystemManagerService systemManager)
     {
         var isDirectory = Directory.Exists(entityPath);

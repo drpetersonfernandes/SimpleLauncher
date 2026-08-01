@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.GetApplicationVersion;
-using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
+using UpdateChecker = SimpleLauncher.Services.CheckForUpdatesService;
 
 namespace SimpleLauncher.ViewModels;
 
@@ -18,6 +18,10 @@ public partial class AboutViewModel : ObservableObject
     private readonly UpdateChecker _updateChecker;
     private string _appVersion = "";
 
+    /// <summary>Initializes a new instance of the <see cref="AboutViewModel"/>.</summary>
+    /// <param name="logErrors">The logger instance.</param>
+    /// <param name="messageBox">The message box service for user notifications.</param>
+    /// <param name="updateChecker">The update checker service.</param>
     public AboutViewModel(ILogger logErrors, IMessageBoxLibraryService messageBox, UpdateChecker updateChecker)
     {
         _logger = logErrors;

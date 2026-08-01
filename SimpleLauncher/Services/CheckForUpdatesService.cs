@@ -4,14 +4,17 @@ using System.Security;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Windows;
-using SharpCompress.Archives.Zip;
 using Microsoft.Extensions.DependencyInjection;
+using SharpCompress.Archives.Zip;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.QuitOrReinstall;
 using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 
-namespace SimpleLauncher.Services.CheckForUpdates;
+namespace SimpleLauncher.Services;
 
+/// <summary>
+/// Checks for new application releases on GitHub and orchestrates the update process.
+/// </summary>
 public partial class CheckForUpdatesService
 {
     private const string RepoOwner = "drpetersonfernandes";
@@ -38,6 +41,15 @@ public partial class CheckForUpdatesService
         }
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CheckForUpdatesService"/> class.
+    /// </summary>
+    /// <param name="httpClientFactory">The factory used to create the HTTP client for GitHub API requests.</param>
+    /// <param name="messageBoxLibrary">The message box service used to prompt the user about updates.</param>
+    /// <param name="resourceProvider">The resource provider used to resolve localized strings.</param>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="quitSimpleLauncher">The service used to shut down the application for an update.</param>
+    /// <param name="serviceProvider">The dependency injection service provider.</param>
     public CheckForUpdatesService(IHttpClientFactory httpClientFactory, IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider, ILogger logger, QuitSimpleLauncher quitSimpleLauncher, IServiceProvider serviceProvider)
     {
         ArgumentNullException.ThrowIfNull(httpClientFactory);
@@ -69,6 +81,11 @@ public partial class CheckForUpdatesService
 
     private static readonly char[] Separator = ['.'];
 
+    /// <summary>
+    /// Checks for updates silently in the background and shows the update window if a new version is available.
+    /// </summary>
+    /// <param name="mainWindow">The main application window used as the owner for update dialogs.</param>
+    /// <returns>A task representing the asynchronous update check operation.</returns>
     internal async Task SilentCheckForUpdatesAsync(Window mainWindow)
     {
         try
@@ -125,6 +142,11 @@ public partial class CheckForUpdatesService
         }
     }
 
+    /// <summary>
+    /// Checks for updates manually and notifies the user whether an update is available or not.
+    /// </summary>
+    /// <param name="mainWindow">The main application window used as the owner for update dialogs.</param>
+    /// <returns>A task representing the asynchronous update check operation.</returns>
     internal async Task ManualCheckForUpdatesAsync(Window mainWindow)
     {
         try
@@ -202,6 +224,10 @@ public partial class CheckForUpdatesService
         }
     }
 
+    /// <summary>
+    /// Retrieves the download URL of the latest updater package and the latest available version.
+    /// </summary>
+    /// <returns>A tuple containing the updater ZIP URL and the latest version, or null values if unavailable.</returns>
     internal async Task<(string? UpdaterZipUrl, string? LatestVersion)> GetLatestUpdaterInfoAsync()
     {
         try
@@ -290,6 +316,12 @@ public partial class CheckForUpdatesService
         }
     }
 
+    /// <summary>
+    /// Downloads the update file from the given URL into the provided memory stream.
+    /// </summary>
+    /// <param name="url">The URL of the update file to download.</param>
+    /// <param name="memoryStream">The memory stream that receives the downloaded file content.</param>
+    /// <returns>A task representing the asynchronous download operation.</returns>
     internal async Task DownloadUpdateFileToMemoryAsync(string url, MemoryStream memoryStream)
     {
         if (_httpClient == null)
@@ -309,6 +341,14 @@ public partial class CheckForUpdatesService
         memoryStream.Position = 0;
     }
 
+    /// <summary>
+    /// Extracts all entries of a ZIP archive from a memory stream into the destination path, protecting against path traversal attacks.
+    /// </summary>
+    /// <param name="zipStream">The memory stream containing the ZIP archive.</param>
+    /// <param name="destinationPath">The directory where the archive entries are extracted.</param>
+    /// <param name="logWindow">The update log window used to report extraction progress, or null.</param>
+    /// <param name="logErrors">The logger used to record extraction failures.</param>
+    /// <returns>True if the archive was extracted successfully, false otherwise.</returns>
     internal static bool ExtractAllFromZip(MemoryStream zipStream, string destinationPath, UpdateLogWindow? logWindow, ILogger logErrors)
     {
         try

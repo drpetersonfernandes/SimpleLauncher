@@ -33,6 +33,10 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     [ObservableProperty] private bool _duckStationOutputMuted;
     [ObservableProperty] private int _duckStationOutputVolume;
     [ObservableProperty] private bool _duckStationShowSettingsBeforeLaunch;
+    /// <summary>Initializes a new instance of the <see cref="InjectDuckStationConfigViewModel"/>.</summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="logger">The logger instance.</param>
     public InjectDuckStationConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;

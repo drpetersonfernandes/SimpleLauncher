@@ -13,12 +13,18 @@ public class GameCacheServiceExtendedTests : IDisposable
     private readonly ILogger _logger = Log.Logger;
 
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GameCacheServiceExtendedTests"/> class, setting up the cache service.
+    /// </summary>
     public GameCacheServiceExtendedTests()
     {
         ServiceProviderMock.Install();
         _cache = new GameCacheService(_logger);
     }
 
+    /// <summary>
+    /// Disposes the cache service and restores the original service provider.
+    /// </summary>
     public void Dispose()
     {
         _cache.Dispose();

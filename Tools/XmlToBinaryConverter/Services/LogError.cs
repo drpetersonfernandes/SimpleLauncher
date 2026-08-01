@@ -4,14 +4,23 @@ using System.Threading.Tasks;
 
 namespace XmlToBinaryConverter.Services;
 
+/// <summary>
+/// Provides error logging functionality to a file.
+/// </summary>
 public class LogError
 {
     private const string LogFileName = "error_log.txt";
 
     private static string LogFilePath => Path.Combine(AppContext.BaseDirectory, LogFileName);
 
+    /// <summary>
+    /// Logs an exception to the error log file asynchronously.
+    /// </summary>
+    /// <param name="ex">The exception to log.</param>
     public async Task LogAsync(Exception ex)
     {
+        Log.Error(ex, "An error occurred");
+
         var errorMessage = $"[{DateTime.Now}] Error: {ex.Message}\nStackTrace: {ex.StackTrace}\n\n";
 
         try
@@ -34,15 +43,15 @@ public class LogError
             }
             catch (Exception innerEx)
             {
-                // If even directory creation and second write fail, there's not much else we can do.
-                // Log to console as a last resort.
-                Console.WriteLine($"FATAL ERROR: Could not write to log file at {LogFilePath}.");
-                Console.WriteLine($"Original Error: {ex.Message}");
-                Console.WriteLine($"Logging Error: {innerEx.Message}");
+                Log.Fatal(innerEx, "Could not write to log file at {LogFilePath}", LogFilePath);
             }
         }
     }
 
+    /// <summary>
+    /// Reads the error log file content asynchronously.
+    /// </summary>
+    /// <returns>The log file content, or a message indicating no log was found.</returns>
     public async Task<string> ReadLogAsync()
     {
         if (File.Exists(LogFilePath))
@@ -53,7 +62,7 @@ public class LogError
             }
             catch (Exception ex)
             {
-                // Handle potential read errors
+                Log.Warning(ex, "Error reading log file");
                 return $"Error reading log file: {ex.Message}";
             }
         }
@@ -61,6 +70,9 @@ public class LogError
         return "No error log found.";
     }
 
+    /// <summary>
+    /// Clears the error log file.
+    /// </summary>
     public void ClearLog()
     {
         if (File.Exists(LogFilePath))
@@ -71,8 +83,7 @@ public class LogError
             }
             catch (Exception ex)
             {
-                // Handle potential delete errors
-                Console.WriteLine($"Error clearing log file: {ex.Message}");
+                Log.Warning(ex, "Error clearing log file");
             }
         }
     }

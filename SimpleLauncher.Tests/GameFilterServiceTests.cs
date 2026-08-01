@@ -247,6 +247,13 @@ public class GameFilterServiceTests
 
     private class FindCoverImageNoOp : IFindCoverImageService
     {
+        /// <summary>
+        /// Always returns the default cover image name, simulating a game that has no cover.
+        /// </summary>
+        /// <param name="fileNameWithoutExtension">The game file name without its extension.</param>
+        /// <param name="systemName">The name of the system the game belongs to.</param>
+        /// <param name="systemImageFolder">The folder configured to hold the system cover images.</param>
+        /// <returns>The literal string <c>default.png</c>.</returns>
         public string FindCoverImagePath(string fileNameWithoutExtension, string systemName, string systemImageFolder)
         {
             return "default.png";

@@ -22,6 +22,10 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
     [ObservableProperty] private int _width;
     [ObservableProperty] private int _height;
     [ObservableProperty] private bool _showBeforeLaunch;
+    /// <summary>Initializes a new instance of the <see cref="InjectFlycastConfigViewModel"/>.</summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="logger">The logger instance.</param>
     public InjectFlycastConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;

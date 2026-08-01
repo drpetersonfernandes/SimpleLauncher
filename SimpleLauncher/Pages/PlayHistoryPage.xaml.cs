@@ -45,6 +45,24 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
     private readonly IContextMenuService _contextMenuService;
     private CancellationTokenSource? _cancellationTokenSource;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PlayHistoryPage"/> class.
+    /// </summary>
+    /// <param name="systemManagers">The list of system manager configurations.</param>
+    /// <param name="machines">The list of MAME machine definitions.</param>
+    /// <param name="settings">The application settings manager.</param>
+    /// <param name="favoritesManager">The manager for favorite game entries.</param>
+    /// <param name="playHistoryManager">The manager for play history entries.</param>
+    /// <param name="mainWindow">The main application window.</param>
+    /// <param name="gamePadController">The gamepad input controller.</param>
+    /// <param name="gameLauncher">The service used to launch games.</param>
+    /// <param name="playSoundEffects">The service for playing sound effects.</param>
+    /// <param name="configuration">The application configuration.</param>
+    /// <param name="findCoverImage">The service for finding game cover images.</param>
+    /// <param name="imageLoader">The service for loading images.</param>
+    /// <param name="contextMenuFunctions">The service providing context menu operations.</param>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="contextMenuService">The service for building context menus.</param>
     public PlayHistoryPage(IList<SystemManager> systemManagers,
         IList<MameManagerService> machines,
         SettingsManagerService settings,
@@ -497,6 +515,9 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 
+    /// <summary>
+    /// Releases all resources used by the PlayHistoryPage.
+    /// </summary>
     public void Dispose()
     {
         _viewModel.Dispose();

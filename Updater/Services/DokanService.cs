@@ -9,7 +9,7 @@ namespace Updater.Services;
 /// Service for detecting whether the Dokan library is installed,
 /// and for downloading and installing it if missing.
 /// </summary>
-public class DokanService
+internal class DokanService
 {
     private const string DokanX64Url = "https://github.com/dokan-dev/dokany/releases/download/v2.3.1.1000/Dokan_x64.msi";
     private const string DokanArm64Url = "https://github.com/dokan-dev/dokany/releases/download/v2.3.1.1000/Dokan_ARM64.msi";
@@ -127,8 +127,9 @@ public class DokanService
                             LogMessage?.Invoke(this, new EventArgs<string>($"Cleaned up Dokan installer: {msiPath}"));
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        Log.Warning(ex, "Failed to clean up Dokan installer: {MsiPath}", msiPath);
                         // Best-effort cleanup; file may still be in use
                     }
                 });
@@ -140,6 +141,7 @@ public class DokanService
         }
         catch (Exception ex)
         {
+            Log.Error(ex, "Error downloading or installing Dokan");
             await BugReportService.ReportBugAsync(ex, "Error downloading or installing Dokan");
             LogMessage?.Invoke(this, new EventArgs<string>($"Error during Dokan installation: {ex.Message}"));
             throw;

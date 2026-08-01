@@ -4,6 +4,10 @@ using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Tests.TestHelpers;
 
+/// <summary>
+/// No-op implementation of <see cref="IMessageBoxLibraryService"/> for unit tests.
+/// All methods return immediately without displaying any message boxes.
+/// </summary>
 public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
 {
     /// <summary>
@@ -2577,11 +2581,20 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
         return Task.FromResult(false);
     }
 
+    /// <summary>
+    /// Does nothing. Does not display a custom info message box.
+    /// </summary>
+    /// <param name="title">The message box title.</param>
+    /// <param name="message">The info message.</param>
     public Task CustomInfoMessageBoxAsync(string title, string message)
     {
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Returns <see langword="false"/> without displaying a message box asking whether to use AI to fix parameters.
+    /// </summary>
+    /// <returns><see langword="false"/>.</returns>
     public Task<bool> AskAiToFixParametersMessageBoxAsync()
     {
         return Task.FromResult(false);

@@ -11,6 +11,9 @@ public class GameClassificationModelsTests
 {
     // GameClassificationItem tests
 
+    /// <summary>
+    /// Verifies that the default Name property of a new GameClassificationItem is an empty string.
+    /// </summary>
     [Fact]
     public void GameClassificationItemDefaultNameIsEmpty()
     {
@@ -18,6 +21,9 @@ public class GameClassificationModelsTests
         Assert.Equal("", item.Name);
     }
 
+    /// <summary>
+    /// Verifies that the default properties of a new GameClassificationItem are null.
+    /// </summary>
     [Fact]
     public void GameClassificationItemDefaultPropertiesAreNull()
     {
@@ -28,6 +34,9 @@ public class GameClassificationModelsTests
         Assert.Null(item.LogoRelativePath);
     }
 
+    /// <summary>
+    /// Verifies that all GameClassificationItem properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void GameClassificationItemAllPropertiesCanBeSet()
     {
@@ -47,6 +56,9 @@ public class GameClassificationModelsTests
         Assert.Equal("Assets\\Logo.png", item.LogoRelativePath);
     }
 
+    /// <summary>
+    /// Verifies that GameClassificationItem supports Unicode characters in the Name property.
+    /// </summary>
     [Fact]
     public void GameClassificationItemSupportsUnicode()
     {
@@ -54,6 +66,9 @@ public class GameClassificationModelsTests
         Assert.Equal("ポケモン", item.Name);
     }
 
+    /// <summary>
+    /// Verifies that GameClassificationItem supports long name strings.
+    /// </summary>
     [Fact]
     public void GameClassificationItemSupportsLongName()
     {
@@ -62,6 +77,9 @@ public class GameClassificationModelsTests
         Assert.Equal(longName, item.Name);
     }
 
+    /// <summary>
+    /// Verifies that GameClassificationItem supports special characters in the Name property.
+    /// </summary>
     [Fact]
     public void GameClassificationItemSupportsSpecialCharacters()
     {
@@ -71,6 +89,9 @@ public class GameClassificationModelsTests
 
     // GameClassificationResponse tests
 
+    /// <summary>
+    /// Verifies that the default Games property of a new GameClassificationResponse is an empty list.
+    /// </summary>
     [Fact]
     public void GameClassificationResponseDefaultGamesIsEmptyList()
     {
@@ -79,6 +100,9 @@ public class GameClassificationModelsTests
         Assert.Empty(response.Games);
     }
 
+    /// <summary>
+    /// Verifies that GameClassificationResponse Games list can be populated with multiple items.
+    /// </summary>
     [Fact]
     public void GameClassificationResponseGamesCanBePopulated()
     {
@@ -98,6 +122,9 @@ public class GameClassificationModelsTests
         Assert.Equal("Game3", response.Games[2].Name);
     }
 
+    /// <summary>
+    /// Verifies that games can be added dynamically to the GameClassificationResponse Games list.
+    /// </summary>
     [Fact]
     public void GameClassificationResponseCanAddGamesDynamically()
     {
@@ -108,6 +135,9 @@ public class GameClassificationModelsTests
         Assert.Equal("NewGame", response.Games[0].Name);
     }
 
+    /// <summary>
+    /// Verifies that the Games list can be cleared on a GameClassificationResponse.
+    /// </summary>
     [Fact]
     public void GameClassificationResponseCanClearGames()
     {
@@ -120,6 +150,9 @@ public class GameClassificationModelsTests
         Assert.Empty(response.Games);
     }
 
+    /// <summary>
+    /// Verifies that the Games list supports LINQ queries for filtering.
+    /// </summary>
     [Fact]
     public void GameClassificationResponseGamesListSupportsLinq()
     {

@@ -10,6 +10,11 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
     private readonly ILogger _logger;
     private readonly HashSet<string> _loggedUnmatchedSystems = new(StringComparer.OrdinalIgnoreCase);
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RetroAchievementsSystemMatcher"/> class.
+    /// </summary>
+    /// <param name="logErrors">The logger instance for error logging.</param>
+    /// <param name="logger">The logger instance for diagnostic output.</param>
     public RetroAchievementsSystemMatcher(ILogger logErrors, ILogger logger)
     {
         _logger = logErrors;
@@ -21,9 +26,20 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
     /// </summary>
     public class RaSystemInfo
     {
+        /// <summary>
+        /// Gets the official RetroAchievements console ID for the system.
+        /// </summary>
         public int Id { get; }
+        /// <summary>
+        /// Gets the list of known name aliases for the system used for matching.
+        /// </summary>
         public string[] Aliases { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RaSystemInfo"/> class.
+        /// </summary>
+        /// <param name="id">The official RetroAchievements console ID.</param>
+        /// <param name="aliases">The name aliases used for matching the system.</param>
         public RaSystemInfo(int id, string[] aliases)
         {
             Id = id;
@@ -159,7 +175,8 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
             "Philips P2000", "SEGA_action", "ReflectionHLE", "Spectravideo", "Symbian", "Tandy TRS80", "Tangerine Microtan 65",
             "Tatung Einstein TC-01", "SEGA_fighting", "SEGA_arcade", "SEGA_SPORTS", "Metroid Saga", "Sega Chihiro", "ReflectionHLE",
             "Technosys Aamber Pegasus", "TI-99", "TI-73", "TI-80", "@sega_model 3", "sega model 3m", "FBNeo", "EACA Colour Genie",
-            "NEC PC9801", "NEC PC9821", "Metroid Saga", "PC_Shooter_1998-2002", "super a'can", "NEC PC98", "MAMEICHON"
+            "NEC PC9801", "NEC PC9821", "Metroid Saga", "PC_Shooter_1998-2002", "super a'can", "NEC PC98", "MAMEICHON", "Videoton TVC",
+            "Tiger GameCom"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos", "MS DOS", "MSDOS", "MS-DOS"]),
@@ -198,11 +215,20 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         return normalizedInput;
     }
 
+    /// <summary>
+    /// Checks whether the given system name is an official RetroAchievements system name (a key in the SystemMappings dictionary).
+    /// </summary>
+    /// <param name="systemName">The system name to check.</param>
+    /// <returns>True if the system name is an official key; otherwise, false.</returns>
     public bool IsOfficialSystemName(string systemName)
     {
         return SystemMappings.ContainsKey(systemName.ToLowerInvariant());
     }
 
+    /// <summary>
+    /// Gets a sorted list of all official RetroAchievements system names supported by the matcher.
+    /// </summary>
+    /// <returns>A sorted list of system name strings.</returns>
     public IList<string> GetSupportedSystemNames()
     {
         return SystemMappings.Keys.OrderBy(static s => s, StringComparer.Ordinal).ToList();
@@ -221,6 +247,11 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         return SystemMappings.TryGetValue(bestMatch, out var systemInfo) ? systemInfo.Id : -1;
     }
 
+    /// <summary>
+    /// Attempts to find an exact match for the input system name among all known aliases.
+    /// </summary>
+    /// <param name="inputSystemName">The system name to match.</param>
+    /// <returns>The official system name key if an exact alias match is found; otherwise, null.</returns>
     public string? GetExactAliasMatch(string inputSystemName)
     {
         if (string.IsNullOrWhiteSpace(inputSystemName)) return null;

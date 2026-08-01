@@ -23,6 +23,13 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     [ObservableProperty] private string _username = null!;
     [ObservableProperty] private string _apiKey = null!;
     [ObservableProperty] private string _password = null!;
+    /// <summary>Initializes a new instance of the <see cref="RetroAchievementsSettingsViewModel"/>.</summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="logErrors">The logger instance.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="raService">The RetroAchievements service.</param>
+    /// <param name="resourceProvider">The resource provider for localized strings.</param>
+    /// <param name="configurator">The emulator configurator service for RetroAchievements integration.</param>
     public RetroAchievementsSettingsViewModel(SettingsManagerService settings, ILogger logErrors, IMessageBoxLibraryService messageBox, RetroAchievementsService raService, IResourceProvider resourceProvider, IRetroAchievementsEmulatorConfiguratorService configurator)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));

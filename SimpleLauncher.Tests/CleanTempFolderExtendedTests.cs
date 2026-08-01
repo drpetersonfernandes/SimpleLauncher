@@ -149,6 +149,9 @@ public class CleanTempFolderExtendedTests
         Assert.False(Directory.Exists(tempDir));
     }
 
+    /// <summary>
+    /// Verifies that CleanupPartialExtractionAsync handles a deeply nested directory structure.
+    /// </summary>
     [Fact]
     public async Task CleanupPartialExtractionAsyncWithDeeplyNestedStructure()
     {

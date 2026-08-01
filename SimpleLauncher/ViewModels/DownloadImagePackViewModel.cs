@@ -37,6 +37,13 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     private string _loadingMessage = "";
     private bool _isSystemDropdownEnabled = true;
 
+    /// <summary>Initializes a new instance of the <see cref="DownloadImagePackViewModel"/>.</summary>
+    /// <param name="playSoundEffects">The sound effects service.</param>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="easyModeManager">The Easy Mode configuration manager.</param>
+    /// <param name="messageBox">The message box service for user notifications.</param>
+    /// <param name="scopeFactory">The service scope factory for dependency resolution.</param>
+    /// <param name="resourceProvider">The resource provider for localized strings.</param>
     public DownloadImagePackViewModel(PlaySoundEffects playSoundEffects, ILogger logger, EasyModeManager easyModeManager, IMessageBoxLibraryService messageBox, IServiceScopeFactory scopeFactory, IResourceProvider resourceProvider)
     {
         _playSoundEffects = playSoundEffects;

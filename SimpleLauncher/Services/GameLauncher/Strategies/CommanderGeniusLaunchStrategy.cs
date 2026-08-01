@@ -13,6 +13,10 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
+/// <summary>
+/// Launch strategy for Commander Genius that extracts compressed game files into the
+/// Commander Genius games directory and launches the emulator with the game data path.
+/// </summary>
 public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 {
     private readonly IExtractionService _extractionService;
@@ -105,10 +109,10 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                 var arguments = $"dir=\"games/{zipName}\"";
 
                 _logger.Debug($"CommanderGeniusLaunchStrategy:\n\n" +
-                                 $"Program Location: {emulatorLocation}\n" +
-                                 $"Arguments: {arguments}\n" +
-                                 $"Working Directory: {cgDataPath}\n" +
-                                 $"Zip: {context.ResolvedFilePath}");
+                              $"Program Location: {emulatorLocation}\n" +
+                              $"Arguments: {arguments}\n" +
+                              $"Working Directory: {cgDataPath}\n" +
+                              $"Zip: {context.ResolvedFilePath}");
 
                 var launchedwith = (string)Application.Current.TryFindResource("launchedwith") ?? "launched with";
                 var originalFileName = Path.GetFileNameWithoutExtension(context.FilePath);
@@ -323,7 +327,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
             }
             else
             {
-                _logger.Debug("[CommanderGenius] ${BIN} variable found but emulator location is unknown.");
+                _logger.Debug("[CommanderGenius] BIN variable found but emulator location is unknown.");
                 return null;
             }
         }
@@ -499,10 +503,10 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         }
     }
 
-    private void LogErrorAsync(string message)
+    private static void LogErrorAsync(string message)
     {
         var fullMessage = $"[CommanderGeniusLaunchStrategy] {message}";
-        _logger.Warning( fullMessage);
+        _logger.Warning(fullMessage);
     }
 
     [GeneratedRegex(@"^SearchPath1\s*=\s*(.+)$", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, "pt-BR")]

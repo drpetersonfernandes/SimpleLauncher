@@ -71,6 +71,9 @@ public partial class FlashOverlayWindow : IDisposable
         _viewModel.OnAnimationCompleted();
     }
 
+    /// <summary>
+    /// Disposes the cancellation token source used by the flash animation and suppresses finalization.
+    /// </summary>
     public void Dispose()
     {
         _cts?.Dispose();

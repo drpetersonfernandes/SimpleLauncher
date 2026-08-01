@@ -67,7 +67,10 @@ public partial class SupportWindow : ILoadingState
         DataContext = _viewModel;
     }
 
-    private void OnCloseRequested(object? sender, EventArgs e) => Close();
+    private void OnCloseRequested(object? sender, EventArgs e)
+    {
+        Close();
+    }
 
     private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {

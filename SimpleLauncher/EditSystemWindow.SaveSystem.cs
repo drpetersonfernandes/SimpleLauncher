@@ -1,12 +1,11 @@
 using System.Windows;
 using System.Windows.Controls;
-using SimpleLauncher.Services.CreateFolders;
 using SimpleLauncher.Services.SanitizeInputString;
 using SimpleLauncher.Services.SystemManager;
 using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
-
 using SimpleLauncher.Models;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -317,7 +316,7 @@ internal partial class EditSystemWindow
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(varSystemImageFolderText);
                 if (resolvedSystemFolder != null && resolvedSystemImageFolder != null)
                 {
-                    await CreateDefaultSystemFolders.CreateFoldersAsync(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logger, _messageBox);
+                    await CreateDefaultSystemFoldersService.CreateFoldersAsync(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logger, _messageBox);
                 }
 
                 _originalSystemName = systemNameText; // Update original name after successful save & UI refresh

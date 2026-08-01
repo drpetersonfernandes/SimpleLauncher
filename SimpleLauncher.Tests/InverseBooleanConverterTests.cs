@@ -55,6 +55,9 @@ public class InverseBooleanConverterTests
         Assert.Equal(42, result);
     }
 
+    /// <summary>
+    /// Verifies that Convert and ConvertBack are inverse operations.
+    /// </summary>
     [Fact]
     public void ConvertAndConvertBackAreInverse()
     {
@@ -64,6 +67,9 @@ public class InverseBooleanConverterTests
         Assert.Equal(original, roundTrip);
     }
 
+    /// <summary>
+    /// Verifies that ConvertBack and Convert are inverse operations.
+    /// </summary>
     [Fact]
     public void ConvertBackAndConvertAreInverse()
     {
@@ -73,6 +79,9 @@ public class InverseBooleanConverterTests
         Assert.Equal(original, roundTrip);
     }
 
+    /// <summary>
+    /// Verifies that Convert returns the original value when the input is an integer, not a boolean.
+    /// </summary>
     [Fact]
     public void ConvertIntReturnsOriginalValue()
     {
@@ -80,6 +89,9 @@ public class InverseBooleanConverterTests
         Assert.Equal(1, result);
     }
 
+    /// <summary>
+    /// Verifies that Convert returns null when the input is null.
+    /// </summary>
     [Fact]
     public void ConvertNullReturnsNull()
     {

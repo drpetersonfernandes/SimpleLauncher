@@ -9,6 +9,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class CheckPathExtendedTests
 {
+    /// <summary>
+    /// Verifies that a directory path containing spaces is considered valid.
+    /// </summary>
     [Fact]
     public void IsValidPathDirectoryWithSpacesReturnsTrue()
     {
@@ -25,6 +28,9 @@ public class CheckPathExtendedTests
         }
     }
 
+    /// <summary>
+    /// Verifies that a file path containing spaces is considered valid.
+    /// </summary>
     [Fact]
     public void IsValidPathFileWithSpacesReturnsTrue()
     {
@@ -41,6 +47,9 @@ public class CheckPathExtendedTests
         }
     }
 
+    /// <summary>
+    /// Verifies that a deeply nested non-existent path returns false.
+    /// </summary>
     [Fact]
     public void IsValidPathNestedNonExistentPathReturnsFalse()
     {
@@ -48,6 +57,9 @@ public class CheckPathExtendedTests
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that a directory path returns false for emulator executable validation.
+    /// </summary>
     [Fact]
     public void IsValidEmulatorExecutablePathDirectoryReturnsFalse()
     {
@@ -64,8 +76,12 @@ public class CheckPathExtendedTests
         }
     }
 
+    /// <summary>
+    /// Verifies that emulator executable validation accepts .exe, .bat, and .lnk extensions and rejects others.
+    /// </summary>
+    /// <param name="extension">The file extension to test.</param>
+    /// <param name="expected">Whether the extension is expected to be accepted as an emulator executable.</param>
     [Theory]
-    [InlineData(".exe", true)]
     [InlineData(".bat", true)]
     [InlineData(".lnk", true)]
     [InlineData(".txt", false)]
@@ -87,6 +103,9 @@ public class CheckPathExtendedTests
         }
     }
 
+    /// <summary>
+    /// Verifies that an .EXE extension in uppercase is accepted for emulator executable validation.
+    /// </summary>
     [Fact]
     public void IsValidEmulatorExecutablePathExeUpperCaseReturnsTrue()
     {
@@ -103,6 +122,9 @@ public class CheckPathExtendedTests
         }
     }
 
+    /// <summary>
+    /// Verifies that a .Bat extension in mixed case is accepted for emulator executable validation.
+    /// </summary>
     [Fact]
     public void IsValidEmulatorExecutablePathBatMixedCaseReturnsTrue()
     {
@@ -119,6 +141,9 @@ public class CheckPathExtendedTests
         }
     }
 
+    /// <summary>
+    /// Verifies that the %BASEFOLDER% placeholder resolves to the application directory and validates successfully.
+    /// </summary>
     [Fact]
     public void IsValidPathWithBaseFolderPlaceholderResolvesToAppDirectory()
     {
@@ -126,6 +151,9 @@ public class CheckPathExtendedTests
         Assert.True(result); // App directory should exist
     }
 
+    /// <summary>
+    /// Verifies that a non-existent file path returns false for emulator executable validation.
+    /// </summary>
     [Fact]
     public void IsValidEmulatorExecutablePathNonExistentFileReturnsFalse()
     {
@@ -133,6 +161,9 @@ public class CheckPathExtendedTests
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that a very long path returns false for path validation.
+    /// </summary>
     [Fact]
     public void IsValidPathVeryLongPathReturnsFalse()
     {

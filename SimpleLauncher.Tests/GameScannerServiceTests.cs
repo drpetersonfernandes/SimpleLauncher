@@ -10,12 +10,18 @@ public class GameScannerServiceTests : IDisposable
 {
     private readonly string _testDirectory;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GameScannerServiceTests"/> class, creating a temporary test directory.
+    /// </summary>
     public GameScannerServiceTests()
     {
         _testDirectory = Path.Combine(Path.GetTempPath(), $"SL_GameScanTest_{Guid.NewGuid():N}");
         Directory.CreateDirectory(_testDirectory);
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory.
+    /// </summary>
     public void Dispose()
     {
         try

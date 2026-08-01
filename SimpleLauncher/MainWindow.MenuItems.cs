@@ -8,6 +8,10 @@ namespace SimpleLauncher;
 /// </summary>
 public partial class MainWindow
 {
+    /// <summary>
+    /// Sets the current view mode (e.g. grid or list) and updates the UI accordingly.
+    /// </summary>
+    /// <param name="viewMode">The view mode identifier to apply.</param>
     internal void SetViewMode(string viewMode)
     {
         _menuOrchestrator.SetViewMode(viewMode);
@@ -49,6 +53,10 @@ public partial class MainWindow
         }
     }
 
+    /// <summary>
+    /// Resets the UI to its default state asynchronously.
+    /// </summary>
+    /// <returns>A task representing the asynchronous reset operation.</returns>
     internal async Task ResetUiAsync()
     {
         try

@@ -12,6 +12,10 @@ internal partial class GlobalStatsWindow : IDisposable
     private EventHandler? _closeRequestedHandler;
     private Button? _emergencyReturnButton;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GlobalStatsWindow"/> class.
+    /// </summary>
+    /// <param name="viewModel">The view model providing global statistics logic.</param>
     public GlobalStatsWindow(GlobalStatsViewModel viewModel)
     {
         InitializeComponent();
@@ -39,6 +43,10 @@ internal partial class GlobalStatsWindow : IDisposable
         };
     }
 
+    /// <summary>
+    /// Initializes the window with the list of system managers for statistics calculation.
+    /// </summary>
+    /// <param name="systemManagers">The list of system manager configurations.</param>
     internal void Initialize(List<SystemManager> systemManagers)
     {
         _viewModel.Initialize(systemManagers);
@@ -67,6 +75,9 @@ internal partial class GlobalStatsWindow : IDisposable
         Dispose();
     }
 
+    /// <summary>
+    /// Disposes of resources used by the window.
+    /// </summary>
     public void Dispose()
     {
         if (_emergencyReturnButton != null)

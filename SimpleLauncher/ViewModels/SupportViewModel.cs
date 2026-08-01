@@ -27,6 +27,13 @@ public partial class SupportViewModel : ObservableObject
     [ObservableProperty] private string _supportRequest = "";
     [ObservableProperty] private bool _isLoading;
 
+    /// <summary>Initializes a new instance of the <see cref="SupportViewModel"/> class.</summary>
+    /// <param name="playSoundEffects">The sound effects service for playing notification sounds.</param>
+    /// <param name="httpClientFactory">The HTTP client factory for sending support requests.</param>
+    /// <param name="configuration">The application configuration for API settings.</param>
+    /// <param name="messageBox">The message box service for displaying dialogs.</param>
+    /// <param name="resourceProvider">The resource provider for localized strings.</param>
+    /// <param name="logger">The logger for recording errors and debug information.</param>
     public SupportViewModel(PlaySoundEffects playSoundEffects, IHttpClientFactory httpClientFactory, IConfiguration configuration, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider, ILogger logger)
     {
         _playSoundEffects = playSoundEffects;

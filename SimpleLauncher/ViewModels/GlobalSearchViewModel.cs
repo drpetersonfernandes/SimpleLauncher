@@ -14,6 +14,9 @@ using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService
 
 namespace SimpleLauncher.ViewModels;
 
+/// <summary>
+/// ViewModel for the global search window, providing cross-system ROM search with scoring.
+/// </summary>
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 {
@@ -59,6 +62,20 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 
     [ObservableProperty] private int _selectedSystemIndex;
 
+    /// <summary>Initializes a new instance of the <see cref="GlobalSearchViewModel"/>.</summary>
+    /// <param name="configuration">The application configuration.</param>
+    /// <param name="logErrors">The logger instance.</param>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="systemManagers">The list of configured system managers.</param>
+    /// <param name="machines">The list of MAME machine definitions.</param>
+    /// <param name="mameLookup">The MAME description lookup dictionary.</param>
+    /// <param name="favoritesManager">The favorites manager.</param>
+    /// <param name="playSoundEffects">The sound effects service.</param>
+    /// <param name="getListOfFiles">The file listing service.</param>
+    /// <param name="findCoverImage">The cover image lookup service.</param>
+    /// <param name="imageLoader">The image loader service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="resourceProvider">The resource provider for localized strings.</param>
     public GlobalSearchViewModel(
         IConfiguration configuration,
         ILogger logErrors,
@@ -101,6 +118,14 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
         SelectedSystemIndex = 0;
     }
 
+    /// <summary>Performs a global search across all configured systems.</summary>
+    /// <param name="searchTerm">The search query string.</param>
+    /// <param name="selectedSystem">The system name to filter by, or null for all systems.</param>
+    /// <param name="searchFilename">Whether to search ROM file names.</param>
+    /// <param name="searchMameDescription">Whether to search MAME machine descriptions.</param>
+    /// <param name="searchFolderName">Whether to search folder names.</param>
+    /// <param name="searchRecursively">Whether to search recursively in subdirectories.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task SearchAsync(string searchTerm, string? selectedSystem,
         bool searchFilename, bool searchMameDescription, bool searchFolderName, bool searchRecursively)
     {
@@ -297,6 +322,9 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
         return ScoreResults(results, searchTerms);
     }
 
+    /// <summary>Updates the preview image from the specified image path.</summary>
+    /// <param name="imagePath">The path to the image file, or null to clear.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task UpdatePreviewImageAsync(string? imagePath)
     {
         try
@@ -317,11 +345,15 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
         }
     }
 
+    /// <summary>Gets the system manager for the specified system name.</summary>
+    /// <param name="systemName">The system name to look up.</param>
+    /// <returns>The matching <see cref="SystemManager"/>, or <c>null</c> if not found.</returns>
     public SystemManager? GetSystemManager(string systemName)
     {
         return _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
     }
 
+    /// <summary>Cancels any in-progress search operation.</summary>
     public void CancelSearch()
     {
         _cancellationTokenSource.Cancel();
@@ -403,6 +435,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
     [GeneratedRegex("""[\"](.+?)[\"]|([^ ]+)""", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex();
 
+    /// <summary>Releases resources used by this ViewModel.</summary>
     public void Dispose()
     {
         _cancellationTokenSource.Dispose();

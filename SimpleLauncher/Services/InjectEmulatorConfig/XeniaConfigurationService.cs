@@ -3,8 +3,19 @@ using Tomlyn.Model;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Provides functionality to inject Simple Launcher settings into the Xenia emulator configuration files (TOML format).
+/// </summary>
 public static class XeniaConfigurationService
 {
+    /// <summary>
+    /// Injects Simple Launcher configuration settings into the Xenia emulator's TOML config files.
+    /// Processes both xenia-canary.config.toml and xenia.config.toml if found, creating them from samples if missing.
+    /// Updates APU, GPU, display, HID, general, storage, and language settings.
+    /// </summary>
+    /// <param name="emulatorPath">The full path to the Xenia emulator executable.</param>
+    /// <param name="settings">The settings manager containing Xenia configuration values.</param>
+    /// <param name="logger">The logger instance for diagnostic output.</param>
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);

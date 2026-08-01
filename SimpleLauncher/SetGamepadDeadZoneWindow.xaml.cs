@@ -42,5 +42,8 @@ public partial class SetGamepadDeadZoneWindow
         DataContext = viewModel;
     }
 
-    private void OnCloseRequested(object? sender, EventArgs e) => Close();
+    private void OnCloseRequested(object? sender, EventArgs e)
+    {
+        Close();
+    }
 }

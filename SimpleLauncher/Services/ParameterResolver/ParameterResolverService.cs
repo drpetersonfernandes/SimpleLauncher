@@ -6,6 +6,9 @@ using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services.ParameterResolver;
 
+/// <summary>
+/// Resolves emulator launch parameters by calling a remote API endpoint with the system and emulator context.
+/// </summary>
 public class ParameterResolverService : IParameterResolverService
 {
     private readonly IHttpClientFactory _httpClientFactory;
@@ -18,6 +21,12 @@ public class ParameterResolverService : IParameterResolverService
         WriteIndented = false
     };
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ParameterResolverService"/> class.
+    /// </summary>
+    /// <param name="httpClientFactory">The HTTP client factory for making API requests.</param>
+    /// <param name="configuration">The application configuration containing the API key and endpoint settings.</param>
+    /// <param name="logErrors">The logger instance for error logging.</param>
     public ParameterResolverService(IHttpClientFactory httpClientFactory, IConfiguration configuration, ILogger logErrors)
     {
         _httpClientFactory = httpClientFactory;
@@ -25,6 +34,11 @@ public class ParameterResolverService : IParameterResolverService
         _logger = logErrors;
     }
 
+    /// <summary>
+    /// Sends a parameter resolution request to the remote API and returns the resolved parameters.
+    /// </summary>
+    /// <param name="request">The request containing system name, emulator name, and ROM file information.</param>
+    /// <returns>The resolved parameters, or null if the API call fails.</returns>
     public async Task<ParameterResolverResult?> ResolveParametersAsync(ParameterResolverRequest request)
     {
         var apiKey = _configuration["ApiKey"];

@@ -12,6 +12,10 @@ public partial class InjectPcsx2ConfigWindow
     private readonly Func<string?> _requestEmulatorPathHandler;
     private readonly Func<Window> _getOwnerWindowHandler;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InjectPcsx2ConfigWindow"/> class.
+    /// </summary>
+    /// <param name="viewModel">The view model providing PCSX2 configuration injection logic.</param>
     public InjectPcsx2ConfigWindow(InjectPcsx2ConfigViewModel viewModel)
     {
         InitializeComponent();
@@ -35,7 +39,10 @@ public partial class InjectPcsx2ConfigWindow
         DataContext = _viewModel;
     }
 
-    private void OnCloseRequested(object? sender, EventArgs e) => Close();
+    private void OnCloseRequested(object? sender, EventArgs e)
+    {
+        Close();
+    }
 
     /// <summary>
     /// Initializes the window with the specified emulator path and launcher mode.

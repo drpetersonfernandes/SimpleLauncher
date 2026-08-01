@@ -14,6 +14,9 @@ public class ImageViewerViewModel : ObservableObject
     private BitmapSource? _imageSource;
     private string _errorMessage = "";
 
+    /// <summary>Initializes a new instance of the <see cref="ImageViewerViewModel"/>.</summary>
+    /// <param name="logErrors">The logger instance.</param>
+    /// <param name="messageBox">The message box service for error notifications.</param>
     public ImageViewerViewModel(ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         _logger = logErrors;

@@ -9,6 +9,9 @@ using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
+/// <summary>
+/// ViewModel for the RetroAchievements window, managing user profile, unlocks, and completion progress display.
+/// </summary>
 public partial class RetroAchievementsViewModel : ObservableObject
 {
     private readonly IMessageBoxLibraryService _messageBox;
@@ -85,6 +88,12 @@ public partial class RetroAchievementsViewModel : ObservableObject
     // Loading state
     [ObservableProperty] private bool _isLoading;
 
+    /// <summary>Initializes a new instance of the <see cref="RetroAchievementsViewModel"/>.</summary>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="resourceProvider">The resource provider for localized strings.</param>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="raService">The RetroAchievements service.</param>
+    /// <param name="logger">The logger instance.</param>
     public RetroAchievementsViewModel(
 IMessageBoxLibraryService messageBox,
         IResourceProvider resourceProvider,
@@ -103,6 +112,8 @@ IMessageBoxLibraryService messageBox,
         ToDate = DateTime.Today;
     }
 
+    /// <summary>Loads the user profile and recently played games from RetroAchievements.</summary>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task LoadUserProfileAsync()
     {
         IsLoading = true;
@@ -212,6 +223,8 @@ IMessageBoxLibraryService messageBox,
         }
     }
 
+    /// <summary>Loads the achievements earned between the selected dates.</summary>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task LoadUnlocksByDateAsync()
     {
         IsLoading = true;
@@ -306,6 +319,8 @@ IMessageBoxLibraryService messageBox,
         return LoadUnlocksByDateAsync();
     }
 
+    /// <summary>Loads the user completion progress from RetroAchievements.</summary>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task LoadUserProgressAsync()
     {
         IsLoading = true;
@@ -365,6 +380,8 @@ IMessageBoxLibraryService messageBox,
         }
     }
 
+    /// <summary>Builds the public RetroAchievements profile URL for the configured username.</summary>
+    /// <returns>The full profile URL string.</returns>
     public string GetProfileUrl()
     {
         return $"https://retroachievements.org/user/{Uri.EscapeDataString(_settings.RaUsername ?? "")}";

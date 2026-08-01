@@ -13,6 +13,8 @@ public class PathHelperTests
     /// Verifies that IsRelativePathWithoutBaseFolder correctly identifies relative paths
     /// without the %BASEFOLDER% placeholder.
     /// </summary>
+    /// <param name="path">The path to evaluate.</param>
+    /// <param name="expected">Whether the path is expected to be relative without the %BASEFOLDER% placeholder.</param>
     [Theory]
     [InlineData("%BASEFOLDER%\\tools", false)]
     [InlineData("tools", true)]
@@ -30,6 +32,8 @@ public class PathHelperTests
     /// <summary>
     /// Verifies that SanitizePathToken removes trailing path separators from the input.
     /// </summary>
+    /// <param name="input">The raw path token to sanitize.</param>
+    /// <param name="expected">The expected sanitized token.</param>
     [Theory]
     [InlineData("C:\\MyFolder\\", "C:\\MyFolder")]
     [InlineData("C:\\MyFolder//", "C:\\MyFolder")]
@@ -54,6 +58,8 @@ public class PathHelperTests
     /// <summary>
     /// Verifies that GetFileNameWithoutExtension returns the file name without its extension.
     /// </summary>
+    /// <param name="path">The path to extract the file name from.</param>
+    /// <param name="expected">The expected file name without its extension.</param>
     [Theory]
     [InlineData("C:\\test.txt", "test")]
     [InlineData("C:\\folder\\file.zip", "file")]
@@ -67,6 +73,8 @@ public class PathHelperTests
     /// <summary>
     /// Verifies that GetFileName returns the file name with extension from a full path.
     /// </summary>
+    /// <param name="path">The path to extract the file name from.</param>
+    /// <param name="expected">The expected file name including its extension.</param>
     [Theory]
     [InlineData("C:\\test.txt", "test.txt")]
     [InlineData("C:\\folder\\file.zip", "file.zip")]
@@ -80,6 +88,8 @@ public class PathHelperTests
     /// <summary>
     /// Verifies that ContainsGameSpecificPlaceholder detects %GAME% and %ROMNAME% placeholders.
     /// </summary>
+    /// <param name="text">The text to inspect for a game-specific placeholder.</param>
+    /// <param name="expected">Whether a placeholder is expected to be detected.</param>
     [Theory]
     [InlineData("%GAME%", true)]
     [InlineData("%ROMNAME%", true)]
@@ -105,6 +115,8 @@ public class PathHelperTests
     /// <summary>
     /// Verifies that GetLongPath produces the correct extended-length path prefix for various inputs.
     /// </summary>
+    /// <param name="path">The path to convert to an extended-length path.</param>
+    /// <param name="expected">The expected extended-length path.</param>
     [Theory]
     [InlineData("C:\\very\\long\\path", "\\\\?\\C:\\very\\long\\path")]
     [InlineData("\\\\server\\share", "\\\\?\\UNC\\server\\share")]

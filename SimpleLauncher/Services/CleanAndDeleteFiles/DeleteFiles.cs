@@ -3,6 +3,9 @@ using SimpleLauncher.Services.CheckPaths;
 
 namespace SimpleLauncher.Services.CleanAndDeleteFiles;
 
+/// <summary>
+/// Provides file deletion helpers with retry logic for locked or read-only files.
+/// </summary>
 public static class DeleteFiles
 {
     private const int MaxDeleteRetries = 15;

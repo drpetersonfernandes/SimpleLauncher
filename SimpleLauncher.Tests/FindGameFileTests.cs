@@ -12,13 +12,18 @@ public class FindGameFileTests : IDisposable
     private readonly ILogger _logErrors = new NoOpLogger();
     private readonly ILogger _logger = Log.Logger;
 
-
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FindGameFileTests"/> class, setting up a temporary test directory.
+    /// </summary>
     public FindGameFileTests()
     {
         _testDirectory = Path.Combine(Path.GetTempPath(), $"SL_FindGame_{Guid.NewGuid():N}");
         Directory.CreateDirectory(_testDirectory);
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory.
+    /// </summary>
     public void Dispose()
     {
         try
@@ -371,6 +376,9 @@ public class FindGameFileTests : IDisposable
         Assert.Equal(ebootPath, result);
     }
 
+    /// <summary>
+    /// Verifies that FindEbootBin finds EBOOT.BIN in the PS3_GAME/USRDIR directory structure.
+    /// </summary>
     [Fact]
     public void FindEbootBinInPs3GameUsrDirReturnsPath()
     {
@@ -386,6 +394,9 @@ public class FindGameFileTests : IDisposable
         Assert.Equal(ebootPath, result);
     }
 
+    /// <summary>
+    /// Verifies that FindEbootBin finds EBOOT.BIN in a deeply nested directory.
+    /// </summary>
     [Fact]
     public void FindEbootBinInNestedDirectoryReturnsPath()
     {
@@ -400,6 +411,9 @@ public class FindGameFileTests : IDisposable
         Assert.Equal(ebootPath, result);
     }
 
+    /// <summary>
+    /// Verifies that FindEbootBin returns null when no EBOOT.BIN file exists.
+    /// </summary>
     [Fact]
     public void FindEbootBinNotFoundReturnsNull()
     {
@@ -407,6 +421,9 @@ public class FindGameFileTests : IDisposable
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindEbootBin prefers the top-level directory over nested subdirectories.
+    /// </summary>
     [Fact]
     public void FindEbootBinPrefersTopDirectoryOverNested()
     {
@@ -423,6 +440,9 @@ public class FindGameFileTests : IDisposable
         Assert.Equal(topEboot, result);
     }
 
+    /// <summary>
+    /// Verifies that FindEbootBin prefers the PS3_GAME/USRDIR structure over full recursive search.
+    /// </summary>
     [Fact]
     public void FindEbootBinPrefersPs3StructureOverFullRecursive()
     {

@@ -3,8 +3,18 @@ using System.Text.Json.Nodes;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Provides functionality to inject Simple Launcher settings into the Mesen emulator configuration file (settings.json).
+/// </summary>
 public static class MesenConfigurationService
 {
+    /// <summary>
+    /// Injects Simple Launcher configuration settings into the Mesen emulator's settings.json file.
+    /// Creates the config from a sample if it does not exist, then updates video, audio, preferences, and emulation settings.
+    /// </summary>
+    /// <param name="emulatorPath">The full path to the Mesen emulator executable.</param>
+    /// <param name="settings">The settings manager containing Mesen configuration values.</param>
+    /// <param name="logger">The logger instance for diagnostic output.</param>
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);

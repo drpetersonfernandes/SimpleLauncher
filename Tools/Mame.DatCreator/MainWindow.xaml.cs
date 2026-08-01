@@ -5,10 +5,22 @@ using Microsoft.Win32;
 
 namespace Mame.DatCreator;
 
+/// <summary>
+/// Main application window for the MAME DAT Creator tool.
+/// </summary>
+/// <summary>
+/// Main application window for the MAME DAT Creator tool.
+/// </summary>
 public partial class MainWindow
 {
     private readonly WpfLogger _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MainWindow"/> class.
+    /// </summary>
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MainWindow"/> class.
+    /// </summary>
     public MainWindow()
     {
         InitializeComponent();

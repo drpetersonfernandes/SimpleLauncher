@@ -18,6 +18,9 @@ public class GlobalStatsViewModelTests : IDisposable
     private readonly ILogger _logErrors = new NoOpLogger();
     private readonly IGetListOfFilesService _getListOfFiles = new NoOpGetListOfFiles();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GlobalStatsViewModelTests"/> class, setting up configuration and service mocks.
+    /// </summary>
     public GlobalStatsViewModelTests()
     {
         ServiceProviderMock.Install();
@@ -31,6 +34,9 @@ public class GlobalStatsViewModelTests : IDisposable
             .Build();
     }
 
+    /// <summary>
+    /// Restores the original service provider after tests.
+    /// </summary>
     public void Dispose()
     {
         ServiceProviderMock.Restore();

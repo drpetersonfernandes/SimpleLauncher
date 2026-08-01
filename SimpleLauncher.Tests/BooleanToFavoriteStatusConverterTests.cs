@@ -13,13 +13,19 @@ public class BooleanToFavoriteStatusConverterTests
 {
     private readonly BooleanToFavoriteStatusConverter _converter = new();
 
+    /// <summary>
+    /// Verifies that ConvertBack throws NotSupportedException since the converter only supports one-way conversion.
+    /// </summary>
     [Fact]
-    public void ConvertBackThrowsNotImplementedException()
+    public void ConvertBackThrowsNotSupportedException()
     {
-        Assert.Throws<NotImplementedException>(() =>
+        Assert.Throws<NotSupportedException>(() =>
             _converter.ConvertBack("Favorite", typeof(string), null!, CultureInfo.InvariantCulture));
     }
 
+    /// <summary>
+    /// Verifies that converting a true boolean value returns a non-null string.
+    /// </summary>
     [Fact]
     public void ConvertTrueReturnsNonNullString()
     {
@@ -28,6 +34,9 @@ public class BooleanToFavoriteStatusConverterTests
         Assert.IsType<string>(result);
     }
 
+    /// <summary>
+    /// Verifies that converting a false boolean value returns a non-null string.
+    /// </summary>
     [Fact]
     public void ConvertFalseReturnsNonNullString()
     {
@@ -36,6 +45,9 @@ public class BooleanToFavoriteStatusConverterTests
         Assert.IsType<string>(result);
     }
 
+    /// <summary>
+    /// Verifies that converting true and false produces two distinct string representations.
+    /// </summary>
     [Fact]
     public void ConvertTrueAndFalseReturnDifferentStrings()
     {
@@ -44,6 +56,9 @@ public class BooleanToFavoriteStatusConverterTests
         Assert.NotEqual(trueResult, falseResult, StringComparer.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that converting a non-boolean value returns a non-null string without throwing.
+    /// </summary>
     [Fact]
     public void ConvertNonBoolReturnsNonNullString()
     {
@@ -52,6 +67,9 @@ public class BooleanToFavoriteStatusConverterTests
         Assert.IsType<string>(result);
     }
 
+    /// <summary>
+    /// Verifies that converting a null value returns a non-null string without throwing.
+    /// </summary>
     [Fact]
     public void ConvertNullReturnsNonNullString()
     {

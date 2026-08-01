@@ -12,6 +12,9 @@ public class FavoritesManagerTests : IDisposable
 {
     private readonly string _testDirectory;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FavoritesManagerTests"/> class, setting up a temporary test directory.
+    /// </summary>
     public FavoritesManagerTests()
     {
         ServiceProviderMock.Install();
@@ -19,6 +22,9 @@ public class FavoritesManagerTests : IDisposable
         Directory.CreateDirectory(_testDirectory);
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory and restores the original service provider.
+    /// </summary>
     public void Dispose()
     {
         try
@@ -141,6 +147,9 @@ public class FavoritesManagerTests : IDisposable
         Assert.Equal("Arcade", deserialized.FavoriteList[0].SystemName);
     }
 
+    /// <summary>
+    /// Verifies that a FavoritesManager with duplicate entries serializes and deserializes correctly.
+    /// </summary>
     [Fact]
     public void FavoritesManagerWithDuplicateEntriesSerializesCorrectly()
     {
@@ -160,6 +169,9 @@ public class FavoritesManagerTests : IDisposable
         Assert.Equal(2, deserialized.FavoriteList.Count);
     }
 
+    /// <summary>
+    /// Verifies that special characters in file names are preserved through serialization.
+    /// </summary>
     [Fact]
     public void FavoritesManagerWithSpecialCharactersInFileName()
     {
@@ -183,6 +195,9 @@ public class FavoritesManagerTests : IDisposable
         Assert.Equal("C:\\roms\\game & friends.zip", deserialized.FavoriteList[2].FileName);
     }
 
+    /// <summary>
+    /// Verifies that Unicode characters in file names are preserved through serialization.
+    /// </summary>
     [Fact]
     public void FavoritesManagerWithUnicodeCharacters()
     {
@@ -204,6 +219,9 @@ public class FavoritesManagerTests : IDisposable
         Assert.Equal("C:\\roms\\Jürgen's Game.zip", deserialized.FavoriteList[1].FileName);
     }
 
+    /// <summary>
+    /// Verifies that the Favorite model's CoverImage property defaults to null.
+    /// </summary>
     [Fact]
     public void FavoriteModelDefaultCoverImageIsNull()
     {
@@ -211,6 +229,9 @@ public class FavoritesManagerTests : IDisposable
         Assert.Null(favorite.CoverImage);
     }
 
+    /// <summary>
+    /// Verifies that the Favorite model's MachineDescription property defaults to null.
+    /// </summary>
     [Fact]
     public void FavoriteModelDefaultMachineDescriptionIsNull()
     {
@@ -218,6 +239,9 @@ public class FavoritesManagerTests : IDisposable
         Assert.Null(favorite.MachineDescription);
     }
 
+    /// <summary>
+    /// Verifies that the Favorite model's DefaultEmulator property defaults to null.
+    /// </summary>
     [Fact]
     public void FavoriteModelDefaultDefaultEmulatorIsNull()
     {
@@ -225,6 +249,9 @@ public class FavoritesManagerTests : IDisposable
         Assert.Null(favorite.DefaultEmulator);
     }
 
+    /// <summary>
+    /// Verifies that the Favorite model's CoverImage property can be set and retrieved.
+    /// </summary>
     [Fact]
     public void FavoriteModelCoverImageCanBeSet()
     {
@@ -232,6 +259,9 @@ public class FavoritesManagerTests : IDisposable
         Assert.Equal("cover.png", favorite.CoverImage);
     }
 
+    /// <summary>
+    /// Verifies that the Favorite model's DefaultEmulator property can be set and retrieved.
+    /// </summary>
     [Fact]
     public void FavoriteModelDefaultEmulatorCanBeSet()
     {
@@ -239,6 +269,9 @@ public class FavoritesManagerTests : IDisposable
         Assert.Equal("RetroArch", favorite.DefaultEmulator);
     }
 
+    /// <summary>
+    /// Verifies that the Version property is preserved after serialization and deserialization.
+    /// </summary>
     [Fact]
     public void FavoritesManagerVersionPreservedAfterSerialization()
     {
@@ -254,6 +287,9 @@ public class FavoritesManagerTests : IDisposable
         Assert.Equal(42, deserialized.Version);
     }
 
+    /// <summary>
+    /// Verifies that a large list of 1000 favorites serializes and deserializes correctly.
+    /// </summary>
     [Fact]
     public void FavoritesManagerLargeListSerializesCorrectly()
     {
@@ -275,6 +311,9 @@ public class FavoritesManagerTests : IDisposable
         Assert.Equal("game1000.zip", deserialized.FavoriteList[999].FileName);
     }
 
+    /// <summary>
+    /// Verifies that long file paths are preserved through serialization.
+    /// </summary>
     [Fact]
     public void FavoritesManagerLongPathsSerializesCorrectly()
     {

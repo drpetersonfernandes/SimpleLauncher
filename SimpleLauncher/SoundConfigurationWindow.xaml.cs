@@ -46,7 +46,10 @@ public partial class SoundConfigurationWindow
         DataContext = viewModel;
     }
 
-    private void OnCloseRequested(object? sender, EventArgs e) => Close();
+    private void OnCloseRequested(object? sender, EventArgs e)
+    {
+        Close();
+    }
 
     private static string? OnRequestSoundFilePath()
     {

@@ -156,6 +156,9 @@ public class CheckPathTests
         }
     }
 
+    /// <summary>
+    /// Verifies that a .lnk file returns true for <see cref="CheckPath.IsValidEmulatorExecutablePath"/>.
+    /// </summary>
     [Fact]
     public void IsValidEmulatorExecutablePathLnkFileReturnsTrue()
     {
@@ -172,6 +175,9 @@ public class CheckPathTests
         }
     }
 
+    /// <summary>
+    /// Verifies that %BASEFOLDER% resolves to the app directory and the sub-path is checked correctly.
+    /// </summary>
     [Fact]
     public void IsValidPathWithBaseFolderPlaceholderResolvesAndChecks()
     {

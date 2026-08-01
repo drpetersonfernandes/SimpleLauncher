@@ -32,6 +32,10 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     [ObservableProperty] private string _inputSystem = null!;
     [ObservableProperty] private string _powerPcFrequency = null!;
     [ObservableProperty] private bool _showBeforeLaunch;
+    /// <summary>Initializes a new instance of the <see cref="InjectSupermodelConfigViewModel"/>.</summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="logger">The logger instance.</param>
     public InjectSupermodelConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;

@@ -6,16 +6,29 @@ namespace SimpleLauncher.Services.Converters;
 
 using Interfaces;
 
+/// <summary>
+/// Converts disc image formats (CHD, PBP, and other disc images) to ISO or CUE/BIN using bundled conversion tools.
+/// </summary>
 public class DiscConverter : IDiscConverter
 {
     private static readonly string TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
     private readonly ILogger _logger;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DiscConverter"/> class.
+    /// </summary>
+    /// <param name="logger">The logger used to record conversion activity.</param>
     public DiscConverter(ILogger logger)
     {
         _logger = logger;
     }
 
+    /// <summary>
+    /// Converts a CHD disc image to an ISO file using chdman.
+    /// </summary>
+    /// <param name="chdPath">The path of the CHD file to convert.</param>
+    /// <returns>The path of the converted ISO file, or null if the conversion failed.</returns>
     public async Task<string?> ConvertChdToIsoAsync(string chdPath)
     {
         try
@@ -72,7 +85,14 @@ public class DiscConverter : IDiscConverter
             catch (OperationCanceledException)
             {
                 _logger.Debug("[ConvertChdToIso] Conversion timed out after 5 minutes.");
-                try { process.Kill(); } catch { /* ignored */ }
+                try
+                {
+                    process.Kill();
+                }
+                catch
+                {
+                    /* ignored */
+                }
 
                 return null;
             }
@@ -94,6 +114,11 @@ public class DiscConverter : IDiscConverter
         }
     }
 
+    /// <summary>
+    /// Converts a CHD disc image to a CUE/BIN pair using chdman.
+    /// </summary>
+    /// <param name="chdPath">The path of the CHD file to convert.</param>
+    /// <returns>The path of the converted CUE file, or null if the conversion failed.</returns>
     public async Task<string?> ConvertChdToCueBinAsync(string chdPath)
     {
         try
@@ -150,7 +175,14 @@ public class DiscConverter : IDiscConverter
             catch (OperationCanceledException)
             {
                 _logger.Debug("[ConvertChdToCueBin] Conversion timed out after 5 minutes. Killing process.");
-                try { process.Kill(); } catch { /* ignored */ }
+                try
+                {
+                    process.Kill();
+                }
+                catch
+                {
+                    /* ignored */
+                }
 
                 return null;
             }
@@ -172,6 +204,11 @@ public class DiscConverter : IDiscConverter
         }
     }
 
+    /// <summary>
+    /// Converts a PBP disc image to a CUE/BIN pair using psxpackager.
+    /// </summary>
+    /// <param name="pbpPath">The path of the PBP file to convert.</param>
+    /// <returns>The path of the converted CUE file, or null if the conversion failed.</returns>
     public async Task<string?> ConvertPbpToCueBinAsync(string pbpPath)
     {
         try
@@ -235,7 +272,14 @@ public class DiscConverter : IDiscConverter
             catch (OperationCanceledException)
             {
                 _logger.Debug("[ConvertPbpToCueBin] Conversion timed out after 5 minutes. Killing process.");
-                try { process.Kill(); } catch { /* ignored */ }
+                try
+                {
+                    process.Kill();
+                }
+                catch
+                {
+                    /* ignored */
+                }
 
                 return null;
             }
@@ -266,6 +310,11 @@ public class DiscConverter : IDiscConverter
         }
     }
 
+    /// <summary>
+    /// Converts a disc image file (such as RVZ) to an ISO file using DolphinTool.
+    /// </summary>
+    /// <param name="discImagePath">The path of the disc image file to convert.</param>
+    /// <returns>The path of the converted ISO file, or null if the conversion failed.</returns>
     public async Task<string?> ConvertToIsoAsync(string discImagePath)
     {
         try
@@ -321,7 +370,14 @@ public class DiscConverter : IDiscConverter
             catch (OperationCanceledException)
             {
                 _logger.Debug("[ConvertDiscImageToIso] Conversion timed out after 5 minutes.");
-                try { process.Kill(); } catch { /* ignored */ }
+                try
+                {
+                    process.Kill();
+                }
+                catch
+                {
+                    /* ignored */
+                }
 
                 return null;
             }

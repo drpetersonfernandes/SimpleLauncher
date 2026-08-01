@@ -19,6 +19,10 @@ public partial class ActiveWindowScreenshotService
     private readonly IPlaySoundEffects _playSoundEffects;
     private readonly IServiceProvider _serviceProvider;
 
+    /// <summary>Initializes a new instance of the <see cref="ActiveWindowScreenshotService"/>.</summary>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="playSoundEffects">The sound effects service for shutter sound.</param>
+    /// <param name="serviceProvider">The service provider for resolving dependencies.</param>
     public ActiveWindowScreenshotService(
         ILogger logger,
 IPlaySoundEffects playSoundEffects,

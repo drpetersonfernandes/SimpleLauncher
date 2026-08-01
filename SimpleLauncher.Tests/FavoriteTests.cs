@@ -105,6 +105,9 @@ public class FavoriteTests
         Assert.False(eventRaised);
     }
 
+    /// <summary>
+    /// Verifies that all Favorite properties can be set simultaneously and retrieved correctly.
+    /// </summary>
     [Fact]
     public void AllPropertiesCanBeSet()
     {
@@ -124,6 +127,9 @@ public class FavoriteTests
         Assert.Equal("MAME", fav.DefaultEmulator);
     }
 
+    /// <summary>
+    /// Verifies that the FileName property is init-only and can be set during object creation.
+    /// </summary>
     [Fact]
     public void FileNameIsInitOnly()
     {
@@ -131,6 +137,9 @@ public class FavoriteTests
         Assert.Equal("game.zip", fav.FileName);
     }
 
+    /// <summary>
+    /// Verifies that the SystemName property is init-only and can be set during object creation.
+    /// </summary>
     [Fact]
     public void SystemNameIsInitOnly()
     {
@@ -138,6 +147,9 @@ public class FavoriteTests
         Assert.Equal("NES", fav.SystemName);
     }
 
+    /// <summary>
+    /// Verifies that Unicode characters are preserved in FileName and MachineDescription properties.
+    /// </summary>
     [Fact]
     public void UnicodeCharactersArePreserved()
     {
@@ -152,6 +164,9 @@ public class FavoriteTests
         Assert.Contains("ポケットモンスター", fav.MachineDescription, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that long file names are preserved in the FileName property.
+    /// </summary>
     [Fact]
     public void LongFileNameIsPreserved()
     {
@@ -160,6 +175,9 @@ public class FavoriteTests
         Assert.Equal(longName, fav.FileName);
     }
 
+    /// <summary>
+    /// Verifies that special characters in file names are preserved in the FileName property.
+    /// </summary>
     [Fact]
     public void SpecialCharactersInFileNameArePreserved()
     {

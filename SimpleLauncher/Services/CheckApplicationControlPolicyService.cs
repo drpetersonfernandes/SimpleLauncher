@@ -1,7 +1,10 @@
 using System.ComponentModel;
 
-namespace SimpleLauncher.Services.CheckApplicationControlPolicy;
+namespace SimpleLauncher.Services;
 
+/// <summary>
+/// Provides methods to identify specific Win32 error conditions, such as application control policy blocks and elevation requirements.
+/// </summary>
 public static class CheckApplicationControlPolicyService
 {
     /// <summary>

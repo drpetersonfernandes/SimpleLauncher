@@ -3,7 +3,7 @@ namespace Updater.Services;
 /// <summary>
 /// Provides progress information for download operations.
 /// </summary>
-public class DownloadProgressInfo
+internal class DownloadProgressInfo
 {
     /// <summary>
     /// The percentage of completion (0-100), or -1 if the total size is unknown.

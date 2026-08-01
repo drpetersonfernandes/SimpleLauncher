@@ -32,6 +32,10 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     [ObservableProperty] private int _redreamLatency;
     [ObservableProperty] private bool _redreamFramerate;
     [ObservableProperty] private bool _redreamShowSettingsBeforeLaunch;
+    /// <summary>Initializes a new instance of the <see cref="InjectRedreamConfigViewModel"/>.</summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="logger">The logger instance.</param>
     public InjectRedreamConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;

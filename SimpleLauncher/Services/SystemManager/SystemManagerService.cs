@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.AppDataFile;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.SystemManager;

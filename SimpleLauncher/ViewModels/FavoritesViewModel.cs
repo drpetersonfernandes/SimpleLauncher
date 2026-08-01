@@ -15,6 +15,9 @@ using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 
 namespace SimpleLauncher.ViewModels;
 
+/// <summary>
+/// ViewModel for the favorites window, managing favorite games list, preview images, and launching.
+/// </summary>
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class FavoritesViewModel : ObservableObject, IDisposable
 {
@@ -45,6 +48,18 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
 
     [ObservableProperty] private string _loadingMessage = "";
 
+    /// <summary>Initializes a new instance of the <see cref="FavoritesViewModel"/>.</summary>
+    /// <param name="configuration">The application configuration.</param>
+    /// <param name="logErrors">The logger instance.</param>
+    /// <param name="favoritesManager">The favorites manager for persistence.</param>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="systemManagers">The list of configured system managers.</param>
+    /// <param name="machines">The list of MAME machine definitions.</param>
+    /// <param name="playSoundEffects">The sound effects service.</param>
+    /// <param name="findCoverImage">The cover image lookup service.</param>
+    /// <param name="imageLoader">The image loader service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="resourceProvider">The resource provider for localized strings.</param>
     public FavoritesViewModel(
         IConfiguration configuration,
         ILogger logErrors,
@@ -71,6 +86,8 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         _resourceProvider = resourceProvider;
     }
 
+    /// <summary>Loads all favorites with cover images and machine descriptions.</summary>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task LoadFavoritesAsync()
     {
         try
@@ -175,6 +192,11 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         }
     }
 
+    /// <summary>Launches a game from the favorites list by file name and system name.</summary>
+    /// <param name="fileName">The ROM file name.</param>
+    /// <param name="selectedSystemName">The system name associated with the game.</param>
+    /// <param name="loadingStateProvider">Optional loading state provider.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task LaunchGameFromFavoriteAsync(string fileName, string selectedSystemName, ILoadingState? loadingStateProvider = null)
     {
         try
@@ -225,6 +247,9 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         }
     }
 
+    /// <summary>Updates the preview image from the specified image path.</summary>
+    /// <param name="imagePath">The path to the image file, or null to clear.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task UpdatePreviewImageAsync(string? imagePath)
     {
         try
@@ -244,6 +269,8 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         }
     }
 
+    /// <summary>Removes a favorite from the observable collection and persists the change.</summary>
+    /// <param name="favorite">The favorite to remove.</param>
     public void RemoveFavoriteFromCollection(Favorite favorite)
     {
         Favorites.Remove(favorite);
@@ -277,11 +304,15 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         return _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager.SystemImageFolder);
     }
 
+    /// <summary>Gets the system manager for the specified system name.</summary>
+    /// <param name="systemName">The system name to look up.</param>
+    /// <returns>The matching <see cref="SystemManager"/>, or <c>null</c> if not found.</returns>
     public SystemManager? GetSystemManager(string systemName)
     {
         return _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
     }
 
+    /// <summary>Releases resources used by this ViewModel.</summary>
     public void Dispose()
     {
         PreviewImageSource?.Dispose();

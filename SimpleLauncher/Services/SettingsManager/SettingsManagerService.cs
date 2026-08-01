@@ -3,7 +3,6 @@ using System.Xml.Linq;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.AppDataFile;
 using SimpleLauncher.Services.SettingsManager.EmulatorSettings;
 
 namespace SimpleLauncher.Services.SettingsManager;

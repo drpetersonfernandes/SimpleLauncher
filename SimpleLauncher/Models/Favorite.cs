@@ -60,6 +60,9 @@ public class Favorite : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Occurs when a property value changes, supporting data binding updates.
+    /// </summary>
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)

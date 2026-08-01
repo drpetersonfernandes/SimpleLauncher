@@ -163,6 +163,9 @@ public class PlayHistoryItemTests
         Assert.Null(item.LastPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays correctly for exactly one minute.
+    /// </summary>
     [Fact]
     public void FormattedPlayTimeOneMinuteReturnsCorrectFormat()
     {
@@ -170,6 +173,9 @@ public class PlayHistoryItemTests
         Assert.Equal("1m 0s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays correctly for complex hour, minute, and second combinations.
+    /// </summary>
     [Fact]
     public void FormattedPlayTimeComplexReturnsCorrectFormat()
     {
@@ -177,6 +183,9 @@ public class PlayHistoryItemTests
         Assert.Equal("1h 2m 3s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that FormattedPlayTime displays correctly when only seconds are present.
+    /// </summary>
     [Fact]
     public void FormattedPlayTimeOnlySecondsReturnsCorrectFormat()
     {
@@ -184,6 +193,9 @@ public class PlayHistoryItemTests
         Assert.Equal("0m 45s", item.FormattedPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that all PlayHistoryItem properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void AllPropertiesCanBeSet()
     {
@@ -205,6 +217,9 @@ public class PlayHistoryItemTests
         Assert.Equal("14:30:00", item.LastPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that PropertyChanged fires when TotalPlayTime is modified.
+    /// </summary>
     [Fact]
     public void PropertyChangedTotalPlayTime()
     {
@@ -222,6 +237,9 @@ public class PlayHistoryItemTests
         Assert.True(raised);
     }
 
+    /// <summary>
+    /// Verifies that PropertyChanged for FormattedPlayTime fires when TotalPlayTime is modified.
+    /// </summary>
     [Fact]
     public void PropertyChangedFormattedPlayTime()
     {
@@ -239,6 +257,9 @@ public class PlayHistoryItemTests
         Assert.True(raised);
     }
 
+    /// <summary>
+    /// Verifies that setting the same TotalPlayTime value does not raise PropertyChanged.
+    /// </summary>
     [Fact]
     public void SameValueDoesNotRaisePropertyChanged()
     {
@@ -250,6 +271,9 @@ public class PlayHistoryItemTests
         Assert.False(raised);
     }
 
+    /// <summary>
+    /// Verifies that DisplayName handles Unicode file names correctly.
+    /// </summary>
     [Fact]
     public void UnicodeFileNameDisplaysCorrectly()
     {
@@ -257,6 +281,9 @@ public class PlayHistoryItemTests
         Assert.Equal("ポケモン.zip", item.DisplayName);
     }
 
+    /// <summary>
+    /// Verifies that DisplayName handles special characters in file names correctly.
+    /// </summary>
     [Fact]
     public void SpecialCharactersInFileNameDisplayCorrectly()
     {
@@ -264,6 +291,9 @@ public class PlayHistoryItemTests
         Assert.Equal("game (v1.0) [!].zip", item.DisplayName);
     }
 
+    /// <summary>
+    /// Verifies that large play time and times played values are stored correctly.
+    /// </summary>
     [Fact]
     public void LargePlayTimeValuesAreCorrect()
     {
@@ -273,6 +303,9 @@ public class PlayHistoryItemTests
         Assert.Contains("h", item.FormattedPlayTime, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that ISO date format strings are preserved in LastPlayDate and LastPlayTime.
+    /// </summary>
     [Fact]
     public void IsoDateFormatIsPreserved()
     {
@@ -281,6 +314,9 @@ public class PlayHistoryItemTests
         Assert.Equal("23:59:59", item.LastPlayTime);
     }
 
+    /// <summary>
+    /// Verifies that US date format strings are preserved in LastPlayDate.
+    /// </summary>
     [Fact]
     public void UsDateFormatIsPreserved()
     {

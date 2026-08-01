@@ -21,6 +21,9 @@ using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 
 namespace SimpleLauncher.Pages;
 
+/// <summary>
+/// Page displaying the user's favorite games with launching, sorting, and context menu support.
+/// </summary>
 internal partial class FavoritesPage : ILoadingState, IDisposable
 {
     private readonly FavoritesViewModel _viewModel;
@@ -38,6 +41,23 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
     private readonly ILogger _logger;
     private readonly IContextMenuService _contextMenuService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FavoritesPage"/> class.
+    /// </summary>
+    /// <param name="settings">The application settings manager.</param>
+    /// <param name="systemManagers">The list of system manager configurations.</param>
+    /// <param name="machines">The list of MAME machine definitions.</param>
+    /// <param name="favoritesManager">The manager for favorite game entries.</param>
+    /// <param name="mainWindow">The main application window.</param>
+    /// <param name="gamePadController">The gamepad input controller.</param>
+    /// <param name="gameLauncher">The service used to launch games.</param>
+    /// <param name="playSoundEffects">The service for playing sound effects.</param>
+    /// <param name="configuration">The application configuration.</param>
+    /// <param name="findCoverImage">The service for finding game cover images.</param>
+    /// <param name="imageLoader">The service for loading images.</param>
+    /// <param name="contextMenuFunctions">The service providing context menu operations.</param>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="contextMenuService">The service for building context menus.</param>
     internal FavoritesPage(
         SettingsManagerService settings,
         List<SystemManager> systemManagers,
@@ -399,6 +419,11 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         }
     }
 
+    /// <summary>
+    /// Sets the loading state of the page, showing or hiding the loading overlay.
+    /// </summary>
+    /// <param name="isLoading">Whether the page is in a loading state.</param>
+    /// <param name="message">The optional message to display while loading.</param>
     public void SetLoadingState(bool isLoading, string? message = null)
     {
         LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
@@ -417,6 +442,9 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 
+    /// <summary>
+    /// Releases all resources used by the FavoritesPage.
+    /// </summary>
     public void Dispose()
     {
         _viewModel.Dispose();

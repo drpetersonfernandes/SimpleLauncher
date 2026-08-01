@@ -47,7 +47,10 @@ public partial class InjectRaineConfigWindow
         DataContext = _viewModel;
     }
 
-    private void OnCloseRequested(object? sender, EventArgs e) => Close();
+    private void OnCloseRequested(object? sender, EventArgs e)
+    {
+        Close();
+    }
 
     /// <summary>
     /// Initializes the window with the specified emulator path, launcher mode, and file paths.

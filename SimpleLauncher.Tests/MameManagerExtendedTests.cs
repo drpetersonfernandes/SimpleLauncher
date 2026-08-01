@@ -1,7 +1,11 @@
+using SimpleLauncher.Models;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Extended tests for the <see cref="MameMachineData"/> model covering default values, property assignment, and edge cases.
+/// </summary>
 public class MameManagerExtendedTests
 {
     /// <summary>
@@ -10,7 +14,7 @@ public class MameManagerExtendedTests
     [Fact]
     public void MameManagerDefaultMachineNameIsNull()
     {
-        var manager = new Services.MameManager.MameManagerService();
+        var manager = new MameMachineData();
         Assert.Equal("", manager.MachineName);
     }
 
@@ -20,17 +24,17 @@ public class MameManagerExtendedTests
     [Fact]
     public void MameManagerDefaultDescriptionIsNull()
     {
-        var manager = new Services.MameManager.MameManagerService();
+        var manager = new MameMachineData();
         Assert.Equal("", manager.Description);
     }
 
     /// <summary>
-    /// Verifies that MameManagerService properties can be set.
+    /// Verifies that MameMachineData properties can be set.
     /// </summary>
     [Fact]
     public void MameManagerPropertiesCanBeSet()
     {
-        var manager = new Services.MameManager.MameManagerService
+        var manager = new MameMachineData
         {
             MachineName = "pacman",
             Description = "Pac-Man (Midway)"
@@ -41,12 +45,12 @@ public class MameManagerExtendedTests
     }
 
     /// <summary>
-    /// Verifies that MameManagerService properties support special characters.
+    /// Verifies that MameMachineData properties support special characters.
     /// </summary>
     [Fact]
     public void MameManagerWithSpecialCharacters()
     {
-        var manager = new Services.MameManager.MameManagerService
+        var manager = new MameMachineData
         {
             MachineName = "sf2ce",
             Description = "Street Fighter II': Champion Edition (World 920313)"
@@ -56,10 +60,13 @@ public class MameManagerExtendedTests
         Assert.Contains("(", manager.Description, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that MameMachineData supports Unicode characters in the Description property.
+    /// </summary>
     [Fact]
     public void MameManagerWithUnicodeDescription()
     {
-        var manager = new Services.MameManager.MameManagerService
+        var manager = new MameMachineData
         {
             MachineName = "game",
             Description = "ゲーム"
@@ -68,10 +75,13 @@ public class MameManagerExtendedTests
         Assert.Equal("ゲーム", manager.Description);
     }
 
+    /// <summary>
+    /// Verifies that MameMachineData handles empty string values correctly.
+    /// </summary>
     [Fact]
     public void MameManagerWithEmptyStrings()
     {
-        var manager = new Services.MameManager.MameManagerService
+        var manager = new MameMachineData
         {
             MachineName = "",
             Description = ""
@@ -81,11 +91,14 @@ public class MameManagerExtendedTests
         Assert.Equal("", manager.Description);
     }
 
+    /// <summary>
+    /// Verifies that MameMachineData handles long description strings correctly.
+    /// </summary>
     [Fact]
     public void MameManagerWithLongDescription()
     {
         var longDesc = new string('A', 500);
-        var manager = new Services.MameManager.MameManagerService
+        var manager = new MameMachineData
         {
             Description = longDesc
         };

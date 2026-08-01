@@ -2,15 +2,32 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.GetListOfFiles;
 
+/// <summary>
+/// Enumerates game files in a directory, filtering by configured file extensions
+/// and skipping restricted folders.
+/// </summary>
 public class GetListOfFilesService : IGetListOfFilesService
 {
     private readonly ILogger _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetListOfFilesService"/> class.
+    /// </summary>
+    /// <param name="logErrors">The error logger.</param>
     public GetListOfFilesService(ILogger logErrors)
     {
         _logger = logErrors;
     }
 
+    /// <summary>
+    /// Gets the list of files in the given directory that match the configured file extensions.
+    /// </summary>
+    /// <param name="directoryPath">The directory to scan for files.</param>
+    /// <param name="fileExtensions">The list of file extensions (without dots) to include.</param>
+    /// <param name="disableRecursiveSearch">Whether recursive folder search is disabled.</param>
+    /// <param name="groupByFolder">Whether the system groups games by folder.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>The list of matching file paths.</returns>
     public Task<IList<string>> GetFilesAsync(string directoryPath, IList<string> fileExtensions, bool disableRecursiveSearch, bool groupByFolder, CancellationToken cancellationToken = default)
     {
         return Task.Run<IList<string>>(() =>

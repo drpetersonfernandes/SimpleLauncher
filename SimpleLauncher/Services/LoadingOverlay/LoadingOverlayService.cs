@@ -5,6 +5,9 @@ namespace SimpleLauncher.Services.LoadingOverlay;
 
 using Interfaces;
 
+/// <summary>
+/// Manages the loading overlay UI state, coordinating visibility and content updates across concurrent loading operations.
+/// </summary>
 public class LoadingOverlayService
 {
     private ILoadingOverlayHost _host = null!;
@@ -13,17 +16,32 @@ public class LoadingOverlayService
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly ILogger _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LoadingOverlayService"/> class.
+    /// </summary>
+    /// <param name="playSoundEffects">The sound effects service for playing notification sounds.</param>
+    /// <param name="logger">The logger instance for diagnostic output.</param>
     public LoadingOverlayService(PlaySoundEffects playSoundEffects, ILogger logger)
     {
         _playSoundEffects = playSoundEffects;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    /// <summary>
+    /// Initializes the loading overlay service with the specified host.
+    /// </summary>
+    /// <param name="host">The host that provides UI controls and dispatcher access.</param>
     public void Initialize(ILoadingOverlayHost host)
     {
         _host = host;
     }
 
+    /// <summary>
+    /// Updates the loading state by incrementing or decrementing the loading operation counter.
+    /// Shows or hides the loading overlay and optionally updates the overlay message.
+    /// </summary>
+    /// <param name="isLoading">True to increment the loading counter; false to decrement it.</param>
+    /// <param name="message">The optional message to display on the loading overlay.</param>
     public void SetLoadingState(bool isLoading, string? message = null)
     {
         var host = _host;
@@ -70,6 +88,10 @@ public class LoadingOverlayService
         });
     }
 
+    /// <summary>
+    /// Forces release of the loading overlay regardless of the current loading operation count.
+    /// Resets the loading state, cancels any active tokens, and restores the UI to an interactive state.
+    /// </summary>
     public void EmergencyRelease()
     {
         var host = _host;

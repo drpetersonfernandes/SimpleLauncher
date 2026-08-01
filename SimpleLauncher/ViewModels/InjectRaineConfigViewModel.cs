@@ -34,6 +34,10 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     [ObservableProperty] private bool _raineMuteSfx;
     [ObservableProperty] private bool _raineMuteMusic;
     [ObservableProperty] private string _raineRomDirectory = null!;
+    /// <summary>Initializes a new instance of the <see cref="InjectRaineConfigViewModel"/>.</summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="logger">The logger instance.</param>
     public InjectRaineConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;

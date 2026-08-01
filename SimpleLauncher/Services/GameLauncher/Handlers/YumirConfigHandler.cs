@@ -38,7 +38,7 @@ public class YumirConfigHandler : IEmulatorConfigHandler
             var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
             var shouldRun = false;
 
-            if (context.Settings != null && context.Settings.Yumir.ShowSettingsBeforeLaunch)
+            if (context.Settings is { Yumir.ShowSettingsBeforeLaunch: true })
             {
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>

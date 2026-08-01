@@ -28,6 +28,10 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     [ObservableProperty] private int _volume;
     [ObservableProperty] private bool _showBeforeLaunch;
     [ObservableProperty] private bool _audioStretching;
+    /// <summary>Initializes a new instance of the <see cref="InjectAzaharConfigViewModel"/>.</summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="logger">The logger instance.</param>
     public InjectAzaharConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;

@@ -85,17 +85,21 @@ public class UiOrchestratorService : IUiOrchestrator, ILoadingOverlayHost, IGame
         _playSoundEffects.PlayNotificationSound();
     }
 
+    /// <summary>Resets pagination buttons to their initial state.</summary>
     public void ResetPaginationButtons()
     {
         _paginationService.Reset();
     }
 
+    /// <summary>Sets pagination buttons to their default disabled state.</summary>
     public void SetPaginationButtonsDefault()
     {
         _host.PrevPageButton2.IsEnabled = false;
         _host.NextPageButton2.IsEnabled = false;
     }
 
+    /// <summary>Sets the visibility of pagination buttons.</summary>
+    /// <param name="isVisible">Whether the buttons should be visible.</param>
     public void SetPaginationButtonsVisible(bool isVisible)
     {
         var visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
@@ -103,99 +107,131 @@ public class UiOrchestratorService : IUiOrchestrator, ILoadingOverlayHost, IGame
         _host.NextPageButton2.Visibility = visibility;
     }
 
+    /// <summary>Enables or disables the previous and next page buttons.</summary>
+    /// <param name="prevEnabled">Whether the previous page button is enabled.</param>
+    /// <param name="nextEnabled">Whether the next page button is enabled.</param>
     public void SetPaginationButtonsEnabled(bool prevEnabled, bool nextEnabled)
     {
         _host.PrevPageButton2.IsEnabled = prevEnabled;
         _host.NextPageButton2.IsEnabled = nextEnabled;
     }
 
+    /// <summary>Enables or disables the game buttons.</summary>
+    /// <param name="isEnabled">Whether the game buttons should be enabled.</param>
     public void SetGameButtonsEnabled(bool isEnabled)
     {
         _gameListUiService.SetGameButtonsEnabled(isEnabled);
     }
 
+    /// <summary>Clears all images from the game file grid buttons.</summary>
     public void ClearGameButtonImages()
     {
         GameListUiService.ClearGameButtonImages(_host.GameFileGrid);
     }
 
+    /// <summary>Sets the visibility of the game file grid.</summary>
+    /// <param name="isVisible">Whether the grid should be visible.</param>
     public void SetGameFileGridVisible(bool isVisible)
     {
         _host.GameFileGrid.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
+    /// <summary>Sets the visibility of the list view preview area.</summary>
+    /// <param name="isVisible">Whether the preview area should be visible.</param>
     public void SetListViewPreviewAreaVisible(bool isVisible)
     {
         _host.ListViewPreviewArea.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
+    /// <summary>Scrolls the main content scroller to the top.</summary>
     public void ScrollToTop()
     {
         _host.Scroller.ScrollToTop();
     }
 
+    /// <summary>Updates the total files label with the specified text.</summary>
+    /// <param name="text">The text to display in the label.</param>
     public void UpdateTotalFilesLabel(string text)
     {
         _host.TotalFilesLabel.Dispatcher.Invoke(() => _host.TotalFilesLabel.Content = text);
     }
 
+    /// <summary>Adds a message indicating no files were found.</summary>
     public void AddNoFilesMessage()
     {
         _gameListUiService.AddNoFilesMessage();
     }
 
+    /// <summary>Clears the preview image.</summary>
     public void ClearPreviewImage()
     {
         _host.PreviewImage.Source = null;
     }
 
+    /// <summary>Sets the text content of the search text box.</summary>
+    /// <param name="text">The text to set.</param>
     public void SetSearchTextBoxText(string text)
     {
         _host.SearchTextBox.Text = text;
     }
 
+    /// <summary>Sets the visibility of the loading overlay.</summary>
+    /// <param name="isVisible">Whether the overlay should be visible.</param>
     public void SetLoadingOverlayVisible(bool isVisible)
     {
         _host.LoadingOverlay.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
+    /// <summary>Configures the UI state before loading game files.</summary>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public Task SetUiBeforeLoadGameFilesAsync()
     {
         return _gameListUiService.SetUiBeforeLoadGameFilesAsync();
     }
 
+    /// <summary>Gets or sets the number of files displayed per page.</summary>
     public int PaginationFilesPerPage
     {
         get => _paginationService.FilesPerPage;
         set => _paginationService.FilesPerPage = value;
     }
 
+    /// <summary>Gets or sets the file count threshold at which pagination activates.</summary>
     public int PaginationThreshold
     {
         get => _paginationService.PaginationThreshold;
         set => _paginationService.PaginationThreshold = value;
     }
 
+    /// <summary>Applies pagination to the given file list and returns the current page subset.</summary>
+    /// <param name="allFiles">The complete list of files to paginate.</param>
+    /// <returns>The subset of files for the current page.</returns>
     public IList<string> ApplyPagination(IList<string> allFiles)
     {
         return _paginationService.ApplyPagination(allFiles);
     }
 
+    /// <summary>Determines whether navigation to the previous page is possible.</summary>
+    /// <returns><c>true</c> if a previous page exists; otherwise <c>false</c>.</returns>
     public bool CanGoToPrevPage()
     {
         return _paginationService.CanGoPrev();
     }
 
+    /// <summary>Determines whether navigation to the next page is possible.</summary>
+    /// <returns><c>true</c> if a next page exists; otherwise <c>false</c>.</returns>
     public bool CanGoToNextPage()
     {
         return _paginationService.CanGoNext();
     }
 
+    /// <summary>Navigates to the previous page of results.</summary>
     public void GoToPreviousPage()
     {
         _paginationService.GoToPreviousPage();
     }
 
+    /// <summary>Navigates to the next page of results.</summary>
     public void GoToNextPage()
     {
         _paginationService.GoToNextPage();

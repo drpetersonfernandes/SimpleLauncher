@@ -20,6 +20,11 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
     private double _deadZoneX;
     private double _deadZoneY;
 
+    /// <summary>Initializes a new instance of the <see cref="SetGamepadDeadZoneViewModel"/> class.</summary>
+    /// <param name="settingsManager">The settings manager for reading and saving dead zone values.</param>
+    /// <param name="messageBox">The message box service for displaying dialogs.</param>
+    /// <param name="resourceProvider">The resource provider for localized strings.</param>
+    /// <param name="logErrors">The logger for recording errors.</param>
     public SetGamepadDeadZoneViewModel(SettingsManagerService settingsManager, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider, ILogger logErrors)
     {
         _settingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));

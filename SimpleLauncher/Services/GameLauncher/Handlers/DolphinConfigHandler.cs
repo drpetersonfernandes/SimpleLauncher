@@ -38,7 +38,7 @@ public class DolphinConfigHandler : IEmulatorConfigHandler
             var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
             var shouldRun = true;
 
-            if (context.Settings != null && context.Settings.Dolphin.ShowSettingsBeforeLaunch)
+            if (context.Settings is { Dolphin.ShowSettingsBeforeLaunch: true })
             {
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>

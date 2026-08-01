@@ -3,6 +3,9 @@ using SimpleLauncher.ResourceTranslator.Models;
 
 namespace SimpleLauncher.ResourceTranslator.Services;
 
+/// <summary>
+/// Analyzes XAML resource files to find missing and duplicate translation keys.
+/// </summary>
 public static class ResourceAnalyzer
 {
     private static readonly Regex EntryRegex = XmlHelper.EntryRegex();
@@ -28,6 +31,11 @@ public static class ResourceAnalyzer
         ["zh-hans"] = "Simplified Chinese"
     };
 
+    /// <summary>
+    /// Reads all key-value pairs from the English resource file.
+    /// </summary>
+    /// <param name="englishFilePath">The path to the English resource file.</param>
+    /// <returns>A dictionary of translation keys and their English values.</returns>
     public static IDictionary<string, string> ReadEnglishKeys(string englishFilePath)
     {
         var result = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -43,6 +51,12 @@ public static class ResourceAnalyzer
         return result;
     }
 
+    /// <summary>
+    /// Analyzes all language resource files to identify missing and duplicate keys.
+    /// </summary>
+    /// <param name="resourcesPath">The path to the resources directory.</param>
+    /// <param name="englishKeys">The dictionary of English translation keys.</param>
+    /// <returns>A list of missing key batches for each language.</returns>
     public static IList<MissingKeyBatch> AnalyzeAllLanguages(string resourcesPath, IDictionary<string, string> englishKeys)
     {
         var batches = new List<MissingKeyBatch>();

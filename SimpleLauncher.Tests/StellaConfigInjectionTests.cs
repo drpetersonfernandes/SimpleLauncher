@@ -17,6 +17,10 @@ public class StellaConfigInjectionTests : IDisposable
     private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StellaConfigInjectionTests"/> class,
+    /// creating a temporary test directory and configuration for each test.
+    /// </summary>
     public StellaConfigInjectionTests()
     {
         _configuration = new ConfigurationBuilder()
@@ -32,6 +36,9 @@ public class StellaConfigInjectionTests : IDisposable
         Directory.CreateDirectory(_testDirectory);
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory and restores the service provider mock.
+    /// </summary>
     public void Dispose()
     {
         try

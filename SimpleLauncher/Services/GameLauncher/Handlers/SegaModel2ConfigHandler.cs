@@ -38,7 +38,7 @@ public class SegaModel2ConfigHandler : IEmulatorConfigHandler
             var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
             var shouldRun = false;
 
-            if (context.Settings != null && context.Settings.SegaModel2.ShowSettingsBeforeLaunch)
+            if (context.Settings is { SegaModel2.ShowSettingsBeforeLaunch: true })
             {
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>

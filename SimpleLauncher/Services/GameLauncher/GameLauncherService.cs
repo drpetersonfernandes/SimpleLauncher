@@ -68,6 +68,18 @@ IUpdateStatusBar updateStatusBar,
         _serviceProvider = serviceProvider;
     }
 
+    /// <summary>
+    /// Handles the game button click by building the launch context, validating it,
+    /// running configuration handlers, and executing the appropriate launch strategy.
+    /// </summary>
+    /// <param name="filePath">The path to the game file or directory being launched.</param>
+    /// <param name="selectedEmulatorName">The name of the selected emulator.</param>
+    /// <param name="selectedSystemName">The name of the system the game belongs to.</param>
+    /// <param name="selectedSystemManager">The system manager service for the selected system.</param>
+    /// <param name="settings">The application settings manager.</param>
+    /// <param name="windowContext">The window context for UI interactions.</param>
+    /// <param name="gamePadController">The gamepad controller to pause while the game is running.</param>
+    /// <param name="loadingStateProvider">Optional loading state provider for UI feedback.</param>
     internal async Task HandleButtonClickAsync(string filePath,
         string selectedEmulatorName,
         string selectedSystemName,
@@ -446,19 +458,19 @@ IUpdateStatusBar updateStatusBar,
         }
         catch (Win32Exception ex)
         {
-            if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
             {
                 await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBoxAsync();
                 _logger.Error(ex, "Application control policy blocked launching batch file.");
                 _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsElevationRequired(ex))
+            else if (CheckApplicationControlPolicyService.IsElevationRequired(ex))
             {
                 await _messageBoxLibrary.ElevationRequiredMessageBoxAsync();
                 _logger.Error(ex, "Elevation required to launch batch file.");
                 _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
+            else if (CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
             {
                 // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
             }
@@ -597,17 +609,17 @@ IUpdateStatusBar updateStatusBar,
         }
         catch (Win32Exception ex) // Catch Win32Exception specifically
         {
-            if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
             {
                 await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBoxAsync();
                 _logger.Error(ex, "Application control policy blocked launching shortcut file.");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsElevationRequired(ex))
+            else if (CheckApplicationControlPolicyService.IsElevationRequired(ex))
             {
                 await _messageBoxLibrary.ElevationRequiredMessageBoxAsync();
                 _logger.Error(ex, "Elevation required to launch shortcut file.");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
+            else if (CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
             {
                 // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
             }
@@ -730,17 +742,17 @@ IUpdateStatusBar updateStatusBar,
         }
         catch (Win32Exception ex)
         {
-            if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
             {
                 await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBoxAsync();
                 _logger.Error(ex, "Application control policy blocked launching executable.");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsElevationRequired(ex))
+            else if (CheckApplicationControlPolicyService.IsElevationRequired(ex))
             {
                 await _messageBoxLibrary.ElevationRequiredMessageBoxAsync();
                 _logger.Error(ex, "Elevation required to launch executable.");
             }
-            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
+            else if (CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
             {
                 // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
             }
@@ -1185,17 +1197,17 @@ IUpdateStatusBar updateStatusBar,
                 }
                 catch (Win32Exception ex) // Catch Win32Exception specifically
                 {
-                    if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
+                    if (CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
                     {
                         await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBoxAsync();
                         _logger.Error(ex, "Application control policy blocked launching emulator.");
                     }
-                    else if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsElevationRequired(ex))
+                    else if (CheckApplicationControlPolicyService.IsElevationRequired(ex))
                     {
                         await _messageBoxLibrary.ElevationRequiredMessageBoxAsync();
                         _logger.Error(ex, "Elevation required to launch emulator.");
                     }
-                    else if (CheckApplicationControlPolicy.CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
+                    else if (CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
                     {
                         // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
                     }

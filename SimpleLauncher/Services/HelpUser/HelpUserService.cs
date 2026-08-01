@@ -7,11 +7,19 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.HelpUser;
 
+/// <summary>
+/// Provides emulator parameter help text for systems and renders it in a RichTextBox.
+/// </summary>
 public partial class HelpUserService : IHelpUserService
 {
     private readonly HelpUserManager _manager;
     private readonly ILogger _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="HelpUserService"/> class and starts loading the parameters file.
+    /// </summary>
+    /// <param name="logErrors">The error logger.</param>
+    /// <param name="messageBoxLibrary">The message box service for user notifications.</param>
     public HelpUserService(ILogger logErrors, IMessageBoxLibraryService messageBoxLibrary)
     {
         _logger = logErrors;
@@ -44,6 +52,12 @@ public partial class HelpUserService : IHelpUserService
     [GeneratedRegex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled, 1000)]
     private static partial Regex RawUrlRegex();
 
+    /// <summary>
+    /// Gets the help text for the given system name, falling back to a message
+    /// when no information is available for the system.
+    /// </summary>
+    /// <param name="systemName">The name of the system to get help for.</param>
+    /// <returns>The help text for the system.</returns>
     public string GetHelpText(string systemName)
     {
         if (string.IsNullOrEmpty(systemName))

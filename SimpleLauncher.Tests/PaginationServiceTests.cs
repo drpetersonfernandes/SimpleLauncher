@@ -307,32 +307,65 @@ public class PaginationServiceTests
 
     private sealed class TestPaginationHost : IPaginationHost
     {
+        /// <summary>
+        /// Gets a value indicating whether the host was asked to display the no-files message.
+        /// </summary>
         public bool NoFilesMessageAdded { get; private set; }
+        /// <summary>
+        /// Gets the last enabled state requested for the previous-page button, or <c>null</c> if never set.
+        /// </summary>
         public bool? PrevButtonEnabled { get; private set; }
+        /// <summary>
+        /// Gets the last enabled state requested for the next-page button, or <c>null</c> if never set.
+        /// </summary>
         public bool? NextButtonEnabled { get; private set; }
+        /// <summary>
+        /// Gets a value indicating whether the host was asked to scroll the view back to the top.
+        /// </summary>
         public bool ScrolledToTop { get; private set; }
+        /// <summary>
+        /// Gets the last total-files status label supplied by the pagination service.
+        /// </summary>
         public string? LastStatusLabel { get; private set; }
 
+        /// <summary>
+        /// Records that the host was asked to display the no-files message.
+        /// </summary>
         public void AddNoFilesMessage()
         {
             NoFilesMessageAdded = true;
         }
 
+        /// <summary>
+        /// Records the requested enabled state of the previous-page button.
+        /// </summary>
+        /// <param name="enabled">The requested enabled state.</param>
         public void SetPrevPageButtonEnabled(bool enabled)
         {
             PrevButtonEnabled = enabled;
         }
 
+        /// <summary>
+        /// Records the requested enabled state of the next-page button.
+        /// </summary>
+        /// <param name="enabled">The requested enabled state.</param>
         public void SetNextPageButtonEnabled(bool enabled)
         {
             NextButtonEnabled = enabled;
         }
 
+        /// <summary>
+        /// Records that the host was asked to scroll the view back to the top.
+        /// </summary>
         public void ScrollToTop()
         {
             ScrolledToTop = true;
         }
 
+        /// <summary>
+        /// Records the total-files status label supplied by the pagination service.
+        /// </summary>
+        /// <param name="label">The status label text, or <c>null</c> to clear it.</param>
         public void UpdateTotalFilesLabel(string? label)
         {
             LastStatusLabel = label;

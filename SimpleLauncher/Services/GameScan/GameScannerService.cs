@@ -7,6 +7,10 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameScan;
 
+/// <summary>
+/// Scans for installed games from various digital storefronts (Steam, Epic, GOG, etc.)
+/// and creates shortcuts in the Microsoft Windows system folder.
+/// </summary>
 public class GameScannerService
 {
     private readonly ILogger _logger;
@@ -17,6 +21,9 @@ public class GameScannerService
     private readonly IIconExtractor _iconExtractor;
     private const string WindowsSystemName = "Microsoft Windows";
 
+    /// <summary>
+    /// Names of storefront titles that should not be scanned as games.
+    /// </summary>
     internal static readonly HashSet<string> IgnoredGameNames = new(StringComparer.OrdinalIgnoreCase)
     {
         "Steamworks Common Redistributables",
@@ -35,10 +42,23 @@ public class GameScannerService
     private string _windowsRomsPath = null!;
     private string _windowsImagesPath = null!;
 
+    /// <summary>
+    /// Gets a value indicating whether a new 'Microsoft Windows' system was created during the scan.
+    /// </summary>
     internal bool WasNewSystemCreated { get; private set; }
 
     private bool _timeoutMessageShown;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GameScannerService"/> class.
+    /// </summary>
+    /// <param name="logErrors">The error logger.</param>
+    /// <param name="messageBoxLibrary">The message box service for user notifications.</param>
+    /// <param name="configuration">The application configuration.</param>
+    /// <param name="httpClientFactory">The HTTP client factory for API requests.</param>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="scanners">The collection of platform-specific game scanners.</param>
+    /// <param name="iconExtractor">The icon extractor for extracting icons from executables.</param>
     public GameScannerService(ILogger logErrors, IMessageBoxLibraryService messageBoxLibrary, IConfiguration configuration, IHttpClientFactory httpClientFactory, ILogger logger, IEnumerable<IGamePlatformScanner> scanners, IIconExtractor iconExtractor)
     {
         _logger = logErrors;
@@ -50,6 +70,9 @@ public class GameScannerService
         _iconExtractor = iconExtractor;
     }
 
+    /// <summary>
+    /// Scans all registered storefront scanners and creates shortcuts for the games they find.
+    /// </summary>
     internal async Task ScanForStoreGamesAsync()
     {
         try
@@ -145,6 +168,14 @@ public class GameScannerService
         }
     }
 
+    /// <summary>
+    /// Attempts to download a cover image for the given game name from the image API,
+    /// retrying once after a delay on timeout or network errors.
+    /// </summary>
+    /// <param name="gameName">The name of the game to search for.</param>
+    /// <param name="destinationPath">The file path where the downloaded image should be saved.</param>
+    /// <param name="logErrors">The error logger.</param>
+    /// <returns>True if the image was downloaded successfully; otherwise, false.</returns>
     internal async Task<bool> TryDownloadImageFromApiAsync(string gameName, string destinationPath, ILogger logErrors)
     {
         if (string.IsNullOrWhiteSpace(gameName)) return false;
@@ -172,7 +203,7 @@ public class GameScannerService
                 await using var jsonStream = await response.Content.ReadAsStreamAsync();
                 var apiResponse = await JsonSerializer.DeserializeAsync<GameImageApiResponse>(jsonStream);
 
-                if (apiResponse is { Success: true, ImageUrl: not null } && Uri.IsWellFormedUriString(apiResponse.ImageUrl, UriKind.Absolute))
+                if (apiResponse is { Success: true } && Uri.IsWellFormedUriString(apiResponse.ImageUrl, UriKind.Absolute))
                 {
                     // HttpClient supports absolute URLs directly, even when BaseAddress is configured
                     var imageBytes = await client.GetByteArrayAsync(apiResponse.ImageUrl);
@@ -225,6 +256,15 @@ public class GameScannerService
         return false;
     }
 
+    /// <summary>
+    /// Finds or downloads a cover image for a scanned game, falling back to icon extraction from its executable.
+    /// </summary>
+    /// <param name="logErrors">The error logger.</param>
+    /// <param name="originalGameName">The original storefront name of the game.</param>
+    /// <param name="gameInstallPath">The installation directory of the game.</param>
+    /// <param name="sanitizedGameName">The sanitized name used for the image file.</param>
+    /// <param name="windowsImagesPath">The directory where game images are stored.</param>
+    /// <param name="specificExePath">Optional specific executable path to extract the icon from.</param>
     internal async Task FindAndSaveGameImageAsync(ILogger logErrors, string originalGameName, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string? specificExePath = null)
     {
         try
@@ -251,23 +291,39 @@ public class GameScannerService
         }
     }
 
-    // This is the final fallback for special cases like Steam/Microsoft Store
-    internal async Task ExtractIconFromGameFolderAsync(ILogger logErrors, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string? specificExePath = null)
+    /// <summary>
+    /// Final fallback that extracts the icon from the game's executable when no cover image can be found or downloaded.
+    /// </summary>
+    /// <param name="logErrors">The error logger.</param>
+    /// <param name="gameInstallPath">The installation directory of the game.</param>
+    /// <param name="sanitizedGameName">The sanitized name used for the image file.</param>
+    /// <param name="windowsImagesPath">The directory where game images are stored.</param>
+    /// <param name="specificExePath">Optional specific executable path to extract the icon from.</param>
+    internal Task ExtractIconFromGameFolderAsync(ILogger logErrors, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string? specificExePath = null)
     {
         try
         {
-            var iconPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
-            if (File.Exists(iconPath)) return;
-
-            var mainExe = FindMainExecutable(gameInstallPath, sanitizedGameName, specificExePath);
-            if (mainExe != null)
+            try
             {
-                _iconExtractor.SaveIconFromExe(mainExe, iconPath, logErrors);
+                var iconPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
+                if (File.Exists(iconPath)) return Task.CompletedTask;
+
+                var mainExe = FindMainExecutable(gameInstallPath, sanitizedGameName, specificExePath);
+                if (mainExe != null)
+                {
+                    _iconExtractor.SaveIconFromExe(mainExe, iconPath, logErrors);
+                }
             }
+            catch (Exception ex)
+            {
+                logErrors.Error(ex, $"Failed to extract icon for {sanitizedGameName} in {gameInstallPath}");
+            }
+
+            return Task.CompletedTask;
         }
-        catch (Exception ex)
+        catch (Exception exception)
         {
-            logErrors.Error(ex, $"Failed to extract icon for {sanitizedGameName} in {gameInstallPath}");
+            return Task.FromException(exception);
         }
     }
 

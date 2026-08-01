@@ -9,6 +9,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class CleanSimpleLauncherFolderServiceTests
 {
+    /// <summary>
+    /// Verifies that the constructor does not throw when given a valid delete service.
+    /// </summary>
     [Fact]
     public void ConstructorDoesNotThrow()
     {
@@ -16,6 +19,9 @@ public class CleanSimpleLauncherFolderServiceTests
         Assert.NotNull(service);
     }
 
+    /// <summary>
+    /// Verifies that the service implements the ICleanSimpleLauncherFolderService interface.
+    /// </summary>
     [Fact]
     public void ImplementsICleanSimpleLauncherFolderService()
     {
@@ -23,6 +29,9 @@ public class CleanSimpleLauncherFolderServiceTests
         Assert.IsAssignableFrom<ICleanSimpleLauncherFolderService>(service);
     }
 
+    /// <summary>
+    /// Verifies that CleanupTrash does not throw when called on a fresh instance.
+    /// </summary>
     [Fact]
     public void CleanupTrashDoesNotThrow()
     {
@@ -31,6 +40,9 @@ public class CleanSimpleLauncherFolderServiceTests
         Assert.Null(exception);
     }
 
+    /// <summary>
+    /// Verifies that CleanupTempFiles does not throw when called on a fresh instance.
+    /// </summary>
     [Fact]
     public void CleanupTempFilesDoesNotThrow()
     {
@@ -39,6 +51,9 @@ public class CleanSimpleLauncherFolderServiceTests
         Assert.Null(exception);
     }
 
+    /// <summary>
+    /// Verifies that calling CleanupTrash twice does not throw.
+    /// </summary>
     [Fact]
     public void CleanupTrashCalledTwiceDoesNotThrow()
     {
@@ -48,6 +63,9 @@ public class CleanSimpleLauncherFolderServiceTests
         Assert.Null(exception);
     }
 
+    /// <summary>
+    /// Verifies that calling CleanupTempFiles twice does not throw.
+    /// </summary>
     [Fact]
     public void CleanupTempFilesCalledTwiceDoesNotThrow()
     {
@@ -57,6 +75,9 @@ public class CleanSimpleLauncherFolderServiceTests
         Assert.Null(exception);
     }
 
+    /// <summary>
+    /// Verifies that CleanupTempFiles deletes the SimpleLauncher temp directory and its contents.
+    /// </summary>
     [Fact]
     public void CleanupTempFilesCallsDeleteForTempDirectory()
     {
@@ -86,15 +107,28 @@ public class CleanSimpleLauncherFolderServiceTests
 
     private sealed class NoOpDeleteFilesService : IDeleteFilesService
     {
+        /// <summary>
+        /// Does nothing; the no-op implementation ignores file deletion requests.
+        /// </summary>
+        /// <param name="filePath">The path of the file that would be deleted.</param>
         public void TryDeleteFile(string filePath)
         {
         }
 
+        /// <summary>
+        /// Does nothing; the no-op implementation ignores asynchronous file deletion requests.
+        /// </summary>
+        /// <param name="filePath">The path of the file that would be deleted.</param>
+        /// <returns>A completed <see cref="Task"/>.</returns>
         public Task TryDeleteFileAsync(string filePath)
         {
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Does nothing; the no-op implementation ignores directory deletion requests.
+        /// </summary>
+        /// <param name="directoryPath">The path of the directory that would be deleted.</param>
         public void TryDeleteDirectory(string directoryPath)
         {
         }
@@ -102,8 +136,15 @@ public class CleanSimpleLauncherFolderServiceTests
 
     private sealed class TrackingDeleteFilesService : IDeleteFilesService
     {
+        /// <summary>
+        /// Gets the file and directory paths that deletion was requested for, in call order.
+        /// </summary>
         public List<string> DeletedFiles { get; } = [];
 
+        /// <summary>
+        /// Records the requested path and deletes the file if it exists, swallowing any errors.
+        /// </summary>
+        /// <param name="filePath">The path of the file to delete.</param>
         public void TryDeleteFile(string filePath)
         {
             DeletedFiles.Add(filePath);
@@ -118,12 +159,21 @@ public class CleanSimpleLauncherFolderServiceTests
             }
         }
 
+        /// <summary>
+        /// Records the requested path and deletes the file synchronously, then returns a completed task.
+        /// </summary>
+        /// <param name="filePath">The path of the file to delete.</param>
+        /// <returns>A completed <see cref="Task"/>.</returns>
         public Task TryDeleteFileAsync(string filePath)
         {
             TryDeleteFile(filePath);
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Records the requested path and recursively deletes the directory if it exists, swallowing any errors.
+        /// </summary>
+        /// <param name="directoryPath">The path of the directory to delete.</param>
         public void TryDeleteDirectory(string directoryPath)
         {
             DeletedFiles.Add(directoryPath);

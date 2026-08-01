@@ -3,10 +3,16 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for the <see cref="InputSanitizerService"/> class covering folder name sanitization and invalid character detection.
+/// </summary>
 public class InputSanitizerServiceTests
 {
     private readonly InputSanitizerService _sanitizer = new();
 
+    /// <summary>
+    /// Verifies that ContainsInvalidCharacters returns false for a valid name.
+    /// </summary>
     [Fact]
     public void ContainsInvalidCharactersValidNameReturnsFalse()
     {
@@ -15,6 +21,9 @@ public class InputSanitizerServiceTests
         Assert.Empty(invalidChars);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidCharacters returns true for a backslash character.
+    /// </summary>
     [Fact]
     public void ContainsInvalidCharactersWithBackslashReturnsTrue()
     {
@@ -23,6 +32,9 @@ public class InputSanitizerServiceTests
         Assert.Contains('\\', invalidChars);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidCharacters returns true for a forward slash character.
+    /// </summary>
     [Fact]
     public void ContainsInvalidCharactersWithSlashReturnsTrue()
     {
@@ -31,6 +43,9 @@ public class InputSanitizerServiceTests
         Assert.Contains('/', invalidChars);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidCharacters returns false for an empty string.
+    /// </summary>
     [Fact]
     public void ContainsInvalidCharactersEmptyReturnsFalse()
     {
@@ -39,6 +54,9 @@ public class InputSanitizerServiceTests
         Assert.Empty(invalidChars);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidCharacters returns false for a null string.
+    /// </summary>
     [Fact]
     public void ContainsInvalidCharactersNullReturnsFalse()
     {
@@ -47,6 +65,9 @@ public class InputSanitizerServiceTests
         Assert.Empty(invalidChars);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidCharacters returns false for a whitespace-only string.
+    /// </summary>
     [Fact]
     public void ContainsInvalidCharactersWhitespaceReturnsFalse()
     {
@@ -54,6 +75,9 @@ public class InputSanitizerServiceTests
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidPathCharacters returns false for a valid path.
+    /// </summary>
     [Fact]
     public void ContainsInvalidPathCharactersValidPathReturnsFalse()
     {
@@ -61,6 +85,9 @@ public class InputSanitizerServiceTests
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidPathCharacters returns false for an empty string.
+    /// </summary>
     [Fact]
     public void ContainsInvalidPathCharactersEmptyReturnsFalse()
     {
@@ -69,6 +96,9 @@ public class InputSanitizerServiceTests
         Assert.Empty(invalidChars);
     }
 
+    /// <summary>
+    /// Verifies that ContainsInvalidPathCharacters returns false for a null string.
+    /// </summary>
     [Fact]
     public void ContainsInvalidPathCharactersNullReturnsFalse()
     {
@@ -76,6 +106,9 @@ public class InputSanitizerServiceTests
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName returns a valid name unchanged.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameValidNameReturnsUnchanged()
     {
@@ -83,6 +116,9 @@ public class InputSanitizerServiceTests
         Assert.Equal("NES", result);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName returns a name with spaces unchanged.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameWithSpacesReturnsUnchanged()
     {
@@ -90,6 +126,9 @@ public class InputSanitizerServiceTests
         Assert.Equal("Super Nintendo", result);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName returns a placeholder for an empty string.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameEmptyReturnsPlaceholder()
     {
@@ -97,6 +136,9 @@ public class InputSanitizerServiceTests
         Assert.Equal("_invalid_empty_name_", result);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName returns a placeholder for a null string.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameNullReturnsPlaceholder()
     {
@@ -104,6 +146,9 @@ public class InputSanitizerServiceTests
         Assert.Equal("_invalid_empty_name_", result);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName returns a placeholder for a whitespace-only string.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameWhitespaceReturnsPlaceholder()
     {
@@ -111,6 +156,9 @@ public class InputSanitizerServiceTests
         Assert.Equal("_invalid_empty_name_", result);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName replaces double dots in folder names.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameDoubleDotsReplaced()
     {
@@ -118,6 +166,9 @@ public class InputSanitizerServiceTests
         Assert.DoesNotContain("..", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that the reserved name CON is escaped with underscores.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameReservedConEscaped()
     {
@@ -126,6 +177,9 @@ public class InputSanitizerServiceTests
         Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that the reserved name PRN is escaped with underscores.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameReservedPrnEscaped()
     {
@@ -134,6 +188,9 @@ public class InputSanitizerServiceTests
         Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that the reserved name NUL is escaped with underscores.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameReservedNulEscaped()
     {
@@ -142,6 +199,9 @@ public class InputSanitizerServiceTests
         Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that reserved names are matched case-insensitively.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameReservedCaseInsensitive()
     {
@@ -150,6 +210,9 @@ public class InputSanitizerServiceTests
         Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that the reserved COM1 port name is escaped with underscores.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameCom1Reserved()
     {
@@ -158,6 +221,9 @@ public class InputSanitizerServiceTests
         Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that the reserved LPT1 port name is escaped with underscores.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameLpt1Reserved()
     {
@@ -166,6 +232,9 @@ public class InputSanitizerServiceTests
         Assert.EndsWith("_", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that invalid characters like forward slashes are replaced in folder names.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameInvalidCharsReplaced()
     {
@@ -173,6 +242,9 @@ public class InputSanitizerServiceTests
         Assert.DoesNotContain("/", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that SanitizeFolderName trims dots and spaces from folder names.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameTrimsDotsAndSpaces()
     {
@@ -180,6 +252,9 @@ public class InputSanitizerServiceTests
         Assert.Equal("NES", result);
     }
 
+    /// <summary>
+    /// Verifies that path traversal attacks using double dots are neutralized.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNameTraversalAttack()
     {
@@ -187,6 +262,9 @@ public class InputSanitizerServiceTests
         Assert.DoesNotContain("..", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that valid characters like dashes, underscores, and dots are preserved in folder names.
+    /// </summary>
     [Fact]
     public void SanitizeFolderNamePreservesValidCharacters()
     {

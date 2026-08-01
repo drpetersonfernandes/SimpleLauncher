@@ -8,7 +8,7 @@ namespace Updater;
 /// <summary>
 /// Contains detailed environment information for bug reporting
 /// </summary>
-public class EnvironmentInfo
+internal class EnvironmentInfo
 {
     /// <summary>
     /// Gets or sets the date and time when the environment information was collected.
@@ -93,6 +93,7 @@ public class EnvironmentInfo
         }
         catch (Exception ex)
         {
+            Log.Warning(ex, "Failed to get OS version");
             return $"Unknown (Error: {ex.Message})";
         }
     }
@@ -108,6 +109,7 @@ public class EnvironmentInfo
         }
         catch (Exception ex)
         {
+            Log.Warning(ex, "Failed to get processor architecture");
             return $"Unknown (Error: {ex.Message})";
         }
     }
@@ -123,6 +125,7 @@ public class EnvironmentInfo
         }
         catch (Exception ex)
         {
+            Log.Warning(ex, "Failed to get bitness");
             return $"Unknown (Error: {ex.Message})";
         }
     }
@@ -192,6 +195,7 @@ public class EnvironmentInfo
         }
         catch (Exception ex)
         {
+            Log.Warning(ex, "Failed to get Windows version");
             return $"Unknown (Error: {ex.Message})";
         }
     }
@@ -213,7 +217,7 @@ public class EnvironmentInfo
         catch (Exception ex)
         {
             // Silently fail and return null - we'll fall back to OS version detection
-            System.Diagnostics.Debug.WriteLine($"Failed to read registry for Windows version: {ex.Message}");
+            Log.Warning(ex, "Failed to read registry for Windows version");
         }
 
         return null;

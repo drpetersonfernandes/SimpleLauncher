@@ -131,6 +131,9 @@ public class EasyModeSystemConfigTests
         Assert.Single(config.FileFormatsToLaunch);
     }
 
+    /// <summary>
+    /// Verifies that the default value of SystemName is null.
+    /// </summary>
     [Fact]
     public void DefaultSystemNameIsNull()
     {
@@ -138,6 +141,9 @@ public class EasyModeSystemConfigTests
         Assert.Null(config.SystemName);
     }
 
+    /// <summary>
+    /// Verifies that the default value of SystemFolder is null.
+    /// </summary>
     [Fact]
     public void DefaultSystemFolderIsNull()
     {
@@ -145,6 +151,9 @@ public class EasyModeSystemConfigTests
         Assert.Null(config.SystemFolder);
     }
 
+    /// <summary>
+    /// Verifies that the default value of SystemImageFolder is null.
+    /// </summary>
     [Fact]
     public void DefaultSystemImageFolderIsNull()
     {
@@ -152,6 +161,9 @@ public class EasyModeSystemConfigTests
         Assert.Null(config.SystemImageFolder);
     }
 
+    /// <summary>
+    /// Verifies that the default value of FileFormatsToSearch is null.
+    /// </summary>
     [Fact]
     public void DefaultFileFormatsToSearchIsNull()
     {
@@ -159,6 +171,9 @@ public class EasyModeSystemConfigTests
         Assert.Null(config.FileFormatsToSearch);
     }
 
+    /// <summary>
+    /// Verifies that the default value of FileFormatsToLaunch is null.
+    /// </summary>
     [Fact]
     public void DefaultFileFormatsToLaunchIsNull()
     {
@@ -166,6 +181,9 @@ public class EasyModeSystemConfigTests
         Assert.Null(config.FileFormatsToLaunch);
     }
 
+    /// <summary>
+    /// Verifies that the default value of Emulators is null.
+    /// </summary>
     [Fact]
     public void DefaultEmulatorsIsNull()
     {
@@ -173,6 +191,9 @@ public class EasyModeSystemConfigTests
         Assert.Null(config.Emulators);
     }
 
+    /// <summary>
+    /// Verifies that FileFormatsToSearch and FileFormatsToLaunch can be set with multiple values.
+    /// </summary>
     [Fact]
     public void FileFormatsCanBeSet()
     {
@@ -186,6 +207,9 @@ public class EasyModeSystemConfigTests
         Assert.Equal(2, config.FileFormatsToLaunch.Count);
     }
 
+    /// <summary>
+    /// Verifies that the Emulators property can be set with an EmulatorsConfig containing an EmulatorConfig.
+    /// </summary>
     [Fact]
     public void EmulatorsCanBeSet()
     {
@@ -202,6 +226,9 @@ public class EasyModeSystemConfigTests
         Assert.Equal("RetroArch", config.Emulators.Emulator.EmulatorName);
     }
 
+    /// <summary>
+    /// Verifies that IsValid returns true when all required properties are set correctly.
+    /// </summary>
     [Fact]
     public void IsValidReturnsTrueWithValidConfig()
     {
@@ -220,6 +247,9 @@ public class EasyModeSystemConfigTests
         Assert.True(config.IsValid());
     }
 
+    /// <summary>
+    /// Verifies that IsValid returns true even when SystemFolder is null.
+    /// </summary>
     [Fact]
     public void IsValidReturnsTrueWithNullSystemFolder()
     {
@@ -237,6 +267,9 @@ public class EasyModeSystemConfigTests
         Assert.True(config.IsValid());
     }
 
+    /// <summary>
+    /// Verifies that Unicode characters in SystemName are preserved.
+    /// </summary>
     [Fact]
     public void UnicodeSystemNameIsPreserved()
     {
@@ -244,6 +277,9 @@ public class EasyModeSystemConfigTests
         Assert.Equal("ゲームボーイ", config.SystemName);
     }
 
+    /// <summary>
+    /// Verifies that spaces in SystemName and SystemFolder are preserved.
+    /// </summary>
     [Fact]
     public void SpacesInPathsArePreserved()
     {

@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Windows;
 using MessagePack;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.AppDataFile;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.PlayHistory;
@@ -21,12 +20,14 @@ public class PlayHistoryManager
     /// <summary>
     /// Gets or sets the collection of play history entries.
     /// </summary>
-    [Key(0)] public ObservableCollection<PlayHistoryItem> PlayHistoryList { get; set; } = [];
+    [Key(0)]
+    public ObservableCollection<PlayHistoryItem> PlayHistoryList { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the data format version for migration purposes.
     /// </summary>
-    [Key(1)] public int Version { get; set; } = 1;
+    [Key(1)]
+    public int Version { get; set; } = 1;
 
     private static string FilePath => FileLocation.FilePath;
     private static string TempFilePath => FileLocation.TempFilePath;
@@ -208,7 +209,7 @@ public class PlayHistoryManager
 
             // Notify developer
             const string contextMessage = "Failed to parse date/time, using current time as fallback";
-            _logger?.Warning( contextMessage);
+            _logger?.Warning(contextMessage);
 
             return true;
         }

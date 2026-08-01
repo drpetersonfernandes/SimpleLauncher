@@ -3,8 +3,18 @@ using System.Text;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Provides functionality to inject Simple Launcher settings into the PCSX2 emulator configuration file (PCSX2.ini).
+/// </summary>
 public static class Pcsx2ConfigurationService
 {
+    /// <summary>
+    /// Injects Simple Launcher configuration settings into the PCSX2 emulator's PCSX2.ini file.
+    /// Handles portable and installed modes, creates the config from a sample if missing, and updates UI, graphics, audio, and achievement settings.
+    /// </summary>
+    /// <param name="emulatorPath">The full path to the PCSX2 emulator executable.</param>
+    /// <param name="settings">The settings manager containing PCSX2 configuration values.</param>
+    /// <param name="logger">The logger instance for diagnostic output.</param>
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);

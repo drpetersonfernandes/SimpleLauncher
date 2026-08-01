@@ -6,6 +6,10 @@ using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 
+/// <summary>
+/// Scans for installed Rockstar Games by matching uninstall strings against known title IDs
+/// and creates shortcuts for them.
+/// </summary>
 public partial class ScanRockstarGames : IGamePlatformScanner
 {
     // Mapping from TitleId to Name and Executable
@@ -28,6 +32,14 @@ public partial class ScanRockstarGames : IGamePlatformScanner
         new() { TitleId = "gtasaunreal", Name = "GTA San Andreas Definitive Edition", Exe = "Gameface/Binaries/Win64/SanAndreas.exe" }
     ];
 
+    /// <summary>
+    /// Scans the registry uninstall entries for known Rockstar title IDs and creates shortcuts and cover images.
+    /// </summary>
+    /// <param name="gameScannerService">The scanner service providing shared helpers.</param>
+    /// <param name="logErrors">The error logger.</param>
+    /// <param name="windowsRomsPath">The directory where game shortcuts are created.</param>
+    /// <param name="windowsImagesPath">The directory where game images are stored.</param>
+    /// <param name="ignoredGameNames">The set of game names to skip.</param>
     public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try

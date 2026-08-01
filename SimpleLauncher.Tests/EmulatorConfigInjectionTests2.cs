@@ -9,6 +9,9 @@ using MameConfigurationService = SimpleLauncher.Services.InjectEmulatorConfig.Ma
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for emulator configuration injection across multiple emulators (Ares, Azahar, Cemu, Dolphin, Flycast, Mame, Supermodel, SegaModel2, Yumir, Raine).
+/// </summary>
 public class EmulatorConfigInjectionTests2 : IDisposable
 {
     private readonly string _testDirectory;
@@ -16,6 +19,9 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EmulatorConfigInjectionTests2"/> class, setting up a temporary test directory and in-memory configuration.
+    /// </summary>
     public EmulatorConfigInjectionTests2()
     {
         _configuration = new ConfigurationBuilder()
@@ -31,6 +37,9 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         Directory.CreateDirectory(_testDirectory);
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory and restores the original service provider.
+    /// </summary>
     public void Dispose()
     {
         try
@@ -67,6 +76,9 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         return new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
     }
 
+    /// <summary>
+    /// Verifies that Ares emulator settings are correctly injected into the settings.bml configuration file.
+    /// </summary>
     [Fact]
     public void AresInjectsSettingsCorrectly()
     {
@@ -104,6 +116,9 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         Assert.Contains("AutoSaveMemory: false", content, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that Azahar emulator settings are correctly injected into the qt-config.ini configuration file.
+    /// </summary>
     [Fact]
     public void AzaharInjectsSettingsCorrectly()
     {
@@ -138,6 +153,9 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         Assert.Equal("1", sectionValues[("Layout", "layout_option")]);
     }
 
+    /// <summary>
+    /// Verifies that Azahar injection sets the default key to false for injected settings.
+    /// </summary>
     [Fact]
     public void AzaharInjectsDefaultKeysAsFalse()
     {
@@ -157,6 +175,9 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         Assert.Equal("false", sectionValues[("UI", "fullscreen\\default")]);
     }
 
+    /// <summary>
+    /// Verifies that Cemu emulator settings are correctly injected into the settings.xml configuration file.
+    /// </summary>
     [Fact]
     public void CemuInjectsXmlSettingsCorrectly()
     {
@@ -194,6 +215,9 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         Assert.Equal("80", audio.Element("TVVolume")?.Value);
     }
 
+    /// <summary>
+    /// Verifies that Dolphin emulator settings are correctly injected into the Dolphin.ini configuration file.
+    /// </summary>
     [Fact]
     public void DolphinInjectsSettingsCorrectly()
     {
@@ -224,6 +248,9 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         Assert.Equal("False", sectionValues[("DSP", "DSPThread")]);
     }
 
+    /// <summary>
+    /// Verifies that Flycast emulator settings are correctly injected into the emu.cfg configuration file.
+    /// </summary>
     [Fact]
     public void FlycastInjectsSettingsCorrectly()
     {
@@ -248,6 +275,9 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         Assert.Equal("yes", sectionValues[("window", "maximized")]);
     }
 
+    /// <summary>
+    /// Verifies that Flycast disabled options use "no" values in the configuration file.
+    /// </summary>
     [Fact]
     public void FlycastDisabledOptionsUsesNoValues()
     {
@@ -268,6 +298,9 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         Assert.Equal("no", sectionValues[("window", "maximized")]);
     }
 
+    /// <summary>
+    /// Verifies that MAME emulator settings are correctly injected into the mame.ini configuration file.
+    /// </summary>
     [Fact]
     public void MameInjectsSettingsCorrectly()
     {
@@ -300,6 +333,9 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         Assert.Contains("d3d", content, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that Supermodel emulator settings are correctly injected into the Supermodel.ini configuration file.
+    /// </summary>
     [Fact]
     public void SupermodelInjectsSettingsCorrectly()
     {
@@ -345,6 +381,9 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         Assert.Contains("PowerPCFrequency = 50", content, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that Supermodel defaults to xinput when an invalid input system value is provided.
+    /// </summary>
     [Fact]
     public void SupermodelInvalidInputSystemDefaultsToXinput()
     {
@@ -362,6 +401,9 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         Assert.Contains("InputSystem = xinput", content, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that Sega Model 2 emulator settings are correctly injected into the EMULATOR.INI configuration file.
+    /// </summary>
     [Fact]
     public void SegaModel2InjectsSettingsCorrectly()
     {
@@ -402,6 +444,9 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         Assert.Equal("1", sectionValues[("Input", "UseRawInput")]);
     }
 
+    /// <summary>
+    /// Verifies that Yumir emulator settings are correctly injected into the Ymir.toml configuration file.
+    /// </summary>
     [Fact]
     public void YumirInjectsTomlSettingsCorrectly()
     {
@@ -441,6 +486,9 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         Assert.True((bool)general["PauseWhenUnfocused"]);
     }
 
+    /// <summary>
+    /// Verifies that Raine emulator settings are correctly injected into the raine32_sdl.cfg configuration file.
+    /// </summary>
     [Fact]
     public void RaineInjectsSettingsCorrectly()
     {

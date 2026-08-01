@@ -5,7 +5,7 @@ namespace Updater.Services;
 /// <summary>
 /// Data transfer object for bug report requests
 /// </summary>
-public class BugReportRequest
+internal class BugReportRequest
 {
     /// <summary>
     /// Gets or sets the detailed error message and context information.

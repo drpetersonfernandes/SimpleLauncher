@@ -15,6 +15,9 @@ public sealed class MountChdFilesIntegrationTests
     private readonly ILogger _logger = new NoOpLogger();
     private readonly IMessageBoxLibraryService _messageBox = new NoOpMessageBoxLibraryService();
 
+    /// <summary>
+    /// Gets the test data rows for CHD mount integration tests, specifying the file path, game name, and console index.
+    /// </summary>
     public static TheoryData<string, string, int> ChdFiles => new()
     {
         // Microsoft Xbox (CHDMounter console index 16)
@@ -31,6 +34,13 @@ public sealed class MountChdFilesIntegrationTests
         { @"J:\SNK Neo Geo CD\2020 Super Baseball (Japan) (En,Ja).chd", "2020 Super Baseball (Japan) (En,Ja)", 5 }
     };
 
+    /// <summary>
+    /// Verifies that a real CHD disc image can be mounted and unmounted cleanly, checking that the mounted
+    /// drive is accessible and contains the expected system-specific content.
+    /// </summary>
+    /// <param name="chdFilePath">The full path to the CHD file to mount.</param>
+    /// <param name="gameName">The display name of the game for assertion messages.</param>
+    /// <param name="consoleIndex">The CHDMounter console index identifying the system type.</param>
     [Theory]
     [MemberData(nameof(ChdFiles))]
     public async Task MountRealChdSucceeds_And_UnmountsCleanly(string chdFilePath, string gameName, int consoleIndex)
@@ -40,7 +50,9 @@ public sealed class MountChdFilesIntegrationTests
             throw SkipException.ForSkip($"CHD file not found: {chdFilePath}");
         }
 
+#pragma warning disable CA1416
         if (!DokanValidation.IsDokanInstalled())
+#pragma warning restore CA1416
         {
             throw SkipException.ForSkip("Dokan driver is not installed. CHD cannot be mounted.");
         }
@@ -53,7 +65,7 @@ public sealed class MountChdFilesIntegrationTests
 
         var mountService = new MountChdFiles(_logger);
 
-        string? driveRoot = null;
+        string? driveRoot;
 
         await using (var mounted = await mountService.MountAsync(chdFilePath, consoleIndex, _logger, _messageBox))
         {
@@ -77,19 +89,20 @@ public sealed class MountChdFilesIntegrationTests
 
     private static void AssertSystemSpecificContent(int consoleIndex, string driveRoot, string gameName)
     {
-        if (consoleIndex == 16)
+        switch (consoleIndex)
         {
-            // Xbox XDVDFS discs always contain default.xbe at the root.
-            Assert.True(
-                File.Exists(Path.Combine(driveRoot, "default.xbe")),
-                $"default.xbe not found on mounted Xbox CHD '{gameName}'.");
-        }
-        else if (consoleIndex == 10)
-        {
-            // PS3 discs always contain a PS3_GAME directory at the root.
-            Assert.True(
-                Directory.Exists(Path.Combine(driveRoot, "PS3_GAME")),
-                $"PS3_GAME not found on mounted PS3 CHD '{gameName}'.");
+            case 16:
+                // Xbox XDVDFS discs always contain default.xbe at the root.
+                Assert.True(
+                    File.Exists(Path.Combine(driveRoot, "default.xbe")),
+                    $"default.xbe not found on mounted Xbox CHD '{gameName}'.");
+                break;
+            case 10:
+                // PS3 discs always contain a PS3_GAME directory at the root.
+                Assert.True(
+                    Directory.Exists(Path.Combine(driveRoot, "PS3_GAME")),
+                    $"PS3_GAME not found on mounted PS3 CHD '{gameName}'.");
+                break;
         }
     }
 

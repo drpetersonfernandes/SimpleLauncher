@@ -9,6 +9,9 @@ using Serilog.Events;
 
 namespace RetroAchievements.DataFetcher.Services.DebugAndBugReport;
 
+/// <summary>
+/// A Serilog log event sink that sends bug reports to a remote API.
+/// </summary>
 public class BugReportApiSink : ILogEventSink, IDisposable
 {
     private const string ApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
@@ -23,17 +26,26 @@ public class BugReportApiSink : ILogEventSink, IDisposable
     private readonly string _logFolder;
     private readonly HttpClient _httpClient = new() { Timeout = TimeSpan.FromSeconds(30) };
     private bool _disposed;
-    private Task _processTask = null!;
+    private Task _processTask;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BugReportApiSink"/> class.
+    /// </summary>
+    /// <param name="logFolder">The folder path where log files are stored.</param>
     public BugReportApiSink(string logFolder)
     {
         _logFolder = logFolder;
         _processTask = ProcessQueueAsync(_cts.Token);
     }
 
+    /// <summary>
+    /// Emits a log event by queuing it for bug report submission.
+    /// </summary>
+    /// <param name="logEvent">The log event to process.</param>
     public void Emit(LogEvent logEvent)
     {
         if (logEvent.Level < LogEventLevel.Warning) return;
+
         _channel.Writer.TryWrite(logEvent);
     }
 
@@ -86,8 +98,14 @@ public class BugReportApiSink : ILogEventSink, IDisposable
 
             if (response.IsSuccessStatusCode && File.Exists(errorLogPath))
             {
-                try { File.Delete(errorLogPath); }
-                catch { /* Ignore */ }
+                try
+                {
+                    File.Delete(errorLogPath);
+                }
+                catch
+                {
+                    /* Ignore */
+                }
             }
         }
         catch
@@ -104,7 +122,10 @@ public class BugReportApiSink : ILogEventSink, IDisposable
             var report = BuildReport(logEvent) + "\n---\n\n\n";
             File.AppendAllText(criticalLogPath, report);
         }
-        catch { /* Can't do anything more */ }
+        catch
+        {
+            /* Can't do anything more */
+        }
     }
 
     private static string BuildReport(LogEvent logEvent)
@@ -129,8 +150,14 @@ public class BugReportApiSink : ILogEventSink, IDisposable
 
     private static string? GetUserInfo()
     {
-        try { return Environment.MachineName; }
-        catch { return null; }
+        try
+        {
+            return Environment.MachineName;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     private static string GetEnvironmentName()
@@ -142,9 +169,13 @@ public class BugReportApiSink : ILogEventSink, IDisposable
 #endif
     }
 
+    /// <summary>
+    /// Disposes of resources used by this sink.
+    /// </summary>
     public void Dispose()
     {
         if (_disposed) return;
+
         _disposed = true;
         _cts.Cancel();
         _cts.Dispose();

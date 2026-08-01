@@ -11,6 +11,9 @@ public class HistoryModelsTests
 {
     // HistoryData tests
 
+    /// <summary>
+    /// Verifies that a new HistoryData has Version and Date defaulting to null and Entries to an empty array.
+    /// </summary>
     [Fact]
     public void HistoryDataDefaultValues()
     {
@@ -21,6 +24,9 @@ public class HistoryModelsTests
         Assert.Empty(data.Entries);
     }
 
+    /// <summary>
+    /// Verifies that HistoryData properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void HistoryDataPropertiesCanBeSet()
     {
@@ -36,6 +42,9 @@ public class HistoryModelsTests
         Assert.Single(data.Entries);
     }
 
+    /// <summary>
+    /// Verifies that HistoryData Entries supports multiple items.
+    /// </summary>
     [Fact]
     public void HistoryDataEntriesSupportsMultipleItems()
     {
@@ -57,6 +66,9 @@ public class HistoryModelsTests
 
     // EntryData tests
 
+    /// <summary>
+    /// Verifies that a new EntryData has all properties defaulting to null.
+    /// </summary>
     [Fact]
     public void EntryDataDefaultValues()
     {
@@ -66,6 +78,9 @@ public class HistoryModelsTests
         Assert.Null(entry.Text);
     }
 
+    /// <summary>
+    /// Verifies that EntryData properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void EntryDataPropertiesCanBeSet()
     {
@@ -83,6 +98,9 @@ public class HistoryModelsTests
 
     // SystemsData tests
 
+    /// <summary>
+    /// Verifies that a new SystemsData has SystemItems defaulting to an empty array.
+    /// </summary>
     [Fact]
     public void SystemsDataDefaultSystemItemsIsEmptyArray()
     {
@@ -91,6 +109,9 @@ public class HistoryModelsTests
         Assert.Empty(systems.SystemItems);
     }
 
+    /// <summary>
+    /// Verifies that SystemsData SystemItems can be populated with multiple items.
+    /// </summary>
     [Fact]
     public void SystemsDataSystemItemsCanBePopulated()
     {
@@ -110,6 +131,9 @@ public class HistoryModelsTests
 
     // SystemItemData tests
 
+    /// <summary>
+    /// Verifies that a new SystemItemData has all properties defaulting to null.
+    /// </summary>
     [Fact]
     public void SystemItemDataDefaultValues()
     {
@@ -118,6 +142,9 @@ public class HistoryModelsTests
         Assert.Null(item.Game);
     }
 
+    /// <summary>
+    /// Verifies that SystemItemData properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void SystemItemDataPropertiesCanBeSet()
     {
@@ -131,6 +158,9 @@ public class HistoryModelsTests
         Assert.Equal("Super Mario Bros.", item.Game);
     }
 
+    /// <summary>
+    /// Verifies that SystemItemData supports Unicode characters in Name and Game properties.
+    /// </summary>
     [Fact]
     public void SystemItemDataSupportsUnicode()
     {
@@ -146,6 +176,9 @@ public class HistoryModelsTests
 
     // SoftwareData tests
 
+    /// <summary>
+    /// Verifies that a new SoftwareData has Items defaulting to an empty array.
+    /// </summary>
     [Fact]
     public void SoftwareDataDefaultItemsIsEmptyArray()
     {
@@ -154,6 +187,9 @@ public class HistoryModelsTests
         Assert.Empty(software.Items);
     }
 
+    /// <summary>
+    /// Verifies that SoftwareData Items can be populated with multiple items.
+    /// </summary>
     [Fact]
     public void SoftwareDataItemsCanBePopulated()
     {
@@ -173,6 +209,9 @@ public class HistoryModelsTests
 
     // ItemData tests
 
+    /// <summary>
+    /// Verifies that a new ItemData has all properties defaulting to null.
+    /// </summary>
     [Fact]
     public void ItemDataDefaultValues()
     {
@@ -182,6 +221,9 @@ public class HistoryModelsTests
         Assert.Null(item.Game);
     }
 
+    /// <summary>
+    /// Verifies that ItemData properties can be set and retrieved correctly.
+    /// </summary>
     [Fact]
     public void ItemDataPropertiesCanBeSet()
     {
@@ -197,6 +239,9 @@ public class HistoryModelsTests
         Assert.Equal("Super Mario Bros. (World).nes", item.Game);
     }
 
+    /// <summary>
+    /// Verifies that ItemData supports special characters in Name and Game properties.
+    /// </summary>
     [Fact]
     public void ItemDataSupportsSpecialCharacters()
     {
@@ -213,6 +258,9 @@ public class HistoryModelsTests
 
     // Full hierarchy integration test
 
+    /// <summary>
+    /// Verifies that a full HistoryData hierarchy can be constructed and accessed correctly.
+    /// </summary>
     [Fact]
     public void FullHistoryDataHierarchy()
     {
@@ -261,6 +309,9 @@ public class HistoryModelsTests
         }
     }
 
+    /// <summary>
+    /// Verifies that an empty HistoryData is a valid object with an empty Entries array.
+    /// </summary>
     [Fact]
     public void EmptyHistoryDataIsValid()
     {

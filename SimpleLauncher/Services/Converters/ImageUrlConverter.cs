@@ -12,7 +12,15 @@ public class ImageUrlConverter : IValueConverter
 {
     private static readonly BitmapImage PlaceholderImage = CreatePlaceholderImage();
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    /// <summary>
+    /// Converts an image URL string to a BitmapImage, falling back to a placeholder image for invalid or missing URLs.
+    /// </summary>
+    /// <param name="value">The image URL string to convert.</param>
+    /// <param name="targetType">The target type of the conversion (unused).</param>
+    /// <param name="parameter">The converter parameter (unused).</param>
+    /// <param name="culture">The culture used for the conversion (unused).</param>
+    /// <returns>A BitmapImage created from the URL, or a placeholder image.</returns>
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is string url && !string.IsNullOrWhiteSpace(url))
         {
@@ -31,7 +39,16 @@ public class ImageUrlConverter : IValueConverter
         return PlaceholderImage;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    /// <summary>
+    /// Converts a BitmapImage back to an image URL string.
+    /// </summary>
+    /// <param name="value">The value to convert (unused).</param>
+    /// <param name="targetType">The target type of the conversion (unused).</param>
+    /// <param name="parameter">The converter parameter (unused).</param>
+    /// <param name="culture">The culture used for the conversion (unused).</param>
+    /// <returns>This method is not supported and always throws.</returns>
+    /// <exception cref="NotSupportedException">Thrown because the conversion is not supported.</exception>
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotSupportedException("ConvertBack is not supported for ImageUrlConverter");
     }

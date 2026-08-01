@@ -11,6 +11,9 @@ namespace SimpleLauncher.Tests;
 [SuppressMessage("ReSharper", "NullableWarningSuppressionIsUsed")]
 public class PathHelperExtendedTests
 {
+    /// <summary>
+    /// Verifies that ResolveRelativeToAppDirectory returns null for null input.
+    /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryNullReturnsNull()
     {
@@ -18,6 +21,9 @@ public class PathHelperExtendedTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that ResolveRelativeToAppDirectory returns null for empty input.
+    /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryEmptyReturnsNull()
     {
@@ -25,6 +31,9 @@ public class PathHelperExtendedTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that ResolveRelativeToAppDirectory returns null for whitespace-only input.
+    /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryWhitespaceReturnsNull()
     {
@@ -32,6 +41,9 @@ public class PathHelperExtendedTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that ResolveRelativeToAppDirectory returns null for an extremely long path.
+    /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryVeryLongPathReturnsNull()
     {
@@ -40,6 +52,9 @@ public class PathHelperExtendedTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that ResolveRelativeToAppDirectory returns the app directory for the bare %BASEFOLDER% placeholder.
+    /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryBaseFolderOnlyReturnsAppDirectory()
     {
@@ -48,6 +63,9 @@ public class PathHelperExtendedTests
         Assert.True(Path.IsPathRooted(result));
     }
 
+    /// <summary>
+    /// Verifies that ResolveRelativeToAppDirectory handles %BASEFOLDER% with a trailing separator.
+    /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryBaseFolderWithTrailingSeparator()
     {
@@ -56,6 +74,9 @@ public class PathHelperExtendedTests
         Assert.True(Path.IsPathRooted(result));
     }
 
+    /// <summary>
+    /// Verifies that ResolveRelativeToAppDirectory treats %BASEFOLDER% as case-insensitive.
+    /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryBaseFolderCaseInsensitive()
     {
@@ -64,6 +85,9 @@ public class PathHelperExtendedTests
         Assert.EndsWith("test", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that IsRelativePathWithoutBaseFolder returns false for null input.
+    /// </summary>
     [Fact]
     public void IsRelativePathWithoutBaseFolderNullReturnsFalse()
     {
@@ -71,6 +95,9 @@ public class PathHelperExtendedTests
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that IsRelativePathWithoutBaseFolder returns false for whitespace-only input.
+    /// </summary>
     [Fact]
     public void IsRelativePathWithoutBaseFolderWhitespaceReturnsFalse()
     {
@@ -78,6 +105,12 @@ public class PathHelperExtendedTests
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that ContainsGameSpecificPlaceholder detects all supported placeholder variants including
+    /// %GAME%, %ROMNAME%, %ROMFILE%, $game$, $romname$, $romfile$, {game}, {romname}, and {romfile}.
+    /// </summary>
+    /// <param name="text">The text to inspect for a game-specific placeholder.</param>
+    /// <param name="expected">Whether a placeholder is expected to be detected.</param>
     [Theory]
     [InlineData("%GAME%", true)]
     [InlineData("%ROMNAME%", true)]
@@ -98,6 +131,9 @@ public class PathHelperExtendedTests
         Assert.Equal(expected, result);
     }
 
+    /// <summary>
+    /// Verifies that GetLongPath returns whitespace unchanged.
+    /// </summary>
     [Fact]
     public void GetLongPathWhitespaceReturnsWhitespace()
     {
@@ -105,6 +141,9 @@ public class PathHelperExtendedTests
         Assert.Equal("   ", result);
     }
 
+    /// <summary>
+    /// Verifies that GetLongPath returns an already-extended path unchanged.
+    /// </summary>
     [Fact]
     public void GetLongPathAlreadyExtendedWithDotSlashReturnsUnchanged()
     {
@@ -112,6 +151,9 @@ public class PathHelperExtendedTests
         Assert.Equal(@"\\.\C:\path", result);
     }
 
+    /// <summary>
+    /// Verifies that SanitizePathToken returns an empty string for null input.
+    /// </summary>
     [Fact]
     public void SanitizePathTokenNullReturnsEmpty()
     {
@@ -119,6 +161,9 @@ public class PathHelperExtendedTests
         Assert.Equal("", result);
     }
 
+    /// <summary>
+    /// Verifies that SanitizePathToken returns an empty string when the input consists only of separators.
+    /// </summary>
     [Fact]
     public void SanitizePathTokenOnlySeparatorsReturnsEmpty()
     {
@@ -126,6 +171,9 @@ public class PathHelperExtendedTests
         Assert.Equal("", result);
     }
 
+    /// <summary>
+    /// Verifies that GetFileNameWithoutExtension returns null for null input.
+    /// </summary>
     [Fact]
     public void GetFileNameWithoutExtensionNullReturnsNull()
     {
@@ -133,6 +181,9 @@ public class PathHelperExtendedTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that GetFileName returns null for null input.
+    /// </summary>
     [Fact]
     public void GetFileNameNullReturnsNull()
     {
@@ -140,6 +191,9 @@ public class PathHelperExtendedTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that GetFileNameWithoutExtension correctly handles paths with spaces.
+    /// </summary>
     [Fact]
     public void GetFileNameWithoutExtensionPathWithSpaces()
     {
@@ -147,6 +201,9 @@ public class PathHelperExtendedTests
         Assert.Equal("super mario", result);
     }
 
+    /// <summary>
+    /// Verifies that GetFileName correctly handles paths with spaces.
+    /// </summary>
     [Fact]
     public void GetFileNamePathWithSpaces()
     {
@@ -154,6 +211,9 @@ public class PathHelperExtendedTests
         Assert.Equal("super mario.zip", result);
     }
 
+    /// <summary>
+    /// Verifies that ResolveParameterString returns an empty string for empty input.
+    /// </summary>
     [Fact]
     public void ResolveParameterStringEmptyReturnsEmpty()
     {
@@ -161,6 +221,9 @@ public class PathHelperExtendedTests
         Assert.Equal("", result);
     }
 
+    /// <summary>
+    /// Verifies that ResolveParameterString returns an empty string for whitespace-only input.
+    /// </summary>
     [Fact]
     public void ResolveParameterStringWhitespaceOnlyReturnsEmpty()
     {
@@ -168,6 +231,9 @@ public class PathHelperExtendedTests
         Assert.Equal("", result);
     }
 
+    /// <summary>
+    /// Verifies that ResolveParameterString leaves parameters without placeholders unchanged.
+    /// </summary>
     [Fact]
     public void ResolveParameterStringNoPlaceholdersReturnsUnchanged()
     {
@@ -176,6 +242,9 @@ public class PathHelperExtendedTests
         Assert.Equal(parameters, result);
     }
 
+    /// <summary>
+    /// Verifies that ResolveParameterString resolves %SYSTEMFOLDER% to an empty string when the system folders list is empty.
+    /// </summary>
     [Fact]
     public void ResolveParameterStringEmptySystemFoldersListResolvesEmpty()
     {
@@ -184,6 +253,9 @@ public class PathHelperExtendedTests
         Assert.Equal("-rompath ", result);
     }
 
+    /// <summary>
+    /// Verifies that ResolveParameterString resolves %SYSTEMFOLDER% to an empty string when system folders is null.
+    /// </summary>
     [Fact]
     public void ResolveParameterStringNullSystemFoldersResolvesEmpty()
     {
@@ -192,6 +264,9 @@ public class PathHelperExtendedTests
         Assert.Equal("-rompath ", result);
     }
 
+    /// <summary>
+    /// Verifies that the %ROM% placeholder resolves to the full ROM path including spaces.
+    /// </summary>
     [Fact]
     public void ResolveParameterStringRomPlaceholderWithSpacesAddsQuotes()
     {
@@ -200,6 +275,9 @@ public class PathHelperExtendedTests
         Assert.Contains("C:\\my roms\\game file.zip", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that the %NAME% placeholder preserves surrounding quotes in the parameter string.
+    /// </summary>
     [Fact]
     public void ResolveParameterStringNamePlaceholderPreservesQuotes()
     {
@@ -208,6 +286,9 @@ public class PathHelperExtendedTests
         Assert.Equal("\"test game\"", result);
     }
 
+    /// <summary>
+    /// Verifies that FindFileInSystemFolders returns null for a null system folders list.
+    /// </summary>
     [Fact]
     public void FindFileInSystemFoldersNullListReturnsNull()
     {
@@ -215,6 +296,9 @@ public class PathHelperExtendedTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindFileInSystemFolders returns null for an empty system folders list.
+    /// </summary>
     [Fact]
     public void FindFileInSystemFoldersEmptyListReturnsNull()
     {
@@ -222,6 +306,9 @@ public class PathHelperExtendedTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindFileInSystemFolders returns null for a null file name.
+    /// </summary>
     [Fact]
     public void FindFileInSystemFoldersNullFileNameReturnsNull()
     {
@@ -229,6 +316,9 @@ public class PathHelperExtendedTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindFileInSystemFolders returns null for an empty file name.
+    /// </summary>
     [Fact]
     public void FindFileInSystemFoldersEmptyFileNameReturnsNull()
     {
@@ -236,6 +326,9 @@ public class PathHelperExtendedTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that FindContainingSystemFolder returns the primary folder when the file path is empty.
+    /// </summary>
     [Fact]
     public void FindContainingSystemFolderEmptyFilePathReturnsPrimaryFolder()
     {
@@ -243,6 +336,9 @@ public class PathHelperExtendedTests
         Assert.Equal("C:\\primary", result);
     }
 
+    /// <summary>
+    /// Verifies that TryGetExistingDirectory returns null for null input.
+    /// </summary>
     [Fact]
     public void TryGetExistingDirectoryNullReturnsNull()
     {
@@ -250,6 +346,9 @@ public class PathHelperExtendedTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that TryGetExistingDirectory returns null for empty input.
+    /// </summary>
     [Fact]
     public void TryGetExistingDirectoryEmptyReturnsNull()
     {
@@ -257,6 +356,9 @@ public class PathHelperExtendedTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that TryGetExistingDirectory returns null for whitespace-only input.
+    /// </summary>
     [Fact]
     public void TryGetExistingDirectoryWhitespaceReturnsNull()
     {
@@ -264,6 +366,9 @@ public class PathHelperExtendedTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that TryGetExistingDirectory returns null for a non-existent directory path.
+    /// </summary>
     [Fact]
     public void TryGetExistingDirectoryNonExistentReturnsNull()
     {
@@ -271,6 +376,9 @@ public class PathHelperExtendedTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that TryGetExistingDirectory returns the path when the directory exists.
+    /// </summary>
     [Fact]
     public void TryGetExistingDirectoryExistingReturnsPath()
     {
@@ -288,6 +396,9 @@ public class PathHelperExtendedTests
         }
     }
 
+    /// <summary>
+    /// Verifies that ResolveRelativeToCurrentWorkingDirectory converts a relative path to a rooted path.
+    /// </summary>
     [Fact]
     public void ResolveRelativeToCurrentWorkingDirectoryRelativePathReturnsRooted()
     {
@@ -296,6 +407,9 @@ public class PathHelperExtendedTests
         Assert.EndsWith("some\\relative\\path", result, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that ResolveRelativeToCurrentWorkingDirectory returns an absolute path unchanged.
+    /// </summary>
     [Fact]
     public void ResolveRelativeToCurrentWorkingDirectoryAbsolutePathReturnsSame()
     {

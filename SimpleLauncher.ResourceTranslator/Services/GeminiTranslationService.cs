@@ -6,6 +6,9 @@ using SimpleLauncher.ResourceTranslator.Models;
 
 namespace SimpleLauncher.ResourceTranslator.Services;
 
+/// <summary>
+/// Provides translation services using the Google Gemini API.
+/// </summary>
 public class GeminiTranslationService
 {
     private static readonly HttpClient HttpClient = new()
@@ -17,6 +20,12 @@ public class GeminiTranslationService
     private readonly string _modelId;
     private readonly string _apiVersion;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GeminiTranslationService"/> class.
+    /// </summary>
+    /// <param name="apiKey">The Google Gemini API key.</param>
+    /// <param name="modelId">The model identifier to use for translations.</param>
+    /// <param name="apiVersion">The API version to use.</param>
     public GeminiTranslationService(string apiKey, string modelId, string apiVersion)
     {
         _apiKey = apiKey;
@@ -24,6 +33,10 @@ public class GeminiTranslationService
         _apiVersion = apiVersion;
     }
 
+    /// <summary>
+    /// Returns the list of available Gemini models for translation.
+    /// </summary>
+    /// <returns>A list of available model information.</returns>
     public static IList<GeminiModelInfo> GetAvailableModels()
     {
         return
@@ -95,55 +108,70 @@ public class GeminiTranslationService
         ];
     }
 
+    /// <summary>
+    /// Translates a batch of key-value pairs to the target language using Gemini API.
+    /// </summary>
+    /// <param name="targetLanguageName">The name of the target language.</param>
+    /// <param name="entries">The list of key-value pairs to translate.</param>
+    /// <param name="cancellationToken">Optional cancellation token.</param>
+    /// <returns>A dictionary of translated key-value pairs.</returns>
     public async Task<IDictionary<string, string>> TranslateBatchAsync(
         string targetLanguageName,
         IList<KeyValuePair<string, string>> entries,
         CancellationToken cancellationToken = default)
     {
-        var apiUrl = $"https://generativelanguage.googleapis.com/{_apiVersion}/models/{_modelId}:generateContent?key={_apiKey}";
-
-        var sb = new StringBuilder();
-        sb.AppendLine(CultureInfo.InvariantCulture, $"You are a professional UI translator. Translate each English string into {targetLanguageName}.");
-        sb.AppendLine("Preserve UI context, keep placeholders like {0}, {1}, etc. intact.");
-        sb.AppendLine("Do NOT add explanations, markdown, or any extra text.");
-        sb.AppendLine("Return EXACTLY one line per item in this strict format:");
-        sb.AppendLine("Key|TranslatedValue");
-        sb.AppendLine();
-        sb.AppendLine("English strings:");
-        foreach (var entry in entries)
+        try
         {
-            var escapedValue = entry.Value.Replace("|", "\\|");
-            sb.AppendLine(CultureInfo.InvariantCulture, $"{entry.Key}|{escapedValue}");
-        }
+            var apiUrl = $"https://generativelanguage.googleapis.com/{_apiVersion}/models/{_modelId}:generateContent?key={_apiKey}";
 
-        var requestData = new
-        {
-            contents = new[]
+            var sb = new StringBuilder();
+            sb.AppendLine(CultureInfo.InvariantCulture, $"You are a professional UI translator. Translate each English string into {targetLanguageName}.");
+            sb.AppendLine("Preserve UI context, keep placeholders like {0}, {1}, etc. intact.");
+            sb.AppendLine("Do NOT add explanations, markdown, or any extra text.");
+            sb.AppendLine("Return EXACTLY one line per item in this strict format:");
+            sb.AppendLine("Key|TranslatedValue");
+            sb.AppendLine();
+            sb.AppendLine("English strings:");
+            foreach (var entry in entries)
             {
-                new
-                {
-                    role = "user",
-                    parts = new[] { new { text = sb.ToString() } }
-                }
-            },
-            generationConfig = new
-            {
-                temperature = 0.2,
-                topP = 0.95,
-                topK = 40
+                var escapedValue = entry.Value.Replace("|", "\\|");
+                sb.AppendLine(CultureInfo.InvariantCulture, $"{entry.Key}|{escapedValue}");
             }
-        };
 
-        using var response = await HttpClient.PostAsJsonAsync(apiUrl, requestData, cancellationToken);
-        var responseJson = await response.Content.ReadAsStringAsync(cancellationToken);
+            var requestData = new
+            {
+                contents = new[]
+                {
+                    new
+                    {
+                        role = "user",
+                        parts = new[] { new { text = sb.ToString() } }
+                    }
+                },
+                generationConfig = new
+                {
+                    temperature = 0.2,
+                    topP = 0.95,
+                    topK = 40
+                }
+            };
 
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new HttpRequestException($"Gemini API error ({response.StatusCode}): {responseJson}");
+            using var response = await HttpClient.PostAsJsonAsync(apiUrl, requestData, cancellationToken);
+            var responseJson = await response.Content.ReadAsStringAsync(cancellationToken);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException($"Gemini API error ({response.StatusCode}): {responseJson}");
+            }
+
+            var text = ExtractTextFromResponse(responseJson);
+            return ParseTranslations(text, entries.Select(static e => e.Key).ToList());
         }
-
-        var text = ExtractTextFromResponse(responseJson);
-        return ParseTranslations(text, entries.Select(static e => e.Key).ToList());
+        catch (Exception ex) when (ex is not OperationCanceledException)
+        {
+            Log.Error(ex, "Translation batch failed for {TargetLanguage}", targetLanguageName);
+            throw;
+        }
     }
 
     private static string ExtractTextFromResponse(string responseJson)

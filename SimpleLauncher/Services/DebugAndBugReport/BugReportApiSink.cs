@@ -11,6 +11,9 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.DebugAndBugReport;
 
+/// <summary>
+/// A Serilog sink that collects warning and error log events, writes them to log files, and submits them to the bug report API.
+/// </summary>
 public class BugReportApiSink : ILogEventSink, IDisposable
 {
     private readonly Channel<LogEvent> _channel = Channel.CreateBounded<LogEvent>(new BoundedChannelOptions(100)
@@ -29,6 +32,13 @@ public class BugReportApiSink : ILogEventSink, IDisposable
     private bool _initialized;
     private Task _processTask = null!;
 
+    /// <summary>
+    /// Initializes the sink with the services and log folder needed to submit bug reports.
+    /// </summary>
+    /// <param name="httpClientFactory">The factory used to create the HTTP client for bug report submissions.</param>
+    /// <param name="configuration">The application configuration containing API and log path settings.</param>
+    /// <param name="deleteFilesService">The service used to delete log files after successful submission.</param>
+    /// <param name="logFolder">The folder where log files are written.</param>
     public void Initialize(
         IHttpClientFactory httpClientFactory,
         IConfiguration configuration,
@@ -38,6 +48,7 @@ public class BugReportApiSink : ILogEventSink, IDisposable
         lock (InitLock)
         {
             if (_initialized) return;
+
             _initialized = true;
 
             _httpClientFactory = httpClientFactory;
@@ -49,6 +60,10 @@ public class BugReportApiSink : ILogEventSink, IDisposable
         }
     }
 
+    /// <summary>
+    /// Emits a log event to the sink, queuing warning and error events for reporting.
+    /// </summary>
+    /// <param name="logEvent">The log event to emit.</param>
     public void Emit(LogEvent logEvent)
     {
         if (logEvent.Level < LogEventLevel.Warning) return;
@@ -250,8 +265,14 @@ public class BugReportApiSink : ILogEventSink, IDisposable
 
     private static string? GetUserInfo()
     {
-        try { return Environment.MachineName; }
-        catch { return null; }
+        try
+        {
+            return Environment.MachineName;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     private static string GetEnvironmentName()
@@ -263,9 +284,13 @@ public class BugReportApiSink : ILogEventSink, IDisposable
 #endif
     }
 
+    /// <summary>
+    /// Releases all resources used by the sink, stopping the report processing queue.
+    /// </summary>
     public void Dispose()
     {
         if (_disposed) return;
+
         _disposed = true;
         _cts.Cancel();
         _cts.Dispose();

@@ -54,7 +54,8 @@ public class ContextMenuService : IContextMenuService
     /// <returns>The <see cref="Button"/> with the context menu attached.</returns>
     public Button AddRightClickReturnButton(RightClickContext context, IFindCoverImageService findCoverImage, IContextMenuFunctions contextMenuFunctions)
     {
-        if (context.Button != null) context.Button.ContextMenu = CreateMenu(context, findCoverImage, contextMenuFunctions);
+        context.Button?.ContextMenu = CreateMenu(context, findCoverImage, contextMenuFunctions);
+
         return context.Button!;
     }
 

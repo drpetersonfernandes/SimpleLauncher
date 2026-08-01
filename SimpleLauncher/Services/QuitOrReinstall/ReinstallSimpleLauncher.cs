@@ -66,7 +66,7 @@ public class ReinstallSimpleLauncher
                 {
                     try
                     {
-                        var updateChecker = _serviceProvider.GetRequiredService<CheckForUpdates.UpdateChecker>();
+                        var updateChecker = _serviceProvider.GetRequiredService<CheckForUpdatesService>();
 
                         // 1. Get the URL from GitHub
                         var (updaterZipUrl, _) = await updateChecker.GetLatestUpdaterInfoAsync();
@@ -82,7 +82,7 @@ public class ReinstallSimpleLauncher
                         await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
 
                         // 3. Extract the contents to the application directory
-                        var extractionSuccess = CheckForUpdates.UpdateChecker.ExtractAllFromZip(memoryStream, AppDomain.CurrentDomain.BaseDirectory, null, _logger);
+                        var extractionSuccess = CheckForUpdatesService.ExtractAllFromZip(memoryStream, AppDomain.CurrentDomain.BaseDirectory, null, _logger);
 
                         if (!extractionSuccess)
                         {

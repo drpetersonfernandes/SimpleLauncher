@@ -10,6 +10,10 @@ using Interfaces;
 /// A helper class to execute the external RAHasher.exe tool for generating game file hashes,
 /// and to encapsulate various RetroAchievements hashing logic.
 /// </summary>
+/// <summary>
+/// A helper class to execute the external RAHasher.exe tool for generating game file hashes,
+/// and to encapsulate various RetroAchievements hashing logic.
+/// </summary>
 internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
 {
     private readonly ILogger _logger;
@@ -20,6 +24,16 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
     private readonly IRetroAchievementsFileHasher _fileHasher;
     private readonly IDiscConverter _discConverter;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RetroAchievementsHasherTool"/> class.
+    /// </summary>
+    /// <param name="logger">The logger instance for diagnostic output.</param>
+    /// <param name="extractionService">The extraction service for decompressing archives before hashing.</param>
+    /// <param name="systemSelectionWindowFactory">Factory for creating the system selection dialog.</param>
+    /// <param name="mainWindowFactory">Factory for obtaining the main window reference.</param>
+    /// <param name="systemMatcher">The system matcher for fuzzy matching RetroAchievements system names.</param>
+    /// <param name="fileHasher">The file hasher for calculating MD5 hashes.</param>
+    /// <param name="discConverter">The disc converter for converting non-ISO disc images.</param>
     public RetroAchievementsHasherTool(
         ILogger logger,
         IExtractionService extractionService,
@@ -347,6 +361,15 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         }
     }
 
+    /// <summary>
+    /// Calculates the RetroAchievements hash for a game file, handling system matching, extraction, and format conversion as needed.
+    /// </summary>
+    /// <param name="filePath">The full path to the game file to hash.</param>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileFormatsToLaunch">The list of file extensions considered valid for launching.</param>
+    /// <param name="loadingState">The optional loading state to update during hash calculation.</param>
+    /// <param name="logErrors">The logger instance for error logging.</param>
+    /// <returns>A <see cref="RaHashResult"/> containing the hash, temp extraction path, and any error information.</returns>
     public async Task<RaHashResult> GetGameHashForRetroAchievementsAsync(string filePath, string systemName, IList<string> fileFormatsToLaunch, ILoadingState loadingState, ILogger logErrors)
     {
         // 1. Try to get a 100% certain match
@@ -471,123 +494,123 @@ internal class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
             switch (hashCalculationType)
             {
                 case "Simple":
-                    {
-                        hash = await _fileHasher.CalculateStandardMd5Async(fileToProcess);
-                        _logger.Debug($"[RA Hasher Tool] Calculated simple hash: {hash}");
-                        break;
-                    }
+                {
+                    hash = await _fileHasher.CalculateStandardMd5Async(fileToProcess);
+                    _logger.Debug($"[RA Hasher Tool] Calculated simple hash: {hash}");
+                    break;
+                }
 
                 case "Complex":
+                {
+                    var systemId = _systemMatcher.GetSystemId(systemName);
+                    if (systemId > 0)
                     {
-                        var systemId = _systemMatcher.GetSystemId(systemName);
-                        if (systemId > 0)
-                        {
-                            _logger.Debug($"[RA Hasher Tool] Using RAHasher.exe for system '{systemName}' (ID: {systemId})...");
-                            // Use fileToProcess (the extracted file) instead of filePath (the zip)
-                            hash = await GetHashAsync(fileToProcess, systemId, logErrors);
-                        }
-                        else
-                        {
-                            _logger.Debug($"[RA Hasher Tool] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe.");
-                            logErrors.Warning($"[RA Hasher Tool] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe.");
-                            isExtractionSuccessful = false; // Treat as a hashing failure
-                            extractionErrorMessage = $"Could not find RetroAchievements System ID for '{systemName}'.";
-                        }
-
-                        break;
+                        _logger.Debug($"[RA Hasher Tool] Using RAHasher.exe for system '{systemName}' (ID: {systemId})...");
+                        // Use fileToProcess (the extracted file) instead of filePath (the zip)
+                        hash = await GetHashAsync(fileToProcess, systemId, logErrors);
                     }
+                    else
+                    {
+                        _logger.Debug($"[RA Hasher Tool] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe.");
+                        logErrors.Warning($"[RA Hasher Tool] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe.");
+                        isExtractionSuccessful = false; // Treat as a hashing failure
+                        extractionErrorMessage = $"Could not find RetroAchievements System ID for '{systemName}'.";
+                    }
+
+                    break;
+                }
 
                 case "Dolphin":
+                {
+                    var systemId = _systemMatcher.GetSystemId(systemName);
+                    if (systemId <= 0)
                     {
-                        var systemId = _systemMatcher.GetSystemId(systemName);
-                        if (systemId <= 0)
-                        {
-                            extractionErrorMessage = $"Could not find RetroAchievements System ID for '{systemName}'.";
-                            isExtractionSuccessful = false;
-                            break;
-                        }
-
-                        string? tempIsoPath = null;
-                        try
-                        {
-                            // Handle disc image conversion if necessary
-                            // RAHasher only supports raw disc images (ISO/GCM) and WiiWare (WAD)
-                            // Other formats (RVZ, WBFS, GCZ, CISO, WIA) must be converted to ISO first
-                            var fileExt = Path.GetExtension(fileToProcess);
-                            if (fileExt.Equals(".rvz", StringComparison.OrdinalIgnoreCase) ||
-                                fileExt.Equals(".wbfs", StringComparison.OrdinalIgnoreCase) ||
-                                fileExt.Equals(".gcz", StringComparison.OrdinalIgnoreCase) ||
-                                fileExt.Equals(".ciso", StringComparison.OrdinalIgnoreCase) ||
-                                fileExt.Equals(".wia", StringComparison.OrdinalIgnoreCase))
-                            {
-                                _logger.Debug($"[RA Hasher Tool] {fileExt.ToUpperInvariant()} detected. Converting to ISO for hashing: {fileToProcess}");
-                                tempIsoPath = await _discConverter.ConvertToIsoAsync(fileToProcess);
-                                if (!string.IsNullOrEmpty(tempIsoPath))
-                                {
-                                    fileToProcess = tempIsoPath;
-                                }
-                                else
-                                {
-                                    extractionErrorMessage = $"Failed to convert {fileExt.ToUpperInvariant()} to ISO.";
-                                    isExtractionSuccessful = false;
-                                }
-                            }
-
-                            if (isExtractionSuccessful)
-                            {
-                                _logger.Debug($"[RA Hasher Tool] Using RAHasher.exe for system '{systemName}' (ID: {systemId}) on '{Path.GetFileName(fileToProcess)}'...");
-                                hash = await GetHashAsync(fileToProcess, systemId, logErrors);
-                                _logger.Debug($"[RA Hasher Tool] RAHasher result: {hash}");
-                            }
-                        }
-                        finally
-                        {
-                            // Cleanup temp ISO if we created one
-                            if (!string.IsNullOrEmpty(tempIsoPath) && File.Exists(tempIsoPath))
-                            {
-                                try
-                                {
-                                    File.Delete(tempIsoPath);
-                                }
-                                catch
-                                {
-                                    /* ignore */
-                                }
-                            }
-                        }
-
+                        extractionErrorMessage = $"Could not find RetroAchievements System ID for '{systemName}'.";
+                        isExtractionSuccessful = false;
                         break;
                     }
+
+                    string? tempIsoPath = null;
+                    try
+                    {
+                        // Handle disc image conversion if necessary
+                        // RAHasher only supports raw disc images (ISO/GCM) and WiiWare (WAD)
+                        // Other formats (RVZ, WBFS, GCZ, CISO, WIA) must be converted to ISO first
+                        var fileExt = Path.GetExtension(fileToProcess);
+                        if (fileExt.Equals(".rvz", StringComparison.OrdinalIgnoreCase) ||
+                            fileExt.Equals(".wbfs", StringComparison.OrdinalIgnoreCase) ||
+                            fileExt.Equals(".gcz", StringComparison.OrdinalIgnoreCase) ||
+                            fileExt.Equals(".ciso", StringComparison.OrdinalIgnoreCase) ||
+                            fileExt.Equals(".wia", StringComparison.OrdinalIgnoreCase))
+                        {
+                            _logger.Debug($"[RA Hasher Tool] {fileExt.ToUpperInvariant()} detected. Converting to ISO for hashing: {fileToProcess}");
+                            tempIsoPath = await _discConverter.ConvertToIsoAsync(fileToProcess);
+                            if (!string.IsNullOrEmpty(tempIsoPath))
+                            {
+                                fileToProcess = tempIsoPath;
+                            }
+                            else
+                            {
+                                extractionErrorMessage = $"Failed to convert {fileExt.ToUpperInvariant()} to ISO.";
+                                isExtractionSuccessful = false;
+                            }
+                        }
+
+                        if (isExtractionSuccessful)
+                        {
+                            _logger.Debug($"[RA Hasher Tool] Using RAHasher.exe for system '{systemName}' (ID: {systemId}) on '{Path.GetFileName(fileToProcess)}'...");
+                            hash = await GetHashAsync(fileToProcess, systemId, logErrors);
+                            _logger.Debug($"[RA Hasher Tool] RAHasher result: {hash}");
+                        }
+                    }
+                    finally
+                    {
+                        // Cleanup temp ISO if we created one
+                        if (!string.IsNullOrEmpty(tempIsoPath) && File.Exists(tempIsoPath))
+                        {
+                            try
+                            {
+                                File.Delete(tempIsoPath);
+                            }
+                            catch
+                            {
+                                /* ignore */
+                            }
+                        }
+                    }
+
+                    break;
+                }
 
                 case "HashFileName":
-                    {
-                        hash = _fileHasher.CalculateFilenameHash(fileToProcess);
-                        _logger.Debug($"[RA Hasher Tool] Calculated hash for filename: {hash}");
-                        break;
-                    }
+                {
+                    hash = _fileHasher.CalculateFilenameHash(fileToProcess);
+                    _logger.Debug($"[RA Hasher Tool] Calculated hash for filename: {hash}");
+                    break;
+                }
 
                 case "HashWithByteSwapping":
-                    {
-                        _logger.Debug($"[RA Hasher Tool] Calculating N64 hash for '{Path.GetFileName(fileToProcess)}'...");
-                        hash = await _fileHasher.CalculateN64HashAsync(fileToProcess);
-                        _logger.Debug($"[RA Hasher Tool] Calculated N64 hash: {hash}");
-                        break;
-                    }
+                {
+                    _logger.Debug($"[RA Hasher Tool] Calculating N64 hash for '{Path.GetFileName(fileToProcess)}'...");
+                    hash = await _fileHasher.CalculateN64HashAsync(fileToProcess);
+                    _logger.Debug($"[RA Hasher Tool] Calculated N64 hash: {hash}");
+                    break;
+                }
 
                 case "HashWithHeaderCheck":
-                    {
-                        _logger.Debug($"[RA Hasher Tool] Calculating header-based hash for system '{systemName}' on file '{Path.GetFileName(fileToProcess)}'...");
-                        hash = await _fileHasher.CalculateHeaderBasedMd5Async(fileToProcess, systemName);
-                        _logger.Debug($"[RA Hasher Tool] Calculated header-based hash: {hash}");
-                        break;
-                    }
+                {
+                    _logger.Debug($"[RA Hasher Tool] Calculating header-based hash for system '{systemName}' on file '{Path.GetFileName(fileToProcess)}'...");
+                    hash = await _fileHasher.CalculateHeaderBasedMd5Async(fileToProcess, systemName);
+                    _logger.Debug($"[RA Hasher Tool] Calculated header-based hash: {hash}");
+                    break;
+                }
                 case "HashWithLineEndingNormalization":
-                    {
-                        _logger.Debug($"[RA Hasher Tool] Calculating Arduboy hash for '{Path.GetFileName(fileToProcess)}'...");
-                        hash = await _fileHasher.CalculateArduboyHashAsync(fileToProcess);
-                        _logger.Debug($"[RA Hasher Tool] Calculated Arduboy hash: {hash}");
-                        break;
-                    }
+                {
+                    _logger.Debug($"[RA Hasher Tool] Calculating Arduboy hash for '{Path.GetFileName(fileToProcess)}'...");
+                    hash = await _fileHasher.CalculateArduboyHashAsync(fileToProcess);
+                    _logger.Debug($"[RA Hasher Tool] Calculated Arduboy hash: {hash}");
+                    break;
+                }
             }
         }
         catch (Exception ex)

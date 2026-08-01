@@ -17,6 +17,10 @@ public class RetroAchievementsFileHasherTests : IDisposable
 
     private readonly RetroAchievementsFileHasher _hasher = new(new NoOpLogger());
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RetroAchievementsFileHasherTests"/> class,
+    /// installing the service provider mock and creating a temporary test directory.
+    /// </summary>
     public RetroAchievementsFileHasherTests()
     {
         ServiceProviderMock.Install();
@@ -24,6 +28,9 @@ public class RetroAchievementsFileHasherTests : IDisposable
         Directory.CreateDirectory(_testDirectory);
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory and restores the service provider mock.
+    /// </summary>
     public void Dispose()
     {
         try

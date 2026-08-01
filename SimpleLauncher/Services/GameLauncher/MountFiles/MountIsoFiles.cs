@@ -5,15 +5,25 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
+/// <summary>
+/// Handles mounting ISO disc images using PowerShell and launching games from the mounted drive.
+/// </summary>
 public class MountIsoFiles : IMountIsoFiles
 {
     private readonly ILogger _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MountIsoFiles"/> class.
+    /// </summary>
+    /// <param name="logger">The logger instance.</param>
     public MountIsoFiles(ILogger logger)
     {
         _logger = logger;
     }
 
+    /// <summary>
+    /// Mounts an ISO file, locates EBOOT.BIN, and launches it with the specified emulator.
+    /// </summary>
     public async Task MountIsoFileAsync(
         string resolvedIsoFilePath,
         string selectedSystemName,
@@ -141,6 +151,14 @@ public class MountIsoFiles : IMountIsoFiles
         }
     }
 
+    /// <summary>
+    /// Waits for a directory to exist by polling at regular intervals until a timeout is reached.
+    /// </summary>
+    /// <param name="directoryPath">The directory path to wait for.</param>
+    /// <param name="maxWaitTimeMs">Maximum wait time in milliseconds.</param>
+    /// <param name="pollIntervalMs">Polling interval in milliseconds.</param>
+    /// <param name="logErrors">The error logger.</param>
+    /// <returns>True if the directory appeared within the timeout; otherwise, false.</returns>
     public async Task<bool> WaitForDirectoryToExistAsync(string directoryPath, int maxWaitTimeMs, int pollIntervalMs, ILogger logErrors)
     {
         _logger.Debug($"[MountIsoFiles] Waiting for directory to exist: {directoryPath} (max wait: {maxWaitTimeMs}ms, poll interval: {pollIntervalMs}ms)");
@@ -162,6 +180,13 @@ public class MountIsoFiles : IMountIsoFiles
         return false;
     }
 
+    /// <summary>
+    /// Mounts an ISO file using a PowerShell command and returns the assigned drive letter.
+    /// </summary>
+    /// <param name="isoPath">The path to the ISO file to mount.</param>
+    /// <param name="logErrors">The error logger.</param>
+    /// <param name="messageBox">The message box service for user notifications.</param>
+    /// <returns>The drive letter assigned to the mounted ISO, or null if mounting failed.</returns>
     public async Task<string?> ExecutePowerShellMountCommandAsync(string isoPath, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         var escapedIsoPath = isoPath.Replace("'", "''"); // Escape single quotes for PowerShell
@@ -283,6 +308,12 @@ public class MountIsoFiles : IMountIsoFiles
         }
     }
 
+    /// <summary>
+    /// Dismounts a previously mounted ISO file using a PowerShell command.
+    /// </summary>
+    /// <param name="isoPath">The path to the ISO file to dismount.</param>
+    /// <param name="logErrors">The error logger.</param>
+    /// <param name="messageBox">The message box service for user notifications.</param>
     public async Task ExecutePowerShellDismountCommandAsync(string isoPath, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         var escapedIsoPath = isoPath.Replace("'", "''");

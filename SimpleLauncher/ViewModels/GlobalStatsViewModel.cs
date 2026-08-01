@@ -37,6 +37,12 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
     private bool _isStartButtonVisible = true;
     private bool _forceClose;
 
+    /// <summary>Initializes a new instance of the <see cref="GlobalStatsViewModel"/>.</summary>
+    /// <param name="configuration">The application configuration.</param>
+    /// <param name="logErrors">The logger instance.</param>
+    /// <param name="getListOfFiles">The file listing service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="resourceProvider">The resource provider for localized strings.</param>
     public GlobalStatsViewModel(IConfiguration configuration, ILogger logErrors, IGetListOfFilesService getListOfFiles, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
@@ -51,6 +57,8 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         ClosingCommand = new AsyncRelayCommand<CancelEventArgs?>(ClosingAsync);
     }
 
+    /// <summary>Initializes the ViewModel with the system managers to analyze.</summary>
+    /// <param name="systemManagers">The list of configured system managers.</param>
     public void Initialize(IList<SystemManager> systemManagers)
     {
         _systemManagers = systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
@@ -165,9 +173,13 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
     public event EventHandler CloseRequested = null!;
     #endregion
 
+    /// <summary>Gets the command to start the statistics calculation.</summary>
     public IAsyncRelayCommand StartCommand { get; }
+    /// <summary>Gets the command to cancel the statistics calculation.</summary>
     public IRelayCommand CancelCommand { get; }
+    /// <summary>Gets the command to save the statistics report to a file.</summary>
     public IAsyncRelayCommand SaveReportCommand { get; }
+    /// <summary>Gets the command invoked when the window is closing.</summary>
     public IAsyncRelayCommand<CancelEventArgs?> ClosingCommand { get; }
 
     private async Task StartAsync()
@@ -486,6 +498,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         }
     }
 
+    /// <summary>Cancels any in-progress processing and releases the busy overlay.</summary>
     public void EmergencyOverlayRelease()
     {
         Cancel();
@@ -526,6 +539,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         }
     }
 
+    /// <summary>Releases resources used by this ViewModel.</summary>
     public void Dispose()
     {
         _cancellationTokenSource?.Dispose();

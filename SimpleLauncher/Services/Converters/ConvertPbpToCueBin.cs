@@ -16,7 +16,7 @@ public static class ConvertPbpToCueBin
         var sp = App.ServiceProvider;
         return sp?.GetService<ILogger>() ?? Log.Logger;
     });
-    private static ILogger logger => DebugLogger2.Value;
+    private static ILogger Logger => DebugLogger2.Value;
 
     /// <summary>
     /// Converts a PBP file to a temporary Cue/Bin using psxpackager.exe.
@@ -30,7 +30,7 @@ public static class ConvertPbpToCueBin
             var arch = RuntimeInformation.ProcessArchitecture;
             if (arch == Architecture.Arm64)
             {
-                logger.Debug("[ConvertPbpToCueBin] PSXPackager is not available for ARM64 architecture.");
+                Logger.Debug("[ConvertPbpToCueBin] PSXPackager is not available for ARM64 architecture.");
                 return null;
             }
 
@@ -38,7 +38,7 @@ public static class ConvertPbpToCueBin
 
             if (!File.Exists(psxPackagerPath))
             {
-                logger.Debug($"[ConvertPbpToCueBin] psxpackager not found at {psxPackagerPath}. Cannot convert PBP.");
+                Logger.Debug($"[ConvertPbpToCueBin] psxpackager not found at {psxPackagerPath}. Cannot convert PBP.");
                 return null;
             }
 
@@ -69,8 +69,8 @@ public static class ConvertPbpToCueBin
             using var process = new Process();
             process.StartInfo = processStartInfo;
 
-            logger.Debug($"[ConvertPbpToCueBin] Running psxpackager with args: {args}");
-            logger.Debug("[ConvertPbpToCueBin] Converting from PBP to CUE/BIN.");
+            Logger.Debug($"[ConvertPbpToCueBin] Running psxpackager with args: {args}");
+            Logger.Debug("[ConvertPbpToCueBin] Converting from PBP to CUE/BIN.");
 
             var errorBuilder = new StringBuilder();
             process.ErrorDataReceived += (_, e) =>
@@ -90,7 +90,7 @@ public static class ConvertPbpToCueBin
             }
             catch (OperationCanceledException)
             {
-                logger.Debug("[ConvertPbpToCueBin] Conversion timed out after 5 minutes. Killing process.");
+                Logger.Debug("[ConvertPbpToCueBin] Conversion timed out after 5 minutes. Killing process.");
                 try
                 {
                     process.Kill();
@@ -108,7 +108,7 @@ public static class ConvertPbpToCueBin
                 // Check for the expected .cue file, or the _disc1 variant
                 if (File.Exists(tempCuePath))
                 {
-                    logger.Debug("[ConvertPbpToCueBin] Conversion successful.");
+                    Logger.Debug("[ConvertPbpToCueBin] Conversion successful.");
                     return tempCuePath;
                 }
 
@@ -116,17 +116,17 @@ public static class ConvertPbpToCueBin
                 var disc1CuePath = Path.Combine(TempFolder, $"{tempFileName}_disc1.cue");
                 if (File.Exists(disc1CuePath))
                 {
-                    logger.Debug("[ConvertPbpToCueBin] Conversion successful (disc 1 variant).");
+                    Logger.Debug("[ConvertPbpToCueBin] Conversion successful (disc 1 variant).");
                     return disc1CuePath;
                 }
             }
 
-            logger.Debug($"[ConvertPbpToCueBin] psxpackager failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
+            Logger.Debug($"[ConvertPbpToCueBin] psxpackager failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
             return null;
         }
         catch (Exception ex)
         {
-            logger.Debug($"[ConvertPbpToCueBin] Exception during conversion: {ex.Message}");
+            Logger.Debug($"[ConvertPbpToCueBin] Exception during conversion: {ex.Message}");
             return null;
         }
     }

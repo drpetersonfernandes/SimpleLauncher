@@ -77,7 +77,8 @@ public partial class DetectMismatchedResourceStringsTests
     {
         return path.Contains("\\bin\\", StringComparison.OrdinalIgnoreCase)
                || path.Contains("\\obj\\", StringComparison.OrdinalIgnoreCase)
-               || path.Contains("\\resources\\", StringComparison.OrdinalIgnoreCase);
+               || path.Contains("\\resources\\", StringComparison.OrdinalIgnoreCase)
+               || path.Contains("\\References\\", StringComparison.OrdinalIgnoreCase);
     }
 
     [GeneratedRegex("""

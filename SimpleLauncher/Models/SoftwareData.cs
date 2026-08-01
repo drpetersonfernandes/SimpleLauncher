@@ -8,6 +8,9 @@ namespace SimpleLauncher.Models;
 [MessagePackObject]
 public class SoftwareData
 {
+    /// <summary>
+    /// The array of software items associated with a ROM history entry.
+    /// </summary>
     [Key(0)]
     public ItemData[] Items { get; set; } = [];
 }

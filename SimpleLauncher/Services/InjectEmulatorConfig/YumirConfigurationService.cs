@@ -3,8 +3,18 @@ using Tomlyn.Model;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Provides functionality to inject Simple Launcher settings into the Ymir emulator configuration file (Ymir.toml).
+/// </summary>
 public static class YumirConfigurationService
 {
+    /// <summary>
+    /// Injects Simple Launcher configuration settings into the Ymir emulator's Ymir.toml file.
+    /// Creates the config from a sample if it does not exist, then updates video, audio, system, and general settings.
+    /// </summary>
+    /// <param name="emulatorPath">The full path to the Ymir emulator executable.</param>
+    /// <param name="settings">The settings manager containing Ymir configuration values.</param>
+    /// <param name="logger">The logger instance for diagnostic output.</param>
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);

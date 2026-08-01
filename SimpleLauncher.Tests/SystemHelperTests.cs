@@ -8,6 +8,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class SystemHelperTests
 {
+    /// <summary>
+    /// Verifies that default property values of a new SystemHelper are null.
+    /// </summary>
     [Fact]
     public void DefaultValuesAreNull()
     {
@@ -16,6 +19,9 @@ public class SystemHelperTests
         Assert.Null(helper.SystemHelperText);
     }
 
+    /// <summary>
+    /// Verifies that SystemName and SystemHelperText properties can be set and retrieved.
+    /// </summary>
     [Fact]
     public void PropertiesCanBeSet()
     {
@@ -29,6 +35,9 @@ public class SystemHelperTests
         Assert.Equal("Nintendo Entertainment System helper text", helper.SystemHelperText);
     }
 
+    /// <summary>
+    /// Verifies that SystemName and SystemHelperText support Unicode characters.
+    /// </summary>
     [Fact]
     public void SystemNameSupportsUnicode()
     {
@@ -42,6 +51,9 @@ public class SystemHelperTests
         Assert.Equal("ファミリーコンピュータ", helper.SystemHelperText);
     }
 
+    /// <summary>
+    /// Verifies that SystemHelperText supports multiline strings.
+    /// </summary>
     [Fact]
     public void SystemHelperTextSupportsMultiline()
     {
@@ -55,6 +67,9 @@ public class SystemHelperTests
         Assert.Equal(3, helper.SystemHelperText.Split('\n').Length);
     }
 
+    /// <summary>
+    /// Verifies that SystemHelperText supports very long text strings.
+    /// </summary>
     [Fact]
     public void SystemHelperTextSupportsLongText()
     {
@@ -67,6 +82,9 @@ public class SystemHelperTests
         Assert.Equal(longText, helper.SystemHelperText);
     }
 
+    /// <summary>
+    /// Verifies that SystemHelperText supports special characters such as angle brackets and pipes.
+    /// </summary>
     [Fact]
     public void SystemHelperTextSupportsSpecialCharacters()
     {
@@ -79,6 +97,9 @@ public class SystemHelperTests
         Assert.Contains("\"quotes\"", helper.SystemHelperText, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that properties are init-only and can be set during object initialization.
+    /// </summary>
     [Fact]
     public void PropertiesAreInitOnly()
     {
@@ -87,6 +108,9 @@ public class SystemHelperTests
         Assert.Equal("text", helper.SystemHelperText);
     }
 
+    /// <summary>
+    /// Verifies that multiple SystemHelper instances maintain independent property values.
+    /// </summary>
     [Fact]
     public void MultipleInstancesAreIndependent()
     {

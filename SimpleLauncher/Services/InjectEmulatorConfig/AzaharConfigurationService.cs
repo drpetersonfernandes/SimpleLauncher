@@ -3,6 +3,9 @@ using System.Text;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Injects user settings into the Azahar emulator's qt-config.ini configuration file.
+/// </summary>
 public static class AzaharConfigurationService
 {
     /// <summary>

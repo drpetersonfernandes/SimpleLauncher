@@ -10,6 +10,11 @@ public partial class DownloadImagePackWindow : IDisposable
     private readonly ILogger _logger;
     private Button? _emergencyReturnButton;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DownloadImagePackWindow"/> class.
+    /// </summary>
+    /// <param name="logErrors">The logger instance for error logging.</param>
+    /// <param name="viewModel">The view model providing download and extraction logic.</param>
     public DownloadImagePackWindow(ILogger logErrors, DownloadImagePackViewModel viewModel)
     {
         InitializeComponent();
@@ -72,6 +77,9 @@ public partial class DownloadImagePackWindow : IDisposable
         _viewModel.EmergencyOverlayRelease();
     }
 
+    /// <summary>
+    /// Disposes of resources used by the window.
+    /// </summary>
     public void Dispose()
     {
         _viewModel.Dispose();

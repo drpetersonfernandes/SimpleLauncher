@@ -1,5 +1,8 @@
 namespace SimpleLauncher.Interfaces;
 
+/// <summary>
+/// Manages the loading state of the UI, showing or hiding the loading overlay.
+/// </summary>
 public interface ILoadingState
 {
     /// <summary>

@@ -23,6 +23,9 @@ public class EmulatorConfigInjectionTests : IDisposable
     private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="EmulatorConfigInjectionTests"/> with in-memory configuration and a temporary test directory.
+    /// </summary>
     public EmulatorConfigInjectionTests()
     {
         _configuration = new ConfigurationBuilder()
@@ -38,22 +41,16 @@ public class EmulatorConfigInjectionTests : IDisposable
         Directory.CreateDirectory(_testDirectory);
     }
 
+    /// <summary>
+    /// Cleans up the test directory and restores the service provider mock.
+    /// </summary>
     public void Dispose()
     {
-        try
-        {
-            if (Directory.Exists(_testDirectory))
-                Directory.Delete(_testDirectory, true);
-        }
-        catch
-        {
-            // Best-effort cleanup
-        }
-
-        ServiceProviderMock.Restore();
-        GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Copies a sample config file from the test samples directory into a temporary emulator directory.
+    /// </summary>
     private void CopySampleToEmuDir(string emulatorDirName, string sampleSubDir, string configFileName)
     {
         var emuDir = Path.Combine(_testDirectory, emulatorDirName);
@@ -64,11 +61,17 @@ public class EmulatorConfigInjectionTests : IDisposable
         File.Copy(samplePath, destPath);
     }
 
+    /// <summary>
+    /// Returns a fake emulator executable path within the specified emulator directory.
+    /// </summary>
     private static string FakeEmulatorExePath(string emuDir)
     {
         return Path.Combine(emuDir, "emulator.exe");
     }
 
+    /// <summary>
+    /// Creates a new SettingsManagerService instance with test configuration.
+    /// </summary>
     private SettingsManagerService CreateSettingsManager()
     {
         return new SettingsManagerService(_configuration, _logErrors, _credentialProtector);

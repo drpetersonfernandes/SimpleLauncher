@@ -290,6 +290,9 @@ public class GameListViewItemTests
         Assert.False(eventRaised);
     }
 
+    /// <summary>
+    /// Verifies that multiple PropertyChanged subscriptions are all invoked.
+    /// </summary>
     [Fact]
     public void MultiplePropertyChangedSubscriptions()
     {
@@ -302,6 +305,9 @@ public class GameListViewItemTests
         Assert.Equal(2, count);
     }
 
+    /// <summary>
+    /// Verifies that PropertyChanged event sender is the correct instance.
+    /// </summary>
     [Fact]
     public void PropertyChangedSenderIsCorrect()
     {
@@ -313,6 +319,9 @@ public class GameListViewItemTests
         Assert.Same(item, sender);
     }
 
+    /// <summary>
+    /// Verifies that PropertyChanged event args contain the correct property name.
+    /// </summary>
     [Fact]
     public void PropertyChangedArgsPropertyNameIsCorrect()
     {
@@ -324,6 +333,9 @@ public class GameListViewItemTests
         Assert.Equal(nameof(GameListViewItem.IsFavorite), propertyName);
     }
 
+    /// <summary>
+    /// Verifies that FilePath supports special characters like parentheses and brackets.
+    /// </summary>
     [Fact]
     public void FilePathWithSpecialCharacters()
     {
@@ -332,6 +344,9 @@ public class GameListViewItemTests
         Assert.Contains("[", item.FilePath, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that FilePath supports Unicode characters.
+    /// </summary>
     [Fact]
     public void FilePathWithUnicode()
     {
@@ -339,6 +354,9 @@ public class GameListViewItemTests
         Assert.Contains("ポケモン", item.FilePath, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that FolderPath supports spaces.
+    /// </summary>
     [Fact]
     public void FolderPathWithSpaces()
     {
@@ -346,6 +364,9 @@ public class GameListViewItemTests
         Assert.Contains(" ", item.FolderPath, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that all GameListViewItem properties can be set simultaneously and retrieved correctly.
+    /// </summary>
     [Fact]
     public void CanSetAllPropertiesSimultaneously()
     {

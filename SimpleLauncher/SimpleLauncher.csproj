@@ -1336,7 +1336,6 @@
     </ItemGroup>
     <ItemGroup>
         <Folder Include="samples\Stella\" />
-        <Folder Include="Services\GlobalSearch\" />
         <Folder Include="tools\SevenZip\" />
     </ItemGroup>
 

@@ -4,6 +4,9 @@ namespace SimpleLauncher.Services.CleanAndDeleteFiles;
 
 using Interfaces;
 
+/// <summary>
+/// Provides cleanup routines that delete temporary and architecture-specific files from the SimpleLauncher installation.
+/// </summary>
 public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderService
 {
     private readonly IDeleteFilesService _deleteFilesService;
@@ -180,11 +183,18 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
         Path.Combine(AppDirectory, "tools", "xbox-iso-vfs")
     ];
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CleanSimpleLauncherFolderService"/> class.
+    /// </summary>
+    /// <param name="deleteFilesService">The service used to delete files and directories.</param>
     public CleanSimpleLauncherFolderService(IDeleteFilesService deleteFilesService)
     {
         _deleteFilesService = deleteFilesService;
     }
 
+    /// <summary>
+    /// Deletes the temporary and obsolete files and directories from the SimpleLauncher installation folder.
+    /// </summary>
     public void CleanupTrash()
     {
         // Clean directories
@@ -204,6 +214,9 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
         CleanupArchitectureSpecificFolders(currentArchitecture);
     }
 
+    /// <summary>
+    /// Deletes the SimpleLauncher temporary folders located in the system temp directory.
+    /// </summary>
     public void CleanupTempFiles()
     {
         _deleteFilesService.TryDeleteDirectory(Path.Combine(Path.GetTempPath(), "SimpleLauncher"));

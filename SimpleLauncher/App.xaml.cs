@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog.Events;
 using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services;
 using SimpleLauncher.Services.CheckForFileLock;
 using SimpleLauncher.Services.CheckIfDirectoryIsWritable;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
@@ -64,7 +65,7 @@ using SimpleLauncher.Services.WpfServices;
 using SimpleLauncher.ViewModels;
 using DosBoxFileSelectionViewModel = SimpleLauncher.ViewModels.DosBoxFileSelectionViewModel;
 using SystemSelectionViewModel = SimpleLauncher.ViewModels.SystemSelectionViewModel;
-using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
+using UpdateChecker = SimpleLauncher.Services.CheckForUpdatesService;
 
 namespace SimpleLauncher;
 
@@ -318,7 +319,9 @@ public partial class App : IDisposable
 
             static Window MainWindowFactory()
             {
-                return Current.MainWindow;
+                if (Current.MainWindow != null) return Current.MainWindow;
+
+                throw new InvalidOperationException();
             }
         });
         serviceCollection.AddSingleton<ISystemSelectionOrchestrator, SystemSelectionOrchestratorService>();
@@ -334,8 +337,8 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IDiscConverter, Services.Converters.DiscConverter>();
 
         // Facade services
-        serviceCollection.AddSingleton<IAudioInputService, Services.AudioInput.AudioInputService>();
-        serviceCollection.AddSingleton<IApplicationLifecycleService, Services.ApplicationLifecycle.ApplicationLifecycleService>();
+        serviceCollection.AddSingleton<IAudioInputService, AudioInputService>();
+        serviceCollection.AddSingleton<IApplicationLifecycleService, ApplicationLifecycleService>();
         serviceCollection.AddSingleton<IMenuOrchestrator, Services.MenuOrchestrator.MenuOrchestratorService>();
         serviceCollection.AddSingleton<IGameBrowserService, Services.GameBrowser.GameBrowserService>();
 

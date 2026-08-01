@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.GameItemFactory;
+using SimpleLauncher.ViewModels;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

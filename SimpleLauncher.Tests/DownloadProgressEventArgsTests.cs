@@ -59,6 +59,7 @@ public class DownloadProgressEventArgsTests
     /// <summary>
     /// Verifies that ProgressPercentage can be set and retrieved.
     /// </summary>
+    /// <param name="percentage">The progress percentage value to assign and read back.</param>
     [Theory]
     [InlineData(0.0)]
     [InlineData(50.0)]

@@ -15,6 +15,9 @@ public class DaphneConfigurationServiceTests : IDisposable
     private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="DaphneConfigurationServiceTests"/> with in-memory configuration and mock services.
+    /// </summary>
     public DaphneConfigurationServiceTests()
     {
         _configuration = new ConfigurationBuilder()
@@ -28,6 +31,9 @@ public class DaphneConfigurationServiceTests : IDisposable
         ServiceProviderMock.Install();
     }
 
+    /// <summary>
+    /// Cleans up the service provider mock state.
+    /// </summary>
     public void Dispose()
     {
         ServiceProviderMock.Restore();
@@ -136,6 +142,9 @@ public class DaphneConfigurationServiceTests : IDisposable
         Assert.DoesNotContain("-y", args, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that disabling crosshairs produces arguments containing the -nocrosshairs flag.
+    /// </summary>
     [Fact]
     public void BuildArgumentsCrosshairsDisabledContainsNoCrosshairsFlag()
     {

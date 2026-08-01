@@ -1,22 +1,29 @@
 using MessagePack;
-using SimpleLauncher.Services.MameManager;
+using SimpleLauncher.Models;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="MameManagerService"/> class covering loading from .dat files.
+/// Tests for the <see cref="MameMachineData"/> class covering loading from .dat files.
 /// </summary>
 public class MameManagerTests : IDisposable
 {
     private readonly ILogger _logErrors = new NoOpLogger();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MameManagerTests"/> class,
+    /// installing the service provider mock for dependency resolution.
+    /// </summary>
     public MameManagerTests()
     {
         ServiceProviderMock.Install();
     }
 
+    /// <summary>
+    /// Restores the service provider mock and suppresses finalization.
+    /// </summary>
     public void Dispose()
     {
         ServiceProviderMock.Restore();
@@ -29,7 +36,7 @@ public class MameManagerTests : IDisposable
     [Fact]
     public void LoadFromDatValidDatFileReturnsDeserializedList()
     {
-        var items = new List<MameManagerService>
+        var items = new List<MameMachineData>
         {
             new() { MachineName = "pacman", Description = "Pac-Man (Midway)" },
             new() { MachineName = "mspacman", Description = "Ms. Pac-Man" }
@@ -41,7 +48,7 @@ public class MameManagerTests : IDisposable
 
         try
         {
-            var result = MameManagerService.LoadFromDat(_logErrors, tempFile);
+            var result = MameMachineData.LoadFromDat(_logErrors, tempFile);
 
             Assert.NotNull(result);
             Assert.Equal(2, result.Count);
@@ -60,7 +67,7 @@ public class MameManagerTests : IDisposable
     [Fact]
     public void LoadFromDatSingleItemReturnsCorrectItem()
     {
-        var items = new List<MameManagerService>
+        var items = new List<MameMachineData>
         {
             new() { MachineName = "galaga", Description = "Galaga (Namco)" }
         };
@@ -71,7 +78,7 @@ public class MameManagerTests : IDisposable
 
         try
         {
-            var result = MameManagerService.LoadFromDat(_logErrors, tempFile);
+            var result = MameMachineData.LoadFromDat(_logErrors, tempFile);
 
             Assert.Single(result);
             Assert.Equal("galaga", result[0].MachineName);
@@ -94,7 +101,7 @@ public class MameManagerTests : IDisposable
 
         try
         {
-            var result = MameManagerService.LoadFromDat(_logErrors, tempFile);
+            var result = MameMachineData.LoadFromDat(_logErrors, tempFile);
 
             Assert.NotNull(result);
             Assert.Empty(result);
@@ -116,7 +123,7 @@ public class MameManagerTests : IDisposable
 
         try
         {
-            var result = MameManagerService.LoadFromDat(_logErrors, tempFile);
+            var result = MameMachineData.LoadFromDat(_logErrors, tempFile);
 
             Assert.NotNull(result);
             Assert.Empty(result);
@@ -138,7 +145,7 @@ public class MameManagerTests : IDisposable
 
         try
         {
-            var result = MameManagerService.LoadFromDat(_logErrors, tempFile);
+            var result = MameMachineData.LoadFromDat(_logErrors, tempFile);
 
             Assert.NotNull(result);
             Assert.Empty(result);

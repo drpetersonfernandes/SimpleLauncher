@@ -6,6 +6,9 @@ using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 
+/// <summary>
+/// Scans for installed Battle.net games and creates shortcuts for them.
+/// </summary>
 public partial class ScanBattleNetGames : IGamePlatformScanner
 {
     // Mapping from InternalId (found in registry) to Readable Name and Executable (for icons)
@@ -41,6 +44,7 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
         new() { InternalId = "Warcraft III", Name = "Warcraft III", IsClassic = true, Exe = "Warcraft III.exe", ProductId = "W3" }
     ];
 
+    /// <inheritdoc />
     public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try

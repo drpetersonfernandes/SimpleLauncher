@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -103,6 +104,7 @@ public partial class DetectMissingKeysInOtherLanguagesTests
             .ToHashSet(StringComparer.Ordinal);
     }
 
-    [GeneratedRegex("x:Key=\"([^\"]+)\"", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the key")]
+    [GeneratedRegex("x:Key=\"([^\"]+)\"", RegexOptions.Compiled, 1000)]
     private static partial Regex MyRegex();
 }

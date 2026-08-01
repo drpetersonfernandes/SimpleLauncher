@@ -20,6 +20,11 @@ public partial class SetLinksViewModel : ObservableObject
     [ObservableProperty] private string _videoUrl = "";
     [ObservableProperty] private string _infoUrl = "";
 
+    /// <summary>Initializes a new instance of the <see cref="SetLinksViewModel"/> class.</summary>
+    /// <param name="settingsManager">The settings manager for reading and saving link URLs.</param>
+    /// <param name="configuration">The application configuration for default URL values.</param>
+    /// <param name="messageBox">The message box service for displaying dialogs.</param>
+    /// <param name="resourceProvider">The resource provider for localized strings.</param>
     public SetLinksViewModel(SettingsManagerService settingsManager, IConfiguration configuration, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _settingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));

@@ -4,10 +4,20 @@ using System.Text.RegularExpressions;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Injects user settings into the Blastem emulator's default.cfg configuration file.
+/// </summary>
 public static partial class BlastemConfigurationService
 {
     private static readonly char[] Separator = [' ', '\t'];
 
+    /// <summary>
+    /// Applies the saved Blastem settings to the emulator's default.cfg file,
+    /// creating the file from a bundled sample when it does not exist.
+    /// </summary>
+    /// <param name="emulatorPath">Path to the Blastem executable.</param>
+    /// <param name="settings">The settings manager containing Blastem configuration.</param>
+    /// <param name="logger">The logger instance.</param>
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);

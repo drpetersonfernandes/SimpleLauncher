@@ -1,5 +1,8 @@
+using System.IO;
 using System.Windows;
+using Serilog.Events;
 using Updater.Services;
+using Updater.Services.DebugAndBugReport;
 
 namespace Updater;
 
@@ -14,6 +17,24 @@ public partial class App
     /// <param name="e">The startup event arguments containing command line arguments.</param>
     protected override void OnStartup(StartupEventArgs e)
     {
+        var appDataLogFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+        Directory.CreateDirectory(appDataLogFolder);
+
+        var bugReportSink = new BugReportApiSink(appDataLogFolder);
+
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .Enrich.FromLogContext()
+            .WriteTo.Debug(outputTemplate: "[{Level}] {Timestamp:HH:mm:ss.fff} - {Message}{NewLine}{Exception}")
+            .WriteTo.Async(a => a.File(
+                Path.Combine(appDataLogFolder, "error_user.log"),
+                LogEventLevel.Warning,
+                rollingInterval: RollingInterval.Day,
+                retainedFileCountLimit: 7,
+                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}"))
+            .WriteTo.Sink(bugReportSink)
+            .CreateLogger();
+
         // Setup global exception handlers
         SetupExceptionHandling();
 
@@ -40,6 +61,8 @@ public partial class App
         Updater.MainWindow.DisposeHttpClient();
         BugReportService.Dispose();
 
+        Log.CloseAndFlush();
+
         base.OnExit(e);
     }
 
@@ -51,6 +74,7 @@ public partial class App
         // Handle exceptions from the main UI thread
         Current.DispatcherUnhandledException += (_, args) =>
         {
+            Log.Error(args.Exception, "Unhandled UI thread exception");
             BugReportService.ReportBug(args.Exception, "Unhandled UI thread exception");
             args.Handled = true;
             MessageBox.Show(
@@ -67,6 +91,7 @@ public partial class App
         {
             if (args.ExceptionObject is Exception exception)
             {
+                Log.Error(exception, "Unhandled AppDomain exception");
                 BugReportService.ReportBug(exception, "Unhandled AppDomain exception");
             }
         };
@@ -74,6 +99,7 @@ public partial class App
         // Handle unobserved task exceptions (TaskScheduler)
         TaskScheduler.UnobservedTaskException += static (_, args) =>
         {
+            Log.Error(args.Exception, "Unobserved task exception");
             BugReportService.ReportBug(args.Exception, "Unobserved task exception");
             args.SetObserved();
         };

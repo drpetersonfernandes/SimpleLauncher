@@ -13,7 +13,14 @@ public class MountXisoDrive : IAsyncDisposable
     private readonly int _mountProcessId;
     private readonly ILogger _logger;
 
+    /// <summary>
+    /// Gets the path where the XISO was mounted.
+    /// </summary>
     public string MountedPath { get; } = "";
+
+    /// <summary>
+    /// Gets a value indicating whether the XISO was successfully mounted.
+    /// </summary>
     public bool IsMounted { get; }
 
     /// <summary>
@@ -39,6 +46,9 @@ public class MountXisoDrive : IAsyncDisposable
         IsMounted = false;
     }
 
+    /// <summary>
+    /// Unmounts the XISO drive by terminating the mounting process and waiting for it to exit.
+    /// </summary>
     public async ValueTask DisposeAsync()
     {
         if (!IsMounted || _mountProcess == null)

@@ -4,27 +4,82 @@ namespace SimpleLauncher.Services.SettingsManager.EmulatorSettings;
 
 using Interfaces;
 
+/// <summary>
+/// Represents the user-configurable settings for the Raine emulator, persisted to the system configuration under the "Raine" section.
+/// </summary>
 public class RaineSettings : IEmulatorSettings
 {
     private const string SectionName = "Raine";
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the emulator starts in fullscreen mode.
+    /// </summary>
     public bool Fullscreen { get; set; }
+    /// <summary>
+    /// Gets or sets the horizontal resolution of the emulation window.
+    /// </summary>
     public int ResX { get; set; } = 640;
+    /// <summary>
+    /// Gets or sets the vertical resolution of the emulation window.
+    /// </summary>
     public int ResY { get; set; } = 480;
+    /// <summary>
+    /// Gets or sets a value indicating whether the original game aspect ratio is preserved.
+    /// </summary>
     public bool FixAspectRatio { get; set; } = true;
+    /// <summary>
+    /// Gets or sets a value indicating whether vertical synchronization is enabled.
+    /// </summary>
     public bool Vsync { get; set; } = true;
+    /// <summary>
+    /// Gets or sets the audio driver used by Raine (e.g., "directsound").
+    /// </summary>
     public string SoundDriver { get; set; } = "directsound";
+    /// <summary>
+    /// Gets or sets the audio sample rate in Hz.
+    /// </summary>
     public int SampleRate { get; set; } = 44100;
+    /// <summary>
+    /// Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
+    /// </summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether the frames per second counter is displayed.
+    /// </summary>
     public bool ShowFps { get; set; }
+    /// <summary>
+    /// Gets or sets the number of frames skipped to maintain emulation speed.
+    /// </summary>
     public int FrameSkip { get; set; }
+    /// <summary>
+    /// Gets or sets the BIOS file used for Neo Geo CD emulation.
+    /// </summary>
     public string NeoCdBios { get; set; } = "";
+    /// <summary>
+    /// Gets or sets the music volume percentage for Neo Geo CD emulation.
+    /// </summary>
     public int MusicVolume { get; set; } = 60;
+    /// <summary>
+    /// Gets or sets the sound effects volume percentage for Neo Geo CD emulation.
+    /// </summary>
     public int SfxVolume { get; set; } = 60;
+    /// <summary>
+    /// Gets or sets a value indicating whether sound effects are muted for Neo Geo CD emulation.
+    /// </summary>
     public bool MuteSfx { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether music is muted for Neo Geo CD emulation.
+    /// </summary>
     public bool MuteMusic { get; set; }
+    /// <summary>
+    /// Gets or sets the ROM directory used by Raine.
+    /// </summary>
     public string RomDirectory { get; set; } = "";
 
+    /// <summary>
+    /// Loads the Raine settings from the specified XML element.
+    /// </summary>
+    /// <param name="settings">The XML element containing the system configuration.</param>
     public void LoadFromXml(XElement settings)
     {
         var s = settings.Element(SectionName);
@@ -46,6 +101,10 @@ public class RaineSettings : IEmulatorSettings
         RomDirectory = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(RomDirectory), "");
     }
 
+    /// <summary>
+    /// Serializes the Raine settings into an XML element for persistence.
+    /// </summary>
+    /// <returns>The XML element containing the Raine settings.</returns>
     public XElement ToXElement()
     {
         return new XElement(SectionName,
@@ -67,6 +126,10 @@ public class RaineSettings : IEmulatorSettings
             new XElement("RomDirectory", RomDirectory));
     }
 
+    /// <summary>
+    /// Copies the values from another emulator settings instance if it is a Raine settings instance.
+    /// </summary>
+    /// <param name="other">The other emulator settings instance to copy from.</param>
     public void CopyFrom(IEmulatorSettings other)
     {
         if (other is not RaineSettings src) return;
@@ -89,6 +152,9 @@ public class RaineSettings : IEmulatorSettings
         RomDirectory = src.RomDirectory;
     }
 
+    /// <summary>
+    /// Resets all Raine settings to their default values.
+    /// </summary>
     public void ResetDefaults()
     {
         CopyFrom(new RaineSettings());

@@ -18,7 +18,7 @@ public class ApplicationStats
         var sp = App.ServiceProvider;
         return sp?.GetService<ILogger>() ?? Log.Logger;
     });
-    private static ILogger logger => DebugLogger2.Value;
+    private static ILogger Logger => DebugLogger2.Value;
 
     /// <summary>Asynchronously sends application version statistics to the remote API.</summary>
     public static async Task CallApplicationStatsAsync(IConfiguration configuration, ILogger logErrors)
@@ -43,7 +43,7 @@ public class ApplicationStats
             using var response = await client.PostAsync(statsUrl, content, cts.Token);
             if (!response.IsSuccessStatusCode)
             {
-                logger.Debug($"ApplicationStats API returned: {response.StatusCode}");
+                Logger.Debug($"ApplicationStats API returned: {response.StatusCode}");
 
                 var ex = new HttpRequestException($"ApplicationStats API returned: {response.StatusCode}");
                 if (response.StatusCode == HttpStatusCode.TooManyRequests)
@@ -58,11 +58,11 @@ public class ApplicationStats
         }
         catch (OperationCanceledException)
         {
-            logger.Debug("ApplicationStats API call timed out.");
+            Logger.Debug("ApplicationStats API call timed out.");
         }
         catch (Exception ex)
         {
-            logger.Debug($"ApplicationStats API call failed: {ex.Message}");
+            Logger.Debug($"ApplicationStats API call failed: {ex.Message}");
             logErrors.Error(ex, $"ApplicationStats API call failed: {ex.Message}");
         }
     }

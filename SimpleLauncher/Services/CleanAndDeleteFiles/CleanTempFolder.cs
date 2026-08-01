@@ -1,5 +1,8 @@
 namespace SimpleLauncher.Services.CleanAndDeleteFiles;
 
+/// <summary>
+/// Provides cleanup routines for the application's temporary directories.
+/// </summary>
 public static class CleanTempFolder
 {
     /// <summary>

@@ -14,6 +14,8 @@ public class RetroAchievementsSystemMatcherTests
     /// <summary>
     /// Verifies that GetBestMatchSystemName maps known system aliases to their canonical RetroAchievements names.
     /// </summary>
+    /// <param name="input">The system name or alias to match.</param>
+    /// <param name="expected">The expected canonical RetroAchievements system name.</param>
     [Theory]
     [InlineData("snes", "super nintendo entertainment system")]
     [InlineData("SNES", "super nintendo entertainment system")]
@@ -49,6 +51,8 @@ public class RetroAchievementsSystemMatcherTests
     /// <summary>
     /// Verifies that IsOfficialSystemName correctly identifies known official system names.
     /// </summary>
+    /// <param name="name">The system name to check.</param>
+    /// <param name="expected">Whether the name is expected to be an official system name.</param>
     [Theory]
     [InlineData("super nintendo entertainment system", true)]
     [InlineData("playstation", true)]
@@ -74,6 +78,8 @@ public class RetroAchievementsSystemMatcherTests
     /// <summary>
     /// Verifies that GetExactAliasMatch returns the expected canonical name for known aliases.
     /// </summary>
+    /// <param name="input">The alias to look up.</param>
+    /// <param name="expected">The expected canonical system name for the alias.</param>
     [Theory]
     [InlineData("snes", "super nintendo entertainment system")]
     [InlineData("gb", "game boy")]
@@ -94,6 +100,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.Null(result);
     }
 
+    /// <summary>
+    /// Verifies that GetBestMatchSystemName returns a non-null result for a partial alias like "Nintendo".
+    /// </summary>
     [Fact]
     public void GetBestMatchSystemNameWithAlias()
     {
@@ -101,6 +110,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.NotNull(result);
     }
 
+    /// <summary>
+    /// Verifies that GetBestMatchSystemName normalizes an unknown system name to lowercase.
+    /// </summary>
     [Fact]
     public void GetBestMatchSystemNameWithUnknownReturnsNormalizedInput()
     {
@@ -108,6 +120,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.Equal("unknownsystem12345", result);
     }
 
+    /// <summary>
+    /// Verifies that IsOfficialSystemName returns true for a valid official name.
+    /// </summary>
     [Fact]
     public void IsOfficialSystemNameWithValidName()
     {
@@ -115,6 +130,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.True(result);
     }
 
+    /// <summary>
+    /// Verifies that IsOfficialSystemName returns false for an unrecognized system name.
+    /// </summary>
     [Fact]
     public void IsOfficialSystemNameWithInvalidName()
     {
@@ -122,6 +140,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that GetSupportedSystemNames includes well-known system names.
+    /// </summary>
     [Fact]
     public void GetSupportedSystemNamesContainsKnownSystems()
     {
@@ -129,6 +150,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.Contains("nintendo entertainment system", names, StringComparer.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that GetSystemId returns a positive integer for a known system.
+    /// </summary>
     [Fact]
     public void GetSystemIdWithValidSystem()
     {
@@ -136,6 +160,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.True(id > 0);
     }
 
+    /// <summary>
+    /// Verifies that GetSystemId returns -1 for an unknown system name.
+    /// </summary>
     [Fact]
     public void GetSystemIdWithInvalidSystemReturnsMinusOne()
     {
@@ -143,6 +170,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.Equal(-1, id);
     }
 
+    /// <summary>
+    /// Verifies that IsSystemInMappings returns true for a known system alias.
+    /// </summary>
     [Fact]
     public void IsSystemInMappingsWithValidSystem()
     {
@@ -150,6 +180,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.True(result);
     }
 
+    /// <summary>
+    /// Verifies that IsSystemInMappings returns false for an unknown system name.
+    /// </summary>
     [Fact]
     public void IsSystemInMappingsWithInvalidSystem()
     {
@@ -157,6 +190,9 @@ public class RetroAchievementsSystemMatcherTests
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that the number of supported systems is at least 10.
+    /// </summary>
     [Fact]
     public void SupportedSystemsCountIsReasonable()
     {
@@ -164,6 +200,11 @@ public class RetroAchievementsSystemMatcherTests
         Assert.True(names.Count >= 10, $"Expected at least 10 supported systems, got {names.Count}");
     }
 
+    /// <summary>
+    /// Verifies that IsSystemInMappings returns the expected result for known system aliases.
+    /// </summary>
+    /// <param name="input">The system name or alias to look up.</param>
+    /// <param name="expected">Whether the system is expected to be in the mappings.</param>
     [Theory]
     [InlineData("snes", true)]
     [InlineData("super nintendo", true)]
@@ -174,6 +215,11 @@ public class RetroAchievementsSystemMatcherTests
         Assert.Equal(expected, result);
     }
 
+    /// <summary>
+    /// Verifies that GetSystemId returns the expected ID for known system aliases.
+    /// </summary>
+    /// <param name="input">The system name or alias to look up.</param>
+    /// <param name="expected">The expected RetroAchievements system ID.</param>
     [Theory]
     [InlineData("snes", 3)]
     [InlineData("n64", 2)]

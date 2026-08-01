@@ -37,6 +37,8 @@ public partial class GlobalHotkeyService : IDisposable
     /// </summary>
     public Func<Task>? F8Pressed { get; set; }
 
+    /// <summary>Initializes a new instance of the <see cref="GlobalHotkeyService"/>.</summary>
+    /// <param name="logger">The logger instance.</param>
     public GlobalHotkeyService(ILogger logger)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -95,6 +97,7 @@ public partial class GlobalHotkeyService : IDisposable
         return IntPtr.Zero;
     }
 
+    /// <summary>Releases resources and unregisters the global hotkey.</summary>
     public void Dispose()
     {
         if (_isDisposed) return;

@@ -3,8 +3,18 @@ using Microsoft.Data.Sqlite;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Provides functionality to inject Simple Launcher settings into the Stella emulator configuration database (stella.sqlite3).
+/// </summary>
 public static class StellaConfigurationService
 {
+    /// <summary>
+    /// Injects Simple Launcher configuration settings into the Stella emulator's SQLite configuration database.
+    /// Creates the database from a sample if it does not exist, then upserts video, audio, and general settings.
+    /// </summary>
+    /// <param name="emulatorPath">The full path to the Stella emulator executable.</param>
+    /// <param name="settings">The settings manager containing Stella configuration values.</param>
+    /// <param name="logger">The logger instance for diagnostic output.</param>
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);

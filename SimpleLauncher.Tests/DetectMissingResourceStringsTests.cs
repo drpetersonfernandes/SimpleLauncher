@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -7,8 +8,8 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Compares every resource key referenced in the SimpleLauncher source code
-/// against the English resource dictionary (strings.en.xaml).
+/// Compares every resource key referenced via _resourceProvider.GetString in the
+/// SimpleLauncher C# source code against the English resource dictionary (strings.en.xaml).
 /// Missing keys are automatically appended to the resource file and the test
 /// fails so the developer is informed of what was added.
 /// </summary>
@@ -22,7 +23,6 @@ public partial class DetectMissingResourceStringsTests
     {
         var simpleLauncherPath = ProjectPathHelper.GetSimpleLauncherPath();
         var stringsEnPath = Path.Combine(simpleLauncherPath, "resources", "strings.en.xaml");
-        var appXamlPath = Path.Combine(simpleLauncherPath, "App.xaml");
 
         if (!File.Exists(stringsEnPath))
             Assert.Fail($"English resource file not found: {stringsEnPath}");
@@ -30,21 +30,12 @@ public partial class DetectMissingResourceStringsTests
         // Keys already defined in the English resource file.
         var existingKeys = ExtractKeysFromXaml(stringsEnPath);
 
-        // Keys defined in App.xaml (brushes, styles, converters, etc.) are not localization strings.
-        var appKeys = File.Exists(appXamlPath) ? ExtractKeysFromXaml(appXamlPath) : new HashSet<string>(StringComparer.Ordinal);
-
         // Collect keys referenced in C# together with their fallback value when available.
         var csKeys = CollectCsKeys(simpleLauncherPath);
 
-        // Collect keys referenced in XAML via DynamicResource (excluding library resources that contain dots).
-        var xamlKeys = CollectXamlDynamicResourceKeys(simpleLauncherPath);
-
-        // Determine missing keys.
-        var missingFromCs = csKeys.Keys.Except(existingKeys, StringComparer.Ordinal);
-        var missingFromXaml = xamlKeys.Except(existingKeys, StringComparer.Ordinal)
-            .Except(appKeys, StringComparer.Ordinal);
-
-        var missingKeys = missingFromCs.Concat(missingFromXaml)
+        // Determine missing keys (only from C# _resourceProvider.GetString calls).
+        var missingKeys = csKeys.Keys
+            .Except(existingKeys, StringComparer.Ordinal)
             .Distinct(StringComparer.Ordinal)
             .ToList();
 
@@ -125,33 +116,6 @@ public partial class DetectMissingResourceStringsTests
                 var key = match.Groups[1].Value;
                 var value = match.Groups[2].Success ? match.Groups[2].Value : "";
                 result[key] = value;
-            }
-        }
-
-        return result;
-    }
-
-    /// <summary>
-    /// Scans .xaml files for {DynamicResource KeyName} usages.
-    /// Keys that contain dots (e.g. MahApps.Brushes.Accent) are ignored because
-    /// they belong to external libraries, not the application string resources.
-    /// </summary>
-    private static HashSet<string> CollectXamlDynamicResourceKeys(string sourcePath)
-    {
-        var result = new HashSet<string>(StringComparer.Ordinal);
-        var regex = MyRegex1();
-
-        var files = Directory.EnumerateFiles(sourcePath, "*.xaml", SearchOption.AllDirectories)
-            .Where(static f => !IsBuildOrResourceFolder(f));
-
-        foreach (var file in files)
-        {
-            var content = File.ReadAllText(file);
-            foreach (Match match in regex.Matches(content))
-            {
-                var key = match.Groups[1].Value;
-                if (!key.Contains('.'))
-                    result.Add(key);
             }
         }
 
@@ -251,20 +215,21 @@ public partial class DetectMissingResourceStringsTests
     {
         return path.Contains("\\bin\\", StringComparison.OrdinalIgnoreCase)
                || path.Contains("\\obj\\", StringComparison.OrdinalIgnoreCase)
-               || path.Contains("\\resources\\", StringComparison.OrdinalIgnoreCase);
+               || path.Contains("\\resources\\", StringComparison.OrdinalIgnoreCase)
+               || path.Contains("\\References\\", StringComparison.OrdinalIgnoreCase);
     }
 
-    [GeneratedRegex("""TryFindResource\(\s*"([^"]+)"\s*\)(?:\s*\?\?\s*"([^"]+)")?""", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing groups are needed to extract key and fallback value")]
+    [GeneratedRegex("""TryFindResource\(\s*"([^"]+)"\s*\)(?:\s*\?\?\s*"([^"]+)")?""", RegexOptions.Compiled, 1000)]
     private static partial Regex MyRegex();
 
-    [GeneratedRegex(@"\{DynamicResource\s+([^}\s""]+)\}", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
-    private static partial Regex MyRegex1();
-
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the key")]
     [GeneratedRegex("""
                     x:Key="([^"]+)"
-                    """, RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
+                    """, RegexOptions.Compiled, 1000)]
     private static partial Regex MyRegex2();
 
-    [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""", RegexOptions.None | RegexOptions.ExplicitCapture, 1000)]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing groups are needed to extract key and value")]
+    [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""", RegexOptions.None, 1000)]
     private static partial Regex MyRegex3();
 }

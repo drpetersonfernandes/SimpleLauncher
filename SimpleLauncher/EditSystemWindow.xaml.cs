@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.CheckApplicationControlPolicy;
+using SimpleLauncher.Services;
 using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.PlaySound;
@@ -36,6 +36,19 @@ internal partial class EditSystemWindow : ILoadingState
     private readonly IParameterResolverService _parameterResolverService;
     private Button? _emergencyReturnButton;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EditSystemWindow"/> class.
+    /// </summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="playSoundEffects">The sound effects service.</param>
+    /// <param name="configuration">The application configuration.</param>
+    /// <param name="helpUserService">The help user service for context-sensitive help.</param>
+    /// <param name="imageLoader">The image loader service.</param>
+    /// <param name="messageBox">The message box library service.</param>
+    /// <param name="quitSimpleLauncher">The quit application service.</param>
+    /// <param name="logger">The logger for error logging.</param>
+    /// <param name="parameterResolverService">The parameter resolver service.</param>
+    /// <param name="preSelectedSystemName">Optional system name to pre-select in the dropdown.</param>
     public EditSystemWindow(SettingsManagerService settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, IHelpUserService helpUserService, IImageLoader imageLoader, IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, ILogger logger, IParameterResolverService parameterResolverService, string? preSelectedSystemName = null)
     {
         InitializeComponent();
@@ -72,6 +85,11 @@ internal partial class EditSystemWindow : ILoadingState
         DeleteSystemButton.IsEnabled = false;
     }
 
+    /// <summary>
+    /// Sets the loading state of the window, showing or hiding the loading overlay.
+    /// </summary>
+    /// <param name="isLoading">Whether the window is in a loading state.</param>
+    /// <param name="message">Optional message to display on the loading overlay.</param>
     public void SetLoadingState(bool isLoading, string? message = null)
     {
         Dispatcher.Invoke(() =>

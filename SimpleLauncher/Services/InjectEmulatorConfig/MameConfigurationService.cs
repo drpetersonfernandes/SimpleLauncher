@@ -4,8 +4,20 @@ using SimpleLauncher.Services.CheckPaths;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Injects user settings and ROM paths into the MAME emulator's mame.ini configuration file.
+/// </summary>
 public static partial class MameConfigurationService
 {
+    /// <summary>
+    /// Applies the saved MAME settings to the emulator's mame.ini file, injects the system ROM paths
+    /// into the rompath setting, and atomically writes the file.
+    /// </summary>
+    /// <param name="emulatorPath">Path to the MAME executable.</param>
+    /// <param name="settings">The settings manager containing MAME configuration.</param>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="systemRomPath">Optional primary system ROM path to inject into rompath.</param>
+    /// <param name="listOfSecondaryRomPath">Optional secondary ROM paths to inject into rompath.</param>
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger, string? systemRomPath = null, string[]? listOfSecondaryRomPath = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(emulatorPath);

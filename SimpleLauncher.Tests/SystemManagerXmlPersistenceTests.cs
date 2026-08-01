@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
-
 using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Tests;
@@ -18,6 +17,10 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     private readonly string _systemXmlPath;
     private readonly IConfiguration _configuration;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SystemManagerXmlPersistenceTests"/> class,
+    /// creating a temporary test directory and configuration for XML persistence tests.
+    /// </summary>
     public SystemManagerXmlPersistenceTests()
     {
         _testDirectory = Path.Combine(Path.GetTempPath(), $"SL_SystemXmlTest_{Guid.NewGuid():N}");
@@ -35,6 +38,9 @@ public class SystemManagerXmlPersistenceTests : IDisposable
         ResetSystemXmlStaticState();
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory and restores the service provider mock.
+    /// </summary>
     public void Dispose()
     {
         try

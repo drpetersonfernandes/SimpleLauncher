@@ -30,6 +30,10 @@ public partial class InjectAresConfigViewModel : ObservableObject
     [ObservableProperty] private bool _runAhead;
     [ObservableProperty] private bool _autoSaveMemory;
     [ObservableProperty] private bool _showBeforeLaunch;
+    /// <summary>Initializes a new instance of the <see cref="InjectAresConfigViewModel"/>.</summary>
+    /// <param name="settings">The settings manager service.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="logger">The logger instance.</param>
     public InjectAresConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _settings = settings;

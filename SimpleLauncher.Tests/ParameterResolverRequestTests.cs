@@ -9,6 +9,9 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class ParameterResolverRequestTests
 {
+    /// <summary>
+    /// Verifies that the default SystemName is an empty string.
+    /// </summary>
     [Fact]
     public void DefaultSystemNameIsEmpty()
     {
@@ -16,6 +19,9 @@ public class ParameterResolverRequestTests
         Assert.Equal("", request.SystemName);
     }
 
+    /// <summary>
+    /// Verifies that the default SystemFolder is an empty string.
+    /// </summary>
     [Fact]
     public void DefaultSystemFolderIsEmpty()
     {
@@ -23,6 +29,9 @@ public class ParameterResolverRequestTests
         Assert.Equal("", request.SystemFolder);
     }
 
+    /// <summary>
+    /// Verifies that the default EmulatorName is an empty string.
+    /// </summary>
     [Fact]
     public void DefaultEmulatorNameIsEmpty()
     {
@@ -30,6 +39,9 @@ public class ParameterResolverRequestTests
         Assert.Equal("", request.EmulatorName);
     }
 
+    /// <summary>
+    /// Verifies that the default EmulatorPath is an empty string.
+    /// </summary>
     [Fact]
     public void DefaultEmulatorPathIsEmpty()
     {
@@ -37,6 +49,9 @@ public class ParameterResolverRequestTests
         Assert.Equal("", request.EmulatorPath);
     }
 
+    /// <summary>
+    /// Verifies that the default CurrentParameters is an empty string.
+    /// </summary>
     [Fact]
     public void DefaultCurrentParametersIsEmpty()
     {
@@ -44,6 +59,9 @@ public class ParameterResolverRequestTests
         Assert.Equal("", request.CurrentParameters);
     }
 
+    /// <summary>
+    /// Verifies that the default FileFormatsToSearch is an empty list.
+    /// </summary>
     [Fact]
     public void DefaultFileFormatsToSearchIsEmptyList()
     {
@@ -52,6 +70,9 @@ public class ParameterResolverRequestTests
         Assert.Empty(request.FileFormatsToSearch);
     }
 
+    /// <summary>
+    /// Verifies that the default FileFormatsToLaunch is an empty list.
+    /// </summary>
     [Fact]
     public void DefaultFileFormatsToLaunchIsEmptyList()
     {
@@ -60,6 +81,9 @@ public class ParameterResolverRequestTests
         Assert.Empty(request.FileFormatsToLaunch);
     }
 
+    /// <summary>
+    /// Verifies that the default ExtractFileBeforeLaunch is false.
+    /// </summary>
     [Fact]
     public void DefaultExtractFileBeforeLaunchIsFalse()
     {
@@ -67,6 +91,9 @@ public class ParameterResolverRequestTests
         Assert.False(request.ExtractFileBeforeLaunch);
     }
 
+    /// <summary>
+    /// Verifies that the default GroupByFolder is false.
+    /// </summary>
     [Fact]
     public void DefaultGroupByFolderIsFalse()
     {
@@ -74,6 +101,9 @@ public class ParameterResolverRequestTests
         Assert.False(request.GroupByFolder);
     }
 
+    /// <summary>
+    /// Verifies that the default DisableRecursiveSearch is false.
+    /// </summary>
     [Fact]
     public void DefaultDisableRecursiveSearchIsFalse()
     {
@@ -81,6 +111,9 @@ public class ParameterResolverRequestTests
         Assert.False(request.DisableRecursiveSearch);
     }
 
+    /// <summary>
+    /// Verifies that all properties can be set and retrieved correctly via object initializer.
+    /// </summary>
     [Fact]
     public void AllPropertiesCanBeSet()
     {
@@ -110,6 +143,9 @@ public class ParameterResolverRequestTests
         Assert.Equal("-L core.dll", request.CurrentParameters);
     }
 
+    /// <summary>
+    /// Verifies that items can be added to the FileFormatsToSearch collection.
+    /// </summary>
     [Fact]
     public void FileFormatsToSearchCanAddItems()
     {
@@ -122,6 +158,9 @@ public class ParameterResolverRequestTests
         Assert.Contains("nes", request.FileFormatsToSearch, StringComparer.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that items can be added to the FileFormatsToLaunch collection.
+    /// </summary>
     [Fact]
     public void FileFormatsToLaunchCanAddItems()
     {
@@ -134,6 +173,9 @@ public class ParameterResolverRequestTests
         Assert.Contains("cue", request.FileFormatsToLaunch, StringComparer.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that SystemName supports Unicode characters.
+    /// </summary>
     [Fact]
     public void SystemNameSupportsUnicode()
     {
@@ -141,6 +183,9 @@ public class ParameterResolverRequestTests
         Assert.Equal("ポケモン", request.SystemName);
     }
 
+    /// <summary>
+    /// Verifies that SystemName supports special characters such as parentheses and brackets.
+    /// </summary>
     [Fact]
     public void SystemNameSupportsSpecialCharacters()
     {
@@ -148,6 +193,9 @@ public class ParameterResolverRequestTests
         Assert.Equal("Game (v1.0) [!]", request.SystemName);
     }
 
+    /// <summary>
+    /// Verifies that CurrentParameters supports very long strings.
+    /// </summary>
     [Fact]
     public void CurrentParametersSupportsLongString()
     {
@@ -156,6 +204,9 @@ public class ParameterResolverRequestTests
         Assert.Equal(longParam, request.CurrentParameters);
     }
 
+    /// <summary>
+    /// Verifies that multiple instances maintain independent property values.
+    /// </summary>
     [Fact]
     public void MultipleInstancesAreIndependent()
     {
@@ -165,6 +216,9 @@ public class ParameterResolverRequestTests
         Assert.NotEqual(r1.SystemName, r2.SystemName, StringComparer.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that properties can be modified after the object is created.
+    /// </summary>
     [Fact]
     public void PropertiesCanBeChangedAfterCreation()
     {

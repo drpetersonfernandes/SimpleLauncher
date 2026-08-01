@@ -27,6 +27,10 @@ public partial class RomHistoryViewModel : ObservableObject
     [ObservableProperty] private string _historyMarkdown = null!;
     [ObservableProperty] private Visibility _descriptionVisibility = Visibility.Collapsed;
 
+    /// <summary>Initializes a new instance of the <see cref="RomHistoryViewModel"/>.</summary>
+    /// <param name="logErrors">The logger instance.</param>
+    /// <param name="messageBox">The message box service.</param>
+    /// <param name="resourceProvider">The resource provider for localized strings.</param>
     public RomHistoryViewModel(ILogger logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _logger = logErrors;

@@ -3,8 +3,18 @@ using YamlDotNet.Serialization;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Provides functionality to inject Simple Launcher settings into the RPCS3 emulator configuration file (config.yml).
+/// </summary>
 public static class Rpcs3ConfigurationService
 {
+    /// <summary>
+    /// Injects Simple Launcher configuration settings into the RPCS3 emulator's config.yml file.
+    /// Creates the config from a sample if it does not exist, then updates core, video, audio, and miscellaneous settings.
+    /// </summary>
+    /// <param name="emulatorPath">The full path to the RPCS3 emulator executable.</param>
+    /// <param name="settings">The settings manager containing RPCS3 configuration values.</param>
+    /// <param name="logger">The logger instance for diagnostic output.</param>
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);

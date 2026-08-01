@@ -19,6 +19,9 @@ using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService
 
 namespace SimpleLauncher.Pages;
 
+/// <summary>
+/// Page for searching games across all systems with filtering, launching, and context menu support.
+/// </summary>
 internal partial class GlobalSearchPage : IDisposable, ILoadingState
 {
     private readonly GlobalSearchViewModel _viewModel;
@@ -36,6 +39,25 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
     private readonly ILogger _logger;
     private readonly IContextMenuService _contextMenuService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GlobalSearchPage"/> class.
+    /// </summary>
+    /// <param name="systemManagers">The list of system manager configurations.</param>
+    /// <param name="machines">The list of MAME machine definitions.</param>
+    /// <param name="mameLookup">The dictionary mapping MAME ROM names to descriptions.</param>
+    /// <param name="favoritesManager">The manager for favorite game entries.</param>
+    /// <param name="settings">The application settings manager.</param>
+    /// <param name="mainWindow">The main application window.</param>
+    /// <param name="gamePadController">The gamepad input controller.</param>
+    /// <param name="gameLauncher">The service used to launch games.</param>
+    /// <param name="playSoundEffects">The service for playing sound effects.</param>
+    /// <param name="configuration">The application configuration.</param>
+    /// <param name="getListOfFiles">The service for retrieving lists of files.</param>
+    /// <param name="findCoverImage">The service for finding game cover images.</param>
+    /// <param name="imageLoader">The service for loading images.</param>
+    /// <param name="contextMenuFunctions">The service providing context menu operations.</param>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="contextMenuService">The service for building context menus.</param>
     public GlobalSearchPage(
         List<SystemManager> systemManagers,
         List<MameManagerService> machines,
@@ -320,6 +342,11 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         }
     }
 
+    /// <summary>
+    /// Sets the loading state of the page, showing or hiding the loading overlay.
+    /// </summary>
+    /// <param name="isLoading">Whether the page is in a loading state.</param>
+    /// <param name="message">The optional message to display while loading.</param>
     public void SetLoadingState(bool isLoading, string? message = null)
     {
         Dispatcher.Invoke(() =>
@@ -342,6 +369,9 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
     }
 
+    /// <summary>
+    /// Releases all resources used by the GlobalSearchPage.
+    /// </summary>
     public void Dispose()
     {
         _viewModel.Dispose();

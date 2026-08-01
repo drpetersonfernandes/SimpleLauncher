@@ -13,6 +13,9 @@ public partial class DosBoxFileSelectionViewModel : ObservableObject
     private DosBoxFileItem _selectedItem = null!;
     private bool _isLaunchEnabled;
 
+    /// <summary>Initializes the file items collection from the given file paths.</summary>
+    /// <param name="filePaths">The list of file paths to display.</param>
+    /// <param name="baseDirectory">The base directory used to compute relative paths.</param>
     public void Initialize(IList<string> filePaths, string baseDirectory)
     {
         var fileItems = filePaths.Select(path => new DosBoxFileItem

@@ -11,6 +11,9 @@ public class ImageUrlConverterTests
 {
     private readonly ImageUrlConverter _converter = new();
 
+    /// <summary>
+    /// Verifies that ConvertBack throws NotSupportedException.
+    /// </summary>
     [Fact]
     public void ConvertBackThrowsNotSupportedException()
     {
@@ -18,6 +21,9 @@ public class ImageUrlConverterTests
             _converter.ConvertBack("test", typeof(string), null!, CultureInfo.InvariantCulture));
     }
 
+    /// <summary>
+    /// Verifies that Convert returns a placeholder image when the value is null.
+    /// </summary>
     [Fact]
     public void ConvertNullValueReturnsPlaceholder()
     {
@@ -25,6 +31,9 @@ public class ImageUrlConverterTests
         Assert.NotNull(result);
     }
 
+    /// <summary>
+    /// Verifies that Convert returns a placeholder image when the value is an empty string.
+    /// </summary>
     [Fact]
     public void ConvertEmptyStringReturnsPlaceholder()
     {
@@ -32,6 +41,9 @@ public class ImageUrlConverterTests
         Assert.NotNull(result);
     }
 
+    /// <summary>
+    /// Verifies that Convert returns a placeholder image when the value is whitespace.
+    /// </summary>
     [Fact]
     public void ConvertWhitespaceStringReturnsPlaceholder()
     {
@@ -39,6 +51,9 @@ public class ImageUrlConverterTests
         Assert.NotNull(result);
     }
 
+    /// <summary>
+    /// Verifies that Convert returns a placeholder image when the value is not a string.
+    /// </summary>
     [Fact]
     public void ConvertNonStringValueReturnsPlaceholder()
     {
@@ -46,6 +61,9 @@ public class ImageUrlConverterTests
         Assert.NotNull(result);
     }
 
+    /// <summary>
+    /// Verifies that Convert returns a placeholder image when the URL is invalid.
+    /// </summary>
     [Fact]
     public void ConvertInvalidUrlReturnsPlaceholder()
     {
@@ -53,6 +71,9 @@ public class ImageUrlConverterTests
         Assert.NotNull(result);
     }
 
+    /// <summary>
+    /// Verifies that Convert returns the same placeholder instance for both null and empty inputs.
+    /// </summary>
     [Fact]
     public void ConvertReturnsSamePlaceholderForNullAndEmpty()
     {

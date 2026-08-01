@@ -6,6 +6,9 @@ using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
+/// <summary>
+/// Window that displays real-time debug log output.
+/// </summary>
 public partial class DebugWindow
 {
     private static readonly Lock InstanceLock = new();
@@ -13,8 +16,15 @@ public partial class DebugWindow
     private PropertyChangedEventHandler? _logTextPropertyChangedHandler;
     private bool _isReallyClosing;
 
+    /// <summary>
+    /// Gets the current singleton instance of the debug window, or <c>null</c> when it has not been created.
+    /// </summary>
     internal static DebugWindow? Instance { get; private set; }
 
+    /// <summary>
+    /// Creates and shows the singleton debug window, wiring it to the <see cref="DebugViewModel"/> and auto-scrolling
+    /// the log text box whenever new output arrives. If the window already exists it is restored and activated instead.
+    /// </summary>
     internal static void Initialize()
     {
         lock (InstanceLock)
@@ -65,6 +75,9 @@ public partial class DebugWindow
         }
     }
 
+    /// <summary>
+    /// Shows the debug window, creating it if necessary, or brings it to the foreground if already open.
+    /// </summary>
     public static void ShowDebugWindow()
     {
         var dispatcher = Application.Current?.Dispatcher;
@@ -77,6 +90,10 @@ public partial class DebugWindow
         Initialize();
     }
 
+    /// <summary>
+    /// Detaches the view model event handler, disconnects the debug log sink, closes the singleton debug window
+    /// and clears the cached instance.
+    /// </summary>
     internal static void ShutdownWindow()
     {
         lock (InstanceLock)

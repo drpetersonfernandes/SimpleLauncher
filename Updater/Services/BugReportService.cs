@@ -9,7 +9,7 @@ namespace Updater.Services;
 /// <summary>
 /// Service for reporting bugs to the bug report API
 /// </summary>
-public static class BugReportService
+internal static class BugReportService
 {
     private const string ApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
     private const string ApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
@@ -55,7 +55,7 @@ public static class BugReportService
                 // Log failure to local file as fallback - don't throw to avoid infinite loops
                 var responseContent = await response.Content.ReadAsStringAsync(cts.Token);
                 var errorMessage = $"Failed to report bug: {response.StatusCode} - {responseContent}";
-                System.Diagnostics.Debug.WriteLine(errorMessage);
+                Log.Warning("Bug report API returned non-success status: {StatusCode} - {ResponseContent}", response.StatusCode, responseContent);
                 await LogToLocalFileAsync(errorMessage, bugReport);
             }
         }
@@ -63,7 +63,7 @@ public static class BugReportService
         {
             // Log failure to local file as fallback - don't throw to avoid infinite loops
             var errorMessage = $"Failed to report bug: {ex.Message}";
-            System.Diagnostics.Debug.WriteLine(errorMessage);
+            Log.Warning(ex, "Failed to send bug report to API");
             await LogToLocalFileAsync(errorMessage, bugReport);
         }
         finally
@@ -85,7 +85,7 @@ public static class BugReportService
             {
                 if (t.IsFaulted)
                 {
-                    System.Diagnostics.Debug.WriteLine($"BugReportService.ReportBug failed: {t.Exception?.InnerException?.Message}");
+                    Log.Warning(t.Exception?.InnerException, "BugReportService.ReportBug fire-and-forget failed");
                 }
             }, TaskContinuationOptions.OnlyOnFaulted);
     }
@@ -125,6 +125,7 @@ public static class BugReportService
                 catch (IOException)
                 {
                     // If file is locked, try with a unique filename
+                    Log.Warning("Log file locked, using fallback filename");
                     var fallbackPath = Path.Combine(
                         AppDomain.CurrentDomain.BaseDirectory,
                         $"bugreport_failures_{DateTime.Now:yyyyMMddHHmmssfff}.log");
@@ -135,6 +136,7 @@ public static class BugReportService
         catch
         {
             // Last resort: silently fail - we can't do anything more
+            // Note: Can't use Log here as this IS the logging fallback
         }
     }
 
@@ -169,6 +171,7 @@ public static class BugReportService
         }
         catch (Exception exception1)
         {
+            Log.Warning(exception1, "Failed to create bug report request");
             return Task.FromException<BugReportRequest>(exception1);
         }
     }
@@ -284,7 +287,7 @@ public static class BugReportService
         catch (Exception ex)
         {
             // Log failure but don't throw to avoid infinite loops
-            System.Diagnostics.Debug.WriteLine($"Failed to get user info: {ex.Message}");
+            Log.Warning(ex, "Failed to get user info");
             return null;
         }
     }

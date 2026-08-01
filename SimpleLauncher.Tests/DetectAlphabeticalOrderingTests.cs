@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -93,6 +94,7 @@ public partial class DetectAlphabeticalOrderingTests
         Assert.Fail(message.ToString());
     }
 
-    [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""", RegexOptions.None | RegexOptions.ExplicitCapture, 1000)]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the key")]
+    [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""", RegexOptions.None, 1000)]
     private static partial Regex MyRegex();
 }

@@ -119,6 +119,9 @@ public class DownloadManager : IDisposable
         }
     }
 
+    /// <summary>
+    /// Gets a value indicating whether the file was locked during the download attempt.
+    /// </summary>
     internal bool IsFileLockedDuringDownload
     {
         get => _isFileLockedDuringDownload;
@@ -456,6 +459,9 @@ public class DownloadManager : IDisposable
         DownloadProgressChanged?.Invoke(this, e);
     }
 
+    /// <summary>
+    /// Releases all resources used by the DownloadManager, canceling any ongoing download.
+    /// </summary>
     public void Dispose()
     {
         if (_disposed)

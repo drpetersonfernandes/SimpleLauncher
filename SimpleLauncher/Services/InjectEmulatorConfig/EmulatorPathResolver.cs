@@ -3,8 +3,17 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Resolves the file path of an emulator executable by searching the configured systems.
+/// </summary>
 public static class EmulatorPathResolver
 {
+    /// <summary>
+    /// Tries to find the resolved executable path of an emulator whose name contains the given hint.
+    /// </summary>
+    /// <param name="emulatorNameHint">A name fragment used to identify the emulator.</param>
+    /// <param name="logErrors">The error logger.</param>
+    /// <returns>The resolved emulator executable path, or null if not found.</returns>
     public static string? TryFindEmulatorPath(string emulatorNameHint, ILogger logErrors)
     {
         if (string.IsNullOrWhiteSpace(emulatorNameHint))

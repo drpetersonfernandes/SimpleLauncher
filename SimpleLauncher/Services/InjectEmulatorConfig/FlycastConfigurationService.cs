@@ -3,8 +3,18 @@ using System.Text;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Injects user settings into the Flycast emulator's emu.cfg configuration file.
+/// </summary>
 public static class FlycastConfigurationService
 {
+    /// <summary>
+    /// Applies the saved Flycast settings to the emulator's emu.cfg file,
+    /// creating the file from a bundled sample when it does not exist.
+    /// </summary>
+    /// <param name="emulatorPath">Path to the Flycast executable.</param>
+    /// <param name="settings">The settings manager containing Flycast configuration.</param>
+    /// <param name="logger">The logger instance.</param>
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);

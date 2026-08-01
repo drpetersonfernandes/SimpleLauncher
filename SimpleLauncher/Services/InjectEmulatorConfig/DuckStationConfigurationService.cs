@@ -3,8 +3,18 @@ using System.Text;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
+/// <summary>
+/// Injects user settings into the DuckStation emulator's settings.ini configuration file.
+/// </summary>
 public static class DuckStationConfigurationService
 {
+    /// <summary>
+    /// Applies the saved DuckStation settings to the emulator's settings.ini file,
+    /// creating the file from a bundled sample when it does not exist.
+    /// </summary>
+    /// <param name="emulatorPath">Path to the DuckStation executable.</param>
+    /// <param name="settings">The settings manager containing DuckStation configuration.</param>
+    /// <param name="logger">The logger instance.</param>
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);

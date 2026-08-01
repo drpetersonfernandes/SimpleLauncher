@@ -7,6 +7,9 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests the <see cref="ChdMountStrategy.IsMatch"/> method for CHD file detection with various emulators.
+/// </summary>
 public class ChdMountStrategyMatchTests
 {
     private static ChdMountStrategy CreateStrategy()
@@ -23,6 +26,9 @@ public class ChdMountStrategyMatchTests
             debugLoggerMock.Object);
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns false when the emulator name is empty.
+    /// </summary>
     [Fact]
     public void IsMatchEmptyEmulatorNameReturnsFalse()
     {
@@ -36,6 +42,9 @@ public class ChdMountStrategyMatchTests
         Assert.False(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns false when the file path is empty.
+    /// </summary>
     [Fact]
     public void IsMatchEmptyFilePathReturnsFalse()
     {
@@ -49,6 +58,9 @@ public class ChdMountStrategyMatchTests
         Assert.False(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns false for non-CHD file extensions.
+    /// </summary>
     [Fact]
     public void IsMatchNonChdFileReturnsFalse()
     {
@@ -62,6 +74,9 @@ public class ChdMountStrategyMatchTests
         Assert.False(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns false when the emulator is RetroArch.
+    /// </summary>
     [Fact]
     public void IsMatchRetroArchReturnsFalse()
     {
@@ -75,6 +90,9 @@ public class ChdMountStrategyMatchTests
         Assert.False(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns false when the emulator location points to a RetroArch executable.
+    /// </summary>
     [Fact]
     public void IsMatchRetroArchByEmulatorLocationReturnsFalse()
     {
@@ -89,6 +107,9 @@ public class ChdMountStrategyMatchTests
         Assert.False(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns false when the emulator is a DOSBox variant.
+    /// </summary>
     [Fact]
     public void IsMatchDosBoxReturnsFalse()
     {
@@ -103,6 +124,10 @@ public class ChdMountStrategyMatchTests
         Assert.False(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns true for a CHD file combined with any of the supported emulators.
+    /// </summary>
+    /// <param name="emulatorName">The supported emulator name to test.</param>
     [Theory]
     [InlineData("4DO")]
     [InlineData("BlastEm")]
@@ -135,6 +160,9 @@ public class ChdMountStrategyMatchTests
         Assert.True(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns false for an unsupported emulator name.
+    /// </summary>
     [Fact]
     public void IsMatchUnsupportedEmulatorReturnsFalse()
     {
@@ -148,6 +176,10 @@ public class ChdMountStrategyMatchTests
         Assert.False(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns true for every recognized CDiEmu emulator name variant.
+    /// </summary>
+    /// <param name="emulatorName">The CDiEmu name variant to test.</param>
     [Theory]
     [InlineData("CDiEmu")]
     [InlineData("CDi Emu")]
@@ -167,6 +199,9 @@ public class ChdMountStrategyMatchTests
         Assert.True(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns true when the emulator location points to a CDiEmu executable.
+    /// </summary>
     [Fact]
     public void IsMatchCdiEmuByLocation()
     {
@@ -181,6 +216,10 @@ public class ChdMountStrategyMatchTests
         Assert.True(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns true for every recognized FB Alpha emulator name variant.
+    /// </summary>
+    /// <param name="emulatorName">The FB Alpha name variant to test.</param>
     [Theory]
     [InlineData("FBAlpha")]
     [InlineData("FB Alpha")]
@@ -199,6 +238,10 @@ public class ChdMountStrategyMatchTests
         Assert.True(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns true for every recognized FBNeo emulator name variant.
+    /// </summary>
+    /// <param name="emulatorName">The FBNeo name variant to test.</param>
     [Theory]
     [InlineData("FBNeo")]
     [InlineData("FB Neo")]
@@ -217,6 +260,9 @@ public class ChdMountStrategyMatchTests
         Assert.True(strategy.IsMatch(context));
     }
 
+    /// <summary>
+    /// Verifies that IsMatch returns true for PCSX-Redux and PCSX Redux name variants.
+    /// </summary>
     [Fact]
     public void IsMatchPcsxReduxNameVariants()
     {
@@ -236,6 +282,9 @@ public class ChdMountStrategyMatchTests
         Assert.True(strategy.IsMatch(context2));
     }
 
+    /// <summary>
+    /// Verifies that the strategy has a priority of 10.
+    /// </summary>
     [Fact]
     public void PriorityIs10()
     {

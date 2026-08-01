@@ -12,6 +12,10 @@ public class SteamVdfParserTests : IDisposable
     private readonly string _testDirectory;
     private readonly SteamVdfParser _parser = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SteamVdfParserTests"/> class,
+    /// installing the service provider mock and creating a temporary test directory.
+    /// </summary>
     public SteamVdfParserTests()
     {
         ServiceProviderMock.Install();
@@ -19,6 +23,9 @@ public class SteamVdfParserTests : IDisposable
         Directory.CreateDirectory(_testDirectory);
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory and restores the service provider mock.
+    /// </summary>
     public void Dispose()
     {
         try

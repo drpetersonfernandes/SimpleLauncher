@@ -24,15 +24,20 @@ public class ExtractionService : IExtractionService
     /// <summary>
     /// Initializes a new instance of <see cref="ExtractionService"/>.
     /// </summary>
-    /// <param name="logger">Error logging service.</param>
     /// <param name="messageBoxLibrary">Service for displaying user-facing message boxes.</param>
-    /// <param name="logger">Debug logging service.</param>
+    /// <param name="logger">Error logging service.</param>
     public ExtractionService(IMessageBoxLibraryService messageBoxLibrary, ILogger logger)
     {
         _messageBoxLibrary = messageBoxLibrary;
         _logger = logger;
     }
 
+    /// <summary>
+    /// Extracts an archive to a temporary folder and returns the path of a suitable game file within it, if one is found.
+    /// </summary>
+    /// <param name="archivePath">The full path to the archive file.</param>
+    /// <param name="fileFormatsToLaunch">The list of file formats to look for after extraction.</param>
+    /// <returns>A tuple containing the path of the game file to launch and the temporary extraction directory, or null values on failure.</returns>
     public async Task<(string? gameFilePath, string? tempDirectoryPath)> ExtractToTempAndGetLaunchFileAsync(string archivePath, IList<string> fileFormatsToLaunch)
     {
         var pathToExtractionDirectory = await ExtractToTempAsync(archivePath);
@@ -68,7 +73,7 @@ public class ExtractionService : IExtractionService
         {
             // Notify developer
             const string contextMessage = "File path is invalid.";
-            _logger.Warning( contextMessage);
+            _logger.Warning(contextMessage);
 
             // Notify user
             await _messageBoxLibrary.DownloadedFileIsMissingMessageBoxAsync();
@@ -83,7 +88,7 @@ public class ExtractionService : IExtractionService
         {
             // Notify developer
             const string contextMessage = "Destination folder path resolution failed.";
-            _logger.Warning( contextMessage);
+            _logger.Warning(contextMessage);
 
             // Notify user
             await _messageBoxLibrary.ExtractionFailedMessageBoxAsync();
@@ -106,7 +111,7 @@ public class ExtractionService : IExtractionService
                 // Last attempt failed
                 // Notify developer
                 var contextMessage = $"The downloaded file appears to be locked after {maxRetries} retries: {archivePath}";
-                _logger.Warning( contextMessage);
+                _logger.Warning(contextMessage);
 
                 // Notify user, passing the directory of the locked archive
                 await _messageBoxLibrary.FileIsLockedMessageBoxAsync(Path.GetDirectoryName(archivePath));
@@ -122,7 +127,7 @@ public class ExtractionService : IExtractionService
         {
             // Notify developer
             var contextMessage = $"Only 7z, ZIP, and RAR files are supported by this extraction method.\n" + $"File type: {extension}";
-            _logger.Warning( contextMessage);
+            _logger.Warning(contextMessage);
 
             // Notify user
             await _messageBoxLibrary.FileNeedToBeCompressedMessageBoxAsync();
@@ -170,7 +175,7 @@ public class ExtractionService : IExtractionService
                         {
                             // Notify developer
                             var contextMessage = $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
-                            _logger.Warning( contextMessage);
+                            _logger.Warning(contextMessage);
 
                             // Notify user
                             await _messageBoxLibrary.DiskSpaceErrorMessageBoxAsync();
@@ -309,7 +314,7 @@ public class ExtractionService : IExtractionService
         {
             // Notify developer
             const string contextMessage = "Archive path cannot be null, empty, or file not found.";
-            _logger.Warning( contextMessage);
+            _logger.Warning(contextMessage);
 
             // Notify user
             await _messageBoxLibrary.ExtractionFailedMessageBoxAsync();
@@ -334,7 +339,7 @@ public class ExtractionService : IExtractionService
             {
                 // Notify developer
                 const string contextMessage = "Temp folder resolution failed.";
-                _logger.Warning( contextMessage);
+                _logger.Warning(contextMessage);
 
                 // Notify user
                 await _messageBoxLibrary.ExtractionFailedMessageBoxAsync();
@@ -539,7 +544,7 @@ public class ExtractionService : IExtractionService
         {
             // Notify developer
             var contextMessage = $"Extracted path is invalid: {tempExtractLocation}";
-            _logger.Warning( contextMessage);
+            _logger.Warning(contextMessage);
             _logger.Debug($"[ValidateAndFindGameFileAsync] Error: {contextMessage}");
 
             // Notify user

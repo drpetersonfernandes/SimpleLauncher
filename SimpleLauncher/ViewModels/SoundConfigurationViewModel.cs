@@ -24,6 +24,12 @@ public partial class SoundConfigurationViewModel : ObservableObject
     [ObservableProperty] private bool _enableNotificationSound;
     [ObservableProperty] private string _notificationSoundFile = "";
     [ObservableProperty] private bool _isSoundControlsEnabled;
+    /// <summary>Initializes a new instance of the <see cref="SoundConfigurationViewModel"/> class.</summary>
+    /// <param name="settings">The settings manager for reading and saving sound configuration.</param>
+    /// <param name="playSoundEffects">The sound effects service for playing notification sounds.</param>
+    /// <param name="logErrors">The logger for recording errors.</param>
+    /// <param name="messageBox">The message box service for displaying dialogs.</param>
+    /// <param name="resourceProvider">The resource provider for localized strings.</param>
     public SoundConfigurationViewModel(SettingsManagerService settings, PlaySoundEffects playSoundEffects, ILogger logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));

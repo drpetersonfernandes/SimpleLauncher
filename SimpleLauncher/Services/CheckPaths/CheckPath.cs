@@ -1,5 +1,8 @@
 namespace SimpleLauncher.Services.CheckPaths;
 
+/// <summary>
+/// Provides path validation helpers for files, directories, and emulator executables.
+/// </summary>
 public static class CheckPath
 {
     /// <summary>

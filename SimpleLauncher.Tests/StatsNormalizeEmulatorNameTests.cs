@@ -14,6 +14,8 @@ public class StatsNormalizeEmulatorNameTests
     /// <summary>
     /// Verifies that emulator names are converted to title case regardless of input casing.
     /// </summary>
+    /// <param name="input">The raw emulator name to normalize.</param>
+    /// <param name="expected">The expected title-cased emulator name.</param>
     [Theory]
     [InlineData("retroarch", "Retroarch")]
     [InlineData("RETROARCH", "Retroarch")]

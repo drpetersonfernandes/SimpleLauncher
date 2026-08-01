@@ -7,12 +7,18 @@ using XmlToBinaryConverter.Services;
 
 namespace XmlToBinaryConverter;
 
+/// <summary>
+/// Main application window for the XML to Binary Converter tool.
+/// </summary>
 public partial class MainWindow
 {
     private readonly ConverterService _converterService = new();
     private readonly LogError _logError = new();
     private bool _isConverting;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MainWindow"/> class.
+    /// </summary>
     public MainWindow()
     {
         InitializeComponent();
