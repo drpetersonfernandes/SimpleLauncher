@@ -7,7 +7,7 @@ namespace SimpleLauncher.Services.CreateFolders;
 /// <summary>
 /// Creates default system and image folders for a newly added system.
 /// </summary>
-public static class CreateDefaultSystemFolders
+public static class CreateDefaultSystemFoldersService
 {
     /// <summary>
     /// Creates the system folder, image folder, and all additional default folders for the specified system.

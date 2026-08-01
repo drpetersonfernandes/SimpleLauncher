@@ -12,7 +12,7 @@ using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 
 namespace SimpleLauncher.Services.CheckForUpdates;
 
-public partial class UpdateChecker
+public partial class CheckForUpdatesService
 {
     private const string RepoOwner = "drpetersonfernandes";
     private const string RepoName = "SimpleLauncher";
@@ -38,7 +38,7 @@ public partial class UpdateChecker
         }
     }
 
-    public UpdateChecker(IHttpClientFactory httpClientFactory, ILogger logErrors, IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider, ILogger logger, QuitSimpleLauncher quitSimpleLauncher, IServiceProvider serviceProvider)
+    public CheckForUpdatesService(IHttpClientFactory httpClientFactory, IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider, ILogger logger, QuitSimpleLauncher quitSimpleLauncher, IServiceProvider serviceProvider)
     {
         ArgumentNullException.ThrowIfNull(httpClientFactory);
         _httpClient = httpClientFactory.CreateClient("UpdateCheckerClient");
@@ -401,7 +401,7 @@ public partial class UpdateChecker
             if (string.IsNullOrEmpty(currentVersion) || string.IsNullOrEmpty(latestVersion))
             {
                 // Notify developer
-                _logger.Error(new ArgumentException("Current or latest version string is null or empty.", nameof(currentVersion)), "Invalid version string for comparison.");
+                _logger.Error(new ArgumentException(@"Current or latest version string is null or empty.", nameof(currentVersion)), "Invalid version string for comparison.");
                 return false;
             }
 
@@ -411,7 +411,7 @@ public partial class UpdateChecker
             if (string.IsNullOrEmpty(currentNormalized) || string.IsNullOrEmpty(latestNormalized))
             {
                 // Notify developer
-                _logger.Error(new ArgumentException("Normalized version string is null or empty after regex replace.", nameof(latestVersion)), "Invalid version string after normalization.");
+                _logger.Error(new ArgumentException(@"Normalized version string is null or empty after regex replace.", nameof(latestVersion)), "Invalid version string after normalization.");
                 return false;
             }
 
