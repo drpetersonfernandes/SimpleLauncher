@@ -1,17 +1,37 @@
 using System.Diagnostics;
 using SimpleLauncher.Models;
 using System.Globalization;
+using System.Runtime.InteropServices;
 using SimpleLauncher.Interfaces;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
 /// <summary>
-/// Mounts CHD (Compressed Hunks of Data) disc images using CHDMounter.exe and the Dokan filesystem driver.
+/// Mounts CHD (Compressed Hunks of Data) disc images using CHDMounter and the Dokan filesystem driver.
 /// </summary>
 public class MountChdFiles : IMountChdFiles
 {
-    private const string ChdMounterRelativePath = @"tools\CHDMounter\CHDMounter.exe";
+    private const string ChdMounterRelativeDirectory = @"tools\CHDMounter";
+
+    private static string ChdMounterRelativePath => GetArchitectureSpecificExecutableRelativePath();
+
+    /// <summary>
+    /// Determines the CHDMounter executable relative path based on the current process architecture.
+    /// </summary>
+    private static string GetArchitectureSpecificExecutableRelativePath()
+    {
+        var arch = RuntimeInformation.ProcessArchitecture;
+
+        var executableName = arch switch
+        {
+            Architecture.X64 => "CHDMounter.exe",
+            Architecture.Arm64 => "CHDMounter_arm64.exe",
+            _ => throw new PlatformNotSupportedException($"Architecture {arch} is not supported by CHDMounter.")
+        };
+
+        return Path.Combine(ChdMounterRelativeDirectory, executableName);
+    }
 
     private readonly ILogger _logger;
 
@@ -43,7 +63,7 @@ public class MountChdFiles : IMountChdFiles
 
         if (string.IsNullOrWhiteSpace(resolvedToolPath) || !File.Exists(resolvedToolPath))
         {
-            const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
+            var errorMessage = $"CHDMounter not found at {ChdMounterRelativePath}. Cannot mount CHD.";
             _logger.Debug($"[MountChdFiles.MountAsync] Error: {errorMessage}");
             logErrors.Warning( errorMessage);
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
@@ -166,7 +186,7 @@ public class MountChdFiles : IMountChdFiles
 
         if (string.IsNullOrWhiteSpace(resolvedToolPath) || !File.Exists(resolvedToolPath))
         {
-            const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
+            var errorMessage = $"CHDMounter not found at {ChdMounterRelativePath}. Cannot mount CHD.";
             _logger.Debug($"[MountChdFiles] Error: {errorMessage}");
             logErrors.Warning( errorMessage);
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
@@ -365,7 +385,7 @@ public class MountChdFiles : IMountChdFiles
 
         if (string.IsNullOrWhiteSpace(resolvedToolPath) || !File.Exists(resolvedToolPath))
         {
-            const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
+            var errorMessage = $"CHDMounter not found at {ChdMounterRelativePath}. Cannot mount CHD.";
             _logger.Debug($"[MountChdFiles] Error: {errorMessage}");
             logErrors.Warning( errorMessage);
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
@@ -676,7 +696,7 @@ public class MountChdFiles : IMountChdFiles
                 return 18;
             }
 
-            return 17;
+            return 16;
         }
 
         else if (systemName.Contains("XBOX 360", StringComparison.OrdinalIgnoreCase) ||
@@ -793,36 +813,41 @@ public class MountChdFiles : IMountChdFiles
     /// </summary>
     public void KillAllChdMounterProcesses(ILogger logErrors)
     {
+        var processNames = new[] { "CHDMounter", "CHDMounter_arm64" };
+
         try
         {
-            var processes = Process.GetProcessesByName("CHDMounter");
-            if (processes.Length == 0)
+            foreach (var processName in processNames)
             {
-                _logger.Debug("[MountChdFiles.KillAllChdMounterProcesses] No CHDMounter processes found.");
-                return;
-            }
-
-            _logger.Debug($"[MountChdFiles.KillAllChdMounterProcesses] Found {processes.Length} CHDMounter process(es) to kill.");
-
-            foreach (var process in processes)
-            {
-                try
+                var processes = Process.GetProcessesByName(processName);
+                if (processes.Length == 0)
                 {
-                    if (!process.HasExited)
+                    _logger.Debug($"[MountChdFiles.KillAllChdMounterProcesses] No {processName} processes found.");
+                    continue;
+                }
+
+                _logger.Debug($"[MountChdFiles.KillAllChdMounterProcesses] Found {processes.Length} {processName} process(es) to kill.");
+
+                foreach (var process in processes)
+                {
+                    try
                     {
-                        _logger.Debug($"[MountChdFiles.KillAllChdMounterProcesses] Killing CHDMounter (ID: {process.Id}).");
-                        process.Kill(true);
-                        process.WaitForExit(5000);
-                        _logger.Debug($"[MountChdFiles.KillAllChdMounterProcesses] CHDMounter (ID: {process.Id}) terminated. Exit code: {process.ExitCode}.");
+                        if (!process.HasExited)
+                        {
+                            _logger.Debug($"[MountChdFiles.KillAllChdMounterProcesses] Killing {processName} (ID: {process.Id}).");
+                            process.Kill(true);
+                            process.WaitForExit(5000);
+                            _logger.Debug($"[MountChdFiles.KillAllChdMounterProcesses] {processName} (ID: {process.Id}) terminated. Exit code: {process.ExitCode}.");
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    _logger.Debug($"[MountChdFiles.KillAllChdMounterProcesses] Failed to kill CHDMounter (ID: {process.Id}): {ex.Message}");
-                }
-                finally
-                {
-                    process.Dispose();
+                    catch (Exception ex)
+                    {
+                        _logger.Debug($"[MountChdFiles.KillAllChdMounterProcesses] Failed to kill {processName} (ID: {process.Id}): {ex.Message}");
+                    }
+                    finally
+                    {
+                        process.Dispose();
+                    }
                 }
             }
         }
