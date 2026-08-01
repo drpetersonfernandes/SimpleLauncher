@@ -22,7 +22,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="SharpCompress" Version="0.50.1" />
+        <PackageReference Include="SharpCompress" Version="0.50.2" />
     </ItemGroup>
 
 </Project>
