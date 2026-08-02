@@ -205,7 +205,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                 // Set Highest Award Icon (using existing trophy.png from ContextMenu.cs)
                 if (progress.HighestAwardKind?.Equals("mastered", StringComparison.OrdinalIgnoreCase) == true)
                 {
-                    HighestAwardIcon.Source = new BitmapImage(new Uri("pack://application:,/images/trophy.png"));
+                    HighestAwardIcon.Source = new BitmapImage(new Uri("pack://application:,,/SimpleLauncher;component/images/trophy.png"));
                     HighestAwardIcon.Visibility = Visibility.Visible;
                 }
                 else

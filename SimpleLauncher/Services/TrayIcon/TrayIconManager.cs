@@ -59,7 +59,7 @@ public class TrayIconManager : IDisposable
             Header = open,
             Icon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,/images/play.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/play.png")),
                 Width = 16,
                 Height = 16
             }
@@ -71,7 +71,7 @@ public class TrayIconManager : IDisposable
             Header = minimizeToTray,
             Icon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,/images/shrink.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/shrink.png")),
                 Width = 16,
                 Height = 16
             }
@@ -83,7 +83,7 @@ public class TrayIconManager : IDisposable
             Header = debugWindow,
             Icon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,/images/bug.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/bug.png")),
                 Width = 16,
                 Height = 16
             }
@@ -95,7 +95,7 @@ public class TrayIconManager : IDisposable
             Header = exit,
             Icon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,/images/exit.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/exit.png")),
                 Width = 16,
                 Height = 16
             }
@@ -115,7 +115,7 @@ public class TrayIconManager : IDisposable
     {
         return new TaskbarIcon
         {
-            IconSource = new BitmapImage(new Uri("pack://application:,/SimpleLauncher;component/icon/icon.ico")),
+            IconSource = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/icon/icon.ico")),
             ToolTipText = "Simple Launcher",
             ContextMenu = _trayMenu,
             Visibility = Visibility.Visible

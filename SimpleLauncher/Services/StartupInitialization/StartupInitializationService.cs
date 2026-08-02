@@ -123,8 +123,15 @@ public class StartupInitializationService
 
     private void InitializeTrayIcon()
     {
-        _host.SetTrayIconManager(new TrayIconManager(_host.HostWindow, _applicationLifetime, _logger));
-        _logger.Debug("TrayIconManager was initialized.");
+        try
+        {
+            _host.SetTrayIconManager(new TrayIconManager(_host.HostWindow, _applicationLifetime, _logger));
+            _logger.Debug("TrayIconManager was initialized.");
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error initializing the tray icon. The application will continue without it.");
+        }
     }
 
     private async Task CheckRequiredFilesAsync()

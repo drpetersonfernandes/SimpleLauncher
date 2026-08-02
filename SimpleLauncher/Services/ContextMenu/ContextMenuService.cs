@@ -66,7 +66,7 @@ public class ContextMenuService : IContextMenuService
         // Launch Game Context Menu
         var launchMenuItemIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/launch.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/launch.png")),
             Width = 16,
             Height = 16
         };
@@ -125,7 +125,7 @@ public class ContextMenuService : IContextMenuService
         // Add To Favorites Context Menu
         var addToFavoritesIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/heart.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/heart.png")),
             Width = 16,
             Height = 16
         };
@@ -145,7 +145,7 @@ public class ContextMenuService : IContextMenuService
         // Remove From Favorites Context Menu
         var removeFromFavoritesIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/brokenheart.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/brokenheart.png")),
             Width = 16,
             Height = 16
         };
@@ -168,7 +168,7 @@ public class ContextMenuService : IContextMenuService
         // Open Video Link Context Menu
         var openVideoLinkIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/video.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/video.png")),
             Width = 16,
             Height = 16
         };
@@ -188,7 +188,7 @@ public class ContextMenuService : IContextMenuService
         // Open Info Link Context Menu
         var openInfoLinkIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/info.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/info.png")),
             Width = 16,
             Height = 16
         };
@@ -208,7 +208,7 @@ public class ContextMenuService : IContextMenuService
         // Open History Context Menu
         var openHistoryIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/romhistory.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/romhistory.png")),
             Width = 16,
             Height = 16
         };
@@ -232,7 +232,7 @@ public class ContextMenuService : IContextMenuService
         {
             var viewAchievementsIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,/images/trophy.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/trophy.png")),
                 Width = 16,
                 Height = 16
             };
@@ -260,7 +260,7 @@ public class ContextMenuService : IContextMenuService
         // Open Cover Context Menu
         var openCoverIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/cover.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/cover.png")),
             Width = 16,
             Height = 16
         };
@@ -280,7 +280,7 @@ public class ContextMenuService : IContextMenuService
         // Open Title Snapshot Context Menu
         var openTitleSnapshotIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/snapshot.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/snapshot.png")),
             Width = 16,
             Height = 16
         };
@@ -300,7 +300,7 @@ public class ContextMenuService : IContextMenuService
         // Open Gameplay Snapshot Context Menu
         var openGameplaySnapshotIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/snapshot.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/snapshot.png")),
             Width = 16,
             Height = 16
         };
@@ -320,7 +320,7 @@ public class ContextMenuService : IContextMenuService
         // Open Cart Context Menu
         var openCartIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/cart.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/cart.png")),
             Width = 16,
             Height = 16
         };
@@ -340,7 +340,7 @@ public class ContextMenuService : IContextMenuService
         // Open Video Context Menu
         var openVideoIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/video.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/video.png")),
             Width = 16,
             Height = 16
         };
@@ -360,7 +360,7 @@ public class ContextMenuService : IContextMenuService
         // Open Manual Context Menu
         var openManualIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/manual.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/manual.png")),
             Width = 16,
             Height = 16
         };
@@ -380,7 +380,7 @@ public class ContextMenuService : IContextMenuService
         // Open Walkthrough Context Menu
         var openWalkthroughIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/walkthrough.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/walkthrough.png")),
             Width = 16,
             Height = 16
         };
@@ -400,7 +400,7 @@ public class ContextMenuService : IContextMenuService
         // Open Cabinet Context Menu
         var openCabinetIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/cabinet.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/cabinet.png")),
             Width = 16,
             Height = 16
         };
@@ -420,7 +420,7 @@ public class ContextMenuService : IContextMenuService
         // Open Flyer Context Menu
         var openFlyerIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/flyer.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/flyer.png")),
             Width = 16,
             Height = 16
         };
@@ -440,7 +440,7 @@ public class ContextMenuService : IContextMenuService
         // Open PCB Context Menu
         var openPcbIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/pcb.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/pcb.png")),
             Width = 16,
             Height = 16
         };
@@ -460,7 +460,7 @@ public class ContextMenuService : IContextMenuService
         // Take Screenshot Context Menu
         var takeScreenshotIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/snapshot.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/snapshot.png")),
             Width = 16,
             Height = 16
         };
@@ -508,7 +508,7 @@ public class ContextMenuService : IContextMenuService
         // Delete Game Context Menu
         var deleteGameIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/delete.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/delete.png")),
             Width = 16,
             Height = 16
         };
@@ -560,7 +560,7 @@ public class ContextMenuService : IContextMenuService
         // Delete Cover Image Context Menu
         var deleteCoverImageIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,/images/delete.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/delete.png")),
             Width = 16,
             Height = 16
         };
