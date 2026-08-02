@@ -161,62 +161,6 @@ public class DeleteFilesService : IDeleteFilesService
     }
 
     /// <summary>
-    /// Static helper for backward compatibility that attempts to delete a file with retry logic.
-    /// </summary>
-    /// <param name="filePath">The path of the file to delete.</param>
-    private static void TryDeleteFileStatic(string filePath)
-    {
-        if (string.IsNullOrEmpty(filePath)) return;
-
-        var longPath = PathHelper.GetLongPath(filePath);
-
-        if (!File.Exists(longPath)) return;
-
-        for (var i = 0; i < MaxDeleteRetries; i++)
-        {
-            try
-            {
-                var fileInfo = new FileInfo(longPath);
-                if (fileInfo.IsReadOnly)
-                {
-                    fileInfo.IsReadOnly = false;
-                }
-
-                File.Delete(longPath);
-                return;
-            }
-            catch (IOException)
-            {
-                if (i == MaxDeleteRetries - 1) return;
-
-                Thread.Sleep(DeleteRetryDelayMs);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                if (Path.GetFileName(filePath).Equals("Updater.exe", StringComparison.OrdinalIgnoreCase))
-                {
-                    try
-                    {
-                        if (Process.GetProcessesByName("Updater").Length != 0) return;
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
-                }
-
-                if (i == MaxDeleteRetries - 1) return;
-
-                Thread.Sleep(DeleteRetryDelayMs);
-            }
-            catch
-            {
-                return;
-            }
-        }
-    }
-
-    /// <summary>
     /// Attempts to delete the given directory recursively, ignoring failures.
     /// </summary>
     /// <param name="directoryPath">The path of the directory to delete.</param>

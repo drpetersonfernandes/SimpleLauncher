@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.GameListUI;
+using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.TrayIcon;
@@ -44,6 +45,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private RoutedEventHandler? _emergencyButtonClickHandler;
     private readonly RoutedEventHandler _asyncLoadedHandler;
     private readonly EventHandler<EventArgs<string>>? _gameFilesChangedHandler;
+    private readonly EventHandler<GamePlayedEventArgs>? _gamePlayedHandler;
 
     // F8 global hotkey for active window screenshots
     private Services.TakeScreenshot.GlobalHotkeyService? _globalHotkeyService;
@@ -161,6 +163,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly IContextMenuFunctions _contextMenuFunctions;
     private readonly ILogger _logger;
     private readonly IContextMenuService _contextMenuService;
+    private readonly GameLauncherService _gameLauncherService;
 
     /// <summary>
     /// The status bar update service used to display messages in the status bar.
@@ -200,6 +203,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     /// <param name="contextMenuFunctions">The context menu functions service.</param>
     /// <param name="logger">The logger service.</param>
     /// <param name="contextMenuService">The context menu service.</param>
+    /// <param name="gameLauncherService">The game launcher service.</param>
     public MainWindow(
         SettingsManagerService settings,
         PlayHistoryManager playHistoryManager,
@@ -215,7 +219,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         IAudioInputService audioInput,
         IContextMenuFunctions contextMenuFunctions,
         ILogger logger,
-        IContextMenuService contextMenuService)
+        IContextMenuService contextMenuService,
+        GameLauncherService gameLauncherService)
     {
         InitializeComponent();
 
@@ -232,6 +237,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _contextMenuFunctions = contextMenuFunctions;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _contextMenuService = contextMenuService;
+
+        _gameLauncherService = gameLauncherService;
 
         UiResetService = uiResetService;
         SystemConfigurationService = systemConfigurationService;
@@ -288,6 +295,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         // Wire up game file watcher to detect external file changes
         _gameFilesChangedHandler = (_, e) => _gameBrowser.OnGameFilesChangedAsync(e.Value);
         _lifecycle.GameFilesChanged += _gameFilesChangedHandler;
+
+        // Wire up game played to refresh the play time and times played in the game list
+        _gamePlayedHandler = (_, e) => RefreshGameListAfterPlay(e.FileName, e.SystemName);
+        _gameLauncherService.GamePlayed += _gamePlayedHandler;
 
         // Store the Loaded handler reference so it can be unsubscribed later
         _asyncLoadedHandler = (_, _) => { _ = OnLoadedAsync(); };
@@ -803,16 +814,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     }
 
     /// <summary>
-    /// Sets the visibility of the pagination buttons.
-    /// </summary>
-    /// <param name="visibility">The visibility state to apply to the pagination buttons.</param>
-    private void SetPaginationButtonsVisibility(Visibility visibility)
-    {
-        PrevPageButton2?.Visibility = visibility;
-        NextPageButton2?.Visibility = visibility;
-    }
-
-    /// <summary>
     /// Sets the tray icon manager instance for system tray integration.
     /// </summary>
     /// <param name="manager">The tray icon manager to use.</param>
@@ -931,7 +932,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 var fileNameWithExtension = Path.GetFileName(selectedItem.FilePath);
                 var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedItem.FilePath);
 
-                var gameLauncher = App.ServiceProvider.GetRequiredService<Services.GameLauncher.GameLauncherService>();
+                var gameLauncher = App.ServiceProvider.GetRequiredService<GameLauncherService>();
                 var gamePadController = App.ServiceProvider.GetRequiredService<Services.GamePad.GamePadController>();
                 var playSoundEffects = App.ServiceProvider.GetRequiredService<Services.PlaySound.PlaySoundEffects>();
                 var machines = App.ServiceProvider.GetRequiredService<IMameDataService>().Machines.ToList();

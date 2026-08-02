@@ -42,14 +42,6 @@ public class PlayHistoryManager
     private const string IsoTimeFormat = "HH:mm:ss";
 
     /// <summary>
-    /// Sets the error logger for this instance.
-    /// </summary>
-    private void SetLogger(ILogger logErrors)
-    {
-        _logger = logErrors;
-    }
-
-    /// <summary>
     /// Loads play history from the MessagePack file. If the file doesn't exist, creates and saves a new instance.
     /// </summary>
     internal static PlayHistoryManager LoadPlayHistory(ILogger? logErrors = null)

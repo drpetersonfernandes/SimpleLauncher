@@ -186,16 +186,4 @@ public class FilterMenu
         _selectedButton.ClearValue(Control.BackgroundProperty);
         _selectedButton = null;
     }
-
-    /// <summary>Enables or disables all filter buttons.</summary>
-    private void SetButtonsEnabled(bool isEnabled)
-    {
-        foreach (var child in LetterPanel.Children)
-        {
-            if (child is Button button)
-            {
-                button.IsEnabled = isEnabled;
-            }
-        }
-    }
 }

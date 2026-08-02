@@ -39,6 +39,11 @@ public partial class GameLauncherService : ILauncherService
     private const int DepViolation = -1073740791;
 
     /// <summary>
+    /// Occurs after a game has been played and its play history has been updated.
+    /// </summary>
+    public event EventHandler<GamePlayedEventArgs>? GamePlayed;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="GameLauncherService"/> class with all required dependencies.
     /// </summary>
     public GameLauncherService(
@@ -180,6 +185,7 @@ public partial class GameLauncherService : ILauncherService
                 if (playTime.TotalSeconds > 5)
                 {
                     UpdateStatsAndPlayCountAsync(playTime, context);
+                    GamePlayed?.Invoke(this, new GamePlayedEventArgs(context.FilePath, context.SystemName));
                 }
             }
         }

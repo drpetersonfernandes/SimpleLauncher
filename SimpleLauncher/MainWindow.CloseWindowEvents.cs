@@ -69,6 +69,12 @@ public partial class MainWindow
             _lifecycle.UnsubscribeGameFilesChanged(_gameFilesChangedHandler);
             _lifecycle.StopWatching();
         }
+
+        // Unsubscribe game played event
+        if (_gameLauncherService != null && _gamePlayedHandler != null)
+        {
+            _gameLauncherService.GamePlayed -= _gamePlayedHandler;
+        }
     }
 
     /// <summary>
