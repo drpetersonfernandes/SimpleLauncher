@@ -188,7 +188,7 @@ public class FilterMenu
     }
 
     /// <summary>Enables or disables all filter buttons.</summary>
-    public void SetButtonsEnabled(bool isEnabled)
+    private void SetButtonsEnabled(bool isEnabled)
     {
         foreach (var child in LetterPanel.Children)
         {

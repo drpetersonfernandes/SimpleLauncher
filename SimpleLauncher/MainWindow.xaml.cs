@@ -711,7 +711,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     /// </summary>
     /// <param name="fileName">The file name of the played game.</param>
     /// <param name="systemName">The system name the game belongs to.</param>
-    internal void RefreshGameListAfterPlay(string fileName, string systemName)
+    private void RefreshGameListAfterPlay(string fileName, string systemName)
     {
         UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RefreshingGameList") ?? "Refreshing game list...");
         try
@@ -799,7 +799,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     /// Sets the visibility of the pagination buttons.
     /// </summary>
     /// <param name="visibility">The visibility state to apply to the pagination buttons.</param>
-    internal void SetPaginationButtonsVisibility(Visibility visibility)
+    private void SetPaginationButtonsVisibility(Visibility visibility)
     {
         PrevPageButton2?.Visibility = visibility;
         NextPageButton2?.Visibility = visibility;

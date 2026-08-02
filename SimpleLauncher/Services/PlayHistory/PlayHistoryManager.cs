@@ -44,7 +44,7 @@ public class PlayHistoryManager
     /// <summary>
     /// Sets the error logger for this instance.
     /// </summary>
-    internal void SetLogger(ILogger logErrors)
+    private void SetLogger(ILogger logErrors)
     {
         _logger = logErrors;
     }

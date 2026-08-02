@@ -454,7 +454,7 @@ public class GamePadController : IDisposable
     /// <summary>
     /// Checks for available gamepad controllers and attempts to reconnect a DirectInput device if disconnected.
     /// </summary>
-    public void CheckAndReconnectControllers()
+    private void CheckAndReconnectControllers()
     {
         // *** Acquire _stateLock to prevent race conditions with Update/Dispose ***
         lock (_stateLock)

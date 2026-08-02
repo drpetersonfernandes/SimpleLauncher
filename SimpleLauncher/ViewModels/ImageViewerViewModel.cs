@@ -104,7 +104,7 @@ public class ImageViewerViewModel : ObservableObject
     /// <summary>
     /// Clears the current image.
     /// </summary>
-    public void ClearImage()
+    private void ClearImage()
     {
         ImageSource = null;
         ErrorMessage = "";

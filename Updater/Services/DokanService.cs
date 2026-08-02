@@ -65,7 +65,7 @@ internal class DokanService
     /// Gets the Dokan MSI download URL for the current processor architecture.
     /// </summary>
     /// <returns>The download URL for the appropriate Dokan MSI installer.</returns>
-    public static string GetDokanDownloadUrl()
+    private static string GetDokanDownloadUrl()
     {
         return RuntimeInformation.ProcessArchitecture switch
         {

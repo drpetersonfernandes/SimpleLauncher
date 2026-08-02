@@ -17,7 +17,7 @@ public class Program
     /// Asynchronous entry point for the application.
     /// </summary>
     /// <param name="args">Command-line arguments.</param>
-    public static async Task MainAsync(string[] args)
+    private static async Task MainAsync(string[] args)
     {
         Console.OutputEncoding = Encoding.UTF8;
 

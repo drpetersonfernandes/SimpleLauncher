@@ -46,7 +46,7 @@ public static class EmulatorXmlHelpers
     /// <summary>
     /// Reads a float value from an XML element, falling back to an alternate location and then a default value.
     /// </summary>
-    public static float ReadFloat(XElement? section, string sectionName, XElement root, string propertyName, float fallback)
+    private static float ReadFloat(XElement? section, string sectionName, XElement root, string propertyName, float fallback)
     {
         var raw = section?.Element(propertyName)?.Value ?? root.Element($"{sectionName}{propertyName}")?.Value;
         return float.TryParse(raw, NumberStyles.Any, CultureInfo.InvariantCulture, out var val) ? val : fallback;
