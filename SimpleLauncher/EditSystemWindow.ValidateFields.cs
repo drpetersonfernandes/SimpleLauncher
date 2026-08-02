@@ -1,6 +1,5 @@
 using System.Windows.Controls;
 using System.Windows.Media;
-using Microsoft.Win32;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.SanitizeInputString;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
@@ -9,61 +8,26 @@ namespace SimpleLauncher;
 
 internal partial class EditSystemWindow
 {
-    private void MarkInvalid(Control textBox, bool isValid)
+    private static void SetFieldValidationState(Control control, bool isValid)
     {
         if (isValid)
         {
-            SetTextBoxForeground(textBox, true); // Valid state
+            MarkValid(control);
         }
         else
         {
-            textBox.Foreground = Brushes.Red; // Invalid state
+            MarkInvalid(control);
         }
     }
 
-    private void MarkValid(Control textBox)
+    private static void MarkInvalid(Control control)
     {
-        SetTextBoxForeground(textBox, true); // Always valid state
+        control.Foreground = Brushes.Red;
     }
 
-    private void SetTextBoxForeground(Control textBox, bool isValid)
+    private static void MarkValid(Control control)
     {
-        var baseTheme = _settings.BaseTheme;
-        var actualTheme = baseTheme;
-
-        // Resolve "Adaptive" to actual theme based on system setting
-        if (string.Equals(baseTheme, "Adaptive", StringComparison.Ordinal))
-        {
-            actualTheme = IsSystemDarkMode() ? "Dark" : "Light";
-        }
-
-        if (actualTheme is "Dark" or "HighContrast" or "Midnight")
-        {
-            textBox.Foreground = isValid ? Brushes.White : Brushes.Red;
-        }
-        else
-        {
-            textBox.Foreground = isValid ? Brushes.Black : Brushes.Red;
-        }
-    }
-
-    private static bool IsSystemDarkMode()
-    {
-        const string keyPath = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
-        const string valueName = "AppsUseLightTheme";
-
-        try
-        {
-            using var key = Registry.CurrentUser.OpenSubKey(keyPath);
-            var value = key?.GetValue(valueName);
-            // 0 = Dark mode, 1 = Light mode
-            return value is 0;
-        }
-        catch
-        {
-            // Default to light mode if registry access fails
-            return false;
-        }
+        control.ClearValue(ForegroundProperty);
     }
 
     private void TrimInputValues(out string systemNameText, out string systemFolderText, out string systemImageFolderText,
@@ -316,13 +280,13 @@ internal partial class EditSystemWindow
         bool isEmulator1LocationValid, bool isEmulator2LocationValid, bool isEmulator3LocationValid,
         bool isEmulator4LocationValid, bool isEmulator5LocationValid)
     {
-        MarkInvalid(SystemFolderTextBox, isSystemFolderValid);
-        MarkInvalid(SystemImageFolderTextBox, isSystemImageFolderValid);
-        MarkInvalid(Emulator1PathTextBox, isEmulator1LocationValid);
-        MarkInvalid(Emulator2PathTextBox, isEmulator2LocationValid);
-        MarkInvalid(Emulator3PathTextBox, isEmulator3LocationValid);
-        MarkInvalid(Emulator4PathTextBox, isEmulator4LocationValid);
-        MarkInvalid(Emulator5PathTextBox, isEmulator5LocationValid);
+        SetFieldValidationState(SystemFolderTextBox, isSystemFolderValid);
+        SetFieldValidationState(SystemImageFolderTextBox, isSystemImageFolderValid);
+        SetFieldValidationState(Emulator1PathTextBox, isEmulator1LocationValid);
+        SetFieldValidationState(Emulator2PathTextBox, isEmulator2LocationValid);
+        SetFieldValidationState(Emulator3PathTextBox, isEmulator3LocationValid);
+        SetFieldValidationState(Emulator4PathTextBox, isEmulator4LocationValid);
+        SetFieldValidationState(Emulator5PathTextBox, isEmulator5LocationValid);
     }
 
     private void ValidateParameterFields()

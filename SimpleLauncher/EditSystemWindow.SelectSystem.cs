@@ -123,13 +123,13 @@ internal partial class EditSystemWindow
 
 
                 // Mark validity. CheckPath.IsValidPath will now handle %BASEFOLDER% internally.
-                MarkInvalid(SystemFolderTextBox!, CheckPath.IsValidPath(SystemFolderTextBox!.Text!) || string.IsNullOrWhiteSpace(SystemFolderTextBox.Text));
-                MarkInvalid(SystemImageFolderTextBox, CheckPath.IsValidPath(SystemImageFolderTextBox.Text) || string.IsNullOrWhiteSpace(SystemImageFolderTextBox.Text));
-                MarkInvalid(Emulator1PathTextBox, string.IsNullOrWhiteSpace(Emulator1PathTextBox.Text) || CheckPath.IsValidPath(Emulator1PathTextBox.Text));
-                MarkInvalid(Emulator2PathTextBox, string.IsNullOrWhiteSpace(Emulator2PathTextBox.Text) || CheckPath.IsValidPath(Emulator2PathTextBox.Text));
-                MarkInvalid(Emulator3PathTextBox, string.IsNullOrWhiteSpace(Emulator3PathTextBox.Text) || CheckPath.IsValidPath(Emulator3PathTextBox.Text));
-                MarkInvalid(Emulator4PathTextBox, string.IsNullOrWhiteSpace(Emulator4PathTextBox.Text) || CheckPath.IsValidPath(Emulator4PathTextBox.Text));
-                MarkInvalid(Emulator5PathTextBox, string.IsNullOrWhiteSpace(Emulator5PathTextBox.Text) || CheckPath.IsValidPath(Emulator5PathTextBox.Text));
+                SetFieldValidationState(SystemFolderTextBox!, CheckPath.IsValidPath(SystemFolderTextBox!.Text!) || string.IsNullOrWhiteSpace(SystemFolderTextBox.Text));
+                SetFieldValidationState(SystemImageFolderTextBox, CheckPath.IsValidPath(SystemImageFolderTextBox.Text) || string.IsNullOrWhiteSpace(SystemImageFolderTextBox.Text));
+                SetFieldValidationState(Emulator1PathTextBox, string.IsNullOrWhiteSpace(Emulator1PathTextBox.Text) || CheckPath.IsValidPath(Emulator1PathTextBox.Text));
+                SetFieldValidationState(Emulator2PathTextBox, string.IsNullOrWhiteSpace(Emulator2PathTextBox.Text) || CheckPath.IsValidPath(Emulator2PathTextBox.Text));
+                SetFieldValidationState(Emulator3PathTextBox, string.IsNullOrWhiteSpace(Emulator3PathTextBox.Text) || CheckPath.IsValidPath(Emulator3PathTextBox.Text));
+                SetFieldValidationState(Emulator4PathTextBox, string.IsNullOrWhiteSpace(Emulator4PathTextBox.Text) || CheckPath.IsValidPath(Emulator4PathTextBox.Text));
+                SetFieldValidationState(Emulator5PathTextBox, string.IsNullOrWhiteSpace(Emulator5PathTextBox.Text) || CheckPath.IsValidPath(Emulator5PathTextBox.Text));
 
                 // Validate parameter fields. This uses ParameterValidator which is updated to handle %BASEFOLDER% etc.
                 ValidateParameterFields();

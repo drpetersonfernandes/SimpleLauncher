@@ -29,7 +29,7 @@ internal partial class EditSystemWindow
             {
                 var invalidCharsStr = string.Join(", ", invalidChars.Select(static c => $"'{c}'"));
                 await _messageBox.InvalidSystemNameCharactersMessageBoxAsync(invalidCharsStr);
-                MarkInvalid(SystemNameTextBox, false);
+                MarkInvalid(SystemNameTextBox);
                 return;
             }
 
@@ -119,7 +119,7 @@ internal partial class EditSystemWindow
             var formatSearchResult = await ValidateFormatToSearchAsync(formatToSearchText, extractFileBeforeLaunch);
             if (formatSearchResult.IsFailed)
             {
-                MarkInvalid(FormatToSearchTextBox, false); // Invalid state
+                MarkInvalid(FormatToSearchTextBox);
                 return;
             }
             else
@@ -144,31 +144,31 @@ internal partial class EditSystemWindow
 
             if (await ValidateEmulatorLocationAsync(emulator1NameText, emulator1LocationText, formatsToSearch, 1))
             {
-                MarkInvalid(Emulator1PathTextBox, false);
+                MarkInvalid(Emulator1PathTextBox);
                 return;
             }
 
             if (await ValidateEmulatorLocationAsync(emulator2NameText, emulator2LocationText, formatsToSearch, 2))
             {
-                MarkInvalid(Emulator2PathTextBox, false);
+                MarkInvalid(Emulator2PathTextBox);
                 return;
             }
 
             if (await ValidateEmulatorLocationAsync(emulator3NameText, emulator3LocationText, formatsToSearch, 3))
             {
-                MarkInvalid(Emulator3PathTextBox, false);
+                MarkInvalid(Emulator3PathTextBox);
                 return;
             }
 
             if (await ValidateEmulatorLocationAsync(emulator4NameText, emulator4LocationText, formatsToSearch, 4))
             {
-                MarkInvalid(Emulator4PathTextBox, false);
+                MarkInvalid(Emulator4PathTextBox);
                 return;
             }
 
             if (await ValidateEmulatorLocationAsync(emulator5NameText, emulator5LocationText, formatsToSearch, 5))
             {
-                MarkInvalid(Emulator5PathTextBox, false);
+                MarkInvalid(Emulator5PathTextBox);
                 return;
             }
 
