@@ -1,5 +1,5 @@
-using SimpleLauncher.Models;
-using SimpleLauncher.Services.MameManager;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.MameManager;
 using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Interfaces;

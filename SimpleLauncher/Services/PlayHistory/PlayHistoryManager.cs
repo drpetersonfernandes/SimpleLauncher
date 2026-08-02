@@ -2,8 +2,9 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
 using MessagePack;
-using SimpleLauncher.Models;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.PlayHistory;
 

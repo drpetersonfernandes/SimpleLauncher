@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Text.RegularExpressions;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Services.GameScan;
 

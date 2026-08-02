@@ -6,12 +6,17 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.GameItemFactory;
+using SimpleLauncher.Core.Services.GamePad;
+using SimpleLauncher.Core.Services.MameManager;
+using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadImages;
-using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.WpfServices;
 using Image = System.Windows.Controls.Image;
 
@@ -27,8 +32,8 @@ internal partial class GameButtonFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
     List<SystemManager.SystemManagerService> systemManagers,
-    List<MameManager.MameManagerService> machines,
-    SettingsManager.SettingsManagerService settings,
+    List<MameManagerService> machines,
+    SettingsManagerService settings,
     FavoritesManager favoritesManager,
     WrapPanel gameFileGrid,
     MainWindow mainWindow,
@@ -47,8 +52,8 @@ internal partial class GameButtonFactory(
     private readonly ComboBox _emulatorComboBox = emulatorComboBox ?? throw new ArgumentNullException(nameof(emulatorComboBox));
     private readonly ComboBox _systemComboBox = systemComboBox ?? throw new ArgumentNullException(nameof(systemComboBox));
     private readonly List<SystemManager.SystemManagerService> _systemManagers = systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
-    private readonly List<MameManager.MameManagerService> _machines = machines ?? throw new ArgumentNullException(nameof(machines));
-    private readonly SettingsManager.SettingsManagerService _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+    private readonly List<MameManagerService> _machines = machines ?? throw new ArgumentNullException(nameof(machines));
+    private readonly SettingsManagerService _settings = settings ?? throw new ArgumentNullException(nameof(settings));
     private readonly FavoritesManager _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
     private readonly WrapPanel _gameFileGrid = gameFileGrid ?? throw new ArgumentNullException(nameof(gameFileGrid));
     private readonly MainWindow _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));

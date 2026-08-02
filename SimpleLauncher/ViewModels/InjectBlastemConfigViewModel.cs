@@ -2,10 +2,10 @@ using System.Globalization;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.SettingsManager;
-using BlastemConfigurationService = SimpleLauncher.Services.InjectEmulatorConfig.BlastemConfigurationService;
+using BlastemConfigurationService = SimpleLauncher.Core.Services.InjectEmulatorConfig.BlastemConfigurationService;
 
 namespace SimpleLauncher.ViewModels;
 

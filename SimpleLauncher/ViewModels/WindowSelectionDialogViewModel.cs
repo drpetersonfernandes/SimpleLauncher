@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using SimpleLauncher.Models;
+using SimpleLauncher.Core.Models;
 
 namespace SimpleLauncher.ViewModels;
 

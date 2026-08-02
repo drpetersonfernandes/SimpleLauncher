@@ -1,5 +1,5 @@
 using System.Text.Json;
-using SimpleLauncher.Models;
+using SimpleLauncher.Core.Models;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

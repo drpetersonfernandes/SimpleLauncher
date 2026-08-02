@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.GetListOfFiles;
+using SimpleLauncher.Core.Services.GetListOfFiles;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

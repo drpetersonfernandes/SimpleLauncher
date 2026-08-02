@@ -1,5 +1,5 @@
 using Xunit;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Tests;
 

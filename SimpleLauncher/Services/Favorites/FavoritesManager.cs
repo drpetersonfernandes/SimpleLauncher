@@ -1,7 +1,8 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using MessagePack;
-using SimpleLauncher.Models;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services;
 
 namespace SimpleLauncher.Services.Favorites;
 

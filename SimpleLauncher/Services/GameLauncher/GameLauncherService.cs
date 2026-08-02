@@ -6,14 +6,17 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.GamePad;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services;
+using SimpleLauncher.Core.Services.GamePad;
+using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Core.Services.UsageStats;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
-using SimpleLauncher.Services.UsageStats;
-using MameConfigurationService = SimpleLauncher.Services.InjectEmulatorConfig.MameConfigurationService;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using MameConfigurationService = SimpleLauncher.Core.Services.InjectEmulatorConfig.MameConfigurationService;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher;
 
@@ -90,7 +93,7 @@ public partial class GameLauncherService : ILauncherService
         string selectedEmulatorName,
         string selectedSystemName,
         ISystemManager selectedSystemManager,
-        SettingsManager.SettingsManagerService settings,
+        SettingsManagerService settings,
         IWindowContext windowContext,
         GamePadController gamePadController,
         ILoadingState? loadingStateProvider)
@@ -358,7 +361,7 @@ public partial class GameLauncherService : ILauncherService
     /// </summary>
     public async Task RunBatchFileAsync(string resolvedFilePath, Emulator selectedEmulatorManager, IWindowContext windowContext)
     {
-        var invalidPaths = ValidateBatchFile.FindInvalidQuotedPathsSimple(resolvedFilePath);
+        var invalidPaths = Core.Services.GameLauncher.ValidateBatchFile.FindInvalidQuotedPathsSimple(resolvedFilePath);
         if (invalidPaths.Count > 0)
         {
             var shouldContinue = await _messageBoxLibrary.BatchFilePathsMissingMessageBoxAsync(invalidPaths);

@@ -1,11 +1,11 @@
 using System.Windows;
 using System.Windows.Controls;
-using SimpleLauncher.Services.SanitizeInputString;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services;
+using SimpleLauncher.Core.Services.SanitizeInputString;
 using SimpleLauncher.Services.SystemManager;
-using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
-using SimpleLauncher.Models;
-using SimpleLauncher.Services;
+using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 

@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Services.WpfServices;
 

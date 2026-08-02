@@ -1,9 +1,8 @@
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.Pagination;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
-
-using Interfaces;
 
 /// <summary>
 /// Tests for <see cref="PaginationService"/> core pagination behavior including

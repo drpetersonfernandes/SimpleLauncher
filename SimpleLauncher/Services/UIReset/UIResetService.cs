@@ -1,8 +1,8 @@
 using System.Windows;
+using SimpleLauncher.Core;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Services.UIReset;
-
-using Interfaces;
 
 /// <summary>
 /// Handles resetting the UI to its initial state, clearing filters, selections, and pagination.

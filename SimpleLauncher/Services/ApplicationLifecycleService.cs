@@ -1,10 +1,10 @@
 using System.Windows;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.GameFileWatcher;
+using SimpleLauncher.Core.Services.UsageStats;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
-using SimpleLauncher.Services.GameFileWatcher;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.StartupInitialization;
-using SimpleLauncher.Services.UsageStats;
 
 namespace SimpleLauncher.Services;
 

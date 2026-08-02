@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using SimpleLauncher.Core;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

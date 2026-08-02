@@ -4,11 +4,10 @@ using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using SimpleLauncher.Models;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
 
 namespace SimpleLauncher.Services.UiHelpers;
-
-using Interfaces;
 
 /// <summary>
 /// Provides an alphabetical letter filter panel (A–Z, #, All) for filtering game lists, with keyboard navigation support.

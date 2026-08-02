@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Tests.TestHelpers;
 using SimpleLauncher.ViewModels;
 using Xunit;

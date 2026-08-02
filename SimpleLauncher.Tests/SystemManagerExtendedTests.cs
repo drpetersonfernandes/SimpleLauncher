@@ -1,7 +1,7 @@
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
-using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Tests;
 

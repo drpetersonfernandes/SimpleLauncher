@@ -1,9 +1,10 @@
 using System.Windows;
 using System.Windows.Controls;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
-using Settings = SimpleLauncher.Services.SettingsManager.SettingsManagerService;
+using Settings = SimpleLauncher.Core.Services.SettingsManager.SettingsManagerService;
 
 namespace SimpleLauncher.Services.LanguageMenu;
 

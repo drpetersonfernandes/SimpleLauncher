@@ -1,6 +1,6 @@
 using MessagePack;
-using SimpleLauncher.Services.RetroAchievements;
-using SimpleLauncher.Models;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 

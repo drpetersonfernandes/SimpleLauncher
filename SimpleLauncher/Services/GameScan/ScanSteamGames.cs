@@ -2,8 +2,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using Microsoft.Win32;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.SanitizeInputString;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 

@@ -1,6 +1,6 @@
 using System.Text.Json;
+using SimpleLauncher.Core.Services.SanitizeInputString;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 

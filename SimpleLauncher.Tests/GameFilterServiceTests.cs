@@ -1,7 +1,8 @@
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Core;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.GameFilter;
-using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 

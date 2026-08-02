@@ -2,7 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Hardcodet.Wpf.TaskbarNotification;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Services.TrayIcon;
 

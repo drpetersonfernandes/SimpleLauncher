@@ -3,11 +3,12 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Interfaces;
-using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
+using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.WpfServices;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.ContextMenu;
 

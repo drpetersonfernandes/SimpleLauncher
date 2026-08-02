@@ -1,7 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 

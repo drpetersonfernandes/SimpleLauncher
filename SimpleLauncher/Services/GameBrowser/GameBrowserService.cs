@@ -1,4 +1,6 @@
-using SimpleLauncher.Models;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.MameManager;
 using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Interfaces;
 
@@ -117,7 +119,7 @@ public class GameBrowserService : IGameBrowserService
     /// <summary>
     /// Rebuilds the game button and list item factories with updated system and MAME machine data.
     /// </summary>
-    public void ReloadFactories(IList<SystemManager.SystemManagerService> systemManagers, IList<MameManager.MameManagerService> machines)
+    public void ReloadFactories(IList<SystemManager.SystemManagerService> systemManagers, IList<MameManagerService> machines)
     {
         _gameItemRenderService.ReloadFactories(systemManagers, machines);
     }
@@ -187,7 +189,7 @@ public class GameBrowserService : IGameBrowserService
     /// <summary>
     /// Gets the list of loaded MAME machine definitions.
     /// </summary>
-    public IReadOnlyList<MameManager.MameManagerService> Machines => _mameDataService.Machines;
+    public IReadOnlyList<MameManagerService> Machines => _mameDataService.Machines;
 
     /// <summary>
     /// Gets the MAME filename-to-description lookup dictionary.

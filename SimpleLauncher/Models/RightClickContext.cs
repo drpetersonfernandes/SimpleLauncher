@@ -1,13 +1,14 @@
 using System.Windows.Controls;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.GamePad;
+using SimpleLauncher.Core.Services.MameManager;
+using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.GamePad;
-using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Models;
-
-using Interfaces;
 
 /// <summary>
 /// Contextual information passed to right-click menu handlers for game buttons.
@@ -19,7 +20,7 @@ public class RightClickContext(
     string fileNameWithoutExtension,
     string selectedSystemName,
     SystemManagerService selectedSystemManager,
-    IList<Services.MameManager.MameManagerService> machines,
+    IList<MameManagerService> machines,
     FavoritesManager favoritesManager,
     SettingsManagerService settings,
     ComboBox? emulatorComboBox,
@@ -50,7 +51,7 @@ public class RightClickContext(
     public SystemManagerService SelectedSystemManager { get; } = selectedSystemManager ?? throw new ArgumentNullException(nameof(selectedSystemManager));
 
     /// <summary>Gets the list of MAME machine entries.</summary>
-    public IList<Services.MameManager.MameManagerService> Machines { get; } = machines ?? throw new ArgumentNullException(nameof(machines));
+    public IList<MameManagerService> Machines { get; } = machines ?? throw new ArgumentNullException(nameof(machines));
 
     /// <summary>Gets the favorites manager instance.</summary>
     public FavoritesManager FavoritesManager { get; } = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));

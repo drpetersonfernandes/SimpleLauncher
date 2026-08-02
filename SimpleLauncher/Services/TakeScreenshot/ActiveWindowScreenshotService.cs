@@ -1,10 +1,9 @@
 using System.Runtime.InteropServices;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Services.TakeScreenshot;
-
-using Interfaces;
 
 /// <summary>
 /// Captures a screenshot of the currently active (foreground) window and saves it

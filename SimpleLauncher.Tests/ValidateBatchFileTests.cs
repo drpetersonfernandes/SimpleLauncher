@@ -1,5 +1,5 @@
 using Xunit;
-using ValidateBatchFile = SimpleLauncher.Services.GameLauncher.ValidateBatchFile;
+using ValidateBatchFile = SimpleLauncher.Core.Services.GameLauncher.ValidateBatchFile;
 
 namespace SimpleLauncher.Tests;
 

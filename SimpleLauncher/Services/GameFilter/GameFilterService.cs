@@ -1,6 +1,9 @@
 using System.Text.RegularExpressions;
+using SimpleLauncher.Core;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Interfaces;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameFilter;
 
@@ -11,12 +14,12 @@ namespace SimpleLauncher.Services.GameFilter;
 public partial class GameFilterService : IGameFilterService
 {
     private readonly IFindCoverImageService _findCoverImage;
-    private readonly SettingsManager.SettingsManagerService _settings;
+    private readonly SettingsManagerService _settings;
 
     /// <summary>
     /// Initializes a new instance of <see cref="GameFilterService"/>.
     /// </summary>
-    public GameFilterService(IFindCoverImageService findCoverImage, SettingsManager.SettingsManagerService settings)
+    public GameFilterService(IFindCoverImageService findCoverImage, SettingsManagerService settings)
     {
         _findCoverImage = findCoverImage;
         _settings = settings;

@@ -2,9 +2,9 @@ using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.SanitizeInputString;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
-using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 

@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.CheckIfDirectoryIsWritable;
+using SimpleLauncher.Core.Services.CheckIfDirectoryIsWritable;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

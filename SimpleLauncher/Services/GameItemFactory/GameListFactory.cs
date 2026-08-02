@@ -1,15 +1,17 @@
 using System.Globalization;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.GamePad;
+using SimpleLauncher.Core.Services.MameManager;
+using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.PlayHistory;
-using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.WpfServices;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameItemFactory;
 
@@ -21,8 +23,8 @@ public class GameListFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
     IList<SystemManager.SystemManagerService> systemManagers,
-    IList<MameManager.MameManagerService> machines,
-    SettingsManager.SettingsManagerService settings,
+    IList<MameManagerService> machines,
+    SettingsManagerService settings,
     FavoritesManager favoritesManager,
     PlayHistoryManager playHistoryManager,
     MainWindow mainWindow,
@@ -39,8 +41,8 @@ public class GameListFactory(
     private readonly ComboBox _emulatorComboBox = emulatorComboBox;
     private readonly ComboBox _systemComboBox = systemComboBox;
     private readonly IList<SystemManager.SystemManagerService> _systemManagers = systemManagers;
-    private readonly IList<MameManager.MameManagerService> _machines = machines;
-    private readonly SettingsManager.SettingsManagerService _settings = settings;
+    private readonly IList<MameManagerService> _machines = machines;
+    private readonly SettingsManagerService _settings = settings;
     private readonly FavoritesManager _favoritesManager = favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager = playHistoryManager;
     private readonly MainWindow _mainWindow = mainWindow;

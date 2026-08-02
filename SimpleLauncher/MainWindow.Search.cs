@@ -1,9 +1,8 @@
 using System.Windows;
 using System.Windows.Input;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher;
-
-using Interfaces;
 
 /// <summary>
 /// Partial MainWindow containing search button handlers and search text box interaction logic.

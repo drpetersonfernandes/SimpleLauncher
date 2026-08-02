@@ -1,10 +1,10 @@
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.SettingsManager;
-using MameConfigurationService = SimpleLauncher.Services.InjectEmulatorConfig.MameConfigurationService;
+using MameConfigurationService = SimpleLauncher.Core.Services.InjectEmulatorConfig.MameConfigurationService;
 
 namespace SimpleLauncher.ViewModels;
 

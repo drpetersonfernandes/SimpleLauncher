@@ -6,12 +6,15 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.GameFileWatcher;
+using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Interfaces;
-using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
-using SimpleLauncher.Services.GameFileWatcher;
+using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 using SimpleLauncher.Services.LoadImages;
-using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
 
 namespace SimpleLauncher.Services.SystemSelectionOrchestrator;
@@ -22,7 +25,7 @@ namespace SimpleLauncher.Services.SystemSelectionOrchestrator;
 public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
 {
     private ISystemSelectionHost _host = null!;
-    private readonly SettingsManager.SettingsManagerService _settings;
+    private readonly SettingsManagerService _settings;
     private readonly ISystemImageResolverService _systemImageResolverService;
     private readonly IImageLoader _imageLoader;
     private readonly PlaySoundEffects _playSoundEffects;
@@ -45,7 +48,7 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
     /// Initializes a new instance of the SystemSelectionOrchestratorService with the specified dependencies.
     /// </summary>
     public SystemSelectionOrchestratorService(
-        SettingsManager.SettingsManagerService settings,
+        SettingsManagerService settings,
         ISystemImageResolverService systemImageResolverService,
         IImageLoader imageLoader,
         PlaySoundEffects playSoundEffects,

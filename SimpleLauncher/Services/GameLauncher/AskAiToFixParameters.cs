@@ -1,8 +1,9 @@
 using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
 using SimpleLauncher.Services.LoadingOverlay;
 
 namespace SimpleLauncher.Services.GameLauncher;

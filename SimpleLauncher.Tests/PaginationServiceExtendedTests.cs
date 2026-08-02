@@ -1,9 +1,8 @@
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.Pagination;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
-
-using Interfaces;
 
 /// <summary>
 /// Extended tests for <see cref="PaginationService"/> covering edge cases such as

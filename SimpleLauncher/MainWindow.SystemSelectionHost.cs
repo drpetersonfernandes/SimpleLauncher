@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using SimpleLauncher.Models;
+using SimpleLauncher.Core.Models;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 
 namespace SimpleLauncher;

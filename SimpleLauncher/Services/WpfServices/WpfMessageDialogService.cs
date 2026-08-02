@@ -1,8 +1,8 @@
 using System.Windows;
-using SimpleLauncher.Interfaces;
-using MessageBoxButton = SimpleLauncher.Models.MessageBoxButton;
-using MessageBoxImage = SimpleLauncher.Models.MessageBoxImage;
-using MessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
+using SimpleLauncher.Core.Interfaces;
+using MessageBoxButton = SimpleLauncher.Core.Models.MessageBoxButton;
+using MessageBoxImage = SimpleLauncher.Core.Models.MessageBoxImage;
+using MessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 
 namespace SimpleLauncher.Services.WpfServices;
 

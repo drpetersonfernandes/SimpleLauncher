@@ -1,5 +1,5 @@
 using System.Windows;
-using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Core.Services.PlaySound;
 
 namespace SimpleLauncher.Services.LoadingOverlay;
 

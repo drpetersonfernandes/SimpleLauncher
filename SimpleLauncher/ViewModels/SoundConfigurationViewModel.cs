@@ -1,8 +1,8 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.SettingsManager;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher.ViewModels;

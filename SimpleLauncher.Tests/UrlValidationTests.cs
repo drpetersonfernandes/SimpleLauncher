@@ -3,8 +3,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
-using SimpleLauncher.Services.EasyMode;
-using SimpleLauncher.Models;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.EasyMode;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

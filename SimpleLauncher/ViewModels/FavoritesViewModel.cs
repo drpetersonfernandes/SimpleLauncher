@@ -3,15 +3,15 @@ using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.MameManager;
+using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.MameManager;
-using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Services.SettingsManager;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
-using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
+using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 
 namespace SimpleLauncher.ViewModels;
 

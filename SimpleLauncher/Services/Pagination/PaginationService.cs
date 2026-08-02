@@ -1,8 +1,7 @@
 using System.Windows;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Services.Pagination;
-
-using Interfaces;
 
 /// <summary>
 /// Manages file list pagination, handling page navigation, button states, and status labels.

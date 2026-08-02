@@ -2,10 +2,12 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using SimpleLauncher.Models;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.LoadingOverlay;
-using SimpleLauncher.Services.PlaySound;
 
 namespace SimpleLauncher.Services.UiOrchestrator;
 
@@ -25,7 +27,7 @@ public class UiOrchestratorService : IUiOrchestrator, ILoadingOverlayHost, IGame
     private readonly PlaySoundEffects _playSoundEffects;
 
     // ReSharper disable once NotAccessedField.Local
-    private readonly SettingsManager.SettingsManagerService _settings;
+    private readonly SettingsManagerService _settings;
 
     /// <summary>Initializes a new instance of the UiOrchestratorService with the specified dependencies.</summary>
     public UiOrchestratorService(
@@ -35,7 +37,7 @@ public class UiOrchestratorService : IUiOrchestrator, ILoadingOverlayHost, IGame
         IUiResetService uiResetService,
         IUpdateStatusBar updateStatusBarService,
         PlaySoundEffects playSoundEffects,
-        SettingsManager.SettingsManagerService settings)
+        SettingsManagerService settings)
     {
         _loadingOverlayService = loadingOverlayService;
         _gameListUiService = gameListUiService;

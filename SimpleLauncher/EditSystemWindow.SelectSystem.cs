@@ -1,8 +1,8 @@
 using System.Windows.Controls;
-using SimpleLauncher.Models;
 using System.Windows.Controls.Primitives;
-using SimpleLauncher.Services.CheckPaths;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.CheckPaths;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 

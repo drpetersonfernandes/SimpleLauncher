@@ -1,5 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.MameManager;
 
 namespace SimpleLauncher;
 
@@ -225,7 +227,7 @@ public partial class MainWindow : IMenuActionHost
         return _systemManagers?.ToList() ?? [];
     }
 
-    IList<Services.MameManager.MameManagerService> IMenuActionHost.GetMachines()
+    IList<MameManagerService> IMenuActionHost.GetMachines()
     {
         return _gameBrowser.Machines.ToList();
     }

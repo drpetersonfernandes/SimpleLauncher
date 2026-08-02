@@ -354,7 +354,6 @@ public interface IMenuOrchestrator
     /// Changes the application language to the specified language code.
     /// </summary>
     /// <param name="languageCode">The language code to apply.</param>
-    /// <returns>A task representing the asynchronous operation.</returns>
     void ChangeLanguageAsync(string languageCode);
 
     /// <summary>

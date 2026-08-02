@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using SimpleLauncher.Models;
+using SimpleLauncher.Core.Models;
 
 namespace SimpleLauncher;
 

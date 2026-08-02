@@ -1,10 +1,11 @@
 using System.Windows.Controls;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.GamePad;
+using SimpleLauncher.Core.Services.MameManager;
+using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameLauncher;
-using SimpleLauncher.Services.GamePad;
-using SimpleLauncher.Services.MameManager;
-using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Interfaces;

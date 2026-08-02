@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.HelpUser;
@@ -13,7 +14,7 @@ namespace SimpleLauncher.Services.HelpUser;
 /// </summary>
 public partial class HelpUserService : IHelpUserService
 {
-    private readonly HelpUserManager _manager;
+    private readonly Core.Services.HelpUser.HelpUserManager _manager;
     private readonly ILogger _logger;
 
     /// <summary>
@@ -24,7 +25,7 @@ public partial class HelpUserService : IHelpUserService
     public HelpUserService(ILogger logErrors, IMessageBoxLibraryService messageBoxLibrary)
     {
         _logger = logErrors;
-        _manager = new HelpUserManager(logErrors, messageBoxLibrary);
+        _manager = new Core.Services.HelpUser.HelpUserManager(logErrors, messageBoxLibrary);
         try
         {
             _ = _manager.LoadAsync(); // Load parameters.md

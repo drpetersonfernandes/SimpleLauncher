@@ -1,7 +1,7 @@
 using System.IO.Compression;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.GameLauncher.MountFiles;
+using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

@@ -6,23 +6,26 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
+using SimpleLauncher.Core.Services.GameItemFactory;
+using SimpleLauncher.Core.Services.GamePad;
+using SimpleLauncher.Core.Services.MameManager;
+using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.RetroAchievements;
+using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Core.Services.TakeScreenshot;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
-using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.GameItemFactory;
-using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadImages;
-using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Services.RetroAchievements;
-using SimpleLauncher.Services.TakeScreenshot;
 using SimpleLauncher.Services.WpfServices;
 using Image = System.Windows.Controls.Image;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
 using WindowScreenshot = SimpleLauncher.Models.WindowScreenshot;
-using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
+using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 
 namespace SimpleLauncher.Services.ContextMenu;
 
@@ -188,7 +191,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="mainWindow">The main application window.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task OpenVideoLinkAsync(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManagerService> machines, SettingsManager.SettingsManagerService settings, MainWindow mainWindow, ILogger logErrors, IMessageBoxLibraryService messageBox)
+    public async Task OpenVideoLinkAsync(string systemName, string fileNameWithoutExtension, IEnumerable<MameManagerService> machines, SettingsManagerService settings, MainWindow mainWindow, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         // Attempt to find a matching machine description
         var searchTerm = fileNameWithoutExtension;
@@ -236,7 +239,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="mainWindow">The main application window.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task OpenInfoLinkAsync(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManagerService> machines, SettingsManager.SettingsManagerService settings, MainWindow mainWindow, ILogger logErrors, IMessageBoxLibraryService messageBox)
+    public async Task OpenInfoLinkAsync(string systemName, string fileNameWithoutExtension, IEnumerable<MameManagerService> machines, SettingsManagerService settings, MainWindow mainWindow, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         // Attempt to find a matching machine description
         var searchTerm = fileNameWithoutExtension;
@@ -283,7 +286,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="mainWindow">The main application window.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task OpenRomHistoryWindowAsync(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManagerService> machines, MainWindow mainWindow, ILogger logErrors, IMessageBoxLibraryService messageBox)
+    public async Task OpenRomHistoryWindowAsync(string systemName, string fileNameWithoutExtension, IEnumerable<MameManagerService> machines, MainWindow mainWindow, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         var romName = fileNameWithoutExtension.ToLowerInvariant();
 
@@ -329,7 +332,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
         string? tempExtractionPath = null;
         try
         {
-            var settings = App.ServiceProvider.GetRequiredService<SettingsManager.SettingsManagerService>();
+            var settings = App.ServiceProvider.GetRequiredService<SettingsManagerService>();
 
             if (string.IsNullOrWhiteSpace(settings.RaApiKey) || string.IsNullOrWhiteSpace(settings.RaUsername))
             {
@@ -1006,7 +1009,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="loadingStateProvider">The loading state provider for showing/hiding overlays.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task TakeScreenshotOfSelectedWindowAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManagerService selectedSystemManager, SettingsManager.SettingsManagerService settings, Button? button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher.GameLauncherService gameLauncher, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogger logErrors, IMessageBoxLibraryService messageBox)
+    public async Task TakeScreenshotOfSelectedWindowAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManagerService selectedSystemManager, SettingsManagerService settings, Button? button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher.GameLauncherService gameLauncher, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TakingScreenshot") ?? "Taking screenshot...");
         try
@@ -1293,7 +1296,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="findCoverImage">The service used to locate cover images.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public async Task DeleteCoverImageAsync(string fileNameWithoutExtension, string selectedSystemName, SystemManager.SystemManagerService selectedSystemManager, SettingsManager.SettingsManagerService contextSettings, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogger logErrors, IFindCoverImageService findCoverImage, IMessageBoxLibraryService messageBox)
+    public async Task DeleteCoverImageAsync(string fileNameWithoutExtension, string selectedSystemName, SystemManager.SystemManagerService selectedSystemManager, SettingsManagerService contextSettings, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogger logErrors, IFindCoverImageService findCoverImage, IMessageBoxLibraryService messageBox)
     {
         mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("DeletingCoverImage") ?? "Deleting cover image...");
         var coverPath = findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager.SystemImageFolder);

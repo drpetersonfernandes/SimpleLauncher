@@ -1,14 +1,14 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Nodes;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Tomlyn;
 using Tomlyn.Model;
 using Xunit;
 using YamlDotNet.Serialization;
-using BlastemConfigurationService = SimpleLauncher.Services.InjectEmulatorConfig.BlastemConfigurationService;
+using BlastemConfigurationService = SimpleLauncher.Core.Services.InjectEmulatorConfig.BlastemConfigurationService;
 
 namespace SimpleLauncher.Tests;
 

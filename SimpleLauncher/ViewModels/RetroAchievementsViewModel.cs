@@ -2,10 +2,10 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.RetroAchievements;
-using SimpleLauncher.Models;
-using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 

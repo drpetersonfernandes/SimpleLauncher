@@ -1,5 +1,5 @@
 using System.Windows;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 

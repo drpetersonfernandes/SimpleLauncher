@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Services.QuitOrReinstall;
 

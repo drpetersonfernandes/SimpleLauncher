@@ -1,8 +1,8 @@
 using System.Windows;
+using SimpleLauncher.Core;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher;
-
-using Interfaces;
 
 /// <summary>
 /// Partial MainWindow implementing <see cref="IUiResetHost"/> for UI state reset and filter management.

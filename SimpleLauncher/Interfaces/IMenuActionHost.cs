@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.MameManager;
+using SimpleLauncher.Core.Services.MameManager;
 using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Interfaces;

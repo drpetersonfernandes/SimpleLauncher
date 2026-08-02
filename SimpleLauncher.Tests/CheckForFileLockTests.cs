@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.CheckForFileLock;
+using SimpleLauncher.Core.Services.CheckForFileLock;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

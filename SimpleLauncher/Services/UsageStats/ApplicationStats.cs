@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core;
 
 namespace SimpleLauncher.Services.UsageStats;
 

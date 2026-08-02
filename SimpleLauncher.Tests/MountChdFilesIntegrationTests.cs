@@ -1,5 +1,5 @@
-using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.GameLauncher.MountFiles;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 using Xunit.Sdk;

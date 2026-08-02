@@ -3,15 +3,17 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.GamePad;
+using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.PlayHistory;
-using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
-using MessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
-using Settings = SimpleLauncher.Services.SettingsManager.SettingsManagerService;
+using MessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
+using Settings = SimpleLauncher.Core.Services.SettingsManager.SettingsManagerService;
 
 namespace SimpleLauncher.Services.MenuActionHandler;
 

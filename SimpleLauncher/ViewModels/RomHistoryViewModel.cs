@@ -3,9 +3,9 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.RomHistory;
-using MessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.RomHistory;
+using MessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 
 namespace SimpleLauncher.ViewModels;
 

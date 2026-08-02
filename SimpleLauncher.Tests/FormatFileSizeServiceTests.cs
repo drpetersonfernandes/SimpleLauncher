@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.DownloadService;
+using SimpleLauncher.Core.Services.DownloadService;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

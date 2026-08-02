@@ -1,9 +1,10 @@
 using System.Net;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameScan;
 

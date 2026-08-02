@@ -8,13 +8,13 @@ using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
-using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
-using SimpleLauncher.Services;
-using SimpleLauncher.Services.DownloadService;
-using SimpleLauncher.Services.EasyMode;
-using SimpleLauncher.Services.PlaySound;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services;
+using SimpleLauncher.Core.Services.DownloadService;
+using SimpleLauncher.Core.Services.EasyMode;
+using SimpleLauncher.Core.Services.PlaySound;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 

@@ -1,5 +1,5 @@
+using SimpleLauncher.Core.Models;
 using Xunit;
-using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Tests;
 

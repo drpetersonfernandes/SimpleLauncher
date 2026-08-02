@@ -1,5 +1,6 @@
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Interfaces;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameCache;
 

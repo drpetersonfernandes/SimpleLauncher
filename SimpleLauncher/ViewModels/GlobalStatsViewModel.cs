@@ -5,9 +5,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
-using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using MessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 
 namespace SimpleLauncher.ViewModels;
@@ -435,7 +436,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         try
         {
             var result = await _messageBox.WouldYouLikeToSaveAReportMessageBoxAsync();
-            if (result == Models.MessageBoxResult.Yes)
+            if (result == MessageBoxResult.Yes)
             {
                 await SaveReportAsync();
             }
@@ -530,7 +531,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
             if (needsConfirmation)
             {
                 var result = await _messageBox.DoYouWantToCancelAndCloseMessageBoxAsync();
-                if (result == Models.MessageBoxResult.Yes)
+                if (result == MessageBoxResult.Yes)
                 {
                     _forceClose = true;
                     Cancel();

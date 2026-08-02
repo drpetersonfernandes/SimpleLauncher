@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SimpleLauncher.Core.Models;
 
 namespace SimpleLauncher.Models;
 

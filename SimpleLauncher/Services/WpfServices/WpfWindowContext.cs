@@ -1,6 +1,6 @@
 using System.Windows;
 using System.Windows.Interop;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Services.WpfServices;
 

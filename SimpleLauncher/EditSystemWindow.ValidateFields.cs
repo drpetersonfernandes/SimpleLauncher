@@ -1,8 +1,8 @@
 using System.Windows.Controls;
 using System.Windows.Media;
-using SimpleLauncher.Services.CheckPaths;
-using SimpleLauncher.Services.SanitizeInputString;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using SimpleLauncher.Core.Services.CheckPaths;
+using SimpleLauncher.Core.Services.SanitizeInputString;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 

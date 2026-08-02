@@ -1,4 +1,4 @@
-using SimpleLauncher.Services;
+using SimpleLauncher.Core.Services;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

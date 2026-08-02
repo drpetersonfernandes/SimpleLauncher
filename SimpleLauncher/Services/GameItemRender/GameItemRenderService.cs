@@ -1,13 +1,16 @@
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.GamePad;
+using SimpleLauncher.Core.Services.MameManager;
+using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.GameListUI;
-using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.PlayHistory;
-using SimpleLauncher.Services.PlaySound;
 
 namespace SimpleLauncher.Services.GameItemRender;
 
@@ -19,7 +22,7 @@ public class GameItemRenderService : IGameItemRenderService
 {
     private const int BatchSize = 100;
 
-    private readonly SettingsManager.SettingsManagerService _settings;
+    private readonly SettingsManagerService _settings;
     private readonly FavoritesManager _favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager;
     private readonly GamePadController _gamePadController;
@@ -44,7 +47,7 @@ public class GameItemRenderService : IGameItemRenderService
     /// Initializes a new instance of <see cref="GameItemRenderService"/> with all required dependencies.
     /// </summary>
     public GameItemRenderService(
-        SettingsManager.SettingsManagerService settings,
+        SettingsManagerService settings,
         FavoritesManager favoritesManager,
         PlayHistoryManager playHistoryManager,
         GamePadController gamePadController,
@@ -90,7 +93,7 @@ public class GameItemRenderService : IGameItemRenderService
     /// <summary>
     /// Rebuilds the grid and list view factories with updated system and MAME machine data.
     /// </summary>
-    public void ReloadFactories(IList<SystemManager.SystemManagerService> systemManagers, IList<MameManager.MameManagerService> machines)
+    public void ReloadFactories(IList<SystemManager.SystemManagerService> systemManagers, IList<MameManagerService> machines)
     {
         _gameButtonFactory = new GameButtonFactory(
             _host.EmulatorComboBox,

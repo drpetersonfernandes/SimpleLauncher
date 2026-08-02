@@ -2,9 +2,10 @@ using System.Globalization;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 

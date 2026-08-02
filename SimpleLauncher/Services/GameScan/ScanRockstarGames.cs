@@ -1,9 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.SanitizeInputString;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
-using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 

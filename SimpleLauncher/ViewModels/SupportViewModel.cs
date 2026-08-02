@@ -4,8 +4,9 @@ using System.Text.Json;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Core;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.PlaySound;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher.ViewModels;

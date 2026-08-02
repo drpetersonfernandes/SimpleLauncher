@@ -4,14 +4,14 @@ using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
-using SimpleLauncher.Services.MameManager;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.MameManager;
+using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.PlayHistory;
-using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Services.SettingsManager;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
-using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
+using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 
 namespace SimpleLauncher.ViewModels;
 

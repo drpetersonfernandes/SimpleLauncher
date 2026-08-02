@@ -1,3 +1,5 @@
+using SimpleLauncher.Core.Interfaces;
+
 namespace SimpleLauncher.Interfaces;
 
 /// <summary>

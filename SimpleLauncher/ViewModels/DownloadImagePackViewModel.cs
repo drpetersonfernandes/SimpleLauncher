@@ -3,13 +3,13 @@ using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
-using SimpleLauncher.Services.DownloadService;
-using SimpleLauncher.Services.EasyMode;
-using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.DownloadService;
+using SimpleLauncher.Core.Services.EasyMode;
+using SimpleLauncher.Core.Services.PlaySound;
 using Application = System.Windows.Application;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.ViewModels;
 

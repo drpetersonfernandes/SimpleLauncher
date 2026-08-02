@@ -1,7 +1,7 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 

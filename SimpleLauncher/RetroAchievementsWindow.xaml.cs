@@ -3,10 +3,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.RetroAchievements;
-using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;

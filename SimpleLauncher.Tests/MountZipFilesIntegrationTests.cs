@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using System.Globalization;
-using SimpleLauncher.Services.GameLauncher.MountFiles;
+using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using Xunit;
 using Xunit.Sdk;
 

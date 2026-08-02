@@ -1,6 +1,8 @@
 using System.Net;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services.RetroAchievements;

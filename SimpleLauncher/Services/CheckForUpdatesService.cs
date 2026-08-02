@@ -6,9 +6,9 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SharpCompress.Archives.Zip;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.QuitOrReinstall;
-using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
+using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 
 namespace SimpleLauncher.Services;
 

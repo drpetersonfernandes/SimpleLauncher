@@ -1,9 +1,12 @@
 using System.Windows;
+using SimpleLauncher.Core;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.FindCoverImage;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.RetroAchievements;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameFileLoadingOrchestrator;
 
@@ -22,7 +25,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
     private readonly RetroAchievementsService _retroAchievementsService;
     private readonly IFindCoverImageService _findCoverImage;
     private readonly IGameItemRenderService _gameItemRenderService;
-    private readonly SettingsManager.SettingsManagerService _settings;
+    private readonly SettingsManagerService _settings;
     private readonly IUpdateStatusBar _updateStatusBarService;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly ILogger _logger;
@@ -40,7 +43,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
         RetroAchievementsService retroAchievementsService,
         IFindCoverImageService findCoverImage,
         IGameItemRenderService gameItemRenderService,
-        SettingsManager.SettingsManagerService settings,
+        SettingsManagerService settings,
         IUpdateStatusBar updateStatusBarService,
         IMessageBoxLibraryService messageBox,
         ILogger logger,

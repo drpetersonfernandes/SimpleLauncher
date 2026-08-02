@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.ViewModels;
 

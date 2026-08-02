@@ -1,11 +1,10 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
-
-using Interfaces;
 
 /// <summary>
 /// Window for submitting support requests and bug reports.

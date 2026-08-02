@@ -1,5 +1,6 @@
 using System.Windows.Controls;
 using System.Windows.Threading;
+using SimpleLauncher.Core.Interfaces;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 
 namespace SimpleLauncher;

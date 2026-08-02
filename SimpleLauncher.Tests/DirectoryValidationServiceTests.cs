@@ -1,5 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-using SimpleLauncher.Services.CheckIfDirectoryIsWritable;
+using SimpleLauncher.Core.Services.CheckIfDirectoryIsWritable;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 

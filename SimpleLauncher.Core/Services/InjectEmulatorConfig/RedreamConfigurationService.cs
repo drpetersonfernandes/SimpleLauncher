@@ -1,0 +1,158 @@
+using System.Globalization;
+using System.Text;
+
+namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
+
+/// <summary>
+/// Provides functionality to inject Simple Launcher settings into the Redream emulator configuration file (redream.cfg).
+/// </summary>
+public static class RedreamConfigurationService
+{
+    /// <summary>
+    /// Injects Simple Launcher configuration settings into the Redream emulator's redream.cfg file.
+    /// Creates the config from a sample if it does not exist, then updates video, audio, and display settings.
+    /// </summary>
+    /// <param name="emulatorPath">The full path to the Redream emulator executable.</param>
+    /// <param name="settings">The settings manager containing Redream configuration values.</param>
+    /// <param name="logger">The logger instance for diagnostic output.</param>
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    {
+        var emuDir = Path.GetDirectoryName(emulatorPath);
+        if (string.IsNullOrEmpty(emuDir))
+            throw new InvalidOperationException("Emulator directory not found.");
+
+        var configPath = Path.Combine(emuDir, "redream.cfg");
+
+        if (!File.Exists(configPath))
+        {
+            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Redream", "redream.cfg");
+            if (File.Exists(samplePath))
+            {
+                try
+                {
+                    File.Copy(samplePath, configPath);
+                    logger.Debug($"[RedreamConfig] Created new redream.cfg from sample: {configPath}");
+                }
+                catch (Exception ex)
+                {
+                    logger.Debug($"[RedreamConfig] Failed to create redream.cfg from sample: {ex.Message}");
+                    logger.Error(ex, $"[RedreamConfig] Failed to create redream.cfg from sample: {ex.Message}");
+                    throw;
+                }
+            }
+            else
+            {
+                throw new FileNotFoundException("redream.cfg not found and sample is missing.", samplePath);
+            }
+        }
+
+        logger.Debug($"[RedreamConfig] Injecting configuration into: {configPath}");
+
+        var isWindowed = IsWindowedMode(settings.Redream.Fullmode);
+
+        var updates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "cable", settings.Redream.Cable },
+            { "broadcast", settings.Redream.Broadcast },
+            { "language", settings.Redream.Language },
+            { "region", settings.Redream.Region },
+            { "vsync", settings.Redream.Vsync ? "1" : "0" },
+            { "frameskip", settings.Redream.Frameskip ? "1" : "0" },
+            { "aspect", settings.Redream.Aspect },
+            { "res", settings.Redream.Res.ToString(CultureInfo.InvariantCulture) },
+            { "renderer", settings.Redream.Renderer },
+            { "volume", settings.Redream.Volume.ToString(CultureInfo.InvariantCulture) },
+            { "latency", settings.Redream.Latency.ToString(CultureInfo.InvariantCulture) },
+            { "framerate", settings.Redream.Framerate ? "1" : "0" }
+        };
+
+        // Handle window/fullscreen mode correctly
+        if (isWindowed) // Changed from: if (settings.Redream.Fullmode == "windowed")
+        {
+            updates["mode"] = "windowed";
+            updates["width"] = settings.Redream.Width.ToString(CultureInfo.InvariantCulture);
+            updates["height"] = settings.Redream.Height.ToString(CultureInfo.InvariantCulture);
+        }
+        else
+        {
+            updates["mode"] = "fullscreen";
+            updates["fullmode"] = settings.Redream.Fullmode;
+            updates["fullwidth"] = settings.Redream.Width.ToString(CultureInfo.InvariantCulture);
+            updates["fullheight"] = settings.Redream.Height.ToString(CultureInfo.InvariantCulture);
+        }
+
+        List<string> lines;
+        try
+        {
+            lines = File.ReadAllLines(configPath).ToList();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            logger.Debug($"[RedreamConfig] Access denied reading config: {configPath}");
+            logger.Error(ex, $"[RedreamConfig] Access denied reading config: {configPath}");
+            throw;
+        }
+        catch (IOException ex)
+        {
+            logger.Debug($"[RedreamConfig] I/O error reading config: {configPath}");
+            logger.Error(ex, $"[RedreamConfig] I/O error reading config: {configPath}");
+            throw;
+        }
+
+        var modified = false;
+        var keysFound = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        for (var i = 0; i < lines.Count; i++)
+        {
+            var line = lines[i];
+            if (string.IsNullOrWhiteSpace(line)) continue;
+
+            var parts = line.Split('=', 2);
+            if (parts.Length < 2) continue;
+
+            var key = parts[0].Trim();
+            if (updates.TryGetValue(key, out var newValue))
+            {
+                var newLine = $"{key}={newValue}";
+                if (!string.Equals(line, newLine, StringComparison.Ordinal))
+                {
+                    lines[i] = newLine;
+                    modified = true;
+                }
+
+                keysFound.Add(key);
+            }
+        }
+
+        // Add missing keys
+        foreach (var kvp in updates)
+        {
+            if (!keysFound.Contains(kvp.Key))
+            {
+                lines.Add($"{kvp.Key}={kvp.Value}");
+                modified = true;
+            }
+        }
+
+        if (modified)
+        {
+            try
+            {
+                File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
+                logger.Debug("[RedreamConfig] Injected configuration changes..");
+            }
+            catch (Exception ex)
+            {
+                logger.Debug($"[RedreamConfig] Failed to inject configuration changes: {ex.Message}");
+                logger.Error(ex, $"[RedreamConfig] Failed to inject configuration changes: {ex.Message}");
+                throw;
+            }
+        }
+    }
+
+    private static bool IsWindowedMode(string fullmode)
+    {
+        return string.IsNullOrWhiteSpace(fullmode) ||
+               fullmode.Equals("windowed", StringComparison.OrdinalIgnoreCase);
+    }
+}

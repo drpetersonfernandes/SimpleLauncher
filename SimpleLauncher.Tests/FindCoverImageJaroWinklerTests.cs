@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.FindCoverImage;
+using SimpleLauncher.Core.Services.FindCoverImage;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SimpleLauncher.Models;
+using SimpleLauncher.Core.Models;
 
 namespace SimpleLauncher.ViewModels;
 

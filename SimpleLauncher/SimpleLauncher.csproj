@@ -16,7 +16,7 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <DebugType>embedded</DebugType>
         <DebugSymbols>true</DebugSymbols>
-        <NoWarn>NU1903</NoWarn>
+        <NoWarn>NU1903;CS0436</NoWarn>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -1059,6 +1059,10 @@
     <ItemGroup>
         <Resource Include="images\info.png" />
     </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\SimpleLauncher.Core\SimpleLauncher.Core.csproj" />
+    </ItemGroup>
+
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
         <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />

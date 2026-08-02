@@ -6,11 +6,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
-using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.TrayIcon;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 

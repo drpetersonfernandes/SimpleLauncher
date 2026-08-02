@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.GetApplicationVersion;
 using UpdateChecker = SimpleLauncher.Services.CheckForUpdatesService;
 

@@ -1,13 +1,12 @@
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.MameManager;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.MameManager;
-using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
-
-using Interfaces;
 
 /// <summary>
 /// Tests for <see cref="RightClickContext"/> covering constructor parameter binding

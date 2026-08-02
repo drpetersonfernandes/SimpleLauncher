@@ -1,12 +1,14 @@
 using System.Windows;
 using System.Windows.Threading;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.ThemeMenu;
-using CheckDirWritable = SimpleLauncher.Services.CheckIfDirectoryIsWritable.CheckIfDirectoryIsWritableService;
-using RequiredFiles = SimpleLauncher.Services.CheckForRequiredFilesService;
-using Settings = SimpleLauncher.Services.SettingsManager.SettingsManagerService;
+using CheckDirWritable = SimpleLauncher.Core.Services.CheckIfDirectoryIsWritable.CheckIfDirectoryIsWritableService;
+using RequiredFiles = SimpleLauncher.Core.Services.CheckForRequiredFilesService;
+using Settings = SimpleLauncher.Core.Services.SettingsManager.SettingsManagerService;
 using TrayIconManager = SimpleLauncher.Services.TrayIcon.TrayIconManager;
 
 namespace SimpleLauncher.Services.StartupInitialization;
@@ -18,7 +20,7 @@ public class StartupInitializationService
 {
     private readonly IConfiguration _configuration;
     private readonly Settings _settings;
-    private readonly GamePad.GamePadController _gamePadController;
+    private readonly GamePadController _gamePadController;
     private readonly ThemeMenuService _themeMenuService;
     private readonly LanguageMenuService _languageMenuService;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
@@ -33,7 +35,7 @@ public class StartupInitializationService
     public StartupInitializationService(
         IConfiguration configuration,
         Settings settings,
-        GamePad.GamePadController gamePadController,
+        GamePadController gamePadController,
         ThemeMenuService themeMenuService,
         LanguageMenuService languageMenuService,
         IMessageBoxLibraryService messageBoxLibrary,

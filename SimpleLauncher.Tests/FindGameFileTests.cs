@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.GameLauncher.MountFiles;
+using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

@@ -1,10 +1,9 @@
 using System.Xml.Linq;
-using SimpleLauncher.Services.SettingsManager.EmulatorSettings;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
-
-using Interfaces;
 
 /// <summary>
 /// Tests for individual emulator settings classes covering defaults, XML round-trip, copy, and reset behavior.

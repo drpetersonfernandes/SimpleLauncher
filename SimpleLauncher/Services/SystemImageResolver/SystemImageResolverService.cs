@@ -1,7 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.FindCoverImage;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.FindCoverImage;
 
 namespace SimpleLauncher.Services.SystemImageResolver;
 
@@ -13,12 +15,12 @@ public class SystemImageResolverService : ISystemImageResolverService
 {
     private readonly IConfiguration _configuration;
     private readonly IFindCoverImageService _findCoverImage;
-    private readonly SettingsManager.SettingsManagerService _settings;
+    private readonly SettingsManagerService _settings;
 
     /// <summary>
     /// Initializes a new instance of the SystemImageResolverService with the specified dependencies.
     /// </summary>
-    public SystemImageResolverService(IConfiguration configuration, IFindCoverImageService findCoverImage, SettingsManager.SettingsManagerService settings)
+    public SystemImageResolverService(IConfiguration configuration, IFindCoverImageService findCoverImage, SettingsManagerService settings)
     {
         _configuration = configuration;
         _findCoverImage = findCoverImage;

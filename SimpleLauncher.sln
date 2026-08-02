@@ -28,9 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLauncher.ResourceTran
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlToBinaryConverter", "Tools\XmlToBinaryConverter\XmlToBinaryConverter.csproj", "{C6FDC4B4-69E8-4365-A36D-17A9495A3B8B}"
 EndProject
-
-
-
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLauncher.Core", "SimpleLauncher.Core\SimpleLauncher.Core.csproj", "{AE858894-3204-4C71-83ED-5CECFCADA95D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,9 +124,18 @@ Global
 		{C6FDC4B4-69E8-4365-A36D-17A9495A3B8B}.Release|x64.Build.0 = Release|Any CPU
 		{C6FDC4B4-69E8-4365-A36D-17A9495A3B8B}.Release|x86.ActiveCfg = Release|Any CPU
 		{C6FDC4B4-69E8-4365-A36D-17A9495A3B8B}.Release|x86.Build.0 = Release|Any CPU
-
-
-
+		{AE858894-3204-4C71-83ED-5CECFCADA95D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE858894-3204-4C71-83ED-5CECFCADA95D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE858894-3204-4C71-83ED-5CECFCADA95D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AE858894-3204-4C71-83ED-5CECFCADA95D}.Debug|x64.Build.0 = Debug|Any CPU
+		{AE858894-3204-4C71-83ED-5CECFCADA95D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AE858894-3204-4C71-83ED-5CECFCADA95D}.Debug|x86.Build.0 = Debug|Any CPU
+		{AE858894-3204-4C71-83ED-5CECFCADA95D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE858894-3204-4C71-83ED-5CECFCADA95D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE858894-3204-4C71-83ED-5CECFCADA95D}.Release|x64.ActiveCfg = Release|Any CPU
+		{AE858894-3204-4C71-83ED-5CECFCADA95D}.Release|x64.Build.0 = Release|Any CPU
+		{AE858894-3204-4C71-83ED-5CECFCADA95D}.Release|x86.ActiveCfg = Release|Any CPU
+		{AE858894-3204-4C71-83ED-5CECFCADA95D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,12 +3,12 @@ using System.Globalization;
 using System.Text;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Services.QuitOrReinstall;
-using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
-using CoreMessageBoxButton = SimpleLauncher.Models.MessageBoxButton;
-using CoreMessageBoxImage = SimpleLauncher.Models.MessageBoxImage;
+using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
+using CoreMessageBoxButton = SimpleLauncher.Core.Models.MessageBoxButton;
+using CoreMessageBoxImage = SimpleLauncher.Core.Models.MessageBoxImage;
 
 namespace SimpleLauncher.Services.MessageBox;
 
