@@ -37,39 +37,42 @@ public partial class DebugWindow
                 return;
             }
 
-            Instance = new DebugWindow
+            var viewModel = App.ServiceProvider.GetRequiredService<DebugViewModel>();
+
+            var window = new DebugWindow
             {
-                _viewModel = App.ServiceProvider.GetRequiredService<DebugViewModel>()
+                _viewModel = viewModel
             };
 
-            Instance.DataContext = Instance._viewModel;
+            window.DataContext = viewModel;
 
-            if (Application.Current?.MainWindow is { } mainWindow && mainWindow != Instance)
+            if (Application.Current?.MainWindow is { } mainWindow && mainWindow != window)
             {
-                Instance.Owner = mainWindow;
+                window.Owner = mainWindow;
             }
 
-            Instance._logTextPropertyChangedHandler = (_, args) =>
+            PropertyChangedEventHandler logTextPropertyChangedHandler = (_, args) =>
             {
                 if (string.Equals(args.PropertyName, nameof(DebugViewModel.LogText), StringComparison.Ordinal))
                 {
-                    try
+                    if (Instance is { IsLoaded: true } debugWindow)
                     {
-                        if (Instance is { IsLoaded: true })
+                        debugWindow.Dispatcher.BeginInvoke(() =>
                         {
-                            Instance.Dispatcher.BeginInvoke(() => Instance.LogTextBox?.ScrollToEnd());
-                        }
-                    }
-                    catch (ObjectDisposedException)
-                    {
-                    }
-                    catch (InvalidOperationException)
-                    {
+                            if (debugWindow.IsLoaded)
+                            {
+                                debugWindow.LogTextBox?.ScrollToEnd();
+                            }
+                        });
                     }
                 }
             };
 
-            Instance._viewModel.PropertyChanged += Instance._logTextPropertyChangedHandler;
+            viewModel.PropertyChanged += logTextPropertyChangedHandler;
+
+            window._viewModel = viewModel;
+            window._logTextPropertyChangedHandler = logTextPropertyChangedHandler;
+            Instance = window;
 
             Instance.Show();
         }

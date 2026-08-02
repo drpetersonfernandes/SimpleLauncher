@@ -70,8 +70,6 @@ internal partial class EditSystemWindow : ILoadingState
 
         ApplyExpanderSettings();
 
-        _ = LoadSystemsAsync();
-
         Closing += EditSystem_Closing;
 
         Loaded += (_, _) =>
@@ -82,6 +80,8 @@ internal partial class EditSystemWindow : ILoadingState
                 _emergencyReturnButton = emergencyBtn;
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;
             }
+
+            _ = LoadSystemsAsync();
         };
 
         SaveSystemButton.IsEnabled = false;
@@ -192,110 +192,45 @@ internal partial class EditSystemWindow : ILoadingState
 
     private void ChooseEmulator1Path(object sender, RoutedEventArgs e)
     {
-        var selectEmulator12 = (string)Application.Current.TryFindResource("SelectEmulator1") ?? "Select Emulator 1";
-        var dialog = new OpenFileDialog
-        {
-            DefaultExt = ".exe",
-            Filter = "Executable Files (*.exe;*.bat)|*.exe;*.bat",
-            Title = selectEmulator12
-        };
-        var result = dialog.ShowDialog();
-        if (result == true)
-        {
-            var filename = dialog.FileName;
-            Emulator1PathTextBox.Text = filename;
-            MarkValid(Emulator1PathTextBox);
-        }
-
-        // Update the HelpUserTextBlock
-        HelpUserTextBlock.Document.Blocks.Clear();
-        _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox.Text.Trim());
+        ChooseEmulatorPath(1, Emulator1PathTextBox);
     }
 
     private void ChooseEmulator2Path(object sender, RoutedEventArgs e)
     {
-        var selectEmulator22 = (string)Application.Current.TryFindResource("SelectEmulator2") ?? "Select Emulator 2";
-        var dialog = new OpenFileDialog
-        {
-            DefaultExt = ".exe",
-            Filter = "Executable Files (*.exe;*.bat)|*.exe;*.bat",
-            Title = selectEmulator22
-        };
-
-        var result = dialog.ShowDialog();
-        if (result == true)
-        {
-            var filename = dialog.FileName;
-            Emulator2PathTextBox.Text = filename;
-            MarkValid(Emulator2PathTextBox);
-        }
-
-        // Update the HelpUserTextBlock
-        HelpUserTextBlock.Document.Blocks.Clear();
-        _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox.Text.Trim());
+        ChooseEmulatorPath(2, Emulator2PathTextBox);
     }
 
     private void ChooseEmulator3Path(object sender, RoutedEventArgs e)
     {
-        var selectEmulator32 = (string)Application.Current.TryFindResource("SelectEmulator3") ?? "Select Emulator 3";
-        var dialog = new OpenFileDialog
-        {
-            DefaultExt = ".exe",
-            Filter = "Executable Files (*.exe;*.bat)|*.exe;*.bat",
-            Title = selectEmulator32
-        };
-
-        var result = dialog.ShowDialog();
-        if (result == true)
-        {
-            var filename = dialog.FileName;
-            Emulator3PathTextBox.Text = filename;
-            MarkValid(Emulator3PathTextBox);
-        }
-
-        // Update the HelpUserTextBlock
-        HelpUserTextBlock.Document.Blocks.Clear();
-        _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox.Text.Trim());
+        ChooseEmulatorPath(3, Emulator3PathTextBox);
     }
 
     private void ChooseEmulator4Path(object sender, RoutedEventArgs e)
     {
-        var selectEmulator42 = (string)Application.Current.TryFindResource("SelectEmulator4") ?? "Select Emulator 4";
-        var dialog = new OpenFileDialog
-        {
-            DefaultExt = ".exe",
-            Filter = "Executable Files (*.exe;*.bat)|*.exe;*.bat",
-            Title = selectEmulator42
-        };
-
-        var result = dialog.ShowDialog();
-        if (result == true)
-        {
-            var filename = dialog.FileName;
-            Emulator4PathTextBox.Text = filename;
-            MarkValid(Emulator4PathTextBox);
-        }
-
-        // Update the HelpUserTextBlock
-        HelpUserTextBlock.Document.Blocks.Clear();
-        _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox.Text.Trim());
+        ChooseEmulatorPath(4, Emulator4PathTextBox);
     }
 
     private void ChooseEmulator5Path(object sender, RoutedEventArgs e)
     {
-        var selectEmulator52 = (string)Application.Current.TryFindResource("SelectEmulator5") ?? "Select Emulator 5";
+        ChooseEmulatorPath(5, Emulator5PathTextBox);
+    }
+
+    private void ChooseEmulatorPath(int emulatorNumber, TextBox pathTextBox)
+    {
+        var selectEmulator = (string)Application.Current.TryFindResource($"SelectEmulator{emulatorNumber}") ?? $"Select Emulator {emulatorNumber}";
         var dialog = new OpenFileDialog
         {
             DefaultExt = ".exe",
             Filter = "Executable Files (*.exe;*.bat)|*.exe;*.bat",
-            Title = selectEmulator52
+            Title = selectEmulator
         };
+
         var result = dialog.ShowDialog();
         if (result == true)
         {
             var filename = dialog.FileName;
-            Emulator5PathTextBox.Text = filename;
-            MarkValid(Emulator5PathTextBox);
+            pathTextBox.Text = filename;
+            MarkValid(pathTextBox);
         }
 
         // Update the HelpUserTextBlock
@@ -332,164 +267,69 @@ internal partial class EditSystemWindow : ILoadingState
 
     private void EnableFields()
     {
-        SystemNameTextBox.IsReadOnly = false;
-        SystemNameTextBox.IsEnabled = true;
-
-        SystemFolderTextBox.IsReadOnly = false;
-        SystemFolderTextBox.IsEnabled = true;
-        AdditionalFoldersListBox.IsEnabled = true;
-        AddFolderButton.IsEnabled = true;
-        RemoveFolderButton.IsEnabled = true;
-
-        SystemImageFolderTextBox.IsReadOnly = false;
-        SystemImageFolderTextBox.IsEnabled = true;
-
-        FormatToSearchTextBox.IsReadOnly = false;
-        FormatToSearchTextBox.IsEnabled = true;
-
-        ExtractFileBeforeLaunchComboBox.IsEnabled = true;
-
-        GroupByFolderComboBox.IsEnabled = true;
-
-        DisableRecursiveSearchComboBox.IsEnabled = true;
-
-        FormatToLaunchTextBox.IsReadOnly = false;
-        FormatToLaunchTextBox.IsEnabled = true;
-
-        Emulator1NameTextBox.IsReadOnly = false;
-        Emulator1NameTextBox.IsEnabled = true;
-        Emulator1PathTextBox.IsReadOnly = false;
-        Emulator1PathTextBox.IsEnabled = true;
-        Emulator1ParametersTextBox.IsReadOnly = false;
-        Emulator1ParametersTextBox.IsEnabled = true;
-        ReceiveANotificationOnEmulatorError1.IsEnabled = true;
-
-        Emulator2NameTextBox.IsReadOnly = false;
-        Emulator2NameTextBox.IsEnabled = true;
-        Emulator2PathTextBox.IsReadOnly = false;
-        Emulator2PathTextBox.IsEnabled = true;
-        Emulator2ParametersTextBox.IsReadOnly = false;
-        Emulator2ParametersTextBox.IsEnabled = true;
-        ReceiveANotificationOnEmulatorError2.IsEnabled = true;
-
-        Emulator3NameTextBox.IsReadOnly = false;
-        Emulator3NameTextBox.IsEnabled = true;
-        Emulator3PathTextBox.IsReadOnly = false;
-        Emulator3PathTextBox.IsEnabled = true;
-        Emulator3ParametersTextBox.IsReadOnly = false;
-        Emulator3ParametersTextBox.IsEnabled = true;
-        ReceiveANotificationOnEmulatorError3.IsEnabled = true;
-
-        Emulator4NameTextBox.IsReadOnly = false;
-        Emulator4NameTextBox.IsEnabled = true;
-        Emulator4PathTextBox.IsReadOnly = false;
-        Emulator4PathTextBox.IsEnabled = true;
-        Emulator4ParametersTextBox.IsReadOnly = false;
-        Emulator4ParametersTextBox.IsEnabled = true;
-        ReceiveANotificationOnEmulatorError4.IsEnabled = true;
-
-        Emulator5NameTextBox.IsReadOnly = false;
-        Emulator5NameTextBox.IsEnabled = true;
-        Emulator5PathTextBox.IsReadOnly = false;
-        Emulator5PathTextBox.IsEnabled = true;
-        Emulator5ParametersTextBox.IsReadOnly = false;
-        Emulator5ParametersTextBox.IsEnabled = true;
-        ReceiveANotificationOnEmulatorError5.IsEnabled = true;
-
-        ChooseSystemFolderButton.IsEnabled = true;
-        ChooseSystemImageFolderButton.IsEnabled = true;
-        ChooseEmulator1PathButton.IsEnabled = true;
-        ChooseEmulator2PathButton.IsEnabled = true;
-        ChooseEmulator3PathButton.IsEnabled = true;
-        ChooseEmulator4PathButton.IsEnabled = true;
-        ChooseEmulator5PathButton.IsEnabled = true;
-        ChooseSystemImageButton.IsEnabled = true;
-        SuggestEmulator1ParametersButton.IsEnabled = true;
-        SuggestEmulator2ParametersButton.IsEnabled = true;
-        SuggestEmulator3ParametersButton.IsEnabled = true;
-        SuggestEmulator4ParametersButton.IsEnabled = true;
-        SuggestEmulator5ParametersButton.IsEnabled = true;
+        SetAllEditableFields(true);
     }
 
     private void DisableAllEditableFields()
     {
-        SystemNameTextBox.IsReadOnly = true;
-        SystemNameTextBox.IsEnabled = false;
+        SetAllEditableFields(false);
+    }
 
-        SystemFolderTextBox.IsReadOnly = true;
-        SystemFolderTextBox.IsEnabled = false;
-        AdditionalFoldersListBox.IsEnabled = false;
-        AddFolderButton.IsEnabled = false;
-        RemoveFolderButton.IsEnabled = false;
+    // Enables (enabled: true) or disables (enabled: false) every editable field.
+    private void SetAllEditableFields(bool enabled)
+    {
+        SetReadOnlyField(SystemNameTextBox, enabled);
+        SetReadOnlyField(SystemFolderTextBox, enabled);
+        AdditionalFoldersListBox.IsEnabled = enabled;
+        AddFolderButton.IsEnabled = enabled;
+        RemoveFolderButton.IsEnabled = enabled;
+        SetReadOnlyField(SystemImageFolderTextBox, enabled);
+        SetReadOnlyField(FormatToSearchTextBox, enabled);
+        ExtractFileBeforeLaunchComboBox.IsEnabled = enabled;
+        GroupByFolderComboBox.IsEnabled = enabled;
+        DisableRecursiveSearchComboBox.IsEnabled = enabled;
+        SetReadOnlyField(FormatToLaunchTextBox, enabled);
 
-        SystemImageFolderTextBox.IsReadOnly = true;
-        SystemImageFolderTextBox.IsEnabled = false;
+        foreach (var textBox in new[]
+                 {
+                     Emulator1NameTextBox, Emulator1PathTextBox, Emulator1ParametersTextBox,
+                     Emulator2NameTextBox, Emulator2PathTextBox, Emulator2ParametersTextBox,
+                     Emulator3NameTextBox, Emulator3PathTextBox, Emulator3ParametersTextBox,
+                     Emulator4NameTextBox, Emulator4PathTextBox, Emulator4ParametersTextBox,
+                     Emulator5NameTextBox, Emulator5PathTextBox, Emulator5ParametersTextBox
+                 })
+        {
+            SetReadOnlyField(textBox, enabled);
+        }
 
-        FormatToSearchTextBox.IsReadOnly = true;
-        FormatToSearchTextBox.IsEnabled = false;
+        foreach (var notification in new[]
+                 {
+                     ReceiveANotificationOnEmulatorError1, ReceiveANotificationOnEmulatorError2,
+                     ReceiveANotificationOnEmulatorError3, ReceiveANotificationOnEmulatorError4,
+                     ReceiveANotificationOnEmulatorError5
+                 })
+        {
+            notification.IsEnabled = enabled;
+        }
 
-        ExtractFileBeforeLaunchComboBox.IsEnabled = false;
+        foreach (var button in new[]
+                 {
+                     ChooseSystemFolderButton, ChooseSystemImageFolderButton,
+                     ChooseEmulator1PathButton, ChooseEmulator2PathButton, ChooseEmulator3PathButton,
+                     ChooseEmulator4PathButton, ChooseEmulator5PathButton, ChooseSystemImageButton,
+                     SuggestEmulator1ParametersButton, SuggestEmulator2ParametersButton,
+                     SuggestEmulator3ParametersButton, SuggestEmulator4ParametersButton,
+                     SuggestEmulator5ParametersButton
+                 })
+        {
+            button.IsEnabled = enabled;
+        }
+    }
 
-        GroupByFolderComboBox.IsEnabled = false;
-
-        DisableRecursiveSearchComboBox.IsEnabled = false;
-
-        FormatToLaunchTextBox.IsReadOnly = true;
-        FormatToLaunchTextBox.IsEnabled = false;
-
-        Emulator1NameTextBox.IsReadOnly = true;
-        Emulator1NameTextBox.IsEnabled = false;
-        Emulator1PathTextBox.IsReadOnly = true;
-        Emulator1PathTextBox.IsEnabled = false;
-        Emulator1ParametersTextBox.IsReadOnly = true;
-        Emulator1ParametersTextBox.IsEnabled = false;
-        ReceiveANotificationOnEmulatorError1.IsEnabled = false;
-
-        Emulator2NameTextBox.IsReadOnly = true;
-        Emulator2NameTextBox.IsEnabled = false;
-        Emulator2PathTextBox.IsReadOnly = true;
-        Emulator2PathTextBox.IsEnabled = false;
-        Emulator2ParametersTextBox.IsReadOnly = true;
-        Emulator2ParametersTextBox.IsEnabled = false;
-        ReceiveANotificationOnEmulatorError2.IsEnabled = false;
-
-        Emulator3NameTextBox.IsReadOnly = true;
-        Emulator3NameTextBox.IsEnabled = false;
-        Emulator3PathTextBox.IsReadOnly = true;
-        Emulator3PathTextBox.IsEnabled = false;
-        Emulator3ParametersTextBox.IsReadOnly = true;
-        Emulator3ParametersTextBox.IsEnabled = false;
-        ReceiveANotificationOnEmulatorError3.IsEnabled = false;
-
-        Emulator4NameTextBox.IsReadOnly = true;
-        Emulator4NameTextBox.IsEnabled = false;
-        Emulator4PathTextBox.IsReadOnly = true;
-        Emulator4PathTextBox.IsEnabled = false;
-        Emulator4ParametersTextBox.IsReadOnly = true;
-        Emulator4ParametersTextBox.IsEnabled = false;
-        ReceiveANotificationOnEmulatorError4.IsEnabled = false;
-
-        Emulator5NameTextBox.IsReadOnly = true;
-        Emulator5NameTextBox.IsEnabled = false;
-        Emulator5PathTextBox.IsReadOnly = true;
-        Emulator5PathTextBox.IsEnabled = false;
-        Emulator5ParametersTextBox.IsReadOnly = true;
-        Emulator5ParametersTextBox.IsEnabled = false;
-        ReceiveANotificationOnEmulatorError5.IsEnabled = false;
-
-        ChooseSystemFolderButton.IsEnabled = false;
-        ChooseSystemImageFolderButton.IsEnabled = false;
-        ChooseEmulator1PathButton.IsEnabled = false;
-        ChooseEmulator2PathButton.IsEnabled = false;
-        ChooseEmulator3PathButton.IsEnabled = false;
-        ChooseEmulator4PathButton.IsEnabled = false;
-        ChooseEmulator5PathButton.IsEnabled = false;
-        ChooseSystemImageButton.IsEnabled = false;
-        SuggestEmulator1ParametersButton.IsEnabled = false;
-        SuggestEmulator2ParametersButton.IsEnabled = false;
-        SuggestEmulator3ParametersButton.IsEnabled = false;
-        SuggestEmulator4ParametersButton.IsEnabled = false;
-        SuggestEmulator5ParametersButton.IsEnabled = false;
+    private static void SetReadOnlyField(TextBox textBox, bool enabled)
+    {
+        textBox.IsReadOnly = !enabled;
+        textBox.IsEnabled = enabled;
     }
 
     private void ClearFields()

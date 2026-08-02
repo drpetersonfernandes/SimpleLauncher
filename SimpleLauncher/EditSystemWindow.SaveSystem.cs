@@ -142,31 +142,31 @@ internal partial class EditSystemWindow
                 return;
             }
 
-            if (await ValidateEmulator1LocationAsync(emulator1LocationText, formatsToSearch))
+            if (await ValidateEmulatorLocationAsync(emulator1NameText, emulator1LocationText, formatsToSearch, 1))
             {
                 MarkInvalid(Emulator1PathTextBox, false);
                 return;
             }
 
-            if (await ValidateEmulator2LocationAsync(emulator2NameText, emulator2LocationText, formatsToSearch))
+            if (await ValidateEmulatorLocationAsync(emulator2NameText, emulator2LocationText, formatsToSearch, 2))
             {
                 MarkInvalid(Emulator2PathTextBox, false);
                 return;
             }
 
-            if (await ValidateEmulator3LocationAsync(emulator3NameText, emulator3LocationText, formatsToSearch))
+            if (await ValidateEmulatorLocationAsync(emulator3NameText, emulator3LocationText, formatsToSearch, 3))
             {
                 MarkInvalid(Emulator3PathTextBox, false);
                 return;
             }
 
-            if (await ValidateEmulator4LocationAsync(emulator4NameText, emulator4LocationText, formatsToSearch))
+            if (await ValidateEmulatorLocationAsync(emulator4NameText, emulator4LocationText, formatsToSearch, 4))
             {
                 MarkInvalid(Emulator4PathTextBox, false);
                 return;
             }
 
-            if (await ValidateEmulator5LocationAsync(emulator5NameText, emulator5LocationText, formatsToSearch))
+            if (await ValidateEmulatorLocationAsync(emulator5NameText, emulator5LocationText, formatsToSearch, 5))
             {
                 MarkInvalid(Emulator5PathTextBox, false);
                 return;

@@ -1189,34 +1189,11 @@ public interface IMessageBoxLibraryService
     Task<MessageBoxResult> FirstRunWelcomeMessageBoxAsync();
 
     /// <summary>
-    /// Displays a warning that the Emulator 1 path is required.
+    /// Displays a warning that the specified emulator's path is required.
     /// </summary>
+    /// <param name="emulatorNumber">The 1-based emulator number whose path is required.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    Task Emulator1LocationRequiredMessageBoxAsync();
-
-    /// <summary>
-    /// Displays a warning that the Emulator 2 path is required.
-    /// </summary>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    Task Emulator2LocationRequiredMessageBoxAsync();
-
-    /// <summary>
-    /// Displays a warning that the Emulator 3 path is required.
-    /// </summary>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    Task Emulator3LocationRequiredMessageBoxAsync();
-
-    /// <summary>
-    /// Displays a warning that the Emulator 4 path is required.
-    /// </summary>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    Task Emulator4LocationRequiredMessageBoxAsync();
-
-    /// <summary>
-    /// Displays a warning that the Emulator 5 path is required.
-    /// </summary>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    Task Emulator5LocationRequiredMessageBoxAsync();
+    Task EmulatorLocationRequiredMessageBoxAsync(int emulatorNumber);
 
     /// <summary>
     /// Displays an error when the image pack downloader Web API is unavailable.

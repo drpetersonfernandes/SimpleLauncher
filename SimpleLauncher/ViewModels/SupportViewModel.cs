@@ -114,11 +114,11 @@ public partial class SupportViewModel : ObservableObject
     private async Task SendSupportRequestToApiAsync(string fullMessage)
     {
         var apiBaseUrl = _configuration.GetValue<string>("EmailApiBaseUrl") ?? "https://www.purelogiccode.com/customeremailservice/api/send-customer-email/";
-        var apiKey = _configuration.GetValue<string>("ApiKey") ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
+        var apiKey = AppConstants.GetApiKey();
         var supportEmailTo = _configuration.GetValue<string>("SupportEmailTo") ?? "contact@purelogiccode.com";
 
         _logger.Debug($"[Support] EmailApiBaseUrl from config: '{apiBaseUrl}'");
-        _logger.Debug($"[Support] ApiKey from config: '{apiKey.Substring(0, Math.Min(10, apiKey.Length))}...' (length={apiKey.Length})");
+        _logger.Debug($"[Support] ApiKey: '{apiKey.Substring(0, Math.Min(10, apiKey.Length))}...' (length={apiKey.Length})");
         _logger.Debug($"[Support] SupportEmailTo from config: '{supportEmailTo}'");
         _logger.Debug($"[Support] Message body length: {fullMessage.Length} chars");
 

@@ -239,13 +239,13 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
 
         switch (searchQuery)
         {
-            case "FAVORITES":
+            case AppConstants.Favorites:
                 var favoriteGames = GetFavoriteGamesForSelectedSystem(selectedManager);
                 allFiles = favoriteGames.ToList();
                 await _gameCacheService.SetSearchResultsAsync(allFiles, token);
                 break;
 
-            case "RETRO_ACHIEVEMENTS":
+            case AppConstants.RetroAchievements:
                 await _gameCacheService.PopulateFromDiskAsync(selectedManager, _getListOfFiles, token);
 
                 var systemId = _systemMatcher.GetSystemId(selectedManager.SystemName);
@@ -309,7 +309,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
 
                 break;
 
-            case "RANDOM_SELECTION":
+            case AppConstants.RandomSelection:
                 await _gameCacheService.PopulateFromDiskAsync(selectedManager, _getListOfFiles, token);
 
                 var allGamesForRandom = await _gameCacheService.GetAllGamesAsync(token);
@@ -392,7 +392,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                     await _gameCacheService.SetSearchResultsAsync(allFiles, token);
                 }
 
-                if (!string.IsNullOrWhiteSpace(searchQuery) && !string.Equals(searchQuery, "RANDOM_SELECTION", StringComparison.Ordinal) && !string.Equals(searchQuery, "FAVORITES", StringComparison.Ordinal))
+                if (!string.IsNullOrWhiteSpace(searchQuery) && !string.Equals(searchQuery, AppConstants.RandomSelection, StringComparison.Ordinal) && !string.Equals(searchQuery, AppConstants.Favorites, StringComparison.Ordinal))
                 {
                     allFiles = await _gameFilterService.FilterBySearchQueryAsync(allFiles, searchQuery, _mameDataService.Lookup);
                     await _gameCacheService.SetSearchResultsAsync(allFiles, token);

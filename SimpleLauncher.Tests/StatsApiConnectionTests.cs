@@ -46,8 +46,7 @@ public class StatsApiConnectionTests
 
     private static (string apiKey, string statsUrl1, string statsUrl2) ReadStatsConfig(JsonDocument settings)
     {
-        var apiKey = settings.RootElement.GetProperty("ApiKey").GetString()
-                     ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
+        var apiKey = AppConstants.GetApiKey();
         var statsUrl1 = settings.RootElement.GetProperty("StatsApiUrl").GetString()
                         ?? "https://www.purelogiccode.com/simplelauncher/stats/stats/";
         var statsUrl2 = settings.RootElement.GetProperty("StatsApiUrl2").GetString()
@@ -225,8 +224,7 @@ public class StatsApiConnectionTests
     public async Task StatsApi_EndpointIsReachableWithValidAuth(string url)
     {
         using var settings = await LoadAppSettingsAsync();
-        var apiKey = settings.RootElement.GetProperty("ApiKey").GetString()
-                     ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
+        var apiKey = AppConstants.GetApiKey();
 
         HttpContent content;
         if (url.Contains("simplelauncher/stats", StringComparison.Ordinal))

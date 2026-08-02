@@ -1,6 +1,5 @@
 using System.Text;
 using System.Text.Json;
-using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 
@@ -12,7 +11,6 @@ namespace SimpleLauncher.Services.ParameterResolver;
 public class ParameterResolverService : IParameterResolverService
 {
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly IConfiguration _configuration;
     private readonly ILogger _logger;
 
     private static readonly JsonSerializerOptions JsonOptions = new()
@@ -25,12 +23,10 @@ public class ParameterResolverService : IParameterResolverService
     /// Initializes a new instance of the <see cref="ParameterResolverService"/> class.
     /// </summary>
     /// <param name="httpClientFactory">The HTTP client factory for making API requests.</param>
-    /// <param name="configuration">The application configuration containing the API key and endpoint settings.</param>
     /// <param name="logErrors">The logger instance for error logging.</param>
-    public ParameterResolverService(IHttpClientFactory httpClientFactory, IConfiguration configuration, ILogger logErrors)
+    public ParameterResolverService(IHttpClientFactory httpClientFactory, ILogger logErrors)
     {
         _httpClientFactory = httpClientFactory;
-        _configuration = configuration;
         _logger = logErrors;
     }
 
@@ -41,7 +37,7 @@ public class ParameterResolverService : IParameterResolverService
     /// <returns>The resolved parameters, or null if the API call fails.</returns>
     public async Task<ParameterResolverResult?> ResolveParametersAsync(ParameterResolverRequest request)
     {
-        var apiKey = _configuration["ApiKey"];
+        var apiKey = AppConstants.GetApiKey();
         var client = _httpClientFactory.CreateClient("ParameterResolverClient");
 
         var jsonContent = JsonSerializer.Serialize(request, JsonOptions);

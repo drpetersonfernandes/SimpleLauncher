@@ -6,12 +6,12 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
-namespace SimpleLauncher.Services.LaunchTools;
+namespace SimpleLauncher.Services.ExternalToolLauncher;
 
 /// <summary>
 /// Provides methods to launch external tools such as batch file creators, converters, and ROM utilities.
 /// </summary>
-public class LaunchToolsService : ILaunchTools
+public class ExternalToolLauncherService : IExternalToolLauncher
 {
     private readonly ILogger _logger;
     private readonly IConfiguration _configuration;
@@ -19,13 +19,13 @@ public class LaunchToolsService : ILaunchTools
     private readonly IResourceProvider _resourceProvider;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="LaunchToolsService"/> class.
+    /// Initializes a new instance of the <see cref="ExternalToolLauncherService"/> class.
     /// </summary>
     /// <param name="logErrors">The logger instance for error logging.</param>
     /// <param name="configuration">The application configuration for reading settings like log paths.</param>
     /// <param name="messageBoxLibrary">The message box service for displaying user dialogs.</param>
     /// <param name="resourceProvider">The resource provider for localized strings.</param>
-    public LaunchToolsService(ILogger logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider)
+    public ExternalToolLauncherService(ILogger logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider)
     {
         _logger = logErrors;
         _configuration = configuration;

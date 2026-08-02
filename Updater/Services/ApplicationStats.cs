@@ -12,7 +12,17 @@ namespace Updater.Services;
 internal static class ApplicationStats
 {
     private const string StatsApiUrl = "https://www.purelogiccode.com/ApplicationStats/stats";
-    private const string ApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
+
+    private const string ApiKeyEncoded =
+        "YUdwb04zbDFOblExTm5SNWNqVTBNRzg1ZFRnM05qYzJOelp5TlRZM05EVXpORFExTXpJek5USTJOR00zTldJMmREZG5aMmRvWjJjM05uUnlaalUyTkdVPQ==";
+
+    private static readonly string ApiKey = DecodeApiKey();
+
+    private static string DecodeApiKey()
+    {
+        var decoded = Encoding.UTF8.GetString(Convert.FromBase64String(ApiKeyEncoded));
+        return Encoding.UTF8.GetString(Convert.FromBase64String(decoded));
+    }
 
     /// <summary>
     /// Sends application launch statistics to the ApplicationStats API.

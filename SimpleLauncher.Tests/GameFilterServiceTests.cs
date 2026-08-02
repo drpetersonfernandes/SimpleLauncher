@@ -143,7 +143,7 @@ public class GameFilterServiceTests
             ["game2"] = "Mario"
         };
 
-        var result = service.SortByMameDescription(files, "MachineDescription", mameLookup);
+        var result = service.SortByMameDescription(files, AppConstants.MameSortOrderMachineDescription, mameLookup);
         Assert.Equal("game2.zip", Path.GetFileName(result[0]));
     }
 
@@ -157,7 +157,7 @@ public class GameFilterServiceTests
         var files = new List<string> { @"C:\roms\beta.zip", @"C:\roms\alpha.zip" };
         var mameLookup = new Dictionary<string, string>(StringComparer.Ordinal);
 
-        var result = service.SortByMameDescription(files, "MachineDescription", mameLookup);
+        var result = service.SortByMameDescription(files, AppConstants.MameSortOrderMachineDescription, mameLookup);
         Assert.Equal("alpha.zip", Path.GetFileName(result[0]));
     }
 
@@ -170,7 +170,7 @@ public class GameFilterServiceTests
         var service = CreateService();
         var files = new List<string> { @"C:\roms\zzz.zip", @"C:\roms\aaa.zip" };
 
-        var result = service.SortByMameDescription(files, "FileName", new Dictionary<string, string>(StringComparer.Ordinal));
+        var result = service.SortByMameDescription(files, AppConstants.MameSortOrderFileName, new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Equal("aaa.zip", Path.GetFileName(result[0]));
     }
 

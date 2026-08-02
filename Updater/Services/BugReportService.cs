@@ -12,7 +12,18 @@ namespace Updater.Services;
 internal static class BugReportService
 {
     private const string ApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
-    private const string ApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
+
+    private const string ApiKeyEncoded =
+        "YUdwb04zbDFOblExTm5SNWNqVTBNRzg1ZFRnM05qYzJOelp5TlRZM05EVXpORFExTXpJek5USTJOR00zTldJMmREZG5aMmRvWjJjM05uUnlaalUyTkdVPQ==";
+
+    private static readonly string ApiKey = DecodeApiKey();
+
+    private static string DecodeApiKey()
+    {
+        var decoded = Encoding.UTF8.GetString(Convert.FromBase64String(ApiKeyEncoded));
+        return Encoding.UTF8.GetString(Convert.FromBase64String(decoded));
+    }
+
     private static readonly string LogFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bugreport_failures.log");
 
     private static int _isReporting;

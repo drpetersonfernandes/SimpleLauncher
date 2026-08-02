@@ -87,6 +87,15 @@ public partial class MainWindow : ISystemSelectionHost
     void ISystemSelectionHost.SetSystemManagers(IList<SystemManager> managers)
     {
         _systemManagers = managers.ToList();
+
+        // Migrate old play-history records to full paths once the real system
+        // managers are available. Checking the count guards against migrating
+        // against an empty list (e.g., on a fresh install with no systems).
+        if (!_playHistoryMigrated && _systemManagers.Count > 0)
+        {
+            _playHistoryMigrated = true;
+            _lifecycle.MigratePlayHistory(_systemManagers);
+        }
     }
 
     void ISystemSelectionHost.SetSelectedImageFolder(string folder)

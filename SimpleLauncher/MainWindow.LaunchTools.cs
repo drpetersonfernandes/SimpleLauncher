@@ -14,7 +14,7 @@ public partial class MainWindow
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.CreateBatchFilesForXbox360XblaGamesAsync();
+            await _externalToolLauncher.CreateBatchFilesForXbox360XblaGamesAsync();
         }
         catch (Exception ex)
         {
@@ -28,7 +28,7 @@ public partial class MainWindow
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.BatchConvertIsoToXisoAsync();
+            await _externalToolLauncher.BatchConvertIsoToXisoAsync();
         }
         catch (Exception ex)
         {
@@ -42,7 +42,7 @@ public partial class MainWindow
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.BatchConvertToChdAsync(_selectedRomFolders?.FirstOrDefault());
+            await _externalToolLauncher.BatchConvertToChdAsync(_selectedRomFolders?.FirstOrDefault());
             _logger.Debug($"Called BatchConvertToCHD with args: {_selectedRomFolders?.FirstOrDefault()}");
         }
         catch (Exception ex)
@@ -57,7 +57,7 @@ public partial class MainWindow
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.BatchConvertToCompressedFileAsync();
+            await _externalToolLauncher.BatchConvertToCompressedFileAsync();
         }
         catch (Exception ex)
         {
@@ -71,7 +71,7 @@ public partial class MainWindow
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.BatchConvertToRvzAsync();
+            await _externalToolLauncher.BatchConvertToRvzAsync();
         }
         catch (Exception ex)
         {
@@ -85,7 +85,7 @@ public partial class MainWindow
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.CreateBatchFilesForPs3GamesAsync();
+            await _externalToolLauncher.CreateBatchFilesForPs3GamesAsync();
         }
         catch (Exception ex)
         {
@@ -99,7 +99,7 @@ public partial class MainWindow
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.CreateBatchFilesForScummVmGamesAsync();
+            await _externalToolLauncher.CreateBatchFilesForScummVmGamesAsync();
         }
         catch (Exception ex)
         {
@@ -113,7 +113,7 @@ public partial class MainWindow
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.CreateBatchFilesForWindowsGamesAsync();
+            await _externalToolLauncher.CreateBatchFilesForWindowsGamesAsync();
         }
         catch (Exception ex)
         {
@@ -128,7 +128,7 @@ public partial class MainWindow
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
             await ResetUiAsync();
-            await _launchTools.FindRomCoverLaunchAsync(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
+            await _externalToolLauncher.FindRomCoverLaunchAsync(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
         }
         catch (Exception ex)
         {
@@ -142,7 +142,7 @@ public partial class MainWindow
         {
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
-            await _launchTools.RomValidatorAsync();
+            await _externalToolLauncher.RomValidatorAsync();
         }
         catch (Exception ex)
         {
@@ -157,7 +157,7 @@ public partial class MainWindow
             UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...");
             _audioInput.PlayNotificationSound();
             await ResetUiAsync();
-            await _launchTools.RetroGameCoverDownloaderAsync(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
+            await _externalToolLauncher.RetroGameCoverDownloaderAsync(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
         }
         catch (Exception ex)
         {

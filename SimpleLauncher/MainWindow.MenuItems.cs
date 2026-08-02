@@ -9,6 +9,16 @@ namespace SimpleLauncher;
 public partial class MainWindow
 {
     /// <summary>
+    /// The ordered aspect ratios for cycling through button thumbnail sizes.
+    /// </summary>
+    private static readonly string[] AspectRatios =
+    [
+        AppConstants.AspectSquare, AppConstants.AspectWider, AppConstants.AspectSuperWider,
+        AppConstants.AspectSuperWider2, AppConstants.AspectTaller, AppConstants.AspectSuperTaller,
+        AppConstants.AspectSuperTaller2
+    ];
+
+    /// <summary>
     /// Sets the current view mode (e.g. grid or list) and updates the UI accordingly.
     /// </summary>
     /// <param name="viewMode">The view mode identifier to apply.</param>
@@ -366,17 +376,14 @@ public partial class MainWindow
 
             _audioInput.PlayNotificationSound();
 
-            // Define the array of aspect ratios in the desired order
-            string[] aspectRatios = ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
-
             // Get the current index of the aspect ratio
-            var currentIndex = Array.IndexOf(aspectRatios, _settings.ButtonAspectRatio);
+            var currentIndex = Array.IndexOf(AspectRatios, _settings.ButtonAspectRatio);
 
             // Calculate the next index, wrapping around to 0 if at the end
-            var nextIndex = (currentIndex + 1) % aspectRatios.Length;
+            var nextIndex = (currentIndex + 1) % AspectRatios.Length;
 
             // Get the new aspect ratio
-            var newAspectRatio = aspectRatios[nextIndex];
+            var newAspectRatio = AspectRatios[nextIndex];
 
             // Update the settings
             _settings.ButtonAspectRatio = newAspectRatio;

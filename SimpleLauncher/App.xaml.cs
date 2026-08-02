@@ -33,7 +33,7 @@ using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.LanguageMenu;
-using SimpleLauncher.Services.LaunchTools;
+using SimpleLauncher.Services.ExternalToolLauncher;
 using SimpleLauncher.Services.LoadingOverlay;
 using SimpleLauncher.Services.MameData;
 using SimpleLauncher.Services.MenuActionHandler;
@@ -219,7 +219,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<GamePadController>();
         serviceCollection.AddTransient<DownloadManager>();
         serviceCollection.AddSingleton<GameLauncherService>();
-        serviceCollection.AddSingleton<ILaunchTools, LaunchToolsService>();
+        serviceCollection.AddSingleton<IExternalToolLauncher, ExternalToolLauncherService>();
         serviceCollection.AddSingleton<IDeleteFilesService, DeleteFilesService>();
         serviceCollection.AddSingleton<ICleanTempFolderService, CleanTempFolderService>();
         serviceCollection.AddSingleton<ICleanSimpleLauncherFolderService, CleanSimpleLauncherFolderService>();
@@ -492,20 +492,30 @@ public partial class App : IDisposable
         var isRestarting = e.Args.Any(static arg => arg.Equals("--restarting", StringComparison.OrdinalIgnoreCase));
         var displayHistoryWindow = e.Args.Any(static arg => arg.Equals("-whatsnew", StringComparison.OrdinalIgnoreCase));
 
-        // Delete temp folders and unneeded files
-        _ = Task.Run(static () =>
+        // Delete temp folders and unneeded files in the background.
+        // Resolve the service up front so the fire-and-forget task never reaches into
+        // App.ServiceProvider later (it may be disposed once the application shuts down).
+        try
         {
-            try
+            var cleanupService = ServiceProvider.GetRequiredService<ICleanSimpleLauncherFolderService>();
+            _ = Task.Run(() =>
             {
-                var cleanupService = ServiceProvider.GetRequiredService<ICleanSimpleLauncherFolderService>();
-                cleanupService.CleanupTrash();
-                cleanupService.CleanupTempFiles();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Failed to cleanup trash in SimpleLauncher folder.");
-            }
-        });
+                try
+                {
+                    cleanupService.CleanupTrash();
+                    cleanupService.CleanupTempFiles();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Failed to cleanup trash in SimpleLauncher folder.");
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to resolve the background folder cleanup service.");
+        }
+
         if (!isRestarting) // Only perform the mutex check if NOT restarting
         {
             try
@@ -529,25 +539,13 @@ public partial class App : IDisposable
             catch (UnauthorizedAccessException ex)
             {
                 ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to create or acquire single instance mutex.");
-
-                var messageBox = ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
-                _ = messageBox.FailedToStartSimpleLauncherMessageBoxAsync();
-
-                _singleInstanceMutex?.Dispose();
-                Shutdown();
-
+                ShowStartupFailureAndShutdown(ServiceProvider.GetRequiredService<IMessageBoxLibraryService>());
                 return;
             }
             catch (IOException ex)
             {
                 ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to create or acquire single instance mutex.");
-
-                var messageBox = ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
-                _ = messageBox.FailedToStartSimpleLauncherMessageBoxAsync();
-
-                _singleInstanceMutex?.Dispose();
-                Shutdown();
-
+                ShowStartupFailureAndShutdown(ServiceProvider.GetRequiredService<IMessageBoxLibraryService>());
                 return;
             }
 
@@ -661,6 +659,32 @@ public partial class App : IDisposable
         }
     }
 
+    /// <summary>
+    /// Displays the failed-to-start message box and waits it to be dismissed before shutting the application down.
+    /// </summary>
+    /// <param name="messageBox">The message box library service.</param>
+    private async void ShowStartupFailureAndShutdown(IMessageBoxLibraryService messageBox)
+    {
+        try
+        {
+            try
+            {
+                await messageBox.FailedToStartSimpleLauncherMessageBoxAsync();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to show the failed-to-start message box.");
+            }
+
+            _singleInstanceMutex?.Dispose();
+            Shutdown();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to show the failed-to-start message box.");
+        }
+    }
+
     private static void ReportException(Exception ex, string contextMessage)
     {
         try
@@ -727,8 +751,25 @@ public partial class App : IDisposable
         try
         {
             var gamePadController = ServiceProvider.GetRequiredService<GamePadController>();
+
+            // StopAsync normally returns an already-completed task because the stop
+            // logic itself runs synchronously. On failure it returns a task that
+            // shows a modal dialog on the UI thread. Blocking the UI thread with
+            // .GetAwaiter().GetResult() while waiting for that dialog would deadlock
+            // shutdown, so only log the fault and let the app exit.
+            var stopTask = gamePadController.StopAsync();
+            if (!stopTask.IsCompleted)
+            {
+                _ = stopTask.ContinueWith(static (t, state) =>
+                {
+                    if (t.IsFaulted)
+                    {
+                        (state as ILogger)?.Error(t.Exception, "Failed to stop the gamepad controller on exit.");
+                    }
+                }, ServiceProvider.GetRequiredService<ILogger>(), TaskContinuationOptions.OnlyOnFaulted);
+            }
+
             // Dispose gamepad resources
-            gamePadController.StopAsync().GetAwaiter().GetResult();
             gamePadController.Dispose();
         }
         catch (InvalidOperationException ex)

@@ -425,7 +425,7 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
                         f.Equals("url", StringComparison.OrdinalIgnoreCase) ||
                         f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
 
-                    ((IUiResetHost)_host).MameSortOrder = "FileName";
+                    ((IUiResetHost)_host).MameSortOrder = AppConstants.MameSortOrderFileName;
                     _host.UpdateSortOrderButtonUi();
 
                     _host.EmulatorComboBox.ItemsSource = selectedManager.Emulators.Select(static emulator => emulator.EmulatorName).ToList();

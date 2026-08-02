@@ -218,7 +218,7 @@ public class GameFilterServiceExtendedTests
             ["game2"] = "APPLE"
         };
 
-        var result = service.SortByMameDescription(files, "MachineDescription", mameLookup);
+        var result = service.SortByMameDescription(files, AppConstants.MameSortOrderMachineDescription, mameLookup);
         Assert.Equal("game2.zip", Path.GetFileName(result[0]));
     }
 
@@ -231,7 +231,7 @@ public class GameFilterServiceExtendedTests
         var service = CreateService();
         var files = new List<string> { @"C:\roms\ZEBRA.zip", @"C:\roms\apple.zip" };
 
-        var result = service.SortByMameDescription(files, "FileName", new Dictionary<string, string>(StringComparer.Ordinal));
+        var result = service.SortByMameDescription(files, AppConstants.MameSortOrderFileName, new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Equal("apple.zip", Path.GetFileName(result[0]));
     }
 
@@ -242,7 +242,7 @@ public class GameFilterServiceExtendedTests
     public void SortByMameDescriptionEmptyFilesReturnsEmpty()
     {
         var service = CreateService();
-        var result = service.SortByMameDescription([], "MachineDescription", new Dictionary<string, string>(StringComparer.Ordinal));
+        var result = service.SortByMameDescription([], AppConstants.MameSortOrderMachineDescription, new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Empty(result);
     }
 
@@ -260,7 +260,7 @@ public class GameFilterServiceExtendedTests
             ["game3"] = "Apple"
         };
 
-        var result = service.SortByMameDescription(files, "MachineDescription", mameLookup);
+        var result = service.SortByMameDescription(files, AppConstants.MameSortOrderMachineDescription, mameLookup);
         // game3 → "Apple", game2 → "game2" (fallback), game1 → "Zebra"
         Assert.Equal("game3.zip", Path.GetFileName(result[0]));
         Assert.Equal("game2.zip", Path.GetFileName(result[1]));

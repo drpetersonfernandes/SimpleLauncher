@@ -137,29 +137,10 @@ internal partial class EditSystemWindow
         return true;
     }
 
-    private async Task<bool> ValidateEmulator1LocationAsync(string emulator1LocationText, IEnumerable<string> formatsToSearch)
+    private async Task<bool> ValidateEmulatorLocationAsync(string emulatorNameText, string emulatorLocationText,
+        IEnumerable<string> formatsToSearch, int emulatorNumber)
     {
-        // If formatsToSearch contains bat, exe, lnk, or url, the emulator path is not required.
-        var requiresEmulatorPath = !formatsToSearch.Any(static f =>
-            f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("exe", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("lnk", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("url", StringComparison.OrdinalIgnoreCase));
-
-        // If an emulator path is required but not provided, show an error.
-        if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator1LocationText))
-        {
-            // Notify user
-            await _messageBox.Emulator1LocationRequiredMessageBoxAsync();
-            return true; // Validation failed
-        }
-
-        return false; // Validation passed
-    }
-
-    private async Task<bool> ValidateEmulator2LocationAsync(string emulator2NameText, string emulator2LocationText, IEnumerable<string> formatsToSearch)
-    {
-        if (string.IsNullOrEmpty(emulator2NameText))
+        if (string.IsNullOrEmpty(emulatorNameText))
         {
             return false;
         }
@@ -172,85 +153,10 @@ internal partial class EditSystemWindow
             f.Equals("url", StringComparison.OrdinalIgnoreCase));
 
         // If an emulator path is required but not provided, show an error.
-        if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator2LocationText))
+        if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulatorLocationText))
         {
             // Notify user
-            await _messageBox.Emulator2LocationRequiredMessageBoxAsync();
-            return true; // Validation failed
-        }
-
-        return false; // Validation passed
-    }
-
-    private async Task<bool> ValidateEmulator3LocationAsync(string emulator3NameText, string emulator3LocationText, IEnumerable<string> formatsToSearch)
-    {
-        if (string.IsNullOrEmpty(emulator3NameText))
-        {
-            return false;
-        }
-
-        // If formatsToSearch contains bat, exe, lnk, or url, the emulator path is not required.
-        var requiresEmulatorPath = !formatsToSearch.Any(static f =>
-            f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("exe", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("lnk", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("url", StringComparison.OrdinalIgnoreCase));
-
-        // If an emulator path is required but not provided, show an error.
-        if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator3LocationText))
-        {
-            // Notify user
-            await _messageBox.Emulator3LocationRequiredMessageBoxAsync();
-            return true; // Validation failed
-        }
-
-        return false; // Validation passed
-    }
-
-    private async Task<bool> ValidateEmulator4LocationAsync(string emulator4NameText, string emulator4LocationText, IEnumerable<string> formatsToSearch)
-    {
-        if (string.IsNullOrEmpty(emulator4NameText))
-        {
-            return false;
-        }
-
-        // If formatsToSearch contains bat, exe, lnk, or url, the emulator path is not required.
-        var requiresEmulatorPath = !formatsToSearch.Any(static f =>
-            f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("exe", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("lnk", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("url", StringComparison.OrdinalIgnoreCase));
-
-        // If an emulator path is required but not provided, show an error.
-        if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator4LocationText))
-        {
-            // Notify user
-            await _messageBox.Emulator4LocationRequiredMessageBoxAsync();
-            return true; // Validation failed
-        }
-
-        return false; // Validation passed
-    }
-
-    private async Task<bool> ValidateEmulator5LocationAsync(string emulator5NameText, string emulator5LocationText, IEnumerable<string> formatsToSearch)
-    {
-        if (string.IsNullOrEmpty(emulator5NameText))
-        {
-            return false;
-        }
-
-        // If formatsToSearch contains bat, exe, lnk, or url, the emulator path is not required.
-        var requiresEmulatorPath = !formatsToSearch.Any(static f =>
-            f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("exe", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("lnk", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("url", StringComparison.OrdinalIgnoreCase));
-
-        // If an emulator path is required but not provided, show an error.
-        if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator5LocationText))
-        {
-            // Notify user
-            await _messageBox.Emulator5LocationRequiredMessageBoxAsync();
+            await _messageBox.EmulatorLocationRequiredMessageBoxAsync(emulatorNumber);
             return true; // Validation failed
         }
 

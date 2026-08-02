@@ -26,7 +26,7 @@ public class ApplicationStats
     {
         try
         {
-            var apiKey = configuration.GetValue<string>("ApiKey") ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
+            var apiKey = AppConstants.GetApiKey();
             var statsUrl = configuration.GetValue<string>("StatsApiUrl2") ?? "https://www.purelogiccode.com/ApplicationStats/stats";
             var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "0.0.0";
 

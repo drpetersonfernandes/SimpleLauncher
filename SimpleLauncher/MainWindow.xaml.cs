@@ -31,6 +31,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private bool _isDisposed;
 
+    private bool _playHistoryMigrated;
+
     /// <summary>
     /// Gets or sets the timer used for temporary status bar messages.
     /// </summary>
@@ -44,12 +46,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     // Event handler references for proper unsubscription to prevent memory leaks
     private RoutedEventHandler? _emergencyButtonClickHandler;
     private readonly RoutedEventHandler _asyncLoadedHandler;
-    private readonly EventHandler<EventArgs<string>>? _gameFilesChangedHandler;
-    private readonly EventHandler<GamePlayedEventArgs>? _gamePlayedHandler;
+    private readonly EventHandler<EventArgs<string>> _gameFilesChangedHandler;
+    private readonly EventHandler<GamePlayedEventArgs> _gamePlayedHandler;
 
     // F8 global hotkey for active window screenshots
     private Services.TakeScreenshot.GlobalHotkeyService? _globalHotkeyService;
     private Services.TakeScreenshot.ActiveWindowScreenshotService? _activeWindowScreenshotService;
+
+    private readonly IMountChdFiles _mountChdFiles;
 
     /// <summary>
     /// Occurs when a property value changes, supporting data binding updates.
@@ -74,15 +78,17 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     /// <summary>
     /// Gets or sets the play time display string for the current game.
     /// </summary>
+    private string _playTime = "";
+
     public string PlayTime
     {
-        get;
+        get => _playTime;
         set
         {
-            field = value;
+            _playTime = value;
             OnPropertyChanged(nameof(PlayTime));
         }
-    } = "";
+    }
 
     /// <summary>
     /// Gets or sets whether the play time display is visible.
@@ -149,13 +155,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private List<SystemManager> _systemManagers = null!;
     private readonly FilterMenu _topLetterNumberMenu;
-    private readonly WrapPanel _gameFileGrid;
     private readonly SettingsManagerService _settings;
     private readonly IGameBrowserService _gameBrowser;
     private string _selectedImageFolder = "";
     private List<string> _selectedRomFolders = [];
 
-    private readonly ILaunchTools _launchTools;
+    private readonly IExternalToolLauncher _externalToolLauncher;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMenuOrchestrator _menuOrchestrator;
     private readonly IApplicationLifecycleService _lifecycle;
@@ -176,11 +181,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     internal readonly IUiResetService UiResetService;
 
     /// <summary>
-    /// The system configuration service for system-related settings.
-    /// </summary>
-    internal readonly ISystemConfigurationService SystemConfigurationService;
-
-    /// <summary>
     /// The UI orchestrator service that coordinates UI updates.
     /// </summary>
     internal readonly IUiOrchestrator UiOrchestratorService;
@@ -190,11 +190,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     /// </summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="playHistoryManager">The play history manager.</param>
-    /// <param name="launchTools">The launch tools service.</param>
+    /// <param name="externalToolLauncher">The external tool launcher service.</param>
     /// <param name="messageBox">The message box library service.</param>
     /// <param name="updateStatusBarService">The status bar update service.</param>
     /// <param name="uiResetService">The UI reset service.</param>
-    /// <param name="systemConfigurationService">The system configuration service.</param>
     /// <param name="uiOrchestrator">The UI orchestrator service.</param>
     /// <param name="gameBrowser">The game browser service.</param>
     /// <param name="menuOrchestrator">The menu orchestrator service.</param>
@@ -204,14 +203,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     /// <param name="logger">The logger service.</param>
     /// <param name="contextMenuService">The context menu service.</param>
     /// <param name="gameLauncherService">The game launcher service.</param>
+    /// <param name="mountChdFiles">The CHD mounting service.</param>
     public MainWindow(
         SettingsManagerService settings,
         PlayHistoryManager playHistoryManager,
-        ILaunchTools launchTools,
+        IExternalToolLauncher externalToolLauncher,
         IMessageBoxLibraryService messageBox,
         IUpdateStatusBar updateStatusBarService,
         IUiResetService uiResetService,
-        ISystemConfigurationService systemConfigurationService,
         IUiOrchestrator uiOrchestrator,
         IGameBrowserService gameBrowser,
         IMenuOrchestrator menuOrchestrator,
@@ -220,13 +219,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         IContextMenuFunctions contextMenuFunctions,
         ILogger logger,
         IContextMenuService contextMenuService,
-        GameLauncherService gameLauncherService)
+        GameLauncherService gameLauncherService,
+        IMountChdFiles mountChdFiles)
     {
         InitializeComponent();
 
         _settings = settings;
         PlayHistoryManager = playHistoryManager;
-        _launchTools = launchTools;
+        _externalToolLauncher = externalToolLauncher;
         _messageBox = messageBox;
         UpdateStatusBarService = updateStatusBarService;
 
@@ -239,9 +239,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _contextMenuService = contextMenuService;
 
         _gameLauncherService = gameLauncherService;
+        _mountChdFiles = mountChdFiles;
 
         UiResetService = uiResetService;
-        SystemConfigurationService = systemConfigurationService;
         UiOrchestratorService = uiOrchestrator;
 
         UiOrchestratorService.Initialize(this);
@@ -266,14 +266,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         ToggleFuzzyMatching.IsChecked = _settings.EnableFuzzyMatching;
         ToggleAnnotationStripping.IsChecked = _settings.EnableAnnotationStripping;
 
-        // Initialize _gameFileGrid before LoadOrReloadSystemManager uses it
-        _gameFileGrid = FindName("GameFileGrid") as WrapPanel ?? throw new InvalidOperationException("GameFileGrid not found");
-        if (_gameFileGrid == null)
-        {
-            _logger.Warning("GameFileGrid not found");
-            throw new InvalidOperationException("GameFileGrid not found");
-        }
-
         _gameBrowser.LoadOrReloadSystemManager();
 
         _topLetterNumberMenu = new FilterMenu(_audioInput);
@@ -284,9 +276,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
         // Create and integrate FilterMenu
         _topLetterNumberMenu.OnLetterSelected += TopLetterNumberMenu_OnLetterSelectedAsync;
-
-        // Migrate old play history records to full paths
-        _lifecycle.MigratePlayHistory(_systemManagers ?? []);
 
         Closing += MainWindow_Closing;
         Activated += MainWindow_Activated;
@@ -310,6 +299,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         try
         {
             // Wire Emergency Return Button from Template
+            // LoadingOverlay starts Collapsed, so WPF has not built its template visual tree yet.
+            // ApplyTemplate() is required for Template.FindName to locate the PART_EmergencyReturnButton.
             LoadingOverlay.ApplyTemplate();
             if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
             {
@@ -463,24 +454,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     {
         try
         {
-            var selectedLetter = e.Value;
-            try
-            {
-                if (_isDisposed) return;
+            if (_isDisposed) return;
 
-                try
-                {
-                    await TopLetterNumberMenuClickAsync(selectedLetter);
-                }
-                catch (Exception ex)
-                {
-                    _logger.Error(ex, "Error in method TopLetterNumberMenu_OnLetterSelectedAsync");
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Error in method TopLetterNumberMenu_OnLetterSelectedAsync");
-            }
+            await TopLetterNumberMenuClickAsync(e.Value);
         }
         catch (Exception ex)
         {
@@ -671,13 +647,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
             SearchTextBox.Text = "";
             ((IUiResetHost)this).CurrentFilter = null;
-            ((IUiResetHost)this).ActiveSearchQueryOrMode = "FAVORITES";
+            ((IUiResetHost)this).ActiveSearchQueryOrMode = AppConstants.Favorites;
 
             // Show loading overlay immediately with proper message
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingFavoriteGamesForSystem") ?? "Loading favorite games for system...");
             await Task.Yield(); // Allow UI to render the loading overlay
 
-            await _gameBrowser.LoadGameFilesAsync(null, "FAVORITES", _cancellationSource.Token);
+            await _gameBrowser.LoadGameFilesAsync(null, AppConstants.Favorites, _cancellationSource.Token);
         }
         catch (Exception ex)
         {
@@ -702,13 +678,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             _topLetterNumberMenu.DeselectLetter();
             SearchTextBox.Text = "";
             ((IUiResetHost)this).CurrentFilter = null;
-            ((IUiResetHost)this).ActiveSearchQueryOrMode = "RANDOM_SELECTION";
+            ((IUiResetHost)this).ActiveSearchQueryOrMode = AppConstants.RandomSelection;
 
             // Show loading overlay immediately with proper message
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games...");
             await Task.Yield(); // Allow UI to render the loading overlay
 
-            await _gameBrowser.LoadGameFilesAsync(null, "RANDOM_SELECTION", _cancellationSource.Token);
+            await _gameBrowser.LoadGameFilesAsync(null, AppConstants.RandomSelection, _cancellationSource.Token);
 
             // If in list view, select the game in the DataGrid
             if (!string.Equals(_settings.ViewMode, "ListView", StringComparison.Ordinal) || GameDataGrid.Items.Count <= 0) return;
@@ -822,7 +798,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         TrayIconManager = manager;
     }
 
-    private void SaveApplicationSettings()
+    private Task SaveApplicationSettings()
     {
         // Save application's current state
         _settings.ThumbnailSize = _gameBrowser.ImageHeight;
@@ -837,7 +813,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         // cannot properly identify custom themes like "Adaptive", "HighContrast",
         // or "Midnight" - it would incorrectly save them as "Dark" or "Light".
 
-        _ = _settings.SaveAsync();
+        return _settings.SaveAsync();
     }
 
     private async void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1030,7 +1006,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 CancelAndRecreateToken();
 
                 _audioInput.PlayNotificationSound();
-                ((IUiResetHost)this).MameSortOrder = string.Equals(((IUiResetHost)this).MameSortOrder, "FileName", StringComparison.Ordinal) ? "MachineDescription" : "FileName";
+                ((IUiResetHost)this).MameSortOrder = string.Equals(((IUiResetHost)this).MameSortOrder, AppConstants.MameSortOrderFileName, StringComparison.Ordinal) ? AppConstants.MameSortOrderMachineDescription : AppConstants.MameSortOrderFileName;
                 UpdateSortOrderButtonUi();
 
                 _isResortOperation = true; // Set flag before loading
@@ -1068,7 +1044,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             return;
         }
 
-        if (string.Equals(((IUiResetHost)this).MameSortOrder, "FileName", StringComparison.Ordinal))
+        if (string.Equals(((IUiResetHost)this).MameSortOrder, AppConstants.MameSortOrderFileName, StringComparison.Ordinal))
         {
             var tooltipText = (string)Application.Current.TryFindResource("SortByMachineDescriptionTooltip") ?? "Sort by Machine Description";
             SortOrderToggleButton.ToolTip = tooltipText;

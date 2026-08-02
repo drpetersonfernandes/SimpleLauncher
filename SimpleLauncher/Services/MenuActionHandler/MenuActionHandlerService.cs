@@ -982,9 +982,9 @@ public class MenuActionHandlerService
             _host.DeselectTopLetterNumberMenu();
             _host.SetSearchTextBoxText("");
             _host.SetCurrentFilter(null);
-            _host.SetActiveSearchQueryOrMode("RETRO_ACHIEVEMENTS");
+            _host.SetActiveSearchQueryOrMode(AppConstants.RetroAchievements);
 
-            await _host.LoadGameFilesAsync(null, "RETRO_ACHIEVEMENTS", _host.CurrentCancellationToken);
+            await _host.LoadGameFilesAsync(null, AppConstants.RetroAchievements, _host.CurrentCancellationToken);
         }
         catch (Exception ex)
         {
@@ -1550,7 +1550,7 @@ public class MenuActionHandlerService
 
             _playSoundEffects.PlayNotificationSound();
             var currentSort = _host.GetMameSortOrder();
-            var newSort = string.Equals(currentSort, "FileName", StringComparison.Ordinal) ? "MachineDescription" : "FileName";
+            var newSort = string.Equals(currentSort, AppConstants.MameSortOrderFileName, StringComparison.Ordinal) ? AppConstants.MameSortOrderMachineDescription : AppConstants.MameSortOrderFileName;
             _host.SetMameSortOrder(newSort);
             _host.UpdateSortOrderButtonUi();
 

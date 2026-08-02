@@ -250,14 +250,15 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     // Backing field for DownloadStatus property
     private string _downloadStatus = "";
 
-    private string DownloadStatus
+    public string DownloadStatus
     {
-        // ReSharper disable once UnusedMember.Local
         get => _downloadStatus;
         set
         {
+            if (string.Equals(_downloadStatus, value, StringComparison.Ordinal)) return;
+
             _downloadStatus = value;
-            DownloadStatusTextBlock.Text = value;
+            OnPropertyChanged();
         }
     }
 
@@ -1151,7 +1152,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 }
 
                 string systemFolderRaw;
-                if (!string.IsNullOrEmpty(SystemFolderTextBox.Text) && !string.IsNullOrWhiteSpace(SystemFolderTextBox.Text))
+                if (!string.IsNullOrWhiteSpace(SystemFolderTextBox.Text))
                 {
                     systemFolderRaw = SystemFolderTextBox.Text;
                 }
@@ -1257,8 +1258,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         AddSystemButton.IsEnabled = isEmulatorReady && isCoreReady && !IsOperationInProgress;
     }
 
-    // ReSharper disable once MemberCanBeMadeStatic.Local
-    private string? GetBooleanPropertyNameForType(string type)
+    private static string? GetBooleanPropertyNameForType(string type)
     {
         return type switch
         {
@@ -1285,14 +1285,21 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
             _downloadManager.DownloadProgressChanged -= DownloadManager_ProgressChanged;
 
-            if (StopDownloadButton.IsEnabled)
+            var wasDownloading = StopDownloadButton.IsEnabled;
+            if (wasDownloading)
             {
                 StopDownloadButton_Click(null, null);
-                await Task.Delay(200);
             }
 
             _manager = null;
             Dispose();
+
+            if (wasDownloading)
+            {
+                // Give the cancelled download time to observe the token and release its
+                // resources; cleanup itself has already run, so this delay is non-critical.
+                await Task.Delay(200);
+            }
         }
         catch (Exception ex)
         {

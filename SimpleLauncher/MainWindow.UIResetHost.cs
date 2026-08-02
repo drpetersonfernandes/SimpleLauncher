@@ -33,7 +33,7 @@ public partial class MainWindow
         set => PlayTime = value;
     }
 
-    string IUiResetHost.MameSortOrder { get; set; } = "FileName";
+    string IUiResetHost.MameSortOrder { get; set; } = AppConstants.MameSortOrderFileName;
 
     CancellationToken IUiResetHost.CurrentCancellationToken => _cancellationSource.Token;
 

@@ -198,7 +198,7 @@
                                     Click="StopDownloadButton_Click" IsEnabled="False"
                                     Style="{DynamicResource MahApps.Styles.Button.Square}"
                                     ToolTip="{DynamicResource TooltipStopDownload}" />
-                        <TextBlock x:Name="DownloadStatusTextBlock"
+                        <TextBlock Text="{Binding DownloadStatus}"
                                    TextWrapping="Wrap"
                                    VerticalAlignment="Center"
                                    FontWeight="SemiBold" />

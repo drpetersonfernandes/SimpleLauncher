@@ -2923,51 +2923,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning that the Emulator 1 path is required.
+    /// Displays a warning that the specified emulator's path is required.
     /// </summary>
-    public Task Emulator1LocationRequiredMessageBoxAsync()
+    public Task EmulatorLocationRequiredMessageBoxAsync(int emulatorNumber)
     {
-        var message = _resourceProvider.GetString("Emulator1pathisrequired", "Emulator 1 path is required.");
-        var title = _resourceProvider.GetString("Warning", "Warning");
-        return _messageDialog.ShowWarningAsync(message, title);
-    }
-
-    /// <summary>
-    /// Displays a warning that the Emulator 2 path is required.
-    /// </summary>
-    public Task Emulator2LocationRequiredMessageBoxAsync()
-    {
-        var message = _resourceProvider.GetString("Emulator2pathisrequired", "Emulator 2 path is required.");
-        var title = _resourceProvider.GetString("Warning", "Warning");
-        return _messageDialog.ShowWarningAsync(message, title);
-    }
-
-    /// <summary>
-    /// Displays a warning that the Emulator 3 path is required.
-    /// </summary>
-    public Task Emulator3LocationRequiredMessageBoxAsync()
-    {
-        var message = _resourceProvider.GetString("Emulator3pathisrequired", "Emulator 3 path is required.");
-        var title = _resourceProvider.GetString("Warning", "Warning");
-        return _messageDialog.ShowWarningAsync(message, title);
-    }
-
-    /// <summary>
-    /// Displays a warning that the Emulator 4 path is required.
-    /// </summary>
-    public Task Emulator4LocationRequiredMessageBoxAsync()
-    {
-        var message = _resourceProvider.GetString("Emulator4pathisrequired", "Emulator 4 path is required.");
-        var title = _resourceProvider.GetString("Warning", "Warning");
-        return _messageDialog.ShowWarningAsync(message, title);
-    }
-
-    /// <summary>
-    /// Displays a warning that the Emulator 5 path is required.
-    /// </summary>
-    public Task Emulator5LocationRequiredMessageBoxAsync()
-    {
-        var message = _resourceProvider.GetString("Emulator5pathisrequired", "Emulator 5 path is required.");
+        var message = _resourceProvider.GetString($"Emulator{emulatorNumber}pathisrequired", $"Emulator {emulatorNumber} path is required.");
         var title = _resourceProvider.GetString("Warning", "Warning");
         return _messageDialog.ShowWarningAsync(message, title);
     }

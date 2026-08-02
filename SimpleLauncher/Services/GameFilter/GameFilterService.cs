@@ -92,7 +92,7 @@ public partial class GameFilterService : IGameFilterService
     public IList<string> SortByMameDescription(
         IList<string> files, string mameSortOrder, IDictionary<string, string> mameLookup)
     {
-        if (string.Equals(mameSortOrder, "MachineDescription", StringComparison.Ordinal))
+        if (string.Equals(mameSortOrder, AppConstants.MameSortOrderMachineDescription, StringComparison.Ordinal))
         {
             return files.OrderBy(f =>
             {

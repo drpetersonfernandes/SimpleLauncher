@@ -16,8 +16,7 @@ public partial class MainWindow : IGameItemRenderHost
     ComboBox IGameItemRenderHost.EmulatorComboBox => EmulatorComboBox;
     ComboBox IGameItemRenderHost.SystemComboBox => SystemComboBox;
 
-    // ReSharper disable once ConvertToAutoProperty
-    WrapPanel IGameItemRenderHost.GameFileGrid => _gameFileGrid;
+    WrapPanel IGameItemRenderHost.GameFileGrid => GameFileGrid;
     ObservableCollection<GameListViewItem> IGameItemRenderHost.GameListItems => GameListItems;
     MainWindow IGameItemRenderHost.MainWindow => this;
 }

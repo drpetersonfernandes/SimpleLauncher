@@ -3,7 +3,7 @@ namespace SimpleLauncher.Interfaces;
 /// <summary>
 /// Provides methods to launch external tools such as batch file creators, converters, and ROM utilities.
 /// </summary>
-public interface ILaunchTools
+public interface IExternalToolLauncher
 {
     /// <summary>
     /// Launches the external tool for batch converting ISO files to XISO format.

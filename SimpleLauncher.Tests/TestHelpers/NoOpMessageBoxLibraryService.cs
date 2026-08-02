@@ -1583,41 +1583,9 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Does nothing. Does not display the emulator-1-location-required message box.
+    /// Does nothing. Does not display the emulator-location-required message box.
     /// </summary>
-    public Task Emulator1LocationRequiredMessageBoxAsync()
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Does nothing. Does not display the emulator-2-location-required message box.
-    /// </summary>
-    public Task Emulator2LocationRequiredMessageBoxAsync()
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Does nothing. Does not display the emulator-3-location-required message box.
-    /// </summary>
-    public Task Emulator3LocationRequiredMessageBoxAsync()
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Does nothing. Does not display the emulator-4-location-required message box.
-    /// </summary>
-    public Task Emulator4LocationRequiredMessageBoxAsync()
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Does nothing. Does not display the emulator-5-location-required message box.
-    /// </summary>
-    public Task Emulator5LocationRequiredMessageBoxAsync()
+    public Task EmulatorLocationRequiredMessageBoxAsync(int emulatorNumber)
     {
         return Task.CompletedTask;
     }

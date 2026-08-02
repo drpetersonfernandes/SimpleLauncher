@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace SimpleLauncher;
 
 /// <summary>
@@ -15,6 +17,11 @@ internal static class AppConstants
     /// Search mode constant for displaying a random selection of games.
     /// </summary>
     internal const string RandomSelection = "RANDOM_SELECTION";
+
+    /// <summary>
+    /// Search mode constant for displaying RetroAchievements games.
+    /// </summary>
+    internal const string RetroAchievements = "RETRO_ACHIEVEMENTS";
 
     // ShowGames filter values
     /// <summary>
@@ -110,4 +117,32 @@ internal static class AppConstants
     /// Second super taller aspect ratio variant for button thumbnails.
     /// </summary>
     internal const string AspectSuperTaller2 = "SuperTaller2";
+
+    // MAME sort order values
+    /// <summary>
+    /// Sort order value that keeps games sorted by file name.
+    /// </summary>
+    internal const string MameSortOrderFileName = "FileName";
+
+    /// <summary>
+    /// Sort order value that sorts MAME games by machine description.
+    /// </summary>
+    internal const string MameSortOrderMachineDescription = "MachineDescription";
+
+    // API key
+    /// <summary>
+    /// The application API key, stored double Base64-encoded so it is not present in plain text.
+    /// Retrieve the real value via <see cref="GetApiKey"/>.
+    /// </summary>
+    private const string ApiKeyEncoded =
+        "YUdwb04zbDFOblExTm5SNWNqVTBNRzg1ZFRnM05qYzJOelp5TlRZM05EVXpORFExTXpJek5USTJOR00zTldJMmREZG5aMmRvWjJjM05uUnlaalUyTkdVPQ==";
+
+    /// <summary>
+    /// Returns the application API key, decoded from its double Base64-encoded constant.
+    /// </summary>
+    public static string GetApiKey()
+    {
+        var decodedOnce = Encoding.UTF8.GetString(Convert.FromBase64String(ApiKeyEncoded));
+        return Encoding.UTF8.GetString(Convert.FromBase64String(decodedOnce));
+    }
 }

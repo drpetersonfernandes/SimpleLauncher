@@ -1,25 +1,49 @@
 using System.ComponentModel;
 using System.Windows.Controls;
-using Microsoft.Extensions.DependencyInjection;
 
 
 namespace SimpleLauncher;
-
-using Interfaces;
 
 /// <summary>
 /// Partial MainWindow containing window closing, disposal, and event unsubscription logic.
 /// </summary>
 public partial class MainWindow
 {
-    private void MainWindow_Closing(object? sender, CancelEventArgs e)
+    private bool _isCloseSaveDeferred;
+
+    private async void MainWindow_Closing(object? sender, CancelEventArgs e)
     {
-        SaveApplicationSettings();
+        try
+        {
+            // Defer the actual close until the settings save completes; otherwise the
+            // process can exit before the background write finishes and lose the last changes.
+            if (!_isCloseSaveDeferred)
+            {
+                e.Cancel = true;
+                _isCloseSaveDeferred = true;
 
-        // Unsubscribe from events to prevent memory leaks
-        UnsubscribeEventHandlers();
+                try
+                {
+                    await SaveApplicationSettings();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"Error saving settings during close: {ex.Message}");
+                }
 
-        Dispose();
+                Close();
+                return;
+            }
+
+            // Unsubscribe from events to prevent memory leaks
+            UnsubscribeEventHandlers();
+
+            Dispose();
+        }
+        catch (Exception ex)
+        {
+            Log.Error($"Error in Main Window_Closing. Error: {ex.Message}");
+        }
     }
 
     private void MainWindow_StateChanged(object? sender, EventArgs e)
@@ -64,17 +88,11 @@ public partial class MainWindow
         }
 
         // Unsubscribe and stop game file watcher
-        if (_lifecycle != null && _gameFilesChangedHandler != null)
-        {
-            _lifecycle.UnsubscribeGameFilesChanged(_gameFilesChangedHandler);
-            _lifecycle.StopWatching();
-        }
+        _lifecycle.UnsubscribeGameFilesChanged(_gameFilesChangedHandler);
+        _lifecycle.StopWatching();
 
         // Unsubscribe game played event
-        if (_gameLauncherService != null && _gamePlayedHandler != null)
-        {
-            _gameLauncherService.GamePlayed -= _gamePlayedHandler;
-        }
+        _gameLauncherService.GamePlayed -= _gamePlayedHandler;
     }
 
     /// <summary>
@@ -103,7 +121,7 @@ public partial class MainWindow
             }
 
             // Kill any lingering CHDMounter processes as a safety net
-            App.ServiceProvider.GetRequiredService<IMountChdFiles>().KillAllChdMounterProcesses(App.ServiceProvider.GetRequiredService<ILogger>());
+            _mountChdFiles?.KillAllChdMounterProcesses(_logger);
 
             // Stop and release the status bar timer
             if (StatusBarTimer != null)

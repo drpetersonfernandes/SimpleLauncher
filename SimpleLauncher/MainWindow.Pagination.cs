@@ -38,8 +38,6 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            SetLoadingState(false);
-
             // Notify developer
             const string errorMessage = "Previous page button error.";
             _logger.Error(ex, errorMessage);
@@ -74,8 +72,6 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            SetLoadingState(false);
-
             _logger.Error(ex, "Error in the NextPageButtonClickAsync method.");
 
             // Notify user

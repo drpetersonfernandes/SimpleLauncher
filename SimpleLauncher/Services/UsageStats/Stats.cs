@@ -32,7 +32,7 @@ public class Stats
         try
         {
             // Read ApiKey
-            _apiKey = configuration.GetValue<string>("ApiKey") ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
+            _apiKey = AppConstants.GetApiKey();
 
             if (string.IsNullOrEmpty(_apiKey)) // ApiKey is missing or empty, disable API and log error locally
             {
