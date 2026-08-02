@@ -23,6 +23,11 @@ public interface IGameBrowserService
     void LoadOrReloadSystemManager();
 
     /// <summary>
+    /// Asynchronously loads or reloads the system manager configurations.
+    /// </summary>
+    Task LoadOrReloadSystemManagerAsync();
+
+    /// <summary>
     /// Asynchronously displays the system selection screen.
     /// </summary>
     /// <param name="ct">A token to cancel the operation.</param>

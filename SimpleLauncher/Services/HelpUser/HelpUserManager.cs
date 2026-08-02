@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
@@ -168,6 +169,7 @@ public partial class HelpUserManager
                 .Select(static line => line.TrimStart()));
     }
 
-    [GeneratedRegex(@"^##\s+(.+)$", RegexOptions.Multiline | RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the system name")]
+    [GeneratedRegex(@"^##\s+(.+)$", RegexOptions.Multiline | RegexOptions.Compiled, 1000)]
     private static partial Regex MyRegex();
 }

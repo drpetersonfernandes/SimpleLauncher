@@ -23,9 +23,7 @@ public class InverseBooleanConverter : IValueConverter
             return !b;
         }
 
-        if (value != null) return value; // Return original value if not a boolean
-
-        throw new InvalidOperationException();
+        return value!; // Return original value if not a boolean
     }
 
     /// <summary>
@@ -43,8 +41,6 @@ public class InverseBooleanConverter : IValueConverter
             return !b;
         }
 
-        if (value != null) return value; // Return original value if not a boolean
-
-        throw new InvalidOperationException();
+        return value!; // Return original value if not a boolean
     }
 }

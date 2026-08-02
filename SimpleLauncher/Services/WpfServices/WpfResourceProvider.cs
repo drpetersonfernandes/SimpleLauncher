@@ -8,8 +8,6 @@ namespace SimpleLauncher.Services.WpfServices;
 /// </summary>
 public class WpfResourceProvider : IResourceProvider
 {
-    private static readonly TimeSpan UiTimeout = TimeSpan.FromSeconds(5);
-
     /// <summary>Gets a localized string resource by key, returning the key itself if not found.</summary>
     public string GetString(string key)
     {
@@ -17,9 +15,10 @@ public class WpfResourceProvider : IResourceProvider
         if (dispatcher.CheckAccess())
             return Application.Current.TryFindResource(key) as string ?? key;
 
-        var task = dispatcher.InvokeAsync(() =>
-            Application.Current.TryFindResource(key) as string ?? key);
-        return task.Task.Wait(UiTimeout) ? task.Task.Result : key;
+        // Marshal to the UI thread synchronously. The dispatcher pumps queued messages while
+        // the caller waits, so it cannot deadlock the UI; there is no timeout/fallback here that
+        // could return stale data.
+        return dispatcher.Invoke(() => Application.Current.TryFindResource(key) as string ?? key);
     }
 
     /// <summary>Gets a localized string resource by key, returning the specified default value if not found.</summary>
@@ -29,8 +28,6 @@ public class WpfResourceProvider : IResourceProvider
         if (dispatcher.CheckAccess())
             return Application.Current.TryFindResource(key) as string ?? defaultValue;
 
-        var task = dispatcher.InvokeAsync(() =>
-            Application.Current.TryFindResource(key) as string ?? defaultValue);
-        return task.Task.Wait(UiTimeout) ? task.Task.Result : defaultValue;
+        return dispatcher.Invoke(() => Application.Current.TryFindResource(key) as string ?? defaultValue);
     }
 }

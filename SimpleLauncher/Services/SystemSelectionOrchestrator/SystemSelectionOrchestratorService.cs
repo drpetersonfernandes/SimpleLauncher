@@ -94,6 +94,18 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
     public void LoadOrReloadSystemManager()
     {
         var managers = _systemConfigurationService.LoadSystemManagers();
+        ApplyLoadedSystemManagers(managers);
+    }
+
+    /// <summary>Asynchronously loads or reloads system manager configurations and updates the combo box source.</summary>
+    public async Task LoadOrReloadSystemManagerAsync()
+    {
+        var managers = await _systemConfigurationService.LoadSystemManagersAsync();
+        ApplyLoadedSystemManagers(managers);
+    }
+
+    private void ApplyLoadedSystemManagers(IList<SystemManager.SystemManagerService> managers)
+    {
         _host.SetSystemManagers(managers);
         var sortedSystemNames = managers.Select(static manager => manager.SystemName).OrderBy(static name => name, StringComparer.Ordinal)
             .ToList();
@@ -317,7 +329,7 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
 
             await Task.Delay(100, _host.CurrentCancellationToken);
 
-            LoadOrReloadSystemManager();
+            await LoadOrReloadSystemManagerAsync();
             await _host.ResetUiAsync();
 
             await _messageBox.SystemHasBeenDeletedMessageBoxAsync(systemName);

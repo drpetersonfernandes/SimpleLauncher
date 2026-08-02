@@ -49,4 +49,10 @@ public interface ISystemSelectionOrchestrator
     /// Loads or reloads system manager configurations and updates the combo box source.
     /// </summary>
     void LoadOrReloadSystemManager();
+
+    /// <summary>
+    /// Asynchronously loads or reloads system manager configurations and updates the combo box source.
+    /// </summary>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    Task LoadOrReloadSystemManagerAsync();
 }

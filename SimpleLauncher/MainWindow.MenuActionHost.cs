@@ -41,6 +41,11 @@ public partial class MainWindow : IMenuActionHost
         _gameBrowser.LoadOrReloadSystemManager();
     }
 
+    Task IMenuActionHost.LoadOrReloadSystemManagerAsync()
+    {
+        return _gameBrowser.LoadOrReloadSystemManagerAsync();
+    }
+
     void IMenuActionHost.NavigateToPage(object page)
     {
         if (page is Page wpfPage)

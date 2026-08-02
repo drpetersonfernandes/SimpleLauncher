@@ -379,7 +379,7 @@ public class MenuActionHandlerService
             {
                 await _gameScannerService.ScanForStoreGamesAsync();
                 await Task.Delay(2000, _host.CurrentCancellationToken);
-                _host.LoadOrReloadSystemManager();
+                await _host.LoadOrReloadSystemManagerAsync();
                 await _host.ResetUiAsync();
             }
             catch (Exception ex)

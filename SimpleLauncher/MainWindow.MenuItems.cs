@@ -72,9 +72,9 @@ public partial class MainWindow
     /// <summary>
     /// Reloads the system manager and refreshes the system list.
     /// </summary>
-    public void LoadOrReloadSystemManager()
+    public Task LoadOrReloadSystemManagerAsync()
     {
-        _gameBrowser.LoadOrReloadSystemManager();
+        return _gameBrowser.LoadOrReloadSystemManagerAsync();
     }
 
     private async void EditLinksClickAsync(object sender, RoutedEventArgs e)

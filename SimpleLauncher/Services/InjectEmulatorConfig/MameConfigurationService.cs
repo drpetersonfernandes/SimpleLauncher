@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Text.RegularExpressions;
 using SimpleLauncher.Services.CheckPaths;
@@ -378,6 +379,7 @@ public static partial class MameConfigurationService
         }
     }
 
-    [GeneratedRegex(@"^(\S+)(\s+)([^#\r\n]*)(#.*)?$", RegexOptions.None | RegexOptions.ExplicitCapture, 1000)]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing groups are needed to extract key, whitespace, value and comment")]
+    [GeneratedRegex(@"^(\S+)(\s+)([^#\r\n]*)(#.*)?$", RegexOptions.None, 1000)]
     private static partial Regex IniLineRegex();
 }

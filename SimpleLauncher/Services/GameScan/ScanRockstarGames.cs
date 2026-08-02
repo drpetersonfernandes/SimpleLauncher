@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
 using SimpleLauncher.Interfaces;
@@ -108,6 +109,7 @@ public partial class ScanRockstarGames : IGamePlatformScanner
         }
     }
 
-    [GeneratedRegex(@"(?:Launcher|uninstall)\.exe.+uninstall=(.+)$", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, "pt-BR")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the Rockstar title id")]
+    [GeneratedRegex(@"(?:Launcher|uninstall)\.exe.+uninstall=(.+)$", RegexOptions.IgnoreCase, "pt-BR")]
     private static partial Regex MyRegex();
 }

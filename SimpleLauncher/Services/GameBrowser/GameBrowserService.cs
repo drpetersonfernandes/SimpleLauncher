@@ -58,6 +58,14 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
+    /// Asynchronously loads or reloads the system manager configuration.
+    /// </summary>
+    public Task LoadOrReloadSystemManagerAsync()
+    {
+        return _systemSelectionOrchestrator.LoadOrReloadSystemManagerAsync();
+    }
+
+    /// <summary>
     /// Displays the system selection screen when no system is currently selected.
     /// </summary>
     public Task DisplaySystemSelectionScreenAsync(CancellationToken ct = default)

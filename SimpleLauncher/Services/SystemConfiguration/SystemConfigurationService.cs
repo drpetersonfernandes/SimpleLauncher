@@ -30,4 +30,12 @@ public class SystemConfigurationService : ISystemConfigurationService
     {
         return SystemManager.SystemManagerService.LoadSystemManagers(_configuration);
     }
+
+    /// <summary>
+    /// Asynchronously loads and returns the list of configured system managers.
+    /// </summary>
+    public Task<IList<SystemManager.SystemManagerService>> LoadSystemManagersAsync()
+    {
+        return SystemManager.SystemManagerService.LoadSystemManagersAsync(_configuration, _logger);
+    }
 }

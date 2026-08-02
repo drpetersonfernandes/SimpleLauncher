@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
@@ -81,8 +82,9 @@ public partial class DetectMismatchedResourceStringsTests
                || path.Contains("\\References\\", StringComparison.OrdinalIgnoreCase);
     }
 
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing groups are needed to extract key and fallback value")]
     [GeneratedRegex("""
                     TryFindResource\(\s*"([^"]+)"\s*\)\s*\?\?\s*"([^"]+)"
-                    """, RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
+                    """, RegexOptions.Compiled, 1000)]
     private static partial Regex MyRegex();
 }

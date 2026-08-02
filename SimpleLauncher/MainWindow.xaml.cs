@@ -384,7 +384,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                         UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FoundNewMicrosoftWindowsGames") ?? "Found new Microsoft Windows games. Refreshing system list.");
 
                         // Reload to get the new system
-                        _gameBrowser.LoadOrReloadSystemManager();
+                        await _gameBrowser.LoadOrReloadSystemManagerAsync();
 
                         // After reloading, the system selection screen needs to be updated.
                         await _gameBrowser.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
@@ -410,7 +410,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                         easyModeWindow.Owner = this;
                         easyModeWindow.ShowDialog();
 
-                        _gameBrowser.LoadOrReloadSystemManager();
+                        await _gameBrowser.LoadOrReloadSystemManagerAsync();
                         await _gameBrowser.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken); // Await this now
                     }
                 }

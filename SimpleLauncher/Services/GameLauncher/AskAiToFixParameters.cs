@@ -142,7 +142,7 @@ public static class AskAiToFixParameters
 
                 // Reload system managers so the main window uses the updated parameters
                 var systemSelectionOrchestrator = serviceProvider.GetRequiredService<ISystemSelectionOrchestrator>();
-                systemSelectionOrchestrator.LoadOrReloadSystemManager();
+                await systemSelectionOrchestrator.LoadOrReloadSystemManagerAsync();
                 await systemSelectionOrchestrator.SystemComboBoxSelectionChangedAsync();
 
                 logger.Debug($"[AskAiToFixParameters] Parameter updated for emulator '{emulatorManager.EmulatorName}' in system '{systemManager.SystemName}'.");

@@ -47,6 +47,12 @@ public interface IMenuActionHost
     void LoadOrReloadSystemManager();
 
     /// <summary>
+    /// Asynchronously loads or reloads the system manager with the current system configuration.
+    /// </summary>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    Task LoadOrReloadSystemManagerAsync();
+
+    /// <summary>
     /// Navigates to the specified page in the page content frame.
     /// </summary>
     /// <param name="page">The page to navigate to.</param>
@@ -276,6 +282,5 @@ public interface IMenuActionHost
     /// Changes the application language to the specified language code.
     /// </summary>
     /// <param name="languageCode">The language code to apply.</param>
-    /// <returns>A task representing the asynchronous operation.</returns>
     void ChangeLanguageAsync(string languageCode);
 }

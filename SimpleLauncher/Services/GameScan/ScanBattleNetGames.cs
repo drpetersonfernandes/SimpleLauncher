@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
 using SimpleLauncher.Interfaces;
@@ -135,6 +136,7 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
         }
     }
 
-    [GeneratedRegex(@"Battle\.net.*--uid=(.*?)(?:\s|$)", RegexOptions.None | RegexOptions.ExplicitCapture, 1000)]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the Battle.net uid")]
+    [GeneratedRegex(@"Battle\.net.*--uid=(.*?)(?:\s|$)", RegexOptions.None, 1000)]
     private static partial Regex MyRegex();
 }

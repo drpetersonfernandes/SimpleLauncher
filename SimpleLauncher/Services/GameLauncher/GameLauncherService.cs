@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -1582,6 +1583,7 @@ public partial class GameLauncherService : ILauncherService
         }
     }
 
-    [GeneratedRegex(@"URL=(.+)", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, "pt-BR")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the URL")]
+    [GeneratedRegex(@"URL=(.+)", RegexOptions.IgnoreCase, "pt-BR")]
     private static partial Regex MyRegex();
 }

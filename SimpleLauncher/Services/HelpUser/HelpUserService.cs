@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -37,11 +38,13 @@ public partial class HelpUserService : IHelpUserService
     }
 
     // Renamed for clarity: Matches **bold text**
-    [GeneratedRegex(@"\*\*(.*?)\*\*", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the bold text")]
+    [GeneratedRegex(@"\*\*(.*?)\*\*", RegexOptions.Compiled, 1000)]
     private static partial Regex BoldRegex();
 
     // Renamed for clarity: Matches ## headings
-    [GeneratedRegex(@"^##\s*(.*?)$", RegexOptions.Multiline | RegexOptions.ExplicitCapture, 1000)]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the heading text")]
+    [GeneratedRegex(@"^##\s*(.*?)$", RegexOptions.Multiline, 1000)]
     private static partial Regex HeadingRegex();
 
     // New regex for Markdown links: [text](url)

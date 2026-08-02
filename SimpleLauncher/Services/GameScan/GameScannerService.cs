@@ -100,7 +100,7 @@ public class GameScannerService
         try
         {
             // Check if the system already exists
-            var existingSystems = SystemManager.SystemManagerService.LoadSystemManagers(_configuration);
+            var existingSystems = await SystemManager.SystemManagerService.LoadSystemManagersAsync(_configuration);
             var existingWindowsSystem = existingSystems.FirstOrDefault(static s =>
                 s.SystemName.Equals(WindowsSystemName, StringComparison.OrdinalIgnoreCase));
 

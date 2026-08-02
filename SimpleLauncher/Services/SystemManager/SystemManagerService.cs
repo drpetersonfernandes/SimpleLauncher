@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Xml;
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
@@ -142,6 +143,25 @@ public partial class SystemManagerService : ISystemManager
     /// </summary>
     public static IList<SystemManagerService> LoadSystemManagers(IConfiguration configuration, ILogger? logErrors = null, IMessageBoxLibraryService? messageBoxLibrary = null)
     {
+        // Synchronous facade (used by non-async callers such as MainWindow ctor, EmulatorPathResolver and tests).
+        // The lambda is executed on the thread pool so that any internal awaits never capture the UI
+        // SynchronizationContext; a message box, when provided, still marshals back to the UI via its own
+        // dispatcher-invocation, so this can neither deadlock nor freeze the UI.
+        return Task.Run(() =>
+                LoadSystemManagersInternalAsync(configuration, logErrors, messageBoxLibrary))
+            .GetAwaiter().GetResult();
+    }
+
+    /// <summary>
+    /// Asynchronously loads all system manager configurations from system.xml, validating and cleaning invalid entries.
+    /// </summary>
+    public static async Task<IList<SystemManagerService>> LoadSystemManagersAsync(IConfiguration configuration, ILogger? logErrors = null, IMessageBoxLibraryService? messageBoxLibrary = null)
+    {
+        return await LoadSystemManagersInternalAsync(configuration, logErrors, messageBoxLibrary).ConfigureAwait(false);
+    }
+
+    private static async Task<IList<SystemManagerService>> LoadSystemManagersInternalAsync(IConfiguration configuration, ILogger? logErrors = null, IMessageBoxLibraryService? messageBoxLibrary = null)
+    {
         var systemXmlPath = GetSystemXmlPath(configuration);
 
         if (!File.Exists(systemXmlPath))
@@ -150,7 +170,7 @@ public partial class SystemManagerService : ISystemManager
 
             if (directoryPath != null)
             {
-                RestoreBackupFile(directoryPath, systemXmlPath, logErrors!, messageBoxLibrary!);
+                await RestoreBackupFileAsync(directoryPath, systemXmlPath, logErrors!, messageBoxLibrary!);
             }
 
             // If no backup was restored, create a new empty system.xml file
@@ -506,7 +526,7 @@ public partial class SystemManagerService : ISystemManager
         }
     }
 
-    private static void RestoreBackupFile(string directoryPath, string systemXmlPath, ILogger logErrors, IMessageBoxLibraryService messageBoxLibrary)
+    private static async Task RestoreBackupFileAsync(string directoryPath, string systemXmlPath, ILogger logErrors, IMessageBoxLibraryService messageBoxLibrary)
     {
         try
         {
@@ -518,7 +538,9 @@ public partial class SystemManagerService : ISystemManager
                 var mostRecentBackupFile = backupFiles.MaxBy(File.GetLastWriteTime);
 
                 // Notify user and ask to restore
-                var restoreResult = messageBoxLibrary != null ? messageBoxLibrary.WouldYouLikeToRestoreTheLastBackupMessageBoxAsync().GetAwaiter().GetResult() : MessageBoxResult.No;
+                var restoreResult = messageBoxLibrary != null
+                    ? await messageBoxLibrary.WouldYouLikeToRestoreTheLastBackupMessageBoxAsync()
+                    : MessageBoxResult.No;
                 if (restoreResult == MessageBoxResult.Yes)
                 {
                     try
@@ -917,6 +939,7 @@ public partial class SystemManagerService : ISystemManager
     [GeneratedRegex(@"<SystemConfig[^>]*>[\s\S]*?<\/SystemConfig>", RegexOptions.None, 1000)]
     private static partial Regex MyRegex();
 
-    [GeneratedRegex(@"<SystemName>(.*?)<\/SystemName>", RegexOptions.None | RegexOptions.ExplicitCapture, 1000)]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the system name")]
+    [GeneratedRegex(@"<SystemName>(.*?)<\/SystemName>", RegexOptions.None, 1000)]
     private static partial Regex MyRegex1();
 }
