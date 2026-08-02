@@ -41,10 +41,9 @@ public partial class DebugWindow
 
             var window = new DebugWindow
             {
-                _viewModel = viewModel
+                _viewModel = viewModel,
+                DataContext = viewModel
             };
-
-            window.DataContext = viewModel;
 
             if (Application.Current?.MainWindow is { } mainWindow && mainWindow != window)
             {

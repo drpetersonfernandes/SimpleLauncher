@@ -1,0 +1,103 @@
+<Window Background="{DynamicResource BgPrimaryBrush}" WindowStartupLocation="CenterOwner"
+ x:Class="SimpleLauncher.New.InjectConfigWindows.InjectPcsx2ConfigWindow"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+ Title="{DynamicResource Pcsx2Config_Title}"
+ Height="700" Width="700"
+ 
+>
+ <Grid Margin="10">
+ <Grid.RowDefinitions>
+ <RowDefinition Height="*" />
+ <RowDefinition Height="Auto" />
+ </Grid.RowDefinitions>
+
+ <ScrollViewer VerticalScrollBarVisibility="Auto">
+ <StackPanel>
+ <!-- Video Section -->
+ <GroupBox Header="{DynamicResource Pcsx2Config_Video_Header}" Margin="0,0,0,10">
+ <StackPanel Margin="5">
+ <Grid Margin="0,0,0,5">
+ <Grid.ColumnDefinitions>
+ <ColumnDefinition Width="*" />
+ <ColumnDefinition Width="*" />
+ </Grid.ColumnDefinitions>
+ <Label Content="{DynamicResource Pcsx2Config_Renderer_Label}" VerticalAlignment="Center" />
+ <ComboBox Grid.Column="1"
+ ItemsSource="{Binding RendererDisplayNames}"
+ SelectedItem="{Binding Pcsx2Renderer}"
+ ToolTip="{DynamicResource Pcsx2Config_Renderer_Tooltip}" />
+ </Grid>
+ <Grid Margin="0,5,0,5">
+ <Grid.ColumnDefinitions>
+ <ColumnDefinition Width="*" />
+ <ColumnDefinition Width="*" />
+ </Grid.ColumnDefinitions>
+ <Label Content="{DynamicResource Pcsx2Config_Upscale_Label}" VerticalAlignment="Center" />
+ <ComboBox Grid.Column="1"
+ ItemsSource="{Binding UpscaleDisplayNames}"
+ SelectedItem="{Binding Pcsx2UpscaleMultiplier}"
+ ToolTip="{DynamicResource Pcsx2Config_Upscale_Tooltip}" />
+ </Grid>
+ <Grid Margin="0,5,0,5">
+ <Grid.ColumnDefinitions>
+ <ColumnDefinition Width="*" />
+ <ColumnDefinition Width="*" />
+ </Grid.ColumnDefinitions>
+ <Label Content="{DynamicResource Pcsx2Config_Aspect_Label}" VerticalAlignment="Center" />
+ <ComboBox Grid.Column="1"
+ ItemsSource="{Binding AspectOptions}"
+ SelectedItem="{Binding Pcsx2AspectRatio}"
+ ToolTip="{DynamicResource Pcsx2Config_Aspect_Tooltip}" />
+ </Grid>
+ <CheckBox IsChecked="{Binding Pcsx2Vsync}" Content="{DynamicResource Pcsx2Config_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_Vsync_Tooltip}" />
+ <CheckBox IsChecked="{Binding Pcsx2EnableWidescreenPatches}" Content="{DynamicResource Pcsx2Config_WidescreenPatches_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_WidescreenPatches_Tooltip}" />
+ </StackPanel>
+ </GroupBox>
+
+ <!-- General Section -->
+ <GroupBox Header="{DynamicResource Pcsx2Config_General_Header}" Margin="0,0,0,10">
+ <StackPanel Margin="5">
+ <CheckBox IsChecked="{Binding Pcsx2StartFullscreen}" Content="{DynamicResource Pcsx2Config_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_Fullscreen_Tooltip}" />
+ <CheckBox IsChecked="{Binding Pcsx2EnableCheats}" Content="{DynamicResource Pcsx2Config_Cheats_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_Cheats_Tooltip}" />
+ <Label Content="{DynamicResource Pcsx2Config_Volume_Label}" VerticalAlignment="Center" />
+ <Slider Value="{Binding Pcsx2Volume}" ToolTip="{DynamicResource Pcsx2Config_Volume_Tooltip}" />
+ </StackPanel>
+ </GroupBox>
+
+ <!-- Achievements Section -->
+ <GroupBox Header="{DynamicResource Pcsx2Config_Achievements_Header}" Margin="0,0,0,10">
+ <StackPanel Margin="5">
+ <CheckBox IsChecked="{Binding Pcsx2AchievementsEnabled}" Content="{DynamicResource Pcsx2Config_AchEnabled_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_AchEnabled_Tooltip}" />
+ <CheckBox IsChecked="{Binding Pcsx2AchievementsHardcore}" Content="{DynamicResource Pcsx2Config_AchHardcore_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_AchHardcore_Tooltip}" />
+ </StackPanel>
+ </GroupBox>
+
+ <!-- CRITICAL SETTING -->
+ <Border Background="{DynamicResource AccentBrush}" CornerRadius="8" Padding="16" Margin="0,10,0,0" BorderThickness="0">
+ <StackPanel>
+ <TextBlock Text="{DynamicResource IMPORTANTSETTING}" FontSize="13" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+ <CheckBox IsChecked="{Binding Pcsx2ShowSettingsBeforeLaunch}" Content="{DynamicResource Pcsx2Config_ShowBeforeLaunch_Checkbox}" FontSize="14" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" ToolTip="{DynamicResource Pcsx2Config_ShowBeforeLaunch_Tooltip}" />
+ </StackPanel>
+ </Border>
+ </StackPanel>
+ </ScrollViewer>
+
+ <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+ <Button x:Name="BtnSave" Content="{DynamicResource Pcsx2Config_Save_Button}"
+ Style="{DynamicResource SecondaryButtonStyle}"
+ Command="{Binding SaveCommand}"
+ ToolTip="{DynamicResource Pcsx2Config_Save_Tooltip}" />
+ <Button x:Name="BtnRun" Content="{DynamicResource Pcsx2Config_Run_Button2}"
+ Style="{DynamicResource PrimaryButtonStyle}"
+ Command="{Binding RunCommand}" IsDefault="True"
+ Visibility="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
+ ToolTip="{DynamicResource Pcsx2Config_Run_Tooltip}" />
+ <Button Content="{DynamicResource Pcsx2Config_Cancel_Button}"
+ Style="{DynamicResource SecondaryButtonStyle}"
+ Command="{Binding CancelCommand}"
+ ToolTip="{DynamicResource Pcsx2Config_Cancel_Tooltip}" />
+ </StackPanel>
+ </Grid>
+</Window>

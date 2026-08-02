@@ -1,0 +1,231 @@
+<Window x:Class="SimpleLauncher.New.PreferencesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Preferences"
+        Width="800" Height="550"
+        MinWidth="700" MinHeight="450"
+        Background="{DynamicResource BgPrimaryBrush}"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="CanResize">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Nav strip -->
+        <Border Grid.Column="0" Background="{DynamicResource BgSecondaryBrush}">
+            <ListBox x:Name="NavList" Margin="0,8,0,0"
+                     Background="Transparent" BorderThickness="0"
+                     SelectionChanged="NavList_SelectionChanged">
+                <ListBoxItem Tag="general" IsSelected="True">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="⚙  " FontSize="14" />
+                        <TextBlock Text="General" FontSize="13" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Tag="systems">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🎮  " FontSize="14" />
+                        <TextBlock Text="Systems" FontSize="13" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Tag="emulators">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🖥  " FontSize="14" />
+                        <TextBlock Text="Emulators" FontSize="13" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Tag="images">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🖼  " FontSize="14" />
+                        <TextBlock Text="Images" FontSize="13" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Tag="view">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="👁  " FontSize="14" />
+                        <TextBlock Text="View" FontSize="13" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Tag="sound">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🔊  " FontSize="14" />
+                        <TextBlock Text="Sound" FontSize="13" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Tag="retroachievements">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🏆  " FontSize="14" />
+                        <TextBlock Text="RetroAchievements" FontSize="13" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Tag="updates">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="↓  " FontSize="14" />
+                        <TextBlock Text="Updates" FontSize="13" />
+                    </StackPanel>
+                </ListBoxItem>
+            </ListBox>
+        </Border>
+
+        <!-- Separator -->
+        <Border Grid.Column="1" Width="1" Background="{DynamicResource BorderSubtleBrush}" />
+
+        <!-- Content area -->
+        <Border Grid.Column="2" Background="{DynamicResource BgPrimaryBrush}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="ContentPanel" Margin="24,16">
+
+                    <!-- GENERAL -->
+                    <StackPanel x:Name="GeneralPanel" Visibility="Visible">
+                        <TextBlock Text="General" FontSize="18" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,16" />
+
+                        <TextBlock Text="Language" FontSize="13" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
+                        <ComboBox x:Name="LanguageCombo" Width="200" Margin="0,0,0,20"
+                                  SelectionChanged="LanguageCombo_SelectionChanged">
+                            <ComboBoxItem Content="English" Tag="en" />
+                            <ComboBoxItem Content="Português" Tag="pt" />
+                            <ComboBoxItem Content="Español" Tag="es" />
+                            <ComboBoxItem Content="Français" Tag="fr" />
+                            <ComboBoxItem Content="Deutsch" Tag="de" />
+                            <ComboBoxItem Content="日本語" Tag="ja" />
+                        </ComboBox>
+
+                        <TextBlock Text="Startup Behavior" FontSize="13" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
+                        <CheckBox x:Name="StartupScanCheck" Content="Scan for new games on startup"
+                                  Margin="0,0,0,8" />
+                        <CheckBox x:Name="StartupUpdateCheck" Content="Check for updates on startup"
+                                  Margin="0,0,0,20" />
+                    </StackPanel>
+
+                    <!-- SYSTEMS -->
+                    <StackPanel x:Name="SystemsPanel" Visibility="Collapsed">
+                        <TextBlock Text="Systems" FontSize="18" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+                        <TextBlock Text="Manage your game systems here. Changes are saved to system.xml."
+                                   FontSize="12" Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,16" />
+                        <TextBlock Text="System management will be available soon. Use the existing SimpleLauncher Easy Mode to add/edit systems."
+                                   FontSize="13" Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+
+                    <!-- EMULATORS -->
+                    <StackPanel x:Name="EmulatorsPanel" Visibility="Collapsed">
+                        <TextBlock Text="Emulators" FontSize="18" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+                        <TextBlock Text="Configure emulator paths and parameters per system."
+                                   FontSize="12" Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,16" />
+                        <TextBlock Text="Emulator configuration will be available soon. Use the existing SimpleLauncher to configure emulators."
+                                   FontSize="13" Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+
+                    <!-- IMAGES -->
+                    <StackPanel x:Name="ImagesPanel" Visibility="Collapsed">
+                        <TextBlock Text="Images" FontSize="18" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+                        <TextBlock Text="Configure cover art and image folder locations."
+                                   FontSize="12" Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,16" />
+
+                        <TextBlock Text="Image Extensions" FontSize="13" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
+                        <TextBox x:Name="ImageExtensionsBox" Width="300" Margin="0,0,0,8"
+                                 Text=".png, .jpg, .jpeg" />
+                        <TextBlock Text="Comma-separated list of image file extensions to scan for."
+                                   FontSize="11" Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,16" />
+
+                        <TextBlock Text="Default Cover Image" FontSize="13" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
+                        <TextBox x:Name="DefaultCoverPathBox" Width="400" Margin="0,0,0,4"
+                                 Text="images/default.png" />
+                        <TextBlock Text="Path relative to the application folder."
+                                   FontSize="11" Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,20" />
+                    </StackPanel>
+
+                    <!-- VIEW -->
+                    <StackPanel x:Name="ViewPanel" Visibility="Collapsed">
+                        <TextBlock Text="View" FontSize="18" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,16" />
+
+                        <TextBlock Text="Default View" FontSize="13" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
+                        <ComboBox x:Name="DefaultViewCombo" Width="200" Margin="0,0,0,20">
+                            <ComboBoxItem Content="Grid View" Tag="GridView" />
+                            <ComboBoxItem Content="List View" Tag="ListView" />
+                        </ComboBox>
+
+                        <TextBlock Text="Default Card Width" FontSize="13" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                            <TextBox x:Name="CardWidthBox" Width="60" Text="168" />
+                            <TextBlock Text=" pixels (148–280)"
+                                       Foreground="{DynamicResource TextMutedBrush}"
+                                       FontSize="11" VerticalAlignment="Center" Margin="8,0,0,0" />
+                        </StackPanel>
+                        <TextBlock Text="Default width for game cards in grid view."
+                                   FontSize="11" Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,20" />
+
+                        <TextBlock Text="Gamepad Navigation" FontSize="13" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
+                        <CheckBox x:Name="GamepadNavCheck" Content="Enable gamepad navigation"
+                                  Margin="0,0,0,8" />
+                        <CheckBox x:Name="DisplayMachineNameCheck" Content="Show machine/ROM names"
+                                  Margin="0,0,0,20" />
+                    </StackPanel>
+
+                    <!-- SOUND -->
+                    <StackPanel x:Name="SoundPanel" Visibility="Collapsed">
+                        <TextBlock Text="Sound" FontSize="18" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,16" />
+
+                        <CheckBox x:Name="NotificationSoundCheck"
+                                  Content="Enable notification sounds"
+                                  Margin="0,0,0,8" />
+                        <CheckBox x:Name="ClickSoundCheck"
+                                  Content="Enable click sounds"
+                                  Margin="0,0,0,20" />
+                    </StackPanel>
+
+                    <!-- RETROACHIEVEMENTS -->
+                    <StackPanel x:Name="RetroAchievementsPanel" Visibility="Collapsed">
+                        <TextBlock Text="RetroAchievements" FontSize="18" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+                        <TextBlock Text="Connect to RetroAchievements for achievement tracking."
+                                   FontSize="12" Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,16" />
+
+                        <TextBlock Text="Username" FontSize="13" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
+                        <TextBox x:Name="RaUsernameBox" Width="250" Margin="0,0,0,12" />
+
+                        <TextBlock Text="API Key" FontSize="13" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
+                        <TextBox x:Name="RaApiKeyBox" Width="350" Margin="0,0,0,20" />
+
+                        <Button x:Name="RaTestButton" Content="Test Connection"
+                                Style="{DynamicResource SecondaryButtonStyle}"
+                                Width="140" Click="RaTestButton_Click" />
+                    </StackPanel>
+
+                    <!-- UPDATES -->
+                    <StackPanel x:Name="UpdatesPanel" Visibility="Collapsed">
+                        <TextBlock Text="Updates" FontSize="18" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,16" />
+
+                        <CheckBox x:Name="AutoUpdateCheck" Content="Check for updates on startup"
+                                  Margin="0,0,0,8" />
+                        <CheckBox x:Name="AutoDownloadCheck" Content="Auto-download updates"
+                                  Margin="0,0,0,20" />
+                    </StackPanel>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>

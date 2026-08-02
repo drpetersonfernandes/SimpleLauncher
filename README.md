@@ -8,6 +8,32 @@
 
 ---
 
+## 🆕 SimpleLauncher.New (in development)
+
+A modernized WPF UI rebuild inspired by **OpenEmu's** design language, using the same battle-tested **SimpleLauncher.Core** backend.
+
+| Aspect | Detail |
+|---|---|
+| **UI Framework** | WPF (.NET 10), CommunityToolkit.Mvvm 8.x |
+| **Design** | OpenEmu-inspired dark theme (#1E1E1E background, #D12733 accent) |
+| **Game Grid** | VirtualizingWrapPanel with per-system box-art ratios, LRU image cache |
+| **Data** | Same system.xml, settings.xml, favorites.dat, playhistory.dat — switch freely |
+| **Status** | Phase 1–6 complete, Phase 7 tests in progress |
+
+**Key features already working:**
+- Virtualized game grid with card view + list view
+- Sidebar with manufacturer-grouped systems from system.xml
+- Drag-and-drop ROM folder import
+- Favorites and play history (MessagePack, compatible with existing .dat files)
+- Search with 180ms debounce
+- Launch pipeline (process launch, parameter substitution)
+- Preferences window (8 settings pages)
+- Context menus, toast notifications, loading states
+
+**Build:** `dotnet build` — same solution, adds `SimpleLauncher.New` + `SimpleLauncher.New.Tests`
+
+---
+
 ## 📸 Screenshots
 
 ![System Selection](screenshot.png)
