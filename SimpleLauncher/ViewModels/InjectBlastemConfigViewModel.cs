@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.InjectConfigWindows;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using BlastemConfigurationService = SimpleLauncher.Core.Services.InjectEmulatorConfig.BlastemConfigurationService;
 

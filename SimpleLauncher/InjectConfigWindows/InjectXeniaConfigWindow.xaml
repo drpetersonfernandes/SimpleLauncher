@@ -1,0 +1,154 @@
+<controls:MetroWindow x:Class="SimpleLauncher.InjectConfigWindows.InjectXeniaConfigWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="{DynamicResource XeniaConfig_Title}"
+                      Height="850" Width="700"
+                      ResizeMode="CanResize"
+                      WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- GPU Section -->
+                <GroupBox Header="{DynamicResource XeniaConfig_Gpu_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource XeniaConfig_GpuApi_Label}" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding GpuOptions}"
+                                      SelectedItem="{Binding XeniaGpu}"
+                                      ToolTip="{DynamicResource XeniaConfig_GpuApi_Tooltip}" />
+                        </Grid>
+
+                        <CheckBox IsChecked="{Binding XeniaVsync}" Content="{DynamicResource XeniaConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource XeniaConfig_Vsync_Tooltip}" />
+                        <CheckBox IsChecked="{Binding XeniaFullscreen}" Content="{DynamicResource XeniaConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource XeniaConfig_Fullscreen_Tooltip}" />
+
+                        <Label Content="{DynamicResource XeniaConfig_ResolutionScale_Label}" Margin="0,5,0,0" ToolTip="{DynamicResource XeniaConfig_ResolutionScale_Tooltip}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Grid.Column="0"
+                                      ItemsSource="{Binding ResScaleOptions}"
+                                      Text="{Binding XeniaResScaleX}"
+                                      ToolTip="{DynamicResource XeniaConfig_ResolutionScaleX_Tooltip}" />
+                            <TextBlock Text="x" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" />
+                            <ComboBox Grid.Column="2"
+                                      ItemsSource="{Binding ResScaleOptions}"
+                                      Text="{Binding XeniaResScaleY}"
+                                      ToolTip="{DynamicResource XeniaConfig_ResolutionScaleY_Tooltip}" />
+                        </Grid>
+
+                        <Label Content="{DynamicResource XeniaConfig_PostProcessingAa_Label}" Margin="0,5,0,0" />
+                        <ComboBox ItemsSource="{Binding AaOptions}"
+                                  SelectedValue="{Binding XeniaAa}"
+                                  SelectedValuePath="Tag"
+                                  DisplayMemberPath="Display"
+                                  ToolTip="{DynamicResource XeniaConfig_PostProcessingAa_Tooltip}" />
+
+                        <Label Content="{DynamicResource XeniaConfig_ScalingSharpening_Label}" Margin="0,5,0,0" />
+                        <ComboBox ItemsSource="{Binding ScalingOptions}"
+                                  SelectedItem="{Binding XeniaScaling}"
+                                  ToolTip="{DynamicResource XeniaConfig_ScalingSharpening_Tooltip}" />
+
+                        <Label Content="{DynamicResource XeniaConfig_ReadbackResolve_Label}" Margin="0,5,0,0" />
+                        <ComboBox ItemsSource="{Binding ReadbackOptions}"
+                                  SelectedItem="{Binding XeniaReadbackResolve}"
+                                  ToolTip="{DynamicResource XeniaConfig_ReadbackResolve_Tooltip}" />
+
+                        <CheckBox IsChecked="{Binding XeniaGammaSrgb}" Content="{DynamicResource XeniaConfig_GammaSrgb_Checkbox}" Margin="0,5" ToolTip="{DynamicResource XeniaConfig_GammaSrgb_Tooltip}" />
+
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Audio Section -->
+                <GroupBox Header="{DynamicResource XeniaConfig_Apu_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource XeniaConfig_AudioDriver_Label}" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding ApuOptions}"
+                                      SelectedItem="{Binding XeniaApu}"
+                                      ToolTip="{DynamicResource XeniaConfig_AudioDriver_Tooltip}" />
+                        </Grid>
+                        <CheckBox IsChecked="{Binding XeniaMute}" Content="{DynamicResource XeniaConfig_MuteAudio_Checkbox}" Margin="0,5" ToolTip="{DynamicResource XeniaConfig_MuteAudio_Tooltip}" />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- System Section -->
+                <GroupBox Header="{DynamicResource XeniaConfig_SystemInput_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox IsChecked="{Binding XeniaApplyPatches}" Content="{DynamicResource XeniaConfig_ApplyPatches_Checkbox}" Margin="0,5" ToolTip="{DynamicResource XeniaConfig_ApplyPatches_Tooltip}" />
+                        <CheckBox IsChecked="{Binding XeniaMountCache}" Content="{DynamicResource XeniaConfig_MountCache_Checkbox}" Margin="0,5" ToolTip="{DynamicResource XeniaConfig_MountCache_Tooltip}" />
+                        <CheckBox IsChecked="{Binding XeniaVibration}" Content="{DynamicResource XeniaConfig_Vibration_Checkbox}" Margin="0,5" ToolTip="{DynamicResource XeniaConfig_Vibration_Tooltip}" />
+
+                        <Grid Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource XeniaConfig_Hid_Label}" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding HidOptions}"
+                                      SelectedItem="{Binding XeniaHid}"
+                                      ToolTip="{DynamicResource XeniaConfig_Hid_Tooltip}" />
+                        </Grid>
+
+                        <Grid Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource XeniaConfig_UserLanguage_Label}" VerticalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding LangOptions}"
+                                      SelectedValue="{Binding XeniaUserLanguage}"
+                                      SelectedValuePath="Tag"
+                                      DisplayMemberPath="Display"
+                                      ToolTip="{DynamicResource XeniaConfig_UserLanguage_Tooltip}" />
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+                <!-- CRITICAL SETTING -->
+                <Border Style="{StaticResource ImportantSettingBorderStyle}">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding XeniaShowSettingsBeforeLaunch}" Content="{DynamicResource XeniaConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource XeniaConfig_ShowBeforeLaunch_Tooltip}" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave" Content="{DynamicResource XeniaConfig_Save_Button}"
+                    Style="{DynamicResource DialogSecondaryButtonStyle}"
+                    Command="{Binding SaveCommand}"
+                    ToolTip="{DynamicResource XeniaConfig_Save_Tooltip}" />
+            <Button x:Name="BtnRun" Content="{DynamicResource XeniaConfig_Run_Button2}"
+                    Style="{DynamicResource DialogPrimaryButtonStyle}"
+                    Command="{Binding RunCommand}" IsDefault="True"
+                    Visibility="{Binding IsLauncherMode, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    ToolTip="{DynamicResource XeniaConfig_Run_Tooltip}" />
+            <Button Content="{DynamicResource XeniaConfig_Cancel_Button}"
+                    Style="{DynamicResource DialogCancelButtonStyle}"
+                    Command="{Binding CancelCommand}"
+                    ToolTip="{DynamicResource XeniaConfig_Cancel_Tooltip}" />
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>

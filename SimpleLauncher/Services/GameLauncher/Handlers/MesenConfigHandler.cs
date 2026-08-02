@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.InjectEmulatorConfig;
+using SimpleLauncher.InjectConfigWindows;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;

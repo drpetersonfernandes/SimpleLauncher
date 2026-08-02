@@ -1,0 +1,145 @@
+<controls:MetroWindow x:Class="SimpleLauncher.InjectConfigWindows.InjectRaineConfigWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="{DynamicResource RaineConfig_Title}"
+                      Height="600" Width="650"
+                      ResizeMode="CanResize"
+                      WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Video Section -->
+                <GroupBox Header="{DynamicResource RaineConfig_Video_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox IsChecked="{Binding RaineFullscreen}" Content="{DynamicResource RaineConfig_Fullscreen}" Margin="0,5" ToolTip="{DynamicResource RaineConfig_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding RaineFixAspectRatio}" Content="{DynamicResource RaineConfig_FixAspect}" Margin="0,5" ToolTip="{DynamicResource RaineConfig_FixAspect_Tooltip}" />
+                        <CheckBox IsChecked="{Binding RaineVsync}" Content="{DynamicResource RaineConfig_Vsync}" Margin="0,5" ToolTip="{DynamicResource RaineConfig_Vsync_Tooltip}" />
+
+                        <Label Content="{DynamicResource RaineConfig_Resolution}" Margin="0,5,0,0" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <controls:NumericUpDown Grid.Column="0" Minimum="320" Maximum="7680" Interval="1"
+                                                    Value="{Binding RaineResX}"
+                                                    ToolTip="{DynamicResource RaineConfig_ResolutionX_Tooltip}" />
+                            <TextBlock Text="x" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" />
+                            <controls:NumericUpDown Grid.Column="2" Minimum="240" Maximum="4320" Interval="1"
+                                                    Value="{Binding RaineResY}"
+                                                    ToolTip="{DynamicResource RaineConfig_ResolutionY_Tooltip}" />
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Audio Section -->
+                <GroupBox Header="{DynamicResource RaineConfig_Audio_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <Label Content="{DynamicResource RaineConfig_AudioDriver}" />
+                        <ComboBox ItemsSource="{Binding SoundDriverOptions}"
+                                  SelectedItem="{Binding RaineSoundDriver}"
+                                  ToolTip="{DynamicResource RaineConfig_AudioDriver_Tooltip}" />
+
+                        <Label Content="{DynamicResource RaineConfig_SampleRate}" Margin="0,5,0,0" />
+                        <ComboBox ItemsSource="{Binding SampleRateOptions}"
+                                  SelectedValue="{Binding RaineSampleRate}"
+                                  ToolTip="{DynamicResource RaineConfig_SampleRate_Tooltip}" />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- General Section -->
+                <GroupBox Header="{DynamicResource RaineConfig_General_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox IsChecked="{Binding RaineShowFps}" Content="{DynamicResource RaineConfig_ShowFps}" Margin="0,5" ToolTip="{DynamicResource RaineConfig_ShowFps_Tooltip}" />
+                        <Label Content="{DynamicResource RaineConfig_FrameSkip}" />
+                        <ComboBox ItemsSource="{Binding FrameSkipOptions}"
+                                  SelectedValue="{Binding RaineFrameSkip}"
+                                  ToolTip="{DynamicResource RaineConfig_FrameSkip_Tooltip}" />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- NeoGeo CD Section -->
+                <GroupBox Header="{DynamicResource RaineConfig_NeoCd_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <Label Content="{DynamicResource RaineConfig_NeoCdBios}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Margin="0,0,5,10"
+                                     Text="{Binding RaineNeoCdBios}"
+                                     ToolTip="{DynamicResource RaineConfig_NeoCdBios_Tooltip}" />
+                            <Button Grid.Column="1" Content="..." Width="30" Height="25" VerticalAlignment="Bottom" Margin="0,0,0,10"
+                                    Click="BtnSelectNeoCdBios_Click"
+                                    ToolTip="{DynamicResource RaineConfig_SelectNeoCdBios_Tooltip}" />
+                        </Grid>
+
+                        <Label Content="{DynamicResource RaineConfig_MusicVolume}" />
+                        <controls:NumericUpDown Minimum="0" Maximum="200" Interval="1" Margin="0,0,0,5"
+                                                Value="{Binding RaineMusicVolume}"
+                                                ToolTip="{DynamicResource RaineConfig_MusicVolume_Tooltip}" />
+
+                        <Label Content="{DynamicResource RaineConfig_SfxVolume}" />
+                        <controls:NumericUpDown Minimum="0" Maximum="200" Interval="1" Margin="0,0,0,5"
+                                                Value="{Binding RaineSfxVolume}"
+                                                ToolTip="{DynamicResource RaineConfig_SfxVolume_Tooltip}" />
+
+                        <CheckBox IsChecked="{Binding RaineMuteSfx}" Content="{DynamicResource RaineConfig_MuteSfx}" Margin="0,5" ToolTip="{DynamicResource RaineConfig_MuteSfx_Tooltip}" />
+                        <CheckBox IsChecked="{Binding RaineMuteMusic}" Content="{DynamicResource RaineConfig_MuteMusic}" Margin="0,5" ToolTip="{DynamicResource RaineConfig_MuteMusic_Tooltip}" />
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="{DynamicResource RaineConfig_Directories_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <Label Content="{DynamicResource RaineConfig_RomDirectory}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Margin="0,0,5,0"
+                                     Text="{Binding RaineRomDirectory}"
+                                     ToolTip="{DynamicResource RaineConfig_RomDirectory_Tooltip}" />
+                            <Button Grid.Column="1" Content="..." Width="30" Height="25"
+                                    Click="BtnSelectRaineRomDirectory_Click"
+                                    ToolTip="{DynamicResource RaineConfig_SelectRomDirectory_Tooltip}" />
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- CRITICAL SETTING -->
+                <Border Style="{StaticResource ImportantSettingBorderStyle}">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding RaineShowSettingsBeforeLaunch}" Content="{DynamicResource RaineConfig_ShowBeforeLaunch}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource RaineConfig_ShowBeforeLaunch_Tooltip}" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave" Content="{DynamicResource RaineConfig_Save_Button}"
+                    Style="{DynamicResource DialogSecondaryButtonStyle}"
+                    Command="{Binding SaveCommand}"
+                    ToolTip="{DynamicResource RaineConfig_Save_Tooltip}" />
+            <Button x:Name="BtnRun" Content="{DynamicResource RaineConfig_Run_Button2}"
+                    Style="{DynamicResource DialogPrimaryButtonStyle}"
+                    Command="{Binding RunCommand}" IsDefault="True"
+                    Visibility="{Binding IsLauncherMode, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    ToolTip="{DynamicResource RaineConfig_Run_Tooltip}" />
+            <Button Content="{DynamicResource RaineConfig_Cancel_Button}"
+                    Style="{DynamicResource DialogCancelButtonStyle}"
+                    Command="{Binding CancelCommand}"
+                    ToolTip="{DynamicResource RaineConfig_Cancel_Tooltip}" />
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>

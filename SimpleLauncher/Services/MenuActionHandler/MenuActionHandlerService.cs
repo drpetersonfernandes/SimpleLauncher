@@ -7,6 +7,7 @@ using SimpleLauncher.Core;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.InjectConfigWindows;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameScan;

@@ -34,6 +34,7 @@ using SimpleLauncher.Core.Services.SanitizeInputString;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Core.Services.UsageStats;
 using SimpleLauncher.Core.Services.WpfServices;
+using SimpleLauncher.InjectConfigWindows;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services;
 using SimpleLauncher.Services.ContextMenu;

@@ -1,0 +1,83 @@
+<controls:MetroWindow x:Class="SimpleLauncher.InjectConfigWindows.InjectDaphneConfigWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="{DynamicResource DaphneConfig_Title}"
+                      Height="550" Width="700"
+                      ResizeMode="CanResize"
+                      WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Video Section -->
+                <GroupBox Header="{DynamicResource DaphneConfig_Video_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox IsChecked="{Binding DaphneFullscreen}" Content="{DynamicResource DaphneConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DaphneConfig_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DaphneBilinear}" Content="{DynamicResource DaphneConfig_Bilinear_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DaphneConfig_Bilinear_Tooltip}" />
+
+                        <Label Content="{DynamicResource DaphneConfig_Resolution_Label}" Margin="0,5,0,0" ToolTip="{DynamicResource DaphneConfig_Resolution_Tooltip}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <controls:NumericUpDown Grid.Column="0" Minimum="640" Maximum="7680" Interval="1"
+                                                    Value="{Binding DaphneResX}"
+                                                    ToolTip="{DynamicResource DaphneConfig_ResolutionX_Tooltip}" />
+                            <TextBlock Text="x" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" />
+                            <controls:NumericUpDown Grid.Column="2" Minimum="480" Maximum="4320" Interval="1"
+                                                    Value="{Binding DaphneResY}"
+                                                    ToolTip="{DynamicResource DaphneConfig_ResolutionY_Tooltip}" />
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Audio Section -->
+                <GroupBox Header="{DynamicResource DaphneConfig_Audio_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox IsChecked="{Binding DaphneEnableSound}" Content="{DynamicResource DaphneConfig_EnableSound_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DaphneConfig_EnableSound_Tooltip}" />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Gameplay Section -->
+                <GroupBox Header="{DynamicResource DaphneConfig_Gameplay_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox IsChecked="{Binding DaphneDisableCrosshairs}" Content="{DynamicResource DaphneConfig_DisableCrosshairs_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DaphneConfig_DisableCrosshairs_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DaphneUseOverlays}" Content="{DynamicResource DaphneConfig_UseOverlays_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DaphneConfig_UseOverlays_Tooltip}" />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- CRITICAL SETTING -->
+                <Border Style="{StaticResource ImportantSettingBorderStyle}">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding DaphneShowSettingsBeforeLaunch}" Content="{DynamicResource DaphneConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource DaphneConfig_ShowBeforeLaunch_Tooltip}" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave" Content="{DynamicResource DaphneConfig_Save_Button}"
+                    Style="{DynamicResource DialogSecondaryButtonStyle}"
+                    Command="{Binding SaveCommand}"
+                    ToolTip="{DynamicResource DaphneConfig_Save_Tooltip}" />
+            <Button x:Name="BtnRun" Content="{DynamicResource DaphneConfig_Run_Button2}"
+                    Style="{DynamicResource DialogPrimaryButtonStyle}"
+                    Command="{Binding RunCommand}" IsDefault="True"
+                    Visibility="{Binding IsLauncherMode, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    ToolTip="{DynamicResource DaphneConfig_Run_Tooltip}" />
+            <Button Content="{DynamicResource DaphneConfig_Cancel_Button}"
+                    Style="{DynamicResource DialogCancelButtonStyle}"
+                    Command="{Binding CancelCommand}"
+                    ToolTip="{DynamicResource DaphneConfig_Cancel_Tooltip}" />
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>

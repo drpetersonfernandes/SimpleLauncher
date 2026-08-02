@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.InjectConfigWindows;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 
 namespace SimpleLauncher.ViewModels;
