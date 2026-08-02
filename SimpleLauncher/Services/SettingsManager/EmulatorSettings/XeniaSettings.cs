@@ -17,6 +17,7 @@ public class XeniaSettings : IEmulatorSettings
     /// <summary>Gets or sets whether sRGB gamma correction is enabled.</summary>
     public bool GammaSrgb { get; set; }
 
+
     /// <summary>Gets or sets whether controller vibration is enabled.</summary>
     public bool Vibration { get; set; } = true;
 
@@ -38,11 +39,13 @@ public class XeniaSettings : IEmulatorSettings
     /// <summary>Gets or sets whether fullscreen mode is enabled.</summary>
     public bool Fullscreen { get; set; }
 
+
     /// <summary>Gets or sets the audio processing unit backend (e.g., "xaudio2").</summary>
     public string Apu { get; set; } = "xaudio2";
 
     /// <summary>Gets or sets whether audio output is muted.</summary>
     public bool Mute { get; set; }
+
 
     /// <summary>Gets or sets the anti-aliasing mode.</summary>
     public string Aa { get; set; } = "";
@@ -64,6 +67,7 @@ public class XeniaSettings : IEmulatorSettings
 
     /// <summary>Gets or sets whether the emulator settings dialog is shown before launching a game.</summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
+
 
     /// <summary>Loads emulator settings from the provided XML configuration element.</summary>
     public void LoadFromXml(XElement settings)
@@ -89,6 +93,7 @@ public class XeniaSettings : IEmulatorSettings
         ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
+
     /// <summary>Serializes the current settings to an XML element.</summary>
     public XElement ToXElement()
     {
@@ -112,6 +117,7 @@ public class XeniaSettings : IEmulatorSettings
             new XElement("Hid", Hid),
             new XElement("ShowSettingsBeforeLaunch", ShowSettingsBeforeLaunch));
     }
+
 
     /// <summary>Copies all settings from another XeniaSettings instance.</summary>
     public void CopyFrom(IEmulatorSettings other)
@@ -137,6 +143,7 @@ public class XeniaSettings : IEmulatorSettings
         Hid = src.Hid;
         ShowSettingsBeforeLaunch = src.ShowSettingsBeforeLaunch;
     }
+
 
     /// <summary>Resets all settings to their default values.</summary>
     public void ResetDefaults()

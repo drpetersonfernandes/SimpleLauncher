@@ -15,34 +15,42 @@ public class CemuSettings : IEmulatorSettings
     /// Gets or sets a value indicating whether the emulator starts in fullscreen mode.
     /// </summary>
     public bool Fullscreen { get; set; }
+
     /// <summary>
     /// Gets or sets the graphics API used by the emulator (e.g., 1 for Vulkan).
     /// </summary>
     public int GraphicApi { get; set; } = 1;
+
     /// <summary>
     /// Gets or sets the vertical synchronization mode (e.g., 1 for on).
     /// </summary>
     public int Vsync { get; set; } = 1;
+
     /// <summary>
     /// Gets or sets a value indicating whether shaders are compiled asynchronously to reduce stuttering.
     /// </summary>
     public bool AsyncCompile { get; set; } = true;
+
     /// <summary>
     /// Gets or sets the TV audio volume percentage.
     /// </summary>
     public int TvVolume { get; set; } = 50;
+
     /// <summary>
     /// Gets or sets the console system language used by the emulator (e.g., 1 for English).
     /// </summary>
     public int ConsoleLanguage { get; set; } = 1;
+
     /// <summary>
     /// Gets or sets a value indicating whether Discord rich presence is enabled.
     /// </summary>
     public bool DiscordPresence { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
     /// </summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
+
 
     /// <summary>
     /// Loads the Cemu settings from the specified XML element.
@@ -61,6 +69,7 @@ public class CemuSettings : IEmulatorSettings
         ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
+
     /// <summary>
     /// Serializes the Cemu settings into an XML element for persistence.
     /// </summary>
@@ -77,6 +86,7 @@ public class CemuSettings : IEmulatorSettings
             new XElement("DiscordPresence", DiscordPresence),
             new XElement("ShowSettingsBeforeLaunch", ShowSettingsBeforeLaunch));
     }
+
 
     /// <summary>
     /// Copies the values from another emulator settings instance if it is a Cemu settings instance.
@@ -95,6 +105,7 @@ public class CemuSettings : IEmulatorSettings
         DiscordPresence = src.DiscordPresence;
         ShowSettingsBeforeLaunch = src.ShowSettingsBeforeLaunch;
     }
+
 
     /// <summary>
     /// Resets all Cemu settings to their default values.

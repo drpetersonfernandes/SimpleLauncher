@@ -35,6 +35,7 @@ public partial class InjectMameConfigViewModel : ObservableObject
     [ObservableProperty] private bool _mameConfirmQuit;
     [ObservableProperty] private bool _mameJoystick;
     [ObservableProperty] private bool _mameShowSettingsBeforeLaunch;
+
     /// <summary>Initializes a new instance of the <see cref="InjectMameConfigViewModel"/>.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
@@ -91,6 +92,7 @@ public partial class InjectMameConfigViewModel : ObservableObject
     /// Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
+
     [RelayCommand]
     private void Cancel()
     {
@@ -101,10 +103,12 @@ public partial class InjectMameConfigViewModel : ObservableObject
     /// Requests the user to provide the emulator executable path.
     /// </summary>
     public Func<string?>? RequestEmulatorPath { get; set; }
+
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
     public Func<Window>? GetOwnerWindow { get; set; }
+
     private void LoadSettings()
     {
         MameVideo = _settings.Mame.Video;

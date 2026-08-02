@@ -37,6 +37,7 @@ public class GetListOfFilesServiceTests : IDisposable
         {
             // Best-effort cleanup
         }
+
         GC.SuppressFinalize(this);
     }
 

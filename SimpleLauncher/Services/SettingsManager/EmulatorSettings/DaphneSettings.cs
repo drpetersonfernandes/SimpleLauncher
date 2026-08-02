@@ -15,34 +15,42 @@ public class DaphneSettings : IEmulatorSettings
     /// Gets or sets a value indicating whether the emulator starts in fullscreen mode.
     /// </summary>
     public bool Fullscreen { get; set; }
+
     /// <summary>
     /// Gets or sets the horizontal resolution of the emulation window.
     /// </summary>
     public int ResX { get; set; } = 640;
+
     /// <summary>
     /// Gets or sets the vertical resolution of the emulation window.
     /// </summary>
     public int ResY { get; set; } = 480;
+
     /// <summary>
     /// Gets or sets a value indicating whether the light gun crosshairs are disabled.
     /// </summary>
     public bool DisableCrosshairs { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether bilinear filtering is applied to the video output.
     /// </summary>
     public bool Bilinear { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether sound is enabled.
     /// </summary>
     public bool EnableSound { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether laser disc overlays are displayed.
     /// </summary>
     public bool UseOverlays { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
     /// </summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
+
 
     /// <summary>
     /// Loads the Daphne settings from the specified XML element.
@@ -61,6 +69,7 @@ public class DaphneSettings : IEmulatorSettings
         ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
+
     /// <summary>
     /// Serializes the Daphne settings into an XML element for persistence.
     /// </summary>
@@ -77,6 +86,7 @@ public class DaphneSettings : IEmulatorSettings
             new XElement("UseOverlays", UseOverlays),
             new XElement("ShowSettingsBeforeLaunch", ShowSettingsBeforeLaunch));
     }
+
 
     /// <summary>
     /// Copies the values from another emulator settings instance if it is a Daphne settings instance.
@@ -95,6 +105,7 @@ public class DaphneSettings : IEmulatorSettings
         UseOverlays = src.UseOverlays;
         ShowSettingsBeforeLaunch = src.ShowSettingsBeforeLaunch;
     }
+
 
     /// <summary>
     /// Resets all Daphne settings to their default values.

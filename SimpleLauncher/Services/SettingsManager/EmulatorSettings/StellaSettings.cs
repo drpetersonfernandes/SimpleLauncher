@@ -14,6 +14,7 @@ public class StellaSettings : IEmulatorSettings
     /// <summary>Gets or sets whether fullscreen mode is enabled.</summary>
     public bool Fullscreen { get; set; }
 
+
     /// <summary>Gets or sets whether vertical sync is enabled.</summary>
     public bool Vsync { get; set; } = true;
 
@@ -26,8 +27,10 @@ public class StellaSettings : IEmulatorSettings
     /// <summary>Gets or sets the TV filter intensity (0 = off).</summary>
     public int TvFilter { get; set; }
 
+
     /// <summary>Gets or sets the scanline intensity (0 = off).</summary>
     public int Scanlines { get; set; }
+
 
     /// <summary>Gets or sets whether audio output is enabled.</summary>
     public bool AudioEnabled { get; set; } = true;
@@ -41,8 +44,10 @@ public class StellaSettings : IEmulatorSettings
     /// <summary>Gets or sets whether a confirmation prompt is shown on exit.</summary>
     public bool ConfirmExit { get; set; }
 
+
     /// <summary>Gets or sets whether the emulator settings dialog is shown before launching a game.</summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
+
 
     /// <summary>Loads emulator settings from the provided XML configuration element.</summary>
     public void LoadFromXml(XElement settings)
@@ -61,6 +66,7 @@ public class StellaSettings : IEmulatorSettings
         ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
+
     /// <summary>Serializes the current settings to an XML element.</summary>
     public XElement ToXElement()
     {
@@ -77,6 +83,7 @@ public class StellaSettings : IEmulatorSettings
             new XElement("ConfirmExit", ConfirmExit),
             new XElement("ShowSettingsBeforeLaunch", ShowSettingsBeforeLaunch));
     }
+
 
     /// <summary>Copies all settings from another StellaSettings instance.</summary>
     public void CopyFrom(IEmulatorSettings other)
@@ -95,6 +102,7 @@ public class StellaSettings : IEmulatorSettings
         ConfirmExit = src.ConfirmExit;
         ShowSettingsBeforeLaunch = src.ShowSettingsBeforeLaunch;
     }
+
 
     /// <summary>Resets all settings to their default values.</summary>
     public void ResetDefaults()

@@ -34,6 +34,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     [ObservableProperty] private bool _raineMuteSfx;
     [ObservableProperty] private bool _raineMuteMusic;
     [ObservableProperty] private string _raineRomDirectory = null!;
+
     /// <summary>Initializes a new instance of the <see cref="InjectRaineConfigViewModel"/>.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
@@ -90,6 +91,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     /// Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
+
     [RelayCommand]
     private void Cancel()
     {
@@ -100,18 +102,22 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     /// Requests the user to provide the emulator executable path.
     /// </summary>
     public Func<string?>? RequestEmulatorPath { get; set; }
+
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
     public Func<Window>? GetOwnerWindow { get; set; }
+
     /// <summary>
     /// Requests the user to select a file path.
     /// </summary>
     public Func<string?>? RequestFilePath { get; set; }
+
     /// <summary>
     /// Requests the user to select a folder path.
     /// </summary>
     public Func<string?>? RequestFolderPath { get; set; }
+
     private void LoadSettings()
     {
         RaineFullscreen = _settings.Raine.Fullscreen;

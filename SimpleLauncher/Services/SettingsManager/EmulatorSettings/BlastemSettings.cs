@@ -15,34 +15,42 @@ public class BlastemSettings : IEmulatorSettings
     /// Gets or sets a value indicating whether the emulator starts in fullscreen mode.
     /// </summary>
     public bool Fullscreen { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether vertical synchronization is enabled.
     /// </summary>
     public bool Vsync { get; set; }
+
     /// <summary>
     /// Gets or sets the aspect ratio of the emulation window (e.g., "4:3").
     /// </summary>
     public string Aspect { get; set; } = "4:3";
+
     /// <summary>
     /// Gets or sets the video scaling method used by the emulator (e.g., "linear").
     /// </summary>
     public string Scaling { get; set; } = "linear";
+
     /// <summary>
     /// Gets or sets a value indicating whether scanline effects are applied.
     /// </summary>
     public bool Scanlines { get; set; }
+
     /// <summary>
     /// Gets or sets the audio sample rate in Hz.
     /// </summary>
     public int AudioRate { get; set; } = 48000;
+
     /// <summary>
     /// Gets or sets the synchronization source used by the emulator (e.g., "audio").
     /// </summary>
     public string SyncSource { get; set; } = "audio";
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
     /// </summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
+
 
     /// <summary>
     /// Loads the Blastem settings from the specified XML element.
@@ -61,6 +69,7 @@ public class BlastemSettings : IEmulatorSettings
         ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
+
     /// <summary>
     /// Serializes the Blastem settings into an XML element for persistence.
     /// </summary>
@@ -77,6 +86,7 @@ public class BlastemSettings : IEmulatorSettings
             new XElement("SyncSource", SyncSource),
             new XElement("ShowSettingsBeforeLaunch", ShowSettingsBeforeLaunch));
     }
+
 
     /// <summary>
     /// Copies the values from another emulator settings instance if it is a Blastem settings instance.
@@ -95,6 +105,7 @@ public class BlastemSettings : IEmulatorSettings
         SyncSource = src.SyncSource;
         ShowSettingsBeforeLaunch = src.ShowSettingsBeforeLaunch;
     }
+
 
     /// <summary>
     /// Resets all Blastem settings to their default values.

@@ -17,6 +17,7 @@ public class SupermodelSettings : IEmulatorSettings
     /// <summary>Gets or sets whether quad rendering mode is enabled.</summary>
     public bool QuadRendering { get; set; }
 
+
     /// <summary>Gets or sets whether fullscreen mode is enabled.</summary>
     public bool Fullscreen { get; set; } = true;
 
@@ -31,6 +32,7 @@ public class SupermodelSettings : IEmulatorSettings
 
     /// <summary>Gets or sets whether to stretch the display to fill the window.</summary>
     public bool Stretch { get; set; }
+
 
     /// <summary>Gets or sets whether vertical sync is enabled.</summary>
     public bool Vsync { get; set; } = true;
@@ -64,6 +66,7 @@ public class SupermodelSettings : IEmulatorSettings
         return normalized is "xinput" or "dinput" or "rawinput" ? normalized : "xinput";
     }
 
+
     /// <summary>Loads emulator settings from the provided XML configuration element.</summary>
     public void LoadFromXml(XElement settings)
     {
@@ -84,6 +87,7 @@ public class SupermodelSettings : IEmulatorSettings
         PowerPcFrequency = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(PowerPcFrequency), 50);
         ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
+
 
     /// <summary>Serializes the current settings to an XML element.</summary>
     public XElement ToXElement()
@@ -106,6 +110,7 @@ public class SupermodelSettings : IEmulatorSettings
             new XElement("ShowSettingsBeforeLaunch", ShowSettingsBeforeLaunch));
     }
 
+
     /// <summary>Copies all settings from another SupermodelSettings instance.</summary>
     public void CopyFrom(IEmulatorSettings other)
     {
@@ -127,6 +132,7 @@ public class SupermodelSettings : IEmulatorSettings
         PowerPcFrequency = src.PowerPcFrequency;
         ShowSettingsBeforeLaunch = src.ShowSettingsBeforeLaunch;
     }
+
 
     /// <summary>Resets all settings to their default values.</summary>
     public void ResetDefaults()

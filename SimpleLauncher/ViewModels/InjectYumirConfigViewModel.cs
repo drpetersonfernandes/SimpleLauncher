@@ -26,6 +26,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
     [ObservableProperty] private bool _yumirPauseWhenUnfocused;
     [ObservableProperty] private double _yumirForcedAspect;
     [ObservableProperty] private bool _yumirShowSettingsBeforeLaunch;
+
     /// <summary>Initializes a new instance of the <see cref="InjectYumirConfigViewModel"/>.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
@@ -78,6 +79,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
     /// Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
+
     [RelayCommand]
     private void Cancel()
     {
@@ -88,10 +90,12 @@ public partial class InjectYumirConfigViewModel : ObservableObject
     /// Requests the user to provide the emulator executable path.
     /// </summary>
     public Func<string?>? RequestEmulatorPath { get; set; }
+
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
     public Func<Window>? GetOwnerWindow { get; set; }
+
     private void LoadSettings()
     {
         YumirFullscreen = _settings.Yumir.Fullscreen;

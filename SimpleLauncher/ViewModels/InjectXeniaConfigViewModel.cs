@@ -34,6 +34,7 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
     [ObservableProperty] private string _xeniaHid = null!;
     [ObservableProperty] private int _xeniaUserLanguage;
     [ObservableProperty] private bool _xeniaShowSettingsBeforeLaunch;
+
     /// <summary>Initializes a new instance of the <see cref="InjectXeniaConfigViewModel"/>.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
@@ -127,6 +128,7 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
     /// Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
+
     [RelayCommand]
     private void Cancel()
     {
@@ -137,10 +139,12 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
     /// Requests the user to provide the emulator executable path.
     /// </summary>
     public Func<string?>? RequestEmulatorPath { get; set; }
+
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
     public Func<Window>? GetOwnerWindow { get; set; }
+
     private void LoadSettings()
     {
         XeniaGpu = _settings.Xenia.Gpu;

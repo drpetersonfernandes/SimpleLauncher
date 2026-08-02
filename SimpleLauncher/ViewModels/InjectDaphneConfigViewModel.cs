@@ -22,6 +22,7 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     [ObservableProperty] private bool _daphneDisableCrosshairs;
     [ObservableProperty] private bool _daphneUseOverlays;
     [ObservableProperty] private bool _daphneShowSettingsBeforeLaunch;
+
     /// <summary>Initializes a new instance of the <see cref="InjectDaphneConfigViewModel"/>.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
@@ -57,6 +58,7 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     /// Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
+
     [RelayCommand]
     private void Cancel()
     {

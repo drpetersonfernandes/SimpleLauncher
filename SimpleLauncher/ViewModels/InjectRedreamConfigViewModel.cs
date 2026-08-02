@@ -32,6 +32,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     [ObservableProperty] private int _redreamLatency;
     [ObservableProperty] private bool _redreamFramerate;
     [ObservableProperty] private bool _redreamShowSettingsBeforeLaunch;
+
     /// <summary>Initializes a new instance of the <see cref="InjectRedreamConfigViewModel"/>.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
@@ -119,6 +120,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     /// Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
+
     [RelayCommand]
     private void Cancel()
     {
@@ -129,10 +131,12 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     /// Requests the user to provide the emulator executable path.
     /// </summary>
     public Func<string?>? RequestEmulatorPath { get; set; }
+
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
     public Func<Window>? GetOwnerWindow { get; set; }
+
     private void LoadSettings()
     {
         RedreamCable = _settings.Redream.Cable;

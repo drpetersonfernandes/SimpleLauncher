@@ -70,8 +70,10 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
 
     /// <summary>Event raised when settings have been saved.</summary>
     public event EventHandler SaveCompleted = null!;
+
     /// <summary>Event raised when the window should be closed.</summary>
     public event EventHandler CloseRequested = null!;
+
     [RelayCommand]
     private async Task SaveAsync()
     {

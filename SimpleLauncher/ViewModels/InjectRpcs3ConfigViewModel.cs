@@ -28,6 +28,7 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
     [ObservableProperty] private bool _rpcs3AudioBuffering;
     [ObservableProperty] private bool _rpcs3StartFullscreen;
     [ObservableProperty] private bool _rpcs3ShowSettingsBeforeLaunch;
+
     /// <summary>Initializes a new instance of the <see cref="InjectRpcs3ConfigViewModel"/>.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
@@ -105,6 +106,7 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
     /// Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
+
     [RelayCommand]
     private void Cancel()
     {
@@ -115,10 +117,12 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
     /// Requests the user to provide the emulator executable path.
     /// </summary>
     public Func<string?>? RequestEmulatorPath { get; set; }
+
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
     public Func<Window>? GetOwnerWindow { get; set; }
+
     private void LoadSettings()
     {
         Rpcs3Renderer = _settings.Rpcs3.Renderer;

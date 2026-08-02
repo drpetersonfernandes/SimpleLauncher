@@ -224,6 +224,7 @@ public partial class RetroAchievementsWindow : ILoadingState
             {
                 NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
             }
+
             FetchUnlocksButton.IsEnabled = _viewModel.FetchUnlocksEnabled;
         }
         catch (Exception ex)
@@ -248,6 +249,7 @@ public partial class RetroAchievementsWindow : ILoadingState
             {
                 NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
             }
+
             FromDatePicker.SelectedDate = _viewModel.FromDate;
             ToDatePicker.SelectedDate = _viewModel.ToDate;
             FetchUnlocksButton.IsEnabled = _viewModel.FetchUnlocksEnabled;

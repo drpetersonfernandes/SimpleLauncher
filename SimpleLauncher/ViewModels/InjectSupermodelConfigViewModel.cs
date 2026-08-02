@@ -32,6 +32,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     [ObservableProperty] private string _inputSystem = null!;
     [ObservableProperty] private string _powerPcFrequency = null!;
     [ObservableProperty] private bool _showBeforeLaunch;
+
     /// <summary>Initializes a new instance of the <see cref="InjectSupermodelConfigViewModel"/>.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
@@ -79,6 +80,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     /// Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
+
     [RelayCommand]
     private void Cancel()
     {
@@ -89,10 +91,12 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     /// Requests the user to provide the emulator executable path.
     /// </summary>
     public Func<string?>? RequestEmulatorPath { get; set; }
+
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
     public Func<Window>? GetOwnerWindow { get; set; }
+
     private void LoadSettings()
     {
         New3DEngine = _settings.Supermodel.New3DEngine;

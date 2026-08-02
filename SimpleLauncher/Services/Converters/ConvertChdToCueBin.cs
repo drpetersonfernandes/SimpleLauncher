@@ -15,6 +15,7 @@ public static class ConvertChdToCueBin
         var sp = App.ServiceProvider;
         return sp?.GetService<ILogger>() ?? Log.Logger;
     });
+
     private static ILogger Logger => DebugLogger2.Value;
     private static readonly string TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 

@@ -22,8 +22,10 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
     // Slider constraints
     /// <summary>The minimum fuzzy matching threshold allowed by the slider.</summary>
     public const double MinimumThreshold = 0.7;
+
     /// <summary>The maximum fuzzy matching threshold allowed by the slider.</summary>
     public const double MaximumThreshold = 0.95;
+
     /// <summary>The tick frequency of the slider.</summary>
     public const double TickFrequency = 0.05;
 
@@ -94,10 +96,12 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
     /// Event raised when the window should be closed with a success result.
     /// </summary>
     public event EventHandler SaveCompleted = null!;
+
     /// <summary>
     /// Event raised when the window should be closed without saving.
     /// </summary>
     public event EventHandler CancelRequested = null!;
+
     [RelayCommand(CanExecute = nameof(CanSave))]
     private async Task SaveAsync()
     {

@@ -18,6 +18,7 @@ public class ApplicationStats
         var sp = App.ServiceProvider;
         return sp?.GetService<ILogger>() ?? Log.Logger;
     });
+
     private static ILogger Logger => DebugLogger2.Value;
 
     /// <summary>Asynchronously sends application version statistics to the remote API.</summary>

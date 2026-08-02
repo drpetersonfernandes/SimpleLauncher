@@ -144,6 +144,7 @@ public class BugReportApiSink : ILogEventSink, IDisposable
         {
             sb.AppendLine(CultureInfo.InvariantCulture, $"Exception: {logEvent.Exception}");
         }
+
         sb.AppendLine();
         return sb.ToString();
     }

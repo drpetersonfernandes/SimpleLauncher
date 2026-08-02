@@ -15,50 +15,62 @@ public class AresSettings : IEmulatorSettings
     /// Gets or sets the video driver used by the emulator (e.g., "OpenGL 3.2").
     /// </summary>
     public string VideoDriver { get; set; } = "OpenGL 3.2";
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator runs in exclusive fullscreen mode.
     /// </summary>
     public bool Exclusive { get; set; }
+
     /// <summary>
     /// Gets or sets the video shader preset applied during emulation.
     /// </summary>
     public string Shader { get; set; } = "None";
+
     /// <summary>
     /// Gets or sets the internal resolution multiplier applied by the emulator.
     /// </summary>
     public int Multiplier { get; set; } = 2;
+
     /// <summary>
     /// Gets or sets the aspect ratio correction mode used by the emulator.
     /// </summary>
     public string AspectCorrection { get; set; } = "Standard";
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator audio is muted.
     /// </summary>
     public bool Mute { get; set; }
+
     /// <summary>
     /// Gets or sets the master audio volume, ranging from 0.0 to 1.0.
     /// </summary>
     public double Volume { get; set; } = 1.0;
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator skips the console boot screen and starts games directly.
     /// </summary>
     public bool FastBoot { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether rewind support is enabled.
     /// </summary>
     public bool Rewind { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether run-ahead (input latency reduction) is enabled.
     /// </summary>
     public bool RunAhead { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator automatically saves memory when a game closes.
     /// </summary>
     public bool AutoSaveMemory { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
     /// </summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
+
 
     /// <summary>
     /// Loads the Ares settings from the specified XML element.
@@ -81,6 +93,7 @@ public class AresSettings : IEmulatorSettings
         ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
+
     /// <summary>
     /// Serializes the Ares settings into an XML element for persistence.
     /// </summary>
@@ -101,6 +114,7 @@ public class AresSettings : IEmulatorSettings
             new XElement("AutoSaveMemory", AutoSaveMemory),
             new XElement("ShowSettingsBeforeLaunch", ShowSettingsBeforeLaunch));
     }
+
 
     /// <summary>
     /// Copies the values from another emulator settings instance if it is an Ares settings instance.
@@ -123,6 +137,7 @@ public class AresSettings : IEmulatorSettings
         AutoSaveMemory = src.AutoSaveMemory;
         ShowSettingsBeforeLaunch = src.ShowSettingsBeforeLaunch;
     }
+
 
     /// <summary>
     /// Resets all Ares settings to their default values.

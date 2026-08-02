@@ -15,22 +15,27 @@ public class FlycastSettings : IEmulatorSettings
     /// Gets or sets a value indicating whether the emulator starts in fullscreen mode.
     /// </summary>
     public bool Fullscreen { get; set; }
+
     /// <summary>
     /// Gets or sets the width of the emulation window.
     /// </summary>
     public int Width { get; set; } = 640;
+
     /// <summary>
     /// Gets or sets the height of the emulation window.
     /// </summary>
     public int Height { get; set; } = 480;
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulation window starts maximized.
     /// </summary>
     public bool Maximized { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
     /// </summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
+
 
     /// <summary>
     /// Loads the Flycast settings from the specified XML element.
@@ -46,6 +51,7 @@ public class FlycastSettings : IEmulatorSettings
         ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
+
     /// <summary>
     /// Serializes the Flycast settings into an XML element for persistence.
     /// </summary>
@@ -59,6 +65,7 @@ public class FlycastSettings : IEmulatorSettings
             new XElement("Maximized", Maximized),
             new XElement("ShowSettingsBeforeLaunch", ShowSettingsBeforeLaunch));
     }
+
 
     /// <summary>
     /// Copies the values from another emulator settings instance if it is a Flycast settings instance.
@@ -74,6 +81,7 @@ public class FlycastSettings : IEmulatorSettings
         Maximized = src.Maximized;
         ShowSettingsBeforeLaunch = src.ShowSettingsBeforeLaunch;
     }
+
 
     /// <summary>
     /// Resets all Flycast settings to their default values.

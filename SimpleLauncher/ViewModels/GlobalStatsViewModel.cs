@@ -171,14 +171,18 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
     /// Event raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
+
     #endregion
 
     /// <summary>Gets the command to start the statistics calculation.</summary>
     public IAsyncRelayCommand StartCommand { get; }
+
     /// <summary>Gets the command to cancel the statistics calculation.</summary>
     public IRelayCommand CancelCommand { get; }
+
     /// <summary>Gets the command to save the statistics report to a file.</summary>
     public IAsyncRelayCommand SaveReportCommand { get; }
+
     /// <summary>Gets the command invoked when the window is closing.</summary>
     public IAsyncRelayCommand<CancelEventArgs?> ClosingCommand { get; }
 

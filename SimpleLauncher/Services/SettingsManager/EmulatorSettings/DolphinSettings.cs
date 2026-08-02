@@ -15,22 +15,27 @@ public class DolphinSettings : IEmulatorSettings
     /// Gets or sets the graphics backend used by the emulator (e.g., "Vulkan").
     /// </summary>
     public string GfxBackend { get; set; } = "Vulkan";
+
     /// <summary>
     /// Gets or sets a value indicating whether audio is processed on a dedicated DSP thread.
     /// </summary>
     public bool DspThread { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether Wiimotes are continuously scanned for connections.
     /// </summary>
     public bool WiimoteContinuousScanning { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether the Wiimote speaker is enabled.
     /// </summary>
     public bool WiimoteEnableSpeaker { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
     /// </summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
+
 
     /// <summary>
     /// Loads the Dolphin settings from the specified XML element.
@@ -46,6 +51,7 @@ public class DolphinSettings : IEmulatorSettings
         ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
+
     /// <summary>
     /// Serializes the Dolphin settings into an XML element for persistence.
     /// </summary>
@@ -59,6 +65,7 @@ public class DolphinSettings : IEmulatorSettings
             new XElement("WiimoteEnableSpeaker", WiimoteEnableSpeaker),
             new XElement("ShowSettingsBeforeLaunch", ShowSettingsBeforeLaunch));
     }
+
 
     /// <summary>
     /// Copies the values from another emulator settings instance if it is a Dolphin settings instance.
@@ -74,6 +81,7 @@ public class DolphinSettings : IEmulatorSettings
         WiimoteEnableSpeaker = src.WiimoteEnableSpeaker;
         ShowSettingsBeforeLaunch = src.ShowSettingsBeforeLaunch;
     }
+
 
     /// <summary>
     /// Resets all Dolphin settings to their default values.

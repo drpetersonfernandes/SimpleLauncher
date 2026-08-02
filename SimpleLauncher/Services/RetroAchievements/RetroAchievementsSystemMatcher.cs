@@ -30,6 +30,7 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         /// Gets the official RetroAchievements console ID for the system.
         /// </summary>
         public int Id { get; }
+
         /// <summary>
         /// Gets the list of known name aliases for the system used for matching.
         /// </summary>

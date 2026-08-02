@@ -28,6 +28,7 @@ public partial class InjectStellaConfigViewModel : ObservableObject
     [ObservableProperty] private bool _timeMachine;
     [ObservableProperty] private bool _confirmExit;
     [ObservableProperty] private bool _showBeforeLaunch;
+
     /// <summary>Initializes a new instance of the <see cref="InjectStellaConfigViewModel"/>.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
@@ -75,6 +76,7 @@ public partial class InjectStellaConfigViewModel : ObservableObject
     /// Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
+
     [RelayCommand]
     private void Cancel()
     {
@@ -85,10 +87,12 @@ public partial class InjectStellaConfigViewModel : ObservableObject
     /// Requests the user to provide the emulator executable path.
     /// </summary>
     public Func<string?>? RequestEmulatorPath { get; set; }
+
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
     public Func<Window>? GetOwnerWindow { get; set; }
+
     private void LoadSettings()
     {
         Fullscreen = _settings.Stella.Fullscreen;

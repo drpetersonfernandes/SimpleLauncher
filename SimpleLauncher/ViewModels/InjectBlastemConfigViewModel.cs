@@ -27,6 +27,7 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
     [ObservableProperty] private string _audioRate = "";
     [ObservableProperty] private string _syncSource = "";
     [ObservableProperty] private bool _showBeforeLaunch;
+
     /// <summary>Initializes a new instance of the <see cref="InjectBlastemConfigViewModel"/>.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
@@ -84,6 +85,7 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
     /// Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
+
     [RelayCommand]
     private void Cancel()
     {
@@ -94,10 +96,12 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
     /// Requests the user to provide the emulator executable path.
     /// </summary>
     public Func<string?>? RequestEmulatorPath { get; set; }
+
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
     public Func<Window>? GetOwnerWindow { get; set; }
+
     private void LoadSettings()
     {
         Fullscreen = _settings.Blastem.Fullscreen;

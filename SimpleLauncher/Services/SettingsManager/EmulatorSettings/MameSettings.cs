@@ -15,62 +15,77 @@ public class MameSettings : IEmulatorSettings
     /// Gets or sets the video output mode used by MAME (e.g., "auto").
     /// </summary>
     public string Video { get; set; } = "auto";
+
     /// <summary>
     /// Gets or sets a value indicating whether MAME runs in a window instead of fullscreen.
     /// </summary>
     public bool Window { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulation window starts maximized.
     /// </summary>
     public bool Maximize { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether the original game aspect ratio is preserved.
     /// </summary>
     public bool KeepAspect { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether the game information screen is skipped on startup.
     /// </summary>
     public bool SkipGameInfo { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether NVRAM is automatically saved when exiting.
     /// </summary>
     public bool Autosave { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether MAME asks for confirmation before quitting.
     /// </summary>
     public bool ConfirmQuit { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether joystick input is enabled.
     /// </summary>
     public bool Joystick { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
     /// </summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether automatic frame skipping is enabled to maintain speed.
     /// </summary>
     public bool Autoframeskip { get; set; }
+
     /// <summary>
     /// Gets or sets the BGFX video backend used by MAME (e.g., "auto").
     /// </summary>
     public string BgfxBackend { get; set; } = "auto";
+
     /// <summary>
     /// Gets or sets the BGFX screen chain effect applied to the video output.
     /// </summary>
     public string BgfxScreenChains { get; set; } = "default";
+
     /// <summary>
     /// Gets or sets a value indicating whether texture filtering is enabled.
     /// </summary>
     public bool Filter { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether cheat support is enabled.
     /// </summary>
     public bool Cheat { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether rewind support is enabled.
     /// </summary>
     public bool Rewind { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether NVRAM data is saved on exit.
     /// </summary>
@@ -101,6 +116,7 @@ public class MameSettings : IEmulatorSettings
         NvramSave = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(NvramSave), true);
     }
 
+
     /// <summary>
     /// Serializes the MAME settings into an XML element for persistence.
     /// </summary>
@@ -125,6 +141,7 @@ public class MameSettings : IEmulatorSettings
             new XElement("Rewind", Rewind),
             new XElement("NvramSave", NvramSave));
     }
+
 
     /// <summary>
     /// Copies the values from another emulator settings instance if it is a MAME settings instance.
@@ -151,6 +168,7 @@ public class MameSettings : IEmulatorSettings
         Rewind = src.Rewind;
         NvramSave = src.NvramSave;
     }
+
 
     /// <summary>
     /// Resets all MAME settings to their default values.

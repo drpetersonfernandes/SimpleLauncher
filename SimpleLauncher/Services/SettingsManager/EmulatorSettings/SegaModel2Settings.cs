@@ -13,30 +13,43 @@ public class SegaModel2Settings : IEmulatorSettings
 
     /// <summary>Horizontal resolution for the emulator display.</summary>
     public int ResX { get; set; } = 640;
+
     /// <summary>Vertical resolution for the emulator display.</summary>
     public int ResY { get; set; } = 480;
+
     /// <summary>Widescreen mode setting (0 = off, 1 = on).</summary>
     public int WideScreen { get; set; }
+
     /// <summary>Whether bilinear texture filtering is enabled.</summary>
     public bool Bilinear { get; set; } = true;
+
     /// <summary>Whether trilinear texture filtering is enabled.</summary>
     public bool Trilinear { get; set; }
+
     /// <summary>Whether tilemap filtering is enabled.</summary>
     public bool FilterTilemaps { get; set; }
+
     /// <summary>Whether to draw a crosshair overlay.</summary>
     public bool DrawCross { get; set; } = true;
+
     /// <summary>Full-screen anti-aliasing level.</summary>
     public int Fsaa { get; set; }
+
     /// <summary>Whether XInput controller support is enabled.</summary>
     public bool XInput { get; set; }
+
     /// <summary>Whether force feedback is enabled.</summary>
     public bool EnableFf { get; set; }
+
     /// <summary>Whether to hold gears in racing games.</summary>
     public bool HoldGears { get; set; }
+
     /// <summary>Whether raw input is used for controls.</summary>
     public bool UseRawInput { get; set; }
+
     /// <summary>Whether to show the emulator settings dialog before launching a game.</summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
+
 
     /// <summary>Loads settings from the specified XML element.</summary>
     /// <param name="settings">The XML element containing the settings data.</param>
@@ -58,6 +71,7 @@ public class SegaModel2Settings : IEmulatorSettings
         ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
+
     /// <summary>Serializes the current settings to an XML element.</summary>
     /// <returns>An <see cref="XElement"/> containing the settings data.</returns>
     public XElement ToXElement()
@@ -77,6 +91,7 @@ public class SegaModel2Settings : IEmulatorSettings
             new XElement("UseRawInput", UseRawInput),
             new XElement("ShowSettingsBeforeLaunch", ShowSettingsBeforeLaunch));
     }
+
 
     /// <summary>Copies settings from another <see cref="IEmulatorSettings"/> instance of the same type.</summary>
     /// <param name="other">The source settings to copy from.</param>
@@ -98,6 +113,7 @@ public class SegaModel2Settings : IEmulatorSettings
         UseRawInput = src.UseRawInput;
         ShowSettingsBeforeLaunch = src.ShowSettingsBeforeLaunch;
     }
+
 
     /// <summary>Resets all settings to their default values.</summary>
     public void ResetDefaults()

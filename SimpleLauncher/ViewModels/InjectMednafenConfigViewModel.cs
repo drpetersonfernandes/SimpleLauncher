@@ -28,6 +28,7 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
     [ObservableProperty] private bool _mednafenCheats;
     [ObservableProperty] private bool _mednafenRewind;
     [ObservableProperty] private bool _mednafenShowSettingsBeforeLaunch;
+
     /// <summary>Initializes a new instance of the <see cref="InjectMednafenConfigViewModel"/>.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
@@ -80,6 +81,7 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
     /// Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
+
     [RelayCommand]
     private void Cancel()
     {
@@ -90,10 +92,12 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
     /// Requests the user to provide the emulator executable path.
     /// </summary>
     public Func<string?>? RequestEmulatorPath { get; set; }
+
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
     public Func<Window>? GetOwnerWindow { get; set; }
+
     private void LoadSettings()
     {
         MednafenVideoDriver = _settings.Mednafen.VideoDriver;

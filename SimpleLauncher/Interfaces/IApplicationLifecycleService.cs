@@ -15,15 +15,18 @@ public interface IApplicationLifecycleService
     /// </summary>
     /// <param name="host">The startup initialization host.</param>
     Task InitializeStartupAsync(IStartupInitializationHost host);
+
     /// <summary>
     /// Silently checks for available application updates.
     /// </summary>
     /// <param name="mainWindow">The main application window.</param>
     Task SilentCheckForUpdatesAsync(Window mainWindow);
+
     /// <summary>
     /// Reports anonymous usage telemetry.
     /// </summary>
     Task ReportUsageAsync();
+
     /// <summary>
     /// Migrates play history data for the specified system managers.
     /// </summary>
@@ -34,6 +37,7 @@ public interface IApplicationLifecycleService
     /// Occurs when game files change in the watched folders.
     /// </summary>
     event EventHandler<EventArgs<string>> GameFilesChanged;
+
     /// <summary>
     /// Starts watching the specified folders for game file changes.
     /// </summary>
@@ -41,10 +45,12 @@ public interface IApplicationLifecycleService
     /// <param name="systemName">The system name associated with the watched folders.</param>
     /// <param name="fileExtensions">Optional file extension filter.</param>
     void StartWatching(IEnumerable<string> folders, string systemName, IEnumerable<string>? fileExtensions = null);
+
     /// <summary>
     /// Stops watching all previously watched folders.
     /// </summary>
     void StopWatching();
+
     /// <summary>
     /// Unsubscribes a handler from the GameFilesChanged event.
     /// </summary>

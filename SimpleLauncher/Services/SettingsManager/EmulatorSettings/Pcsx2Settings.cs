@@ -15,46 +15,57 @@ public class Pcsx2Settings : IEmulatorSettings
     /// Gets or sets a value indicating whether the emulator starts in fullscreen mode.
     /// </summary>
     public bool StartFullscreen { get; set; } = true;
+
     /// <summary>
     /// Gets or sets the aspect ratio of the emulation window (e.g., "16:9").
     /// </summary>
     public string AspectRatio { get; set; } = "16:9";
+
     /// <summary>
     /// Gets or sets the graphics renderer used by the emulator (e.g., 14 for Vulkan).
     /// </summary>
     public int Renderer { get; set; } = 14;
+
     /// <summary>
     /// Gets or sets the internal resolution upscaling multiplier applied during emulation.
     /// </summary>
     public int UpscaleMultiplier { get; set; } = 2;
+
     /// <summary>
     /// Gets or sets a value indicating whether vertical synchronization is enabled.
     /// </summary>
     public bool Vsync { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether cheat support is enabled.
     /// </summary>
     public bool EnableCheats { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether widescreen patches are enabled.
     /// </summary>
     public bool EnableWidescreenPatches { get; set; }
+
     /// <summary>
     /// Gets or sets the audio volume percentage.
     /// </summary>
     public int Volume { get; set; } = 100;
+
     /// <summary>
     /// Gets or sets a value indicating whether RetroAchievements integration is enabled.
     /// </summary>
     public bool AchievementsEnabled { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether RetroAchievements hardcore mode is enabled.
     /// </summary>
     public bool AchievementsHardcore { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
     /// </summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
+
 
     /// <summary>
     /// Loads the PCSX2 settings from the specified XML element.
@@ -76,6 +87,7 @@ public class Pcsx2Settings : IEmulatorSettings
         ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
+
     /// <summary>
     /// Serializes the PCSX2 settings into an XML element for persistence.
     /// </summary>
@@ -95,6 +107,7 @@ public class Pcsx2Settings : IEmulatorSettings
             new XElement("AchievementsHardcore", AchievementsHardcore),
             new XElement("ShowSettingsBeforeLaunch", ShowSettingsBeforeLaunch));
     }
+
 
     /// <summary>
     /// Copies the values from another emulator settings instance if it is a PCSX2 settings instance.
@@ -116,6 +129,7 @@ public class Pcsx2Settings : IEmulatorSettings
         AchievementsHardcore = src.AchievementsHardcore;
         ShowSettingsBeforeLaunch = src.ShowSettingsBeforeLaunch;
     }
+
 
     /// <summary>
     /// Resets all PCSX2 settings to their default values.

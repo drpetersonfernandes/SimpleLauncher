@@ -196,9 +196,11 @@ public class FindCoverImageService : IFindCoverImageService
                     continue;
                 }
             }
+
             result.Append(input[i]);
             i++;
         }
+
         return result.ToString();
     }
 

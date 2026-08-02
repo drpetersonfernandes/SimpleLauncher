@@ -27,6 +27,7 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     [ObservableProperty] private bool _pcsx2AchievementsEnabled;
     [ObservableProperty] private bool _pcsx2AchievementsHardcore;
     [ObservableProperty] private bool _pcsx2ShowSettingsBeforeLaunch;
+
     /// <summary>Initializes a new instance of the <see cref="InjectPcsx2ConfigViewModel"/>.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
@@ -89,6 +90,7 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     /// Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
+
     [RelayCommand]
     private void Cancel()
     {
@@ -99,10 +101,12 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     /// Requests the user to provide the emulator executable path.
     /// </summary>
     public Func<string?>? RequestEmulatorPath { get; set; }
+
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
     public Func<Window>? GetOwnerWindow { get; set; }
+
     private void LoadSettings()
     {
         Pcsx2Renderer = _settings.Pcsx2.Renderer;

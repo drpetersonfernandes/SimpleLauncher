@@ -15,50 +15,62 @@ public class MednafenSettings : IEmulatorSettings
     /// Gets or sets the video driver used by Mednafen (e.g., "opengl").
     /// </summary>
     public string VideoDriver { get; set; } = "opengl";
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator starts in fullscreen mode.
     /// </summary>
     public bool Fullscreen { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether vertical synchronization is enabled.
     /// </summary>
     public bool Vsync { get; set; } = true;
+
     /// <summary>
     /// Gets or sets the video stretching mode (e.g., "aspect").
     /// </summary>
     public string Stretch { get; set; } = "aspect";
+
     /// <summary>
     /// Gets or sets a value indicating whether bilinear filtering is applied to the video output.
     /// </summary>
     public bool Bilinear { get; set; }
+
     /// <summary>
     /// Gets or sets the scanline intensity applied to the video output.
     /// </summary>
     public int Scanlines { get; set; }
+
     /// <summary>
     /// Gets or sets the video shader preset applied during emulation (e.g., "none").
     /// </summary>
     public string Shader { get; set; } = "none";
+
     /// <summary>
     /// Gets or sets the special video effect applied during emulation (e.g., "none").
     /// </summary>
     public string Special { get; set; } = "none";
+
     /// <summary>
     /// Gets or sets the audio volume percentage.
     /// </summary>
     public int Volume { get; set; } = 100;
+
     /// <summary>
     /// Gets or sets a value indicating whether cheat support is enabled.
     /// </summary>
     public bool Cheats { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether rewind support is enabled.
     /// </summary>
     public bool Rewind { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
     /// </summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
+
 
     /// <summary>
     /// Loads the Mednafen settings from the specified XML element.
@@ -81,6 +93,7 @@ public class MednafenSettings : IEmulatorSettings
         ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
+
     /// <summary>
     /// Serializes the Mednafen settings into an XML element for persistence.
     /// </summary>
@@ -101,6 +114,7 @@ public class MednafenSettings : IEmulatorSettings
             new XElement("Rewind", Rewind),
             new XElement("ShowSettingsBeforeLaunch", ShowSettingsBeforeLaunch));
     }
+
 
     /// <summary>
     /// Copies the values from another emulator settings instance if it is a Mednafen settings instance.
@@ -123,6 +137,7 @@ public class MednafenSettings : IEmulatorSettings
         Rewind = src.Rewind;
         ShowSettingsBeforeLaunch = src.ShowSettingsBeforeLaunch;
     }
+
 
     /// <summary>
     /// Resets all Mednafen settings to their default values.

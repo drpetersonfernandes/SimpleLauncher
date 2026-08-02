@@ -15,38 +15,47 @@ public class AzaharSettings : IEmulatorSettings
     /// Gets or sets the graphics API used by the emulator (e.g., 1 for OpenGL).
     /// </summary>
     public int GraphicsApi { get; set; } = 1;
+
     /// <summary>
     /// Gets or sets the internal resolution scaling factor applied during emulation.
     /// </summary>
     public int ResolutionFactor { get; set; } = 1;
+
     /// <summary>
     /// Gets or sets a value indicating whether vertical synchronization is enabled.
     /// </summary>
     public bool UseVsync { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether shaders are compiled asynchronously to reduce stuttering.
     /// </summary>
     public bool AsyncShaderCompilation { get; set; } = true;
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator starts in fullscreen mode.
     /// </summary>
     public bool Fullscreen { get; set; } = true;
+
     /// <summary>
     /// Gets or sets the audio volume percentage.
     /// </summary>
     public int Volume { get; set; } = 100;
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator uses the New 3DS hardware profile.
     /// </summary>
     public bool IsNew3Ds { get; set; } = true;
+
     /// <summary>
     /// Gets or sets the screen layout option used by the emulator (e.g., 0 for default).
     /// </summary>
     public int LayoutOption { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
     /// </summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether audio stretching is enabled.
     /// </summary>
@@ -71,6 +80,7 @@ public class AzaharSettings : IEmulatorSettings
         EnableAudioStretching = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(EnableAudioStretching), true);
     }
 
+
     /// <summary>
     /// Serializes the Azahar settings into an XML element for persistence.
     /// </summary>
@@ -89,6 +99,7 @@ public class AzaharSettings : IEmulatorSettings
             new XElement("ShowSettingsBeforeLaunch", ShowSettingsBeforeLaunch),
             new XElement("EnableAudioStretching", EnableAudioStretching));
     }
+
 
     /// <summary>
     /// Copies the values from another emulator settings instance if it is an Azahar settings instance.
@@ -109,6 +120,7 @@ public class AzaharSettings : IEmulatorSettings
         ShowSettingsBeforeLaunch = src.ShowSettingsBeforeLaunch;
         EnableAudioStretching = src.EnableAudioStretching;
     }
+
 
     /// <summary>
     /// Resets all Azahar settings to their default values.

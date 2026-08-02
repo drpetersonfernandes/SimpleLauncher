@@ -22,6 +22,7 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
     [ObservableProperty] private int _width;
     [ObservableProperty] private int _height;
     [ObservableProperty] private bool _showBeforeLaunch;
+
     /// <summary>Initializes a new instance of the <see cref="InjectFlycastConfigViewModel"/>.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
@@ -59,6 +60,7 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
     /// Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
+
     [RelayCommand]
     private void Cancel()
     {
@@ -69,10 +71,12 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
     /// Requests the user to provide the emulator executable path.
     /// </summary>
     public Func<string?>? RequestEmulatorPath { get; set; }
+
     /// <summary>
     /// Gets the owner window for dialog display.
     /// </summary>
     public Func<Window>? GetOwnerWindow { get; set; }
+
     private void LoadSettings()
     {
         Fullscreen = _settings.Flycast.Fullscreen;

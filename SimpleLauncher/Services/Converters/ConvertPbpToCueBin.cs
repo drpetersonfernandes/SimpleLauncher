@@ -11,11 +11,13 @@ namespace SimpleLauncher.Services.Converters;
 public static class ConvertPbpToCueBin
 {
     private static readonly string TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
+
     private static readonly Lazy<ILogger> DebugLogger2 = new(() =>
     {
         var sp = App.ServiceProvider;
         return sp?.GetService<ILogger>() ?? Log.Logger;
     });
+
     private static ILogger Logger => DebugLogger2.Value;
 
     /// <summary>
