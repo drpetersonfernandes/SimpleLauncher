@@ -4,6 +4,9 @@ using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
+/// <summary>
+/// Window that downloads and installs image packs for game systems.
+/// </summary>
 public partial class DownloadImagePackWindow : IDisposable
 {
     private readonly DownloadImagePackViewModel _viewModel;

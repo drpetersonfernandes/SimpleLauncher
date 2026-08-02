@@ -15,6 +15,9 @@ using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 
 namespace SimpleLauncher.ViewModels;
 
+/// <summary>
+/// Provides the play history list, selection, and preview logic for the play history UI.
+/// </summary>
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class PlayHistoryViewModel : ObservableObject, IDisposable
 {

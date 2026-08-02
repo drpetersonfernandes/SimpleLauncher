@@ -129,6 +129,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     /// The next page navigation button used for pagination.
     /// </summary>
     internal Button? NextPageButton2;
+
     /// <summary>
     /// The previous page navigation button used for pagination.
     /// </summary>
@@ -138,10 +139,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     /// The tray icon manager instance for system tray integration.
     /// </summary>
     internal TrayIconManager? TrayIconManager;
+
     /// <summary>
     /// The play history manager that tracks play history for games.
     /// </summary>
     internal PlayHistoryManager PlayHistoryManager { get; }
+
     private List<SystemManager> _systemManagers = null!;
     private readonly FilterMenu _topLetterNumberMenu;
     private readonly WrapPanel _gameFileGrid;
@@ -158,18 +161,22 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly IContextMenuFunctions _contextMenuFunctions;
     private readonly ILogger _logger;
     private readonly IContextMenuService _contextMenuService;
+
     /// <summary>
     /// The status bar update service used to display messages in the status bar.
     /// </summary>
     internal readonly IUpdateStatusBar UpdateStatusBarService;
+
     /// <summary>
     /// The UI reset service used to reset the UI to its default state.
     /// </summary>
     internal readonly IUiResetService UiResetService;
+
     /// <summary>
     /// The system configuration service for system-related settings.
     /// </summary>
     internal readonly ISystemConfigurationService SystemConfigurationService;
+
     /// <summary>
     /// The UI orchestrator service that coordinates UI updates.
     /// </summary>

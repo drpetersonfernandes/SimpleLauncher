@@ -5,10 +5,18 @@ using CheckForUpdatesService = SimpleLauncher.Services.CheckForUpdatesService;
 
 namespace SimpleLauncher.Tests;
 
+/// <summary>
+/// Tests for <see cref="CheckForUpdatesService"/> covering version comparison, response parsing,
+/// ZIP extraction, and real GitHub API interactions.
+/// </summary>
 public class CheckForUpdatesTests : IDisposable
 {
     private readonly string _testDirectory;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CheckForUpdatesTests"/> class,
+    /// installing the service provider mock and creating a temporary test directory.
+    /// </summary>
     public CheckForUpdatesTests()
     {
         ServiceProviderMock.Install();
@@ -16,6 +24,9 @@ public class CheckForUpdatesTests : IDisposable
         Directory.CreateDirectory(_testDirectory);
     }
 
+    /// <summary>
+    /// Cleans up the temporary test directory and restores the service provider mock.
+    /// </summary>
     public void Dispose()
     {
         try
@@ -38,6 +49,9 @@ public class CheckForUpdatesTests : IDisposable
     // IsNewVersionAvailable
     // ------------------------------------------------------------------
 
+    /// <summary>
+    /// Verifies that a newer four-part version (e.g. 5.6.1.0) is detected as an update over the current version.
+    /// </summary>
     [Fact]
     public void IsNewVersionAvailableFourPartVersionsReturnsTrue()
     {
@@ -45,6 +59,9 @@ public class CheckForUpdatesTests : IDisposable
         Assert.True(result);
     }
 
+    /// <summary>
+    /// Verifies that two identical four-part versions are not detected as an update.
+    /// </summary>
     [Fact]
     public void IsNewVersionAvailableFourPartVersionsEqualReturnsFalse()
     {
@@ -52,6 +69,9 @@ public class CheckForUpdatesTests : IDisposable
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that a newer major version is detected as an update.
+    /// </summary>
     [Fact]
     public void IsNewVersionAvailableMajorDifferenceReturnsTrue()
     {
@@ -59,6 +79,9 @@ public class CheckForUpdatesTests : IDisposable
         Assert.True(result);
     }
 
+    /// <summary>
+    /// Verifies that a newer minor version is detected as an update.
+    /// </summary>
     [Fact]
     public void IsNewVersionAvailableMinorDifferenceReturnsTrue()
     {
@@ -66,6 +89,9 @@ public class CheckForUpdatesTests : IDisposable
         Assert.True(result);
     }
 
+    /// <summary>
+    /// Verifies that a newer patch version is detected as an update.
+    /// </summary>
     [Fact]
     public void IsNewVersionAvailablePatchDifferenceReturnsTrue()
     {
@@ -73,6 +99,9 @@ public class CheckForUpdatesTests : IDisposable
         Assert.True(result);
     }
 
+    /// <summary>
+    /// Verifies that an older current version with a newer major version returns false when compared.
+    /// </summary>
     [Fact]
     public void IsNewVersionAvailableCurrentNewerMajorReturnsFalse()
     {
@@ -80,6 +109,11 @@ public class CheckForUpdatesTests : IDisposable
         Assert.False(result);
     }
 
+    /// <summary>
+    /// Verifies that versions with prefixes such as "release" or "v" are compared correctly and a newer version is detected.
+    /// </summary>
+    /// <param name="current">The current version string, possibly prefixed.</param>
+    /// <param name="latest">The latest version string, possibly prefixed.</param>
     [Theory]
     [InlineData("release5.3.2", "5.3.3")]
     [InlineData("v5.3.2", "5.3.3")]
@@ -90,6 +124,11 @@ public class CheckForUpdatesTests : IDisposable
         Assert.True(result);
     }
 
+    /// <summary>
+    /// Verifies that identical prefixed versions are not detected as an update.
+    /// </summary>
+    /// <param name="current">The current version string, possibly prefixed.</param>
+    /// <param name="latest">The latest version string, possibly prefixed.</param>
     [Theory]
     [InlineData("release5.3.2", "release5.3.2")]
     [InlineData("v5.3.2", "v5.3.2")]
@@ -103,6 +142,11 @@ public class CheckForUpdatesTests : IDisposable
     // NormalizeVersion
     // ------------------------------------------------------------------
 
+    /// <summary>
+    /// Verifies that version strings in various formats are normalized to a four-part version string.
+    /// </summary>
+    /// <param name="input">The raw version string.</param>
+    /// <param name="expected">The expected normalized version string.</param>
     [Theory]
     [InlineData("release5.6.0", "5.6.0.0")]
     [InlineData("v5.6.0", "5.6.0.0")]
@@ -116,18 +160,27 @@ public class CheckForUpdatesTests : IDisposable
         Assert.Equal(expected, InvokeNormalizeVersion(input));
     }
 
+    /// <summary>
+    /// Verifies that a null version string is normalized to "0.0.0.0".
+    /// </summary>
     [Fact]
     public void NormalizeVersionNullReturnsZeroes()
     {
         Assert.Equal("0.0.0.0", InvokeNormalizeVersion(null!));
     }
 
+    /// <summary>
+    /// Verifies that a whitespace-only version string is normalized to "0.0.0.0".
+    /// </summary>
     [Fact]
     public void NormalizeVersionWhitespaceOnlyReturnsZeroes()
     {
         Assert.Equal("0.0.0.0", InvokeNormalizeVersion("   "));
     }
 
+    /// <summary>
+    /// Verifies that a version string containing only a prefix is normalized to "0.0.0.0".
+    /// </summary>
     [Fact]
     public void NormalizeVersionOnlyPrefixReturnsZeroes()
     {
@@ -138,6 +191,9 @@ public class CheckForUpdatesTests : IDisposable
     // ParseVersionAndAssetUrlsFromResponse
     // ------------------------------------------------------------------
 
+    /// <summary>
+    /// Verifies that a response with both updater and release assets returns all URLs.
+    /// </summary>
     [Fact]
     public void ParseResponseWithBothAssetsReturnsAllUrls()
     {
@@ -163,6 +219,9 @@ public class CheckForUpdatesTests : IDisposable
         Assert.Contains("release", releaseUrl, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// Verifies that a response with an empty assets array returns only the version.
+    /// </summary>
     [Fact]
     public void ParseResponseWithEmptyAssetsArrayReturnsVersionOnly()
     {
@@ -180,6 +239,9 @@ public class CheckForUpdatesTests : IDisposable
         Assert.Null(updaterUrl);
     }
 
+    /// <summary>
+    /// Verifies that assets unrelated to the updater or release return null URLs.
+    /// </summary>
     [Fact]
     public void ParseResponseWithUnrelatedAssetsReturnsNullsForUrls()
     {
@@ -200,6 +262,9 @@ public class CheckForUpdatesTests : IDisposable
         Assert.Null(updaterUrl);
     }
 
+    /// <summary>
+    /// Verifies that an asset missing the browser download URL returns null for that URL.
+    /// </summary>
     [Fact]
     public void ParseResponseWithMissingBrowserDownloadUrlReturnsNull()
     {
@@ -218,6 +283,9 @@ public class CheckForUpdatesTests : IDisposable
         Assert.Null(updaterUrl);
     }
 
+    /// <summary>
+    /// Verifies that an empty tag name returns nulls for version and URLs.
+    /// </summary>
     [Fact]
     public void ParseResponseWithEmptyTagNameReturnsNulls()
     {
@@ -237,6 +305,9 @@ public class CheckForUpdatesTests : IDisposable
         Assert.Null(updaterUrl);
     }
 
+    /// <summary>
+    /// Verifies that a non-array assets value returns nulls for version and URLs.
+    /// </summary>
     [Fact]
     public void ParseResponseWithAssetsNotArrayReturnsNulls()
     {
@@ -254,6 +325,9 @@ public class CheckForUpdatesTests : IDisposable
         Assert.Null(updaterUrl);
     }
 
+    /// <summary>
+    /// Verifies that a response with only the updater asset returns null for the release URL.
+    /// </summary>
     [Fact]
     public void ParseResponseWithUpdaterOnlyReturnsNullForRelease()
     {
@@ -273,6 +347,9 @@ public class CheckForUpdatesTests : IDisposable
         Assert.NotNull(updaterUrl);
     }
 
+    /// <summary>
+    /// Verifies that a response with only the release asset returns null for the updater URL.
+    /// </summary>
     [Fact]
     public void ParseResponseWithReleaseOnlyReturnsNullForUpdater()
     {
@@ -292,6 +369,9 @@ public class CheckForUpdatesTests : IDisposable
         Assert.Null(updaterUrl);
     }
 
+    /// <summary>
+    /// Verifies that a version string containing only a prefix returns nulls for version and URLs.
+    /// </summary>
     [Fact]
     public void ParseResponseWithVersionOnlyPrefixReturnsNulls()
     {
@@ -315,6 +395,9 @@ public class CheckForUpdatesTests : IDisposable
     // ExtractAllFromZip
     // ------------------------------------------------------------------
 
+    /// <summary>
+    /// Verifies that ZIP entries with path traversal sequences are rejected.
+    /// </summary>
     [Fact]
     public void ExtractAllFromZipWithPathTraversalReturnsFalse()
     {
@@ -334,6 +417,9 @@ public class CheckForUpdatesTests : IDisposable
         Assert.False(result, "ExtractAllFromZip should return false for path traversal entries.");
     }
 
+    /// <summary>
+    /// Verifies that ZIP entries with nested directories are extracted to the correct locations.
+    /// </summary>
     [Fact]
     public void ExtractAllFromZipWithNestedDirectoriesExtractsCorrectly()
     {
@@ -350,6 +436,9 @@ public class CheckForUpdatesTests : IDisposable
         AssertFileContent(Path.Combine(_testDirectory, "level1", "shallow.txt"), "shallow content");
     }
 
+    /// <summary>
+    /// Verifies that a ZIP with a single file extracts successfully.
+    /// </summary>
     [Fact]
     public void ExtractAllFromZipWithSingleFileExtractsSuccessfully()
     {
@@ -364,6 +453,9 @@ public class CheckForUpdatesTests : IDisposable
         AssertFileContent(Path.Combine(_testDirectory, "single.txt"), "only file");
     }
 
+    /// <summary>
+    /// Verifies that a ZIP containing large file content extracts without truncation.
+    /// </summary>
     [Fact]
     public void ExtractAllFromZipWithLargeContentExtractsSuccessfully()
     {
@@ -379,6 +471,9 @@ public class CheckForUpdatesTests : IDisposable
         AssertFileContent(Path.Combine(_testDirectory, "large.bin"), largeContent);
     }
 
+    /// <summary>
+    /// Verifies that existing files are overwritten when extracting a ZIP.
+    /// </summary>
     [Fact]
     public void ExtractAllFromZipOverwritesExistingFiles()
     {
@@ -396,6 +491,9 @@ public class CheckForUpdatesTests : IDisposable
         AssertFileContent(existingFile, "new content");
     }
 
+    /// <summary>
+    /// Verifies that a corrupted ZIP stream is detected and extraction returns false.
+    /// </summary>
     [Fact]
     public void ExtractAllFromZipCorruptedStreamReturnsFalse()
     {
@@ -410,6 +508,9 @@ public class CheckForUpdatesTests : IDisposable
     // GetLatestUpdaterInfoAsync — real GitHub API
     // ------------------------------------------------------------------
 
+    /// <summary>
+    /// Verifies that the latest updater info can be retrieved from the real GitHub API.
+    /// </summary>
     [Fact]
     public async Task GetLatestUpdaterInfoAsyncFromGitHubReturnsVersionAndUrl()
     {
@@ -430,6 +531,9 @@ public class CheckForUpdatesTests : IDisposable
     // DownloadUpdateFileToMemoryAsync — real download from GitHub
     // ------------------------------------------------------------------
 
+    /// <summary>
+    /// Verifies that the updater file can be downloaded from GitHub as a valid ZIP.
+    /// </summary>
     [Fact]
     public async Task DownloadUpdateFileToMemoryAsyncFromGitHubDownloadsContent()
     {
@@ -516,6 +620,11 @@ public class CheckForUpdatesTests : IDisposable
 
     private sealed class RealHttpClientFactory : IHttpClientFactory
     {
+        /// <summary>
+        /// Creates a new <see cref="HttpClient"/> instance for the specified name.
+        /// </summary>
+        /// <param name="name">The logical name of the client.</param>
+        /// <returns>A new <see cref="HttpClient"/> instance.</returns>
         public HttpClient CreateClient(string name)
         {
             return new HttpClient();

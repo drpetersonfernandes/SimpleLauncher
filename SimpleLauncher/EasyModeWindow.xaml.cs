@@ -18,6 +18,9 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 
+/// <summary>
+/// Window that guides users through downloading, configuring, and launching emulators in easy mode.
+/// </summary>
 internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILoadingState
 {
     private readonly PlaySoundEffects _playSoundEffects;

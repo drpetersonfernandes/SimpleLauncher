@@ -16,8 +16,7 @@ public class Program
     /// <summary>
     /// Asynchronous entry point for the application.
     /// </summary>
-    /// <param name="args">Command-line arguments.</param>
-    private static async Task MainAsync(string[] args)
+    private static async Task MainAsync()
     {
         Console.OutputEncoding = Encoding.UTF8;
 
@@ -211,7 +210,7 @@ public class Program
     /// <param name="args">Command-line arguments.</param>
     public static void Main(string[] args)
     {
-        MainAsync(args).GetAwaiter().GetResult();
+        MainAsync().GetAwaiter().GetResult();
     }
 
     private static string? FindResourcesPath()

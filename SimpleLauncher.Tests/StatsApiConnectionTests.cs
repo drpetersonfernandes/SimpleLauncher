@@ -57,6 +57,9 @@ public class StatsApiConnectionTests
 
     // -- Stats API 1: Usage/emulator statistics (StatsApiUrl) --
 
+    /// <summary>
+    /// Verifies that the Stats API 1 usage endpoint is reachable with a valid API key.
+    /// </summary>
     [Fact]
     public async Task StatsApi1_UsageCall_IsReachable()
     {
@@ -74,6 +77,9 @@ public class StatsApiConnectionTests
             $"Stats API 1 ({statsUrl1}) returned {(int)response.StatusCode} ({response.StatusCode}). Expected success or 429.");
     }
 
+    /// <summary>
+    /// Verifies that the Stats API 1 emulator call endpoint is reachable with a valid API key.
+    /// </summary>
     [Fact]
     public async Task StatsApi1_EmulatorCall_IsReachable()
     {
@@ -92,6 +98,9 @@ public class StatsApiConnectionTests
             $"Stats API 1 emulator call ({statsUrl1}) returned {(int)response.StatusCode} ({response.StatusCode}). Expected success or 429.");
     }
 
+    /// <summary>
+    /// Verifies that the Stats API 1 returns a valid response body on success.
+    /// </summary>
     [Fact]
     public async Task StatsApi1_ReturnsValidResponseContent()
     {
@@ -111,6 +120,9 @@ public class StatsApiConnectionTests
         }
     }
 
+    /// <summary>
+    /// Verifies that the Stats API 1 responds within the configured timeout.
+    /// </summary>
     [Fact]
     public async Task StatsApi1_RespondsWithinTimeout()
     {
@@ -130,6 +142,9 @@ public class StatsApiConnectionTests
 
     // -- Stats API 2: Application version statistics (StatsApiUrl2) --
 
+    /// <summary>
+    /// Verifies that the Stats API 2 application stats endpoint is reachable with a valid API key.
+    /// </summary>
     [Fact]
     public async Task StatsApi2_ApplicationStatsCall_IsReachable()
     {
@@ -150,6 +165,9 @@ public class StatsApiConnectionTests
             $"Stats API 2 ({statsUrl2}) returned {(int)response.StatusCode} ({response.StatusCode}). Expected success or 429.");
     }
 
+    /// <summary>
+    /// Verifies that the Stats API 2 returns a valid response body on success.
+    /// </summary>
     [Fact]
     public async Task StatsApi2_ReturnsValidResponseContent()
     {
@@ -172,6 +190,9 @@ public class StatsApiConnectionTests
         }
     }
 
+    /// <summary>
+    /// Verifies that the Stats API 2 responds within the configured timeout.
+    /// </summary>
     [Fact]
     public async Task StatsApi2_RespondsWithinTimeout()
     {
@@ -194,6 +215,10 @@ public class StatsApiConnectionTests
 
     // -- Both APIs tested together --
 
+    /// <summary>
+    /// Verifies that both Stats API endpoints are reachable with a valid API key.
+    /// </summary>
+    /// <param name="url">The Stats API endpoint URL.</param>
     [Theory]
     [InlineData("https://www.purelogiccode.com/simplelauncher/stats/stats/")]
     [InlineData("https://www.purelogiccode.com/ApplicationStats/stats")]
@@ -226,6 +251,10 @@ public class StatsApiConnectionTests
             $"Stats API {url} returned {(int)response.StatusCode} ({response.StatusCode}). Could not connect.");
     }
 
+    /// <summary>
+    /// Verifies that both Stats API endpoints respond gracefully when called with an invalid API key.
+    /// </summary>
+    /// <param name="url">The Stats API endpoint URL.</param>
     [Theory]
     [InlineData("https://www.purelogiccode.com/simplelauncher/stats/stats/")]
     [InlineData("https://www.purelogiccode.com/ApplicationStats/stats")]
@@ -253,6 +282,9 @@ public class StatsApiConnectionTests
             $"Stats API {url} returned an undefined status code with invalid key.");
     }
 
+    /// <summary>
+    /// Verifies that the Stats API configuration values in appsettings.json are valid and distinct.
+    /// </summary>
     [Fact]
     public async Task StatsApi_ConfigurationUrlsMatchAppSettings()
     {

@@ -19,6 +19,9 @@ using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace SimpleLauncher;
 
+/// <summary>
+/// Window for adding, editing, and validating emulator system configurations.
+/// </summary>
 internal partial class EditSystemWindow : ILoadingState
 {
     private List<SystemManagerService> _systems = null!;

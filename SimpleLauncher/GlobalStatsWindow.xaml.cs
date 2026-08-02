@@ -6,6 +6,9 @@ using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService
 
 namespace SimpleLauncher;
 
+/// <summary>
+/// Window that displays global statistics across all systems.
+/// </summary>
 internal partial class GlobalStatsWindow : IDisposable
 {
     private readonly GlobalStatsViewModel _viewModel;
