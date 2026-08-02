@@ -14,7 +14,6 @@
     <Window.Resources>
         <converters:PathToImageConverter x:Key="PathToImage" />
         <converters:SmartTitleCaseConverter x:Key="SmartTitleCase" />
-        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
     </Window.Resources>
 
     <Grid Margin="16">

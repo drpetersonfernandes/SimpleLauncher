@@ -76,8 +76,15 @@ public partial class GameDetailWindow
 
     private async void FavoriteButton_Click(object sender, RoutedEventArgs e)
     {
-        await _mainViewModel.ToggleFavoriteCommand.ExecuteAsync(_game);
-        UpdateFavoriteButton();
+        try
+        {
+            await _mainViewModel.ToggleFavoriteCommand.ExecuteAsync(_game);
+            UpdateFavoriteButton();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to favorite game");
+        }
     }
 
     private void RemoveButton_Click(object sender, RoutedEventArgs e)

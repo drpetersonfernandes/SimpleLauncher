@@ -1,0 +1,479 @@
+<Window x:Class="SimpleLauncher.New.EditSystemWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Edit Systems"
+        Width="940" MinWidth="820"
+        Height="780" MinHeight="600"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="ToolWindow"
+        Background="{DynamicResource BgPrimaryBrush}"
+        ResizeMode="CanResize"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />  <!-- Header / system selector -->
+            <RowDefinition Height="*" />     <!-- Form -->
+            <RowDefinition Height="Auto" />  <!-- Status -->
+        </Grid.RowDefinitions>
+
+        <!-- Row 0: selector + actions -->
+        <Border Grid.Row="0" Background="{DynamicResource BgTertiaryBrush}"
+                BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,0,0,1"
+                Padding="12,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="System:" FontSize="13" VerticalAlignment="Center"
+                               Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,8,0" />
+                    <ComboBox x:Name="SystemNameDropdown"
+                              MinWidth="220"
+                              Height="40"
+                              SelectionChanged="SystemNameDropdown_SelectionChanged"
+                              Background="{DynamicResource BgSecondaryBrush}"
+                              Foreground="{DynamicResource TextPrimaryBrush}"
+                              BorderBrush="{DynamicResource BorderNormalBrush}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button x:Name="AddSystemButton" Content="＋ Add New"
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Padding="14,6" Margin="4,0"
+                            Click="AddSystemButton_ClickAsync" />
+                    <Button x:Name="SaveSystemButton" Content="Save"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Padding="20,6" Margin="4,0"
+                            IsEnabled="False"
+                            Click="SaveSystemButton_ClickAsync" />
+                    <Button x:Name="DeleteSystemButton" Content="Delete"
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Padding="14,6" Margin="4,0"
+                            IsEnabled="False"
+                            Click="DeleteSystemButton_ClickAsync" />
+                    <Button Content="Close"
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Padding="14,6" Margin="4,0"
+                            Click="CloseButton_Click" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Row 1: form -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="16,12">
+            <StackPanel>
+                <!-- ═══ SYSTEM ═══ -->
+                <Border Background="{DynamicResource BgSecondaryBrush}"
+                        BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="1"
+                        CornerRadius="6" Padding="16" Margin="0,0,0,14">
+                    <StackPanel>
+                        <TextBlock Text="System" FontWeight="SemiBold" FontSize="14"
+                                   Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,12" />
+
+                        <!-- Name -->
+                        <TextBlock Text="System Name" FontSize="12"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" />
+                        <TextBox x:Name="SystemNameTextBox" Height="40" Margin="0,4,0,12"
+                                 Background="{DynamicResource BgTertiaryBrush}"
+                                 Foreground="{DynamicResource TextPrimaryBrush}"
+                                 BorderBrush="{DynamicResource BorderNormalBrush}" />
+
+                        <!-- System folders -->
+                        <TextBlock Text="System Folder (ROMs)" FontSize="12"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" />
+                        <Grid Margin="0,4,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="SystemFolderTextBox" Height="40"
+                                     VerticalContentAlignment="Center"
+                                     Background="{DynamicResource BgTertiaryBrush}"
+                                     Foreground="{DynamicResource TextPrimaryBrush}"
+                                     BorderBrush="{DynamicResource BorderNormalBrush}" />
+                            <Button Grid.Column="1" Content="..." Width="40" Height="40" Margin="6,0,0,0"
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Click="ChooseSystemFolder" />
+                        </Grid>
+
+                        <!-- Additional folders -->
+                        <TextBlock Text="Additional Folders" FontSize="12" Margin="0,8,0,0"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" />
+                        <ListBox x:Name="AdditionalFoldersListBox" Height="90" Margin="0,4,0,4"
+                                 Background="{DynamicResource BgTertiaryBrush}"
+                                 Foreground="{DynamicResource TextPrimaryBrush}"
+                                 BorderBrush="{DynamicResource BorderNormalBrush}" />
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                            <Button Content="＋ Add Folder" Padding="10,4"
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Margin="0,0,6,0"
+                                    Click="AddAdditionalFolder_Click" />
+                            <Button Content="－ Remove Selected" Padding="10,4"
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Click="RemoveAdditionalFolder_Click" />
+                        </StackPanel>
+
+                        <!-- Image folder -->
+                        <TextBlock Text="System Image Folder" FontSize="12"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" />
+                        <Grid Margin="0,4,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="SystemImageFolderTextBox" Height="40"
+                                     VerticalContentAlignment="Center"
+                                     Background="{DynamicResource BgTertiaryBrush}"
+                                     Foreground="{DynamicResource TextPrimaryBrush}"
+                                     BorderBrush="{DynamicResource BorderNormalBrush}" />
+                            <Button Grid.Column="1" Content="..." Width="40" Height="40" Margin="6,0,0,0"
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Click="ChooseSystemImageFolder" />
+                        </Grid>
+
+                        <!-- Formats -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Margin="0,0,8,0">
+                                <TextBlock Text="Formats to Search (comma separated)" FontSize="12"
+                                           Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBox x:Name="FormatToSearchTextBox" Height="40" Margin="0,4,0,12"
+                                         Background="{DynamicResource BgTertiaryBrush}"
+                                         Foreground="{DynamicResource TextPrimaryBrush}"
+                                         BorderBrush="{DynamicResource BorderNormalBrush}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="Formats to Launch (comma separated)" FontSize="12"
+                                           Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBox x:Name="FormatToLaunchTextBox" Height="40" Margin="0,4,0,12"
+                                         Background="{DynamicResource BgTertiaryBrush}"
+                                         Foreground="{DynamicResource TextPrimaryBrush}"
+                                         BorderBrush="{DynamicResource BorderNormalBrush}" />
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Options -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Margin="0,0,8,0">
+                                <TextBlock Text="Extract File Before Launch" FontSize="12"
+                                           Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <ComboBox x:Name="ExtractFileBeforeLaunchComboBox" Height="40" Margin="0,4,0,0"
+                                          Background="{DynamicResource BgTertiaryBrush}"
+                                          Foreground="{DynamicResource TextPrimaryBrush}"
+                                          BorderBrush="{DynamicResource BorderNormalBrush}">
+                                    <ComboBoxItem Content="false" />
+                                    <ComboBoxItem Content="true" />
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Margin="0,0,8,0">
+                                <TextBlock Text="Group By Folder" FontSize="12"
+                                           Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <ComboBox x:Name="GroupByFolderComboBox" Height="40" Margin="0,4,0,0"
+                                          Background="{DynamicResource BgTertiaryBrush}"
+                                          Foreground="{DynamicResource TextPrimaryBrush}"
+                                          BorderBrush="{DynamicResource BorderNormalBrush}">
+                                    <ComboBoxItem Content="false" />
+                                    <ComboBoxItem Content="true" />
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="Disable Recursive Search" FontSize="12"
+                                           Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <ComboBox x:Name="DisableRecursiveSearchComboBox" Height="40" Margin="0,4,0,0"
+                                          Background="{DynamicResource BgTertiaryBrush}"
+                                          Foreground="{DynamicResource TextPrimaryBrush}"
+                                          BorderBrush="{DynamicResource BorderNormalBrush}">
+                                    <ComboBoxItem Content="false" />
+                                    <ComboBoxItem Content="true" />
+                                </ComboBox>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- ═══ EMULATORS ═══ -->
+                <Border Background="{DynamicResource BgSecondaryBrush}"
+                        BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="1"
+                        CornerRadius="6" Padding="16" Margin="0,0,0,14">
+                    <StackPanel>
+                        <TextBlock Text="Emulators" FontWeight="SemiBold" FontSize="14"
+                                   Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,12" />
+
+                        <Expander x:Name="Emulator1Expander" Header="Emulator 1" IsExpanded="True"
+                                  Foreground="{DynamicResource TextPrimaryBrush}">
+                            <StackPanel Margin="0,8,0,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Margin="0,0,8,0">
+                                        <TextBlock Text="Name" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <TextBox x:Name="Emulator1NameTextBox" Height="40" Margin="0,4,0,8"
+                                                 Background="{DynamicResource BgTertiaryBrush}"
+                                                 Foreground="{DynamicResource TextPrimaryBrush}"
+                                                 BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Notify on Error" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <ComboBox x:Name="ReceiveANotificationOnEmulatorError1" Height="40" Margin="0,4,0,8"
+                                                  Background="{DynamicResource BgTertiaryBrush}"
+                                                  Foreground="{DynamicResource TextPrimaryBrush}"
+                                                  BorderBrush="{DynamicResource BorderNormalBrush}">
+                                            <ComboBoxItem Content="false" />
+                                            <ComboBoxItem Content="true" />
+                                        </ComboBox>
+                                    </StackPanel>
+                                </Grid>
+                                <TextBlock Text="Path (.exe / .bat)" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <Grid Margin="0,4,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox x:Name="Emulator1PathTextBox" Height="40" VerticalContentAlignment="Center"
+                                             Background="{DynamicResource BgTertiaryBrush}"
+                                             Foreground="{DynamicResource TextPrimaryBrush}"
+                                             BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                    <Button Grid.Column="1" Content="..." Width="36" Height="40" Margin="6,0,0,0"
+                                            Style="{StaticResource SecondaryButtonStyle}"
+                                            Click="ChooseEmulator1Path" />
+                                </Grid>
+                                <TextBlock Text="Parameters" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBox x:Name="Emulator1ParametersTextBox" Height="40" Margin="0,4,0,0"
+                                         Background="{DynamicResource BgTertiaryBrush}"
+                                         Foreground="{DynamicResource TextPrimaryBrush}"
+                                         BorderBrush="{DynamicResource BorderNormalBrush}" />
+                            </StackPanel>
+                        </Expander>
+
+                        <Expander x:Name="Emulator2Expander" Header="Emulator 2"
+                                  Foreground="{DynamicResource TextPrimaryBrush}">
+                            <StackPanel Margin="0,8,0,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Margin="0,0,8,0">
+                                        <TextBlock Text="Name" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <TextBox x:Name="Emulator2NameTextBox" Height="40" Margin="0,4,0,8"
+                                                 Background="{DynamicResource BgTertiaryBrush}"
+                                                 Foreground="{DynamicResource TextPrimaryBrush}"
+                                                 BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Notify on Error" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <ComboBox x:Name="ReceiveANotificationOnEmulatorError2" Height="40" Margin="0,4,0,8"
+                                                  Background="{DynamicResource BgTertiaryBrush}"
+                                                  Foreground="{DynamicResource TextPrimaryBrush}"
+                                                  BorderBrush="{DynamicResource BorderNormalBrush}">
+                                            <ComboBoxItem Content="false" />
+                                            <ComboBoxItem Content="true" />
+                                        </ComboBox>
+                                    </StackPanel>
+                                </Grid>
+                                <TextBlock Text="Path (.exe / .bat)" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <Grid Margin="0,4,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox x:Name="Emulator2PathTextBox" Height="40" VerticalContentAlignment="Center"
+                                             Background="{DynamicResource BgTertiaryBrush}"
+                                             Foreground="{DynamicResource TextPrimaryBrush}"
+                                             BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                    <Button Grid.Column="1" Content="..." Width="36" Height="40" Margin="6,0,0,0"
+                                            Style="{StaticResource SecondaryButtonStyle}"
+                                            Click="ChooseEmulator2Path" />
+                                </Grid>
+                                <TextBlock Text="Parameters" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBox x:Name="Emulator2ParametersTextBox" Height="40" Margin="0,4,0,0"
+                                         Background="{DynamicResource BgTertiaryBrush}"
+                                         Foreground="{DynamicResource TextPrimaryBrush}"
+                                         BorderBrush="{DynamicResource BorderNormalBrush}" />
+                            </StackPanel>
+                        </Expander>
+
+                        <Expander x:Name="Emulator3Expander" Header="Emulator 3"
+                                  Foreground="{DynamicResource TextPrimaryBrush}">
+                            <StackPanel Margin="0,8,0,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Margin="0,0,8,0">
+                                        <TextBlock Text="Name" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <TextBox x:Name="Emulator3NameTextBox" Height="40" Margin="0,4,0,8"
+                                                 Background="{DynamicResource BgTertiaryBrush}"
+                                                 Foreground="{DynamicResource TextPrimaryBrush}"
+                                                 BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Notify on Error" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <ComboBox x:Name="ReceiveANotificationOnEmulatorError3" Height="40" Margin="0,4,0,8"
+                                                  Background="{DynamicResource BgTertiaryBrush}"
+                                                  Foreground="{DynamicResource TextPrimaryBrush}"
+                                                  BorderBrush="{DynamicResource BorderNormalBrush}">
+                                            <ComboBoxItem Content="false" />
+                                            <ComboBoxItem Content="true" />
+                                        </ComboBox>
+                                    </StackPanel>
+                                </Grid>
+                                <TextBlock Text="Path (.exe / .bat)" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <Grid Margin="0,4,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox x:Name="Emulator3PathTextBox" Height="40" VerticalContentAlignment="Center"
+                                             Background="{DynamicResource BgTertiaryBrush}"
+                                             Foreground="{DynamicResource TextPrimaryBrush}"
+                                             BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                    <Button Grid.Column="1" Content="..." Width="36" Height="40" Margin="6,0,0,0"
+                                            Style="{StaticResource SecondaryButtonStyle}"
+                                            Click="ChooseEmulator3Path" />
+                                </Grid>
+                                <TextBlock Text="Parameters" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBox x:Name="Emulator3ParametersTextBox" Height="40" Margin="0,4,0,0"
+                                         Background="{DynamicResource BgTertiaryBrush}"
+                                         Foreground="{DynamicResource TextPrimaryBrush}"
+                                         BorderBrush="{DynamicResource BorderNormalBrush}" />
+                            </StackPanel>
+                        </Expander>
+
+                        <Expander x:Name="Emulator4Expander" Header="Emulator 4"
+                                  Foreground="{DynamicResource TextPrimaryBrush}">
+                            <StackPanel Margin="0,8,0,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Margin="0,0,8,0">
+                                        <TextBlock Text="Name" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <TextBox x:Name="Emulator4NameTextBox" Height="40" Margin="0,4,0,8"
+                                                 Background="{DynamicResource BgTertiaryBrush}"
+                                                 Foreground="{DynamicResource TextPrimaryBrush}"
+                                                 BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Notify on Error" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <ComboBox x:Name="ReceiveANotificationOnEmulatorError4" Height="40" Margin="0,4,0,8"
+                                                  Background="{DynamicResource BgTertiaryBrush}"
+                                                  Foreground="{DynamicResource TextPrimaryBrush}"
+                                                  BorderBrush="{DynamicResource BorderNormalBrush}">
+                                            <ComboBoxItem Content="false" />
+                                            <ComboBoxItem Content="true" />
+                                        </ComboBox>
+                                    </StackPanel>
+                                </Grid>
+                                <TextBlock Text="Path (.exe / .bat)" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <Grid Margin="0,4,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox x:Name="Emulator4PathTextBox" Height="40" VerticalContentAlignment="Center"
+                                             Background="{DynamicResource BgTertiaryBrush}"
+                                             Foreground="{DynamicResource TextPrimaryBrush}"
+                                             BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                    <Button Grid.Column="1" Content="..." Width="36" Height="40" Margin="6,0,0,0"
+                                            Style="{StaticResource SecondaryButtonStyle}"
+                                            Click="ChooseEmulator4Path" />
+                                </Grid>
+                                <TextBlock Text="Parameters" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBox x:Name="Emulator4ParametersTextBox" Height="40" Margin="0,4,0,0"
+                                         Background="{DynamicResource BgTertiaryBrush}"
+                                         Foreground="{DynamicResource TextPrimaryBrush}"
+                                         BorderBrush="{DynamicResource BorderNormalBrush}" />
+                            </StackPanel>
+                        </Expander>
+
+                        <Expander x:Name="Emulator5Expander" Header="Emulator 5"
+                                  Foreground="{DynamicResource TextPrimaryBrush}">
+                            <StackPanel Margin="0,8,0,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Margin="0,0,8,0">
+                                        <TextBlock Text="Name" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <TextBox x:Name="Emulator5NameTextBox" Height="40" Margin="0,4,0,8"
+                                                 Background="{DynamicResource BgTertiaryBrush}"
+                                                 Foreground="{DynamicResource TextPrimaryBrush}"
+                                                 BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Notify on Error" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <ComboBox x:Name="ReceiveANotificationOnEmulatorError5" Height="40" Margin="0,4,0,8"
+                                                  Background="{DynamicResource BgTertiaryBrush}"
+                                                  Foreground="{DynamicResource TextPrimaryBrush}"
+                                                  BorderBrush="{DynamicResource BorderNormalBrush}">
+                                            <ComboBoxItem Content="false" />
+                                            <ComboBoxItem Content="true" />
+                                        </ComboBox>
+                                    </StackPanel>
+                                </Grid>
+                                <TextBlock Text="Path (.exe / .bat)" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <Grid Margin="0,4,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox x:Name="Emulator5PathTextBox" Height="40" VerticalContentAlignment="Center"
+                                             Background="{DynamicResource BgTertiaryBrush}"
+                                             Foreground="{DynamicResource TextPrimaryBrush}"
+                                             BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                    <Button Grid.Column="1" Content="..." Width="36" Height="40" Margin="6,0,0,0"
+                                            Style="{StaticResource SecondaryButtonStyle}"
+                                            Click="ChooseEmulator5Path" />
+                                </Grid>
+                                <TextBlock Text="Parameters" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBox x:Name="Emulator5ParametersTextBox" Height="40" Margin="0,4,0,0"
+                                         Background="{DynamicResource BgTertiaryBrush}"
+                                         Foreground="{DynamicResource TextPrimaryBrush}"
+                                         BorderBrush="{DynamicResource BorderNormalBrush}" />
+                            </StackPanel>
+                        </Expander>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Row 2: status -->
+        <Border Grid.Row="2" Background="{DynamicResource BgSecondaryBrush}"
+                BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,1,0,0"
+                Padding="12,6">
+            <TextBlock x:Name="StatusTextBlock" FontSize="12"
+                       Foreground="{DynamicResource TextMutedBrush}"
+                       Text="Select a system to edit, or click Add New to create one." />
+        </Border>
+
+        <!-- Loading overlay -->
+        <Border x:Name="LoadingOverlay"
+                Grid.Row="0" Grid.RowSpan="3"
+                Background="#B31E1E1E"
+                Visibility="Collapsed">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="LoadingText" Text="Loading systems..." FontSize="14"
+                           Foreground="{DynamicResource TextPrimaryBrush}"
+                           HorizontalAlignment="Center" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

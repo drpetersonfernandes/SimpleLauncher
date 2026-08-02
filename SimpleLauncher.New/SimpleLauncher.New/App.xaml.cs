@@ -141,7 +141,7 @@ public partial class App : IDisposable
     /// <summary>
     /// Registers all services, ViewModels, and windows in the DI container.
     /// </summary>
-    private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+    internal static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
     {
         // Register configuration
         services.AddSingleton(configuration);
@@ -159,7 +159,19 @@ public partial class App : IDisposable
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher.New/1.0");
         });
         services.AddHttpClient("GameImageClient");
-        services.AddHttpClient("EasyModeClient");
+        services.AddHttpClient("EasyModeClient", client =>
+        {
+            // Set the base address for the EasyMode configuration API
+            var easyModeUrl = configuration.GetValue<string>("Urls:EasyModeApi")
+                              ?? "https://www.purelogiccode.com/simplelauncheradmin/";
+            if (!easyModeUrl.EndsWith('/'))
+            {
+                easyModeUrl += '/';
+            }
+
+            client.BaseAddress = new Uri(easyModeUrl);
+            client.Timeout = TimeSpan.FromSeconds(30);
+        });
         services.AddHttpClient("GameClassificationClient");
         services.AddHttpClient("ParameterResolverClient");
         services.AddHttpClient("DownloadClient");
@@ -190,6 +202,7 @@ public partial class App : IDisposable
         services.AddSingleton<FindCoverImageService>();
         services.AddSingleton<IFindCoverImageService>(sp => sp.GetRequiredService<FindCoverImageService>());
         services.AddSingleton<ExtractionService>();
+        services.AddSingleton<IExtractionService>(sp => sp.GetRequiredService<ExtractionService>());
         services.AddSingleton<DownloadManager>();
         services.AddSingleton<DiscConverter>();
         services.AddSingleton<EasyModeManager>();
@@ -197,6 +210,7 @@ public partial class App : IDisposable
         services.AddSingleton<PlaySoundEffects>();
         services.AddSingleton<IPlaySoundEffects>(sp => sp.GetRequiredService<PlaySoundEffects>());
         services.AddSingleton<SystemConfigurationWriterService>();
+        services.AddSingleton<ISystemConfigurationWriterService>(sp => sp.GetRequiredService<SystemConfigurationWriterService>());
         services.AddSingleton<Stats>();
 
         // Mount services
@@ -225,6 +239,7 @@ public partial class App : IDisposable
 
         // ── ViewModels ──
         services.AddSingleton<MainViewModel>();
+        services.AddTransient<EasyModeViewModel>();
 
         // ── App services (Phase 4–6) ──
         services.AddSingleton(_ => FavoritesManager.LoadFavorites(Log.Logger));
@@ -260,9 +275,12 @@ public partial class App : IDisposable
         services.AddSingleton<IEmulatorConfigHandler, YumirConfigHandler>();
 
         // ── Windows (transient — new instance each resolve) ──
+        // NOTE: GameDetailWindow is intentionally NOT registered — it takes per-game
+        // constructor arguments (GameCardViewModel + MainViewModel) and is created manually.
         services.AddTransient<MainWindow>();
-        services.AddTransient<GameDetailWindow>();
         services.AddTransient<PreferencesWindow>();
+        services.AddTransient<EasyModeWindow>();
+        services.AddTransient<EditSystemWindow>();
     }
 
     /// <summary>
@@ -341,10 +359,10 @@ public partial class App : IDisposable
         // If the main window is no longer visible (startup template crash, window already
         // closed, etc.), continuing with e.Handled = true would leave a headless process
         // running in the background with no way to close it. Shut down instead.
-        if (Application.Current.MainWindow is not { IsVisible: true })
+        if (Current.MainWindow is not { IsVisible: true })
         {
             Log.Fatal(e.Exception, "Main window is not visible; shutting down to avoid a background process");
-            Application.Current.Shutdown();
+            Current.Shutdown();
             return;
         }
 

@@ -47,6 +47,22 @@ public partial class PreferencesWindow
         LoadSettings();
     }
 
+    // ── Systems page: EasyMode launcher ───────────────────────────────
+
+    private void OpenEasyMode_Click(object sender, RoutedEventArgs e)
+    {
+        var easyModeWindow = App.ServiceProvider.GetRequiredService<EasyModeWindow>();
+        easyModeWindow.Owner = this;
+        easyModeWindow.ShowDialog();
+    }
+
+    private void OpenEditSystem_Click(object sender, RoutedEventArgs e)
+    {
+        var editSystemWindow = App.ServiceProvider.GetRequiredService<EditSystemWindow>();
+        editSystemWindow.Owner = this;
+        editSystemWindow.ShowDialog();
+    }
+
     private void PopulateLanguageCombo()
     {
         LanguageCombo.Items.Clear();
@@ -124,56 +140,63 @@ public partial class PreferencesWindow
 
     private async void RaTestButton_Click(object sender, RoutedEventArgs e)
     {
-        var username = RaUsernameBox.Text?.Trim();
-        var apiKey = RaApiKeyBox.Text?.Trim();
-
-        if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(apiKey))
-        {
-            MessageBox.Show(this, "Please enter both username and API key.",
-                "RetroAchievements", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
-        }
-
-        _settings.RaUsername = username;
-        _settings.RaApiKey = apiKey;
-
-        RaTestButton.IsEnabled = false;
-        RaTestButton.Content = "Testing...";
-
         try
         {
-            if (_raService is not null)
+            var username = RaUsernameBox.Text?.Trim();
+            var apiKey = RaApiKeyBox.Text?.Trim();
+
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(apiKey))
             {
-                var profile = await _raService.GetUserProfileAsync(username, apiKey);
-                if (profile is not null)
-                {
-                    MessageBox.Show(this,
-                        $"Connected as: {profile.User}\n" +
-                        $"Points: {profile.TotalPoints:N0}\n" +
-                        $"Rank: {profile.Rank:N0}",
-                        "RetroAchievements — Connected",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
-                }
+                MessageBox.Show(this, "Please enter both username and API key.",
+                    "RetroAchievements", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
 
-            MessageBox.Show(this,
-                "Could not connect. Check your username and API key.",
-                "RetroAchievements — Failed",
-                MessageBoxButton.OK, MessageBoxImage.Warning);
+            _settings.RaUsername = username;
+            _settings.RaApiKey = apiKey;
+
+            RaTestButton.IsEnabled = false;
+            RaTestButton.Content = "Testing...";
+
+            try
+            {
+                if (_raService is not null)
+                {
+                    var profile = await _raService.GetUserProfileAsync(username, apiKey);
+                    if (profile is not null)
+                    {
+                        MessageBox.Show(this,
+                            $"Connected as: {profile.User}\n" +
+                            $"Points: {profile.TotalPoints:N0}\n" +
+                            $"Rank: {profile.Rank}",
+                            "RetroAchievements — Connected",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
+                        return;
+                    }
+                }
+
+                MessageBox.Show(this,
+                    "Could not connect. Check your username and API key.",
+                    "RetroAchievements — Failed",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "RetroAchievements test connection failed for user {User}", username);
+                MessageBox.Show(this,
+                    $"Connection error: {ex.Message}",
+                    "RetroAchievements — Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                RaTestButton.IsEnabled = true;
+                RaTestButton.Content = "Test Connection";
+            }
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "RetroAchievements test connection failed for user {User}", username);
-            MessageBox.Show(this,
-                $"Connection error: {ex.Message}",
-                "RetroAchievements — Error",
-                MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        finally
-        {
-            RaTestButton.IsEnabled = true;
-            RaTestButton.Content = "Test Connection";
+            Log.Error(ex, "RetroAchievements test connection failed");
         }
     }
 }

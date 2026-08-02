@@ -7,6 +7,7 @@ using SimpleLauncher.Core.Models;
 using SimpleLauncher.New.Services.Favorites;
 using SimpleLauncher.New.Services.PlayHistory;
 using SimpleLauncher.New.Services.SystemManager;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.New.ViewModels;
 
@@ -20,10 +21,11 @@ public partial class MainViewModel : ObservableObject
     private readonly PlayHistoryManager _playHistoryManager;
     private readonly SystemManagerService _systemManager;
     private readonly ILauncherService _launcher;
+    private readonly IFindCoverImageService _findCoverImage;
 
     private CancellationTokenSource? _searchCts;
-    private HashSet<string> _favoritePaths = new(StringComparer.OrdinalIgnoreCase);
-    private List<SystemManagerConfig> _allSystems = [];
+    private HashSet<string> _favoritePaths;
+    private List<SystemManagerConfig> _allSystems;
 
     [ObservableProperty] private ObservableCollection<GameCardViewModel> _games = new();
 
@@ -39,17 +41,13 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty] private string _gameCountText = "0 games";
 
-    [ObservableProperty]
-    private string _statusText = "Ready";
+    [ObservableProperty] private string _statusText = "Ready";
 
-    [ObservableProperty]
-    private string _toolbarTitle = "SimpleLauncher";
+    [ObservableProperty] private string _toolbarTitle = "SimpleLauncher";
 
-    [ObservableProperty]
-    private double _cardWidth = 168;
+    [ObservableProperty] private double _cardWidth = 168;
 
-    [ObservableProperty]
-    private bool _isLoading;
+    [ObservableProperty] private bool _isLoading;
 
     public bool IsEmpty => Games.Count == 0;
 
@@ -62,12 +60,14 @@ public partial class MainViewModel : ObservableObject
         FavoritesManager favoritesManager,
         PlayHistoryManager playHistoryManager,
         SystemManagerService systemManager,
-        ILauncherService launcher)
+        ILauncherService launcher,
+        IFindCoverImageService findCoverImage)
     {
         _favoritesManager = favoritesManager;
         _playHistoryManager = playHistoryManager;
         _systemManager = systemManager;
         _launcher = launcher;
+        _findCoverImage = findCoverImage;
 
         _favoritePaths = _favoritesManager.GetFavoritePaths();
         _allSystems = _systemManager.LoadSystems();
@@ -82,26 +82,36 @@ public partial class MainViewModel : ObservableObject
 
     private async void DebounceSearch(string query)
     {
-        _searchCts?.Cancel();
-        _searchCts = new CancellationTokenSource();
-        var token = _searchCts.Token;
-
         try
         {
-            await Task.Delay(180, token);
-            if (token.IsCancellationRequested) return;
+            _searchCts?.Cancel();
+            _searchCts = new CancellationTokenSource();
+            var token = _searchCts.Token;
 
-            if (string.IsNullOrWhiteSpace(query))
+            try
             {
-                LoadAllGames();
-                StatusText = "Ready";
+                await Task.Delay(180, token);
+                if (token.IsCancellationRequested) return;
+
+                if (string.IsNullOrWhiteSpace(query))
+                {
+                    LoadAllGames();
+                    StatusText = "Ready";
+                }
+                else
+                {
+                    ExecuteSearch(query);
+                }
             }
-            else
+            catch (TaskCanceledException)
             {
-                ExecuteSearch(query);
+                Log.Debug("Search debounce cancelled by newer input");
             }
         }
-        catch (TaskCanceledException) { Log.Debug("Search debounce cancelled by newer input"); }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Search debounce error");
+        }
     }
 
     private void ExecuteSearch(string query)
@@ -183,8 +193,15 @@ public partial class MainViewModel : ObservableObject
             .Where(g => File.Exists(g.FilePath))
             .OrderByDescending(g =>
             {
-                try { return new FileInfo(g.FilePath).LastWriteTime; }
-                catch (Exception ex) { Log.Debug(ex, "Failed to read LastWriteTime for {Path}", g.FilePath); return DateTime.MinValue; }
+                try
+                {
+                    return new FileInfo(g.FilePath).LastWriteTime;
+                }
+                catch (Exception ex)
+                {
+                    Log.Debug(ex, "Failed to read LastWriteTime for {Path}", g.FilePath);
+                    return DateTime.MinValue;
+                }
             })
             .Take(50)
             .ToList();
@@ -265,8 +282,8 @@ public partial class MainViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Scans ROM folders for games and returns card ViewModels.
-    /// Falls back to sample data if no real games found.
+    /// Scans ROM folders for games and returns card ViewModels with cover art resolved
+    /// from each system's image folder. Folder paths are resolved (%BASEFOLDER% / relative) first.
     /// </summary>
     private List<GameCardViewModel> ScanGames(List<SystemManagerConfig> systems)
     {
@@ -274,48 +291,67 @@ public partial class MainViewModel : ObservableObject
 
         foreach (var system in systems)
         {
-            foreach (var folder in system.SystemFolders)
+            foreach (var file in EnumerateSystemFiles(system))
             {
-                if (!Directory.Exists(folder)) continue;
+                var coverPath = _findCoverImage.FindCoverImagePath(
+                    Path.GetFileNameWithoutExtension(file),
+                    system.SystemName,
+                    system.SystemImageFolder);
 
-                var extensions = system.FileFormatsToSearch.Count > 0
-                    ? system.FileFormatsToSearch
-                    : [".zip", ".7z", ".rar", ".iso", ".chd", ".cue", ".bin", ".exe", ".bat"];
-
-                foreach (var ext in extensions)
+                games.Add(new GameCardViewModel
                 {
-                    var searchExt = ext.StartsWith('.') ? ext : $".{ext}";
-                    try
-                    {
-                        foreach (var file in Directory.EnumerateFiles(folder, $"*{searchExt}",
-                            system.DisableRecursiveSearch ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories))
-                        {
-                            games.Add(new GameCardViewModel
-                            {
-                                DisplayTitle = Path.GetFileNameWithoutExtension(file),
-                                FilePath = file,
-                                SystemName = system.SystemName,
-                                HasCover = false,
-                                IsRaSupported = GameCardViewModel.IsSystemRaSupported(system.SystemName)
-                            });
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Skip inaccessible folders
-                        Log.Debug(ex, "Skipping inaccessible folder {Folder}", folder);
-                    }
-                }
+                    DisplayTitle = Path.GetFileNameWithoutExtension(file),
+                    FilePath = file,
+                    SystemName = system.SystemName,
+                    CoverPath = coverPath,
+                    // Show art only when the file actually exists (the service falls back
+                    // to default.png, which may itself be missing → placeholder instead)
+                    HasCover = File.Exists(coverPath),
+                    IsRaSupported = GameCardViewModel.IsSystemRaSupported(system.SystemName)
+                });
             }
         }
 
-        // Fallback to sample data if no real games found
-        if (games.Count == 0)
-        {
-            games = GameCardViewModel.CreateSampleData(48);
-        }
-
         return games;
+    }
+
+    /// <summary>
+    /// Enumerates game files for a system from its configured folders,
+    /// resolving %BASEFOLDER% / relative paths to real directories first.
+    /// </summary>
+    internal static IEnumerable<string> EnumerateSystemFiles(SystemManagerConfig system)
+    {
+        foreach (var folder in system.SystemFolders)
+        {
+            var resolvedFolder = PathHelper.ResolveRelativeToAppDirectory(folder);
+            if (resolvedFolder == null || !Directory.Exists(resolvedFolder)) continue;
+
+            var extensions = system.FileFormatsToSearch.Count > 0
+                ? system.FileFormatsToSearch
+                : [".zip", ".7z", ".rar", ".iso", ".chd", ".cue", ".bin", ".exe", ".bat"];
+
+            foreach (var ext in extensions)
+            {
+                var searchExt = ext.StartsWith('.') ? ext : $".{ext}";
+                IEnumerable<string> files;
+                try
+                {
+                    files = Directory.EnumerateFiles(resolvedFolder, $"*{searchExt}",
+                        system.DisableRecursiveSearch ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories);
+                }
+                catch (Exception ex)
+                {
+                    // Skip inaccessible folders
+                    Log.Debug(ex, "Skipping inaccessible folder {Folder}", resolvedFolder);
+                    continue;
+                }
+
+                foreach (var file in files)
+                {
+                    yield return file;
+                }
+            }
+        }
     }
 
     private void LoadAllGames()
@@ -324,6 +360,8 @@ public partial class MainViewModel : ObservableObject
         IsMixedView = true;
         SelectedSystem = "";
         _allSystems = _systemManager.LoadSystems();
+
+        RefreshSystemCounts();
 
         var games = ScanGames(_allSystems);
         ApplyFavoritesAndHistory(games);
@@ -352,20 +390,29 @@ public partial class MainViewModel : ObservableObject
 
     partial void OnGamesChanged(ObservableCollection<GameCardViewModel> value)
     {
-        UpdateGameCount();
+        UpdateGameCount(value.Count);
         OnPropertyChanged(nameof(IsEmpty));
-        RecalculateSystemCounts();
     }
 
-    private void RecalculateSystemCounts()
+    /// <summary>
+    /// Recomputes per-system game counts from a full scan of all configured system folders
+    /// (resolving %BASEFOLDER% / relative paths), independent of the current view.
+    /// </summary>
+    private void RefreshSystemCounts()
     {
-        SystemGameCounts = Games
-            .GroupBy(g => g.SystemName)
-            .ToDictionary(g => g.Key, g => g.Count(), StringComparer.OrdinalIgnoreCase);
+        var counts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (var system in _allSystems)
+        {
+            counts[system.SystemName] = EnumerateSystemFiles(system).Count();
+        }
+
+        SystemGameCounts = counts;
     }
 
-    private void UpdateGameCount()
+    private void UpdateGameCount(int? count = null)
     {
-        GameCountText = $"{Games.Count} game{(Games.Count == 1 ? "" : "s")}";
+        var c = count ?? Games.Count;
+        GameCountText = $"{c} game{(c == 1 ? "" : "s")}";
     }
 }

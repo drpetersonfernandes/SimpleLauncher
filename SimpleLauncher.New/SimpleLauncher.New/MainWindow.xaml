@@ -22,7 +22,6 @@
         <converters:SmartTitleCaseConverter x:Key="SmartTitleCase" />
         <converters:ConsoleToCardHeightConverter x:Key="CardHeightConverter" />
         <converters:BindingProxy x:Key="BindingProxy" Data="{DynamicResource LibraryCardWidth}" />
-        <converters:SystemNameToIconConverter x:Key="SystemIcon" />
     </Window.Resources>
 
     <Grid>
@@ -268,17 +267,26 @@
                         </StackPanel>
                     </ScrollViewer>
 
-                    <!-- Bottom: Preferences button -->
-                    <Button Grid.Row="1"
-                            Style="{StaticResource SecondaryButtonStyle}"
-                            Margin="8"
-                            Padding="12,8"
-                            Click="Preferences_Click">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="⚙  " FontSize="14" />
-                            <TextBlock Text="Preferences" />
-                        </StackPanel>
-                    </Button>
+                    <!-- Bottom: Add System + Preferences buttons -->
+                    <StackPanel Grid.Row="1" Margin="8,4,8,8">
+                        <Button Style="{StaticResource PrimaryButtonStyle}"
+                                Padding="12,8"
+                                Click="AddSystem_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="＋  " FontSize="14" />
+                                <TextBlock Text="Add System" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SecondaryButtonStyle}"
+                                Margin="0,4,0,0"
+                                Padding="12,8"
+                                Click="Preferences_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="⚙  " FontSize="14" />
+                                <TextBlock Text="Preferences" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
                 </Grid>
             </Border>
 

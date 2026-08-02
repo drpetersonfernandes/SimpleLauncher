@@ -113,10 +113,9 @@ public class FavoritesManager
     /// </summary>
     public async Task<bool> RemoveFavoriteAsync(string filePath)
     {
-        Favorite? toRemove;
         lock (ListLock)
         {
-            toRemove = FavoriteList.FirstOrDefault(f =>
+            var toRemove = FavoriteList.FirstOrDefault(f =>
                 string.Equals(f.FileName, filePath, StringComparison.OrdinalIgnoreCase));
             if (toRemove is null) return false;
 

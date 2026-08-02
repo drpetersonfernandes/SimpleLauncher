@@ -109,11 +109,19 @@
                     <StackPanel x:Name="SystemsPanel" Visibility="Collapsed">
                         <TextBlock Text="Systems" FontSize="18" FontWeight="SemiBold"
                                    Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
-                        <TextBlock Text="Manage your game systems here. Changes are saved to system.xml."
+                        <TextBlock Text="Add, edit, and delete systems in system.xml."
                                    FontSize="12" Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,16" />
-                        <TextBlock Text="System management will be available soon. Use the existing SimpleLauncher Easy Mode to add/edit systems."
-                                   FontSize="13" Foreground="{DynamicResource TextSecondaryBrush}"
-                                   TextWrapping="Wrap" />
+                        <Button Content="Add / Edit Systems (Expert Mode)"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                HorizontalAlignment="Left"
+                                Padding="20,10"
+                                Click="OpenEditSystem_Click" />
+                        <Button Content="Easy Mode — Download a Ready-Made System"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                HorizontalAlignment="Left"
+                                Padding="20,10"
+                                Margin="0,10,0,0"
+                                Click="OpenEasyMode_Click" />
                     </StackPanel>
 
                     <!-- EMULATORS -->

@@ -20,6 +20,9 @@
         <RootNamespace>SimpleLauncher.New</RootNamespace>
         <StartupObject>SimpleLauncher.New.App</StartupObject>
         <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+        <AssemblyVersion>5.6.0</AssemblyVersion>
+        <FileVersion>5.6.0</FileVersion>
+        <ApplicationIcon>icon\icon.ico</ApplicationIcon>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -33,6 +36,12 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\SimpleLauncher.Core\SimpleLauncher.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>SimpleLauncher.New.Tests</_Parameter1>
+        </AssemblyAttribute>
     </ItemGroup>
 
     <ItemGroup>
@@ -56,13 +65,19 @@
         <None Update="Resources\strings.*.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="..\..\SimpleLauncher\tools\CHDMounter\*">
+    </ItemGroup>
+
+    <!-- Files sourced from the original SimpleLauncher project (outside this project dir)
+         must use Include + Link — Update only modifies already-included items. -->
+    <ItemGroup>
+        <None Include="..\..\SimpleLauncher\tools\CHDMounter\*" Link="tools\CHDMounter\%(Filename)%(Extension)">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <Link>tools\CHDMounter\%(Filename)%(Extension)</Link>
         </None>
-        <None Update="..\..\SimpleLauncher\images\systems\*.png">
+        <None Include="..\..\SimpleLauncher\images\systems\*.png" Link="images\systems\%(Filename)%(Extension)">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <Link>images\systems\%(Filename)%(Extension)</Link>
+        </None>
+        <None Include="..\..\SimpleLauncher\audio\*.mp3" Link="audio\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 

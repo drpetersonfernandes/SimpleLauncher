@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.IO.Compression;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.New.Services.GameLauncher;
 
@@ -110,8 +111,14 @@ public class MinimalLauncherService : ILauncherService
 
                 foreach (var handler in matchingHandlers)
                 {
-                    try { await handler.HandleConfigurationAsync(launchContext); }
-                    catch (Exception ex) { Log.Error(ex, "Emulator config injection failed for {Emulator}", emulatorName); }
+                    try
+                    {
+                        await handler.HandleConfigurationAsync(launchContext);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, "Emulator config injection failed for {Emulator}", emulatorName);
+                    }
                 }
             }
 
@@ -124,23 +131,42 @@ public class MinimalLauncherService : ILauncherService
                 return;
             }
 
-            var parameters = rawEmulatorParameters
-                .Replace("%ROM%", $"\"{actualFilePath}\"")
-                .Replace("%BASEFOLDER%", Path.GetDirectoryName(actualFilePath) ?? "")
-                .Replace("%EMULATORFOLDER%", Path.GetDirectoryName(emulatorPath) ?? "");
+            // Resolve %BASEFOLDER% / relative emulator paths from system.xml to a real path
+            var resolvedEmulatorPath = PathHelper.ResolveRelativeToAppDirectory(emulatorPath);
+            if (resolvedEmulatorPath == null || !File.Exists(resolvedEmulatorPath))
+            {
+                await _messageBox.ErrorLaunchingGameMessageBoxAsync($"Emulator not found: {emulatorPath}");
+                return;
+            }
 
+            // Resolve all placeholders (%ROM%, %BASEFOLDER%, %EMULATORFOLDER%, %NAME%,
+            // %ROMSYSTEMFOLDER%, ...) exactly like the original SimpleLauncher
+            var romName = Path.GetFileNameWithoutExtension(actualFilePath);
+            var romSystemFolder = FindRomSystemFolder(selectedSystemManager.SystemFolders, actualFilePath);
+            var resolvedParameters = PathHelper.ResolveParameterString(
+                rawEmulatorParameters,
+                selectedSystemManager.SystemFolders,
+                Path.GetDirectoryName(resolvedEmulatorPath),
+                actualFilePath,
+                romSystemFolder,
+                romName);
+
+            Exception? launchException = null;
             await Task.Run(() =>
             {
                 try
                 {
+                    var isBatchFile = Path.GetExtension(resolvedEmulatorPath)
+                        .Equals(".bat", StringComparison.OrdinalIgnoreCase);
                     var process = new Process
                     {
                         StartInfo = new ProcessStartInfo
                         {
-                            FileName = emulatorPath,
-                            Arguments = parameters,
-                            UseShellExecute = false,
-                            WorkingDirectory = Path.GetDirectoryName(emulatorPath) ?? ""
+                            FileName = resolvedEmulatorPath,
+                            Arguments = resolvedParameters,
+                            // .bat files require shell execution; .exe works without it
+                            UseShellExecute = isBatchFile,
+                            WorkingDirectory = Path.GetDirectoryName(resolvedEmulatorPath) ?? ""
                         }
                     };
 
@@ -149,10 +175,17 @@ public class MinimalLauncherService : ILauncherService
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex, "Failed to launch emulator process {EmulatorPath}", emulatorPath);
-                    _ = _messageBox.ErrorLaunchingGameMessageBoxAsync(ex.Message);
+                    launchException = ex;
+                    Log.Error(ex, "Failed to launch emulator process {EmulatorPath}", resolvedEmulatorPath);
                 }
             });
+
+            if (launchException is not null)
+            {
+                await _messageBox.ErrorLaunchingGameMessageBoxAsync(launchException.Message);
+                loadingStateProvider?.SetLoadingState(false);
+                return;
+            }
 
             loadingStateProvider?.SetLoadingState(false, "Done");
         }
@@ -161,18 +194,55 @@ public class MinimalLauncherService : ILauncherService
             // Clean up temp extraction directory
             if (cleanupPath is not null)
             {
-                try { Directory.Delete(cleanupPath, true); } catch (Exception ex) { Log.Debug(ex, "Failed to delete temp extraction dir {Path}", cleanupPath); }
+                try
+                {
+                    Directory.Delete(cleanupPath, true);
+                }
+                catch (Exception ex)
+                {
+                    Log.Debug(ex, "Failed to delete temp extraction dir {Path}", cleanupPath);
+                }
             }
+
             // Unmount CHD if we mounted one
             if (_chdMountPath is not null)
             {
-                try { _chdMount.Unmount(_chdMountPath); } catch (Exception ex) { Log.Debug(ex, "Failed to unmount CHD drive"); }
+                try
+                {
+                    _chdMount.Unmount(_chdMountPath);
+                }
+                catch (Exception ex)
+                {
+                    Log.Debug(ex, "Failed to unmount CHD drive");
+                }
+
                 _chdMountPath = null;
             }
         }
     }
 
     #region ZIP Extraction
+
+    /// <summary>
+    /// Finds the configured system folder that contains the given ROM path
+    /// (used to resolve the %ROMSYSTEMFOLDER% placeholder).
+    /// </summary>
+    private static string? FindRomSystemFolder(IList<string>? systemFolders, string romPath)
+    {
+        if (systemFolders is null) return null;
+
+        foreach (var folder in systemFolders)
+        {
+            var resolved = PathHelper.ResolveRelativeToAppDirectory(folder);
+            if (resolved is not null &&
+                romPath.StartsWith(resolved, StringComparison.OrdinalIgnoreCase))
+            {
+                return resolved;
+            }
+        }
+
+        return null;
+    }
 
     /// <summary>
     /// Extracts a ZIP/7z/RAR archive to a temp directory and finds a launchable file.
@@ -254,38 +324,48 @@ public class MinimalLauncherService : ILauncherService
     /// <summary>
     /// Mounts an ISO file using PowerShell and returns the mount point path.
     /// </summary>
-    private static async Task<string> MountIsoAsync(string isoPath)
+    private static Task<string> MountIsoAsync(string isoPath)
     {
-        // Try PowerShell mount
         try
         {
-            var psi = new ProcessStartInfo
+            // Try PowerShell mount
+            try
             {
-                FileName = "powershell.exe",
-                Arguments = $"-NoProfile -Command \"$d=Mount-DiskImage -ImagePath '{isoPath}' -PassThru; $v=$d | Get-Volume; Write-Output $v.DriveLetter\"",
-                RedirectStandardOutput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
+                var psi = new ProcessStartInfo
+                {
+                    FileName = "powershell.exe",
+                    Arguments = $"-NoProfile -Command \"$d=Mount-DiskImage -ImagePath '{isoPath}' -PassThru; $v=$d | Get-Volume; Write-Output $v.DriveLetter\"",
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
 
-            using var process = Process.Start(psi);
-            if (process is null) return isoPath;
+                using var process = Process.Start(psi);
+                if (process is null) return Task.FromResult(isoPath);
 
-            var output = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
+                var output = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
 
-            var driveLetter = output.Trim().Replace(":", "");
-            if (!string.IsNullOrEmpty(driveLetter))
-            {
-                var mountPath = $"{driveLetter}:\\";
-                if (Directory.Exists(mountPath))
-                    return mountPath;
+                var driveLetter = output.Trim().Replace(":", "");
+                if (!string.IsNullOrEmpty(driveLetter))
+                {
+                    var mountPath = $"{driveLetter}:\\";
+                    if (Directory.Exists(mountPath))
+                        return Task.FromResult(mountPath);
+                }
             }
-        }
-        catch (Exception ex) { Log.Debug(ex, "ISO mount via PowerShell failed for {IsoPath}", isoPath); }
+            catch (Exception ex)
+            {
+                Log.Debug(ex, "ISO mount via PowerShell failed for {IsoPath}", isoPath);
+            }
 
-        // Fallback: return original path (some emulators handle ISO directly)
-        return isoPath;
+            // Fallback: return original path (some emulators handle ISO directly)
+            return Task.FromResult(isoPath);
+        }
+        catch (Exception exception)
+        {
+            return Task.FromException<string>(exception);
+        }
     }
 
     #endregion

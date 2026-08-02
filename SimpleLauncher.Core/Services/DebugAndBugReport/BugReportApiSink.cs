@@ -119,12 +119,11 @@ public class BugReportApiSink : ILogEventSink, IDisposable
             var httpClient = _httpClientFactory.CreateClient("LogErrorsClient");
             httpClient.DefaultRequestHeaders.Add("X-API-KEY", apiKey);
 
-            var assembly = Assembly.GetExecutingAssembly();
             var payload = new
             {
                 message = report,
-                applicationName = assembly.GetName().Name ?? "SimpleLauncher",
-                version = assembly.GetName().Version?.ToString() ?? "Unknown",
+                applicationName = ApplicationName,
+                version = ApplicationVersion,
                 userInfo = GetUserInfo(),
                 environment = GetEnvironmentName(),
                 stackTrace = BuildStackTrace(logEvent)
@@ -182,8 +181,8 @@ public class BugReportApiSink : ILogEventSink, IDisposable
 
         message.AppendLine("=== Environment Details ===");
         message.AppendLine(CultureInfo.InvariantCulture, $"Date: {DateTime.Now}");
-        message.AppendLine(CultureInfo.InvariantCulture, $"Application Name: {Assembly.GetExecutingAssembly().GetName().Name ?? "SimpleLauncher"}");
-        message.AppendLine(CultureInfo.InvariantCulture, $"Application Version: {Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "Unknown"}");
+        message.AppendLine(CultureInfo.InvariantCulture, $"Application Name: {ApplicationName}");
+        message.AppendLine(CultureInfo.InvariantCulture, $"Application Version: {ApplicationVersion}");
         message.AppendLine(CultureInfo.InvariantCulture, $"OS Version: {RuntimeInformation.OSDescription}");
         message.AppendLine(CultureInfo.InvariantCulture, $"Architecture: {RuntimeInformation.OSArchitecture}");
         message.AppendLine(CultureInfo.InvariantCulture, $"Bitness: {(Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit")}");
@@ -262,6 +261,24 @@ public class BugReportApiSink : ILogEventSink, IDisposable
 
         return sb.ToString();
     }
+
+    /// <summary>
+    /// The application (entry assembly) name — e.g. "SimpleLauncher.New" for the new app,
+    /// "SimpleLauncher" for the original. Falls back to the executing assembly (Core)
+    /// and finally a hardcoded default.
+    /// </summary>
+    private static string ApplicationName =>
+        Assembly.GetEntryAssembly()?.GetName().Name
+        ?? Assembly.GetExecutingAssembly().GetName().Name
+        ?? "SimpleLauncher";
+
+    /// <summary>
+    /// The application (entry assembly) version.
+    /// </summary>
+    private static string ApplicationVersion =>
+        Assembly.GetEntryAssembly()?.GetName().Version?.ToString()
+        ?? Assembly.GetExecutingAssembly().GetName().Version?.ToString()
+        ?? "Unknown";
 
     private static string? GetUserInfo()
     {

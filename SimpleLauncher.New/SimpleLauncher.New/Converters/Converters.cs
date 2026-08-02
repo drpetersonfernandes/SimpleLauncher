@@ -39,6 +39,23 @@ public class InverseBoolToVisibilityConverter : IValueConverter
 }
 
 /// <summary>
+/// Inverts a boolean value. Used for IsEnabled bindings where a "downloaded" state should disable the button.
+/// </summary>
+[ValueConversion(typeof(bool), typeof(bool))]
+public class InverseBoolConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        return value is not true;
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        return value is not true;
+    }
+}
+
+/// <summary>
 /// Converts null to Visibility.Collapsed, non-null to Visibility.Visible.
 /// </summary>
 [ValueConversion(typeof(object), typeof(Visibility))]

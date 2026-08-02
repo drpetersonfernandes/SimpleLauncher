@@ -33,17 +33,20 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task GameIsAlreadyInFavoritesMessageBoxAsync(string fileNameWithExtension)
     {
-        WMB.Show(O, fileNameWithExtension + " is already in favorites.", "Already Favorited", WMBtn.OK, WMImg.Information); return Task.CompletedTask;
+        if (O != null) WMB.Show(O, fileNameWithExtension + " is already in favorites.", "Already Favorited", WMBtn.OK, WMImg.Information);
+        return Task.CompletedTask;
     }
 
     public Task ErrorWhileAddingFavoritesMessageBoxAsync()
     {
-        WMB.Show(O, "Error adding to favorites.", "Error", WMBtn.OK, WMImg.Error); return Task.CompletedTask;
+        if (O != null) WMB.Show(O, "Error adding to favorites.", "Error", WMBtn.OK, WMImg.Error);
+        return Task.CompletedTask;
     }
 
     public Task ErrorWhileRemovingGameFromFavoriteMessageBoxAsync()
     {
-        WMB.Show(O, "Error removing from favorites.", "Error", WMBtn.OK, WMImg.Error); return Task.CompletedTask;
+        if (O != null) WMB.Show(O, "Error removing from favorites.", "Error", WMBtn.OK, WMImg.Error);
+        return Task.CompletedTask;
     }
 
     public Task ErrorOpeningTheUpdateHistoryWindowMessageBoxAsync()
@@ -63,7 +66,8 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task ErrorOpeningUrlMessageBoxAsync()
     {
-        WMB.Show(O, "Could not open the link.", "Error", WMBtn.OK, WMImg.Error); return Task.CompletedTask;
+        if (O != null) WMB.Show(O, "Could not open the link.", "Error", WMBtn.OK, WMImg.Error);
+        return Task.CompletedTask;
     }
 
     public Task ThereIsNoCoverMessageBoxAsync()
@@ -128,27 +132,32 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task FileSuccessfullyDeletedMessageBoxAsync(string fileNameWithExtension)
     {
-        WMB.Show(O, fileNameWithExtension + " deleted.", "Deleted", WMBtn.OK, WMImg.Information); return Task.CompletedTask;
+        if (O != null) WMB.Show(O, fileNameWithExtension + " deleted.", "Deleted", WMBtn.OK, WMImg.Information);
+        return Task.CompletedTask;
     }
 
     public Task FileCouldNotBeDeletedMessageBoxAsync(string fileNameWithExtension)
     {
-        WMB.Show(O, "Could not delete " + fileNameWithExtension, "Error", WMBtn.OK, WMImg.Error); return Task.CompletedTask;
+        if (O != null) WMB.Show(O, "Could not delete " + fileNameWithExtension, "Error", WMBtn.OK, WMImg.Error);
+        return Task.CompletedTask;
     }
 
     public Task FileNoLongerExistsMessageBoxAsync(string fileNameWithExtension)
     {
-        WMB.Show(O, fileNameWithExtension + " no longer exists.", "Not Found", WMBtn.OK, WMImg.Warning); return Task.CompletedTask;
+        if (O != null) WMB.Show(O, fileNameWithExtension + " no longer exists.", "Not Found", WMBtn.OK, WMImg.Warning);
+        return Task.CompletedTask;
     }
 
     public Task DefaultImageNotFoundMessageBoxAsync()
     {
-        WMB.Show(O, "Default cover image not found.", "Missing Image", WMBtn.OK, WMImg.Warning); return Task.CompletedTask;
+        if (O != null) WMB.Show(O, "Default cover image not found.", "Missing Image", WMBtn.OK, WMImg.Warning);
+        return Task.CompletedTask;
     }
 
     public Task GlobalSearchErrorMessageBoxAsync()
     {
-        WMB.Show(O, "Search error.", "Error", WMBtn.OK, WMImg.Error); return Task.CompletedTask;
+        if (O != null) WMB.Show(O, "Search error.", "Error", WMBtn.OK, WMImg.Error);
+        return Task.CompletedTask;
     }
 
     public Task PleaseEnterSearchTermMessageBoxAsync()
@@ -158,7 +167,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task ErrorLaunchingGameMessageBoxAsync(string? logPath)
     {
-        var msg = string.IsNullOrEmpty(logPath) ? "An unknown error occurred." : logPath; WMB.Show(O, msg, "Launch Error", WMBtn.OK, WMImg.Error); return Task.CompletedTask;
+        var msg = string.IsNullOrEmpty(logPath) ? "An unknown error occurred." : logPath;
+        if (O != null) WMB.Show(O, msg, "Launch Error", WMBtn.OK, WMImg.Error);
+        return Task.CompletedTask;
     }
 
     public Task SelectAGameToLaunchMessageBoxAsync()
@@ -168,12 +179,14 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task FileAddedToFavoritesMessageBoxAsync(string fileNameWithoutExtension)
     {
-        WMB.Show(O, fileNameWithoutExtension + " added to favorites.", "Added", WMBtn.OK, WMImg.Information); return Task.CompletedTask;
+        if (O != null) WMB.Show(O, fileNameWithoutExtension + " added to favorites.", "Added", WMBtn.OK, WMImg.Information);
+        return Task.CompletedTask;
     }
 
     public Task FileRemovedFromFavoritesMessageBoxAsync(string fileNameWithoutExtension)
     {
-        WMB.Show(O, fileNameWithoutExtension + " removed from favorites.", "Removed", WMBtn.OK, WMImg.Information); return Task.CompletedTask;
+        if (O != null) WMB.Show(O, fileNameWithoutExtension + " removed from favorites.", "Removed", WMBtn.OK, WMImg.Information);
+        return Task.CompletedTask;
     }
 
     public Task CouldNotLaunchThisGameMessageBoxAsync(string? logPath)
@@ -783,7 +796,8 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task ListOfErrorsMessageBoxAsync(StringBuilder errorMessages)
     {
-        WMB.Show(O, errorMessages.ToString(), "Errors", WMBtn.OK, WMImg.Error); return Task.CompletedTask;
+        if (O != null) WMB.Show(O, errorMessages.ToString(), "Errors", WMBtn.OK, WMImg.Error);
+        return Task.CompletedTask;
     }
 
     public Task ThereIsNoUpdateAvailableMessageBoxAsync(string currentVersion)
@@ -1543,22 +1557,31 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task WarningMessageBoxAsync(string message)
     {
-        WMB.Show(O, message, "Warning", WMBtn.OK, WMImg.Warning); return Task.CompletedTask;
+        if (O != null) WMB.Show(O, message, "Warning", WMBtn.OK, WMImg.Warning);
+        return Task.CompletedTask;
     }
 
     public Task CustomErrorMessageBoxAsync(string message, string title)
     {
-        WMB.Show(O, message, title, WMBtn.OK, WMImg.Error); return Task.CompletedTask;
+        if (O != null) WMB.Show(O, message, title, WMBtn.OK, WMImg.Error);
+        return Task.CompletedTask;
     }
 
     public Task<bool> CustomQuestionMessageBoxAsync(string title, string message)
     {
-        var r = WMB.Show(O, message, title, WMBtn.YesNo, WMImg.Question); return Task.FromResult(r == WMRes.Yes);
+        if (O != null)
+        {
+            var r = WMB.Show(O, message, title, WMBtn.YesNo, WMImg.Question);
+            return Task.FromResult(r == WMRes.Yes);
+        }
+
+        return Task.FromResult(false);
     }
 
     public Task CustomInfoMessageBoxAsync(string title, string message)
     {
-        WMB.Show(O, message, title, WMBtn.OK, WMImg.Information); return Task.CompletedTask;
+        if (O != null) WMB.Show(O, message, title, WMBtn.OK, WMImg.Information);
+        return Task.CompletedTask;
     }
 
     public Task<bool> AskAiToFixParametersMessageBoxAsync()

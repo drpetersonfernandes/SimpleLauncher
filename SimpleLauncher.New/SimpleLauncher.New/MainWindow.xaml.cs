@@ -361,7 +361,6 @@ public partial class MainWindow
         // Update header text with arrow
         foreach (var col in ((GridView)GameListView.View).Columns)
         {
-            var hdr = col.Header as string ?? "";
             if (col.Header is string s)
             {
                 col.Header = s.Replace(" ▲", "").Replace(" ▼", "");
@@ -517,6 +516,7 @@ public partial class MainWindow
             if (e.ChangedButton == MouseButton.Right)
             {
                 ShowGameContextMenu(game, fe);
+                e.Handled = true; // prevent the popup from closing on the subsequent mouse-up
             }
             else if (e.ClickCount == 2)
             {
@@ -536,7 +536,14 @@ public partial class MainWindow
 
     private void ShowGameContextMenu(GameCardViewModel game, FrameworkElement placementTarget)
     {
-        var contextMenu = new ContextMenu();
+        var contextMenu = new ContextMenu
+        {
+            // Anchor to the card at the mouse point so the menu stays open
+            // (a bare ContextMenu without a PlacementTarget is dismissed by the
+            //  mouse-up that follows the right-click)
+            PlacementTarget = placementTarget,
+            Placement = PlacementMode.MousePoint
+        };
 
         var playItem = new MenuItem { Header = "▶ Play" };
         playItem.Click += (_, _) => _viewModel.PlayGameCommand.Execute(game);
@@ -563,6 +570,15 @@ public partial class MainWindow
         };
         contextMenu.Items.Add(copyItem);
 
+        // Detach the menu from the element when it closes so a later open rebuilds it cleanly
+        contextMenu.Closed += (_, _) =>
+        {
+            if (placementTarget.ContextMenu == contextMenu)
+            {
+                placementTarget.ContextMenu = null;
+            }
+        };
+
         contextMenu.IsOpen = true;
     }
 
@@ -571,9 +587,8 @@ public partial class MainWindow
     /// </summary>
     private void OpenGameDetail(GameCardViewModel game)
     {
-        var detailWindow = App.ServiceProvider.GetRequiredService<GameDetailWindow>();
-        // We need a constructor that takes the game and main VM
-        // The DI-registered one won't work — create manually
+        // GameDetailWindow takes per-game constructor arguments (game + main VM),
+        // so it is created manually — DI cannot resolve it.
         var window = new GameDetailWindow(game, _viewModel)
         {
             Owner = this
@@ -601,6 +616,25 @@ public partial class MainWindow
         var prefsWindow = App.ServiceProvider.GetRequiredService<PreferencesWindow>();
         prefsWindow.Owner = this;
         prefsWindow.ShowDialog();
+    }
+
+    #endregion
+
+    #region EasyMode
+
+    private void AddSystem_Click(object sender, RoutedEventArgs e)
+    {
+        var easyModeWindow = App.ServiceProvider.GetRequiredService<EasyModeWindow>();
+        easyModeWindow.Owner = this;
+        easyModeWindow.ShowDialog();
+
+        // If a system was added, refresh the UI
+        if (easyModeWindow.DataContext is EasyModeViewModel { SystemAdded: true })
+        {
+            var systemManager = App.ServiceProvider.GetRequiredService<Services.SystemManager.SystemManagerService>();
+            systemManager.InvalidateCache();
+            _viewModel.NavigateToAllGamesCommand.Execute(null);
+        }
     }
 
     #endregion
@@ -702,7 +736,7 @@ public partial class MainWindow
                             BannerProgress.Maximum = storeGames.Count;
                             BannerProgress.Value = 0;
 
-                            foreach (var (name, exePath, storefront) in storeGames)
+                            foreach (var (name, _, storefront) in storeGames)
                             {
                                 BannerProgress.Value++;
                                 BannerText.Text = $"Adding: {name} ({storefront})";

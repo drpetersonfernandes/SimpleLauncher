@@ -1,0 +1,680 @@
+using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services;
+using SimpleLauncher.Core.Services.DownloadService;
+using SimpleLauncher.Core.Services.EasyMode;
+using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.New.Services.SystemManager;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
+
+namespace SimpleLauncher.New.ViewModels;
+
+/// <summary>
+/// MVVM ViewModel for the EasyMode "Add System" workflow.
+/// Ported from SimpleLauncher's EasyModeWindow.xaml.cs — same state machine:
+/// selecting a system computes per-component Idle/Downloaded state (Idle enables
+/// the download button), downloads go through DownloadManager, and Add System
+/// persists the config to system.xml.
+/// </summary>
+public partial class EasyModeViewModel : ObservableObject, IDisposable
+{
+    private readonly EasyModeManager _easyModeManager;
+    private readonly DownloadManager _downloadManager;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly ILogger _logger;
+    private readonly IConfiguration _configuration;
+    private readonly PlaySoundEffects _playSoundEffects;
+
+    private EasyModeManager? _manager;
+    private bool _disposed;
+    private int _operationInProgressFlag;
+
+    // ── Observable properties ─────────────────────────────────────────
+
+    [ObservableProperty] private ObservableCollection<EasyModeSystemConfig> _systems = [];
+
+    [ObservableProperty] private EasyModeSystemConfig? _selectedSystem;
+
+    [ObservableProperty] private string _systemFolderPath = "";
+
+    [ObservableProperty] private string _downloadStatus = "";
+
+    [ObservableProperty] private double _downloadProgress;
+
+    [ObservableProperty] private bool _isLoading;
+
+    [ObservableProperty] private bool _isOperationInProgress;
+
+    [ObservableProperty] private bool _canStopDownload;
+
+    [ObservableProperty] private bool _isAddSystemEnabled;
+
+    // Download state bools (bound to button IsEnabled via InverseBool:
+    // true = downloaded/downloading → button disabled)
+    [ObservableProperty] private bool _isEmulatorDownloaded = true;
+
+    [ObservableProperty] private bool _isCoreDownloaded = true;
+
+    [ObservableProperty] private bool _isImagePack1Downloaded = true;
+
+    [ObservableProperty] private bool _isImagePack2Downloaded = true;
+
+    [ObservableProperty] private bool _isImagePack3Downloaded = true;
+
+    [ObservableProperty] private bool _isImagePack4Downloaded = true;
+
+    [ObservableProperty] private bool _isImagePack5Downloaded = true;
+
+    // Availability (whether a download link + extract path exists for each image pack)
+    [ObservableProperty] private bool _isImagePack1Available;
+
+    [ObservableProperty] private bool _isImagePack2Available;
+
+    [ObservableProperty] private bool _isImagePack3Available;
+
+    [ObservableProperty] private bool _isImagePack4Available;
+
+    [ObservableProperty] private bool _isImagePack5Available;
+
+    // ── Download state tracking ───────────────────────────────────────
+
+    private readonly Dictionary<string, DownloadButtonState> _downloadStates = new(StringComparer.Ordinal);
+    private string? _currentDownloadType;
+
+    public EasyModeViewModel(
+        EasyModeManager easyModeManager,
+        DownloadManager downloadManager,
+        IMessageBoxLibraryService messageBox,
+        ILogger logger,
+        IConfiguration configuration,
+        PlaySoundEffects playSoundEffects)
+    {
+        _easyModeManager = easyModeManager;
+        _downloadManager = downloadManager;
+        _messageBox = messageBox;
+        _logger = logger;
+        _configuration = configuration;
+        _playSoundEffects = playSoundEffects;
+
+        _downloadManager.DownloadProgressChanged += OnDownloadProgressChanged;
+    }
+
+    // ── Initialization ────────────────────────────────────────────────
+
+    /// <summary>
+    /// Loads EasyMode systems from the manager. Call after the window is loaded.
+    /// Only systems with an emulator download link are offered (matches the old PopulateSystemDropdown).
+    /// </summary>
+    [RelayCommand]
+    private async Task LoadAsync()
+    {
+        IsLoading = true;
+        await Task.Yield();
+
+        _manager = await _easyModeManager.LoadAsync();
+
+        IsLoading = false;
+
+        if (_manager is not { Systems.Count: > 0 })
+        {
+            await _messageBox.EasyModeUnavailableMessageBoxAsync();
+            return;
+        }
+
+        var sorted = _manager.Systems
+            .Where(static s => s.IsValid()
+                               && !string.IsNullOrEmpty(s.Emulators?.Emulator?.EmulatorDownloadLink))
+            .OrderBy(static s => s.SystemName, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        Systems = new ObservableCollection<EasyModeSystemConfig>(sorted);
+    }
+
+    // ── System selection (ports SystemNameDropdown_SelectionChanged) ──
+
+    partial void OnSelectedSystemChanged(EasyModeSystemConfig? value)
+    {
+        if (_disposed) return;
+
+        if (value == null)
+        {
+            // No selection → all components "downloaded" (buttons disabled)
+            IsImagePack1Available = false;
+            IsImagePack2Available = false;
+            IsImagePack3Available = false;
+            IsImagePack4Available = false;
+            IsImagePack5Available = false;
+
+            SetDownloadState(EasyModeManager.DownloadType.Emulator, DownloadButtonState.Downloaded);
+            SetDownloadState(EasyModeManager.DownloadType.Core, DownloadButtonState.Downloaded);
+            SetDownloadState(EasyModeManager.DownloadType.ImagePack1, DownloadButtonState.Downloaded);
+            SetDownloadState(EasyModeManager.DownloadType.ImagePack2, DownloadButtonState.Downloaded);
+            SetDownloadState(EasyModeManager.DownloadType.ImagePack3, DownloadButtonState.Downloaded);
+            SetDownloadState(EasyModeManager.DownloadType.ImagePack4, DownloadButtonState.Downloaded);
+            SetDownloadState(EasyModeManager.DownloadType.ImagePack5, DownloadButtonState.Downloaded);
+
+            SystemFolderPath = "";
+            return;
+        }
+
+        var emulator = value.Emulators?.Emulator;
+
+        // Image packs are shown only when both a link and an extract path exist
+        IsImagePack1Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink)
+                                && !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
+        IsImagePack2Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink2)
+                                && !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
+        IsImagePack3Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink3)
+                                && !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
+        IsImagePack4Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink4)
+                                && !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
+        IsImagePack5Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink5)
+                                && !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
+
+        // Emulator: downloaded if the file already exists on disk, otherwise Idle (button enabled)
+        var emulatorLocation = emulator?.EmulatorLocation;
+        if (!string.IsNullOrEmpty(emulatorLocation))
+        {
+            var resolvedEmulatorPath = PathHelper.ResolveRelativeToAppDirectory(emulatorLocation);
+            SetDownloadState(EasyModeManager.DownloadType.Emulator,
+                File.Exists(resolvedEmulatorPath) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+        }
+        else
+        {
+            // No location defined → it can't exist → needs to be downloaded
+            SetDownloadState(EasyModeManager.DownloadType.Emulator, DownloadButtonState.Idle);
+        }
+
+        // Core: downloaded if the file exists, or if no core download is offered
+        var coreLocation = emulator?.CoreLocation;
+        var coreDownloadLink = emulator?.CoreDownloadLink;
+        if (!string.IsNullOrEmpty(coreLocation))
+        {
+            var resolvedCorePath = PathHelper.ResolveRelativeToAppDirectory(coreLocation);
+            SetDownloadState(EasyModeManager.DownloadType.Core,
+                File.Exists(resolvedCorePath) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+        }
+        else
+        {
+            SetDownloadState(EasyModeManager.DownloadType.Core,
+                string.IsNullOrEmpty(coreDownloadLink) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+        }
+
+        // Image packs: downloaded only when no download is offered
+        SetDownloadState(EasyModeManager.DownloadType.ImagePack1,
+            string.IsNullOrEmpty(emulator?.ImagePackDownloadLink) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+        SetDownloadState(EasyModeManager.DownloadType.ImagePack2,
+            string.IsNullOrEmpty(emulator?.ImagePackDownloadLink2) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+        SetDownloadState(EasyModeManager.DownloadType.ImagePack3,
+            string.IsNullOrEmpty(emulator?.ImagePackDownloadLink3) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+        SetDownloadState(EasyModeManager.DownloadType.ImagePack4,
+            string.IsNullOrEmpty(emulator?.ImagePackDownloadLink4) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+        SetDownloadState(EasyModeManager.DownloadType.ImagePack5,
+            string.IsNullOrEmpty(emulator?.ImagePackDownloadLink5) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+
+        // Default folder for the textbox (resolved for display)
+        SystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(value.SystemFolder) ?? "";
+    }
+
+    // ── Download commands ─────────────────────────────────────────────
+
+    [RelayCommand]
+    private async Task DownloadEmulatorAsync()
+    {
+        await DownloadComponentAsync(EasyModeManager.DownloadType.Emulator);
+    }
+
+    [RelayCommand]
+    private async Task DownloadCoreAsync()
+    {
+        await DownloadComponentAsync(EasyModeManager.DownloadType.Core);
+    }
+
+    [RelayCommand]
+    private async Task DownloadImagePack1Async()
+    {
+        await DownloadComponentAsync(EasyModeManager.DownloadType.ImagePack1);
+    }
+
+    [RelayCommand]
+    private async Task DownloadImagePack2Async()
+    {
+        await DownloadComponentAsync(EasyModeManager.DownloadType.ImagePack2);
+    }
+
+    [RelayCommand]
+    private async Task DownloadImagePack3Async()
+    {
+        await DownloadComponentAsync(EasyModeManager.DownloadType.ImagePack3);
+    }
+
+    [RelayCommand]
+    private async Task DownloadImagePack4Async()
+    {
+        await DownloadComponentAsync(EasyModeManager.DownloadType.ImagePack4);
+    }
+
+    [RelayCommand]
+    private async Task DownloadImagePack5Async()
+    {
+        await DownloadComponentAsync(EasyModeManager.DownloadType.ImagePack5);
+    }
+
+    [RelayCommand]
+    private void StopDownload()
+    {
+        _playSoundEffects.PlayNotificationSound();
+        if (_disposed) return;
+
+        _downloadManager.CancelDownload();
+        CanStopDownload = false;
+        DownloadProgress = 0;
+        DownloadStatus = "Canceling download...";
+
+        if (_currentDownloadType != null)
+        {
+            if (GetDownloadState(_currentDownloadType) == DownloadButtonState.Downloading)
+            {
+                SetDownloadState(_currentDownloadType, DownloadButtonState.Failed);
+            }
+
+            _currentDownloadType = null;
+        }
+
+        EndOperation();
+    }
+
+    // ── Add System ────────────────────────────────────────────────────
+
+    [RelayCommand]
+    private async Task AddSystemAsync()
+    {
+        try
+        {
+            _playSoundEffects.PlayNotificationSound();
+            if (!TryStartOperation()) return;
+
+            var selectedSystem = SelectedSystem;
+            if (selectedSystem == null)
+            {
+                EndOperation();
+                return;
+            }
+
+            var systemFolder = !string.IsNullOrWhiteSpace(SystemFolderPath)
+                ? SystemFolderPath
+                : Path.Combine("%BASEFOLDER%", "roms", selectedSystem.SystemName);
+
+            var systemImageFolder = selectedSystem.SystemImageFolder;
+
+            try
+            {
+                IsAddSystemEnabled = false;
+                DownloadStatus = "Adding system to configuration...";
+                DownloadProgress = 0;
+
+                await SystemManagerService.AddOrUpdateSystemFromEasyModeAsync(
+                    selectedSystem, systemFolder, _configuration, _logger);
+
+                DownloadStatus = "Creating system folders...";
+                await Task.Yield();
+
+                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolder);
+                var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolder);
+
+                if (resolvedSystemFolder != null && resolvedSystemImageFolder != null)
+                {
+                    await CreateDefaultSystemFoldersService.CreateFoldersAsync(
+                        selectedSystem.SystemName,
+                        resolvedSystemFolder,
+                        resolvedSystemImageFolder,
+                        _configuration,
+                        _logger,
+                        _messageBox);
+
+                    DownloadStatus = "System has been successfully added!";
+                    await _messageBox.SystemAddedMessageBoxAsync(
+                        selectedSystem.SystemName,
+                        resolvedSystemFolder,
+                        resolvedSystemImageFolder);
+                }
+
+                // Signal success so the window can close
+                SystemAdded = true;
+                RequestClose?.Invoke();
+            }
+            catch (InvalidOperationException ex)
+            {
+                DownloadStatus = $"Error: Failed to add system. {ex.Message}";
+                await _messageBox.AddSystemFailedMessageBoxAsync(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                DownloadStatus = "Error: Failed to add system.";
+                _logger.Error(ex, "Unexpected error adding system.");
+                await _messageBox.AddSystemFailedMessageBoxAsync();
+            }
+            finally
+            {
+                IsAddSystemEnabled = true;
+                EndOperation();
+            }
+        }
+        catch (Exception ex)
+        {
+            EndOperation();
+            _logger.Error(ex, "Error in AddSystemAsync.");
+        }
+    }
+
+    /// <summary>
+    /// Set to true when the system was successfully added, so the window can close.
+    /// </summary>
+    public bool SystemAdded { get; private set; }
+
+    /// <summary>
+    /// Callback invoked when the window should close (after successful add).
+    /// Set by the window code-behind.
+    /// </summary>
+    public Action? RequestClose { get; set; }
+
+    // ── Download flow (ports HandleDownloadAndExtractComponentAsync) ──
+
+    private async Task DownloadComponentAsync(string type)
+    {
+        try
+        {
+            _playSoundEffects.PlayNotificationSound();
+            if (_disposed || SelectedSystem == null) return;
+            if (!TryStartOperation()) return;
+
+            var selectedSystem = SelectedSystem;
+            var emulatorConfig = selectedSystem.Emulators?.Emulator;
+
+            _currentDownloadType = type;
+            SetDownloadState(type, DownloadButtonState.Downloading);
+
+            var (downloadUrl, easyModeExtractPath, componentName) = type switch
+            {
+                EasyModeManager.DownloadType.Emulator => (emulatorConfig?.EmulatorDownloadLink, emulatorConfig?.EmulatorDownloadExtractPath, "Emulator"),
+                EasyModeManager.DownloadType.Core => (emulatorConfig?.CoreDownloadLink, emulatorConfig?.CoreDownloadExtractPath, "Core"),
+                EasyModeManager.DownloadType.ImagePack1 => (emulatorConfig?.ImagePackDownloadLink, emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 1"),
+                EasyModeManager.DownloadType.ImagePack2 => (emulatorConfig?.ImagePackDownloadLink2, emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 2"),
+                EasyModeManager.DownloadType.ImagePack3 => (emulatorConfig?.ImagePackDownloadLink3, emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 3"),
+                EasyModeManager.DownloadType.ImagePack4 => (emulatorConfig?.ImagePackDownloadLink4, emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 4"),
+                EasyModeManager.DownloadType.ImagePack5 => (emulatorConfig?.ImagePackDownloadLink5, emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 5"),
+                _ => (null, null, type)
+            };
+
+            try
+            {
+                if (easyModeExtractPath == null)
+                {
+                    EndOperation();
+                    SetDownloadState(type, DownloadButtonState.Idle);
+                    return;
+                }
+
+                var destinationPath = PathHelper.ResolveRelativeToAppDirectory(easyModeExtractPath);
+
+                if (string.IsNullOrEmpty(downloadUrl))
+                {
+                    DownloadStatus = $"Error: No download URL for {componentName}";
+                    EndOperation();
+                    SetDownloadState(type, DownloadButtonState.Idle);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(destinationPath))
+                {
+                    DownloadStatus = $"Error: Invalid destination path for {componentName}";
+                    _logger.Warning("[EasyMode] Invalid destination path for {Component}: {Path}", componentName, easyModeExtractPath);
+                    EndOperation();
+                    SetDownloadState(type, DownloadButtonState.Idle);
+                    return;
+                }
+
+                DownloadStatus = $"Preparing to download {componentName}...";
+                DownloadProgress = 0;
+                CanStopDownload = true;
+
+                DownloadStatus = $"Downloading {componentName}...";
+                var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
+
+                if (_disposed)
+                {
+                    EndOperation();
+                    return;
+                }
+
+                var success = false;
+
+                if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
+                {
+                    DownloadStatus = $"Extracting {componentName}...";
+                    DownloadProgress = 0;
+
+                    success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
+                }
+
+                if (success)
+                {
+                    EndOperation();
+                    DownloadStatus = $"{componentName} has been successfully downloaded and installed.";
+                    CanStopDownload = false;
+
+                    await _messageBox.DownloadAndExtractionWereSuccessfulMessageBoxAsync();
+
+                    SetDownloadState(type, DownloadButtonState.Downloaded);
+                }
+                else
+                {
+                    if (_disposed)
+                    {
+                        EndOperation();
+                        return;
+                    }
+
+                    if (_downloadManager.IsUserCancellation)
+                    {
+                        DownloadStatus = $"Download of {componentName} was canceled.";
+                        CanStopDownload = false;
+                        EndOperation();
+                        SetDownloadState(type, DownloadButtonState.Failed);
+                    }
+                    else if (_downloadManager.IsFileLockedDuringDownload)
+                    {
+                        await _messageBox.ShowDownloadFileLockedMessageBoxAsync(_downloadManager.TempFolder);
+                        EndOperation();
+                    }
+                    else if (_downloadManager.IsDownloadCompleted)
+                    {
+                        DownloadStatus = $"Error: Failed to extract {componentName}.";
+                        EndOperation();
+                        SetDownloadState(type, DownloadButtonState.Failed);
+                        await _messageBox.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
+                    }
+                    else
+                    {
+                        DownloadStatus = $"Error during download: {componentName}.";
+                        EndOperation();
+                        await ShowDownloadErrorDialogAsync(type, selectedSystem);
+                        SetDownloadState(type, DownloadButtonState.Failed);
+                    }
+
+                    CanStopDownload = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (_disposed)
+                {
+                    EndOperation();
+                    return;
+                }
+
+                DownloadStatus = $"Error during {componentName} download process.";
+
+                // Disk space errors are user-environment issues, not code issues
+                if (!(ex is IOException ioEx &&
+                      (ioEx.Message.Contains("Insufficient disk space", StringComparison.Ordinal) ||
+                       ioEx.Message.Contains("Cannot check disk space", StringComparison.Ordinal))))
+                {
+                    _logger.Error(ex, "Error downloading {Component}. URL: {Url}", componentName, downloadUrl);
+                }
+
+                if (_downloadManager.IsFileLockedDuringDownload)
+                {
+                    EndOperation();
+                    await _messageBox.ShowDownloadFileLockedMessageBoxAsync(_downloadManager.TempFolder);
+                }
+                else if (_downloadManager.IsDownloadCompleted)
+                {
+                    EndOperation();
+                    await _messageBox.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
+                }
+                else
+                {
+                    EndOperation();
+                    await ShowDownloadErrorDialogAsync(type, selectedSystem);
+                }
+
+                if (_disposed) return;
+
+                CanStopDownload = false;
+                SetDownloadState(type, DownloadButtonState.Failed);
+                EndOperation();
+            }
+            finally
+            {
+                _currentDownloadType = null;
+                CanStopDownload = false;
+                EndOperation();
+            }
+        }
+        catch (Exception ex)
+        {
+            EndOperation();
+            _logger.Error(ex, "Error in DownloadComponentAsync.");
+        }
+    }
+
+    private Task ShowDownloadErrorDialogAsync(string type, EasyModeSystemConfig selectedSystem)
+    {
+        return type switch
+        {
+            EasyModeManager.DownloadType.Emulator => _messageBox.ShowEmulatorDownloadErrorMessageBoxAsync(selectedSystem),
+            EasyModeManager.DownloadType.Core => _messageBox.ShowCoreDownloadErrorMessageBoxAsync(selectedSystem),
+            EasyModeManager.DownloadType.ImagePack1 or EasyModeManager.DownloadType.ImagePack2
+                or EasyModeManager.DownloadType.ImagePack3 or EasyModeManager.DownloadType.ImagePack4
+                or EasyModeManager.DownloadType.ImagePack5 => _messageBox.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem),
+            _ => _messageBox.DownloadExtractionFailedMessageBoxAsync()
+        };
+    }
+
+    // ── State management ──────────────────────────────────────────────
+
+    private bool TryStartOperation()
+    {
+        if (Interlocked.CompareExchange(ref _operationInProgressFlag, 1, 0) != 0)
+            return false;
+
+        IsOperationInProgress = true;
+        return true;
+    }
+
+    private void EndOperation()
+    {
+        IsOperationInProgress = false;
+        Interlocked.Exchange(ref _operationInProgressFlag, 0);
+    }
+
+    private DownloadButtonState GetDownloadState(string type)
+    {
+        return _downloadStates.GetValueOrDefault(type, DownloadButtonState.Idle);
+    }
+
+    private void SetDownloadState(string type, DownloadButtonState state)
+    {
+        _downloadStates[type] = state;
+
+        switch (type)
+        {
+            case EasyModeManager.DownloadType.Emulator:
+                IsEmulatorDownloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.Core:
+                IsCoreDownloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.ImagePack1:
+                IsImagePack1Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.ImagePack2:
+                IsImagePack2Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.ImagePack3:
+                IsImagePack3Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.ImagePack4:
+                IsImagePack4Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.ImagePack5:
+                IsImagePack5Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+        }
+
+        UpdateAddSystemButtonState();
+    }
+
+    private void UpdateAddSystemButtonState()
+    {
+        if (_disposed)
+        {
+            IsAddSystemEnabled = false;
+            return;
+        }
+
+        var emulatorConfig = SelectedSystem?.Emulators?.Emulator;
+        if (emulatorConfig == null)
+        {
+            IsAddSystemEnabled = false;
+            return;
+        }
+
+        var isEmulatorRequired = !string.IsNullOrEmpty(emulatorConfig.EmulatorDownloadLink);
+        var isEmulatorReady = !isEmulatorRequired || IsEmulatorDownloaded;
+
+        var isCoreRequired = !string.IsNullOrEmpty(emulatorConfig.CoreDownloadLink);
+        var isCoreReady = !isCoreRequired || IsCoreDownloaded;
+
+        IsAddSystemEnabled = isEmulatorReady && isCoreReady && !IsOperationInProgress;
+    }
+
+    private void OnDownloadProgressChanged(object? sender, DownloadProgressEventArgs e)
+    {
+        if (_disposed) return;
+
+        // CommunityToolkit.Mvvm dispatches PropertyChanged to the UI thread for bound properties.
+        DownloadProgress = e.ProgressPercentage;
+        DownloadStatus = e.StatusMessage;
+    }
+
+    // ── Cleanup ───────────────────────────────────────────────────────
+
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        _downloadManager.DownloadProgressChanged -= OnDownloadProgressChanged;
+        _downloadManager?.CancelDownload();
+        _manager?.Dispose();
+        _easyModeManager?.Dispose();
+
+        _disposed = true;
+        GC.SuppressFinalize(this);
+    }
+}
