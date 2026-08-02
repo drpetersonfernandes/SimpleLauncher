@@ -199,7 +199,7 @@ public partial class SupportViewModel : ObservableObject
                     _logger.Debug($"[Support] FAILURE: API returned error. Status={response.StatusCode}, Body='{responseContent}'");
 
                     var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {responseContent}";
-                    _logger.Warning( contextMessage);
+                    _logger.Warning(contextMessage);
 
                     await _messageBox.SupportRequestSendErrorMessageBoxAsync();
                 }

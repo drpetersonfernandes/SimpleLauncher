@@ -316,7 +316,6 @@ public class UpdateSimulationTests : IDisposable
         var constructor = typeof(CheckForUpdatesService).GetConstructors(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).First();
         var factory = new MockHttpClientFactory();
         var logErrors = new NoOpLogger();
-        var debugLogger = Log.Logger;
         return (CheckForUpdatesService)constructor.Invoke([factory, null, null, logErrors, null, null]);
     }
 

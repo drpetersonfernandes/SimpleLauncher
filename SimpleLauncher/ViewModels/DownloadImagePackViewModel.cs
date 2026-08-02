@@ -417,16 +417,12 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                     var wascanceled = _resourceProvider.GetString("wascanceled", "was canceled.");
                     StatusMessage = $"{downloadof} {componentName} {wascanceled}";
                     IsStopEnabled = false;
-                    EndOperation();
-                    item.State = DownloadButtonState.Failed;
                 }
                 else if (_downloadManager.IsDownloadCompleted)
                 {
                     var errorFailedtoextract = _resourceProvider.GetString("ErrorFailedtoextract", "Error: Failed to extract");
                     StatusMessage = $"{errorFailedtoextract} {componentName}.";
                     await _messageBox.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
-                    EndOperation();
-                    item.State = DownloadButtonState.Failed;
                 }
                 else
                 {
@@ -435,10 +431,10 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
                     await _messageBox.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
                     if (_disposed) return;
-
-                    EndOperation();
-                    item.State = DownloadButtonState.Failed;
                 }
+
+                EndOperation();
+                item.State = DownloadButtonState.Failed;
 
                 IsStopEnabled = false;
             }
@@ -461,13 +457,13 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
             if (_downloadManager.IsDownloadCompleted)
             {
                 await _messageBox.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
-                EndOperation();
             }
             else
             {
                 await _messageBox.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
-                EndOperation();
             }
+
+            EndOperation();
 
             if (_disposed) return;
 

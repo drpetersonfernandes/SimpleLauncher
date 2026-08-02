@@ -52,7 +52,7 @@ public partial class SystemManagerService : ISystemManager
     public bool DisableRecursiveSearch { get; init; }
 
     // ReSharper disable once NotAccessedField.Local
-    private readonly IMessageBoxLibraryService _messageBoxLibrary = null!;
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
 
     /// <summary>
     /// Static logger shared across static methods. Set by the last instance created.

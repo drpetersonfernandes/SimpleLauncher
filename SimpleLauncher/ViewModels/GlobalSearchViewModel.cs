@@ -41,6 +41,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 
     [ObservableProperty] private Stream? _previewImageSource;
 
+    // ReSharper disable once UnusedParameterInPartialMethod
     partial void OnPreviewImageSourceChanged(Stream? oldValue, Stream? newValue)
     {
         oldValue?.Dispose();

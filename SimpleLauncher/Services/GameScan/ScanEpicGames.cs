@@ -175,11 +175,11 @@ public class ScanEpicGames : IGamePlatformScanner
         {
             // Extract icon
             case false when !string.IsNullOrEmpty(launchExecutable):
-                {
-                    var fullExePath = Path.Combine(installLocation!, launchExecutable);
-                    await gameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation!, sanitizedGameName, windowsImagesPath!, fullExePath);
-                    break;
-                }
+            {
+                var fullExePath = Path.Combine(installLocation!, launchExecutable);
+                await gameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation!, sanitizedGameName, windowsImagesPath!, fullExePath);
+                break;
+            }
             case false:
                 await gameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation!, sanitizedGameName, windowsImagesPath!);
                 break;

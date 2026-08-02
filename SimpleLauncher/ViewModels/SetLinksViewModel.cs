@@ -17,8 +17,8 @@ public partial class SetLinksViewModel : ObservableObject
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
 
-    [ObservableProperty] private string _videoUrl = "";
-    [ObservableProperty] private string _infoUrl = "";
+    [ObservableProperty] private string _videoUrl;
+    [ObservableProperty] private string _infoUrl;
 
     /// <summary>Initializes a new instance of the <see cref="SetLinksViewModel"/> class.</summary>
     /// <param name="settingsManager">The settings manager for reading and saving link URLs.</param>
@@ -38,8 +38,10 @@ public partial class SetLinksViewModel : ObservableObject
 
     /// <summary>Event raised when settings have been saved.</summary>
     public event EventHandler SaveCompleted = null!;
+
     /// <summary>Event raised when the window should be closed.</summary>
     public event EventHandler CloseRequested = null!;
+
     [RelayCommand]
     private async Task SaveAsync()
     {

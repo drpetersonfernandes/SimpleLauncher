@@ -51,7 +51,7 @@ public class GameItemRenderService : IGameItemRenderService
         GameLauncher.GameLauncherService gameLauncher,
         PlaySoundEffects playSoundEffects,
         IConfiguration configuration,
-IGetListOfFilesService getListOfFiles,
+        IGetListOfFilesService getListOfFiles,
         IFindCoverImageService findCoverImage,
         IImageLoader imageLoader,
         GameListUiService gameListUiService,

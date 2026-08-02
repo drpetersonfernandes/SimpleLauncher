@@ -56,7 +56,7 @@ public class WpfImageLoader(ILogger logErrors, IConfiguration configuration, IMe
             if (imageBytes == null)
             {
                 const string contextMessage = "Failed to load global default image: images\\default.png.";
-                _logger.Warning( contextMessage);
+                _logger.Warning(contextMessage);
                 await _messageBox.DefaultImageNotFoundMessageBoxAsync();
                 return (null, true);
             }

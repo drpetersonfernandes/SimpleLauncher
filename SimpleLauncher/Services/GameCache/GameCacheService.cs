@@ -9,7 +9,6 @@ namespace SimpleLauncher.Services.GameCache;
 /// </summary>
 public class GameCacheService : IGameCacheService, IDisposable
 {
-
     private readonly ILogger _logger;
     private readonly SemaphoreSlim _lock = new(1, 1);
     private List<string> _allGamesForCurrentSystem = [];
@@ -24,7 +23,6 @@ public class GameCacheService : IGameCacheService, IDisposable
     /// Initializes a new instance of <see cref="GameCacheService"/>.
     /// </summary>
     /// <param name="logger">Error logging service.</param>
-    /// <param name="logger">Debug logging service.</param>
     public GameCacheService(ILogger logger)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));

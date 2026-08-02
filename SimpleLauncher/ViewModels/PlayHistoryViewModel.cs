@@ -16,9 +16,6 @@ using CoreMessageBoxResult = SimpleLauncher.Models.MessageBoxResult;
 namespace SimpleLauncher.ViewModels;
 
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
-/// <summary>
-/// ViewModel for the play history window, managing the list of played games, sorting, and launching.
-/// </summary>
 public partial class PlayHistoryViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
@@ -42,6 +39,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
 
     [ObservableProperty] private Stream? _previewImageSource;
 
+    // ReSharper disable once UnusedParameterInPartialMethod
     partial void OnPreviewImageSourceChanged(Stream? oldValue, Stream? newValue)
     {
         oldValue?.Dispose();

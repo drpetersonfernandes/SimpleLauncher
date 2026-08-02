@@ -172,6 +172,7 @@ public class FilterMenu
             _selectedButton.ClearValue(Control.BackgroundProperty);
         }
 
+        // ReSharper disable once AssignNullToNotNullAttribute
         button.Background = (Brush)Application.Current.Resources["AccentColorBrush"];
         _playSoundEffects.PlayNotificationSound();
         _selectedButton = button;

@@ -56,7 +56,7 @@ public class RetroAchievementsManager
         {
             // Notify developer
             const string contextMessage = "RetroAchievements.dat is missing or empty. Starting with an empty database.";
-            logErrors.Warning( contextMessage);
+            logErrors.Warning(contextMessage);
 
             logger.Debug("[RA Manager] Starting with empty RetroAchievements database");
         }

@@ -35,7 +35,7 @@ internal partial class GameButtonFactory(
     GamePadController gamePadController,
     GameLauncher.GameLauncherService gameLauncher,
     PlaySoundEffects playSoundEffects,
-IGetListOfFilesService getListOfFiles,
+    IGetListOfFilesService getListOfFiles,
     IFindCoverImageService findCoverImage,
     IImageLoader imageLoader,
     IMessageBoxLibraryService messageBox,
@@ -82,28 +82,26 @@ IGetListOfFilesService getListOfFiles,
     {
         var isDirectory = Directory.Exists(entityPath);
 
-        string fileNameWithExtension;
         string fileNameWithoutExtension;
 
+        var fileNameWithExtension = Path.GetFileName(entityPath); // Folder name
         if (isDirectory)
         {
-            fileNameWithExtension = Path.GetFileName(entityPath); // Folder name
+            // Folder name
             fileNameWithoutExtension = fileNameWithExtension;
         }
         else
         {
-            fileNameWithExtension = Path.GetFileName(entityPath);
             fileNameWithoutExtension = Path.GetFileNameWithoutExtension(entityPath);
         }
 
         var selectedSystemName = systemName;
         var selectedSystemManager = systemManager ?? throw new ArgumentNullException(nameof(systemManager));
 
-        string imagePath;
+        var imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager.SystemImageFolder);
         if (isDirectory) // GroupByFolder is true
         {
             // First, try to find an image with the same name as the folder name.
-            imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager.SystemImageFolder);
 
             // If the found path is a default image, try the fallback logic.
             if (imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
@@ -118,12 +116,8 @@ IGetListOfFilesService getListOfFiles,
                 }
             }
         }
-        else
-        {
-            // This is the logic for non-grouped files, which remains the same.
-            imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager.SystemImageFolder);
-        }
 
+        // This is the logic for non-grouped files, which remains the same.
         var (imageStream, isDefaultImage) = await _imageLoader.LoadImageAsync(imagePath);
         var loadedImage = imageStream.ToBitmapImage();
 
@@ -335,6 +329,7 @@ IGetListOfFilesService getListOfFiles,
                 Margin = new Thickness(5, currentVerticalOffset, 5, 0), // Use dynamic offset
                 Cursor = Cursors.Hand,
                 ToolTip = (string)Application.Current.TryFindResource("ViewAchievements") ?? "View Achievements", // Localized ToolTip
+                // ReSharper disable once AssignNullToNotNullAttribute
                 Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
             };
             // Set AutomationProperties.Name for screen readers
@@ -405,6 +400,7 @@ IGetListOfFilesService getListOfFiles,
                 Margin = new Thickness(5, currentVerticalOffset, 5, 0), // Use dynamic offset
                 Cursor = Cursors.Hand,
                 ToolTip = (string)Application.Current.TryFindResource("ViewVideo") ?? "View Video", // Localized ToolTip
+                // ReSharper disable once AssignNullToNotNullAttribute
                 Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
             };
             // Set AutomationProperties.Name for screen readers
@@ -467,6 +463,7 @@ IGetListOfFilesService getListOfFiles,
                 Margin = new Thickness(5, currentVerticalOffset, 5, 0), // Use dynamic offset
                 Cursor = Cursors.Hand,
                 ToolTip = (string)Application.Current.TryFindResource("ViewInfo") ?? "View Info", // Localized ToolTip
+                // ReSharper disable once AssignNullToNotNullAttribute
                 Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
             };
             // Set AutomationProperties.Name for screen readers
@@ -531,6 +528,7 @@ IGetListOfFilesService getListOfFiles,
             Margin = new Thickness(5),
             Cursor = Cursors.Hand,
             ToolTip = (string)Application.Current.TryFindResource("MoreOptions") ?? "More Options",
+            // ReSharper disable once AssignNullToNotNullAttribute
             Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
         };
         // Set AutomationProperties.Name for screen readers

@@ -46,7 +46,7 @@ public partial class GameLauncherService : ILauncherService
         IExtractionService extraction,
         Stats stats,
         IConfiguration configuration,
-IUpdateStatusBar updateStatusBar,
+        IUpdateStatusBar updateStatusBar,
         PlayHistoryManager playHistoryManager,
         IMessageBoxLibraryService messageBoxLibrary,
         IMountZipFiles mountZipFiles,
@@ -109,7 +109,7 @@ IUpdateStatusBar updateStatusBar,
             {
                 var contextMessage = $"SystemManagerService is null when attempting to launch.\n" +
                                      $"SystemName: '{context.SystemName}', EmulatorName: '{context.EmulatorName}', FilePath: '{context.FilePath}'";
-                _logger.Warning( contextMessage);
+                _logger.Warning(contextMessage);
                 await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 return;
             }
@@ -118,7 +118,7 @@ IUpdateStatusBar updateStatusBar,
             {
                 var contextMessage = $"SystemManagerService.Emulators is null or empty for system '{context.SystemName}'.\n" +
                                      $"EmulatorName: '{context.EmulatorName}', FilePath: '{context.FilePath}'";
-                _logger.Warning( contextMessage);
+                _logger.Warning(contextMessage);
                 await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 return;
             }
@@ -162,7 +162,7 @@ IUpdateStatusBar updateStatusBar,
                 if (strategy == null)
                 {
                     var errorMessage = $"No launch strategy found for the context: SystemName='{context.SystemName}', EmulatorName='{context.EmulatorName}', FilePath='{context.FilePath}'";
-                    _logger.Warning( errorMessage);
+                    _logger.Warning(errorMessage);
                     await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                     return;
                 }
@@ -732,7 +732,7 @@ IUpdateStatusBar updateStatusBar,
                                   $"Exit code: {process.ExitCode}";
                 var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
                 var contextMessage = $"{errorDetail}\n{userNotified}";
-                _logger.Warning( contextMessage);
+                _logger.Warning(contextMessage);
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
@@ -835,7 +835,7 @@ IUpdateStatusBar updateStatusBar,
         {
             // Notify developer
             const string contextMessage = "[LaunchRegularEmulatorAsync] selectedEmulatorName is null or empty.";
-            _logger.Warning( contextMessage);
+            _logger.Warning(contextMessage);
             _logger.Debug($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
@@ -904,7 +904,7 @@ IUpdateStatusBar updateStatusBar,
         {
             var errorMessage = $"[LaunchRegularEmulatorAsync] RetroArch parameter should contain -L. Parameter field: {selectedEmulatorManager.EmulatorParameters}";
             _logger.Debug(errorMessage);
-            _logger.Warning( errorMessage);
+            _logger.Warning(errorMessage);
 
             await _messageBoxLibrary.RetroArchParameterShouldContainLMessageBoxAsync();
 
@@ -915,7 +915,7 @@ IUpdateStatusBar updateStatusBar,
         {
             var errorMessage = $"[LaunchRegularEmulatorAsync] Xemu parameter should contain '-dvd_path'. Parameter field: {selectedEmulatorManager.EmulatorParameters}";
             _logger.Debug(errorMessage);
-            _logger.Warning( errorMessage);
+            _logger.Warning(errorMessage);
 
             await _messageBoxLibrary.XemuParameterShouldContainDvdPathMessageBoxAsync();
 
@@ -970,7 +970,7 @@ IUpdateStatusBar updateStatusBar,
         {
             // Notify developer
             const string contextMessage = "resolvedFilePath is null or empty after extraction attempt (or for mounted files).";
-            _logger.Warning( contextMessage);
+            _logger.Warning(contextMessage);
             _logger.Debug($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
@@ -985,7 +985,7 @@ IUpdateStatusBar updateStatusBar,
         {
             // Notify developer
             var contextMessage = $"Mounted file {resolvedFilePath} not found when trying to launch with emulator.";
-            _logger.Warning( contextMessage);
+            _logger.Warning(contextMessage);
             _logger.Debug($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
@@ -1004,7 +1004,7 @@ IUpdateStatusBar updateStatusBar,
                 var contextMessage = $"EmulatorLocation is null or empty for emulator '{selectedEmulatorName}'. " +
                                      $"This typically means the system was configured to run directly executable files (.bat, .exe, .lnk) " +
                                      $"but the user is trying to launch a non-executable file that requires an emulator.";
-                _logger.Warning( contextMessage);
+                _logger.Warning(contextMessage);
                 _logger.Debug($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
                 // Notify user with a helpful message
@@ -1033,7 +1033,7 @@ IUpdateStatusBar updateStatusBar,
             {
                 // Notify developer
                 var contextMessage = $"Could not determine emulator folder path from executable path: '{resolvedEmulatorExePath}'";
-                _logger.Warning( contextMessage);
+                _logger.Warning(contextMessage);
                 _logger.Debug($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
                 // Notify user
@@ -1122,10 +1122,10 @@ IUpdateStatusBar updateStatusBar,
             };
 
             _logger.Debug($"LaunchRegularEmulatorAsync:\n\n" +
-                             $"Program Location: {resolvedEmulatorExePath}\n" +
-                             $"Arguments: {arguments}\n" +
-                             $"Working Directory: {psi.WorkingDirectory}\n" +
-                             $"File to launch: {resolvedFilePath}");
+                          $"Program Location: {resolvedEmulatorExePath}\n" +
+                          $"Arguments: {arguments}\n" +
+                          $"Working Directory: {psi.WorkingDirectory}\n" +
+                          $"File to launch: {resolvedFilePath}");
 
             var launchedwith = (string)Application.Current.TryFindResource("launchedwith") ?? "launched with";
 
@@ -1335,7 +1335,7 @@ IUpdateStatusBar updateStatusBar,
             output.ToString().Contains("Permission denied", StringComparison.OrdinalIgnoreCase))
         {
             _logger.Debug("[CheckForExitCodeWithErrorAnyAsync] RetroArch mkdir permission denied due to special characters in path.");
-            _logger.Warning( contextMessage);
+            _logger.Warning(contextMessage);
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
@@ -1354,7 +1354,7 @@ IUpdateStatusBar updateStatusBar,
             emulatorManager.EmulatorLocation.Contains("retroarch", StringComparison.OrdinalIgnoreCase))
         {
             _logger.Debug("[CheckForExitCodeWithErrorAnyAsync] RetroArch parameter issues.");
-            _logger.Warning( contextMessage);
+            _logger.Warning(contextMessage);
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
@@ -1377,7 +1377,7 @@ IUpdateStatusBar updateStatusBar,
              output.ToString().Contains("Required files are missing", StringComparison.OrdinalIgnoreCase)))
         {
             _logger.Debug("[CheckForExitCodeWithErrorAnyAsync] MAME ROM set error.");
-            _logger.Warning( contextMessage);
+            _logger.Warning(contextMessage);
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
@@ -1400,7 +1400,7 @@ IUpdateStatusBar updateStatusBar,
              output.ToString().Contains("approximately matches the following", StringComparison.OrdinalIgnoreCase)))
         {
             _logger.Debug("[CheckForExitCodeWithErrorAnyAsync] MAME Unknown system error.");
-            _logger.Warning( contextMessage);
+            _logger.Warning(contextMessage);
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
@@ -1421,7 +1421,7 @@ IUpdateStatusBar updateStatusBar,
              output.ToString().Contains("No such file or directory", StringComparison.OrdinalIgnoreCase)))
         {
             _logger.Debug("[CheckForExitCodeWithErrorAnyAsync] MAME Unable to load image error.");
-            _logger.Warning( contextMessage);
+            _logger.Warning(contextMessage);
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
@@ -1456,7 +1456,7 @@ IUpdateStatusBar updateStatusBar,
         }
 
         _logger.Debug($"[CheckForExitCodeWithErrorAnyAsync] Exit code {process.ExitCode} detected.");
-        _logger.Warning( contextMessage);
+        _logger.Warning(contextMessage);
 
         // Generic error handler
         if (emulatorManager.ReceiveANotificationOnEmulatorError)
@@ -1483,7 +1483,7 @@ IUpdateStatusBar updateStatusBar,
                              $"Calling parameters: {psi.Arguments}\n" +
                              $"Emulator output: {output}\n" +
                              $"Emulator error: {error}\n";
-        _logger.Warning( contextMessage);
+        _logger.Warning(contextMessage);
 
         return Task.CompletedTask;
     }
@@ -1504,7 +1504,7 @@ IUpdateStatusBar updateStatusBar,
                              $"Calling parameters: {psi.Arguments}\n" +
                              $"Emulator output: {output}\n" +
                              $"Emulator error: {error}\n";
-        _logger.Warning( contextMessage);
+        _logger.Warning(contextMessage);
 
         return Task.CompletedTask;
     }
@@ -1530,7 +1530,7 @@ IUpdateStatusBar updateStatusBar,
                                      $"Calling parameters: {psi.Arguments}\n" +
                                      $"Emulator output: {output}\n" +
                                      $"Emulator error: {error}\n";
-                _logger.Warning( contextMessage);
+                _logger.Warning(contextMessage);
 
                 return true;
             }

@@ -604,6 +604,11 @@ public partial class App : IDisposable
         Current.MainWindow = mainWindow;
         mainWindow.Show();
 
+        if (isDebugMode)
+        {
+            DebugWindow.ShowDebugWindow();
+        }
+
         // Call ApplicationStats API on startup
         _ = Task.Run(async () =>
         {

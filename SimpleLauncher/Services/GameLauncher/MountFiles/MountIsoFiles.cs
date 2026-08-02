@@ -46,7 +46,7 @@ public class MountIsoFiles : IMountIsoFiles
         {
             // Notify developer
             var contextMessage = $"Resolved ISO path is null. ISO: {resolvedIsoFilePath}";
-            logErrors.Warning( contextMessage);
+            logErrors.Warning(contextMessage);
 
             // Notify user
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
@@ -77,7 +77,7 @@ public class MountIsoFiles : IMountIsoFiles
                 _logger.Debug($"[MountIsoFiles] Error: {errorMessage}");
 
                 // Notify developer
-                logErrors.Warning( errorMessage);
+                logErrors.Warning(errorMessage);
 
                 // Notify user
                 await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
@@ -245,7 +245,7 @@ public class MountIsoFiles : IMountIsoFiles
                 // Notify developer
                 var errorMessage = $"PowerShell command to mount ISO failed. Exit Code: {process.ExitCode}.\nPath: {isoPath}\nErrors: {errors}\nOutput: {outputBuilder}";
                 _logger.Debug($"[MountIsoFiles] Error: {errorMessage}");
-                logErrors.Warning( errorMessage);
+                logErrors.Warning(errorMessage);
 
                 return null;
             }
@@ -260,7 +260,7 @@ public class MountIsoFiles : IMountIsoFiles
             // Notify developer
             var failureMessage = $"Failed to parse drive letter from PowerShell output for ISO {isoPath}. Output: '{driveLetter}'\nErrors: {errors}";
             _logger.Debug($"[MountIsoFiles] Error: {failureMessage}");
-            logErrors.Warning( failureMessage);
+            logErrors.Warning(failureMessage);
 
             return null;
         }
@@ -276,7 +276,7 @@ public class MountIsoFiles : IMountIsoFiles
             // Notify developer
             var timeoutMessage = $"PowerShell mount command timed out (30s) for ISO {isoPath}.";
             _logger.Debug($"[MountIsoFiles] Timeout: {timeoutMessage}");
-            logErrors.Warning( timeoutMessage);
+            logErrors.Warning(timeoutMessage);
 
             if (process.HasExited) return null;
 
@@ -377,7 +377,7 @@ public class MountIsoFiles : IMountIsoFiles
             // Notify developer
             var timeoutMessage = $"PowerShell dismount command timed out (30s) for ISO {isoPath}.";
             _logger.Debug($"[MountIsoFiles] Timeout: {timeoutMessage}");
-            logErrors.Warning( timeoutMessage); // Log timeout as an error
+            logErrors.Warning(timeoutMessage); // Log timeout as an error
 
             if (!process.HasExited)
             {

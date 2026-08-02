@@ -14,8 +14,6 @@ public static class AzaharConfigurationService
     /// <param name="emulatorPath">Path to the Azahar executable.</param>
     /// <param name="settings">The settings manager containing Azahar configuration.</param>
     /// <param name="logger"></param>
-    /// <param name="logger"></param>
-    /// <returns>True if injection was successful, false if it failed due to permissions but the game can still launch.</returns>
     /// <exception cref="InvalidOperationException">Thrown when emulator directory is not found.</exception>
     /// <exception cref="FileNotFoundException">Thrown when config file and sample are both missing.</exception>
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)

@@ -163,7 +163,7 @@ public class Stats
                                  $"Stats API URL: '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
                                  (string.Equals(callType, "emulator", StringComparison.Ordinal) ? $", EmulatorName: {emulatorName}" : "");
-            _logger.Warning( contextMessage);
+            _logger.Warning(contextMessage);
 
             return false;
         }

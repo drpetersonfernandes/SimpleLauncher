@@ -22,7 +22,7 @@ public class MameManagerService
         {
             // Notify developer
             const string contextMessage = "The file 'mame.dat' could not be found in the application folder.";
-            logErrors.Warning( contextMessage);
+            logErrors.Warning(contextMessage);
 
             // Notify user
             if (messageBox != null)

@@ -14,7 +14,7 @@ public class SettingsManagerService : IDisposable
 {
     private readonly IConfiguration _configuration;
     private readonly ILogger _logger;
-    private readonly IMessageBoxLibraryService _messageBox = null!;
+    private readonly IMessageBoxLibraryService _messageBox;
     private readonly ICredentialProtector _credentialProtector;
 
     private readonly DataFileLocation _fileLocation;

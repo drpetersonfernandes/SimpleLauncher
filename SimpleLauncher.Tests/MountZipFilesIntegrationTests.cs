@@ -110,7 +110,7 @@ public sealed class MountZipFilesIntegrationTests
             var entries = Directory.GetFileSystemEntries(driveRoot);
             Assert.NotEmpty(entries);
 
-            var stdout = await mountProcess.StandardOutput.ReadToEndAsync();
+            _ = await mountProcess.StandardOutput.ReadToEndAsync();
             var stderr = await mountProcess.StandardError.ReadToEndAsync();
             Assert.True(string.IsNullOrEmpty(stderr) || !stderr.Contains("error", StringComparison.OrdinalIgnoreCase),
                 $"SimpleZipDrive reported errors for '{gameName}': {stderr}");
@@ -226,8 +226,6 @@ public sealed class MountZipFilesIntegrationTests
                 }
             }
 
-            mountProcess.Dispose();
-
             await WaitForDriveToDisappearAsync(driveRoot);
         }
     }
@@ -302,8 +300,6 @@ public sealed class MountZipFilesIntegrationTests
                 // Process did not exit in time.
             }
         }
-
-        mountProcess.Dispose();
 
         await WaitForDriveToDisappearAsync(driveRoot);
 

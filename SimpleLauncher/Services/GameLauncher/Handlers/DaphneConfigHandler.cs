@@ -31,7 +31,7 @@ public class DaphneConfigHandler : IEmulatorConfigHandler
     public async Task<bool> HandleConfigurationAsync(LaunchContext context)
     {
         var shouldRun = true;
-        if (context is { Settings: { Daphne.ShowSettingsBeforeLaunch: true }, WindowContext: not null })
+        if (context is { Settings.Daphne.ShowSettingsBeforeLaunch: true, WindowContext: not null })
             await context.WindowContext.Dispatcher.InvokeAsync(() =>
             {
                 var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectDaphneConfigWindow>();

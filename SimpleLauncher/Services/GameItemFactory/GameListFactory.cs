@@ -46,6 +46,8 @@ public class GameListFactory(
     private readonly MainWindow _mainWindow = mainWindow;
     private readonly GamePadController _gamePadController = gamePadController;
     private readonly GameLauncher.GameLauncherService _gameLauncher = gameLauncher;
+
+    // ReSharper disable once UnusedMember.Local
     private readonly PlaySoundEffects _playSoundEffects = playSoundEffects;
     private readonly IConfiguration _configuration = configuration;
     private readonly ILogger _logger = logErrors;
@@ -61,19 +63,17 @@ public class GameListFactory(
     public Task<GameListViewItem> CreateGameListViewItemAsync(string entityPath, string systemName, SystemManager.SystemManagerService systemManager)
     {
         var isDirectory = Directory.Exists(entityPath);
-        string fileNameWithExtension;
         string fileNameWithoutExtension;
         string folderPath;
 
+        var fileNameWithExtension = Path.GetFileName(entityPath);
         if (isDirectory)
         {
-            fileNameWithExtension = Path.GetFileName(entityPath);
             fileNameWithoutExtension = fileNameWithExtension;
             folderPath = entityPath;
         }
         else
         {
-            fileNameWithExtension = Path.GetFileName(entityPath);
             fileNameWithoutExtension = Path.GetFileNameWithoutExtension(entityPath);
             folderPath = Path.GetDirectoryName(entityPath) ?? "";
         }
@@ -154,7 +154,7 @@ public class GameListFactory(
                 if (string.IsNullOrEmpty(filePath))
                 {
                     // Notify developer
-                    _logger.Error(new ArgumentException("selectedItem.FilePath is null or empty.", nameof(selectedItem)), "Selected item has an invalid file path. Cannot load preview.");
+                    _logger.Error(new ArgumentException(@"selectedItem.FilePath is null or empty.", nameof(selectedItem)), "Selected item has an invalid file path. Cannot load preview.");
 
                     _mainWindow.PreviewImage.Source = null; // Clear preview
                     var (defaultStream, _) = await _imageLoader.LoadImageAsync(null); // Load global default
@@ -191,13 +191,12 @@ public class GameListFactory(
                     return;
                 }
 
-                string? previewImagePath;
                 var isDirectory = Directory.Exists(filePath);
 
+                var previewImagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemManager.SystemImageFolder);
                 if (isDirectory) // GroupByFolder is true
                 {
                     // First, try to find an image with the same name as the folder name.
-                    previewImagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemManager.SystemImageFolder);
 
                     // If the found path is a default image, try the fallback logic.
                     if (previewImagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
@@ -212,12 +211,8 @@ public class GameListFactory(
                         }
                     }
                 }
-                else
-                {
-                    // This is the logic for non-grouped files, which remains the same.
-                    previewImagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemManager.SystemImageFolder);
-                }
 
+                // This is the logic for non-grouped files, which remains the same.
                 _mainWindow.PreviewImage.Source = null; // Clear existing image before loading new one
 
                 if (!string.IsNullOrEmpty(previewImagePath))

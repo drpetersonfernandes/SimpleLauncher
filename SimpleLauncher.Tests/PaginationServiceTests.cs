@@ -311,18 +311,22 @@ public class PaginationServiceTests
         /// Gets a value indicating whether the host was asked to display the no-files message.
         /// </summary>
         public bool NoFilesMessageAdded { get; private set; }
+
         /// <summary>
         /// Gets the last enabled state requested for the previous-page button, or <c>null</c> if never set.
         /// </summary>
         public bool? PrevButtonEnabled { get; private set; }
+
         /// <summary>
         /// Gets the last enabled state requested for the next-page button, or <c>null</c> if never set.
         /// </summary>
         public bool? NextButtonEnabled { get; private set; }
+
         /// <summary>
         /// Gets a value indicating whether the host was asked to scroll the view back to the top.
         /// </summary>
         public bool ScrolledToTop { get; private set; }
+
         /// <summary>
         /// Gets the last total-files status label supplied by the pagination service.
         /// </summary>

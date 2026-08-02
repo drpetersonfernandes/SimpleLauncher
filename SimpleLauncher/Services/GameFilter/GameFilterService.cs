@@ -69,7 +69,7 @@ public partial class GameFilterService : IGameFilterService
     /// </summary>
     public Task<IList<string>> FilterByLetterAsync(IList<string> files, string startLetter)
     {
-        return Task.Run<IList<string>>(() =>
+        return Task.Run(() =>
         {
             if (string.IsNullOrEmpty(startLetter))
                 return files;
@@ -125,7 +125,7 @@ public partial class GameFilterService : IGameFilterService
 
                 var searchText = fileName;
                 if (mameLookup != null && mameLookup.TryGetValue(fileName, out var description)
-                                        && !string.IsNullOrWhiteSpace(description))
+                                       && !string.IsNullOrWhiteSpace(description))
                 {
                     searchText = string.Concat(fileName, " ", description);
                 }

@@ -270,7 +270,7 @@ public class MountZipFiles : IMountZipFiles
             // Notify developer
             var errorMessage = $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
-            logErrors.Warning( errorMessage);
+            logErrors.Warning(errorMessage);
 
             // Notify user
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
@@ -282,7 +282,7 @@ public class MountZipFiles : IMountZipFiles
         {
             const string errorMessage = "Dokan driver not found. Cannot mount ZIP.";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
-            logErrors.Warning( errorMessage);
+            logErrors.Warning(errorMessage);
             await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return;
         }
@@ -293,7 +293,7 @@ public class MountZipFiles : IMountZipFiles
         {
             const string errorMessage = "No available drive letters found to mount the ZIP.";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
-            logErrors.Warning( errorMessage);
+            logErrors.Warning(errorMessage);
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
             return;
         }
@@ -536,7 +536,7 @@ public class MountZipFiles : IMountZipFiles
             // Notify developer
             var errorMessage = $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
-            logErrors.Warning( errorMessage);
+            logErrors.Warning(errorMessage);
 
             // Notify user
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
@@ -548,7 +548,7 @@ public class MountZipFiles : IMountZipFiles
         {
             const string errorMessage = "Dokan driver not found. Cannot mount ZIP.";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
-            logErrors.Warning( errorMessage);
+            logErrors.Warning(errorMessage);
             await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return;
         }
@@ -559,7 +559,7 @@ public class MountZipFiles : IMountZipFiles
         {
             const string errorMessage = "No available drive letters found to mount the ZIP.";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
-            logErrors.Warning( errorMessage);
+            logErrors.Warning(errorMessage);
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
             return;
         }
@@ -794,7 +794,7 @@ public class MountZipFiles : IMountZipFiles
         }
     }
 
-    private string? FindScummVmGamePath(string mountDriveRootForChecks, ILogger logErrors)
+    private string FindScummVmGamePath(string mountDriveRootForChecks, ILogger logErrors)
     {
         try
         {
@@ -878,7 +878,7 @@ public class MountZipFiles : IMountZipFiles
             // Notify developer
             var errorMessage = $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
-            logErrors.Warning( errorMessage);
+            logErrors.Warning(errorMessage);
 
             // Notify user
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
@@ -890,7 +890,7 @@ public class MountZipFiles : IMountZipFiles
         {
             const string errorMessage = "Dokan driver not found. Cannot mount ZIP.";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
-            logErrors.Warning( errorMessage);
+            logErrors.Warning(errorMessage);
             await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return;
         }
@@ -901,7 +901,7 @@ public class MountZipFiles : IMountZipFiles
         {
             const string errorMessage = "No available drive letters found to mount the ZIP.";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
-            logErrors.Warning( errorMessage);
+            logErrors.Warning(errorMessage);
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
             return;
         }
@@ -1041,9 +1041,9 @@ public class MountZipFiles : IMountZipFiles
             };
 
             _logger.Debug($"[MountZipFiles] Launching ScummVM with mounted ZIP:\n\n" +
-                             $"Program Location: {psiEmulator.FileName}\n" +
-                             $"Arguments: {psiEmulator.Arguments}\n" +
-                             $"Working Directory: {psiEmulator.WorkingDirectory}");
+                          $"Program Location: {psiEmulator.FileName}\n" +
+                          $"Arguments: {psiEmulator.Arguments}\n" +
+                          $"Working Directory: {psiEmulator.WorkingDirectory}");
 
             // 3. Launch Emulator
             using (var emulatorProcess = new Process())

@@ -28,7 +28,7 @@ public class BugReportApiSink : ILogEventSink, IDisposable
     private string _logFolder = null!;
     private bool _disposed;
 
-    private static readonly SemaphoreSlim InitLock = new(1, 1);
+    private static readonly Lock InitLock = new();
     private bool _initialized;
     private Task _processTask = null!;
 

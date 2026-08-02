@@ -22,8 +22,9 @@ public partial class SoundConfigurationViewModel : ObservableObject
     private static readonly string AudioFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "audio");
 
     [ObservableProperty] private bool _enableNotificationSound;
-    [ObservableProperty] private string _notificationSoundFile = "";
+    [ObservableProperty] private string _notificationSoundFile;
     [ObservableProperty] private bool _isSoundControlsEnabled;
+
     /// <summary>Initializes a new instance of the <see cref="SoundConfigurationViewModel"/> class.</summary>
     /// <param name="settings">The settings manager for reading and saving sound configuration.</param>
     /// <param name="playSoundEffects">The sound effects service for playing notification sounds.</param>
@@ -45,10 +46,13 @@ public partial class SoundConfigurationViewModel : ObservableObject
 
     /// <summary>Event raised when settings have been saved.</summary>
     public event EventHandler SaveCompleted = null!;
+
     /// <summary>Event raised when the window should be closed.</summary>
     public event EventHandler CloseRequested = null!;
+
     /// <summary>Event raised to request a sound file path from the view.</summary>
     public Func<string?>? RequestSoundFilePath { get; set; }
+
     partial void OnEnableNotificationSoundChanged(bool value)
     {
         IsSoundControlsEnabled = value;

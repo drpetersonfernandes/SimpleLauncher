@@ -20,9 +20,10 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     private readonly IResourceProvider _resourceProvider;
     private readonly IRetroAchievementsEmulatorConfiguratorService _configurator;
 
-    [ObservableProperty] private string _username = null!;
-    [ObservableProperty] private string _apiKey = null!;
-    [ObservableProperty] private string _password = null!;
+    [ObservableProperty] private string _username;
+    [ObservableProperty] private string _apiKey;
+    [ObservableProperty] private string _password;
+
     /// <summary>Initializes a new instance of the <see cref="RetroAchievementsSettingsViewModel"/>.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="logErrors">The logger instance.</param>
@@ -46,8 +47,10 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
 
     /// <summary>Event raised when settings have been saved successfully.</summary>
     public event EventHandler SaveCompleted = null!;
+
     /// <summary>Event raised to request the emulator executable path from the view.</summary>
     public Func<string?>? RequestExePath { get; set; }
+
     [RelayCommand]
     private async Task SaveAsync()
     {

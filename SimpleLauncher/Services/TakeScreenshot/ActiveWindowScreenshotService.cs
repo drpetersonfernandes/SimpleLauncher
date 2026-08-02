@@ -25,7 +25,7 @@ public partial class ActiveWindowScreenshotService
     /// <param name="serviceProvider">The service provider for resolving dependencies.</param>
     public ActiveWindowScreenshotService(
         ILogger logger,
-IPlaySoundEffects playSoundEffects,
+        IPlaySoundEffects playSoundEffects,
         IServiceProvider serviceProvider)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));

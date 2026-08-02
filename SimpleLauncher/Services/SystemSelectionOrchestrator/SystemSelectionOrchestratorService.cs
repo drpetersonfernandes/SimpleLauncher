@@ -49,7 +49,7 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
         ISystemImageResolverService systemImageResolverService,
         IImageLoader imageLoader,
         PlaySoundEffects playSoundEffects,
-IGameCacheService gameCacheService,
+        IGameCacheService gameCacheService,
         GameFileWatcherService gameFileWatcherService,
         IConfiguration configuration,
         IHelpUserService helpUserService,
@@ -396,7 +396,7 @@ IGameCacheService gameCacheService,
                     if (selectedSystem == null || selectedManager == null)
                     {
                         const string errorMessage = "Selected system or its configuration is null.";
-                        _logger.Warning( errorMessage);
+                        _logger.Warning(errorMessage);
 
                         await _messageBox.InvalidSystemConfigMessageBoxAsync();
 

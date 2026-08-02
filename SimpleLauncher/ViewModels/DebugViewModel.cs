@@ -118,7 +118,7 @@ public partial class DebugViewModel : ObservableObject
     }
 
     [RelayCommand(CanExecute = nameof(CanCopyLog))]
-    private async Task CopyLogAsync()
+    private Task CopyLogAsync()
     {
         try
         {
@@ -132,6 +132,6 @@ public partial class DebugViewModel : ObservableObject
             Log.Error(ex, "Error copying log to clipboard");
         }
 
-        await Task.CompletedTask;
+        return Task.CompletedTask;
     }
 }

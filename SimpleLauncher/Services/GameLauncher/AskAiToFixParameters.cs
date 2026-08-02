@@ -27,7 +27,7 @@ public static class AskAiToFixParameters
         Emulator emulatorManager,
         IMessageBoxLibraryService messageBoxLibrary,
         IParameterResolverService parameterResolverService,
-IConfiguration configuration,
+        IConfiguration configuration,
         IServiceProvider serviceProvider,
         ILogger logger)
     {

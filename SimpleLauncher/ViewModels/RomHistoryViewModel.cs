@@ -71,7 +71,7 @@ public partial class RomHistoryViewModel : ObservableObject
             if (!datExists && !xmlExists)
             {
                 const string contextMessage = "'history.dat' and 'history.xml' are both missing.";
-                _logger.Warning( contextMessage);
+                _logger.Warning(contextMessage);
 
                 var nohistoryxmlfilefound2 = _resourceProvider.GetString("Nohistoryxmlfilefound2", "No 'history.dat' or 'history.xml' file found in the application folder.");
                 HistoryMarkdown = nohistoryxmlfilefound2;

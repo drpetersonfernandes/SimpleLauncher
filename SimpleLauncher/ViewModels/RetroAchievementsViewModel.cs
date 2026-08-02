@@ -95,7 +95,7 @@ public partial class RetroAchievementsViewModel : ObservableObject
     /// <param name="raService">The RetroAchievements service.</param>
     /// <param name="logger">The logger instance.</param>
     public RetroAchievementsViewModel(
-IMessageBoxLibraryService messageBox,
+        IMessageBoxLibraryService messageBox,
         IResourceProvider resourceProvider,
         SettingsManagerService settings,
         RetroAchievementsService raService,

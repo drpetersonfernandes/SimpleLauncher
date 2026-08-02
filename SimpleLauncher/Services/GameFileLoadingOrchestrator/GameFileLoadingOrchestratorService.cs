@@ -41,7 +41,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
         IFindCoverImageService findCoverImage,
         IGameItemRenderService gameItemRenderService,
         SettingsManager.SettingsManagerService settings,
-IUpdateStatusBar updateStatusBarService,
+        IUpdateStatusBar updateStatusBarService,
         IMessageBoxLibraryService messageBox,
         ILogger logger,
         IRetroAchievementsSystemMatcher systemMatcher)
@@ -95,7 +95,7 @@ IUpdateStatusBar updateStatusBarService,
             if (selectedManager == null)
             {
                 const string contextMessage = "selectedConfig is null.";
-                _logger.Warning( contextMessage);
+                _logger.Warning(contextMessage);
 
                 await _messageBox.InvalidSystemConfigMessageBoxAsync();
 
@@ -104,7 +104,7 @@ IUpdateStatusBar updateStatusBarService,
                 return;
             }
 
-            IList<string> allFiles = await BuildListOfAllFilesToLoad(selectedManager, startLetter, searchQuery, cancellationToken);
+            var allFiles = await BuildListOfAllFilesToLoad(selectedManager, startLetter, searchQuery, cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
 
             if (selectedManager.GroupByFolder)
@@ -328,78 +328,78 @@ IUpdateStatusBar updateStatusBarService,
                 break;
 
             default:
+            {
+                if (string.IsNullOrWhiteSpace(startLetter) && string.IsNullOrWhiteSpace(searchQuery))
                 {
-                    if (string.IsNullOrWhiteSpace(startLetter) && string.IsNullOrWhiteSpace(searchQuery))
+                    var isPopulated = await _gameCacheService.IsCachePopulatedForSystemAsync(selectedManager.SystemName, token);
+                    if (isPopulated)
                     {
-                        var isPopulated = await _gameCacheService.IsCachePopulatedForSystemAsync(selectedManager.SystemName, token);
-                        if (isPopulated)
-                        {
-                            allFiles = await _gameCacheService.GetAllGamesAsync(token);
-                            _logger.Debug($"[BuildListOfAllFilesToLoad] Reusing cached list for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
-                        }
-                        else
-                        {
-                            var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-                            foreach (var folder in selectedManager.SystemFolders)
-                            {
-                                token.ThrowIfCancellationRequested();
-                                var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
-                                if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
-
-                                var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch, selectedManager.GroupByFolder, token);
-                                foreach (var file in filesInFolder)
-                                {
-                                    uniqueFiles.TryAdd(Path.GetFileName(file), file);
-                                }
-                            }
-
-                            allFiles = uniqueFiles.Values.ToList();
-                            await _gameCacheService.SetAllGamesAsync(allFiles, selectedManager.SystemName, token);
-                            _logger.Debug($"[BuildListOfAllFilesToLoad] Populated cache for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
-                        }
+                        allFiles = await _gameCacheService.GetAllGamesAsync(token);
+                        _logger.Debug($"[BuildListOfAllFilesToLoad] Reusing cached list for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
                     }
                     else
                     {
-                        var isPopulated = await _gameCacheService.IsCachePopulatedForSystemAsync(selectedManager.SystemName, token);
-                        if (!isPopulated)
+                        var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                        foreach (var folder in selectedManager.SystemFolders)
                         {
-                            var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-                            foreach (var folder in selectedManager.SystemFolders)
+                            token.ThrowIfCancellationRequested();
+                            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
+                            if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
+
+                            var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch, selectedManager.GroupByFolder, token);
+                            foreach (var file in filesInFolder)
                             {
-                                token.ThrowIfCancellationRequested();
-                                var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
-                                if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
-
-                                var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch, selectedManager.GroupByFolder, token);
-                                foreach (var file in filesInFolder)
-                                {
-                                    uniqueFiles.TryAdd(Path.GetFileName(file), file);
-                                }
+                                uniqueFiles.TryAdd(Path.GetFileName(file), file);
                             }
-
-                            allFiles = uniqueFiles.Values.ToList();
-                            await _gameCacheService.SetAllGamesAsync(allFiles, selectedManager.SystemName, token);
                         }
-                        else
-                        {
-                            allFiles = await _gameCacheService.GetAllGamesAsync(token);
-                        }
-                    }
 
-                    if (!string.IsNullOrWhiteSpace(startLetter))
-                    {
-                        allFiles = await _gameFilterService.FilterByLetterAsync(allFiles, startLetter);
-                        await _gameCacheService.SetSearchResultsAsync(allFiles, token);
+                        allFiles = uniqueFiles.Values.ToList();
+                        await _gameCacheService.SetAllGamesAsync(allFiles, selectedManager.SystemName, token);
+                        _logger.Debug($"[BuildListOfAllFilesToLoad] Populated cache for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
                     }
-
-                    if (!string.IsNullOrWhiteSpace(searchQuery) && !string.Equals(searchQuery, "RANDOM_SELECTION", StringComparison.Ordinal) && !string.Equals(searchQuery, "FAVORITES", StringComparison.Ordinal))
-                    {
-                        allFiles = await _gameFilterService.FilterBySearchQueryAsync(allFiles, searchQuery, _mameDataService.Lookup);
-                        await _gameCacheService.SetSearchResultsAsync(allFiles, token);
-                    }
-
-                    break;
                 }
+                else
+                {
+                    var isPopulated = await _gameCacheService.IsCachePopulatedForSystemAsync(selectedManager.SystemName, token);
+                    if (!isPopulated)
+                    {
+                        var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                        foreach (var folder in selectedManager.SystemFolders)
+                        {
+                            token.ThrowIfCancellationRequested();
+                            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
+                            if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
+
+                            var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch, selectedManager.GroupByFolder, token);
+                            foreach (var file in filesInFolder)
+                            {
+                                uniqueFiles.TryAdd(Path.GetFileName(file), file);
+                            }
+                        }
+
+                        allFiles = uniqueFiles.Values.ToList();
+                        await _gameCacheService.SetAllGamesAsync(allFiles, selectedManager.SystemName, token);
+                    }
+                    else
+                    {
+                        allFiles = await _gameCacheService.GetAllGamesAsync(token);
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(startLetter))
+                {
+                    allFiles = await _gameFilterService.FilterByLetterAsync(allFiles, startLetter);
+                    await _gameCacheService.SetSearchResultsAsync(allFiles, token);
+                }
+
+                if (!string.IsNullOrWhiteSpace(searchQuery) && !string.Equals(searchQuery, "RANDOM_SELECTION", StringComparison.Ordinal) && !string.Equals(searchQuery, "FAVORITES", StringComparison.Ordinal))
+                {
+                    allFiles = await _gameFilterService.FilterBySearchQueryAsync(allFiles, searchQuery, _mameDataService.Lookup);
+                    await _gameCacheService.SetSearchResultsAsync(allFiles, token);
+                }
+
+                break;
+            }
         }
 
         return allFiles;

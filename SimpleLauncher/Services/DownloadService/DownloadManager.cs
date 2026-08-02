@@ -26,13 +26,13 @@ public class DownloadManager : IDisposable
     private const int RetryBaseDelayMs = 1000;
 
     // Private fields
-    private readonly HttpClient _httpClient = null!;
+    private readonly HttpClient _httpClient;
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IExtractionService _extractionService;
     private readonly ILogger _logger;
     private readonly IResourceProvider _resourceProvider;
     private readonly IDispatcherService _dispatcherService;
-    private CancellationTokenSource? _cancellationTokenSource = new();
+    private CancellationTokenSource? _cancellationTokenSource;
     private readonly Lock _lock = new();
     private bool _disposed;
 

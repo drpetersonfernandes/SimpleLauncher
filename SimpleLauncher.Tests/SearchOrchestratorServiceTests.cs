@@ -131,6 +131,7 @@ public class SearchOrchestratorServiceTests
         /// Gets or sets a value indicating whether the orchestrator replaced the cached search results.
         /// </summary>
         public bool SearchResultsCleared { get; set; }
+
         /// <summary>
         /// Gets or sets the currently selected system name.
         /// </summary>

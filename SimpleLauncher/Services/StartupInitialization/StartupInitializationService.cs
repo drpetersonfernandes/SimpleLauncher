@@ -34,7 +34,7 @@ public class StartupInitializationService
         IConfiguration configuration,
         Settings settings,
         GamePad.GamePadController gamePadController,
-ThemeMenuService themeMenuService,
+        ThemeMenuService themeMenuService,
         LanguageMenuService languageMenuService,
         IMessageBoxLibraryService messageBoxLibrary,
         IApplicationLifetime applicationLifetime,
