@@ -17,6 +17,7 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly EmulatorPathResolver _emulatorPathResolver;
     private string _emulatorPath = null!;
     [ObservableProperty] private int _pcsx2Renderer;
     [ObservableProperty] private int _pcsx2UpscaleMultiplier;
@@ -34,11 +35,12 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logger">The logger instance.</param>
-    public InjectPcsx2ConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectPcsx2ConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger, EmulatorPathResolver emulatorPathResolver)
     {
         _settings = settings;
         _logger = logger;
         _messageBox = messageBox;
+        _emulatorPathResolver = emulatorPathResolver;
     }
 
     /// <summary>
@@ -149,7 +151,7 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
                 return Task.FromResult<string?>(_emulatorPath);
             }
 
-            var resolved = EmulatorPathResolver.TryFindEmulatorPath("PCSX2", _logger);
+            var resolved = _emulatorPathResolver.TryFindEmulatorPath("PCSX2", _logger);
             if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
             {
                 _emulatorPath = resolved;

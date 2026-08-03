@@ -18,6 +18,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly EmulatorPathResolver _emulatorPathResolver;
     private string _emulatorPath = "";
 
     [ObservableProperty] private string _graphicsApi = "";
@@ -35,11 +36,12 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logger">The logger instance.</param>
-    public InjectAzaharConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectAzaharConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger, EmulatorPathResolver emulatorPathResolver)
     {
         _settings = settings;
         _logger = logger;
         _messageBox = messageBox;
+        _emulatorPathResolver = emulatorPathResolver;
     }
 
     /// <summary>
@@ -135,7 +137,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
                 return Task.FromResult<string?>(_emulatorPath);
             }
 
-            var resolved = EmulatorPathResolver.TryFindEmulatorPath("Azahar", _logger);
+            var resolved = _emulatorPathResolver.TryFindEmulatorPath("Azahar", _logger);
             if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
             {
                 _emulatorPath = resolved;

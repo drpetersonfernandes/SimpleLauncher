@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
@@ -6,28 +5,35 @@ namespace SimpleLauncher.New.Services.InjectEmulatorConfig;
 
 /// <summary>
 /// Resolves the file path of an emulator executable by searching the configured systems.
+/// Registered in DI and reuses the shared SystemManagerService (cached system.xml read).
 /// </summary>
-public static class EmulatorPathResolver
+public class EmulatorPathResolver
 {
+    private readonly SystemManager.SystemManagerService _systemManager;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EmulatorPathResolver"/> class.
+    /// </summary>
+    /// <param name="systemManager">The shared system manager service (DI singleton).</param>
+    public EmulatorPathResolver(SystemManager.SystemManagerService systemManager)
+    {
+        _systemManager = systemManager;
+    }
+
     /// <summary>
     /// Tries to find the resolved executable path of an emulator whose name contains the given hint.
     /// </summary>
     /// <param name="emulatorNameHint">A name fragment used to identify the emulator.</param>
     /// <param name="logErrors">The error logger.</param>
     /// <returns>The resolved emulator executable path, or null if not found.</returns>
-    public static string? TryFindEmulatorPath(string emulatorNameHint, ILogger logErrors)
+    public string? TryFindEmulatorPath(string emulatorNameHint, ILogger logErrors)
     {
         if (string.IsNullOrWhiteSpace(emulatorNameHint))
             return null;
 
         try
         {
-            var configuration = App.ServiceProvider?.GetService<Microsoft.Extensions.Configuration.IConfiguration>();
-            if (configuration == null)
-                return null;
-
-            var mgr = new SystemManager.SystemManagerService(configuration);
-            var systems = mgr.LoadSystems().Cast<ISystemManager>().ToList();
+            var systems = _systemManager.LoadSystems().Cast<ISystemManager>().ToList();
             if (systems == null || systems.Count == 0)
                 return null;
 

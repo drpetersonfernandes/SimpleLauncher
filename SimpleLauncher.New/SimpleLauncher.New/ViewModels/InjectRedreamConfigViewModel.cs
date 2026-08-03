@@ -17,6 +17,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly EmulatorPathResolver _emulatorPathResolver;
     private string _emulatorPath = null!;
     [ObservableProperty] private string _redreamCable = null!;
     [ObservableProperty] private string _redreamBroadcast = null!;
@@ -39,11 +40,12 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logger">The logger instance.</param>
-    public InjectRedreamConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectRedreamConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger, EmulatorPathResolver emulatorPathResolver)
     {
         _settings = settings;
         _logger = logger;
         _messageBox = messageBox;
+        _emulatorPathResolver = emulatorPathResolver;
     }
 
     /// <summary>
@@ -187,7 +189,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Redream", _logger);
+        var resolved = _emulatorPathResolver.TryFindEmulatorPath("Redream", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;

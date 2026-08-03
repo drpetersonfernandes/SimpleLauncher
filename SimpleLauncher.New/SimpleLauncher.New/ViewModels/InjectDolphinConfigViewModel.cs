@@ -17,6 +17,7 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
     private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly EmulatorPathResolver _emulatorPathResolver;
     private string _emulatorPath = "";
 
     [ObservableProperty] private string _gfxBackend = "";
@@ -29,11 +30,12 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logger">The logger instance.</param>
-    public InjectDolphinConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectDolphinConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger, EmulatorPathResolver emulatorPathResolver)
     {
         _settings = settings;
         _logger = logger;
         _messageBox = messageBox;
+        _emulatorPathResolver = emulatorPathResolver;
     }
 
     /// <summary>
@@ -110,7 +112,7 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Dolphin", _logger);
+        var resolved = _emulatorPathResolver.TryFindEmulatorPath("Dolphin", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;

@@ -17,6 +17,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly EmulatorPathResolver _emulatorPathResolver;
     private string _emulatorPath = null!;
     private string _gameFilePath = null!;
     private string _systemRomPath = null!;
@@ -41,11 +42,12 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logger">The logger instance.</param>
-    public InjectRaineConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectRaineConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger, EmulatorPathResolver emulatorPathResolver)
     {
         _settings = settings;
         _logger = logger;
         _messageBox = messageBox;
+        _emulatorPathResolver = emulatorPathResolver;
     }
 
     /// <summary>
@@ -168,7 +170,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Raine", _logger);
+        var resolved = _emulatorPathResolver.TryFindEmulatorPath("Raine", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;

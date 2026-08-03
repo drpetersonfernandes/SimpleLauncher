@@ -82,10 +82,10 @@ public partial class MainViewModel : ObservableObject
 
     partial void OnSearchTextChanged(string value)
     {
-        DebounceSearch(value);
+        _ = DebounceSearchAsync(value);
     }
 
-    private async void DebounceSearch(string query)
+    private async Task DebounceSearchAsync(string query)
     {
         try
         {
@@ -115,6 +115,8 @@ public partial class MainViewModel : ObservableObject
         }
         catch (Exception ex)
         {
+            // async Task: exceptions never escape to the process — they are
+            // observed by the awaiting fire-and-forget discard
             Log.Error(ex, "Search debounce error");
         }
     }

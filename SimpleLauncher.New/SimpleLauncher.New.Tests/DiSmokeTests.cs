@@ -4,6 +4,7 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DownloadService;
 using SimpleLauncher.Core.Services.EasyMode;
 using SimpleLauncher.New.Services.GameLauncher;
+using SimpleLauncher.New.Services.InjectEmulatorConfig;
 using SimpleLauncher.New.ViewModels;
 using Serilog;
 
@@ -94,5 +95,13 @@ public class DiSmokeTests
         var provider = BuildContainer();
         var ai = provider.GetRequiredService<AskAiToFixParameters>();
         Assert.NotNull(ai);
+    }
+
+    [Fact]
+    public void EmulatorPathResolver_ResolvesFromContainer()
+    {
+        var provider = BuildContainer();
+        var resolver = provider.GetRequiredService<EmulatorPathResolver>();
+        Assert.NotNull(resolver);
     }
 }

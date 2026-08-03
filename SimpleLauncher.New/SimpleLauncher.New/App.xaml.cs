@@ -8,6 +8,7 @@ using SimpleLauncher.New.Services.Favorites;
 using SimpleLauncher.New.Services.GameLauncher;
 using SimpleLauncher.New.Services.GameLauncher.Handlers;
 using SimpleLauncher.New.Services.GameScan;
+using SimpleLauncher.New.Services.InjectEmulatorConfig;
 using SimpleLauncher.New.Services.PlayHistory;
 using SimpleLauncher.New.Services.RetroAchievements;
 using SimpleLauncher.New.Services.SystemManager;
@@ -258,6 +259,7 @@ public partial class App : IDisposable
         services.AddSingleton<MinimalLauncherService>();
         services.AddSingleton<ILauncherService>(sp => sp.GetRequiredService<MinimalLauncherService>());
         services.AddSingleton<AskAiToFixParameters>();
+        services.AddSingleton<EmulatorPathResolver>();
         services.AddSingleton<LocalizationService>();
         services.AddSingleton<StorefrontGameScanner>();
         services.AddSingleton<ChdMountService>();

@@ -3,6 +3,7 @@ using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.New.InjectConfigWindows;
+using SimpleLauncher.New.Services.InjectEmulatorConfig;
 using SimpleLauncher.New.ViewModels;
 
 namespace SimpleLauncher.New.Services.GameLauncher.Handlers;
@@ -16,6 +17,12 @@ namespace SimpleLauncher.New.Services.GameLauncher.Handlers;
 /// </summary>
 public class RetroArchConfigHandler : IEmulatorConfigHandler
 {
+    private readonly EmulatorPathResolver _emulatorPathResolver;
+
+    public RetroArchConfigHandler(EmulatorPathResolver emulatorPathResolver)
+    {
+        _emulatorPathResolver = emulatorPathResolver;
+    }
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase) ||
@@ -38,7 +45,7 @@ public class RetroArchConfigHandler : IEmulatorConfigHandler
                 try
                 {
                     var vm = new InjectRetroArchConfigViewModel(
-                        context.Settings, null!, Log.Logger);
+                        context.Settings, null!, Log.Logger, _emulatorPathResolver);
                     var win = new InjectRetroArchConfigWindow(vm)
                     {
                         Owner = context.WindowContext.PlatformWindow as System.Windows.Window
@@ -67,6 +74,12 @@ public class RetroArchConfigHandler : IEmulatorConfigHandler
 /// </summary>
 public class Pcsx2ConfigHandler : IEmulatorConfigHandler
 {
+    private readonly EmulatorPathResolver _emulatorPathResolver;
+
+    public Pcsx2ConfigHandler(EmulatorPathResolver emulatorPathResolver)
+    {
+        _emulatorPathResolver = emulatorPathResolver;
+    }
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("PCSX2", StringComparison.OrdinalIgnoreCase) ||
@@ -87,7 +100,7 @@ public class Pcsx2ConfigHandler : IEmulatorConfigHandler
             {
                 try
                 {
-                    var vm = new InjectPcsx2ConfigViewModel(context.Settings, null!, Log.Logger);
+                    var vm = new InjectPcsx2ConfigViewModel(context.Settings, null!, Log.Logger, _emulatorPathResolver);
                     var win = new InjectPcsx2ConfigWindow(vm)
                     {
                         Owner = context.WindowContext.PlatformWindow as System.Windows.Window
@@ -115,6 +128,12 @@ public class Pcsx2ConfigHandler : IEmulatorConfigHandler
 /// </summary>
 public class DuckStationConfigHandler : IEmulatorConfigHandler
 {
+    private readonly EmulatorPathResolver _emulatorPathResolver;
+
+    public DuckStationConfigHandler(EmulatorPathResolver emulatorPathResolver)
+    {
+        _emulatorPathResolver = emulatorPathResolver;
+    }
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("DuckStation", StringComparison.OrdinalIgnoreCase) ||
@@ -135,7 +154,7 @@ public class DuckStationConfigHandler : IEmulatorConfigHandler
             {
                 try
                 {
-                    var vm = new InjectDuckStationConfigViewModel(context.Settings, null!, Log.Logger);
+                    var vm = new InjectDuckStationConfigViewModel(context.Settings, null!, Log.Logger, _emulatorPathResolver);
                     var win = new InjectDuckStationConfigWindow(vm)
                     {
                         Owner = context.WindowContext.PlatformWindow as System.Windows.Window
@@ -163,6 +182,12 @@ public class DuckStationConfigHandler : IEmulatorConfigHandler
 /// </summary>
 public class DolphinConfigHandler : IEmulatorConfigHandler
 {
+    private readonly EmulatorPathResolver _emulatorPathResolver;
+
+    public DolphinConfigHandler(EmulatorPathResolver emulatorPathResolver)
+    {
+        _emulatorPathResolver = emulatorPathResolver;
+    }
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Dolphin", StringComparison.OrdinalIgnoreCase) ||
@@ -183,7 +208,7 @@ public class DolphinConfigHandler : IEmulatorConfigHandler
             {
                 try
                 {
-                    var vm = new InjectDolphinConfigViewModel(context.Settings, null!, Log.Logger);
+                    var vm = new InjectDolphinConfigViewModel(context.Settings, null!, Log.Logger, _emulatorPathResolver);
                     var win = new InjectDolphinConfigWindow(vm)
                     {
                         Owner = context.WindowContext.PlatformWindow as System.Windows.Window
@@ -211,6 +236,12 @@ public class DolphinConfigHandler : IEmulatorConfigHandler
 /// </summary>
 public class MameConfigHandler : IEmulatorConfigHandler
 {
+    private readonly EmulatorPathResolver _emulatorPathResolver;
+
+    public MameConfigHandler(EmulatorPathResolver emulatorPathResolver)
+    {
+        _emulatorPathResolver = emulatorPathResolver;
+    }
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
@@ -231,7 +262,7 @@ public class MameConfigHandler : IEmulatorConfigHandler
             {
                 try
                 {
-                    var vm = new InjectMameConfigViewModel(context.Settings, null!, Log.Logger);
+                    var vm = new InjectMameConfigViewModel(context.Settings, null!, Log.Logger, _emulatorPathResolver);
                     var win = new InjectMameConfigWindow(vm)
                     {
                         Owner = context.WindowContext.PlatformWindow as System.Windows.Window
@@ -259,6 +290,12 @@ public class MameConfigHandler : IEmulatorConfigHandler
 /// </summary>
 public class FlycastConfigHandler : IEmulatorConfigHandler
 {
+    private readonly EmulatorPathResolver _emulatorPathResolver;
+
+    public FlycastConfigHandler(EmulatorPathResolver emulatorPathResolver)
+    {
+        _emulatorPathResolver = emulatorPathResolver;
+    }
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Flycast", StringComparison.OrdinalIgnoreCase) ||
@@ -279,7 +316,7 @@ public class FlycastConfigHandler : IEmulatorConfigHandler
             {
                 try
                 {
-                    var vm = new InjectFlycastConfigViewModel(context.Settings, null!, Log.Logger);
+                    var vm = new InjectFlycastConfigViewModel(context.Settings, null!, Log.Logger, _emulatorPathResolver);
                     var win = new InjectFlycastConfigWindow(vm)
                     {
                         Owner = context.WindowContext.PlatformWindow as System.Windows.Window
@@ -307,6 +344,12 @@ public class FlycastConfigHandler : IEmulatorConfigHandler
 /// </summary>
 public class Rpcs3ConfigHandler : IEmulatorConfigHandler
 {
+    private readonly EmulatorPathResolver _emulatorPathResolver;
+
+    public Rpcs3ConfigHandler(EmulatorPathResolver emulatorPathResolver)
+    {
+        _emulatorPathResolver = emulatorPathResolver;
+    }
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
@@ -327,7 +370,7 @@ public class Rpcs3ConfigHandler : IEmulatorConfigHandler
             {
                 try
                 {
-                    var vm = new InjectRpcs3ConfigViewModel(context.Settings, null!, Log.Logger);
+                    var vm = new InjectRpcs3ConfigViewModel(context.Settings, null!, Log.Logger, _emulatorPathResolver);
                     var win = new InjectRpcs3ConfigWindow(vm)
                     {
                         Owner = context.WindowContext.PlatformWindow as System.Windows.Window
@@ -355,6 +398,12 @@ public class Rpcs3ConfigHandler : IEmulatorConfigHandler
 /// </summary>
 public class XeniaConfigHandler : IEmulatorConfigHandler
 {
+    private readonly EmulatorPathResolver _emulatorPathResolver;
+
+    public XeniaConfigHandler(EmulatorPathResolver emulatorPathResolver)
+    {
+        _emulatorPathResolver = emulatorPathResolver;
+    }
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase) ||
@@ -375,7 +424,7 @@ public class XeniaConfigHandler : IEmulatorConfigHandler
             {
                 try
                 {
-                    var vm = new InjectXeniaConfigViewModel(context.Settings, null!, Log.Logger);
+                    var vm = new InjectXeniaConfigViewModel(context.Settings, null!, Log.Logger, _emulatorPathResolver);
                     var win = new InjectXeniaConfigWindow(vm)
                     {
                         Owner = context.WindowContext.PlatformWindow as System.Windows.Window
@@ -403,6 +452,12 @@ public class XeniaConfigHandler : IEmulatorConfigHandler
 /// </summary>
 public class CemuConfigHandler : IEmulatorConfigHandler
 {
+    private readonly EmulatorPathResolver _emulatorPathResolver;
+
+    public CemuConfigHandler(EmulatorPathResolver emulatorPathResolver)
+    {
+        _emulatorPathResolver = emulatorPathResolver;
+    }
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Cemu", StringComparison.OrdinalIgnoreCase) ||
@@ -423,7 +478,7 @@ public class CemuConfigHandler : IEmulatorConfigHandler
             {
                 try
                 {
-                    var vm = new InjectCemuConfigViewModel(context.Settings, null!, Log.Logger);
+                    var vm = new InjectCemuConfigViewModel(context.Settings, null!, Log.Logger, _emulatorPathResolver);
                     var win = new InjectCemuConfigWindow(vm)
                     {
                         Owner = context.WindowContext.PlatformWindow as System.Windows.Window
@@ -452,6 +507,12 @@ public class CemuConfigHandler : IEmulatorConfigHandler
 
 public class AresConfigHandler : IEmulatorConfigHandler
 {
+    private readonly EmulatorPathResolver _emulatorPathResolver;
+
+    public AresConfigHandler(EmulatorPathResolver emulatorPathResolver)
+    {
+        _emulatorPathResolver = emulatorPathResolver;
+    }
     public bool IsMatch(string n, string p)
     {
         return n.Contains("Ares", StringComparison.OrdinalIgnoreCase);
@@ -471,7 +532,7 @@ public class AresConfigHandler : IEmulatorConfigHandler
             {
                 try
                 {
-                    var vm = new InjectAresConfigViewModel(c.Settings, null!, Log.Logger);
+                    var vm = new InjectAresConfigViewModel(c.Settings, null!, Log.Logger, _emulatorPathResolver);
                     var win = new InjectAresConfigWindow(vm)
                     {
                         Owner = c.WindowContext.PlatformWindow as System.Windows.Window
