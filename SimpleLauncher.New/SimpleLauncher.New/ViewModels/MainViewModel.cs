@@ -128,87 +128,127 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void NavigateToSystem(string systemName)
     {
-        SelectedSystem = systemName;
-        IsMixedView = string.IsNullOrEmpty(systemName);
+        try
+        {
+            SelectedSystem = systemName;
+            IsMixedView = string.IsNullOrEmpty(systemName);
 
-        var systems = string.IsNullOrEmpty(systemName)
-            ? _allSystems
-            : _allSystems.Where(s => string.Equals(s.SystemName, systemName, StringComparison.OrdinalIgnoreCase)).ToList();
+            var systems = string.IsNullOrEmpty(systemName)
+                ? _allSystems
+                : _allSystems.Where(s => string.Equals(s.SystemName, systemName, StringComparison.OrdinalIgnoreCase)).ToList();
 
-        var games = ScanGames(systems);
-        ApplyFavoritesAndHistory(games);
-        Games = new ObservableCollection<GameCardViewModel>(games);
-        var count = games.Count;
-        StatusText = string.IsNullOrEmpty(systemName) ? "All Games" : systemName;
-        ToolbarTitle = string.IsNullOrEmpty(systemName) ? "SimpleLauncher" : $"SimpleLauncher — {systemName} ({count} game{(count == 1 ? "" : "s")})";
+            var games = ScanGames(systems);
+            ApplyFavoritesAndHistory(games);
+            Games = new ObservableCollection<GameCardViewModel>(games);
+            var count = games.Count;
+            StatusText = string.IsNullOrEmpty(systemName) ? "All Games" : systemName;
+            ToolbarTitle = string.IsNullOrEmpty(systemName) ? "SimpleLauncher" : $"SimpleLauncher — {systemName} ({count} game{(count == 1 ? "" : "s")})";
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to navigate to system {System}", systemName);
+            StatusText = "Error loading games";
+        }
     }
 
     [RelayCommand]
     private void NavigateToAllGames()
     {
-        LoadAllGames();
+        try
+        {
+            LoadAllGames();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to navigate to All Games");
+            StatusText = "Error loading games";
+        }
     }
 
     [RelayCommand]
     private void NavigateToFavorites()
     {
-        IsShowingFavorites = true;
-        _favoritePaths = _favoritesManager.GetFavoritePaths();
+        try
+        {
+            IsShowingFavorites = true;
+            _favoritePaths = _favoritesManager.GetFavoritePaths();
 
-        var allGames = ScanGames(_allSystems);
-        ApplyFavoritesAndHistory(allGames);
-        var favorites = allGames.Where(g => g.IsFavorite).ToList();
+            var allGames = ScanGames(_allSystems);
+            ApplyFavoritesAndHistory(allGames);
+            var favorites = allGames.Where(g => g.IsFavorite).ToList();
 
-        Games = new ObservableCollection<GameCardViewModel>(favorites);
-        StatusText = "Favorites";
-        ToolbarTitle = "SimpleLauncher — Favorites";
+            Games = new ObservableCollection<GameCardViewModel>(favorites);
+            StatusText = "Favorites";
+            ToolbarTitle = "SimpleLauncher — Favorites";
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to navigate to Favorites");
+            StatusText = "Error loading favorites";
+        }
     }
 
     [RelayCommand]
     private void NavigateToRecentlyPlayed()
     {
-        var historyLookup = _playHistoryManager.GetHistoryLookup();
-        var allGames = ScanGames(_allSystems);
-        ApplyFavoritesAndHistory(allGames);
+        try
+        {
+            var historyLookup = _playHistoryManager.GetHistoryLookup();
+            var allGames = ScanGames(_allSystems);
+            ApplyFavoritesAndHistory(allGames);
 
-        var recent = allGames
-            .Where(g => historyLookup.ContainsKey(g.FilePath))
-            .OrderByDescending(g => historyLookup[g.FilePath].LastPlayDate)
-            .Take(20)
-            .ToList();
+            var recent = allGames
+                .Where(g => historyLookup.ContainsKey(g.FilePath))
+                .OrderByDescending(g => historyLookup[g.FilePath].LastPlayDate)
+                .Take(20)
+                .ToList();
 
-        Games = new ObservableCollection<GameCardViewModel>(recent);
-        StatusText = "Recently Played";
-        ToolbarTitle = "SimpleLauncher — Recently Played";
+            Games = new ObservableCollection<GameCardViewModel>(recent);
+            StatusText = "Recently Played";
+            ToolbarTitle = "SimpleLauncher — Recently Played";
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to navigate to Recently Played");
+            StatusText = "Error loading recently played";
+        }
     }
 
     [RelayCommand]
     private void NavigateToRecentlyAdded()
     {
-        var allGames = ScanGames(_allSystems);
-        ApplyFavoritesAndHistory(allGames);
+        try
+        {
+            var allGames = ScanGames(_allSystems);
+            ApplyFavoritesAndHistory(allGames);
 
-        // Sort by file creation/modification date (newest first)
-        var recent = allGames
-            .Where(g => File.Exists(g.FilePath))
-            .OrderByDescending(g =>
-            {
-                try
+            // Sort by file creation/modification date (newest first)
+            var recent = allGames
+                .Where(g => File.Exists(g.FilePath))
+                .OrderByDescending(g =>
                 {
-                    return new FileInfo(g.FilePath).LastWriteTime;
-                }
-                catch (Exception ex)
-                {
-                    Log.Debug(ex, "Failed to read LastWriteTime for {Path}", g.FilePath);
-                    return DateTime.MinValue;
-                }
-            })
-            .Take(50)
-            .ToList();
+                    try
+                    {
+                        return new FileInfo(g.FilePath).LastWriteTime;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Debug(ex, "Failed to read LastWriteTime for {Path}", g.FilePath);
+                        return DateTime.MinValue;
+                    }
+                })
+                .Take(50)
+                .ToList();
 
-        Games = new ObservableCollection<GameCardViewModel>(recent);
-        StatusText = "Recently Added";
-        ToolbarTitle = "SimpleLauncher — Recently Added";
+            Games = new ObservableCollection<GameCardViewModel>(recent);
+            StatusText = "Recently Added";
+            ToolbarTitle = "SimpleLauncher — Recently Added";
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to navigate to Recently Added");
+            StatusText = "Error loading recently added";
+        }
     }
 
     [RelayCommand]
@@ -356,19 +396,27 @@ public partial class MainViewModel : ObservableObject
 
     private void LoadAllGames()
     {
-        IsShowingFavorites = false;
-        IsMixedView = true;
-        SelectedSystem = "";
-        _allSystems = _systemManager.LoadSystems();
+        try
+        {
+            IsShowingFavorites = false;
+            IsMixedView = true;
+            SelectedSystem = "";
+            _allSystems = _systemManager.LoadSystems();
 
-        RefreshSystemCounts();
+            RefreshSystemCounts();
 
-        var games = ScanGames(_allSystems);
-        ApplyFavoritesAndHistory(games);
-        Games = new ObservableCollection<GameCardViewModel>(games);
-        StatusText = "All Games";
-        ToolbarTitle = "SimpleLauncher";
-        UpdateGameCount();
+            var games = ScanGames(_allSystems);
+            ApplyFavoritesAndHistory(games);
+            Games = new ObservableCollection<GameCardViewModel>(games);
+            StatusText = "All Games";
+            ToolbarTitle = "SimpleLauncher";
+            UpdateGameCount();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to load all games");
+            StatusText = "Error loading games";
+        }
     }
 
     private void ApplyFavoritesAndHistory(List<GameCardViewModel> games)
@@ -400,14 +448,21 @@ public partial class MainViewModel : ObservableObject
     /// </summary>
     private void RefreshSystemCounts()
     {
-        var counts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-
-        foreach (var system in _allSystems)
+        try
         {
-            counts[system.SystemName] = EnumerateSystemFiles(system).Count();
-        }
+            var counts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
 
-        SystemGameCounts = counts;
+            foreach (var system in _allSystems)
+            {
+                counts[system.SystemName] = EnumerateSystemFiles(system).Count();
+            }
+
+            SystemGameCounts = counts;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to refresh system game counts");
+        }
     }
 
     private void UpdateGameCount(int? count = null)

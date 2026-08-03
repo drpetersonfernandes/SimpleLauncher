@@ -30,12 +30,10 @@ public class RetroAchievementsService
     public RetroAchievementsService(
         IHttpClientFactory httpClientFactory,
         RetroAchievementsManager raManager,
-        ILogger logErrors,
         IConfiguration configuration,
         ILogger logger)
     {
         _httpClient = httpClientFactory?.CreateClient("RetroAchievementsClient") ?? throw new ArgumentNullException(nameof(httpClientFactory));
-        _logger = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         RaManager = raManager ?? throw new ArgumentNullException(nameof(raManager));
 

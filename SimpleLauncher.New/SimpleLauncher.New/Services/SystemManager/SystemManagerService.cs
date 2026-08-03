@@ -242,9 +242,9 @@ public class SystemManagerService
                                 {
                                     File.Delete(systemXmlPath + ".tmp");
                                 }
-                                catch
+                                catch (Exception cleanupEx)
                                 {
-                                    /* ignore */
+                                    Log.Debug(cleanupEx, "Failed to delete stale system.xml temp file {Path}", systemXmlPath + ".tmp");
                                 }
 
                                 Thread.Sleep(retryDelayMs);

@@ -1,2 +1,2 @@
 [permissions]
-allow = ["explore"]
+allow = ["explore", "Edit"]

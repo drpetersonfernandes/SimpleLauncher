@@ -141,13 +141,23 @@ public class PlayHistoryManager
 
     /// <summary>
     /// Gets a dictionary of file path → PlayHistoryItem for quick lookup.
+    /// Safe against duplicate file names (e.g. corrupted playhistory.dat) — first entry wins.
     /// </summary>
     public Dictionary<string, PlayHistoryItem> GetHistoryLookup()
     {
         lock (_historyLock)
         {
-            return PlayHistoryList
-                .ToDictionary(h => h.FileName, StringComparer.OrdinalIgnoreCase);
+            try
+            {
+                return PlayHistoryList
+                    .GroupBy(h => h.FileName, StringComparer.OrdinalIgnoreCase)
+                    .ToDictionary(g => g.Key, g => g.First(), StringComparer.OrdinalIgnoreCase);
+            }
+            catch (Exception ex)
+            {
+                _logger?.Error(ex, "Error building play history lookup; returning empty dictionary.");
+                return new Dictionary<string, PlayHistoryItem>(StringComparer.OrdinalIgnoreCase);
+            }
         }
     }
 }

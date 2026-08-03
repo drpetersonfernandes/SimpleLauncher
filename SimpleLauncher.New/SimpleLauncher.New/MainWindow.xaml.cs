@@ -220,9 +220,10 @@ public partial class MainWindow
                 Log.Warning("Shutdown watchdog fired after window close; forcing process exit");
                 Environment.Exit(0);
             }
-            catch
+            catch (Exception ex)
             {
                 // Last resort — nothing else we can do
+                Log.Debug(ex, "Shutdown watchdog failed to force exit");
             }
         });
     }

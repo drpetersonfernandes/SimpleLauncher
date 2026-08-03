@@ -118,7 +118,7 @@ public partial class App : IDisposable
 
         // DI container
         var serviceCollection = new ServiceCollection();
-        ConfigureServices(serviceCollection, configuration);
+        ConfigureServices(serviceCollection, configuration, bugReportSink);
 
         ServiceProvider = serviceCollection.BuildServiceProvider();
 
@@ -141,7 +141,7 @@ public partial class App : IDisposable
     /// <summary>
     /// Registers all services, ViewModels, and windows in the DI container.
     /// </summary>
-    internal static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+    internal static void ConfigureServices(IServiceCollection services, IConfiguration configuration, BugReportApiSink? bugReportSink = null)
     {
         // Register configuration
         services.AddSingleton(configuration);
@@ -188,7 +188,12 @@ public partial class App : IDisposable
         services.AddSingleton<DataFileLocation>();
         services.AddSingleton<InputSanitizerService>();
         services.AddSingleton<WindowsVersionService>();
-        services.AddSingleton<BugReportApiSink>();
+        // Register the SAME instance wired to Serilog (see OnStartup) so DI consumers
+        // share one sink instead of an uninitialized dead instance.
+        if (bugReportSink is not null)
+        {
+            services.AddSingleton(bugReportSink);
+        }
         services.AddSingleton<SettingsManagerService>();
         services.AddSingleton<MameDataService>();
         services.AddSingleton<RetroAchievementsManager>();
@@ -410,15 +415,26 @@ public partial class App : IDisposable
     {
         try
         {
-            Log.CloseAndFlush();
+            base.OnExit(e);
+            Dispose();
         }
         catch (Exception ex)
         {
-            // Never let logging issues block shutdown
-            System.Diagnostics.Debug.WriteLine($"CloseAndFlush failed: {ex.Message}");
+            // Never let shutdown issues block exit
+            Log.Error(ex, "Error during application shutdown");
         }
-
-        base.OnExit(e);
+        finally
+        {
+            try
+            {
+                Log.CloseAndFlush();
+            }
+            catch (Exception ex)
+            {
+                // Never let logging issues block shutdown (Log is a silent no-op here)
+                Log.Error(ex, "CloseAndFlush failed");
+            }
+        }
     }
 
     /// <summary>

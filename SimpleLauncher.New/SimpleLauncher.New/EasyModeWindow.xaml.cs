@@ -63,7 +63,7 @@ public partial class EasyModeWindow : IDisposable
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"[EasyModeWindow] Load failed: {ex.Message}");
+            Log.Error(ex, "EasyModeWindow load failed");
         }
     }
 
@@ -97,7 +97,7 @@ public partial class EasyModeWindow : IDisposable
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"[EasyModeWindow] Failed to open link: {ex.Message}");
+            Log.Warning(ex, "EasyModeWindow failed to open link {Uri}", e.Uri);
         }
     }
 
