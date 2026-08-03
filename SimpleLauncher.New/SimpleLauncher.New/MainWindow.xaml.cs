@@ -19,19 +19,23 @@ namespace SimpleLauncher.New;
 public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
 {
     private readonly MainViewModel _viewModel;
+    private readonly Services.SystemManager.SystemManagerService _systemManagerService;
 
     // Bounds persistence
     private static readonly string BoundsFilePath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         "SimpleLauncher", "window_bounds_new.json");
 
-    public MainWindow()
+    public MainWindow(
+        MainViewModel viewModel,
+        Services.SystemArtRatioService ratioService,
+        Services.SystemManager.SystemManagerService systemManagerService)
     {
-        _viewModel = App.ServiceProvider.GetRequiredService<MainViewModel>();
+        _viewModel = viewModel;
+        _systemManagerService = systemManagerService;
         DataContext = _viewModel;
 
         // Initialize converter with ratio service
-        var ratioService = App.ServiceProvider.GetRequiredService<Services.SystemArtRatioService>();
         ConsoleToCardHeightConverter.SetRatioService(ratioService);
 
         InitializeComponent();
@@ -54,14 +58,30 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
     }
 
     /// <summary>
+    /// Loads the game library after the window is shown so the UI thread is not
+    /// blocked during window construction. Refreshes sidebar count badges when done.
+    /// </summary>
+    private async void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await _viewModel.InitializeAsync();
+            RefreshSidebarCounts();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Main window load failed");
+        }
+    }
+
+    /// <summary>
     /// Reads system.xml and populates the sidebar manufacturer groups.
     /// </summary>
     private void PopulateSidebarFromSystemXml()
     {
         try
         {
-            var systemManager = App.ServiceProvider.GetRequiredService<Services.SystemManager.SystemManagerService>();
-            var systems = systemManager.LoadSystems();
+            var systems = _systemManagerService.LoadSystems();
 
             // Manufacturer lookup
             var manufacturerMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -632,8 +652,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         // If a system was added, refresh the UI
         if (easyModeWindow.DataContext is EasyModeViewModel { SystemAdded: true })
         {
-            var systemManager = App.ServiceProvider.GetRequiredService<Services.SystemManager.SystemManagerService>();
-            systemManager.InvalidateCache();
+            _systemManagerService.InvalidateCache();
             _viewModel.NavigateToAllGamesCommand.Execute(null);
         }
     }

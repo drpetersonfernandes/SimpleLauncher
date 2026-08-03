@@ -17,10 +17,10 @@ public static class InjectionErrorHandler
     /// <param name="emulatorPath">The path to the emulator executable.</param>
     /// <param name="window">The injection window to close.</param>
     /// <param name="messageBox">The message box service for user notifications.</param>
-    public static void HandleRunButtonFailure(ILogger logErrors, Exception ex, string emulatorName, string emulatorPath, Window? window, IMessageBoxLibraryService messageBox)
+    public static async Task HandleRunButtonFailure(ILogger logErrors, Exception ex, string emulatorName, string emulatorPath, Window? window, IMessageBoxLibraryService messageBox)
     {
         // Notify user
-        ShowGenericInjectionError(messageBox);
+        await ShowGenericInjectionError(messageBox);
 
         // Notify developer
         logErrors.Error(ex, $"Run button failed for {emulatorName} at path: {emulatorPath}");
@@ -38,10 +38,10 @@ public static class InjectionErrorHandler
     /// <param name="emulatorPath">The path to the emulator executable.</param>
     /// <param name="window">The injection window to close.</param>
     /// <param name="messageBox">The message box service for user notifications.</param>
-    public static void HandleSaveButtonFailure(ILogger logErrors, Exception ex, string emulatorName, string emulatorPath, Window? window, IMessageBoxLibraryService messageBox)
+    public static async Task HandleSaveButtonFailure(ILogger logErrors, Exception ex, string emulatorName, string emulatorPath, Window? window, IMessageBoxLibraryService messageBox)
     {
         // Notify user
-        ShowGenericInjectionError(messageBox);
+        await ShowGenericInjectionError(messageBox);
 
         // Notify developer
         logErrors.Error(ex, $"Save button failed for {emulatorName} at path: {emulatorPath}");
@@ -50,9 +50,17 @@ public static class InjectionErrorHandler
         window?.Close();
     }
 
-    private static void ShowGenericInjectionError(IMessageBoxLibraryService messageBox)
+    private static async Task ShowGenericInjectionError(IMessageBoxLibraryService messageBox)
     {
-        _ = messageBox.InjectionFailedGenericMessageBoxAsync();
+        try
+        {
+            await messageBox.InjectionFailedGenericMessageBoxAsync();
+        }
+        catch (Exception ex)
+        {
+            // Never let a failed error dialog mask the original failure
+            Log.Debug(ex, "Injection error dialog failed to show");
+        }
     }
 
     /// <summary>

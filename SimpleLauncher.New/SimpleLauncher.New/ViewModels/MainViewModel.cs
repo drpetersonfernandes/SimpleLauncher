@@ -77,7 +77,48 @@ public partial class MainViewModel : ObservableObject
         _favoritePaths = _favoritesManager.GetFavoritePaths();
         _allSystems = _systemManager.LoadSystems();
 
-        LoadAllGames();
+        // NOTE: game loading is deferred to InitializeAsync() (called after the window
+        // loads) so this constructor never blocks the UI thread scanning large ROM collections.
+    }
+
+    /// <summary>
+    /// Loads all games asynchronously. Called once after the main window loads.
+    /// Heavy work (file enumeration + cover checks) runs on the thread pool;
+    /// UI-bound properties are updated on the captured UI context.
+    /// </summary>
+    public async Task InitializeAsync()
+    {
+        IsLoading = true;
+        try
+        {
+            var (systems, counts, games) = await Task.Run(() =>
+            {
+                var loadedSystems = _systemManager.LoadSystems();
+                var loadedCounts = ComputeSystemCounts(loadedSystems);
+                var loadedGames = ScanGames(loadedSystems);
+                ApplyFavoritesAndHistory(loadedGames);
+                return (loadedSystems, loadedCounts, loadedGames);
+            });
+
+            _allSystems = systems;
+            SystemGameCounts = counts;
+            IsShowingFavorites = false;
+            IsMixedView = true;
+            SelectedSystem = "";
+            Games = new ObservableCollection<GameCardViewModel>(games);
+            StatusText = "All Games";
+            ToolbarTitle = "SimpleLauncher";
+            UpdateGameCount();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to initialize game library");
+            StatusText = "Error loading games";
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     partial void OnSearchTextChanged(string value)
@@ -474,19 +515,28 @@ public partial class MainViewModel : ObservableObject
     {
         try
         {
-            var counts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-
-            foreach (var system in _allSystems)
-            {
-                counts[system.SystemName] = EnumerateSystemFiles(system).Count();
-            }
-
-            SystemGameCounts = counts;
+            SystemGameCounts = ComputeSystemCounts(_allSystems);
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Failed to refresh system game counts");
         }
+    }
+
+    /// <summary>
+    /// Computes per-system game counts from a full scan of the configured system folders
+    /// (resolving %BASEFOLDER% / relative paths). Pure computation — safe on any thread.
+    /// </summary>
+    private static Dictionary<string, int> ComputeSystemCounts(List<SystemManagerConfig> systems)
+    {
+        var counts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (var system in systems)
+        {
+            counts[system.SystemName] = EnumerateSystemFiles(system).Count();
+        }
+
+        return counts;
     }
 
     private void UpdateGameCount(int? count = null)

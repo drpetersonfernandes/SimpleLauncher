@@ -25,13 +25,13 @@ public partial class InjectAzaharConfigWindow
         _getOwnerWindowHandler = () => this;
 
         _viewModel.CloseRequested += OnCloseRequested;
-        _viewModel.RequestEmulatorPath += _requestEmulatorPathHandler;
+        _viewModel.RequestEmulatorPath = _requestEmulatorPathHandler;
         _viewModel.GetOwnerWindow += _getOwnerWindowHandler;
 
         Closing += (_, _) =>
         {
             _viewModel.CloseRequested -= OnCloseRequested;
-            _viewModel.RequestEmulatorPath -= _requestEmulatorPathHandler;
+            _viewModel.RequestEmulatorPath = null;
             _viewModel.GetOwnerWindow -= _getOwnerWindowHandler;
         };
 

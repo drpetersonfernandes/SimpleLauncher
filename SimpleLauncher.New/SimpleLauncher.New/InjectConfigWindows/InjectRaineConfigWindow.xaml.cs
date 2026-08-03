@@ -30,7 +30,7 @@ public partial class InjectRaineConfigWindow
         _getOwnerWindowHandler = () => this;
 
         _viewModel.CloseRequested += OnCloseRequested;
-        _viewModel.RequestEmulatorPath += _requestEmulatorPathHandler;
+        _viewModel.RequestEmulatorPath = _requestEmulatorPathHandler;
         _viewModel.RequestFilePath += _requestFilePathHandler;
         _viewModel.RequestFolderPath += _requestFolderPathHandler;
         _viewModel.GetOwnerWindow += _getOwnerWindowHandler;
@@ -38,7 +38,7 @@ public partial class InjectRaineConfigWindow
         Closing += (_, _) =>
         {
             _viewModel.CloseRequested -= OnCloseRequested;
-            _viewModel.RequestEmulatorPath -= _requestEmulatorPathHandler;
+            _viewModel.RequestEmulatorPath = null;
             _viewModel.RequestFilePath -= _requestFilePathHandler;
             _viewModel.RequestFolderPath -= _requestFolderPathHandler;
             _viewModel.GetOwnerWindow -= _getOwnerWindowHandler;

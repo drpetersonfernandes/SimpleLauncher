@@ -16,6 +16,10 @@ public class PathToImageConverter : IValueConverter
     // Weak cache: allows GC to reclaim unused images
     private static readonly ConcurrentDictionary<string, WeakReference<BitmapImage>> WeakCache = new();
 
+    // Prune the weak cache when it grows past this size (dead weak references accumulate
+    // until GC runs; this bounds the weak-reference table without blocking the UI thread).
+    private const int WeakCachePruneThreshold = 4096;
+
     // Strong LRU cache: keeps recent images alive
     private static readonly LinkedList<(string Path, BitmapImage Img)> LruList = new();
     private static readonly Dictionary<string, LinkedListNode<(string Path, BitmapImage Img)>> LruIndex = new();
@@ -98,6 +102,7 @@ public class PathToImageConverter : IValueConverter
 
             // Add to caches
             WeakCache[path] = new WeakReference<BitmapImage>(image);
+            PruneWeakCacheIfNeeded();
 
             lock (LruLock)
             {
@@ -129,6 +134,23 @@ public class PathToImageConverter : IValueConverter
     {
         LruList.Remove(node);
         LruList.AddFirst(node);
+    }
+
+    /// <summary>
+    /// Removes dead entries (GC-collected images) from the weak cache once it grows
+    /// past the threshold, so the weak-reference table stays bounded.
+    /// </summary>
+    private static void PruneWeakCacheIfNeeded()
+    {
+        if (WeakCache.Count < WeakCachePruneThreshold) return;
+
+        foreach (var entry in WeakCache)
+        {
+            if (!entry.Value.TryGetTarget(out _))
+            {
+                WeakCache.TryRemove(entry.Key, out _);
+            }
+        }
     }
 
     private static BitmapSource? GetPlaceholder()
