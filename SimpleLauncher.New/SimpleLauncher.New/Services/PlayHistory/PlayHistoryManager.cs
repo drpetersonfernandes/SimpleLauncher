@@ -39,7 +39,9 @@ public class PlayHistoryManager
         if (!File.Exists(FilePath))
         {
             var defaultManager = new PlayHistoryManager { _logger = logErrors };
-            _ = defaultManager.SavePlayHistoryAsync();
+            // Write the initial file synchronously. This runs on the UI thread at startup —
+            // awaiting the async save via GetAwaiter().GetResult() would deadlock.
+            defaultManager.SavePlayHistorySync();
             return defaultManager;
         }
 
@@ -56,8 +58,33 @@ public class PlayHistoryManager
         }
 
         var newManager = new PlayHistoryManager { _logger = logErrors };
-        _ = newManager.SavePlayHistoryAsync();
+        // Synchronous recovery save (same UI-thread deadlock protection as above)
+        newManager.SavePlayHistorySync();
         return newManager;
+    }
+
+    /// <summary>
+    /// Synchronous initial save (startup/recovery paths only). Mirrors
+    /// <see cref="SavePlayHistoryAsync"/> with retry logic, but never awaits —
+    /// safe to call on the UI thread.
+    /// </summary>
+    private void SavePlayHistorySync()
+    {
+        for (var attempt = 0; attempt < 3; attempt++)
+        {
+            try
+            {
+                var bytes = MessagePackSerializer.Serialize(this);
+                File.WriteAllBytes(TempFilePath, bytes);
+                File.Move(TempFilePath, FilePath, true);
+                return;
+            }
+            catch (Exception ex)
+            {
+                _logger?.Error(ex, "Error saving playhistory.dat (attempt {Attempt})", attempt + 1);
+                if (attempt < 2) Thread.Sleep(100);
+            }
+        }
     }
 
     /// <summary>

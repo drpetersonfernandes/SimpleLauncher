@@ -100,7 +100,7 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event EventHandler CloseRequested = null!;
+    public event EventHandler? CloseRequested;
 
     [RelayCommand]
     private void Cancel()

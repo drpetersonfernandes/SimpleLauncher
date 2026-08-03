@@ -10,6 +10,7 @@ public partial class GameDetailWindow : Wpf.Ui.Controls.FluentWindow
     private readonly GameCardViewModel _game;
     private readonly MainViewModel _mainViewModel;
     private readonly MameDataService? _mameData;
+    private readonly Services.LocalizationService _localization;
 
     public GameDetailWindow(GameCardViewModel game, MainViewModel mainViewModel)
     {
@@ -27,6 +28,16 @@ public partial class GameDetailWindow : Wpf.Ui.Controls.FluentWindow
         {
             Log.Debug(ex, "MameDataService unavailable in GameDetailWindow");
             _mameData = null;
+        }
+
+        try
+        {
+            _localization = App.ServiceProvider.GetRequiredService<Services.LocalizationService>();
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "LocalizationService unavailable in GameDetailWindow");
+            _localization = null!;
         }
 
         UpdateFavoriteButton();
@@ -54,17 +65,24 @@ public partial class GameDetailWindow : Wpf.Ui.Controls.FluentWindow
             if (File.Exists(_game.FilePath))
             {
                 var fi = new FileInfo(_game.FilePath);
-                descText.Text = $"File: {fi.Name}\nSize: {fi.Length:N0} bytes\nModified: {fi.LastWriteTime:yyyy-MM-dd HH:mm}";
+                descText.Text = _localization is not null
+                    ? _localization.GetString("GameDetail.FileInfo",
+                        fi.Name, fi.Length.ToString("N0"), fi.LastWriteTime.ToString("yyyy-MM-dd HH:mm"))
+                    : $"File: {fi.Name}\nSize: {fi.Length:N0} bytes\nModified: {fi.LastWriteTime:yyyy-MM-dd HH:mm}";
             }
             else
             {
-                descText.Text = "File not found on disk.";
+                descText.Text = _localization is not null
+                    ? _localization.GetString("GameDetail.FileNotFound")
+                    : "File not found on disk.";
             }
         }
         catch (Exception ex)
         {
             Log.Debug(ex, "Failed to read file details for {Path}", _game.FilePath);
-            descText.Text = "No additional information available.";
+            descText.Text = _localization is not null
+                ? _localization.GetString("GameDetail.NoInfo")
+                : "No additional information available.";
         }
     }
 

@@ -19,7 +19,10 @@ public class SmartTitleCaseConverter : IValueConverter
 
         if (isAllUpper || isAllLower)
         {
-            return culture.TextInfo.ToTitleCase(title.ToLower(culture));
+            // Always use InvariantCulture: game titles are ASCII-dominated, and
+            // culture-sensitive casing (e.g. Turkish dotted/dotless I) could
+            // otherwise corrupt the title depending on the UI culture.
+            return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(title.ToLowerInvariant());
         }
 
         return title;

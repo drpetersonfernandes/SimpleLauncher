@@ -63,7 +63,8 @@ public partial class PreferencesWindow
 
     private void OpenEditSystem_Click(object sender, RoutedEventArgs e)
     {
-        var editSystemWindow = App.ServiceProvider.GetRequiredService<EditSystemWindow>();
+        // Factory allows a pre-selected system name to be passed (null = no pre-selection)
+        var editSystemWindow = App.ServiceProvider.GetRequiredService<Func<string?, EditSystemWindow>>()(null);
         editSystemWindow.Owner = this;
         editSystemWindow.ShowDialog();
     }

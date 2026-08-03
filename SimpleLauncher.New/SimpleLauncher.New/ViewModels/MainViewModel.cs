@@ -55,6 +55,11 @@ public partial class MainViewModel : ObservableObject
     public bool IsEmpty => Games.Count == 0;
 
     /// <summary>
+    /// Sidebar state (system groups, icons, live counts). Populated by the window after load.
+    /// </summary>
+    public SidebarViewModel Sidebar { get; } = new();
+
+    /// <summary>
     /// Gets the number of games per system name. Updated after each navigation/scan.
     /// </summary>
     public Dictionary<string, int> SystemGameCounts { get; private set; } = new(StringComparer.OrdinalIgnoreCase);

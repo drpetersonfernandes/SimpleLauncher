@@ -78,7 +78,7 @@ public partial class InjectMesenConfigViewModel : ObservableObject
     /// <summary>
     /// Raised when the window should be closed.
     /// </summary>
-    public event EventHandler CloseRequested = null!;
+    public event EventHandler? CloseRequested;
 
     [RelayCommand]
     private void Cancel()

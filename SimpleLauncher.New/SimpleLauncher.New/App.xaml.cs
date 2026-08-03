@@ -98,9 +98,6 @@ public partial class App : IDisposable
             "SimpleLauncher");
         Directory.CreateDirectory(appDataLogFolder);
 
-        // WPF-UI Fluent dark theme — must be applied before any window is created.
-        ApplicationThemeManager.Apply(ApplicationTheme.Dark);
-
         // Sink that forwards Warning+ events to the bug report API
         var bugReportSink = new BugReportApiSink();
 
@@ -119,6 +116,9 @@ public partial class App : IDisposable
             .CreateLogger();
 
         Log.Information("SimpleLauncher.New starting up");
+
+        // WPF-UI Fluent dark theme — must be applied before any window is created.
+        ApplicationThemeManager.Apply(ApplicationTheme.Dark);
 
         // DI container
         var serviceCollection = new ServiceCollection();
@@ -295,6 +295,17 @@ public partial class App : IDisposable
         services.AddTransient<PreferencesWindow>();
         services.AddTransient<EasyModeWindow>();
         services.AddTransient<EditSystemWindow>();
+        // Factory so callers can pass a pre-selected system name to EditSystemWindow
+        // (the plain AddTransient above always resolves with the optional null default).
+        services.AddTransient<Func<string?, EditSystemWindow>>(sp =>
+            preSelectedSystemName => new EditSystemWindow(
+                sp.GetRequiredService<PlaySoundEffects>(),
+                sp.GetRequiredService<IConfiguration>(),
+                sp.GetRequiredService<IMessageBoxLibraryService>(),
+                sp.GetRequiredService<ILogger>(),
+                sp.GetRequiredService<ISystemConfigurationWriterService>(),
+                sp.GetRequiredService<SystemManagerService>(),
+                preSelectedSystemName));
     }
 
     /// <summary>

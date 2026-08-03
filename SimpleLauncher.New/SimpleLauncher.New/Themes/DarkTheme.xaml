@@ -176,26 +176,8 @@
                             BorderThickness="3,0,0,0"
                             CornerRadius="0"
                             Padding="{TemplateBinding Padding}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <ContentPresenter Grid.Column="0"
-                                              HorizontalAlignment="Left"
-                                              VerticalAlignment="Center"/>
-                            <Border x:Name="countBadge"
-                                    Grid.Column="1"
-                                    Background="{DynamicResource BgQuaternaryBrush}"
-                                    CornerRadius="8"
-                                    Padding="6,1"
-                                    VerticalAlignment="Center">
-                                <TextBlock x:Name="countText"
-                                           Text="0"
-                                           Foreground="{DynamicResource TextMutedBrush}"
-                                           FontSize="11"/>
-                            </Border>
-                        </Grid>
+                        <ContentPresenter HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">

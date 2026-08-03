@@ -9,6 +9,15 @@ namespace SimpleLauncher.New.Services.GameScan;
 /// </summary>
 public class StorefrontGameScanner
 {
+    // Steam libraryfolders.vdf / appmanifest_*.acf parsing (VDF key = "value" lines)
+    private static readonly System.Text.RegularExpressions.Regex SteamPathRegex =
+        new(@"""path""\s+""([^""]+)""", System.Text.RegularExpressions.RegexOptions.Compiled);
+
+    private static readonly System.Text.RegularExpressions.Regex SteamNameRegex =
+        new(@"""name""\s+""([^""]+)""", System.Text.RegularExpressions.RegexOptions.Compiled);
+
+    private static readonly System.Text.RegularExpressions.Regex SteamInstallDirRegex =
+        new(@"""installdir""\s+""([^""]+)""", System.Text.RegularExpressions.RegexOptions.Compiled);
     /// <summary>
     /// Scans all supported storefronts and returns discovered games as (name, exePath) pairs.
     /// </summary>
@@ -52,9 +61,7 @@ public class StorefrontGameScanner
             var content = File.ReadAllText(libraryFile);
             // Parse VDF: extract "path" values
             var paths = new List<string> { Path.Combine(steamPath, "steamapps") };
-            foreach (System.Text.RegularExpressions.Match match in System.Text.RegularExpressions.Regex.Matches(content, """
-                                                                                                                         "path"\s+"([^"]+)"
-                                                                                                                         """))
+            foreach (System.Text.RegularExpressions.Match match in SteamPathRegex.Matches(content))
                 paths.Add(match.Groups[1].Value.Replace(@"\\", "\\"));
 
             foreach (var libPath in paths)
@@ -67,12 +74,8 @@ public class StorefrontGameScanner
                     try
                     {
                         var acf = File.ReadAllText(manifest);
-                        var nameMatch = System.Text.RegularExpressions.Regex.Match(acf, """
-                                                                                        "name"\s+"([^"]+)"
-                                                                                        """);
-                        var installMatch = System.Text.RegularExpressions.Regex.Match(acf, """
-                                                                                           "installdir"\s+"([^"]+)"
-                                                                                           """);
+                        var nameMatch = SteamNameRegex.Match(acf);
+                        var installMatch = SteamInstallDirRegex.Match(acf);
                         if (!nameMatch.Success || !installMatch.Success) continue;
 
                         var gameName = nameMatch.Groups[1].Value;

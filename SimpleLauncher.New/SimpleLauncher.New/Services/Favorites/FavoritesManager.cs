@@ -48,8 +48,34 @@ public class FavoritesManager
         }
 
         var newManager = new FavoritesManager { _logger = logErrors };
-        _ = newManager.SaveFavoritesAsync();
+        // Write the initial file synchronously. This runs on the UI thread at startup —
+        // awaiting the async save via GetAwaiter().GetResult() would deadlock (the async
+        // continuation needs the UI thread that is blocked waiting).
+        newManager.SaveFavoritesSync();
         return newManager;
+    }
+
+    /// <summary>
+    /// Synchronous initial save (startup path only). Mirrors <see cref="SaveFavoritesAsync"/>
+    /// with retry logic, but never awaits — safe to call on the UI thread.
+    /// </summary>
+    private void SaveFavoritesSync()
+    {
+        for (var attempt = 0; attempt < 3; attempt++)
+        {
+            try
+            {
+                var bytes = MessagePackSerializer.Serialize(this);
+                File.WriteAllBytes(TempDatFilePath, bytes);
+                File.Move(TempDatFilePath, DatFilePath, true);
+                return;
+            }
+            catch (Exception ex)
+            {
+                _logger?.Error(ex, "Error saving favorites.dat (attempt {Attempt})", attempt + 1);
+                if (attempt < 2) Thread.Sleep(100);
+            }
+        }
     }
 
     /// <summary>

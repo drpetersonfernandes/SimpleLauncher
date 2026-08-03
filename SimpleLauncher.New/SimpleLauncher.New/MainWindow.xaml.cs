@@ -75,101 +75,15 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
     }
 
     /// <summary>
-    /// Reads system.xml and populates the sidebar manufacturer groups.
+    /// Populates the sidebar system groups (manufacturer mapping, icons, counts)
+    /// from system.xml — logic lives in SidebarViewModel.
     /// </summary>
     private void PopulateSidebarFromSystemXml()
     {
         try
         {
-            var systems = _systemManagerService.LoadSystems();
-
-            // Manufacturer lookup
-            var manufacturerMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-            {
-                ["Atari 2600"] = "ATARI", ["Atari 5200"] = "ATARI", ["Atari 7800"] = "ATARI",
-                ["Atari Jaguar"] = "ATARI", ["Atari Jaguar CD"] = "ATARI", ["Atari Lynx"] = "ATARI",
-                ["Atari ST"] = "ATARI", ["Atari 8-Bit"] = "ATARI",
-                ["NES"] = "NINTENDO", ["Nintendo NES"] = "NINTENDO", ["Famicom"] = "NINTENDO",
-                ["SNES"] = "NINTENDO", ["Nintendo SNES"] = "NINTENDO", ["Super Famicom"] = "NINTENDO",
-                ["Nintendo 64"] = "NINTENDO", ["Nintendo 64DD"] = "NINTENDO",
-                ["Nintendo GameCube"] = "NINTENDO", ["Wii"] = "NINTENDO", ["Nintendo Wii"] = "NINTENDO",
-                ["Wii U"] = "NINTENDO", ["Nintendo WiiU"] = "NINTENDO",
-                ["Nintendo Switch"] = "NINTENDO",
-                ["Game Boy"] = "NINTENDO", ["Nintendo Game Boy"] = "NINTENDO",
-                ["Game Boy Color"] = "NINTENDO", ["Nintendo Game Boy Color"] = "NINTENDO",
-                ["Game Boy Advance"] = "NINTENDO", ["Nintendo Game Boy Advance"] = "NINTENDO",
-                ["Nintendo DS"] = "NINTENDO", ["Nintendo 3DS"] = "NINTENDO",
-                ["Virtual Boy"] = "NINTENDO",
-                ["Sega Genesis"] = "SEGA", ["Sega Mega Drive"] = "SEGA",
-                ["Sega Master System"] = "SEGA", ["Sega Saturn"] = "SEGA",
-                ["Sega Dreamcast"] = "SEGA", ["Sega Game Gear"] = "SEGA",
-                ["Sega CD"] = "SEGA", ["Sega 32X"] = "SEGA", ["Sega Genesis CD"] = "SEGA",
-                ["Sega Genesis 32X"] = "SEGA", ["Sega SG-1000"] = "SEGA",
-                ["PS1"] = "SONY", ["Sony PlayStation 1"] = "SONY",
-                ["PS2"] = "SONY", ["Sony PlayStation 2"] = "SONY",
-                ["PS3"] = "SONY", ["Sony PlayStation 3"] = "SONY",
-                ["PSP"] = "SONY", ["Sony PSP"] = "SONY",
-                ["PS Vita"] = "SONY",
-                ["PC Engine"] = "NEC", ["NEC PC Engine"] = "NEC",
-                ["NEC PC Engine CD"] = "NEC", ["TurboGrafx-16"] = "NEC",
-                ["NEC PC-FX"] = "NEC", ["NEC SuperGrafx"] = "NEC",
-                ["Neo Geo"] = "SNK", ["Neo Geo CD"] = "SNK",
-                ["SNK Neo Geo CD"] = "SNK", ["Neo Geo Pocket"] = "SNK",
-                ["SNK Neo Geo Pocket"] = "SNK", ["Neo Geo Pocket Color"] = "SNK",
-                ["SNK Neo Geo Pocket Color"] = "SNK",
-                ["Arcade"] = "ARCADE", ["MAME"] = "ARCADE"
-            };
-
-            var groupLists = new Dictionary<string, ListBox>
-            {
-                ["ARCADE"] = ArcadeSystemsList,
-                ["NINTENDO"] = NintendoSystemsList,
-                ["SEGA"] = SegaSystemsList,
-                ["SONY"] = SonySystemsList,
-                ["NEC"] = NecSystemsList,
-                ["SNK"] = SnkSystemsList
-            };
-
-            foreach (var system in systems)
-            {
-                var manufacturer = manufacturerMap.GetValueOrDefault(system.SystemName, "OTHER");
-                var list = groupLists.GetValueOrDefault(manufacturer, OtherSystemsList);
-                var count = _viewModel.SystemGameCounts.GetValueOrDefault(system.SystemName, 0);
-
-                var sp = new StackPanel { Orientation = Orientation.Horizontal };
-                // System icon
-                var iconPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "systems", system.SystemName + ".png");
-                if (File.Exists(iconPath))
-                {
-                    var img = new Image
-                    {
-                        Source = new BitmapImage(new Uri(iconPath)),
-                        Width = 20, Height = 20,
-                        Margin = new Thickness(0, 0, 6, 0),
-                        VerticalAlignment = VerticalAlignment.Center
-                    };
-                    sp.Children.Add(img);
-                }
-
-                sp.Children.Add(new TextBlock
-                {
-                    Text = $"  🎮  {system.SystemName}",
-                    Foreground = (Brush)FindResource("TextSecondaryBrush"),
-                    FontSize = 13,
-                    VerticalAlignment = VerticalAlignment.Center
-                });
-                sp.Children.Add(new TextBlock
-                {
-                    Text = count > 0 ? $"  {count}" : "",
-                    Foreground = (Brush)FindResource("TextMutedBrush"),
-                    FontSize = 11,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Thickness(8, 0, 0, 0)
-                });
-
-                var item = new ListBoxItem { Tag = system.SystemName, Content = sp };
-                list.Items.Add(item);
-            }
+            _viewModel.Sidebar.Populate(_systemManagerService.LoadSystems());
+            _viewModel.Sidebar.RefreshCounts(_viewModel.SystemGameCounts);
         }
         catch (Exception ex)
         {
@@ -182,25 +96,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
     /// </summary>
     public void RefreshSidebarCounts()
     {
-        var counts = _viewModel.SystemGameCounts;
-        var allLists = new[]
-        {
-            ArcadeSystemsList, NintendoSystemsList, SegaSystemsList,
-            SonySystemsList, NecSystemsList, SnkSystemsList, OtherSystemsList
-        };
-
-        foreach (var list in allLists)
-        {
-            foreach (ListBoxItem item in list.Items)
-            {
-                var tag = item.Tag as string ?? "";
-                var c = counts.GetValueOrDefault(tag, 0);
-                if (item.Content is StackPanel { Children.Count: > 1 } sp && sp.Children[1] is TextBlock tb)
-                {
-                    tb.Text = c > 0 ? $"  {c}" : "";
-                }
-            }
-        }
+        _viewModel.Sidebar.RefreshCounts(_viewModel.SystemGameCounts);
     }
 
     private static void WireGroupHeader(ToggleButton header, Panel panel)
@@ -222,6 +118,8 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
         SaveBounds();
     }
 
+    private CancellationTokenSource? _shutdownWatchdogCts;
+
     /// <summary>
     /// Failsafe shutdown watchdog. The window's Closed event always fires when the user
     /// closes it, even if WPF's Application.Windows bookkeeping was left in a broken state
@@ -233,7 +131,13 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
     {
         base.OnClosed(e);
 
-        _ = Task.Delay(TimeSpan.FromSeconds(5)).ContinueWith(_ =>
+        // Cancel any previous watchdog so re-entrant OnClosed calls cannot stack timers.
+        _shutdownWatchdogCts?.Cancel();
+        _shutdownWatchdogCts?.Dispose();
+        _shutdownWatchdogCts = new CancellationTokenSource();
+        var token = _shutdownWatchdogCts.Token;
+
+        _ = Task.Delay(TimeSpan.FromSeconds(5), token).ContinueWith(_ =>
         {
             try
             {
@@ -245,7 +149,7 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
                 // Last resort — nothing else we can do
                 Log.Debug(ex, "Shutdown watchdog failed to force exit");
             }
-        });
+        }, token);
     }
 
     private void SaveBounds()
@@ -500,26 +404,35 @@ public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
 
     private void SystemList_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (sender is not ListBox { SelectedItem: ListBoxItem item } listBox) return;
+        if (sender is not ListBox { SelectedItem: not null } listBox) return;
 
-        var tag = item.Tag as string ?? "";
-
-        switch (tag)
+        // System lists are bound to SidebarSystemItem; the collections list uses
+        // ListBoxItem items with a Tag.
+        switch (listBox.SelectedItem)
         {
-            case "all":
-                _viewModel.NavigateToAllGamesCommand.Execute(null);
+            case SidebarSystemItem systemItem:
+                _viewModel.NavigateToSystemCommand.Execute(systemItem.SystemName);
                 break;
-            case "recently_added":
-                _viewModel.NavigateToRecentlyAddedCommand.Execute(null);
-                break;
-            case "recently_played":
-                _viewModel.NavigateToRecentlyPlayedCommand.Execute(null);
-                break;
-            case "favorites":
-                _viewModel.NavigateToFavoritesCommand.Execute(null);
-                break;
-            default:
-                _viewModel.NavigateToSystemCommand.Execute(tag);
+            case ListBoxItem { Tag: string tag }:
+                switch (tag)
+                {
+                    case "all":
+                        _viewModel.NavigateToAllGamesCommand.Execute(null);
+                        break;
+                    case "recently_added":
+                        _viewModel.NavigateToRecentlyAddedCommand.Execute(null);
+                        break;
+                    case "recently_played":
+                        _viewModel.NavigateToRecentlyPlayedCommand.Execute(null);
+                        break;
+                    case "favorites":
+                        _viewModel.NavigateToFavoritesCommand.Execute(null);
+                        break;
+                    default:
+                        _viewModel.NavigateToSystemCommand.Execute(tag);
+                        break;
+                }
+
                 break;
         }
 

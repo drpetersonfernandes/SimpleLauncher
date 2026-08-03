@@ -23,7 +23,26 @@
         <converters:PathToImageConverter x:Key="PathToImage" />
         <converters:SmartTitleCaseConverter x:Key="SmartTitleCase" />
         <converters:ConsoleToCardHeightConverter x:Key="CardHeightConverter" />
+        <!-- DynamicResource is intentional: the card-size slider updates LibraryCardWidth at
+             runtime (Resources["LibraryCardWidth"] = ...), and this proxy must track it. -->
         <converters:BindingProxy x:Key="BindingProxy" Data="{DynamicResource LibraryCardWidth}" />
+
+        <!-- Sidebar system item: icon (or glyph fallback) + name + live count badge -->
+        <DataTemplate x:Key="SidebarSystemItemTemplate" DataType="{x:Type vm:SidebarSystemItem}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{Binding IconPath}"
+                       Width="20" Height="20" Margin="0,0,6,0"
+                       VerticalAlignment="Center"
+                       Visibility="{Binding HasIcon, Converter={StaticResource BoolToVisibility}}" />
+                <TextBlock Text="🎮" FontSize="14" Margin="0,0,6,0"
+                           VerticalAlignment="Center"
+                           Visibility="{Binding HasIcon, Converter={StaticResource InverseBoolToVisibility}}" />
+                <TextBlock Text="{Binding SystemName}" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding CountText}"
+                           Foreground="{DynamicResource TextMutedBrush}"
+                           FontSize="11" VerticalAlignment="Center" Margin="8,0,0,0" />
+            </StackPanel>
+        </DataTemplate>
     </Window.Resources>
 
     <Grid>
@@ -164,6 +183,8 @@
                                               Padding="28,5" />
                                 <StackPanel x:Name="ArcadeGroupPanel">
                                     <ListBox x:Name="ArcadeSystemsList"
+                                             ItemsSource="{Binding Sidebar.Groups[0].Systems}"
+                                             ItemTemplate="{StaticResource SidebarSystemItemTemplate}"
                                              ItemContainerStyle="{DynamicResource SidebarItemStyle}"
                                              SelectionChanged="SystemList_SelectionChanged" />
                                 </StackPanel>
@@ -176,6 +197,8 @@
                                               Padding="28,5" />
                                 <StackPanel x:Name="NintendoGroupPanel">
                                     <ListBox x:Name="NintendoSystemsList"
+                                             ItemsSource="{Binding Sidebar.Groups[1].Systems}"
+                                             ItemTemplate="{StaticResource SidebarSystemItemTemplate}"
                                              ItemContainerStyle="{DynamicResource SidebarItemStyle}"
                                              SelectionChanged="SystemList_SelectionChanged" />
                                 </StackPanel>
@@ -188,6 +211,8 @@
                                               Padding="28,5" />
                                 <StackPanel x:Name="SegaGroupPanel">
                                     <ListBox x:Name="SegaSystemsList"
+                                             ItemsSource="{Binding Sidebar.Groups[2].Systems}"
+                                             ItemTemplate="{StaticResource SidebarSystemItemTemplate}"
                                              ItemContainerStyle="{DynamicResource SidebarItemStyle}"
                                              SelectionChanged="SystemList_SelectionChanged" />
                                 </StackPanel>
@@ -200,6 +225,8 @@
                                               Padding="28,5" />
                                 <StackPanel x:Name="SonyGroupPanel">
                                     <ListBox x:Name="SonySystemsList"
+                                             ItemsSource="{Binding Sidebar.Groups[3].Systems}"
+                                             ItemTemplate="{StaticResource SidebarSystemItemTemplate}"
                                              ItemContainerStyle="{DynamicResource SidebarItemStyle}"
                                              SelectionChanged="SystemList_SelectionChanged" />
                                 </StackPanel>
@@ -212,6 +239,8 @@
                                               Padding="28,5" />
                                 <StackPanel x:Name="NecGroupPanel">
                                     <ListBox x:Name="NecSystemsList"
+                                             ItemsSource="{Binding Sidebar.Groups[4].Systems}"
+                                             ItemTemplate="{StaticResource SidebarSystemItemTemplate}"
                                              ItemContainerStyle="{DynamicResource SidebarItemStyle}"
                                              SelectionChanged="SystemList_SelectionChanged" />
                                 </StackPanel>
@@ -224,6 +253,8 @@
                                               Padding="28,5" />
                                 <StackPanel x:Name="SnkGroupPanel">
                                     <ListBox x:Name="SnkSystemsList"
+                                             ItemsSource="{Binding Sidebar.Groups[5].Systems}"
+                                             ItemTemplate="{StaticResource SidebarSystemItemTemplate}"
                                              ItemContainerStyle="{DynamicResource SidebarItemStyle}"
                                              SelectionChanged="SystemList_SelectionChanged" />
                                 </StackPanel>
@@ -236,6 +267,8 @@
                                               Padding="28,5" />
                                 <StackPanel x:Name="OtherGroupPanel">
                                     <ListBox x:Name="OtherSystemsList"
+                                             ItemsSource="{Binding Sidebar.Groups[6].Systems}"
+                                             ItemTemplate="{StaticResource SidebarSystemItemTemplate}"
                                              ItemContainerStyle="{DynamicResource SidebarItemStyle}"
                                              SelectionChanged="SystemList_SelectionChanged" />
                                 </StackPanel>

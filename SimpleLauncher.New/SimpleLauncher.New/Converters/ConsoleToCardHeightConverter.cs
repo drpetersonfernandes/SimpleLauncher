@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Windows.Data;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.New.Services;
 
 namespace SimpleLauncher.New.Converters;
@@ -17,6 +18,17 @@ public class ConsoleToCardHeightConverter : IMultiValueConverter
         _ratioService = service;
     }
 
+    private static SystemArtRatioService? GetRatioService()
+    {
+        // Fast path: set by MainWindow during construction.
+        if (_ratioService is not null) return _ratioService;
+
+        // Fallback: resolve the DI singleton on first use so the converter never
+        // silently produces wrong heights if it is used before MainWindow init.
+        _ratioService = App.ServiceProvider?.GetService<SystemArtRatioService>();
+        return _ratioService;
+    }
+
     public object Convert(object?[] values, Type targetType, object? parameter, CultureInfo culture)
     {
         if (values.Length < 2) return 168.0;
@@ -25,9 +37,10 @@ public class ConsoleToCardHeightConverter : IMultiValueConverter
         var systemName = values[1] as string ?? "";
         var isMixedView = values.Length > 2 && values[2] is true;
 
-        if (_ratioService is null) return cardWidth * 0.73;
+        var ratioService = GetRatioService();
+        if (ratioService is null) return cardWidth * 0.73;
 
-        var artHeight = _ratioService.GetArtHeight(cardWidth, systemName, isMixedView);
+        var artHeight = ratioService.GetArtHeight(cardWidth, systemName, isMixedView);
         return artHeight + 48; // 48px for caption area (title + rating)
     }
 
