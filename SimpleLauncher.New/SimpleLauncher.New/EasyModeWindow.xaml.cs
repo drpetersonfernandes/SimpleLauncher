@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -13,9 +14,10 @@ namespace SimpleLauncher.New;
 /// Uses MVVM via EasyModeViewModel for all logic; code-behind handles only
 /// window lifecycle and view-specific interactions (folder browser, hyperlinks, overlay).
 /// </summary>
-public partial class EasyModeWindow : IDisposable
+public partial class EasyModeWindow : Wpf.Ui.Controls.FluentWindow, IDisposable
 {
     private readonly EasyModeViewModel _viewModel;
+    private readonly PropertyChangedEventHandler _onViewModelPropertyChanged;
     private bool _disposed;
 
     public EasyModeWindow(EasyModeViewModel viewModel)
@@ -40,8 +42,9 @@ public partial class EasyModeWindow : IDisposable
         // Set up the close callback so the ViewModel can request window close after successful add
         _viewModel.RequestClose = () => Dispatcher.InvokeAsync(() => Close());
 
-        // Subscribe to IsLoading for overlay visibility
-        _viewModel.PropertyChanged += (_, args) =>
+        // Subscribe to IsLoading for overlay visibility.
+        // Handler stored in a field so it can be unsubscribed in Dispose().
+        _onViewModelPropertyChanged = (_, args) =>
         {
             if (args.PropertyName == nameof(EasyModeViewModel.IsLoading))
             {
@@ -50,6 +53,7 @@ public partial class EasyModeWindow : IDisposable
                     : Visibility.Collapsed;
             }
         };
+        _viewModel.PropertyChanged += _onViewModelPropertyChanged;
     }
 
     [DllImport("dwmapi.dll")]
@@ -70,6 +74,11 @@ public partial class EasyModeWindow : IDisposable
     private void Window_Closed(object? sender, EventArgs e)
     {
         Dispose();
+    }
+
+    private void CloseButton_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
     }
 
     private void BrowseFolder_Click(object sender, RoutedEventArgs e)
@@ -111,6 +120,9 @@ public partial class EasyModeWindow : IDisposable
     {
         if (_disposed) return;
 
+        // Unsubscribe so the ViewModel no longer holds a reference to this window
+        _viewModel.PropertyChanged -= _onViewModelPropertyChanged;
+        _viewModel.RequestClose = null;
         _viewModel?.Dispose();
         _disposed = true;
         GC.SuppressFinalize(this);

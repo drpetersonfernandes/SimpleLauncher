@@ -1586,6 +1586,16 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public Task<bool> AskAiToFixParametersMessageBoxAsync()
     {
+        if (O != null)
+        {
+            var result = WMB.Show(O,
+                "Do you want Simple Launcher AI to suggest correct parameters for this emulator?",
+                "AI Parameter Suggestion",
+                WMBtn.YesNo,
+                WMImg.Question);
+            return Task.FromResult(result == WMRes.Yes);
+        }
+
         return Task.FromResult(false);
     }
 }

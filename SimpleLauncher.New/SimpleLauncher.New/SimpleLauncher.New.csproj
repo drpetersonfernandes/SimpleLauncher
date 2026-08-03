@@ -56,6 +56,8 @@
         <PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
         <PackageReference Include="VirtualizingWrapPanel" Version="2.5.4" />
+        <PackageReference Include="WPF-UI" Version="4.3.0" />
+        <PackageReference Include="WPF-UI.Tray" Version="4.3.0" />
     </ItemGroup>
 
     <ItemGroup>

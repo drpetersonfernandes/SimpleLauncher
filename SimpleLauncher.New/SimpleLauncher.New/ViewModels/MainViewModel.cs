@@ -4,7 +4,9 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.UsageStats;
 using SimpleLauncher.New.Services.Favorites;
+using SimpleLauncher.New.Services.GameLauncher;
 using SimpleLauncher.New.Services.PlayHistory;
 using SimpleLauncher.New.Services.SystemManager;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -20,8 +22,9 @@ public partial class MainViewModel : ObservableObject
     private readonly FavoritesManager _favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager;
     private readonly SystemManagerService _systemManager;
-    private readonly ILauncherService _launcher;
+    private readonly MinimalLauncherService _launcher;
     private readonly IFindCoverImageService _findCoverImage;
+    private readonly Stats _stats;
 
     private CancellationTokenSource? _searchCts;
     private HashSet<string> _favoritePaths;
@@ -60,14 +63,16 @@ public partial class MainViewModel : ObservableObject
         FavoritesManager favoritesManager,
         PlayHistoryManager playHistoryManager,
         SystemManagerService systemManager,
-        ILauncherService launcher,
-        IFindCoverImageService findCoverImage)
+        MinimalLauncherService launcher,
+        IFindCoverImageService findCoverImage,
+        Stats stats)
     {
         _favoritesManager = favoritesManager;
         _playHistoryManager = playHistoryManager;
         _systemManager = systemManager;
         _launcher = launcher;
         _findCoverImage = findCoverImage;
+        _stats = stats;
 
         _favoritePaths = _favoritesManager.GetFavoritePaths();
         _allSystems = _systemManager.LoadSystems();
@@ -304,9 +309,26 @@ public partial class MainViewModel : ObservableObject
                 windowContext,
                 null);
 
-            await _playHistoryManager.RecordPlayAsync(game.FilePath, game.SystemName);
+            // Real play-time tracking (from the original launcher): only sessions
+            // longer than 5 seconds count toward play history.
+            var playSeconds = (long)_launcher.LastPlayTime.TotalSeconds;
+            var recordedSeconds = playSeconds >= 5 ? playSeconds : 0;
+            await _playHistoryManager.RecordPlayAsync(game.FilePath, game.SystemName, recordedSeconds);
             game.PlayCount++;
             game.LastPlayed = DateTime.Now.ToString("d");
+
+            // Fire-and-forget usage stats (emulator launch event)
+            _ = Task.Run(async () =>
+            {
+                try
+                {
+                    await _stats.CallApiAsync(emulator.EmulatorName);
+                }
+                catch (Exception ex)
+                {
+                    Log.Debug(ex, "Stats API call failed after launching {Game}", game.FilePath);
+                }
+            });
 
             StatusText = $"Played: {game.DisplayTitle}";
         }

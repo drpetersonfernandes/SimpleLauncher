@@ -1,20 +1,46 @@
-<Window x:Class="SimpleLauncher.New.PreferencesWindow"
+<ui:FluentWindow x:Class="SimpleLauncher.New.PreferencesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         Title="Preferences"
         Width="800" Height="550"
         MinWidth="700" MinHeight="450"
-        Background="{DynamicResource BgPrimaryBrush}"
-        WindowStartupLocation="CenterOwner"
-        WindowStyle="SingleBorderWindow"
-        ResizeMode="CanResize">
+        WindowStartupLocation="CenterOwner">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="180" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />  <!-- Header / Close -->
+            <RowDefinition Height="*" />     <!-- Body -->
+        </Grid.RowDefinitions>
+
+        <!-- Row 0: header + Close button (matches EditSystemWindow) -->
+        <Border Grid.Row="0" Background="{DynamicResource BgTertiaryBrush}"
+                BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,0,0,1"
+                Padding="12,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Preferences" FontSize="14" FontWeight="SemiBold"
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource TextPrimaryBrush}" />
+
+                <Button Grid.Column="1" Content="Close"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Padding="14,6" Margin="4,0"
+                        Click="CloseButton_Click" />
+            </Grid>
+        </Border>
+
+        <!-- Row 1: body -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
         <!-- Nav strip -->
         <Border Grid.Column="0" Background="{DynamicResource BgSecondaryBrush}">
@@ -235,5 +261,6 @@
                 </StackPanel>
             </ScrollViewer>
         </Border>
+        </Grid>
     </Grid>
-</Window>
+</ui:FluentWindow>

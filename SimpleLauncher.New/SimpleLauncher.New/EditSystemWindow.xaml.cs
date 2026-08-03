@@ -25,7 +25,7 @@ namespace SimpleLauncher.New;
 /// but saves/deletes through Core's SystemConfigurationWriterService and reads through
 /// the new SystemManagerService. No MahApps; OpenEmu-themed.
 /// </summary>
-public partial class EditSystemWindow
+public partial class EditSystemWindow : Wpf.Ui.Controls.FluentWindow
 {
     private static readonly char[] SplitSeparators = [',', '|', ';'];
 

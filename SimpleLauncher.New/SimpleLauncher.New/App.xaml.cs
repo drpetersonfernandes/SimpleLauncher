@@ -1,8 +1,8 @@
-using System.Runtime.InteropServices;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog.Events;
+using Wpf.Ui.Appearance;
 using SimpleLauncher.New.Services;
 using SimpleLauncher.New.Services.Favorites;
 using SimpleLauncher.New.Services.GameLauncher;
@@ -97,6 +97,9 @@ public partial class App : IDisposable
             "SimpleLauncher");
         Directory.CreateDirectory(appDataLogFolder);
 
+        // WPF-UI Fluent dark theme — must be applied before any window is created.
+        ApplicationThemeManager.Apply(ApplicationTheme.Dark);
+
         // Sink that forwards Warning+ events to the bug report API
         var bugReportSink = new BugReportApiSink();
 
@@ -134,7 +137,6 @@ public partial class App : IDisposable
 
         // Show main window
         var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
-        ApplyDarkTitleBar(mainWindow);
         mainWindow.Show();
     }
 
@@ -250,7 +252,12 @@ public partial class App : IDisposable
         services.AddSingleton(_ => FavoritesManager.LoadFavorites(Log.Logger));
         services.AddSingleton(_ => PlayHistoryManager.LoadPlayHistory(Log.Logger));
         services.AddSingleton<SystemManagerService>();
-        services.AddSingleton<ILauncherService, MinimalLauncherService>();
+        // Single shared launcher instance: MainViewModel reads LastPlayTime from the
+        // concrete type, so ILauncherService and MinimalLauncherService must resolve
+        // to the SAME instance.
+        services.AddSingleton<MinimalLauncherService>();
+        services.AddSingleton<ILauncherService>(sp => sp.GetRequiredService<MinimalLauncherService>());
+        services.AddSingleton<AskAiToFixParameters>();
         services.AddSingleton<LocalizationService>();
         services.AddSingleton<StorefrontGameScanner>();
         services.AddSingleton<ChdMountService>();
@@ -286,29 +293,6 @@ public partial class App : IDisposable
         services.AddTransient<PreferencesWindow>();
         services.AddTransient<EasyModeWindow>();
         services.AddTransient<EditSystemWindow>();
-    }
-
-    /// <summary>
-    /// Applies Windows dark title bar to the main window via DWM.
-    /// </summary>
-    private static void ApplyDarkTitleBar(Window window)
-    {
-        window.SourceInitialized += (_, _) =>
-        {
-            var hwnd = new System.Windows.Interop.WindowInteropHelper(window).Handle;
-            // DWMWA_USE_IMMERSIVE_DARK_MODE = 20 (Windows 10 20H1+) / 19 (pre-20H1)
-            int useDarkMode = 1;
-            const int darkModeAttributeWin11 = 20;
-            const int darkModeAttributeWin10 = 19;
-
-            // Try Win11/Win10 20H1+ attribute first
-            var result = DwmSetWindowAttribute(hwnd, darkModeAttributeWin11, ref useDarkMode, sizeof(int));
-            if (result != 0)
-            {
-                // Fallback to older attribute
-                _ = DwmSetWindowAttribute(hwnd, darkModeAttributeWin10, ref useDarkMode, sizeof(int));
-            }
-        };
     }
 
     /// <summary>
@@ -396,13 +380,6 @@ public partial class App : IDisposable
             Log.Error(logEx, "Failed to write crash log");
         }
     }
-
-    #endregion
-
-    #region P/Invoke
-
-    [DllImport("dwmapi.dll")]
-    private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
 
     #endregion
 

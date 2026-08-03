@@ -16,7 +16,7 @@ namespace SimpleLauncher.New;
 /// Main application window — OpenEmu-inspired shell with sidebar, toolbar, and game content area.
 /// Phase 3: Virtualized game grid + list view, wired to MainViewModel.
 /// </summary>
-public partial class MainWindow
+public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
 {
     private readonly MainViewModel _viewModel;
 

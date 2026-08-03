@@ -49,6 +49,11 @@ public partial class PreferencesWindow
 
     // ── Systems page: EasyMode launcher ───────────────────────────────
 
+    private void CloseButton_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
+
     private void OpenEasyMode_Click(object sender, RoutedEventArgs e)
     {
         var easyModeWindow = App.ServiceProvider.GetRequiredService<EasyModeWindow>();

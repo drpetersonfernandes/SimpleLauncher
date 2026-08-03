@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DownloadService;
 using SimpleLauncher.Core.Services.EasyMode;
+using SimpleLauncher.New.Services.GameLauncher;
 using SimpleLauncher.New.ViewModels;
 using Serilog;
 
@@ -66,5 +67,32 @@ public class DiSmokeTests
         var provider = BuildContainer();
         var writer = provider.GetRequiredService<ISystemConfigurationWriterService>();
         Assert.NotNull(writer);
+    }
+
+    [Fact]
+    public void MinimalLauncherService_ResolvesAsSingleSharedInstance()
+    {
+        var provider = BuildContainer();
+        var concrete = provider.GetRequiredService<MinimalLauncherService>();
+        var viaInterface = provider.GetRequiredService<ILauncherService>();
+        Assert.NotNull(concrete);
+        Assert.NotNull(viaInterface);
+        Assert.Same(concrete, viaInterface);
+    }
+
+    [Fact]
+    public void MainViewModel_ResolvesFromContainer()
+    {
+        var provider = BuildContainer();
+        var vm = provider.GetRequiredService<MainViewModel>();
+        Assert.NotNull(vm);
+    }
+
+    [Fact]
+    public void AskAiToFixParameters_ResolvesFromContainer()
+    {
+        var provider = BuildContainer();
+        var ai = provider.GetRequiredService<AskAiToFixParameters>();
+        Assert.NotNull(ai);
     }
 }

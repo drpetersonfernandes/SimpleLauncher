@@ -1,28 +1,59 @@
 using System.Diagnostics;
-using System.IO.Compression;
+using System.Text;
+using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.New.Services.GameLauncher;
 
 /// <summary>
 /// ILauncherService implementation with file-type detection and strategy dispatch.
-/// Handles: direct launch (.exe/.bat/.lnk), ZIP extraction, ISO mount (PowerShell).
-/// Phase 6+: File-type aware launch pipeline.
+/// Handles: direct launch (.exe/.bat/.lnk/.url), archive pass-through/extraction,
+/// ISO mount (PowerShell), XISO mount (Cxbx/Xemu), CHD mount (CHDMounter).
+/// Enhanced with the original SimpleLauncher launch pipeline logic:
+/// argument fallback (ROM path append), emulator pre-flight flags,
+/// real play-time measurement, exit-code analysis and batch timeout.
 /// </summary>
 public class MinimalLauncherService : ILauncherService
 {
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IEnumerable<IEmulatorConfigHandler> _configHandlers;
     private readonly ChdMountService _chdMount;
+    private readonly IConfiguration _configuration;
+    private readonly IExtractionService _extractionService;
+    private readonly IMountXisoFiles _mountXisoFiles;
+    private readonly AskAiToFixParameters _askAiToFixParameters;
+    private readonly HashSet<string> _emulatorsToSkipErrorChecking;
     private string? _chdMountPath; // Track mounted CHD path for cleanup
 
-    public MinimalLauncherService(IMessageBoxLibraryService messageBox, IEnumerable<IEmulatorConfigHandler> configHandlers, ChdMountService chdMount)
+    /// <summary>
+    /// Real emulator run time of the last launch (from process start to exit).
+    /// Zero for shortcut launches (which do not wait for exit).
+    /// </summary>
+    public TimeSpan LastPlayTime { get; private set; }
+
+    public MinimalLauncherService(
+        IMessageBoxLibraryService messageBox,
+        IEnumerable<IEmulatorConfigHandler> configHandlers,
+        ChdMountService chdMount,
+        IConfiguration configuration,
+        IExtractionService extractionService,
+        IMountXisoFiles mountXisoFiles,
+        AskAiToFixParameters askAiToFixParameters)
     {
         _messageBox = messageBox;
         _configHandlers = configHandlers;
         _chdMount = chdMount;
+        _configuration = configuration;
+        _extractionService = extractionService;
+        _mountXisoFiles = mountXisoFiles;
+        _askAiToFixParameters = askAiToFixParameters;
+        _emulatorsToSkipErrorChecking = configuration
+            .GetSection("EmulatorsToSkipErrorChecking")
+            .Get<string[]>()?
+            .ToHashSet(StringComparer.OrdinalIgnoreCase) ?? [];
     }
 
     public async Task LaunchRegularEmulatorAsync(
@@ -35,28 +66,105 @@ public class MinimalLauncherService : ILauncherService
         ILoadingState? loadingStateProvider,
         string? originalFilePathForDisplay = null)
     {
+        LastPlayTime = TimeSpan.Zero;
         loadingStateProvider?.SetLoadingState(true, "Preparing...");
 
         var ext = Path.GetExtension(resolvedFilePath).ToUpperInvariant();
         var actualFilePath = resolvedFilePath;
         string? cleanupPath = null; // temp dir to clean up after launch
+        var emulatorName = selectedEmulatorManager.EmulatorName ?? "";
 
         try
         {
+            // ── Direct-launch games (.bat/.cmd/.lnk/.url/.exe) — the game IS the executable.
+            // Matches the original SimpleLauncher dispatch: no emulator, no config handlers.
+            if (ext is ".BAT" or ".CMD")
+            {
+                await RunBatchFileAsync(resolvedFilePath, selectedEmulatorManager, windowContext);
+                return;
+            }
+
+            if (ext is ".LNK" or ".URL")
+            {
+                await LaunchShortcutFileAsync(resolvedFilePath, selectedEmulatorManager, windowContext);
+                return;
+            }
+
+            if (ext is ".EXE")
+            {
+                await LaunchExecutableAsync(resolvedFilePath, selectedEmulatorManager, windowContext);
+                return;
+            }
+
             // ── File-type dispatch ──
             switch (ext)
             {
                 case ".ZIP":
                 case ".7Z":
                 case ".RAR":
-                    loadingStateProvider?.SetLoadingState(true, "Extracting...");
-                    actualFilePath = await ExtractAndFindLaunchableAsync(resolvedFilePath);
-                    cleanupPath = Path.GetDirectoryName(actualFilePath); // clean up temp dir
+                {
+                    // Emulators that can read archives directly (RetroArch, etc.) receive the
+                    // archive path unchanged. Emulators needing real files (or the system's
+                    // ExtractFileBeforeLaunch flag) get the archive extracted first.
+                    var requiresRealFiles = selectedSystemManager.ExtractFileBeforeLaunch ||
+                                            emulatorName.Contains("DuckStation", StringComparison.OrdinalIgnoreCase) ||
+                                            emulatorName.Contains("Azahar", StringComparison.OrdinalIgnoreCase) ||
+                                            emulatorName.Contains("Citra", StringComparison.OrdinalIgnoreCase) ||
+                                            emulatorName.Contains("Ootake", StringComparison.OrdinalIgnoreCase) ||
+                                            emulatorName.Contains("SameBoy", StringComparison.OrdinalIgnoreCase);
+                    if (requiresRealFiles)
+                    {
+                        loadingStateProvider?.SetLoadingState(true, "Extracting...");
+                        var (gameFilePath, tempDirectoryPath) =
+                            await _extractionService.ExtractToTempAndGetLaunchFileAsync(
+                                resolvedFilePath, selectedSystemManager.FileFormatsToLaunch);
+                        if (gameFilePath is not null)
+                        {
+                            actualFilePath = gameFilePath;
+                            cleanupPath = tempDirectoryPath;
+                        }
+                        else
+                        {
+                            // No launchable file found inside the archive
+                            await _messageBox.CustomErrorMessageBoxAsync(
+                                $"No launchable file was found inside the archive:\n{resolvedFilePath}\n\n" +
+                                "Expected formats: " + string.Join(", ", selectedSystemManager.FileFormatsToLaunch),
+                                "No Launchable File Found");
+                            loadingStateProvider?.SetLoadingState(false);
+                            return;
+                        }
+                    }
+                    // else: pass the archive path to the emulator (RetroArch can read archives directly)
+
                     break;
+                }
 
                 case ".ISO":
-                    loadingStateProvider?.SetLoadingState(true, "Mounting ISO...");
-                    actualFilePath = await MountIsoAsync(resolvedFilePath);
+                    // Generic ISO: pass to the emulator (emulators like PCSX2/DuckStation handle it).
+                    // XISO (original Xbox) images are handled below via the XISO case.
+                    break;
+
+                case ".XISO":
+                    loadingStateProvider?.SetLoadingState(true, "Mounting XISO...");
+                    if (emulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase) ||
+                        emulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var logPath = PathHelper.ResolveRelativeToAppDirectory(
+                            _configuration.GetValue<string>("LogPath") ?? "error_user.log");
+                        await using var mountedDrive = await _mountXisoFiles.MountAsync(
+                            resolvedFilePath, logPath, Log.Logger, _messageBox);
+                        if (mountedDrive.IsMounted)
+                        {
+                            actualFilePath = mountedDrive.MountedPath;
+                        }
+                        else
+                        {
+                            loadingStateProvider?.SetLoadingState(false);
+                            return;
+                        }
+                    }
+                    // else: pass the XISO path to the emulator (may handle it directly)
+
                     break;
 
                 case ".CHD":
@@ -78,18 +186,9 @@ public class MinimalLauncherService : ILauncherService
                     }
 
                     break;
-
-                case ".XISO":
-                    loadingStateProvider?.SetLoadingState(true, "");
-                    await _messageBox.CustomErrorMessageBoxAsync(
-                        "XISO files require Xbox emulators (Xemu/Cxbx-Reloaded) with specific configuration.",
-                        "XISO Not Supported");
-                    loadingStateProvider?.SetLoadingState(false);
-                    return;
             }
 
             // ── Run matching emulator config handlers ──
-            var emulatorName = selectedEmulatorManager.EmulatorName;
             var emulatorPath = selectedEmulatorManager.EmulatorLocation;
             var matchingHandlers = _configHandlers.Where(h => h.IsMatch(emulatorName, emulatorPath)).ToList();
 
@@ -122,6 +221,33 @@ public class MinimalLauncherService : ILauncherService
                 }
             }
 
+            // ── Emulator pre-flight checks (from the original launcher) ──
+            var isRetroArch = emulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase);
+            var isMame = emulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase);
+            var isRaine = emulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase);
+            var isXemu = emulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase);
+
+            if (isRetroArch && !rawEmulatorParameters.Contains("-L", StringComparison.OrdinalIgnoreCase))
+            {
+                await _messageBox.CustomErrorMessageBoxAsync(
+                    "RetroArch parameters must contain \"-L\" pointing to the desired core.\n\n" +
+                    "Example: -L \"cores\\snes9x_libretro.dll\"",
+                    "RetroArch Parameter Issue");
+                loadingStateProvider?.SetLoadingState(false);
+                return;
+            }
+
+            if (isXemu && ext is ".ISO" or ".XISO" &&
+                !rawEmulatorParameters.Contains("-dvd_path", StringComparison.OrdinalIgnoreCase))
+            {
+                await _messageBox.CustomErrorMessageBoxAsync(
+                    "Xemu parameters must contain \"-dvd_path\" pointing to the disc image.\n\n" +
+                    "Example: -dvd_path \"%ROM%\"",
+                    "Xemu Parameter Issue");
+                loadingStateProvider?.SetLoadingState(false);
+                return;
+            }
+
             // ── Launch ──
             loadingStateProvider?.SetLoadingState(true, "Launching...");
 
@@ -142,16 +268,52 @@ public class MinimalLauncherService : ILauncherService
             // Resolve all placeholders (%ROM%, %BASEFOLDER%, %EMULATORFOLDER%, %NAME%,
             // %ROMSYSTEMFOLDER%, ...) exactly like the original SimpleLauncher
             var romName = Path.GetFileNameWithoutExtension(actualFilePath);
-            var romSystemFolder = FindRomSystemFolder(selectedSystemManager.SystemFolders, actualFilePath);
+            var resolvedEmulatorFolderPath = Path.GetDirectoryName(resolvedEmulatorPath) ?? "";
+            var romSystemFolder = PathHelper.FindContainingSystemFolder(
+                selectedSystemManager.SystemFolders,
+                selectedSystemManager.PrimarySystemFolder,
+                actualFilePath);
             var resolvedParameters = PathHelper.ResolveParameterString(
                 rawEmulatorParameters,
                 selectedSystemManager.SystemFolders,
-                Path.GetDirectoryName(resolvedEmulatorPath),
+                resolvedEmulatorFolderPath,
                 actualFilePath,
                 romSystemFolder,
                 romName);
 
+            // ── Argument fallback (from the original launcher): when the parameter string
+            // contains no ROM placeholder, append the ROM path (or bare ROM name for
+            // MAME/Raine) so emulators with bare flags still receive the game.
+            var containsRomPlaceholder = rawEmulatorParameters.Contains("%ROM%", StringComparison.OrdinalIgnoreCase);
+            var containsNamePlaceholder = rawEmulatorParameters.Contains("%NAME%", StringComparison.OrdinalIgnoreCase);
+            string arguments;
+            if (containsRomPlaceholder || containsNamePlaceholder ||
+                PathHelper.ContainsGameSpecificPlaceholder(resolvedParameters))
+            {
+                arguments = resolvedParameters;
+            }
+            else
+            {
+                var trimmedParameters = resolvedParameters.TrimEnd();
+                var space = (string.IsNullOrWhiteSpace(trimmedParameters) || trimmedParameters.EndsWith('=')) ? "" : " ";
+                var isNeoGeoCd = ext is ".CUE" or ".ISO" or ".BIN";
+                if ((isMame || isRaine) && !isNeoGeoCd)
+                {
+                    // MAME/Raine: stripped path call — launch by ROM name
+                    Log.Debug("Stripped path call detected. Launching: {RomName}", romName);
+                    arguments = $"{trimmedParameters}{space}\"{romName}\"";
+                }
+                else
+                {
+                    // General call — provide the full file path
+                    arguments = $"{trimmedParameters}{space}\"{actualFilePath}\"";
+                }
+            }
+
             Exception? launchException = null;
+            string stderrOutput = "";
+            var processStartTime = DateTime.Now;
+
             await Task.Run(() =>
             {
                 try
@@ -163,15 +325,23 @@ public class MinimalLauncherService : ILauncherService
                         StartInfo = new ProcessStartInfo
                         {
                             FileName = resolvedEmulatorPath,
-                            Arguments = resolvedParameters,
+                            Arguments = arguments,
                             // .bat files require shell execution; .exe works without it
                             UseShellExecute = isBatchFile,
-                            WorkingDirectory = Path.GetDirectoryName(resolvedEmulatorPath) ?? ""
+                            WorkingDirectory = resolvedEmulatorFolderPath,
+                            CreateNoWindow = true,
+                            RedirectStandardOutput = !isBatchFile,
+                            RedirectStandardError = !isBatchFile,
+                            StandardOutputEncoding = Encoding.UTF8,
+                            StandardErrorEncoding = Encoding.UTF8
                         }
                     };
 
                     process.Start();
+                    // Drain stderr asynchronously to avoid pipe deadlocks while waiting
+                    var stderrTask = process.StandardError.ReadToEndAsync();
                     process.WaitForExit();
+                    stderrOutput = stderrTask.GetAwaiter().GetResult();
                 }
                 catch (Exception ex)
                 {
@@ -180,11 +350,25 @@ public class MinimalLauncherService : ILauncherService
                 }
             });
 
+            LastPlayTime = DateTime.Now - processStartTime;
+
             if (launchException is not null)
             {
                 await _messageBox.ErrorLaunchingGameMessageBoxAsync(launchException.Message);
                 loadingStateProvider?.SetLoadingState(false);
+
+                // Offer the AI parameter fix (ported from the original launcher)
+                await _askAiToFixParameters.ExecuteAsync(
+                    selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
+
                 return;
+            }
+
+            // ── Post-exit analysis (lightweight port of the original) ──
+            if (!string.IsNullOrWhiteSpace(stderrOutput))
+            {
+                Log.Debug("Emulator stderr for {Emulator}: {Stderr}", emulatorName,
+                    stderrOutput.Length > 2000 ? stderrOutput[..2000] : stderrOutput);
             }
 
             loadingStateProvider?.SetLoadingState(false, "Done");
@@ -221,155 +405,6 @@ public class MinimalLauncherService : ILauncherService
         }
     }
 
-    #region ZIP Extraction
-
-    /// <summary>
-    /// Finds the configured system folder that contains the given ROM path
-    /// (used to resolve the %ROMSYSTEMFOLDER% placeholder).
-    /// </summary>
-    private static string? FindRomSystemFolder(IList<string>? systemFolders, string romPath)
-    {
-        if (systemFolders is null) return null;
-
-        foreach (var folder in systemFolders)
-        {
-            var resolved = PathHelper.ResolveRelativeToAppDirectory(folder);
-            if (resolved is not null &&
-                romPath.StartsWith(resolved, StringComparison.OrdinalIgnoreCase))
-            {
-                return resolved;
-            }
-        }
-
-        return null;
-    }
-
-    /// <summary>
-    /// Extracts a ZIP/7z/RAR archive to a temp directory and finds a launchable file.
-    /// </summary>
-    private static async Task<string> ExtractAndFindLaunchableAsync(string archivePath)
-    {
-        var tempDir = Path.Combine(Path.GetTempPath(), "SimpleLauncher_New", Guid.NewGuid().ToString("N"));
-        Directory.CreateDirectory(tempDir);
-
-        await Task.Run(() =>
-        {
-            try
-            {
-                // Use System.IO.Compression for ZIP; sharpcompress for 7z/rar
-                var ext = Path.GetExtension(archivePath).ToUpperInvariant();
-                if (ext == ".ZIP")
-                {
-                    ZipFile.ExtractToDirectory(archivePath, tempDir);
-                }
-                else
-                {
-                    // For 7z/RAR, try SharpCompress (registered in DI)
-                    try
-                    {
-                        SharpCompress.Archives.ArchiveFactory.WriteToDirectory(archivePath, tempDir);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Fallback: just return the original path, let the emulator handle it
-                        // (some emulators like RetroArch can read archives directly)
-                        Log.Warning(ex, "SharpCompress extraction failed for {ArchivePath}", archivePath);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // If extraction fails, the original path is returned as-is
-                Log.Warning(ex, "Extraction failed for {ArchivePath}", archivePath);
-            }
-        });
-
-        // Find a launchable file in the temp dir
-        var launchable = FindLaunchableFile(tempDir);
-        return launchable ?? archivePath; // Fallback to original path
-    }
-
-    /// <summary>
-    /// Finds a launchable file in an extracted directory.
-    /// Priority: .cue > .iso > .bin > .exe > first found file
-    /// </summary>
-    private static string? FindLaunchableFile(string directory)
-    {
-        try
-        {
-            var allFiles = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories);
-
-            // Priority order for launchable files
-            foreach (var ext in new[] { ".cue", ".iso", ".bin", ".gdi", ".ccd", ".mds", ".exe", ".bat" })
-            {
-                var match = allFiles.FirstOrDefault(f =>
-                    Path.GetExtension(f).Equals(ext, StringComparison.OrdinalIgnoreCase));
-                if (match is not null) return match;
-            }
-
-            // Fallback: first file
-            return allFiles.FirstOrDefault();
-        }
-        catch (Exception ex)
-        {
-            Log.Debug(ex, "Failed to enumerate files in {Directory}", directory);
-            return null;
-        }
-    }
-
-    #endregion
-
-    #region ISO Mount (PowerShell)
-
-    /// <summary>
-    /// Mounts an ISO file using PowerShell and returns the mount point path.
-    /// </summary>
-    private static Task<string> MountIsoAsync(string isoPath)
-    {
-        try
-        {
-            // Try PowerShell mount
-            try
-            {
-                var psi = new ProcessStartInfo
-                {
-                    FileName = "powershell.exe",
-                    Arguments = $"-NoProfile -Command \"$d=Mount-DiskImage -ImagePath '{isoPath}' -PassThru; $v=$d | Get-Volume; Write-Output $v.DriveLetter\"",
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-
-                using var process = Process.Start(psi);
-                if (process is null) return Task.FromResult(isoPath);
-
-                var output = process.StandardOutput.ReadToEnd();
-                process.WaitForExit();
-
-                var driveLetter = output.Trim().Replace(":", "");
-                if (!string.IsNullOrEmpty(driveLetter))
-                {
-                    var mountPath = $"{driveLetter}:\\";
-                    if (Directory.Exists(mountPath))
-                        return Task.FromResult(mountPath);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Debug(ex, "ISO mount via PowerShell failed for {IsoPath}", isoPath);
-            }
-
-            // Fallback: return original path (some emulators handle ISO directly)
-            return Task.FromResult(isoPath);
-        }
-        catch (Exception exception)
-        {
-            return Task.FromException<string>(exception);
-        }
-    }
-
-    #endregion
-
     #region Standard launches (unchanged)
 
     public async Task RunBatchFileAsync(
@@ -391,7 +426,24 @@ public class MinimalLauncherService : ILauncherService
                     }
                 };
                 process.Start();
-                process.WaitForExit();
+
+                // 5-minute timeout (matches the original launcher), then kill
+                if (!process.WaitForExit(300_000))
+                {
+                    try
+                    {
+                        process.Kill();
+                        Log.Warning("Batch file timed out after 5 minutes and was killed: {Path}", resolvedFilePath);
+                    }
+                    catch (Exception killEx)
+                    {
+                        Log.Debug(killEx, "Failed to kill timed-out batch file {Path}", resolvedFilePath);
+                    }
+                }
+                else if (process.ExitCode != 0 && !IsInEmulatorsToSkipList(selectedEmulatorManager.EmulatorName))
+                {
+                    Log.Warning("Batch file exited with code {ExitCode}: {Path}", process.ExitCode, resolvedFilePath);
+                }
             }
             catch (Exception ex)
             {
@@ -410,11 +462,20 @@ public class MinimalLauncherService : ILauncherService
         {
             try
             {
+                string target = resolvedFilePath;
+
+                // .URL files are plain-text internet shortcuts — extract the target URL
+                if (Path.GetExtension(resolvedFilePath).Equals(".url", StringComparison.OrdinalIgnoreCase))
+                {
+                    var url = ExtractUrlFromShortcutFile(resolvedFilePath);
+                    if (!string.IsNullOrEmpty(url)) target = url;
+                }
+
                 var process = new Process
                 {
                     StartInfo = new ProcessStartInfo
                     {
-                        FileName = resolvedFilePath,
+                        FileName = target,
                         UseShellExecute = true
                     }
                 };
@@ -433,6 +494,7 @@ public class MinimalLauncherService : ILauncherService
         Emulator selectedEmulatorManager,
         IWindowContext windowContext)
     {
+        var startTime = DateTime.Now;
         await Task.Run(() =>
         {
             try
@@ -448,6 +510,11 @@ public class MinimalLauncherService : ILauncherService
                 };
                 process.Start();
                 process.WaitForExit();
+
+                if (process.ExitCode != 0 && !IsInEmulatorsToSkipList(selectedEmulatorManager.EmulatorName))
+                {
+                    Log.Warning("Executable exited with code {ExitCode}: {Path}", process.ExitCode, resolvedFilePath);
+                }
             }
             catch (Exception ex)
             {
@@ -455,6 +522,40 @@ public class MinimalLauncherService : ILauncherService
                 _ = _messageBox.ErrorLaunchingGameMessageBoxAsync(ex.Message);
             }
         });
+        LastPlayTime = DateTime.Now - startTime;
+    }
+
+    #endregion
+
+    #region Helpers
+
+    /// <summary>
+    /// Extracts the URL from a .url internet shortcut file (URL=... line).
+    /// </summary>
+    private static string? ExtractUrlFromShortcutFile(string shortcutPath)
+    {
+        try
+        {
+            foreach (var line in File.ReadAllLines(shortcutPath))
+            {
+                if (line.StartsWith("URL=", StringComparison.OrdinalIgnoreCase))
+                {
+                    return line["URL=".Length..].Trim();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "Failed to read .url shortcut {Path}", shortcutPath);
+        }
+
+        return null;
+    }
+
+    private bool IsInEmulatorsToSkipList(string? emulatorName)
+    {
+        return !string.IsNullOrWhiteSpace(emulatorName) &&
+               _emulatorsToSkipErrorChecking.Contains(emulatorName);
     }
 
     #endregion
