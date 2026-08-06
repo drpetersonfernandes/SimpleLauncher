@@ -97,6 +97,64 @@
 - `SourceGear.sqlite3` updated to **3.53.3**
 - Added `Moq` **4.20.72** *(new, for unit testing)*
 
+---
+
+> *Additional updates appended after the original 5.6.0 release notes (2026-08-06).*
+
+## Debug Window Improvements
+- **Restored initialization** — The Debug Window opens correctly again: its constructor (lost during the Serilog/DI refactor) was restored, and the window now applies the current app theme on open.
+- **Styling & closing behavior** — Improved Debug Window styling, log text color, and closing/exception behavior.
+- **`-debug` command-line flag** — Launching SimpleLauncher with the `-debug` argument now opens the Debug Window alongside the main window.
+- **`parameters.md` path fix** — The parameters guide is now resolved relative to the application folder instead of the current working directory. Previously, launching the app from another working directory (shortcuts, scripts, IDE) made `parameters.md` appear "missing" and triggered a modal reinstall dialog that froze the app and the Debug Window.
+
+## Startup Robustness
+- **Fallback logger** — If Serilog initialization fails, the app now falls back to debug output instead of crashing at startup.
+- **Improved initialization order** — The service provider is built only after the temp-folder check, and startup cleanup (trash + temp files) is more resilient.
+- **Timeout handling** — Added timeouts for the silent update check and usage statistics calls so they can no longer hang indefinitely.
+- **Parameter Resolver URL normalization** — The AI parameter resolver URL is normalized (trailing slash) with a fixed 60-second timeout.
+
+## F8 Hotkey Warning
+- **Hotkey in use detection** — When the F8 global hotkey cannot be registered because another program is already using it, Simple Launcher now shows a clear warning dialog and disables the screenshot functionality instead of failing silently. Localized in all supported languages.
+
+## PCSX2 Portable Mode
+- **Portable config path resolution** — PCSX2 configuration injection now resolves the config file correctly when PCSX2 runs in portable mode.
+
+## CHD Mounting on ARM64
+- **Architecture-specific CHDMounter** — CHD images are now mounted using the correct CHDMounter binary for the platform (`CHDMounter.exe` on x64, `CHDMounter_arm64.exe` on ARM64), enabling CHD mounting on Windows ARM64. The tool now ships with a README.
+
+## AI Parameter Suggestions
+- **`Explanation:` prefix handling** — If the AI response starts with "Explanation:", that text is now treated as the explanation and is no longer inserted into the emulator parameter field.
+- **RetroAchievements matcher** — Updated the RetroAchievements system matcher for better game matching.
+
+## Removed Tool
+- **GameCoverScraper removed** — The Game Cover Scraper tool has been removed from the Tools menu, along with all its bundled binaries and resources. Use **Find Rom Cover** or **Retro Game Cover Downloader** instead.
+
+## Structured Logging
+- **Serilog** — All logging now flows through Serilog (`ILogger`), and the custom `ILogErrors` abstraction was removed. The Debug Window receives log entries through a dedicated Serilog sink, a rolling daily file sink (7 days retained) is written to the local app data folder, and bug report sinks were added to all projects (including the tools and Updater).
+
+## Game List & UI
+- **Game list refresh after play** — The game list now automatically refreshes after a game is played.
+- **Async system manager loading** — System managers load asynchronously, preventing UI blocking at startup.
+- **Embedded images fix** — Corrected pack URI paths for embedded images and icons.
+- **Minimize-to-tray handling** — Improved minimize-to-tray behavior via proper window state change handling.
+
+## Other Improvements
+- **`7za` for more tools** — Added `7za.exe` / `7za_arm64.exe` to `BatchConvertToRVZ` and `BatchConvertToCHD` for fallback extraction/conversion.
+- **Emulator documentation** — Updated `parameters.md` (e.g., new CPCEC download link).
+- **Code quality** — The codebase now compiles with nullable reference types enabled, and the Meziantou analyzer was added for stricter code analysis.
+
+## Dependency Updates (latest build)
+*Supersedes the versions listed above.*
+- `SharpCompress` 0.49.1 → **0.50.4**
+- `MessagePack` 3.1.7 → **3.1.8**
+- `Microsoft.Data.Sqlite` 10.0.9 → **10.0.10**
+- `Microsoft.Extensions.*` 10.0.9 → **10.0.10**
+- `Microsoft.Extensions.Http.Resilience` 10.7.0 → **10.8.0**
+- `Microsoft.CodeAnalysis.NetAnalyzers` 10.0.301 → **10.0.302**
+- `SourceGear.sqlite3` 3.53.3 → **3.53.4**
+- Added `Serilog` **4.4.0** with `Serilog.Sinks.Async` 2.1.0, `Serilog.Sinks.Debug` 3.0.0, and `Serilog.Sinks.File` 7.0.0 *(new)*
+- Added `Meziantou.Analyzer` **3.0.139** *(new)*
+
 # Release 5.5.0
 *2026-05-25*
 ---
