@@ -10,7 +10,10 @@ namespace SimpleLauncher.Core.Services.HelpUser;
 /// </summary>
 public partial class HelpUserManager
 {
-    private const string FilePath = "parameters.md";
+    // Resolve against the app base directory (not CWD): parameters.md ships next to
+    // the executable, and depending on the working directory made the file appear
+    // "missing" (modal reinstall dialog) whenever the app was launched from elsewhere.
+    private static readonly string FilePath = Path.Combine(AppContext.BaseDirectory, "parameters.md");
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
 

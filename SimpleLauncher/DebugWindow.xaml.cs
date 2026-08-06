@@ -17,6 +17,17 @@ public partial class DebugWindow
     private bool _isReallyClosing;
 
     /// <summary>
+    /// Initializes the window XAML and applies the current app theme.
+    /// NOTE: This constructor is required — without it WPF never calls InitializeComponent()
+    /// and the window opens empty (lost during the Serilog/DI refactor in d206277b).
+    /// </summary>
+    public DebugWindow()
+    {
+        InitializeComponent();
+        App.ApplyThemeToWindow(this);
+    }
+
+    /// <summary>
     /// Gets the current singleton instance of the debug window, or <c>null</c> when it has not been created.
     /// </summary>
     internal static DebugWindow? Instance { get; private set; }
