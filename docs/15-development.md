@@ -61,6 +61,36 @@ Version `5.6.0` must stay in sync across:
 - Tests must satisfy the analyzers (e.g. `StringComparison` overloads on string assertions).
 - Conventions observed in the codebase: services take Serilog `ILogger`; UI services use the host-interface pattern (`Initialize(host)`) instead of receiving windows; ViewModels use CommunityToolkit.Mvvm.
 
+## Publishing the docs (Pages + wiki)
+
+The `docs\` folder is published in two places:
+
+### GitHub Pages (automatic, no credentials needed)
+
+The site is served from `/docs` via **docsify** (client-side rendering, no build step):
+
+1. Enable once in repo settings: **Settings → Pages → Deploy from a branch → branch `master`, folder `/docs`**.
+2. Every push to `docs/**` rebuilds the site automatically.
+3. URL: `https://drpetersonfernandes.github.io/SimpleLauncher/`.
+
+`docs/index.html` (docsify loader), `docs/_sidebar.md` (TOC) and `docs/.nojekyll` are the site assets. `docs/parameters.md` and `docs/manual-tests.md` are **copies** kept for the site and wiki:
+
+- `docs/parameters.md` ← `SimpleLauncher/parameters.md` — refresh it whenever the canonical file changes.
+- `docs/manual-tests.md` ← `ManualTests.md` (repo root) — refresh likewise.
+
+### GitHub Wiki (local sync script)
+
+The wiki is a separate git repo (`SimpleLauncher.wiki.git`); the default `GITHUB_TOKEN` cannot push to it, so syncing runs locally (or in CI with a PAT):
+
+```bash
+python scripts/sync-wiki.py --dry-run   # preview
+python scripts/sync-wiki.py             # clone/pull, rewrite, commit, push
+```
+
+The script maps `docs/README.md` → `Home`, copies all `docs/NN-*.md` as pages, and **protects the `parameters` page** (`https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters`) — the app opens this URL (`EditSystemWindow.xaml.cs`, config key `WikiParametersUrl`), so it is never deleted and is refreshed from `docs/parameters.md`. Stale pages are deleted, `_Sidebar.md` is regenerated, and markdown links are rewritten to the flat wiki namespace.
+
+For CI automation (optional): add a workflow that runs the script with a `WIKI_PAT` secret (classic PAT, `repo` scope) on `docs/**` pushes.
+
 ## Release workflow (from git history & What's New)
 
 1. Implement features/fixes; keep `WhatsNew.md` updated with a release section.

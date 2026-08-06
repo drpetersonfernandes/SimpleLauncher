@@ -1,7 +1,7 @@
 # 14 — Testing
 
 > The test project, conventions, coverage, and how to run the tests.
-> Related: [ManualTests.md](../ManualTests.md) (manual checklist) · [02 — Projects & Solution](02-projects-and-solution.md)
+> Related: [ManualTests.md](manual-tests.md) (manual checklist) · [02 — Projects & Solution](02-projects-and-solution.md)
 
 ## Project
 
@@ -25,7 +25,7 @@
 
 Unit tests cover the core logic layer: settings & system manager persistence, favorites, play history, game scanner core, file finder, search orchestrator, launch strategies (default, DOSBox, Commander Genius, CHD/CUE, PBP, XISO, ZIP), mount-strategy matching, Core emulator config-injection services, models/DTOs, path/URL/sanitizer/pagination/filter helpers, RetroAchievements manager/matcher/hasher, Steam VDF parser, update-check logic, API connectivity, converters' strategy classes — plus the batch added in 5.6.x: parameter resolver API service, `system.xml` writer + emulator XML helpers, game file watcher, loading overlay, UI reset, status bar, menu check-marks, credential protector (DPAPI), system-selection ViewModel, default-folder/temp/missing-file services.
 
-**What is not covered** (windows, Views, ViewModels, live file operations, store scanners, gamepad/audio, RA API layer, per-emulator launch handlers) — see **[ManualTests.md](../ManualTests.md)** for the full manual checklist.
+**What is not covered** (windows, Views, ViewModels, live file operations, store scanners, gamepad/audio, RA API layer, per-emulator launch handlers) — see **[ManualTests.md](manual-tests.md)** for the full manual checklist.
 
 ## Running the tests
 
@@ -55,6 +55,6 @@ dotnet test SimpleLauncher.Tests/SimpleLauncher.Tests.csproj \
 
 ## Related docs
 
-- [ManualTests.md](../ManualTests.md)
+- [ManualTests.md](manual-tests.md)
 - [15 — Development](15-development.md)
 - [13 — Logging & Debug](13-logging-and-debug.md)

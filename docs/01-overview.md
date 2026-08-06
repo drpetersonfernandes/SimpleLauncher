@@ -1,7 +1,7 @@
 # 01 — Overview
 
 > Simple Launcher — an open-source emulator frontend for Windows (x64 & ARM64).
-> Related: [02 — Projects & Solution](02-projects-and-solution.md) · [03 — Quickstart](03-quickstart.md) · [README](../README.md) (docs index)
+> Related: [02 — Projects & Solution](02-projects-and-solution.md) · [03 — Quickstart](03-quickstart.md) · [README](README.md) (docs index)
 
 ## What it is
 
@@ -36,7 +36,7 @@ Two code projects implement it:
 - **Tray icon**, minimize-to-tray, **F8 global screenshot hotkey**, loading overlays, status bar, debug window (`-debug`).
 - **Built-in updater** (`Updater.exe`) with GitHub release assets, `--restarting` restart flow.
 - **Bundled power tools** — conversion (CHD, RVZ, XISO, 7z/zip), batch-file creators, cover tools, ROM validator (see [11 — Bundled Tools](11-bundled-tools.md)).
-- **100+ supported systems** — Nintendo, Sony, Sega, Atari, NEC, SNK, Commodore, arcade (MAME/FBN/Raine), retro computers, and modern PC storefronts (the authoritative per-system emulator guide is [`parameters.md`](../SimpleLauncher/parameters.md); see also [18 — Emulator Parameters](18-emulator-parameters.md)).
+- **100+ supported systems** — Nintendo, Sony, Sega, Atari, NEC, SNK, Commodore, arcade (MAME/FBN/Raine), retro computers, and modern PC storefronts (the authoritative per-system emulator guide is [`parameters.md`](parameters.md); see also [18 — Emulator Parameters](18-emulator-parameters.md)).
 
 ## Localization
 

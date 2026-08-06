@@ -36,4 +36,4 @@
 
 - [01 — Overview](01-overview.md) (feature list)
 - [07 — Core Services](07-core-services.md)
-- [ManualTests.md](../ManualTests.md) §9 — manual verification checklist for the scanners
+- [ManualTests.md](manual-tests.md) §9 — manual verification checklist for the scanners

@@ -2,10 +2,10 @@
 
 Developer and user documentation for the two main projects:
 
-- [`SimpleLauncher`](../SimpleLauncher/SimpleLauncher.csproj) — WPF desktop app (the launcher)
-- [`SimpleLauncher.Core`](../SimpleLauncher.Core/SimpleLauncher.Core.csproj) — class library (services, models, persistence)
+- [`SimpleLauncher`](https://github.com/drpetersonfernandes/SimpleLauncher/blob/master/SimpleLauncher/SimpleLauncher.csproj) — WPF desktop app (the launcher)
+- [`SimpleLauncher.Core`](https://github.com/drpetersonfernandes/SimpleLauncher/blob/master/SimpleLauncher.Core/SimpleLauncher.Core.csproj) — class library (services, models, persistence)
 
-Companion files: [`ManualTests.md`](../ManualTests.md) (manual test checklist for areas without unit tests) · [`WhatsNew.md`](../SimpleLauncher/WhatsNew.md) (changelog) · [`parameters.md`](../SimpleLauncher/parameters.md) (emulator parameter reference).
+Companion files: [`ManualTests.md`](manual-tests.md) (manual test checklist for areas without unit tests) · [`WhatsNew.md`](https://github.com/drpetersonfernandes/SimpleLauncher/blob/master/SimpleLauncher/WhatsNew.md) (changelog) · [`parameters.md`](parameters.md) (emulator parameter reference).
 
 ## Reading order
 

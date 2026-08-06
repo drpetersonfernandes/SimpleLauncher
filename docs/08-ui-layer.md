@@ -127,4 +127,4 @@ All use **CommunityToolkit.Mvvm** (`ObservableObject` + `[RelayCommand]`). Group
 - [04 — Architecture](04-architecture.md)
 - [05 — Configuration](05-configuration.md)
 - [13 — Logging & Debug](13-logging-and-debug.md)
-- [ManualTests.md](../ManualTests.md) — the UI items that still need manual testing
+- [ManualTests.md](manual-tests.md) — the UI items that still need manual testing
