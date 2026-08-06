@@ -19,8 +19,10 @@ public class BoolConverterTests
         public bool Other { get; set; }
     }
 
-    private static Payload Deserialize(string json) =>
-        JsonSerializer.Deserialize<Payload>(json)!;
+    private static Payload Deserialize(string json)
+    {
+        return JsonSerializer.Deserialize<Payload>(json)!;
+    }
 
     [Theory]
     [InlineData("true", true)]

@@ -11,7 +11,7 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class SystemSelectionViewModelTests
 {
-    private static (SystemSelectionViewModel ViewModel, Mock<IRetroAchievementsSystemMatcher> Matcher) CreateViewModel()
+    private static SystemSelectionViewModel CreateViewModel()
     {
         var matcher = new Mock<IRetroAchievementsSystemMatcher>();
         matcher.Setup(x => x.GetSupportedSystemNames()).Returns(new List<string>
@@ -20,13 +20,13 @@ public class SystemSelectionViewModelTests
             "Sony PlayStation",
             "Sega Genesis"
         });
-        return (new SystemSelectionViewModel(matcher.Object), matcher);
+        return new SystemSelectionViewModel(matcher.Object);
     }
 
     [Fact]
     public void Initialize_PopulatesSystemsFromMatcher()
     {
-        var (viewModel, _) = CreateViewModel();
+        var viewModel = CreateViewModel();
 
         viewModel.Initialize("");
 
@@ -37,7 +37,7 @@ public class SystemSelectionViewModelTests
     [Fact]
     public void Initialize_CurrentGuess_PreselectsCaseInsensitiveMatch()
     {
-        var (viewModel, _) = CreateViewModel();
+        var viewModel = CreateViewModel();
 
         viewModel.Initialize("nintendo 64");
 
@@ -47,7 +47,7 @@ public class SystemSelectionViewModelTests
     [Fact]
     public void Initialize_CurrentGuess_WithNoMatch_LeavesSelectionNull()
     {
-        var (viewModel, _) = CreateViewModel();
+        var viewModel = CreateViewModel();
 
         viewModel.Initialize("Unknown Console");
 
@@ -57,7 +57,7 @@ public class SystemSelectionViewModelTests
     [Fact]
     public void Confirm_WithSelection_RaisesDialogResultTrue()
     {
-        var (viewModel, _) = CreateViewModel();
+        var viewModel = CreateViewModel();
         viewModel.Initialize("Sony PlayStation");
         bool? result = null;
         var raised = 0;
@@ -76,10 +76,10 @@ public class SystemSelectionViewModelTests
     [Fact]
     public void Confirm_WithoutSelection_DoesNotRaiseDialogResult()
     {
-        var (viewModel, _) = CreateViewModel();
+        var viewModel = CreateViewModel();
         viewModel.Initialize("Unknown Console");
         var raised = 0;
-        viewModel.DialogResultRequested += (_, _) => raised++;
+        viewModel.DialogResultRequested += (_, _) => { raised++; };
 
         viewModel.ConfirmCommand.Execute(null);
 
@@ -89,9 +89,9 @@ public class SystemSelectionViewModelTests
     [Fact]
     public void Cancel_RaisesDialogResultFalse()
     {
-        var (viewModel, _) = CreateViewModel();
+        var viewModel = CreateViewModel();
         bool? result = null;
-        viewModel.DialogResultRequested += (_, e) => result = e.Value;
+        viewModel.DialogResultRequested += (_, e) => { result = e.Value; };
 
         viewModel.CancelCommand.Execute(null);
 
@@ -101,7 +101,7 @@ public class SystemSelectionViewModelTests
     [Fact]
     public void SelectedSystem_Setter_RaisesPropertyChanged()
     {
-        var (viewModel, _) = CreateViewModel();
+        var viewModel = CreateViewModel();
         var changedProperties = new List<string?>();
         viewModel.PropertyChanged += (_, e) => changedProperties.Add(e.PropertyName);
 

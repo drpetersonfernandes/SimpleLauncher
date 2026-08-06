@@ -2,6 +2,7 @@ using System.Xml.Linq;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services;
 using SimpleLauncher.Core.Services.SystemConfiguration;
 using Xunit;
 
@@ -89,7 +90,10 @@ public class SystemConfigurationWriterServiceTests : IDisposable
         return mock;
     }
 
-    private XDocument LoadXml() => XDocument.Load(_systemXmlPath);
+    private XDocument LoadXml()
+    {
+        return XDocument.Load(_systemXmlPath);
+    }
 
     [Fact]
     public async Task SaveSystemAsync_CreatesWellFormedXmlWithSystemEntry()

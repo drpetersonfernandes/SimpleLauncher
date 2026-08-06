@@ -70,7 +70,7 @@ public class CleanTempFolderServiceTests : IDisposable
     {
         Directory.CreateDirectory(_tempDir);
         // Simulate a locked directory that cannot be deleted
-        using (File.Open(Path.Combine(_tempDir, "locked.bin"), FileMode.Create, FileAccess.ReadWrite, FileShare.None))
+        await using (File.Open(Path.Combine(_tempDir, "locked.bin"), FileMode.Create, FileAccess.ReadWrite, FileShare.None))
         {
             await _service.CleanupTempDirectoryAsync(_tempDir);
         }

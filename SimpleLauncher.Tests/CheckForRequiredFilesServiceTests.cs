@@ -22,8 +22,10 @@ public class CheckForRequiredFilesServiceTests
         _service = new CheckForRequiredFilesService(_messageBoxMock.Object);
     }
 
-    private static IConfiguration EmptyConfiguration() =>
-        new ConfigurationBuilder().AddInMemoryCollection().Build();
+    private static IConfiguration EmptyConfiguration()
+    {
+        return new ConfigurationBuilder().AddInMemoryCollection().Build();
+    }
 
     [Fact]
     public async Task CheckFilesAsync_AllDefaultFilesPresent_DoesNotShowMessageBox()
@@ -54,7 +56,7 @@ public class CheckForRequiredFilesServiceTests
             string? capturedList = null;
             _messageBoxMock
                 .Setup(x => x.HandleMissingRequiredFilesMessageBoxAsync(It.IsAny<string>()))
-                .Callback<string>(list => capturedList = list)
+                .Callback<string>(list => { capturedList = list; })
                 .Returns(Task.CompletedTask);
 
             await _service.CheckFilesAsync(EmptyConfiguration(), new NoOpLogger());

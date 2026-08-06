@@ -1,8 +1,6 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
-using Moq;
-using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.ParameterResolver;
 using Xunit;
@@ -32,22 +30,32 @@ public class ParameterResolverServiceTests
 
     private sealed class FakeHttpClientFactory(HttpMessageHandler handler) : IHttpClientFactory
     {
+        private readonly HttpMessageHandler _handler = handler;
+
         // The real app registers the client with a BaseAddress; the service sends relative URIs
-        public HttpClient CreateClient(string name) => new(handler) { BaseAddress = new Uri("http://localhost") };
+        public HttpClient CreateClient(string name)
+        {
+            return new HttpClient(_handler) { BaseAddress = new Uri("http://localhost") };
+        }
     }
 
-    private static ParameterResolverRequest CreateRequest() => new()
+    private static ParameterResolverRequest CreateRequest()
     {
-        SystemName = "NES",
-        SystemFolder = "C:\\roms",
-        FileFormatsToSearch = ["zip"],
-        ExtractFileBeforeLaunch = true,
-        FileFormatsToLaunch = ["nes"],
-        GroupByFolder = false
-    };
+        return new ParameterResolverRequest
+        {
+            SystemName = "NES",
+            SystemFolder = "C:\\roms",
+            FileFormatsToSearch = ["zip"],
+            ExtractFileBeforeLaunch = true,
+            FileFormatsToLaunch = ["nes"],
+            GroupByFolder = false
+        };
+    }
 
-    private static ParameterResolverService CreateService(HttpMessageHandler handler) =>
-        new(new FakeHttpClientFactory(handler), new NoOpLogger());
+    private static ParameterResolverService CreateService(HttpMessageHandler handler)
+    {
+        return new ParameterResolverService(new FakeHttpClientFactory(handler), new NoOpLogger());
+    }
 
     [Fact]
     public async Task ResolveParametersAsync_Success_ReturnsDeserializedResult()
@@ -61,7 +69,7 @@ public class ParameterResolverServiceTests
         var result = await service.ResolveParametersAsync(CreateRequest());
 
         Assert.NotNull(result);
-        Assert.Equal("-fullscreen", result!.SuggestedParameter);
+        Assert.Equal("-fullscreen", result.SuggestedParameter);
         Assert.Equal("Fullscreen is recommended", result.Explanation);
     }
 

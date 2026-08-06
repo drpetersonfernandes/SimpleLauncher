@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Moq;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Services.UIReset;
@@ -9,6 +10,7 @@ namespace SimpleLauncher.Tests;
 /// <summary>
 /// Tests for <see cref="UiResetService"/> orchestration using a mocked <see cref="IUiResetHost"/>.
 /// </summary>
+[SuppressMessage("ReSharper", "PlaceAssignmentExpressionIntoBlock")]
 public class UiResetServiceTests
 {
     private static (UiResetService Service, Mock<IUiResetHost> Host) CreateService()

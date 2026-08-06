@@ -66,7 +66,10 @@ public class MenuCheckMarkServiceTests
         public MenuItem ListView { get; } = new();
     }
 
-    private static int CountChecked(params MenuItem[] items) => items.Count(static i => i.IsChecked);
+    private static int CountChecked(params MenuItem[] items)
+    {
+        return items.Count(static i => i.IsChecked);
+    }
 
     [Fact]
     public void UpdateThumbnailSizeCheckMarks_ChecksExactlyOneItem()
