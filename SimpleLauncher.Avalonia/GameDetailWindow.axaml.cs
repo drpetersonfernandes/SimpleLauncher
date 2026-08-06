@@ -110,17 +110,24 @@ public partial class GameDetailWindow : Window
 
     private async void RemoveButton_Click(object? sender, RoutedEventArgs e)
     {
-        var result = await MessageDialogWindow.ShowAsync(
-            this,
-            $"Remove \"{_game.DisplayTitle}\" from your library?\nThis will not delete the file.",
-            "Remove Game",
-            MessageButtons.YesNo,
-            MessageIcon.Question);
-
-        if (result == MessageBoxResult.Yes)
+        try
         {
-            // TODO: Remove from game list
-            Close();
+            var result = await MessageDialogWindow.ShowAsync(
+                this,
+                $"Remove \"{_game.DisplayTitle}\" from your library?\nThis will not delete the file.",
+                "Remove Game",
+                MessageButtons.YesNo,
+                MessageIcon.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                // TODO: Remove from game list
+                Close();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in method RemoveButton_Click");
         }
     }
 

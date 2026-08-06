@@ -63,11 +63,18 @@ public partial class EasyModeWindow : Window, IDisposable
 
     private async void BrowseFolder_Click(object? sender, RoutedEventArgs e)
     {
-        var filePicker = App.ServiceProvider.GetRequiredService<IFilePickerService>();
-        var folder = await filePicker.OpenFolderAsync("Choose a folder with ROMs or ISOs for this system");
-        if (!string.IsNullOrEmpty(folder))
+        try
         {
-            _viewModel.SystemFolderPath = folder;
+            var filePicker = App.ServiceProvider.GetRequiredService<IFilePickerService>();
+            var folder = await filePicker.OpenFolderAsync("Choose a folder with ROMs or ISOs for this system");
+            if (!string.IsNullOrEmpty(folder))
+            {
+                _viewModel.SystemFolderPath = folder;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in method BrowseFolder_Click");
         }
     }
 

@@ -12,6 +12,7 @@
         Closing="Window_Closing">
 
     <Window.Resources>
+        <!-- ReSharper disable once Xaml.RedundantResource -->
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
         <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility" />
         <converters:NullToVisibilityConverter x:Key="NullToVisibility" />
@@ -37,7 +38,7 @@
         </DataTemplate>
     </Window.Resources>
 
-    <Grid RowDefinitions="44,*,24,Auto">
+    <Grid RowDefinitions="44,*,24">
 
         <!-- ═══ TOOLBAR (Row 0) ═══ -->
         <Border Grid.Row="0" Background="{DynamicResource BgTertiaryBrush}"
@@ -303,32 +304,8 @@
                           VerticalAlignment="Stretch" />
 
             <!-- Content area -->
-            <Border Grid.Column="2" Background="{DynamicResource BgPrimaryBrush}"
-                    DragDrop.DragEnter="Content_DragEnter"
-                    DragDrop.DragOver="Content_DragOver"
-                    DragDrop.DragLeave="Content_DragLeave"
-                    DragDrop.Drop="Content_Drop">
+            <Border Grid.Column="2" Background="{DynamicResource BgPrimaryBrush}">
                 <Grid>
-                    <!-- Drag-drop overlay -->
-                    <Border x:Name="DragDropOverlay"
-                            Background="{DynamicResource OverlayDragAcceptBrush}"
-                            IsVisible="False" ZIndex="90"
-                            BorderBrush="{DynamicResource AccentBrush}"
-                            BorderThickness="3"
-                            CornerRadius="12">
-                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock Text="📁" FontSize="48" HorizontalAlignment="Center"
-                                       Foreground="White" />
-                            <TextBlock Text="Drop ROM folder here to scan"
-                                       FontSize="18" FontWeight="SemiBold"
-                                       Foreground="White"
-                                       HorizontalAlignment="Center" Margin="0,12,0,0" />
-                            <TextBlock Text="The folder will be scanned for games"
-                                       FontSize="13"
-                                       Foreground="#CCFFFFFF"
-                                       HorizontalAlignment="Center" Margin="0,4,0,0" />
-                        </StackPanel>
-                    </Border>
                     <!-- Toast notification stack (top-right) -->
                     <StackPanel x:Name="ToastStack"
                                 VerticalAlignment="Top" HorizontalAlignment="Right"
@@ -351,15 +328,15 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type vm:GameCardViewModel}">
                                 <!-- Card: width from MainViewModel, height from per-system art ratio -->
-                                <Border Width="{Binding DataContext.CardWidth, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                <Border Width="{Binding DataContext.CardWidth, RelativeSource={RelativeSource AncestorType=ListBox}, FallbackValue=168}"
                                         Margin="6"
                                         Cursor="Hand"
                                         PointerPressed="GameCard_Click">
                                     <Border.Height>
                                         <MultiBinding Converter="{StaticResource CardHeightConverter}">
-                                            <Binding Path="DataContext.CardWidth" RelativeSource="{RelativeSource AncestorType=ListBox}" />
+                                            <Binding Path="DataContext.CardWidth" RelativeSource="{RelativeSource AncestorType=ListBox}" FallbackValue="168" />
                                             <Binding Path="SystemName" />
-                                            <Binding Path="DataContext.IsMixedView" RelativeSource="{RelativeSource AncestorType=ListBox}" />
+                                            <Binding Path="DataContext.IsMixedView" RelativeSource="{RelativeSource AncestorType=ListBox}" FallbackValue="False" />
                                         </MultiBinding>
                                     </Border.Height>
                                     <Border.Effect>
@@ -571,34 +548,5 @@
             </Grid>
         </Border>
 
-        <!-- ═══ IMPORT BANNER (Row 3, collapsed by default) ═══ -->
-        <Border x:Name="ImportBanner"
-                Grid.Row="3"
-                Background="{DynamicResource BgTertiaryBrush}"
-                BorderBrush="{DynamicResource BorderAccentBrush}"
-                BorderThickness="0,1,0,0"
-                Padding="12,8"
-                IsVisible="False">
-            <Grid ColumnDefinitions="*,Auto">
-                <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                    <TextBlock x:Name="BannerText"
-                               Text="Importing games…"
-                               Foreground="{DynamicResource TextPrimaryBrush}"
-                               FontSize="12" FontWeight="SemiBold" />
-                    <ProgressBar x:Name="BannerProgress"
-                                 IsIndeterminate="True"
-                                 Width="300"
-                                 Margin="0,4,0,0"
-                                 HorizontalAlignment="Left" />
-                </StackPanel>
-                <Button Grid.Column="1"
-                        Content="✕"
-                        Classes="secondary"
-                        Padding="8,4"
-                        FontSize="12"
-                        Click="BannerClose_Click"
-                        VerticalAlignment="Center" />
-            </Grid>
-        </Border>
     </Grid>
 </Window>

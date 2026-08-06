@@ -451,21 +451,35 @@ public partial class EditSystemWindow : Window
 
     private async void ChooseSystemFolder(object? sender, RoutedEventArgs e)
     {
-        var folder = await _filePicker.OpenFolderAsync("Please select the System Folder");
-        if (!string.IsNullOrEmpty(folder))
+        try
         {
-            SystemFolderTextBox.Text = folder;
-            SetFieldValidationState(SystemFolderTextBox, true);
+            var folder = await _filePicker.OpenFolderAsync("Please select the System Folder");
+            if (!string.IsNullOrEmpty(folder))
+            {
+                SystemFolderTextBox.Text = folder;
+                SetFieldValidationState(SystemFolderTextBox, true);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in method ChooseSystemFolder");
         }
     }
 
     private async void ChooseSystemImageFolder(object? sender, RoutedEventArgs e)
     {
-        var folder = await _filePicker.OpenFolderAsync("Please select the System Image Folder");
-        if (!string.IsNullOrEmpty(folder))
+        try
         {
-            SystemImageFolderTextBox.Text = folder.Trim();
-            SetFieldValidationState(SystemImageFolderTextBox, true);
+            var folder = await _filePicker.OpenFolderAsync("Please select the System Image Folder");
+            if (!string.IsNullOrEmpty(folder))
+            {
+                SystemImageFolderTextBox.Text = folder.Trim();
+                SetFieldValidationState(SystemImageFolderTextBox, true);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in method ChooseSystemImageFolder");
         }
     }
 
@@ -496,22 +510,36 @@ public partial class EditSystemWindow : Window
 
     private async void ChooseEmulatorPath(TextBox pathTextBox)
     {
-        var path = await _filePicker.OpenFileAsync(
-            "Select Emulator",
-            "Executable Files (*.exe;*.bat)|*.exe;*.bat");
-        if (!string.IsNullOrEmpty(path))
+        try
         {
-            pathTextBox.Text = path;
-            SetFieldValidationState(pathTextBox, true);
+            var path = await _filePicker.OpenFileAsync(
+                "Select Emulator",
+                "Executable Files (*.exe;*.bat)|*.exe;*.bat");
+            if (!string.IsNullOrEmpty(path))
+            {
+                pathTextBox.Text = path;
+                SetFieldValidationState(pathTextBox, true);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in method ChooseEmulatorPath");
         }
     }
 
     private async void AddAdditionalFolder_Click(object? sender, RoutedEventArgs e)
     {
-        var folder = await _filePicker.OpenFolderAsync("Please select an additional System Folder");
-        if (!string.IsNullOrEmpty(folder))
+        try
         {
-            AdditionalFoldersListBox.Items.Add(folder);
+            var folder = await _filePicker.OpenFolderAsync("Please select an additional System Folder");
+            if (!string.IsNullOrEmpty(folder))
+            {
+                AdditionalFoldersListBox.Items.Add(folder);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in method AddAdditionalFolder_Click");
         }
     }
 

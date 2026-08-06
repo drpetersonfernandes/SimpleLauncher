@@ -56,7 +56,6 @@
         <Color x:Key="ScrollbarTrackColor">#222224</Color>
 
         <!-- ═══ SEMANTIC OVERLAYS ═══ -->
-        <Color x:Key="OverlayDragAcceptColor">#B2665CDE</Color>
         <Color x:Key="OverlayMissingFileColor">#66FD0000</Color>
         <Color x:Key="OverlayProcessingColor">#B3000000</Color>
 
@@ -120,7 +119,6 @@
         <SolidColorBrush x:Key="ScrollbarTrackBrush" Color="{DynamicResource ScrollbarTrackColor}" />
 
         <!-- Overlay brushes -->
-        <SolidColorBrush x:Key="OverlayDragAcceptBrush" Color="{DynamicResource OverlayDragAcceptColor}" />
         <SolidColorBrush x:Key="OverlayMissingFileBrush" Color="{DynamicResource OverlayMissingFileColor}" />
         <SolidColorBrush x:Key="OverlayProcessingBrush" Color="{DynamicResource OverlayProcessingColor}" />
 

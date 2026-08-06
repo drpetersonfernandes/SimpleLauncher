@@ -541,14 +541,7 @@ public partial class MainWindow : Window
 
     #endregion
 
-    #region Banner / Toast
-
-    private void BannerClose_Click(object? sender, RoutedEventArgs e)
-    {
-        ImportBanner.IsVisible = false;
-    }
-
-    #endregion
+    #region Toast
 
     public void ShowToast(string title, string message, ToastType type = ToastType.Info)
     {
@@ -615,17 +608,7 @@ public partial class MainWindow : Window
         });
     }
 
-    public void ShowImportBanner(string text, bool isIndeterminate = true)
-    {
-        BannerText.Text = text;
-        BannerProgress.IsIndeterminate = isIndeterminate;
-        ImportBanner.IsVisible = true;
-    }
-
-    public void HideImportBanner()
-    {
-        ImportBanner.IsVisible = false;
-    }
+    #endregion
 
     #region Loading Overlay
 

@@ -84,7 +84,13 @@ public class App : Application, IDisposable
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime nonFirstInstanceLifetime)
             {
-                nonFirstInstanceLifetime.Shutdown();
+                // Do NOT call Shutdown() synchronously here: the dispatcher main loop has not
+                // started yet, and DoShutdown() -> Dispatcher.UIThread.InvokeShutdown() leaves
+                // the dispatcher permanently shut down, so StartCore() then throws
+                // "Cannot perform requested operation because the Dispatcher shut down" when it
+                // calls Dispatcher.UIThread.MainLoop(...). Post the shutdown instead so it runs
+                // once the main loop is pumping (same clean-exit path as closing the main window).
+                Dispatcher.UIThread.Post(() => nonFirstInstanceLifetime.Shutdown());
             }
 
             return;
