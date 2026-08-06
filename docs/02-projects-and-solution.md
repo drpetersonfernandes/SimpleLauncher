@@ -1,0 +1,114 @@
+# 02 — Projects & Solution
+
+> The solution `SimpleLauncher.sln` and the two documented projects in depth.
+> Related: [01 — Overview](01-overview.md) · [04 — Architecture](04-architecture.md)
+
+## Solution layout (10 projects)
+
+| Project | Kind | Role |
+|---|---|---|
+| `SimpleLauncher` | WPF app (WinExe) | **The launcher** — UI, ViewModels, services, launch handlers, scanners, DI composition root |
+| `SimpleLauncher.Core` | Class library | **Shared logic** — services, models, interfaces, persistence, emulator config injection |
+| `SimpleLauncher.Tests` | xUnit test project | 150 test files; references `SimpleLauncher` (and transitively Core) |
+| `SimpleLauncher.Updater` | Console app | Self-update helper (`Updater.exe`) — downloads release zip, swaps files, relaunches app |
+| `SimpleLauncher.Avalonia` | Avalonia UI app | In-progress cross-platform port (secondary/experimental) |
+| `SimpleLauncher.ResourceTranslator` | Tool | Assists translating `resources\strings.*.xaml` files |
+| `Tools\Mame.DatCreator` | WPF tool | Builds `mame.dat` (MessagePack) from MAME `-listxml` + software lists |
+| `Tools\RetroAchievements.DataFetcher` | CLI tool | Fetches the RA game database into `RetroAchievements.dat` |
+| `Tools\XmlToBinaryConverter` | WPF tool | Converts `history.xml` ↔ `history.dat` (MessagePack) |
+
+Dependency edges: `SimpleLauncher → SimpleLauncher.Core`; `SimpleLauncher.Tests → SimpleLauncher`; `SimpleLauncher.Updater` standalone; `SimpleLauncher.Avalonia` references Core (via `InternalsVisibleTo`).
+
+## `SimpleLauncher\SimpleLauncher.csproj` (the app)
+
+Key properties:
+
+```xml
+<TargetFramework>net10.0-windows</TargetFramework>
+<OutputType>WinExe</OutputType>
+<UseWPF>true</UseWPF>
+<LangVersion>14</LangVersion>
+<Nullable>enable</Nullable>
+<RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+<ApplicationManifest>app.manifest</ApplicationManifest>
+<StartupObject>SimpleLauncher.App</StartupObject>
+<AssemblyVersion>/<FileVersion>/<Version>5.6.0</Version>
+<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+<RuntimeFrameworkVersion>10.0.2</RuntimeFrameworkVersion>
+<SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+```
+
+- **Versioning:** `5.6.0`; kept consistent with Core, tests, `app.manifest`, and `SimpleLauncher.Updater\version.txt` (`VersionConsistencyTests` enforces it).
+- **`InternalsVisibleTo("SimpleLauncher.Tests")`** — tests reach internal members.
+- **Copy-to-output payloads** (`<None Update=... CopyToOutputDirectory>`):
+  - `appsettings.json` (Always), `WhatsNew.md` (PreserveNewest), `mame.dat` (Always), system images `images\systems\*.png` (Always), `audio\*.mp3`.
+  - `tools\*` payloads: `findromcover\`, `createbatchfilesforscummvmgames\`, `createbatchfilesforwindowsgames\`, `BatchConvertTo7z\`, `CreateBatchFilesForPS3Games\` (stale entries for `ps3batchlaunchercreator\` remain in the csproj but have no folder on disk — see [11 — Bundled Tools](11-bundled-tools.md)), plus 7za binaries, system images, and more.
+- **Global usings:** `System.IO`, `System.Net.Http`, `Serilog`.
+- **`NoWarn`: NU1903;CS0436**.
+- Startup object is `SimpleLauncher.App` (see [04 — Architecture](04-architecture.md#startup-sequence)).
+
+### App packages (selected)
+
+| Package | Version | Used for |
+|---|---|---|
+| MahApps.Metro | 2.4.11 | UI theme/controls |
+| CommunityToolkit.Mvvm | 8.4.2 | ViewModels (ObservableObject, RelayCommand) |
+| MessagePack | 3.1.8 | Binary data files |
+| Microsoft.Extensions.* | 10.0.10 | Configuration, DI, HTTP, resilience |
+| Microsoft.Extensions.Http.Resilience | 10.8.0 | Polly retry policy on downloads |
+| Microsoft.Data.Sqlite / SourceGear.sqlite3 | 10.0.10 / 3.53.4 | SQLite (Amazon scan, Stella settings) |
+| SharpCompress | 0.50.4 | Archive extraction |
+| NAudio | 2.3.0 | UI sound effects |
+| SharpDX + XInput + DirectInput | 4.2.0 | Gamepad input |
+| InputSimulatorCore | 1.0.5 | Mouse simulation from gamepad |
+| Serilog (+ Sinks.Async/Debug/File) | 4.4.0 | Logging |
+| Tomlyn | 2.10.1 | TOML parsing (Xenia, Yumir configs) |
+| YamlDotNet | 18.1.0 | YAML parsing (RPCS3 config) |
+| Meziantou.Analyzer | 3.0.139 | Static analysis (PrivateAssets) |
+| Microsoft.CodeAnalysis.NetAnalyzers | 10.0.302 | Static analysis |
+
+## `SimpleLauncher.Core\SimpleLauncher.Core.csproj` (the library)
+
+Key properties: `net10.0-windows`, `IsPackable=true`, `Nullable` enabled, `LangVersion 14`, `DebugType=embedded`, version `5.6.0`.
+
+- **`InternalsVisibleTo`:** `SimpleLauncher.Tests`, `SimpleLauncher`, `SimpleLauncher.New`, `SimpleLauncher.Avalonia`, `SimpleLauncher.New.Tests`.
+- **Global usings:** `System.IO`, `System.Net.Http`, `Serilog` — so every Core service takes a Serilog `ILogger` by convention.
+- Packages: the same core set as the app (CommunityToolkit.Mvvm, MessagePack, Microsoft.Extensions.*, SharpCompress, NAudio, SharpDX*, Serilog, Tomlyn, YamlDotNet, SourceGear.sqlite3, Meziantou.Analyzer) — no WPF/MahApps (it targets `net10.0-windows` because of DPAPI `ProtectedData`, `System.Drawing`-adjacent helpers, and Windows-specific services, but stays UI-agnostic).
+
+## Folder structure of the app project
+
+```
+SimpleLauncher/
+├── App.xaml(.cs)            DI composition root, startup sequence
+├── MainWindow.xaml(.cs)     + 12 partials (hosts, menus, pagination, search, close events…)
+├── *.xaml(.cs)              22 root windows (About, Debug, EasyMode, EditSystem, InjectConfig…)
+├── InjectConfigWindows/     21 emulator config-injection dialogs
+├── Pages/                   Favorites, GlobalSearch, PlayHistory
+├── ViewModels/              44 ViewModels (incl. 21 Inject*ConfigViewModel)
+├── Services/                UI services, launch handlers, scanners, RA, favorites, play history…
+├── Interfaces/              host & service interfaces (29)
+├── Models/                  app-side models (SearchResult, WindowScreenshot, RaAchievement…)
+├── resources/               strings.{lang}.xaml (18 languages)
+├── resources2/              theme overrides (HighContrast, Midnight)
+├── tools/                   bundled executables (see 11)
+├── samples/                 emulator config templates (samples\{Emulator}\*)
+├── audio/ images/ icon/     shipped assets
+└── appsettings.json, app.manifest, mame.dat, parameters.md, WhatsNew.md
+```
+
+## Folder structure of the Core project
+
+```
+SimpleLauncher.Core/
+├── Services/                ~30 areas (see 07 — Core Services)
+├── Models/                  data models (Ra*, History, emulator settings, converters…)
+├── Interfaces/              service contracts
+└── (no UI, no XAML)
+```
+
+## Related docs
+
+- [01 — Overview](01-overview.md)
+- [07 — Core Services](07-core-services.md)
+- [11 — Bundled Tools](11-bundled-tools.md)
+- [15 — Development](15-development.md)
