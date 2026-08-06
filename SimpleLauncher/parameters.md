@@ -1295,7 +1295,6 @@ You can download this emulator on the [Official Website](https://github.com/capt
 
 This emulator is available for Windows-x64.<br>
 You need to create BAT files to launch the games.<br>
-You can download this emulator on the [Official Website](http://www.daphne-emu.com/site3/index_hi.php).<br>
 
 .
 
