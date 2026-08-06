@@ -1,105 +1,87 @@
 # Release 5.6.0
-*2026-07-05*
+*2026-08-06*
 ---
 
 ## Parameter Resolver API
-- **New "Suggest" buttons** in the Edit System window for each emulator parameter field.
-- Uses an AI-powered API to suggest the best emulator parameters based on system configuration.
-- Shows a confirmation dialog with the suggested parameter and explanation before applying.
+- **"Suggest" buttons** — Added to the Edit System window for every emulator parameter field.
+- **AI-powered suggestions** — An AI-powered API suggests the best emulator parameters based on the system configuration.
+- **Confirmation before applying** — Shows a dialog with the suggested parameter and an explanation before applying it.
+- **`Explanation:` prefix handling** — If the AI response starts with "Explanation:", that text is treated as the explanation and is no longer inserted into the emulator parameter field.
+- **Loading overlay** — Added a loading overlay to AI parameter resolution.
+- **URL normalization** — The AI parameter resolver URL is normalized (trailing slash) and uses a fixed 60-second timeout.
 
 ## Image Matching Improvements
 - **Annotation stripping** — New `EnableAnnotationStripping` option strips region tags, revision numbers, and other annotations from filenames for better cover image matching.
 
-- ## Game File Watcher
+## Game File Watcher
 - **New `GameFileWatcherService`** — Monitors ROM system folders for external file changes (create, delete, rename) and automatically refreshes the game list when changes are detected.
-- Uses debouncing (500ms) to avoid rapid re-scans during batch file operations like archive extraction.
-- Automatically starts/stops watching when switching between systems.
+- **Debouncing (500ms)** — Avoids rapid re-scans during batch file operations like archive extraction.
+- **Automatic start/stop** — Watching starts and stops automatically when switching between systems.
 
 ## 7za Fallback Extraction
 - **Automatic fallback to 7za** — When SharpCompress fails to extract `.7z` files, the application now automatically retries using the bundled `7za.exe` (or `7za_arm64.exe` on ARM64).
-- Added bundled 7za binaries to `tools/SevenZip/` and `tools/BatchConvertIsoToXiso/`.
+- **Bundled binaries** — Added 7za binaries to `tools/SevenZip/` and `tools/BatchConvertIsoToXiso/`, plus `7za.exe` / `7za_arm64.exe` to `BatchConvertToRVZ` and `BatchConvertToCHD` for fallback extraction/conversion.
 
 ## Batch File Path Validation
-- **Pre-execution path validation** — Batch files are now validated before execution to detect referenced paths that do not exist.
-- Shows a warning dialog listing missing paths with the option to continue or cancel.
-- Changed batch file execution from `cmd.exe /c` to direct `UseShellExecute` for better compatibility.
+- **Pre-execution validation** — Batch files are now validated before execution to detect referenced paths that do not exist.
+- **Warning dialog** — Shows a dialog listing the missing paths with the option to continue or cancel.
+- **Direct execution** — Batch files are now executed with `UseShellExecute` instead of `cmd.exe /c` for better compatibility.
 
 ## OneDrive Error Handling
-- **Specific OneDrive guidance** — When game files fail to launch and the path contains "OneDrive", the error message now provides specific instructions about syncing and downloading files.
-- Added localized `oneDriveIssue` string across all supported languages.
+- **Specific OneDrive guidance** — When a game file fails to launch and its path contains "OneDrive", the error message now provides specific instructions about syncing and downloading the file.
+- **Localized message** — Added the localized `oneDriveIssue` string across all supported languages.
 
 ## Invalid Folder Character Validation
 - **Path character validation** — System folder and image folder paths are now validated for invalid path characters before attempting directory creation.
-- Shows a clear error message listing the invalid characters found.
+- **Clear error message** — Shows a message listing the invalid characters found.
 
-## CHD Support and CHD Mount Error Handling
-- Added CHD support for emulator Kega Fusion.
+## CHD Support
+- **Kega Fusion** — Added CHD support for the Kega Fusion emulator.
 - **Exit code reporting** — CHD mount failures now include the process exit code in error messages for easier debugging.
-- Added Dokan installation check before CHD mount operations.
+- **Dokan check** — Added a Dokan installation check before CHD mount operations.
+- **ARM64 support** — CHD images are now mounted using the architecture-specific CHDMounter binary (`CHDMounter.exe` on x64, `CHDMounter_arm64.exe` on ARM64), enabling CHD mounting on Windows ARM64. The tool now ships with a README.
 
-## PCSX2 Configuration Error Handling
+## PCSX2 Improvements
 - **Permission error detection** — PCSX2 configuration injection now detects file permission errors and shows a user-friendly notification instead of crashing.
+- **Portable mode** — PCSX2 configuration injection now resolves the config file correctly when PCSX2 runs in portable mode.
 
 ## History Database Format Migration
-- Migrated `history.xml` to `history.dat` (MessagePack binary format) for faster loading and smaller file size.
-- Maintains backward compatibility — falls back to `history.xml` if `history.dat` is not found.
+- **MessagePack format** — Migrated `history.xml` to `history.dat` (MessagePack binary format) for faster loading and smaller file size.
+- **Backward compatibility** — Falls back to `history.xml` if `history.dat` is not found.
 
 ## Global Search Enhancements
-- **Results count display** — Shows the number of matching results in the global search window.
-- **AND/OR search operators** — Supports boolean operators for more flexible search queries.
+- **Results count** — Shows the number of matching results in the global search window.
+- **AND/OR operators** — Supports boolean operators for more flexible search queries.
 - **Improved loading state** — Better visual feedback during search operations.
 
 ## Debug Logger Improvements
 - **Buffered logging** — Debug log messages are now buffered for better performance.
 
-## Download Retry with Exponential Backoff
+## Download Reliability
 - **Automatic retry** — Downloads now automatically retry with exponential backoff on failure.
 - **Read-only file handling** — Extraction now handles read-only files gracefully.
 
-## UI/UX Improvements
-- **Cancel buttons** — Added cancel buttons to SetGamepadDeadZone, Debug, SetLinks, and EditSystem dialogs.
-- **Loading overlay** — Added loading overlay to AI parameter resolution.
-- **Tooltips** — Added tooltips for data grids, preview images, and viewer windows.
-- **Confirmation dialog** — Added confirmation message box for reverting dead zone settings.
-- **Game list refresh** — Game list now automatically refreshes when deleting a file that no longer exists on disk.
-- **Emergency overlay release** — Added emergency overlay release button to GlobalStatsWindow.
+## Startup Robustness
+- **Fallback logger** — If Serilog initialization fails, the app now falls back to debug output instead of crashing at startup.
+- **Initialization order** — The service provider is built only after the temp-folder check, and startup cleanup (trash + temp files) is more resilient.
+- **Timeout handling** — Added timeouts for the silent update check and usage statistics calls so they can no longer hang indefinitely.
+
+## F8 Hotkey Warning
+- **Hotkey in use detection** — When the F8 global hotkey cannot be registered because another program is already using it, Simple Launcher now shows a clear warning dialog and disables the screenshot functionality instead of failing silently. Localized in all supported languages.
+
+## RetroAchievements
+- **Improved system matcher** — Updated the RetroAchievements system matcher for better game matching.
 
 ## Credential Protection
 - **Encrypted RetroAchievements credentials** — RA credentials are now encrypted using Windows Credential Manager.
-- **Nested settings structure** — Emulator configuration now uses nested settings structure for better organization.
+- **Nested settings structure** — Emulator configuration now uses a nested settings structure for better organization.
 
-## Path Handling
-- **Quote trimming** — Surrounding quotes are now automatically trimmed from paths.
-
-## Dependency Injection Refactoring
-- **Massive DI migration** — Replaced static service dependencies with dependency injection throughout the entire application.
-- All services, ViewModels, and windows now use constructor injection.
-- Removed `MessageBoxLibrary.cs` and replaced with `IMessageBoxLibraryService`.
-- Replaced static `DebugLogger` with `IDebugLogger` interface.
-- Replaced static `ContextMenuFunctions` with `IContextMenuFunctions` interface.
-
-## MVVM Refactoring
-- Refactored all configuration windows to MVVM pattern.
-- Refactored RetroAchievements window to MVVM.
-- Added ViewModels for multiple windows including SupportWindow.
-- Introduced `IWindowContext` abstraction to decouple game launcher from MainWindow.
-
-## Dependency Updates
-- `SharpCompress` 0.48.1 → **0.49.1**
-- `Tomlyn` 2.4.0 → **2.6.0**
-- `YamlDotNet` updated to latest version
-- `MessagePack` 3.1.6 → **3.1.7**
-- `Microsoft.Data.Sqlite` 10.0.8 → **10.0.9**
-- `Microsoft.Extensions.*` 10.0.8 → **10.0.9**
-- `Microsoft.Extensions.Http.Resilience` 10.6.0 → **10.7.0**
-- `Microsoft.CodeAnalysis.NetAnalyzers` 10.0.300 → **10.0.301**
-- `Microsoft.NET.Test.Sdk` 18.5.1 → **18.6.0**
-- `SourceGear.sqlite3` updated to **3.53.3**
-- Added `Moq` **4.20.72** *(new, for unit testing)*
-
----
-
-> *Additional updates appended after the original 5.6.0 release notes (2026-08-06).*
+## UI/UX Improvements
+- **Cancel buttons** — Added cancel buttons to the SetGamepadDeadZone, Debug, SetLinks, and EditSystem dialogs.
+- **Tooltips** — Added tooltips for data grids, preview images, and viewer windows.
+- **Dead zone revert confirmation** — Added a confirmation message box when reverting dead zone settings.
+- **Game list refresh** — The game list now automatically refreshes when deleting a file that no longer exists on disk.
+- **Emergency overlay release** — Added an emergency overlay release button to GlobalStatsWindow.
 
 ## Debug Window Improvements
 - **Restored initialization** — The Debug Window opens correctly again: its constructor (lost during the Serilog/DI refactor) was restored, and the window now applies the current app theme on open.
@@ -107,51 +89,49 @@
 - **`-debug` command-line flag** — Launching SimpleLauncher with the `-debug` argument now opens the Debug Window alongside the main window.
 - **`parameters.md` path fix** — The parameters guide is now resolved relative to the application folder instead of the current working directory. Previously, launching the app from another working directory (shortcuts, scripts, IDE) made `parameters.md` appear "missing" and triggered a modal reinstall dialog that froze the app and the Debug Window.
 
-## Startup Robustness
-- **Fallback logger** — If Serilog initialization fails, the app now falls back to debug output instead of crashing at startup.
-- **Improved initialization order** — The service provider is built only after the temp-folder check, and startup cleanup (trash + temp files) is more resilient.
-- **Timeout handling** — Added timeouts for the silent update check and usage statistics calls so they can no longer hang indefinitely.
-- **Parameter Resolver URL normalization** — The AI parameter resolver URL is normalized (trailing slash) with a fixed 60-second timeout.
-
-## F8 Hotkey Warning
-- **Hotkey in use detection** — When the F8 global hotkey cannot be registered because another program is already using it, Simple Launcher now shows a clear warning dialog and disables the screenshot functionality instead of failing silently. Localized in all supported languages.
-
-## PCSX2 Portable Mode
-- **Portable config path resolution** — PCSX2 configuration injection now resolves the config file correctly when PCSX2 runs in portable mode.
-
-## CHD Mounting on ARM64
-- **Architecture-specific CHDMounter** — CHD images are now mounted using the correct CHDMounter binary for the platform (`CHDMounter.exe` on x64, `CHDMounter_arm64.exe` on ARM64), enabling CHD mounting on Windows ARM64. The tool now ships with a README.
-
-## AI Parameter Suggestions
-- **`Explanation:` prefix handling** — If the AI response starts with "Explanation:", that text is now treated as the explanation and is no longer inserted into the emulator parameter field.
-- **RetroAchievements matcher** — Updated the RetroAchievements system matcher for better game matching.
-
-## Removed Tool
-- **GameCoverScraper removed** — The Game Cover Scraper tool has been removed from the Tools menu, along with all its bundled binaries and resources. Use **Find Rom Cover** or **Retro Game Cover Downloader** instead.
+## Path Handling
+- **Quote trimming** — Surrounding quotes are now automatically trimmed from paths.
 
 ## Structured Logging
 - **Serilog** — All logging now flows through Serilog (`ILogger`), and the custom `ILogErrors` abstraction was removed. The Debug Window receives log entries through a dedicated Serilog sink, a rolling daily file sink (7 days retained) is written to the local app data folder, and bug report sinks were added to all projects (including the tools and Updater).
 
 ## Game List & UI
-- **Game list refresh after play** — The game list now automatically refreshes after a game is played.
 - **Async system manager loading** — System managers load asynchronously, preventing UI blocking at startup.
 - **Embedded images fix** — Corrected pack URI paths for embedded images and icons.
 - **Minimize-to-tray handling** — Improved minimize-to-tray behavior via proper window state change handling.
 
-## Other Improvements
-- **`7za` for more tools** — Added `7za.exe` / `7za_arm64.exe` to `BatchConvertToRVZ` and `BatchConvertToCHD` for fallback extraction/conversion.
-- **Emulator documentation** — Updated `parameters.md` (e.g., new CPCEC download link).
-- **Code quality** — The codebase now compiles with nullable reference types enabled, and the Meziantou analyzer was added for stricter code analysis.
+## Dependency Injection Refactoring
+- **Massive DI migration** — Replaced static service dependencies with dependency injection throughout the entire application.
+- **Constructor injection** — All services, ViewModels, and windows now use constructor injection.
+- **`MessageBoxLibrary.cs` removed** — Replaced with `IMessageBoxLibraryService`.
+- **`DebugLogger` replaced** — Static `DebugLogger` was replaced with the `IDebugLogger` interface.
+- **`ContextMenuFunctions` replaced** — Static `ContextMenuFunctions` was replaced with the `IContextMenuFunctions` interface.
 
-## Dependency Updates (latest build)
-*Supersedes the versions listed above.*
-- `SharpCompress` 0.49.1 → **0.50.4**
-- `MessagePack` 3.1.7 → **3.1.8**
-- `Microsoft.Data.Sqlite` 10.0.9 → **10.0.10**
-- `Microsoft.Extensions.*` 10.0.9 → **10.0.10**
-- `Microsoft.Extensions.Http.Resilience` 10.7.0 → **10.8.0**
-- `Microsoft.CodeAnalysis.NetAnalyzers` 10.0.301 → **10.0.302**
-- `SourceGear.sqlite3` 3.53.3 → **3.53.4**
+## MVVM Refactoring
+- Refactored all configuration windows to the MVVM pattern.
+- Refactored the RetroAchievements window to MVVM.
+- Added ViewModels for multiple windows, including SupportWindow.
+- Introduced the `IWindowContext` abstraction to decouple the game launcher from MainWindow.
+
+## Removed Tool
+- **GameCoverScraper removed** — The Game Cover Scraper tool has been removed from the Tools menu, along with all its bundled binaries and resources. Use **Find Rom Cover** or **Retro Game Cover Downloader** instead.
+
+## Other Improvements
+- **Emulator documentation** — Updated `parameters.md` (e.g., new CPCEC download link).
+- **Code quality** — The codebase now compiles with nullable reference types enabled.
+
+## Dependency Updates
+- `SharpCompress` 0.48.1 → **0.50.4**
+- `Tomlyn` 2.4.0 → **2.6.0**
+- `YamlDotNet` updated to latest version
+- `MessagePack` 3.1.6 → **3.1.8**
+- `Microsoft.Data.Sqlite` 10.0.8 → **10.0.10**
+- `Microsoft.Extensions.*` 10.0.8 → **10.0.10**
+- `Microsoft.Extensions.Http.Resilience` 10.6.0 → **10.8.0**
+- `Microsoft.CodeAnalysis.NetAnalyzers` 10.0.300 → **10.0.302**
+- `Microsoft.NET.Test.Sdk` 18.5.1 → **18.6.0**
+- `SourceGear.sqlite3` updated to **3.53.4**
+- Added `Moq` **4.20.72** *(new, for unit testing)*
 - Added `Serilog` **4.4.0** with `Serilog.Sinks.Async` 2.1.0, `Serilog.Sinks.Debug` 3.0.0, and `Serilog.Sinks.File` 7.0.0 *(new)*
 - Added `Meziantou.Analyzer` **3.0.139** *(new)*
 

@@ -50,7 +50,16 @@ public class ParameterResolverService : IParameterResolverService
 
         if (response.IsSuccessStatusCode)
         {
-            return JsonSerializer.Deserialize<ParameterResolverResult>(responseBody, JsonOptions);
+            try
+            {
+                return JsonSerializer.Deserialize<ParameterResolverResult>(responseBody, JsonOptions);
+            }
+            catch (JsonException ex)
+            {
+                // The API returned a 200 with an unparseable body; treat it as a failed resolution
+                _logger.Error(ex, "ParameterResolver API returned malformed JSON");
+                return null;
+            }
         }
 
         var apiException = new InvalidOperationException($"ParameterResolver API returned {(int)response.StatusCode}: {responseBody}");
