@@ -1,0 +1,34 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="SimpleLauncher.Avalonia.Views.MessageDialogWindow"
+        Width="440"
+        SizeToContent="Height"
+        CanResize="False"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource BgPrimaryBrush}"
+        KeyDown="OnKeyDown">
+    <StackPanel Margin="20,16">
+        <DockPanel>
+            <!-- Icon glyph -->
+            <TextBlock x:Name="IconText"
+                       DockPanel.Dock="Left"
+                       FontSize="26"
+                       VerticalAlignment="Top"
+                       Margin="0,0,12,0"
+                       IsVisible="False" />
+            <!-- Message -->
+            <TextBlock x:Name="MessageText"
+                       TextWrapping="Wrap"
+                       FontSize="13"
+                       MaxWidth="360"
+                       Foreground="{DynamicResource TextPrimaryBrush}"
+                       VerticalAlignment="Center" />
+        </DockPanel>
+        <StackPanel x:Name="ButtonsPanel"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Spacing="8"
+                    Margin="0,20,0,0" />
+    </StackPanel>
+</Window>

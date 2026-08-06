@@ -1,0 +1,11 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="SimpleLauncher.Avalonia.App"
+             RequestedThemeVariant="Dark">
+    <Application.Styles>
+        <!-- Avalonia Fluent theme (dark variant) — implicit styles for all standard controls -->
+        <FluentTheme />
+        <!-- App-specific colors and remaining custom styles -->
+        <StyleInclude Source="avares://SimpleLauncher.Avalonia/Themes/DarkTheme.axaml" />
+    </Application.Styles>
+</Application>

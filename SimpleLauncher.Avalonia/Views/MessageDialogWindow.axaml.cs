@@ -1,0 +1,139 @@
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.Media;
+using SimpleLauncher.Core.Models;
+
+namespace SimpleLauncher.Avalonia.Views;
+
+/// <summary>
+/// Specifies which buttons are shown on the message dialog.
+/// </summary>
+public enum MessageButtons
+{
+    Ok,
+    OkCancel,
+    YesNo,
+    YesNoCancel
+}
+
+/// <summary>
+/// Specifies the icon shown on the message dialog.
+/// </summary>
+public enum MessageIcon
+{
+    None,
+    Information,
+    Warning,
+    Error,
+    Question
+}
+
+/// <summary>
+/// A lightweight message-box-style dialog used by <see cref="Services.AvaloniaServices.MessageBoxLibraryService"/>.
+/// </summary>
+public partial class MessageDialogWindow : Window
+{
+    public MessageDialogWindow()
+    {
+        InitializeComponent();
+    }
+
+    /// <summary>
+    /// Shows a modal message dialog owned by the specified window and returns the clicked button.
+    /// </summary>
+    public static Task<MessageBoxResult> ShowAsync(
+        Window owner, string message, string caption,
+        MessageButtons buttons, MessageIcon icon)
+    {
+        var dialog = new MessageDialogWindow
+        {
+            Title = caption
+        };
+
+        dialog.MessageText.Text = message;
+        dialog.SetIcon(icon);
+        dialog.BuildButtons(buttons);
+
+        return dialog.ShowDialog<MessageBoxResult>(owner);
+    }
+
+    private void SetIcon(MessageIcon icon)
+    {
+        var (glyph, brush) = icon switch
+        {
+            MessageIcon.Information => ("ℹ️", "AccentBrush"),
+            MessageIcon.Warning => ("⚠️", "NotificationWarningBrush"),
+            MessageIcon.Error => ("❌", "NotificationErrorBrush"),
+            MessageIcon.Question => ("❓", "AccentBrush"),
+            _ => (string.Empty, (string?)null)
+        };
+
+        if (string.IsNullOrEmpty(glyph) || brush is null)
+        {
+            return;
+        }
+
+        IconText.Text = glyph;
+        if (ResourceNodeExtensions.TryFindResource(this, brush, out var brushResource) && brushResource is IBrush foundBrush)
+        {
+            IconText.Foreground = foundBrush;
+        }
+
+        IconText.IsVisible = true;
+    }
+
+    private void BuildButtons(MessageButtons buttons)
+    {
+        var definitions = buttons switch
+        {
+            MessageButtons.Ok => new[] { (Result: MessageBoxResult.Ok, Text: "OK", IsDefault: true, Primary: true) },
+            MessageButtons.OkCancel => new[]
+            {
+                (Result: MessageBoxResult.Ok, Text: "OK", IsDefault: true, Primary: true),
+                (Result: MessageBoxResult.Cancel, Text: "Cancel", IsDefault: false, Primary: false)
+            },
+            MessageButtons.YesNo => new[]
+            {
+                (Result: MessageBoxResult.Yes, Text: "Yes", IsDefault: true, Primary: true),
+                (Result: MessageBoxResult.No, Text: "No", IsDefault: false, Primary: false)
+            },
+            _ => new[]
+            {
+                (Result: MessageBoxResult.Yes, Text: "Yes", IsDefault: true, Primary: true),
+                (Result: MessageBoxResult.No, Text: "No", IsDefault: false, Primary: false),
+                (Result: MessageBoxResult.Cancel, Text: "Cancel", IsDefault: false, Primary: false)
+            }
+        };
+
+        foreach (var definition in definitions)
+        {
+            var button = new Button
+            {
+                Content = definition.Text,
+                IsDefault = definition.IsDefault,
+                MinWidth = 86,
+                Padding = new Thickness(14, 6)
+            };
+
+            if (definition.Primary)
+            {
+                button.Classes.Add("primary");
+            }
+
+            var result = definition.Result;
+            button.Click += (_, _) => Close(result);
+            ButtonsPanel.Children.Add(button);
+        }
+    }
+
+    private void OnKeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Escape)
+        {
+            e.Handled = true;
+            Close(MessageBoxResult.Cancel);
+        }
+    }
+}

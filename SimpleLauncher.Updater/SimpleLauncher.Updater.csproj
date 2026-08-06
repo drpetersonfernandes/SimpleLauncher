@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net10.0-windows</TargetFramework>
+        <AssemblyName>Updater</AssemblyName>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <AssemblyVersion>2.7.2</AssemblyVersion>
+        <FileVersion>2.7.2</FileVersion>
+        <IsPackable>false</IsPackable>
+        <LangVersion>14</LangVersion>
+        <ApplicationIcon>icon\icon.ico</ApplicationIcon>
+        <NeutralLanguage>en</NeutralLanguage>
+        <DebugType>embedded</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+        <Company>PureLogicCode.com</Company>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Using Include="Serilog" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Meziantou.Analyzer" Version="3.0.139">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Serilog" Version="4.4.0" />
+        <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
+        <PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
+        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+        <PackageReference Include="SharpCompress" Version="0.50.4" />
+    </ItemGroup>
+
+</Project>

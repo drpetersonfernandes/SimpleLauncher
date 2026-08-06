@@ -77,7 +77,7 @@ public class VersionConsistencyTests
     }
 
     /// <summary>
-    /// Verifies that the Updater/version.txt content matches the project version, auto-correcting mismatches.
+    /// Verifies that the SimpleLauncher.Updater/version.txt content matches the project version, auto-correcting mismatches.
     /// </summary>
     [Fact]
     public void UpdaterVersionTxtMatchesProjectVersion()
@@ -85,8 +85,8 @@ public class VersionConsistencyTests
         var projectVersion = GetProjectVersion();
         var expectedContent = $"release{projectVersion}";
 
-        var versionTxtPath = GetProjectFilePath(Path.Combine("Updater", "version.txt"));
-        Assert.True(File.Exists(versionTxtPath), $"Updater/version.txt not found at {versionTxtPath}");
+        var versionTxtPath = GetProjectFilePath(Path.Combine("SimpleLauncher.Updater", "version.txt"));
+        Assert.True(File.Exists(versionTxtPath), $"SimpleLauncher.Updater/version.txt not found at {versionTxtPath}");
 
         var currentContent = File.ReadAllText(versionTxtPath).Trim();
         if (string.Equals(currentContent, expectedContent, StringComparison.Ordinal))
@@ -95,7 +95,7 @@ public class VersionConsistencyTests
         }
 
         File.WriteAllText(versionTxtPath, expectedContent + Environment.NewLine);
-        Assert.Fail($"Updater/version.txt was automatically updated from '{currentContent}' to '{expectedContent}'. " +
+        Assert.Fail($"SimpleLauncher.Updater/version.txt was automatically updated from '{currentContent}' to '{expectedContent}'. " +
                     "Please review the change and commit it.");
     }
 }

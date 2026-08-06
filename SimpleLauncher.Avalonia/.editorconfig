@@ -1,0 +1,10 @@
+# SimpleLauncher.Avalonia — project-specific rules
+#
+# AVLN3001: "XAML resource won't be reachable via runtime loader, as no public
+# constructor was found" — every window here is constructed through the DI
+# container (no public parameterless/IServiceProvider constructor), so the
+# runtime-URI loader can never instantiate them. The compiled XAML is still
+# fully reachable via the generated InitializeComponent path, so this warning
+# is informational only for this project.
+[*.axaml]
+avalonia_xaml_diagnostic.AVLN3001.severity = none
