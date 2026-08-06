@@ -43,7 +43,7 @@ namespace SimpleLauncher.Avalonia;
 /// <summary>
 /// Application entry point handling DI container setup, single-instance enforcement, and global error handling.
 /// </summary>
-public partial class App : Application, IDisposable
+public class App : Application, IDisposable
 {
     /// <summary>
     /// Gets the application's dependency injection service provider.
@@ -193,9 +193,9 @@ public partial class App : Application, IDisposable
         // ── Host services (implement Core interfaces) ──
         services.AddSingleton<IDispatcherService, AvaloniaDispatcherService>();
         services.AddSingleton<IFilePickerService, AvaloniaFilePickerService>();
-        services.AddSingleton<SimpleLauncher.Core.Interfaces.IResourceProvider, AvaloniaResourceProvider>();
+        services.AddSingleton<Core.Interfaces.IResourceProvider, AvaloniaResourceProvider>();
         services.AddSingleton<IWindowContext, AvaloniaWindowContext>();
-        services.AddSingleton<SimpleLauncher.Core.Interfaces.IApplicationLifetime, AvaloniaApplicationLifetime>();
+        services.AddSingleton<Core.Interfaces.IApplicationLifetime, AvaloniaApplicationLifetime>();
         services.AddSingleton<IMessageBoxLibraryService, MessageBoxLibraryService>();
 
         // ── Core services (from SimpleLauncher.Core) ──
@@ -352,7 +352,7 @@ public partial class App : Application, IDisposable
         Log.Error(e.Exception, "Unhandled dispatcher exception");
         LogExceptionToFile(e.Exception);
 
-        var lifetime = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime);
+        var lifetime = (Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime);
 
         // If the main window is no longer visible (startup template crash, window already
         // closed, etc.), shutting down avoids a headless process running in the background.

@@ -6,7 +6,6 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
-using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Microsoft.Extensions.DependencyInjection;
@@ -551,137 +550,6 @@ public partial class MainWindow : Window
 
     #endregion
 
-    #region Drag-Drop Import
-
-    private void Content_DragEnter(object? sender, DragEventArgs e)
-    {
-        if (e.DataTransfer.Contains(DataFormat.File))
-        {
-            e.DragEffects = DragDropEffects.Copy;
-            DragDropOverlay.IsVisible = true;
-        }
-        else
-        {
-            e.DragEffects = DragDropEffects.None;
-        }
-
-        e.Handled = true;
-    }
-
-    private void Content_DragOver(object? sender, DragEventArgs e)
-    {
-        if (e.DataTransfer.Contains(DataFormat.File))
-        {
-            e.DragEffects = DragDropEffects.Copy;
-        }
-        else
-        {
-            e.DragEffects = DragDropEffects.None;
-        }
-
-        e.Handled = true;
-    }
-
-    private void Content_DragLeave(object? sender, DragEventArgs e)
-    {
-        DragDropOverlay.IsVisible = false;
-        e.Handled = true;
-    }
-
-    private void Content_Drop(object? sender, DragEventArgs e)
-    {
-        DragDropOverlay.IsVisible = false;
-
-        var files = e.DataTransfer.TryGetFiles();
-        if (files is null || files.Length == 0) return;
-
-        var first = files[0];
-
-        // Check if it's a directory
-        if (first is not IStorageFolder)
-        {
-            ShowToast("Import", "Please drop a folder containing ROM files.", ToastType.Warning);
-            return;
-        }
-
-        var folderPath = first.TryGetLocalPath() ?? first.Path?.LocalPath;
-        if (string.IsNullOrEmpty(folderPath))
-        {
-            ShowToast("Import", "Please drop a folder containing ROM files.", ToastType.Warning);
-            return;
-        }
-
-        ShowImportBanner($"Scanning: {Path.GetFileName(folderPath)}");
-
-        // Start scanning in background
-        _ = ScanFolderAsync(folderPath);
-    }
-
-    private async Task ScanFolderAsync(string folderPath)
-    {
-        try
-        {
-            ShowLoading($"Scanning {Path.GetFileName(folderPath)}...");
-            BannerText.Text = $"Scanning: {Path.GetFileName(folderPath)}";
-
-            // Scan ROM folders
-            _viewModel.NavigateToAllGamesCommand.Execute(null);
-
-            // Also check for storefront games
-            await Task.Run(async () =>
-            {
-                try
-                {
-                    var scanner = App.ServiceProvider.GetRequiredService<Services.GameScan.StorefrontGameScanner>();
-                    var storeGames = await scanner.ScanAllAsync();
-
-                    if (storeGames.Count > 0)
-                    {
-                        await Dispatcher.UIThread.InvokeAsync(() =>
-                        {
-                            BannerText.Text = $"Found {storeGames.Count} storefront games";
-                            BannerProgress.IsIndeterminate = false;
-                            BannerProgress.Maximum = storeGames.Count;
-                            BannerProgress.Value = 0;
-
-                            foreach (var (name, _, storefront) in storeGames)
-                            {
-                                BannerProgress.Value++;
-                                BannerText.Text = $"Adding: {name} ({storefront})";
-                                _viewModel.StatusText = $"Found: {name} ({storefront})";
-                            }
-                        });
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(ex, "Storefront scan failed during folder import");
-                }
-            });
-
-            await Dispatcher.UIThread.InvokeAsync(() =>
-            {
-                HideLoading();
-                HideImportBanner();
-                _viewModel.NavigateToAllGamesCommand.Execute(null);
-                RefreshSidebarCounts();
-                ShowToast("Scan Complete",
-                    $"Folder scanned: {Path.GetFileName(folderPath)}",
-                    ToastType.Success);
-            });
-        }
-        catch (Exception ex)
-        {
-            Log.Error(ex, "Failed to scan imported folder {Folder}", folderPath);
-            await Dispatcher.UIThread.InvokeAsync(() =>
-            {
-                HideLoading();
-                HideImportBanner();
-                ShowToast("Import Error", ex.Message, ToastType.Error);
-            });
-        }
-    }
-
     public void ShowToast(string title, string message, ToastType type = ToastType.Info)
     {
         var color = GetBrush(type switch
@@ -758,8 +626,6 @@ public partial class MainWindow : Window
     {
         ImportBanner.IsVisible = false;
     }
-
-    #endregion
 
     #region Loading Overlay
 

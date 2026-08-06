@@ -1,4 +1,3 @@
-using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Avalonia.Services.AvaloniaServices;

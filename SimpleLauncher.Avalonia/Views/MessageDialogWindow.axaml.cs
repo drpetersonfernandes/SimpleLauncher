@@ -1,7 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Interactivity;
 using Avalonia.Media;
 using SimpleLauncher.Core.Models;
 
@@ -67,7 +66,7 @@ public partial class MessageDialogWindow : Window
             MessageIcon.Warning => ("⚠️", "NotificationWarningBrush"),
             MessageIcon.Error => ("❌", "NotificationErrorBrush"),
             MessageIcon.Question => ("❓", "AccentBrush"),
-            _ => (string.Empty, (string?)null)
+            _ => (string.Empty, null)
         };
 
         if (string.IsNullOrEmpty(glyph) || brush is null)

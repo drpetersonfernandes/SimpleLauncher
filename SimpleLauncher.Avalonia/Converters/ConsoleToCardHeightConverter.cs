@@ -44,7 +44,7 @@ public class ConsoleToCardHeightConverter : IMultiValueConverter
         return artHeight + 48; // 48px for caption area (title + rating)
     }
 
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotSupportedException();
     }

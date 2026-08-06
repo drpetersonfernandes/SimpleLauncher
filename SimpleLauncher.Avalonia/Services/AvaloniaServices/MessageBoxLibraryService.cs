@@ -288,9 +288,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task<Core.Models.MessageBoxResult> CouldNotLoadHelpUserXmlMessageBoxAsync()
+    public Task<MessageBoxResult> CouldNotLoadHelpUserXmlMessageBoxAsync()
     {
-        return Task.FromResult(Core.Models.MessageBoxResult.Cancel);
+        return Task.FromResult(MessageBoxResult.Cancel);
     }
 
     public Task FailedToLoadHelpUserXmlMessageBoxAsync()
@@ -498,9 +498,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task<Core.Models.MessageBoxResult> ReallyWantToRemoveAllPlayHistoryMessageBoxAsync()
+    public Task<MessageBoxResult> ReallyWantToRemoveAllPlayHistoryMessageBoxAsync()
     {
-        return Task.FromResult(Core.Models.MessageBoxResult.Cancel);
+        return Task.FromResult(MessageBoxResult.Cancel);
     }
 
     public Task SystemAddedMessageBoxAsync(string systemName, string resolvedSystemFolder, string resolvedSystemImageFolder)
@@ -523,14 +523,14 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task<Core.Models.MessageBoxResult> GameFileDoesNotExistAskToDeleteMessageBoxAsync(string filePath)
+    public Task<MessageBoxResult> GameFileDoesNotExistAskToDeleteMessageBoxAsync(string filePath)
     {
-        return Task.FromResult(Core.Models.MessageBoxResult.Cancel);
+        return Task.FromResult(MessageBoxResult.Cancel);
     }
 
-    public Task<Core.Models.MessageBoxResult> FavoriteFileDoesNotExistAskToDeleteMessageBoxAsync(string filePath)
+    public Task<MessageBoxResult> FavoriteFileDoesNotExistAskToDeleteMessageBoxAsync(string filePath)
     {
-        return Task.FromResult(Core.Models.MessageBoxResult.Cancel);
+        return Task.FromResult(MessageBoxResult.Cancel);
     }
 
     public Task CouldNotOpenHistoryWindowMessageBoxAsync()
@@ -693,9 +693,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task<Core.Models.MessageBoxResult> SearchOnlineForRomHistoryMessageBoxAsync()
+    public Task<MessageBoxResult> SearchOnlineForRomHistoryMessageBoxAsync()
     {
-        return Task.FromResult(Core.Models.MessageBoxResult.Cancel);
+        return Task.FromResult(MessageBoxResult.Cancel);
     }
 
     public Task SystemHasBeenDeletedMessageBoxAsync(string selectedSystemName)
@@ -703,9 +703,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task<Core.Models.MessageBoxResult> AreYouSureDoYouWantToDeleteThisSystemMessageBoxAsync()
+    public Task<MessageBoxResult> AreYouSureDoYouWantToDeleteThisSystemMessageBoxAsync()
     {
-        return Task.FromResult(Core.Models.MessageBoxResult.Cancel);
+        return Task.FromResult(MessageBoxResult.Cancel);
     }
 
     public Task ThereWasAnErrorDeletingTheGameMessageBoxAsync()
@@ -718,19 +718,19 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task<Core.Models.MessageBoxResult> AreYouSureYouWantToDeleteTheGameMessageBoxAsync(string fileNameWithExtension)
+    public Task<MessageBoxResult> AreYouSureYouWantToDeleteTheGameMessageBoxAsync(string fileNameWithExtension)
     {
-        return Task.FromResult(Core.Models.MessageBoxResult.Cancel);
+        return Task.FromResult(MessageBoxResult.Cancel);
     }
 
-    public Task<Core.Models.MessageBoxResult> AreYouSureYouWantToDeleteTheCoverImageMessageBoxAsync(string fileNameWithoutExtension)
+    public Task<MessageBoxResult> AreYouSureYouWantToDeleteTheCoverImageMessageBoxAsync(string fileNameWithoutExtension)
     {
-        return Task.FromResult(Core.Models.MessageBoxResult.Cancel);
+        return Task.FromResult(MessageBoxResult.Cancel);
     }
 
-    public Task<Core.Models.MessageBoxResult> WouldYouLikeToSaveAReportMessageBoxAsync()
+    public Task<MessageBoxResult> WouldYouLikeToSaveAReportMessageBoxAsync()
     {
-        return Task.FromResult(Core.Models.MessageBoxResult.Cancel);
+        return Task.FromResult(MessageBoxResult.Cancel);
     }
 
     public Task SimpleLauncherWasUnableToRestoreBackupMessageBoxAsync()
@@ -738,9 +738,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task<Core.Models.MessageBoxResult> WouldYouLikeToRestoreTheLastBackupMessageBoxAsync()
+    public Task<MessageBoxResult> WouldYouLikeToRestoreTheLastBackupMessageBoxAsync()
     {
-        return Task.FromResult(Core.Models.MessageBoxResult.Cancel);
+        return Task.FromResult(MessageBoxResult.Cancel);
     }
 
     public Task FailedToLoadLanguageResourceMessageBoxAsync()
@@ -803,9 +803,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task<Core.Models.MessageBoxResult> DoYouWantToUpdateMessageBoxAsync(string currentVersion, string latestVersion)
+    public Task<MessageBoxResult> DoYouWantToUpdateMessageBoxAsync(string currentVersion, string latestVersion)
     {
-        return Task.FromResult(Core.Models.MessageBoxResult.Cancel);
+        return Task.FromResult(MessageBoxResult.Cancel);
     }
 
     public Task HandleMissingRequiredFilesMessageBoxAsync(string fileList)
@@ -918,9 +918,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task<Core.Models.MessageBoxResult> GameNotSupportedByRetroAchievementsMessageBoxAsync()
+    public Task<MessageBoxResult> GameNotSupportedByRetroAchievementsMessageBoxAsync()
     {
-        return Task.FromResult(Core.Models.MessageBoxResult.Cancel);
+        return Task.FromResult(MessageBoxResult.Cancel);
     }
 
     public Task GameLaunchTimeoutMessageBoxAsync()
@@ -938,9 +938,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task<Core.Models.MessageBoxResult> WarnUserAboutMemoryConsumptionMessageBoxAsync()
+    public Task<MessageBoxResult> WarnUserAboutMemoryConsumptionMessageBoxAsync()
     {
-        return Task.FromResult(Core.Models.MessageBoxResult.Cancel);
+        return Task.FromResult(MessageBoxResult.Cancel);
     }
 
     public Task GroupByFolderOnlyForMameAndDosBoxMessageBoxAsync()
@@ -948,14 +948,14 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task<Core.Models.MessageBoxResult> GroupByFolderWarningMessageBoxAsync()
+    public Task<MessageBoxResult> GroupByFolderWarningMessageBoxAsync()
     {
-        return Task.FromResult(Core.Models.MessageBoxResult.Cancel);
+        return Task.FromResult(MessageBoxResult.Cancel);
     }
 
-    public Task<Core.Models.MessageBoxResult> FirstRunWelcomeMessageBoxAsync()
+    public Task<MessageBoxResult> FirstRunWelcomeMessageBoxAsync()
     {
-        return Task.FromResult(Core.Models.MessageBoxResult.Cancel);
+        return Task.FromResult(MessageBoxResult.Cancel);
     }
 
     public Task EmulatorLocationRequiredMessageBoxAsync(int emulatorNumber)
@@ -1018,9 +1018,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task<Core.Models.MessageBoxResult> DoYouWantToCancelAndCloseMessageBoxAsync()
+    public Task<MessageBoxResult> DoYouWantToCancelAndCloseMessageBoxAsync()
     {
-        return Task.FromResult(Core.Models.MessageBoxResult.Cancel);
+        return Task.FromResult(MessageBoxResult.Cancel);
     }
 
     public Task CouldNotOpenBrowserForAiSupportMessageBoxAsync()

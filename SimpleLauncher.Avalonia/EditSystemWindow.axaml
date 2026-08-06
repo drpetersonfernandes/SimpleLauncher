@@ -9,22 +9,13 @@
         Opened="Window_Opened"
         Closing="Window_Closing">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />  <!-- Header / system selector -->
-            <RowDefinition Height="*" />     <!-- Form -->
-            <RowDefinition Height="Auto" />  <!-- Status -->
-        </Grid.RowDefinitions>
+    <Grid RowDefinitions="Auto,*,Auto">
 
         <!-- Row 0: selector + actions -->
         <Border Grid.Row="0" Background="{DynamicResource BgTertiaryBrush}"
                 BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,0,0,1"
                 Padding="12,10">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <Grid ColumnDefinitions="*,Auto">
 
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="System:" FontSize="13" VerticalAlignment="Center"
@@ -83,11 +74,7 @@
                         <!-- System folders -->
                         <TextBlock Text="System Folder (ROMs)" FontSize="12"
                                    Foreground="{DynamicResource TextSecondaryBrush}" />
-                        <Grid Margin="0,4,0,4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                        <Grid Margin="0,4,0,4" ColumnDefinitions="*,Auto">
                             <TextBox x:Name="SystemFolderTextBox" Height="40"
                                      VerticalContentAlignment="Center"
                                      Background="{DynamicResource BgTertiaryBrush}"
@@ -118,11 +105,7 @@
                         <!-- Image folder -->
                         <TextBlock Text="System Image Folder" FontSize="12"
                                    Foreground="{DynamicResource TextSecondaryBrush}" />
-                        <Grid Margin="0,4,0,12">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                        <Grid Margin="0,4,0,12" ColumnDefinitions="*,Auto">
                             <TextBox x:Name="SystemImageFolderTextBox" Height="40"
                                      VerticalContentAlignment="Center"
                                      Background="{DynamicResource BgTertiaryBrush}"
@@ -134,11 +117,7 @@
                         </Grid>
 
                         <!-- Formats -->
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                        <Grid ColumnDefinitions="*,*">
                             <StackPanel Margin="0,0,8,0">
                                 <TextBlock Text="Formats to Search (comma separated)" FontSize="12"
                                            Foreground="{DynamicResource TextSecondaryBrush}" />
@@ -158,12 +137,7 @@
                         </Grid>
 
                         <!-- Options -->
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                        <Grid ColumnDefinitions="*,*,*">
                             <StackPanel Margin="0,0,8,0">
                                 <TextBlock Text="Extract File Before Launch" FontSize="12"
                                            Foreground="{DynamicResource TextSecondaryBrush}" />
@@ -212,11 +186,7 @@
                         <Expander x:Name="Emulator1Expander" Header="Emulator 1" IsExpanded="True"
                                   Foreground="{DynamicResource TextPrimaryBrush}">
                             <StackPanel Margin="0,8,0,0">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid ColumnDefinitions="*,*">
                                     <StackPanel Margin="0,0,8,0">
                                         <TextBlock Text="Name" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <TextBox x:Name="Emulator1NameTextBox" Height="40" Margin="0,4,0,8"
@@ -236,11 +206,7 @@
                                     </StackPanel>
                                 </Grid>
                                 <TextBlock Text="Path (.exe / .bat)" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
-                                <Grid Margin="0,4,0,8">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid Margin="0,4,0,8" ColumnDefinitions="*,Auto">
                                     <TextBox x:Name="Emulator1PathTextBox" Height="40" VerticalContentAlignment="Center"
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
@@ -260,11 +226,7 @@
                         <Expander x:Name="Emulator2Expander" Header="Emulator 2"
                                   Foreground="{DynamicResource TextPrimaryBrush}">
                             <StackPanel Margin="0,8,0,0">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid ColumnDefinitions="*,*">
                                     <StackPanel Margin="0,0,8,0">
                                         <TextBlock Text="Name" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <TextBox x:Name="Emulator2NameTextBox" Height="40" Margin="0,4,0,8"
@@ -284,11 +246,7 @@
                                     </StackPanel>
                                 </Grid>
                                 <TextBlock Text="Path (.exe / .bat)" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
-                                <Grid Margin="0,4,0,8">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid Margin="0,4,0,8" ColumnDefinitions="*,Auto">
                                     <TextBox x:Name="Emulator2PathTextBox" Height="40" VerticalContentAlignment="Center"
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
@@ -308,11 +266,7 @@
                         <Expander x:Name="Emulator3Expander" Header="Emulator 3"
                                   Foreground="{DynamicResource TextPrimaryBrush}">
                             <StackPanel Margin="0,8,0,0">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid ColumnDefinitions="*,*">
                                     <StackPanel Margin="0,0,8,0">
                                         <TextBlock Text="Name" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <TextBox x:Name="Emulator3NameTextBox" Height="40" Margin="0,4,0,8"
@@ -332,11 +286,7 @@
                                     </StackPanel>
                                 </Grid>
                                 <TextBlock Text="Path (.exe / .bat)" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
-                                <Grid Margin="0,4,0,8">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid Margin="0,4,0,8" ColumnDefinitions="*,Auto">
                                     <TextBox x:Name="Emulator3PathTextBox" Height="40" VerticalContentAlignment="Center"
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
@@ -356,11 +306,7 @@
                         <Expander x:Name="Emulator4Expander" Header="Emulator 4"
                                   Foreground="{DynamicResource TextPrimaryBrush}">
                             <StackPanel Margin="0,8,0,0">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid ColumnDefinitions="*,*">
                                     <StackPanel Margin="0,0,8,0">
                                         <TextBlock Text="Name" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <TextBox x:Name="Emulator4NameTextBox" Height="40" Margin="0,4,0,8"
@@ -380,11 +326,7 @@
                                     </StackPanel>
                                 </Grid>
                                 <TextBlock Text="Path (.exe / .bat)" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
-                                <Grid Margin="0,4,0,8">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid Margin="0,4,0,8" ColumnDefinitions="*,Auto">
                                     <TextBox x:Name="Emulator4PathTextBox" Height="40" VerticalContentAlignment="Center"
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
@@ -404,11 +346,7 @@
                         <Expander x:Name="Emulator5Expander" Header="Emulator 5"
                                   Foreground="{DynamicResource TextPrimaryBrush}">
                             <StackPanel Margin="0,8,0,0">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid ColumnDefinitions="*,*">
                                     <StackPanel Margin="0,0,8,0">
                                         <TextBlock Text="Name" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <TextBox x:Name="Emulator5NameTextBox" Height="40" Margin="0,4,0,8"
@@ -428,11 +366,7 @@
                                     </StackPanel>
                                 </Grid>
                                 <TextBlock Text="Path (.exe / .bat)" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
-                                <Grid Margin="0,4,0,8">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid Margin="0,4,0,8" ColumnDefinitions="*,Auto">
                                     <TextBox x:Name="Emulator5PathTextBox" Height="40" VerticalContentAlignment="Center"
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"

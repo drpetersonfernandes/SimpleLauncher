@@ -338,11 +338,7 @@
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Template">
             <ControlTemplate TargetType="ToggleButton">
-                <Grid Background="Transparent">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                <Grid Background="Transparent" ColumnDefinitions="Auto,*">
                     <Path x:Name="Chevron"
                           Grid.Column="0"
                           Width="8" Height="8"

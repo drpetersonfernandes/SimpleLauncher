@@ -2,7 +2,6 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
@@ -430,18 +429,18 @@ public partial class EditSystemWindow : Window
     private static void ClearEmulator(TextBox name, TextBox path, TextBox parameters, ComboBox notification)
     {
         name.Text = "";
-        name.ClearValue(TextBox.ForegroundProperty);
+        name.ClearValue(ForegroundProperty);
         path.Text = "";
-        path.ClearValue(TextBox.ForegroundProperty);
+        path.ClearValue(ForegroundProperty);
         parameters.Text = "";
-        parameters.ClearValue(TextBox.ForegroundProperty);
+        parameters.ClearValue(ForegroundProperty);
         notification.SelectedItem = null;
     }
 
     private static void SetFieldValidationState(TextBox control, bool isValid)
     {
         if (isValid)
-            control.ClearValue(TextBox.ForegroundProperty);
+            control.ClearValue(ForegroundProperty);
         else
         {
             control.Foreground = Brushes.Red;
@@ -630,7 +629,7 @@ public partial class EditSystemWindow : Window
             }
             else
             {
-                FormatToSearchTextBox.ClearValue(TextBox.ForegroundProperty);
+                FormatToSearchTextBox.ClearValue(ForegroundProperty);
             }
 
             var formatsToSearch = formatSearchResult.Formats;

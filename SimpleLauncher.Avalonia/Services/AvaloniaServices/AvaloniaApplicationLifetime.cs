@@ -1,13 +1,12 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Avalonia.Services.AvaloniaServices;
 
 /// <summary>
 /// Avalonia implementation of IApplicationLifetime — controls app shutdown and restart.
 /// </summary>
-public class AvaloniaApplicationLifetime : SimpleLauncher.Core.Interfaces.IApplicationLifetime
+public class AvaloniaApplicationLifetime : Core.Interfaces.IApplicationLifetime
 {
     private static IClassicDesktopStyleApplicationLifetime? Lifetime =>
         Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;

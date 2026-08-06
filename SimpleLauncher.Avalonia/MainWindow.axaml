@@ -37,17 +37,7 @@
         </DataTemplate>
     </Window.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <!-- Toolbar -->
-            <RowDefinition Height="44" />
-            <!-- Body -->
-            <RowDefinition Height="*" />
-            <!-- Status Bar -->
-            <RowDefinition Height="24" />
-            <!-- Import Progress Banner (collapsed by default) -->
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <Grid RowDefinitions="44,*,24,Auto">
 
         <!-- ═══ TOOLBAR (Row 0) ═══ -->
         <Border Grid.Row="0" Background="{DynamicResource BgTertiaryBrush}"
@@ -133,11 +123,7 @@
 
             <!-- Sidebar -->
             <Border Grid.Column="0" Background="{DynamicResource BgSecondaryBrush}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+                <Grid RowDefinitions="*,Auto">
 
                     <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
                         <StackPanel Margin="0,8,0,0">
@@ -383,11 +369,7 @@
                                                           Opacity="0.5" />
                                     </Border.Effect>
 
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
+                                    <Grid RowDefinitions="*,Auto">
 
                                         <!-- Art area -->
                                         <Border Grid.Row="0"
@@ -475,11 +457,7 @@
                     </ListBox>
 
                     <!-- Game List View -->
-                    <Grid IsVisible="{Binding IsGridView, Converter={StaticResource InverseBoolToVisibility}}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
+                    <Grid IsVisible="{Binding IsGridView, Converter={StaticResource InverseBoolToVisibility}}" RowDefinitions="Auto,*">
                         <!-- Sortable column headers -->
                         <Border Grid.Row="0"
                                 Background="{DynamicResource BgTertiaryBrush}"

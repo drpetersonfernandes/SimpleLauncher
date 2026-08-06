@@ -15,12 +15,7 @@
         <converters:InverseBoolConverter x:Key="InverseBool" />
     </Window.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <Grid RowDefinitions="Auto,*,Auto">
 
         <!-- Row 0: Header + Close button -->
         <Grid Grid.Row="0" Margin="24,20,24,12" ColumnDefinitions="*,Auto">
@@ -188,11 +183,7 @@
             <Grid ColumnDefinitions="*,Auto">
 
                 <!-- Progress -->
-                <Grid Grid.Column="0" Margin="0,0,20,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+                <Grid Grid.Column="0" Margin="0,0,20,0" RowDefinitions="Auto,Auto">
 
                     <Grid>
                         <ProgressBar Height="20"

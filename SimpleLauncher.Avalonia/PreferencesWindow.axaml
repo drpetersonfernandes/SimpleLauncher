@@ -7,11 +7,7 @@
         WindowStartupLocation="CenterOwner"
         Background="{DynamicResource BgPrimaryBrush}">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />  <!-- Header / Close -->
-            <RowDefinition Height="*" />     <!-- Body -->
-        </Grid.RowDefinitions>
+    <Grid RowDefinitions="Auto,*">
 
         <!-- Row 0: header + Close button (matches EditSystemWindow) -->
         <Border Grid.Row="0" Background="{DynamicResource BgTertiaryBrush}"
