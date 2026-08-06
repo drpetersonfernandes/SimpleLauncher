@@ -14,7 +14,7 @@ namespace SimpleLauncher.New;
 /// Uses MVVM via EasyModeViewModel for all logic; code-behind handles only
 /// window lifecycle and view-specific interactions (folder browser, hyperlinks, overlay).
 /// </summary>
-public partial class EasyModeWindow : Wpf.Ui.Controls.FluentWindow, IDisposable
+public partial class EasyModeWindow : IDisposable
 {
     private readonly EasyModeViewModel _viewModel;
     private readonly PropertyChangedEventHandler _onViewModelPropertyChanged;

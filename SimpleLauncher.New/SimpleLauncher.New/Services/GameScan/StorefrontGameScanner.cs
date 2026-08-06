@@ -11,13 +11,20 @@ public class StorefrontGameScanner
 {
     // Steam libraryfolders.vdf / appmanifest_*.acf parsing (VDF key = "value" lines)
     private static readonly System.Text.RegularExpressions.Regex SteamPathRegex =
-        new(@"""path""\s+""([^""]+)""", System.Text.RegularExpressions.RegexOptions.Compiled);
+        new("""
+            "path"\s+"([^"]+)"
+            """, System.Text.RegularExpressions.RegexOptions.Compiled);
 
     private static readonly System.Text.RegularExpressions.Regex SteamNameRegex =
-        new(@"""name""\s+""([^""]+)""", System.Text.RegularExpressions.RegexOptions.Compiled);
+        new("""
+            "name"\s+"([^"]+)"
+            """, System.Text.RegularExpressions.RegexOptions.Compiled);
 
     private static readonly System.Text.RegularExpressions.Regex SteamInstallDirRegex =
-        new(@"""installdir""\s+""([^""]+)""", System.Text.RegularExpressions.RegexOptions.Compiled);
+        new("""
+            "installdir"\s+"([^"]+)"
+            """, System.Text.RegularExpressions.RegexOptions.Compiled);
+
     /// <summary>
     /// Scans all supported storefronts and returns discovered games as (name, exePath) pairs.
     /// </summary>

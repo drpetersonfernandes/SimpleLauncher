@@ -197,6 +197,7 @@ public partial class App : IDisposable
         {
             services.AddSingleton(bugReportSink);
         }
+
         services.AddSingleton<SettingsManagerService>();
         services.AddSingleton<MameDataService>();
         services.AddSingleton<RetroAchievementsManager>();

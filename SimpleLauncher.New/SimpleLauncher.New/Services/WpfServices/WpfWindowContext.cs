@@ -8,11 +8,9 @@ namespace SimpleLauncher.New.Services.WpfServices;
 /// </summary>
 public class WpfWindowContext : IWindowContext
 {
-    private readonly IDispatcherService _dispatcher;
-
     public WpfWindowContext(IDispatcherService dispatcher)
     {
-        _dispatcher = dispatcher;
+        Dispatcher = dispatcher;
     }
 
     public Window? OwnerWindow { get; set; }
@@ -46,7 +44,7 @@ public class WpfWindowContext : IWindowContext
         window.Activate();
     }
 
-    public IDispatcherService Dispatcher => _dispatcher;
+    public IDispatcherService Dispatcher { get; }
 
     public object PlatformWindow => GetWindow();
 }

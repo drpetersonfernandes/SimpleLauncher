@@ -10,7 +10,7 @@ namespace SimpleLauncher.New.Converters;
 [ValueConversion(typeof(bool), typeof(Visibility))]
 public class BoolToVisibilityConverter : IValueConverter
 {
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object Convert(object? value, Type? targetType, object? parameter, CultureInfo culture)
     {
         return value is true ? Visibility.Visible : Visibility.Collapsed;
     }
@@ -27,7 +27,7 @@ public class BoolToVisibilityConverter : IValueConverter
 [ValueConversion(typeof(bool), typeof(Visibility))]
 public class InverseBoolToVisibilityConverter : IValueConverter
 {
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object Convert(object? value, Type? targetType, object? parameter, CultureInfo culture)
     {
         return value is true ? Visibility.Collapsed : Visibility.Visible;
     }
@@ -61,7 +61,7 @@ public class InverseBoolConverter : IValueConverter
 [ValueConversion(typeof(object), typeof(Visibility))]
 public class NullToVisibilityConverter : IValueConverter
 {
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object Convert(object? value, Type? targetType, object? parameter, CultureInfo culture)
     {
         return value is null ? Visibility.Collapsed : Visibility.Visible;
     }

@@ -23,6 +23,7 @@ public class RetroArchConfigHandler : IEmulatorConfigHandler
     {
         _emulatorPathResolver = emulatorPathResolver;
     }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase) ||
@@ -80,6 +81,7 @@ public class Pcsx2ConfigHandler : IEmulatorConfigHandler
     {
         _emulatorPathResolver = emulatorPathResolver;
     }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("PCSX2", StringComparison.OrdinalIgnoreCase) ||
@@ -134,6 +136,7 @@ public class DuckStationConfigHandler : IEmulatorConfigHandler
     {
         _emulatorPathResolver = emulatorPathResolver;
     }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("DuckStation", StringComparison.OrdinalIgnoreCase) ||
@@ -188,6 +191,7 @@ public class DolphinConfigHandler : IEmulatorConfigHandler
     {
         _emulatorPathResolver = emulatorPathResolver;
     }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Dolphin", StringComparison.OrdinalIgnoreCase) ||
@@ -242,6 +246,7 @@ public class MameConfigHandler : IEmulatorConfigHandler
     {
         _emulatorPathResolver = emulatorPathResolver;
     }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
@@ -296,6 +301,7 @@ public class FlycastConfigHandler : IEmulatorConfigHandler
     {
         _emulatorPathResolver = emulatorPathResolver;
     }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Flycast", StringComparison.OrdinalIgnoreCase) ||
@@ -350,6 +356,7 @@ public class Rpcs3ConfigHandler : IEmulatorConfigHandler
     {
         _emulatorPathResolver = emulatorPathResolver;
     }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
@@ -404,6 +411,7 @@ public class XeniaConfigHandler : IEmulatorConfigHandler
     {
         _emulatorPathResolver = emulatorPathResolver;
     }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase) ||
@@ -458,6 +466,7 @@ public class CemuConfigHandler : IEmulatorConfigHandler
     {
         _emulatorPathResolver = emulatorPathResolver;
     }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Cemu", StringComparison.OrdinalIgnoreCase) ||
@@ -513,6 +522,7 @@ public class AresConfigHandler : IEmulatorConfigHandler
     {
         _emulatorPathResolver = emulatorPathResolver;
     }
+
     public bool IsMatch(string n, string p)
     {
         return n.Contains("Ares", StringComparison.OrdinalIgnoreCase);

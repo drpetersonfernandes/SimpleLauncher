@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.New.Converters;
 using SimpleLauncher.New.ViewModels;
@@ -16,7 +15,7 @@ namespace SimpleLauncher.New;
 /// Main application window — OpenEmu-inspired shell with sidebar, toolbar, and game content area.
 /// Phase 3: Virtualized game grid + list view, wired to MainViewModel.
 /// </summary>
-public partial class MainWindow : Wpf.Ui.Controls.FluentWindow
+public partial class MainWindow
 {
     private readonly MainViewModel _viewModel;
     private readonly Services.SystemManager.SystemManagerService _systemManagerService;

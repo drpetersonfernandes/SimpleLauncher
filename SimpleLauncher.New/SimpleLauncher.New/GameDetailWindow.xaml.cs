@@ -5,7 +5,7 @@ using SimpleLauncher.New.ViewModels;
 
 namespace SimpleLauncher.New;
 
-public partial class GameDetailWindow : Wpf.Ui.Controls.FluentWindow
+public partial class GameDetailWindow
 {
     private readonly GameCardViewModel _game;
     private readonly MainViewModel _mainViewModel;

@@ -3,7 +3,6 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.New.Services.GameLauncher;
@@ -76,24 +75,19 @@ public class MinimalLauncherService : ILauncherService
 
         try
         {
-            // ── Direct-launch games (.bat/.cmd/.lnk/.url/.exe) — the game IS the executable.
-            // Matches the original SimpleLauncher dispatch: no emulator, no config handlers.
-            if (ext is ".BAT" or ".CMD")
+            switch (ext)
             {
-                await RunBatchFileAsync(resolvedFilePath, selectedEmulatorManager, windowContext);
-                return;
-            }
-
-            if (ext is ".LNK" or ".URL")
-            {
-                await LaunchShortcutFileAsync(resolvedFilePath, selectedEmulatorManager, windowContext);
-                return;
-            }
-
-            if (ext is ".EXE")
-            {
-                await LaunchExecutableAsync(resolvedFilePath, selectedEmulatorManager, windowContext);
-                return;
+                // ── Direct-launch games (.bat/.cmd/.lnk/.url/.exe) — the game IS the executable.
+                // Matches the original SimpleLauncher dispatch: no emulator, no config handlers.
+                case ".BAT" or ".CMD":
+                    await RunBatchFileAsync(resolvedFilePath, selectedEmulatorManager, windowContext);
+                    return;
+                case ".LNK" or ".URL":
+                    await LaunchShortcutFileAsync(resolvedFilePath, selectedEmulatorManager, windowContext);
+                    return;
+                case ".EXE":
+                    await LaunchExecutableAsync(resolvedFilePath, selectedEmulatorManager, windowContext);
+                    return;
             }
 
             // ── File-type dispatch ──
@@ -468,7 +462,10 @@ public class MinimalLauncherService : ILauncherService
                 if (Path.GetExtension(resolvedFilePath).Equals(".url", StringComparison.OrdinalIgnoreCase))
                 {
                     var url = ExtractUrlFromShortcutFile(resolvedFilePath);
-                    if (!string.IsNullOrEmpty(url)) target = url;
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        target = url;
+                    }
                 }
 
                 var process = new Process

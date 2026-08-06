@@ -23,7 +23,11 @@ public partial class SidebarSystemItem : ObservableObject
     /// <summary>Formatted count badge text (empty when zero, like the original UI).</summary>
     public string CountText => Count > 0 ? $"  {Count}" : "";
 
-    partial void OnCountChanged(int value) => OnPropertyChanged(nameof(CountText));
+    partial void OnCountChanged(int value)
+    {
+        _ = value; // Parameter is required by the generated partial method signature.
+        OnPropertyChanged(nameof(CountText));
+    }
 }
 
 /// <summary>

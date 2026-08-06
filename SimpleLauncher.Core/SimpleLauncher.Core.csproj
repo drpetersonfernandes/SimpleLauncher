@@ -16,6 +16,7 @@
         <AssemblyVersion>5.6.0</AssemblyVersion>
         <FileVersion>5.6.0</FileVersion>
         <Version>5.6.0</Version>
+        <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -27,7 +28,7 @@
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
         <PackageReference Include="InputSimulatorCore" Version="1.0.5" />
-        <PackageReference Include="Meziantou.Analyzer" Version="3.0.138">
+        <PackageReference Include="Meziantou.Analyzer" Version="3.0.139">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -45,7 +46,7 @@
         <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.10" />
         <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.8.0" />
         <PackageReference Include="NAudio" Version="2.3.0" />
-        <PackageReference Include="SharpCompress" Version="0.50.3" />
+        <PackageReference Include="SharpCompress" Version="0.50.4" />
         <PackageReference Include="SourceGear.sqlite3" Version="3.53.4" />
         <PackageReference Include="Tomlyn" Version="2.10.1" />
         <PackageReference Include="Serilog" Version="4.4.0" />

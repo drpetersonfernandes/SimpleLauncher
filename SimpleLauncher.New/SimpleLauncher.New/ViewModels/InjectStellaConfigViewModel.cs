@@ -36,6 +36,7 @@ public partial class InjectStellaConfigViewModel : ObservableObject
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logger">The logger instance.</param>
+    /// <param name="emulatorPathResolver">The service used to resolve the file path of an emulator executable.</param>
     public InjectStellaConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger, EmulatorPathResolver emulatorPathResolver)
     {
         _settings = settings;
