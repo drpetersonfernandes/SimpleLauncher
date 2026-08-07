@@ -217,7 +217,7 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
 
             var selectIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,/SimpleLauncher;component/images/play.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/play.png")),
                 Width = 16,
                 Height = 16
             };
@@ -230,7 +230,7 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
 
             var editIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,/SimpleLauncher;component/images/settings.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/settings.png")),
                 Width = 16,
                 Height = 16
             };
@@ -243,7 +243,7 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
 
             var deleteIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,/SimpleLauncher;component/images/delete.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/delete.png")),
                 Width = 16,
                 Height = 16
             };

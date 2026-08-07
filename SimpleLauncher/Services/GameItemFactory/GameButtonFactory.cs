@@ -267,7 +267,7 @@ internal partial class GameButtonFactory(
         // Create the star overlay image.
         var starImage = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,/SimpleLauncher;component/images/star.png")),
+            Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/star.png")),
             Width = 22,
             Height = 22,
             HorizontalAlignment = HorizontalAlignment.Left,
@@ -342,7 +342,7 @@ internal partial class GameButtonFactory(
 
             var trophyImage = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,/SimpleLauncher;component/images/trophy.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/trophy.png")),
                 Stretch = Stretch.Uniform
             };
             trophyButton.Content = trophyImage;
@@ -413,7 +413,7 @@ internal partial class GameButtonFactory(
 
             var videoLinkImage = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,/SimpleLauncher;component/images/video.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/video.png")),
                 Stretch = Stretch.Uniform
             };
             videoLinkButton.Content = videoLinkImage;
@@ -476,7 +476,7 @@ internal partial class GameButtonFactory(
 
             var infoLinkImage = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,/SimpleLauncher;component/images/info.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/info.png")),
                 Stretch = Stretch.Uniform
             };
             infoLinkButton.Content = infoLinkImage;
