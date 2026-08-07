@@ -332,4 +332,42 @@ public class GameScannerServiceTests : IDisposable
         Assert.NotNull(result);
         Assert.Equal("game.exe", Path.GetFileName(result));
     }
+
+    // TryGetExeFiles tests (via reflection since it's private static)
+
+    /// <summary>
+    /// Verifies that TryGetExeFiles returns null instead of throwing when the game folder
+    /// vanished or became inaccessible between the Directory.Exists check and the enumeration.
+    /// This is the Microsoft Store WindowsApps race reported in bug 61956.
+    /// </summary>
+    [Fact]
+    public void TryGetExeFilesReturnsNullWhenDirectoryVanished()
+    {
+        var method = typeof(GameScannerService).GetMethod("TryGetExeFiles", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+        Assert.NotNull(method);
+
+        // A directory that no longer exists must yield null, never DirectoryNotFoundException.
+        var result = method.Invoke(null, [Path.Combine(_testDirectory, "vanished")]);
+        Assert.Null(result);
+    }
+
+    /// <summary>
+    /// Verifies that TryGetExeFiles returns the exe files of an existing directory.
+    /// </summary>
+    [Fact]
+    public void TryGetExeFilesReturnsExeFilesForExistingDirectory()
+    {
+        var gameDir = Path.Combine(_testDirectory, "GameDir9");
+        Directory.CreateDirectory(gameDir);
+        File.WriteAllText(Path.Combine(gameDir, "game.exe"), "game exe");
+        File.WriteAllText(Path.Combine(gameDir, "readme.txt"), "not an exe");
+
+        var method = typeof(GameScannerService).GetMethod("TryGetExeFiles", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+        Assert.NotNull(method);
+
+        var result = method.Invoke(null, [gameDir]) as string[];
+        Assert.NotNull(result);
+        var file = Assert.Single(result);
+        Assert.Equal("game.exe", Path.GetFileName(file));
+    }
 }

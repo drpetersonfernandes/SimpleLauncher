@@ -9,7 +9,7 @@
 
 - `ScanForStoreGamesAsync` (`:77-97`): ensures the **"Microsoft Windows"** system exists (`roms\Microsoft Windows` + images; `FileFormatsToSearch = url, lnk, bat`; existing system paths reused — `:99-170`), then runs **all scanners in parallel** (`Task.WhenAll`, `:87-89`).
 - `IgnoredGameNames` (`:28-41`): Steamworks Common Redistributables, Unreal Engine, Fab UE Plugin, Quixel Bridge, DirectX, Google Earth VR, Spacewar, PC Health Check, Rockstar Games Launcher, Battle.net, Ubisoft Connect.
-- **Image handling:** `TryDownloadImageFromApiAsync` (`:180-258`, `GameImageClient`, 2 attempts with 5 s retry), `FindAndSaveGameImageAsync` (`:269-293`), `ExtractIconFromGameFolderAsync` (`:303-329`), `FindMainExecutable` heuristics (`:331-376`: name match → contains → largest non-setup/launcher/unins exe).
+- **Image handling:** `TryDownloadImageFromApiAsync` (`:180-258`, `GameImageClient`, 2 attempts with 5 s retry), `FindAndSaveGameImageAsync` (`:269-293`), `ExtractIconFromGameFolderAsync` (`:303-332`), `FindMainExecutable` heuristics (`:334-379`: name match → contains → largest non-setup/launcher/unins exe), `TryGetExeFiles` (`:381-399`, returns null instead of throwing when the folder vanished between the `Directory.Exists` check and enumeration — Microsoft Store `WindowsApps` race).
 - **Interface:** `IGamePlatformScanner.ScanAsync(GameScannerService, ILogger, windowsRomsPath, windowsImagesPath, ignoredGameNames)` — single method, one class per storefront.
 
 ## The 11 scanners (`Services\GameScan\`)

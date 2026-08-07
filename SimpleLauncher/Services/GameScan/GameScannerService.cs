@@ -317,7 +317,10 @@ public class GameScannerService
             }
             catch (Exception ex)
             {
-                logErrors.Error(ex, $"Failed to extract icon for {sanitizedGameName} in {gameInstallPath}");
+                // Missing/inaccessible install folder (e.g., protected Microsoft Store package
+                // folders) is an expected fallback condition — log at Debug so it does not
+                // generate bug reports (see bug 61956).
+                logErrors.Debug(ex, $"Failed to extract icon for {sanitizedGameName} in {gameInstallPath}");
             }
 
             return Task.CompletedTask;
@@ -339,8 +342,8 @@ public class GameScannerService
         }
 
         // 2. Heuristics to find the main EXE
-        var exeFiles = Directory.GetFiles(gameInstallPath, "*.exe", SearchOption.TopDirectoryOnly);
-        if (exeFiles.Length == 0) return null;
+        var exeFiles = TryGetExeFiles(gameInstallPath);
+        if (exeFiles is not { Length: > 0 }) return null;
 
         // 2a. Name match
         var mainExe = exeFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals(sanitizedGameName, StringComparison.OrdinalIgnoreCase));
@@ -373,6 +376,26 @@ public class GameScannerService
                 }
             })
             .FirstOrDefault();
+    }
+
+    /// <summary>
+    /// Enumerates the executable files in a game folder, returning null if the folder vanished
+    /// or became inaccessible between the <see cref="Directory.Exists"/> check and the enumeration.
+    /// This is a real race for Microsoft Store package folders, which are routinely removed and
+    /// recreated while the Store stages, updates, or uninstalls an app (see bug 61956).
+    /// </summary>
+    private static string[]? TryGetExeFiles(string gameInstallPath)
+    {
+        try
+        {
+            return Directory.GetFiles(gameInstallPath, "*.exe", SearchOption.TopDirectoryOnly);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            // DirectoryNotFound/FileNotFound derive from IOException; UnauthorizedAccessException
+            // covers ACL-protected folders such as C:\Program Files\WindowsApps.
+            return null;
+        }
     }
 
     private static string GetInnerExceptionDetails(Exception ex)
