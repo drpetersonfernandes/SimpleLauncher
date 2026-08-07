@@ -189,7 +189,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         {
             _logger.Error(ex, "Error in LaunchGameAsync.");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 
@@ -207,7 +207,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
             {
                 _logger.Warning("[LaunchGameFromFavoritesAsync] selectedSystemManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                    PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+                    PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
             }
 
@@ -234,7 +234,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
             {
                 _logger.Warning("[LaunchGameFromFavoritesAsync] emulatorManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                    PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+                    PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
             }
 
             // Game launching is handled by the caller (code-behind) since it needs WPF Window context
@@ -244,7 +244,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         {
             _logger.Error(ex, $"[LaunchGameFromFavoritesAsync] Error launching: {fileName}, {selectedSystemName}");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 

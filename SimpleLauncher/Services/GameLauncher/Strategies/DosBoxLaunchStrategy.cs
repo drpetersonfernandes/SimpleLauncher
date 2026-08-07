@@ -151,7 +151,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                 catch (Exception ex)
                 {
                     _logger.Error(ex, $"[DosBoxLaunchStrategy] Error launching DOS game: {context.ResolvedFilePath}");
-                    await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 }
                 finally
                 {
@@ -304,7 +304,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         catch (Exception ex)
         {
             _logger.Error(ex, $"[DosBoxLaunchStrategy] Error scanning ISO: {context.ResolvedFilePath}");
-            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             return;
         }
         finally
@@ -454,7 +454,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         catch (Exception ex)
         {
             _logger.Error(ex, $"[DosBoxLaunchStrategy] Error launching CHD: {context.ResolvedFilePath}");
-            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
         }
     }
 

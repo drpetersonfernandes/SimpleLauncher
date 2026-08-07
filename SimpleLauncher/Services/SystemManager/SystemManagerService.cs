@@ -193,7 +193,7 @@ public partial class SystemManagerService : ISystemManager
                     // Notify user
                     if (messageBoxLibrary != null)
                     {
-                        _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                        _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                     }
 
                     return []; // Return an empty list
@@ -287,7 +287,7 @@ public partial class SystemManagerService : ISystemManager
 
                         if (messageBoxLibrary != null)
                         {
-                            _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                            _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                         }
 
                         return [];
@@ -380,7 +380,7 @@ public partial class SystemManagerService : ISystemManager
                 // Notify user
                 if (messageBoxLibrary != null)
                 {
-                    _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 }
 
                 return []; // Return an empty list

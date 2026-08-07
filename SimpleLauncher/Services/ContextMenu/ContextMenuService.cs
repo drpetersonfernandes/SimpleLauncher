@@ -644,7 +644,7 @@ public class ContextMenuService : IContextMenuService
                 _logger.Warning("Right click context menu was invoked, but the FilePath is null or empty.");
 
                 // Notify user
-                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
 
                 return true;
             }
@@ -655,7 +655,7 @@ public class ContextMenuService : IContextMenuService
                 _logger.Warning("[CheckParametersForNullOrEmptyAsync] Right click context menu was invoked, but the SelectedEmulatorName is null or empty.");
 
                 // Notify user
-                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
 
                 return true;
             }
@@ -666,7 +666,7 @@ public class ContextMenuService : IContextMenuService
                 _logger.Warning("Right click context menu was invoked, but the SelectedSystemName is null or empty.");
 
                 // Notify user
-                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
 
                 return true;
             }
@@ -677,7 +677,7 @@ public class ContextMenuService : IContextMenuService
                 _logger.Warning("Right click context menu was invoked, but the SelectedSystemManager is null.");
 
                 // Notify user
-                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
 
                 return true;
             }

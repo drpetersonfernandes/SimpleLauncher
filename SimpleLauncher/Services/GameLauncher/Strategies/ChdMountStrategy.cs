@@ -189,7 +189,7 @@ public class ChdMountStrategy : ILaunchStrategy
         string? gameFilePath;
         ResolveEmulatorFlags(context);
 
-        var logPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
+        var logPath = PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
 
         // Get the console index for CHDMounter based on system and emulator
         var consoleIndex = _mountChdFiles.GetConsoleIndexFromSystemName(context.SystemName, context.EmulatorName, _logger);

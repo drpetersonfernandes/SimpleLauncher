@@ -81,7 +81,10 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         ["sega pico"] = new RaSystemInfo(68, ["sega pico", "pico"]),
 
         // Sony systems
-        ["playstation"] = new RaSystemInfo(12, ["playstation", "ps1", "psx", "playstation 1", "sony playstation 1", "sony playstation", "SONY PlayStation", "Sony Play Station", "Sony Play Station 1", "Sony - PlayStation", "Sony - PlayStation 1"]),
+        ["playstation"] = new RaSystemInfo(12, [
+            "playstation", "ps1", "psx", "playstation 1", "sony playstation 1", "sony playstation", "SONY PlayStation", "Sony Play Station",
+            "Sony Play Station 1", "Sony - PlayStation", "Sony - PlayStation 1", "Sony PlayStation x1"
+        ]),
         ["playstation 2"] = new RaSystemInfo(21, ["playstation 2", "ps2", "sony playstation 2", "Sony Play Station 2", "Sony - PlayStation 2", "Sony Playstation2"]),
         ["playstation portable"] = new RaSystemInfo(41, ["playstation portable", "psp", "Sony PSP", "SONY PlayStation Portable"]),
 
@@ -177,7 +180,7 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
             "Tatung Einstein TC-01", "SEGA_fighting", "SEGA_arcade", "SEGA_SPORTS", "Metroid Saga", "Sega Chihiro", "ReflectionHLE",
             "Technosys Aamber Pegasus", "TI-99", "TI-73", "TI-80", "@sega_model 3", "sega model 3m", "FBNeo", "EACA Colour Genie",
             "NEC PC9801", "NEC PC9821", "Metroid Saga", "PC_Shooter_1998-2002", "super a'can", "NEC PC98", "MAMEICHON", "Videoton TVC",
-            "Tiger GameCom"
+            "Tiger GameCom", "Tiger Game.com", "Game.com", "Systema1"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos", "MS DOS", "MSDOS", "MS-DOS"]),

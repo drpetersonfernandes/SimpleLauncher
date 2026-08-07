@@ -13,6 +13,7 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services;
 using SimpleLauncher.Core.Services.CheckForFileLock;
 using SimpleLauncher.Core.Services.CheckIfDirectoryIsWritable;
+using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Core.Services.Converters;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
@@ -121,14 +122,15 @@ public partial class App : IDisposable
             "SimpleLauncher");
         Directory.CreateDirectory(appDataLogFolder);
 
+        var logFilePath = PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ?? "error_user.log");
+
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Debug()
             .Enrich.FromLogContext()
             .WriteTo.Debug(outputTemplate: "[{Level}] {Timestamp:HH:mm:ss.fff} - {Message}{NewLine}{Exception}")
             .WriteTo.Sink(new DebugWindowSink())
             .WriteTo.Async(a => a.File(
-                Path.Combine(appDataLogFolder,
-                    configuration.GetValue<string>("LogPath") ?? "error_user.log"),
+                logFilePath,
                 LogEventLevel.Warning,
                 rollingInterval: RollingInterval.Day,
                 retainedFileCountLimit: 7,

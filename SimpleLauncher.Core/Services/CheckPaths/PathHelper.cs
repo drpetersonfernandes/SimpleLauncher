@@ -264,6 +264,26 @@ public static partial class PathHelper
         return !Path.IsPathRooted(path) && !path.StartsWith(BaseFolderPlaceholder, StringComparison.OrdinalIgnoreCase);
     }
 
+    /// <summary>
+    /// Resolves the full path of the user error log file, matching the exact location where Serilog writes it
+    /// (see the file sink configuration in App.xaml.cs: '%LOCALAPPDATA%\SimpleLauncher\' + LogPath,
+    /// defaulting to 'error_user.log').
+    /// </summary>
+    /// <param name="logFileName">The log file name from configuration (LogPath key), or null to use the default 'error_user.log'.</param>
+    /// <returns>The absolute path of the log file.</returns>
+    public static string ResolveLogFilePath(string? logFileName)
+    {
+        if (string.IsNullOrWhiteSpace(logFileName))
+        {
+            logFileName = "error_user.log";
+        }
+
+        return Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "SimpleLauncher",
+            logFileName);
+    }
+
     private static string CombineAndResolveRelativeToAppDirectory(string path1, string path2)
     {
         var resolvedPath1 = ResolveRelativeToAppDirectory(path1);

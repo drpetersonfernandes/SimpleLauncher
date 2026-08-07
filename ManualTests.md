@@ -22,7 +22,7 @@ RetroAchievements → a download → a store-game scan covers most of this check
 
 ## 1. Startup & app lifecycle
 
-- [ ] **First-run wizard** (`StartupInitializationService`) — with an empty config, the app prompts to open Easy Mode; with an existing config it loads straight into the main window.
+- [ ] **First-run flow** (`StartupInitializationService`) — with an empty config, the app auto-scans the machine for installed games (Steam, Epic, GOG, Microsoft Store, etc.) and creates the "Microsoft Windows" system; the Easy Mode welcome prompt appears only if that scan finds no games; with an existing config it loads straight into the main window.
 - [ ] **Closing behavior** (`MainWindow.CloseWindowEvents`) — close the app then immediately check the settings file: close is deferred until settings are saved. Close while a CHD mount or scan is active → child processes killed, no crash.
 - [ ] **Minimize to tray** — minimize hides the window from the taskbar, tray icon remains; tray menu has Open / Minimize to Tray / Debug Window / Exit; double-click the tray icon restores the window; Exit fully quits (icon disappears).
 - [ ] **Quit / Restart** (`QuitSimpleLauncher`) — menu quit exits; restart (`--restarting`) starts a new process and exits the old one; failed restart shows "FailedToRestart" and the app stays alive.

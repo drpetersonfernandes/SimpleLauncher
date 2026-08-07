@@ -22,24 +22,24 @@ RetroAchievements → a download → a store-game scan covers most of this check
 
 ## 1. Startup & app lifecycle
 
-- [ ] **First-run wizard** (`StartupInitializationService`) — with an empty config, the app prompts to open Easy Mode; with an existing config it loads straight into the main window.
-- [ ] **Closing behavior** (`MainWindow.CloseWindowEvents`) — close the app then immediately check the settings file: close is deferred until settings are saved. Close while a CHD mount or scan is active → child processes killed, no crash.
-- [ ] **Minimize to tray** — minimize hides the window from the taskbar, tray icon remains; tray menu has Open / Minimize to Tray / Debug Window / Exit; double-click the tray icon restores the window; Exit fully quits (icon disappears).
-- [ ] **Quit / Restart** (`QuitSimpleLauncher`) — menu quit exits; restart (`--restarting`) starts a new process and exits the old one; failed restart shows "FailedToRestart" and the app stays alive.
+- [X] **First-run flow** (`StartupInitializationService`) — with an empty config, the app auto-scans the machine for installed games (Steam, Epic, GOG, Microsoft Store, etc.) and creates the "Microsoft Windows" system; the Easy Mode welcome prompt appears only if that scan finds no games; with an existing config it loads straight into the main window.
+- [X] **Closing behavior** (`MainWindow.CloseWindowEvents`) — close the app then immediately check the settings file: close is deferred until settings are saved. Close while a CHD mount or scan is active → child processes killed, no crash.
+- [X] **Minimize to tray** — minimize hides the window from the taskbar, tray icon remains; tray menu has Open / Minimize to Tray / Debug Window / Exit; double-click the tray icon restores the window; Exit fully quits (icon disappears).
+- [X] **Quit** (`QuitSimpleLauncher`) — menu quit exits;
 - [ ] **Reinstall / Updater** (`ReinstallSimpleLauncher`) — with and without a local `Updater.exe`, with and without network, and with access denied (error 5): correct message box in each case; app closes after the updater launches; no zombie processes.
-- [ ] **Update flow** (`ShutdownForUpdateAsync`) — with GitHub reachable, a fresh `Updater.exe` is downloaded and launched with the current PID, app exits; with GitHub unreachable, graceful failure.
+- [X] **Update flow** (`ShutdownForUpdateAsync`) — with GitHub reachable, a fresh `Updater.exe` is downloaded and launched with the current PID, app exits; with GitHub unreachable, graceful failure.
 - [ ] **System information display** (`DisplaySystemInformation`) — select a system with a bad ROM folder → red "System Folder" line + "path is not valid" dialog; bad emulator exe → red emulator line; all valid → no dialog; the error list shows every problem.
-- [ ] **System config load** (`SystemConfigurationService`) — edit `system.xml` adding a valid system → it appears after restart; malformed XML → error dialog + logs, app continues.
+- [X] **System config load** (`SystemConfigurationService`) — edit `system.xml` adding a valid system → it appears after restart; malformed XML → error dialog + logs, app continues.
 
 ## 2. Main window UI
 
-- [ ] **Theme menu** (`ThemeMenuService`) — pick Light/Dark/Adaptive/HighContrast/Midnight → UI restyles instantly; accent colors apply; checkmark tracks selection; restart → theme persisted.
-- [ ] **Language menu** (`LanguageMenuService`) — switch language → notification sound, status "Changing language...", app restarts into that language; checkmark shows current language.
+- [X] **Theme menu** (`ThemeMenuService`) — pick Light/Dark/Adaptive/HighContrast/Midnight → UI restyles instantly; accent colors apply; checkmark tracks selection; restart → theme persisted.
+- [X] **Language menu** (`LanguageMenuService`) — switch language → notification sound, status "Changing language...", app restarts into that language; checkmark shows current language.
 - [ ] **View/Display menu options** — change thumbnail size, games-per-page, show-games, aspect ratio, filename display, font sizes, view mode → the grid re-renders accordingly; restart → checkmarks restored from settings.
 - [ ] **Menu actions** (`MenuActionHandlerService`) — every menu item opens the right window / performs the right action with status-bar feedback: Easy/Expert mode, Download Image Pack, Scan for store games, Edit links, Gamepad toggle, Dead zone, fuzzy matching toggle/threshold, annotation stripping, Support, Donate. Rapid clicking → no double handling.
 - [ ] **Filter bar** (`FilterMenu`) — A–Z / # / All letters filter the game list with button highlight; "All" resets; keyboard arrows/Home/End navigate the letter buttons; notification sound on click.
-- [ ] **Status bar** — actions (sorting, launching, saving) show status text that auto-clears after the timeout.
-- [ ] **Gamepad navigation** — see section 10.
+- [X] **Status bar** — actions (sorting, launching, saving) show status text that auto-clears after the timeout.
+- [X] **Gamepad navigation** — see section 10.
 
 ## 3. Game list, search & pages
 
@@ -55,9 +55,9 @@ RetroAchievements → a download → a store-game scan covers most of this check
 
 ## 4. Screenshot & hotkeys
 
-- [ ] **F8 hotkey** (`GlobalHotkeyService`) — with another app foreground, F8 saves a screenshot of that window to `.\screenshot`; launching a second app instance → F8 conflict logged, no crash; after exit the hotkey is released (F8 behaves normally elsewhere).
-- [ ] **Screenshot flow** (`ActiveWindowScreenshotService`, `WindowSelectionDialogWindow` + VM, `WindowManager`, `FlashOverlayWindow` + VM) — right-click a game → screenshot flow: the window-selection dialog lists all titled top-level windows (not hidden launcher windows); selecting one closes the dialog and captures it; shutter sound + single full-screen white flash (~0.6 s); minimized target → "cannot screenshot a minimized window" message; capture of a normal window saves a PNG with a timestamp name and refreshes the game button image; Cancel aborts silently.
-- [ ] **[Integration] Window edge cases** (`WindowManager`) — UWP/minimized-to-tray windows are excluded from the list; no crash when enumerating unusual windows.
+- [X] **F8 hotkey** (`GlobalHotkeyService`) — with another app foreground, F8 saves a screenshot of that window to `.\screenshot`; launching a second app instance → F8 conflict logged, no crash; after exit the hotkey is released (F8 behaves normally elsewhere).
+- [X] **Screenshot flow** (`ActiveWindowScreenshotService`, `WindowSelectionDialogWindow` + VM, `WindowManager`, `FlashOverlayWindow` + VM) — right-click a game → screenshot flow: the window-selection dialog lists all titled top-level windows (not hidden launcher windows); selecting one closes the dialog and captures it; shutter sound + single full-screen white flash (~0.6 s); minimized target → "cannot screenshot a minimized window" message; capture of a normal window saves a PNG and refreshes the game button image; Cancel aborts silently.
+- [X] **[Integration] Window edge cases** (`WindowManager`) — UWP/minimized-to-tray windows are excluded from the list; no crash when enumerating unusual windows.
 
 ## 5. Easy Mode & Edit System
 

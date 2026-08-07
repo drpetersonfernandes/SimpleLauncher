@@ -286,7 +286,7 @@ public class GameListFactory(
             _logger.Warning("selectedItem is null.");
 
             // Notify user
-            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
 
             return;
         }
@@ -302,7 +302,7 @@ public class GameListFactory(
             _logger.Warning("[HandleDoubleClickAsync] filepath is null or empty.");
 
             // Notify user
-            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
 
             return;
         }
@@ -313,7 +313,7 @@ public class GameListFactory(
             _logger.Warning("[HandleDoubleClickAsync] selectedEmulatorName is null or empty.");
 
             // Notify user
-            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
 
             return;
         }
@@ -324,7 +324,7 @@ public class GameListFactory(
             _logger.Warning("[HandleDoubleClickAsync] selectedSystemName is null or empty.");
 
             // Notify user
-            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
 
             return;
         }
@@ -335,7 +335,7 @@ public class GameListFactory(
             _logger.Warning("[HandleDoubleClickAsync] selectedSystemManager is null.");
 
             // Notify user
-            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
 
             return;
         }
