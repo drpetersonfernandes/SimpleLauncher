@@ -156,9 +156,9 @@ public partial class SystemManagerService : ISystemManager
     /// <summary>
     /// Asynchronously loads all system manager configurations from system.xml, validating and cleaning invalid entries.
     /// </summary>
-    public static async Task<IList<SystemManagerService>> LoadSystemManagersAsync(IConfiguration configuration, ILogger? logErrors = null, IMessageBoxLibraryService? messageBoxLibrary = null)
+    public static Task<IList<SystemManagerService>> LoadSystemManagersAsync(IConfiguration configuration, ILogger? logErrors = null, IMessageBoxLibraryService? messageBoxLibrary = null)
     {
-        return await LoadSystemManagersInternalAsync(configuration, logErrors, messageBoxLibrary).ConfigureAwait(false);
+        return LoadSystemManagersInternalAsync(configuration, logErrors, messageBoxLibrary);
     }
 
     private static async Task<IList<SystemManagerService>> LoadSystemManagersInternalAsync(IConfiguration configuration, ILogger? logErrors = null, IMessageBoxLibraryService? messageBoxLibrary = null)

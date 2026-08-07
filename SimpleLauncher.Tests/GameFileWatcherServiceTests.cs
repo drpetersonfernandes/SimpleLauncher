@@ -39,9 +39,9 @@ public class GameFileWatcherServiceTests : IDisposable
         }
     }
 
-    private static async Task<string> WaitForEventAsync(TaskCompletionSource<string> tcs, int timeoutMs = 3000)
+    private static Task<string> WaitForEventAsync(TaskCompletionSource<string> tcs, int timeoutMs = 3000)
     {
-        return await tcs.Task.WaitAsync(TimeSpan.FromMilliseconds(timeoutMs));
+        return tcs.Task.WaitAsync(TimeSpan.FromMilliseconds(timeoutMs));
     }
 
     private static async Task AssertNoEventAsync(TaskCompletionSource<string> tcs, int waitMs = 600)
@@ -51,7 +51,7 @@ public class GameFileWatcherServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task StartWatching_NonexistentFolder_DoesNotThrowAndRaisesNoEvents()
+    public Task StartWatching_NonexistentFolder_DoesNotThrowAndRaisesNoEvents()
     {
         var missingDir = Path.Combine(_watchDir, "does-not-exist");
         var tcs = new TaskCompletionSource<string>(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -59,7 +59,7 @@ public class GameFileWatcherServiceTests : IDisposable
 
         _service.StartWatching([missingDir], "NES");
 
-        await AssertNoEventAsync(tcs);
+        return AssertNoEventAsync(tcs);
     }
 
     [Fact]

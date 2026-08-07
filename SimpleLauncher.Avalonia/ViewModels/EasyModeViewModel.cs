@@ -223,45 +223,45 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
     // ── Download commands ─────────────────────────────────────────────
 
     [RelayCommand]
-    private async Task DownloadEmulatorAsync()
+    private Task DownloadEmulatorAsync()
     {
-        await DownloadComponentAsync(EasyModeManager.DownloadType.Emulator);
+        return DownloadComponentAsync(EasyModeManager.DownloadType.Emulator);
     }
 
     [RelayCommand]
-    private async Task DownloadCoreAsync()
+    private Task DownloadCoreAsync()
     {
-        await DownloadComponentAsync(EasyModeManager.DownloadType.Core);
+        return DownloadComponentAsync(EasyModeManager.DownloadType.Core);
     }
 
     [RelayCommand]
-    private async Task DownloadImagePack1Async()
+    private Task DownloadImagePack1Async()
     {
-        await DownloadComponentAsync(EasyModeManager.DownloadType.ImagePack1);
+        return DownloadComponentAsync(EasyModeManager.DownloadType.ImagePack1);
     }
 
     [RelayCommand]
-    private async Task DownloadImagePack2Async()
+    private Task DownloadImagePack2Async()
     {
-        await DownloadComponentAsync(EasyModeManager.DownloadType.ImagePack2);
+        return DownloadComponentAsync(EasyModeManager.DownloadType.ImagePack2);
     }
 
     [RelayCommand]
-    private async Task DownloadImagePack3Async()
+    private Task DownloadImagePack3Async()
     {
-        await DownloadComponentAsync(EasyModeManager.DownloadType.ImagePack3);
+        return DownloadComponentAsync(EasyModeManager.DownloadType.ImagePack3);
     }
 
     [RelayCommand]
-    private async Task DownloadImagePack4Async()
+    private Task DownloadImagePack4Async()
     {
-        await DownloadComponentAsync(EasyModeManager.DownloadType.ImagePack4);
+        return DownloadComponentAsync(EasyModeManager.DownloadType.ImagePack4);
     }
 
     [RelayCommand]
-    private async Task DownloadImagePack5Async()
+    private Task DownloadImagePack5Async()
     {
-        await DownloadComponentAsync(EasyModeManager.DownloadType.ImagePack5);
+        return DownloadComponentAsync(EasyModeManager.DownloadType.ImagePack5);
     }
 
     [RelayCommand]

@@ -115,9 +115,9 @@ public class UiResetServiceTests
     }
 
     [Fact]
-    public async Task ResetUiAsync_WithoutHost_DoesNotThrow()
+    public Task ResetUiAsync_WithoutHost_DoesNotThrow()
     {
         var service = new UiResetService(new NoOpLogger());
-        await service.ResetUiAsync();
+        return service.ResetUiAsync();
     }
 }

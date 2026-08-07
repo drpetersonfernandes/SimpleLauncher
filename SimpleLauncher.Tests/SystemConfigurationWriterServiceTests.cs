@@ -224,12 +224,12 @@ public class SystemConfigurationWriterServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task DeleteSystemAsync_MissingFile_IsNoOp()
+    public Task DeleteSystemAsync_MissingFile_IsNoOp()
     {
         CreateService();
         File.Delete(_systemXmlPath);
 
-        await _service.DeleteSystemAsync("NES");
+        return _service.DeleteSystemAsync("NES");
         // No exception expected
     }
 

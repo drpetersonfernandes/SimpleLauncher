@@ -64,9 +64,13 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     {
         if (string.IsNullOrWhiteSpace(soundFileName))
         {
-            _logger.Error(
-                new ArgumentNullException(nameof(soundFileName), "PlayConfiguredSound called with null or empty soundFileName."),
-                "Attempted to play sound with an empty filename.");
+            lock (Lock)
+            {
+                _logger.Error(
+                    new ArgumentNullException(nameof(soundFileName), "PlayConfiguredSound called with null or empty soundFileName."),
+                    "Attempted to play sound with an empty filename.");
+            }
+
             return;
         }
 

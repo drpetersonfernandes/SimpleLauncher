@@ -305,7 +305,7 @@ public class MinimalLauncherService : ILauncherService
             }
 
             Exception? launchException = null;
-            string stderrOutput = "";
+            var stderrOutput = "";
             var processStartTime = DateTime.Now;
 
             await Task.Run(() =>
@@ -401,12 +401,12 @@ public class MinimalLauncherService : ILauncherService
 
     #region Standard launches (unchanged)
 
-    public async Task RunBatchFileAsync(
+    public Task RunBatchFileAsync(
         string resolvedFilePath,
         Emulator selectedEmulatorManager,
         IWindowContext windowContext)
     {
-        await Task.Run(() =>
+        return Task.Run(() =>
         {
             try
             {
@@ -447,16 +447,16 @@ public class MinimalLauncherService : ILauncherService
         });
     }
 
-    public async Task LaunchShortcutFileAsync(
+    public Task LaunchShortcutFileAsync(
         string resolvedFilePath,
         Emulator selectedEmulatorManager,
         IWindowContext windowContext)
     {
-        await Task.Run(() =>
+        return Task.Run(() =>
         {
             try
             {
-                string target = resolvedFilePath;
+                var target = resolvedFilePath;
 
                 // .URL files are plain-text internet shortcuts — extract the target URL
                 if (Path.GetExtension(resolvedFilePath).Equals(".url", StringComparison.OrdinalIgnoreCase))

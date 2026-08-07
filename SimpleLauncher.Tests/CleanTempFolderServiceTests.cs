@@ -59,9 +59,9 @@ public class CleanTempFolderServiceTests : IDisposable
     [Theory]
     [InlineData(null)]
     [InlineData("")]
-    public async Task CleanupTempDirectoryAsync_NullOrEmptyPath_IsNoOp(string? path)
+    public Task CleanupTempDirectoryAsync_NullOrEmptyPath_IsNoOp(string? path)
     {
-        await _service.CleanupTempDirectoryAsync(path!);
+        return _service.CleanupTempDirectoryAsync(path!);
         // No exception expected
     }
 
@@ -120,7 +120,7 @@ public class CleanTempFolderServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task CleanupPartialExtractionAsync_DeleteServiceThrows_DoesNotThrow()
+    public Task CleanupPartialExtractionAsync_DeleteServiceThrows_DoesNotThrow()
     {
         Directory.CreateDirectory(_tempDir);
         File.WriteAllText(Path.Combine(_tempDir, "game.iso"), "data");
@@ -128,7 +128,7 @@ public class CleanTempFolderServiceTests : IDisposable
             .Setup(x => x.TryDeleteFileAsync(It.IsAny<string>()))
             .ThrowsAsync(new IOException("File is locked"));
 
-        await _service.CleanupPartialExtractionAsync(_tempDir);
+        return _service.CleanupPartialExtractionAsync(_tempDir);
         // No exception expected; cleanup is best-effort
     }
 }

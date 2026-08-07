@@ -112,7 +112,7 @@ public class PlayHistoryManager
     /// <summary>
     /// Records a play event for the given game. Increments play count and updates timestamps.
     /// </summary>
-    public async Task RecordPlayAsync(string filePath, string systemName, long playTimeSeconds = 0)
+    public Task RecordPlayAsync(string filePath, string systemName, long playTimeSeconds = 0)
     {
         lock (_historyLock)
         {
@@ -135,7 +135,7 @@ public class PlayHistoryManager
             entry.LastPlayTime = DateTime.Now.ToString(IsoTimeFormat, CultureInfo.InvariantCulture);
         }
 
-        await SavePlayHistoryAsync();
+        return SavePlayHistoryAsync();
     }
 
     /// <summary>
