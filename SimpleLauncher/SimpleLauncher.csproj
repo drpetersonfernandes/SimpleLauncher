@@ -1211,8 +1211,6 @@
         <PackageReference Include="SharpDX.XInput" Version="4.2.0" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Remove="GlobalSuppressions.cs" />
-        <Compile Remove="database\**" />
         <Compile Remove="images\Amstrad CPC GX4000\**" />
         <Compile Remove="images\Arcade\**" />
         <Compile Remove="images\Atari Jaguar\**" />

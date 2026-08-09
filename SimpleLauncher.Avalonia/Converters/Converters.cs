@@ -67,34 +67,4 @@ public class NullToVisibilityConverter : IValueConverter
     }
 }
 
-/// <summary>
-/// Inverse of NullToVisibilityConverter: non-null collapses, null shows.
-/// </summary>
-public class NotNullToVisibilityConverter : IValueConverter
-{
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        return value is null;
-    }
 
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new NotSupportedException();
-    }
-}
-
-/// <summary>
-/// Converts a string to collapsed if null or empty, IsVisible otherwise.
-/// </summary>
-public class StringToVisibilityConverter : IValueConverter
-{
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        return !string.IsNullOrEmpty(value as string);
-    }
-
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new NotSupportedException();
-    }
-}

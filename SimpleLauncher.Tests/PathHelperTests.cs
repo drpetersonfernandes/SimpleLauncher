@@ -10,26 +10,6 @@ namespace SimpleLauncher.Tests;
 public class PathHelperTests
 {
     /// <summary>
-    /// Verifies that IsRelativePathWithoutBaseFolder correctly identifies relative paths
-    /// without the %BASEFOLDER% placeholder.
-    /// </summary>
-    /// <param name="path">The path to evaluate.</param>
-    /// <param name="expected">Whether the path is expected to be relative without the %BASEFOLDER% placeholder.</param>
-    [Theory]
-    [InlineData("%BASEFOLDER%\\tools", false)]
-    [InlineData("tools", true)]
-    [InlineData(".", true)]
-    [InlineData("..", true)]
-    [InlineData("C:\\Windows", false)]
-    [InlineData("%BASEFOLDER%", false)]
-    [InlineData("", false)]
-    public void IsRelativePathWithoutBaseFolderReturnsExpected(string path, bool expected)
-    {
-        var result = PathHelper.IsRelativePathWithoutBaseFolder(path);
-        Assert.Equal(expected, result);
-    }
-
-    /// <summary>
     /// Verifies that SanitizePathToken removes trailing path separators from the input.
     /// </summary>
     /// <param name="input">The raw path token to sanitize.</param>
@@ -136,36 +116,6 @@ public class PathHelperTests
     {
         var result = PathHelper.GetLongPath(null);
         Assert.Null(result);
-    }
-
-    /// <summary>
-    /// Verifies that ResolveRelativeToCurrentWorkingDirectory returns empty for an empty string.
-    /// </summary>
-    [Fact]
-    public void ResolveRelativeToCurrentWorkingDirectoryEmptyStringReturnsEmpty()
-    {
-        var result = PathHelper.ResolveRelativeToCurrentWorkingDirectory("");
-        Assert.Equal("", result);
-    }
-
-    /// <summary>
-    /// Verifies that ResolveRelativeToCurrentWorkingDirectory returns empty for null input.
-    /// </summary>
-    [Fact]
-    public void ResolveRelativeToCurrentWorkingDirectoryNullReturnsEmpty()
-    {
-        var result = PathHelper.ResolveRelativeToCurrentWorkingDirectory(null);
-        Assert.Equal("", result);
-    }
-
-    /// <summary>
-    /// Verifies that ResolveRelativeToCurrentWorkingDirectory converts a relative path to an absolute path.
-    /// </summary>
-    [Fact]
-    public void ResolveRelativeToCurrentWorkingDirectoryRelativePathReturnsAbsolute()
-    {
-        var result = PathHelper.ResolveRelativeToCurrentWorkingDirectory(".");
-        Assert.True(Path.IsPathRooted(result));
     }
 
     /// <summary>

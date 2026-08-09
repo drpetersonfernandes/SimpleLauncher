@@ -188,21 +188,6 @@ public static partial class PathHelper
     }
 
     /// <summary>
-    /// Resolves the given path to a full path relative to the current working directory.
-    /// </summary>
-    /// <param name="path">The path to resolve.</param>
-    /// <returns>The full resolved path, or an empty string if the path is null or blank.</returns>
-    public static string ResolveRelativeToCurrentWorkingDirectory(string? path)
-    {
-        if (string.IsNullOrWhiteSpace(path))
-        {
-            return "";
-        }
-
-        return Path.GetFullPath(path);
-    }
-
-    /// <summary>
     /// Resolves the given path to a full path relative to the application directory, handling the %BASEFOLDER% placeholder.
     /// </summary>
     /// <param name="path">The path to resolve.</param>
@@ -247,21 +232,6 @@ public static partial class PathHelper
             Log.Debug($"[PathHelper] Error resolving path '{path}' relative to app directory: {ex.Message}");
             return null;
         }
-    }
-
-    /// <summary>
-    /// Determines whether the given path is relative and does not use the %BASEFOLDER% placeholder.
-    /// </summary>
-    /// <param name="path">The path to inspect.</param>
-    /// <returns>True if the path is relative without a base folder placeholder, false otherwise.</returns>
-    public static bool IsRelativePathWithoutBaseFolder(string path)
-    {
-        if (string.IsNullOrWhiteSpace(path))
-        {
-            return false;
-        }
-
-        return !Path.IsPathRooted(path) && !path.StartsWith(BaseFolderPlaceholder, StringComparison.OrdinalIgnoreCase);
     }
 
     /// <summary>

@@ -60,20 +60,6 @@ public class PathToImageConverter : IValueConverter
     }
 
     /// <summary>
-    /// Preloads images into the cache for fast display.
-    /// </summary>
-    public static async Task PreloadAsync(IEnumerable<string> paths)
-    {
-        foreach (var path in paths.Take(LruCapacity))
-        {
-            if (File.Exists(path))
-            {
-                await Task.Run(() => LoadImage(path));
-            }
-        }
-    }
-
-    /// <summary>
     /// Clears all caches.
     /// </summary>
     public static void ClearCache()

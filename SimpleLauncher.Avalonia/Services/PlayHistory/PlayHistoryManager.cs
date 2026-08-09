@@ -139,34 +139,6 @@ public class PlayHistoryManager
     }
 
     /// <summary>
-    /// Gets the play history sorted by most recently played.
-    /// </summary>
-    public List<PlayHistoryItem> GetRecentHistory(int count = 50)
-    {
-        lock (_historyLock)
-        {
-            return PlayHistoryList
-                .OrderByDescending(h => h.LastPlayDate)
-                .ThenByDescending(h => h.LastPlayTime)
-                .Take(count)
-                .ToList();
-        }
-    }
-
-    /// <summary>
-    /// Gets the play count for a specific game file.
-    /// </summary>
-    public int GetPlayCount(string filePath)
-    {
-        lock (_historyLock)
-        {
-            return PlayHistoryList
-                .FirstOrDefault(h => string.Equals(h.FileName, filePath, StringComparison.OrdinalIgnoreCase))
-                ?.TimesPlayed ?? 0;
-        }
-    }
-
-    /// <summary>
     /// Gets a dictionary of file path → PlayHistoryItem for quick lookup.
     /// Safe against duplicate file names (e.g. corrupted playhistory.dat) — first entry wins.
     /// </summary>

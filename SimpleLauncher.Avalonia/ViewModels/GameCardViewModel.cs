@@ -75,34 +75,4 @@ public partial class GameCardViewModel : ObservableObject
     {
         return !string.IsNullOrEmpty(systemName) && RaSupportedSystems.Contains(systemName);
     }
-
-    /// <summary>
-    /// Creates sample data for design-time and Phase 3 testing.
-    /// </summary>
-    public static List<GameCardViewModel> CreateSampleData(int count = 24)
-    {
-        var systems = new[] { "NES", "SNES", "Sega Genesis", "PS1", "Game Boy", "Arcade" };
-        var random = new Random(42);
-
-        return Enumerable.Range(1, count).Select(i => new GameCardViewModel
-        {
-            DisplayTitle = systems[i % systems.Length] switch
-            {
-                "NES" => $"Super Mario Bros. {i}",
-                "SNES" => $"The Legend of Zelda {i}",
-                "Sega Genesis" => $"Sonic the Hedgehog {i}",
-                "PS1" => $"Final Fantasy {i}",
-                "Game Boy" => $"Pokemon Version {i}",
-                _ => $"Street Fighter {i}"
-            },
-            SystemName = systems[i % systems.Length],
-            FilePath = $@"C:\roms\{systems[i % systems.Length]}\game_{i}.zip",
-            IsFavorite = i % 5 == 0,
-            PlayCount = random.Next(0, 100),
-            Rating = random.Next(0, 6),
-            HasCover = i % 3 != 0, // 2/3 have covers
-            IsRaSupported = IsSystemRaSupported(systems[i % systems.Length]),
-            LastPlayed = i % 3 == 0 ? DateTime.Now.AddDays(-random.Next(1, 30)).ToString("d") : null
-        }).ToList();
-    }
 }

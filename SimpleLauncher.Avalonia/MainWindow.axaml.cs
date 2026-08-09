@@ -609,23 +609,6 @@ public partial class MainWindow : Window
     }
 
     #endregion
-
-    #region Loading Overlay
-
-    public void ShowLoading(string message = "Loading…")
-    {
-        LoadingMessage.Text = message;
-        LoadingOverlay.IsVisible = true;
-        _viewModel.IsLoading = true;
-    }
-
-    public void HideLoading()
-    {
-        LoadingOverlay.IsVisible = false;
-        _viewModel.IsLoading = false;
-    }
-
-    #endregion
 }
 
 public enum ToastType

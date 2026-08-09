@@ -109,23 +109,6 @@
                 <Setter Property="Margin" Value="0,5,2,5" />
             </Style>
 
-            <!-- Placeholder text color for light and dark themes -->
-            <SolidColorBrush x:Key="PlaceholderTextBrushLight" Color="Gray" />
-            <SolidColorBrush x:Key="PlaceholderTextBrushDark" Color="LightGray" />
-
-            <!-- Style for placeholder text -->
-            <Style x:Key="PlaceholderTextStyle" TargetType="TextBox">
-                <Setter Property="Foreground" Value="{DynamicResource PlaceholderTextBrushLight}" />
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="True">
-                        <Setter Property="Foreground" Value="{DynamicResource PlaceholderTextBrushDark}" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="False">
-                        <Setter Property="Foreground" Value="{DynamicResource PlaceholderTextBrushLight}" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-
             <SolidColorBrush x:Key="StatsEqualBrush" Color="LightGreen" />
             <SolidColorBrush x:Key="StatsNotEqualBrush" Color="LightCoral" />
 
@@ -665,16 +648,6 @@
                 <Setter Property="MinHeight" Value="35" />
                 <Setter Property="MinWidth" Value="80" />
                 <Setter Property="Margin" Value="0,0,10,0" />
-            </Style>
-
-            <!-- Browse Button: For "..." browse buttons -->
-            <Style x:Key="BrowseButtonStyle" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Square}">
-                <Setter Property="Padding" Value="5" />
-                <Setter Property="Height" Value="25" />
-                <Setter Property="Width" Value="35" />
-                <Setter Property="Margin" Value="5,0,0,0" />
-                <Setter Property="Content" Value="..." />
-                <Setter Property="ToolTip" Value="Browse..." />
             </Style>
 
             <!-- Dialog Button: For dialog action buttons (Save/Run/Cancel patterns) -->

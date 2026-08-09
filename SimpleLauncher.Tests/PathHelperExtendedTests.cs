@@ -86,26 +86,6 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that IsRelativePathWithoutBaseFolder returns false for null input.
-    /// </summary>
-    [Fact]
-    public void IsRelativePathWithoutBaseFolderNullReturnsFalse()
-    {
-        var result = PathHelper.IsRelativePathWithoutBaseFolder(null!);
-        Assert.False(result);
-    }
-
-    /// <summary>
-    /// Verifies that IsRelativePathWithoutBaseFolder returns false for whitespace-only input.
-    /// </summary>
-    [Fact]
-    public void IsRelativePathWithoutBaseFolderWhitespaceReturnsFalse()
-    {
-        var result = PathHelper.IsRelativePathWithoutBaseFolder("   ");
-        Assert.False(result);
-    }
-
-    /// <summary>
     /// Verifies that ContainsGameSpecificPlaceholder detects all supported placeholder variants including
     /// %GAME%, %ROMNAME%, %ROMFILE%, $game$, $romname$, $romfile$, {game}, {romname}, and {romfile}.
     /// </summary>
@@ -394,27 +374,5 @@ public class PathHelperExtendedTests
         {
             Directory.Delete(tempDir);
         }
-    }
-
-    /// <summary>
-    /// Verifies that ResolveRelativeToCurrentWorkingDirectory converts a relative path to a rooted path.
-    /// </summary>
-    [Fact]
-    public void ResolveRelativeToCurrentWorkingDirectoryRelativePathReturnsRooted()
-    {
-        var result = PathHelper.ResolveRelativeToCurrentWorkingDirectory("some\\relative\\path");
-        Assert.True(Path.IsPathRooted(result));
-        Assert.EndsWith("some\\relative\\path", result, StringComparison.Ordinal);
-    }
-
-    /// <summary>
-    /// Verifies that ResolveRelativeToCurrentWorkingDirectory returns an absolute path unchanged.
-    /// </summary>
-    [Fact]
-    public void ResolveRelativeToCurrentWorkingDirectoryAbsolutePathReturnsSame()
-    {
-        const string absPath = @"C:\Windows\System32";
-        var result = PathHelper.ResolveRelativeToCurrentWorkingDirectory(absPath);
-        Assert.Equal(absPath, result);
     }
 }
