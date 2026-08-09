@@ -9,10 +9,16 @@
         <AssemblyVersion>5.6.0</AssemblyVersion>
         <FileVersion>5.6.0</FileVersion>
         <NeutralLanguage>en</NeutralLanguage>
+        <!-- Live-network integration tests (UrlValidation, ApiConnectivity, StatsApiConnection) and
+             environment-dependent integration tests (MountZipFiles/MountChdFiles: real Dokan mounts)
+             are tagged Category=Network / Category=Integration and excluded by default: they can take
+             minutes when external sites are slow or hang on missing drivers. Run them explicitly with:
+             dotnet test with filter "Category=Network|Category=Integration" -->
+        <VSTestTestCaseFilter>Category!=Network&amp;Category!=Integration</VSTestTestCaseFilter>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Meziantou.Analyzer" Version="3.0.140">
+        <PackageReference Include="Meziantou.Analyzer" Version="3.0.141">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>

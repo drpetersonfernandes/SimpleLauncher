@@ -10,6 +10,7 @@ namespace SimpleLauncher.Tests;
 /// Integration tests that mount real ZIP archives with SimpleZipDrive and verify the mount succeeds.
 /// Tests are skipped at runtime when the ZIP file, the SimpleZipDrive tool, or the Dokan driver is unavailable.
 /// </summary>
+[Trait("Category", "Integration")]
 public sealed class MountZipFilesIntegrationTests
 {
     private static readonly string SimpleZipDriveExePath = Path.Combine(
@@ -110,10 +111,16 @@ public sealed class MountZipFilesIntegrationTests
             var entries = Directory.GetFileSystemEntries(driveRoot);
             Assert.NotEmpty(entries);
 
-            _ = await mountProcess.StandardOutput.ReadToEndAsync();
-            var stderr = await mountProcess.StandardError.ReadToEndAsync();
-            Assert.True(string.IsNullOrEmpty(stderr) || !stderr.Contains("error", StringComparison.OrdinalIgnoreCase),
-                $"SimpleZipDrive reported errors for '{gameName}': {stderr}");
+            // SimpleZipDrive stays alive while the drive is mounted, so its stdout/stderr streams never
+            // reach EOF. Only drain them if the process has already exited; otherwise ReadToEndAsync would
+            // block forever. The process is killed in the finally block below.
+            if (mountProcess.HasExited)
+            {
+                _ = await mountProcess.StandardOutput.ReadToEndAsync();
+                var stderr = await mountProcess.StandardError.ReadToEndAsync();
+                Assert.True(string.IsNullOrEmpty(stderr) || !stderr.Contains("error", StringComparison.OrdinalIgnoreCase),
+                    $"SimpleZipDrive reported errors for '{gameName}': {stderr}");
+            }
         }
         finally
         {

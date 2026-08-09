@@ -12,6 +12,7 @@ namespace SimpleLauncher.Tests;
 /// <summary>
 /// Tests that URLs referenced in parameters.md and EasyMode configuration files are reachable and valid.
 /// </summary>
+[Trait("Category", "Network")]
 public partial class UrlValidationTests
 {
     private static readonly HttpClient HttpClient = new(new SocketsHttpHandler

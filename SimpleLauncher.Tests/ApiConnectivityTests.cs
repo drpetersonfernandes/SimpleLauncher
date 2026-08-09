@@ -11,6 +11,7 @@ namespace SimpleLauncher.Tests;
 /// <summary>
 /// Tests connectivity to the bug report and statistics APIs used by SimpleLauncher.
 /// </summary>
+[Trait("Category", "Network")]
 public class ApiConnectivityTests
 {
     private static readonly HttpClient HttpClient = new(new SocketsHttpHandler

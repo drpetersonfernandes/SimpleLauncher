@@ -13,6 +13,7 @@ namespace SimpleLauncher.Tests;
 /// Stats API 1 (StatsApiUrl):  Usage/emulator launch statistics.
 /// Stats API 2 (StatsApiUrl2): Application version statistics.
 /// </summary>
+[Trait("Category", "Network")]
 public class StatsApiConnectionTests
 {
     private static readonly HttpClient HttpClient = new(new SocketsHttpHandler

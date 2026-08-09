@@ -130,7 +130,7 @@ public class ChdMountService
             emulatorMatch.Contains("FinalBurn Alpha", StringComparison.OrdinalIgnoreCase) ||
             locationMatch.Contains("fba64.exe", StringComparison.OrdinalIgnoreCase))
         {
-            return "cueisowav2048";
+            return "cuebinwav2352";
         }
 
         if (emulatorMatch.Contains("FBNeo", StringComparison.OrdinalIgnoreCase) ||
@@ -140,13 +140,13 @@ public class ChdMountService
             emulatorMatch.Contains("FinalBurn Neo", StringComparison.OrdinalIgnoreCase) ||
             locationMatch.Contains("fbneo64.exe", StringComparison.OrdinalIgnoreCase))
         {
-            return "cuebin2352";
+            return "cuebinwav2352";
         }
 
         if (emulatorMatch.Contains("Nebula", StringComparison.OrdinalIgnoreCase) ||
             locationMatch.Contains("nebula.exe", StringComparison.OrdinalIgnoreCase))
         {
-            return "cueiso2048";
+            return "cuebinwav2352";
         }
 
         if (emulatorMatch.Contains("raine", StringComparison.OrdinalIgnoreCase) ||

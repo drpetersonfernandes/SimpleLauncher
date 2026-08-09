@@ -1,3 +1,4 @@
+using SimpleLauncher.Tests.TestHelpers;
 using SimpleLauncher.ViewModels;
 using Xunit;
 
@@ -8,9 +9,16 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class DebugViewModelTests
 {
-    private static DebugViewModel CreateViewModel()
+    private static void RunTest(Action<DebugViewModel> test)
     {
-        return new DebugViewModel();
+        // DebugViewModel routes AppendingLogMessage/ClearLog through Application.Current.Dispatcher when an
+        // Application exists (it does, once any WPF test created one). Run on the STA pump thread so those
+        // operations execute synchronously and assertions are deterministic.
+        StaApartment.Run(() =>
+        {
+            var viewModel = new DebugViewModel();
+            test(viewModel);
+        });
     }
 
     /// <summary>
@@ -19,11 +27,13 @@ public class DebugViewModelTests
     [Fact]
     public void ConstructorInitializesEmptyLog()
     {
-        var viewModel = CreateViewModel();
-        Assert.Empty(viewModel.LogMessages);
-        Assert.Empty(viewModel.LogText);
-        Assert.False(viewModel.CanClearLog);
-        Assert.False(viewModel.CanCopyLog);
+        RunTest(viewModel =>
+        {
+            Assert.Empty(viewModel.LogMessages);
+            Assert.Empty(viewModel.LogText);
+            Assert.False(viewModel.CanClearLog);
+            Assert.False(viewModel.CanCopyLog);
+        });
     }
 
     /// <summary>
@@ -32,17 +42,19 @@ public class DebugViewModelTests
     [Fact]
     public void AppendLogMessageAddsMessageWithTimestamp()
     {
-        var viewModel = CreateViewModel();
-        var timestamp = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}";
-        const string message = "Test message";
-        var formattedMessage = $"{timestamp} [Debug] {message}";
-        viewModel.AppendLogMessage(formattedMessage);
-        Assert.Single(viewModel.LogMessages);
-        Assert.Contains(message, viewModel.LogMessages[0], StringComparison.Ordinal);
-        Assert.Contains(timestamp.Substring(0, 7), viewModel.LogMessages[0], StringComparison.Ordinal);
-        Assert.Contains(message, viewModel.LogText, StringComparison.Ordinal);
-        Assert.True(viewModel.CanClearLog);
-        Assert.True(viewModel.CanCopyLog);
+        RunTest(viewModel =>
+        {
+            var timestamp = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}";
+            const string message = "Test message";
+            var formattedMessage = $"{timestamp} [Debug] {message}";
+            viewModel.AppendLogMessage(formattedMessage);
+            Assert.Single(viewModel.LogMessages);
+            Assert.Contains(message, viewModel.LogMessages[0], StringComparison.Ordinal);
+            Assert.Contains(timestamp.Substring(0, 7), viewModel.LogMessages[0], StringComparison.Ordinal);
+            Assert.Contains(message, viewModel.LogText, StringComparison.Ordinal);
+            Assert.True(viewModel.CanClearLog);
+            Assert.True(viewModel.CanCopyLog);
+        });
     }
 
     /// <summary>
@@ -51,14 +63,16 @@ public class DebugViewModelTests
     [Fact]
     public void AppendLogMessageAddsMultipleMessages()
     {
-        var viewModel = CreateViewModel();
-        viewModel.AppendLogMessage("Message 1");
-        viewModel.AppendLogMessage("Message 2");
-        viewModel.AppendLogMessage("Message 3");
-        Assert.Equal(3, viewModel.LogMessages.Count);
-        Assert.Contains("Message 1", viewModel.LogText, StringComparison.Ordinal);
-        Assert.Contains("Message 2", viewModel.LogText, StringComparison.Ordinal);
-        Assert.Contains("Message 3", viewModel.LogText, StringComparison.Ordinal);
+        RunTest(viewModel =>
+        {
+            viewModel.AppendLogMessage("Message 1");
+            viewModel.AppendLogMessage("Message 2");
+            viewModel.AppendLogMessage("Message 3");
+            Assert.Equal(3, viewModel.LogMessages.Count);
+            Assert.Contains("Message 1", viewModel.LogText, StringComparison.Ordinal);
+            Assert.Contains("Message 2", viewModel.LogText, StringComparison.Ordinal);
+            Assert.Contains("Message 3", viewModel.LogText, StringComparison.Ordinal);
+        });
     }
 
     /// <summary>
@@ -67,9 +81,11 @@ public class DebugViewModelTests
     [Fact]
     public void ClearLogCommandCanExecuteWhenLogHasMessages()
     {
-        var viewModel = CreateViewModel();
-        viewModel.AppendLogMessage("Test");
-        Assert.True(viewModel.ClearLogCommand.CanExecute(null));
+        RunTest(viewModel =>
+        {
+            viewModel.AppendLogMessage("Test");
+            Assert.True(viewModel.ClearLogCommand.CanExecute(null));
+        });
     }
 
     /// <summary>
@@ -78,8 +94,10 @@ public class DebugViewModelTests
     [Fact]
     public void ClearLogCommandCannotExecuteWhenLogIsEmpty()
     {
-        var viewModel = CreateViewModel();
-        Assert.False(viewModel.ClearLogCommand.CanExecute(null));
+        RunTest(viewModel =>
+        {
+            Assert.False(viewModel.ClearLogCommand.CanExecute(null));
+        });
     }
 
     /// <summary>
@@ -88,14 +106,16 @@ public class DebugViewModelTests
     [Fact]
     public void ClearLogCommandClearsAllMessages()
     {
-        var viewModel = CreateViewModel();
-        viewModel.AppendLogMessage("Message 1");
-        viewModel.AppendLogMessage("Message 2");
-        viewModel.ClearLogCommand.Execute(null);
-        Assert.Empty(viewModel.LogMessages);
-        Assert.Empty(viewModel.LogText);
-        Assert.False(viewModel.CanClearLog);
-        Assert.False(viewModel.CanCopyLog);
+        RunTest(viewModel =>
+        {
+            viewModel.AppendLogMessage("Message 1");
+            viewModel.AppendLogMessage("Message 2");
+            viewModel.ClearLogCommand.Execute(null);
+            Assert.Empty(viewModel.LogMessages);
+            Assert.Empty(viewModel.LogText);
+            Assert.False(viewModel.CanClearLog);
+            Assert.False(viewModel.CanCopyLog);
+        });
     }
 
     /// <summary>
@@ -104,9 +124,11 @@ public class DebugViewModelTests
     [Fact]
     public void CopyLogCommandCanExecuteWhenLogHasContent()
     {
-        var viewModel = CreateViewModel();
-        viewModel.AppendLogMessage("Test");
-        Assert.True(viewModel.CopyLogCommand.CanExecute(null));
+        RunTest(viewModel =>
+        {
+            viewModel.AppendLogMessage("Test");
+            Assert.True(viewModel.CopyLogCommand.CanExecute(null));
+        });
     }
 
     /// <summary>
@@ -115,8 +137,10 @@ public class DebugViewModelTests
     [Fact]
     public void CopyLogCommandCannotExecuteWhenLogIsEmpty()
     {
-        var viewModel = CreateViewModel();
-        Assert.False(viewModel.CopyLogCommand.CanExecute(null));
+        RunTest(viewModel =>
+        {
+            Assert.False(viewModel.CopyLogCommand.CanExecute(null));
+        });
     }
 
     /// <summary>
@@ -125,9 +149,11 @@ public class DebugViewModelTests
     [Fact]
     public void CopyLogCommandExistsAndCanExecuteWhenLogHasContent()
     {
-        var viewModel = CreateViewModel();
-        viewModel.AppendLogMessage("Test message for clipboard");
-        Assert.True(viewModel.CopyLogCommand.CanExecute(null));
+        RunTest(viewModel =>
+        {
+            viewModel.AppendLogMessage("Test message for clipboard");
+            Assert.True(viewModel.CopyLogCommand.CanExecute(null));
+        });
     }
 
     /// <summary>
@@ -136,13 +162,15 @@ public class DebugViewModelTests
     [Fact]
     public void LogTextContainsAllMessagesJoined()
     {
-        var viewModel = CreateViewModel();
-        viewModel.AppendLogMessage("First");
-        viewModel.AppendLogMessage("Second");
-        var logText = viewModel.LogText;
-        Assert.Contains("First", logText, StringComparison.Ordinal);
-        Assert.Contains("Second", logText, StringComparison.Ordinal);
-        Assert.EndsWith(Environment.NewLine, logText, StringComparison.Ordinal);
+        RunTest(viewModel =>
+        {
+            viewModel.AppendLogMessage("First");
+            viewModel.AppendLogMessage("Second");
+            var logText = viewModel.LogText;
+            Assert.Contains("First", logText, StringComparison.Ordinal);
+            Assert.Contains("Second", logText, StringComparison.Ordinal);
+            Assert.EndsWith(Environment.NewLine, logText, StringComparison.Ordinal);
+        });
     }
 
     /// <summary>
@@ -151,17 +179,19 @@ public class DebugViewModelTests
     [Fact]
     public void PropertyChangedRaisedForCanClearLogWhenMessagesAdded()
     {
-        var viewModel = CreateViewModel();
-        var raised = false;
-        viewModel.PropertyChanged += (_, e) =>
+        RunTest(viewModel =>
         {
-            if (string.Equals(e.PropertyName, nameof(DebugViewModel.CanClearLog), StringComparison.Ordinal))
+            var raised = false;
+            viewModel.PropertyChanged += (_, e) =>
             {
-                raised = true;
-            }
-        };
-        viewModel.AppendLogMessage("Test");
-        Assert.True(raised);
+                if (string.Equals(e.PropertyName, nameof(DebugViewModel.CanClearLog), StringComparison.Ordinal))
+                {
+                    raised = true;
+                }
+            };
+            viewModel.AppendLogMessage("Test");
+            Assert.True(raised);
+        });
     }
 
     /// <summary>
@@ -170,17 +200,19 @@ public class DebugViewModelTests
     [Fact]
     public void PropertyChangedRaisedForCanCopyLogWhenMessagesAdded()
     {
-        var viewModel = CreateViewModel();
-        var raised = false;
-        viewModel.PropertyChanged += (_, e) =>
+        RunTest(viewModel =>
         {
-            if (string.Equals(e.PropertyName, nameof(DebugViewModel.CanCopyLog), StringComparison.Ordinal))
+            var raised = false;
+            viewModel.PropertyChanged += (_, e) =>
             {
-                raised = true;
-            }
-        };
-        viewModel.AppendLogMessage("Test");
-        Assert.True(raised);
+                if (string.Equals(e.PropertyName, nameof(DebugViewModel.CanCopyLog), StringComparison.Ordinal))
+                {
+                    raised = true;
+                }
+            };
+            viewModel.AppendLogMessage("Test");
+            Assert.True(raised);
+        });
     }
 
     /// <summary>
@@ -189,16 +221,18 @@ public class DebugViewModelTests
     [Fact]
     public void PropertyChangedRaisedForLogTextWhenMessagesAdded()
     {
-        var viewModel = CreateViewModel();
-        var raised = false;
-        viewModel.PropertyChanged += (_, e) =>
+        RunTest(viewModel =>
         {
-            if (string.Equals(e.PropertyName, nameof(DebugViewModel.LogText), StringComparison.Ordinal))
+            var raised = false;
+            viewModel.PropertyChanged += (_, e) =>
             {
-                raised = true;
-            }
-        };
-        viewModel.AppendLogMessage("Test");
-        Assert.True(raised);
+                if (string.Equals(e.PropertyName, nameof(DebugViewModel.LogText), StringComparison.Ordinal))
+                {
+                    raised = true;
+                }
+            };
+            viewModel.AppendLogMessage("Test");
+            Assert.True(raised);
+        });
     }
 }
