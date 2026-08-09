@@ -20,6 +20,12 @@ public class WpfDispatcherService : IDispatcherService
         return Application.Current.Dispatcher.InvokeAsync(func).Task;
     }
 
+    /// <summary>Asynchronously invokes the specified async function on the UI thread and awaits its completion.</summary>
+    public Task InvokeAsync(Func<Task> func)
+    {
+        return Application.Current.Dispatcher.InvokeAsync(func).Task.Unwrap();
+    }
+
     /// <summary>Synchronously invokes the specified action on the UI thread.</summary>
     public void Invoke(Action action)
     {
