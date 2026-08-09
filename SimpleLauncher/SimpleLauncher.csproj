@@ -885,6 +885,9 @@
         <None Update="tools\CHDMounter\README.md">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="tools\SimpleZipDrive\ReadMe.md">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
     <ItemGroup>
         <Page Include="resources2\Theme.HighContrast.xaml">
