@@ -1,5 +1,4 @@
 using Avalonia.Controls;
-using SimpleLauncher.Avalonia.ViewModels;
 using SystemSelectionViewModel = SimpleLauncher.Avalonia.ViewModels.SystemSelectionViewModel;
 
 namespace SimpleLauncher.Avalonia;

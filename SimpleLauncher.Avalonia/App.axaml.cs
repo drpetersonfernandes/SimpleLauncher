@@ -384,7 +384,7 @@ public class App : Application, IDisposable
                 logger,
                 sp.GetRequiredService<IExtractionService>(),
                 () => sp.GetRequiredService<SystemSelectionWindow>(),
-                () => (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
+                () => (Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
                       ?? throw new InvalidOperationException("Main window not available"),
                 sp.GetRequiredService<IRetroAchievementsSystemMatcher>(),
                 sp.GetRequiredService<IRetroAchievementsFileHasher>(),

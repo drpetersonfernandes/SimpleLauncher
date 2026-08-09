@@ -4,7 +4,6 @@ using SimpleLauncher.Avalonia.InjectConfigWindows;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.InjectEmulatorConfig;
-using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Avalonia.Services.GameLauncher.Handlers;
 

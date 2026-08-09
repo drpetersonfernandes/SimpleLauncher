@@ -6,7 +6,6 @@ using Avalonia.Interactivity;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Avalonia.Controls;
 using SimpleLauncher.Avalonia.Models;
-using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.RetroAchievements;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
@@ -746,7 +745,7 @@ public partial class RetroAchievementsForAGameWindow : Window, ILoadingState
                     : userProfile.RichPresenceMsg;
 
                 // Statistics
-                var rankFormat = "#{0}";
+                const string rankFormat = "#{0}";
                 RankValue.Text = string.IsNullOrWhiteSpace(userProfile.Rank) ? "N/A" : string.Format(CultureInfo.InvariantCulture, rankFormat, userProfile.Rank);
                 PointsValue.Text = userProfile.TotalPoints.ToString("N0", CultureInfo.InvariantCulture);
                 TruePointsValue.Text = userProfile.TotalTruePoints.ToString("N0", CultureInfo.InvariantCulture);
@@ -763,7 +762,7 @@ public partial class RetroAchievementsForAGameWindow : Window, ILoadingState
 
                 // Additional details
                 UserProfileId.Text = userProfile.Id.ToString(CultureInfo.InvariantCulture);
-                var contributionsFormat = "{0} contributions ({1:N0} points)";
+                const string contributionsFormat = "{0} contributions ({1:N0} points)";
                 UserProfileContributions.Text = string.Format(CultureInfo.InvariantCulture, contributionsFormat, userProfile.ContribCount, userProfile.ContribYield);
                 UserProfileSoftcorePoints.Text = userProfile.TotalSoftcorePoints.ToString("N0", CultureInfo.InvariantCulture);
                 UserProfilePermissions.Text = GetPermissionDescription(userProfile.Permissions);

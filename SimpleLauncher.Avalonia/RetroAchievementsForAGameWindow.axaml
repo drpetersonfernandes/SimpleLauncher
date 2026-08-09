@@ -770,7 +770,7 @@
         </TabControl>
 
         <!-- Loading Overlay -->
-        <Border x:Name="LoadingOverlay" Background="{DynamicResource OverlayProcessingBrush}" IsVisible="False" ZIndex="10">
+        <Border Grid.Row="0" x:Name="LoadingOverlay" Background="{DynamicResource OverlayProcessingBrush}" IsVisible="False" ZIndex="10">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="260">
                 <ProgressBar IsIndeterminate="True" Width="220" />
                 <TextBlock x:Name="LoadingOverlayMessage" Text="Loading..." Margin="0,12,0,0"

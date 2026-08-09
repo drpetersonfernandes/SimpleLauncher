@@ -1,6 +1,4 @@
 using Avalonia.Controls;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Avalonia.Services.AvaloniaServices;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
 

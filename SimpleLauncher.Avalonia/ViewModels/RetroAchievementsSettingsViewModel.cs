@@ -117,6 +117,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
             }
 
             if (RequestExePath is not { } request) return;
+
             var exePath = await request();
             if (string.IsNullOrEmpty(exePath)) return;
 

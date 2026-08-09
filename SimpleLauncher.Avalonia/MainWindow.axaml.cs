@@ -598,7 +598,7 @@ public partial class MainWindow : Window
         win.ShowDialog(this);
     }
 
-    private void AddInjectMenuItem(ContextMenu menu, string header, Action openWindow)
+    private static void AddInjectMenuItem(ContextMenu menu, string header, Action openWindow)
     {
         var item = new MenuItem { Header = header };
         item.Click += (_, _) =>
