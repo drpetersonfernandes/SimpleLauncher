@@ -9,6 +9,7 @@ using ControlzEx.Theming;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog.Events;
+using SimpleLauncher.Core;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services;
 using SimpleLauncher.Core.Services.CheckForFileLock;
@@ -111,6 +112,9 @@ public partial class App : IDisposable
             .AddJsonFile("appsettings.json", false, true);
 
         var configuration = builder.Build();
+
+        // Decrypt the API key once at launch so it is available to every service at runtime.
+        AppConstants.InitializeApiKey(configuration["ApiKey"]);
 
         // Parse args early for DI registration
         var isDebugMode = e.Args.Any(static arg => arg.Equals("-debug", StringComparison.OrdinalIgnoreCase));

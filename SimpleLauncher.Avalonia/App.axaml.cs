@@ -5,6 +5,7 @@ using Avalonia.Threading;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog.Events;
+using SimpleLauncher.Core;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.AvaloniaServices;
 using SimpleLauncher.Avalonia.Services.Favorites;
@@ -102,6 +103,9 @@ public class App : Application, IDisposable
             .AddJsonFile("appsettings.json", false, true);
 
         var configuration = builder.Build();
+
+        // Decrypt the API key once at launch so it is available to every service at runtime.
+        AppConstants.InitializeApiKey(configuration["ApiKey"]);
 
         // Serilog setup
         var appDataLogFolder = Path.Combine(

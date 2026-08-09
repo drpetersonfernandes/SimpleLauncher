@@ -43,7 +43,14 @@ public class StatsApiConnectionTests
         var settingsPath = GetProjectFilePath(Path.Combine("SimpleLauncher", "appsettings.json"));
         Assert.True(File.Exists(settingsPath), $"appsettings.json not found at {settingsPath}");
         var json = await File.ReadAllTextAsync(settingsPath);
-        return JsonDocument.Parse(json);
+        var settings = JsonDocument.Parse(json);
+
+        // Mirror the app launch: decrypt the API key from appsettings.json into AppConstants.
+        AppConstants.InitializeApiKey(settings.RootElement.TryGetProperty("ApiKey", out var apiKey)
+            ? apiKey.GetString()
+            : null);
+
+        return settings;
     }
 
     private static (string apiKey, string statsUrl1, string statsUrl2) ReadStatsConfig(JsonDocument settings)

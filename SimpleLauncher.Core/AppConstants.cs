@@ -131,18 +131,42 @@ internal static class AppConstants
 
     // API key
     /// <summary>
-    /// The application API key, stored double Base64-encoded so it is not present in plain text.
-    /// Retrieve the real value via <see cref="GetApiKey"/>.
+    /// The runtime-decoded application API key. The encrypted value is read from appsettings.json
+    /// and decoded once at application launch via <see cref="InitializeApiKey"/>.
     /// </summary>
-    private const string ApiKeyEncoded =
-        "YUdwb04zbDFOblExTm5SNWNqVTBNRzg1ZFRnM05qYzJOelp5TlRZM05EVXpORFExTXpJek5USTJOR00zTldJMmREZG5aMmRvWjJjM05uUnlaalUyTkdVPQ==";
+    private static string? _apiKey;
 
     /// <summary>
-    /// Returns the application API key, decoded from its double Base64-encoded constant.
+    /// Reads the encrypted API key from configuration, decodes it, and caches the plaintext
+    /// for the rest of the application lifetime. Called once at application launch.
+    /// </summary>
+    /// <param name="encodedApiKey">The double Base64-encoded API key from appsettings.json ("ApiKey" entry).</param>
+    public static void InitializeApiKey(string? encodedApiKey)
+    {
+        _apiKey = DecodeApiKey(encodedApiKey);
+    }
+
+    /// <summary>
+    /// Returns the application API key (decrypted at launch), or an empty string if it was
+    /// not initialized or could not be decoded.
     /// </summary>
     public static string GetApiKey()
     {
-        var decodedOnce = Encoding.UTF8.GetString(Convert.FromBase64String(ApiKeyEncoded));
-        return Encoding.UTF8.GetString(Convert.FromBase64String(decodedOnce));
+        return _apiKey ?? "";
+    }
+
+    private static string DecodeApiKey(string? encodedApiKey)
+    {
+        if (string.IsNullOrEmpty(encodedApiKey)) return "";
+
+        try
+        {
+            var decodedOnce = Encoding.UTF8.GetString(Convert.FromBase64String(encodedApiKey));
+            return Encoding.UTF8.GetString(Convert.FromBase64String(decodedOnce));
+        }
+        catch (FormatException)
+        {
+            return "";
+        }
     }
 }
