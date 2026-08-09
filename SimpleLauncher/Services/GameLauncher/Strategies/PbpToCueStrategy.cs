@@ -85,27 +85,14 @@ public class PbpToCueStrategy : ILaunchStrategy
             finally
             {
                 // CLEANUP: Delete the temporary .cue and .bin files
-                // Also handle potential _disc1 suffix that psxpackager may add
                 try
                 {
-                    var tempFolder = Path.GetDirectoryName(cuePath);
-                    var baseFileName = Path.GetFileNameWithoutExtension(cuePath);
-
                     // Delete the main .cue and .bin files
                     if (File.Exists(cuePath)) File.Delete(cuePath);
                     var binPath = Path.ChangeExtension(cuePath, ".bin");
                     if (File.Exists(binPath)) File.Delete(binPath);
 
-                    // Also delete potential _disc1 variants
-                    if (!string.IsNullOrEmpty(tempFolder))
-                    {
-                        var disc1CuePath = Path.Combine(tempFolder, $"{baseFileName}_disc1.cue");
-                        var disc1BinPath = Path.Combine(tempFolder, $"{baseFileName}_disc1.bin");
-                        if (File.Exists(disc1CuePath)) File.Delete(disc1CuePath);
-                        if (File.Exists(disc1BinPath)) File.Delete(disc1BinPath);
-                    }
-
-                    _logger.Debug($"Cleaned up temporary PBP conversion files: {baseFileName}");
+                    _logger.Debug($"Cleaned up temporary PBP conversion files: {Path.GetFileNameWithoutExtension(cuePath)}");
                 }
                 catch (Exception ex)
                 {

@@ -26,6 +26,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\PBPSharp\PBPSharp.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
         <PackageReference Include="InputSimulatorCore" Version="1.0.5" />
         <PackageReference Include="Meziantou.Analyzer" Version="3.0.141">

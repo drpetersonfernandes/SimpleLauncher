@@ -93,7 +93,6 @@ Simple Launcher includes a comprehensive suite of specialized utilities:
   - BatchConvertToRVZ: Convert to RVZ format (Dolphin)
   - BatchConvertIsoToXiso: Convert ISO to XISO format
   - BatchConvertToCompressedFile: Convert to 7z/Zip format
-  - PSXPackager: Package PS1 games
 * **Metadata & Cover Tools:**
   - FindRomCover: Intelligent cover art finder
   - GameCoverScraper: Web-based cover art scraper

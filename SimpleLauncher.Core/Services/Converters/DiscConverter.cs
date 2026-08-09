@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
+using PBPSharp;
+using PBPSharp.Models;
 using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Core.Services.Converters;
@@ -204,7 +206,7 @@ public class DiscConverter : IDiscConverter
     }
 
     /// <summary>
-    /// Converts a PBP disc image to a CUE/BIN pair using psxpackager.
+    /// Converts a PBP disc image to a CUE/BIN pair using the managed PBPSharp library.
     /// </summary>
     /// <param name="pbpPath">The path of the PBP file to convert.</param>
     /// <returns>The path of the converted CUE file, or null if the conversion failed.</returns>
@@ -212,95 +214,52 @@ public class DiscConverter : IDiscConverter
     {
         try
         {
-            var arch = RuntimeInformation.ProcessArchitecture;
-            if (arch == Architecture.Arm64)
-            {
-                _logger.Debug("[ConvertPbpToCueBin] PSXPackager is not available for ARM64 architecture.");
-                return null;
-            }
-
-            var psxPackagerPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "PSXPackager", "psxpackager.exe");
-
-            if (!File.Exists(psxPackagerPath))
-            {
-                _logger.Debug($"[ConvertPbpToCueBin] psxpackager not found at {psxPackagerPath}. Cannot convert PBP.");
-                return null;
-            }
-
-            var psxPackagerDir = Path.GetDirectoryName(psxPackagerPath);
             Directory.CreateDirectory(TempFolder);
 
             var tempFileName = Guid.NewGuid().ToString();
             var tempCuePath = Path.Combine(TempFolder, $"{tempFileName}.cue");
             var tempBinPath = Path.Combine(TempFolder, $"{tempFileName}.bin");
 
-            var args = $"-i \"{pbpPath}\" -o \"{tempBinPath}\" -d 1";
+            _logger.Debug("[ConvertPbpToCueBin] Converting from PBP to CUE/BIN using PBPSharp.");
 
-            var processStartInfo = new ProcessStartInfo
+            return await Task.Run(() =>
             {
-                FileName = psxPackagerPath,
-                Arguments = args,
-                RedirectStandardOutput = false,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true,
-                WorkingDirectory = psxPackagerDir
-            };
-
-            using var process = new Process();
-            process.StartInfo = processStartInfo;
-
-            _logger.Debug($"[ConvertPbpToCueBin] Running psxpackager with args: {args}");
-            _logger.Debug("[ConvertPbpToCueBin] Converting from PBP to CUE/BIN.");
-
-            var errorBuilder = new StringBuilder();
-            process.ErrorDataReceived += (_, e) =>
-            {
-                if (!string.IsNullOrEmpty(e.Data))
-                    errorBuilder.AppendLine(e.Data);
-            };
-
-            process.Start();
-            process.BeginErrorReadLine();
-
-            using var timeoutCts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
-            try
-            {
-                await process.WaitForExitAsync(timeoutCts.Token);
-            }
-            catch (OperationCanceledException)
-            {
-                _logger.Debug("[ConvertPbpToCueBin] Conversion timed out after 5 minutes. Killing process.");
-                try
+                var openError = PbpFile.Open(pbpPath, out var pbp);
+                if (openError != PbpError.None || pbp is null)
                 {
-                    process.Kill();
-                }
-                catch
-                {
-                    /* ignored */
+                    _logger.Debug($"[ConvertPbpToCueBin] Failed to open PBP file '{pbpPath}': {openError}.");
+                    return null;
                 }
 
-                return null;
-            }
+                using (pbp)
+                {
+                    if (pbp.Discs.Count == 0)
+                    {
+                        _logger.Debug("[ConvertPbpToCueBin] PBP contains no discs.");
+                        return null;
+                    }
 
-            if (process.ExitCode == 0)
-            {
-                if (File.Exists(tempCuePath))
+                    // Extract only disc 1 (Discs[0]) since we can only play one disc at a time.
+                    var disc = pbp.Discs[0];
+                    var extractError = disc.ExtractToBinCue(tempBinPath, tempCuePath);
+                    if (extractError != PbpError.None)
+                    {
+                        _logger.Debug($"[ConvertPbpToCueBin] PBPSharp extraction failed: {extractError}.");
+                        TryDeleteTempFiles(tempCuePath, tempBinPath);
+                        return null;
+                    }
+                }
+
+                if (File.Exists(tempCuePath) && File.Exists(tempBinPath))
                 {
                     _logger.Debug("[ConvertPbpToCueBin] Conversion successful.");
                     return tempCuePath;
                 }
 
-                var disc1CuePath = Path.Combine(TempFolder, $"{tempFileName}_disc1.cue");
-                if (File.Exists(disc1CuePath))
-                {
-                    _logger.Debug("[ConvertPbpToCueBin] Conversion successful (disc 1 variant).");
-                    return disc1CuePath;
-                }
-            }
-
-            _logger.Debug($"[ConvertPbpToCueBin] psxpackager failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
-            return null;
+                _logger.Debug("[ConvertPbpToCueBin] Conversion failed: output files were not created.");
+                TryDeleteTempFiles(tempCuePath, tempBinPath);
+                return null;
+            });
         }
         catch (Exception ex)
         {
@@ -395,6 +354,22 @@ public class DiscConverter : IDiscConverter
             _logger.Error(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
             _logger.Error(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
             return null;
+        }
+    }
+
+    /// <summary>
+    /// Best-effort deletion of temporary conversion files (e.g. a partial BIN left behind by a failed extraction).
+    /// </summary>
+    private static void TryDeleteTempFiles(string tempCuePath, string tempBinPath)
+    {
+        try
+        {
+            if (File.Exists(tempCuePath)) File.Delete(tempCuePath);
+            if (File.Exists(tempBinPath)) File.Delete(tempBinPath);
+        }
+        catch
+        {
+            // Best effort only; the OS will eventually clean up temp files.
         }
     }
 }

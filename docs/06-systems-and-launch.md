@@ -76,7 +76,7 @@ Ordered by `Priority`; first `IsMatch` wins:
 | `ChdToCueStrategy` | 25 | `.chd` + 4DO / Raine | `ConvertChdToCueBinAsync` → launch `.cue` → delete temp |
 | `XisoMountStrategy` | 20 | Cxbx + `.iso` | mount XISO → launch mounted `default.xbe` |
 | `CommanderGeniusLaunchStrategy` | 20 | Commander Genius + archive | resolve CG data path, extract to `games\<zipname>`, `dir="games/<zipname>"` |
-| `PbpToCueStrategy` | 15 | `.pbp` + Mednafen | `ConvertPbpToCueBinAsync` → launch `.cue` → clean temp incl. `_disc1` |
+| `PbpToCueStrategy` | 15 | `.pbp` + Mednafen | `ConvertPbpToCueBinAsync` → launch `.cue` → clean temp |
 | `ChdMountStrategy` | 10 | `.chd` (not RetroArch/DOSBox) + 19-emulator list | mount via CHDMounter, find launch file per emulator (EBOOT.BIN/default.xex/image.iso/default.xbe/`.bin`/`.cue`), regular launch |
 
 ## Extraction (`ExtractionService`)
@@ -107,7 +107,7 @@ Ordered by `Priority`; first `IsMatch` wins:
 |---|---|---|
 | `ConvertChdToIsoAsync` (`:31`) | `tools\BatchConvertToCHD\chdman.exe` (+arm64) | `extractdvd -i -o` |
 | `ConvertChdToCueBinAsync` (`:121`) | chdman | `extractcd -i -o` |
-| `ConvertPbpToCueBinAsync` (`:211`) | `tools\PSXPackager\psxpackager.exe` (x64 only) | `-i -o -d 1`; handles `_disc1` |
+| `ConvertPbpToCueBinAsync` (`:211`) | PBPSharp (managed library) | `PbpFile.Open` → disc 1 → `ExtractToBinCue` |
 | `ConvertToIsoAsync` (`:317`) | `tools\BatchConvertToRVZ\DolphinTool.exe` (+arm64) | `convert --format=iso --input --output` |
 
 ## Emulator config handlers (21) & Core configuration services

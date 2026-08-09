@@ -214,7 +214,7 @@ Run "Scan for store games" after installing 1–2 real games per store. Verify p
 
 ## Appendix A — Orphaned code (no runtime path, no manual test needed)
 
-- `ConvertChdToCueBin`, `ConvertChdToIso`, `ConvertDiscImageToIso`, `ConvertPbpToCueBin` (`SimpleLauncher\Services\Converters\`) — static duplicates of `DiscConverter`; nothing in the app calls them. Only a code-cleanup check is needed (compile, remove or redirect).
+- `ConvertChdToCueBin`, `ConvertChdToIso`, `ConvertDiscImageToIso` (`SimpleLauncher\Services\Converters\`) — static duplicates of `DiscConverter`; nothing in the app calls them. Only a code-cleanup check is needed (compile, remove or redirect).
 - `Point`, `Rectangle` (P/Invoke structs in `WindowScreenshot`) — exercised via the screenshot flow in section 4.
 
 ## Appendix B — Coverage summary

@@ -21,7 +21,7 @@ Every tool ships x64 + ARM64 variants (`X.exe` + `X_arm64.exe`) unless noted. Al
 | `CreateBatchFilesForScummVMGames` | `.exe`, `_arm64.exe` | ScummVM game launchers |
 | `CreateBatchFilesForWindowsGames` | `.exe`, `_arm64.exe` | Windows game launchers |
 | `CreateBatchFilesForXbox360XBLAGames` | `.exe`, `_arm64.exe` | Xbox 360 XBLA launchers |
-| `PSXPackager` | `psxpackager.exe` (x64 only) | PS1 disc packaging; used by `DiscConverter.ConvertPbpToCueBinAsync` |
+| `PBPSharp` | managed library (`PBPSharp\`) | PS1 PBP → CUE/BIN extraction; used by `DiscConverter.ConvertPbpToCueBinAsync` |
 | `RAHasher` | `RAHasher.exe` | RetroAchievements complex-system hashing |
 | `FindRomCover` | x64/arm64 subfolders | Cover-art finder tool |
 | `RetroGameCoverDownloader` | `.exe`, `_arm64.exe` | Bulk retro cover downloads |
