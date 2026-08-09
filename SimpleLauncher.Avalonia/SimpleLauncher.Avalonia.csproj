@@ -59,6 +59,7 @@
         <PackageReference Include="Avalonia" Version="12.1.1" />
         <PackageReference Include="Avalonia.Desktop" Version="12.1.1" />
         <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.1" />
+        <PackageReference Include="Avalonia.Controls.DataGrid" Version="12.1.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -74,6 +75,9 @@
          must use Include + Link — Update only modifies already-included items. -->
     <ItemGroup>
         <None Include="..\SimpleLauncher\tools\CHDMounter\*" Link="tools\CHDMounter\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="..\SimpleLauncher\tools\RAHasher\*" Link="tools\RAHasher\%(Filename)%(Extension)">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Include="..\SimpleLauncher\images\systems\*.png" Link="images\systems\%(Filename)%(Extension)">

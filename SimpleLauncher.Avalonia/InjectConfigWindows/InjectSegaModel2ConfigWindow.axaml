@@ -1,0 +1,125 @@
+<Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectSegaModel2ConfigWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
+        Title="SEGA Model 2 Configuration"
+        Height="700" Width="700"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource BgPrimaryBrush}">
+
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+    </Window.Resources>
+
+    <Grid Margin="10" RowDefinitions="*,Auto">
+
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Renderer Section -->
+                <GroupBox Header="Renderer" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Fullscreen Resolution:" Classes="form-label"
+                                   Margin="0,5,0,0"
+                                   ToolTip.Tip="Sets the width and height for fullscreen mode." />
+                        <Grid ColumnDefinitions="*,Auto,*">
+                            <NumericUpDown Grid.Column="0" Minimum="640" Maximum="7680" Increment="1"
+                                           Value="{Binding ResX}"
+                                           ToolTip.Tip="Set the horizontal resolution." />
+                            <TextBlock Grid.Column="1" Text="x" VerticalAlignment="Center" Margin="10,0" />
+                            <NumericUpDown Grid.Column="2" Minimum="480" Maximum="4320" Increment="1"
+                                           Value="{Binding ResY}"
+                                           ToolTip.Tip="Set the vertical resolution." />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*" Margin="0,5">
+                            <TextBlock Text="Widescreen (Windowed):" Classes="form-label"
+                                       VerticalAlignment="Center"
+                                       ToolTip.Tip="Sets the aspect ratio for windowed mode." />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding WideScreenOptions}"
+                                      SelectedItem="{Binding WideScreen}"
+                                      ToolTip.Tip="Sets the aspect ratio for windowed mode." />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*" Margin="0,5">
+                            <TextBlock Text="Fullscreen Anti-Aliasing (FSAA):" Classes="form-label"
+                                       VerticalAlignment="Center"
+                                       ToolTip.Tip="Enables full screen antialiasing in Direct3D. Requires restart of the emulator." />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding FsaaOptions}"
+                                      SelectedItem="{Binding Fsaa}"
+                                      ToolTip.Tip="Enables full screen antialiasing in Direct3D. Requires restart of the emulator." />
+                        </Grid>
+
+                        <CheckBox IsChecked="{Binding Bilinear}"
+                                  Content="Bilinear Filtering"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Enables bilinear filtering of textures." />
+                        <CheckBox IsChecked="{Binding Trilinear}"
+                                  Content="Trilinear Filtering"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Enables mipmap usage and trilinear filtering. Doesn't work with all games." />
+                        <CheckBox IsChecked="{Binding FilterTilemaps}"
+                                  Content="Filter Tilemaps"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Enables bilinear filtering on tilemaps. Can cause some artifacts." />
+                        <CheckBox IsChecked="{Binding DrawCross}"
+                                  Content="Show Crosshair"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Shows a crosshair in gun games." />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Input Section -->
+                <GroupBox Header="Input" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox IsChecked="{Binding XInput}"
+                                  Content="Enable XInput"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Enable support for Xbox 360 compatible devices." />
+                        <CheckBox IsChecked="{Binding EnableFf}"
+                                  Content="Enable Force Feedback"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Enables Force Feedback effects for supported controllers." />
+                        <CheckBox IsChecked="{Binding HoldGears}"
+                                  Content="Hold Gears"
+                                  Margin="0,5"
+                                  ToolTip.Tip="When enabled, gear shifts in driving games return to Neutral when the key is released." />
+                        <CheckBox IsChecked="{Binding UseRawInput}"
+                                  Content="Use RawInput for Mouse"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Allows using two mice simultaneously by reading mouse input through RawInput." />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- CRITICAL SETTING -->
+                <Border Classes="important-setting">
+                    <StackPanel>
+                        <TextBlock Text="⚠ IMPORTANT SETTING" Classes="important-setting-header" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
+                                  Content="Show this window before launching a game"
+                                  ToolTip.Tip="Show this window before launching a game." />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave" Content="Save"
+                    Classes="secondary"
+                    Command="{Binding SaveCommand}"
+                    ToolTip.Tip="Save the configuration and close this window." />
+            <Button Content="Save &amp; Run"
+                    Classes="primary"
+                    Command="{Binding RunCommand}"
+                    IsDefault="True"
+                    IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
+                    ToolTip.Tip="Save the configuration and run the game." />
+            <Button Content="Cancel"
+                    Classes="secondary"
+                    Command="{Binding CancelCommand}"
+                    ToolTip.Tip="Cancel and close this window without saving changes." />
+        </StackPanel>
+    </Grid>
+</Window>

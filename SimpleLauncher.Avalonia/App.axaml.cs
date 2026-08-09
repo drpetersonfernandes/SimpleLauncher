@@ -10,8 +10,10 @@ using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.AvaloniaServices;
 using SimpleLauncher.Avalonia.Services.Favorites;
 using SimpleLauncher.Avalonia.Services.GameLauncher;
+using SimpleLauncher.Avalonia.Services.GameLauncher.Handlers;
 using SimpleLauncher.Avalonia.Services.GameScan;
 using SimpleLauncher.Avalonia.Services.InjectEmulatorConfig;
+using SimpleLauncher.Avalonia.InjectConfigWindows;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Avalonia.Services.RetroAchievements;
 using SimpleLauncher.Avalonia.Services.SystemManager;
@@ -138,6 +140,7 @@ public class App : Application, IDisposable
 
         ServiceProvider = serviceCollection.BuildServiceProvider();
 
+
         // Initialize the bug report sink with DI services (queues Warning+ events to the API)
         bugReportSink.Initialize(
             ServiceProvider.GetRequiredService<IHttpClientFactory>(),
@@ -221,7 +224,6 @@ public class App : Application, IDisposable
 
         services.AddSingleton<SettingsManagerService>();
         services.AddSingleton<MameDataService>();
-        services.AddSingleton<RetroAchievementsManager>();
         services.AddSingleton<IRetroAchievementsFileHasher, RetroAchievementsFileHasher>();
         services.AddSingleton<IRetroAchievementsEmulatorConfiguratorService, RetroAchievementsEmulatorConfiguratorService>();
         services.AddSingleton<IRetroAchievementsSystemMatcher, RetroAchievementsSystemMatcher>();
@@ -235,6 +237,7 @@ public class App : Application, IDisposable
         services.AddSingleton<IExtractionService>(sp => sp.GetRequiredService<ExtractionService>());
         services.AddSingleton<DownloadManager>();
         services.AddSingleton<DiscConverter>();
+        services.AddSingleton<IDiscConverter>(sp => sp.GetRequiredService<DiscConverter>());
         services.AddSingleton<EasyModeManager>();
         services.AddSingleton<ExternalToolLauncherService>();
         services.AddSingleton<PlaySoundEffects>();
@@ -287,9 +290,106 @@ public class App : Application, IDisposable
         services.AddSingleton<ChdMountService>();
         services.AddSingleton<RetroAchievementsService>();
 
-        // NOTE: The 21 IEmulatorConfigHandler implementations and their Inject*ConfigWindow
-        // dialogs are NOT ported yet (deferred scope). MinimalLauncherService will simply
-        // find no matching handlers until they are added.
+        // ── Emulator config injection (21 emulators) ──
+        // ViewModels (transient — one per window instance)
+        services.AddTransient<InjectAresConfigViewModel>();
+        services.AddTransient<InjectAzaharConfigViewModel>();
+        services.AddTransient<InjectBlastemConfigViewModel>();
+        services.AddTransient<InjectCemuConfigViewModel>();
+        services.AddTransient<InjectDaphneConfigViewModel>();
+        services.AddTransient<InjectDolphinConfigViewModel>();
+        services.AddTransient<InjectDuckStationConfigViewModel>();
+        services.AddTransient<InjectFlycastConfigViewModel>();
+        services.AddTransient<InjectMameConfigViewModel>();
+        services.AddTransient<InjectMednafenConfigViewModel>();
+        services.AddTransient<InjectMesenConfigViewModel>();
+        services.AddTransient<InjectPcsx2ConfigViewModel>();
+        services.AddTransient<InjectRaineConfigViewModel>();
+        services.AddTransient<InjectRedreamConfigViewModel>();
+        services.AddTransient<InjectRetroArchConfigViewModel>();
+        services.AddTransient<InjectRpcs3ConfigViewModel>();
+        services.AddTransient<InjectSegaModel2ConfigViewModel>();
+        services.AddTransient<InjectStellaConfigViewModel>();
+        services.AddTransient<InjectSupermodelConfigViewModel>();
+        services.AddTransient<InjectXeniaConfigViewModel>();
+        services.AddTransient<InjectYumirConfigViewModel>();
+
+        // Windows (transient — new instance each resolve, same as the WPF app)
+        services.AddTransient<InjectAresConfigWindow>();
+        services.AddTransient<InjectAzaharConfigWindow>();
+        services.AddTransient<InjectBlastemConfigWindow>();
+        services.AddTransient<InjectCemuConfigWindow>();
+        services.AddTransient<InjectDaphneConfigWindow>();
+        services.AddTransient<InjectDolphinConfigWindow>();
+        services.AddTransient<InjectDuckStationConfigWindow>();
+        services.AddTransient<InjectFlycastConfigWindow>();
+        services.AddTransient<InjectMameConfigWindow>();
+        services.AddTransient<InjectMednafenConfigWindow>();
+        services.AddTransient<InjectMesenConfigWindow>();
+        services.AddTransient<InjectPcsx2ConfigWindow>();
+        services.AddTransient<InjectRaineConfigWindow>();
+        services.AddTransient<InjectRedreamConfigWindow>();
+        services.AddTransient<InjectRetroArchConfigWindow>();
+        services.AddTransient<InjectRpcs3ConfigWindow>();
+        services.AddTransient<InjectSegaModel2ConfigWindow>();
+        services.AddTransient<InjectStellaConfigWindow>();
+        services.AddTransient<InjectSupermodelConfigWindow>();
+        services.AddTransient<InjectXeniaConfigWindow>();
+        services.AddTransient<InjectYumirConfigWindow>();
+
+        // Handlers (singletons, same as the WPF app) — MinimalLauncherService runs
+        // every matching handler before a game launches (silent injection, or the
+        // config window when "Show settings before launch" is enabled).
+        services.AddSingleton<IEmulatorConfigHandler, AresConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, AzaharConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, BlastemConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, CemuConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, DaphneConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, DolphinConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, DuckStationConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, FlycastConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, MameConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, MednafenConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, MesenConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, Pcsx2ConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, RaineConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, RedreamConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, RetroArchConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, Rpcs3ConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, SegaModel2ConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, StellaConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, SupermodelConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, XeniaConfigHandler>();
+        services.AddSingleton<IEmulatorConfigHandler, YumirConfigHandler>();
+
+        // ── RetroAchievements UI ──
+        services.AddTransient<SystemSelectionViewModel>();
+        services.AddTransient<SystemSelectionWindow>();
+        services.AddTransient<RetroAchievementsSettingsViewModel>();
+        services.AddTransient<RetroAchievementsSettingsWindow>();
+        services.AddTransient<ImageViewerViewModel>();
+        services.AddTransient<ImageViewerWindow>();
+        services.AddTransient<RetroAchievementsWindow>();
+        services.AddTransient<RetroAchievementsForAGameWindow>();
+        // Load the RA game database once (hash -> game lookups need the .dat file)
+        services.AddSingleton(sp =>
+        {
+            var logger = sp.GetRequiredService<ILogger>();
+            return RetroAchievementsManager.LoadRetroAchievement(logger, logger);
+        });
+        services.AddSingleton<IRetroAchievementsHasherTool>(sp =>
+        {
+            var logger = sp.GetRequiredService<ILogger>();
+            return new RetroAchievementsHasherTool(
+                logger,
+                sp.GetRequiredService<IExtractionService>(),
+                () => sp.GetRequiredService<SystemSelectionWindow>(),
+                () => (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
+                      ?? throw new InvalidOperationException("Main window not available"),
+                sp.GetRequiredService<IRetroAchievementsSystemMatcher>(),
+                sp.GetRequiredService<IRetroAchievementsFileHasher>(),
+                sp.GetRequiredService<IDiscConverter>());
+        });
 
         // ── Windows (transient — new instance each resolve) ──
         // NOTE: GameDetailWindow is intentionally NOT registered — it takes per-game

@@ -293,6 +293,24 @@
                                 <TextBlock Text="Preferences" />
                             </StackPanel>
                         </Button>
+                        <Button Classes="secondary"
+                                Margin="0,4,0,0"
+                                Padding="12,8"
+                                Click="EmulatorSettings_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🎮  " FontSize="14" />
+                                <TextBlock Text="Emulator Settings" />
+                            </StackPanel>
+                        </Button>
+                        <Button Classes="secondary"
+                                Margin="0,4,0,0"
+                                Padding="12,8"
+                                Click="RetroAchievements_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🏆  " FontSize="14" />
+                                <TextBlock Text="RetroAchievements" />
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                 </Grid>
             </Border>

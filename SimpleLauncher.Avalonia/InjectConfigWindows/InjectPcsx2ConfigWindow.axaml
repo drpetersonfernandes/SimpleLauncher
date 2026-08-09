@@ -1,0 +1,117 @@
+<Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectPcsx2ConfigWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
+        Title="PCSX2 Configuration Injector"
+        Height="700" Width="700"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource BgPrimaryBrush}">
+
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+    </Window.Resources>
+
+    <Grid Margin="10" RowDefinitions="*,Auto">
+
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Video Section -->
+                <GroupBox Header="Video &amp; Graphics" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <Grid ColumnDefinitions="*,*" Margin="0,0,0,5">
+                            <TextBlock Text="Renderer:" Classes="form-label" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding RendererDisplayNames}"
+                                      SelectedItem="{Binding Pcsx2Renderer}"
+                                      ToolTip.Tip="Select the graphics API. Vulkan is recommended for most modern GPUs." />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,*" Margin="0,5">
+                            <TextBlock Text="Internal Resolution:" Classes="form-label" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding UpscaleDisplayNames}"
+                                      SelectedItem="{Binding Pcsx2UpscaleMultiplier}"
+                                      ToolTip.Tip="Higher values increase clarity but require more GPU power." />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,*" Margin="0,5">
+                            <TextBlock Text="Aspect Ratio:" Classes="form-label" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AspectOptions}"
+                                      SelectedItem="{Binding Pcsx2AspectRatio}"
+                                      ToolTip.Tip="Choose between standard 4:3 or widescreen 16:9." />
+                        </Grid>
+                        <CheckBox IsChecked="{Binding Pcsx2Vsync}"
+                                  Content="Enable VSync"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Prevents screen tearing but may add slight input lag." />
+                        <CheckBox IsChecked="{Binding Pcsx2EnableWidescreenPatches}"
+                                  Content="Enable Widescreen Patches"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Forces games to render in 16:9 if a patch is available." />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- General Section -->
+                <GroupBox Header="General Settings" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox IsChecked="{Binding Pcsx2StartFullscreen}"
+                                  Content="Start in Fullscreen"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Launches the emulator in fullscreen mode automatically." />
+                        <CheckBox IsChecked="{Binding Pcsx2EnableCheats}"
+                                  Content="Enable Cheats"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Enables loading of .pnach cheat files." />
+                        <TextBlock Text="Master Volume:" Classes="form-label" />
+                        <Slider Value="{Binding Pcsx2Volume}"
+                                Minimum="0" Maximum="100"
+                                IsSnapToTickEnabled="True" TickFrequency="1"
+                                ToolTip.Tip="Adjust the overall output volume of the emulator." />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Achievements Section -->
+                <GroupBox Header="RetroAchievements" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox IsChecked="{Binding Pcsx2AchievementsEnabled}"
+                                  Content="Enable Achievements"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Connect to RetroAchievements.org to track progress." />
+                        <CheckBox IsChecked="{Binding Pcsx2AchievementsHardcore}"
+                                  Content="Hardcore Mode"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Disables save states and cheats for a real challenge and double points." />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- CRITICAL SETTING -->
+                <Border Classes="important-setting">
+                    <StackPanel>
+                        <TextBlock Text="⚠ IMPORTANT SETTING" Classes="important-setting-header" />
+                        <CheckBox IsChecked="{Binding Pcsx2ShowSettingsBeforeLaunch}"
+                                  Content="Show this window before launching PCSX2"
+                                  ToolTip.Tip="Show this window before launching a game." />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave"
+                    Content="Save"
+                    Classes="secondary"
+                    Command="{Binding SaveCommand}"
+                    ToolTip.Tip="Save the configuration and close this window." />
+            <Button Content="Save &amp; Run"
+                    Classes="primary"
+                    Command="{Binding RunCommand}"
+                    IsDefault="True"
+                    IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
+                    ToolTip.Tip="Save the configuration and run the game." />
+            <Button Content="Cancel"
+                    Classes="secondary"
+                    Command="{Binding CancelCommand}"
+                    ToolTip.Tip="Cancel and close this window without saving changes." />
+        </StackPanel>
+    </Grid>
+</Window>

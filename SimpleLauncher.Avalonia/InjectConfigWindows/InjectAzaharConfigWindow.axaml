@@ -1,0 +1,131 @@
+<Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectAzaharConfigWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
+        Title="Azahar Configuration"
+        Height="650" Width="700"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource BgPrimaryBrush}">
+
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+    </Window.Resources>
+
+    <Grid Margin="10" RowDefinitions="*,Auto">
+
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Video Section -->
+                <GroupBox Header="Video &amp; Renderer">
+                    <StackPanel Margin="5">
+                        <Grid ColumnDefinitions="*,*" Margin="0,5">
+                            <TextBlock Text="Graphics API:" Classes="form-label" />
+                            <ComboBox Grid.Column="1"
+                                      SelectedValue="{Binding GraphicsApi}"
+                                      SelectedValueBinding="{Binding Tag}"
+                                      ToolTip.Tip="Choose between OpenGL (Legacy) or Vulkan (Modern/Faster).">
+                                <ComboBoxItem Content="OpenGL" Tag="0" />
+                                <ComboBoxItem Content="Vulkan" Tag="2" />
+                            </ComboBox>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,*" Margin="0,5">
+                            <TextBlock Text="Resolution Factor:" Classes="form-label" />
+                            <ComboBox Grid.Column="1"
+                                      SelectedValue="{Binding Resolution}"
+                                      SelectedValueBinding="{Binding Tag}"
+                                      ToolTip.Tip="Internal resolution multiplier. Higher values look better but require more GPU power.">
+                                <ComboBoxItem Content="Auto" Tag="0" />
+                                <ComboBoxItem Content="1x Native" Tag="1" />
+                                <ComboBoxItem Content="2x (800x480)" Tag="2" />
+                                <ComboBoxItem Content="3x (1200x720)" Tag="3" />
+                                <ComboBoxItem Content="4x (1600x960)" Tag="4" />
+                            </ComboBox>
+                        </Grid>
+
+                        <CheckBox IsChecked="{Binding Fullscreen}"
+                                  Content="Start in Fullscreen"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Automatically switch to fullscreen mode when a game starts." />
+                        <CheckBox IsChecked="{Binding Vsync}"
+                                  Content="Enable VSync"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Synchronizes frame rate with monitor refresh rate to prevent screen tearing." />
+                        <CheckBox IsChecked="{Binding AsyncShader}"
+                                  Content="Use Async Shader Compilation"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Reduces stuttering during gameplay by compiling shaders in the background." />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- System Section -->
+                <GroupBox Header="System Settings">
+                    <StackPanel Margin="5">
+                        <CheckBox IsChecked="{Binding IsNew3Ds}"
+                                  Content="Emulate New 3DS"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Enables New 3DS specific features and higher CPU clock for compatible games." />
+                        <Grid ColumnDefinitions="*,*" Margin="0,5">
+                            <TextBlock Text="Screen Layout:" Classes="form-label" />
+                            <ComboBox Grid.Column="1"
+                                      SelectedValue="{Binding Layout}"
+                                      SelectedValueBinding="{Binding Tag}"
+                                      ToolTip.Tip="How the top and bottom screens are arranged in the window.">
+                                <ComboBoxItem Content="Default" Tag="0" />
+                                <ComboBoxItem Content="Single Screen" Tag="1" />
+                                <ComboBoxItem Content="Large Screen" Tag="2" />
+                                <ComboBoxItem Content="Side by Side" Tag="3" />
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Audio Section -->
+                <GroupBox Header="Audio">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Master Volume:" Classes="form-label" />
+                        <Slider Value="{Binding Volume}"
+                                Minimum="0"
+                                Maximum="100"
+                                IsSnapToTickEnabled="True"
+                                TickFrequency="1"
+                                ToolTip.Tip="Adjust the overall output volume of the emulator." />
+                        <CheckBox IsChecked="{Binding AudioStretching}"
+                                  Content="Enable Audio Stretching"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Enable audio stretching to prevent audio crackling." />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- CRITICAL SETTING -->
+                <Border Classes="important-setting">
+                    <StackPanel>
+                        <TextBlock Text="⚠ IMPORTANT SETTING" Classes="important-setting-header" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
+                                  Content="Show this window before launching a game"
+                                  ToolTip.Tip="Show this window before launching a game." />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave"
+                    Content="Save"
+                    Classes="secondary"
+                    Command="{Binding SaveCommand}"
+                    ToolTip.Tip="Save the configuration and close this window." />
+            <Button Content="Save &amp; Run"
+                    Classes="primary"
+                    Command="{Binding RunCommand}"
+                    IsDefault="True"
+                    IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
+                    ToolTip.Tip="Save the configuration and run the game." />
+            <Button Content="Cancel"
+                    Classes="secondary"
+                    Command="{Binding CancelCommand}"
+                    ToolTip.Tip="Cancel and close this window without saving changes." />
+        </StackPanel>
+    </Grid>
+</Window>

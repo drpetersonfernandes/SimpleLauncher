@@ -29,6 +29,16 @@ public class AvaloniaDispatcherService : IDispatcherService
         return _dispatcher.InvokeAsync(action).GetTask();
     }
 
+    public Task InvokeAsync(Func<Task> func)
+    {
+        if (_dispatcher.CheckAccess())
+        {
+            return func();
+        }
+
+        return _dispatcher.InvokeAsync(func);
+    }
+
     public Task<T> InvokeAsync<T>(Func<T> func)
     {
         if (_dispatcher.CheckAccess())

@@ -285,6 +285,48 @@
         <Setter Property="CornerRadius" Value="{StaticResource PillCornerRadius}" />
     </Style>
 
+    <!-- ── GROUP BOX (form section in emulator config dialogs) ──
+         Matches the section Border look used across the port (BgSecondary + subtle border). -->
+    <Style Selector="GroupBox">
+        <Setter Property="Background" Value="{DynamicResource BgSecondaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderSubtleBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Padding" Value="14" />
+        <Setter Property="Margin" Value="0,0,0,12" />
+    </Style>
+
+    <!-- ── IMPORTANT SETTING (accent-tinted critical section in emulator config dialogs) ── -->
+    <Style Selector="Border.important-setting">
+        <Setter Property="Background" Value="#1AD12733" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Padding" Value="14" />
+        <Setter Property="Margin" Value="0,0,0,12" />
+    </Style>
+    <Style Selector="TextBlock.important-setting-header">
+        <Setter Property="Foreground" Value="{DynamicResource AccentBrush}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Margin" Value="0,0,0,6" />
+    </Style>
+
+    <!-- ── FORM FIELD (label + control rows in emulator config dialogs) ── -->
+    <Style Selector="TextBlock.form-label">
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="TextBox.dialog-textbox">
+        <Setter Property="Background" Value="{DynamicResource BgTertiaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderNormalBrush}" />
+        <Setter Property="Padding" Value="10,6" />
+        <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}" />
+        <Setter Property="FontSize" Value="13" />
+    </Style>
+
     <!-- ── SECTION HEADER (collapsible sidebar groups) ── -->
     <Style Selector="ToggleButton.section-header">
         <Setter Property="Background" Value="Transparent" />

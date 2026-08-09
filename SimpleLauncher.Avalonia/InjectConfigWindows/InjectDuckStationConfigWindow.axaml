@@ -1,0 +1,148 @@
+<Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectDuckStationConfigWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
+        Title="DuckStation Configuration"
+        Height="800" Width="700"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource BgPrimaryBrush}">
+
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+    </Window.Resources>
+
+    <Grid Margin="10" RowDefinitions="*,Auto">
+
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- General Section -->
+                <GroupBox Header="General Settings" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox IsChecked="{Binding DuckStationStartFullscreen}"
+                                  Content="Start in Fullscreen"
+                                  Margin="0,5"
+                                  ToolTip.Tip="If checked, the game will start in fullscreen mode." />
+                        <CheckBox IsChecked="{Binding DuckStationPauseOnFocusLoss}"
+                                  Content="Pause When Focus is Lost"
+                                  Margin="0,5"
+                                  ToolTip.Tip="If checked, the emulation will pause when the window is not active." />
+                        <CheckBox IsChecked="{Binding DuckStationSaveStateOnExit}"
+                                  Content="Save State On Exit"
+                                  Margin="0,5"
+                                  ToolTip.Tip="If checked, a save state will be automatically created when you close the game." />
+                        <CheckBox IsChecked="{Binding DuckStationRewindEnable}"
+                                  Content="Enable Rewind"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Enables the ability to rewind gameplay. May impact performance." />
+                        <TextBlock Text="Runahead Frames"
+                                   Classes="form-label"
+                                   ToolTip.Tip="Reduces input latency by running emulation ahead and rolling back. Use with caution, requires a powerful CPU." />
+                        <Slider Value="{Binding DuckStationRunaheadFrameCount}"
+                                Minimum="0" Maximum="8"
+                                IsSnapToTickEnabled="True" TickFrequency="1"
+                                ToolTip.Tip="Reduces input latency by running emulation ahead and rolling back. Use with caution, requires a powerful CPU." />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Video/GPU Section -->
+                <GroupBox Header="Video &amp; GPU Settings" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <Grid ColumnDefinitions="*,*" Margin="0,0,0,5">
+                            <TextBlock Text="Renderer" Classes="form-label" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding RendererOptions}"
+                                      SelectedItem="{Binding DuckStationRenderer}"
+                                      ToolTip.Tip="Select the graphics API to use. 'Automatic' is recommended. Vulkan or D3D12 may offer better performance." />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
+                            <TextBlock Text="Internal Resolution Scale" Classes="form-label" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding ResolutionScaleOptions}"
+                                      SelectedValue="{Binding DuckStationResolutionScale}"
+                                      SelectedValueBinding="{Binding Tag}"
+                                      ToolTip.Tip="Increases the internal rendering resolution for sharper graphics. 1x is native resolution.">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Display}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </Grid>
+                        <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
+                            <TextBlock Text="Texture Filtering" Classes="form-label" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding TextureFilterOptions}"
+                                      SelectedItem="{Binding DuckStationTextureFilter}"
+                                      ToolTip.Tip="'Nearest' provides a sharp, pixelated look. 'Bilinear' smooths textures." />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
+                            <TextBlock Text="Aspect Ratio" Classes="form-label" />
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AspectRatioOptions}"
+                                      SelectedItem="{Binding DuckStationAspectRatio}"
+                                      ToolTip.Tip="Sets the display aspect ratio for the game." />
+                        </Grid>
+                        <CheckBox IsChecked="{Binding DuckStationWidescreenHack}"
+                                  Content="Enable Widescreen Hack"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Attempts to render games in 16:9 widescreen. May cause visual glitches." />
+                        <CheckBox IsChecked="{Binding DuckStationPgxpEnable}"
+                                  Content="Enable PGXP Geometry Correction"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Fixes wobbly polygons and other 3D rendering issues common on the original PlayStation." />
+                        <CheckBox IsChecked="{Binding DuckStationVsync}"
+                                  Content="Enable VSync"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Synchronizes the frame rate with your monitor's refresh rate to prevent screen tearing." />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Audio Section -->
+                <GroupBox Header="Audio Settings" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox IsChecked="{Binding DuckStationOutputMuted}"
+                                  Content="Mute Audio"
+                                  Margin="0,5"
+                                  ToolTip.Tip="If checked, all audio from the emulator will be muted." />
+                        <TextBlock Text="Master Volume"
+                                   Classes="form-label"
+                                   ToolTip.Tip="Adjusts the master audio volume." />
+                        <Slider Value="{Binding DuckStationOutputVolume}"
+                                Minimum="0" Maximum="100"
+                                IsSnapToTickEnabled="True" TickFrequency="1"
+                                ToolTip.Tip="Adjusts the master audio volume." />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- CRITICAL SETTING -->
+                <Border Classes="important-setting">
+                    <StackPanel>
+                        <TextBlock Text="⚠ IMPORTANT SETTING" Classes="important-setting-header" />
+                        <CheckBox IsChecked="{Binding DuckStationShowSettingsBeforeLaunch}"
+                                  Content="Show this window before launching a game"
+                                  ToolTip.Tip="Show this window before launching a game." />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave"
+                    Content="Save"
+                    Classes="secondary"
+                    Command="{Binding SaveCommand}"
+                    ToolTip.Tip="Save the configuration and close this window." />
+            <Button Content="Save &amp; Run"
+                    Classes="primary"
+                    Command="{Binding RunCommand}"
+                    IsDefault="True"
+                    IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
+                    ToolTip.Tip="Save the configuration and run the game." />
+            <Button Content="Cancel"
+                    Classes="secondary"
+                    Command="{Binding CancelCommand}"
+                    ToolTip.Tip="Cancel and close this window without saving changes." />
+        </StackPanel>
+    </Grid>
+</Window>

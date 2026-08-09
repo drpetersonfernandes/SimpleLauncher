@@ -1,0 +1,147 @@
+<Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectRaineConfigWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
+        Title="Raine Configuration"
+        Height="600" Width="650"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource BgPrimaryBrush}">
+
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+    </Window.Resources>
+
+    <Grid Margin="10" RowDefinitions="*,Auto">
+
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Video Section -->
+                <GroupBox Header="Video Settings" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox IsChecked="{Binding RaineFullscreen}"
+                                  Content="Fullscreen"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Enable fullscreen mode." />
+                        <CheckBox IsChecked="{Binding RaineFixAspectRatio}"
+                                  Content="Fix Aspect Ratio"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Fix the aspect ratio." />
+                        <CheckBox IsChecked="{Binding RaineVsync}"
+                                  Content="Enable VSync (Double Buffering)"
+                                  Margin="0,5"
+                                  ToolTip.Tip="Enable vertical sync." />
+
+                        <TextBlock Text="Resolution (Width x Height):" Classes="form-label"
+                                   Margin="0,5,0,0" />
+                        <Grid ColumnDefinitions="*,Auto,*">
+                            <NumericUpDown Grid.Column="0" Minimum="320" Maximum="7680" Increment="1"
+                                           Value="{Binding RaineResX}"
+                                           ToolTip.Tip="Set the horizontal resolution." />
+                            <TextBlock Grid.Column="1" Text="x" VerticalAlignment="Center" Margin="10,0" />
+                            <NumericUpDown Grid.Column="2" Minimum="240" Maximum="4320" Increment="1"
+                                           Value="{Binding RaineResY}"
+                                           ToolTip.Tip="Set the vertical resolution." />
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Audio Section -->
+                <GroupBox Header="Audio Settings" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Sound Driver:" Classes="form-label" />
+                        <ComboBox ItemsSource="{Binding SoundDriverOptions}"
+                                  SelectedItem="{Binding RaineSoundDriver}"
+                                  ToolTip.Tip="Select the audio driver." />
+
+                        <TextBlock Text="Sample Rate (Hz):" Classes="form-label" Margin="0,5,0,0" />
+                        <ComboBox ItemsSource="{Binding SampleRateOptions}"
+                                  SelectedValue="{Binding RaineSampleRate}"
+                                  ToolTip.Tip="Select the audio sample rate." />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- General Section -->
+                <GroupBox Header="General" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox IsChecked="{Binding RaineShowFps}" Content="Show FPS" Margin="0,5" ToolTip.Tip="Show frames per second." />
+                        <TextBlock Text="Frame Skip" Classes="form-label" />
+                        <ComboBox ItemsSource="{Binding FrameSkipOptions}"
+                                  SelectedValue="{Binding RaineFrameSkip}"
+                                  ToolTip.Tip="Set the frame skip value." />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- NeoGeo CD Section -->
+                <GroupBox Header="NeoGeo CD Section" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="NeoGeo CD BIOS" Classes="form-label" />
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBox Grid.Column="0" Margin="0,0,5,10"
+                                     Text="{Binding RaineNeoCdBios}"
+                                     ToolTip.Tip="Select the NeoCD BIOS." />
+                            <Button Grid.Column="1" Content="..." Width="30" Height="25" VerticalAlignment="Bottom" Margin="0,0,0,10"
+                                    Command="{Binding SelectNeoCdBiosCommand}"
+                                    ToolTip.Tip="Choose the NeoCD BIOS file." />
+                        </Grid>
+
+                        <TextBlock Text="Music Volume" Classes="form-label" />
+                        <NumericUpDown Minimum="0" Maximum="200" Increment="1" Margin="0,0,0,5"
+                                       Value="{Binding RaineMusicVolume}"
+                                       ToolTip.Tip="Adjust the music volume." />
+
+                        <TextBlock Text="SFX Volume" Classes="form-label" />
+                        <NumericUpDown Minimum="0" Maximum="200" Increment="1" Margin="0,0,0,5"
+                                       Value="{Binding RaineSfxVolume}"
+                                       ToolTip.Tip="Adjust the sound effects volume." />
+
+                        <CheckBox IsChecked="{Binding RaineMuteSfx}" Content="Mute SFX" Margin="0,5" ToolTip.Tip="Mute sound effects." />
+                        <CheckBox IsChecked="{Binding RaineMuteMusic}" Content="Mute Music" Margin="0,5" ToolTip.Tip="Mute music." />
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Directories Section -->
+                <GroupBox Header="Directories" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="ROM Directory" Classes="form-label" />
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBox Grid.Column="0" Margin="0,0,5,0"
+                                     Text="{Binding RaineRomDirectory}"
+                                     ToolTip.Tip="Select the ROM directory." />
+                            <Button Grid.Column="1" Content="..." Width="30" Height="25"
+                                    Command="{Binding SelectRaineRomDirectoryCommand}"
+                                    ToolTip.Tip="Choose the ROM directory folder." />
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- CRITICAL SETTING -->
+                <Border Classes="important-setting">
+                    <StackPanel>
+                        <TextBlock Text="⚠ IMPORTANT SETTING" Classes="important-setting-header" />
+                        <CheckBox IsChecked="{Binding RaineShowSettingsBeforeLaunch}"
+                                  Content="Show this window before launching Raine"
+                                  ToolTip.Tip="Show this window before launching a game." />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave" Content="Save"
+                    Classes="secondary"
+                    Command="{Binding SaveCommand}"
+                    ToolTip.Tip="Save the configuration and close this window." />
+            <Button Content="Save &amp; Run"
+                    Classes="primary"
+                    Command="{Binding RunCommand}"
+                    IsDefault="True"
+                    IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
+                    ToolTip.Tip="Save the configuration and run the game." />
+            <Button Content="Cancel"
+                    Classes="secondary"
+                    Command="{Binding CancelCommand}"
+                    ToolTip.Tip="Cancel and close this window without saving changes." />
+        </StackPanel>
+    </Grid>
+</Window>

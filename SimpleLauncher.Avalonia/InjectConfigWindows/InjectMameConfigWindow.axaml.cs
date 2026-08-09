@@ -1,0 +1,80 @@
+using Avalonia.Controls;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Avalonia.Services.AvaloniaServices;
+using SimpleLauncher.Avalonia.ViewModels;
+using SimpleLauncher.Core.Interfaces;
+
+namespace SimpleLauncher.Avalonia.InjectConfigWindows;
+
+/// <summary>
+/// Window for injecting MAME emulator configuration settings.
+/// </summary>
+public partial class InjectMameConfigWindow : Window
+{
+    private readonly InjectMameConfigViewModel _viewModel;
+    private readonly IFilePickerService _filePicker;
+    private readonly Func<Task<string?>> _requestEmulatorPathHandler;
+    private readonly Func<Window> _getOwnerWindowHandler;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InjectMameConfigWindow"/> class.
+    /// </summary>
+    /// <param name="viewModel">The view model providing configuration logic.</param>
+    /// <param name="filePicker">The file picker service used to locate the emulator executable.</param>
+    public InjectMameConfigWindow(InjectMameConfigViewModel viewModel, IFilePickerService filePicker)
+    {
+        InitializeComponent();
+
+        _viewModel = viewModel;
+        _filePicker = filePicker;
+        _requestEmulatorPathHandler = OnRequestEmulatorPath;
+        _getOwnerWindowHandler = () => this;
+
+        _viewModel.CloseRequested += OnCloseRequested;
+        _viewModel.RequestEmulatorPath += _requestEmulatorPathHandler;
+        _viewModel.GetOwnerWindow += _getOwnerWindowHandler;
+
+        Closing += (_, _) =>
+        {
+            _viewModel.CloseRequested -= OnCloseRequested;
+            _viewModel.RequestEmulatorPath -= _requestEmulatorPathHandler;
+            _viewModel.GetOwnerWindow -= _getOwnerWindowHandler;
+        };
+
+        DataContext = _viewModel;
+    }
+
+    private void OnCloseRequested(object? sender, EventArgs e)
+    {
+        Close();
+    }
+
+    /// <summary>
+    /// Initializes the window with the specified emulator path, launcher mode, and ROM paths.
+    /// </summary>
+    /// <param name="emulatorPath">Optional path to the MAME emulator executable.</param>
+    /// <param name="isLauncherMode">If true, the window operates in launcher mode.</param>
+    /// <param name="systemRomPath">Optional path to the system ROM.</param>
+    /// <param name="listOfSecondaryRomPaths">Optional array of secondary ROM paths.</param>
+    public void Initialize(string? emulatorPath = null, bool isLauncherMode = true, string? systemRomPath = null, string[]? listOfSecondaryRomPaths = null)
+    {
+        _viewModel.Initialize(emulatorPath, isLauncherMode, systemRomPath, listOfSecondaryRomPaths);
+
+        if (!isLauncherMode)
+        {
+            BtnSave.IsDefault = true;
+        }
+    }
+
+    /// <summary>
+    /// Gets whether the emulator should be launched after configuration.
+    /// </summary>
+    public bool ShouldRun => _viewModel.ShouldRun;
+
+    private async Task<string?> OnRequestEmulatorPath()
+    {
+        return await _filePicker.OpenFileAsync(
+            "Select MAME Emulator",
+            "MAME Executable|mame*.exe|All Executables|*.exe");
+    }
+}

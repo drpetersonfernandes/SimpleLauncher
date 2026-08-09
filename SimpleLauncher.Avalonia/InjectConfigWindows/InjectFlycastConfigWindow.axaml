@@ -1,0 +1,75 @@
+<Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectFlycastConfigWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
+        Title="Flycast Configuration"
+        Height="450" Width="700"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource BgPrimaryBrush}">
+
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+    </Window.Resources>
+
+    <Grid Margin="10" RowDefinitions="*,Auto">
+
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Video Section -->
+                <GroupBox Header="Video Settings" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox IsChecked="{Binding Fullscreen}"
+                                  Content="Run in Fullscreen"
+                                  Margin="0,5"
+                                  ToolTip.Tip="If checked, the emulator will start in fullscreen mode." />
+                        <CheckBox IsChecked="{Binding Maximized}"
+                                  Content="Start Maximized"
+                                  Margin="0,5"
+                                  ToolTip.Tip="If checked, the emulator window will start maximized (borderless windowed)." />
+
+                        <TextBlock Text="Window Resolution (Width x Height)" Classes="form-label"
+                                   Margin="0,5,0,0"
+                                   ToolTip.Tip="Sets the resolution of the emulator window when not in fullscreen mode." />
+                        <Grid ColumnDefinitions="*,Auto,*">
+                            <NumericUpDown Grid.Column="0" Minimum="640" Maximum="7680" Increment="1"
+                                           Value="{Binding Width}"
+                                           ToolTip.Tip="Set the horizontal resolution." />
+                            <TextBlock Grid.Column="1" Text="x" VerticalAlignment="Center" Margin="10,0" />
+                            <NumericUpDown Grid.Column="2" Minimum="480" Maximum="4320" Increment="1"
+                                           Value="{Binding Height}"
+                                           ToolTip.Tip="Set the vertical resolution." />
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- CRITICAL SETTING -->
+                <Border Classes="important-setting">
+                    <StackPanel>
+                        <TextBlock Text="⚠ IMPORTANT SETTING" Classes="important-setting-header" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
+                                  Content="Show this window before launching a game"
+                                  ToolTip.Tip="Show this window before launching a game." />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave" Content="Save"
+                    Classes="secondary"
+                    Command="{Binding SaveCommand}"
+                    ToolTip.Tip="Save the configuration and close this window." />
+            <Button Content="Save &amp; Run"
+                    Classes="primary"
+                    Command="{Binding RunCommand}"
+                    IsDefault="True"
+                    IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
+                    ToolTip.Tip="Save the configuration and run the game." />
+            <Button Content="Cancel"
+                    Classes="secondary"
+                    Command="{Binding CancelCommand}"
+                    ToolTip.Tip="Cancel and close this window without saving changes." />
+        </StackPanel>
+    </Grid>
+</Window>

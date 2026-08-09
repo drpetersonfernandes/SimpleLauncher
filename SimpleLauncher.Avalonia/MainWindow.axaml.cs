@@ -10,7 +10,12 @@ using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Avalonia.Converters;
+using SimpleLauncher.Avalonia.InjectConfigWindows;
 using SimpleLauncher.Avalonia.ViewModels;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.RetroAchievements;
 
 namespace SimpleLauncher.Avalonia;
 
@@ -469,6 +474,10 @@ public partial class MainWindow : Window
         detailItem.Click += (_, _) => OpenGameDetail(game);
         contextMenu.Items.Add(detailItem);
 
+        var raItem = new MenuItem { Header = "🏆 Achievements" };
+        raItem.Click += async (_, _) => await OpenRetroAchievementsForGameAsync(game);
+        contextMenu.Items.Add(raItem);
+
         var copyItem = new MenuItem { Header = "📋 Copy Path" };
         copyItem.Click += async (_, _) =>
         {
@@ -536,6 +545,216 @@ public partial class MainWindow : Window
         {
             _systemManagerService.InvalidateCache();
             _viewModel.NavigateToAllGamesCommand.Execute(null);
+        }
+    }
+
+    #endregion
+
+    #region Emulator Settings (config injection)
+
+    /// <summary>
+    /// Opens a menu listing every emulator whose configuration can be injected,
+    /// then opens the matching config window in standalone mode (no launch).
+    /// Same feature as the WPF app's "Tools → Inject Emulator Config" menu.
+    /// </summary>
+    private void EmulatorSettings_Click(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Control placementTarget) return;
+
+        var menu = new ContextMenu
+        {
+            Placement = PlacementMode.Pointer
+        };
+
+        AddInjectMenuItem(menu, "Ares", () => OpenInjectWindow<InjectAresConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "Azahar", () => OpenInjectWindow<InjectAzaharConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "Blastem", () => OpenInjectWindow<InjectBlastemConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "Cemu", () => OpenInjectWindow<InjectCemuConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "Daphne", () => OpenInjectWindow<InjectDaphneConfigWindow>(w => w.Initialize(false)));
+        AddInjectMenuItem(menu, "Dolphin", () => OpenInjectWindow<InjectDolphinConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "DuckStation", () => OpenInjectWindow<InjectDuckStationConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "Flycast", () => OpenInjectWindow<InjectFlycastConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "MAME", () => OpenInjectWindow<InjectMameConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "Mednafen", () => OpenInjectWindow<InjectMednafenConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "Mesen", () => OpenInjectWindow<InjectMesenConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "PCSX2", () => OpenInjectWindow<InjectPcsx2ConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "Raine", () => OpenInjectWindow<InjectRaineConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "Redream", () => OpenInjectWindow<InjectRedreamConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "RetroArch", () => OpenInjectWindow<InjectRetroArchConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "RPCS3", () => OpenInjectWindow<InjectRpcs3ConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "SEGA Model 2", () => OpenInjectWindow<InjectSegaModel2ConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "Stella", () => OpenInjectWindow<InjectStellaConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "Supermodel", () => OpenInjectWindow<InjectSupermodelConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "Xenia", () => OpenInjectWindow<InjectXeniaConfigWindow>(w => w.Initialize(null, false)));
+        AddInjectMenuItem(menu, "Yumir", () => OpenInjectWindow<InjectYumirConfigWindow>(w => w.Initialize(null, false)));
+
+        menu.Open(placementTarget);
+    }
+
+    private void OpenInjectWindow<T>(Action<T> initialize) where T : Window
+    {
+        var win = App.ServiceProvider.GetRequiredService<T>();
+        initialize(win);
+        win.ShowDialog(this);
+    }
+
+    private void AddInjectMenuItem(ContextMenu menu, string header, Action openWindow)
+    {
+        var item = new MenuItem { Header = header };
+        item.Click += (_, _) =>
+        {
+            try
+            {
+                openWindow();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to open {Emulator} config window", header);
+            }
+        };
+        menu.Items.Add(item);
+    }
+
+    #endregion
+
+    #region RetroAchievements
+
+    /// <summary>
+    /// Opens the RetroAchievements profile window.
+    /// </summary>
+    private void RetroAchievements_Click(object? sender, RoutedEventArgs e)
+    {
+        var raWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsWindow>();
+        if (raWindow.IsVisible)
+        {
+            raWindow.Activate();
+            return;
+        }
+
+        raWindow.Show(this);
+    }
+
+    /// <summary>
+    /// Computes the game hash, looks it up in the local RA database and opens the
+    /// per-game achievements window (same flow as the WPF context menu).
+    /// </summary>
+    private async Task OpenRetroAchievementsForGameAsync(GameCardViewModel game)
+    {
+        var sp = App.ServiceProvider;
+        var logger = sp.GetRequiredService<ILogger>();
+        var messageBox = sp.GetRequiredService<IMessageBoxLibraryService>();
+        var raManager = sp.GetRequiredService<RetroAchievementsManager>();
+        var raHasherTool = sp.GetRequiredService<IRetroAchievementsHasherTool>();
+        var playSound = sp.GetRequiredService<PlaySoundEffects>();
+
+        var filePath = game.FilePath;
+        var systemName = game.SystemName;
+        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath) ?? filePath;
+
+        try
+        {
+            if (string.IsNullOrWhiteSpace(filePath) || string.IsNullOrWhiteSpace(systemName))
+            {
+                await messageBox.ErrorMessageBoxAsync();
+                return;
+            }
+
+            var fileFormatsToLaunch = _systemManagerService.GetSystem(systemName)?.FileFormatsToLaunch
+                                      ?? new List<string>();
+
+            // Loading adapter: show a toast while hashing (MainWindow has no overlay)
+            ILoadingState loadingState = new ToastLoadingState((title, message) => ShowToast(title, message));
+
+            ShowToast("RetroAchievements", "Calculating game hash... Please wait.");
+
+            var raHashResult = await raHasherTool.GetGameHashForRetroAchievementsAsync(
+                filePath, systemName, fileFormatsToLaunch, loadingState, logger);
+
+            if (string.Equals(raHashResult.ExtractionErrorMessage, "System selection cancelled by user.", StringComparison.Ordinal))
+            {
+                logger.Debug("[RA Service] User cancelled RetroAchievements hashing.");
+                return;
+            }
+
+            var hash = raHashResult.Hash;
+
+            if (string.IsNullOrEmpty(hash))
+            {
+                // Check if the failure was due to "system not supported"
+                if (raHashResult.ExtractionErrorMessage?.Contains("not supported for RetroAchievements hashing", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    var result = await messageBox.GameNotSupportedByRetroAchievementsMessageBoxAsync();
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        playSound.PlayNotificationSound();
+                        var retroAchievementsWindow = sp.GetRequiredService<RetroAchievementsWindow>();
+                        retroAchievementsWindow.Show(this);
+                    }
+                }
+                else if (!raHashResult.IsExtractionSuccessful)
+                {
+                    await messageBox.ExtractionFailedMessageBoxAsync(); // Inform user about extraction failure
+                }
+                else
+                {
+                    var result = await messageBox.GameNotSupportedByRetroAchievementsMessageBoxAsync();
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        playSound.PlayNotificationSound();
+                        var retroAchievementsWindow = sp.GetRequiredService<RetroAchievementsWindow>();
+                        retroAchievementsWindow.Show(this);
+                    }
+                }
+
+                return;
+            }
+
+            logger.Debug($"[RA Service] Successfully obtained hash: {hash}");
+
+            // Look up the hash in the local database
+            var matchedGame = raManager.GetGameInfoByHash(hash);
+
+            if (matchedGame != null)
+            {
+                logger.Debug($"[RA Service] Found match for hash: {hash} -> {matchedGame.Title} (ID: {matchedGame.Id})");
+
+                var achievementsWindow = sp.GetRequiredService<RetroAchievementsForAGameWindow>();
+                achievementsWindow.Initialize(matchedGame.Id, fileNameWithoutExtension);
+                achievementsWindow.Show(this);
+            }
+            else
+            {
+                logger.Debug($"[RA Service] No match found for hash: {hash}");
+
+                var result = await messageBox.GameNotSupportedByRetroAchievementsMessageBoxAsync();
+                if (result == MessageBoxResult.Yes)
+                {
+                    playSound.PlayNotificationSound();
+                    var retroAchievementsWindow = sp.GetRequiredService<RetroAchievementsWindow>();
+                    retroAchievementsWindow.Show(this);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            logger.Error(ex, "Error opening RetroAchievements for the selected game.");
+            await messageBox.CouldNotOpenAchievementsWindowMessageBoxAsync();
+        }
+    }
+
+    /// <summary>
+    /// ILoadingState adapter that surfaces loading messages as toasts.
+    /// </summary>
+    private sealed class ToastLoadingState(Action<string, string> showToast) : ILoadingState
+    {
+        private readonly Action<string, string> _showToast = showToast;
+
+        public void SetLoadingState(bool isLoading, string? message = null)
+        {
+            if (isLoading && !string.IsNullOrEmpty(message))
+            {
+                _showToast("RetroAchievements", message);
+            }
         }
     }
 

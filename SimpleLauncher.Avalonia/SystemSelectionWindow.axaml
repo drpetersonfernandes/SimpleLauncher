@@ -1,0 +1,33 @@
+<Window x:Class="SimpleLauncher.Avalonia.SystemSelectionWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Select RetroAchievements System"
+        Height="220" Width="420"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        CanResize="False"
+        Background="{DynamicResource BgPrimaryBrush}">
+    <Grid Margin="20">
+        <StackPanel>
+            <TextBlock Text="The system for this game could not be determined with certainty."
+                       TextWrapping="Wrap" Margin="0,0,0,10"
+                       Foreground="{DynamicResource TextSecondaryBrush}" />
+
+            <TextBlock Text="Select the system for this game:" FontWeight="Bold" Margin="0,0,0,5"
+                       Foreground="{DynamicResource TextPrimaryBrush}" />
+
+            <ComboBox ItemsSource="{Binding Systems}"
+                      SelectedItem="{Binding SelectedSystem}"
+                      Margin="0,0,0,30"
+                      ToolTip.Tip="Choose the system for this game" />
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Confirm" Command="{Binding ConfirmCommand}" IsDefault="True"
+                        Classes="primary" Margin="0,0,10,0" Width="120"
+                        ToolTip.Tip="Confirm the selected system" />
+                <Button Content="Cancel" Command="{Binding CancelCommand}" IsCancel="True"
+                        Classes="secondary" Width="80" ToolTip.Tip="Cancel" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

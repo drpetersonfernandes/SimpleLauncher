@@ -1,0 +1,331 @@
+<Window x:Class="SimpleLauncher.Avalonia.RetroAchievementsWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:SimpleLauncher.Avalonia.Controls"
+        Title="RetroAchievements"
+        Width="1200" MinWidth="800"
+        Height="600" MinHeight="550"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource BgPrimaryBrush}">
+
+    <Window.Resources>
+        <Style x:Key="RightAlignedCell" Selector="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <TabControl x:Name="TabControl" Margin="10,10,10,10" SelectionChanged="TabControl_SelectionChanged"
+                    ToolTip.Tip="RetroAchievements tab control">
+
+            <!-- Tab 1: My Profile -->
+            <TabItem Header="My Profile |" Tag="MyProfile" ToolTip.Tip="My Profile tab">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
+                    <Grid>
+                        <StackPanel x:Name="UserProfilePanel">
+                            <!-- User Header with Avatar -->
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                                <Border BorderBrush="{DynamicResource BorderNormalBrush}" BorderThickness="1"
+                                        Width="90" Height="90" CornerRadius="5">
+                                    <controls:RemoteImage x:Name="UserProfilePic" Stretch="Uniform" />
+                                </Border>
+                                <StackPanel VerticalAlignment="Center" Margin="15,0,0,0">
+                                    <TextBlock x:Name="UserProfileUser" FontSize="22" FontWeight="Bold"
+                                               Foreground="{DynamicResource TextPrimaryBrush}" />
+                                    <TextBlock x:Name="UserProfileMotto" FontStyle="Italic" TextWrapping="Wrap"
+                                               Margin="0,5,0,0" FontSize="14" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                    <Button x:Name="ViewProfileOnRaButton" Content="View Profile on RetroAchievements.org"
+                                            Classes="primary" Click="ViewProfileOnRaButton_Click" Margin="0,10,0,0"
+                                            ToolTip.Tip="View profile on RetroAchievements button" />
+                                </StackPanel>
+                            </StackPanel>
+
+                            <!-- Current Activity -->
+                            <Border Background="{DynamicResource AccentBrush}" Margin="0,0,0,20" Padding="15" CornerRadius="5">
+                                <StackPanel>
+                                    <TextBlock Text="Currently Playing" FontWeight="Bold"
+                                               Foreground="White" FontSize="16" />
+                                    <TextBlock x:Name="UserProfileRichPresence" TextWrapping="Wrap"
+                                               Foreground="White" Margin="0,5,0,0" FontSize="14" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- User Statistics Grid -->
+                            <Grid Margin="0,0,0,25" ColumnDefinitions="*,*,*">
+                                <Border Grid.Column="0" BorderBrush="{DynamicResource BorderNormalBrush}"
+                                        BorderThickness="1" Padding="10" Margin="0,0,5,0" CornerRadius="3">
+                                    <StackPanel>
+                                        <TextBlock x:Name="PointsValue" FontSize="18" FontWeight="Bold"
+                                                   HorizontalAlignment="Center" Foreground="{DynamicResource AccentBrush}" />
+                                        <TextBlock Text="Points" HorizontalAlignment="Center"
+                                                   Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Column="1" BorderBrush="{DynamicResource BorderNormalBrush}"
+                                        BorderThickness="1" Padding="10" Margin="5,0,5,0" CornerRadius="3">
+                                    <StackPanel>
+                                        <TextBlock x:Name="TruePointsValue" FontSize="18" FontWeight="Bold"
+                                                   HorizontalAlignment="Center" Foreground="{DynamicResource AccentBrush}" />
+                                        <TextBlock Text="True Points" HorizontalAlignment="Center"
+                                                   Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Column="2" BorderBrush="{DynamicResource BorderNormalBrush}"
+                                        BorderThickness="1" Padding="10" Margin="5,0,0,0" CornerRadius="3">
+                                    <StackPanel>
+                                        <TextBlock x:Name="RankValue" FontSize="18" FontWeight="Bold"
+                                                   HorizontalAlignment="Center" Foreground="{DynamicResource AccentBrush}" />
+                                        <TextBlock Text="Rank:" HorizontalAlignment="Center"
+                                                   Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+
+                            <!-- Detailed User Information -->
+                            <TextBlock Text="User Details" FontWeight="Bold" FontSize="18" Margin="0,0,0,15"
+                                       Foreground="{DynamicResource TextPrimaryBrush}" />
+                            <Grid Margin="0,0,0,25" ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Member Since:" FontWeight="Bold"
+                                           Margin="0,0,10,8" Foreground="{DynamicResource TextPrimaryBrush}" />
+                                <TextBlock Grid.Row="0" Grid.Column="1" x:Name="UserProfileMemberSince"
+                                           Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}" />
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="User ID:" FontWeight="Bold"
+                                           Margin="0,0,10,8" Foreground="{DynamicResource TextPrimaryBrush}" />
+                                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="UserProfileId"
+                                           Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}" />
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Contributions:" FontWeight="Bold"
+                                           Margin="0,0,10,8" Foreground="{DynamicResource TextPrimaryBrush}" />
+                                <TextBlock Grid.Row="2" Grid.Column="1" x:Name="UserProfileContributions"
+                                           Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}" />
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Softcore Points:" FontWeight="Bold"
+                                           Margin="0,0,10,8" Foreground="{DynamicResource TextPrimaryBrush}" />
+                                <TextBlock Grid.Row="3" Grid.Column="1" x:Name="UserProfileSoftcorePoints"
+                                           Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}" />
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Permissions:" FontWeight="Bold"
+                                           Margin="0,0,10,8" Foreground="{DynamicResource TextPrimaryBrush}" />
+                                <TextBlock Grid.Row="4" Grid.Column="1" x:Name="UserProfilePermissions"
+                                           Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}" />
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="Status:" FontWeight="Bold"
+                                           Margin="0,0,10,8" Foreground="{DynamicResource TextPrimaryBrush}" />
+                                <TextBlock Grid.Row="5" Grid.Column="1" x:Name="UserProfileStatus"
+                                           Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}" />
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="Profile ID (ULID):" FontWeight="Bold"
+                                           Margin="0,0,10,8" Foreground="{DynamicResource TextPrimaryBrush}" />
+                                <TextBlock Grid.Row="6" Grid.Column="1" x:Name="UserProfileProfileId"
+                                           Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}" />
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="Wall Active:" FontWeight="Bold"
+                                           Margin="0,0,10,8" Foreground="{DynamicResource TextPrimaryBrush}" />
+                                <TextBlock Grid.Row="7" Grid.Column="1" x:Name="UserProfileWallActive"
+                                           Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}" />
+                            </Grid>
+
+                            <!-- Recently Played Section -->
+                            <TextBlock Text="Recently Played Games:" FontWeight="Bold" Margin="0,15,0,10"
+                                       FontSize="18" Foreground="{DynamicResource TextPrimaryBrush}" />
+                            <ListBox x:Name="UserProfileRecentlyPlayed" BorderThickness="1"
+                                     BorderBrush="{DynamicResource BorderNormalBrush}"
+                                     Background="{DynamicResource BgSecondaryBrush}"
+                                     ToolTip.Tip="Recently played games">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="0,2">
+                                            <controls:RemoteImage Url="{Binding GameIconUrl}"
+                                                                  Width="40" Height="40" Stretch="Uniform"
+                                                                  VerticalAlignment="Center" Margin="0,0,10,0" />
+                                            <StackPanel VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Title}" FontWeight="SemiBold" FontSize="14"
+                                                           TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Title}" />
+                                                <TextBlock Text="{Binding ConsoleName}" FontSize="12"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           ToolTip.Tip="{Binding ConsoleName}" Margin="0,2,0,0" />
+                                                <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                                    <TextBlock Text="Casual" FontSize="12" />
+                                                    <TextBlock Text="{Binding ProgressDisplay}" FontSize="12"
+                                                               ToolTip.Tip="{Binding ProgressDisplay}" />
+                                                    <TextBlock Text="Hardcore" FontSize="12" Margin="5,0,0,0" />
+                                                    <TextBlock Text="{Binding HardcoreProgressDisplay}" FontSize="12"
+                                                               ToolTip.Tip="{Binding HardcoreProgressDisplay}" />
+                                                </StackPanel>
+                                                <TextBlock Text="{Binding LastPlayed}" FontSize="12"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           ToolTip.Tip="{Binding LastPlayed}" Margin="0,2,0,0" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+
+                        <Grid x:Name="NoProfileOverlay" Background="{DynamicResource BgPrimaryBrush}" IsVisible="False">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock x:Name="NoProfileMainMessage" Text="Could not load user profile. Check username and API key in settings."
+                                           VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"
+                                           TextWrapping="Wrap" TextAlignment="Center"
+                                           Foreground="{DynamicResource TextPrimaryBrush}" />
+                                <TextBlock x:Name="NoProfileSubMessage"
+                                           Text="Please check your username and API key in settings, or try again later."
+                                           VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"
+                                           Foreground="{DynamicResource TextSecondaryBrush}"
+                                           Margin="0,10,0,0" TextWrapping="Wrap" TextAlignment="Center" />
+                                <Button Content="Open RetroAchievements Settings" Margin="0,15,0,0"
+                                        Classes="primary" Click="OpenRaSettings_Click"
+                                        ToolTip.Tip="Open RetroAchievements settings button" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Tab 2: Unlocks by Date -->
+            <TabItem Header="Unlocks |" Tag="Unlocks" ToolTip.Tip="Achievements Unlocks tab">
+                <Grid RowDefinitions="Auto,Auto,*">
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10,15,10,15">
+                        <TextBlock Text="From:" VerticalAlignment="Center" Margin="0,0,5,0" FontSize="14"
+                                   Foreground="{DynamicResource TextPrimaryBrush}" />
+                        <DatePicker x:Name="FromDatePicker" Width="140" ToolTip.Tip="Select start date" />
+                        <TextBlock Text="To:" VerticalAlignment="Center" Margin="15,0,5,0" FontSize="14"
+                                   Foreground="{DynamicResource TextPrimaryBrush}" />
+                        <DatePicker x:Name="ToDatePicker" Width="140" ToolTip.Tip="Select end date" />
+                        <Button Content="Fetch Unlocks" Click="FetchUnlocksClickAsync" Margin="15,0,0,0"
+                                Padding="10,5" x:Name="FetchUnlocksButton" Classes="primary"
+                                ToolTip.Tip="Fetch unlocks for selected dates" />
+                        <Button Content="Reset Dates" Click="ResetDatesClickAsync" Margin="10,0,0,0" Padding="10,5"
+                                Classes="secondary" ToolTip.Tip="Reset date filters" />
+                    </StackPanel>
+
+                    <Border Grid.Row="1" Margin="10,0,10,15" Padding="15"
+                            BorderBrush="{DynamicResource AccentBrush}" BorderThickness="1" CornerRadius="5">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="Total Unlocks in Range: " FontWeight="Bold" FontSize="16"
+                                           Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,10,0" />
+                                <TextBlock x:Name="TotalUnlocksInRangeText" FontWeight="Bold" FontSize="16"
+                                           Foreground="{DynamicResource AccentBrush}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                                <TextBlock Text="Total Points Earned: " FontWeight="Bold" FontSize="16"
+                                           Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,10,0" />
+                                <TextBlock x:Name="TotalPointsEarnedInRangeText" FontWeight="Bold" FontSize="16"
+                                           Foreground="{DynamicResource AccentBrush}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <DataGrid x:Name="UnlocksDataGrid" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True"
+                              Margin="10,0,10,10" HeadersVisibility="Column"
+                              Background="{DynamicResource BgSecondaryBrush}"
+                              BorderBrush="{DynamicResource AccentBrush}" BorderThickness="1"
+                              ToolTip.Tip="Achievements unlocks data grid">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Game Icon" Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <controls:RemoteImage Url="{Binding GameIconFullUrl}" Width="32" Height="32" Margin="5" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Game Title" Binding="{Binding GameTitle}" Width="*" SortMemberPath="GameTitle" />
+                            <DataGridTemplateColumn Header="Badge" Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <controls:RemoteImage Url="{Binding BadgeFullUrl}" Width="32" Height="32" Margin="5" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Achievement" Binding="{Binding Title}" Width="2*" SortMemberPath="Title" />
+                            <DataGridTextColumn Header="Points" Binding="{Binding Points}" Width="Auto"
+                                                SortMemberPath="Points" />
+                            <DataGridTextColumn Header="True Ratio" Binding="{Binding TrueRatio, StringFormat='{}{0}%'}"
+                                                Width="Auto" SortMemberPath="TrueRatio" />
+                            <DataGridTextColumn Header="Unlocked Date" Binding="{Binding UnlockedDateDisplay}" Width="Auto"
+                                                SortMemberPath="UnlockedDate" />
+                            <DataGridTextColumn Header="Mode" Binding="{Binding ModeDisplay}" Width="Auto"
+                                                SortMemberPath="ModeDisplay" />
+                            <DataGridTextColumn Header="Console" Binding="{Binding ConsoleName}" Width="Auto" SortMemberPath="ConsoleName" />
+                            <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="Auto" SortMemberPath="Author" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Grid x:Name="NoUnlocksOverlay" Grid.Row="2" Background="{DynamicResource BgPrimaryBrush}" IsVisible="False">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock x:Name="NoUnlocksMessage" Text="No unlocks found for the selected date range."
+                                       VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"
+                                       Foreground="{DynamicResource TextPrimaryBrush}" TextWrapping="Wrap" TextAlignment="Center" />
+                            <Button Content="Open RetroAchievements Settings" Margin="0,15,0,0"
+                                    Classes="primary" Click="OpenRaSettings_Click"
+                                    ToolTip.Tip="Open RetroAchievements settings button" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <!-- Tab 3: User Progress -->
+            <TabItem Header="User Progress |" Tag="UserProgress" ToolTip.Tip="User progress tab">
+                <Grid>
+                    <DataGrid x:Name="UserProgressDataGrid" AutoGenerateColumns="False" IsReadOnly="True"
+                              Margin="10" HeadersVisibility="Column"
+                              Background="{DynamicResource BgSecondaryBrush}"
+                              BorderBrush="{DynamicResource AccentBrush}" BorderThickness="1"
+                              ToolTip.Tip="User progress data grid">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Icon" Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <controls:RemoteImage Url="{Binding ImageIcon}" Width="32" Height="32" Margin="5" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Game Title" Binding="{Binding Title}" Width="2*" SortMemberPath="Title" />
+                            <DataGridTextColumn Header="Console" Binding="{Binding ConsoleName}" Width="*" SortMemberPath="ConsoleName" />
+                            <DataGridTextColumn Header="Casual" Binding="{Binding CompletionDisplay}" Width="Auto"
+                                                SortMemberPath="NumAwarded" />
+                            <DataGridTextColumn Header="Hardcore" Binding="{Binding HardcoreCompletionDisplay}" Width="Auto"
+                                                SortMemberPath="NumAwardedHardcore" />
+                            <DataGridTextColumn Header="Most Recent Award" Binding="{Binding MostRecentAwardedDateDisplay}" Width="Auto"
+                                                SortMemberPath="MostRecentAwardedDate" />
+                            <DataGridTextColumn Header="Highest Award" Binding="{Binding HighestAwardKindDisplay}" Width="Auto"
+                                                SortMemberPath="HighestAwardKind" />
+                            <DataGridTextColumn Header="Highest Award Date" Binding="{Binding HighestAwardDateDisplay}" Width="Auto"
+                                                SortMemberPath="HighestAwardDate" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Grid x:Name="NoUserProgressOverlay" Background="{DynamicResource BgPrimaryBrush}" IsVisible="False">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock x:Name="NoUserProgressMainMessage" Text="Could not load user completion progress."
+                                       VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"
+                                       TextWrapping="Wrap" TextAlignment="Center"
+                                       Foreground="{DynamicResource TextPrimaryBrush}" />
+                            <TextBlock x:Name="NoUserProgressSubMessage"
+                                       Text="Please check your username and API key in settings, or try again later."
+                                       VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       Margin="0,10,0,0" TextWrapping="Wrap" TextAlignment="Center" />
+                            <Button Content="Open RetroAchievements Settings" Margin="0,15,0,0"
+                                    Classes="primary" Click="OpenRaSettings_Click"
+                                    ToolTip.Tip="Open RetroAchievements settings button" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <!-- Loading Overlay -->
+        <Border x:Name="LoadingOverlay" Background="{DynamicResource OverlayProcessingBrush}" IsVisible="False" ZIndex="10">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="260">
+                <ProgressBar IsIndeterminate="True" Width="220" />
+                <TextBlock x:Name="LoadingOverlayMessage" Text="Loading..." Margin="0,12,0,0"
+                           HorizontalAlignment="Center" Foreground="{DynamicResource TextPrimaryBrush}" />
+                <Button x:Name="EmergencyReturnButton" Content="Return" Margin="0,15,0,0"
+                        Classes="secondary" Click="EmergencyOverlayRelease_Click" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

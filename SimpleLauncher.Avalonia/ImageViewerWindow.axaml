@@ -1,0 +1,21 @@
+<Window x:Class="SimpleLauncher.Avalonia.ImageViewerWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
+        Title="Image Viewer"
+        Width="800" Height="600"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource BgPrimaryBrush}">
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+    </Window.Resources>
+    <Grid>
+        <Image Source="{Binding ImageSource}" Stretch="Uniform"
+               HorizontalAlignment="Center" VerticalAlignment="Center"
+               ToolTip.Tip="Image viewer window" />
+        <TextBlock Text="{Binding ErrorMessage}"
+                   IsVisible="{Binding ErrorMessage, Converter={StaticResource BoolToVisibility}}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Foreground="{DynamicResource TextSecondaryBrush}" />
+    </Grid>
+</Window>

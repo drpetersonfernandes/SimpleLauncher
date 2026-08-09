@@ -208,7 +208,15 @@ public class MinimalLauncherService : ILauncherService
                 {
                     try
                     {
-                        await handler.HandleConfigurationAsync(launchContext);
+                        // A handler returning false means the user cancelled (or injection
+                        // failed fatally) — abort the launch, same as the WPF launcher.
+                        if (!await handler.HandleConfigurationAsync(launchContext))
+                        {
+                            Log.Information("Emulator config handler {Handler} aborted launch for {Emulator}",
+                                handler.GetType().Name, emulatorName);
+                            loadingStateProvider?.SetLoadingState(false);
+                            return;
+                        }
                     }
                     catch (Exception ex)
                     {
