@@ -165,7 +165,9 @@ public class MinimalLauncherService : ILauncherService
                     loadingStateProvider?.SetLoadingState(true, "Mounting CHD...");
                     if (_chdMount.IsAvailable)
                     {
-                        _chdMountPath = await _chdMount.MountAsync(resolvedFilePath, selectedSystemManager.SystemName);
+                        _chdMountPath = await _chdMount.MountAsync(
+                            resolvedFilePath, selectedSystemManager.SystemName,
+                            selectedEmulatorManager.EmulatorName, selectedEmulatorManager.EmulatorLocation);
                         actualFilePath = _chdMountPath;
                     }
                     else

@@ -5,7 +5,7 @@
 
 # CHDMounter
 
-Mount CHD (Compressed Hunks of Data) CD/DVD images as virtual read-only drives on Windows. Supports 31 console types and 8 filesystem formats across consoles and PC optical media.
+Mount CHD (Compressed Hunks of Data) CD/DVD images as virtual read-only drives on Windows. Supports 37 console/format modes (console types plus generic CUE/ISO/BIN/RAW formats), selectable by CLI alias.
 
 ![](screenshot.png)
 
@@ -14,8 +14,8 @@ Mount CHD (Compressed Hunks of Data) CD/DVD images as virtual read-only drives o
 ## Features
 
 - **Mount CHD files as virtual drives** using [Dokan](https://github.com/dokan-dev/dokany) or [WinFsp](https://winfsp.dev/)
-- **31 console types** — ISO 9660, UDF, XDVDFS (Xbox), OperaFS (3DO), CD-i Green Book, HFS/HFS+ (Pippin), and more
-- **Virtual CUE/BIN/ISO/WAV export** — 5 disc image export modes for emulators and burning tools
+- **37 console/format modes** — console types (ISO 9660, UDF, XDVDFS (Xbox), OperaFS (3DO), CD-i Green Book, HFS/HFS+ (Pippin), and more) plus generic CUE/ISO/BIN/WAV export modes
+- **Virtual CUE/BIN/ISO/WAV export** — 8 disc image export modes (2352/2048 × CUE/ISO, CUE/ISO/WAV, CUE/BIN, CUE/BIN/WAV) for emulators and burning tools
 - **SingleFile ISO passthrough** — single `image.iso` file for emulators that expect raw ISO (xemu, RPCS3)
 - **Read-only** — never modifies your CHD files
 - **Automatic filesystem detection by track header** — no manual setup needed for most discs
@@ -31,40 +31,45 @@ Mount CHD (Compressed Hunks of Data) CD/DVD images as virtual read-only drives o
 
 ## Supported Filesystems
 
-| Console / Format         | CLI Alias                         | Filesystem               | Notes                                            |
-|--------------------------|-----------------------------------|--------------------------|--------------------------------------------------|
-| PS1                      | `ps1`, `playstation`, `psx`       | ISO 9660                 | Track-level parsing, aggressive PVD scan         |
-| PS2                      | `ps2`                             | ISO 9660                 | CD/DVD auto-detection                            |
-| PS3                      | `ps3`                             | UDF → ISO 9660 fallback  | Multi-extent large file support                  |
-| PS3 (ISO Raw)            | `isoraw`                          | Virtual ISO passthrough  | Single `image.iso` for RPCS3                     |
-| PSP                      | `psp`                             | ISO 9660                 | UMD image support                                |
-| PlayStation (Auto)       | `psauto`, `psdetect`              | ISO 9660                 | Auto-detect PS1/PS2/PS3/PSP                      |
-| Xbox                     | `xbox`                            | XDVDFS                   | Binary tree directory structure                  |
-| Xbox 360                 | `xbox360`, `x360`                 | XDVDFS                   | XGD2/XGD3 offset detection                       |
-| Xbox (ISO Raw)           | `isoraw`                          | Virtual ISO passthrough  | Single `image.iso` for xemu                      |
-| Dreamcast                | `dreamcast`, `dc`                 | ISO 9660                 | GD-ROM offset search (-45000, -150, 0, etc.)     |
-| 3DO                      | `3do`                             | OperaFS                  | Block-based directory chain, ISO 9660 fallback   |
-| CD-i                     | `cdi`, `cd-i`                     | Green Book               | Interleaved stream support, Path Table           |
-| Saturn                   | `saturn`                          | ISO 9660                 |                                                  |
-| NeoGeo CD                | `neogeo`, `ngcd`                  | ISO 9660                 |                                                  |
-| PC Engine CD             | `pcengine`, `pce`, `tgcd`         | ISO 9660                 | Boot signature scan, fallback raw track files    |
-| Sega Genesis / Mega CD   | `segagenesis`, `megacd`, `segacd` | ISO 9660                 |                                                  |
-| PC-FX                    | `pcfx`                            | PC-FX ISO                | Dedicated byte-offset VD scanner                 |
-| Amiga CD32               | `amigacd32`, `cd32`               | ISO 9660                 |                                                  |
-| Amiga CD                 | `amigacd`, `amiga`                | ISO 9660                 | Also handles Amiga CDTV                          |
-| FM Towns                 | `fmtowns`, `fmt`                  | ISO 9660                 |                                                  |
-| X68000                   | `x68000`, `x68k`                  | ISO 9660 → UDF fallback  |                                                  |
-| PC-98                    | `pc98`, `pc-98`, `nec98`          | ISO 9660                 |                                                  |
-| Nuon                     | `nuon`                            | UDF → ISO 9660 fallback  | VM Labs Nuon DVD                                 |
-| Pico                     | `pico`                            | ISO 9660                 | Sega Pico                                        |
-| Pippin                   | `pippin`                          | HFS → HFS+ → UDF → ISO   | Apple Bandai Pippin                              |
-| Generic ISO 9660         | `iso9660`, `generic`, `iso`       | ISO 9660 / High Sierra   | Joliet/UTF-16BE, SUSP/Rock Ridge                 |
-| Generic ISO Raw          | `isoraw`                          | Raw sectors              | Entire CHD as single `image.iso`                 |
-| CUE/BIN (Raw)            | `cuebin`, `cue`                   | Virtual                  | Raw 2352-byte sectors                            |
-| CUE/BIN (Cooked)         | `cuebin2048`, `cue2048`           | Virtual                  | 2048-byte sectors                                |
-| CUE/ISO                  | `cueiso`                          | Virtual                  | CUE sheet + ISO at 2048 bytes/sector             |
-| CUE/BIN/WAV              | `cuebinwav`, `cuewav`             | Virtual                  | CUE + BIN + WAV audio tracks                     |
-| CUE/ISO/WAV              | `cueisowav`                       | Virtual                  | CUE + ISO + WAV audio tracks                     |
+| Console / Format     | CLI Alias       | Filesystem              | Notes                                              |
+|----------------------|-----------------|-------------------------|----------------------------------------------------|
+| 3DO                  | `3do`           | OperaFS                 | Block-based directory chain, ISO 9660 fallback     |
+| Amiga CD             | `amigacd`       | ISO 9660                |                                                    |
+| Amiga CD32           | `amigacd32`     | ISO 9660                |                                                    |
+| Amiga CDTV           | `amigacdtv`     | ISO 9660                |                                                    |
+| CD-i                 | `cdi`           | Green Book              | Interleaved stream support, Path Table             |
+| CUE/BIN RAW 2048     | `cuebin2048`    | Virtual                 | CUE + BIN at 2048 bytes/sector                     |
+| CUE/BIN RAW 2352     | `cuebin2352`    | Virtual                 | CUE + BIN at 2352 bytes/sector                     |
+| CUE/BIN/WAV RAW 2048 | `cuebinwav2048` | Virtual                 | CUE + BIN + WAV audio tracks (2048-byte data)      |
+| CUE/BIN/WAV RAW 2352 | `cuebinwav2352` | Virtual                 | CUE + BIN + WAV audio tracks (2352-byte data)      |
+| CUE/ISO RAW 2048     | `cueiso2048`    | Virtual                 | CUE sheet + ISO at 2048 bytes/sector               |
+| CUE/ISO RAW 2352     | `cueiso2352`    | Virtual                 | CUE sheet + ISO at 2352 bytes/sector               |
+| CUE/ISO/WAV RAW 2048 | `cueisowav2048` | Virtual                 | CUE + ISO + WAV audio tracks (2048-byte data)      |
+| CUE/ISO/WAV RAW 2352 | `cueisowav2352` | Virtual                 | CUE + ISO + WAV audio tracks (2352-byte data)      |
+| FM Towns             | `fmtowns`       | ISO 9660                |                                                    |
+| ISO 9660             | `iso9660`       | ISO 9660 / High Sierra  | Joliet/UTF-16BE, SUSP/Rock Ridge                   |
+| ISO RAW 2048         | `isoraw2048`    | Raw sectors             | Entire CHD as single `image.iso` (2048-byte units) |
+| ISO RAW 2352         | `isoraw2352`    | Raw sectors             | Entire CHD as single `image.iso` (2352-byte units) |
+| Neo Geo CD           | `neogeocd`      | ISO 9660                |                                                    |
+| Nuon                 | `nuon`          | UDF → ISO 9660 fallback | VM Labs Nuon DVD                                   |
+| PC Engine CD         | `pcengine`      | ISO 9660                | Boot signature scan, fallback raw track files      |
+| PC-98                | `pc98`          | ISO 9660                |                                                    |
+| PC-FX                | `pcfx`          | PC-FX ISO               | Dedicated byte-offset VD scanner                   |
+| Pico                 | `pico`          | ISO 9660                | Sega Pico                                          |
+| Pippin               | `pippin`        | HFS → HFS+ → UDF → ISO  | Apple Bandai Pippin                                |
+| PlayStation (Auto)   | `psauto`        | ISO 9660                | Auto-detect PS1/PS2/PS3/PSP                        |
+| PS1                  | `ps1`           | ISO 9660                | Track-level parsing, aggressive PVD scan           |
+| PS2                  | `ps2`           | ISO 9660                | CD/DVD auto-detection                              |
+| PS3                  | `ps3`           | UDF → ISO 9660 fallback | Multi-extent large file support                    |
+| PS3 ISO RAW 2352     | `isoraw2352`    | Virtual ISO passthrough | Single `image.iso` for RPCS3                       |
+| PSP                  | `psp`           | ISO 9660                | UMD image support                                  |
+| Sega Dreamcast       | `segadreamcast` | ISO 9660                | GD-ROM offset search (-45000, -150, 0, etc.)       |
+| Sega Genesis         | `segagenesis`   | ISO 9660                |                                                    |
+| Sega Saturn          | `segasaturn`    | ISO 9660                |                                                    |
+| X68000               | `x68000`        | ISO 9660 → UDF fallback |                                                    |
+| Xbox                 | `xbox`          | XDVDFS                  | Binary tree directory structure                    |
+| Xbox 360             | `xbox360`       | XDVDFS                  | XGD2/XGD3 offset detection                         |
+| Xbox ISO RAW 2352    | `isoraw2352`    | Virtual ISO passthrough | Single `image.iso` for xemu                        |
 
 ---
 
@@ -84,7 +89,7 @@ Mount CHD (Compressed Hunks of Data) CD/DVD images as virtual read-only drives o
 
 ### Download
 
-Grab the latest self-contained executable from [Releases](https://github.com/drpetersonfernandes/CHDMounter/releases):
+Grab the latest self-contained executables from [Releases](https://github.com/drpetersonfernandes/CHDMounter/releases):
 
 - `CHDMounter.exe`
 
@@ -101,81 +106,85 @@ Opens the main window. Click **Browse** to select a CHD file, pick a filesystem 
 ### Command Line
 
 ```
-CHDMounter.exe [/l] [/a] [/s:<index>] <chd_file> [mount_point]
+CHDMounter.exe [/l] [/a] [/s:<alias>] <chd_file> [mount_point]
 ```
 
 | Argument | Description |
 |----------|-------------|
 | `/l` | Launch Explorer after mount |
 | `/a` | Auto-select drive letter |
-| `/s:<index>` | Select console system by numeric index or name |
+| `/s:<alias>` | Select console system by alias (e.g. `ps2`, `cuebin2352`) |
 | `<chd_file>` | Path to the .chd file (required) |
 | `[mount_point]` | Drive letter/path for mount (optional, auto-picks if omitted) |
 
 **Notes:**
 - Arguments can be in any order
 - Flags are prefixed with `/`
-- A bare numeric argument (not prefixed with `/`) is accepted as a console index shorthand
+- A console alias may also be passed as a positional argument (e.g. `CHDMounter.exe game.chd ps2`)
 - If only `<chd_file>` is provided without flags, a dialog appears asking you to choose
 
 ### Console Type Reference
 
-You can specify the console type using either a **numeric index** or a **string alias** (case-insensitive).
+You can specify the console type using a **string alias** (case-insensitive). Numeric indexes are not supported — the alias list below is defined in the [VideoGameFileSystemParser](https://github.com/drpetersonfernandes/VideoGameFileSystemParser) library and is the single source of truth.
 
-#### Numeric Indexes (1–31)
-
-| Index | Console Type                 | CLI String Aliases |
-|-------|------------------------------|-------------------|
-| 1 | Amiga CD                     | `amigacd`, `amiga` |
-| 2 | Amiga CD32                   | `amigacd32`, `cd32` |
-| 3 | CD-i                         | `cdi`, `cd-i` |
-| 4 | Dreamcast                    | `dreamcast`, `dc` |
-| 5 | Neo Geo CD                   | `neogeo`, `ngcd` |
-| 6 | PC Engine CD                 | `pcengine`, `pce`, `tgcd` |
-| 7 | PC-FX                        | `pcfx` |
-| 8 | PS1                          | `ps1`, `playstation`, `psx` |
-| 9 | PS2                          | `ps2` |
-| 10 | PS3                          | `ps3` |
-| 11 | PS3 (ISO Raw)                | `isoraw` |
-| 12 | PSP                          | `psp` |
-| 13 | Saturn                       | `saturn` |
-| 14 | Sega Genesis / Mega CD       | `segagenesis`, `megacd`, `segacd` |
-| 15 | 3DO                          | `3do` |
-| 16 | Xbox                         | `xbox` |
-| 17 | Xbox 360                     | `xbox360`, `x360` |
-| 18 | Generic ISO Raw              | `isoraw` |
-| 19 | Generic ISO 9660             | `iso9660`, `generic`, `iso` |
-| 20 | CUE/BIN (Raw)                | `cuebin`, `cue` |
-| 21 | CUE/BIN (Cooked)             | `cuebin2048`, `cue2048` |
-| 22 | CUE/ISO                      | `cueiso` |
-| 23 | CUE/BIN/WAV                  | `cuebinwav`, `cuewav` |
-| 24 | CUE/ISO/WAV                  | `cueisowav` |
-| 25 | FM Towns                     | `fmtowns`, `fmt` |
-| 26 | PlayStation (Auto)           | `psauto`, `psdetect` |
-| 27 | X68000                       | `x68000`, `x68k` |
-| 28 | Pico                         | `pico` |
-| 29 | PC-98                        | `pc98`, `pc-98`, `nec98` |
-| 30 | Nuon                         | `nuon` |
-| 31 | Pippin                       | `pippin` |
+| Console / Format     | CLI Alias       |
+|----------------------|-----------------|
+| 3DO                  | `3do`           |
+| Amiga CD             | `amigacd`       |
+| Amiga CD32           | `amigacd32`     |
+| Amiga CDTV           | `amigacdtv`     |
+| CD-i                 | `cdi`           |
+| CUE/BIN RAW 2048     | `cuebin2048`    |
+| CUE/BIN RAW 2352     | `cuebin2352`    |
+| CUE/BIN/WAV RAW 2048 | `cuebinwav2048` |
+| CUE/BIN/WAV RAW 2352 | `cuebinwav2352` |
+| CUE/ISO RAW 2048     | `cueiso2048`    |
+| CUE/ISO RAW 2352     | `cueiso2352`    |
+| CUE/ISO/WAV RAW 2048 | `cueisowav2048` |
+| CUE/ISO/WAV RAW 2352 | `cueisowav2352` |
+| FM Towns             | `fmtowns`       |
+| ISO 9660             | `iso9660`       |
+| ISO RAW 2048         | `isoraw2048`    |
+| ISO RAW 2352         | `isoraw2352`    |
+| Neo Geo CD           | `neogeocd`      |
+| Nuon                 | `nuon`          |
+| PC Engine CD         | `pcengine`      |
+| PC-98                | `pc98`          |
+| PC-FX                | `pcfx`          |
+| Pico                 | `pico`          |
+| Pippin               | `pippin`        |
+| PlayStation (Auto)   | `psauto`        |
+| PS1                  | `ps1`           |
+| PS2                  | `ps2`           |
+| PS3                  | `ps3`           |
+| PS3 ISO RAW 2352     | `isoraw2352`    |
+| PSP                  | `psp`           |
+| Sega Dreamcast       | `segadreamcast` |
+| Sega Genesis         | `segagenesis`   |
+| Sega Saturn          | `segasaturn`    |
+| X68000               | `x68000`        |
+| Xbox                 | `xbox`          |
+| Xbox 360             | `xbox360`       |
+| Xbox ISO RAW 2352    | `isoraw2352`    |
 
 **Examples:**
 ```bash
 # Mount a PS2 game as drive M:
-CHDMounter.exe /s:9 game.chd M:
+CHDMounter.exe /s:ps2 game.chd M:
 
 # Mount an Xbox 360 game (auto-select drive letter)
-CHDMounter.exe 17 game.chd
+CHDMounter.exe game.chd xbox360
 
 # Mount a Dreamcast game and launch Explorer
-CHDMounter.exe /l /s:4 game.chd
+CHDMounter.exe /l /s:segadreamcast game.chd
 
-# Mount as virtual CUE/BIN
-CHDMounter.exe /s:20 disc.chd
+# Mount as virtual CUE/BIN (2352-byte sectors)
+CHDMounter.exe /s:cuebin2352 disc.chd
 
 # Mount with generic ISO 9660 parser
-CHDMounter.exe /s:19 data.chd N:
+CHDMounter.exe /s:iso9660 data.chd N:
 
-# Mount with console name alias
+# Mount with console alias as a positional argument
 CHDMounter.exe game.chd ps3
 ```
 
@@ -212,7 +221,7 @@ The `SectorReader` maps logical block addresses (LBAs) to byte offsets within CH
 
 ### File System Parsing
 
-CHDMounter uses the [VideoGameFileSystemParser](https://github.com/drpetersonfernandes/VideoGameFileSystemParser) library (v1.0.0) to parse various console file systems from raw 2048-byte sectors and reconstruct directory trees.
+CHDMounter uses the [VideoGameFileSystemParser](https://github.com/drpetersonfernandes/VideoGameFileSystemParser) library (v1.1.0, vendored into this solution as the `VideoGameFileSystemParser` project) to parse various console file systems from raw sectors and reconstruct directory trees. The console alias registry lives in the library and is the single source of truth for console selection.
 
 Supported file systems include ISO 9660 (with Joliet/Rock Ridge), XDVDFS (Xbox), OperaFS (3DO), CD-i Green Book, UDF, and HFS/HFS+.
 
@@ -237,7 +246,7 @@ For SingleFile mode, the container serves the entire decompressed CHD image as a
 | Aspect | Dokan | WinFsp |
 |--------|-------|--------|
 | Driver | Kernel-mode (Dokan.sys) | User-mode (WinFsp) |
-| NuGet | `DokanNet` 2.3.0.3 | `winfsp.net` 2.2.26194 |
+| NuGet | `DokanNet` 2.3.0.3 | `winfsp.net` 2.1.25156 |
 | FileSystem base | `IDokanOperations` | `FileSystemBase` |
 | Admin mount | Standard | Cross-integrity folder mounts with permissive DACL |
 
@@ -277,12 +286,12 @@ WPF desktop application for **batch testing and benchmarking** CHD disc image pa
 | `coverlet.collector` | 10.0.1    | Code coverage (Tests only)                |
 | `DokanNet`           | 2.3.0.3   | Dokan virtual filesystem driver bindings  |
 | `Microsoft.NET.Test.Sdk` | 18.8.1    | Test SDK (Tests only)                     |
-| `QuestPDF`           | 2026.7.1  | PDF report generation (Tester only)       |
+| `QuestPDF`           | 2026.7.2  | PDF report generation (Tester only)       |
 | `Serilog`            | 4.4.0     | Structured logging                        |
 | `Serilog.Sinks.Debug`| 3.0.0     | Visual Studio debug output logging        |
 | `Serilog.Sinks.File` | 7.0.0     | File-based log output                     |
-| `VideoGameFileSystemParser` | 1.0.0     | Filesystem parser                         |
-| `winfsp.net`         | 2.2.26194 | WinFsp virtual filesystem driver bindings |
+| `VideoGameFileSystemParser` | vendored  | Filesystem parser (project reference — see Build from Source) |
+| `winfsp.net`         | 2.1.25156 | WinFsp virtual filesystem driver bindings |
 | `WPF-UI`             | 4.3.0     | Modern WPF theming (Fluent/Win11 style)   |
 | `xUnit`              | 2.9.3     | Test framework (Tests only)               |
 | `xunit.runner.visualstudio` | 3.1.5     | VS test adapter (Tests only)              |

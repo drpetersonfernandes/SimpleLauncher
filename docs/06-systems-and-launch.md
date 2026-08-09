@@ -94,7 +94,7 @@ Ordered by `Priority`; first `IsMatch` wins:
 
 | Service | Backend | Details |
 |---|---|---|
-| `MountChdFiles` / `MountChdDrive` | `tools\CHDMounter\CHDMounter.exe` (+`_arm64`) | Dokan check first (`DokanValidation.IsDokanInstalled()`); args `/a "<chd>" /s:<consoleIndex>`; CHDMounter auto-picks drive; mount poll 240×500 ms (120 s max, `:724-773`); console index per system/emulator (`:567-718`); unmount = kill + 20 s wait (`:300-317`); `DisposeAsync` verifies release (`MountChdDrive:117-129`) |
+| `MountChdFiles` / `MountChdDrive` | `tools\CHDMounter\CHDMounter.exe` (+`_arm64`) | Dokan check first (`DokanValidation.IsDokanInstalled()`); args `/a "<chd>" /s:<consoleAlias>`; CHDMounter auto-picks drive; mount poll 240×500 ms (120 s max, `:724-773`); console alias per system/emulator (`:567-718`); unmount = kill + 20 s wait (`:300-317`); `DisposeAsync` verifies release (`MountChdDrive:117-129`) |
 | `MountIsoFiles` | PowerShell `Mount-DiskImage` | drive letter from `Get-Volume` output (`:193-258`); 30 s PS timeout (`:225`); polls 10 s for mount (`:74`); finds `EBOOT.BIN` (`:95`); dismount in finally (`:317-342`); execution-policy detection (`:412+`) |
 | `MountXisoFiles` / `MountXisoDrive` | `tools\SimpleXisoDrive\SimpleXisoDrive.exe` (+`_arm64`) | Dokan validation (`:80-87`); **drive letter Z→D** selection (`:33-57`); args `"<iso>" "Z:"`; polls for `default.xbe` 240×500 ms (`:172-209`); kill + 20 s wait on dispose (`:67`, `:91`) |
 | `DokanValidation` | P/Invoke `dokan2.dll` | `DokanVersion() > 0` (`:12-36`) |

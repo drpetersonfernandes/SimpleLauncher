@@ -11,37 +11,37 @@ public class ChdMountService
     private readonly string _chdMounterPath;
 
     /// <summary>
-    /// Maps system.xml SystemName → CHDMounter console index (1–31).
+    /// Maps system.xml SystemName → CHDMounter console alias.
     /// See CHDMounter README § Console Type Reference.
     /// </summary>
-    private static readonly Dictionary<string, int> ConsoleIndexMap = new(StringComparer.OrdinalIgnoreCase)
+    private static readonly Dictionary<string, string> ConsoleAliasMap = new(StringComparer.OrdinalIgnoreCase)
     {
-        ["PS1"] = 8, ["Sony PlayStation 1"] = 8, ["PlayStation"] = 8,
-        ["PS2"] = 9, ["Sony PlayStation 2"] = 9,
-        ["PS3"] = 10, ["Sony PlayStation 3"] = 10,
-        ["PSP"] = 12, ["Sony PSP"] = 12,
-        ["Sega Saturn"] = 13, ["Saturn"] = 13,
-        ["Sega Dreamcast"] = 4, ["Dreamcast"] = 4,
-        ["Sega Genesis CD"] = 14, ["Sega CD"] = 14, ["Sega Mega CD"] = 14,
-        ["Sega Genesis 32X CD"] = 14,
-        ["Xbox"] = 16, ["Microsoft Xbox"] = 16,
-        ["Xbox 360"] = 17, ["Microsoft Xbox 360"] = 17,
-        ["3DO"] = 15, ["Panasonic 3DO"] = 15,
-        ["CD-i"] = 3, ["Philips CD-i"] = 3,
-        ["Amiga CD32"] = 2, ["Commodore Amiga CD32"] = 2,
-        ["Amiga CD"] = 1, ["Commodore Amiga CD"] = 1,
-        ["Amiga CDTV"] = 1,
-        ["PC Engine CD"] = 6, ["NEC PC Engine CD"] = 6, ["TurboGrafx-CD"] = 6, ["TurboGrafx-16 CD"] = 6,
-        ["PC-FX"] = 7, ["NEC PC-FX"] = 7,
-        ["Neo Geo CD"] = 5, ["SNK Neo Geo CD"] = 5,
-        ["FM Towns"] = 25,
-        ["X68000"] = 27, ["Sharp X68000"] = 27,
-        ["PC-98"] = 29, ["NEC PC-98"] = 29,
-        ["Pippin"] = 31, ["Apple Pippin"] = 31,
-        ["Pico"] = 28, ["Sega Pico"] = 28,
-        ["Nuon"] = 30
+        ["PS1"] = "ps1", ["Sony PlayStation 1"] = "ps1", ["PlayStation"] = "ps1",
+        ["PS2"] = "ps2", ["Sony PlayStation 2"] = "ps2",
+        ["PS3"] = "ps3", ["Sony PlayStation 3"] = "ps3",
+        ["PSP"] = "psp", ["Sony PSP"] = "psp",
+        ["Sega Saturn"] = "segasaturn", ["Saturn"] = "segasaturn",
+        ["Sega Dreamcast"] = "segadreamcast", ["Dreamcast"] = "segadreamcast",
+        ["Sega Genesis CD"] = "segagenesis", ["Sega CD"] = "segagenesis", ["Sega Mega CD"] = "segagenesis",
+        ["Sega Genesis 32X CD"] = "segagenesis",
+        ["Xbox"] = "xbox", ["Microsoft Xbox"] = "xbox",
+        ["Xbox 360"] = "xbox360", ["Microsoft Xbox 360"] = "xbox360",
+        ["3DO"] = "3do", ["Panasonic 3DO"] = "3do",
+        ["CD-i"] = "cdi", ["Philips CD-i"] = "cdi",
+        ["Amiga CD32"] = "amigacd32", ["Commodore Amiga CD32"] = "amigacd32",
+        ["Amiga CD"] = "amigacd", ["Commodore Amiga CD"] = "amigacd",
+        ["Amiga CDTV"] = "amigacdtv",
+        ["PC Engine CD"] = "pcengine", ["NEC PC Engine CD"] = "pcengine", ["TurboGrafx-CD"] = "pcengine", ["TurboGrafx-16 CD"] = "pcengine",
+        ["PC-FX"] = "pcfx", ["NEC PC-FX"] = "pcfx",
+        ["Neo Geo CD"] = "neogeocd", ["SNK Neo Geo CD"] = "neogeocd",
+        ["FM Towns"] = "fmtowns",
+        ["X68000"] = "x68000", ["Sharp X68000"] = "x68000",
+        ["PC-98"] = "pc98", ["NEC PC-98"] = "pc98",
+        ["Pippin"] = "pippin", ["Apple Pippin"] = "pippin",
+        ["Pico"] = "pico", ["Sega Pico"] = "pico",
+        ["Nuon"] = "nuon"
         // Generic fallback for unknown CD systems
-        // Index 19 = Generic ISO 9660 (works for most standard CD/DVD formats)
+        // iso9660 = Generic ISO 9660 (works for most standard CD/DVD formats)
     };
 
     public ChdMountService()
@@ -60,18 +60,22 @@ public class ChdMountService
     /// Mounts a CHD file and returns the drive path (e.g., "Z:\").
     /// Returns the original path if mounting fails.
     /// </summary>
-    public async Task<string> MountAsync(string chdPath, string systemName)
+    /// <param name="chdPath">The path to the CHD file.</param>
+    /// <param name="systemName">The system.xml SystemName used to select the console alias.</param>
+    /// <param name="emulatorName">The emulator name (used for emulator-specific overrides).</param>
+    /// <param name="emulatorLocation">The emulator executable path (used for emulator-specific overrides).</param>
+    public async Task<string> MountAsync(string chdPath, string systemName, string? emulatorName = null, string? emulatorLocation = null)
     {
         if (!IsAvailable) return chdPath;
 
-        var consoleIndex = ConsoleIndexMap.GetValueOrDefault(systemName, 19);
+        var consoleAlias = GetConsoleAlias(systemName, emulatorName, emulatorLocation);
 
         try
         {
             var psi = new ProcessStartInfo
             {
                 FileName = _chdMounterPath,
-                Arguments = $"/a /s:{consoleIndex} \"{chdPath}\"",
+                Arguments = $"/a /s:{consoleAlias} \"{chdPath}\"",
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
                 CreateNoWindow = true
@@ -107,6 +111,51 @@ public class ChdMountService
         }
 
         return chdPath;
+    }
+
+    /// <summary>
+    /// Resolves the CHDMounter console alias for the given system and emulator.
+    /// Emulator-specific overrides take precedence (Final Burn Alpha → CUE/ISO/WAV 2048,
+    /// Final Burn Neo → CUE/BIN 2352, Nebula → CUE/ISO 2048, Raine → CUE/ISO/WAV 2352).
+    /// </summary>
+    private static string GetConsoleAlias(string systemName, string? emulatorName, string? emulatorLocation)
+    {
+        var emulatorMatch = emulatorName ?? string.Empty;
+        var locationMatch = emulatorLocation ?? string.Empty;
+
+        if (emulatorMatch.Contains("FBAlpha", StringComparison.OrdinalIgnoreCase) ||
+            emulatorMatch.Contains("FB Alpha", StringComparison.OrdinalIgnoreCase) ||
+            emulatorMatch.Contains("FinalBurnAlpha", StringComparison.OrdinalIgnoreCase) ||
+            emulatorMatch.Contains("Final Burn Alpha", StringComparison.OrdinalIgnoreCase) ||
+            emulatorMatch.Contains("FinalBurn Alpha", StringComparison.OrdinalIgnoreCase) ||
+            locationMatch.Contains("fba64.exe", StringComparison.OrdinalIgnoreCase))
+        {
+            return "cueisowav2048";
+        }
+
+        if (emulatorMatch.Contains("FBNeo", StringComparison.OrdinalIgnoreCase) ||
+            emulatorMatch.Contains("FB Neo", StringComparison.OrdinalIgnoreCase) ||
+            emulatorMatch.Contains("FinalBurnNeo", StringComparison.OrdinalIgnoreCase) ||
+            emulatorMatch.Contains("Final Burn Neo", StringComparison.OrdinalIgnoreCase) ||
+            emulatorMatch.Contains("FinalBurn Neo", StringComparison.OrdinalIgnoreCase) ||
+            locationMatch.Contains("fbneo64.exe", StringComparison.OrdinalIgnoreCase))
+        {
+            return "cuebin2352";
+        }
+
+        if (emulatorMatch.Contains("Nebula", StringComparison.OrdinalIgnoreCase) ||
+            locationMatch.Contains("nebula.exe", StringComparison.OrdinalIgnoreCase))
+        {
+            return "cueiso2048";
+        }
+
+        if (emulatorMatch.Contains("raine", StringComparison.OrdinalIgnoreCase) ||
+            locationMatch.Contains("raine.exe", StringComparison.OrdinalIgnoreCase))
+        {
+            return "cueisowav2352";
+        }
+
+        return ConsoleAliasMap.GetValueOrDefault(systemName, "iso9660");
     }
 
     /// <summary>

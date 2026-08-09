@@ -16,22 +16,22 @@ public sealed class MountChdFilesIntegrationTests
     private readonly IMessageBoxLibraryService _messageBox = new NoOpMessageBoxLibraryService();
 
     /// <summary>
-    /// Gets the test data rows for CHD mount integration tests, specifying the file path, game name, and console index.
+    /// Gets the test data rows for CHD mount integration tests, specifying the file path, game name, and console alias.
     /// </summary>
-    public static TheoryData<string, string, int> ChdFiles => new()
+    public static TheoryData<string, string, string> ChdFiles => new()
     {
-        // Microsoft Xbox (CHDMounter console index 16)
-        { @"J:\Microsoft Xbox\007 - Everything or Nothing (USA).chd", "007 - Everything or Nothing (USA)", 16 },
-        { @"J:\Microsoft Xbox\4x4 Evo 2 (USA).chd", "4x4 Evo 2 (USA)", 16 },
-        { @"J:\Microsoft Xbox\007 - Agent Under Fire (USA).chd", "007 - Agent Under Fire (USA)", 16 },
-        // Sony PlayStation 3 (CHDMounter console index 10)
-        { @"X:\Sony PlayStation 3\007 - Blood Stone (USA) (En,Fr).chd", "007 - Blood Stone (USA) (En,Fr)", 10 },
-        { @"X:\Sony PlayStation 3\007 - Quantum of Solace (USA) (En,Fr) (Collector's Edition).chd", "007 - Quantum of Solace (USA) (En,Fr) (Collector's Edition)", 10 },
-        { @"X:\Sony PlayStation 3\3D Dot Game Heroes (USA).chd", "3D Dot Game Heroes (USA)", 10 },
-        // SNK Neo Geo CD (CHDMounter console index 5)
-        { @"J:\SNK Neo Geo CD\ADK World (Japan).chd", "ADK World (Japan)", 5 },
-        { @"J:\SNK Neo Geo CD\Andro Dunos (France) (Unl).chd", "Andro Dunos (France) (Unl)", 5 },
-        { @"J:\SNK Neo Geo CD\2020 Super Baseball (Japan) (En,Ja).chd", "2020 Super Baseball (Japan) (En,Ja)", 5 }
+        // Microsoft Xbox (CHDMounter console alias "xbox")
+        { @"J:\Microsoft Xbox\007 - Everything or Nothing (USA).chd", "007 - Everything or Nothing (USA)", "xbox" },
+        { @"J:\Microsoft Xbox\4x4 Evo 2 (USA).chd", "4x4 Evo 2 (USA)", "xbox" },
+        { @"J:\Microsoft Xbox\007 - Agent Under Fire (USA).chd", "007 - Agent Under Fire (USA)", "xbox" },
+        // Sony PlayStation 3 (CHDMounter console alias "ps3")
+        { @"X:\Sony PlayStation 3\007 - Blood Stone (USA) (En,Fr).chd", "007 - Blood Stone (USA) (En,Fr)", "ps3" },
+        { @"X:\Sony PlayStation 3\007 - Quantum of Solace (USA) (En,Fr) (Collector's Edition).chd", "007 - Quantum of Solace (USA) (En,Fr) (Collector's Edition)", "ps3" },
+        { @"X:\Sony PlayStation 3\3D Dot Game Heroes (USA).chd", "3D Dot Game Heroes (USA)", "ps3" },
+        // SNK Neo Geo CD (CHDMounter console alias "neogeocd")
+        { @"J:\SNK Neo Geo CD\ADK World (Japan).chd", "ADK World (Japan)", "neogeocd" },
+        { @"J:\SNK Neo Geo CD\Andro Dunos (France) (Unl).chd", "Andro Dunos (France) (Unl)", "neogeocd" },
+        { @"J:\SNK Neo Geo CD\2020 Super Baseball (Japan) (En,Ja).chd", "2020 Super Baseball (Japan) (En,Ja)", "neogeocd" }
     };
 
     /// <summary>
@@ -40,10 +40,10 @@ public sealed class MountChdFilesIntegrationTests
     /// </summary>
     /// <param name="chdFilePath">The full path to the CHD file to mount.</param>
     /// <param name="gameName">The display name of the game for assertion messages.</param>
-    /// <param name="consoleIndex">The CHDMounter console index identifying the system type.</param>
+    /// <param name="consoleAlias">The CHDMounter console alias identifying the system type.</param>
     [Theory]
     [MemberData(nameof(ChdFiles))]
-    public async Task MountRealChdSucceeds_And_UnmountsCleanly(string chdFilePath, string gameName, int consoleIndex)
+    public async Task MountRealChdSucceeds_And_UnmountsCleanly(string chdFilePath, string gameName, string consoleAlias)
     {
         if (!File.Exists(chdFilePath))
         {
@@ -67,9 +67,9 @@ public sealed class MountChdFilesIntegrationTests
 
         string? driveRoot;
 
-        await using (var mounted = await mountService.MountAsync(chdFilePath, consoleIndex, _logger, _messageBox))
+        await using (var mounted = await mountService.MountAsync(chdFilePath, consoleAlias, _logger, _messageBox))
         {
-            Assert.True(mounted.IsMounted, $"Mount failed for '{gameName}' (console index {consoleIndex}).");
+            Assert.True(mounted.IsMounted, $"Mount failed for '{gameName}' (console alias {consoleAlias}).");
 
             Assert.False(string.IsNullOrEmpty(mounted.MountedPath), "Mounted path was empty.");
             Assert.False(string.IsNullOrEmpty(mounted.MountedDriveLetter), "Mounted drive letter was empty.");
@@ -80,24 +80,24 @@ public sealed class MountChdFilesIntegrationTests
             var entries = Directory.GetFileSystemEntries(driveRoot);
             Assert.NotEmpty(entries);
 
-            AssertSystemSpecificContent(consoleIndex, driveRoot, gameName);
+            AssertSystemSpecificContent(consoleAlias, driveRoot, gameName);
         }
 
         // After DisposeAsync the CHDMounter process is killed and the drive should be gone.
         await WaitForDriveToDisappearAsync(driveRoot);
     }
 
-    private static void AssertSystemSpecificContent(int consoleIndex, string driveRoot, string gameName)
+    private static void AssertSystemSpecificContent(string consoleAlias, string driveRoot, string gameName)
     {
-        switch (consoleIndex)
+        switch (consoleAlias)
         {
-            case 16:
+            case "xbox":
                 // Xbox XDVDFS discs always contain default.xbe at the root.
                 Assert.True(
                     File.Exists(Path.Combine(driveRoot, "default.xbe")),
                     $"default.xbe not found on mounted Xbox CHD '{gameName}'.");
                 break;
-            case 10:
+            case "ps3":
                 // PS3 discs always contain a PS3_GAME directory at the root.
                 Assert.True(
                     Directory.Exists(Path.Combine(driveRoot, "PS3_GAME")),

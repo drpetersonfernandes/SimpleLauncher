@@ -191,10 +191,10 @@ public class ChdMountStrategy : ILaunchStrategy
 
         var logPath = PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
 
-        // Get the console index for CHDMounter based on system and emulator
-        var consoleIndex = _mountChdFiles.GetConsoleIndexFromSystemName(context.SystemName, context.EmulatorName, _logger);
+        // Get the console alias for CHDMounter based on system and emulator
+        var consoleAlias = _mountChdFiles.GetConsoleAliasFromSystemName(context.SystemName, context.EmulatorName, context.EmulatorManager?.EmulatorLocation, _logger);
 
-        await using var mountedDrive = await _mountChdFiles.MountAsync(context.ResolvedFilePath, consoleIndex, _logger, _messageBox);
+        await using var mountedDrive = await _mountChdFiles.MountAsync(context.ResolvedFilePath, consoleAlias, _logger, _messageBox);
 
         if (!mountedDrive.IsMounted)
         {

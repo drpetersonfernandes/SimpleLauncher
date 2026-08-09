@@ -396,7 +396,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
     {
         try
         {
-            await using var mountedDrive = await _mountChdFiles.MountAsync(context.ResolvedFilePath, 19, _logger, _messageBox);
+            await using var mountedDrive = await _mountChdFiles.MountAsync(context.ResolvedFilePath, "iso9660", _logger, _messageBox);
 
             if (!mountedDrive.IsMounted)
             {

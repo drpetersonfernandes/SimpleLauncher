@@ -53,9 +53,9 @@ public class MountChdFiles : IMountChdFiles
     /// <summary>
     /// Mounts a CHD file and returns a disposable drive handle with the mounted path and drive letter.
     /// </summary>
-    public async Task<MountChdDrive> MountAsync(string resolvedChdFilePath, int? consoleIndex, ILogger logErrors, IMessageBoxLibraryService messageBox)
+    public async Task<MountChdDrive> MountAsync(string resolvedChdFilePath, string? consoleAlias, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
-        _logger.Debug($"[MountChdFiles.MountAsync] Starting to mount CHD: {resolvedChdFilePath} (ConsoleIndex: {consoleIndex?.ToString(CultureInfo.InvariantCulture) ?? "default"})");
+        _logger.Debug($"[MountChdFiles.MountAsync] Starting to mount CHD: {resolvedChdFilePath} (ConsoleAlias: {consoleAlias ?? "default"})");
 
         var resolvedToolPath = PathHelper.ResolveRelativeToAppDirectory(ChdMounterRelativePath);
 
@@ -82,8 +82,8 @@ public class MountChdFiles : IMountChdFiles
         var existingDrives = GetCurrentDriveLetters();
         _logger.Debug($"[MountChdFiles.MountAsync] Existing drives before mount: {string.Join(", ", existingDrives)}");
 
-        var arguments = consoleIndex.HasValue
-            ? $"/a \"{resolvedChdFilePath}\" /s:{consoleIndex.Value}"
+        var arguments = !string.IsNullOrEmpty(consoleAlias)
+            ? $"/a \"{resolvedChdFilePath}\" /s:{consoleAlias}"
             : $"/a \"{resolvedChdFilePath}\"";
 
         var psiMount = new ProcessStartInfo
@@ -361,9 +361,9 @@ public class MountChdFiles : IMountChdFiles
     }
 
     /// <summary>
-    /// Mounts a CHD file with an explicit console index, locates a game file, launches the emulator, and unmounts on exit.
+    /// Mounts a CHD file with an explicit console alias, locates a game file, launches the emulator, and unmounts on exit.
     /// </summary>
-    public async Task MountChdFileAndLoadWithConsoleIndexAsync(
+    public async Task MountChdFileAndLoadWithConsoleAliasAsync(
         string resolvedChdFilePath,
         string selectedSystemName,
         string selectedEmulatorName,
@@ -372,12 +372,12 @@ public class MountChdFiles : IMountChdFiles
         string rawEmulatorParameters,
         IWindowContext windowContext,
         ILauncherService gameLauncher,
-        int? consoleIndex,
+        string? consoleAlias,
         ILogger logErrors,
         IMessageBoxLibraryService messageBox)
     {
-        _logger.Debug($"[MountChdFiles] Starting to mount CHD with console index for game loading: {resolvedChdFilePath}");
-        _logger.Debug($"[MountChdFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}, ConsoleIndex: {consoleIndex?.ToString(CultureInfo.InvariantCulture) ?? "auto"}");
+        _logger.Debug($"[MountChdFiles] Starting to mount CHD with console alias for game loading: {resolvedChdFilePath}");
+        _logger.Debug($"[MountChdFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}, ConsoleAlias: {consoleAlias ?? "auto"}");
 
         var resolvedToolPath = PathHelper.ResolveRelativeToAppDirectory(ChdMounterRelativePath);
 
@@ -404,8 +404,8 @@ public class MountChdFiles : IMountChdFiles
         var existingDrives = GetCurrentDriveLetters();
         _logger.Debug($"[MountChdFiles] Existing drives before mount: {string.Join(", ", existingDrives)}");
 
-        var arguments = consoleIndex.HasValue
-            ? $"\"{resolvedChdFilePath}\" /a /s:{consoleIndex.Value}"
+        var arguments = !string.IsNullOrEmpty(consoleAlias)
+            ? $"\"{resolvedChdFilePath}\" /a /s:{consoleAlias}"
             : $"\"{resolvedChdFilePath}\" /a";
 
         var psiMount = new ProcessStartInfo
@@ -564,27 +564,72 @@ public class MountChdFiles : IMountChdFiles
     }
 
     /// <summary>
-    /// Determines the CHDMounter console index for a given system name and emulator name.
+    /// Determines the CHDMounter console alias for a given system name and emulator name.
+    /// Preserves the previous mounting routine: most systems mount as virtual CUE/BIN
+    /// (raw 2352) so emulators receive .cue/.bin files; only PS2/PS3/Xbox/Xbox 360 use
+    /// filesystem parsing, PSP and xemu use ISO RAW (single image.iso), 3DO uses
+    /// CUE/BIN 2048 (cooked). Aliases per CHDMounter README.
     /// </summary>
-    public int? GetConsoleIndexFromSystemName(string systemName, string emulatorName, ILogger logErrors)
+    public string? GetConsoleAliasFromSystemName(string systemName, string emulatorName, string? emulatorLocation, ILogger logErrors)
     {
         if (string.IsNullOrEmpty(systemName))
         {
             return null;
         }
 
+        // ── Emulator-specific overrides ──────────────────────────────────────────
+        // These emulators require a specific virtual export mode to launch CHDs:
+        //   Final Burn Alpha (fba64.exe) → CUE/ISO/WAV 2048
+        //   Final Burn Neo (fbneo64.exe) → CUE/BIN 2352
+        //   Nebula (nebula.exe)           → CUE/ISO 2048
+        //   Raine (raine.exe)             → CUE/ISO/WAV 2352
+        var emulatorMatch = emulatorName ?? string.Empty;
+        var locationMatch = emulatorLocation ?? string.Empty;
+
+        if (emulatorMatch.Contains("FBAlpha", StringComparison.OrdinalIgnoreCase) ||
+            emulatorMatch.Contains("FB Alpha", StringComparison.OrdinalIgnoreCase) ||
+            emulatorMatch.Contains("FinalBurnAlpha", StringComparison.OrdinalIgnoreCase) ||
+            emulatorMatch.Contains("Final Burn Alpha", StringComparison.OrdinalIgnoreCase) ||
+            emulatorMatch.Contains("FinalBurn Alpha", StringComparison.OrdinalIgnoreCase) ||
+            locationMatch.Contains("fba64.exe", StringComparison.OrdinalIgnoreCase))
+        {
+            return "cueisowav2048";
+        }
+
+        else if (emulatorMatch.Contains("FBNeo", StringComparison.OrdinalIgnoreCase) ||
+                 emulatorMatch.Contains("FB Neo", StringComparison.OrdinalIgnoreCase) ||
+                 emulatorMatch.Contains("FinalBurnNeo", StringComparison.OrdinalIgnoreCase) ||
+                 emulatorMatch.Contains("Final Burn Neo", StringComparison.OrdinalIgnoreCase) ||
+                 emulatorMatch.Contains("FinalBurn Neo", StringComparison.OrdinalIgnoreCase) ||
+                 locationMatch.Contains("fbneo64.exe", StringComparison.OrdinalIgnoreCase))
+        {
+            return "cuebin2352";
+        }
+
+        else if (emulatorMatch.Contains("Nebula", StringComparison.OrdinalIgnoreCase) ||
+                 locationMatch.Contains("nebula.exe", StringComparison.OrdinalIgnoreCase))
+        {
+            return "cueiso2048";
+        }
+
+        else if (emulatorMatch.Contains("raine", StringComparison.OrdinalIgnoreCase) ||
+                 locationMatch.Contains("raine.exe", StringComparison.OrdinalIgnoreCase))
+        {
+            return "cueisowav2352";
+        }
+
         if ((systemName.Contains("AMIGA CD", StringComparison.OrdinalIgnoreCase) ||
              systemName.Contains("AMIGACD", StringComparison.OrdinalIgnoreCase)) &&
             !systemName.Contains("CD32", StringComparison.OrdinalIgnoreCase))
         {
-            return 20;
+            return "cuebin2352";
         }
 
         else if (systemName.Contains("AMIGA CD32", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("AMIGACD32", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("CD32", StringComparison.OrdinalIgnoreCase))
         {
-            return 20;
+            return "cuebin2352";
         }
 
         else if (systemName.Contains("CD-I", StringComparison.OrdinalIgnoreCase) ||
@@ -592,37 +637,37 @@ public class MountChdFiles : IMountChdFiles
                  systemName.Contains("PHILIPS CDI", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("PHILIPSCDI", StringComparison.OrdinalIgnoreCase))
         {
-            return 20;
+            return "cuebin2352";
         }
 
         else if (systemName.Contains("DREAMCAST", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("SEGA DREAMCAST", StringComparison.OrdinalIgnoreCase))
         {
-            return 20;
+            return "cuebin2352";
         }
 
         else if (systemName.Contains("FM Towns", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("FMTowns", StringComparison.OrdinalIgnoreCase))
         {
-            return 20;
+            return "cuebin2352";
         }
 
         else if (systemName.Contains("NEOGEO CD", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("NEO GEO CD", StringComparison.OrdinalIgnoreCase))
         {
-            return 20;
+            return "cuebin2352";
         }
 
         else if (systemName.Contains("PCE-CD", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("PC ENGINE CD", StringComparison.OrdinalIgnoreCase))
         {
-            return 20;
+            return "cuebin2352";
         }
 
         else if (systemName.Contains("PC-FX", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("PCFX", StringComparison.OrdinalIgnoreCase))
         {
-            return 20;
+            return "cuebin2352";
         }
 
         else if ((systemName.Contains("PS1", StringComparison.OrdinalIgnoreCase) ||
@@ -634,7 +679,7 @@ public class MountChdFiles : IMountChdFiles
                  !systemName.Contains('2') &&
                  !systemName.Contains('3'))
         {
-            return 20;
+            return "cuebin2352";
         }
 
         else if (systemName.Contains("PS2", StringComparison.OrdinalIgnoreCase) ||
@@ -643,7 +688,7 @@ public class MountChdFiles : IMountChdFiles
                  systemName.Contains("PLAY 2", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("PLAYSTATION 2", StringComparison.OrdinalIgnoreCase))
         {
-            return 9;
+            return "ps2";
         }
 
         else if (systemName.Contains("PS3", StringComparison.OrdinalIgnoreCase) ||
@@ -652,20 +697,20 @@ public class MountChdFiles : IMountChdFiles
                  systemName.Contains("PLAY 3", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("PLAYSTATION 3", StringComparison.OrdinalIgnoreCase))
         {
-            return 10;
+            return "ps3";
         }
 
         else if (systemName.Contains("PSP", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("PLAYSTATION PORTABLE", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("SONY PSP", StringComparison.OrdinalIgnoreCase))
         {
-            return 11;
+            return "isoraw2352";
         }
 
         else if (systemName.Contains("SATURN", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("SEGA SATURN", StringComparison.OrdinalIgnoreCase))
         {
-            return 20;
+            return "cuebin2352";
         }
 
         // Sega Genesis CD / Mega Drive CD / Sega CD / Mega CD
@@ -678,13 +723,13 @@ public class MountChdFiles : IMountChdFiles
                  systemName.Contains("Sega Genesis CD", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("Mega Drive CD", StringComparison.OrdinalIgnoreCase))
         {
-            return 20;
+            return "cuebin2352";
         }
 
         else if (systemName.Contains("3DO", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("PANASONIC 3DO", StringComparison.OrdinalIgnoreCase))
         {
-            return 21;
+            return "cuebin2048";
         }
 
         else if (systemName.Contains("XBOX", StringComparison.OrdinalIgnoreCase) &&
@@ -693,27 +738,21 @@ public class MountChdFiles : IMountChdFiles
             if (!string.IsNullOrEmpty(emulatorName) &&
                 emulatorName.Contains("xemu", StringComparison.OrdinalIgnoreCase))
             {
-                return 18;
+                return "isoraw2352";
             }
 
-            return 16;
+            return "xbox";
         }
 
         else if (systemName.Contains("XBOX 360", StringComparison.OrdinalIgnoreCase) ||
                  systemName.Contains("XBOX360", StringComparison.OrdinalIgnoreCase))
         {
-            return 17;
-        }
-
-        else if (!string.IsNullOrEmpty(emulatorName) &&
-                 emulatorName.Contains("RAINE", StringComparison.OrdinalIgnoreCase))
-        {
-            return 20;
+            return "xbox360";
         }
 
         else
         {
-            return 20;
+            return "cuebin2352";
         }
     }
 
