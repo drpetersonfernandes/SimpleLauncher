@@ -1,3 +1,4 @@
+using System.Runtime.Versioning;
 using System.Text.Json;
 using Microsoft.Win32;
 
@@ -32,8 +33,15 @@ public class StorefrontGameScanner
     {
         var results = new List<(string, string, string)>();
 
+        // Storefront scanning reads the Windows registry (Steam/Epic/GOG install paths);
+        // not available on Linux.
         await Task.Run(() =>
         {
+            if (!OperatingSystem.IsWindows())
+            {
+                return;
+            }
+
             results.AddRange(ScanSteam());
             results.AddRange(ScanEpic());
             results.AddRange(ScanGog());
@@ -54,6 +62,7 @@ public class StorefrontGameScanner
 
     #region Steam
 
+[SupportedOSPlatform("windows")]
     private static List<(string, string, string)> ScanSteam()
     {
         var results = new List<(string, string, string)>();
@@ -115,6 +124,7 @@ public class StorefrontGameScanner
 
     #region Epic Games
 
+[SupportedOSPlatform("windows")]
     private static List<(string, string, string)> ScanEpic()
     {
         var results = new List<(string, string, string)>();
@@ -168,6 +178,7 @@ public class StorefrontGameScanner
 
     #region GOG
 
+[SupportedOSPlatform("windows")]
     private static List<(string, string, string)> ScanGog()
     {
         var results = new List<(string, string, string)>();
@@ -216,6 +227,7 @@ public class StorefrontGameScanner
 
     #region Amazon Games
 
+[SupportedOSPlatform("windows")]
     private static List<(string, string, string)> ScanAmazon()
     {
         var results = new List<(string, string, string)>();
@@ -252,6 +264,7 @@ public class StorefrontGameScanner
 
     #region Battle.net
 
+[SupportedOSPlatform("windows")]
     private static List<(string, string, string)> ScanBattleNet()
     {
         var results = new List<(string, string, string)>();
@@ -312,6 +325,7 @@ public class StorefrontGameScanner
 
     #region Rockstar
 
+[SupportedOSPlatform("windows")]
     private static List<(string, string, string)> ScanRockstar()
     {
         var results = new List<(string, string, string)>();
@@ -345,6 +359,7 @@ public class StorefrontGameScanner
 
     #region Ubisoft
 
+[SupportedOSPlatform("windows")]
     private static List<(string, string, string)> ScanUbisoft()
     {
         var results = new List<(string, string, string)>();
@@ -376,6 +391,7 @@ public class StorefrontGameScanner
 
     #region Microsoft Store
 
+[SupportedOSPlatform("windows")]
     private static List<(string, string, string)> ScanMicrosoftStore()
     {
         var results = new List<(string, string, string)>();

@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net10.0-windows</TargetFramework>
+        <TargetFrameworks>net10.0;net10.0-windows</TargetFrameworks>
         <RuntimeFrameworkVersion>10.0.2</RuntimeFrameworkVersion>
         <OutputType>WinExe</OutputType>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -23,6 +23,12 @@
         <ApplicationIcon>icon\icon.ico</ApplicationIcon>
         <!-- Avalonia single-project (no .xaml split) -->
         <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
+    </PropertyGroup>
+
+    <!-- Linux target (net10.0): linux RIDs only — Windows RIDs on this TFM would
+         require WindowsDesktop runtime packs (NAudio dependency) that do not exist. -->
+    <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
+        <RuntimeIdentifiers>linux-x64;linux-arm64</RuntimeIdentifiers>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
