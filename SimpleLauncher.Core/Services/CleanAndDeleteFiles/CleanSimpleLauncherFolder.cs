@@ -25,6 +25,7 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "x86"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "Resources"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games"),
+        Path.Combine(AppDirectory, "tools", "PSXPackager"),
         Path.Combine(AppDirectory, "tools", "xbox-iso-vfs"),
         Path.Combine(AppDirectory, "resources"),
         Path.Combine(AppDirectory, "de"),
