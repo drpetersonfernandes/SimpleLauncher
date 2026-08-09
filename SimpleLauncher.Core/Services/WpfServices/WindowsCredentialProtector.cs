@@ -15,7 +15,9 @@ namespace SimpleLauncher.Core.Services.WpfServices;
 /// </remarks>
 public class WindowsCredentialProtector : ICredentialProtector
 {
+#if WINDOWS
     private static readonly byte[] Entropy = "SimpleLauncher.Salt"u8.ToArray();
+#endif
     private static bool _warnedPortableFallback;
 
     /// <summary>Encrypts the specified plaintext using DPAPI (or the portable fallback on Linux).</summary>
@@ -77,7 +79,7 @@ public class WindowsCredentialProtector : ICredentialProtector
         return Convert.ToBase64String(Encoding.UTF8.GetBytes(plaintext));
     }
 
-    private static string? PortableUnprotect(string protectedData)
+    private static string PortableUnprotect(string protectedData)
     {
         WarnPortableFallback();
         return Encoding.UTF8.GetString(Convert.FromBase64String(protectedData));
@@ -86,6 +88,7 @@ public class WindowsCredentialProtector : ICredentialProtector
     private static void WarnPortableFallback()
     {
         if (_warnedPortableFallback) return;
+
         _warnedPortableFallback = true;
         Log.Warning("DPAPI is not available on this platform; RetroAchievements credentials are stored obfuscated (Base64) instead of encrypted.");
     }
