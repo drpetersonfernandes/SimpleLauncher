@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFrameworks>net10.0;net10.0-windows</TargetFrameworks>
+        <AssemblyName>SimpleLauncher.Avalonia.Updater</AssemblyName>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <AssemblyVersion>5.6.0</AssemblyVersion>
+        <FileVersion>5.6.0</FileVersion>
+        <IsPackable>false</IsPackable>
+        <LangVersion>14</LangVersion>
+        <ApplicationIcon>icon\icon.ico</ApplicationIcon>
+        <NeutralLanguage>en</NeutralLanguage>
+        <DebugType>embedded</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+        <Company>PureLogicCode.com</Company>
+        <Product>Simple Launcher Updater</Product>
+        <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+        <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+        <NoWarn>NU1903;CS0436</NoWarn>
+        <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
+    </PropertyGroup>
+
+    <!-- Linux target (net10.0): linux RIDs only -->
+    <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
+        <RuntimeIdentifiers>linux-x64;linux-arm64</RuntimeIdentifiers>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Using Include="System.IO" />
+        <Using Include="System.Net.Http" />
+        <Using Include="Serilog" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Serilog" Version="4.4.0" />
+        <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
+        <PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
+        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+        <PackageReference Include="SharpCompress" Version="0.50.4" />
+        <PackageReference Include="Avalonia" Version="12.1.1" />
+        <PackageReference Include="Avalonia.Desktop" Version="12.1.1" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.1" />
+    </ItemGroup>
+
+</Project>

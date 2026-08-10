@@ -73,3 +73,36 @@ jobs:
           name: SimpleLauncher-${{ matrix.rid }}
           path: SimpleLauncher.Avalonia/bin/Release/${{ matrix.tfm }}/${{ matrix.rid }}/publish/
           if-no-files-found: error
+
+  publish-updater:
+    name: Publish updater (${{ matrix.rid }})
+    needs: [ build-test-windows, build-test-linux ]
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - rid: win-x64
+            tfm: net10.0-windows
+          - rid: win-arm64
+            tfm: net10.0-windows
+          - rid: linux-x64
+            tfm: net10.0
+          - rid: linux-arm64
+            tfm: net10.0
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Publish self-contained updater
+        run: dotnet publish SimpleLauncher.Avalonia.Updater/SimpleLauncher.Avalonia.Updater.csproj -c Release -f ${{ matrix.tfm }} -r ${{ matrix.rid }} --self-contained true --nologo
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SimpleLauncher.Avalonia.Updater-${{ matrix.rid }}
+          path: SimpleLauncher.Avalonia.Updater/bin/Release/${{ matrix.tfm }}/${{ matrix.rid }}/publish/
+          if-no-files-found: error

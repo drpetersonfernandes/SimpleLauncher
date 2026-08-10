@@ -1,0 +1,69 @@
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Threading;
+using Serilog.Events;
+using SimpleLauncher.Avalonia.Updater.Services;
+using SimpleLauncher.Avalonia.Updater.Services.DebugAndBugReport;
+
+namespace SimpleLauncher.Avalonia.Updater;
+
+/// <summary>
+/// Application entry point for the Avalonia Updater — sets up logging, global
+/// exception handling, and shows the update window.
+/// </summary>
+public partial class App : Application
+{
+    /// <summary>
+    /// Initializes the application: logging, bug-report sink and exception handlers.
+    /// </summary>
+    public override void OnFrameworkInitializationCompleted()
+    {
+        AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+        TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+
+        var appDataLogFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+        Directory.CreateDirectory(appDataLogFolder);
+
+        var bugReportSink = new BugReportApiSink(appDataLogFolder);
+
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .Enrich.FromLogContext()
+            .WriteTo.Debug(outputTemplate: "[{Level}] {Timestamp:HH:mm:ss.fff} - {Message}{NewLine}{Exception}")
+            .WriteTo.Async(a => a.File(
+                Path.Combine(appDataLogFolder, "error_user.log"),
+                LogEventLevel.Warning,
+                rollingInterval: RollingInterval.Day,
+                retainedFileCountLimit: 7,
+                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}"))
+            .WriteTo.Sink(bugReportSink)
+            .CreateLogger();
+
+        Log.Information("Updater starting...");
+
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            var args = Environment.GetCommandLineArgs().Skip(1).ToArray();
+            var mainWindow = new MainWindow(args);
+            desktop.MainWindow = mainWindow;
+            mainWindow.Show();
+        }
+
+        base.OnFrameworkInitializationCompleted();
+    }
+
+    private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        if (e.ExceptionObject is Exception ex)
+        {
+            Log.Fatal(ex, "Unhandled exception");
+            _ = BugReportService.ReportBugAsync(ex, "Unhandled exception in Updater");
+        }
+    }
+
+    private void TaskScheduler_UnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
+    {
+        Log.Error(e.Exception, "Unobserved task exception");
+        e.SetObserved();
+    }
+}

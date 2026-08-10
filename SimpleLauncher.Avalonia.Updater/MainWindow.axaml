@@ -1,0 +1,44 @@
+<Window x:Class="SimpleLauncher.Avalonia.Updater.MainWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Simple Launcher Updater"
+        Width="620" Height="440"
+        MinWidth="520" MinHeight="360"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+    <Grid Margin="16" RowDefinitions="Auto,Auto,*,Auto">
+
+        <!-- Status -->
+        <TextBlock Grid.Row="0" x:Name="ProgressStatusText"
+                   Text="Starting updater..."
+                   FontSize="14" FontWeight="SemiBold"
+                   TextWrapping="Wrap"
+                   Margin="0,0,0,10" />
+
+        <!-- Progress -->
+        <ProgressBar Grid.Row="1" x:Name="DownloadProgressBar"
+                     Minimum="0" Maximum="100"
+                     Height="18"
+                     Margin="0,0,0,14" />
+
+        <!-- Log -->
+        <TextBox Grid.Row="2" x:Name="LogTextBox"
+                 IsReadOnly="True"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 FontFamily="Consolas, Menlo, monospace"
+                 FontSize="12"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                 Margin="0,0,0,14" />
+
+        <!-- Actions -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="CancelButton"
+                    Content="Cancel"
+                    Width="100"
+                    IsEnabled="False"
+                    Click="CancelButton_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PBPSharp", "PBPSharp\PBPSha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLauncher.Avalonia.Tests", "SimpleLauncher.Avalonia.Tests\SimpleLauncher.Avalonia.Tests.csproj", "{31C1140F-ACE6-4393-B6C0-E9068F7DB2F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLauncher.Avalonia.Updater", "SimpleLauncher.Avalonia.Updater\SimpleLauncher.Avalonia.Updater.csproj", "{2896991F-000F-4096-8AF3-0788C7F14D3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -178,6 +180,18 @@ Global
 		{31C1140F-ACE6-4393-B6C0-E9068F7DB2F5}.Release|x64.Build.0 = Release|Any CPU
 		{31C1140F-ACE6-4393-B6C0-E9068F7DB2F5}.Release|x86.ActiveCfg = Release|Any CPU
 		{31C1140F-ACE6-4393-B6C0-E9068F7DB2F5}.Release|x86.Build.0 = Release|Any CPU
+		{2896991F-000F-4096-8AF3-0788C7F14D3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2896991F-000F-4096-8AF3-0788C7F14D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2896991F-000F-4096-8AF3-0788C7F14D3D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2896991F-000F-4096-8AF3-0788C7F14D3D}.Debug|x64.Build.0 = Debug|Any CPU
+		{2896991F-000F-4096-8AF3-0788C7F14D3D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2896991F-000F-4096-8AF3-0788C7F14D3D}.Debug|x86.Build.0 = Debug|Any CPU
+		{2896991F-000F-4096-8AF3-0788C7F14D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2896991F-000F-4096-8AF3-0788C7F14D3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2896991F-000F-4096-8AF3-0788C7F14D3D}.Release|x64.ActiveCfg = Release|Any CPU
+		{2896991F-000F-4096-8AF3-0788C7F14D3D}.Release|x64.Build.0 = Release|Any CPU
+		{2896991F-000F-4096-8AF3-0788C7F14D3D}.Release|x86.ActiveCfg = Release|Any CPU
+		{2896991F-000F-4096-8AF3-0788C7F14D3D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
