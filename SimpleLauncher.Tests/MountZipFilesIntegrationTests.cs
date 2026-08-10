@@ -10,7 +10,6 @@ namespace SimpleLauncher.Tests;
 /// Integration tests that mount real ZIP archives with SimpleZipDrive and verify the mount succeeds.
 /// Tests are skipped at runtime when the ZIP file, the SimpleZipDrive tool, or the Dokan driver is unavailable.
 /// </summary>
-[Trait("Category", "Integration")]
 public sealed class MountZipFilesIntegrationTests
 {
     private static readonly string SimpleZipDriveExePath = Path.Combine(

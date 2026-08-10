@@ -10,7 +10,6 @@ namespace SimpleLauncher.Tests;
 /// Integration tests that mount real CHD disc images with CHDMounter and verify the mount succeeds.
 /// Tests are skipped at runtime when the CHD file, the CHDMounter tool, or the Dokan driver is unavailable.
 /// </summary>
-[Trait("Category", "Integration")]
 public sealed class MountChdFilesIntegrationTests
 {
     private readonly ILogger _logger = new NoOpLogger();

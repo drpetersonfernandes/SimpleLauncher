@@ -63,7 +63,8 @@ public class LocalizationResourcePackagingTests
         {
             var code = resource.Replace("resources/strings.", "", StringComparison.OrdinalIgnoreCase)
                                .Replace(".xaml", "", StringComparison.OrdinalIgnoreCase);
-            Assert.Contains(code, SupportedLanguageCodes);
+            Assert.True(SupportedLanguageCodes.Contains(code, StringComparer.OrdinalIgnoreCase),
+                $"Embedded resource '{resource}' does not map to a known language.");
         }
     }
 }
