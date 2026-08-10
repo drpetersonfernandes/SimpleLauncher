@@ -3,7 +3,6 @@ using SimpleLauncher.Avalonia.Services.GameLauncher;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.SystemConfiguration;
 
 namespace SimpleLauncher.Avalonia.Tests;
 
@@ -63,23 +62,29 @@ public class MinimalLauncherServiceGatingTests : IDisposable
             askAi);
     }
 
-    private static Emulator CreateEmulator(string name) => new()
+    private static Emulator CreateEmulator(string name)
     {
-        EmulatorName = name,
-        EmulatorLocation = "/usr/bin/fake-emulator",
-        EmulatorParameters = "",
-        ReceiveANotificationOnEmulatorError = false,
-        ImagePackDownloadLink = "",
-        ImagePackDownloadLink2 = "",
-        ImagePackDownloadLink3 = "",
-        ImagePackDownloadLink4 = "",
-        ImagePackDownloadLink5 = "",
-        ImagePackDownloadExtractPath = ""
-    };
+        return new Emulator
+        {
+            EmulatorName = name,
+            EmulatorLocation = "/usr/bin/fake-emulator",
+            EmulatorParameters = "",
+            ReceiveANotificationOnEmulatorError = false,
+            ImagePackDownloadLink = "",
+            ImagePackDownloadLink2 = "",
+            ImagePackDownloadLink3 = "",
+            ImagePackDownloadLink4 = "",
+            ImagePackDownloadLink5 = "",
+            ImagePackDownloadExtractPath = ""
+        };
+    }
 
-    private static ISystemManager CreateSystem() => Mock.Of<ISystemManager>(s =>
-        s.SystemName == "Test System" &&
-        s.FileFormatsToLaunch == new List<string> { ".iso" });
+    private static ISystemManager CreateSystem()
+    {
+        return Mock.Of<ISystemManager>(s =>
+            s.SystemName == "Test System" &&
+            s.FileFormatsToLaunch == new List<string> { ".iso" });
+    }
 
     [Fact]
     public async Task HandlerReturningFalse_AbortsLaunchAndClearsLoadingState()
@@ -104,7 +109,7 @@ public class MinimalLauncherServiceGatingTests : IDisposable
             c.ResolvedFilePath == _isoPath)), Times.Once);
 
         // …the "Configuring emulator..." state was shown, then cleared, and nothing else ran.
-        Assert.Contains(_loading.Calls, c => c.IsLoading && c.Message == "Configuring emulator...");
+        Assert.Contains(_loading.Calls, c => c is (true, "Configuring emulator..."));
         Assert.True(_loading.Calls.Last().IsLoading == false, "Loading state must be cleared after abort");
         _messageBox.Verify(m => m.CustomErrorMessageBoxAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
     }

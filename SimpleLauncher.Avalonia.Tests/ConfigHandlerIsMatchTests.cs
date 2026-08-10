@@ -1,5 +1,4 @@
 using SimpleLauncher.Avalonia.Services.GameLauncher.Handlers;
-using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Avalonia.Tests;
 
@@ -38,7 +37,7 @@ public class ConfigHandlerIsMatchTests
     [MemberData(nameof(HandlerCases))]
     public void IsMatch_MatchesEmulatorName(Type handlerType, string emulatorName, string _, string __)
     {
-        var handler = (IEmulatorConfigHandler)HandlerFactory.CreateFromType(handlerType);
+        var handler = HandlerFactory.CreateFromType(handlerType);
 
         Assert.True(handler.IsMatch(emulatorName, ""), $"{handlerType.Name} should match name '{emulatorName}'");
     }
@@ -47,7 +46,7 @@ public class ConfigHandlerIsMatchTests
     [MemberData(nameof(HandlerCases))]
     public void IsMatch_MatchesEmulatorPath(Type handlerType, string _, string emulatorPath, string __)
     {
-        var handler = (IEmulatorConfigHandler)HandlerFactory.CreateFromType(handlerType);
+        var handler = HandlerFactory.CreateFromType(handlerType);
 
         Assert.True(handler.IsMatch("Some Emulator", emulatorPath), $"{handlerType.Name} should match path '{emulatorPath}'");
     }
@@ -56,9 +55,9 @@ public class ConfigHandlerIsMatchTests
     [MemberData(nameof(HandlerCases))]
     public void IsMatch_DoesNotMatchUnrelated(Type handlerType, string _, string __, string unrelated)
     {
-        var handler = (IEmulatorConfigHandler)HandlerFactory.CreateFromType(handlerType);
+        var handler = HandlerFactory.CreateFromType(handlerType);
 
-        Assert.False(handler.IsMatch(unrelated, @"/usr/bin/some-other-emulator"),
+        Assert.False(handler.IsMatch(unrelated, "/usr/bin/some-other-emulator"),
             $"{handlerType.Name} should NOT match '{unrelated}'");
     }
 
@@ -66,7 +65,7 @@ public class ConfigHandlerIsMatchTests
     [MemberData(nameof(HandlerCases))]
     public void IsMatch_IsCaseInsensitive(Type handlerType, string emulatorName, string emulatorPath, string _)
     {
-        var handler = (IEmulatorConfigHandler)HandlerFactory.CreateFromType(handlerType);
+        var handler = HandlerFactory.CreateFromType(handlerType);
 
         Assert.True(handler.IsMatch(emulatorName.ToUpperInvariant(), ""));
         Assert.True(handler.IsMatch(emulatorName.ToLowerInvariant(), ""));

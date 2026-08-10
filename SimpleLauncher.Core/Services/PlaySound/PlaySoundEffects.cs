@@ -18,6 +18,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
 
     private WaveOutEvent? _waveOut;
     private Mp3FileReader? _reader;
+    private AlsaSoundPlayer? _linuxPlayer;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PlaySoundEffects"/> class.
@@ -103,11 +104,21 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
 
             try
             {
-                _reader = new Mp3FileReader(soundPath);
-                _waveOut = new WaveOutEvent();
-                _waveOut.PlaybackStopped += OnPlaybackStopped;
-                _waveOut.Init(_reader);
-                _waveOut.Play();
+                if (OperatingSystem.IsWindows())
+                {
+                    _reader = new Mp3FileReader(soundPath);
+                    _waveOut = new WaveOutEvent();
+                    _waveOut.PlaybackStopped += OnPlaybackStopped;
+                    _waveOut.Init(_reader);
+                    _waveOut.Play();
+                }
+                else
+                {
+                    // Linux: managed MP3 decode (NLayer) + ALSA output; silently
+                    // skipped when no audio device is available (WSL2, CI, containers).
+                    _linuxPlayer ??= new AlsaSoundPlayer(_logger);
+                    _linuxPlayer.Play(soundPath);
+                }
             }
             catch (Exception ex)
             {
@@ -181,6 +192,8 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
         lock (Lock)
         {
             StopCurrentPlayback();
+            _linuxPlayer?.Dispose();
+            _linuxPlayer = null;
         }
 
         GC.SuppressFinalize(this);

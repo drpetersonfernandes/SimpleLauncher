@@ -1,6 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using SimpleLauncher.Avalonia.Services.GameLauncher.Handlers;
 using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Avalonia.Tests;
@@ -11,7 +10,9 @@ namespace SimpleLauncher.Avalonia.Tests;
 internal static class HandlerFactory
 {
     public static IEmulatorConfigHandler Create<T>() where T : IEmulatorConfigHandler
-        => CreateFromType(typeof(T));
+    {
+        return CreateFromType(typeof(T));
+    }
 
     public static IEmulatorConfigHandler CreateFromType(Type handlerType)
     {
