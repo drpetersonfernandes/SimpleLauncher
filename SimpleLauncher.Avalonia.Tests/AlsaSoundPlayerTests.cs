@@ -26,7 +26,7 @@ public class AlsaSoundPlayerTests
         var decoded = AlsaSoundPlayer.DecodeMp3(NotificationMp3);
 
         Assert.NotNull(decoded);
-        Assert.True(decoded!.Value.Samples.Length > 0, "MP3 should decode to PCM samples");
+        Assert.True(decoded.Value.Samples.Length > 0, "MP3 should decode to PCM samples");
         Assert.InRange(decoded.Value.SampleRate, 8000, 48000);
         Assert.InRange(decoded.Value.Channels, 1, 2);
     }
