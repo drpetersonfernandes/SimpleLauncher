@@ -610,7 +610,10 @@ public partial class App : IDisposable
         // Get the singleton SettingsManagerService instance
         var settingsManager = ServiceProvider.GetRequiredService<SettingsManagerService>();
         ApplyTheme(settingsManager.BaseTheme, settingsManager.AccentColor);
-        ApplyLanguage(settingsManager.Language);
+        // Command-line language override wins over the configured language.
+        // Usage: SimpleLauncher.exe --language es   (or -language es / --language=es)
+        var startupLanguage = ResolveStartupLanguage(e.Args, settingsManager.Language);
+        ApplyLanguage(startupLanguage);
 
         // Manually create and show the MainWindow using DI
         var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
@@ -832,6 +835,62 @@ public partial class App : IDisposable
         Log.CloseAndFlush();
         Dispose();
         base.OnExit(e);
+    }
+
+    /// <summary>
+    /// Extracts a language code from the "--language"/"-language"/"--language=" launch argument.
+    /// </summary>
+    /// <param name="args">The command-line arguments.</param>
+    /// <returns>The language code, or null when no language argument is present.</returns>
+    internal static string? TryGetLanguageArg(string[] args)
+    {
+        for (var i = 0; i < args.Length; i++)
+        {
+            var arg = args[i];
+            if (arg.StartsWith("--language=", StringComparison.OrdinalIgnoreCase))
+            {
+                return arg["--language=".Length..];
+            }
+
+            if (arg.Equals("--language", StringComparison.OrdinalIgnoreCase) ||
+                arg.Equals("-language", StringComparison.OrdinalIgnoreCase))
+            {
+                if (i + 1 < args.Length)
+                {
+                    return args[i + 1];
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Resolves the startup language: an explicit --language launch argument wins
+    /// (validated against the supported languages, case-insensitive), otherwise the
+    /// configured language is used. Unsupported argument codes are passed through so
+    /// ApplyLanguage performs its standard English fallback.
+    /// </summary>
+    /// <param name="args">The command-line arguments.</param>
+    /// <param name="configuredLanguage">The language from the settings.</param>
+    /// <returns>The canonical language code to apply at startup.</returns>
+    internal static string ResolveStartupLanguage(string[] args, string configuredLanguage)
+    {
+        var argLanguage = TryGetLanguageArg(args);
+        if (!string.IsNullOrWhiteSpace(argLanguage))
+        {
+            var canonical = LanguageMenuService.NameToCode.Values
+                .FirstOrDefault(code => string.Equals(code, argLanguage, StringComparison.OrdinalIgnoreCase));
+            if (canonical is not null)
+            {
+                return canonical;
+            }
+
+            Log.Warning("Unsupported language launch argument '{Language}'. Falling back to English.", argLanguage);
+            return argLanguage; // ApplyLanguage performs the standard English fallback
+        }
+
+        return configuredLanguage;
     }
 
     private static void ApplyLanguage(string languageCode)

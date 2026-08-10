@@ -20,7 +20,10 @@ public class LanguageMenuService
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
     private ILanguageMenuHost _host = null!;
 
-    private static readonly Dictionary<string, string> NameToCode = new(StringComparer.Ordinal)
+    /// <summary>
+    /// Maps localized menu names to language codes (the canonical set of selectable languages).
+    /// </summary>
+    internal static readonly Dictionary<string, string> NameToCode = new(StringComparer.Ordinal)
     {
         { "LanguageArabic", "ar" },
         { "LanguageBengali", "bn" },
