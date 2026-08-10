@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+jobs:
+  build-test-windows:
+    name: Build + test (Windows)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Build solution (all projects, both TFMs)
+        run: dotnet build SimpleLauncher.sln -c Release --nologo
+
+      - name: Test WPF/Core suite (quarantined network/integration tests excluded)
+        run: dotnet test SimpleLauncher.Tests/SimpleLauncher.Tests.csproj -c Release --no-build --filter "Category!=Network&Category!=Integration"
+
+      - name: Test Avalonia suite
+        run: dotnet test SimpleLauncher.Avalonia.Tests/SimpleLauncher.Avalonia.Tests.csproj -c Release --no-build
+
+  build-test-linux:
+    name: Build + test (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Build Avalonia for Linux (net10.0)
+        run: dotnet build SimpleLauncher.Avalonia/SimpleLauncher.Avalonia.csproj -f net10.0 -c Release --nologo
+
+      - name: Test Avalonia suite on Linux
+        run: dotnet test SimpleLauncher.Avalonia.Tests/SimpleLauncher.Avalonia.Tests.csproj -c Release --no-build
+
+  publish:
+    name: Publish (${{ matrix.rid }})
+    needs: [ build-test-windows, build-test-linux ]
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - rid: win-x64
+            tfm: net10.0-windows
+          - rid: win-arm64
+            tfm: net10.0-windows
+          - rid: linux-x64
+            tfm: net10.0
+          - rid: linux-arm64
+            tfm: net10.0
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Publish self-contained
+        run: dotnet publish SimpleLauncher.Avalonia/SimpleLauncher.Avalonia.csproj -c Release -f ${{ matrix.tfm }} -r ${{ matrix.rid }} --self-contained true --nologo
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SimpleLauncher-${{ matrix.rid }}
+          path: SimpleLauncher.Avalonia/bin/Release/${{ matrix.tfm }}/${{ matrix.rid }}/publish/
+          if-no-files-found: error

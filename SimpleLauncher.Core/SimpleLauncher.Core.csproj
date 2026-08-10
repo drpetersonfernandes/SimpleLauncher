@@ -80,6 +80,9 @@
             <_Parameter1>SimpleLauncher.Avalonia</_Parameter1>
         </AssemblyAttribute>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>SimpleLauncher.Avalonia.Tests</_Parameter1>
+        </AssemblyAttribute>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
             <_Parameter1>SimpleLauncher.New.Tests</_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>

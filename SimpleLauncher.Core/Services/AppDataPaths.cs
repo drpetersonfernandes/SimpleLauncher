@@ -22,15 +22,28 @@ public static class AppDataPaths
     /// <returns>An absolute path to the SimpleLauncher data folder.</returns>
     public static string GetSimpleLauncherDataFolder()
     {
-        var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        return Resolve(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+            OperatingSystem.IsWindows());
+    }
+
+    /// <summary>
+    /// Pure resolution logic (separated for testability).
+    /// </summary>
+    /// <param name="localAppData">The LocalApplicationData folder, possibly empty/relative on Linux.</param>
+    /// <param name="userProfile">The user profile folder.</param>
+    /// <param name="isWindows">Whether the current platform is Windows.</param>
+    /// <returns>An absolute path to the SimpleLauncher data folder.</returns>
+    internal static string Resolve(string? localAppData, string? userProfile, bool isWindows)
+    {
         if (string.IsNullOrWhiteSpace(localAppData) || !Path.IsPathRooted(localAppData))
         {
-            var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            if (!string.IsNullOrWhiteSpace(home))
+            if (!string.IsNullOrWhiteSpace(userProfile))
             {
-                localAppData = OperatingSystem.IsWindows()
-                    ? Path.Combine(home, "AppData", "Local")
-                    : Path.Combine(home, ".local", "share");
+                localAppData = isWindows
+                    ? Path.Combine(userProfile, "AppData", "Local")
+                    : Path.Combine(userProfile, ".local", "share");
             }
         }
 

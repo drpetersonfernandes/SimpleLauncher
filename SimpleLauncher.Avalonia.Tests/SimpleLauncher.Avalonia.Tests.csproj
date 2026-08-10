@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <!-- net10.0 (not -windows): the suite runs on Windows AND Linux CI runners -->
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+        <Nullable>enable</Nullable>
+        <LangVersion>14</LangVersion>
+        <NoWarn>NU1903;xUnit1026</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
+        <PackageReference Include="xunit" Version="2.9.3" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Moq" Version="4.20.72" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\SimpleLauncher.Avalonia\SimpleLauncher.Avalonia.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Serilog" />
+        <Using Include="Xunit" />
+    </ItemGroup>
+
+</Project>
