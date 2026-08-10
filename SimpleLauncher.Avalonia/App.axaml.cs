@@ -71,14 +71,19 @@ public class App : Application, IDisposable
 
         // Single-instance enforcement
         _singleInstanceMutex = new Mutex(true, MutexName, out _isFirstInstance);
-        _instanceSignal = new EventWaitHandle(false, EventResetMode.AutoReset, EventName);
+        // Named EventWaitHandle is Windows-only; on Linux the named Mutex still enforces
+        // single-instance, only the "bring first instance to foreground" signal is lost.
+        if (OperatingSystem.IsWindows())
+        {
+            _instanceSignal = new EventWaitHandle(false, EventResetMode.AutoReset, EventName);
+        }
 
         if (!_isFirstInstance)
         {
             // Signal the first instance to come to foreground
             try
             {
-                _instanceSignal.Set();
+                _instanceSignal?.Set();
             }
             catch (Exception ex)
             {
@@ -110,9 +115,7 @@ public class App : Application, IDisposable
         AppConstants.InitializeApiKey(configuration["ApiKey"]);
 
         // Serilog setup
-        var appDataLogFolder = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "SimpleLauncher");
+        var appDataLogFolder = Core.Services.AppDataPaths.SimpleLauncherDataFolder;
         Directory.CreateDirectory(appDataLogFolder);
 
         // Sink that forwards Warning+ events to the bug report API
@@ -488,8 +491,7 @@ public class App : Application, IDisposable
         try
         {
             var crashPath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "SimpleLauncher", "crash_new.log");
+                Core.Services.AppDataPaths.SimpleLauncherDataFolder, "crash_new.log");
             File.AppendAllText(crashPath,
                 $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {ex}{Environment.NewLine}{Environment.NewLine}");
         }

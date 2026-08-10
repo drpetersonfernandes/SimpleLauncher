@@ -249,8 +249,7 @@ public static partial class PathHelper
         }
 
         return Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "SimpleLauncher",
+            Services.AppDataPaths.SimpleLauncherDataFolder,
             logFileName);
     }
 

@@ -30,8 +30,7 @@ public partial class MainWindow : Window
 
     // Bounds persistence (separate file from the WPF app)
     private static readonly string BoundsFilePath = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "SimpleLauncher", "window_bounds_avalonia.json");
+        Core.Services.AppDataPaths.SimpleLauncherDataFolder, "window_bounds_avalonia.json");
 
     public MainWindow(
         MainViewModel viewModel,

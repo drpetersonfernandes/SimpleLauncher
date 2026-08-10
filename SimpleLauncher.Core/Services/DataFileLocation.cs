@@ -52,8 +52,7 @@ public sealed class DataFileLocation
 
     private void Initialize(string portablePath)
     {
-        var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        var appDataFolder = Path.Combine(localAppData, "SimpleLauncher");
+        var appDataFolder = AppDataPaths.SimpleLauncherDataFolder;
         var localAppDataPath = Path.Combine(appDataFolder, _fileName);
         var portableExists = File.Exists(portablePath);
         var localExists = File.Exists(localAppDataPath);
@@ -110,8 +109,7 @@ public sealed class DataFileLocation
     /// <returns>The full path of the data file in the local app data folder.</returns>
     public string GetLocalAppDataPath()
     {
-        var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        var appDataFolder = Path.Combine(localAppData, "SimpleLauncher");
+        var appDataFolder = AppDataPaths.SimpleLauncherDataFolder;
         return Path.Combine(appDataFolder, _fileName);
     }
 
@@ -123,8 +121,7 @@ public sealed class DataFileLocation
     {
         try
         {
-            var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            var appDataFolder = Path.Combine(localAppData, "SimpleLauncher");
+            var appDataFolder = AppDataPaths.SimpleLauncherDataFolder;
             var newFilePath = Path.Combine(appDataFolder, _fileName);
 
             EnsureDirectoryExists(appDataFolder);
