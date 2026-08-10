@@ -62,7 +62,7 @@ public class StorefrontGameScanner
 
     #region Steam
 
-[SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("windows")]
     private static List<(string, string, string)> ScanSteam()
     {
         var results = new List<(string, string, string)>();
@@ -124,7 +124,7 @@ public class StorefrontGameScanner
 
     #region Epic Games
 
-[SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("windows")]
     private static List<(string, string, string)> ScanEpic()
     {
         var results = new List<(string, string, string)>();
@@ -178,7 +178,7 @@ public class StorefrontGameScanner
 
     #region GOG
 
-[SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("windows")]
     private static List<(string, string, string)> ScanGog()
     {
         var results = new List<(string, string, string)>();
@@ -227,7 +227,7 @@ public class StorefrontGameScanner
 
     #region Amazon Games
 
-[SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("windows")]
     private static List<(string, string, string)> ScanAmazon()
     {
         var results = new List<(string, string, string)>();
@@ -264,7 +264,7 @@ public class StorefrontGameScanner
 
     #region Battle.net
 
-[SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("windows")]
     private static List<(string, string, string)> ScanBattleNet()
     {
         var results = new List<(string, string, string)>();
@@ -325,7 +325,7 @@ public class StorefrontGameScanner
 
     #region Rockstar
 
-[SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("windows")]
     private static List<(string, string, string)> ScanRockstar()
     {
         var results = new List<(string, string, string)>();
@@ -359,7 +359,7 @@ public class StorefrontGameScanner
 
     #region Ubisoft
 
-[SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("windows")]
     private static List<(string, string, string)> ScanUbisoft()
     {
         var results = new List<(string, string, string)>();
@@ -391,7 +391,7 @@ public class StorefrontGameScanner
 
     #region Microsoft Store
 
-[SupportedOSPlatform("windows")]
+    [SupportedOSPlatform("windows")]
     private static List<(string, string, string)> ScanMicrosoftStore()
     {
         var results = new List<(string, string, string)>();

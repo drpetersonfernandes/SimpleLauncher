@@ -115,7 +115,7 @@ public class App : Application, IDisposable
         AppConstants.InitializeApiKey(configuration["ApiKey"]);
 
         // Serilog setup
-        var appDataLogFolder = Core.Services.AppDataPaths.SimpleLauncherDataFolder;
+        var appDataLogFolder = AppDataPaths.SimpleLauncherDataFolder;
         Directory.CreateDirectory(appDataLogFolder);
 
         // Sink that forwards Warning+ events to the bug report API
@@ -491,7 +491,7 @@ public class App : Application, IDisposable
         try
         {
             var crashPath = Path.Combine(
-                Core.Services.AppDataPaths.SimpleLauncherDataFolder, "crash_new.log");
+                AppDataPaths.SimpleLauncherDataFolder, "crash_new.log");
             File.AppendAllText(crashPath,
                 $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {ex}{Environment.NewLine}{Environment.NewLine}");
         }

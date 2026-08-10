@@ -249,7 +249,7 @@ public static partial class PathHelper
         }
 
         return Path.Combine(
-            Services.AppDataPaths.SimpleLauncherDataFolder,
+            AppDataPaths.SimpleLauncherDataFolder,
             logFileName);
     }
 
