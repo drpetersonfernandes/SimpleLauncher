@@ -929,7 +929,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                     machines,
                     favoritesManager,
                     _settings,
-                    null,
+                    EmulatorComboBox,
                     null,
                     null,
                     null,

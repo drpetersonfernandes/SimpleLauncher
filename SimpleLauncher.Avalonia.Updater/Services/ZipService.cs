@@ -1,5 +1,4 @@
 using System.Security;
-using System.IO;
 using SharpCompress.Readers;
 using SharpCompress.Readers.Zip;
 

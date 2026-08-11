@@ -181,7 +181,7 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
             "Technosys Aamber Pegasus", "TI-99", "TI-73", "TI-80", "@sega_model 3", "sega model 3m", "FBNeo", "EACA Colour Genie",
             "NEC PC9801", "NEC PC9821", "Metroid Saga", "PC_Shooter_1998-2002", "super a'can", "NEC PC98", "MAMEICHON", "Videoton TVC",
             "Tiger GameCom", "Tiger Game.com", "Game.com", "Systema1", "Tomy Pyuta", "C64 - Cartridge [EasyFlash Collection]",
-            "Luxor ABC 80"
+            "Luxor ABC 80", "90er_PC_Spiele_und_die_frühen_2000"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos", "MS DOS", "MSDOS", "MS-DOS"]),

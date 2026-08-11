@@ -1,6 +1,5 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Threading;
 using Serilog.Events;
 using SimpleLauncher.Avalonia.Updater.Services;
 using SimpleLauncher.Avalonia.Updater.Services.DebugAndBugReport;
@@ -11,7 +10,7 @@ namespace SimpleLauncher.Avalonia.Updater;
 /// Application entry point for the Avalonia Updater — sets up logging, global
 /// exception handling, and shows the update window.
 /// </summary>
-public partial class App : Application
+public class App : Application
 {
     /// <summary>
     /// Initializes the application: logging, bug-report sink and exception handlers.
@@ -61,7 +60,7 @@ public partial class App : Application
         }
     }
 
-    private void TaskScheduler_UnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
+    private static void TaskScheduler_UnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
     {
         Log.Error(e.Exception, "Unobserved task exception");
         e.SetObserved();

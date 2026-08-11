@@ -2,7 +2,6 @@ using Microsoft.Extensions.Configuration;
 using Moq;
 using SimpleLauncher.Avalonia.Services.InjectEmulatorConfig;
 using SimpleLauncher.Avalonia.Services.SystemManager;
-using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Avalonia.Tests;
 
@@ -30,9 +29,9 @@ public class EmulatorPathResolverTests : IDisposable
 
         _systemXmlPath = Path.Combine(_tempDir, "system.xml");
 
-        var config = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
+        var config = new ConfigurationBuilder()
             .AddJsonStream(new MemoryStream(
-                System.Text.Encoding.UTF8.GetBytes($$"""{"SystemXmlPath": "{{_systemXmlPath.Replace("\\", "\\\\")}}"}""")))
+                System.Text.Encoding.UTF8.GetBytes($$"""{"SystemXmlPath": "{{_systemXmlPath.Replace("\\", @"\\")}}"}""")))
             .Build();
 
         _systemManager = new SystemManagerService(config);

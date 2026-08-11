@@ -12,9 +12,9 @@
     <Color x:Key="ProgressBarBackgroundColor">#FF333333</Color>
 
     <!-- Foreground Colors -->
-    <Color x:Key="LogTextForegroundColor">Lime</Color>
+    <Color x:Key="LogTextForegroundColor">White</Color>
     <Color x:Key="StatusTextForegroundColor">White</Color>
-    <Color x:Key="ProgressBarForegroundColor">LimeGreen</Color>
+    <Color x:Key="ProgressBarForegroundColor">White</Color>
 
     <!-- ============================================ -->
     <!-- BRUSHES                                      -->

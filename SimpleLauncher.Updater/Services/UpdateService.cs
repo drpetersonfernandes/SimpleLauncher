@@ -123,12 +123,13 @@ internal class UpdateService
                 throw;
             }
 
-            // Fetch the latest release from GitHub
+            // Fetch the latest release from GitHub (with secondary-server fallback)
             string assetUrl;
             string latestVersion;
+            string? fallbackAssetUrl;
             try
             {
-                (latestVersion, assetUrl) = await _gitHubService.GetLatestReleaseAssetUrlAsync(cancellationToken);
+                (latestVersion, assetUrl, fallbackAssetUrl) = await _gitHubService.GetLatestReleaseAssetUrlAsync(cancellationToken);
             }
             catch (Exception ex) when (ex is not OperationCanceledException)
             {
@@ -137,12 +138,12 @@ internal class UpdateService
                 throw;
             }
 
-            // Download the update file to memory
+            // Download the update file to memory (retrying from the secondary server if the primary download fails)
             MemoryStream updateFileStream;
             try
             {
                 DownloadProgressReset?.Invoke(this, EventArgs.Empty);
-                updateFileStream = await _downloadService.DownloadToMemoryAsync(assetUrl, cancellationToken);
+                updateFileStream = await DownloadWithFallbackAsync(assetUrl, fallbackAssetUrl, cancellationToken);
             }
             catch (Exception ex) when (ex is not OperationCanceledException)
             {
@@ -198,6 +199,28 @@ internal class UpdateService
                 ErrorMessage = "Automatic update failed.",
                 RequiresManualUpdate = true
             };
+        }
+    }
+
+    /// <summary>
+    /// Downloads the update file, retrying from the secondary server when the primary download fails.
+    /// </summary>
+    private async Task<MemoryStream> DownloadWithFallbackAsync(string assetUrl, string? fallbackAssetUrl, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return await _downloadService.DownloadToMemoryAsync(assetUrl, cancellationToken);
+        }
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch (Exception ex) when (!string.IsNullOrEmpty(fallbackAssetUrl) &&
+                                   !string.Equals(assetUrl, fallbackAssetUrl, StringComparison.OrdinalIgnoreCase))
+        {
+            LogMessage?.Invoke(this, new EventArgs<string>($"Download from the primary source failed ({ex.Message}). Retrying from the secondary server..."));
+            Log.Information(ex, "Download from the primary source failed; retrying from the secondary server: {FallbackUrl}", fallbackAssetUrl);
+            return await _downloadService.DownloadToMemoryAsync(fallbackAssetUrl, cancellationToken);
         }
     }
 

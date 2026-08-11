@@ -70,8 +70,7 @@ public class LanguageLaunchProcessTests
     {
         Success,
         FellBackToEnglish,
-        ProcessExited,
-        Timeout
+        ProcessExited
     }
 
     /// <summary>

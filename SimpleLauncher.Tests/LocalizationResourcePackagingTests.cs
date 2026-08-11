@@ -22,7 +22,7 @@ public class LocalizationResourcePackagingTests
     [Fact]
     public void AllSupportedLanguages_AreEmbeddedAsPackResources()
     {
-        var assembly = typeof(SimpleLauncher.App).Assembly;
+        var assembly = typeof(App).Assembly;
 
         using var stream = assembly.GetManifestResourceStream("SimpleLauncher.g.resources");
         Assert.NotNull(stream);
@@ -46,7 +46,7 @@ public class LocalizationResourcePackagingTests
     [Fact]
     public void EveryEmbeddedStringsResource_HasAMatchingSourceLanguage()
     {
-        var assembly = typeof(SimpleLauncher.App).Assembly;
+        var assembly = typeof(App).Assembly;
 
         using var stream = assembly.GetManifestResourceStream("SimpleLauncher.g.resources");
         Assert.NotNull(stream);
@@ -62,7 +62,7 @@ public class LocalizationResourcePackagingTests
         foreach (var resource in embedded)
         {
             var code = resource.Replace("resources/strings.", "", StringComparison.OrdinalIgnoreCase)
-                               .Replace(".xaml", "", StringComparison.OrdinalIgnoreCase);
+                .Replace(".xaml", "", StringComparison.OrdinalIgnoreCase);
             Assert.True(SupportedLanguageCodes.Contains(code, StringComparer.OrdinalIgnoreCase),
                 $"Embedded resource '{resource}' does not map to a known language.");
         }

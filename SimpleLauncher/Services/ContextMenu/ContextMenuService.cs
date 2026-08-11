@@ -94,6 +94,12 @@ public class ContextMenuService : IContextMenuService
                 {
                     selectedEmulatorName = context.Emulator.EmulatorName;
                 }
+                else if (context.SelectedSystemManager.Emulators.FirstOrDefault() is { } fallbackEmulator)
+                {
+                    // Fallback when no emulator source was supplied (e.g., list-view context menu):
+                    // use the system's first configured emulator.
+                    selectedEmulatorName = fallbackEmulator.EmulatorName;
+                }
                 else
                 {
                     selectedEmulatorName = null; // <-- selectedEmulatorName could be null here
@@ -651,8 +657,9 @@ public class ContextMenuService : IContextMenuService
 
             if (string.IsNullOrEmpty(selectedEmulatorName))
             {
-                // Notify developer
-                _logger.Warning("[CheckParametersForNullOrEmptyAsync] Right click context menu was invoked, but the SelectedEmulatorName is null or empty.");
+                // Log at Information level: expected condition (user right-clicked a game with no emulator
+                // selected) and the user is already notified via the message box — not a bug report.
+                _logger.Information("[CheckParametersForNullOrEmptyAsync] Right click context menu was invoked, but the SelectedEmulatorName is null or empty.");
 
                 // Notify user
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));

@@ -19,6 +19,7 @@ public partial class CheckForUpdatesService
 {
     private const string RepoOwner = "drpetersonfernandes";
     private const string RepoName = "SimpleLauncher";
+    private const string SecondaryServerBaseUrl = "https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/";
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
@@ -95,34 +96,21 @@ public partial class CheckForUpdatesService
                 throw new InvalidOperationException("HttpClientFactory is not initialized. Update check cannot proceed.");
             }
 
-            // Use the pre-initialized HttpClient instance
-            if (_httpClient != null)
+            var (latestVersion, releasePackageUrl, updaterZipAssetUrl, fromFallback) = await GetLatestReleaseInfoAsync();
+
+            if (latestVersion == null) return;
+
+            if (IsNewVersionAvailable(CurrentVersion, latestVersion))
             {
-                _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "request");
-
-                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
-                if (response.IsSuccessStatusCode)
+                if (updaterZipAssetUrl != null || fromFallback)
                 {
-                    _logger.Debug("Check for Updates Success");
-
-                    var content = await response.Content.ReadAsStringAsync();
-                    var (latestVersion, releasePackageUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
-
-                    if (latestVersion == null) return;
-
-                    if (IsNewVersionAvailable(CurrentVersion, latestVersion))
-                    {
-                        if (updaterZipAssetUrl != null)
-                        {
-                            await ShowUpdateWindowAsync(releasePackageUrl, CurrentVersion, latestVersion, mainWindow);
-                        }
-                        else
-                        {
-                            // Notify developer
-                            var expectedUpdaterFileName = $"updater_{CurrentRuntimeIdentifier}.zip";
-                            _logger.Error(new FileNotFoundException($"'{expectedUpdaterFileName}' not found for version {latestVersion}. Automatic update of updater not possible.", expectedUpdaterFileName), "Update Check Info");
-                        }
-                    }
+                    await ShowUpdateWindowAsync(releasePackageUrl, CurrentVersion, latestVersion, mainWindow);
+                }
+                else
+                {
+                    // Notify developer
+                    var expectedUpdaterFileName = $"updater_{CurrentRuntimeIdentifier}.zip";
+                    _logger.Error(new FileNotFoundException($"'{expectedUpdaterFileName}' not found for version {latestVersion}. Automatic update of updater not possible.", expectedUpdaterFileName), "Update Check Info");
                 }
             }
         }
@@ -156,61 +144,40 @@ public partial class CheckForUpdatesService
                 throw new InvalidOperationException("HttpClientFactory is not initialized. Update check cannot proceed.");
             }
 
-            // Use the pre-initialized HttpClient instance
-            if (_httpClient != null)
+            var (latestVersion, releasePackageAssetUrl, updaterZipAssetUrl, fromFallback) = await GetLatestReleaseInfoAsync();
+
+            if (latestVersion == null)
             {
-                _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "request");
+                _logger.Error(new InvalidDataException("Could not determine latest version from API response."), "Update Check Error");
+                await _messageBoxLibrary.ErrorCheckingForUpdatesMessageBoxAsync();
+                return;
+            }
 
-                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
-                if (response.IsSuccessStatusCode)
+            if (IsNewVersionAvailable(CurrentVersion, latestVersion))
+            {
+                if (updaterZipAssetUrl != null || fromFallback)
                 {
-                    _logger.Debug("Check for Updates Success");
-
-                    var content = await response.Content.ReadAsStringAsync();
-                    var (latestVersion, releasePackageAssetUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
-
-                    if (latestVersion == null)
-                    {
-                        _logger.Error(new InvalidDataException("Could not determine latest version from API response."), "Update Check Error");
-                        await _messageBoxLibrary.ErrorCheckingForUpdatesMessageBoxAsync();
-                        return;
-                    }
-
-                    if (IsNewVersionAvailable(CurrentVersion, latestVersion))
-                    {
-                        if (updaterZipAssetUrl != null)
-                        {
-                            await ShowUpdateWindowAsync(releasePackageAssetUrl, CurrentVersion, latestVersion, mainWindow);
-                        }
-                        else
-                        {
-                            var expectedUpdaterFileName = $"updater_{CurrentRuntimeIdentifier}.zip";
-                            var message = $"A new version ({latestVersion}) is available, but the required '{expectedUpdaterFileName}' for automatic updater update was not found. ";
-                            message += releasePackageAssetUrl != null
-                                ? $"You can try to download the main package '{Path.GetFileName(releasePackageAssetUrl)}' manually from the releases page."
-                                : "The main release package was also not found. Please check the GitHub releases page.";
-
-                            // Notify developer
-                            _logger.Error(new FileNotFoundException(message, expectedUpdaterFileName), "Update Process Info");
-
-                            // Notify user
-                            await _messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
-                        }
-                    }
-                    else
-                    {
-                        // Notify user
-                        await _messageBoxLibrary.ThereIsNoUpdateAvailableMessageBoxAsync(CurrentVersion);
-                    }
+                    await ShowUpdateWindowAsync(releasePackageAssetUrl, CurrentVersion, latestVersion, mainWindow);
                 }
                 else
                 {
+                    var expectedUpdaterFileName = $"updater_{CurrentRuntimeIdentifier}.zip";
+                    var message = $"A new version ({latestVersion}) is available, but the required '{expectedUpdaterFileName}' for automatic updater update was not found. ";
+                    message += releasePackageAssetUrl != null
+                        ? $"You can try to download the main package '{Path.GetFileName(releasePackageAssetUrl)}' manually from the releases page."
+                        : "The main release package was also not found. Please check the GitHub releases page.";
+
                     // Notify developer
-                    _logger.Error(new HttpRequestException($"GitHub API request failed with status code {response.StatusCode}."), "Update Check Error");
+                    _logger.Error(new FileNotFoundException(message, expectedUpdaterFileName), "Update Process Info");
 
                     // Notify user
-                    await _messageBoxLibrary.ErrorCheckingForUpdatesMessageBoxAsync();
+                    await _messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
                 }
+            }
+            else
+            {
+                // Notify user
+                await _messageBoxLibrary.ThereIsNoUpdateAvailableMessageBoxAsync(CurrentVersion);
             }
         }
         catch (Exception ex)
@@ -237,31 +204,76 @@ public partial class CheckForUpdatesService
                 throw new InvalidOperationException("HttpClientFactory is not initialized. Update check cannot proceed.");
             }
 
-            // Use the pre-initialized HttpClient instance
-            if (_httpClient != null)
-            {
-                _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "request");
-
-                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
-                if (!response.IsSuccessStatusCode)
-                {
-                    // Notify developer
-                    _logger.Error(new HttpRequestException($"GitHub API request failed with status code {response.StatusCode}."), "Update Check Error");
-                    return (null, null);
-                }
-
-                var content = await response.Content.ReadAsStringAsync();
-                var (latestVersion, _, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
-                return (updaterZipAssetUrl, latestVersion);
-            }
-
-            return (null, null);
+            var (latestVersion, _, updaterZipAssetUrl, _) = await GetLatestReleaseInfoAsync();
+            return (updaterZipAssetUrl, latestVersion);
         }
         catch (Exception ex)
         {
             // Notify developer
             _logger.Error(ex, "Error fetching latest updater info.");
             return (null, null);
+        }
+    }
+
+    /// <summary>
+    /// Gets the latest release info from the GitHub API, falling back to the secondary server
+    /// (assets.purelogiccode.com) when GitHub is unreachable. The secondary server hosts the
+    /// release package and the updater package (updater_{rid}.zip).
+    /// </summary>
+    /// <returns>A tuple with the latest version, release package URL, updater zip URL, and whether the fallback was used.</returns>
+    private async Task<(string? latestVersion, string? releasePackageUrl, string? updaterZipAssetUrl, bool fromFallback)> GetLatestReleaseInfoAsync()
+    {
+        try
+        {
+            _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "request");
+
+            var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
+            if (response.IsSuccessStatusCode)
+            {
+                _logger.Debug("Check for Updates Success");
+
+                var content = await response.Content.ReadAsStringAsync();
+                var (latestVersion, releasePackageUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
+                return (latestVersion, releasePackageUrl, updaterZipAssetUrl, false);
+            }
+
+            _logger.Debug($"[UpdateChecker] GitHub API check failed with status {response.StatusCode}; trying secondary server.");
+        }
+        catch (Exception ex)
+        {
+            _logger.Debug($"[UpdateChecker] GitHub API check failed: {ex.Message}; trying secondary server.");
+        }
+
+        // Fallback: the secondary server hosts a version.txt file and the release packages.
+        try
+        {
+            var versionResponse = await _httpClient.GetAsync(SecondaryServerBaseUrl + "version.txt");
+            if (!versionResponse.IsSuccessStatusCode)
+            {
+                _logger.Debug($"[UpdateChecker] Secondary server check failed with status {versionResponse.StatusCode}.");
+                return (null, null, null, false);
+            }
+
+            var versionText = (await versionResponse.Content.ReadAsStringAsync()).Trim();
+            var versionMatch = MyRegex2().Match(versionText);
+            if (!versionMatch.Success)
+            {
+                _logger.Debug($"[UpdateChecker] Secondary server version.txt has no valid version: '{versionText}'.");
+                return (null, null, null, false);
+            }
+
+            var rawVersion = versionMatch.Value;
+            var latestVersion = NormalizeVersion(rawVersion);
+            var releasePackageUrl = SecondaryServerBaseUrl + $"release_{rawVersion}_{CurrentRuntimeIdentifier}.zip";
+            var updaterZipAssetUrl = SecondaryServerBaseUrl + $"updater_{CurrentRuntimeIdentifier}.zip";
+
+            _logger.Information("GitHub API unavailable. Using the secondary server: version {LatestVersion}.", latestVersion);
+            return (latestVersion, releasePackageUrl, updaterZipAssetUrl, true);
+        }
+        catch (Exception ex)
+        {
+            _logger.Debug($"[UpdateChecker] Secondary server check failed: {ex.Message}.");
+            return (null, null, null, false);
         }
     }
 

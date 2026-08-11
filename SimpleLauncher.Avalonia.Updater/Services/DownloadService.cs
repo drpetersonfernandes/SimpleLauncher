@@ -1,6 +1,4 @@
 using System.Diagnostics;
-using System.Net.Http;
-using System.IO;
 
 namespace SimpleLauncher.Avalonia.Updater.Services;
 

@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.IO;
 
 namespace SimpleLauncher.Avalonia.Updater.Services;
 
@@ -55,7 +54,9 @@ internal class ProcessService
             }
             catch (ArgumentException)
             {
-                Log.Warning("Simple Launcher process not found (PID: {ProcessId}). Assuming it has already exited.", processId);
+                // Expected condition: Simple Launcher already exited before the poll started —
+                // log at Information level, not a bug report.
+                Log.Information("Simple Launcher process not found (PID: {ProcessId}). Assuming it has already exited.", processId);
                 LogMessage?.Invoke(this, new EventArgs<string>("Simple Launcher process not found. Assuming it has already exited."));
             }
         }

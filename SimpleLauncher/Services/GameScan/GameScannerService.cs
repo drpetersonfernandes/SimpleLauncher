@@ -239,10 +239,12 @@ public class GameScannerService
                 var logMessage = $"[GameScannerService] Image download failed for '{gameName}' after retry ({errorType}: {ex.Message}).{innerDetails} Falling back to icon extraction.";
                 _logger.Debug(logMessage);
 
-                // Log persistent network errors to help identify API issues, but don't spam logs
+                // Log persistent network errors at Information level: expected condition (flaky
+                // network / slow API) with fallback to icon extraction and a user message box —
+                // not a bug report.
                 if (ex is HttpRequestException or OperationCanceledException)
                 {
-                    logErrors?.Error(ex, $"Failed to download image for '{gameName}' from API after retry.");
+                    logErrors?.Information(ex, $"Failed to download image for '{gameName}' from API after retry.");
 
                     // Show message box for timeout/network errors on final attempt (attempt == 1)
                     if (attempt == 1 && !_timeoutMessageShown)

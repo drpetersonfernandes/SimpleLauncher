@@ -1552,7 +1552,7 @@ public partial class GameLauncherService : ILauncherService
         [
             "Kega Fusion", "KegaFusion", "Kega", "Fusion", "Fusion.exe", "Project64", "Project 64",
             "Project64.exe", "Emulicious", "Emulicious.exe", "Speccy", "Speccy.exe", "ProSystem.exe", "ProSystem",
-            "fMSX.exe", "fMSX"
+            "fMSX.exe", "fMSX", "Projec(t)64.exe"
         ];
 
         foreach (var emulatorToSkip in emulatorsToSkipErrorChecking)

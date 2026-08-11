@@ -1,7 +1,6 @@
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using System.Net.Http;
 
 namespace SimpleLauncher.Avalonia.Updater.Services;
 
@@ -55,11 +54,12 @@ internal partial class GitHubService
     /// falling back to the secondary server if GitHub is not available.
     /// </summary>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
-    /// <returns>A tuple containing the normalized version string and the asset download URL.</returns>
+    /// <returns>A tuple containing the normalized version string, the asset download URL, and the
+    /// secondary-server fallback URL for the same asset (null when the fallback was already used).</returns>
     /// <exception cref="HttpRequestException">Thrown when both GitHub and fallback requests fail.</exception>
     /// <exception cref="InvalidOperationException">Thrown when the release data is invalid or the asset is not found.</exception>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
-    public async Task<(string version, string assetUrl)> GetLatestReleaseAssetUrlAsync(CancellationToken cancellationToken = default)
+    public async Task<(string version, string assetUrl, string? fallbackAssetUrl)> GetLatestReleaseAssetUrlAsync(CancellationToken cancellationToken = default)
     {
         // First, try to get release info from GitHub with a short timeout
         var gitHubResult = await TryGetGitHubReleaseAsync(cancellationToken);
@@ -79,7 +79,7 @@ internal partial class GitHubService
     /// </summary>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>The version and asset URL if successful, null if timed out or failed.</returns>
-    private async Task<(string version, string assetUrl)?> TryGetGitHubReleaseAsync(CancellationToken cancellationToken = default)
+    private async Task<(string version, string assetUrl, string? fallbackAssetUrl)?> TryGetGitHubReleaseAsync(CancellationToken cancellationToken = default)
     {
         try
         {
@@ -143,7 +143,8 @@ internal partial class GitHubService
                         {
                             LogMessage?.Invoke(this, new EventArgs<string>($"Latest version found: {normalizedVersion}"));
                             LogMessage?.Invoke(this, new EventArgs<string>($"Release package URL: {assetUrl}"));
-                            return (normalizedVersion, assetUrl);
+                            var fallbackAssetUrl = SecondaryServerBaseUrl + $"release_{rawVersionString}_{CurrentRuntimeIdentifier}.zip";
+                            return (normalizedVersion, assetUrl, fallbackAssetUrl);
                         }
                     }
                 }
@@ -174,7 +175,7 @@ internal partial class GitHubService
     /// <exception cref="HttpRequestException">Thrown when the request fails.</exception>
     /// <exception cref="InvalidOperationException">Thrown when the version file is invalid.</exception>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
-    private async Task<(string version, string assetUrl)> GetFallbackReleaseAsync(CancellationToken cancellationToken = default)
+    private async Task<(string version, string assetUrl, string? fallbackAssetUrl)> GetFallbackReleaseAsync(CancellationToken cancellationToken = default)
     {
         try
         {
@@ -212,7 +213,7 @@ internal partial class GitHubService
             LogMessage?.Invoke(this, new EventArgs<string>($"Latest version found: {normalizedVersion}"));
             LogMessage?.Invoke(this, new EventArgs<string>($"Release package URL: {assetUrl}"));
 
-            return (normalizedVersion, assetUrl);
+            return (normalizedVersion, assetUrl, null);
         }
         catch (Exception ex)
         {

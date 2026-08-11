@@ -6,10 +6,10 @@ public class LanguageLaunchArgumentTests
 {
     public static TheoryData<string[], string> ParsingCases => new()
     {
-        { new[] { "--language", "es" }, "es" },
-        { new[] { "-language", "TR" }, "TR" },                      // raw value returned; canonicalized later
-        { new[] { "--language=fr" }, "fr" },
-        { new[] { "-debug", "--language", "pt-br" }, "pt-br" }       // mixed with other args
+        { ["--language", "es"], "es" },
+        { ["-language", "TR"], "TR" }, // raw value returned; canonicalized later
+        { ["--language=fr"], "fr" },
+        { ["-debug", "--language", "pt-br"], "pt-br" } // mixed with other args
     };
 
     [Theory]
@@ -19,13 +19,13 @@ public class LanguageLaunchArgumentTests
         Assert.Equal(expected, App.TryGetLanguageArg(args));
     }
 
-    public static TheoryData<string[]> AbsentCases => new()
-    {
-        { Array.Empty<string>() },
-        { new[] { "-debug" } },
-        { new[] { "--language" } },   // missing value
-        { new[] { "--restarting" } }
-    };
+    public static TheoryData<string[]> AbsentCases =>
+    [
+        Array.Empty<string>(),
+        ["-debug"],
+        ["--language"], // missing value
+        ["--restarting"]
+    ];
 
     [Theory]
     [MemberData(nameof(AbsentCases))]
@@ -36,11 +36,11 @@ public class LanguageLaunchArgumentTests
 
     public static TheoryData<string[], string, string> ResolutionCases => new()
     {
-        { new[] { "--language", "es" }, "en", "es" },      // arg wins
-        { new[] { "-language", "TR" }, "en", "tr" },      // canonicalized
-        { Array.Empty<string>(), "fr", "fr" },            // configured used
-        { new[] { "--language", "zz" }, "fr", "zz" },     // unsupported -> passed through (ApplyLanguage falls back to en)
-        { new[] { "-debug" }, "de", "de" }                // unrelated args ignored
+        { ["--language", "es"], "en", "es" }, // arg wins
+        { ["-language", "TR"], "en", "tr" }, // canonicalized
+        { [], "fr", "fr" }, // configured used
+        { ["--language", "zz"], "fr", "zz" }, // unsupported -> passed through (ApplyLanguage falls back to en)
+        { ["-debug"], "de", "de" } // unrelated args ignored
     };
 
     [Theory]
@@ -55,7 +55,7 @@ public class LanguageLaunchArgumentTests
     {
         foreach (var code in LanguageLaunchTestsBase.SupportedLanguageCodes)
         {
-            Assert.Equal(code, App.ResolveStartupLanguage(new[] { "--language", code.ToUpperInvariant() }, "en"));
+            Assert.Equal(code, App.ResolveStartupLanguage(["--language", code.ToUpperInvariant()], "en"));
         }
     }
 }
