@@ -39,7 +39,7 @@ public class LanguageLaunchArgumentTests
         { ["--language", "es"], "en", "es" }, // arg wins
         { ["-language", "TR"], "en", "tr" }, // canonicalized
         { [], "fr", "fr" }, // configured used
-        { ["--language", "zz"], "fr", "zz" }, // unsupported -> passed through (ApplyLanguage falls back to en)
+        { ["--language", "zz"], "fr", "en" }, // unsupported -> falls back to English directly
         { ["-debug"], "de", "de" } // unrelated args ignored
     };
 

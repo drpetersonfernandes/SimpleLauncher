@@ -55,8 +55,9 @@ internal class DownloadService
         }
         catch (Exception ex)
         {
+            // Log locally; bug reporting is the caller's decision (the update flow retries
+            // from the secondary server, so a primary-source failure is an expected condition).
             Log.Error(ex, "HTTP request failed for URL: {Url}", url);
-            await BugReportService.ReportBugAsync(ex, $"HTTP request failed for URL: {url}");
             throw;
         }
 
@@ -112,7 +113,6 @@ internal class DownloadService
                     catch (Exception ex)
                     {
                         Log.Error(ex, "Error reading from download stream or writing to memory stream");
-                        await BugReportService.ReportBugAsync(ex, "Error reading from download stream or writing to memory stream");
                         throw;
                     }
                 }

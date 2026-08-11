@@ -148,7 +148,9 @@ public partial class CheckForUpdatesService
 
             if (latestVersion == null)
             {
-                _logger.Error(new InvalidDataException("Could not determine latest version from API response."), "Update Check Error");
+                // Expected condition (both sources unreachable / offline); the user is
+                // already notified via the message box below — not a bug report.
+                _logger.Information("Could not determine the latest version (GitHub and the secondary server are unreachable).");
                 await _messageBoxLibrary.ErrorCheckingForUpdatesMessageBoxAsync();
                 return;
             }

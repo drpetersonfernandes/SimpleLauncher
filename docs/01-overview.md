@@ -44,7 +44,8 @@ Two code projects implement it:
 
 ## Version & license
 
-- Current version: **5.6.0** (all three projects + `app.manifest` + `SimpleLauncher.Updater\version.txt` are kept in sync and covered by `VersionConsistencyTests`).
+- Current version: **5.6.1** (`SimpleLauncher.csproj` is canonical; `SimpleLauncher.Core.csproj`, `app.manifest` and `SimpleLauncher.Updater\version.txt` are kept in sync and covered by `VersionConsistencyTests`). The Avalonia projects (`SimpleLauncher.Avalonia`, `SimpleLauncher.Avalonia.Updater`) remain on 5.6.0 while still in development.
+- The `SimpleLauncher.Updater\version.txt` file mirrors the current release (e.g. `release5.6.1`) and is what the secondary server publishes.
 - Framework: **.NET 10** (`net10.0-windows`), **C# 14**, nullable reference types enabled.
 - License: **GPLv3** (`LICENSE.txt`).
 - Repository: https://github.com/drpetersonfernandes/SimpleLauncher

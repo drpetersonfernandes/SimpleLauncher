@@ -20,7 +20,7 @@ public partial class GameCardViewModel : ObservableObject
 
     [ObservableProperty] private int _playCount;
 
-    [ObservableProperty] private int _rating; // 0-5
+    [ObservableProperty] private int? _rating; // 0-5, null when no rating is known (hides the star row)
 
     [ObservableProperty] private string? _lastPlayed;
 

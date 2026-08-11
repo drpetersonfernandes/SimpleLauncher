@@ -2,7 +2,17 @@
 
 > Condensed changelog. The canonical, fully detailed file is `SimpleLauncher\WhatsNew.md` (shown in-app via **Help → Update History**).
 
-## 5.6.0 — 2026-08-06 (current)
+## 5.6.1 — 2026-08-11 (current)
+
+- **Update check fallback**: when the GitHub API is unreachable, the check falls back to the secondary server (`assets.purelogiccode.com` `version.txt`) and resolves both the release and updater packages; the Updater also retries the download from the secondary server when the primary source fails.
+- **List-view right-click "Launch Game" fix**: the context menu now uses the selected emulator (falling back to the system's first emulator) instead of always failing.
+- **Bug-report noise reduction**: expected conditions (GitHub 403/429, image-download timeouts after retry, missing files on launch/delete, updater "process not found", context-menu validation, unsupported `--language` codes) are logged at Information level and no longer sent to the bug report service.
+- **`--language` startup argument**: launch with a specific language; unsupported codes fall back to English silently.
+- **Localization fixes**: `strings.es.xaml` and `strings.tr.xaml` embedded as pack resources (bugs 64899-64904).
+- **Updater UI**: log text and progress bar now white.
+- **Misc**: `%ROMSYSTEMFOLDER%` documented in `parameters.md`, `Projec(t)64.exe` added to the emulator error-check skip list, RetroAchievements matcher addition, stale test filter removed (all tests run by default).
+
+## 5.6.0 — 2026-08-06
 
 - **Parameter Resolver API**: "Suggest" buttons in Edit System (AI-powered parameter suggestions with confirmation dialog), `Explanation:` prefix handling, loading overlay, URL normalization with fixed 60 s timeout.
 - **Game File Watcher**: `GameFileWatcherService` auto-refreshes the game list on external ROM changes (500 ms debounce, start/stop per system).

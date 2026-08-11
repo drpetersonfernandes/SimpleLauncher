@@ -9,6 +9,7 @@ namespace SimpleLauncher.Avalonia;
 public partial class SystemSelectionWindow : Window
 {
     private readonly SystemSelectionViewModel _viewModel;
+    private bool _confirmed;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SystemSelectionWindow"/> class.
@@ -21,13 +22,24 @@ public partial class SystemSelectionWindow : Window
         _viewModel = viewModel;
         _viewModel.DialogResultRequested += (_, e) =>
         {
+            _confirmed = e.Value == true;
+
             // A cancelled selection must not yield the pre-selected guess
-            if (e.Value != true)
+            if (!_confirmed)
             {
                 _viewModel.SelectedSystem = null;
             }
 
             Close();
+        };
+
+        // Closing via the title-bar X / Alt+F4 must not confirm the pre-selected guess.
+        Closed += (_, _) =>
+        {
+            if (!_confirmed)
+            {
+                _viewModel.SelectedSystem = null;
+            }
         };
 
         DataContext = _viewModel;

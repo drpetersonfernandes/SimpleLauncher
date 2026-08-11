@@ -57,8 +57,12 @@ public class LanguageLaunchProcessTests
         {
             var outcome = await WaitForOutcomeAsync(process, failedBefore, fallbackBefore, TimeSpan.FromSeconds(6));
 
-            Assert.True(outcome == Outcome.FellBackToEnglish,
-                $"Expected English fallback for unsupported code 'zz', got: {outcome}");
+            // Unsupported codes fall back to English at Information level — the app must start
+            // cleanly with no error markers (and no bug-report noise).
+            Assert.True(outcome == Outcome.Success,
+                $"Expected the app to start cleanly (English fallback) for unsupported code 'zz', got: {outcome}");
+            Assert.Equal(failedBefore, LanguageLaunchTestsBase.CountLogMarker(FailedToApplyMarker));
+            Assert.Equal(fallbackBefore, LanguageLaunchTestsBase.CountLogMarker(FallbackMarker));
         }
         finally
         {

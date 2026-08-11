@@ -29,10 +29,10 @@
         <PackageIcon>icon2.png</PackageIcon>
         <RepositoryUrl>https://github.com/drpetersonfernandes/SimpleLauncher</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <AssemblyVersion>5.6.0</AssemblyVersion>
-        <FileVersion>5.6.0</FileVersion>
+        <AssemblyVersion>5.6.1</AssemblyVersion>
+        <FileVersion>5.6.1</FileVersion>
         <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-        <Version>5.6.0</Version>
+        <Version>5.6.1</Version>
         <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
         <PackageProjectUrl>https://github.com/drpetersonfernandes/SimpleLauncher</PackageProjectUrl>
         <UseWindowsForms>False</UseWindowsForms>

@@ -1,6 +1,28 @@
+# Release 5.6.1
+*2026-08-11*
+---
+
+## Update Check Fallback (Secondary Server)
+- **Fallback when GitHub is unreachable** — If the GitHub API cannot be reached (offline, rate-limited, blocked), the update check now falls back to the secondary server (`assets.purelogiccode.com`) using its `version.txt` file and hosted release packages.
+- **Full update support on fallback** — The fallback path resolves both the release package and the updater package, so the update window and automatic update work exactly as when GitHub is reachable.
+- **Updater download fallback** — If downloading the release from the primary source fails, the Updater retries from the secondary server automatically (progress bar resets between attempts).
+
+## Launch Fixes
+- **List-view right-click "Launch Game"** — Right-clicking a game in the list view and choosing "Launch Game" now launches with the emulator selected in the UI (falling back to the system's first configured emulator). Previously this path always failed with "SelectedEmulatorName is null or empty".
+
+## Language Launch Argument
+- **`--language` startup argument** — Launch SimpleLauncher with a specific language, e.g. `SimpleLauncher.exe --language es`. Supported codes load at startup; unsupported codes fall back to English without error.
+
+## Localization Fixes
+- **Spanish & Turkish resources** — `strings.es.xaml` and `strings.tr.xaml` are now embedded as pack resources and load correctly (bugs 64899-64904).
+
+## Updater UI
+- **White log text and progress bar** — The Updater window's log text and progress bar foreground are now white for a cleaner look.
+
+---
+
 # Release 5.6.0
 *2026-08-09*
----
 
 ## Parameter Resolver API
 - **"Suggest" buttons** — Added to the Edit System window for every emulator parameter field.

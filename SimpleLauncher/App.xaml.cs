@@ -146,7 +146,12 @@ public partial class App : IDisposable
 
         serviceCollection.AddHttpClient("LogErrorsClient").ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
         serviceCollection.AddHttpClient("StatsClient").ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
-        serviceCollection.AddHttpClient("UpdateCheckerClient").ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
+        serviceCollection.AddHttpClient("UpdateCheckerClient", static client =>
+        {
+            // Keep the check responsive: a hung GitHub/fallback request must not stall
+            // the update check for the default 100 s.
+            client.Timeout = TimeSpan.FromSeconds(30);
+        }).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
         serviceCollection.AddHttpClient("SupportWindowClient").ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
         serviceCollection.AddHttpClient("RetroAchievementsClient", static client =>
         {
@@ -868,8 +873,8 @@ public partial class App : IDisposable
     /// <summary>
     /// Resolves the startup language: an explicit --language launch argument wins
     /// (validated against the supported languages, case-insensitive), otherwise the
-    /// configured language is used. Unsupported argument codes are passed through so
-    /// ApplyLanguage performs its standard English fallback.
+    /// configured language is used. Unsupported argument codes fall back to English
+    /// directly (an expected user-input condition — logged at Information level).
     /// </summary>
     /// <param name="args">The command-line arguments.</param>
     /// <param name="configuredLanguage">The language from the settings.</param>
@@ -886,8 +891,11 @@ public partial class App : IDisposable
                 return canonical;
             }
 
-            Log.Warning("Unsupported language launch argument '{Language}'. Falling back to English.", argLanguage);
-            return argLanguage; // ApplyLanguage performs the standard English fallback
+            // Expected user input (e.g. --language zz): fall back to English without
+            // going through ApplyLanguage, which would log an Error for the missing
+            // resource and trigger a bug report.
+            Log.Information("Unsupported language launch argument '{Language}'. Falling back to English.", argLanguage);
+            return "en";
         }
 
         return configuredLanguage;

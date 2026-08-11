@@ -534,16 +534,25 @@ public partial class MainWindow : Window
 
     #region EasyMode
 
-    private void AddSystem_Click(object? sender, RoutedEventArgs e)
+    private async void AddSystem_Click(object? sender, RoutedEventArgs e)
     {
-        var easyModeWindow = App.ServiceProvider.GetRequiredService<EasyModeWindow>();
-        easyModeWindow.ShowDialog(this);
-
-        // If a system was added, refresh the UI
-        if (easyModeWindow.DataContext is EasyModeViewModel { SystemAdded: true })
+        try
         {
-            _systemManagerService.InvalidateCache();
-            _viewModel.NavigateToAllGamesCommand.Execute(null);
+            var easyModeWindow = App.ServiceProvider.GetRequiredService<EasyModeWindow>();
+            // Avalonia ShowDialog returns immediately without a nested pump — must await it
+            // before reading the result (otherwise the SystemAdded refresh below never runs).
+            await easyModeWindow.ShowDialog(this);
+
+            // If a system was added, refresh the UI
+            if (easyModeWindow.DataContext is EasyModeViewModel { SystemAdded: true })
+            {
+                _systemManagerService.InvalidateCache();
+                _viewModel.NavigateToAllGamesCommand.Execute(null);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in method AddSystem_Click");
         }
     }
 

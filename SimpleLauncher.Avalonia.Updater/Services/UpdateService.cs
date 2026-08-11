@@ -219,6 +219,7 @@ internal class UpdateService
         {
             LogMessage?.Invoke(this, new EventArgs<string>($"Download from the primary source failed ({ex.Message}). Retrying from the secondary server..."));
             Log.Information(ex, "Download from the primary source failed; retrying from the secondary server: {FallbackUrl}", fallbackAssetUrl);
+            DownloadProgressReset?.Invoke(this, EventArgs.Empty);
             return await _downloadService.DownloadToMemoryAsync(fallbackAssetUrl, cancellationToken);
         }
     }

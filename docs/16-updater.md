@@ -5,11 +5,11 @@
 
 ## Update check (`CheckForUpdatesService`)
 
-`SimpleLauncher\Services\UpdateChecker\` (+ `CheckForUpdatesService`)
+`SimpleLauncher\Services\CheckForUpdatesService.cs`
 
-- **Silent check** at startup: hits `https://api.github.com/repos/{owner}/{repo}/releases/latest` (`CheckForUpdatesService.cs:89-143`) with a timeout so it can never hang the UI.
+- **Silent check** at startup: hits `https://api.github.com/repos/{owner}/{repo}/releases/latest` (`CheckForUpdatesService.cs`). If GitHub is unreachable (offline, rate-limited, blocked), the check **falls back to the secondary server** `assets.purelogiccode.com/Simple Launcher/Simple Launcher/version.txt` and builds the release/updater URLs from it (`release_{version}_{rid}.zip`, `updater_{rid}.zip`).
 - **Manual check**: About window "Check for Updates" (`AboutViewModel` → `ManualCheckForUpdatesAsync`).
-- Version comparison against the current `5.6.0`; new version → prompts to download.
+- Version comparison against the current `5.6.1`; new version → prompts to download.
 
 ## Update assets
 
@@ -23,7 +23,7 @@ sequenceDiagram
     participant A as App
     participant U as Updater.exe
     A->>A: ShutdownForUpdateAsync (QuitSimpleLauncher)
-    A->>U: download fresh Updater.exe from GitHub (if needed) + launch with current PID
+    A->>U: download fresh Updater.exe from GitHub/secondary server (if needed) + launch with current PID
     A->>A: app exits
     U->>U: download release zip, extract over app folder
     U->>A: relaunch SimpleLauncher.exe -whatsnew
@@ -33,14 +33,14 @@ sequenceDiagram
 - `QuitSimpleLauncher` (`Services\QuitOrReinstall\QuitSimpleLauncher.cs`):
   - `RestartApplicationAsync` (`:33`) — spawns itself with `--restarting`, then shuts down; failed restart → "FailedToRestart" box, app stays alive.
   - `SimpleQuitApplication` (`:70`).
-  - `ShutdownForUpdateAsync` (`:78`) — downloads fresh `Updater.exe` from GitHub, launches it with the current PID, kills the app.
+  - `ShutdownForUpdateAsync` (`:78`) — downloads fresh `Updater.exe` from GitHub (fallback: secondary server), launches it with the current PID, kills the app.
 - `ReinstallSimpleLauncher` (`Services\QuitOrReinstall\ReinstallSimpleLauncher.cs`):
-  - `StartUpdaterAndShutdownAsync` (`:33`, async-void) — launches local `Updater.exe` or downloads it from GitHub, then hard-exits; access-denied (error 5) → correct message box.
+  - `StartUpdaterAndShutdownAsync` (`:33`, async-void) — launches local `Updater.exe` or downloads it from GitHub/secondary server, then hard-exits; access-denied (error 5) → correct message box.
 - `--restarting` skips single-instance enforcement during startup (`App.xaml.cs:528`); `-whatsnew` shows the release-notes window (`App.xaml.cs:634-651`).
 
 ## `SimpleLauncher.Updater` project
 
-Standalone console app (`Updater.exe`) shipped with each release (`version.txt` = `release5.6.0`). Responsibilities: download the release zip for the current RID, extract over the application folder, relaunch the app.
+Standalone console app (`Updater.exe`) shipped with each release (`version.txt` = `release5.6.1`). Responsibilities: fetch the latest release (GitHub API first, secondary server as fallback), download the release zip for the current RID (retrying from the secondary server if the primary download fails), extract over the application folder, relaunch the app.
 
 ## Related docs
 

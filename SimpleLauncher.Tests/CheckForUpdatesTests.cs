@@ -509,10 +509,11 @@ public class CheckForUpdatesTests : IDisposable
     // ------------------------------------------------------------------
 
     /// <summary>
-    /// Verifies that the latest updater info can be retrieved from the real GitHub API.
+    /// Verifies that the latest updater info can be retrieved — from the real GitHub API,
+    /// or from the secondary server fallback when GitHub is unreachable/rate-limited.
     /// </summary>
     [Fact]
-    public async Task GetLatestUpdaterInfoAsyncFromGitHubReturnsVersionAndUrl()
+    public async Task GetLatestUpdaterInfoAsyncReturnsVersionAndUrl()
     {
         var service = CreateCheckerInstance();
 
@@ -524,7 +525,6 @@ public class CheckForUpdatesTests : IDisposable
         Assert.NotEmpty(updaterUrl);
         Assert.StartsWith("5.", version, StringComparison.Ordinal);
         Assert.Contains("updater", updaterUrl, StringComparison.OrdinalIgnoreCase);
-        Assert.Contains("github", updaterUrl, StringComparison.OrdinalIgnoreCase);
     }
 
     // ------------------------------------------------------------------

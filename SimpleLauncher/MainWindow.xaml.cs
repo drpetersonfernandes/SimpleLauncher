@@ -905,7 +905,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                     s.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
                 if (systemManager == null)
                 {
-                    _logger.Warning("systemManager is null for the selected game item");
+                    // Expected condition (stale game entry); the user is already notified via the message box.
+                    _logger.Information("systemManager is null for the selected game item");
                     await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
                     return;
                 }

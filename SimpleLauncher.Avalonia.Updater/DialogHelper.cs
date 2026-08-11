@@ -86,6 +86,9 @@ internal static class DialogHelper
             }
         };
 
+        // Closing via the title-bar X must not leave the await pending forever.
+        dialog.Closed += (_, _) => tcs.TrySetResult(false);
+
         await dialog.ShowDialog(owner);
 
         return await tcs.Task;

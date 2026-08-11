@@ -646,8 +646,8 @@ public class ContextMenuService : IContextMenuService
         {
             if (string.IsNullOrEmpty(context.FilePath))
             {
-                // Notify developer
-                _logger.Warning("Right click context menu was invoked, but the FilePath is null or empty.");
+                // Expected condition (stale entry); the user is already notified via the message box — not a bug report.
+                _logger.Information("Right click context menu was invoked, but the FilePath is null or empty.");
 
                 // Notify user
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
@@ -669,8 +669,8 @@ public class ContextMenuService : IContextMenuService
 
             if (string.IsNullOrEmpty(context.SelectedSystemName))
             {
-                // Notify developer
-                _logger.Warning("Right click context menu was invoked, but the SelectedSystemName is null or empty.");
+                // Expected condition; the user is already notified via the message box — not a bug report.
+                _logger.Information("Right click context menu was invoked, but the SelectedSystemName is null or empty.");
 
                 // Notify user
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
@@ -680,8 +680,8 @@ public class ContextMenuService : IContextMenuService
 
             if (context.SelectedSystemManager == null)
             {
-                // Notify developer
-                _logger.Warning("Right click context menu was invoked, but the SelectedSystemManager is null.");
+                // Expected condition; the user is already notified via the message box — not a bug report.
+                _logger.Information("Right click context menu was invoked, but the SelectedSystemManager is null.");
 
                 // Notify user
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
