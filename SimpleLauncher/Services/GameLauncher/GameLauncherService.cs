@@ -269,7 +269,9 @@ public partial class GameLauncherService : ILauncherService
                 }
             }
 
-            _logger.Error(new FileNotFoundException(msg), msg);
+            // Expected condition: the game entry is stale (file deleted/moved since the list was
+            // loaded) and the user is already notified via the message box below — not a bug report.
+            _logger.Information(new FileNotFoundException(msg), msg);
             await _messageBoxLibrary.FilePathIsInvalidMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             return false;
         }
