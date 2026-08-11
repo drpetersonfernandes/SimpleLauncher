@@ -47,9 +47,9 @@ You can download this emulator on the [Official Website](https://github.com/cpci
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example for floppy disk images - .dsk):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Amstrad CPC;%SYSTEMFOLDER%" cpc6128 -flop1<br>
-**Emulator Parameters (Example for floppy disk images - .dsk):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Amstrad CPC;%SYSTEMFOLDER%" cpc464 -flop1<br>
-**Emulator Parameters (Example for tape images - .cdt, .wav):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Amstrad CPC;%SYSTEMFOLDER%" cpc464 -cass<br>
+**Emulator Parameters (Example for floppy disk images - .dsk):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Amstrad CPC;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" cpc6128 -flop1<br>
+**Emulator Parameters (Example for floppy disk images - .dsk):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Amstrad CPC;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" cpc464 -flop1<br>
+**Emulator Parameters (Example for tape images - .cdt, .wav):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Amstrad CPC;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" cpc464 -cass<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -81,7 +81,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Amstrad GX4000" gx4000 -cart<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Amstrad GX4000;%SYSTEMFOLDER%" gx4000 -cart<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Amstrad GX4000;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" gx4000 -cart<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -113,7 +113,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\mame\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\mame\roms;C:\Emulators\mame\bios"<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Arcade;%SYSTEMFOLDER%"<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Arcade;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%"<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -207,7 +207,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Atari 2600" a2600<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Atari 2600;%SYSTEMFOLDER%" a2600<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Atari 2600;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" a2600<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -263,7 +263,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Atari 5200" a5200<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Atari 5200;%SYSTEMFOLDER%" a5200<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Atari 5200;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" a5200<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -320,7 +320,7 @@ You can download this emulator on the [GitHub Repository](https://github.com/gst
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Atari 7800" a7800<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Atari 7800;%SYSTEMFOLDER%" a7800<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Atari 7800;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" a7800<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -362,7 +362,7 @@ You can download this emulator on the [Official Website](https://www.virtualdub.
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Atari 800" a800<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Atari 800;%BASEFOLDER%\roms\Atari 8-Bits;%SYSTEMFOLDER%" a800<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Atari 800;%BASEFOLDER%\roms\Atari 8-Bits;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" a800<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -418,7 +418,7 @@ You can download this emulator on the [Official Website](https://richwhitehouse.
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Atari Jaguar" jaguar<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Atari Jaguar;%SYSTEMFOLDER%" jaguar<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Atari Jaguar;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" jaguar<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -516,7 +516,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Atari Lynx" lynx<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Atari Lynx;%SYSTEMFOLDER%" lynx<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Atari Lynx;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" lynx<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -586,7 +586,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Atari ST" st<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Atari ST;%SYSTEMFOLDER%" st<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Atari ST;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" st<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -695,7 +695,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\WonderSwan" wswan<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\WonderSwan;%SYSTEMFOLDER%" wswan<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\WonderSwan;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" wswan<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -776,7 +776,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\WonderSwan Color" wscolor<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\WonderSwan Color;%SYSTEMFOLDER%" wscolor<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\WonderSwan Color;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" wscolor<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -808,7 +808,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\Casio PV-1000" pv1000 -cart<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Casio PV-1000;%SYSTEMFOLDER%" pv1000 -cart<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Casio PV-1000;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" pv1000 -cart<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -877,7 +877,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Colecovision" coleco<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Colecovision;%SYSTEMFOLDER%" coleco<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Colecovision;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" coleco<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -1004,10 +1004,10 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore 64;%SYSTEMFOLDER%" c64<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore 64;%SYSTEMFOLDER%" c64 -flop<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore 64;%SYSTEMFOLDER%" c64 -cass<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore 64;%SYSTEMFOLDER%" c64 -cart<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore 64;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" c64<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore 64;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" c64 -flop<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore 64;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" c64 -cass<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore 64;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" c64 -cart<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -1050,10 +1050,10 @@ You can download this emulator on the [Official Website](https://vice-emu.source
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore 128;%SYSTEMFOLDER%" c128<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore 128;%SYSTEMFOLDER%" c128 -flop<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore 128;%SYSTEMFOLDER%" c128 -cass<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore 128;%SYSTEMFOLDER%" c128 -cart<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore 128;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" c128<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore 128;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" c128 -flop<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore 128;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" c128 -cass<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore 128;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" c128 -cart<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -1151,16 +1151,16 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Commodore Amiga" a1200n<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%" a1200n<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%" a1000n<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%" a600n<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%" a500n<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%" a3000<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%" a2000<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%" a1200<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%" a1000<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%" a600<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%" a500<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" a1200n<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" a1000n<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" a600n<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" a500n<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" a3000<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" a2000<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" a1200<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" a1000<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" a600<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" a500<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 a3000: Amiga 3000<br>
@@ -1229,7 +1229,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Commodore Amiga CD32" cd32<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga CD32;%SYSTEMFOLDER%" cd32<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga CD32;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" cd32<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -1372,7 +1372,7 @@ You can download this emulator on the [Official Website](https://o2em.sourceforg
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Mattel Aquarius" aquarius<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Mattel Aquarius;%SYSTEMFOLDER%" aquarius<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Mattel Aquarius;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" aquarius<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -1418,7 +1418,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Intellivision" intv<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Intellivision;%SYSTEMFOLDER%" intv<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Intellivision;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" intv<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -1610,7 +1610,7 @@ You can download this emulator on the [Official Website](https://fms.komkon.org/
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Microsoft MSX" msx1<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Microsoft MSX;%SYSTEMFOLDER%" msx1<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Microsoft MSX;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" msx1<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -1716,7 +1716,7 @@ You can download this emulator on the [Official Website](https://fms.komkon.org/
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Microsoft MSX2" msx2<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Microsoft MSX2;%SYSTEMFOLDER%" msx2<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Microsoft MSX2;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" msx2<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -2011,9 +2011,9 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\NEC PC Engine" pce<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\NEC PC Engine;%SYSTEMFOLDER%" pce<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\NEC PC Engine;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" pce<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\NEC PC Engine" tg16<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\NEC PC Engine;%SYSTEMFOLDER%" tg16<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\NEC PC Engine;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" tg16<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -2119,7 +2119,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\NEC PC Engine CD" pcecd<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\NEC PC Engine CD;%SYSTEMFOLDER%" pcecd<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\NEC PC Engine CD;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" pcecd<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -2190,7 +2190,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\NEC PC-FX" pcfx<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\NEC PC-FX;%SYSTEMFOLDER%" pcfx<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\NEC PC-FX;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" pcfx<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -2450,7 +2450,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Nintendo 64" n64<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo 64;%SYSTEMFOLDER%" n64<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo 64;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" n64<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -2506,7 +2506,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Nintendo 64DD" n64dd<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo 64DD;%SYSTEMFOLDER%" n64dd<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo 64DD;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" n64dd<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -2838,7 +2838,7 @@ You can download this emulator on the [GitHub Repository](https://github.com/lib
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\Game Boy" gameboy<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Game Boy;%SYSTEMFOLDER%" gameboy<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Game Boy;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" gameboy<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -2938,7 +2938,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Nintendo Game Boy Advance" gba<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo Game Boy Advance;%SYSTEMFOLDER%" gba<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo Game Boy Advance;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" gba<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -3101,7 +3101,7 @@ You can download this emulator on the [GitHub Repository](https://github.com/lib
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\Nintendo Game Boy Color" gbcolor<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo Game Boy Color;%SYSTEMFOLDER%" gbcolor<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo Game Boy Color;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" gbcolor<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -3277,7 +3277,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Nintendo NES" nes<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo NES;%SYSTEMFOLDER%" nes<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo NES;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" nes<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -3443,7 +3443,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Nintendo SNES" snes<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo SNES;%SYSTEMFOLDER%" snes<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo SNES;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" snes<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -3633,7 +3633,7 @@ Core may require BIOS files or system files to work.<br>
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Nintendo Virtual Boy" vboy<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo Virtual Boy;%SYSTEMFOLDER%" vboy<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo Virtual Boy;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" vboy<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -3969,7 +3969,7 @@ Core may require BIOS files or system files to work.<br>
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega Dreamcast" dc<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Dreamcast;%SYSTEMFOLDER%" dc<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Dreamcast;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" dc<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -4098,7 +4098,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega Game Gear" gamegear<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Game Gear;%SYSTEMFOLDER%" gamegear<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Game Gear;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" gamegear<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -4232,7 +4232,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega Genesis" megadriv<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Genesis;%SYSTEMFOLDER%" megadriv<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Genesis;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" megadriv<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -4306,7 +4306,7 @@ Core may require BIOS files or system files to work.<br>
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega Genesis 32x" 32x<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Genesis 32x;%SYSTEMFOLDER%" 32x<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Genesis 32x;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" 32x<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -4420,7 +4420,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega Genesis CD" megacd<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Genesis CD;%SYSTEMFOLDER%" megacd<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Genesis CD;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" megacd<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -4540,7 +4540,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega Master System" sms<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Master System;%SYSTEMFOLDER%" sms<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Master System;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" sms<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -4782,10 +4782,10 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega Saturn" saturn -cdrom<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Saturn;%SYSTEMFOLDER%" saturn -cdrom<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Saturn;%SYSTEMFOLDER%" saturnjp -cdrom<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Saturn;%SYSTEMFOLDER%" saturnus -cdrom<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Saturn;%SYSTEMFOLDER%" saturneu -cdrom<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Saturn;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" saturn -cdrom<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Saturn;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" saturnjp -cdrom<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Saturn;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" saturnus -cdrom<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Saturn;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" saturneu -cdrom<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 saturn: Sega Saturn (World, BIOS 2.xx)<br>
@@ -4862,7 +4862,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega SC-3000" sc3000<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega SC-3000;%SYSTEMFOLDER%" sc3000<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega SC-3000;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" sc3000<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -4942,7 +4942,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega SG-1000" sg1000<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega SG-1000;%SYSTEMFOLDER%" sg1000<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega SG-1000;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" sg1000<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -4997,7 +4997,7 @@ Core may require BIOS files or system files to work.<br>
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\Sharp X68000" x68000 -flop1<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sharp X68000;%SYSTEMFOLDER%" x68000 -flop1<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sharp X68000;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" x68000 -flop1<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -5069,7 +5069,7 @@ Core may require BIOS files or system files to work.<br>
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ZX Spectrum" spectrum<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\ZX Spectrum;%SYSTEMFOLDER%" spectrum<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\ZX Spectrum;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" spectrum<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -5100,7 +5100,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\NeoGeo"<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\NeoGeo;%SYSTEMFOLDER%"<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\NeoGeo;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%"<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -5216,7 +5216,7 @@ Core may require BIOS files or system files to work.<br>
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\SNK Neo Geo CD" neocd<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\SNK Neo Geo CD;%SYSTEMFOLDER%" neocd<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\SNK Neo Geo CD;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" neocd<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -5294,7 +5294,7 @@ Core may require BIOS files or system files to work.<br>
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\SNK Neo Geo Pocket" ngp<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\SNK Neo Geo Pocket;%SYSTEMFOLDER%" ngp<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\SNK Neo Geo Pocket;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" ngp<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -5372,7 +5372,7 @@ Core may require BIOS files or system files to work.<br>
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\SNK Neo Geo Pocket Color" ngpc<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\SNK Neo Geo Pocket Color;%SYSTEMFOLDER%" ngpc<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\SNK Neo Geo Pocket Color;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" ngpc<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
@@ -5518,10 +5518,10 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sony PlayStation 1" psu -cdrom<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sony PlayStation 1;%SYSTEMFOLDER%" psu -cdrom<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sony PlayStation 1;%SYSTEMFOLDER%" psj -cdrom<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sony PlayStation 1;%SYSTEMFOLDER%" pse -cdrom<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sony PlayStation 1;%SYSTEMFOLDER%" psa -cdrom<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sony PlayStation 1;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" psu -cdrom<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sony PlayStation 1;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" psj -cdrom<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sony PlayStation 1;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" pse -cdrom<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sony PlayStation 1;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" psa -cdrom<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 psu – Sony PlayStation (USA)<br>
@@ -5793,7 +5793,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Super ACan;%SYSTEMFOLDER%" supracan -cart<br>
+**Emulator Parameters (Example):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Super ACan;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" supracan -cart<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
