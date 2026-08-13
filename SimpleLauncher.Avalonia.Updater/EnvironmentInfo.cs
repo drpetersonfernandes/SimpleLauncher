@@ -70,7 +70,7 @@ internal class EnvironmentInfo
         return new EnvironmentInfo
         {
             Date = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss UTC", CultureInfo.InvariantCulture),
-            ApplicationName = assembly.GetName().Name ?? "Updater",
+            ApplicationName = assembly.GetName().Name ?? "SimpleLauncher.Avalonia.Updater",
             ApplicationVersion = assembly.GetName().Version?.ToString() ?? "Unknown",
             OsVersion = GetOsVersion(),
             Architecture = GetArchitecture(),

@@ -162,7 +162,7 @@ internal static class BugReportService
         try
         {
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            var assemblyName = assembly.GetName().Name ?? "Updater";
+            var assemblyName = assembly.GetName().Name ?? "SimpleLauncher.Updater";
             var version = assembly.GetName().Version?.ToString() ?? "Unknown";
 
             var environmentInfo = EnvironmentInfo.Collect();
