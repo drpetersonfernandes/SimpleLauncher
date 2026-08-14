@@ -146,8 +146,18 @@ internal class UpdateService
             }
             catch (Exception ex) when (ex is not OperationCanceledException)
             {
-                Log.Error(ex, "Error downloading update file from: {AssetUrl}", assetUrl);
-                await BugReportService.ReportBugAsync(ex, $"Error downloading update file from: {assetUrl}");
+                // HTTP/transport failures are expected user conditions (both the primary and
+                // the secondary source already failed) — log at Information, not as a bug.
+                if (ex is HttpRequestException or IOException)
+                {
+                    Log.Information(ex, "Error downloading update file from: {AssetUrl}", assetUrl);
+                }
+                else
+                {
+                    Log.Error(ex, "Error downloading update file from: {AssetUrl}", assetUrl);
+                    await BugReportService.ReportBugAsync(ex, $"Error downloading update file from: {assetUrl}");
+                }
+
                 throw;
             }
 
@@ -210,8 +220,9 @@ internal class UpdateService
         {
             return await _downloadService.DownloadToMemoryAsync(assetUrl, cancellationToken);
         }
-        catch (OperationCanceledException)
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
+            // User actually cancelled — don't attempt the fallback
             throw;
         }
         catch (Exception ex) when (!string.IsNullOrEmpty(fallbackAssetUrl) &&

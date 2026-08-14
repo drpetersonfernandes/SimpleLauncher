@@ -68,26 +68,37 @@ internal class ProcessService
             var processes = Process.GetProcessesByName("SimpleLauncher");
             if (processes.Length > 0)
             {
-                var process = processes[0];
-                LogMessage?.Invoke(this, new EventArgs<string>($"Found SimpleLauncher process (PID: {process.Id}). Waiting for it to exit..."));
-
-                var stopwatch = Stopwatch.StartNew();
-                while (!process.HasExited && stopwatch.ElapsedMilliseconds < ProcessExitTimeoutMs)
+                try
                 {
-                    await Task.Delay(ProcessExitPollIntervalMs, cancellationToken);
-                    process.Refresh();
+                    var process = processes[0];
+                    LogMessage?.Invoke(this, new EventArgs<string>($"Found SimpleLauncher process (PID: {process.Id}). Waiting for it to exit..."));
+
+                    var stopwatch = Stopwatch.StartNew();
+                    while (!process.HasExited && stopwatch.ElapsedMilliseconds < ProcessExitTimeoutMs)
+                    {
+                        await Task.Delay(ProcessExitPollIntervalMs, cancellationToken);
+                        process.Refresh();
+                    }
+
+                    // Capture the exit state before disposing — accessing a disposed Process throws
+                    var hasExited = process.HasExited;
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    if (!hasExited)
+                    {
+                        LogMessage?.Invoke(this, new EventArgs<string>($"SimpleLauncher process did not exit within {ProcessExitTimeoutMs / 1000} seconds. Proceeding anyway."));
+                    }
+                    else
+                    {
+                        LogMessage?.Invoke(this, new EventArgs<string>("SimpleLauncher has exited."));
+                    }
                 }
-
-                process.Dispose();
-                cancellationToken.ThrowIfCancellationRequested();
-
-                if (!process.HasExited)
+                finally
                 {
-                    LogMessage?.Invoke(this, new EventArgs<string>($"SimpleLauncher process did not exit within {ProcessExitTimeoutMs / 1000} seconds. Proceeding anyway."));
-                }
-                else
-                {
-                    LogMessage?.Invoke(this, new EventArgs<string>("SimpleLauncher has exited."));
+                    foreach (var p in processes)
+                    {
+                        p.Dispose();
+                    }
                 }
             }
             else

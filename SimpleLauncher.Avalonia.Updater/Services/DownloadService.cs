@@ -55,9 +55,9 @@ internal class DownloadService
         }
         catch (Exception ex)
         {
-            // Log locally; bug reporting is the caller's decision (the update flow retries
-            // from the secondary server, so a primary-source failure is an expected condition).
-            Log.Error(ex, "HTTP request failed for URL: {Url}", url);
+            // Expected condition: the update flow retries from the secondary server, so a
+            // primary-source HTTP/network failure is not a bug — log at Information level only.
+            Log.Information(ex, "HTTP request failed for URL: {Url}", url);
             throw;
         }
 
@@ -112,7 +112,9 @@ internal class DownloadService
                     }
                     catch (Exception ex)
                     {
-                        Log.Error(ex, "Error reading from download stream or writing to memory stream");
+                        // Transport failures/timeouts mid-download are expected network conditions;
+                        // report genuine bugs in the outer catch instead.
+                        Log.Information(ex, "Error reading from download stream or writing to memory stream");
                         throw;
                     }
                 }
@@ -125,8 +127,14 @@ internal class DownloadService
             catch (Exception ex)
             {
                 await memoryStream.DisposeAsync();
-                // Don't report here if it was already reported in the inner catch
-                if (ex is not HttpRequestException and not IOException)
+                // HTTP failures, transport aborts and timeouts (including user cancellation)
+                // are expected network conditions — they are retried from the fallback source
+                // and must not be reported as bugs. Only unexpected exceptions are reported.
+                if (ex is HttpRequestException or IOException or OperationCanceledException)
+                {
+                    Log.Information(ex, "Error downloading update file");
+                }
+                else
                 {
                     Log.Error(ex, "Error downloading update file");
                     await BugReportService.ReportBugAsync(ex, "Error downloading update file (outer catch)");
