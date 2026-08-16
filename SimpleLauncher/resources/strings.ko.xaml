@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">모든 게임</system:String>
     <system:String x:Key="10000games">10000 게임</system:String>
     <system:String x:Key="1000games">1000 게임</system:String>
@@ -210,7 +211,9 @@
     <system:String x:Key="ButtonSizeIcon">버튼 크기</system:String>
     <system:String x:Key="Cabinet">캐비닛</system:String>
     <system:String x:Key="Cabinetnotfound">캐비닛을 찾을 수 없습니다</system:String>
+    <system:String x:Key="CalculateHashesForAllGamePaths">모든 게임 경로의 해시 계산</system:String>
     <system:String x:Key="CalculatingGameHash">게임 해시 계산 중... 잠시만 기다려 주십시오.</system:String>
+    <system:String x:Key="CalculatingRetroAchievementsHashes">RetroAchievements 해시 계산 중...</system:String>
     <system:String x:Key="Cancel">취소</system:String>
     <system:String x:Key="CancelButtonText">취소</system:String>
     <system:String x:Key="Cancelingdownload">다운로드 취소 중...</system:String>
@@ -1053,6 +1056,7 @@
     <system:String x:Key="Oneormorepathsorparameters">하나 이상의 경로 또는 매개 변수가 잘못되었습니다.</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">Ootake 에뮬레이터는 CHD, ISO, CUE/BIN 파일을 지원하지 않습니다.</system:String>
     <system:String x:Key="Open">열기</system:String>
+    <system:String x:Key="OpenAppDataPath">AppData 경로 열기</system:String>
     <system:String x:Key="OpenInfoLink">정보 링크 열기</system:String>
     <system:String x:Key="OpeningAboutWindow">정보 창 열기...</system:String>
     <system:String x:Key="OpeningAresConfiguration">아레스 설정을 엽니다...</system:String>
@@ -1244,6 +1248,12 @@
     <system:String x:Key="RaFallbackUnknownGame">알 수 없는 게임</system:String>
     <system:String x:Key="RaGenericNo">아니요</system:String>
     <system:String x:Key="RaGenericYes">예</system:String>
+    <system:String x:Key="RaHashCalculationComplete">{0}의 RetroAchievements 해시 계산이 완료되었습니다.</system:String>
+    <system:String x:Key="RaHashCalculationInProgress">RetroAchievements 해시 계산이 이미 진행 중입니다. 완료될 때까지 기다린 후 다시 시도해 주세요.</system:String>
+    <system:String x:Key="RaHashNoScannableSystems">RetroAchievements 해싱을 지원하는 구성된 시스템이 없습니다.</system:String>
+    <system:String x:Key="RaHashScanAllStarted">모든 게임 경로에 대한 RetroAchievements 해시 계산이 백그라운드에서 시작되었습니다. 완료되면 알려드립니다.</system:String>
+    <system:String x:Key="RaHashScanInBackgroundMessage">해시 계산은 백그라운드에서 진행됩니다. 나중에 필터 버튼을 다시 클릭하여 해싱이 완료되었는지 확인할 수 있습니다.</system:String>
+    <system:String x:Key="RaHashSystemNotSupported">RetroAchievements 해싱에 지원되지 않습니다.</system:String>
     <system:String x:Key="RaineConfig_AudioDriver">사운드 드라이버:</system:String>
     <system:String x:Key="RaineConfig_AudioDriver_Tooltip">오디오 드라이버를 선택합니다.</system:String>
     <system:String x:Key="RaineConfig_Audio_Header">오디오 설정</system:String>
@@ -1949,6 +1959,7 @@
     <system:String x:Key="TooltipAspectRatioMenu">게임 버튼의 종횡비 변경</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">밝은 테마와 어두운 테마 간 전환</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">게임 버튼 크기 조정</system:String>
+    <system:String x:Key="TooltipCalculateHashesForAllGamePaths">백그라운드에서 모든 게임 경로의 RetroAchievements 해시 계산</system:String>
     <system:String x:Key="ToolTipCancel">현재 작업을 취소합니다.</system:String>
     <system:String x:Key="TooltipCheckForUpdate">새 버전이 사용 가능한지 확인합니다.</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">첫 번째 에뮬레이터 실행 파일을 찾습니다.</system:String>
@@ -2082,6 +2093,7 @@
     <system:String x:Key="TooltipNextPage">다음 게임 페이지로 이동합니다.</system:String>
     <system:String x:Key="TooltipNotificationOnEmulatorError2">에뮬레이터 실행에 실패하면 Windows 알림을 표시합니다.</system:String>
     <system:String x:Key="TooltipOkButton">선택한 임계값을 적용합니다.</system:String>
+    <system:String x:Key="TooltipOpenAppDataPath">Simple Launcher 애플리케이션 데이터 폴더 열기</system:String>
     <system:String x:Key="TooltipOptionsMenu">애플리케이션 설정 및 기본 설정</system:String>
     <system:String x:Key="TooltipOverlayButtonMenu">게임 커버에 오버레이 버튼 표시 또는 숨기기</system:String>
     <system:String x:Key="TooltipPageContentFrame">즐겨찾기 및 기록과 같은 페이지용 콘텐츠 영역</system:String>
@@ -2247,6 +2259,7 @@
     <system:String x:Key="WeAlsoSupportSystems">이러한 파일이 필요한 시스템도 지원합니다. 그러나 '전문가 모드'로 전환하여 수동으로 설치해야 합니다.</system:String>
     <system:String x:Key="Welcome">환영합니다</system:String>
     <system:String x:Key="WelcomeToSimpleLauncher">'Simple Launcher'에 오신 것을 환영합니다!</system:String>
+    <system:String x:Key="WeNeedToScanYourGamePath">RetroAchievements와 호환되는 게임을 확인하려면 게임 경로를 스캔해야 합니다.</system:String>
     <system:String x:Key="WhatsNewFileNotFound"># 'whatsnew.md' 파일을 찾을 수 없습니다. 업데이트 기록 파일을 찾을 수 없습니다.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">‘실행 전 파일 추출’이 활성화된 경우, ‘시스템 폴더에서 검색할 확장자’에는 ‘zip’, ‘7z’, 또는 ‘rar’이 포함되어야 합니다.</system:String>
     <system:String x:Key="Wider">넓게</system:String>

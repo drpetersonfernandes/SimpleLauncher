@@ -1214,6 +1214,20 @@ public interface IMessageBoxLibraryService
     Task SimpleLauncherDoesNotSupportRaHashOfSystemGroupedByFolderMessageBoxAsync();
 
     /// <summary>
+    /// Displays a prompt asking whether to scan the game path for RetroAchievements
+    /// compatibility when no hash scan result exists for the selected system.
+    /// </summary>
+    /// <returns>A task representing the asynchronous operation, resulting in the user's selection.</returns>
+    Task<MessageBoxResult> ScanGamePathForRetroAchievementsMessageBoxAsync();
+
+    /// <summary>
+    /// Displays an informational message telling the user that the RetroAchievements
+    /// hash calculation is running in the background and will complete later.
+    /// </summary>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    Task HashCalculationRunningInBackgroundMessageBoxAsync();
+
+    /// <summary>
     /// Displays an error that the current processor architecture is unsupported.
     /// </summary>
     /// <returns>A task representing the asynchronous operation.</returns>

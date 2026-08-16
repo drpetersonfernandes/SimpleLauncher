@@ -1,7 +1,6 @@
 using System.Windows;
 using SimpleLauncher.Core;
 using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.FindCoverImage;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.Favorites;
@@ -29,7 +28,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
     private readonly IUpdateStatusBar _updateStatusBarService;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly ILogger _logger;
-    private readonly IRetroAchievementsSystemMatcher _systemMatcher;
+    private readonly IRetroAchievementsHashStore _raHashStore;
 
     /// <summary>
     /// Initializes a new instance of <see cref="GameFileLoadingOrchestratorService"/> with all required dependencies.
@@ -47,7 +46,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
         IUpdateStatusBar updateStatusBarService,
         IMessageBoxLibraryService messageBox,
         ILogger logger,
-        IRetroAchievementsSystemMatcher systemMatcher)
+        IRetroAchievementsHashStore raHashStore)
     {
         _gameCacheService = gameCacheService;
         _gameFilterService = gameFilterService;
@@ -61,7 +60,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
         _updateStatusBarService = updateStatusBarService;
         _messageBox = messageBox;
         _logger = logger;
-        _systemMatcher = systemMatcher;
+        _raHashStore = raHashStore;
     }
 
     /// <summary>
@@ -251,10 +250,6 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
             case AppConstants.RetroAchievements:
                 await _gameCacheService.PopulateFromDiskAsync(selectedManager, _getListOfFiles, token);
 
-                var systemId = _systemMatcher.GetSystemId(selectedManager.SystemName);
-                var threshold = _settings.FuzzyMatchingThreshold;
-                var enableAnnotationStripping = _settings.EnableAnnotationStripping;
-
                 try
                 {
                     if (_retroAchievementsService?.RaManager?.AllGames == null)
@@ -265,13 +260,12 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                         break;
                     }
 
-                    var raGamesForSystem = _retroAchievementsService.RaManager.AllGames
-                        .Where(g => g.ConsoleId == systemId)
-                        .ToList();
-
+                    // Hash-based matching: only games whose file hash exists in the local
+                    // RetroAchievements hash scan AND resolves to a known RA game are kept.
+                    var systemHashes = _raHashStore.LoadSystemHashes(selectedManager.SystemName);
                     var cachedGames = await _gameCacheService.GetAllGamesAsync(token);
 
-                    if (raGamesForSystem.Count == 0 || cachedGames.Count == 0)
+                    if (systemHashes == null || systemHashes.Hashes.Count == 0 || cachedGames.Count == 0)
                     {
                         allFiles = [];
                         await _gameCacheService.SetSearchResultsAsync(allFiles, token);
@@ -280,25 +274,13 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
 
                     allFiles = cachedGames.Where(filePath =>
                     {
-                        var fileName = Path.GetFileNameWithoutExtension(filePath);
-                        var normalizedFileName = enableAnnotationStripping
-                            ? FindCoverImageService.StripAnnotations(fileName)
-                            : fileName;
-
-                        return raGamesForSystem.Any(ra =>
+                        if (!systemHashes.Hashes.TryGetValue(filePath, out var hash) ||
+                            string.IsNullOrEmpty(hash))
                         {
-                            var raTitle = ra.Title;
-                            var normalizedRaTitle = enableAnnotationStripping
-                                ? FindCoverImageService.StripAnnotations(raTitle)
-                                : raTitle;
+                            return false;
+                        }
 
-                            if (normalizedFileName.Contains(normalizedRaTitle, StringComparison.OrdinalIgnoreCase) ||
-                                normalizedRaTitle.Contains(normalizedFileName, StringComparison.OrdinalIgnoreCase))
-                                return true;
-
-                            var similarity = FindCoverImageService.CalculateJaroWinklerSimilarity(normalizedFileName, normalizedRaTitle);
-                            return similarity >= threshold;
-                        });
+                        return _retroAchievementsService.RaManager.GetGameInfoByHash(hash) != null;
                     }).ToList();
 
                     await _gameCacheService.SetSearchResultsAsync(allFiles, token);
@@ -306,8 +288,8 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                 catch (Exception ex)
                 {
                     allFiles = [];
-                    _logger.Debug($"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
-                    _logger.Error(ex, $"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
+                    _logger.Debug($"[BuildListOfAllFilesToLoad] Error matching RA hashes against local files: {ex}");
+                    _logger.Error(ex, $"[BuildListOfAllFilesToLoad] Error matching RA hashes against local files: {ex}");
                 }
 
                 break;

@@ -382,6 +382,12 @@
                             <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource TrophyIcon}" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <Separator />
+                    <MenuItem Header="{DynamicResource CalculateHashesForAllGamePaths}" Click="CalculateHashesForAllGamePaths_Click" ToolTip="{DynamicResource TooltipCalculateHashesForAllGamePaths}">
+                        <MenuItem.Icon>
+                            <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource TrophyIcon}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{DynamicResource InjectEmulatorConfig}" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                     <MenuItem.Icon>
@@ -627,9 +633,12 @@
                         <Image Source="pack://application:,,,/images/support.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource SupportIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
-            </MenuItem>
-            <MenuItem Header="{DynamicResource Exit}"
-                      ToolTip="{DynamicResource TooltipExitMenu}">
+                <MenuItem Click="OpenAppDataPath_Click" Header="{DynamicResource OpenAppDataPath}" ToolTip="{DynamicResource TooltipOpenAppDataPath}">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/settings.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource OpenAppDataPathIcon}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
                 <MenuItem Click="Exit_Click" Header="{DynamicResource Exit}" ToolTip="{DynamicResource TooltipExitMenu}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/exit.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ExitIcon}" />

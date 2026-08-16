@@ -210,7 +210,9 @@
     <system:String x:Key="ButtonSizeIcon">Button Size</system:String>
     <system:String x:Key="Cabinet">Cabinet</system:String>
     <system:String x:Key="Cabinetnotfound">Cabinet not found</system:String>
+    <system:String x:Key="CalculateHashesForAllGamePaths">Calculate hash for all Game Paths</system:String>
     <system:String x:Key="CalculatingGameHash">Calculating Game Hash... Please wait.</system:String>
+    <system:String x:Key="CalculatingRetroAchievementsHashes">Calculating RetroAchievements hashes...</system:String>
     <system:String x:Key="Cancel">Cancel</system:String>
     <system:String x:Key="CancelButtonText">Cancel</system:String>
     <system:String x:Key="Cancelingdownload">Canceling download...</system:String>
@@ -1053,6 +1055,7 @@
     <system:String x:Key="Oneormorepathsorparameters">One or more paths or parameters are invalid.</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">Ootake emulator does not support CHD, ISO, CUE/BIN files.</system:String>
     <system:String x:Key="Open">Open</system:String>
+    <system:String x:Key="OpenAppDataPath">Open AppData Path</system:String>
     <system:String x:Key="OpenInfoLink">Open Info Link</system:String>
     <system:String x:Key="OpeningAboutWindow">Opening About window...</system:String>
     <system:String x:Key="OpeningAresConfiguration">Opening Ares configuration...</system:String>
@@ -1244,6 +1247,12 @@
     <system:String x:Key="RaFallbackUnknownGame">Unknown Game</system:String>
     <system:String x:Key="RaGenericNo">No</system:String>
     <system:String x:Key="RaGenericYes">Yes</system:String>
+    <system:String x:Key="RaHashCalculationComplete">RetroAchievements hash calculation is complete for {0}.</system:String>
+    <system:String x:Key="RaHashCalculationInProgress">A RetroAchievements hash calculation is already in progress. Please wait for it to finish before trying again.</system:String>
+    <system:String x:Key="RaHashNoScannableSystems">No configured system is supported for RetroAchievements hashing.</system:String>
+    <system:String x:Key="RaHashScanAllStarted">RetroAchievements hash calculation started for all game paths in the background. You will be notified when it is complete.</system:String>
+    <system:String x:Key="RaHashScanInBackgroundMessage">The hash calculation will happen in the background. You can click the filter button again later to see if the hashing is complete.</system:String>
+    <system:String x:Key="RaHashSystemNotSupported">is not supported for RetroAchievements hashing.</system:String>
     <system:String x:Key="RaineConfig_AudioDriver">Sound Driver:</system:String>
     <system:String x:Key="RaineConfig_AudioDriver_Tooltip">Select the audio driver.</system:String>
     <system:String x:Key="RaineConfig_Audio_Header">Audio Settings</system:String>
@@ -1949,6 +1958,7 @@
     <system:String x:Key="TooltipAspectRatioMenu">Change the aspect ratio of game buttons</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Switch between light and dark theme</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Adjust the size of game buttons</system:String>
+    <system:String x:Key="TooltipCalculateHashesForAllGamePaths">Calculate RetroAchievements hashes for all game paths in the background</system:String>
     <system:String x:Key="ToolTipCancel">Cancel</system:String>
     <system:String x:Key="TooltipCheckForUpdate">Check if a new version is available</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">Browse for the first emulator executable</system:String>
@@ -2082,6 +2092,7 @@
     <system:String x:Key="TooltipNextPage">Navigate to the next page of games</system:String>
     <system:String x:Key="TooltipNotificationOnEmulatorError2">Show a Windows notification if the emulator fails to launch</system:String>
     <system:String x:Key="TooltipOkButton">Apply the selected threshold</system:String>
+    <system:String x:Key="TooltipOpenAppDataPath">Open the Simple Launcher application data folder</system:String>
     <system:String x:Key="TooltipOptionsMenu">Application settings and preferences</system:String>
     <system:String x:Key="TooltipOverlayButtonMenu">Show or hide overlay buttons on game covers</system:String>
     <system:String x:Key="TooltipPageContentFrame">Content area for pages such as Favorites and History</system:String>
@@ -2247,6 +2258,7 @@
     <system:String x:Key="WeAlsoSupportSystems">We also support systems that require those files; however, you’ll need to switch to “Expert Mode” and install them manually.</system:String>
     <system:String x:Key="Welcome">Welcome</system:String>
     <system:String x:Key="WelcomeToSimpleLauncher">Welcome to 'Simple Launcher'!</system:String>
+    <system:String x:Key="WeNeedToScanYourGamePath">We need to scan your game path to see what game is compatible with RetroAchievements.</system:String>
     <system:String x:Key="WhatsNewFileNotFound"># 'whatsnew.md' not found. The update history file could not be found.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.</system:String>
     <system:String x:Key="Wider">Wider</system:String>

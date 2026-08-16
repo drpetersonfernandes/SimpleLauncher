@@ -5,12 +5,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core;
 using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.InjectConfigWindows;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameScan;
+using SimpleLauncher.Services.NotificationToast;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.QuitOrReinstall;
 using MessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
@@ -49,6 +51,10 @@ public class MenuActionHandlerService
     private IMenuActionHost _host = null!;
     private readonly IUpdateStatusBar _updateStatusBar;
 
+    private readonly IRetroAchievementsHashScanner _raHashScanner;
+    private readonly IRetroAchievementsHashStore _raHashStore;
+    private readonly IToastNotificationService _toastNotificationService;
+
     private readonly Dictionary<string, Action> _emulatorConfigWindowFactory;
 
     /// <summary>
@@ -74,7 +80,10 @@ public class MenuActionHandlerService
         IUpdateStatusBar updateStatusBar,
         QuitSimpleLauncher quitSimpleLauncher,
         ILogger logger,
-        IParameterResolverService parameterResolverService)
+        IParameterResolverService parameterResolverService,
+        IRetroAchievementsHashScanner raHashScanner,
+        IRetroAchievementsHashStore raHashStore,
+        IToastNotificationService toastNotificationService)
     {
         _settings = settings;
         _playSoundEffects = playSoundEffects;
@@ -96,6 +105,9 @@ public class MenuActionHandlerService
         _quitSimpleLauncher = quitSimpleLauncher;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _parameterResolverService = parameterResolverService;
+        _raHashScanner = raHashScanner;
+        _raHashStore = raHashStore;
+        _toastNotificationService = toastNotificationService;
 
         _emulatorConfigWindowFactory = new Dictionary<string, Action>(StringComparer.OrdinalIgnoreCase)
         {
@@ -969,6 +981,8 @@ public class MenuActionHandlerService
 
     /// <summary>
     /// Filters the game list to show only games that have RetroAchievements support.
+    /// The match is hash-based: when no hash scan exists for the selected system, the
+    /// user is prompted to run one in the background first.
     /// </summary>
     public async Task HandleShowGamesWithRetroAchievementsAsync()
     {
@@ -977,6 +991,71 @@ public class MenuActionHandlerService
             if (_host.IsLoadingGames)
             {
                 _host.CancelAndRecreateToken();
+            }
+
+            var selectedSystem = _host.GetSelectedSystem();
+
+            // No system selected yet: keep the old behavior of asking the user to pick one
+            if (string.IsNullOrEmpty(selectedSystem))
+            {
+                _playSoundEffects.PlayNotificationSound();
+                _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FilteringRetroAchievements") ?? "Filtering games with achievements...");
+
+                _host.DeselectTopLetterNumberMenu();
+                _host.SetSearchTextBoxText("");
+                _host.SetCurrentFilter(null);
+                _host.SetActiveSearchQueryOrMode(AppConstants.RetroAchievements);
+
+                await _host.LoadGameFilesAsync(null, AppConstants.RetroAchievements, _host.CurrentCancellationToken);
+                return;
+            }
+
+            // Prevent parallel hash calculations (that could crash the application)
+            if (_raHashScanner.IsScanning)
+            {
+                _toastNotificationService.ShowToast(
+                    (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements",
+                    (string)Application.Current.TryFindResource("RaHashCalculationInProgress") ?? "A RetroAchievements hash calculation is already in progress. Please wait for it to finish before trying again.");
+                return;
+            }
+
+            // If no hash scan result exists yet, ask the user to scan the game path first
+            if (!_raHashStore.HasSystemHashes(selectedSystem))
+            {
+                if (!_raHashScanner.IsSystemScannable(selectedSystem))
+                {
+                    _toastNotificationService.ShowToast(
+                        (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements",
+                        $"{selectedSystem} {(string)Application.Current.TryFindResource("RaHashSystemNotSupported") ?? "is not supported for RetroAchievements hashing."}");
+                    return;
+                }
+
+                var result = await _messageBoxLibrary.ScanGamePathForRetroAchievementsMessageBoxAsync();
+                if (result != MessageBoxResult.Yes)
+                {
+                    // User cancelled: do not filter the list of games
+                    return;
+                }
+
+                var selectedManager = _host.GetSystemManagers()
+                    .FirstOrDefault(m => m.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
+                if (selectedManager == null)
+                {
+                    return;
+                }
+
+                _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("CalculatingRetroAchievementsHashes") ?? "Calculating RetroAchievements hashes...");
+
+                _ = _raHashScanner.ScanSystemAsync(
+                    selectedManager.SystemName,
+                    selectedManager.SystemFolders,
+                    selectedManager.FileFormatsToSearch,
+                    selectedManager.DisableRecursiveSearch,
+                    selectedManager.GroupByFolder,
+                    onCompleted: ShowHashScanCompletedToast);
+
+                await _messageBoxLibrary.HashCalculationRunningInBackgroundMessageBoxAsync();
+                return;
             }
 
             _playSoundEffects.PlayNotificationSound();
@@ -992,6 +1071,99 @@ public class MenuActionHandlerService
         catch (Exception ex)
         {
             _logger.Error(ex, "Error in the method NavShowGamesWithRetroAchievementsButtonClickAsync.");
+        }
+    }
+
+    // ---- Calculate Hashes For All Game Paths ----
+
+    /// <summary>
+    /// Calculates RetroAchievements hashes for all game paths of every configured system
+    /// in the background, preventing parallel hash calculations.
+    /// </summary>
+    public Task HandleCalculateHashesForAllGamePathsAsync()
+    {
+        try
+        {
+            try
+            {
+                if (_raHashScanner.IsScanning)
+                {
+                    _toastNotificationService.ShowToast(
+                        (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements",
+                        (string)Application.Current.TryFindResource("RaHashCalculationInProgress") ?? "A RetroAchievements hash calculation is already in progress. Please wait for it to finish before trying again.");
+                    return Task.CompletedTask;
+                }
+
+                var systemManagers = _host.GetSystemManagers();
+                if (systemManagers.Count == 0)
+                {
+                    return Task.CompletedTask;
+                }
+
+                var targets = systemManagers
+                    .Where(m => _raHashScanner.IsSystemScannable(m.SystemName))
+                    .Select(m => new RaHashScanTarget
+                    {
+                        SystemName = m.SystemName,
+                        SystemFolders = m.SystemFolders,
+                        FileFormatsToSearch = m.FileFormatsToSearch,
+                        DisableRecursiveSearch = m.DisableRecursiveSearch,
+                        GroupByFolder = m.GroupByFolder
+                    })
+                    .ToList();
+
+                if (targets.Count == 0)
+                {
+                    _toastNotificationService.ShowToast(
+                        (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements",
+                        (string)Application.Current.TryFindResource("RaHashNoScannableSystems") ?? "No configured system is supported for RetroAchievements hashing.");
+                    return Task.CompletedTask;
+                }
+
+                _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("CalculatingRetroAchievementsHashes") ?? "Calculating RetroAchievements hashes...");
+
+                _ = _raHashScanner.ScanAllSystemsAsync(targets, onCompleted: ShowHashScanCompletedToast);
+
+                _toastNotificationService.ShowToast(
+                    (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements",
+                    (string)Application.Current.TryFindResource("RaHashScanAllStarted") ?? "RetroAchievements hash calculation started for all game paths in the background. You will be notified when it is complete.");
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error in the method HandleCalculateHashesForAllGamePathsAsync.");
+            }
+
+            return Task.CompletedTask;
+        }
+        catch (Exception exception)
+        {
+            return Task.FromException(exception);
+        }
+    }
+
+    /// <summary>
+    /// Shows a completion toast on the UI thread after a system hash scan finishes.
+    /// </summary>
+    private void ShowHashScanCompletedToast(string systemName)
+    {
+        try
+        {
+            var dispatcher = Application.Current.Dispatcher;
+            var title = (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements";
+            var template = (string)Application.Current.TryFindResource("RaHashCalculationComplete") ?? "RetroAchievements hash calculation is complete for {0}.";
+
+            if (dispatcher.CheckAccess())
+            {
+                _toastNotificationService.ShowToast(title, string.Format(template, systemName));
+            }
+            else
+            {
+                dispatcher.Invoke(() => _toastNotificationService.ShowToast(title, string.Format(template, systemName)));
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.Debug($"[RA Hash Scanner] Failed to show completion toast: {ex.Message}");
         }
     }
 

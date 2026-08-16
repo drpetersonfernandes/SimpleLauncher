@@ -1615,6 +1615,22 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
+    /// Does nothing. Returns Yes without displaying the scan-game-path prompt.
+    /// </summary>
+    public Task<MessageBoxResult> ScanGamePathForRetroAchievementsMessageBoxAsync()
+    {
+        return Task.FromResult(MessageBoxResult.Yes);
+    }
+
+    /// <summary>
+    /// Does nothing. Does not display the hash-calculation-running-in-background message box.
+    /// </summary>
+    public Task HashCalculationRunningInBackgroundMessageBoxAsync()
+    {
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
     /// Does nothing. Does not display the unsupported-architecture message box.
     /// </summary>
     public Task UnsupportedArchitectureMessageBoxAsync()

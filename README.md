@@ -48,6 +48,7 @@
 * **Rich User Profiles:** View RA stats, recently played games, and global rankings directly in UI
 * **Auto-Credential Injection:** Automatically syncs RA login to supported emulators (PCSX2, DuckStation, PPSSPP, RetroArch)
 * **Advanced Hashing:** Built-in logic for precise hashes for complex systems (PS1, Saturn, Dreamcast)
+* **Hash-Based Compatibility Filter:** The RA filter button matches games by file hash (scanned in the background and cached per system in `%LocalAppData%\SimpleLauncher\RetroAchievementsHashes\`), replacing unreliable filename matching
 * **Nintendo Wii Support:** Full support for Wii RetroAchievements
 * **Expanded System Aliases:** Better matching for NEC PC-FX, SNES MSU1, and many more systems
 * **RA Data Fetcher Tool:** Separate tool for fetching RetroAchievements data

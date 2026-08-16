@@ -275,6 +275,14 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
+    /// Calculates RetroAchievements hashes for all game paths in the background.
+    /// </summary>
+    public Task HandleCalculateHashesForAllGamePathsAsync()
+    {
+        return _menuActionHandler.HandleCalculateHashesForAllGamePathsAsync();
+    }
+
+    /// <summary>
     /// Handles zooming in on the game grid.
     /// </summary>
     public Task HandleZoomInAsync()

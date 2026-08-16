@@ -1,0 +1,40 @@
+<Window x:Class="SimpleLauncher.Services.NotificationToast.ToastNotificationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ShowInTaskbar="False"
+        ShowActivated="False"
+        Focusable="False"
+        WindowStartupLocation="Manual"
+        SizeToContent="WidthAndHeight"
+        MaxWidth="420">
+    <Border
+        x:Name="ToastBorder"
+        Background="{DynamicResource MahApps.Brushes.Gray10}"
+        BorderBrush="{DynamicResource MahApps.Brushes.Accent}"
+        BorderThickness="3,0,0,0"
+        CornerRadius="6"
+        Padding="14,10"
+        Margin="12"
+        Opacity="0">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="12" ShadowDepth="2" Opacity="0.4" />
+        </Border.Effect>
+        <StackPanel MaxWidth="380">
+            <TextBlock x:Name="ToastTitleTextBlock"
+                       FontSize="13"
+                       FontWeight="SemiBold"
+                       Foreground="{DynamicResource MahApps.Brushes.Text}"
+                       TextWrapping="Wrap" />
+            <TextBlock x:Name="ToastMessageTextBlock"
+                       FontSize="12"
+                       Margin="0,3,0,0"
+                       Foreground="{DynamicResource MahApps.Brushes.Text}"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+    </Border>
+</Window>

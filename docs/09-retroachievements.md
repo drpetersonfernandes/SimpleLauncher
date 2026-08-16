@@ -14,6 +14,10 @@ flowchart LR
     M --> S
     C[EmulatorConfigurator] --> E[RetroArch / PCSX2 / DuckStation /<br/>PPSSPP / Dolphin / Flycast / BizHawk configs]
     Mgr[RetroAchievementsManager<br/>local .dat store] --> S
+    Scn[RetroAchievementsHashScanner<br/>Core] --> F
+    Scn --> Str[RetroAchievementsHashStore<br/>JSON per system]
+    Btn[RA filter button] --> Scn
+    Btn --> Mgr
 ```
 
 HTTP client: named `"RetroAchievementsClient"` via `IHttpClientFactory` (`RetroAchievementsService.cs:37`; registered `App.xaml.cs:145-149` — 30 s timeout, `User-Agent: SimpleLauncher/1.0`). Base URLs from config `Urls:RetroAchievementsApi/Request/Site` (defaults `https://retroachievements.org/API/…`). Auth: API key as `y=`, username as `u=` query params; every call throws `RaUnauthorizedException` on HTTP 401.
@@ -61,6 +65,54 @@ Flow (`GetGameHashForRetroAchievementsAsync`): exact alias match or **system-pic
 (`SystemSelectionWindow` with fuzzy pre-selected guess; cancel → `RaHashResult(null,null,false,…)`);
 systems without a usable console ID (e.g. the `unsupported` pseudo-system, ID > 90) are rejected
 up front; `.zip/.7z/.rar` extracted to temp (except arcade); single hash call; temp cleaned.
+
+## Hash-based game filter (`RetroAchievementsHashScanner` + `RetroAchievementsHashStore`, Core)
+
+The **RetroAchievements filter button** (trophy icon on the main window) no longer matches
+games by filename. It matches by **hash**:
+
+1. On click, the filter checks whether a hash scan result exists for the selected system.
+2. If none exists, the user is prompted: *"We need to scan your game path to see what game is
+   compatible with RetroAchievements."*
+   - **Cancel** → nothing happens (filter stays disabled).
+   - **OK** → the entire game path is scanned **in the background**; the user is told they can
+     click the button again later to see if the hashing is complete. A **notification toast** is
+     shown when the calculation finishes.
+3. Once a scan result exists, the filter keeps only game files whose hash resolves to a known
+   game in `RetroAchievementsManager.GetGameInfoByHash` — i.e. the hash is compared against the
+   compatible-hash set loaded from `RetroAchievements.dat` (see [Local data store](#local-data-store)),
+   and only the matched games are displayed.
+
+Parallel hash calculations are **prevented** (single global scan flag) — clicking the button or
+running the menu command while a scan is running shows an in-progress toast instead of starting
+a second scan.
+
+### Re-scan optimization
+
+Before hashing a system, the scanner enumerates the ROM path and compares the **number of game
+files** against the `FileCount` stored in the system's JSON file. If the count is unchanged, the
+scan is skipped entirely — hashes are only recalculated when a game was added to or removed from
+the path, since there is no need to hash again when nothing changed.
+
+### Persistence
+
+Each scanned system produces a JSON file in `%LocalAppData%\SimpleLauncher\RetroAchievementsHashes\`:
+
+| File | Content |
+|---|---|
+| `{SystemName}.json` | `RaSystemHashes` — `SystemName`, `ScannedAtUtc`, `FileCount` (number of games at scan time), `Hashes` (dictionary of full file path → hash) |
+
+Files are written via `RetroAchievementsHashStore` (System.Text.Json, indented) and read back
+for filtering. The scan enumerates the exact same file set as the game-list cache
+(`IGetListOfFilesService.GetFilesAsync`), hashes files sequentially through
+`RetroAchievementsFileHasher` (sequential on purpose: the RVZ filereader is process-wide global
+state), and persists one result file per system.
+
+### Menu command
+
+**Options → RetroAchievements → Calculate hash for all Game Paths** runs the same background
+scan for every configured system (systems without a usable RA console ID are skipped), with a
+completion toast per system and a single in-progress toast on repeat clicks.
 
 ## Credential injection (`RetroAchievementsEmulatorConfiguratorService`, Core)
 

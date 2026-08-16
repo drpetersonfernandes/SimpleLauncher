@@ -72,6 +72,7 @@ using SimpleLauncher.Services.UiOrchestrator;
 using SimpleLauncher.Services.UsageStats;
 using SimpleLauncher.Services.SystemSelectionOrchestrator;
 using SimpleLauncher.Services.GameFileLoadingOrchestrator;
+using SimpleLauncher.Services.NotificationToast;
 using SimpleLauncher.Services.WpfServices;
 using SimpleLauncher.ViewModels;
 using DosBoxFileSelectionViewModel = SimpleLauncher.ViewModels.DosBoxFileSelectionViewModel;
@@ -252,6 +253,9 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IRetroAchievementsEmulatorConfiguratorService, RetroAchievementsEmulatorConfiguratorService>();
         serviceCollection.AddSingleton<IRetroAchievementsSystemMatcher, RetroAchievementsSystemMatcher>();
         serviceCollection.AddSingleton<IRetroAchievementsFileHasher, RetroAchievementsFileHasher>();
+        serviceCollection.AddSingleton<IRetroAchievementsHashStore, RetroAchievementsHashStore>();
+        serviceCollection.AddSingleton<IRetroAchievementsHashScanner, RetroAchievementsHashScanner>();
+        serviceCollection.AddSingleton<IToastNotificationService, ToastNotificationService>();
         serviceCollection.AddSingleton<IContextMenuService, ContextMenuService>();
         serviceCollection.AddSingleton(static sp =>
         {

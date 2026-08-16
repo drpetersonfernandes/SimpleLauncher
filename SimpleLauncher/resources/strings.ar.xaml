@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
     <system:String x:Key="1000000games">كل الألعاب</system:String>
     <system:String x:Key="10000games">10000 لعبة</system:String>
     <system:String x:Key="1000games">1000 لعبة</system:String>
@@ -210,7 +211,9 @@
     <system:String x:Key="ButtonSizeIcon">حجم الزر</system:String>
     <system:String x:Key="Cabinet">الخزانة</system:String>
     <system:String x:Key="Cabinetnotfound">الخزانة غير موجودة</system:String>
+    <system:String x:Key="CalculateHashesForAllGamePaths">احسب التجزئة لجميع مسارات الألعاب</system:String>
     <system:String x:Key="CalculatingGameHash">جارٍ حساب تجزئة اللعبة... الرجاء الانتظار.</system:String>
+    <system:String x:Key="CalculatingRetroAchievementsHashes">جاري حساب تجزئات RetroAchievements...</system:String>
     <system:String x:Key="Cancel">إلغاء</system:String>
     <system:String x:Key="CancelButtonText">إلغاء</system:String>
     <system:String x:Key="Cancelingdownload">جارٍ إلغاء التحميل...</system:String>
@@ -1053,6 +1056,7 @@
     <system:String x:Key="Oneormorepathsorparameters">مسار أو أكثر أو معلمات غير صحيحة.</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">محاكي Ootake لا يدعم ملفات CHD، ISO، CUE/BIN.</system:String>
     <system:String x:Key="Open">فتح</system:String>
+    <system:String x:Key="OpenAppDataPath">افتح مسار بيانات التطبيق</system:String>
     <system:String x:Key="OpenInfoLink">فتح رابط المعلومات</system:String>
     <system:String x:Key="OpeningAboutWindow">فتح نافذة حول...</system:String>
     <system:String x:Key="OpeningAresConfiguration">جارٍ فتح إعدادات Ares...</system:String>
@@ -1244,6 +1248,12 @@
     <system:String x:Key="RaFallbackUnknownGame">لعبة غير معروفة</system:String>
     <system:String x:Key="RaGenericNo">لا</system:String>
     <system:String x:Key="RaGenericYes">نعم</system:String>
+    <system:String x:Key="RaHashCalculationComplete">اكتمل حساب تجزئة RetroAchievements لـ {0}.</system:String>
+    <system:String x:Key="RaHashCalculationInProgress">يوجد حساب تجزئة RetroAchievements قيد التقدم بالفعل. الرجاء الانتظار حتى يكتمل قبل المحاولة مرة أخرى.</system:String>
+    <system:String x:Key="RaHashNoScannableSystems">لا يوجد نظام مهيأ مدعوم لحساب تجزئة RetroAchievements.</system:String>
+    <system:String x:Key="RaHashScanAllStarted">بدأ حساب تجزئة RetroAchievements لجميع مسارات الألعاب في الخلفية. سيتم إعلامك عند اكتماله.</system:String>
+    <system:String x:Key="RaHashScanInBackgroundMessage">سيتم حساب التجزئة في الخلفية. يمكنك النقر على زر التصفية مرة أخرى لاحقًا لمعرفة ما إذا كان الحساب قد اكتمل.</system:String>
+    <system:String x:Key="RaHashSystemNotSupported">غير مدعوم لحساب تجزئة RetroAchievements.</system:String>
     <system:String x:Key="RaineConfig_AudioDriver">مشغل الصوت:</system:String>
     <system:String x:Key="RaineConfig_AudioDriver_Tooltip">حدد برنامج تشغيل الصوت.</system:String>
     <system:String x:Key="RaineConfig_Audio_Header">إعدادات الصوت</system:String>
@@ -1949,6 +1959,7 @@
     <system:String x:Key="TooltipAspectRatioMenu">تغيير نسبة العرض إلى الارتفاع لأزرار اللعبة</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">التبديل بين السمة الفاتحة والداكنة</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">ضبط حجم أزرار اللعبة</system:String>
+    <system:String x:Key="TooltipCalculateHashesForAllGamePaths">احسب تجزئات RetroAchievements لجميع مسارات الألعاب في الخلفية</system:String>
     <system:String x:Key="ToolTipCancel">إلغاء العملية الحالية</system:String>
     <system:String x:Key="TooltipCheckForUpdate">التحقق مما إذا كان هناك إصدار جديد متاح</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">تصفح لتحديد الملف التنفيذي للمحاكي الأول</system:String>
@@ -2082,6 +2093,7 @@
     <system:String x:Key="TooltipNextPage">الانتقال إلى الصفحة التالية من الألعاب</system:String>
     <system:String x:Key="TooltipNotificationOnEmulatorError2">إظهار إشعار Windows إذا فشل المحاكي في التشغيل</system:String>
     <system:String x:Key="TooltipOkButton">تطبيق العتبة المحددة</system:String>
+    <system:String x:Key="TooltipOpenAppDataPath">افتح مجلد بيانات تطبيق Simple Launcher</system:String>
     <system:String x:Key="TooltipOptionsMenu">إعدادات وتفضيلات التطبيق</system:String>
     <system:String x:Key="TooltipOverlayButtonMenu">إظهار أو إخفاء أزرار التراكب على أغلفة الألعاب</system:String>
     <system:String x:Key="TooltipPageContentFrame">منطقة المحتوى لصفحات مثل المفضلة والمحفوظات</system:String>
@@ -2247,6 +2259,7 @@
     <system:String x:Key="WeAlsoSupportSystems">ندعم أيضاً الأنظمة التي تتطلب تلك الملفات؛ ومع ذلك، ستحتاج إلى التبديل إلى 'الوضع المتقدم' وتثبيتها يدوياً.</system:String>
     <system:String x:Key="Welcome">مرحباً</system:String>
     <system:String x:Key="WelcomeToSimpleLauncher">مرحباً بك في 'Simple Launcher'!</system:String>
+    <system:String x:Key="WeNeedToScanYourGamePath">نحتاج إلى فحص مسار لعبتك لمعرفة الألعاب المتوافقة مع RetroAchievements.</system:String>
     <system:String x:Key="WhatsNewFileNotFound"># 'whatsnew.md' غير موجود. لم يتم العثور على ملف سجل التحديث.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">عندما يتم تشغيل 'استخراج الملف قبل التشغيل' على الوضع الصحيح، يجب أن يتضمن 'الامتداد المطلوب البحث عنه في مجلد النظام' أحد الامتدادات الآتية: 'zip' أو '7z' أو 'rar'.</system:String>
     <system:String x:Key="Wider">أوسع</system:String>

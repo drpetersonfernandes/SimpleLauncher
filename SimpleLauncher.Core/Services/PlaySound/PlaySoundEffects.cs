@@ -1,5 +1,8 @@
+// ReSharper disable once RedundantUsingDirective
+
 using NAudio.SoundFile;
 using NAudio.Wave;
+// ReSharper disable once RedundantUsingDirective
 using NAudio.Wave.Alsa;
 using SimpleLauncher.Core.Interfaces;
 

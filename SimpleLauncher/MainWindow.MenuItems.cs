@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Core;
@@ -587,6 +588,37 @@ public partial class MainWindow
         catch (Exception ex)
         {
             _logger.Error(ex, "Error in the method NavShowGamesWithRetroAchievementsButtonClickAsync.");
+        }
+    }
+
+    private async void CalculateHashesForAllGamePaths_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await _menuOrchestrator.HandleCalculateHashesForAllGamePathsAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error in the method CalculateHashesForAllGamePaths_Click.");
+        }
+    }
+
+    private void OpenAppDataPath_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var appDataPath = Core.Services.AppDataPaths.SimpleLauncherDataFolder;
+            if (string.IsNullOrEmpty(appDataPath) || !Directory.Exists(appDataPath))
+            {
+                _logger.Debug("AppData path does not exist: " + appDataPath);
+                return;
+            }
+
+            Process.Start(new ProcessStartInfo { FileName = appDataPath, UseShellExecute = true });
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error in the method OpenAppDataPath_Click.");
         }
     }
 
