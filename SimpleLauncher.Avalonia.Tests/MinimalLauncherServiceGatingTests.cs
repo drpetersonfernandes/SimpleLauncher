@@ -3,6 +3,7 @@ using SimpleLauncher.Avalonia.Services.GameLauncher;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Avalonia.Tests;
 
@@ -52,14 +53,19 @@ public class MinimalLauncherServiceGatingTests : IDisposable
             systemManager,
             logger);
 
+        var settings = new SettingsManagerService(
+            config, logger, new Mock<ICredentialProtector>().Object, _messageBox.Object);
+
         return new MinimalLauncherService(
             _messageBox.Object,
             handlers,
-            new ChdMountService(),
             config,
             new Mock<IExtractionService>().Object,
             new Mock<IMountXisoFiles>().Object,
-            askAi);
+            new Mock<IMountChdFiles>().Object,
+            new Mock<IMountZipFiles>().Object,
+            askAi,
+            settings);
     }
 
     private static Emulator CreateEmulator(string name)

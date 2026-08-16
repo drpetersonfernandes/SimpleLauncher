@@ -59,8 +59,10 @@ public partial class MainWindow : Window
         // Populate sidebar from system.xml
         PopulateSidebarFromSystemXml();
 
-        // Set initial sidebar selection
-        CollectionsList.SelectedIndex = 0;
+        // NOTE: no initial sidebar selection here — selecting "All Games" would fire
+        // SystemList_SelectionChanged synchronously and trigger a full library scan on
+        // the UI thread during construction. Window_Opened → InitializeAsync does the
+        // single initial scan asynchronously instead.
 
         // Restore window position/size before the window is shown
         RestoreWindowBounds();
@@ -234,7 +236,19 @@ public partial class MainWindow : Window
 
     private void ViewToggle_Click(object? sender, RoutedEventArgs e)
     {
-        _viewModel.ToggleViewCommand.Execute(null);
+        // Set the view state explicitly per button (mirroring the single stateful
+        // toggle of the WPF app) and keep both toggle buttons mutually exclusive.
+        if (ReferenceEquals(sender, GridViewToggle))
+        {
+            _viewModel.IsGridView = true;
+        }
+        else if (ReferenceEquals(sender, ListViewToggle))
+        {
+            _viewModel.IsGridView = false;
+        }
+
+        GridViewToggle.IsChecked = _viewModel.IsGridView;
+        ListViewToggle.IsChecked = !_viewModel.IsGridView;
     }
 
     private void ListHeader_Click(object? sender, PointerPressedEventArgs e)

@@ -70,7 +70,20 @@ public class App : Application, IDisposable
         TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
         // Single-instance enforcement
-        _singleInstanceMutex = new Mutex(true, MutexName, out _isFirstInstance);
+        try
+        {
+            _singleInstanceMutex = new Mutex(true, MutexName, out _isFirstInstance);
+        }
+        catch (AbandonedMutexException)
+        {
+            // The mutex was abandoned by a previous instance (e.g., due to a crash).
+            // This means we successfully acquired it, and we are now the first instance.
+            // The 'out _isFirstInstance' parameter would already be true in this case,
+            // but we explicitly set it for clarity and to ensure the flow continues as a first instance.
+            _isFirstInstance = true;
+            Log.Debug("Mutex was abandoned by a previous instance, but successfully acquired by this instance. Proceeding as first instance.");
+        }
+
         // Named EventWaitHandle is Windows-only; on Linux the named Mutex still enforces
         // single-instance, only the "bring first instance to foreground" signal is lost.
         if (OperatingSystem.IsWindows())
@@ -227,7 +240,20 @@ public class App : Application, IDisposable
             client.Timeout = TimeSpan.FromSeconds(30);
         });
         services.AddHttpClient("GameClassificationClient");
-        services.AddHttpClient("ParameterResolverClient");
+        services.AddHttpClient("ParameterResolverClient", client =>
+        {
+            // Set the base address for the parameter resolver API (same as the WPF app)
+            var resolverUrl = configuration.GetValue<string>("Urls:ParameterResolverApi")
+                              ?? "https://www.purelogiccode.com/simplelauncheradmin/";
+            if (!resolverUrl.EndsWith('/'))
+            {
+                resolverUrl += '/';
+            }
+
+            client.BaseAddress = new Uri(resolverUrl);
+            client.Timeout = TimeSpan.FromSeconds(60);
+            client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher.Avalonia/1.0");
+        });
         services.AddHttpClient("DownloadClient");
 
         // ── Host services (implement Core interfaces) ──
@@ -249,7 +275,18 @@ public class App : Application, IDisposable
             services.AddSingleton(bugReportSink);
         }
 
-        services.AddSingleton<SettingsManagerService>();
+        services.AddSingleton<SettingsManagerService>(sp =>
+        {
+            var sm = new SettingsManagerService(
+                sp.GetRequiredService<IConfiguration>(),
+                sp.GetRequiredService<ILogger>(),
+                sp.GetRequiredService<ICredentialProtector>(),
+                sp.GetRequiredService<IMessageBoxLibraryService>());
+            // Load settings.xml once at startup — same as the WPF app. Without this the
+            // in-memory defaults would overwrite the shared settings.xml on the first save.
+            sm.Load();
+            return sm;
+        });
         services.AddSingleton<MameDataService>();
         services.AddSingleton<IRetroAchievementsFileHasher, RetroAchievementsFileHasher>();
         services.AddSingleton<IRetroAchievementsEmulatorConfiguratorService, RetroAchievementsEmulatorConfiguratorService>();
@@ -312,9 +349,21 @@ public class App : Application, IDisposable
         services.AddSingleton<ILauncherService>(sp => sp.GetRequiredService<MinimalLauncherService>());
         services.AddSingleton<AskAiToFixParameters>();
         services.AddSingleton<EmulatorPathResolver>();
-        services.AddSingleton<LocalizationService>();
+        services.AddSingleton<LocalizationService>(sp =>
+        {
+            var localization = new LocalizationService();
+
+            // Apply the saved language (from settings.xml) once at startup
+            var savedLanguage = sp.GetRequiredService<SettingsManagerService>().Language;
+            if (!string.IsNullOrEmpty(savedLanguage) &&
+                !string.Equals(savedLanguage, "en", StringComparison.OrdinalIgnoreCase))
+            {
+                localization.LoadLanguage(savedLanguage);
+            }
+
+            return localization;
+        });
         services.AddSingleton<StorefrontGameScanner>();
-        services.AddSingleton<ChdMountService>();
         services.AddSingleton<RetroAchievementsService>();
 
         // ── Emulator config injection (21 emulators) ──

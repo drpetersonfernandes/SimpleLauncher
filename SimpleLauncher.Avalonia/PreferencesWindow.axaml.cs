@@ -46,6 +46,42 @@ public partial class PreferencesWindow : Window
 
         PopulateLanguageCombo();
         LoadSettings();
+
+        // Persist all preferences when the window closes (language/RA changes are
+        // also saved on the fly; this covers the remaining toggles and text fields).
+        Closed += (_, _) => SavePreferences();
+    }
+
+    /// <summary>
+    /// Writes every editable preference back to SettingsManagerService and persists
+    /// settings.xml — without this the preference controls were inert.
+    /// </summary>
+    private void SavePreferences()
+    {
+        try
+        {
+            if (DefaultViewCombo.SelectedItem is ComboBoxItem { Tag: string viewMode })
+            {
+                _settings.ViewMode = viewMode;
+            }
+
+            if (int.TryParse(CardWidthBox.Text, out var cardWidth) && cardWidth is >= 148 and <= 280)
+            {
+                _settings.ThumbnailSize = cardWidth;
+            }
+
+            _settings.EnableGamePadNavigation = GamepadNavCheck.IsChecked == true;
+            _settings.DisplayMachineName = DisplayMachineNameCheck.IsChecked == true;
+            _settings.EnableNotificationSound = NotificationSoundCheck.IsChecked == true;
+            _settings.RaUsername = RaUsernameBox.Text?.Trim() ?? "";
+            _settings.RaApiKey = RaApiKeyBox.Text?.Trim() ?? "";
+
+            _ = _settings.SaveAsync();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to save preferences");
+        }
     }
 
     // ── Systems page: EasyMode launcher ───────────────────────────────
@@ -140,6 +176,9 @@ public partial class PreferencesWindow : Window
         {
             _settings.Language = lang;
             _localization.LoadLanguage(lang);
+
+            // Persist the language choice — without this the selection is lost on restart
+            _ = _settings.SaveAsync();
         }
     }
 
@@ -162,6 +201,9 @@ public partial class PreferencesWindow : Window
 
             _settings.RaUsername = username;
             _settings.RaApiKey = apiKey;
+
+            // Persist the RA credentials so they survive a restart
+            _ = _settings.SaveAsync();
 
             RaTestButton.IsEnabled = false;
             RaTestButton.Content = "Testing...";

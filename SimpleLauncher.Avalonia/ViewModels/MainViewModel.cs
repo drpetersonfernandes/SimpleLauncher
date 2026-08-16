@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.UsageStats;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Avalonia.Services.Favorites;
 using SimpleLauncher.Avalonia.Services.GameLauncher;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
@@ -17,7 +18,7 @@ namespace SimpleLauncher.Avalonia.ViewModels;
 /// Main ViewModel for the game browser.
 /// Phase 6: Wired to real SystemManagerService, ILauncherService, and game scanning.
 /// </summary>
-public partial class MainViewModel : ObservableObject
+public partial class MainViewModel : ObservableObject, ILoadingState
 {
     private readonly FavoritesManager _favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager;
@@ -52,6 +53,21 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty] private bool _isLoading;
 
+    [ObservableProperty] private string _loadingMessage = "Loading…";
+
+    /// <summary>
+    /// ILoadingState implementation for the launcher: shows the overlay and updates
+    /// the message ("Mounting CHD...", "Extracting...", ...) during long operations.
+    /// </summary>
+    public void SetLoadingState(bool isLoading, string? message = null)
+    {
+        IsLoading = isLoading;
+        if (!string.IsNullOrEmpty(message))
+        {
+            LoadingMessage = message;
+        }
+    }
+
     public bool IsEmpty => Games.Count == 0;
 
     /// <summary>
@@ -70,7 +86,8 @@ public partial class MainViewModel : ObservableObject
         SystemManagerService systemManager,
         MinimalLauncherService launcher,
         IFindCoverImageService findCoverImage,
-        Stats stats)
+        Stats stats,
+        SettingsManagerService settings)
     {
         _favoritesManager = favoritesManager;
         _playHistoryManager = playHistoryManager;
@@ -81,6 +98,13 @@ public partial class MainViewModel : ObservableObject
 
         _favoritePaths = _favoritesManager.GetFavoritePaths();
         _allSystems = _systemManager.LoadSystems();
+
+        // Apply the saved preferences (settings.xml): default view mode and card size
+        IsGridView = !string.Equals(settings.ViewMode, "ListView", StringComparison.OrdinalIgnoreCase);
+        if (settings.ThumbnailSize is >= 148 and <= 280)
+        {
+            CardWidth = settings.ThumbnailSize;
+        }
 
         // NOTE: game loading is deferred to InitializeAsync() (called after the window
         // loads) so this constructor never blocks the UI thread scanning large ROM collections.
@@ -355,15 +379,17 @@ public partial class MainViewModel : ObservableObject
                 emulator,
                 emulator.EmulatorParameters,
                 windowContext,
-                null);
+                this);
 
             // Real play-time tracking (from the original launcher): only sessions
             // longer than 5 seconds count toward play history.
             var playSeconds = (long)_launcher.LastPlayTime.TotalSeconds;
-            var recordedSeconds = playSeconds >= 5 ? playSeconds : 0;
-            await _playHistoryManager.RecordPlayAsync(game.FilePath, game.SystemName, recordedSeconds);
-            game.PlayCount++;
-            game.LastPlayed = DateTime.Now.ToString("d");
+            if (playSeconds >= 5)
+            {
+                await _playHistoryManager.RecordPlayAsync(game.FilePath, game.SystemName, playSeconds);
+                game.PlayCount++;
+                game.LastPlayed = DateTime.Now.ToString("d");
+            }
 
             // Fire-and-forget usage stats (emulator launch event)
             _ = Task.Run(async () =>
@@ -440,26 +466,67 @@ public partial class MainViewModel : ObservableObject
                 ? system.FileFormatsToSearch
                 : [".zip", ".7z", ".rar", ".iso", ".chd", ".cue", ".bin", ".exe", ".bat"];
 
-            foreach (var ext in extensions)
-            {
-                var searchExt = ext.StartsWith('.') ? ext : $".{ext}";
-                IEnumerable<string> files;
-                try
-                {
-                    files = Directory.EnumerateFiles(resolvedFolder, $"*{searchExt}",
-                        system.DisableRecursiveSearch ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories);
-                }
-                catch (Exception ex)
-                {
-                    // Skip inaccessible folders
-                    Log.Debug(ex, "Skipping inaccessible folder {Folder}", resolvedFolder);
-                    continue;
-                }
+            var extensionSet = extensions
+                .Select(static e => e.StartsWith('.') ? e : $".{e}")
+                .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
-                foreach (var file in files)
+            // Same rule as the WPF GetListOfFilesService: recursion stays on when
+            // GroupByFolder is enabled even if DisableRecursiveSearch is set — games
+            // must be found in subfolders to be grouped by folder.
+            var doRecurse = system is not { DisableRecursiveSearch: true, GroupByFolder: false };
+
+            foreach (var file in EnumerateFilesTolerant(resolvedFolder, doRecurse))
+            {
+                if (extensionSet.Contains(Path.GetExtension(file)))
                 {
                     yield return file;
                 }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Recursively enumerates files, tolerating per-directory access failures instead
+    /// of aborting the whole scan when one subfolder is inaccessible (mirrors the
+    /// per-directory error handling of the WPF GetListOfFilesService).
+    /// </summary>
+    private static IEnumerable<string> EnumerateFilesTolerant(string directory, bool recurse)
+    {
+        IEnumerable<string> files;
+        try
+        {
+            files = Directory.EnumerateFiles(directory);
+        }
+        catch (Exception ex)
+        {
+            // Skip inaccessible folders instead of dropping the entire scan
+            Log.Debug(ex, "Skipping inaccessible folder {Folder}", directory);
+            yield break;
+        }
+
+        foreach (var file in files)
+        {
+            yield return file;
+        }
+
+        if (!recurse) yield break;
+
+        IEnumerable<string> subDirectories;
+        try
+        {
+            subDirectories = Directory.EnumerateDirectories(directory);
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "Skipping inaccessible folder {Folder}", directory);
+            yield break;
+        }
+
+        foreach (var subDirectory in subDirectories)
+        {
+            foreach (var file in EnumerateFilesTolerant(subDirectory, true))
+            {
+                yield return file;
             }
         }
     }

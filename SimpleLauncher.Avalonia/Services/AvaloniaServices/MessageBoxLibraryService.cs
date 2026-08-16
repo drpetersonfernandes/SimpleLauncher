@@ -548,9 +548,14 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task SystemXmlNotFoundMessageBoxAsync()
+    public async Task SystemXmlNotFoundMessageBoxAsync()
     {
-        return Task.CompletedTask;
+        if (O != null)
+            await ShowAsync(O,
+                "'system.xml' not found inside the application folder.\n\n" +
+                "Please restart 'Simple Launcher'.\n\n" +
+                "If that does not work, please reinstall 'Simple Launcher'.",
+                "Error", MessageButtons.Ok, MessageIcon.Error);
     }
 
     public Task YouCanAddANewSystemMessageBoxAsync()
@@ -918,9 +923,17 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task<MessageBoxResult> GameNotSupportedByRetroAchievementsMessageBoxAsync()
+    public async Task<MessageBoxResult> GameNotSupportedByRetroAchievementsMessageBoxAsync()
     {
-        return Task.FromResult(MessageBoxResult.Cancel);
+        if (O != null)
+        {
+            return await ShowAsync(O,
+                "'Simple Launcher' could not calculate the hash value of this game or this game is not yet supported by RetroAchievements.\n\n" +
+                "Do you want to open the global RetroAchievements window?",
+                "RetroAchievements", MessageButtons.YesNo, MessageIcon.Question);
+        }
+
+        return MessageBoxResult.Cancel;
     }
 
     public Task GameLaunchTimeoutMessageBoxAsync()
@@ -968,9 +981,20 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task EasyModeUnavailableMessageBoxAsync()
+    public async Task EasyModeUnavailableMessageBoxAsync()
     {
-        return Task.CompletedTask;
+        if (O != null)
+            await ShowAsync(O,
+                "'Simple Launcher' could not access the Web API to download the updated configuration.\n\n" +
+                "This could be due to:\n" +
+                "• A government firewall or internet restriction in your region\n" +
+                "• Network connectivity issues\n\n" +
+                "To resolve this issue, you can:\n" +
+                "1. Enable a VPN connection and try again\n" +
+                "2. Check your internet connection\n" +
+                "3. Configure systems manually using the Edit System feature\n\n" +
+                "Note: A VPN may be required if you are located in a country with internet restrictions.",
+                "Easy Mode Unavailable", MessageButtons.Ok, MessageIcon.Warning);
     }
 
     public Task SimpleLauncherDoesNotSupportRaHashOfSystemGroupedByFolderMessageBoxAsync()

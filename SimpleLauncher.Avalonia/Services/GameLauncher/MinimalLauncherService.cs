@@ -3,6 +3,8 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
+using SimpleLauncher.Core.Services.SettingsManager;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Avalonia.Services.GameLauncher;
@@ -10,22 +12,22 @@ namespace SimpleLauncher.Avalonia.Services.GameLauncher;
 /// <summary>
 /// ILauncherService implementation with file-type detection and strategy dispatch.
 /// Handles: direct launch (.exe/.bat/.lnk/.url), archive pass-through/extraction,
-/// ISO mount (PowerShell), XISO mount (Cxbx/Xemu), CHD mount (CHDMounter).
-/// Enhanced with the original SimpleLauncher launch pipeline logic:
-/// argument fallback (ROM path append), emulator pre-flight flags,
-/// real play-time measurement, exit-code analysis and batch timeout.
+/// ZIP mounting (RPCS3/ScummVM/XBLA), XISO mount (Cxbx), CHD mount (CHDMounter via Core).
+/// Mirrors the original SimpleLauncher launch pipeline: argument fallback (ROM path append),
+/// emulator pre-flight flags, real play-time measurement and emulator config injection.
 /// </summary>
 public class MinimalLauncherService : ILauncherService
 {
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IEnumerable<IEmulatorConfigHandler> _configHandlers;
-    private readonly ChdMountService _chdMount;
     private readonly IConfiguration _configuration;
     private readonly IExtractionService _extractionService;
     private readonly IMountXisoFiles _mountXisoFiles;
+    private readonly IMountChdFiles _mountChdFiles;
+    private readonly IMountZipFiles _mountZipFiles;
     private readonly AskAiToFixParameters _askAiToFixParameters;
+    private readonly SettingsManagerService _settings;
     private readonly HashSet<string> _emulatorsToSkipErrorChecking;
-    private string? _chdMountPath; // Track mounted CHD path for cleanup
 
     /// <summary>
     /// Real emulator run time of the last launch (from process start to exit).
@@ -36,19 +38,23 @@ public class MinimalLauncherService : ILauncherService
     public MinimalLauncherService(
         IMessageBoxLibraryService messageBox,
         IEnumerable<IEmulatorConfigHandler> configHandlers,
-        ChdMountService chdMount,
         IConfiguration configuration,
         IExtractionService extractionService,
         IMountXisoFiles mountXisoFiles,
-        AskAiToFixParameters askAiToFixParameters)
+        IMountChdFiles mountChdFiles,
+        IMountZipFiles mountZipFiles,
+        AskAiToFixParameters askAiToFixParameters,
+        SettingsManagerService settings)
     {
         _messageBox = messageBox;
         _configHandlers = configHandlers;
-        _chdMount = chdMount;
         _configuration = configuration;
         _extractionService = extractionService;
         _mountXisoFiles = mountXisoFiles;
+        _mountChdFiles = mountChdFiles;
+        _mountZipFiles = mountZipFiles;
         _askAiToFixParameters = askAiToFixParameters;
+        _settings = settings;
         _emulatorsToSkipErrorChecking = configuration
             .GetSection("EmulatorsToSkipErrorChecking")
             .Get<string[]>()?
@@ -72,13 +78,19 @@ public class MinimalLauncherService : ILauncherService
         var actualFilePath = resolvedFilePath;
         string? cleanupPath = null; // temp dir to clean up after launch
         var emulatorName = selectedEmulatorManager.EmulatorName ?? "";
+        var emulatorLocation = selectedEmulatorManager.EmulatorLocation ?? "";
+
+        // Mount handles live for the whole launch (drive must stay mounted while the
+        // emulator runs — mirroring the WPF strategies which dispose after launch).
+        MountChdDrive? mountedChd = null;
+        MountXisoDrive? mountedXiso = null;
 
         try
         {
+            // ── Direct-launch games (.bat/.cmd/.lnk/.url/.exe) — the game IS the executable.
+            // Matches the original SimpleLauncher dispatch: no emulator, no config handlers.
             switch (ext)
             {
-                // ── Direct-launch games (.bat/.cmd/.lnk/.url/.exe) — the game IS the executable.
-                // Matches the original SimpleLauncher dispatch: no emulator, no config handlers.
                 case ".BAT" or ".CMD":
                     await RunBatchFileAsync(resolvedFilePath, selectedEmulatorManager, windowContext);
                     return;
@@ -97,6 +109,46 @@ public class MinimalLauncherService : ILauncherService
                 case ".7Z":
                 case ".RAR":
                 {
+                    // ZIP mounting strategies (mirror of the WPF ZipMountStrategy): RPCS3
+                    // games are mounted and EBOOT.BIN is located, ScummVM games get the
+                    // archive extracted to its data folder, XBLA games are searched for a
+                    // launchable file. These paths handle the whole launch themselves.
+                    var isRpcs3 = emulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase);
+                    var isScummVm = selectedSystemManager.SystemName.Contains("Scumm", StringComparison.OrdinalIgnoreCase);
+                    var isXbla = selectedSystemManager.SystemName.Contains("xbla", StringComparison.OrdinalIgnoreCase);
+
+                    if (isRpcs3 || isScummVm || isXbla)
+                    {
+                        var logPath = PathHelper.ResolveRelativeToAppDirectory(
+                            _configuration.GetValue<string>("LogPath") ?? "error_user.log");
+                        loadingStateProvider?.SetLoadingState(true, "Mounting archive...");
+
+                        if (isRpcs3)
+                        {
+                            await _mountZipFiles.MountZipFileAndLoadEbootBinAsync(
+                                resolvedFilePath, selectedSystemManager.SystemName, emulatorName,
+                                selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters,
+                                windowContext, logPath, this, Log.Logger, _messageBox);
+                        }
+                        else if (isScummVm)
+                        {
+                            await _mountZipFiles.MountZipFileAndLoadWithScummVmAsync(
+                                resolvedFilePath, selectedSystemManager.SystemName, emulatorName,
+                                selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters,
+                                logPath, Log.Logger, _messageBox);
+                        }
+                        else
+                        {
+                            await _mountZipFiles.MountZipFileAndSearchForFileToLoadAsync(
+                                resolvedFilePath, selectedSystemManager.SystemName, emulatorName,
+                                selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters,
+                                windowContext, logPath, this, Log.Logger, _messageBox);
+                        }
+
+                        loadingStateProvider?.SetLoadingState(false);
+                        return;
+                    }
+
                     // Emulators that can read archives directly (RetroArch, etc.) receive the
                     // archive path unchanged. Emulators needing real files (or the system's
                     // ExtractFileBeforeLaunch flag) get the archive extracted first.
@@ -134,22 +186,20 @@ public class MinimalLauncherService : ILauncherService
                 }
 
                 case ".ISO":
-                    // Generic ISO: pass to the emulator (emulators like PCSX2/DuckStation handle it).
-                    // XISO (original Xbox) images are handled below via the XISO case.
-                    break;
-
                 case ".XISO":
-                    loadingStateProvider?.SetLoadingState(true, "Mounting XISO...");
-                    if (emulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase) ||
-                        emulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase))
+                    // Original Xbox images: Cxbx cannot read a raw ISO, so mount it as a
+                    // virtual drive (drive stays mounted until the emulator exits, mirroring
+                    // the WPF XisoMountStrategy). Emulators like Xemu read the ISO natively.
+                    if (emulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase))
                     {
+                        loadingStateProvider?.SetLoadingState(true, "Mounting XISO...");
                         var logPath = PathHelper.ResolveRelativeToAppDirectory(
                             _configuration.GetValue<string>("LogPath") ?? "error_user.log");
-                        await using var mountedDrive = await _mountXisoFiles.MountAsync(
+                        mountedXiso = await _mountXisoFiles.MountAsync(
                             resolvedFilePath, logPath, Log.Logger, _messageBox);
-                        if (mountedDrive.IsMounted)
+                        if (mountedXiso.IsMounted)
                         {
-                            actualFilePath = mountedDrive.MountedPath;
+                            actualFilePath = mountedXiso.MountedPath;
                         }
                         else
                         {
@@ -157,36 +207,54 @@ public class MinimalLauncherService : ILauncherService
                             return;
                         }
                     }
-                    // else: pass the XISO path to the emulator (may handle it directly)
+                    // else: pass the ISO/XISO path to the emulator (may handle it directly)
 
                     break;
 
                 case ".CHD":
-                    loadingStateProvider?.SetLoadingState(true, "Mounting CHD...");
-                    if (_chdMount.IsAvailable)
+                {
+                    // Mirror of the WPF ChdMountStrategy: only emulators that cannot read
+                    // .chd natively get the image mounted; RetroArch and the rest receive
+                    // the raw .chd path.
+                    var chdKind = GetChdGameFileKind(emulatorName, emulatorLocation);
+                    if (chdKind != ChdGameFileKind.None)
                     {
-                        _chdMountPath = await _chdMount.MountAsync(
-                            resolvedFilePath, selectedSystemManager.SystemName,
-                            selectedEmulatorManager.EmulatorName, selectedEmulatorManager.EmulatorLocation);
-                        actualFilePath = _chdMountPath;
+                        loadingStateProvider?.SetLoadingState(true, "Mounting CHD...");
+                        var consoleAlias = _mountChdFiles.GetConsoleAliasFromSystemName(
+                            selectedSystemManager.SystemName, emulatorName, emulatorLocation, Log.Logger);
+                        mountedChd = await _mountChdFiles.MountAsync(
+                            resolvedFilePath, consoleAlias, Log.Logger, _messageBox);
+
+                        if (!mountedChd.IsMounted)
+                        {
+                            // Error message already shown by MountChdFiles
+                            loadingStateProvider?.SetLoadingState(false);
+                            return;
+                        }
+
+                        var gameFilePath = FindGameFileInMountedChd(mountedChd.MountedPath, chdKind);
+                        if (string.IsNullOrEmpty(gameFilePath))
+                        {
+                            Log.Warning("No game file found in mounted CHD for emulator '{Emulator}'", emulatorName);
+                            await _messageBox.CustomErrorMessageBoxAsync(
+                                "No suitable game file was found inside the mounted CHD image.",
+                                "No Game File Found");
+                            loadingStateProvider?.SetLoadingState(false);
+                            return;
+                        }
+
+                        actualFilePath = gameFilePath;
                     }
-                    else
-                    {
-                        await _messageBox.CustomErrorMessageBoxAsync(
-                            "CHD files require the CHDMounter tool.\n\n" +
-                            "The tool was not found at: " + Path.Combine("tools", "CHDMounter", "CHDMounter.exe") +
-                            "\n\nAlso ensure Dokan or WinFsp is installed.",
-                            "CHD Mounter Not Found");
-                        loadingStateProvider?.SetLoadingState(false);
-                        return;
-                    }
+                    // else: the emulator reads .chd natively — pass the path directly
 
                     break;
+                }
             }
 
             // ── Run matching emulator config handlers ──
-            var emulatorPath = selectedEmulatorManager.EmulatorLocation;
+            var emulatorPath = selectedEmulatorManager.EmulatorLocation ?? "";
             var matchingHandlers = _configHandlers.Where(h => h.IsMatch(emulatorName, emulatorPath)).ToList();
+            var launchParameters = rawEmulatorParameters;
 
             if (matchingHandlers.Count > 0)
             {
@@ -200,6 +268,7 @@ public class MinimalLauncherService : ILauncherService
                     SystemManagerService = selectedSystemManager,
                     EmulatorManager = selectedEmulatorManager,
                     Parameters = rawEmulatorParameters,
+                    Settings = _settings,
                     WindowContext = windowContext,
                     LoadingState = loadingStateProvider
                 };
@@ -223,6 +292,10 @@ public class MinimalLauncherService : ILauncherService
                         Log.Error(ex, "Emulator config injection failed for {Emulator}", emulatorName);
                     }
                 }
+
+                // Handlers may modify Parameters (e.g. Daphne appends -framefile/-script) —
+                // the modified string is what must be used for the launch.
+                launchParameters = launchContext.Parameters;
             }
 
             // ── Emulator pre-flight checks (from the original launcher) ──
@@ -231,7 +304,7 @@ public class MinimalLauncherService : ILauncherService
             var isRaine = emulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase);
             var isXemu = emulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase);
 
-            if (isRetroArch && !rawEmulatorParameters.Contains("-L", StringComparison.OrdinalIgnoreCase))
+            if (isRetroArch && !launchParameters.Contains("-L", StringComparison.OrdinalIgnoreCase))
             {
                 await _messageBox.CustomErrorMessageBoxAsync(
                     "RetroArch parameters must contain \"-L\" pointing to the desired core.\n\n" +
@@ -241,8 +314,8 @@ public class MinimalLauncherService : ILauncherService
                 return;
             }
 
-            if (isXemu && ext is ".ISO" or ".XISO" &&
-                !rawEmulatorParameters.Contains("-dvd_path", StringComparison.OrdinalIgnoreCase))
+            if (isXemu && ext is ".ISO" or ".XISO" or ".CHD" &&
+                !launchParameters.Contains("-dvd_path", StringComparison.OrdinalIgnoreCase))
             {
                 await _messageBox.CustomErrorMessageBoxAsync(
                     "Xemu parameters must contain \"-dvd_path\" pointing to the disc image.\n\n" +
@@ -278,7 +351,7 @@ public class MinimalLauncherService : ILauncherService
                 selectedSystemManager.PrimarySystemFolder,
                 actualFilePath);
             var resolvedParameters = PathHelper.ResolveParameterString(
-                rawEmulatorParameters,
+                launchParameters,
                 selectedSystemManager.SystemFolders,
                 resolvedEmulatorFolderPath,
                 actualFilePath,
@@ -288,8 +361,8 @@ public class MinimalLauncherService : ILauncherService
             // ── Argument fallback (from the original launcher): when the parameter string
             // contains no ROM placeholder, append the ROM path (or bare ROM name for
             // MAME/Raine) so emulators with bare flags still receive the game.
-            var containsRomPlaceholder = rawEmulatorParameters.Contains("%ROM%", StringComparison.OrdinalIgnoreCase);
-            var containsNamePlaceholder = rawEmulatorParameters.Contains("%NAME%", StringComparison.OrdinalIgnoreCase);
+            var containsRomPlaceholder = launchParameters.Contains("%ROM%", StringComparison.OrdinalIgnoreCase);
+            var containsNamePlaceholder = launchParameters.Contains("%NAME%", StringComparison.OrdinalIgnoreCase);
             string arguments;
             if (containsRomPlaceholder || containsNamePlaceholder ||
                 PathHelper.ContainsGameSpecificPlaceholder(resolvedParameters))
@@ -318,34 +391,55 @@ public class MinimalLauncherService : ILauncherService
             var stderrOutput = "";
             var processStartTime = DateTime.Now;
 
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
                 try
                 {
                     var isBatchFile = Path.GetExtension(resolvedEmulatorPath)
                         .Equals(".bat", StringComparison.OrdinalIgnoreCase);
-                    var process = new Process
+                    var stderrBuffer = new StringBuilder();
+
+                    using var process = new Process();
+                    process.StartInfo = new ProcessStartInfo
                     {
-                        StartInfo = new ProcessStartInfo
-                        {
-                            FileName = resolvedEmulatorPath,
-                            Arguments = arguments,
-                            // .bat files require shell execution; .exe works without it
-                            UseShellExecute = isBatchFile,
-                            WorkingDirectory = resolvedEmulatorFolderPath,
-                            CreateNoWindow = true,
-                            RedirectStandardOutput = !isBatchFile,
-                            RedirectStandardError = !isBatchFile,
-                            StandardOutputEncoding = Encoding.UTF8,
-                            StandardErrorEncoding = Encoding.UTF8
-                        }
+                        FileName = resolvedEmulatorPath,
+                        Arguments = arguments,
+                        // .bat files require shell execution; .exe works without it
+                        UseShellExecute = isBatchFile,
+                        WorkingDirectory = resolvedEmulatorFolderPath,
+                        CreateNoWindow = true,
+                        RedirectStandardOutput = !isBatchFile,
+                        RedirectStandardError = !isBatchFile,
+                        StandardOutputEncoding = Encoding.UTF8,
+                        StandardErrorEncoding = Encoding.UTF8
                     };
 
+                    if (!isBatchFile)
+                    {
+                        // Drain BOTH streams asynchronously: a chatty emulator (MAME, RetroArch
+                        // with log verbosity, CLI tools) would otherwise fill the pipe buffer
+                        // and block forever, deadlocking WaitForExit (mirrors the WPF launcher).
+                        process.OutputDataReceived += (_, _) => { };
+                        process.ErrorDataReceived += (_, e) =>
+                        {
+                            if (e.Data is not null)
+                            {
+                                stderrBuffer.AppendLine(e.Data);
+                            }
+                        };
+                    }
+
                     process.Start();
-                    // Drain stderr asynchronously to avoid pipe deadlocks while waiting
-                    var stderrTask = process.StandardError.ReadToEndAsync();
-                    process.WaitForExit();
-                    stderrOutput = stderrTask.GetAwaiter().GetResult();
+
+                    if (!isBatchFile)
+                    {
+                        process.BeginOutputReadLine();
+                        process.BeginErrorReadLine();
+                    }
+
+                    // WaitForExitAsync also waits for the async output reads to complete.
+                    await process.WaitForExitAsync();
+                    stderrOutput = stderrBuffer.ToString();
                 }
                 catch (Exception ex)
                 {
@@ -392,31 +486,42 @@ public class MinimalLauncherService : ILauncherService
                 }
             }
 
-            // Unmount CHD if we mounted one
-            if (_chdMountPath is not null)
+            // Unmount the drives AFTER the emulator exited (kills the mount processes)
+            if (mountedChd is not null)
             {
                 try
                 {
-                    _chdMount.Unmount(_chdMountPath);
+                    await mountedChd.DisposeAsync();
                 }
                 catch (Exception ex)
                 {
                     Log.Debug(ex, "Failed to unmount CHD drive");
                 }
+            }
 
-                _chdMountPath = null;
+            if (mountedXiso is not null)
+            {
+                try
+                {
+                    await mountedXiso.DisposeAsync();
+                }
+                catch (Exception ex)
+                {
+                    Log.Debug(ex, "Failed to unmount XISO drive");
+                }
             }
         }
     }
 
-    #region Standard launches (unchanged)
+    #region Standard launches
 
-    public Task RunBatchFileAsync(
+    public async Task RunBatchFileAsync(
         string resolvedFilePath,
         Emulator selectedEmulatorManager,
         IWindowContext windowContext)
     {
-        return Task.Run(() =>
+        Exception? error = null;
+        await Task.Run(() =>
         {
             try
             {
@@ -452,17 +557,24 @@ public class MinimalLauncherService : ILauncherService
             catch (Exception ex)
             {
                 Log.Error(ex, "Failed to launch {Path}", resolvedFilePath);
-                _ = _messageBox.ErrorLaunchingGameMessageBoxAsync(ex.Message);
+                error = ex;
             }
         });
+
+        // Show the error on the UI thread (continuation of the awaited Task.Run)
+        if (error is not null)
+        {
+            await _messageBox.ErrorLaunchingGameMessageBoxAsync(error.Message);
+        }
     }
 
-    public Task LaunchShortcutFileAsync(
+    public async Task LaunchShortcutFileAsync(
         string resolvedFilePath,
         Emulator selectedEmulatorManager,
         IWindowContext windowContext)
     {
-        return Task.Run(() =>
+        Exception? error = null;
+        await Task.Run(() =>
         {
             try
             {
@@ -491,9 +603,15 @@ public class MinimalLauncherService : ILauncherService
             catch (Exception ex)
             {
                 Log.Error(ex, "Failed to launch {Path}", resolvedFilePath);
-                _ = _messageBox.ErrorLaunchingGameMessageBoxAsync(ex.Message);
+                error = ex;
             }
         });
+
+        // Show the error on the UI thread (continuation of the awaited Task.Run)
+        if (error is not null)
+        {
+            await _messageBox.ErrorLaunchingGameMessageBoxAsync(error.Message);
+        }
     }
 
     public async Task LaunchExecutableAsync(
@@ -502,6 +620,7 @@ public class MinimalLauncherService : ILauncherService
         IWindowContext windowContext)
     {
         var startTime = DateTime.Now;
+        Exception? error = null;
         await Task.Run(() =>
         {
             try
@@ -526,15 +645,146 @@ public class MinimalLauncherService : ILauncherService
             catch (Exception ex)
             {
                 Log.Error(ex, "Failed to launch {Path}", resolvedFilePath);
-                _ = _messageBox.ErrorLaunchingGameMessageBoxAsync(ex.Message);
+                error = ex;
             }
         });
         LastPlayTime = DateTime.Now - startTime;
+
+        // Show the error on the UI thread (continuation of the awaited Task.Run)
+        if (error is not null)
+        {
+            await _messageBox.ErrorLaunchingGameMessageBoxAsync(error.Message);
+        }
     }
 
     #endregion
 
     #region Helpers
+
+    /// <summary>
+    /// Determines which launchable file to look for inside a mounted CHD image for the
+    /// given emulator, and whether the image should be mounted at all. Emulators that
+    /// read .chd natively (RetroArch, DuckStation, PCSX2, ...) return <see cref="ChdGameFileKind.None"/>.
+    /// Mirrors the emulator gate of the WPF ChdMountStrategy.
+    /// </summary>
+    private static ChdGameFileKind GetChdGameFileKind(string emulatorName, string? emulatorLocation)
+    {
+        var loc = emulatorLocation ?? string.Empty;
+
+        if (emulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("retroarch.exe", StringComparison.OrdinalIgnoreCase))
+        {
+            return ChdGameFileKind.None;
+        }
+
+        if (emulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("rpcs3", StringComparison.OrdinalIgnoreCase))
+        {
+            return ChdGameFileKind.EbootBin;
+        }
+
+        if (emulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("xenia", StringComparison.OrdinalIgnoreCase))
+        {
+            return ChdGameFileKind.DefaultXex;
+        }
+
+        if (emulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("xemu", StringComparison.OrdinalIgnoreCase))
+        {
+            return ChdGameFileKind.ImageIso;
+        }
+
+        if (emulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("cxbx", StringComparison.OrdinalIgnoreCase))
+        {
+            return ChdGameFileKind.DefaultXbe;
+        }
+
+        if (emulatorName.Contains("Gens", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("gens.exe", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("CDi", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("CD-i", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("wcdiemu", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("Kega Fusion", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("Fusion", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("fusion.exe", StringComparison.OrdinalIgnoreCase))
+        {
+            return ChdGameFileKind.BinFile;
+        }
+
+        if (emulatorName.Contains("Genesis Plus GX", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("gen_sdl.exe", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("4do.exe", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("blastem", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("blastem.exe", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("FBAlpha", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("FB Alpha", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("FinalBurnAlpha", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("Final Burn Alpha", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("fba64.exe", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("FBNeo", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("FB Neo", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("FinalBurnNeo", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("Final Burn Neo", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("fbneo64.exe", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("mednafen", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("Mesen", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("Mesen.exe", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("Nebula", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("nebula.exe", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("PCSX-Redux", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("PCSX Redux", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("pcsx-redux", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("PicoDrive", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("Pico Drive", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("PicoDrive.exe", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("raine", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("raine.exe", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("Tsugaru", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("Tsugaru_CUI.exe", StringComparison.OrdinalIgnoreCase) ||
+            emulatorName.Contains("Yabause", StringComparison.OrdinalIgnoreCase) ||
+            loc.Contains("yabause.exe", StringComparison.OrdinalIgnoreCase))
+        {
+            return ChdGameFileKind.CueFile;
+        }
+
+        return ChdGameFileKind.None;
+    }
+
+    /// <summary>
+    /// Locates the launchable file inside a mounted CHD drive for the given emulator
+    /// (mirror of the WPF ChdMountStrategy file selection).
+    /// </summary>
+    private static string? FindGameFileInMountedChd(string mountedPath, ChdGameFileKind kind)
+    {
+        return kind switch
+        {
+            ChdGameFileKind.EbootBin => FindEbootBin.FindEbootBinRecursive(mountedPath, Log.Logger, Log.Logger),
+            ChdGameFileKind.DefaultXex => FindDefaultXex.Find(mountedPath, Log.Logger),
+            ChdGameFileKind.ImageIso => FindImageIso.Find(mountedPath, Log.Logger),
+            ChdGameFileKind.DefaultXbe => FindDefaultXbe.Find(mountedPath, Log.Logger),
+            ChdGameFileKind.BinFile => FindBinFile.Find(mountedPath, Log.Logger),
+            ChdGameFileKind.CueFile => FindCueFile.Find(mountedPath, Log.Logger),
+            _ => null
+        };
+    }
+
+    /// <summary>
+    /// Kinds of launchable files that can be located inside a mounted CHD image.
+    /// </summary>
+    private enum ChdGameFileKind
+    {
+        None,
+        EbootBin,
+        DefaultXex,
+        ImageIso,
+        DefaultXbe,
+        BinFile,
+        CueFile
+    }
 
     /// <summary>
     /// Extracts the URL from a .url internet shortcut file (URL=... line).
