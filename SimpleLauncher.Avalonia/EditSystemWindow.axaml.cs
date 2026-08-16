@@ -2,6 +2,8 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Avalonia.Services.Favorites;
+using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
@@ -31,6 +33,8 @@ public partial class EditSystemWindow : Window
     private readonly ISystemConfigurationWriterService _writer;
     private readonly SystemManagerService _systemManager;
     private readonly IFilePickerService _filePicker;
+    private readonly FavoritesManager _favoritesManager;
+    private readonly PlayHistoryManager _playHistoryManager;
     private readonly string? _preSelectedSystemName;
 
     private List<SystemManagerConfig> _systems = [];
@@ -44,6 +48,8 @@ public partial class EditSystemWindow : Window
         ISystemConfigurationWriterService writer,
         SystemManagerService systemManager,
         IFilePickerService filePicker,
+        FavoritesManager favoritesManager,
+        PlayHistoryManager playHistoryManager,
         string? preSelectedSystemName = null)
     {
         InitializeComponent();
@@ -56,6 +62,8 @@ public partial class EditSystemWindow : Window
         _writer = writer;
         _systemManager = systemManager;
         _filePicker = filePicker;
+        _favoritesManager = favoritesManager;
+        _playHistoryManager = playHistoryManager;
         _preSelectedSystemName = preSelectedSystemName;
 
         SaveSystemButton.IsEnabled = false;
@@ -844,6 +852,17 @@ public partial class EditSystemWindow : Window
 
                 StatusTextBlock.Text = $"System saved: {systemNameText}";
                 await _messageBox.SystemSavedSuccessfullyMessageBoxAsync();
+
+                // Keep favorites and play history in sync when the system was renamed:
+                // both store the system name as a plain string, so without this migration
+                // favorites would point at a system that no longer exists.
+                if (isUpdate && !string.Equals(_originalSystemName, systemNameText, StringComparison.OrdinalIgnoreCase))
+                {
+                    var oldSystemName = _originalSystemName!;
+                    await _favoritesManager.RenameSystemAsync(oldSystemName, systemNameText);
+                    await _playHistoryManager.RenameSystemAsync(oldSystemName, systemNameText);
+                    _logger.Information("System renamed from {OldSystemName} to {NewSystemName}. Favorites and play history migrated.", oldSystemName, systemNameText);
+                }
 
                 // Create folders based on the resolved paths
                 var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? "");

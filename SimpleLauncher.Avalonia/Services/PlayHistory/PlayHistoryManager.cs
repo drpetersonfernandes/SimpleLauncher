@@ -110,6 +110,33 @@ public class PlayHistoryManager
     }
 
     /// <summary>
+    /// Renames the system in all play history entries (used when a system is renamed in Edit System).
+    /// </summary>
+    /// <param name="oldSystemName">The previous system name.</param>
+    /// <param name="newSystemName">The new system name.</param>
+    /// <returns>A task representing the save operation (no-op when nothing changed).</returns>
+    public async Task RenameSystemAsync(string oldSystemName, string newSystemName)
+    {
+        var changed = false;
+        lock (_historyLock)
+        {
+            foreach (var item in PlayHistoryList)
+            {
+                if (item.SystemName.Equals(oldSystemName, StringComparison.OrdinalIgnoreCase))
+                {
+                    item.SystemName = newSystemName;
+                    changed = true;
+                }
+            }
+        }
+
+        if (changed)
+        {
+            await SavePlayHistoryAsync();
+        }
+    }
+
+    /// <summary>
     /// Records a play event for the given game. Increments play count and updates timestamps.
     /// </summary>
     public Task RecordPlayAsync(string filePath, string systemName, long playTimeSeconds = 0)

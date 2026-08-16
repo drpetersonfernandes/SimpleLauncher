@@ -491,6 +491,8 @@ public class App : Application, IDisposable
                 sp.GetRequiredService<ISystemConfigurationWriterService>(),
                 sp.GetRequiredService<SystemManagerService>(),
                 sp.GetRequiredService<IFilePickerService>(),
+                sp.GetRequiredService<FavoritesManager>(),
+                sp.GetRequiredService<PlayHistoryManager>(),
                 preSelectedSystemName));
     }
 

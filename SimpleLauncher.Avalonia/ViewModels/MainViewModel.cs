@@ -120,6 +120,16 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         IsLoading = true;
         try
         {
+            // Reconcile favorites against the current system configuration (mirrors the WPF app):
+            // entries whose system no longer exists (renamed without migration, or deleted)
+            // are dropped so they never linger in the favorites filter.
+            var validSystemNames = _allSystems.Select(static s => s.SystemName).ToList();
+            var removedCount = await _favoritesManager.RemoveFavoritesForMissingSystemsAsync(validSystemNames);
+            if (removedCount > 0)
+            {
+                _favoritePaths = _favoritesManager.GetFavoritePaths();
+            }
+
             var (systems, counts, games) = await Task.Run(() =>
             {
                 var loadedSystems = _systemManager.LoadSystems();

@@ -168,6 +168,67 @@ public class FavoritesManager
     }
 
     /// <summary>
+    /// Renames the system in all favorites (used when a system is renamed in Edit System).
+    /// Favorites store the system name as a plain string, so without this migration they
+    /// would keep the old name and point at a system that no longer exists.
+    /// </summary>
+    public async Task RenameSystemAsync(string oldSystemName, string newSystemName)
+    {
+        var changed = false;
+        lock (ListLock)
+        {
+            foreach (var favorite in FavoriteList)
+            {
+                if (favorite.SystemName.Equals(oldSystemName, StringComparison.OrdinalIgnoreCase))
+                {
+                    favorite.SystemName = newSystemName;
+                    changed = true;
+                }
+            }
+        }
+
+        if (changed)
+        {
+            await SaveFavoritesAsync();
+        }
+    }
+
+    /// <summary>
+    /// Removes favorites whose system no longer exists in the current configuration
+    /// (e.g., the system was renamed without migration, or deleted).
+    /// </summary>
+    /// <param name="validSystemNames">The system names that currently exist in the configuration.</param>
+    /// <returns>The number of removed favorites.</returns>
+    public async Task<int> RemoveFavoritesForMissingSystemsAsync(IEnumerable<string> validSystemNames)
+    {
+        var validNames = validSystemNames.ToList();
+        var toRemove = new List<Favorite>();
+
+        lock (ListLock)
+        {
+            foreach (var favorite in FavoriteList)
+            {
+                if (!validNames.Any(name => name.Equals(favorite.SystemName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    toRemove.Add(favorite);
+                }
+            }
+
+            foreach (var favorite in toRemove)
+            {
+                FavoriteList.Remove(favorite);
+            }
+        }
+
+        if (toRemove.Count > 0)
+        {
+            await SaveFavoritesAsync();
+        }
+
+        return toRemove.Count;
+    }
+
+    /// <summary>
     /// Gets all favorite file paths.
     /// </summary>
     public HashSet<string> GetFavoritePaths()
