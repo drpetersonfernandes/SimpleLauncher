@@ -84,6 +84,9 @@
         <None Include="..\SimpleLauncher\tools\CHDMounter\*" Link="tools\CHDMounter\%(Filename)%(Extension)">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Include="..\SimpleLauncher\tools\RetroAchievementsSharp\*" Link="tools\RetroAchievementsSharp\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
         <None Include="..\SimpleLauncher\images\systems\*.png" Link="images\systems\%(Filename)%(Extension)">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>

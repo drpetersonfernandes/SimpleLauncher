@@ -7,8 +7,8 @@ namespace SimpleLauncher.Tests;
 
 /// <summary>
 /// Tests for <see cref="RetroAchievementsHasherTool"/> covering the archive handling
-/// of the per-game hash flow: .zip files are hashed through the library's buffer API
-/// without extracting to disk, while .7z/.rar archives are extracted first.
+/// of the per-game hash flow: .zip files are hashed directly (the RetroAchievementsSharp
+/// CLI tool pre-loads the first entry itself), while .7z/.rar archives are extracted first.
 /// </summary>
 public class RetroAchievementsHasherToolTests : IDisposable
 {
@@ -52,11 +52,11 @@ public class RetroAchievementsHasherToolTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a single-entry .zip is hashed through the library's buffer API
-    /// and that no extraction happens at all.
+    /// Verifies that a .zip is hashed directly (the CLI tool pre-loads the first
+    /// entry itself) and that no extraction happens at all.
     /// </summary>
     [Fact]
-    public async Task GetGameHash_ForZipFile_HashesFromBufferWithoutExtraction()
+    public async Task GetGameHash_ForZipFile_HashesDirectlyWithoutExtraction()
     {
         var zipPath = Path.Combine(_tempFolder, "Game.zip");
         CreateZip(zipPath, "Game.a26", "rom");
@@ -65,10 +65,10 @@ public class RetroAchievementsHasherToolTests : IDisposable
             zipPath, "Nintendo 64", [".a26"], new NoOpLoadingState(), new NoOpLogger());
 
         Assert.True(result.IsExtractionSuccessful);
-        Assert.Equal("buffer-hash", result.Hash);
+        Assert.Equal("hash-Game", result.Hash);
         Assert.Null(result.TempExtractionPath);
         Assert.Empty(_extractionService.ExtractedArchives);
-        Assert.Empty(_fileHasher.HashedPaths);
+        Assert.Equal(zipPath, _fileHasher.HashedPaths[0]);
     }
 
     /// <summary>
@@ -121,7 +121,7 @@ public class RetroAchievementsHasherToolTests : IDisposable
     }
 
     /// <summary>
-    /// A fake hasher that tracks whether it was called with a file or a buffer.
+    /// A fake hasher that tracks whether it was called with a file.
     /// </summary>
     private sealed class FakeFileHasher : IRetroAchievementsFileHasher
     {
@@ -136,9 +136,18 @@ public class RetroAchievementsHasherToolTests : IDisposable
             return Task.FromResult<string?>($"hash-{Path.GetFileNameWithoutExtension(filePath)}");
         }
 
-        public Task<string?> CalculateHashFromBufferAsync(byte[] buffer, string systemName)
+        public Task<IReadOnlyDictionary<string, string>> CalculateHashesAsync(
+            IReadOnlyCollection<string> filePaths,
+            string systemName,
+            CancellationToken cancellationToken = default)
         {
-            return Task.FromResult<string?>("buffer-hash");
+            var results = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var filePath in filePaths)
+            {
+                results[filePath] = $"hash-{Path.GetFileNameWithoutExtension(filePath)}";
+            }
+
+            return Task.FromResult<IReadOnlyDictionary<string, string>>(results);
         }
     }
 

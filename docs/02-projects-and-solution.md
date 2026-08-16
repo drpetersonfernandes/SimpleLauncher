@@ -59,7 +59,6 @@ Key properties:
 | Microsoft.Data.Sqlite / SourceGear.sqlite3 | 10.0.10 / 3.53.4 | SQLite (Amazon scan, Stella settings) |
 | SharpCompress | 0.50.4 | Archive extraction |
 | NAudio (Core / Wasapi / WinMM / SoundFile / Alsa) | 3.0.0 | UI sound effects (Windows + Linux) |
-| RetroAchievementsSharp | 1.0.0 | RetroAchievements hashing (rcheevos engine port, incl. RVZ) |
 | SharpDX + XInput + DirectInput | 4.2.0 | Gamepad input |
 | InputSimulatorCore | 1.0.5 | Mouse simulation from gamepad |
 | Serilog (+ Sinks.Async/Debug/File) | 4.4.0 | Logging |
@@ -74,7 +73,7 @@ Key properties: `net10.0-windows`, `IsPackable=true`, `Nullable` enabled, `LangV
 
 - **`InternalsVisibleTo`:** `SimpleLauncher.Tests`, `SimpleLauncher`, `SimpleLauncher.New`, `SimpleLauncher.Avalonia`, `SimpleLauncher.New.Tests`.
 - **Global usings:** `System.IO`, `System.Net.Http`, `Serilog` — so every Core service takes a Serilog `ILogger` by convention.
-- Packages: the same core set as the app (CommunityToolkit.Mvvm, MessagePack, Microsoft.Extensions.*, SharpCompress, NAudio, SharpDX*, Serilog, Tomlyn, YamlDotNet, SourceGear.sqlite3, Meziantou.Analyzer) — no WPF/MahApps (it targets `net10.0-windows` because of DPAPI `ProtectedData`, `System.Drawing`-adjacent helpers, and Windows-specific services, but stays UI-agnostic).
+- Packages: the same core set as the app (CommunityToolkit.Mvvm, MessagePack, Microsoft.Extensions.*, SharpCompress, NAudio, SharpDX*, Serilog, Tomlyn, YamlDotNet, SourceGear.sqlite3, Meziantou.Analyzer) — no WPF/MahApps (it targets `net10.0-windows` because of DPAPI `ProtectedData`, `System.Drawing`-adjacent helpers, and Windows-specific services, but stays UI-agnostic). RetroAchievements hashing is **not** a package: all hash computation is delegated to the bundled `tools\RetroAchievementsSharp\` CLI binaries (see [09 — RetroAchievements](09-retroachievements.md#hashing)).
 
 ## Folder structure of the app project
 

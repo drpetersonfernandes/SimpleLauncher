@@ -7,7 +7,7 @@ namespace SimpleLauncher.Tests;
 
 /// <summary>
 /// Tests for <see cref="RetroAchievementsFileHasher"/> covering the hash calculation
-/// delegated to the RetroAchievementsSharp library (whole-file hashes, header stripping,
+/// delegated to the RetroAchievementsSharp CLI tool (whole-file hashes, header stripping,
 /// N64 byte-swapping, arcade filename hashing, Arduboy line-ending normalization, and
 /// graceful failures for unsupported inputs).
 /// </summary>

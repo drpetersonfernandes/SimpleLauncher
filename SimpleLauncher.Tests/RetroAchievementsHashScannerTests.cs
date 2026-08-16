@@ -216,11 +216,12 @@ public class RetroAchievementsHashScannerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that .zip archives are hashed through the library's buffer API without
-    /// extracting to disk, and that the hash is stored under the original archive path.
+    /// Verifies that .zip archives are hashed directly through the CLI tool (which
+    /// pre-loads the first entry itself) without extracting to disk, and that the
+    /// hash is stored under the original archive path.
     /// </summary>
     [Fact]
-    public async Task ScanSystemAsync_ZipFilesAreHashedFromBuffer()
+    public async Task ScanSystemAsync_ZipFilesAreHashedDirectly()
     {
         CreateZip(Path.Combine(_romsFolder, "Game.zip"), "Game.a26", "rom");
 
@@ -232,16 +233,16 @@ public class RetroAchievementsHashScannerTests : IDisposable
             disableRecursiveSearch: true,
             groupByFolder: false);
 
-        // The archive was NOT extracted to disk; the content was hashed from a buffer
+        // The archive was NOT extracted to disk; it was hashed in the batch call
         Assert.Empty(_extractionService.ExtractedArchives);
-        Assert.Equal(1, _fileHasher.BufferHashCallCount);
+        Assert.Equal(1, _fileHasher.BatchCallCount);
         Assert.Empty(_fileHasher.HashedPaths);
 
         // The hash is persisted under the original archive path so the game list can match it
         var loaded = _store.LoadSystemHashes("Nintendo 64");
         Assert.Single(loaded!.Hashes);
         Assert.True(loaded.Hashes.ContainsKey(Path.Combine(_romsFolder, "Game.zip")));
-        Assert.Equal("buffer-hash", loaded.Hashes[Path.Combine(_romsFolder, "Game.zip")]);
+        Assert.Equal("hash-Game", loaded.Hashes[Path.Combine(_romsFolder, "Game.zip")]);
     }
 
     /// <summary>
@@ -417,9 +418,9 @@ public class RetroAchievementsHashScannerTests : IDisposable
         public int HashCallCount { get; private set; }
 
         /// <summary>
-        /// Gets the number of times <see cref="CalculateHashFromBufferAsync"/> was called.
+        /// Gets the number of times <see cref="CalculateHashesAsync"/> was called.
         /// </summary>
-        public int BufferHashCallCount { get; private set; }
+        public int BatchCallCount { get; private set; }
 
         /// <summary>
         /// Gets the file paths that were passed to <see cref="CalculateHashAsync"/>.
@@ -451,16 +452,30 @@ public class RetroAchievementsHashScannerTests : IDisposable
             return $"hash-{Path.GetFileNameWithoutExtension(filePath)}";
         }
 
-        public Task<string?> CalculateHashFromBufferAsync(byte[] buffer, string systemName)
+        public async Task<IReadOnlyDictionary<string, string>> CalculateHashesAsync(
+            IReadOnlyCollection<string> filePaths,
+            string systemName,
+            CancellationToken cancellationToken = default)
         {
-            BufferHashCallCount++;
+            BatchCallCount++;
 
             if (BlockCalls)
             {
-                return _gate.Task.ContinueWith(_ => FailAll ? null : "buffer-hash", TaskScheduler.Default);
+                await _gate.Task;
             }
 
-            return Task.FromResult(FailAll ? null : "buffer-hash");
+            if (FailAll)
+            {
+                return new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            }
+
+            var results = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var filePath in filePaths)
+            {
+                results[filePath] = $"hash-{Path.GetFileNameWithoutExtension(filePath)}";
+            }
+
+            return results;
         }
 
         public void ReleaseBlock()

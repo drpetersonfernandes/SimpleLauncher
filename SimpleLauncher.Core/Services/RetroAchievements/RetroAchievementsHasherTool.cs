@@ -1,4 +1,3 @@
-using RetroAchievementsSharp;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 
@@ -7,9 +6,10 @@ namespace SimpleLauncher.Core.Services.RetroAchievements;
 /// <summary>
 /// A helper class that orchestrates RetroAchievements hashing for game files:
 /// system matching (with a platform-provided system selection prompt), archive
-/// extraction, and hash calculation delegated entirely to the RetroAchievementsSharp
-/// library (which replaces the external RAHasher binary and the previous custom
-/// MD5 logic, including native RVZ/WIA disc hashing).
+/// extraction, and hash calculation delegated entirely to the bundled
+/// RetroAchievementsSharp CLI tool (which replaces the previous in-process
+/// library and the external RAHasher binary, including native RVZ/WIA disc
+/// hashing).
 /// </summary>
 public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
 {
@@ -26,7 +26,7 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
     /// <param name="extractionService">The extraction service for decompressing archives before hashing.</param>
     /// <param name="systemSelector">A factory that shows the system selection dialog with a pre-selected guess and returns the chosen system (or null when cancelled).</param>
     /// <param name="systemMatcher">The system matcher for fuzzy matching RetroAchievements system names.</param>
-    /// <param name="fileHasher">The file hasher that delegates hash calculation to the RetroAchievementsSharp library.</param>
+    /// <param name="fileHasher">The file hasher that delegates hash calculation to the RetroAchievementsSharp CLI tool.</param>
     public RetroAchievementsHasherTool(
         ILogger logger,
         IExtractionService extractionService,
@@ -83,7 +83,7 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         if (SystemWithUnknowHashLogic.Contains(matchedSystemName, StringComparer.OrdinalIgnoreCase))
             return false;
 
-        // The RetroAchievementsSharp library can hash every system that has a console ID in the mappings
+        // The RetroAchievementsSharp CLI tool can hash every system that has a console ID in the mappings
         return _systemMatcher.IsSystemInMappings(systemName);
     }
 
@@ -204,7 +204,7 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
 
     /// <summary>
     /// Calculates the RetroAchievements hash for a game file, handling system matching and extraction as needed.
-    /// The hash calculation itself is delegated to the RetroAchievementsSharp library.
+    /// The hash calculation itself is delegated to the RetroAchievementsSharp CLI tool.
     /// </summary>
     /// <param name="filePath">The full path to the game file to hash.</param>
     /// <param name="systemName">The name of the system the game belongs to.</param>
@@ -265,7 +265,7 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
 
         // Systems without a usable console ID (e.g. the "unsupported" pseudo-system) cannot be hashed
         var systemId = _systemMatcher.GetSystemId(systemName);
-        if (systemId is <= 0 or > ConsoleIds.RcConsoleMax)
+        if (systemId is <= 0 or > RetroAchievementsConstants.MaxConsoleId)
         {
             _logger.Debug($"[RA Hasher Tool] System '{systemName}' is not supported for RetroAchievements hashing.");
             return new RaHashResult(null, null, false, $"System '{systemName}' is not supported for RetroAchievements hashing.");
@@ -277,35 +277,12 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         var isFileNameHashSystem = systemName.Equals("arcade", StringComparison.OrdinalIgnoreCase);
 
         // --- Pre-processing: only extract when really needed ---
-        // .zip archives are handled by the RetroAchievementsSharp library itself
-        // (hash the first entry from a buffer — no disk extraction; multi-entry
-        // zips hash the whole archive). Only .7z/.rar archives are extracted.
-        byte[]? zipBuffer = null;
-        string? zipTempFilePath = null;
+        // .zip archives are handled by the RetroAchievementsSharp CLI tool itself
+        // (hash the first entry — no disk extraction needed). Only .7z/.rar
+        // archives are extracted.
         var fileToProcess = filePath; // By default, process the original file
 
-        if (string.Equals(fileExtension, ".zip", StringComparison.OrdinalIgnoreCase) && !isFileNameHashSystem)
-        {
-            _logger.Debug($"[RA Hasher Tool] Zip file detected for hashing: {filePath}. Loading through the library...");
-            zipBuffer = FileUtil.LoadZippedFile(filePath, out _);
-
-            if (zipBuffer == null)
-            {
-                // The entry is too large for an in-memory buffer — hash from a temp file
-                zipTempFilePath = FileUtil.LoadZippedFileToTemp(filePath, out _);
-                if (zipTempFilePath == null)
-                {
-                    isExtractionSuccessful = false;
-                    extractionErrorMessage = $"Could not load the content of the zip file for hashing: {filePath}.";
-                    logErrors.Information($"[RA Hasher Tool] {extractionErrorMessage}");
-                    _logger.Debug($"[RA Hasher Tool] {extractionErrorMessage}");
-                    return new RaHashResult(null, null, isExtractionSuccessful, extractionErrorMessage);
-                }
-
-                fileToProcess = zipTempFilePath;
-            }
-        }
-        else if (fileExtension is ".7z" or ".rar" && !isFileNameHashSystem)
+        if (fileExtension is ".7z" or ".rar" && !isFileNameHashSystem)
         {
             _logger.Debug($"[RA Hasher Tool] Compressed file detected for hashing: {filePath}. Extracting...");
             var (extractedGameFilePath, extractedTempDirPath) = await _extractionService.ExtractToTempAndGetLaunchFileAsync(filePath, fileFormatsToLaunch);
@@ -323,12 +300,10 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
             fileToProcess = extractedGameFilePath;
         }
 
-        // --- Perform Hashing (delegated entirely to the RetroAchievementsSharp library) ---
+        // --- Perform Hashing (delegated entirely to the RetroAchievementsSharp CLI tool) ---
         try
         {
-            hash = zipBuffer != null
-                ? await _fileHasher.CalculateHashFromBufferAsync(zipBuffer, systemName)
-                : await _fileHasher.CalculateHashAsync(fileToProcess, systemName);
+            hash = await _fileHasher.CalculateHashAsync(fileToProcess, systemName);
             _logger.Debug($"[RA Hasher Tool] Calculated hash: {hash}");
         }
         catch (Exception ex)
@@ -340,21 +315,6 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         finally
         {
             loadingState?.SetLoadingState(false);
-
-            if (!string.IsNullOrEmpty(zipTempFilePath))
-            {
-                try
-                {
-                    if (File.Exists(zipTempFilePath))
-                    {
-                        File.Delete(zipTempFilePath);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _logger.Debug($"[RA Hasher Tool] Failed to clean up temporary zip file '{zipTempFilePath}': {ex.Message}");
-                }
-            }
         }
 
         if (string.IsNullOrEmpty(hash))

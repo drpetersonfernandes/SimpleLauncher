@@ -4,9 +4,10 @@ using SimpleLauncher.Core.Services.RetroAchievements;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Integration tests for the RetroAchievementsSharp library-backed file hasher
-/// (the replacement for the bundled RAHasher binary). The library is managed
-/// .NET, so these tests run the real hashing path on every platform.
+/// Integration tests for the RetroAchievementsSharp CLI tool-backed file hasher
+/// (the bundled single-file binary that replaced the in-process library and the
+/// old RAHasher executable). These tests run the real hashing path through the
+/// CLI on the current platform.
 /// </summary>
 public class RetroAchievementsFileHasherIntegrationTests
 {
@@ -20,7 +21,7 @@ public class RetroAchievementsFileHasherIntegrationTests
     [Fact]
     public async Task CalculateHashAsync_GenesisRom_ReturnsValidHash()
     {
-        // Integration test: runs the real RetroAchievementsSharp hashing engine
+        // Integration test: runs the real RetroAchievementsSharp CLI tool
         // against a dummy cartridge file (system 'genesis/mega drive', whole-file MD5).
         var tempFile = Path.Combine(Path.GetTempPath(), "SLTest_rahash_" + Guid.NewGuid().ToString("N") + ".bin");
         try

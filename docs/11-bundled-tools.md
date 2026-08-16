@@ -25,6 +25,7 @@ Every tool ships x64 + ARM64 variants (`X.exe` + `X_arm64.exe`) unless noted. Al
 | `FindRomCover` | x64/arm64 subfolders | Cover-art finder tool |
 | `RetroGameCoverDownloader` | `.exe`, `_arm64.exe` | Bulk retro cover downloads |
 | `RomValidator` | `.exe`, `_arm64.exe`, 7z dlls | ROM validation against No-Intro DAT files |
+| `RetroAchievementsSharp` | `RetroAchievementsSharp.exe`, `_arm64.exe` (+ README/LICENSE) | RetroAchievements hashing engine (rcheevos port) — invoked by `RetroAchievementsFileHasher`/`HashScanner`, **not** by `ExternalToolLauncherService` |
 
 ## Tool launcher (`ExternalToolLauncherService`)
 

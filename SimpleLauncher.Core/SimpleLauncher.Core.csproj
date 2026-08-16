@@ -39,7 +39,6 @@
         <PackageReference Include="MessagePack" Version="3.1.8" />
         <PackageReference Include="NAudio.Alsa" Version="3.0.0" />
         <PackageReference Include="NAudio.SoundFile" Version="3.0.0" />
-        <PackageReference Include="RetroAchievementsSharp" Version="1.0.0" />
         <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.400">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -192,7 +192,7 @@ Simple Launcher is translated into **18 languages**:
 * **Framework:** .NET 10 (WPF)
 * **Language:** C# 14
 * **Data Serialization:** MessagePack (Binary) & XML
-* **Dependencies:** MahApps.Metro (UI), SharpDX (Input), SharpCompress (Archives), DokanNet (Mounting), NAudio 3 (Audio), RetroAchievementsSharp (RetroAchievements hashing), YamlDotNet, Tomlyn
+* **Dependencies:** MahApps.Metro (UI), SharpDX (Input), SharpCompress (Archives), DokanNet (Mounting), NAudio 3 (Audio), YamlDotNet, Tomlyn — RetroAchievements hashing is delegated to the bundled `RetroAchievementsSharp` CLI tool (`tools\RetroAchievementsSharp\`)
 * **Architecture:** Modular service-based architecture with dependency injection
 * **Storage:** SQLite for play history, MessagePack for favorites, XML for settings
 

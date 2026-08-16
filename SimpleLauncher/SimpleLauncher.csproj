@@ -843,6 +843,21 @@
         <None Update="tools\SimpleZipDrive\ReadMe.md">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="tools\RetroAchievementsSharp\LICENSE">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\RetroAchievementsSharp\README.md">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\RetroAchievementsSharp\RetroAchievementsSharp.exe">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\RetroAchievementsSharp\RetroAchievementsSharp_arm64.exe">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\RetroAchievementsSharp\THIRD-PARTY-NOTICES.md">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
     <ItemGroup>
         <Page Include="resources2\Theme.HighContrast.xaml">

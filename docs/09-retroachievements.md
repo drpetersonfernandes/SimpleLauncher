@@ -9,7 +9,7 @@
 flowchart LR
     U[RA Windows] --> S[RetroAchievementsService<br/>REST client]
     S --> RA[(retroachievements.org API)]
-    H[HasherTool] --> F[RetroAchievementsFileHasher<br/>RetroAchievementsSharp library]
+    H[HasherTool] --> F[RetroAchievementsFileHasher<br/>RetroAchievementsSharp CLI tool]
     H --> M[SystemMatcher]
     M --> S
     C[EmulatorConfigurator] --> E[RetroArch / PCSX2 / DuckStation /<br/>PPSSPP / Dolphin / Flycast / BizHawk configs]
@@ -44,30 +44,33 @@ HTTP client: named `"RetroAchievementsClient"` via `IHttpClientFactory` (`RetroA
 
 ## Hashing (`RetroAchievementsHasherTool` + `RetroAchievementsFileHasher`, Core)
 
-All hash computation is delegated to the **RetroAchievementsSharp** NuGet library
-(`RcHash.GenerateFromFile`) — a native C# port of the rcheevos hashing engine that
-produces the exact same hashes as the RAHasher binary it replaces (the binary and the
-custom MD5 logic are gone). The system matcher resolves the system name to its official
-RA console ID, and the library handles every console's algorithm internally (whole-file
-MD5, header stripping, N64 byte-swapping, arcade filename hashing, Arduboy line-ending
-normalization, disc hashing, …).
+All hash computation is delegated to the **bundled RetroAchievementsSharp CLI tool**
+(`tools\RetroAchievementsSharp\RetroAchievementsSharp.exe`, `_arm64.exe` for arm64 — a
+1:1 C# port of the rcheevos hashing engine that produces the exact same hashes as RAHasher).
+The in-process NuGet library, the old custom MD5 logic, and the previous RAHasher binary are
+all gone: the file hasher spawns the CLI (single-file mode for one game, `scan --console <id>
+--format json` batch mode for whole systems) and reads the hash/manifest back. The system
+matcher resolves the system name to its official RA console ID (passed **numerically** —
+NULL-group consoles like 3DS can only be addressed by numeric id), and the tool handles every
+console's algorithm internally (whole-file MD5, header stripping, N64 byte-swapping, arcade
+filename hashing, Arduboy line-ending normalization, disc hashing, RVZ/WIA via RVZSharp, …).
 
 | Concern | Implementation |
 |---|---|
-| Console dispatch | `RetroAchievementsSystemMatcher.GetSystemId` → `RcHash.GenerateFromFile(hash, (uint)systemId, file)` |
-| Complex discs (PS1/Saturn/Dreamcast/…) | hashed directly — no external binary, no 60 s process timeout |
-| GameCube/Wii `.rvz`/`.wia` | hashed **live** via RVZSharp (`RvzFilereader` installed only around the hash, then restored) — no `DiscConverter` ISO conversion, no temp ISO |
-| `.zip`/`.7z`/`.rar` | extracted to temp first (except arcade, which hashes the file name) |
-| 3DS | requires decryption keys (`Hash3Ds`); without them `GenerateFromFile` returns false → hash null |
-| Unsupported input | `GenerateFromFile` returns `false` (never throws) → hash null, logged at Information |
+| Console dispatch | `RetroAchievementsSystemMatcher.GetSystemId` → CLI positional mode `RetroAchievementsSharp <consoleId> <file>` |
+| Complex discs (PS1/Saturn/Dreamcast/…) | hashed directly by the CLI — no `DiscConverter` conversion, no 60 s process timeout |
+| GameCube/Wii `.rvz`/`.wia` | hashed **live** by the CLI via RVZSharp (decode-on-read, no temp ISO) |
+| `.zip`/`.7z`/`.rar` | `.zip` handled by the CLI itself (first entry pre-load); `.7z`/`.rar` extracted to temp first (except arcade, which hashes the file name) |
+| 3DS | requires decryption keys (`-s`/`Hash3Ds`); without them the CLI produces no hash → hash null |
+| Unsupported input | the CLI prints no hash and exits non-zero → hash null, logged at Information |
 
 Flow (`GetGameHashForRetroAchievementsAsync`): exact alias match or **system-picker prompt**
 (`SystemSelectionWindow` with fuzzy pre-selected guess; cancel → `RaHashResult(null,null,false,…)`);
 systems without a usable console ID (e.g. the `unsupported` pseudo-system, ID > 90) are rejected
-up front; **`.zip` archives are hashed through the library's buffer API** (`FileUtil.LoadZippedFile` +
-`GenerateFromBuffer` — single entry from memory, multi-entry hashes the whole archive, oversized
-entries fall back to a temp file) — no extraction unless really needed; only `.7z/.rar` archives
-are extracted to temp (except arcade); single hash call; temp cleaned.
+up front; **`.zip` archives are passed to the CLI directly** (it pre-loads the first entry —
+single entry from memory, multi-entry hashes the whole archive, oversized entries fall back to
+a temp file) — no extraction unless really needed; only `.7z/.rar` archives are extracted to
+temp (except arcade); single hash call; temp cleaned.
 
 ## Hash-based game filter (`RetroAchievementsHashScanner` + `RetroAchievementsHashStore`, Core)
 
@@ -107,17 +110,18 @@ Each scanned system produces a JSON file in `%LocalAppData%\SimpleLauncher\Retro
 
 Files are written via `RetroAchievementsHashStore` (System.Text.Json, indented) and read back
 for filtering. The scan enumerates the exact same file set as the game-list cache
-(`IGetListOfFilesService.GetFilesAsync`), hashes files sequentially through
-`RetroAchievementsFileHasher` (sequential on purpose: the RVZ filereader is process-wide global
-state), and persists one result file per system.
+(`IGetListOfFilesService.GetFilesAsync`), hashes the directly-supported files (including
+`.zip`) in **one batch CLI invocation per system** (`scan --console <id> --format json`),
+hashes `.7z`/`.rar` individually after extraction, and persists one result file per system.
+Only one scan runs at a time (avoids spawning many CLI processes at once).
 
-**Zips are handled by the library itself** — mirroring the RetroAchievementsSharp CLI's zip
-pre-load (`RetroAchievementsSharp.FileUtil.LoadZippedFile` + `RcHash.GenerateFromBuffer`):
-single-entry `.zip` files are loaded into memory and hashed through the buffer API (no disk
-extraction); multi-entry zips hash the whole archive; entries too large for a `byte[]` fall back
-to a temporary file that is deleted afterwards. Only `.7z`/`.rar` archives are extracted to a
-temporary folder before hashing (unless the system is arcade, which hashes by file name). The
-hash is always persisted under the **original archive path** so the game list can match it.
+**Zips are handled by the CLI tool itself** — its `scan`/positional zip pre-load mirrors the
+old library behavior (`FileUtil.LoadZippedFile` + `GenerateFromBuffer`): single-entry `.zip`
+files are loaded into memory and hashed from a buffer (no disk extraction); multi-entry zips
+hash the whole archive; entries too large for a `byte[]` fall back to a temporary file that
+is deleted afterwards. Only `.7z`/`.rar` archives are extracted to a temporary folder before
+hashing (unless the system is arcade, which hashes by file name). The hash is always
+persisted under the **original archive path** so the game list can match it.
 `RaSystemHashes.HashVersion` records the hash-logic version: when it changes (e.g. extraction
 rules), previously scanned systems are re-hashed automatically even if the game count is
 unchanged.

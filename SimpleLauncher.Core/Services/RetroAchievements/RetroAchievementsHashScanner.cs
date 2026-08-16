@@ -1,4 +1,3 @@
-using RetroAchievementsSharp;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -7,10 +6,10 @@ namespace SimpleLauncher.Core.Services.RetroAchievements;
 
 /// <summary>
 /// Scans game paths in the background and calculates RetroAchievements hashes for
-/// every game file using <see cref="IRetroAchievementsFileHasher"/>. Results are
-/// persisted per system through <see cref="IRetroAchievementsHashStore"/>.
-/// Only one scan runs at a time to protect the RVZ global filereader state and to
-/// prevent parallel scans from crashing the application.
+/// every game file through the bundled RetroAchievementsSharp CLI tool
+/// (<see cref="IRetroAchievementsFileHasher"/>). Results are persisted per system
+/// through <see cref="IRetroAchievementsHashStore"/>.
+/// Only one scan runs at a time to avoid hammering the disk and the CLI process pool.
 /// </summary>
 public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
 {
@@ -34,7 +33,7 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
     /// </summary>
     /// <param name="logErrors">The logger instance used for debugging and error output.</param>
     /// <param name="systemMatcher">The system matcher used to resolve system names to RetroAchievements console IDs.</param>
-    /// <param name="fileHasher">The file hasher that delegates hash calculation to the RetroAchievementsSharp library.</param>
+    /// <param name="fileHasher">The file hasher that delegates hash calculation to the RetroAchievementsSharp CLI tool.</param>
     /// <param name="getListOfFiles">The service used to enumerate game files in the configured folders.</param>
     /// <param name="extractionService">The service used to extract compressed game files before hashing.</param>
     /// <param name="hashStore">The store used to persist the calculated hashes.</param>
@@ -68,7 +67,7 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
     {
         var matchedName = ResolveSystemName(systemName);
         var systemId = _systemMatcher.GetSystemId(matchedName);
-        return systemId is > 0 and <= ConsoleIds.RcConsoleMax;
+        return systemId is > 0 and <= RetroAchievementsConstants.MaxConsoleId;
     }
 
     /// <summary>
@@ -116,7 +115,7 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
         Action<string>? onCompleted = null,
         CancellationToken cancellationToken = default)
     {
-        // Prevent parallel hash calculations (they could crash the application)
+        // Prevent parallel hash scans (they would spawn many CLI processes at once)
         if (Interlocked.CompareExchange(ref _isScanningFlag, 1, 0) != 0)
         {
             _logger.Information("[RA Hash Scanner] A hash scan is already in progress. Ignoring the new request.");
@@ -167,7 +166,7 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
     {
         var matchedSystemName = ResolveSystemName(target.SystemName);
         var systemId = _systemMatcher.GetSystemId(matchedSystemName);
-        if (systemId is <= 0 or > ConsoleIds.RcConsoleMax)
+        if (systemId is <= 0 or > RetroAchievementsConstants.MaxConsoleId)
         {
             _logger.Information($"[RA Hash Scanner] System '{target.SystemName}' is not supported for RetroAchievements hashing. Skipping.");
             return HashScanResult.NotScannable;
@@ -208,17 +207,45 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
         // Arcade games are hashed by file name; every other system hashes file content.
         var isFileNameHashSystem = matchedSystemName.Equals("arcade", StringComparison.OrdinalIgnoreCase);
 
-        // Hash files sequentially: the RVZ filereader used for .rvz/.wia files is
-        // process-wide global state, so parallel hashing must be avoided.
-        var hashes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        // Files the CLI tool can hash directly (including .zip — the tool pre-loads
+        // the first entry itself); .7z/.rar archives must be extracted first.
+        var directFiles = new List<string>();
+        var archiveFiles = new List<string>();
+
         foreach (var filePath in uniqueFiles.Values)
+        {
+            var fileExtension = Path.GetExtension(filePath).ToLowerInvariant();
+            if (fileExtension is ".7z" or ".rar" && !isFileNameHashSystem)
+            {
+                archiveFiles.Add(filePath);
+            }
+            else
+            {
+                directFiles.Add(filePath);
+            }
+        }
+
+        var hashes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+        // Batch-hash all directly supported files in as few CLI invocations as possible
+        if (directFiles.Count > 0)
+        {
+            var batchHashes = await _fileHasher.CalculateHashesAsync(directFiles, matchedSystemName, cancellationToken);
+            foreach (var (filePath, hash) in batchHashes)
+            {
+                hashes[filePath] = hash;
+            }
+        }
+
+        // .7z/.rar archives are extracted to a temporary folder first, then hashed individually
+        foreach (var archivePath in archiveFiles)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var hash = await CalculateHashForFileAsync(filePath, matchedSystemName, target.FileFormatsToLaunch, isFileNameHashSystem);
+            var hash = await HashExtractedArchiveAsync(archivePath, matchedSystemName, target.FileFormatsToLaunch);
             if (!string.IsNullOrEmpty(hash))
             {
-                hashes[filePath] = hash;
+                hashes[archivePath] = hash;
             }
         }
 
@@ -239,58 +266,41 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
     }
 
     /// <summary>
-    /// Calculates the RetroAchievements hash for a single game file through the
-    /// RetroAchievementsSharp library (<see cref="IRetroAchievementsFileHasher"/>).
-    /// .zip archives are handled by the library without extracting to disk
-    /// (<see cref="HashZipFileAsync"/>); only .7z/.rar archives are extracted to a
-    /// temporary folder first.
+    /// Extracts a .7z/.rar archive to a temporary folder and calculates the hash of
+    /// the extracted game file through the RetroAchievementsSharp CLI tool
+    /// (<see cref="IRetroAchievementsFileHasher"/>). The temporary folder is deleted
+    /// afterwards.
     /// </summary>
-    /// <param name="gamePath">The full path to the game file.</param>
+    /// <param name="archivePath">The full path to the .7z/.rar archive.</param>
     /// <param name="matchedSystemName">The resolved RetroAchievements system name.</param>
-    /// <param name="fileFormatsToLaunch">The extensions to look for inside .7z/.rar archives.</param>
-    /// <param name="isFileNameHashSystem">True for arcade (filename-hashed) systems, which never extract.</param>
+    /// <param name="fileFormatsToLaunch">The extensions to look for inside the archive.</param>
     /// <returns>The 32-character hash, or null if the file could not be hashed.</returns>
-    private async Task<string?> CalculateHashForFileAsync(
-        string gamePath,
-        string matchedSystemName,
-        IList<string> fileFormatsToLaunch,
-        bool isFileNameHashSystem)
+    private async Task<string?> HashExtractedArchiveAsync(string archivePath, string matchedSystemName, IList<string> fileFormatsToLaunch)
     {
-        var fileExtension = Path.GetExtension(gamePath).ToLowerInvariant();
-
-        // .zip files are handled by the library itself (same semantics as the
-        // RetroAchievementsSharp CLI: load the entry and hash from a buffer)
-        if (string.Equals(fileExtension, ".zip", StringComparison.OrdinalIgnoreCase) && !isFileNameHashSystem)
-        {
-            return await HashZipFileAsync(gamePath, matchedSystemName);
-        }
-
         string? tempExtractionPath = null;
-        var fileToProcess = gamePath;
 
         try
         {
-            var isCompressed = fileExtension is ".7z" or ".rar";
-
-            if (isCompressed && !isFileNameHashSystem && fileFormatsToLaunch is { Count: > 0 })
+            if (fileFormatsToLaunch is not { Count: > 0 })
             {
-                var (extractedGameFilePath, extractedTempDirPath) = await _extractionService.ExtractToTempAndGetLaunchFileAsync(gamePath, fileFormatsToLaunch);
-                tempExtractionPath = extractedTempDirPath;
-
-                if (string.IsNullOrEmpty(extractedGameFilePath))
-                {
-                    _logger.Information($"[RA Hash Scanner] Failed to extract a suitable file from archive for hashing: {gamePath}.");
-                    return null;
-                }
-
-                fileToProcess = extractedGameFilePath;
+                _logger.Information($"[RA Hash Scanner] No launchable formats configured; skipping archive '{archivePath}'.");
+                return null;
             }
 
-            return await _fileHasher.CalculateHashAsync(fileToProcess, matchedSystemName);
+            var (extractedGameFilePath, extractedTempDirPath) = await _extractionService.ExtractToTempAndGetLaunchFileAsync(archivePath, fileFormatsToLaunch);
+            tempExtractionPath = extractedTempDirPath;
+
+            if (string.IsNullOrEmpty(extractedGameFilePath))
+            {
+                _logger.Information($"[RA Hash Scanner] Failed to extract a suitable file from archive for hashing: {archivePath}.");
+                return null;
+            }
+
+            return await _fileHasher.CalculateHashAsync(extractedGameFilePath, matchedSystemName);
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, $"[RA Hash Scanner] An exception occurred while hashing '{gamePath}'.");
+            _logger.Error(ex, $"[RA Hash Scanner] An exception occurred while hashing archive '{archivePath}'.");
             return null;
         }
         finally
@@ -307,59 +317,6 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
                 catch (Exception ex)
                 {
                     _logger.Debug($"[RA Hash Scanner] Failed to clean up temporary extraction folder '{tempExtractionPath}': {ex.Message}");
-                }
-            }
-        }
-    }
-
-    /// <summary>
-    /// Hashes a .zip archive through the RetroAchievementsSharp library without
-    /// extracting to disk, mirroring the library CLI zip pre-load:
-    /// single-entry zips hash the first entry's content from a buffer; multi-entry
-    /// zips hash the whole archive; entries too large for a byte[] fall back to a
-    /// temporary file that is deleted afterwards.
-    /// </summary>
-    private async Task<string?> HashZipFileAsync(string zipPath, string matchedSystemName)
-    {
-        string? tempZipPath = null;
-
-        try
-        {
-            var data = FileUtil.LoadZippedFile(zipPath, out _);
-            if (data != null)
-            {
-                return await _fileHasher.CalculateHashFromBufferAsync(data, matchedSystemName);
-            }
-
-            // The entry is too large for an in-memory buffer — hash from a temp file
-            tempZipPath = FileUtil.LoadZippedFileToTemp(zipPath, out _);
-            if (tempZipPath == null)
-            {
-                _logger.Information($"[RA Hash Scanner] Could not load the content of '{zipPath}' for hashing.");
-                return null;
-            }
-
-            return await _fileHasher.CalculateHashAsync(tempZipPath, matchedSystemName);
-        }
-        catch (Exception ex)
-        {
-            _logger.Error(ex, $"[RA Hash Scanner] An exception occurred while hashing zip file '{zipPath}'.");
-            return null;
-        }
-        finally
-        {
-            if (!string.IsNullOrEmpty(tempZipPath))
-            {
-                try
-                {
-                    if (File.Exists(tempZipPath))
-                    {
-                        File.Delete(tempZipPath);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _logger.Debug($"[RA Hash Scanner] Failed to clean up temporary zip file '{tempZipPath}': {ex.Message}");
                 }
             }
         }
