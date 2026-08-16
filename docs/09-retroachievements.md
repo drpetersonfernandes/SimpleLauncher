@@ -64,7 +64,10 @@ normalization, disc hashing, …).
 Flow (`GetGameHashForRetroAchievementsAsync`): exact alias match or **system-picker prompt**
 (`SystemSelectionWindow` with fuzzy pre-selected guess; cancel → `RaHashResult(null,null,false,…)`);
 systems without a usable console ID (e.g. the `unsupported` pseudo-system, ID > 90) are rejected
-up front; `.zip/.7z/.rar` extracted to temp (except arcade); single hash call; temp cleaned.
+up front; **`.zip` archives are hashed through the library's buffer API** (`FileUtil.LoadZippedFile` +
+`GenerateFromBuffer` — single entry from memory, multi-entry hashes the whole archive, oversized
+entries fall back to a temp file) — no extraction unless really needed; only `.7z/.rar` archives
+are extracted to temp (except arcade); single hash call; temp cleaned.
 
 ## Hash-based game filter (`RetroAchievementsHashScanner` + `RetroAchievementsHashStore`, Core)
 

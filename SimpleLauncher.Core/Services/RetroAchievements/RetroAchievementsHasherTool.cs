@@ -276,11 +276,36 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         // Arcade games are hashed by file name (e.g. "game" from "game.zip"); every other system hashes file content
         var isFileNameHashSystem = systemName.Equals("arcade", StringComparison.OrdinalIgnoreCase);
 
-        // --- Pre-processing: Extract if necessary ---
+        // --- Pre-processing: only extract when really needed ---
+        // .zip archives are handled by the RetroAchievementsSharp library itself
+        // (hash the first entry from a buffer — no disk extraction; multi-entry
+        // zips hash the whole archive). Only .7z/.rar archives are extracted.
+        byte[]? zipBuffer = null;
+        string? zipTempFilePath = null;
         var fileToProcess = filePath; // By default, process the original file
-        var isCompressed = fileExtension is ".zip" or ".7z" or ".rar";
 
-        if (isCompressed && !isFileNameHashSystem)
+        if (string.Equals(fileExtension, ".zip", StringComparison.OrdinalIgnoreCase) && !isFileNameHashSystem)
+        {
+            _logger.Debug($"[RA Hasher Tool] Zip file detected for hashing: {filePath}. Loading through the library...");
+            zipBuffer = FileUtil.LoadZippedFile(filePath, out _);
+
+            if (zipBuffer == null)
+            {
+                // The entry is too large for an in-memory buffer — hash from a temp file
+                zipTempFilePath = FileUtil.LoadZippedFileToTemp(filePath, out _);
+                if (zipTempFilePath == null)
+                {
+                    isExtractionSuccessful = false;
+                    extractionErrorMessage = $"Could not load the content of the zip file for hashing: {filePath}.";
+                    logErrors.Information($"[RA Hasher Tool] {extractionErrorMessage}");
+                    _logger.Debug($"[RA Hasher Tool] {extractionErrorMessage}");
+                    return new RaHashResult(null, null, isExtractionSuccessful, extractionErrorMessage);
+                }
+
+                fileToProcess = zipTempFilePath;
+            }
+        }
+        else if (fileExtension is ".7z" or ".rar" && !isFileNameHashSystem)
         {
             _logger.Debug($"[RA Hasher Tool] Compressed file detected for hashing: {filePath}. Extracting...");
             var (extractedGameFilePath, extractedTempDirPath) = await _extractionService.ExtractToTempAndGetLaunchFileAsync(filePath, fileFormatsToLaunch);
@@ -301,7 +326,9 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         // --- Perform Hashing (delegated entirely to the RetroAchievementsSharp library) ---
         try
         {
-            hash = await _fileHasher.CalculateHashAsync(fileToProcess, systemName);
+            hash = zipBuffer != null
+                ? await _fileHasher.CalculateHashFromBufferAsync(zipBuffer, systemName)
+                : await _fileHasher.CalculateHashAsync(fileToProcess, systemName);
             _logger.Debug($"[RA Hasher Tool] Calculated hash: {hash}");
         }
         catch (Exception ex)
@@ -313,6 +340,21 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         finally
         {
             loadingState?.SetLoadingState(false);
+
+            if (!string.IsNullOrEmpty(zipTempFilePath))
+            {
+                try
+                {
+                    if (File.Exists(zipTempFilePath))
+                    {
+                        File.Delete(zipTempFilePath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.Debug($"[RA Hasher Tool] Failed to clean up temporary zip file '{zipTempFilePath}': {ex.Message}");
+                }
+            }
         }
 
         if (string.IsNullOrEmpty(hash))
