@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http.Headers;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
@@ -65,7 +66,18 @@ public class ApplicationStats
         catch (Exception ex)
         {
             Logger.Debug($"ApplicationStats API call failed: {ex.Message}");
-            logErrors.Error(ex, $"ApplicationStats API call failed: {ex.Message}");
+
+            // DNS/connection failures are expected network conditions (offline, DNS down,
+            // TLS errors) — log at Information, not as a bug. Only unexpected exceptions
+            // are reported.
+            if (ex is HttpRequestException or SocketException)
+            {
+                Logger.Information(ex, $"ApplicationStats API call failed: {ex.Message}");
+            }
+            else
+            {
+                logErrors.Error(ex, $"ApplicationStats API call failed: {ex.Message}");
+            }
         }
     }
 }

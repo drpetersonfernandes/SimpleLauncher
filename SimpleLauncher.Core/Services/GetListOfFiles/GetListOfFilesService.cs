@@ -37,7 +37,8 @@ public class GetListOfFilesService : IGetListOfFilesService
             {
                 if (!Directory.Exists(directoryPath))
                 {
-                    _logger?.Warning($"Directory does not exist: '{directoryPath}'.");
+                    // Expected condition (missing directory): not a bug, keep it out of the bug report service.
+                    _logger?.Information($"Directory does not exist: '{directoryPath}'.");
                     return new List<string>();
                 }
 
@@ -50,7 +51,9 @@ public class GetListOfFilesService : IGetListOfFilesService
 
                 if (restrictedFolders.Count > 0)
                 {
-                    _logger?.Warning($"Skipped {restrictedFolders.Count} restricted folders during file scan.");
+                    // Expected condition (access denied on some folders during scan): not a bug,
+                    // keep it out of the bug report service.
+                    _logger?.Information($"Skipped {restrictedFolders.Count} restricted folders during file scan.");
                 }
 
                 return foundFiles;

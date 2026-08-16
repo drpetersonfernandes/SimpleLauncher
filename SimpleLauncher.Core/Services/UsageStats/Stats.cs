@@ -79,8 +79,8 @@ public class Stats
         // Check if API is enabled before proceeding
         if (!_isApiEnabled)
         {
-            // Notify developer
-            _logger.Warning("Stats API call skipped: API not enabled.");
+            // Expected condition (API key/URL not configured): not a bug, keep it out of the bug report service.
+            _logger.Information("Stats API call skipped: API not enabled.");
 
             return;
         }
@@ -158,23 +158,22 @@ public class Stats
         }
         catch (OperationCanceledException)
         {
-            // Request timed out - don't crash, just log and return false
+            // Expected condition (request timed out): not a bug, keep it out of the bug report service.
             var contextMessage = $"Stats API request timed out after 20 seconds.\n" +
                                  $"Stats API URL: '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
                                  (string.Equals(callType, "emulator", StringComparison.Ordinal) ? $", EmulatorName: {emulatorName}" : "");
-            _logger.Warning(contextMessage);
+            _logger.Information(contextMessage);
 
             return false;
         }
         catch (HttpRequestException ex)
         {
-            // Notify developer
-            // Log network/HTTP request errors
+            // Expected condition (DNS/connection/network failure): not a bug, keep it out of the bug report service.
             var contextMessage = $"Error communicating with the Stats API at '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
                                  (string.Equals(callType, "emulator", StringComparison.Ordinal) ? $", EmulatorName: {emulatorName}" : "");
-            _logger.Error(ex, contextMessage);
+            _logger.Information(ex, contextMessage);
 
             return false;
         }

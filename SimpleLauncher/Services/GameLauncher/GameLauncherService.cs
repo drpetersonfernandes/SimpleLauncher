@@ -1572,7 +1572,7 @@ public partial class GameLauncherService : ILauncherService
                                      $"Calling parameters: {psi.Arguments}\n" +
                                      $"Emulator output: {output}\n" +
                                      $"Emulator error: {error}\n";
-                _logger.Warning(contextMessage);
+                _logger.Information(contextMessage);
 
                 return true;
             }

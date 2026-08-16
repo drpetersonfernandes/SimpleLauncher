@@ -791,7 +791,9 @@ public class MountChdFiles : IMountChdFiles
                 }
 
                 _logger.Debug($"[MountChdFiles.WaitForDriveMountAndDetectAsync] CHDMounter process (ID: {processId}) exited prematurely during polling. {contextMessage}");
-                logErrors.Warning(contextMessage);
+                // Expected condition (mount failed; user already gets UI feedback): not a bug,
+                // keep it out of the bug report service.
+                logErrors.Information(contextMessage);
                 return (false, null, exitCode);
             }
 
@@ -807,7 +809,9 @@ public class MountChdFiles : IMountChdFiles
             timeoutContextMessage += "\n\n=== CHDMounter error output ===\n" + string.Join(Environment.NewLine, errorOutput);
         }
 
-        logErrors.Warning(timeoutContextMessage);
+        // Expected condition (mount timeout; user already gets UI feedback): not a bug,
+        // keep it out of the bug report service.
+        logErrors.Information(timeoutContextMessage);
         return (false, null, null);
     }
 
