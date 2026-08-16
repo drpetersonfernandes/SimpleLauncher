@@ -368,6 +368,12 @@ public class DownloadManager : IDisposable
 
         var totalBytes = response.Content.Headers.ContentLength;
 
+        // Ensure the temp folder exists before opening the file. The folder is created in the
+        // constructor but the startup cleanup (CleanSimpleLauncherFolderService) deletes it in the
+        // background while the app runs — without this, FileMode.Create throws
+        // DirectoryNotFoundException and the download fails without ever starting.
+        Directory.CreateDirectory(TempFolder);
+
         // Open stream: always start fresh (retries are handled by the resilience pipeline)
         await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite, 8192, true);
         await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);

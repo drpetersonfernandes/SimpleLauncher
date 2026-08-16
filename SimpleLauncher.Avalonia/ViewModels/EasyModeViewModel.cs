@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
@@ -658,7 +659,26 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
     {
         if (_disposed) return;
 
-        // CommunityToolkit.Mvvm dispatches PropertyChanged to the UI thread for bound properties.
+        // DownloadManager raises progress events on the download worker thread (same as the WPF
+        // app, which marshals via Dispatcher.InvokeAsync). Marshal to the UI thread before
+        // touching bound properties so the progress bar and status text update reliably.
+        if (Dispatcher.UIThread.CheckAccess())
+        {
+            ApplyProgressUpdate(e);
+        }
+        else
+        {
+            Dispatcher.UIThread.Post(() =>
+            {
+                if (_disposed) return;
+
+                ApplyProgressUpdate(e);
+            });
+        }
+    }
+
+    private void ApplyProgressUpdate(DownloadProgressEventArgs e)
+    {
         DownloadProgress = e.ProgressPercentage;
         DownloadStatus = e.StatusMessage;
     }
