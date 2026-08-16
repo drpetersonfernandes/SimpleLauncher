@@ -4,6 +4,7 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.GameLauncher.Strategies;
+using SimpleLauncher.Services.NotificationToast;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
@@ -20,13 +21,15 @@ public class CommanderGeniusLaunchStrategyTests
         var updateStatusBarMock = new Mock<IUpdateStatusBar>();
         var messageBoxMock = new Mock<IMessageBoxLibraryService>();
         var debugLoggerMock = new Mock<ILogger>();
+        var toastNotificationServiceMock = new Mock<IToastNotificationService>();
 
         return new CommanderGeniusLaunchStrategy(
             extractionServiceMock.Object,
             configurationMock.Object,
             updateStatusBarMock.Object,
             messageBoxMock.Object,
-            debugLoggerMock.Object);
+            debugLoggerMock.Object,
+            toastNotificationServiceMock.Object);
     }
 
     /// <summary>

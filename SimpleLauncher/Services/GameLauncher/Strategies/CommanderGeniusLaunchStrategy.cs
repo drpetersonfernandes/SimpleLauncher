@@ -10,7 +10,7 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Services.TrayIcon;
+using SimpleLauncher.Services.NotificationToast;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
@@ -25,6 +25,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
     private readonly IConfiguration _configuration;
     private readonly IUpdateStatusBar _updateStatusBar;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IToastNotificationService _toastNotificationService;
     private static ILogger _logger = null!;
 
     private static readonly string[] KeenDataExtensions =
@@ -35,13 +36,14 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
     /// <summary>
     /// Initializes a new instance of the <see cref="CommanderGeniusLaunchStrategy"/> class.
     /// </summary>
-    public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, IUpdateStatusBar updateStatusBar, IMessageBoxLibraryService messageBox, ILogger logger)
+    public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, IUpdateStatusBar updateStatusBar, IMessageBoxLibraryService messageBox, ILogger logger, IToastNotificationService toastNotificationService)
     {
         _extractionService = extractionService;
         _configuration = configuration;
         _updateStatusBar = updateStatusBar;
         _messageBox = messageBox;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _toastNotificationService = toastNotificationService;
     }
 
     /// <inheritdoc />
@@ -119,7 +121,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                 var launchedwith = (string)Application.Current.TryFindResource("launchedwith") ?? "launched with";
                 var originalFileName = Path.GetFileNameWithoutExtension(context.FilePath);
 
-                TrayIconManager.ShowTrayMessage($"{originalFileName} {launchedwith} {context.EmulatorName}");
+                _toastNotificationService.ShowToast("Simple Launcher", $"{originalFileName} {launchedwith} {context.EmulatorName}");
                 _updateStatusBar.UpdateContent(
                     $"{originalFileName} {launchedwith} {context.EmulatorName}");
 

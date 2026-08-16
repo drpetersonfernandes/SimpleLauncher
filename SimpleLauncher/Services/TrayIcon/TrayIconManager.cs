@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Hardcodet.Wpf.TaskbarNotification;
 using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Services.NotificationToast;
 
 namespace SimpleLauncher.Services.TrayIcon;
 
@@ -11,12 +12,12 @@ namespace SimpleLauncher.Services.TrayIcon;
 /// </summary>
 public class TrayIconManager : IDisposable
 {
-    private static TrayIconManager? _instance;
     private readonly TaskbarIcon _taskbarIcon;
     private readonly System.Windows.Controls.ContextMenu _trayMenu;
     private readonly Window _mainWindow;
     private readonly IApplicationLifetime _applicationLifetime;
     private readonly ILogger _logger;
+    private readonly IToastNotificationService _toastNotificationService;
 
     private readonly RoutedEventHandler _onOpenHandler;
     private readonly RoutedEventHandler _onMinimizeToTrayHandler;
@@ -28,12 +29,13 @@ public class TrayIconManager : IDisposable
     /// <param name="mainWindow">The main application window.</param>
     /// <param name="applicationLifetime">The application lifetime service for shutdown control.</param>
     /// <param name="logger">The logger instance.</param>
-    public TrayIconManager(Window mainWindow, IApplicationLifetime applicationLifetime, ILogger logger)
+    /// <param name="toastNotificationService">The toast notification service.</param>
+    public TrayIconManager(Window mainWindow, IApplicationLifetime applicationLifetime, ILogger logger, IToastNotificationService toastNotificationService)
     {
-        _instance = this;
         _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
         _applicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _toastNotificationService = toastNotificationService ?? throw new ArgumentNullException(nameof(toastNotificationService));
 
         _onOpenHandler = OnOpen;
         _onMinimizeToTrayHandler = OnMinimizeToTray;
@@ -145,7 +147,7 @@ public class TrayIconManager : IDisposable
         catch (Exception ex)
         {
             _logger.Error(ex, "Failed to open debug window from tray menu");
-            ShowTrayMessage("Failed to open debug window");
+            _toastNotificationService.ShowToast("Simple Launcher", "Failed to open debug window");
         }
     }
 
@@ -153,13 +155,6 @@ public class TrayIconManager : IDisposable
     {
         _taskbarIcon.Visibility = Visibility.Collapsed;
         _applicationLifetime.Shutdown();
-    }
-
-    /// <summary>Displays a balloon tip notification in the system tray.</summary>
-    /// <param name="message">The message to display in the balloon tip.</param>
-    public static void ShowTrayMessage(string message)
-    {
-        _instance?._taskbarIcon.ShowBalloonTip("Simple Launcher", message, BalloonIcon.Info);
     }
 
     /// <summary>Releases resources used by the tray icon manager.</summary>
@@ -184,7 +179,6 @@ public class TrayIconManager : IDisposable
             }
         }
 
-        _instance = null;
         GC.SuppressFinalize(this);
     }
 }

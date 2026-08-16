@@ -12,8 +12,8 @@ using SimpleLauncher.Core.Services;
 using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Core.Services.UsageStats;
+using SimpleLauncher.Services.NotificationToast;
 using SimpleLauncher.Services.PlayHistory;
-using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Interfaces;
 using MameConfigurationService = SimpleLauncher.Core.Services.InjectEmulatorConfig.MameConfigurationService;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -38,6 +38,7 @@ public partial class GameLauncherService : ILauncherService
     private readonly ILogger _logger;
     private readonly IParameterResolverService _parameterResolverService;
     private readonly IServiceProvider _serviceProvider;
+    private readonly IToastNotificationService _toastNotificationService;
     private const int MemoryAccessViolation = -1073741819;
     private const int DepViolation = -1073740791;
 
@@ -61,7 +62,8 @@ public partial class GameLauncherService : ILauncherService
         IMountZipFiles mountZipFiles,
         ILogger logger,
         IParameterResolverService parameterResolverService,
-        IServiceProvider serviceProvider)
+        IServiceProvider serviceProvider,
+        IToastNotificationService toastNotificationService)
     {
         _configHandlers = configHandlers;
         _launchStrategies = launchStrategies.OrderBy(static s => s.Priority);
@@ -75,6 +77,7 @@ public partial class GameLauncherService : ILauncherService
         _logger = logger;
         _parameterResolverService = parameterResolverService;
         _serviceProvider = serviceProvider;
+        _toastNotificationService = toastNotificationService;
     }
 
     /// <summary>
@@ -341,7 +344,7 @@ public partial class GameLauncherService : ILauncherService
         var playTimeFormatted = playTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
         var playTimeLabel = Application.Current.TryFindResource("Playtime") as string ?? "Playtime";
 
-        TrayIconManager.ShowTrayMessage($"{playTimeLabel}: {playTimeFormatted}");
+        _toastNotificationService.ShowToast("Simple Launcher", $"{playTimeLabel}: {playTimeFormatted}");
         _updateStatusBar.UpdateContent("");
 
         try
@@ -458,13 +461,13 @@ public partial class GameLauncherService : ILauncherService
                     await _messageBoxLibrary.BatchFileFailedMessageBoxAsync(resolvedFilePath, $"Exit code: {process.ExitCode}", logPath, process.ExitCode);
                 }
 
-                TrayIconManager.ShowTrayMessage($"Error: {batchShortName} failed");
+                _toastNotificationService.ShowToast("Simple Launcher", $"Error: {batchShortName} failed");
                 _updateStatusBar.UpdateContent($"Error: {batchShortName} failed");
             }
             else
             {
                 var launched = (string)Application.Current.TryFindResource("Launched") ?? "launched";
-                TrayIconManager.ShowTrayMessage($"{batchShortName} {launched}");
+                _toastNotificationService.ShowToast("Simple Launcher", $"{batchShortName} {launched}");
                 _updateStatusBar.UpdateContent($"{batchShortName} {launched}");
             }
         }
@@ -546,7 +549,7 @@ public partial class GameLauncherService : ILauncherService
         // Common UI updates.
         var launched = (string)Application.Current.TryFindResource("Launched") ?? "launched";
         var fileName = Path.GetFileName(resolvedFilePath);
-        TrayIconManager.ShowTrayMessage($"{fileName} {launched}");
+        _toastNotificationService.ShowToast("Simple Launcher", $"{fileName} {launched}");
         _updateStatusBar.UpdateContent($"{fileName} {launched}");
 
         try
@@ -720,7 +723,7 @@ public partial class GameLauncherService : ILauncherService
         _logger.Debug($"Executable File: {psi.FileName}");
         _logger.Debug($"Working Directory: {psi.WorkingDirectory}\n");
 
-        TrayIconManager.ShowTrayMessage($"{Path.GetFileName(psi.FileName)} {launched}");
+        _toastNotificationService.ShowToast("Simple Launcher", $"{Path.GetFileName(psi.FileName)} {launched}");
         _updateStatusBar.UpdateContent($"{Path.GetFileName(psi.FileName)} {launched}");
 
         using var process = new Process();
@@ -1168,7 +1171,7 @@ public partial class GameLauncherService : ILauncherService
 
             var launchedwith = (string)Application.Current.TryFindResource("launchedwith") ?? "launched with";
 
-            TrayIconManager.ShowTrayMessage($"{originalFileName} {launchedwith} {selectedEmulatorName}");
+            _toastNotificationService.ShowToast("Simple Launcher", $"{originalFileName} {launchedwith} {selectedEmulatorName}");
             _updateStatusBar.UpdateContent($"{originalFileName} {launchedwith} {selectedEmulatorName}");
 
             StringBuilder output = new();

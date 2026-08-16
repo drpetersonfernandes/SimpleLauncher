@@ -113,7 +113,7 @@ All use **CommunityToolkit.Mvvm** (`ObservableObject` + `[RelayCommand]`). Group
 
 | Service | Purpose |
 |---|---|
-| `TrayIconManager` | Tray menu (Open / Minimize to Tray / Debug Window / Exit), double-click restore, balloons |
+| `TrayIconManager` | Tray menu (Open / Minimize to Tray / Debug Window / Exit), double-click restore |
 | `GlobalHotkeyService` | System-wide **F8** registration with conflict warning |
 | `ActiveWindowScreenshotService` | Foreground-window PNG capture into `.\screenshot` (via `WindowSelectionDialogWindow` + `FlashOverlayWindow` + Core `WindowManager`) |
 
