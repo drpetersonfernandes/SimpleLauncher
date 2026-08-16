@@ -7,7 +7,11 @@
 
 `SimpleLauncher\Services\CheckForUpdatesService.cs`
 
-- **Silent check** at startup: hits `https://api.github.com/repos/{owner}/{repo}/releases/latest` (`CheckForUpdatesService.cs`). If GitHub is unreachable (offline, rate-limited, blocked), the check **falls back to the secondary server** `assets.purelogiccode.com/Simple Launcher/Simple Launcher/version.txt` and builds the release/updater URLs from it (`release_{version}_{rid}.zip`, `updater_{rid}.zip`).
+- **Source fallback chain** (app + both updaters): 
+  1. GitHub API `https://api.github.com/repos/drpetersonfernandes/SimpleLauncher/releases/latest` (primary repo),
+  2. GitHub API `https://api.github.com/repos/purelogiccode/SimpleLauncher/releases/latest` (transferred organization),
+  3. Secondary server `assets.purelogiccode.com/Simple Launcher/Simple Launcher/version.txt` (Cloudflare-hosted) — builds the release/updater URLs from it (`release_{version}_{rid}.zip`, `updater_{rid}.zip`).
+- **Silent check** at startup (`CheckForUpdatesService.cs`). If every GitHub source is unreachable (offline, rate-limited, blocked), the check falls back to the secondary server.
 - **Manual check**: About window "Check for Updates" (`AboutViewModel` → `ManualCheckForUpdatesAsync`).
 - Version comparison against the current `5.6.1`; new version → prompts to download.
 
@@ -40,7 +44,7 @@ sequenceDiagram
 
 ## `SimpleLauncher.Updater` project
 
-Standalone console app (`Updater.exe`) shipped with each release (`version.txt` = `release5.6.1`). Responsibilities: fetch the latest release (GitHub API first, secondary server as fallback), download the release zip for the current RID (retrying from the secondary server if the primary download fails), extract over the application folder, relaunch the app.
+Standalone console app (`Updater.exe`) shipped with each release (`version.txt` = `release5.6.1`). Responsibilities: fetch the latest release (GitHub API primary → transferred-organization repo → secondary server as fallback), download the release zip for the current RID (retrying from the secondary server if the primary download fails), extract over the application folder, relaunch the app. The Avalonia cross-platform updater (`SimpleLauncher.Avalonia.Updater`) uses the same fallback chain.
 
 ## Related docs
 

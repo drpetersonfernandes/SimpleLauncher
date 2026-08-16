@@ -10,9 +10,8 @@ namespace SimpleLauncher.Avalonia.Updater.Services;
 /// </summary>
 internal partial class GitHubService
 {
-    private const string RepoOwner = "drpetersonfernandes";
     private const string RepoName = "SimpleLauncher";
-    private const string ApiUrl = $"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest";
+    private static readonly string[] RepoOwners = ["drpetersonfernandes", "purelogiccode"];
     private const string SecondaryServerBaseUrl = "https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/";
     private const int GitHubTimeoutSeconds = 5;
 
@@ -61,12 +60,17 @@ internal partial class GitHubService
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
     public async Task<(string version, string assetUrl, string? fallbackAssetUrl)> GetLatestReleaseAssetUrlAsync(CancellationToken cancellationToken = default)
     {
-        // First, try to get release info from GitHub with a short timeout
-        var gitHubResult = await TryGetGitHubReleaseAsync(cancellationToken);
-
-        if (gitHubResult != null)
+        // Try each GitHub repository in order (primary, then the transferred organization)
+        foreach (var repoOwner in RepoOwners)
         {
-            return gitHubResult.Value;
+            var gitHubResult = await TryGetGitHubReleaseAsync(repoOwner, cancellationToken);
+
+            if (gitHubResult != null)
+            {
+                return gitHubResult.Value;
+            }
+
+            LogMessage?.Invoke(this, new EventArgs<string>($"GitHub repository '{repoOwner}/{RepoName}' not responding. Trying the next source..."));
         }
 
         // If GitHub failed, fall back to secondary server
@@ -75,21 +79,23 @@ internal partial class GitHubService
     }
 
     /// <summary>
-    /// Attempts to get the release from GitHub with a 5-second timeout.
+    /// Attempts to get the release from a GitHub repository with a 5-second timeout.
     /// </summary>
+    /// <param name="repoOwner">The GitHub repository owner (organization or user) to query.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>The version and asset URL if successful, null if timed out or failed.</returns>
-    private async Task<(string version, string assetUrl, string? fallbackAssetUrl)?> TryGetGitHubReleaseAsync(CancellationToken cancellationToken = default)
+    private async Task<(string version, string assetUrl, string? fallbackAssetUrl)?> TryGetGitHubReleaseAsync(string repoOwner, CancellationToken cancellationToken = default)
     {
         try
         {
-            LogMessage?.Invoke(this, new EventArgs<string>("Fetching the latest release from GitHub..."));
+            LogMessage?.Invoke(this, new EventArgs<string>($"Fetching the latest release from GitHub ({repoOwner}/{RepoName})..."));
 
             // Create a cancellation token that expires after 5 seconds, linked to the external token
             using var timeoutCts = new CancellationTokenSource(TimeSpan.FromSeconds(GitHubTimeoutSeconds));
             using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(timeoutCts.Token, cancellationToken);
 
-            var response = await _httpClient.GetAsync(ApiUrl, linkedCts.Token);
+            var apiUrl = $"https://api.github.com/repos/{repoOwner}/{RepoName}/releases/latest";
+            var response = await _httpClient.GetAsync(apiUrl, linkedCts.Token);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -263,11 +269,11 @@ internal partial class GitHubService
     }
 
     /// <summary>
-    /// Gets the GitHub releases page URL for manual downloads.
+    /// Gets the GitHub releases page URL for manual downloads (uses the primary repository).
     /// </summary>
     public static string GetReleasesPageUrl()
     {
-        return $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
+        return $"https://github.com/{RepoOwners[0]}/{RepoName}/releases/latest";
     }
 
     /// <summary>

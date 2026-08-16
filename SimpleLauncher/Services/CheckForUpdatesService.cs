@@ -17,8 +17,8 @@ namespace SimpleLauncher.Services;
 /// </summary>
 public partial class CheckForUpdatesService
 {
-    private const string RepoOwner = "drpetersonfernandes";
     private const string RepoName = "SimpleLauncher";
+    private static readonly string[] RepoOwners = ["drpetersonfernandes", "purelogiccode"];
     private const string SecondaryServerBaseUrl = "https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/";
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
@@ -218,32 +218,37 @@ public partial class CheckForUpdatesService
     }
 
     /// <summary>
-    /// Gets the latest release info from the GitHub API, falling back to the secondary server
-    /// (assets.purelogiccode.com) when GitHub is unreachable. The secondary server hosts the
-    /// release package and the updater package (updater_{rid}.zip).
+    /// Gets the latest release info from the GitHub API (trying each repository in order),
+    /// falling back to the secondary server (assets.purelogiccode.com) when GitHub is
+    /// unreachable. The secondary server hosts the release package and the updater
+    /// package (updater_{rid}.zip).
     /// </summary>
     /// <returns>A tuple with the latest version, release package URL, updater zip URL, and whether the fallback was used.</returns>
     private async Task<(string? latestVersion, string? releasePackageUrl, string? updaterZipAssetUrl, bool fromFallback)> GetLatestReleaseInfoAsync()
     {
-        try
-        {
-            _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "request");
+        _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "request");
 
-            var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
-            if (response.IsSuccessStatusCode)
+        foreach (var repoOwner in RepoOwners)
+        {
+            try
             {
+                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{repoOwner}/{RepoName}/releases/latest");
+                if (!response.IsSuccessStatusCode)
+                {
+                    _logger.Debug($"[UpdateChecker] GitHub API check for '{repoOwner}/{RepoName}' failed with status {response.StatusCode}; trying the next source.");
+                    continue;
+                }
+
                 _logger.Debug("Check for Updates Success");
 
                 var content = await response.Content.ReadAsStringAsync();
                 var (latestVersion, releasePackageUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
                 return (latestVersion, releasePackageUrl, updaterZipAssetUrl, false);
             }
-
-            _logger.Debug($"[UpdateChecker] GitHub API check failed with status {response.StatusCode}; trying secondary server.");
-        }
-        catch (Exception ex)
-        {
-            _logger.Debug($"[UpdateChecker] GitHub API check failed: {ex.Message}; trying secondary server.");
+            catch (Exception ex)
+            {
+                _logger.Debug($"[UpdateChecker] GitHub API check for '{repoOwner}/{RepoName}' failed: {ex.Message}; trying the next source.");
+            }
         }
 
         // Fallback: the secondary server hosts a version.txt file and the release packages.
@@ -312,7 +317,7 @@ public partial class CheckForUpdatesService
             }
             else
             {
-                logWindow.Log($"The update package URL was not found. Please visit the GitHub releases page for {RepoOwner}/{RepoName}.");
+                logWindow.Log($"The update package URL was not found. Please visit the GitHub releases page for {RepoOwners[0]}/{RepoName}.");
             }
         }
         catch (Exception ex)
