@@ -21,6 +21,12 @@ public class RaHashScanTarget
     public IList<string> FileFormatsToSearch { get; set; } = [];
 
     /// <summary>
+    /// Gets or sets the list of file extensions to look for inside compressed files
+    /// (used to extract the ROM before hashing).
+    /// </summary>
+    public IList<string> FileFormatsToLaunch { get; set; } = [];
+
+    /// <summary>
     /// Gets or sets a value indicating whether subfolders should be skipped during the scan.
     /// </summary>
     public bool DisableRecursiveSearch { get; set; }

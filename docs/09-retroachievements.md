@@ -108,6 +108,17 @@ for filtering. The scan enumerates the exact same file set as the game-list cach
 `RetroAchievementsFileHasher` (sequential on purpose: the RVZ filereader is process-wide global
 state), and persists one result file per system.
 
+**Zips are handled by the library itself** — mirroring the RetroAchievementsSharp CLI's zip
+pre-load (`RetroAchievementsSharp.FileUtil.LoadZippedFile` + `RcHash.GenerateFromBuffer`):
+single-entry `.zip` files are loaded into memory and hashed through the buffer API (no disk
+extraction); multi-entry zips hash the whole archive; entries too large for a `byte[]` fall back
+to a temporary file that is deleted afterwards. Only `.7z`/`.rar` archives are extracted to a
+temporary folder before hashing (unless the system is arcade, which hashes by file name). The
+hash is always persisted under the **original archive path** so the game list can match it.
+`RaSystemHashes.HashVersion` records the hash-logic version: when it changes (e.g. extraction
+rules), previously scanned systems are re-hashed automatically even if the game count is
+unchanged.
+
 ### Menu command
 
 **Options → RetroAchievements → Calculate hash for all Game Paths** runs the same background

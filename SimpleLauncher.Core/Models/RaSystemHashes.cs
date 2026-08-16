@@ -23,6 +23,13 @@ public class RaSystemHashes
     public int FileCount { get; set; }
 
     /// <summary>
+    /// Gets or sets the version of the hash calculation logic used for this scan.
+    /// Bumped whenever the hashing behavior changes (e.g. extraction rules), so that
+    /// scans produced by older logic are recalculated automatically.
+    /// </summary>
+    public int HashVersion { get; set; }
+
+    /// <summary>
     /// Gets or sets the map of full game file paths to their RetroAchievements hash values.
     /// </summary>
     public IDictionary<string, string> Hashes { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);

@@ -52,7 +52,6 @@ public class MenuActionHandlerService
     private readonly IUpdateStatusBar _updateStatusBar;
 
     private readonly IRetroAchievementsHashScanner _raHashScanner;
-    private readonly IRetroAchievementsHashStore _raHashStore;
     private readonly IToastNotificationService _toastNotificationService;
 
     private readonly Dictionary<string, Action> _emulatorConfigWindowFactory;
@@ -82,7 +81,6 @@ public class MenuActionHandlerService
         ILogger logger,
         IParameterResolverService parameterResolverService,
         IRetroAchievementsHashScanner raHashScanner,
-        IRetroAchievementsHashStore raHashStore,
         IToastNotificationService toastNotificationService)
     {
         _settings = settings;
@@ -106,7 +104,6 @@ public class MenuActionHandlerService
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _parameterResolverService = parameterResolverService;
         _raHashScanner = raHashScanner;
-        _raHashStore = raHashStore;
         _toastNotificationService = toastNotificationService;
 
         _emulatorConfigWindowFactory = new Dictionary<string, Action>(StringComparer.OrdinalIgnoreCase)
@@ -1019,8 +1016,9 @@ public class MenuActionHandlerService
                 return;
             }
 
-            // If no hash scan result exists yet, ask the user to scan the game path first
-            if (!_raHashStore.HasSystemHashes(selectedSystem))
+            // If no valid hash scan result exists yet (missing or produced by older hash
+            // logic), ask the user to scan the game path first
+            if (!_raHashScanner.IsScanUpToDate(selectedSystem))
             {
                 if (!_raHashScanner.IsSystemScannable(selectedSystem))
                 {
@@ -1050,6 +1048,7 @@ public class MenuActionHandlerService
                     selectedManager.SystemName,
                     selectedManager.SystemFolders,
                     selectedManager.FileFormatsToSearch,
+                    selectedManager.FileFormatsToLaunch,
                     selectedManager.DisableRecursiveSearch,
                     selectedManager.GroupByFolder,
                     onCompleted: ShowHashScanCompletedToast);
@@ -1107,6 +1106,7 @@ public class MenuActionHandlerService
                         SystemName = m.SystemName,
                         SystemFolders = m.SystemFolders,
                         FileFormatsToSearch = m.FileFormatsToSearch,
+                        FileFormatsToLaunch = m.FileFormatsToLaunch,
                         DisableRecursiveSearch = m.DisableRecursiveSearch,
                         GroupByFolder = m.GroupByFolder
                     })

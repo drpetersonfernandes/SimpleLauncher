@@ -84,4 +84,39 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
             }
         }
     }
+
+    /// <summary>
+    /// Calculates the RetroAchievements hash for a game from an in-memory buffer
+    /// (e.g. a ROM loaded from inside a zip archive) using the console ID of the given system.
+    /// </summary>
+    /// <param name="buffer">The game data to hash.</param>
+    /// <param name="systemName">The RetroAchievements system name (resolved to a console ID internally).</param>
+    /// <returns>The 32-character lowercase hex hash, or null if the data could not be hashed.</returns>
+    public async Task<string?> CalculateHashFromBufferAsync(byte[] buffer, string systemName)
+    {
+        if (buffer == null || buffer.Length == 0)
+        {
+            _logger.Information("[RA File Hasher] Empty buffer provided for hashing.");
+            return null;
+        }
+
+        var systemId = _systemMatcher.GetSystemId(systemName);
+        if (systemId <= 0)
+        {
+            _logger.Information($"[RA File Hasher] No RetroAchievements console ID found for system '{systemName}'. Skipping hashing.");
+            return null;
+        }
+
+        return await Task.Run(() =>
+        {
+            if (RcHash.GenerateFromBuffer(out var hash, (uint)systemId, buffer, buffer.Length))
+            {
+                _logger.Debug($"[RA File Hasher] Calculated hash '{hash}' from buffer (System: '{systemName}', ID: {systemId}).");
+                return hash;
+            }
+
+            _logger.Information($"[RA File Hasher] Could not calculate a RetroAchievements hash from buffer for system '{systemName}' (ID: {systemId}).");
+            return null;
+        });
+    }
 }

@@ -22,11 +22,20 @@ public interface IRetroAchievementsHashScanner
     bool IsSystemScannable(string systemName);
 
     /// <summary>
+    /// Determines whether an existing hash scan for the given system was produced by the
+    /// current hash logic (same <see cref="RaSystemHashes.HashVersion"/>).
+    /// </summary>
+    /// <param name="systemName">The name of the system.</param>
+    /// <returns>True if the stored scan is up to date; false if missing or stale.</returns>
+    bool IsScanUpToDate(string systemName);
+
+    /// <summary>
     /// Scans the game folders of a single system and persists the calculated hashes.
     /// </summary>
     /// <param name="systemName">The name of the system to scan.</param>
     /// <param name="systemFolders">The list of configured system folders (relative or absolute).</param>
     /// <param name="fileFormatsToSearch">The list of file extensions to search for.</param>
+    /// <param name="fileFormatsToLaunch">The list of file extensions to look for inside compressed files before hashing.</param>
     /// <param name="disableRecursiveSearch">True to skip subfolders during the scan.</param>
     /// <param name="groupByFolder">True if the system groups game entries by folder.</param>
     /// <param name="onCompleted">Optional callback invoked (on a background thread) when the scan completes.</param>
@@ -36,6 +45,7 @@ public interface IRetroAchievementsHashScanner
         string systemName,
         IList<string> systemFolders,
         IList<string> fileFormatsToSearch,
+        IList<string> fileFormatsToLaunch,
         bool disableRecursiveSearch,
         bool groupByFolder,
         Action<string>? onCompleted = null,
