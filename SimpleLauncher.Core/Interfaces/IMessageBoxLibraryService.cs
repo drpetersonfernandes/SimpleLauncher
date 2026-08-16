@@ -1221,13 +1221,6 @@ public interface IMessageBoxLibraryService
     Task<MessageBoxResult> ScanGamePathForRetroAchievementsMessageBoxAsync();
 
     /// <summary>
-    /// Displays an informational message telling the user that the RetroAchievements
-    /// hash calculation is running in the background and will complete later.
-    /// </summary>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    Task HashCalculationRunningInBackgroundMessageBoxAsync();
-
-    /// <summary>
     /// Displays an error that the current processor architecture is unsupported.
     /// </summary>
     /// <returns>A task representing the asynchronous operation.</returns>

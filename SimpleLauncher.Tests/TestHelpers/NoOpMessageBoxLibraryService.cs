@@ -1623,14 +1623,6 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Does nothing. Does not display the hash-calculation-running-in-background message box.
-    /// </summary>
-    public Task HashCalculationRunningInBackgroundMessageBoxAsync()
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
     /// Does nothing. Does not display the unsupported-architecture message box.
     /// </summary>
     public Task UnsupportedArchitectureMessageBoxAsync()

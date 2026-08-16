@@ -14,6 +14,7 @@
         MaxWidth="420">
     <Border
         x:Name="ToastBorder"
+        IsHitTestVisible="False"
         Background="{DynamicResource MahApps.Brushes.Gray10}"
         BorderBrush="{DynamicResource MahApps.Brushes.Accent}"
         BorderThickness="3,0,0,0"

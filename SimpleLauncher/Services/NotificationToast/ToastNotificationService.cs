@@ -22,6 +22,8 @@ public class ToastNotificationService : IToastNotificationService
 
     /// <summary>
     /// Shows a toast notification with the given title and message.
+    /// Never blocks the calling thread: when invoked from a background thread the
+    /// toast is dispatched asynchronously to the UI thread (fire-and-forget).
     /// </summary>
     public void ShowToast(string title, string message)
     {
@@ -34,7 +36,7 @@ public class ToastNotificationService : IToastNotificationService
             }
             else
             {
-                dispatcher.Invoke(() => ShowToastCore(title, message));
+                _ = dispatcher.BeginInvoke(() => ShowToastCore(title, message));
             }
         }
         catch (Exception ex)

@@ -983,11 +983,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.FromResult(MessageBoxResult.Yes);
     }
 
-    public Task HashCalculationRunningInBackgroundMessageBoxAsync()
-    {
-        return Task.CompletedTask;
-    }
-
     public Task UnsupportedArchitectureMessageBoxAsync()
     {
         return Task.CompletedTask;

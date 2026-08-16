@@ -2992,17 +2992,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message telling the user that the RetroAchievements
-    /// hash calculation is running in the background and will complete later.
-    /// </summary>
-    public Task HashCalculationRunningInBackgroundMessageBoxAsync()
-    {
-        var raHashScanInBackgroundMessage = _resourceProvider.GetString("RaHashScanInBackgroundMessage", "The hash calculation will happen in the background. You can click the filter button again later to see if the hashing is complete.");
-        var retroAchievements = _resourceProvider.GetString("RetroAchievements", "RetroAchievements");
-        return _messageDialog.ShowInfoAsync(raHashScanInBackgroundMessage, retroAchievements);
-    }
-
-    /// <summary>
     /// Displays an error that the current processor architecture is unsupported.
     /// </summary>
     public Task UnsupportedArchitectureMessageBoxAsync()

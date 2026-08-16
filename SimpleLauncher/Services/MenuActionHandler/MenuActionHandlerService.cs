@@ -1053,7 +1053,11 @@ public class MenuActionHandlerService
                     selectedManager.GroupByFolder,
                     onCompleted: ShowHashScanCompletedToast);
 
-                await _messageBoxLibrary.HashCalculationRunningInBackgroundMessageBoxAsync();
+                // Non-blocking notification: the app stays fully responsive while
+                // the hash calculation runs in the background
+                _toastNotificationService.ShowToast(
+                    (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements",
+                    (string)Application.Current.TryFindResource("RaHashScanInBackgroundMessage") ?? "The hash calculation will happen in the background. You can click the filter button again later to see if the hashing is complete.");
                 return;
             }
 
@@ -1142,29 +1146,39 @@ public class MenuActionHandlerService
     }
 
     /// <summary>
-    /// Shows a completion toast on the UI thread after a system hash scan finishes.
+    /// Shows a completion toast after a system hash scan finishes.
+    /// Runs on a background thread, so every WPF/UI-touch is marshaled to the
+    /// dispatcher with BeginInvoke (fire-and-forget) — the scanner thread is
+    /// never blocked waiting on the UI thread.
     /// </summary>
     private void ShowHashScanCompletedToast(string systemName)
     {
         try
         {
             var dispatcher = Application.Current.Dispatcher;
-            var title = (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements";
-            var template = (string)Application.Current.TryFindResource("RaHashCalculationComplete") ?? "RetroAchievements hash calculation is complete for {0}.";
-
             if (dispatcher.CheckAccess())
             {
-                _toastNotificationService.ShowToast(title, string.Format(template, systemName));
+                ShowHashScanCompletedToastCore(systemName);
             }
             else
             {
-                dispatcher.Invoke(() => _toastNotificationService.ShowToast(title, string.Format(template, systemName)));
+                _ = dispatcher.BeginInvoke(() => ShowHashScanCompletedToastCore(systemName));
             }
         }
         catch (Exception ex)
         {
             _logger.Debug($"[RA Hash Scanner] Failed to show completion toast: {ex.Message}");
         }
+    }
+
+    /// <summary>
+    /// Runs on the UI thread: resolves the localized strings and shows the completion toast.
+    /// </summary>
+    private void ShowHashScanCompletedToastCore(string systemName)
+    {
+        var title = (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements";
+        var template = (string)Application.Current.TryFindResource("RaHashCalculationComplete") ?? "RetroAchievements hash calculation is complete for {0}.";
+        _toastNotificationService.ShowToast(title, string.Format(template, systemName));
     }
 
     // ---- Zoom ----
