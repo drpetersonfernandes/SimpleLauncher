@@ -188,7 +188,9 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
             var systemManager = _viewModel.GetSystemManager(selectedFavorite.SystemName);
             if (systemManager == null)
             {
-                _logger.Warning("systemManager is null for the selected favorite");
+                // Expected condition (favorite references a removed system; user is notified below):
+                // not a bug, keep it out of the bug report service.
+                _logger.Information("systemManager is null for the selected favorite");
                 await _messageBox.RightClickContextMenuErrorMessageBoxAsync();
                 return;
             }
@@ -208,7 +210,8 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
             var emulatorManager = systemManager.Emulators.FirstOrDefault();
             if (emulatorManager == null)
             {
-                _logger.Warning("emulatorManager is null.");
+                // Expected condition (system has no emulators configured; user is notified below).
+                _logger.Information("emulatorManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                     PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
@@ -287,7 +290,8 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
             var selectedSystemManager = _viewModel.GetSystemManager(selectedSystemName);
             if (selectedSystemManager == null)
             {
-                _logger.Warning("[LaunchGameFromFavoritesAsync] selectedSystemManager is null.");
+                // Expected condition (favorite references a removed system; user is notified below).
+                _logger.Information("[LaunchGameFromFavoritesAsync] selectedSystemManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                     PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
@@ -307,14 +311,14 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
                     }
                 }
 
-                _logger.Warning($"[LaunchGameFromFavoritesAsync] File does not exist: {filePath}");
+                _logger.Information($"[LaunchGameFromFavoritesAsync] File does not exist: {filePath}");
                 return;
             }
 
             var emulatorManager = selectedSystemManager.Emulators.FirstOrDefault();
             if (emulatorManager == null)
             {
-                _logger.Warning("[LaunchGameFromFavoritesAsync] emulatorManager is null.");
+                _logger.Information("[LaunchGameFromFavoritesAsync] emulatorManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                     PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
                 return;

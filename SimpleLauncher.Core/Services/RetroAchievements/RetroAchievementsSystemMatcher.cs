@@ -108,7 +108,7 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         ["arcade"] = new RaSystemInfo(27, [
             "arcade", "mame", "m.a.m.e.", "arcade games", "arcade classics", "fliperama",
             "neogeo", "neo geo", "neo-geo", "snk neo geo", "snk neogeo", "ARCADE GAME", "ARCADE - Multiple Arcade Machine Emulator", "sega model",
-            "sega_Model 2", "@sega_Model 2", "@sega model", "CPS 1", "CPS2", "CPS3"
+            "sega_Model 2", "@sega_Model 2", "@sega model", "CPS 1", "CPS2", "CPS3", "CPS1"
         ]),
         ["neo geo pocket"] = new RaSystemInfo(14, ["neo geo pocket", "neo geo pocket color", "neogeo pocket", "neogeo pocket color", "ngp", "ngpc", "SNK Neo Geo Pocket Color", "SNK Neo Geo Pocket"]),
         ["magnavox odyssey 2"] = new RaSystemInfo(23, ["magnavox odyssey 2", "odyssey 2", "odyssey2", "videopac g7000"]),
