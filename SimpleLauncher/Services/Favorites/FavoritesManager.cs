@@ -72,6 +72,67 @@ public class FavoritesManager
     }
 
     /// <summary>
+    /// Renames the system in all favorites (used when a system is renamed in Edit System).
+    /// Favorites store the system name as a plain string, so without this migration they would
+    /// keep the old name and fail to launch with a missing system manager.
+    /// </summary>
+    /// <param name="oldSystemName">The previous system name.</param>
+    /// <param name="newSystemName">The new system name.</param>
+    /// <returns>A task representing the save operation (no-op when nothing changed).</returns>
+    public Task RenameSystemAsync(string oldSystemName, string newSystemName)
+    {
+        var changed = false;
+        lock (ListLock)
+        {
+            foreach (var favorite in FavoriteList)
+            {
+                if (favorite.SystemName.Equals(oldSystemName, StringComparison.OrdinalIgnoreCase))
+                {
+                    favorite.SystemName = newSystemName;
+                    changed = true;
+                }
+            }
+        }
+
+        return changed ? SaveFavoritesAsync() : Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Removes favorites whose system no longer exists in the current configuration
+    /// (e.g., the system was renamed without migration, or deleted).
+    /// </summary>
+    /// <param name="validSystemNames">The system names that currently exist in the configuration.</param>
+    /// <returns>The number of removed favorites.</returns>
+    public async Task<int> RemoveFavoritesForMissingSystemsAsync(IEnumerable<string> validSystemNames)
+    {
+        var validNames = validSystemNames.ToList();
+        var toRemove = new List<Favorite>();
+
+        lock (ListLock)
+        {
+            foreach (var favorite in FavoriteList)
+            {
+                if (!validNames.Any(name => name.Equals(favorite.SystemName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    toRemove.Add(favorite);
+                }
+            }
+
+            foreach (var favorite in toRemove)
+            {
+                FavoriteList.Remove(favorite);
+            }
+        }
+
+        if (toRemove.Count > 0)
+        {
+            await SaveFavoritesAsync();
+        }
+
+        return toRemove.Count;
+    }
+
+    /// <summary>
     /// Saves the provided favorites to the DAT file.
     /// The favorites are ordered by FileName before saving.
     /// </summary>

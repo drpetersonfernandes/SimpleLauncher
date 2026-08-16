@@ -98,6 +98,16 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
 
             await Task.Yield();
 
+            // Reconcile favorites against the current system configuration: entries whose
+            // system no longer exists (renamed without migration, or deleted) would otherwise
+            // fail to launch with a missing system manager.
+            var validSystemNames = _systemManagers.Select(static manager => manager.SystemName).ToList();
+            var removedCount = await _favoritesManager.RemoveFavoritesForMissingSystemsAsync(validSystemNames);
+            if (removedCount > 0)
+            {
+                _logger.Information($"Removed {removedCount} favorite(s) referencing systems that no longer exist.");
+            }
+
             var favoritesSnapshot = _favoritesManager.FavoriteList.ToList();
             var systemManagersSnapshot = _systemManagers.ToList();
             var machinesSnapshot = _machines.ToList();
@@ -205,7 +215,9 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
             var selectedSystemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
             if (selectedSystemManager == null)
             {
-                _logger.Warning("[LaunchGameFromFavoritesAsync] selectedSystemManager is null.");
+                // Expected condition (favorite references a removed system; user is notified below):
+                // not a bug, keep it out of the bug report service.
+                _logger.Information("[LaunchGameFromFavoritesAsync] selectedSystemManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                     PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
@@ -225,14 +237,14 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
                     }
                 }
 
-                _logger.Warning($"[LaunchGameFromFavoritesAsync] File does not exist: {filePath}");
+                _logger.Information($"[LaunchGameFromFavoritesAsync] File does not exist: {filePath}");
                 return;
             }
 
             var emulatorManager = selectedSystemManager.Emulators.FirstOrDefault();
             if (emulatorManager == null)
             {
-                _logger.Warning("[LaunchGameFromFavoritesAsync] emulatorManager is null.");
+                _logger.Information("[LaunchGameFromFavoritesAsync] emulatorManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
                     PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
             }

@@ -12,7 +12,9 @@ using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Interfaces;
 using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
+using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.LoadImages;
+using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.QuitOrReinstall;
 using SimpleLauncher.Services.SystemManager;
 using Application = System.Windows.Application;
@@ -38,6 +40,8 @@ internal partial class EditSystemWindow : ILoadingState
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
     private readonly ILogger _logger;
     private readonly IParameterResolverService _parameterResolverService;
+    private readonly FavoritesManager _favoritesManager;
+    private readonly PlayHistoryManager _playHistoryManager;
     private Button? _emergencyReturnButton;
 
     /// <summary>
@@ -53,7 +57,9 @@ internal partial class EditSystemWindow : ILoadingState
     /// <param name="logger">The logger for error logging.</param>
     /// <param name="parameterResolverService">The parameter resolver service.</param>
     /// <param name="preSelectedSystemName">Optional system name to pre-select in the dropdown.</param>
-    public EditSystemWindow(SettingsManagerService settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, IHelpUserService helpUserService, IImageLoader imageLoader, IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, ILogger logger, IParameterResolverService parameterResolverService, string? preSelectedSystemName = null)
+    /// <param name="favoritesManager">The favorites manager, kept in sync when a system is renamed.</param>
+    /// <param name="playHistoryManager">The play history manager, kept in sync when a system is renamed.</param>
+    public EditSystemWindow(SettingsManagerService settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, IHelpUserService helpUserService, IImageLoader imageLoader, IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, ILogger logger, IParameterResolverService parameterResolverService, string? preSelectedSystemName = null, FavoritesManager? favoritesManager = null, PlayHistoryManager? playHistoryManager = null)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -68,6 +74,8 @@ internal partial class EditSystemWindow : ILoadingState
         _quitSimpleLauncher = quitSimpleLauncher;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _parameterResolverService = parameterResolverService;
+        _favoritesManager = favoritesManager!;
+        _playHistoryManager = playHistoryManager!;
 
         ApplyExpanderSettings();
 

@@ -336,7 +336,7 @@ public class MenuActionHandlerService
                 ? selectedSystem
                 : null;
 
-            var editSystemWindow = new EditSystemWindow(_settings, _playSoundEffects, _configuration, _helpUserService, _imageLoader, _messageBoxLibrary, _quitSimpleLauncher, _logger, _parameterResolverService, systemToPreselect)
+            var editSystemWindow = new EditSystemWindow(_settings, _playSoundEffects, _configuration, _helpUserService, _imageLoader, _messageBoxLibrary, _quitSimpleLauncher, _logger, _parameterResolverService, systemToPreselect, _favoritesManager, _playHistoryManager)
             {
                 Owner = Application.Current.MainWindow
             };

@@ -311,6 +311,17 @@ internal partial class EditSystemWindow
                 // Notify user
                 await _messageBox.SystemSavedSuccessfullyMessageBoxAsync();
 
+                // Keep favorites and play history in sync when the system was renamed:
+                // both store the system name as a plain string, so without this migration
+                // favorites would fail to launch with a missing system manager.
+                if (isUpdate && !string.Equals(_originalSystemName, systemNameText, StringComparison.OrdinalIgnoreCase))
+                {
+                    var oldSystemName = _originalSystemName!;
+                    await _favoritesManager.RenameSystemAsync(oldSystemName, systemNameText);
+                    await _playHistoryManager.RenameSystemAsync(oldSystemName, systemNameText);
+                    _logger.Information($"System renamed from '{oldSystemName}' to '{systemNameText}'. Favorites and play history migrated.");
+                }
+
                 // Create folders based on the resolved paths
                 var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? "");
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(varSystemImageFolderText);

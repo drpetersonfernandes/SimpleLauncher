@@ -17,10 +17,11 @@ public class Favorite : INotifyPropertyChanged
     public required string FileName { get; init; }
 
     /// <summary>
-    /// Gets the name of the system this game belongs to.
+    /// Gets or sets the name of the system this game belongs to.
+    /// Settable so favorites can be migrated in place when a system is renamed.
     /// </summary>
     [Key(1)]
-    public required string SystemName { get; init; }
+    public required string SystemName { get; set; }
 
     /// <summary>
     /// Gets the machine description from the ROM database.
