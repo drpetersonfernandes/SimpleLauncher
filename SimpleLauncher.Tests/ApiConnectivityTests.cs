@@ -51,7 +51,7 @@ public class ApiConnectivityTests
     }
 
     /// <summary>
-    /// Verifies that the bug report API endpoint accepts a valid report payload.
+    /// Verifies that the bug report request is built correctly without contacting the real API.
     /// </summary>
     [Fact]
     public async Task BugReportApiCanSendReport()
@@ -71,14 +71,33 @@ public class ApiConnectivityTests
             stackTrace = "Test stack trace"
         };
 
+        // Use a mock HTTP handler so the test validates the request shape without
+        // sending a real bug report to the production API.
+        var handler = new MockBugReportHandler();
+        using var httpClient = new HttpClient(handler)
+        {
+            Timeout = TimeSpan.FromSeconds(10)
+        };
+
         using var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
         request.Headers.Add("X-API-KEY", apiKey);
         request.Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
 
-        using var response = await HttpClient.SendAsync(request);
+        using var response = await httpClient.SendAsync(request);
         Assert.True(
             response.IsSuccessStatusCode,
-            $"Bug report API returned {(int)response.StatusCode} ({response.StatusCode}). Expected a success status code.");
+            $"Mock bug report API returned {(int)response.StatusCode} ({response.StatusCode}). Expected a success status code.");
+
+        Assert.NotNull(handler.LastRequest);
+        Assert.Equal(HttpMethod.Post, handler.LastRequest.Method);
+        Assert.Equal(apiUrl, handler.LastRequest.RequestUri?.AbsoluteUri);
+        Assert.Contains(handler.LastRequest.Headers.GetValues("X-API-KEY"), value => string.Equals(value, apiKey, StringComparison.Ordinal));
+
+        var body = await handler.LastRequest.Content!.ReadAsStringAsync();
+        using var bodyJson = JsonDocument.Parse(body);
+        Assert.Equal("Test bug report from SimpleLauncher.Tests", bodyJson.RootElement.GetProperty("message").GetString());
+        Assert.Equal("SimpleLauncher.Tests", bodyJson.RootElement.GetProperty("applicationName").GetString());
+        Assert.Equal("Test stack trace", bodyJson.RootElement.GetProperty("stackTrace").GetString());
     }
 
     /// <summary>
@@ -115,5 +134,26 @@ public class ApiConnectivityTests
         Assert.True(
             isReachable,
             $"Stats API {url} returned {(int)response.StatusCode} ({response.StatusCode}). Could not connect to the stats API.");
+    }
+
+    /// <summary>
+    /// Captures the outgoing request and returns a canned success response without
+    /// contacting the real bug report API.
+    /// </summary>
+    private sealed class MockBugReportHandler : HttpMessageHandler
+    {
+        public HttpRequestMessage? LastRequest { get; private set; }
+
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            LastRequest = request;
+
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent("""{"message":"Bug report received."}""", Encoding.UTF8, "application/json")
+            };
+
+            return Task.FromResult(response);
+        }
     }
 }
