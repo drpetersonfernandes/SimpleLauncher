@@ -161,13 +161,15 @@ internal partial class GitHubService
         }
         catch (OperationCanceledException)
         {
-            Log.Warning("GitHub request timed out after {Timeout} seconds", GitHubTimeoutSeconds);
+            // Expected condition (network timeout): not a bug, keep it out of the bug report service.
+            Log.Information("GitHub request timed out after {Timeout} seconds", GitHubTimeoutSeconds);
             LogMessage?.Invoke(this, new EventArgs<string>($"GitHub request timed out after {GitHubTimeoutSeconds} seconds."));
             return null;
         }
         catch (Exception ex)
         {
-            Log.Warning(ex, "Error fetching from GitHub");
+            // Expected condition (network failure; the secondary-server fallback handles it): not a bug.
+            Log.Information(ex, "Error fetching from GitHub");
             LogMessage?.Invoke(this, new EventArgs<string>($"Error fetching from GitHub: {ex.Message}"));
             return null;
         }
@@ -223,8 +225,9 @@ internal partial class GitHubService
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Secondary server fallback failed");
-            await BugReportService.ReportBugAsync(ex, "Error in GetFallbackReleaseAsync - Secondary server fallback failed");
+            // Both sources unreachable is an expected network condition (the caller falls back
+            // to a manual update) — log at Information, not as a bug.
+            Log.Information(ex, "Secondary server fallback failed");
             throw;
         }
     }

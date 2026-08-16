@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -55,12 +56,20 @@ internal static class ApplicationStats
 
             if (!response.IsSuccessStatusCode)
             {
-                Log.Warning("ApplicationStats API returned non-success status: {StatusCode}", response.StatusCode);
+                if (response.StatusCode == HttpStatusCode.TooManyRequests)
+                {
+                    // Expected condition (rate limit): not a bug, keep it out of the bug report service.
+                    Log.Information("ApplicationStats API returned non-success status: {StatusCode}", response.StatusCode);
+                }
+                else
+                {
+                    Log.Warning("ApplicationStats API returned non-success status: {StatusCode}", response.StatusCode);
+                }
             }
         }
         catch (OperationCanceledException)
         {
-            Log.Warning("ApplicationStats API call timed out.");
+            Log.Information("ApplicationStats API call timed out.");
         }
         catch (Exception ex)
         {

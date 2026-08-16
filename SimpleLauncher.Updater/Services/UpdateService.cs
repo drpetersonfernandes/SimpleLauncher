@@ -134,8 +134,19 @@ internal class UpdateService
             }
             catch (Exception ex) when (ex is not OperationCanceledException)
             {
-                Log.Error(ex, "Error fetching latest release from GitHub");
-                await BugReportService.ReportBugAsync(ex, "Error fetching latest release from GitHub");
+                // HTTP/transport failures while fetching the release are expected network
+                // conditions (the secondary-server fallback already failed) — log at
+                // Information, not as a bug.
+                if (ex is HttpRequestException or IOException)
+                {
+                    Log.Information(ex, "Error fetching latest release from GitHub");
+                }
+                else
+                {
+                    Log.Error(ex, "Error fetching latest release from GitHub");
+                    await BugReportService.ReportBugAsync(ex, "Error fetching latest release from GitHub");
+                }
+
                 throw;
             }
 
@@ -202,7 +213,18 @@ internal class UpdateService
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Automatic update failed");
+            // Network/transport failures (already retried from both sources) are expected
+            // user conditions — log at Information, not as a bug. Only unexpected
+            // exceptions are errors.
+            if (ex is HttpRequestException or IOException)
+            {
+                Log.Information(ex, "Automatic update failed");
+            }
+            else
+            {
+                Log.Error(ex, "Automatic update failed");
+            }
+
             LogMessage?.Invoke(this, new EventArgs<string>($"Automatic update failed: {ex.Message}"));
             return new UpdateResult
             {
