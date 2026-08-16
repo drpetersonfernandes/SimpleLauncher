@@ -151,6 +151,30 @@ public class App : Application, IDisposable
             ServiceProvider.GetRequiredService<IDeleteFilesService>(),
             appDataLogFolder);
 
+        // Delete temp folders and unneeded files in the background.
+        // Resolve the service up front so the fire-and-forget task never reaches into
+        // App.ServiceProvider later (it may be disposed once the application shuts down).
+        try
+        {
+            var cleanupService = ServiceProvider.GetRequiredService<ICleanSimpleLauncherFolderService>();
+            _ = Task.Run(() =>
+            {
+                try
+                {
+                    cleanupService.CleanupTrash();
+                    cleanupService.CleanupTempFiles();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Failed to cleanup trash in SimpleLauncher folder.");
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to resolve the background folder cleanup service.");
+        }
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime lifetime)
         {
             lifetime.ShutdownMode = ShutdownMode.OnMainWindowClose;
@@ -386,12 +410,18 @@ public class App : Application, IDisposable
             return new RetroAchievementsHasherTool(
                 logger,
                 sp.GetRequiredService<IExtractionService>(),
-                () => sp.GetRequiredService<SystemSelectionWindow>(),
-                () => (Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
-                      ?? throw new InvalidOperationException("Main window not available"),
+                SelectSystemAsync,
                 sp.GetRequiredService<IRetroAchievementsSystemMatcher>(),
-                sp.GetRequiredService<IRetroAchievementsFileHasher>(),
-                sp.GetRequiredService<IDiscConverter>());
+                sp.GetRequiredService<IRetroAchievementsFileHasher>());
+
+            async Task<string?> SelectSystemAsync(string guess)
+            {
+                var win = sp.GetRequiredService<SystemSelectionWindow>();
+                win.Initialize(guess);
+                await win.ShowDialog((Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
+                                     ?? throw new InvalidOperationException("Main window not available"));
+                return win.SelectedSystem;
+            }
         });
 
         // ── Windows (transient — new instance each resolve) ──

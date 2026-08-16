@@ -165,7 +165,6 @@ dotnet test SimpleLauncher.Tests --filter "FullyQualifiedName~EmulatorConfig"
 | `DeleteFilesTests` | Tests file deletion logic. |
 | `CleanTempFolderTests` | Tests temporary folder cleanup. |
 | `CleanTempFolderExtendedTests` | Extended temporary folder cleanup tests. |
-| `CleanSimpleLauncherFolderTests` | Tests SimpleLauncher folder cleanup. |
 | `CleanSimpleLauncherFolderServiceTests` | Tests SimpleLauncher folder cleanup service. |
 | `SteamVdfParserTests` | Tests Steam VDF file parser. |
 | `LaunchContextTests` | Tests launch context management. |
@@ -312,7 +311,6 @@ SimpleLauncher.Tests/
 ├── DeleteFilesTests.cs
 ├── CleanTempFolderTests.cs
 ├── CleanTempFolderExtendedTests.cs
-├── CleanSimpleLauncherFolderTests.cs
 ├── CleanSimpleLauncherFolderServiceTests.cs
 ├── SteamVdfParserTests.cs
 ├── LaunchContextTests.cs

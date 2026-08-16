@@ -25,7 +25,7 @@ All Core services follow the same conventions: Serilog `ILogger` injected (globa
 | `CheckForFileLock\FileLockService` / `CheckForFileLockService` | Detect/retry on locked files |
 | `CleanAndDeleteFiles\DeleteFilesService` (+ legacy `DeleteFiles`) | Best-effort file/dir deletion |
 | `CleanAndDeleteFiles\CleanTempFolderService` (+ legacy `CleanTempFolder`) | Delete temp extraction dirs; `.extraction_in_progress` partial cleanup |
-| `CleanAndDeleteFiles\CleanSimpleLauncherFolderService` (+ legacy `CleanSimpleLauncherFolder`) | Cleanup of the app folder (trash/temp) at startup |
+| `CleanAndDeleteFiles\CleanSimpleLauncherFolderService` | Cleanup of the app folder (trash/temp) at startup |
 | `CheckForRequiredFilesService` | Startup check that shipped files exist → missing-file dialog |
 | `CreateDefaultSystemFoldersService` | Creates system/image/additional folders (`AdditionalFolders`) for a new system |
 
@@ -88,7 +88,7 @@ All Core services follow the same conventions: Serilog `ILogger` injected (globa
 | Class | Purpose |
 |---|---|
 | `GamePad\GamePadController` | XInput + DirectInput (SharpDX) navigation, dead zones, reconnect |
-| `PlaySound\PlaySoundEffects` | NAudio click/notification/shutter/trash sounds (respects settings) |
+| `PlaySound\PlaySoundEffects` | NAudio 3 sound effects — Media Foundation + WaveOut (Windows) / libsndfile + ALSA (Linux); respects settings |
 | `AudioInputService` | Audio input abstraction |
 | `WpfServices\WpfImageLoader` | Image loading with `default.png` fallback |
 | `TakeScreenshot\WindowManager` | Enumerate top-level windows for screenshots |

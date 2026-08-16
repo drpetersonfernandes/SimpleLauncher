@@ -1,10 +1,15 @@
+using NAudio.SoundFile;
 using NAudio.Wave;
+using NAudio.Wave.Alsa;
 using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Core.Services.PlaySound;
 
 /// <summary>
-/// Plays UI sound effects such as click, shutter, and trash sounds using NAudio.
+/// Plays UI sound effects such as click, shutter, and trash sounds using NAudio 3.
+/// Decoding and output are platform-specific (Windows: Media Foundation + WaveOut;
+/// Linux: libsndfile via NAudio.SoundFile + ALSA via NAudio.Alsa), but the playback
+/// pipeline itself is a single cross-platform path built on <see cref="IWavePlayer"/>.
 /// </summary>
 public class PlaySoundEffects : IPlaySoundEffects, IDisposable
 {
@@ -16,9 +21,8 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     private readonly SettingsManager.SettingsManagerService _settingsManager;
     private readonly ILogger _logger;
 
-    private WaveOutEvent? _waveOut;
-    private Mp3FileReader? _reader;
-    private AlsaSoundPlayer? _linuxPlayer;
+    private IWavePlayer? _player;
+    private WaveStream? _reader;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PlaySoundEffects"/> class.
@@ -104,24 +108,16 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
 
             try
             {
-                if (OperatingSystem.IsWindows())
-                {
-                    _reader = new Mp3FileReader(soundPath);
-                    _waveOut = new WaveOutEvent();
-                    _waveOut.PlaybackStopped += OnPlaybackStopped;
-                    _waveOut.Init(_reader);
-                    _waveOut.Play();
-                }
-                else
-                {
-                    // Linux: managed MP3 decode (NLayer) + ALSA output; silently
-                    // skipped when no audio device is available (WSL2, CI, containers).
-                    _linuxPlayer ??= new AlsaSoundPlayer(_logger);
-                    _linuxPlayer.Play(soundPath);
-                }
+                _reader = CreateReader(soundPath);
+                _player = CreatePlayer();
+                _player.PlaybackStopped += OnPlaybackStopped;
+                _player.Init(_reader);
+                _player.Play();
             }
             catch (Exception ex)
             {
+                // Missing decoder (e.g. no libsndfile), no audio device (WSL2, CI,
+                // containers) or a corrupt file — log and skip; never crash.
                 _logger.Error(ex,
                     $"Failed to play sound: {soundPath}");
                 StopCurrentPlayback();
@@ -129,20 +125,50 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
         }
     }
 
+    /// <summary>
+    /// Creates the sound decoder: Media Foundation on Windows (built into the OS,
+    /// no extra dependencies) and libsndfile on Linux via NAudio.SoundFile.
+    /// </summary>
+    private static WaveStream CreateReader(string soundPath)
+    {
+#if WINDOWS
+        return new MediaFoundationReader(soundPath);
+#else
+        return new SoundFileReader(soundPath);
+#endif
+    }
+
+    /// <summary>
+    /// Creates the output device: WaveOut (winmm) on Windows, ALSA on Linux.
+    /// </summary>
+    private static IWavePlayer CreatePlayer()
+    {
+#if WINDOWS
+        return new WaveOut();
+#else
+        if (!OperatingSystem.IsLinux())
+        {
+            throw new PlatformNotSupportedException("Audio playback is only supported on Windows and Linux.");
+        }
+
+        return new AlsaOut();
+#endif
+    }
+
     private void StopCurrentPlayback()
     {
-        var waveOut = _waveOut;
-        if (waveOut != null)
+        var player = _player;
+        if (player != null)
         {
-            _waveOut = null;
-            waveOut.PlaybackStopped -= OnPlaybackStopped;
+            _player = null;
+            player.PlaybackStopped -= OnPlaybackStopped;
             try
             {
-                waveOut.Stop();
+                player.Stop();
             }
             catch (Exception ex)
             {
-                _logger.Debug($"[PlaySoundEffects] Error stopping waveOut: {ex.Message}");
+                _logger.Debug($"[PlaySoundEffects] Error stopping player: {ex.Message}");
             }
         }
 
@@ -160,15 +186,15 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
             }
         }
 
-        if (waveOut != null)
+        if (player != null)
         {
             try
             {
-                waveOut.Dispose();
+                player.Dispose();
             }
             catch (Exception ex)
             {
-                _logger.Debug($"[PlaySoundEffects] Error disposing waveOut: {ex.Message}");
+                _logger.Debug($"[PlaySoundEffects] Error disposing player: {ex.Message}");
             }
         }
     }
@@ -177,7 +203,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     {
         lock (Lock)
         {
-            if (_waveOut == sender)
+            if (_player == sender)
             {
                 StopCurrentPlayback();
             }
@@ -192,8 +218,6 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
         lock (Lock)
         {
             StopCurrentPlayback();
-            _linuxPlayer?.Dispose();
-            _linuxPlayer = null;
         }
 
         GC.SuppressFinalize(this);

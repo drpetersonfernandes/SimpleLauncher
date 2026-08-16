@@ -19,13 +19,13 @@ public class LanguageLaunchArgumentTests
         Assert.Equal(expected, App.TryGetLanguageArg(args));
     }
 
-    public static TheoryData<string[]> AbsentCases =>
-    [
+    public static TheoryData<string[]> AbsentCases => new()
+    {
         Array.Empty<string>(),
-        ["-debug"],
-        ["--language"], // missing value
-        ["--restarting"]
-    ];
+        new[] { "-debug" },
+        new[] { "--language" }, // missing value
+        new[] { "--restarting" }
+    };
 
     [Theory]
     [MemberData(nameof(AbsentCases))]

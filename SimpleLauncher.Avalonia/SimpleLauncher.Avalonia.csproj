@@ -26,7 +26,8 @@
     </PropertyGroup>
 
     <!-- Linux target (net10.0): linux RIDs only — Windows RIDs on this TFM would
-         require WindowsDesktop runtime packs (NAudio dependency) that do not exist. -->
+         require WindowsDesktop runtime packs (NAudio.WinMM dependency, referenced
+         only for the net10.0-windows TFM) that do not exist. -->
     <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
         <RuntimeIdentifiers>linux-x64;linux-arm64</RuntimeIdentifiers>
     </PropertyGroup>
@@ -81,13 +82,6 @@
          must use Include + Link — Update only modifies already-included items. -->
     <ItemGroup>
         <None Include="..\SimpleLauncher\tools\CHDMounter\*" Link="tools\CHDMounter\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <!-- RAHasher is platform-specific: .exe on Windows, bare ELF binary on Linux -->
-        <None Include="..\SimpleLauncher\tools\RAHasher\RAHasher.exe" Link="tools\RAHasher\RAHasher.exe" Condition="'$(TargetFramework)' == 'net10.0-windows'">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\SimpleLauncher\tools\RAHasher\RAHasher" Link="tools\RAHasher\RAHasher" Condition="'$(TargetFramework)' == 'net10.0'">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Include="..\SimpleLauncher\images\systems\*.png" Link="images\systems\%(Filename)%(Extension)">

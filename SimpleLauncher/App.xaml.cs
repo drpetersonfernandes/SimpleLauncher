@@ -329,8 +329,15 @@ public partial class App : IDisposable
             var extractionService = sp.GetRequiredService<IExtractionService>();
             var systemMatcher = sp.GetRequiredService<IRetroAchievementsSystemMatcher>();
             var fileHasher = sp.GetRequiredService<IRetroAchievementsFileHasher>();
-            var discConverter = sp.GetRequiredService<IDiscConverter>();
-            return new RetroAchievementsHasherTool(logger, extractionService, SystemSelectionWindowFactory, MainWindowFactory, systemMatcher, fileHasher, discConverter);
+            return new RetroAchievementsHasherTool(logger, extractionService, SelectSystemAsync, systemMatcher, fileHasher);
+
+            Task<string?> SelectSystemAsync(string guess)
+            {
+                var win = SystemSelectionWindowFactory();
+                win.Owner = MainWindowFactory();
+                win.Initialize(guess);
+                return Task.FromResult(win.ShowDialog() == true ? win.SelectedSystem : null);
+            }
 
             SystemSelectionWindow SystemSelectionWindowFactory()
             {

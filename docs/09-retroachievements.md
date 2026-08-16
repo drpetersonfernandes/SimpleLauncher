@@ -9,7 +9,7 @@
 flowchart LR
     U[RA Windows] --> S[RetroAchievementsService<br/>REST client]
     S --> RA[(retroachievements.org API)]
-    H[HasherTool] --> F[RetroAchievementsFileHasher<br/>+ RAHasher.exe + DiscConverter]
+    H[HasherTool] --> F[RetroAchievementsFileHasher<br/>RetroAchievementsSharp library]
     H --> M[SystemMatcher]
     M --> S
     C[EmulatorConfigurator] --> E[RetroArch / PCSX2 / DuckStation /<br/>PPSSPP / Dolphin / Flycast / BizHawk configs]
@@ -38,22 +38,29 @@ HTTP client: named `"RetroAchievementsClient"` via `IHttpClientFactory` (`RetroA
 - `GetBestMatchSystemName` (`:193-217`): lowercase/trim, exact scan over all aliases; unmatched logged once per name.
 - `GetExactAliasMatch` (`:256-271`), `IsSystemInMappings` (`:279-305`, contains/substring), `GetSupportedSystemNames` (`:233-236`), `GetSystemId` (`:243-249`, −1 if unknown).
 
-## Hashing (`RetroAchievementsHasherTool` app + `RetroAchievementsFileHasher` Core)
+## Hashing (`RetroAchievementsHasherTool` + `RetroAchievementsFileHasher`, Core)
 
-Strategy groups (by system):
+All hash computation is delegated to the **RetroAchievementsSharp** NuGet library
+(`RcHash.GenerateFromFile`) — a native C# port of the rcheevos hashing engine that
+produces the exact same hashes as the RAHasher binary it replaces (the binary and the
+custom MD5 logic are gone). The system matcher resolves the system name to its official
+RA console ID, and the library handles every console's algorithm internally (whole-file
+MD5, header stripping, N64 byte-swapping, arcade filename hashing, Arduboy line-ending
+normalization, disc hashing, …).
 
-| Strategy | Systems | Implementation |
-|---|---|---|
-| Simple MD5 | GB/GBA/GBC, Genesis, Game Gear, Master System, 32X, Jaguar, WonderSwan, ColecoVision, Vectrex, Odyssey 2, Intellivision, Virtual Boy, Neo Geo Pocket, Pokemon Mini, wasm-4… | `CalculateStandardMd5Async` |
-| Complex (RAHasher.exe) | PS1/PS2/PSP, Saturn, Dreamcast, Sega CD, 3DO, Jag CD, PCE-CD, DS/DSi, 3DS, Neo Geo CD, DOS, PC-9800… | `GetHashAsync` — `tools\RAHasher\RAHasher.exe {systemId} "{file}"`, 60 s timeout+kill, parses 32-hex hash from stdout even on non-zero exit |
-| Dolphin | GameCube, Wii | convert `.rvz/.wbfs/.gcz/.ciso/.wia` → ISO via `IDiscConverter.ConvertToIsoAsync`, then RAHasher; temp ISO deleted |
-| Header check | NES, SNES, Atari 7800/Lynx, FDS, PCE/TG16, SuperGrafx | `CalculateHeaderBasedMd5Async` (per-system magic/offset) |
-| Byte-swap | N64 | `CalculateN64HashAsync` — `.v64/.n64` → big-endian `.z64` |
-| Filename | arcade | `CalculateFilenameHash` |
-| Line-ending normalization | Arduboy | `CalculateArduboyHashAsync` |
-| Unsupported | others | no RA icon; skipped |
+| Concern | Implementation |
+|---|---|
+| Console dispatch | `RetroAchievementsSystemMatcher.GetSystemId` → `RcHash.GenerateFromFile(hash, (uint)systemId, file)` |
+| Complex discs (PS1/Saturn/Dreamcast/…) | hashed directly — no external binary, no 60 s process timeout |
+| GameCube/Wii `.rvz`/`.wia` | hashed **live** via RVZSharp (`RvzFilereader` installed only around the hash, then restored) — no `DiscConverter` ISO conversion, no temp ISO |
+| `.zip`/`.7z`/`.rar` | extracted to temp first (except arcade, which hashes the file name) |
+| 3DS | requires decryption keys (`Hash3Ds`); without them `GenerateFromFile` returns false → hash null |
+| Unsupported input | `GenerateFromFile` returns `false` (never throws) → hash null, logged at Information |
 
-Flow (`GetGameHashForRetroAchievementsAsync`, `:372-627`): exact alias match or **system-picker prompt** (`SystemSelectionWindow` with fuzzy pre-selected guess; cancel → `RaHashResult(null,null,false,…)`); `.zip/.7z/.rar` extracted to temp (except filename-hash); hash dispatch; temp cleaned.
+Flow (`GetGameHashForRetroAchievementsAsync`): exact alias match or **system-picker prompt**
+(`SystemSelectionWindow` with fuzzy pre-selected guess; cancel → `RaHashResult(null,null,false,…)`);
+systems without a usable console ID (e.g. the `unsupported` pseudo-system, ID > 90) are rejected
+up front; `.zip/.7z/.rar` extracted to temp (except arcade); single hash call; temp cleaned.
 
 ## Credential injection (`RetroAchievementsEmulatorConfiguratorService`, Core)
 

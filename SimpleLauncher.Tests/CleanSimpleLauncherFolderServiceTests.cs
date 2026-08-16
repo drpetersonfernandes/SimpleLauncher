@@ -105,6 +105,64 @@ public class CleanSimpleLauncherFolderServiceTests
         }
     }
 
+    /// <summary>
+    /// Verifies that CleanupTempFiles does not throw when target directories do not exist.
+    /// </summary>
+    [Fact]
+    public void CleanupTempFilesDoesNotThrowWhenDirectoriesDoNotExist()
+    {
+        // Ensure cleanup works even when target dirs are absent
+        var service = new CleanSimpleLauncherFolderService(new TrackingDeleteFilesService());
+        var exception = Record.Exception(service.CleanupTempFiles);
+        Assert.Null(exception);
+    }
+
+    /// <summary>
+    /// Verifies that CleanupTempFiles removes the SimpleZipDrive temp directory.
+    /// </summary>
+    [Fact]
+    public void CleanupTempFilesRemovesSimpleZipDriveTempDirectory()
+    {
+        var tempDir = Path.Combine(Path.GetTempPath(), "SimpleZipDrive");
+        Directory.CreateDirectory(tempDir);
+
+        try
+        {
+            var service = new CleanSimpleLauncherFolderService(new TrackingDeleteFilesService());
+            service.CleanupTempFiles();
+
+            Assert.False(Directory.Exists(tempDir));
+        }
+        finally
+        {
+            if (Directory.Exists(tempDir))
+                Directory.Delete(tempDir, true);
+        }
+    }
+
+    /// <summary>
+    /// Verifies that CleanupTempFiles removes the SimpleXisoDrive temp directory.
+    /// </summary>
+    [Fact]
+    public void CleanupTempFilesRemovesSimpleXisoDriveTempDirectory()
+    {
+        var tempDir = Path.Combine(Path.GetTempPath(), "SimpleXisoDrive");
+        Directory.CreateDirectory(tempDir);
+
+        try
+        {
+            var service = new CleanSimpleLauncherFolderService(new TrackingDeleteFilesService());
+            service.CleanupTempFiles();
+
+            Assert.False(Directory.Exists(tempDir));
+        }
+        finally
+        {
+            if (Directory.Exists(tempDir))
+                Directory.Delete(tempDir, true);
+        }
+    }
+
     private sealed class NoOpDeleteFilesService : IDeleteFilesService
     {
         /// <summary>

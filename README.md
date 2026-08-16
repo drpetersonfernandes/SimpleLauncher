@@ -108,7 +108,6 @@ Simple Launcher includes a comprehensive suite of specialized utilities:
   - SimpleZipDrive: ZIP file mounting utility
   - SimpleXisoDrive: XISO file mounting utility
 * **File System Tools:**
-  - RAHasher: RetroAchievements hash calculator
   - 7z integration for compression/decompression
 
 ### 🔧 Advanced Features
@@ -192,7 +191,7 @@ Simple Launcher is translated into **18 languages**:
 * **Framework:** .NET 10 (WPF)
 * **Language:** C# 14
 * **Data Serialization:** MessagePack (Binary) & XML
-* **Dependencies:** MahApps.Metro (UI), SharpDX (Input), SharpCompress (Archives), DokanNet (Mounting), NAudio (Audio), YamlDotNet, Tomlyn
+* **Dependencies:** MahApps.Metro (UI), SharpDX (Input), SharpCompress (Archives), DokanNet (Mounting), NAudio 3 (Audio), RetroAchievementsSharp (RetroAchievements hashing), YamlDotNet, Tomlyn
 * **Architecture:** Modular service-based architecture with dependency injection
 * **Storage:** SQLite for play history, MessagePack for favorites, XML for settings
 

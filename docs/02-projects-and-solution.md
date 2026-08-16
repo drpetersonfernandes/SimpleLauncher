@@ -58,13 +58,14 @@ Key properties:
 | Microsoft.Extensions.Http.Resilience | 10.8.0 | Polly retry policy on downloads |
 | Microsoft.Data.Sqlite / SourceGear.sqlite3 | 10.0.10 / 3.53.4 | SQLite (Amazon scan, Stella settings) |
 | SharpCompress | 0.50.4 | Archive extraction |
-| NAudio | 2.3.0 | UI sound effects |
+| NAudio (Core / Wasapi / WinMM / SoundFile / Alsa) | 3.0.0 | UI sound effects (Windows + Linux) |
+| RetroAchievementsSharp | 1.0.0 | RetroAchievements hashing (rcheevos engine port, incl. RVZ) |
 | SharpDX + XInput + DirectInput | 4.2.0 | Gamepad input |
 | InputSimulatorCore | 1.0.5 | Mouse simulation from gamepad |
 | Serilog (+ Sinks.Async/Debug/File) | 4.4.0 | Logging |
 | Tomlyn | 2.10.1 | TOML parsing (Xenia, Yumir configs) |
 | YamlDotNet | 18.1.0 | YAML parsing (RPCS3 config) |
-| Meziantou.Analyzer | 3.0.139 | Static analysis (PrivateAssets) |
+| Meziantou.Analyzer | 3.0.157 | Static analysis (PrivateAssets) |
 | Microsoft.CodeAnalysis.NetAnalyzers | 10.0.302 | Static analysis |
 
 ## `SimpleLauncher.Core\SimpleLauncher.Core.csproj` (the library)

@@ -1,4 +1,3 @@
-using System.Reflection;
 using System.Text;
 using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Tests.TestHelpers;
@@ -7,15 +6,18 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="RetroAchievementsFileHasher"/> covering MD5 calculation,
-/// filename hashing, N64 byte-swap hashing, Arduboy line-ending normalization, and hex encoding.
+/// Tests for <see cref="RetroAchievementsFileHasher"/> covering the hash calculation
+/// delegated to the RetroAchievementsSharp library (whole-file hashes, header stripping,
+/// N64 byte-swapping, arcade filename hashing, Arduboy line-ending normalization, and
+/// graceful failures for unsupported inputs).
 /// </summary>
 public class RetroAchievementsFileHasherTests : IDisposable
 {
     private readonly string _testDirectory;
 
-
-    private readonly RetroAchievementsFileHasher _hasher = new(new NoOpLogger());
+    private readonly RetroAchievementsFileHasher _hasher = new(
+        new NoOpLogger(),
+        new RetroAchievementsSystemMatcher(new NoOpLogger(), new NoOpLogger()));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RetroAchievementsFileHasherTests"/> class,
@@ -24,7 +26,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     public RetroAchievementsFileHasherTests()
     {
         ServiceProviderMock.Install();
-        _testDirectory = Path.Combine(Path.GetTempPath(), $"SL_RAHasherTest_{Guid.NewGuid():N}");
+        _testDirectory = Path.Combine(Path.GetTempPath(), $"SL_RAHashTest_{Guid.NewGuid():N}");
         Directory.CreateDirectory(_testDirectory);
     }
 
@@ -68,80 +70,88 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that CalculateStandardMd5Async returns the correct MD5 hash for known content.
+    /// Verifies that Game Boy hashing returns the expected whole-file MD5 hash for known content.
     /// </summary>
     [Fact]
-    public async Task CalculateStandardMd5AsyncReturnsExpectedHash()
+    public async Task CalculateHashAsyncGameBoyReturnsExpectedHash()
     {
         var content = "Hello World"u8.ToArray();
-        var filePath = CreateTempFile("test.bin", content);
+        var filePath = CreateTempFile("test.gb", content);
 
-        var result = await _hasher.CalculateStandardMd5Async(filePath);
+        var result = await _hasher.CalculateHashAsync(filePath, "game boy");
 
         Assert.Equal("b10a8db164e0754105b7a99be72e3fe5", result);
     }
 
     /// <summary>
-    /// Verifies that CalculateStandardMd5Async returns the MD5 hash for an empty file.
+    /// Verifies that Game Boy hashing returns the MD5 hash for an empty file.
     /// </summary>
     [Fact]
-    public async Task CalculateStandardMd5AsyncEmptyFileReturnsEmptyHash()
+    public async Task CalculateHashAsyncGameBoyEmptyFileReturnsExpectedHash()
     {
-        var filePath = CreateTempFile("empty.bin", []);
+        var filePath = CreateTempFile("empty.gb", []);
 
-        var result = await _hasher.CalculateStandardMd5Async(filePath);
+        var result = await _hasher.CalculateHashAsync(filePath, "game boy");
 
         Assert.Equal("d41d8cd98f00b204e9800998ecf8427e", result);
     }
 
     /// <summary>
-    /// Verifies that CalculateFilenameHash returns a 32-character hex string for a valid file path.
+    /// Verifies that Arcade hashing returns a 32-character hex hash for a valid file path.
     /// </summary>
     [Fact]
-    public void CalculateFilenameHashReturnsExpectedHash()
+    public async Task CalculateHashAsyncArcadeReturnsExpectedHash()
     {
-        var result = _hasher.CalculateFilenameHash(@"C:\roms\game.zip");
+        var filePath = CreateTempFile("game.zip", "PK"u8.ToArray());
+
+        var result = await _hasher.CalculateHashAsync(filePath, "arcade");
 
         Assert.NotNull(result);
         Assert.Equal(32, result.Length);
     }
 
     /// <summary>
-    /// Verifies that CalculateFilenameHash produces the same hash for files with the same name
+    /// Verifies that Arcade hashing produces the same hash for files with the same name
     /// but different paths or extensions.
     /// </summary>
     [Fact]
-    public void CalculateFilenameHashSameFilenameWithoutExtensionProducesSameHash()
+    public async Task CalculateHashAsyncArcadeSameFilenameWithoutExtensionProducesSameHash()
     {
-        var hash1 = _hasher.CalculateFilenameHash(@"C:\folder\mygame.zip");
-        var hash2 = _hasher.CalculateFilenameHash(@"D:\other\mygame.7z");
+        var filePath1 = CreateTempFile("mygame.zip", "PK"u8.ToArray());
+        var filePath2 = CreateTempFile("mygame.7z", "7z"u8.ToArray());
+
+        var hash1 = await _hasher.CalculateHashAsync(filePath1, "arcade");
+        var hash2 = await _hasher.CalculateHashAsync(filePath2, "arcade");
 
         Assert.Equal(hash1, hash2);
     }
 
     /// <summary>
-    /// Verifies that CalculateFilenameHash produces different hashes for different file names.
+    /// Verifies that Arcade hashing produces different hashes for different file names.
     /// </summary>
     [Fact]
-    public void CalculateFilenameHashDifferentFilenamesProduceDifferentHashes()
+    public async Task CalculateHashAsyncArcadeDifferentFilenamesProduceDifferentHashes()
     {
-        var hash1 = _hasher.CalculateFilenameHash(@"C:\game1.zip");
-        var hash2 = _hasher.CalculateFilenameHash(@"C:\game2.zip");
+        var filePath1 = CreateTempFile("game1.zip", "PK"u8.ToArray());
+        var filePath2 = CreateTempFile("game2.zip", "PK"u8.ToArray());
+
+        var hash1 = await _hasher.CalculateHashAsync(filePath1, "arcade");
+        var hash2 = await _hasher.CalculateHashAsync(filePath2, "arcade");
 
         Assert.NotEqual(hash1, hash2, StringComparer.Ordinal);
     }
 
     /// <summary>
-    /// Verifies that CalculateArduboyHashAsync normalizes CRLF and LF line endings to produce the same hash.
+    /// Verifies that Arduboy hashing normalizes CRLF and LF line endings to produce the same hash.
     /// </summary>
     [Fact]
-    public async Task CalculateArduboyHashAsyncNormalizesLineEndings()
+    public async Task CalculateHashAsyncArduboyNormalizesLineEndings()
     {
         var filePath1 = CreateTempFile("arduboy_crlf.hex", "hello\r\nworld\n");
         var filePath2 = CreateTempFile("arduboy_lf.hex", "hello\nworld\n");
 
-        var hash1 = await _hasher.CalculateArduboyHashAsync(filePath1);
-        var hash2 = await _hasher.CalculateArduboyHashAsync(filePath2);
+        var hash1 = await _hasher.CalculateHashAsync(filePath1, "arduboy");
+        var hash2 = await _hasher.CalculateHashAsync(filePath2, "arduboy");
 
         Assert.NotNull(hash1);
         Assert.NotNull(hash2);
@@ -149,95 +159,128 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that CalculateN64HashAsync for .z64 files returns the standard MD5 hash.
+    /// Verifies that .z64 N64 ROMs are hashed directly (big endian, no byte swapping).
     /// </summary>
     [Fact]
-    public async Task CalculateN64HashAsyncZ64ReturnsStandardMd5()
+    public async Task CalculateHashAsyncN64Z64ReturnsStandardMd5()
     {
-        var content = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+        var content = new byte[] { 0x80, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
         var filePath = CreateTempFile("game.z64", content);
 
-        var n64Hash = await _hasher.CalculateN64HashAsync(filePath);
-        var standardHash = await _hasher.CalculateStandardMd5Async(filePath);
+        var result = await _hasher.CalculateHashAsync(filePath, "nintendo 64");
 
-        Assert.Equal(standardHash, n64Hash);
+        Assert.Equal("5bdfae9b422a1fa9ff5964c65d5904ce", result);
     }
 
     /// <summary>
-    /// Verifies that CalculateN64HashAsync for .v64 files returns a byte-swapped MD5 hash.
+    /// Verifies that .v64 N64 ROMs are 16-bit byte-swapped before hashing.
     /// </summary>
     [Fact]
-    public async Task CalculateN64HashAsyncV64ReturnsByteSwappedMd5()
+    public async Task CalculateHashAsyncN64V64ReturnsByteSwappedMd5()
     {
-        var content = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+        var content = new byte[] { 0x37, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
         var filePath = CreateTempFile("game.v64", content);
 
-        var result = await _hasher.CalculateN64HashAsync(filePath);
+        var result = await _hasher.CalculateHashAsync(filePath, "nintendo 64");
 
-        Assert.NotNull(result);
-        Assert.Equal(32, result.Length);
+        Assert.Equal("b5ee2c7bb34f654a6cdfaad7320608e5", result);
     }
 
     /// <summary>
-    /// Verifies that CalculateN64HashAsync for .n64 files returns a byte-swapped MD5 hash.
+    /// Verifies that .n64 N64 ROMs are 32-bit byte-swapped before hashing.
     /// </summary>
     [Fact]
-    public async Task CalculateN64HashAsyncN64ReturnsByteSwappedMd5()
+    public async Task CalculateHashAsyncN64N64ReturnsByteSwappedMd5()
     {
-        var content = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+        var content = new byte[] { 0x40, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
         var filePath = CreateTempFile("game.n64", content);
 
-        var result = await _hasher.CalculateN64HashAsync(filePath);
+        var result = await _hasher.CalculateHashAsync(filePath, "nintendo 64");
 
-        Assert.NotNull(result);
-        Assert.Equal(32, result.Length);
+        Assert.Equal("af75f3d8964941aaea7c83aa8408067d", result);
     }
 
     /// <summary>
-    /// Verifies that .v64 and .n64 files with identical content produce the same N64 hash.
+    /// Verifies that N64 hashing returns null for files that are not valid N64 ROMs.
     /// </summary>
     [Fact]
-    public async Task CalculateN64HashAsyncV64AndN64ProduceSameHash()
+    public async Task CalculateHashAsyncN64InvalidRomReturnsNull()
     {
-        var content = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
-        var filePath1 = CreateTempFile("game.v64", content);
-        var filePath2 = CreateTempFile("game.n64", content);
+        var content = new byte[] { 0x99, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
+        var filePath = CreateTempFile("game.rom", content);
 
-        var hash1 = await _hasher.CalculateN64HashAsync(filePath1);
-        var hash2 = await _hasher.CalculateN64HashAsync(filePath2);
+        var result = await _hasher.CalculateHashAsync(filePath, "nintendo 64");
 
-        Assert.Equal(hash1, hash2);
+        Assert.Null(result);
     }
 
     /// <summary>
-    /// Verifies that the private ToHexString method returns the correct lowercase hex string.
+    /// Verifies that NES ROMs with a 16-byte header are hashed after stripping the header.
     /// </summary>
     [Fact]
-    public void ToHexStringReturnsExpectedHex()
+    public async Task CalculateHashAsyncNesStripsHeader()
     {
-        var input = new byte[] { 0x00, 0xFF, 0xAB, 0x1A };
-        var result = InvokePrivateStaticMethod<string>("ToHexString", input);
+        var header = new byte[16];
+        header[0] = (byte)'N';
+        header[1] = (byte)'E';
+        header[2] = (byte)'S';
+        header[3] = 0x1A;
+        var filePath = CreateTempFile("game.nes", [.. header, .. "Hello World"u8.ToArray()]);
 
-        Assert.Equal("00ffab1a", result);
+        var result = await _hasher.CalculateHashAsync(filePath, "nintendo entertainment system");
+
+        Assert.Equal("b10a8db164e0754105b7a99be72e3fe5", result);
     }
 
     /// <summary>
-    /// Verifies that the private ToHexString method returns an empty string for an empty byte array.
+    /// Verifies that NES ROMs without a header are hashed entirely.
     /// </summary>
     [Fact]
-    public void ToHexStringEmptyArrayReturnsEmptyString()
+    public async Task CalculateHashAsyncNesWithoutHeaderHashesWholeFile()
     {
-        var input = Array.Empty<byte>();
-        var result = InvokePrivateStaticMethod<string>("ToHexString", input);
+        var filePath = CreateTempFile("game.nes", "Hello World"u8.ToArray());
 
-        Assert.Equal("", result);
+        var result = await _hasher.CalculateHashAsync(filePath, "nintendo entertainment system");
+
+        Assert.Equal("b10a8db164e0754105b7a99be72e3fe5", result);
     }
 
-    private static T? InvokePrivateStaticMethod<T>(string methodName, params object[] parameters)
+    /// <summary>
+    /// Verifies that 3DS files return null when no decryption keys are available.
+    /// </summary>
+    [Fact]
+    public async Task CalculateHashAsync3DsWithoutKeysReturnsNull()
     {
-        var type = typeof(RetroAchievementsFileHasher);
-        var method = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)
-                     ?? throw new InvalidOperationException($"Method '{methodName}' not found on {type.Name}.");
-        return (T?)method.Invoke(null, parameters);
+        var filePath = CreateTempFile("game.cia", [1, 2, 3, 4, 5, 6, 7, 8]);
+
+        var result = await _hasher.CalculateHashAsync(filePath, "nintendo 3ds");
+
+        Assert.Null(result);
+    }
+
+    /// <summary>
+    /// Verifies that hashing returns null for systems without a known console ID.
+    /// </summary>
+    [Fact]
+    public async Task CalculateHashAsyncUnknownSystemReturnsNull()
+    {
+        var filePath = CreateTempFile("game.bin", [1, 2, 3, 4]);
+
+        var result = await _hasher.CalculateHashAsync(filePath, "some unknown system");
+
+        Assert.Null(result);
+    }
+
+    /// <summary>
+    /// Verifies that hashing returns null for files that do not exist.
+    /// </summary>
+    [Fact]
+    public async Task CalculateHashAsyncMissingFileReturnsNull()
+    {
+        var missingFile = Path.Combine(_testDirectory, "does_not_exist.bin");
+
+        var result = await _hasher.CalculateHashAsync(missingFile, "game boy");
+
+        Assert.Null(result);
     }
 }
