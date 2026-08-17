@@ -23,6 +23,13 @@ public class ApiConnectivityTests
         DefaultRequestHeaders = { { "User-Agent", "SimpleLauncherTests/1.0" } }
     };
 
+    private static readonly MockBugReportHandler MockHandler = new();
+
+    private static readonly HttpClient MockHttpClient = new(MockHandler)
+    {
+        Timeout = TimeSpan.FromSeconds(10)
+    };
+
     private static string GetProjectFilePath(string relativePath)
     {
         var assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -73,27 +80,23 @@ public class ApiConnectivityTests
 
         // Use a mock HTTP handler so the test validates the request shape without
         // sending a real bug report to the production API.
-        var handler = new MockBugReportHandler();
-        using var httpClient = new HttpClient(handler)
-        {
-            Timeout = TimeSpan.FromSeconds(10)
-        };
+        MockHandler.Reset();
 
         using var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
         request.Headers.Add("X-API-KEY", apiKey);
         request.Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
 
-        using var response = await httpClient.SendAsync(request);
+        using var response = await MockHttpClient.SendAsync(request);
         Assert.True(
             response.IsSuccessStatusCode,
             $"Mock bug report API returned {(int)response.StatusCode} ({response.StatusCode}). Expected a success status code.");
 
-        Assert.NotNull(handler.LastRequest);
-        Assert.Equal(HttpMethod.Post, handler.LastRequest.Method);
-        Assert.Equal(apiUrl, handler.LastRequest.RequestUri?.AbsoluteUri);
-        Assert.Contains(handler.LastRequest.Headers.GetValues("X-API-KEY"), value => string.Equals(value, apiKey, StringComparison.Ordinal));
+        Assert.NotNull(MockHandler.LastRequest);
+        Assert.Equal(HttpMethod.Post, MockHandler.LastRequest.Method);
+        Assert.Equal(apiUrl, MockHandler.LastRequest.RequestUri?.AbsoluteUri);
+        Assert.Contains(MockHandler.LastRequest.Headers.GetValues("X-API-KEY"), value => string.Equals(value, apiKey, StringComparison.Ordinal));
 
-        var body = await handler.LastRequest.Content!.ReadAsStringAsync();
+        var body = await MockHandler.LastRequest.Content!.ReadAsStringAsync();
         using var bodyJson = JsonDocument.Parse(body);
         Assert.Equal("Test bug report from SimpleLauncher.Tests", bodyJson.RootElement.GetProperty("message").GetString());
         Assert.Equal("SimpleLauncher.Tests", bodyJson.RootElement.GetProperty("applicationName").GetString());
@@ -143,6 +146,11 @@ public class ApiConnectivityTests
     private sealed class MockBugReportHandler : HttpMessageHandler
     {
         public HttpRequestMessage? LastRequest { get; private set; }
+
+        public void Reset()
+        {
+            LastRequest = null;
+        }
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
