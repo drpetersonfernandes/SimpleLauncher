@@ -45,7 +45,7 @@ public partial class MainWindow : Window
 
     public MainWindow(
         MainViewModel viewModel,
-        Services.SystemArtRatioService ratioService,
+        SystemArtRatioService ratioService,
         Services.SystemManager.SystemManagerService systemManagerService,
         SettingsManagerService settings,
         LocalizationService localization,
@@ -956,7 +956,7 @@ public partial class MainWindow : Window
     {
         try
         {
-            if (sender is not MenuItem { Tag: string tag } item || !int.TryParse(tag, out var size)) return;
+            if (sender is not MenuItem { Tag: string tag } || !int.TryParse(tag, out var size)) return;
 
             _settings.ThumbnailSize = size;
             await _settings.SaveAsync();
@@ -999,7 +999,7 @@ public partial class MainWindow : Window
     {
         try
         {
-            if (sender is not MenuItem { Tag: string tag } item || !int.TryParse(tag, out var page)) return;
+            if (sender is not MenuItem { Tag: string tag } || !int.TryParse(tag, out var page)) return;
 
             _settings.GamesPerPage = page;
             await _settings.SaveAsync();
@@ -1094,7 +1094,7 @@ public partial class MainWindow : Window
         {
             if (sender is not MenuItem item) return;
 
-            _settings.DisplayMachineName = item.IsChecked == true;
+            _settings.DisplayMachineName = item.IsChecked;
             await _settings.SaveAsync();
             UpdateFilenameCheckMarks();
             _viewModel.ReloadGames();
@@ -1162,14 +1162,45 @@ public partial class MainWindow : Window
 
     // ── Windows pending port (toast until Phase 4.1) ──
 
-    private void EditLinks_Click(object? sender, RoutedEventArgs e) => ShowComingSoon("Edit Links");
-    private void SetGamepadDeadZone_Click(object? sender, RoutedEventArgs e) => ShowComingSoon("Gamepad Dead Zone");
-    private void SetFuzzyMatchingThreshold_Click(object? sender, RoutedEventArgs e) => ShowComingSoon("Fuzzy Matching Threshold");
-    private void SoundConfiguration_Click(object? sender, RoutedEventArgs e) => ShowComingSoon("Sound Configuration");
-    private void DownloadImagePack_Click(object? sender, RoutedEventArgs e) => ShowComingSoon("Download Image Pack");
-    private void GlobalStats_Click(object? sender, RoutedEventArgs e) => ShowComingSoon("Global Stats");
-    private void About_Click(object? sender, RoutedEventArgs e) => ShowComingSoon("About");
-    private void Support_Click(object? sender, RoutedEventArgs e) => ShowComingSoon("Support");
+    private void EditLinks_Click(object? sender, RoutedEventArgs e)
+    {
+        ShowComingSoon("Edit Links");
+    }
+
+    private void SetGamepadDeadZone_Click(object? sender, RoutedEventArgs e)
+    {
+        ShowComingSoon("Gamepad Dead Zone");
+    }
+
+    private void SetFuzzyMatchingThreshold_Click(object? sender, RoutedEventArgs e)
+    {
+        ShowComingSoon("Fuzzy Matching Threshold");
+    }
+
+    private void SoundConfiguration_Click(object? sender, RoutedEventArgs e)
+    {
+        ShowComingSoon("Sound Configuration");
+    }
+
+    private void DownloadImagePack_Click(object? sender, RoutedEventArgs e)
+    {
+        ShowComingSoon("Download Image Pack");
+    }
+
+    private void GlobalStats_Click(object? sender, RoutedEventArgs e)
+    {
+        ShowComingSoon("Global Stats");
+    }
+
+    private void About_Click(object? sender, RoutedEventArgs e)
+    {
+        ShowComingSoon("About");
+    }
+
+    private void Support_Click(object? sender, RoutedEventArgs e)
+    {
+        ShowComingSoon("Support");
+    }
 
     // ── Gamepad / fuzzy / overlay toggles ──
 
@@ -1179,10 +1210,10 @@ public partial class MainWindow : Window
         {
             if (sender is not MenuItem item) return;
 
-            _settings.EnableGamePadNavigation = item.IsChecked == true;
+            _settings.EnableGamePadNavigation = item.IsChecked;
             await _settings.SaveAsync();
             _playSound.PlayNotificationSound();
-            ShowToast("Gamepad Support", item.IsChecked == true ? "Enabled" : "Disabled");
+            ShowToast("Gamepad Support", item.IsChecked ? "Enabled" : "Disabled");
         }
         catch (Exception ex)
         {
@@ -1196,7 +1227,7 @@ public partial class MainWindow : Window
         {
             if (sender is not MenuItem item) return;
 
-            _settings.EnableFuzzyMatching = item.IsChecked == true;
+            _settings.EnableFuzzyMatching = item.IsChecked;
             await _settings.SaveAsync();
             _viewModel.ReloadGames();
             _playSound.PlayNotificationSound();
@@ -1213,7 +1244,7 @@ public partial class MainWindow : Window
         {
             if (sender is not MenuItem item) return;
 
-            _settings.EnableAnnotationStripping = item.IsChecked == true;
+            _settings.EnableAnnotationStripping = item.IsChecked;
             await _settings.SaveAsync();
             _viewModel.ReloadGames();
             _playSound.PlayNotificationSound();
@@ -1230,13 +1261,19 @@ public partial class MainWindow : Window
         {
             if (sender is not MenuItem item) return;
 
-            var isChecked = item.IsChecked == true;
+            var isChecked = item.IsChecked;
             if (ReferenceEquals(item, RetroAchievementButton))
+            {
                 _settings.OverlayRetroAchievementButton = isChecked;
+            }
             else if (ReferenceEquals(item, VideoLinkButton))
+            {
                 _settings.OverlayOpenVideoButton = isChecked;
+            }
             else
+            {
                 _settings.OverlayOpenInfoButton = isChecked;
+            }
 
             await _settings.SaveAsync();
             _playSound.PlayNotificationSound();

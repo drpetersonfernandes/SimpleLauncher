@@ -31,6 +31,7 @@ public class SystemArtRatioService
             _ => 0.0 // no override → per-system ratio
         };
     }
+
     private static readonly Dictionary<string, double> BoxRatios = new(StringComparer.OrdinalIgnoreCase)
     {
         // Atari
