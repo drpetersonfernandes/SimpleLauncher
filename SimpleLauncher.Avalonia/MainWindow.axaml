@@ -38,10 +38,182 @@
         </DataTemplate>
     </Window.Resources>
 
-    <Grid RowDefinitions="44,*,24">
+    <Grid RowDefinitions="32,44,*,24">
 
-        <!-- ═══ TOOLBAR (Row 0) ═══ -->
-        <Border Grid.Row="0" Background="{DynamicResource BgTertiaryBrush}"
+        <!-- ═══ MENU BAR (Row 0) ═══ -->
+        <Menu Grid.Row="0"
+              Background="{DynamicResource BgSecondaryBrush}"
+              BorderBrush="{DynamicResource BgTertiaryBrush}"
+              BorderThickness="0,0,0,1"
+              FontFamily="{DynamicResource PrimaryFont}"
+              FontSize="13"
+              Foreground="{DynamicResource TextPrimaryBrush}">
+
+            <!-- ── OPTIONS ── -->
+            <MenuItem Header="Options">
+                <MenuItem x:Name="LanguageMenu" Header="Language">
+                    <MenuItem x:Name="LanguageEnglish" GroupName="LanguageGroup" Header="English" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
+                    <MenuItem x:Name="LanguageSpanish" GroupName="LanguageGroup" Header="Español" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
+                    <MenuItem x:Name="LanguageFrench" GroupName="LanguageGroup" Header="Français" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
+                    <MenuItem x:Name="LanguagePortugueseBr" GroupName="LanguageGroup" Header="Português" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
+                </MenuItem>
+                <Separator />
+                <MenuItem x:Name="SizeMenu" Header="Set Button Size">
+                    <MenuItem Header="50 px" Tag="50" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="100 px" Tag="100" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="150 px" Tag="150" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="200 px" Tag="200" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="250 px" Tag="250" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="300 px" Tag="300" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="350 px" Tag="350" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="400 px" Tag="400" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="450 px" Tag="450" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="500 px" Tag="500" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="550 px" Tag="550" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="600 px" Tag="600" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="650 px" Tag="650" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="700 px" Tag="700" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="750 px" Tag="750" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="800 px" Tag="800" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                </MenuItem>
+                <MenuItem x:Name="AspectRatioMenu" Header="Set Button Aspect Ratio">
+                    <MenuItem x:Name="Square" GroupName="AspectRatioGroup" Header="Square" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="Wider" GroupName="AspectRatioGroup" Header="Wider" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="SuperWider" GroupName="AspectRatioGroup" Header="Super Wider" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="SuperWider2" GroupName="AspectRatioGroup" Header="Super Wider 2" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="Taller" GroupName="AspectRatioGroup" Header="Taller" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="SuperTaller" GroupName="AspectRatioGroup" Header="Super Taller" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="SuperTaller2" GroupName="AspectRatioGroup" Header="Super Taller 2" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
+                </MenuItem>
+                <MenuItem x:Name="GamesPerPageMenu" Header="Set Number of Games Per Page">
+                    <MenuItem Header="100 games" Tag="100" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="200 games" Tag="200" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="300 games" Tag="300" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="400 games" Tag="400" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="500 games" Tag="500" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="1000 games" Tag="1000" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="10000 games" Tag="10000" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="1000000 games" Tag="1000000" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="View Mode">
+                    <MenuItem x:Name="GridView" GroupName="ViewModeGroup" Header="Grid View" Click="ChangeViewMode_Click" ToggleType="CheckBox" />
+                    <MenuItem x:Name="ListView" GroupName="ViewModeGroup" Header="List View" Click="ChangeViewMode_Click" ToggleType="CheckBox" />
+                </MenuItem>
+                <MenuItem Header="Show Games">
+                    <MenuItem x:Name="ShowAll" GroupName="ShowGamesGroup" Header="Show All Games" Click="ShowGamesClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="ShowWithCover" GroupName="ShowGamesGroup" Header="Show Only Games With Cover" Click="ShowGamesClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="ShowWithoutCover" GroupName="ShowGamesGroup" Header="Show Only Games Without Cover" Click="ShowGamesClickAsync" ToggleType="CheckBox" />
+                </MenuItem>
+                <MenuItem Header="Filename Preferences">
+                    <MenuItem x:Name="FilenameDisplayOriginal" GroupName="FilenameGroup" Header="Display Original Filenames" Click="FilenameDisplayMode_ClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="FilenameDisplayCleanUp" GroupName="FilenameGroup" Header="Display Clean Up Filenames" Click="FilenameDisplayMode_ClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="FilenameDisplayNoFilename" GroupName="FilenameGroup" Header="Display No Filename" Click="FilenameDisplayMode_ClickAsync" ToggleType="CheckBox" />
+                    <Separator />
+                    <MenuItem x:Name="DisplayMachineNameToggle" Header="Display Machine Name" Click="DisplayMachineName_ClickAsync" ToggleType="CheckBox" />
+                    <Separator />
+                    <MenuItem x:Name="FilenameFontSizeMenu" Header="Filename Font Size">
+                        <MenuItem x:Name="FilenameFontSizeSmall" GroupName="FilenameFontGroup" Header="Small" Click="FilenameFontSize_ClickAsync" ToggleType="CheckBox" />
+                        <MenuItem x:Name="FilenameFontSizeNormal" GroupName="FilenameFontGroup" Header="Normal" Click="FilenameFontSize_ClickAsync" ToggleType="CheckBox" />
+                        <MenuItem x:Name="FilenameFontSizeBig" GroupName="FilenameFontGroup" Header="Big" Click="FilenameFontSize_ClickAsync" ToggleType="CheckBox" />
+                    </MenuItem>
+                    <MenuItem x:Name="MachineNameFontSizeMenu" Header="Machine Name Font Size">
+                        <MenuItem x:Name="MachineNameFontSizeSmall" GroupName="MachineNameFontGroup" Header="Small" Click="MachineNameFontSize_ClickAsync" ToggleType="CheckBox" />
+                        <MenuItem x:Name="MachineNameFontSizeNormal" GroupName="MachineNameFontGroup" Header="Normal" Click="MachineNameFontSize_ClickAsync" ToggleType="CheckBox" />
+                        <MenuItem x:Name="MachineNameFontSizeBig" GroupName="MachineNameFontGroup" Header="Big" Click="MachineNameFontSize_ClickAsync" ToggleType="CheckBox" />
+                    </MenuItem>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Edit Links" Click="EditLinks_Click" />
+                <MenuItem Header="Gamepad Support">
+                    <MenuItem x:Name="ToggleGamepad" Header="Enable" Click="ToggleGamepad_Click" ToggleType="CheckBox" />
+                    <MenuItem Header="Set Gamepad Dead Zone" Click="SetGamepadDeadZone_Click" />
+                </MenuItem>
+                <MenuItem Header="Fuzzy Image Matching">
+                    <MenuItem x:Name="ToggleFuzzyMatching" Header="Enable" Click="ToggleFuzzyMatchingClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="ToggleAnnotationStripping" Header="Strip Annotations" Click="ToggleAnnotationStrippingClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="Set Threshold" Click="SetFuzzyMatchingThreshold_Click" />
+                </MenuItem>
+                <MenuItem Header="Sound Configuration" Click="SoundConfiguration_Click" />
+                <MenuItem Header="RetroAchievements Settings">
+                    <MenuItem Header="RetroAchievements Settings" Click="RetroAchievementsSettings_Click" />
+                    <Separator />
+                    <MenuItem Header="Calculate Hashes For All Game Paths" Click="CalculateHashesForAllGamePaths_Click" />
+                </MenuItem>
+                <MenuItem Header="Inject Emulator Config">
+                    <MenuItem Header="Ares Settings" Tag="Ares" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="Azahar Settings" Tag="Azahar" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="Blastem Settings" Tag="Blastem" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="Cemu Settings" Tag="Cemu" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="Daphne Settings" Tag="Daphne" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="Dolphin Settings" Tag="Dolphin" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="DuckStation Settings" Tag="DuckStation" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="Flycast Settings" Tag="Flycast" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="Mame Settings" Tag="Mame" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="Mednafen Settings" Tag="Mednafen" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="Mesen Settings" Tag="Mesen" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="PCSX2 Settings" Tag="PCSX2" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="Raine Settings" Tag="Raine" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="Redream Settings" Tag="Redream" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="RetroArch Settings" Tag="RetroArch" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="RPCS3 Settings" Tag="RPCS3" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="SEGA Model 2 Settings" Tag="SegaModel2" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="Stella Settings" Tag="Stella" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="Supermodel Settings" Tag="Supermodel" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="Xenia Settings" Tag="Xenia" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem Header="Yumir Settings" Tag="Yumir" Click="ShowEmulatorConfig_Click" />
+                </MenuItem>
+                <MenuItem Header="Overlay Button Settings">
+                    <MenuItem x:Name="RetroAchievementButton" Header="RetroAchievement Overlay Button" Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="VideoLinkButton" Header="Video Link Overlay Button" Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="InfoLinkButton" Header="Info Link Overlay Button" Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox" />
+                </MenuItem>
+            </MenuItem>
+
+            <!-- ── EDIT SYSTEM ── -->
+            <MenuItem Header="Edit System">
+                <MenuItem Header="Add New System" Click="EasyMode_Click" />
+                <MenuItem Header="Edit System" Click="ExpertMode_Click" />
+                <MenuItem Header="Download Image Pack" Click="DownloadImagePack_Click" />
+                <MenuItem Header="Scan For Microsoft Windows Games" Click="ScanForMicrosoftWindowsGames_ClickAsync" />
+            </MenuItem>
+
+            <!-- ── SELECT WINDOW ── -->
+            <MenuItem Header="Select Window">
+                <MenuItem Header="Global Stats" Click="GlobalStats_Click" />
+                <MenuItem Header="RetroAchievements" Click="RetroAchievements_Click" />
+            </MenuItem>
+
+            <!-- ── TOOLS ── -->
+            <MenuItem Header="Tools">
+                <MenuItem Header="Batch Convert Iso To Xiso" Tag="BatchConvertIsoToXiso" Click="LaunchTool_Click" />
+                <MenuItem Header="Batch Convert To CHD" Tag="BatchConvertToCHD" Click="LaunchTool_Click" />
+                <MenuItem Header="Batch Convert To Compressed File" Tag="BatchConvertToCompressedFile" Click="LaunchTool_Click" />
+                <MenuItem Header="Batch Convert To RVZ" Tag="BatchConvertToRVZ" Click="LaunchTool_Click" />
+                <MenuItem Header="Create Batch Files For PS3 Games" Tag="CreateBatchFilesForPS3Games" Click="LaunchTool_Click" />
+                <MenuItem Header="Create Batch Files For ScummVM Games" Tag="CreateBatchFilesForScummVMGames" Click="LaunchTool_Click" />
+                <MenuItem Header="Create Batch Files For Windows Games" Tag="CreateBatchFilesForWindowsGames" Click="LaunchTool_Click" />
+                <MenuItem Header="Create Batch Files For Xbox360 XBLA Games" Tag="CreateBatchFilesForXbox360XBLAGames" Click="LaunchTool_Click" />
+                <MenuItem Header="Find Rom Cover" Tag="FindRomCover" Click="LaunchTool_Click" />
+                <MenuItem Header="Retro Game Cover Downloader" Tag="RetroGameCoverDownloader" Click="LaunchTool_Click" />
+                <MenuItem Header="Rom Validator" Tag="RomValidator" Click="LaunchTool_Click" />
+            </MenuItem>
+
+            <!-- ── DONATE ── -->
+            <MenuItem Header="Donate" Click="Donate_Click" />
+
+            <!-- ── ABOUT ── -->
+            <MenuItem Header="About">
+                <MenuItem Header="About" Click="About_Click" />
+                <MenuItem Header="Support" Click="Support_Click" />
+                <MenuItem Header="Open App Data Path" Click="OpenAppDataPath_Click" />
+                <Separator />
+                <MenuItem Header="Exit" Click="Exit_Click" />
+            </MenuItem>
+        </Menu>
+
+        <!-- ═══ TOOLBAR (Row 1) ═══ -->
+        <Border Grid.Row="1" Background="{DynamicResource BgTertiaryBrush}"
                 BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,0,0,1">
             <Grid Margin="8,0" ColumnDefinitions="Auto,Auto,*,Auto">
 
@@ -69,7 +241,7 @@
                     <TextBlock Text="◉" Foreground="{DynamicResource TextMutedBrush}"
                                FontSize="10" VerticalAlignment="Center" />
                     <Slider x:Name="CardSizeSlider"
-                            Width="80" Minimum="148" Maximum="280"
+                            Width="80" Minimum="50" Maximum="800"
                             Value="{Binding CardWidth}"
                             Margin="6,0" VerticalAlignment="Center" />
                     <TextBlock Text="○" Foreground="{DynamicResource TextMutedBrush}"
@@ -114,8 +286,8 @@
             </Grid>
         </Border>
 
-        <!-- ═══ BODY (Row 1): Sidebar + Content ═══ -->
-        <Grid Grid.Row="1">
+        <!-- ═══ BODY (Row 2): Sidebar + Content ═══ -->
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220" MinWidth="180" MaxWidth="350" />
                 <ColumnDefinition Width="Auto" />
@@ -432,7 +604,7 @@
                                             <TextBlock Text="{Binding DisplayTitle, Converter={StaticResource SmartTitleCase}}"
                                                        Foreground="{DynamicResource TextPrimaryBrush}"
                                                        FontFamily="{DynamicResource PrimaryFont}"
-                                                       FontSize="13"
+                                                       FontSize="{Binding DataContext.CaptionFontSize, RelativeSource={RelativeSource AncestorType=ListBox}, FallbackValue=13}"
                                                        MaxHeight="32"
                                                        TextTrimming="CharacterEllipsis"
                                                        ToolTip.Tip="{Binding DisplayTitle}" />
@@ -549,8 +721,8 @@
             </Border>
         </Grid>
 
-        <!-- ═══ STATUS BAR (Row 2) ═══ -->
-        <Border Grid.Row="2" Background="{DynamicResource BgSecondaryBrush}"
+        <!-- ═══ STATUS BAR (Row 3) ═══ -->
+        <Border Grid.Row="3" Background="{DynamicResource BgSecondaryBrush}"
                 BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,1,0,0">
             <Grid Margin="10,0">
                 <TextBlock x:Name="StatusLeft"

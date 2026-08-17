@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text.Json;
 using Avalonia;
 using Avalonia.Controls;
@@ -8,14 +9,19 @@ using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Avalonia.Converters;
 using SimpleLauncher.Avalonia.InjectConfigWindows;
+using SimpleLauncher.Avalonia.Services;
+using SimpleLauncher.Avalonia.Services.GameScan;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.ExternalToolLauncher;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.RetroAchievements;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Avalonia;
 
@@ -27,6 +33,11 @@ public partial class MainWindow : Window
 {
     private readonly MainViewModel _viewModel;
     private readonly Services.SystemManager.SystemManagerService _systemManagerService;
+    private readonly SettingsManagerService _settings;
+    private readonly LocalizationService _localization;
+    private readonly ExternalToolLauncherService _externalToolLauncher;
+    private readonly PlaySoundEffects _playSound;
+    private readonly StorefrontGameScanner _storefrontScanner;
 
     // Bounds persistence (separate file from the WPF app)
     private static readonly string BoundsFilePath = Path.Combine(
@@ -35,10 +46,20 @@ public partial class MainWindow : Window
     public MainWindow(
         MainViewModel viewModel,
         Services.SystemArtRatioService ratioService,
-        Services.SystemManager.SystemManagerService systemManagerService)
+        Services.SystemManager.SystemManagerService systemManagerService,
+        SettingsManagerService settings,
+        LocalizationService localization,
+        ExternalToolLauncherService externalToolLauncher,
+        PlaySoundEffects playSound,
+        StorefrontGameScanner storefrontScanner)
     {
         _viewModel = viewModel;
         _systemManagerService = systemManagerService;
+        _settings = settings;
+        _localization = localization;
+        _externalToolLauncher = externalToolLauncher;
+        _playSound = playSound;
+        _storefrontScanner = storefrontScanner;
         DataContext = _viewModel;
 
         // Initialize converter with ratio service
@@ -90,6 +111,9 @@ public partial class MainWindow : Window
                 }
             }, token);
         };
+
+        // Set initial check marks from the saved settings (settings.xml)
+        UpdateMenuCheckMarks();
     }
 
     /// <summary>
@@ -778,6 +802,789 @@ public partial class MainWindow : Window
                 _showToast("RetroAchievements", message);
             }
         }
+    }
+
+    #endregion
+
+    #region Menu Bar
+
+    /// <summary>
+    /// Initializes check marks on all menu items from the saved settings (settings.xml).
+    /// Called once after the window is constructed.
+    /// </summary>
+    private void UpdateMenuCheckMarks()
+    {
+        // Language
+        UpdateLanguageCheckMarks(_settings.Language);
+
+        // Button size
+        UpdateThumbnailSizeCheckMarks(_settings.ThumbnailSize);
+
+        // Aspect ratio
+        UpdateButtonAspectRatioCheckMarks(_settings.ButtonAspectRatio);
+
+        // Games per page
+        UpdateGamesPerPageCheckMarks(_settings.GamesPerPage);
+
+        // View mode
+        UpdateViewModeCheckMarks();
+
+        // Show games
+        UpdateShowGamesCheckMarks(_settings.ShowGames);
+
+        // Filename preferences
+        UpdateFilenameCheckMarks();
+
+        // Gamepad / fuzzy / annotation
+        ToggleGamepad.IsChecked = _settings.EnableGamePadNavigation;
+        ToggleFuzzyMatching.IsChecked = _settings.EnableFuzzyMatching;
+        ToggleAnnotationStripping.IsChecked = _settings.EnableAnnotationStripping;
+
+        // Overlay buttons
+        RetroAchievementButton.IsChecked = _settings.OverlayRetroAchievementButton;
+        VideoLinkButton.IsChecked = _settings.OverlayOpenVideoButton;
+        InfoLinkButton.IsChecked = _settings.OverlayOpenInfoButton;
+    }
+
+    private void UpdateLanguageCheckMarks(string lang)
+    {
+        LanguageEnglish.IsChecked = string.Equals(lang, "en", StringComparison.OrdinalIgnoreCase);
+        LanguageSpanish.IsChecked = string.Equals(lang, "es", StringComparison.OrdinalIgnoreCase);
+        LanguageFrench.IsChecked = string.Equals(lang, "fr", StringComparison.OrdinalIgnoreCase);
+        LanguagePortugueseBr.IsChecked = string.Equals(lang, "pt-BR", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private void UpdateThumbnailSizeCheckMarks(int size)
+    {
+        foreach (var item in SizeMenu.Items.OfType<MenuItem>())
+        {
+            item.IsChecked = item.Tag is string tag && int.TryParse(tag, out var tagSize) && tagSize == size;
+        }
+    }
+
+    private void UpdateButtonAspectRatioCheckMarks(string? ratio)
+    {
+        foreach (var item in AspectRatioMenu.Items.OfType<MenuItem>())
+        {
+            item.IsChecked = string.Equals(item.Name, ratio, StringComparison.Ordinal);
+        }
+    }
+
+    private void UpdateGamesPerPageCheckMarks(int page)
+    {
+        foreach (var item in GamesPerPageMenu.Items.OfType<MenuItem>())
+        {
+            item.IsChecked = item.Tag is string tag && int.TryParse(tag, out var tagPage) && tagPage == page;
+        }
+    }
+
+    private void UpdateViewModeCheckMarks()
+    {
+        var grid = _viewModel.IsGridView;
+        GridView.IsChecked = grid;
+        ListView.IsChecked = !grid;
+    }
+
+    private void UpdateShowGamesCheckMarks(string? mode)
+    {
+        ShowAll.IsChecked = string.Equals(mode, "ShowAll", StringComparison.Ordinal);
+        ShowWithCover.IsChecked = string.Equals(mode, "ShowWithCover", StringComparison.Ordinal);
+        ShowWithoutCover.IsChecked = string.Equals(mode, "ShowWithoutCover", StringComparison.Ordinal);
+    }
+
+    private void UpdateFilenameCheckMarks()
+    {
+        var mode = _settings.FilenameDisplayMode;
+        FilenameDisplayOriginal.IsChecked = string.Equals(mode, "Original", StringComparison.Ordinal);
+        FilenameDisplayCleanUp.IsChecked = string.Equals(mode, "CleanUp", StringComparison.Ordinal);
+        FilenameDisplayNoFilename.IsChecked = string.Equals(mode, "NoFilename", StringComparison.Ordinal);
+        DisplayMachineNameToggle.IsChecked = _settings.DisplayMachineName;
+
+        UpdateFontSizeCheckMarks(FilenameFontSizeMenu, FilenameFontSizeSmall, FilenameFontSizeNormal, FilenameFontSizeBig, _settings.FilenameFontSize);
+        UpdateFontSizeCheckMarks(MachineNameFontSizeMenu, MachineNameFontSizeSmall, MachineNameFontSizeNormal, MachineNameFontSizeBig, _settings.MachineNameFontSize);
+    }
+
+    private static void UpdateFontSizeCheckMarks(MenuItem menu, MenuItem small, MenuItem normal, MenuItem big, string? value)
+    {
+        _ = menu; // container passed for symmetry with the other check-mark helpers
+        small.IsChecked = string.Equals(value, "Small", StringComparison.Ordinal);
+        normal.IsChecked = string.Equals(value, "Normal", StringComparison.Ordinal);
+        big.IsChecked = string.Equals(value, "Big", StringComparison.Ordinal);
+    }
+
+    /// <summary>
+    /// Shows a toast for features whose window has not been ported to Avalonia yet.
+    /// </summary>
+    private void ShowComingSoon(string feature)
+    {
+        _playSound.PlayNotificationSound();
+        ShowToast(feature, "This feature is coming soon in the Avalonia port.");
+    }
+
+    // ── Language ──
+
+    private async void ChangeLanguage_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem item) return;
+
+            var lang = item.Name switch
+            {
+                "LanguageSpanish" => "es",
+                "LanguageFrench" => "fr",
+                "LanguagePortugueseBr" => "pt-BR",
+                _ => "en"
+            };
+
+            _settings.Language = lang;
+            await _settings.SaveAsync();
+            _localization.LoadLanguage(lang);
+            UpdateLanguageCheckMarks(lang);
+            _playSound.PlayNotificationSound();
+            ShowToast("Language", $"Language set to {lang}. Restart the app to apply it everywhere.");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method ChangeLanguage_Click");
+        }
+    }
+
+    // ── Button size ──
+
+    private async void ButtonSizeClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem { Tag: string tag } item || !int.TryParse(tag, out var size)) return;
+
+            _settings.ThumbnailSize = size;
+            await _settings.SaveAsync();
+            _viewModel.CardWidth = size;
+            UpdateThumbnailSizeCheckMarks(size);
+            _playSound.PlayNotificationSound();
+            ShowToast("Button Size", $"{size} px");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method ButtonSizeClickAsync");
+        }
+    }
+
+    // ── Button aspect ratio ──
+
+    private async void ButtonAspectRatioClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem item) return;
+
+            var ratio = item.Name ?? "Square";
+            _settings.ButtonAspectRatio = ratio;
+            await _settings.SaveAsync();
+            UpdateButtonAspectRatioCheckMarks(ratio);
+            _viewModel.ReloadGames();
+            _playSound.PlayNotificationSound();
+            ShowToast("Button Aspect Ratio", ratio);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method ButtonAspectRatioClickAsync");
+        }
+    }
+
+    // ── Games per page ──
+
+    private async void GamesPerPageClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem { Tag: string tag } item || !int.TryParse(tag, out var page)) return;
+
+            _settings.GamesPerPage = page;
+            await _settings.SaveAsync();
+            UpdateGamesPerPageCheckMarks(page);
+            _playSound.PlayNotificationSound();
+            ShowToast("Games Per Page", $"Preference saved: {page} games per page.");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method GamesPerPageClickAsync");
+        }
+    }
+
+    // ── View mode ──
+
+    private void ChangeViewMode_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem item) return;
+
+            _viewModel.IsGridView = item.Name == "GridView";
+            GridViewToggle.IsChecked = _viewModel.IsGridView;
+            ListViewToggle.IsChecked = !_viewModel.IsGridView;
+            _settings.ViewMode = _viewModel.IsGridView ? "GridView" : "ListView";
+            _ = _settings.SaveAsync();
+            UpdateViewModeCheckMarks();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method ChangeViewMode_Click");
+        }
+    }
+
+    // ── Show games filter ──
+
+    private async void ShowGamesClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem item) return;
+
+            var mode = item.Name switch
+            {
+                "ShowWithCover" => "ShowWithCover",
+                "ShowWithoutCover" => "ShowWithoutCover",
+                _ => "ShowAll"
+            };
+
+            _settings.ShowGames = mode;
+            await _settings.SaveAsync();
+            UpdateShowGamesCheckMarks(mode);
+            _viewModel.ReloadGames();
+            _playSound.PlayNotificationSound();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method ShowGamesClickAsync");
+        }
+    }
+
+    // ── Filename preferences ──
+
+    private async void FilenameDisplayMode_ClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem item) return;
+
+            var mode = item.Name switch
+            {
+                "FilenameDisplayCleanUp" => "CleanUp",
+                "FilenameDisplayNoFilename" => "NoFilename",
+                _ => "Original"
+            };
+
+            _settings.FilenameDisplayMode = mode;
+            await _settings.SaveAsync();
+            UpdateFilenameCheckMarks();
+            _viewModel.ReloadGames();
+            _playSound.PlayNotificationSound();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method FilenameDisplayMode_ClickAsync");
+        }
+    }
+
+    private async void DisplayMachineName_ClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem item) return;
+
+            _settings.DisplayMachineName = item.IsChecked == true;
+            await _settings.SaveAsync();
+            UpdateFilenameCheckMarks();
+            _viewModel.ReloadGames();
+            _playSound.PlayNotificationSound();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method DisplayMachineName_ClickAsync");
+        }
+    }
+
+    private async void FilenameFontSize_ClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem item) return;
+
+            var size = item.Name switch
+            {
+                "FilenameFontSizeSmall" => "Small",
+                "FilenameFontSizeBig" => "Big",
+                _ => "Normal"
+            };
+
+            _settings.FilenameFontSize = size;
+            await _settings.SaveAsync();
+            _viewModel.CaptionFontSize = size switch
+            {
+                "Small" => 11,
+                "Big" => 16,
+                _ => 13
+            };
+            UpdateFilenameCheckMarks();
+            _playSound.PlayNotificationSound();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method FilenameFontSize_ClickAsync");
+        }
+    }
+
+    private async void MachineNameFontSize_ClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem item) return;
+
+            var size = item.Name switch
+            {
+                "MachineNameFontSizeSmall" => "Small",
+                "MachineNameFontSizeBig" => "Big",
+                _ => "Normal"
+            };
+
+            _settings.MachineNameFontSize = size;
+            await _settings.SaveAsync();
+            UpdateFilenameCheckMarks();
+            _playSound.PlayNotificationSound();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method MachineNameFontSize_ClickAsync");
+        }
+    }
+
+    // ── Windows pending port (toast until Phase 4.1) ──
+
+    private void EditLinks_Click(object? sender, RoutedEventArgs e) => ShowComingSoon("Edit Links");
+    private void SetGamepadDeadZone_Click(object? sender, RoutedEventArgs e) => ShowComingSoon("Gamepad Dead Zone");
+    private void SetFuzzyMatchingThreshold_Click(object? sender, RoutedEventArgs e) => ShowComingSoon("Fuzzy Matching Threshold");
+    private void SoundConfiguration_Click(object? sender, RoutedEventArgs e) => ShowComingSoon("Sound Configuration");
+    private void DownloadImagePack_Click(object? sender, RoutedEventArgs e) => ShowComingSoon("Download Image Pack");
+    private void GlobalStats_Click(object? sender, RoutedEventArgs e) => ShowComingSoon("Global Stats");
+    private void About_Click(object? sender, RoutedEventArgs e) => ShowComingSoon("About");
+    private void Support_Click(object? sender, RoutedEventArgs e) => ShowComingSoon("Support");
+
+    // ── Gamepad / fuzzy / overlay toggles ──
+
+    private async void ToggleGamepad_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem item) return;
+
+            _settings.EnableGamePadNavigation = item.IsChecked == true;
+            await _settings.SaveAsync();
+            _playSound.PlayNotificationSound();
+            ShowToast("Gamepad Support", item.IsChecked == true ? "Enabled" : "Disabled");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method ToggleGamepad_Click");
+        }
+    }
+
+    private async void ToggleFuzzyMatchingClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem item) return;
+
+            _settings.EnableFuzzyMatching = item.IsChecked == true;
+            await _settings.SaveAsync();
+            _viewModel.ReloadGames();
+            _playSound.PlayNotificationSound();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method ToggleFuzzyMatchingClickAsync");
+        }
+    }
+
+    private async void ToggleAnnotationStrippingClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem item) return;
+
+            _settings.EnableAnnotationStripping = item.IsChecked == true;
+            await _settings.SaveAsync();
+            _viewModel.ReloadGames();
+            _playSound.PlayNotificationSound();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method ToggleAnnotationStrippingClickAsync");
+        }
+    }
+
+    private async void ToggleOverlayButton_ClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem item) return;
+
+            var isChecked = item.IsChecked == true;
+            if (ReferenceEquals(item, RetroAchievementButton))
+                _settings.OverlayRetroAchievementButton = isChecked;
+            else if (ReferenceEquals(item, VideoLinkButton))
+                _settings.OverlayOpenVideoButton = isChecked;
+            else
+                _settings.OverlayOpenInfoButton = isChecked;
+
+            await _settings.SaveAsync();
+            _playSound.PlayNotificationSound();
+            var header = item.Header?.ToString() ?? "Overlay button";
+            ShowToast("Overlay Button", $"{header} {(isChecked ? "enabled" : "disabled")}");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method ToggleOverlayButton_ClickAsync");
+        }
+    }
+
+    // ── Edit System ──
+
+    private void EasyMode_Click(object? sender, RoutedEventArgs e)
+    {
+        AddSystem_Click(sender, e);
+    }
+
+    private void ExpertMode_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var factory = App.ServiceProvider.GetRequiredService<Func<string?, EditSystemWindow>>();
+            var editWindow = factory(null);
+            editWindow.ShowDialog(this);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method ExpertMode_Click");
+        }
+    }
+
+    private async void ScanForMicrosoftWindowsGames_ClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            _viewModel.IsLoading = true;
+            _viewModel.StatusText = "Scanning for Windows games...";
+            var games = await _storefrontScanner.ScanAllAsync();
+            _viewModel.StatusText = $"Found {games.Count} PC games on your system";
+            ShowToast("Scan Complete", games.Count == 0
+                ? "No PC games were found on this system."
+                : $"Found {games.Count} PC games. Creating a system entry comes in a future update.");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method ScanForMicrosoftWindowsGames_ClickAsync");
+            _viewModel.StatusText = "Error scanning for Windows games";
+        }
+        finally
+        {
+            _viewModel.IsLoading = false;
+        }
+    }
+
+    // ── RetroAchievements ──
+
+    private void RetroAchievementsSettings_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var settingsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsSettingsWindow>();
+            settingsWindow.ShowDialog(this);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method RetroAchievementsSettings_Click");
+        }
+    }
+
+    private async void CalculateHashesForAllGamePaths_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var sp = App.ServiceProvider;
+            var hasher = sp.GetRequiredService<IRetroAchievementsHasherTool>();
+            var logger = sp.GetRequiredService<ILogger>();
+            var messageBox = sp.GetRequiredService<IMessageBoxLibraryService>();
+
+            var games = _viewModel.GetAllGamesForHashing();
+            if (games.Count == 0)
+            {
+                ShowToast("RetroAchievements", "No games found to hash.");
+                return;
+            }
+
+            var loading = new ToastLoadingState((title, message) => ShowToast(title, message));
+            var successCount = 0;
+
+            _viewModel.IsLoading = true;
+            try
+            {
+                foreach (var game in games)
+                {
+                    var system = _systemManagerService.GetSystem(game.SystemName);
+                    var formats = system?.FileFormatsToLaunch ?? new List<string>();
+
+                    try
+                    {
+                        var result = await hasher.GetGameHashForRetroAchievementsAsync(
+                            game.FilePath, game.SystemName, formats, loading, logger);
+                        if (!string.IsNullOrEmpty(result.Hash))
+                        {
+                            successCount++;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Debug(ex, "Failed to hash {Path} for RetroAchievements", game.FilePath);
+                    }
+                }
+
+                ShowToast("RetroAchievements", $"Hashed {successCount} of {games.Count} games.");
+            }
+            finally
+            {
+                _viewModel.IsLoading = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method CalculateHashesForAllGamePaths_Click");
+        }
+    }
+
+    // ── Inject Emulator Config (21 emulators) ──
+
+    private void ShowEmulatorConfig_Click(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not MenuItem { Tag: string emulatorName }) return;
+
+        try
+        {
+            switch (emulatorName)
+            {
+                case "Ares":
+                    OpenInjectWindow<InjectAresConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "Azahar":
+                    OpenInjectWindow<InjectAzaharConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "Blastem":
+                    OpenInjectWindow<InjectBlastemConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "Cemu":
+                    OpenInjectWindow<InjectCemuConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "Daphne":
+                    OpenInjectWindow<InjectDaphneConfigWindow>(w => w.Initialize(false));
+                    break;
+                case "Dolphin":
+                    OpenInjectWindow<InjectDolphinConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "DuckStation":
+                    OpenInjectWindow<InjectDuckStationConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "Flycast":
+                    OpenInjectWindow<InjectFlycastConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "Mame":
+                    OpenInjectWindow<InjectMameConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "Mednafen":
+                    OpenInjectWindow<InjectMednafenConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "Mesen":
+                    OpenInjectWindow<InjectMesenConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "PCSX2":
+                    OpenInjectWindow<InjectPcsx2ConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "Raine":
+                    OpenInjectWindow<InjectRaineConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "Redream":
+                    OpenInjectWindow<InjectRedreamConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "RetroArch":
+                    OpenInjectWindow<InjectRetroArchConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "RPCS3":
+                    OpenInjectWindow<InjectRpcs3ConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "SegaModel2":
+                    OpenInjectWindow<InjectSegaModel2ConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "Stella":
+                    OpenInjectWindow<InjectStellaConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "Supermodel":
+                    OpenInjectWindow<InjectSupermodelConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "Xenia":
+                    OpenInjectWindow<InjectXeniaConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                case "Yumir":
+                    OpenInjectWindow<InjectYumirConfigWindow>(w => w.Initialize(null, false));
+                    break;
+                default:
+                    Log.Warning("Unknown emulator for config injection: {Emulator}", emulatorName);
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to open {Emulator} config window", emulatorName);
+        }
+    }
+
+    // ── Tools (external executables) ──
+
+    private async void LaunchTool_Click(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not MenuItem { Tag: string tool }) return;
+
+        try
+        {
+            _viewModel.StatusText = $"Launching tool: {tool}...";
+            _playSound.PlayNotificationSound();
+
+            var romFolder = GetSelectedRomFolder();
+            var imageFolder = GetSelectedImageFolder();
+
+            switch (tool)
+            {
+                case "BatchConvertIsoToXiso":
+                    await _externalToolLauncher.BatchConvertIsoToXisoAsync();
+                    break;
+                case "BatchConvertToCHD":
+                    await _externalToolLauncher.BatchConvertToChdAsync(romFolder);
+                    break;
+                case "BatchConvertToCompressedFile":
+                    await _externalToolLauncher.BatchConvertToCompressedFileAsync();
+                    break;
+                case "BatchConvertToRVZ":
+                    await _externalToolLauncher.BatchConvertToRvzAsync();
+                    break;
+                case "CreateBatchFilesForPS3Games":
+                    await _externalToolLauncher.CreateBatchFilesForPs3GamesAsync();
+                    break;
+                case "CreateBatchFilesForScummVMGames":
+                    await _externalToolLauncher.CreateBatchFilesForScummVmGamesAsync();
+                    break;
+                case "CreateBatchFilesForWindowsGames":
+                    await _externalToolLauncher.CreateBatchFilesForWindowsGamesAsync();
+                    break;
+                case "CreateBatchFilesForXbox360XBLAGames":
+                    await _externalToolLauncher.CreateBatchFilesForXbox360XblaGamesAsync();
+                    break;
+                case "FindRomCover":
+                    await _externalToolLauncher.FindRomCoverLaunchAsync(imageFolder, romFolder);
+                    break;
+                case "RetroGameCoverDownloader":
+                    await _externalToolLauncher.RetroGameCoverDownloaderAsync(imageFolder, romFolder);
+                    break;
+                case "RomValidator":
+                    await _externalToolLauncher.RomValidatorAsync();
+                    break;
+                default:
+                    Log.Warning("Unknown tool menu item: {Tool}", tool);
+                    break;
+            }
+
+            _viewModel.StatusText = "Ready";
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error launching tool {Tool}", tool);
+            _viewModel.StatusText = "Error launching tool";
+        }
+    }
+
+    /// <summary>
+    /// Resolves the first ROM folder of the currently selected system (null when none).
+    /// </summary>
+    private string? GetSelectedRomFolder()
+    {
+        try
+        {
+            var system = _systemManagerService.GetSystem(_viewModel.SelectedSystem);
+            var folder = system?.SystemFolders.FirstOrDefault();
+            return folder is null ? null : Core.Services.CheckPaths.PathHelper.ResolveRelativeToAppDirectory(folder);
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "Failed to resolve selected ROM folder");
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Resolves the image folder of the currently selected system (null when none).
+    /// </summary>
+    private string? GetSelectedImageFolder()
+    {
+        try
+        {
+            var system = _systemManagerService.GetSystem(_viewModel.SelectedSystem);
+            var folder = system?.SystemImageFolder;
+            return string.IsNullOrEmpty(folder) ? null : Core.Services.CheckPaths.PathHelper.ResolveRelativeToAppDirectory(folder);
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "Failed to resolve selected image folder");
+            return null;
+        }
+    }
+
+    // ── Donate / AppData / Exit ──
+
+    private void Donate_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var configuration = App.ServiceProvider.GetRequiredService<IConfiguration>();
+            var url = configuration.GetValue<string>("Urls:DonationPage") ?? "https://www.purelogiccode.com/Donate/";
+            Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Unable to open the donation link from the menu.");
+        }
+    }
+
+    private void OpenAppDataPath_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var appDataPath = Core.Services.AppDataPaths.SimpleLauncherDataFolder;
+            if (string.IsNullOrEmpty(appDataPath) || !Directory.Exists(appDataPath))
+            {
+                Log.Debug("AppData path does not exist: {Path}", appDataPath);
+                return;
+            }
+
+            Process.Start(new ProcessStartInfo { FileName = appDataPath, UseShellExecute = true });
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method OpenAppDataPath_Click");
+        }
+    }
+
+    private void Exit_Click(object? sender, RoutedEventArgs e)
+    {
+        _playSound.PlayNotificationSound();
+        Close();
     }
 
     #endregion

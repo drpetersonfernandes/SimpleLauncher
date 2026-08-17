@@ -1,3 +1,5 @@
+using SimpleLauncher.Core.Services.SettingsManager;
+
 namespace SimpleLauncher.Avalonia.Services;
 
 /// <summary>
@@ -6,6 +8,29 @@ namespace SimpleLauncher.Avalonia.Services;
 /// </summary>
 public class SystemArtRatioService
 {
+    private readonly SettingsManagerService _settings;
+
+    public SystemArtRatioService(SettingsManagerService settings)
+    {
+        _settings = settings;
+    }
+
+    // Aspect ratio (height/width) applied globally, mirroring the WPF app's
+    // "Set Button Aspect Ratio" menu (GameButtonFactory ratio table).
+    private static double GetAspectRatioOverride(string? aspectRatio)
+    {
+        return aspectRatio switch
+        {
+            "Wider" => 1.0 / 1.5,
+            "SuperWider" => 1.0 / 2.0,
+            "SuperWider2" => 1.0 / 2.5,
+            "Taller" => 1.3,
+            "SuperTaller" => 1.6,
+            "SuperTaller2" => 1.9,
+            "Square" => 1.0 / 1.1,
+            _ => 0.0 // no override → per-system ratio
+        };
+    }
     private static readonly Dictionary<string, double> BoxRatios = new(StringComparer.OrdinalIgnoreCase)
     {
         // Atari
@@ -130,7 +155,11 @@ public class SystemArtRatioService
     /// </summary>
     public double GetArtHeight(double cardWidth, string systemName, bool isMixedView = false)
     {
-        var ratio = isMixedView ? 0.73 : GetRatio(systemName); // uniform ratio for mixed view
+        // The "Set Button Aspect Ratio" setting drives card sizing globally
+        // (same as the WPF GameButtonFactory). Unknown values fall back to the
+        // per-system art ratio for the current view.
+        var overrideRatio = GetAspectRatioOverride(_settings.ButtonAspectRatio);
+        var ratio = overrideRatio > 0.0 ? overrideRatio : (isMixedView ? 0.73 : GetRatio(systemName));
         return cardWidth * ratio;
     }
 }

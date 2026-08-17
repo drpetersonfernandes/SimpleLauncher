@@ -26,6 +26,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     private readonly MinimalLauncherService _launcher;
     private readonly IFindCoverImageService _findCoverImage;
     private readonly Stats _stats;
+    private readonly SettingsManagerService _settings;
 
     private CancellationTokenSource? _searchCts;
     private HashSet<string> _favoritePaths;
@@ -54,6 +55,11 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     [ObservableProperty] private bool _isLoading;
 
     [ObservableProperty] private string _loadingMessage = "Loading…";
+
+    /// <summary>
+    /// Font size for the game title caption on cards (from the Filename Font Size setting).
+    /// </summary>
+    [ObservableProperty] private double _captionFontSize = 13;
 
     /// <summary>
     /// ILoadingState implementation for the launcher: shows the overlay and updates
@@ -95,19 +101,45 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         _launcher = launcher;
         _findCoverImage = findCoverImage;
         _stats = stats;
+        _settings = settings;
 
         _favoritePaths = _favoritesManager.GetFavoritePaths();
         _allSystems = _systemManager.LoadSystems();
 
         // Apply the saved preferences (settings.xml): default view mode and card size
         IsGridView = !string.Equals(settings.ViewMode, "ListView", StringComparison.OrdinalIgnoreCase);
-        if (settings.ThumbnailSize is >= 148 and <= 280)
+        if (settings.ThumbnailSize is >= 50 and <= 800)
         {
             CardWidth = settings.ThumbnailSize;
         }
 
+        CaptionFontSize = settings.FilenameFontSize switch
+        {
+            "Small" => 11,
+            "Big" => 16,
+            _ => 13
+        };
+
         // NOTE: game loading is deferred to InitializeAsync() (called after the window
         // loads) so this constructor never blocks the UI thread scanning large ROM collections.
+    }
+
+    /// <summary>
+    /// Reloads the current game list, reapplying the Show Games filter, filename
+    /// display mode, and card sizing (called after menu-driven setting changes).
+    /// </summary>
+    public void ReloadGames()
+    {
+        LoadAllGames();
+    }
+
+    /// <summary>
+    /// Returns every game across all configured systems without applying any
+    /// visibility filter (used by "Calculate Hashes For All Game Paths").
+    /// </summary>
+    public List<GameCardViewModel> GetAllGamesForHashing()
+    {
+        return ScanGames(_systemManager.LoadSystems());
     }
 
     /// <summary>
@@ -446,7 +478,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
 
                 games.Add(new GameCardViewModel
                 {
-                    DisplayTitle = Path.GetFileNameWithoutExtension(file),
+                    DisplayTitle = GetDisplayTitle(file),
                     FilePath = file,
                     SystemName = system.SystemName,
                     CoverPath = coverPath,
@@ -459,6 +491,34 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         }
 
         return games;
+    }
+
+    /// <summary>
+    /// Applies the Filename Preferences setting (Original / CleanUp / NoFilename)
+    /// to a game file path, mirroring the WPF game button titles.
+    /// </summary>
+    private string GetDisplayTitle(string filePath)
+    {
+        var name = Path.GetFileNameWithoutExtension(filePath) ?? filePath;
+
+        return _settings.FilenameDisplayMode switch
+        {
+            "CleanUp" => CleanUpTitle(name),
+            "NoFilename" => "",
+            _ => name
+        };
+    }
+
+    /// <summary>
+    /// Cleans a filename for display: strips bracketed/parenthesized annotations
+    /// (e.g. "[USA]", "(Rev 1)"), replaces separators with spaces, collapses whitespace.
+    /// </summary>
+    private static string CleanUpTitle(string name)
+    {
+        var cleaned = System.Text.RegularExpressions.Regex.Replace(name, @"\s*[\[\(][^\]\)]*[\]\)]", "");
+        cleaned = cleaned.Replace('_', ' ').Replace('.', ' ');
+        cleaned = System.Text.RegularExpressions.Regex.Replace(cleaned, @"\s+", " ").Trim();
+        return cleaned;
     }
 
     /// <summary>
@@ -580,6 +640,13 @@ public partial class MainViewModel : ObservableObject, ILoadingState
                 game.PlayCount = history.TimesPlayed;
                 game.LastPlayed = history.LastPlayDate;
             }
+        }
+
+        // Show Games filter (settings.xml): all / with cover / without cover
+        var showGamesMode = _settings.ShowGames;
+        if (showGamesMode is not "ShowAll")
+        {
+            games.RemoveAll(g => showGamesMode == "ShowWithCover" ? !g.HasCover : g.HasCover);
         }
     }
 

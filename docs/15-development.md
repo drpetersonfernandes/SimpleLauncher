@@ -34,6 +34,24 @@ dotnet publish SimpleLauncher/SimpleLauncher.csproj -c Release -r win-arm64
 - Release zip naming for updates: `release_{version}_{rid}.zip` + `updater_{rid}.zip` (see [16 — Updater](16-updater.md)).
 - A `publish-check\` folder with per-RID outputs is used locally to validate published payloads.
 
+### Publish the Avalonia app (multi-targeted)
+
+The Avalonia app targets both `net10.0` (Linux) and `net10.0-windows` (Windows), so the
+target framework **must** be specified when publishing:
+
+```bash
+dotnet publish SimpleLauncher.Avalonia/SimpleLauncher.Avalonia.csproj -c Release -f net10.0-windows -r win-x64
+dotnet publish SimpleLauncher.Avalonia/SimpleLauncher.Avalonia.csproj -c Release -f net10.0-windows -r win-arm64
+dotnet publish SimpleLauncher.Avalonia/SimpleLauncher.Avalonia.csproj -c Release -f net10.0 -r linux-x64
+dotnet publish SimpleLauncher.Avalonia/SimpleLauncher.Avalonia.csproj -c Release -f net10.0 -r linux-arm64
+```
+
+- The `net10.0` TFM is **Linux-only** (audio uses libsndfile/`SoundFileReader`). Publishing it
+  with a Windows RID (`-f net10.0 -r win-x64`) is rejected by a build guard: the `WINDOWS`
+  symbol would not be defined, so `PlaySoundEffects` would take the Linux path and crash on
+  Windows (`DllNotFoundException: libsndfile`, no Windows native binary is shipped).
+- The Windows publish uses Media Foundation + WaveOut, so `libsndfile` is not needed there.
+
 ## Versioning
 
 Version `5.6.0` must stay in sync across:
