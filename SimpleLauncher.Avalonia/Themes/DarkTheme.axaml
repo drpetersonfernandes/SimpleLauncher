@@ -116,9 +116,18 @@
         <!-- ═══════════════════════════════════════════════════════════
              CORNER RADII
              ═══════════════════════════════════════════════════════════ -->
-        <CornerRadius x:Key="ButtonCornerRadius">6</CornerRadius>
-        <CornerRadius x:Key="CardCornerRadius">8</CornerRadius>
-        <CornerRadius x:Key="PillCornerRadius">14</CornerRadius>
+        <CornerRadius x:Key="ButtonCornerRadius">0</CornerRadius>
+        <CornerRadius x:Key="CardCornerRadius">0</CornerRadius>
+        <CornerRadius x:Key="PillCornerRadius">0</CornerRadius>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             FLUENT FLAT OVERRIDES — mimic the original WPF (MahApps) UI
+             Fluent's control templates bind these resources for their
+             corners; overriding them here makes every standard control
+             flat/squared like the original launcher (fully flat, radius 0).
+             ═══════════════════════════════════════════════════════════ -->
+        <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
+        <CornerRadius x:Key="OverlayCornerRadius">0</CornerRadius>
 
     </Styles.Resources>
 
@@ -254,7 +263,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="4"
+                        CornerRadius="0"
                         Padding="{TemplateBinding Padding}">
                     <ContentPresenter Content="{TemplateBinding Content}"
                                       ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -369,6 +378,104 @@
     </Style>
     <Style Selector="ToggleButton.section-header:pointerover">
         <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+    </Style>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         GLOBAL CONTROL STYLES — MahApps-flat look over Fluent.
+         Class styles (.primary/.secondary/.toolbar-toggle/...) and
+         local window styles have higher specificity and win over
+         these; these only restyle plain/unclassed controls.
+         ═══════════════════════════════════════════════════════════ -->
+
+    <!-- ── BUTTON (flat industrial; accent via Button.primary) ── -->
+    <Style Selector="Button">
+        <Setter Property="Background" Value="{DynamicResource BgTertiaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderNormalBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="12,6" />
+        <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="Button:pointerover">
+        <Setter Property="Background" Value="{DynamicResource BgQuaternaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource TextSecondaryBrush}" />
+    </Style>
+    <Style Selector="Button:pressed">
+        <Setter Property="Background" Value="{DynamicResource BgSecondaryBrush}" />
+    </Style>
+    <Style Selector="Button:disabled">
+        <Setter Property="Opacity" Value="0.5" />
+    </Style>
+
+    <!-- ── TEXTBOX (flat, subtle border) ── -->
+    <Style Selector="TextBox">
+        <Setter Property="Background" Value="{DynamicResource BgTertiaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderNormalBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="8,6" />
+        <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="CaretBrush" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="SelectionBrush" Value="{DynamicResource SelectionBackgroundBrush}" />
+    </Style>
+
+    <!-- ── COMBOBOX (flat) ── -->
+    <Style Selector="ComboBox">
+        <Setter Property="Background" Value="{DynamicResource BgTertiaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderNormalBrush}" />
+        <Setter Property="Padding" Value="10,6" />
+        <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}" />
+        <Setter Property="FontSize" Value="13" />
+    </Style>
+
+    <!-- ── MENU BAR + MENU ITEMS (dark, flat) ── -->
+    <Style Selector="Menu">
+        <Setter Property="Background" Value="{DynamicResource BgSecondaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}" />
+        <Setter Property="FontSize" Value="13" />
+    </Style>
+    <Style Selector="MenuItem">
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Padding" Value="10,5" />
+    </Style>
+
+    <!-- ── LISTBOX ITEM (flat selection) ── -->
+    <Style Selector="ListBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+        <Setter Property="Padding" Value="8,5" />
+        <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}" />
+        <Setter Property="FontSize" Value="13" />
+    </Style>
+    <Style Selector="ListBoxItem:pointerover">
+        <Setter Property="Background" Value="{DynamicResource BgTertiaryBrush}" />
+    </Style>
+    <Style Selector="ListBoxItem:selected">
+        <Setter Property="Background" Value="{DynamicResource BgQuaternaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+    </Style>
+
+    <!-- ── TOOLTIP (dark flat) ── -->
+    <Style Selector="ToolTip">
+        <Setter Property="Background" Value="{DynamicResource BgTertiaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderNormalBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <!-- ── WINDOW (consistent app background for every window) ── -->
+    <Style Selector="Window">
+        <Setter Property="Background" Value="{DynamicResource BgPrimaryBrush}" />
     </Style>
 
 </Styles>
