@@ -84,6 +84,9 @@
         <PackageReference Include="Avalonia.Desktop" Version="12.1.1" />
         <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.1" />
         <PackageReference Include="Avalonia.Controls.DataGrid" Version="12.1.2" />
+        <!-- Windows-only screenshot capture (net10.0-windows TFM only; the net10.0 Linux TFM
+             must not pull this in — System.Drawing.Common is Windows-only) -->
+        <PackageReference Include="System.Drawing.Common" Version="10.0.0" Condition="'$(TargetFramework)' == 'net10.0-windows'" />
     </ItemGroup>
 
     <ItemGroup>
@@ -134,6 +137,9 @@
     <!-- UI icons (root of images\; images\systems\*.png is linked above) -->
     <ItemGroup>
         <None Include="..\SimpleLauncher\images\*.png" Link="images\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="icon\icon.ico">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>

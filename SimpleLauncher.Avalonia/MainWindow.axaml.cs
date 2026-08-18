@@ -7,6 +7,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Microsoft.Extensions.Configuration;
@@ -79,6 +80,7 @@ public partial class MainWindow : Window
 
         // Initialize converter with ratio service
         ConsoleToCardHeightConverter.SetRatioService(ratioService);
+        BooleanToFavoriteStatusConverter.SetLocalizationService(localization);
 
         InitializeComponent();
 
@@ -348,6 +350,29 @@ public partial class MainWindow : Window
             _viewModel.PlayGameCommand.Execute(game);
     }
 
+    private void GameListItem_Click(object? sender, PointerPressedEventArgs e)
+    {
+        if (sender is Control { DataContext: GameCardViewModel game } item)
+        {
+            var properties = e.GetCurrentPoint(item).Properties;
+
+            if (properties.IsRightButtonPressed)
+            {
+                ShowGameContextMenu(game, item);
+                e.Handled = true; // prevent the popup from closing on the subsequent mouse-up
+            }
+            else
+            {
+                // Single left click: select the game (double-click is handled by the ListBox)
+                var listBoxItem = FindParent<ListBoxItem>(item);
+                if (listBoxItem is not null)
+                {
+                    listBoxItem.IsSelected = true;
+                }
+            }
+        }
+    }
+
     #endregion
 
     #region Keyboard Shortcuts
@@ -584,7 +609,81 @@ public partial class MainWindow : Window
         };
         contextMenu.Items.Add(copyItem);
 
+        var copyNameItem = new MenuItem { Header = "📝 Copy Name" };
+        copyNameItem.Click += async (_, _) =>
+        {
+            var fileName = Path.GetFileName(game.FilePath);
+            await CopyToClipboardAsync(fileName);
+            ShowToast("Copied", fileName);
+        };
+        contextMenu.Items.Add(copyNameItem);
+
+        contextMenu.Items.Add(new Separator());
+
+        var showInFolderItem = new MenuItem { Header = "📂 Show in Folder" };
+        showInFolderItem.Click += async (_, _) => await ShowGameInFolderAsync(game);
+        contextMenu.Items.Add(showInFolderItem);
+
+        var editSystemItem = new MenuItem { Header = "✏ Edit System" };
+        editSystemItem.Click += (_, _) => OpenEditSystemForGame(game);
+        contextMenu.Items.Add(editSystemItem);
+
         contextMenu.Open(placementTarget);
+    }
+
+    /// <summary>
+    /// Reveals the game's containing folder in the OS file manager.
+    /// Windows uses explorer's /select to highlight the file; other platforms open the folder.
+    /// </summary>
+    private async Task ShowGameInFolderAsync(GameCardViewModel game)
+    {
+        var directory = Path.GetDirectoryName(game.FilePath);
+        if (string.IsNullOrEmpty(directory) || !Directory.Exists(directory))
+        {
+            ShowToast("Show in Folder", "Folder not found.");
+            return;
+        }
+
+        try
+        {
+            if (OperatingSystem.IsWindows())
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "explorer.exe",
+                    Arguments = $"/select,\"{game.FilePath}\"",
+                    UseShellExecute = true
+                });
+            }
+            else if (TopLevel.GetTopLevel(this)?.Launcher is { } launcher)
+            {
+                await launcher.LaunchDirectoryInfoAsync(new DirectoryInfo(directory));
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "Failed to show game in folder: {Path}", game.FilePath);
+            ShowToast("Show in Folder", "Could not open the folder.");
+        }
+    }
+
+    /// <summary>
+    /// Opens the Edit System window (Expert Mode) pre-selected to the game's system.
+    /// </summary>
+    private void OpenEditSystemForGame(GameCardViewModel game)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(game.SystemName)) return;
+
+            var factory = App.ServiceProvider.GetRequiredService<Func<string?, EditSystemWindow>>();
+            var editWindow = factory(game.SystemName);
+            editWindow.ShowDialog(this);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method OpenEditSystemForGame");
+        }
     }
 
     private async Task CopyToClipboardAsync(string text)

@@ -7,12 +7,13 @@
 
 **Simple Launcher** is a WPF desktop application that organizes, browses, and launches a retro (and modern PC) game collection through emulators. It is a *frontend*: it does not ship ROMs, ISOs, or BIOS files, and you must provide your own emulators.
 
-Two code projects implement it:
+Three code projects implement it:
 
 | Project | Role |
 |---|---|
 | `SimpleLauncher` (WPF app) | The launcher itself: windows, pages, ViewModels, UI services, launch handlers, game scanners, DI composition root |
 | `SimpleLauncher.Core` (class library) | Platform-independent services, models, interfaces, data persistence, emulator config injection |
+| `SimpleLauncher.Avalonia` (Avalonia UI app) | Cross-platform port (Windows + Linux) reusing all of Core; port status tracked in [`AvaloniaPlan.md`](../AvaloniaPlan.md) |
 
 ## Key differentiators
 
@@ -44,7 +45,7 @@ Two code projects implement it:
 
 ## Version & license
 
-- Current version: **5.6.1** (`SimpleLauncher.csproj` is canonical; `SimpleLauncher.Core.csproj`, `app.manifest` and `SimpleLauncher.Updater\version.txt` are kept in sync and covered by `VersionConsistencyTests`). The Avalonia projects (`SimpleLauncher.Avalonia`, `SimpleLauncher.Avalonia.Updater`) remain on 5.6.0 while still in development.
+- Current version: **5.6.1** (`SimpleLauncher.csproj` is canonical; `SimpleLauncher.Core.csproj`, `app.manifest` and `SimpleLauncher.Updater\version.txt` are kept in sync and covered by `VersionConsistencyTests`). The Avalonia app (`SimpleLauncher.Avalonia`) is synced to the same version (5.6.1) while still in development.
 - The `SimpleLauncher.Updater\version.txt` file mirrors the current release (e.g. `release5.6.1`) and is what the secondary server publishes.
 - Framework: **.NET 10** (`net10.0-windows`), **C# 14**, nullable reference types enabled.
 - License: **GPLv3** (`LICENSE.txt`).

@@ -198,6 +198,19 @@ Simple Launcher is translated into **18 languages**:
 
 ---
 
+## 🪟 Avalonia Cross-Platform Port
+
+An **Avalonia-based cross-platform port** (`SimpleLauncher.Avalonia`) is being developed alongside the WPF app. It reuses all business logic, models, data access, and emulator config handling from `SimpleLauncher.Core`:
+
+- **Platforms:** Windows (x64/ARM64) and Linux (x64/ARM64) — dual-target `net10.0` (Linux) + `net10.0-windows` (Windows)
+- **Port status:** menu bar with full options (language, button size, aspect ratio, view mode, filename preferences, RetroAchievements, inject emulator config for all 21 emulators, tools, donate, about), per-game context menus (launch, favorites, details, RetroAchievements, copy path/name, show in folder, edit system), 15 utility windows, Favorites / Play History / Global Search pages, RetroAchievements UI, tray icon with native menu, F8 global screenshot hotkey (Windows), single dark theme, JSON localization (4 languages)
+- **Quality:** 0 warnings / 0 errors on Debug + Release for both target frameworks; 111 tests passing
+- **Still in progress:** the built-in updater flow, Linux CHD mounting, packaging, remaining test coverage (Phase 8 of the port plan)
+
+Development status and the step-by-step plan are tracked in [`AvaloniaPlan.md`](AvaloniaPlan.md).
+
+---
+
 ## 🤝 Contributing & Support
 
 * **Bug Reports:** Use the built-in **Support Window** to send detailed error reports directly to the developers.

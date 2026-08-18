@@ -51,16 +51,20 @@ dotnet publish SimpleLauncher.Avalonia/SimpleLauncher.Avalonia.csproj -c Release
   symbol would not be defined, so `PlaySoundEffects` would take the Linux path and crash on
   Windows (`DllNotFoundException: libsndfile`, no Windows native binary is shipped).
 - The Windows publish uses Media Foundation + WaveOut, so `libsndfile` is not needed there.
+- Windows-only features (F8 global hotkey, active-window screenshot) are compiled with
+  `#if WINDOWS` (defined only on the `net10.0-windows` TFM) and pull `System.Drawing.Common`
+  as a package reference conditional on that TFM; the tray icon is cross-platform.
 
 ## Versioning
 
-Version `5.6.0` must stay in sync across:
+Version `5.6.1` must stay in sync across:
 
 - `SimpleLauncher\SimpleLauncher.csproj` (`AssemblyVersion`, `FileVersion`, `Version`)
 - `SimpleLauncher.Core\SimpleLauncher.Core.csproj` (same three)
 - `SimpleLauncher.Tests\SimpleLauncher.Tests.csproj`
 - `SimpleLauncher\app.manifest` (`assemblyIdentity version`)
-- `SimpleLauncher.Updater\version.txt` (`release5.6.0`)
+- `SimpleLauncher.Updater\version.txt` (`release5.6.1`)
+- `SimpleLauncher.Avalonia\SimpleLauncher.Avalonia.csproj` (same three, matching the WPF app)
 
 `VersionConsistencyTests` enforces this in CI/local runs. Bump all of them together.
 

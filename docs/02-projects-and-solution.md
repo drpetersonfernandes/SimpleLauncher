@@ -11,7 +11,7 @@
 | `SimpleLauncher.Core` | Class library | **Shared logic** — services, models, interfaces, persistence, emulator config injection |
 | `SimpleLauncher.Tests` | xUnit test project | 150 test files; references `SimpleLauncher` (and transitively Core) |
 | `SimpleLauncher.Updater` | Console app | Self-update helper (`Updater.exe`) — downloads release zip, swaps files, relaunches app |
-| `SimpleLauncher.Avalonia` | Avalonia UI app | In-progress cross-platform port (secondary/experimental) |
+| `SimpleLauncher.Avalonia` | Avalonia UI app | Cross-platform port (Windows + Linux); phases 1–7 of [`AvaloniaPlan.md`](../AvaloniaPlan.md) done |
 | `SimpleLauncher.ResourceTranslator` | Tool | Assists translating `resources\strings.*.xaml` files |
 | `Tools\Mame.DatCreator` | WPF tool | Builds `mame.dat` (MessagePack) from MAME `-listxml` + software lists |
 | `Tools\RetroAchievements.DataFetcher` | CLI tool | Fetches the RA game database into `RetroAchievements.dat` |
@@ -74,6 +74,15 @@ Key properties: `net10.0-windows`, `IsPackable=true`, `Nullable` enabled, `LangV
 - **`InternalsVisibleTo`:** `SimpleLauncher.Tests`, `SimpleLauncher`, `SimpleLauncher.New`, `SimpleLauncher.Avalonia`, `SimpleLauncher.New.Tests`.
 - **Global usings:** `System.IO`, `System.Net.Http`, `Serilog` — so every Core service takes a Serilog `ILogger` by convention.
 - Packages: the same core set as the app (CommunityToolkit.Mvvm, MessagePack, Microsoft.Extensions.*, SharpCompress, NAudio, SharpDX*, Serilog, Tomlyn, YamlDotNet, SourceGear.sqlite3, Meziantou.Analyzer) — no WPF/MahApps (it targets `net10.0-windows` because of DPAPI `ProtectedData`, `System.Drawing`-adjacent helpers, and Windows-specific services, but stays UI-agnostic). RetroAchievements hashing is **not** a package: all hash computation is delegated to the bundled `tools\RetroAchievementsSharp\` CLI binaries (see [09 — RetroAchievements](09-retroachievements.md#hashing)).
+
+## `SimpleLauncher.Avalonia\SimpleLauncher.Avalonia.csproj` (the cross-platform port)
+
+Key properties: `net10.0` + `net10.0-windows` (dual target — the `net10.0` TFM is Linux-only and rejects Windows RIDs via a build guard), `Avalonia 12.1.1`, `UseWindowsForms=False`, version synced to the WPF app (5.6.1), `StartupObject = SimpleLauncher.Avalonia.Program`.
+
+- **Reuses `SimpleLauncher.Core`** for all business logic (launch, scanning, persistence, emulator config injection, RA).
+- **Windows-only services** (`#if WINDOWS`, `net10.0-windows`): F8 global hotkey (`AvaloniaGlobalHotkeyService`), active-window screenshot (`AvaloniaActiveWindowScreenshotService` + `WindowScreenshot` Win32 helpers, `System.Drawing.Common` package conditional on the windows TFM).
+- **Cross-platform services**: `AvaloniaTrayIconManager` (Avalonia `TrayIcon` + `NativeMenu`; `icon\icon.ico` copied to output), `AvaloniaFilePickerService`, `AvaloniaDispatcherService`, JSON localization (`Resources\strings.*.json`, 4 languages).
+- Port status and remaining work: [`AvaloniaPlan.md`](../AvaloniaPlan.md) and [`TODO.md`](../TODO.md).
 
 ## Folder structure of the app project
 

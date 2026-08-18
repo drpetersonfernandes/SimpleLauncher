@@ -19,6 +19,7 @@
         <converters:PathToImageConverter x:Key="PathToImage" />
         <converters:SmartTitleCaseConverter x:Key="SmartTitleCase" />
         <converters:ConsoleToCardHeightConverter x:Key="CardHeightConverter" />
+        <converters:BooleanToFavoriteStatusConverter x:Key="FavoriteStatusConverter" />
 
         <!-- Sidebar system item: icon (or glyph fallback) + name + live count badge -->
         <DataTemplate x:Key="SidebarSystemItemTemplate" DataType="{x:Type vm:SidebarSystemItem}">
@@ -590,8 +591,9 @@
                                                         VerticalAlignment="Top"
                                                         Padding="4">
                                                     <TextBlock Text="♥"
-                                                               Foreground="{DynamicResource FavoriteHeartBrush}"
-                                                               FontSize="14" />
+                                                           Foreground="{DynamicResource FavoriteHeartBrush}"
+                                                           FontSize="14"
+                                                           AutomationProperties.Name="{Binding IsFavorite, Converter={StaticResource FavoriteStatusConverter}}" />
                                                 </Border>
 
                                                 <!-- RA trophy badge -->
@@ -663,7 +665,8 @@
                                  DoubleTapped="GameListView_DoubleClick">
                             <ListBox.ItemTemplate>
                                 <DataTemplate DataType="{x:Type vm:GameCardViewModel}">
-                                    <Grid ColumnDefinitions="250,120,100,*" Margin="10,4">
+                                    <Grid ColumnDefinitions="250,120,100,*" Margin="10,4"
+                                          Cursor="Hand" PointerPressed="GameListItem_Click">
                                         <TextBlock Text="{Binding DisplayTitle, Converter={StaticResource SmartTitleCase}}"
                                                    TextTrimming="CharacterEllipsis"
                                                    Foreground="{DynamicResource TextPrimaryBrush}" />

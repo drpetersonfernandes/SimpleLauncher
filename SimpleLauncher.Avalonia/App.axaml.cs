@@ -17,6 +17,7 @@ using SimpleLauncher.Avalonia.InjectConfigWindows;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Avalonia.Services.RetroAchievements;
 using SimpleLauncher.Avalonia.Services.SystemManager;
+using SimpleLauncher.Avalonia.Services.TrayIcon;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services;
@@ -40,6 +41,9 @@ using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Core.Services.SystemConfiguration;
 using SimpleLauncher.Core.Services.UsageStats;
 using SimpleLauncher.Core.Services.WpfServices;
+#if WINDOWS
+using SimpleLauncher.Avalonia.Services.TakeScreenshot;
+#endif
 
 namespace SimpleLauncher.Avalonia;
 
@@ -201,6 +205,42 @@ public class App : Application, IDisposable
             var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
             lifetime.MainWindow = mainWindow;
             mainWindow.Show();
+
+            // F8 global hotkey → active window screenshot (Windows-only)
+#if WINDOWS
+            try
+            {
+                var hotkeyService = ServiceProvider.GetRequiredService<AvaloniaGlobalHotkeyService>();
+                var screenshotService = ServiceProvider.GetRequiredService<AvaloniaActiveWindowScreenshotService>();
+                hotkeyService.F8Pressed += async () =>
+                {
+                    try
+                    {
+                        await screenshotService.CaptureActiveWindowAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, "Error in the F8 screenshot handler.");
+                    }
+                };
+                hotkeyService.Initialize();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error initializing the F8 global hotkey. The screenshot functionality is turned off.");
+            }
+#endif
+
+            // Tray icon (cross-platform)
+            try
+            {
+                var trayManager = ServiceProvider.GetRequiredService<AvaloniaTrayIconManager>();
+                trayManager.Initialize(mainWindow);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error initializing the tray icon. The application will continue without it.");
+            }
         }
 
         base.OnFrameworkInitializationCompleted();
@@ -536,6 +576,16 @@ public class App : Application, IDisposable
         services.AddTransient<FlashOverlayWindow>();
         services.AddTransient<WindowSelectionDialogViewModel>();
         services.AddTransient<WindowSelectionDialogWindow>();
+
+        // ── Phase 7: cross-platform + Windows-only services ──
+        // Tray icon: cross-platform (Avalonia TrayIcon supports Windows and Linux)
+        services.AddSingleton<AvaloniaTrayIconManager>();
+#if WINDOWS
+        // F8 global hotkey + active-window screenshot: Windows-only (net10.0-windows TFM)
+        WindowScreenshot.Initialize(Log.Logger);
+        services.AddSingleton<AvaloniaGlobalHotkeyService>();
+        services.AddSingleton<AvaloniaActiveWindowScreenshotService>();
+#endif
     }
 
     /// <summary>
@@ -629,10 +679,19 @@ public class App : Application, IDisposable
     #region IDisposable
 
     /// <summary>
-    /// Cleans up the single-instance mutex and event handle.
+    /// Cleans up the single-instance mutex and event handle, and disposes the tray icon.
     /// </summary>
     public void Dispose()
     {
+        try
+        {
+            ServiceProvider?.GetService<AvaloniaTrayIconManager>()?.Dispose();
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "Error disposing the tray icon manager.");
+        }
+
         _singleInstanceMutex?.Dispose();
         _instanceSignal?.Dispose();
         GC.SuppressFinalize(this);
