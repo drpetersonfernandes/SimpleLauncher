@@ -1408,7 +1408,6 @@ public partial class MainWindow : Window
             var sp = App.ServiceProvider;
             var hasher = sp.GetRequiredService<IRetroAchievementsHasherTool>();
             var logger = sp.GetRequiredService<ILogger>();
-            var messageBox = sp.GetRequiredService<IMessageBoxLibraryService>();
 
             var games = _viewModel.GetAllGamesForHashing();
             if (games.Count == 0)
@@ -1544,62 +1543,72 @@ public partial class MainWindow : Window
 
     private async void LaunchTool_Click(object? sender, RoutedEventArgs e)
     {
-        if (sender is not MenuItem { Tag: string tool }) return;
-
+        string tool = "";
         try
         {
-            _viewModel.StatusText = $"Launching tool: {tool}...";
-            _playSound.PlayNotificationSound();
+            if (sender is not MenuItem { Tag: string toolTag }) return;
 
-            var romFolder = GetSelectedRomFolder();
-            var imageFolder = GetSelectedImageFolder();
+            tool = toolTag;
 
-            switch (tool)
+            try
             {
-                case "BatchConvertIsoToXiso":
-                    await _externalToolLauncher.BatchConvertIsoToXisoAsync();
-                    break;
-                case "BatchConvertToCHD":
-                    await _externalToolLauncher.BatchConvertToChdAsync(romFolder);
-                    break;
-                case "BatchConvertToCompressedFile":
-                    await _externalToolLauncher.BatchConvertToCompressedFileAsync();
-                    break;
-                case "BatchConvertToRVZ":
-                    await _externalToolLauncher.BatchConvertToRvzAsync();
-                    break;
-                case "CreateBatchFilesForPS3Games":
-                    await _externalToolLauncher.CreateBatchFilesForPs3GamesAsync();
-                    break;
-                case "CreateBatchFilesForScummVMGames":
-                    await _externalToolLauncher.CreateBatchFilesForScummVmGamesAsync();
-                    break;
-                case "CreateBatchFilesForWindowsGames":
-                    await _externalToolLauncher.CreateBatchFilesForWindowsGamesAsync();
-                    break;
-                case "CreateBatchFilesForXbox360XBLAGames":
-                    await _externalToolLauncher.CreateBatchFilesForXbox360XblaGamesAsync();
-                    break;
-                case "FindRomCover":
-                    await _externalToolLauncher.FindRomCoverLaunchAsync(imageFolder, romFolder);
-                    break;
-                case "RetroGameCoverDownloader":
-                    await _externalToolLauncher.RetroGameCoverDownloaderAsync(imageFolder, romFolder);
-                    break;
-                case "RomValidator":
-                    await _externalToolLauncher.RomValidatorAsync();
-                    break;
-                default:
-                    Log.Warning("Unknown tool menu item: {Tool}", tool);
-                    break;
-            }
+                _viewModel.StatusText = $"Launching tool: {tool}...";
+                _playSound.PlayNotificationSound();
 
-            _viewModel.StatusText = "Ready";
+                var romFolder = GetSelectedRomFolder();
+                var imageFolder = GetSelectedImageFolder();
+
+                switch (tool)
+                {
+                    case "BatchConvertIsoToXiso":
+                        await _externalToolLauncher.BatchConvertIsoToXisoAsync();
+                        break;
+                    case "BatchConvertToCHD":
+                        await _externalToolLauncher.BatchConvertToChdAsync(romFolder);
+                        break;
+                    case "BatchConvertToCompressedFile":
+                        await _externalToolLauncher.BatchConvertToCompressedFileAsync();
+                        break;
+                    case "BatchConvertToRVZ":
+                        await _externalToolLauncher.BatchConvertToRvzAsync();
+                        break;
+                    case "CreateBatchFilesForPS3Games":
+                        await _externalToolLauncher.CreateBatchFilesForPs3GamesAsync();
+                        break;
+                    case "CreateBatchFilesForScummVMGames":
+                        await _externalToolLauncher.CreateBatchFilesForScummVmGamesAsync();
+                        break;
+                    case "CreateBatchFilesForWindowsGames":
+                        await _externalToolLauncher.CreateBatchFilesForWindowsGamesAsync();
+                        break;
+                    case "CreateBatchFilesForXbox360XBLAGames":
+                        await _externalToolLauncher.CreateBatchFilesForXbox360XblaGamesAsync();
+                        break;
+                    case "FindRomCover":
+                        await _externalToolLauncher.FindRomCoverLaunchAsync(imageFolder, romFolder);
+                        break;
+                    case "RetroGameCoverDownloader":
+                        await _externalToolLauncher.RetroGameCoverDownloaderAsync(imageFolder, romFolder);
+                        break;
+                    case "RomValidator":
+                        await _externalToolLauncher.RomValidatorAsync();
+                        break;
+                    default:
+                        Log.Warning("Unknown tool menu item: {Tool}", tool);
+                        break;
+                }
+
+                _viewModel.StatusText = "Ready";
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error launching tool {Tool}", tool);
+                _viewModel.StatusText = "Error launching tool";
+            }
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Error launching tool {Tool}", tool);
-            _viewModel.StatusText = "Error launching tool";
+            Log.Error(ex, "Unexpected error in LaunchTool_Click for tool {Tool}", tool);
         }
     }
 

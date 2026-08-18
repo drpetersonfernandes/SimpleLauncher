@@ -10,16 +10,19 @@ namespace SimpleLauncher.Avalonia;
 public partial class GlobalStatsWindow : Window, IDisposable
 {
     private readonly GlobalStatsViewModel _viewModel;
+    private readonly ILogger _logger;
     private EventHandler? _closeRequestedHandler;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GlobalStatsWindow"/> class.
     /// </summary>
+    /// <param name="logErrors">The logger instance for error logging.</param>
     /// <param name="viewModel">The view model providing global statistics logic.</param>
-    public GlobalStatsWindow(GlobalStatsViewModel viewModel)
+    public GlobalStatsWindow(ILogger logErrors, GlobalStatsViewModel viewModel)
     {
         InitializeComponent();
 
+        _logger = logErrors;
         _viewModel = viewModel;
         _closeRequestedHandler = (_, _) => Close();
         _viewModel.CloseRequested += _closeRequestedHandler;
@@ -50,16 +53,23 @@ public partial class GlobalStatsWindow : Window, IDisposable
 
     private async void GlobalStatsWindow_Closing(object? sender, WindowClosingEventArgs e)
     {
-        // Processing is active - cancel the close and ask the user to confirm
-        if (_viewModel.IsProcessing)
+        try
         {
-            e.Cancel = true;
-
-            var allowClose = await _viewModel.RequestCloseAsync();
-            if (allowClose)
+            // Processing is active - cancel the close and ask the user to confirm
+            if (_viewModel.IsProcessing)
             {
-                Close();
+                e.Cancel = true;
+
+                var allowClose = await _viewModel.RequestCloseAsync();
+                if (allowClose)
+                {
+                    Close();
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error in method GlobalStatsWindow_Closing.");
         }
     }
 

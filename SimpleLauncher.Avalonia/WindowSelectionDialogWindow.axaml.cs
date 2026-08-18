@@ -1,5 +1,4 @@
 using Avalonia.Controls;
-using SimpleLauncher.Avalonia.ViewModels;
 using WindowSelectionDialogViewModel = SimpleLauncher.Avalonia.ViewModels.WindowSelectionDialogViewModel;
 
 namespace SimpleLauncher.Avalonia;

@@ -151,7 +151,7 @@ public partial class AvaloniaCheckForUpdatesService
             var rawVersion = versionMatch.Value;
             var latestVersion = NormalizeVersion(rawVersion);
             var releasePackageUrl = SecondaryServerBaseUrl + $"release_{rawVersion}_win-x64.zip";
-            var updaterZipAssetUrl = SecondaryServerBaseUrl + "updater_win-x64.zip";
+            const string updaterZipAssetUrl = SecondaryServerBaseUrl + "updater_win-x64.zip";
 
             _logger.Information("GitHub API unavailable. Using the secondary server: version {LatestVersion}.", latestVersion);
             return (latestVersion, releasePackageUrl, updaterZipAssetUrl, true);
@@ -169,7 +169,7 @@ public partial class AvaloniaCheckForUpdatesService
         {
             if (string.IsNullOrEmpty(currentVersion) || string.IsNullOrEmpty(latestVersion))
             {
-                _logger.Error(new ArgumentException(@"Current or latest version string is null or empty.", nameof(currentVersion)), "Invalid version string for comparison.");
+                _logger.Error(new ArgumentException("Current or latest version string is null or empty.", nameof(currentVersion)), "Invalid version string for comparison.");
                 return false;
             }
 
@@ -178,7 +178,7 @@ public partial class AvaloniaCheckForUpdatesService
 
             if (string.IsNullOrEmpty(currentNormalized) || string.IsNullOrEmpty(latestNormalized))
             {
-                _logger.Error(new ArgumentException(@"Normalized version string is null or empty after regex replace.", nameof(latestVersion)), "Invalid version string after normalization.");
+                _logger.Error(new ArgumentException("Normalized version string is null or empty after regex replace.", nameof(latestVersion)), "Invalid version string after normalization.");
                 return false;
             }
 

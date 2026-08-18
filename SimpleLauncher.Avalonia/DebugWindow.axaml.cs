@@ -63,7 +63,7 @@ public partial class DebugWindow : Window
                     {
                         Dispatcher.UIThread.Post(() =>
                         {
-                            if (debugWindow.IsLoaded && debugWindow.LogTextBox is { } textBox)
+                            if (debugWindow is { IsLoaded: true, LogTextBox: { } textBox })
                             {
                                 // Move the caret to the end so the view scrolls to the newest line
                                 textBox.CaretIndex = textBox.Text?.Length ?? 0;

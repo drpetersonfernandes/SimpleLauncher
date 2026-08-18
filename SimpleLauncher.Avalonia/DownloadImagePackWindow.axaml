@@ -67,7 +67,7 @@
                                     <Button Content="{Binding DisplayName}"
                                             Height="40"
                                             Margin="5"
-                                            Command="{Binding $parent[Window].DataContext.DownloadImagePackCommand}"
+                                            Command="{Binding $parent[Window].DataContext.DownloadImagePackCommand, FallbackValue={x:Null}}"
                                             CommandParameter="{Binding}"
                                             IsEnabled="{Binding CanStartDownload}"
                                             Classes="primary" />

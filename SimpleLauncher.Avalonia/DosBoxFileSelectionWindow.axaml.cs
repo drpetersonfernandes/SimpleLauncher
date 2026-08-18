@@ -1,6 +1,5 @@
 using Avalonia.Controls;
 using Avalonia.Input;
-using SimpleLauncher.Avalonia.ViewModels;
 using DosBoxFileSelectionViewModel = SimpleLauncher.Avalonia.ViewModels.DosBoxFileSelectionViewModel;
 
 namespace SimpleLauncher.Avalonia;
@@ -21,7 +20,7 @@ public partial class DosBoxFileSelectionWindow : Window
         InitializeComponent();
 
         _viewModel = viewModel;
-        _viewModel.DialogResultRequested += (_, e) =>
+        _viewModel.DialogResultRequested += (_, _) =>
         {
             Close();
         };
