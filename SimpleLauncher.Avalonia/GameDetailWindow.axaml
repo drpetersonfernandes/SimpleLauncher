@@ -23,7 +23,10 @@
 
                 <!-- Cover art -->
                 <Border Grid.Column="0" CornerRadius="4" ClipToBounds="True"
-                        Width="120" Height="168" Background="{DynamicResource BgTertiaryBrush}">
+                        Width="120" Height="168" Background="{DynamicResource BgTertiaryBrush}"
+                        Cursor="Hand"
+                        ToolTip.Tip="Click to view full size"
+                        PointerPressed="CoverImage_PointerPressed">
                     <Image x:Name="CoverImage"
                            Source="{Binding CoverPath, Converter={StaticResource PathToImage}}"
                            Stretch="Uniform"

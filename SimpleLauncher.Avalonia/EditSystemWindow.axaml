@@ -44,6 +44,11 @@
                             Padding="14,6" Margin="4,0"
                             IsEnabled="False"
                             Click="DeleteSystemButton_ClickAsync" />
+                    <Button Content="❓ Help"
+                            Classes="secondary"
+                            Padding="14,6" Margin="4,0"
+                            ToolTip.Tip="Open the parameters wiki"
+                            Click="HelpLink_ClickAsync" />
                     <Button Content="Close"
                             Classes="secondary"
                             Padding="14,6" Margin="4,0"
@@ -62,6 +67,26 @@
                     <StackPanel>
                         <TextBlock Text="System" FontWeight="SemiBold" FontSize="14"
                                    Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,12" />
+
+                        <!-- System image preview + picker (parity with WPF ChooseSystemImageButton) -->
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,14">
+                            <Border Background="{DynamicResource BgTertiaryBrush}"
+                                    BorderBrush="{DynamicResource BorderSubtleBrush}"
+                                    BorderThickness="1" CornerRadius="4" Padding="4"
+                                    Width="88" Height="88">
+                                <Image x:Name="SystemImagePreview" Stretch="Uniform"
+                                       RenderOptions.BitmapInterpolationMode="HighQuality" />
+                            </Border>
+                            <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="System Image" FontSize="12"
+                                           Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBlock Text="Copied to images\systems as PNG/JPG."
+                                           FontSize="11" Foreground="{DynamicResource TextMutedBrush}"
+                                           TextWrapping="Wrap" MaxWidth="260" Margin="0,4,0,8" />
+                                <Button Content="Choose Image…" Classes="secondary" Padding="12,6"
+                                        Click="ChooseSystemImageButton_ClickAsync" />
+                            </StackPanel>
+                        </StackPanel>
 
                         <!-- Name -->
                         <TextBlock Text="System Name" FontSize="12"
@@ -216,10 +241,15 @@
                                             Click="ChooseEmulator1Path" />
                                 </Grid>
                                 <TextBlock Text="Parameters" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
-                                <TextBox x:Name="Emulator1ParametersTextBox" Height="40" Margin="0,4,0,0"
-                                         Background="{DynamicResource BgTertiaryBrush}"
-                                         Foreground="{DynamicResource TextPrimaryBrush}"
-                                         BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                <Grid Margin="0,4,0,0" ColumnDefinitions="*,Auto">
+                                    <TextBox x:Name="Emulator1ParametersTextBox" Height="40"
+                                             Background="{DynamicResource BgTertiaryBrush}"
+                                             Foreground="{DynamicResource TextPrimaryBrush}"
+                                             BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                    <Button Grid.Column="1" Content="Suggest" Width="90" Height="40" Margin="6,0,0,0"
+                                            Classes="secondary"
+                                            Click="SuggestEmulator1Parameters_ClickAsync" />
+                                </Grid>
                             </StackPanel>
                         </Expander>
 
@@ -256,10 +286,15 @@
                                             Click="ChooseEmulator2Path" />
                                 </Grid>
                                 <TextBlock Text="Parameters" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
-                                <TextBox x:Name="Emulator2ParametersTextBox" Height="40" Margin="0,4,0,0"
-                                         Background="{DynamicResource BgTertiaryBrush}"
-                                         Foreground="{DynamicResource TextPrimaryBrush}"
-                                         BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                <Grid Margin="0,4,0,0" ColumnDefinitions="*,Auto">
+                                    <TextBox x:Name="Emulator2ParametersTextBox" Height="40"
+                                             Background="{DynamicResource BgTertiaryBrush}"
+                                             Foreground="{DynamicResource TextPrimaryBrush}"
+                                             BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                    <Button Grid.Column="1" Content="Suggest" Width="90" Height="40" Margin="6,0,0,0"
+                                            Classes="secondary"
+                                            Click="SuggestEmulator2Parameters_ClickAsync" />
+                                </Grid>
                             </StackPanel>
                         </Expander>
 
@@ -296,10 +331,15 @@
                                             Click="ChooseEmulator3Path" />
                                 </Grid>
                                 <TextBlock Text="Parameters" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
-                                <TextBox x:Name="Emulator3ParametersTextBox" Height="40" Margin="0,4,0,0"
-                                         Background="{DynamicResource BgTertiaryBrush}"
-                                         Foreground="{DynamicResource TextPrimaryBrush}"
-                                         BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                <Grid Margin="0,4,0,0" ColumnDefinitions="*,Auto">
+                                    <TextBox x:Name="Emulator3ParametersTextBox" Height="40"
+                                             Background="{DynamicResource BgTertiaryBrush}"
+                                             Foreground="{DynamicResource TextPrimaryBrush}"
+                                             BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                    <Button Grid.Column="1" Content="Suggest" Width="90" Height="40" Margin="6,0,0,0"
+                                            Classes="secondary"
+                                            Click="SuggestEmulator3Parameters_ClickAsync" />
+                                </Grid>
                             </StackPanel>
                         </Expander>
 
@@ -336,10 +376,15 @@
                                             Click="ChooseEmulator4Path" />
                                 </Grid>
                                 <TextBlock Text="Parameters" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
-                                <TextBox x:Name="Emulator4ParametersTextBox" Height="40" Margin="0,4,0,0"
-                                         Background="{DynamicResource BgTertiaryBrush}"
-                                         Foreground="{DynamicResource TextPrimaryBrush}"
-                                         BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                <Grid Margin="0,4,0,0" ColumnDefinitions="*,Auto">
+                                    <TextBox x:Name="Emulator4ParametersTextBox" Height="40"
+                                             Background="{DynamicResource BgTertiaryBrush}"
+                                             Foreground="{DynamicResource TextPrimaryBrush}"
+                                             BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                    <Button Grid.Column="1" Content="Suggest" Width="90" Height="40" Margin="6,0,0,0"
+                                            Classes="secondary"
+                                            Click="SuggestEmulator4Parameters_ClickAsync" />
+                                </Grid>
                             </StackPanel>
                         </Expander>
 
@@ -376,10 +421,15 @@
                                             Click="ChooseEmulator5Path" />
                                 </Grid>
                                 <TextBlock Text="Parameters" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
-                                <TextBox x:Name="Emulator5ParametersTextBox" Height="40" Margin="0,4,0,0"
-                                         Background="{DynamicResource BgTertiaryBrush}"
-                                         Foreground="{DynamicResource TextPrimaryBrush}"
-                                         BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                <Grid Margin="0,4,0,0" ColumnDefinitions="*,Auto">
+                                    <TextBox x:Name="Emulator5ParametersTextBox" Height="40"
+                                             Background="{DynamicResource BgTertiaryBrush}"
+                                             Foreground="{DynamicResource TextPrimaryBrush}"
+                                             BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                    <Button Grid.Column="1" Content="Suggest" Width="90" Height="40" Margin="6,0,0,0"
+                                            Classes="secondary"
+                                            Click="SuggestEmulator5Parameters_ClickAsync" />
+                                </Grid>
                             </StackPanel>
                         </Expander>
                     </StackPanel>

@@ -1,6 +1,8 @@
+using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Avalonia.Services.Favorites;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
@@ -35,6 +37,7 @@ public partial class EditSystemWindow : Window
     private readonly IFilePickerService _filePicker;
     private readonly FavoritesManager _favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager;
+    private readonly IParameterResolverService _parameterResolver;
     private readonly string? _preSelectedSystemName;
 
     private List<SystemManagerConfig> _systems = [];
@@ -50,6 +53,7 @@ public partial class EditSystemWindow : Window
         IFilePickerService filePicker,
         FavoritesManager favoritesManager,
         PlayHistoryManager playHistoryManager,
+        IParameterResolverService parameterResolver,
         string? preSelectedSystemName = null)
     {
         InitializeComponent();
@@ -64,6 +68,7 @@ public partial class EditSystemWindow : Window
         _filePicker = filePicker;
         _favoritesManager = favoritesManager;
         _playHistoryManager = playHistoryManager;
+        _parameterResolver = parameterResolver;
         _preSelectedSystemName = preSelectedSystemName;
 
         SaveSystemButton.IsEnabled = false;
@@ -203,6 +208,8 @@ public partial class EditSystemWindow : Window
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(SystemImageFolderTextBox.Text);
                 TryCreateDefaultFolder(resolvedSystemImageFolder, Path.Combine(".", "images", SystemNameTextBox.Text));
 
+                UpdateSystemImagePreview();
+
                 SetFieldValidationState(SystemFolderTextBox, CheckPath.IsValidPath(SystemFolderTextBox.Text) || string.IsNullOrWhiteSpace(SystemFolderTextBox.Text));
                 SetFieldValidationState(SystemImageFolderTextBox, CheckPath.IsValidPath(SystemImageFolderTextBox.Text) || string.IsNullOrWhiteSpace(SystemImageFolderTextBox.Text));
                 SetFieldValidationState(Emulator1PathTextBox, string.IsNullOrWhiteSpace(Emulator1PathTextBox.Text) || CheckPath.IsValidPath(Emulator1PathTextBox.Text));
@@ -288,6 +295,8 @@ public partial class EditSystemWindow : Window
             SystemNameDropdown.SelectedItem = null;
             ClearFieldsForNoSelection();
             EnableFields();
+
+            UpdateSystemImagePreview();
 
             SaveSystemButton.IsEnabled = true;
             DeleteSystemButton.IsEnabled = false;
@@ -557,6 +566,302 @@ public partial class EditSystemWindow : Window
         {
             AdditionalFoldersListBox.Items.Remove(selected);
         }
+    }
+
+    // ── System image picker + preview (ported from EditSystemWindow.xaml.cs) ──
+
+    private async void ChooseSystemImageButton_ClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var systemName = SystemNameTextBox.Text?.Trim() ?? "";
+            if (string.IsNullOrEmpty(systemName))
+            {
+                await _messageBox.SystemNameRequiredBeforeChoosingImageMessageBoxAsync();
+                return;
+            }
+
+            var sourceFilePath = await _filePicker.OpenFileAsync(
+                "Select System Image",
+                "Image Files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg");
+            if (string.IsNullOrEmpty(sourceFilePath)) return;
+
+            var extension = Path.GetExtension(sourceFilePath).ToLowerInvariant();
+            if (extension is not (".png" or ".jpg" or ".jpeg"))
+            {
+                await _messageBox.InvalidImageFormatMessageBoxAsync();
+                return;
+            }
+
+            var imagesSystemsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "systems");
+            try
+            {
+                if (!Directory.Exists(imagesSystemsDir))
+                {
+                    Directory.CreateDirectory(imagesSystemsDir);
+                }
+
+                var destFilePath = Path.Combine(imagesSystemsDir, $"{systemName}{extension}");
+                SystemImagePreview.Source = null; // Release any file lock before overwriting
+
+                const int maxRetries = 3;
+                const int retryDelayMs = 500;
+                for (var attempt = 1; attempt <= maxRetries; attempt++)
+                {
+                    try
+                    {
+                        File.Copy(sourceFilePath, destFilePath, true);
+                        break;
+                    }
+                    catch (IOException) when (attempt < maxRetries)
+                    {
+                        await Task.Delay(retryDelayMs * attempt);
+                    }
+                }
+
+                UpdateSystemImagePreview();
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error copying system image.");
+                await _messageBox.FailedToCopySystemImageMessageBoxAsync(ex.Message);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error copying system image.");
+        }
+    }
+
+    private void UpdateSystemImagePreview()
+    {
+        var systemName = SystemNameTextBox.Text?.Trim() ?? "";
+        var imagesSystemsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "systems");
+        string? imagePath = null;
+
+        if (!string.IsNullOrEmpty(systemName))
+        {
+            foreach (var ext in new[] { ".png", ".jpg", ".jpeg" })
+            {
+                var path = Path.Combine(imagesSystemsDir, $"{systemName}{ext}");
+                if (File.Exists(path))
+                {
+                    imagePath = path;
+                    break;
+                }
+            }
+        }
+
+        imagePath ??= Path.Combine(imagesSystemsDir, "default.png");
+
+        SystemImagePreview.Source = null; // Release any file lock before swapping
+        if (!File.Exists(imagePath)) return;
+
+        try
+        {
+            using var stream = File.OpenRead(imagePath);
+            SystemImagePreview.Source = Bitmap.DecodeToWidth(stream, 300);
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error loading system image preview: {Path}", imagePath);
+            SystemImagePreview.Source = null;
+        }
+    }
+
+    // ── Help link (ported from EditSystemWindow.HelpLink_ClickAsync) ─────────
+
+    private async void HelpLink_ClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            _playSoundEffects.PlayNotificationSound();
+            var searchUrl = _configuration.GetValue<string>("WikiParametersUrl")
+                            ?? "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters/";
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = searchUrl,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error in method HelpLink_ClickAsync");
+                await _messageBox.ErrorOpeningUrlMessageBoxAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error in method HelpLink_ClickAsync");
+        }
+    }
+
+    // ── Suggest Parameters (ported from EditSystemWindow.SuggestParametersAsync) ──
+
+    private async void SuggestEmulator1Parameters_ClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await SuggestParametersAsync(Emulator1NameTextBox.Text, Emulator1PathTextBox.Text, Emulator1ParametersTextBox.Text);
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error in method SuggestEmulator1Parameters_ClickAsync");
+        }
+    }
+
+    private async void SuggestEmulator2Parameters_ClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await SuggestParametersAsync(Emulator2NameTextBox.Text, Emulator2PathTextBox.Text, Emulator2ParametersTextBox.Text);
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error in method SuggestEmulator2Parameters_ClickAsync");
+        }
+    }
+
+    private async void SuggestEmulator3Parameters_ClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await SuggestParametersAsync(Emulator3NameTextBox.Text, Emulator3PathTextBox.Text, Emulator3ParametersTextBox.Text);
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error in method SuggestEmulator3Parameters_ClickAsync");
+        }
+    }
+
+    private async void SuggestEmulator4Parameters_ClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await SuggestParametersAsync(Emulator4NameTextBox.Text, Emulator4PathTextBox.Text, Emulator4ParametersTextBox.Text);
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error in method SuggestEmulator4Parameters_ClickAsync");
+        }
+    }
+
+    private async void SuggestEmulator5Parameters_ClickAsync(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await SuggestParametersAsync(Emulator5NameTextBox.Text, Emulator5PathTextBox.Text, Emulator5ParametersTextBox.Text);
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error in method SuggestEmulator5Parameters_ClickAsync");
+        }
+    }
+
+    private async Task SuggestParametersAsync(string? emulatorName, string? emulatorPath, string? currentParameters)
+    {
+        const string successTitle = "Parameter Suggestion";
+        const string errorTitle = "Error";
+        const string errorMessage = "There was an error processing your request.";
+        const string confirmMessage = "Do you want to apply this parameter?";
+
+        if (string.IsNullOrWhiteSpace(emulatorName))
+        {
+            await _messageBox.WarningMessageBoxAsync("Please enter an emulator name first.");
+            return;
+        }
+
+        SetLoadingState(true, "Resolving parameters, please wait...");
+
+        try
+        {
+            var request = new ParameterResolverRequest
+            {
+                SystemName = SystemNameTextBox.Text?.Trim() ?? "",
+                SystemFolder = SystemFolderTextBox.Text?.Trim() ?? "",
+                FileFormatsToSearch = SplitAndTrim(FormatToSearchTextBox.Text) ?? [],
+                ExtractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem is ComboBoxItem extractItem
+                                          && bool.TryParse(extractItem.Content?.ToString(), out var extractVal) && extractVal,
+                FileFormatsToLaunch = SplitAndTrim(FormatToLaunchTextBox.Text) ?? [],
+                GroupByFolder = GroupByFolderComboBox.SelectedItem is ComboBoxItem groupItem
+                                && string.Equals(groupItem.Content?.ToString(), "true", StringComparison.OrdinalIgnoreCase),
+                DisableRecursiveSearch = DisableRecursiveSearchComboBox.SelectedItem is ComboBoxItem disableItem
+                                         && string.Equals(disableItem.Content?.ToString(), "true", StringComparison.OrdinalIgnoreCase),
+                EmulatorName = emulatorName.Trim(),
+                EmulatorPath = emulatorPath?.Trim() ?? "",
+                CurrentParameters = currentParameters?.Trim() ?? ""
+            };
+
+            var result = await _parameterResolver.ResolveParametersAsync(request);
+
+            if (result != null)
+            {
+                var suggestedParam = result.SuggestedParameter;
+                var explanation = result.Explanation;
+
+                if (!string.IsNullOrWhiteSpace(suggestedParam) && suggestedParam.StartsWith("Explanation:", StringComparison.OrdinalIgnoreCase))
+                {
+                    var explanationFromParam = suggestedParam["Explanation:".Length..].Trim();
+                    if (string.IsNullOrEmpty(explanation) || !explanation.Equals(explanationFromParam, StringComparison.OrdinalIgnoreCase))
+                    {
+                        explanation = explanationFromParam;
+                    }
+
+                    suggestedParam = "";
+                }
+
+                var dialogMessage = $"{confirmMessage}\n\n{suggestedParam}";
+                if (!string.IsNullOrEmpty(explanation))
+                {
+                    dialogMessage += $"\n\nExplanation: {explanation}";
+                }
+
+                var applyResult = await _messageBox.CustomQuestionMessageBoxAsync(successTitle, dialogMessage);
+
+                if (applyResult)
+                {
+                    var textBox = FindParametersTextBox(emulatorName);
+                    if (textBox is not null)
+                    {
+                        textBox.Text = suggestedParam;
+                    }
+                }
+            }
+            else
+            {
+                await _messageBox.CustomErrorMessageBoxAsync(errorMessage, errorTitle);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error calling ParameterResolver API");
+            await _messageBox.CustomErrorMessageBoxAsync(errorMessage, errorTitle);
+        }
+        finally
+        {
+            SetLoadingState(false);
+        }
+    }
+
+    private TextBox? FindParametersTextBox(string emulatorName)
+    {
+        if (string.Equals(emulatorName, Emulator1NameTextBox.Text, StringComparison.Ordinal)) return Emulator1ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator2NameTextBox.Text, StringComparison.Ordinal)) return Emulator2ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator3NameTextBox.Text, StringComparison.Ordinal)) return Emulator3ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator4NameTextBox.Text, StringComparison.Ordinal)) return Emulator4ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator5NameTextBox.Text, StringComparison.Ordinal)) return Emulator5ParametersTextBox;
+
+        return null;
+    }
+
+    private static List<string>? SplitAndTrim(string? text)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+            return null;
+
+        return text.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
     }
 
     // ── Save pipeline (ported from EditSystemWindow.SaveSystem.cs) ────

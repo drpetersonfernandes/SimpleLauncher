@@ -484,6 +484,20 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     }
 
     /// <summary>
+    /// Removes a game from the currently displayed list without touching the file on
+    /// disk (the library is filesystem-derived, so the game reappears on the next
+    /// scan/navigation). Used by the Game Detail window's Remove button.
+    /// </summary>
+    public void RemoveGameFromCurrentList(GameCardViewModel game)
+    {
+        if (game is null) return;
+
+        Games.Remove(game);
+        StatusText = $"Removed from view: {game.DisplayTitle}";
+        UpdateGameCount();
+    }
+
+    /// <summary>
     /// Scans ROM folders for games and returns card ViewModels with cover art resolved
     /// from each system's image folder. Folder paths are resolved (%BASEFOLDER% / relative) first.
     /// </summary>

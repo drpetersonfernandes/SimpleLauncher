@@ -16,14 +16,17 @@ public partial class PreferencesWindow : Window
 {
     private readonly SettingsManagerService _settings;
     private readonly LocalizationService _localization;
+    private readonly AvaloniaCheckForUpdatesService _updateService;
     private readonly RetroAchievementsService? _raService;
     private readonly Dictionary<string, Panel> _panels = new();
 
-    public PreferencesWindow(SettingsManagerService settings, LocalizationService localization)
+    public PreferencesWindow(SettingsManagerService settings, LocalizationService localization,
+        AvaloniaCheckForUpdatesService updateService)
     {
         InitializeComponent();
         _settings = settings;
         _localization = localization;
+        _updateService = updateService;
 
         try
         {
@@ -104,6 +107,29 @@ public partial class PreferencesWindow : Window
         editSystemWindow.ShowDialog(this);
     }
 
+    private void DownloadImagePack_Click(object? sender, RoutedEventArgs e)
+    {
+        var imagePackWindow = App.ServiceProvider.GetRequiredService<DownloadImagePackWindow>();
+        imagePackWindow.ShowDialog(this);
+    }
+
+    private async void CheckUpdates_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            CheckUpdatesButton.IsEnabled = false;
+            await _updateService.ManualCheckForUpdatesAsync(this);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to check for updates from PreferencesWindow");
+        }
+        finally
+        {
+            CheckUpdatesButton.IsEnabled = true;
+        }
+    }
+
     private void PopulateLanguageCombo()
     {
         LanguageCombo.Items.Clear();
@@ -159,15 +185,9 @@ public partial class PreferencesWindow : Window
         // Sound
         NotificationSoundCheck.IsChecked = _settings.EnableNotificationSound;
 
-        // Images
-        ImageExtensionsBox.Text = ".png, .jpg, .jpeg";
-
         // RA
         RaUsernameBox.Text = _settings.RaUsername ?? "";
         RaApiKeyBox.Text = _settings.RaApiKey ?? "";
-
-        // Updates
-        AutoUpdateCheck.IsChecked = true;
     }
 
     private void LanguageCombo_SelectionChanged(object? sender, SelectionChangedEventArgs e)

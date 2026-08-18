@@ -109,13 +109,6 @@
                                 <ComboBoxItem Content="Deutsch" Tag="de" />
                                 <ComboBoxItem Content="日本語" Tag="ja" />
                             </ComboBox>
-
-                            <TextBlock Text="Startup Behavior" FontSize="13" FontWeight="SemiBold"
-                                       Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
-                            <CheckBox x:Name="StartupScanCheck" Content="Scan for new games on startup"
-                                      Margin="0,0,0,8" />
-                            <CheckBox x:Name="StartupUpdateCheck" Content="Check for updates on startup"
-                                      Margin="0,0,0,20" />
                         </StackPanel>
 
                         <!-- SYSTEMS -->
@@ -143,31 +136,28 @@
                                        Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
                             <TextBlock Text="Configure emulator paths and parameters per system."
                                        FontSize="12" Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,16" />
-                            <TextBlock Text="Emulator configuration will be available soon. Use the existing SimpleLauncher to configure emulators."
-                                       FontSize="13" Foreground="{DynamicResource TextSecondaryBrush}"
-                                       TextWrapping="Wrap" />
+                            <Button Content="Open Edit System (Expert Mode)"
+                                    Classes="primary"
+                                    HorizontalAlignment="Left"
+                                    Padding="20,10"
+                                    Click="OpenEditSystem_Click" />
+                            <TextBlock Text="Emulator 1-5 paths, launch parameters, and suggest-parameter support are configured per system in the Edit System window."
+                                       FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,12,0,0" />
                         </StackPanel>
 
                         <!-- IMAGES -->
                         <StackPanel x:Name="ImagesPanel" IsVisible="False">
                             <TextBlock Text="Images" FontSize="18" FontWeight="SemiBold"
                                        Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
-                            <TextBlock Text="Configure cover art and image folder locations."
-                                       FontSize="12" Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,16" />
-
-                            <TextBlock Text="Image Extensions" FontSize="13" FontWeight="SemiBold"
-                                       Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
-                            <TextBox x:Name="ImageExtensionsBox" Width="300" Margin="0,0,0,8"
-                                     Text=".png, .jpg, .jpeg" />
-                            <TextBlock Text="Comma-separated list of image file extensions to scan for."
-                                       FontSize="11" Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,16" />
-
-                            <TextBlock Text="Default Cover Image" FontSize="13" FontWeight="SemiBold"
-                                       Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
-                            <TextBox x:Name="DefaultCoverPathBox" Width="400" Margin="0,0,0,4"
-                                     Text="images/default.png" />
-                            <TextBlock Text="Path relative to the application folder."
-                                       FontSize="11" Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,20" />
+                            <TextBlock Text="Cover art is matched to games by filename. Use the image pack downloader to fetch covers for a system, or drop images into the system's image folder."
+                                       FontSize="12" Foreground="{DynamicResource TextMutedBrush}"
+                                       TextWrapping="Wrap" Margin="0,0,0,16" />
+                            <Button Content="Download Image Pack"
+                                    Classes="primary"
+                                    HorizontalAlignment="Left"
+                                    Padding="20,10"
+                                    Click="DownloadImagePack_Click" />
                         </StackPanel>
 
                         <!-- VIEW -->
@@ -209,9 +199,9 @@
                             <CheckBox x:Name="NotificationSoundCheck"
                                       Content="Enable notification sounds"
                                       Margin="0,0,0,8" />
-                            <CheckBox x:Name="ClickSoundCheck"
-                                      Content="Enable click sounds"
-                                      Margin="0,0,0,20" />
+                            <TextBlock Text="Custom sounds and per-system sound files are configured in the Sound Configuration window."
+                                       FontSize="11" Foreground="{DynamicResource TextMutedBrush}"
+                                       TextWrapping="Wrap" />
                         </StackPanel>
 
                         <!-- RETROACHIEVEMENTS -->
@@ -237,12 +227,15 @@
                         <!-- UPDATES -->
                         <StackPanel x:Name="UpdatesPanel" IsVisible="False">
                             <TextBlock Text="Updates" FontSize="18" FontWeight="SemiBold"
-                                       Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,16" />
-
-                            <CheckBox x:Name="AutoUpdateCheck" Content="Check for updates on startup"
-                                      Margin="0,0,0,8" />
-                            <CheckBox x:Name="AutoDownloadCheck" Content="Auto-download updates"
-                                      Margin="0,0,0,20" />
+                                       Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+                            <TextBlock Text="Updates are checked on demand. When a new release is found, you are guided to the releases page to download it."
+                                       FontSize="12" Foreground="{DynamicResource TextMutedBrush}"
+                                       TextWrapping="Wrap" Margin="0,0,0,16" />
+                            <Button x:Name="CheckUpdatesButton" Content="Check for Updates Now"
+                                    Classes="primary"
+                                    HorizontalAlignment="Left"
+                                    Padding="20,10"
+                                    Click="CheckUpdates_Click" />
                         </StackPanel>
 
                     </StackPanel>

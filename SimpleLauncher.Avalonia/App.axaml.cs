@@ -290,6 +290,7 @@ public class App : Application, IDisposable
             return sm;
         });
         services.AddSingleton<MameDataService>();
+        services.AddSingleton<IMameDataService>(sp => sp.GetRequiredService<MameDataService>());
         services.AddSingleton<IRetroAchievementsFileHasher, RetroAchievementsFileHasher>();
         services.AddSingleton<IRetroAchievementsEmulatorConfiguratorService, RetroAchievementsEmulatorConfiguratorService>();
         services.AddSingleton<IRetroAchievementsSystemMatcher, RetroAchievementsSystemMatcher>();
@@ -501,6 +502,7 @@ public class App : Application, IDisposable
                 sp.GetRequiredService<IFilePickerService>(),
                 sp.GetRequiredService<FavoritesManager>(),
                 sp.GetRequiredService<PlayHistoryManager>(),
+                sp.GetRequiredService<IParameterResolverService>(),
                 preSelectedSystemName));
 
         // ── Phase 4.1 windows (ViewModels transient — one per window instance) ──

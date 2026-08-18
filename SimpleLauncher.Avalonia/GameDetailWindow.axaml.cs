@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Avalonia.ViewModels;
@@ -95,6 +96,26 @@ public partial class GameDetailWindow : Window
         Close();
     }
 
+    /// <summary>
+    /// Opens the full-size cover in the ImageViewerWindow (parity with the WPF
+    /// "Open Cover" context-menu action).
+    /// </summary>
+    private void CoverImage_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(_game.CoverPath) || !File.Exists(_game.CoverPath)) return;
+
+            var viewer = App.ServiceProvider.GetRequiredService<ImageViewerWindow>();
+            viewer.LoadImagePath(_game.CoverPath);
+            viewer.ShowDialog(this);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to open image viewer for {Path}", _game.CoverPath);
+        }
+    }
+
     private async void FavoriteButton_Click(object? sender, RoutedEventArgs e)
     {
         try
@@ -121,7 +142,7 @@ public partial class GameDetailWindow : Window
 
             if (result == MessageBoxResult.Yes)
             {
-                // TODO: Remove from game list
+                _mainViewModel.RemoveGameFromCurrentList(_game);
                 Close();
             }
         }
