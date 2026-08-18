@@ -1,0 +1,51 @@
+<Window x:Class="SimpleLauncher.Avalonia.SetFuzzyMatchingWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Set Fuzzy Matching Threshold"
+        Height="350" Width="500"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="15" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*">
+
+        <!-- Current Threshold -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Current Threshold"
+                   Classes="form-label" FontWeight="Bold" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CurrentThresholdText}" Margin="10,0,0,0" VerticalAlignment="Center" />
+
+        <!-- New Threshold Input (Slider) -->
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="New Threshold"
+                   Classes="form-label" FontWeight="Bold" VerticalAlignment="Center" />
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <Slider Value="{Binding ThresholdValue}"
+                    Minimum="{Binding Minimum}"
+                    Maximum="{Binding Maximum}"
+                    TickFrequency="{Binding TickFrequencyValue}"
+                    IsSnapToTickEnabled="True"
+                    Width="200"
+                    VerticalAlignment="Center" />
+            <TextBlock Text="{Binding ThresholdPercentage}" Margin="10" VerticalAlignment="Center" />
+        </StackPanel>
+
+        <!-- Description -->
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="Lower values make matching more lenient; higher values require closer matches."
+                   TextWrapping="Wrap" FontStyle="Italic"
+                   Foreground="{DynamicResource TextSecondaryBrush}" />
+
+        <!-- Threshold Explanation -->
+        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="10,20,10,0">
+            <Run FontWeight="Bold" Text="Low threshold (70%): " />
+            <Run Text="More games will match, but with a higher chance of incorrect matches." />
+        </TextBlock>
+        <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="10,10,10,10">
+            <Run FontWeight="Bold" Text="High threshold (95%): " />
+            <Run Text="Fewer games will match, but matches will be more accurate." />
+        </TextBlock>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,10,10">
+            <Button Content="OK" Command="{Binding SaveCommand}"
+                    Classes="primary" Padding="10" Margin="0,0,10,0" IsDefault="True" />
+            <Button Content="Cancel" Command="{Binding CancelCommand}"
+                    Classes="secondary" Padding="10" IsCancel="True" />
+        </StackPanel>
+    </Grid>
+</Window>

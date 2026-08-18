@@ -1,0 +1,17 @@
+<Window x:Class="SimpleLauncher.Avalonia.UpdateHistoryWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Update History"
+        Width="800" Height="700"
+        MinWidth="700" MinHeight="550"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <TextBox x:Name="HistoryTextBox"
+                 IsReadOnly="True"
+                 TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 Margin="10"
+                 Text="{Binding MarkdownContent, Mode=OneWay}"
+                 FontFamily="Consolas, Courier New, monospace" />
+    </Grid>
+</Window>

@@ -1,0 +1,26 @@
+<Window x:Class="SimpleLauncher.Avalonia.RomHistoryWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ROM History"
+        Width="1000" Height="600"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10" RowDefinitions="Auto,Auto,*">
+        <TextBlock Grid.Row="0"
+                   FontWeight="Bold"
+                   FontSize="16"
+                   HorizontalAlignment="Center"
+                   Text="{Binding RomNameText}" />
+        <TextBlock Grid.Row="1"
+                   FontWeight="Bold"
+                   FontSize="16"
+                   HorizontalAlignment="Center"
+                   IsVisible="{Binding IsDescriptionVisible}"
+                   Text="{Binding RomDescriptionText}" />
+        <TextBox Grid.Row="2"
+                 Margin="0,20,0,0"
+                 IsReadOnly="True"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 Text="{Binding HistoryText, Mode=OneWay}" />
+    </Grid>
+</Window>

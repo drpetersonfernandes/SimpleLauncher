@@ -1,0 +1,66 @@
+<Window x:Class="SimpleLauncher.Avalonia.GlobalStatsWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Global Stats"
+        Width="1000" Height="700"
+        WindowStartupLocation="CenterScreen">
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+
+        <!-- Explanation Text -->
+        <TextBlock Grid.Row="0" Margin="10,20,10,10" TextWrapping="Wrap" Text="{Binding InfoText}" />
+
+        <!-- Start/Process Button -->
+        <StackPanel Grid.Row="1" Margin="10" HorizontalAlignment="Center"
+                    IsVisible="{Binding IsStartButtonVisible}">
+            <Button Width="110"
+                    Command="{Binding StartCommand}"
+                    Content="Start Process" />
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                      Margin="10">
+            <DataGrid ItemsSource="{Binding SystemStats}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      GridLinesVisibility="All"
+                      BorderThickness="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="*" />
+                    <DataGridTextColumn Header="ROM Count" Binding="{Binding NumberOfFiles}" Width="Auto" />
+                    <DataGridTextColumn Header="Matched Images" Binding="{Binding NumberOfImages}" Width="Auto" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="3" Margin="10,10,10,20"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal"
+                    IsVisible="{Binding IsSaveButtonVisible}">
+            <Button Width="110"
+                    Command="{Binding SaveReportCommand}"
+                    Content="Save Report" />
+        </StackPanel>
+
+        <!-- BUSY OVERLAY -->
+        <Border Grid.Row="0" Grid.RowSpan="4"
+                Background="{DynamicResource OverlayProcessingBrush}"
+                IsVisible="{Binding IsBusyOverlayVisible}"
+                ZIndex="10">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressBar IsIndeterminate="True" Width="220" />
+                <TextBlock Text="{Binding BusyOverlayText}"
+                           Foreground="{DynamicResource TextPrimaryBrush}"
+                           FontSize="14"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"
+                           Margin="0,12,0,0" />
+                <Button Content="Cancel"
+                        Width="110" Margin="0,16,0,0"
+                        Classes="secondary"
+                        Command="{Binding CancelCommand}"
+                        IsVisible="{Binding IsCancelOverlayVisible}"
+                        HorizontalAlignment="Center" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

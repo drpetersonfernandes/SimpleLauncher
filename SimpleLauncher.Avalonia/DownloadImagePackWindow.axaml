@@ -1,0 +1,137 @@
+<Window x:Class="SimpleLauncher.Avalonia.DownloadImagePackWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Download Image Pack"
+        Width="650" MinWidth="550"
+        Height="600" MinHeight="500"
+        WindowStartupLocation="CenterScreen">
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- 1. Header Section -->
+        <StackPanel Grid.Row="0" Margin="20,20,20,10">
+            <TextBlock Text="Download Image Pack" FontSize="24" FontWeight="Light" Margin="0,0,0,10" />
+            <TextBlock Text="Download high-quality artwork for your games."
+                       TextWrapping="Wrap" FontSize="12" Opacity="0.6" />
+        </StackPanel>
+
+        <!-- 2. Main Content -->
+        <Grid Grid.Row="1" Margin="20,10,20,10"
+              ColumnDefinitions="*,20,*"
+              IsEnabled="{Binding IsMainContentEnabled}">
+
+            <!-- Left Column: Selection & Info -->
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Please select an image pack" FontWeight="SemiBold" Margin="0,0,0,10" />
+                <ComboBox HorizontalAlignment="Stretch"
+                          Margin="0,5,0,0"
+                          ItemsSource="{Binding SystemNames}"
+                          SelectedItem="{Binding SelectedSystemName}"
+                          IsEnabled="{Binding IsSystemDropdownEnabled}" />
+
+                <!-- Resources Links -->
+                <StackPanel Margin="0,20,0,0">
+                    <TextBlock Text="Resources" FontWeight="SemiBold" Margin="0,0,0,10" />
+                    <TextBlock Text="In case the image pack is not available for your system, you can find it here:"
+                               TextWrapping="Wrap" FontSize="12" Opacity="0.6" Margin="0,0,0,5" />
+                    <Button Margin="0,0,0,5" Padding="0"
+                            Background="Transparent" BorderThickness="0"
+                            Foreground="{DynamicResource LinkBrush}"
+                            HorizontalAlignment="Left"
+                            Command="{Binding HyperlinkNavigateCommand}"
+                            CommandParameter="https://github.com/libretro-thumbnails/libretro-thumbnails"
+                            Content="Libretro Thumbnails (GitHub)" />
+                    <Button Padding="0"
+                            Background="Transparent" BorderThickness="0"
+                            Foreground="{DynamicResource LinkBrush}"
+                            HorizontalAlignment="Left"
+                            Command="{Binding HyperlinkNavigateCommand}"
+                            CommandParameter="https://emumovies.com/files/"
+                            Content="EmuMovies Files" />
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Right Column: Download Actions -->
+            <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="Install Image Pack" FontWeight="SemiBold" Margin="0,0,0,10" />
+
+                    <Border BorderBrush="{DynamicResource BorderNormalBrush}" BorderThickness="1" CornerRadius="3" Padding="10">
+                        <ItemsControl ItemsSource="{Binding ImagePacksToDisplay}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding DisplayName}"
+                                            Height="40"
+                                            Margin="5"
+                                            Command="{Binding $parent[Window].DataContext.DownloadImagePackCommand}"
+                                            CommandParameter="{Binding}"
+                                            IsEnabled="{Binding CanStartDownload}"
+                                            Classes="primary" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+
+                    <TextBlock Text="Image packs are downloaded and installed into the system's image folder."
+                               TextWrapping="Wrap" FontSize="11" Opacity="0.6" Margin="5,10,5,0" FontStyle="Italic" />
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <!-- 3. Footer: Progress -->
+        <Border Grid.Row="2" BorderBrush="{DynamicResource BorderNormalBrush}" BorderThickness="0,1,0,0"
+                Background="{DynamicResource BgSecondaryBrush}" Padding="20">
+            <Grid ColumnDefinitions="*,Auto">
+
+                <!-- Progress Info -->
+                <Grid Grid.Column="0" Margin="0,0,20,0" RowDefinitions="Auto,Auto">
+                    <Grid>
+                        <ProgressBar Value="{Binding ProgressPercentage, Mode=OneWay}" Height="20" Minimum="0" Maximum="100" />
+                        <TextBlock Text="Download Progress"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                   FontSize="10" />
+                    </Grid>
+
+                    <TextBlock Grid.Row="1" Margin="0,5,0,0"
+                               Text="{Binding StatusMessage}"
+                               TextWrapping="Wrap"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold" />
+                </Grid>
+
+                <!-- Stop Button -->
+                <Button Grid.Column="1"
+                        Content="Stop Download"
+                        Command="{Binding StopDownloadCommand}"
+                        IsEnabled="{Binding IsStopEnabled}"
+                        Classes="secondary"
+                        Padding="20,10"
+                        VerticalAlignment="Top" />
+            </Grid>
+        </Border>
+
+        <!-- Loading Overlay -->
+        <Border Grid.Row="0" Grid.RowSpan="3"
+                Background="{DynamicResource OverlayProcessingBrush}"
+                IsVisible="{Binding IsLoading}"
+                ZIndex="10">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressBar IsIndeterminate="True" Width="220" />
+                <TextBlock Text="{Binding LoadingMessage}"
+                           Foreground="{DynamicResource TextPrimaryBrush}"
+                           FontSize="14"
+                           HorizontalAlignment="Center"
+                           Margin="0,12,0,0" />
+                <Button Content="Cancel" Width="100" Margin="0,16,0,0"
+                        Classes="secondary"
+                        Click="EmergencyOverlayRelease_Click"
+                        HorizontalAlignment="Center" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

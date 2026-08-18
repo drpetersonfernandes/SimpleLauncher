@@ -912,15 +912,6 @@ public partial class MainWindow : Window
         big.IsChecked = string.Equals(value, "Big", StringComparison.Ordinal);
     }
 
-    /// <summary>
-    /// Shows a toast for features whose window has not been ported to Avalonia yet.
-    /// </summary>
-    private void ShowComingSoon(string feature)
-    {
-        _playSound.PlayNotificationSound();
-        ShowToast(feature, "This feature is coming soon in the Avalonia port.");
-    }
-
     // ── Language ──
 
     private async void ChangeLanguage_Click(object? sender, RoutedEventArgs e)
@@ -1160,46 +1151,111 @@ public partial class MainWindow : Window
         }
     }
 
-    // ── Windows pending port (toast until Phase 4.1) ──
+    // ── Phase 4.1 windows ──
 
     private void EditLinks_Click(object? sender, RoutedEventArgs e)
     {
-        ShowComingSoon("Edit Links");
+        try
+        {
+            var window = App.ServiceProvider.GetRequiredService<SetLinksWindow>();
+            window.ShowDialog(this);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in method EditLinks_Click");
+        }
     }
 
     private void SetGamepadDeadZone_Click(object? sender, RoutedEventArgs e)
     {
-        ShowComingSoon("Gamepad Dead Zone");
+        try
+        {
+            var window = App.ServiceProvider.GetRequiredService<SetGamepadDeadZoneWindow>();
+            window.ShowDialog(this);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in method SetGamepadDeadZone_Click");
+        }
     }
 
     private void SetFuzzyMatchingThreshold_Click(object? sender, RoutedEventArgs e)
     {
-        ShowComingSoon("Fuzzy Matching Threshold");
+        try
+        {
+            var window = App.ServiceProvider.GetRequiredService<SetFuzzyMatchingWindow>();
+            window.ShowDialog(this);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in method SetFuzzyMatchingThreshold_Click");
+        }
     }
 
     private void SoundConfiguration_Click(object? sender, RoutedEventArgs e)
     {
-        ShowComingSoon("Sound Configuration");
+        try
+        {
+            var window = App.ServiceProvider.GetRequiredService<SoundConfigurationWindow>();
+            window.ShowDialog(this);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in method SoundConfiguration_Click");
+        }
     }
 
     private void DownloadImagePack_Click(object? sender, RoutedEventArgs e)
     {
-        ShowComingSoon("Download Image Pack");
+        try
+        {
+            var window = App.ServiceProvider.GetRequiredService<DownloadImagePackWindow>();
+            window.ShowDialog(this);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in method DownloadImagePack_Click");
+        }
     }
 
     private void GlobalStats_Click(object? sender, RoutedEventArgs e)
     {
-        ShowComingSoon("Global Stats");
+        try
+        {
+            var window = App.ServiceProvider.GetRequiredService<GlobalStatsWindow>();
+            window.Initialize(_systemManagerService.LoadSystems());
+            window.ShowDialog(this);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in method GlobalStats_Click");
+        }
     }
 
     private void About_Click(object? sender, RoutedEventArgs e)
     {
-        ShowComingSoon("About");
+        try
+        {
+            var window = App.ServiceProvider.GetRequiredService<AboutWindow>();
+            window.ShowDialog(this);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in method About_Click");
+        }
     }
 
     private void Support_Click(object? sender, RoutedEventArgs e)
     {
-        ShowComingSoon("Support");
+        try
+        {
+            var window = App.ServiceProvider.GetRequiredService<SupportWindow>();
+            window.ShowDialog(this);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in method Support_Click");
+        }
     }
 
     // ── Gamepad / fuzzy / overlay toggles ──

@@ -1,0 +1,15 @@
+<Window x:Class="SimpleLauncher.Avalonia.UpdateLogWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Updating"
+        Width="600" Height="400"
+        CanResize="False"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <TextBox Text="{Binding LogText, Mode=OneWay}"
+                 IsReadOnly="True"
+                 AcceptsReturn="True"
+                 TextWrapping="NoWrap"
+                 FontFamily="Consolas, Courier New, monospace" />
+    </Grid>
+</Window>

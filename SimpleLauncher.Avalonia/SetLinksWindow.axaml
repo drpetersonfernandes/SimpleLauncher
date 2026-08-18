@@ -1,0 +1,76 @@
+<Window x:Class="SimpleLauncher.Avalonia.SetLinksWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
+        Title="Edit Links"
+        Width="600" MinWidth="600"
+        Height="270"
+        CanResize="False"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <converters:PathToImageConverter x:Key="PathToImage" />
+    </Window.Resources>
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,Auto,*">
+
+        <!-- Explanation -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                   Margin="10,20,10,10"
+                   Text="You can define custom URLs that will be used when you click the video or info link buttons."
+                   TextWrapping="Wrap" />
+
+        <!-- Video Link -->
+        <TextBlock Grid.Row="1" Grid.Column="0"
+                   Classes="form-label" Margin="10"
+                   Text="Video Link Button" />
+        <Image Grid.Row="1" Grid.Column="1"
+               Width="22" Height="22"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Left"
+               Source="{Binding VideoIconPath, Converter={StaticResource PathToImage}}" />
+        <TextBox Grid.Row="1" Grid.Column="2"
+                 Margin="10"
+                 HorizontalAlignment="Stretch"
+                 Text="{Binding VideoUrl}" />
+
+        <!-- Info Link -->
+        <TextBlock Grid.Row="2" Grid.Column="0"
+                   Classes="form-label" Margin="10"
+                   Text="Info Link Button" />
+        <Image Grid.Row="2" Grid.Column="1"
+               Width="22" Height="22"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Left"
+               Source="{Binding InfoIconPath, Converter={StaticResource PathToImage}}" />
+        <TextBox Grid.Row="2" Grid.Column="2"
+                 Margin="10"
+                 Text="{Binding InfoUrl}" />
+
+        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+              ColumnDefinitions="*,*,*">
+            <!-- Save Button -->
+            <Button Grid.Column="0"
+                    Classes="primary"
+                    Margin="10"
+                    Padding="10"
+                    HorizontalAlignment="Right"
+                    IsDefault="True"
+                    Command="{Binding SaveCommand}"
+                    Content="Save / Update Links" />
+            <!-- Revert Button -->
+            <Button Grid.Column="1"
+                    Classes="secondary"
+                    Margin="10"
+                    Padding="10"
+                    HorizontalAlignment="Center"
+                    Command="{Binding RevertCommand}"
+                    Content="Revert to Default Values" />
+            <!-- Cancel Button -->
+            <Button Grid.Column="2"
+                    Classes="secondary"
+                    Margin="10"
+                    HorizontalAlignment="Left"
+                    Command="{Binding CancelCommand}"
+                    Content="Cancel" IsCancel="True" />
+        </Grid>
+    </Grid>
+</Window>

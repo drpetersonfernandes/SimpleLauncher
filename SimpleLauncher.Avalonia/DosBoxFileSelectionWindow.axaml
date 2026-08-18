@@ -1,0 +1,56 @@
+<Window x:Class="SimpleLauncher.Avalonia.DosBoxFileSelectionWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Select File"
+        Width="650" Height="480"
+        MinWidth="450" MinHeight="300"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10" RowDefinitions="Auto,*,Auto">
+
+        <TextBlock Grid.Row="0"
+                   Text="Select the file to launch:"
+                   Margin="10,5,10,10"
+                   FontSize="14"
+                   TextWrapping="Wrap" />
+
+        <ListBox x:Name="FileListBox"
+                 Grid.Row="1"
+                 ItemsSource="{Binding FileItems}"
+                 SelectedItem="{Binding SelectedItem}"
+                 DoubleTapped="FileListBox_DoubleTapped"
+                 Margin="10,0"
+                 Padding="5"
+                 VerticalAlignment="Stretch"
+                 HorizontalAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding DisplayName}"
+                                   Margin="5,2,5,2"
+                                   FontSize="14"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding RelativePath}"
+                                   Margin="5,0,5,2"
+                                   FontSize="11"
+                                   Foreground="{DynamicResource TextMutedBrush}" />
+                        <Separator Margin="5,2" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,15,10,5">
+            <Button Content="Cancel"
+                    Margin="5,0"
+                    Classes="secondary"
+                    Command="{Binding CancelCommand}"
+                    MinWidth="75" IsCancel="True" />
+            <Button Content="Launch"
+                    Margin="5,0"
+                    Classes="primary"
+                    Command="{Binding LaunchCommand}"
+                    MinWidth="75"
+                    IsEnabled="{Binding IsLaunchEnabled}" IsDefault="True" />
+        </StackPanel>
+    </Grid>
+</Window>

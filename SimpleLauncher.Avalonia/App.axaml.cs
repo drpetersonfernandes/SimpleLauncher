@@ -145,6 +145,7 @@ public class App : Application, IDisposable
                 rollingInterval: RollingInterval.Day,
                 retainedFileCountLimit: 7,
                 outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}"))
+            .WriteTo.Sink(new DebugWindowSink())
             .WriteTo.Sink(bugReportSink)
             .CreateLogger();
 
@@ -226,6 +227,7 @@ public class App : Application, IDisposable
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher.Avalonia/1.0");
         });
         services.AddHttpClient("GameImageClient");
+        services.AddHttpClient("SupportWindowClient");
         services.AddHttpClient("EasyModeClient", client =>
         {
             // Set the base address for the EasyMode configuration API
@@ -365,6 +367,7 @@ public class App : Application, IDisposable
         });
         services.AddSingleton<StorefrontGameScanner>();
         services.AddSingleton<RetroAchievementsService>();
+        services.AddSingleton<AvaloniaCheckForUpdatesService>();
 
         // ── Emulator config injection (21 emulators) ──
         // ViewModels (transient — one per window instance)
@@ -494,6 +497,38 @@ public class App : Application, IDisposable
                 sp.GetRequiredService<FavoritesManager>(),
                 sp.GetRequiredService<PlayHistoryManager>(),
                 preSelectedSystemName));
+
+        // ── Phase 4.1 windows (ViewModels transient — one per window instance) ──
+        services.AddTransient<AboutViewModel>();
+        services.AddTransient<AboutWindow>();
+        services.AddTransient<UpdateHistoryViewModel>();
+        services.AddTransient<UpdateHistoryWindow>();
+        services.AddTransient<UpdateLogViewModel>();
+        services.AddTransient<UpdateLogWindow>();
+        services.AddTransient<DebugViewModel>();
+        services.AddTransient<DebugWindow>();
+        services.AddTransient<SupportViewModel>();
+        services.AddTransient<SupportWindow>();
+        services.AddTransient<SoundConfigurationViewModel>();
+        services.AddTransient<SoundConfigurationWindow>();
+        services.AddTransient<SetLinksViewModel>();
+        services.AddTransient<SetLinksWindow>();
+        services.AddTransient<SetFuzzyMatchingViewModel>();
+        services.AddTransient<SetFuzzyMatchingWindow>();
+        services.AddTransient<SetGamepadDeadZoneViewModel>();
+        services.AddTransient<SetGamepadDeadZoneWindow>();
+        services.AddTransient<RomHistoryViewModel>();
+        services.AddTransient<RomHistoryWindow>();
+        services.AddTransient<GlobalStatsViewModel>();
+        services.AddTransient<GlobalStatsWindow>();
+        services.AddTransient<DownloadImagePackViewModel>();
+        services.AddTransient<DownloadImagePackWindow>();
+        services.AddTransient<DosBoxFileSelectionViewModel>();
+        services.AddTransient<DosBoxFileSelectionWindow>();
+        services.AddTransient<FlashOverlayViewModel>();
+        services.AddTransient<FlashOverlayWindow>();
+        services.AddTransient<WindowSelectionDialogViewModel>();
+        services.AddTransient<WindowSelectionDialogWindow>();
     }
 
     /// <summary>

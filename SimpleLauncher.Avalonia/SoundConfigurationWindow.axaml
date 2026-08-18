@@ -1,0 +1,62 @@
+<Window x:Class="SimpleLauncher.Avalonia.SoundConfigurationWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Sound Configuration"
+        Width="500" Height="300"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False">
+    <Grid Margin="15" ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,*,Auto">
+
+        <CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                  Content="Enable notification sound"
+                  Margin="0,0,0,10"
+                  IsChecked="{Binding EnableNotificationSound}" />
+
+        <TextBlock Grid.Row="1" Grid.Column="0"
+                   Classes="form-label"
+                   Text="Notification sound file" />
+        <TextBox Grid.Row="1" Grid.Column="1"
+                 IsReadOnly="True"
+                 Text="{Binding NotificationSoundFile}"
+                 Margin="5,0,5,0"
+                 VerticalAlignment="Center"
+                 IsEnabled="{Binding IsSoundControlsEnabled}" />
+        <Button Grid.Row="1" Grid.Column="2"
+                Content="Choose File"
+                Command="{Binding ChooseSoundFileCommand}"
+                VerticalAlignment="Center"
+                Width="100"
+                IsEnabled="{Binding IsSoundControlsEnabled}" />
+
+        <Button Grid.Row="2" Grid.Column="1"
+                Content="Play Current Sound"
+                Command="{Binding PlayCurrentSoundCommand}"
+                Margin="5,10,5,0"
+                HorizontalAlignment="Left"
+                Width="150"
+                IsEnabled="{Binding IsSoundControlsEnabled}" />
+
+        <Button Grid.Row="3" Grid.Column="1"
+                Content="Reset to Default"
+                Command="{Binding ResetToDefaultCommand}"
+                Margin="5,10,5,0"
+                HorizontalAlignment="Left"
+                Width="150"
+                IsEnabled="{Binding IsSoundControlsEnabled}" />
+
+        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Classes="primary"
+                    Content="Save"
+                    Command="{Binding SaveCommand}"
+                    IsDefault="True"
+                    Width="100" Margin="0,0,10,0" />
+            <Button Classes="secondary"
+                    Content="Cancel"
+                    Command="{Binding CancelCommand}"
+                    IsCancel="True"
+                    Width="100" />
+        </StackPanel>
+    </Grid>
+</Window>
