@@ -1,4 +1,8 @@
+using System.Diagnostics;
+using System.Globalization;
+using System.IO.Compression;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using Avalonia.Controls;
@@ -10,17 +14,21 @@ namespace SimpleLauncher.Avalonia.Services;
 /// <summary>
 /// Checks for new application releases on GitHub, falling back to the secondary
 /// server when GitHub is unreachable. Avalonia port of the WPF CheckForUpdatesService.
-/// The automatic updater (Updater.exe) is not shipped with the Avalonia port yet, so
-/// users are guided to the releases page when an update is available.
+/// When the user accepts an update, the Avalonia updater
+/// (SimpleLauncher.Avalonia.Updater, downloaded from the release assets when not
+/// shipped next to the app) is launched and the application shuts down.
 /// </summary>
 public partial class AvaloniaCheckForUpdatesService
 {
     private const string RepoName = "SimpleLauncher";
     private static readonly string[] RepoOwners = ["drpetersonfernandes", "purelogiccode"];
     private const string SecondaryServerBaseUrl = "https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/";
+    private const string UpdaterFileName = "SimpleLauncher.Avalonia.Updater";
+    private readonly string _updaterDirectory;
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
+    private readonly IApplicationLifetime _applicationLifetime;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AvaloniaCheckForUpdatesService"/> class.
@@ -28,12 +36,49 @@ public partial class AvaloniaCheckForUpdatesService
     /// <param name="httpClientFactory">The factory used to create the HTTP client for GitHub API requests.</param>
     /// <param name="messageBoxLibrary">The message box service used to prompt the user about updates.</param>
     /// <param name="logger">The logger instance.</param>
-    public AvaloniaCheckForUpdatesService(IHttpClientFactory httpClientFactory, IMessageBoxLibraryService messageBoxLibrary, ILogger logger)
+    /// <param name="applicationLifetime">The application lifetime used to shut down the app after launching the updater.</param>
+    public AvaloniaCheckForUpdatesService(IHttpClientFactory httpClientFactory, IMessageBoxLibraryService messageBoxLibrary, ILogger logger, IApplicationLifetime applicationLifetime)
+        : this(httpClientFactory, messageBoxLibrary, logger, applicationLifetime, AppDomain.CurrentDomain.BaseDirectory)
+    {
+    }
+
+    /// <summary>
+    /// Test seam: resolves the updater against an isolated directory so tests never
+    /// touch (or launch) the real updater shipped in the application output.
+    /// </summary>
+    internal AvaloniaCheckForUpdatesService(IHttpClientFactory httpClientFactory, IMessageBoxLibraryService messageBoxLibrary, ILogger logger, IApplicationLifetime applicationLifetime, string updaterDirectory)
     {
         ArgumentNullException.ThrowIfNull(httpClientFactory);
         _httpClient = httpClientFactory.CreateClient("UpdateCheckerClient");
         _messageBoxLibrary = messageBoxLibrary;
         _logger = logger;
+        _applicationLifetime = applicationLifetime;
+        _updaterDirectory = updaterDirectory;
+    }
+
+    /// <summary>
+    /// Name of the updater executable shipped next to the application.
+    /// </summary>
+    internal static string UpdaterExecutableName => OperatingSystem.IsWindows()
+        ? $"{UpdaterFileName}.exe"
+        : UpdaterFileName;
+
+    /// <summary>
+    /// Gets the current runtime identifier used for release/updater asset names,
+    /// mirroring the updater's GitHubService (win-x64/win-arm64/linux-x64/linux-arm64).
+    /// </summary>
+    internal static string CurrentRuntimeIdentifier
+    {
+        get
+        {
+            var arch = RuntimeInformation.ProcessArchitecture;
+            if (OperatingSystem.IsWindows())
+            {
+                return arch == Architecture.Arm64 ? "win-arm64" : "win-x64";
+            }
+
+            return arch == Architecture.Arm64 ? "linux-arm64" : "linux-x64";
+        }
     }
 
     private string CurrentVersion
@@ -101,7 +146,7 @@ public partial class AvaloniaCheckForUpdatesService
     {
         try
         {
-            var (latestVersion, _, _, _) = await GetLatestReleaseInfoAsync();
+            var (latestVersion, _, updaterZipAssetUrl, _) = await GetLatestReleaseInfoAsync();
 
             if (latestVersion == null)
             {
@@ -117,10 +162,8 @@ public partial class AvaloniaCheckForUpdatesService
                 var result = await _messageBoxLibrary.DoYouWantToUpdateMessageBoxAsync(CurrentVersion, latestVersion);
                 if (result == CoreMessageBoxResult.Yes)
                 {
-                    // The Avalonia port ships no Updater.exe yet — guide the user to the
-                    // GitHub releases page for a manual download.
-                    _logger.Information("Update to {LatestVersion} confirmed by user; manual download flow shown (no Updater.exe in the Avalonia port).", latestVersion);
-                    await _messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
+                    _logger.Information("Update to {LatestVersion} confirmed by user; launching the updater.", latestVersion);
+                    await LaunchUpdaterAndShutdownAsync(updaterZipAssetUrl);
                 }
             }
             else
@@ -134,6 +177,112 @@ public partial class AvaloniaCheckForUpdatesService
         {
             _logger.Error(ex, "Error checking for updates (manual).");
             await _messageBoxLibrary.ErrorCheckingForUpdatesMessageBoxAsync();
+        }
+    }
+
+    /// <summary>
+    /// Launches the updater (downloading it from the release assets first when it is
+    /// not shipped next to the app) and shuts the application down. Port of the WPF
+    /// ReinstallSimpleLauncher flow — the updater replaces the app files while the
+    /// application process is exiting, then restarts it.
+    /// </summary>
+    /// <param name="updaterZipAssetUrl">URL of the updater package, or null when unknown.</param>
+    private async Task LaunchUpdaterAndShutdownAsync(string? updaterZipAssetUrl)
+    {
+        var updaterPath = Path.Combine(_updaterDirectory, UpdaterExecutableName);
+
+        try
+        {
+            if (!File.Exists(updaterPath))
+            {
+                _logger.Information("Updater not found next to the application; downloading it from the release assets.");
+                if (string.IsNullOrWhiteSpace(updaterZipAssetUrl) ||
+                    !await DownloadAndExtractUpdaterAsync(updaterZipAssetUrl, _updaterDirectory) ||
+                    !File.Exists(updaterPath))
+                {
+                    // Expected condition (offline / missing asset); the user is already
+                    // notified via the message box below — not a bug report.
+                    _logger.Information("Could not obtain the updater package; guiding the user to a manual update.");
+                    await _messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
+                    return;
+                }
+            }
+
+            try
+            {
+                var startInfo = new ProcessStartInfo(updaterPath)
+                {
+                    Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
+                    UseShellExecute = true,
+                    WorkingDirectory = _updaterDirectory
+                };
+                Process.Start(startInfo);
+
+                _logger.Information("Updater launched (PID {ProcessId}); shutting down for the update.", Environment.ProcessId);
+                _applicationLifetime.Shutdown();
+            }
+            catch (Exception ex)
+            {
+                // Expected condition (broken/corrupt updater, access denied); the user is
+                // already notified via the message box below — not a bug report.
+                _logger.Information(ex, "Failed to launch the updater at {UpdaterPath}", updaterPath);
+                await _messageBoxLibrary.UpdaterLaunchFailedMessageBoxAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Failed to prepare the updater.");
+            await _messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
+        }
+    }
+
+    /// <summary>
+    /// Downloads and extracts the updater package into the application directory,
+    /// guarding against zip-slip path traversal. Expected network/IO failures are
+    /// logged at Information level (the caller falls back to a manual update).
+    /// </summary>
+    private async Task<bool> DownloadAndExtractUpdaterAsync(string url, string destinationPath)
+    {
+        try
+        {
+            var response = await _httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+            response.EnsureSuccessStatusCode();
+
+            await using var stream = await response.Content.ReadAsStreamAsync();
+            using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
+
+            var fullDestinationPath = Path.GetFullPath(destinationPath);
+            if (!fullDestinationPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+            {
+                fullDestinationPath += Path.DirectorySeparatorChar;
+            }
+
+            foreach (var entry in archive.Entries)
+            {
+                if (string.IsNullOrEmpty(entry.Name)) continue; // directory entry
+
+                var destinationFileFullPath = Path.GetFullPath(Path.Combine(fullDestinationPath, entry.FullName));
+                if (!destinationFileFullPath.StartsWith(fullDestinationPath, StringComparison.OrdinalIgnoreCase))
+                {
+                    _logger.Information("Security warning: path traversal attempt in updater package entry '{Entry}'. Aborting.", entry.FullName);
+                    return false;
+                }
+
+                var entryDirectory = Path.GetDirectoryName(destinationFileFullPath);
+                if (!string.IsNullOrEmpty(entryDirectory) && !Directory.Exists(entryDirectory))
+                {
+                    Directory.CreateDirectory(entryDirectory);
+                }
+
+                entry.ExtractToFile(destinationFileFullPath, overwrite: true);
+            }
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.Information(ex, "Failed to download or extract the updater package.");
+            return false;
         }
     }
 
@@ -190,8 +339,8 @@ public partial class AvaloniaCheckForUpdatesService
 
             var rawVersion = versionMatch.Value;
             var latestVersion = NormalizeVersion(rawVersion);
-            var releasePackageUrl = SecondaryServerBaseUrl + $"release_{rawVersion}_win-x64.zip";
-            const string updaterZipAssetUrl = SecondaryServerBaseUrl + "updater_win-x64.zip";
+            var releasePackageUrl = SecondaryServerBaseUrl + $"release_{rawVersion}_{CurrentRuntimeIdentifier}.zip";
+            var updaterZipAssetUrl = SecondaryServerBaseUrl + $"updater_{CurrentRuntimeIdentifier}.zip";
 
             _logger.Information("GitHub API unavailable. Using the secondary server: version {LatestVersion}.", latestVersion);
             return (latestVersion, releasePackageUrl, updaterZipAssetUrl, true);
@@ -280,8 +429,8 @@ public partial class AvaloniaCheckForUpdatesService
             string? foundReleasePackageUrl = null;
             string? foundUpdaterZipUrl = null;
 
-            const string expectedUpdaterFileName = "updater_win-x64.zip";
-            var expectedReleaseFileName = $"release_{rawVersionStringFromTag}_win-x64.zip";
+            var expectedUpdaterFileName = $"updater_{CurrentRuntimeIdentifier}.zip";
+            var expectedReleaseFileName = $"release_{rawVersionStringFromTag}_{CurrentRuntimeIdentifier}.zip";
 
             _logger.Debug($"Searching for assets: '{expectedReleaseFileName}' and '{expectedUpdaterFileName}'");
 

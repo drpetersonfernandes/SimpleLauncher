@@ -146,15 +146,16 @@ public class ConverterTests
     [Fact]
     public void BooleanToFavorite_LocalizedValueIsUsedWhenPresent()
     {
-        // A localized strings file makes GetString return the translated value.
-        var resourcesDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources");
-        var stringsFile = Path.Combine(resourcesDir, "strings.en.json");
-        Directory.CreateDirectory(resourcesDir);
-        File.WriteAllText(stringsFile, """{"FavoriteStatusLabel": "Favorite FR", "NotFavoriteStatusLabel": "Not Favorite FR", "UnknownFavoriteStatusLabel": "Unknown FR"}""");
+        // A localized strings file in an isolated temp dir makes GetString return the
+        // translated value — never touches the shared output Resources folder (which
+        // LocalizationTests reads in parallel).
+        var tempDir = Path.Combine(Path.GetTempPath(), "SimpleLauncherConverterTests", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(tempDir);
+        File.WriteAllText(Path.Combine(tempDir, "strings.en.json"), """{"FavoriteStatusLabel": "Favorite FR", "NotFavoriteStatusLabel": "Not Favorite FR", "UnknownFavoriteStatusLabel": "Unknown FR"}""");
 
         try
         {
-            var localization = new LocalizationService();
+            var localization = new LocalizationService(tempDir);
             localization.LoadLanguage("en");
             var converter = new BooleanToFavoriteStatusConverter();
             BooleanToFavoriteStatusConverter.SetLocalizationService(localization);
@@ -165,7 +166,7 @@ public class ConverterTests
         }
         finally
         {
-            File.Delete(stringsFile);
+            Directory.Delete(tempDir, true);
         }
     }
 

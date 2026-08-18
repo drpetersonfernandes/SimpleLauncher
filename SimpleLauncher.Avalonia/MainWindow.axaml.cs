@@ -1741,11 +1741,23 @@ public partial class MainWindow : Window, IPaginationHost
         {
             _viewModel.IsLoading = true;
             _viewModel.StatusText = "Scanning for Windows games...";
-            var games = await _storefrontScanner.ScanAllAsync();
-            _viewModel.StatusText = $"Found {games.Count} PC games on your system";
-            ShowToast("Scan Complete", games.Count == 0
+            var result = await _storefrontScanner.ScanAndCreateWindowsSystemAsync();
+
+            if (result.GamesFound > 0)
+            {
+                // Reload systems + games so the new/updated system shows up immediately
+                // (sidebars, counts, and the file watcher pick up the new folders too).
+                _systemManagerService.InvalidateCache();
+                await _viewModel.InitializeAsync();
+                PopulateSidebarFromSystemXml();
+                _fileWatcher.StartWatchingForSystems(_systemManagerService.LoadSystems());
+            }
+
+            var action = result.SystemWasCreated ? "Created" : "Updated";
+            _viewModel.StatusText = $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system.";
+            ShowToast("Scan Complete", result.GamesFound == 0
                 ? "No PC games were found on this system."
-                : $"Found {games.Count} PC games. Creating a system entry comes in a future update.");
+                : $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).");
         }
         catch (Exception ex)
         {

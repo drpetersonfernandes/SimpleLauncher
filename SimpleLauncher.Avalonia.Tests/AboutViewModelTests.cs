@@ -9,9 +9,20 @@ namespace SimpleLauncher.Avalonia.Tests;
 /// <summary>
 /// Tests for the AboutWindow ViewModel (Phase 4.1 port).
 /// </summary>
-public class AboutViewModelTests
+public class AboutViewModelTests : IDisposable
 {
-    private static (AboutViewModel Vm, Mock<IMessageBoxLibraryService> MessageBox, Mock<ILogger> Logger)
+    private static string Rid => AvaloniaCheckForUpdatesService.CurrentRuntimeIdentifier;
+
+    private static string AssetsJson(string versionTag)
+    {
+        var version = versionTag.TrimStart('v');
+        return $$"""{"tag_name": "{{versionTag}}", "assets": [{"name": "release_{{version}}_{{Rid}}.zip", "browser_download_url": "https://example.com/x.zip"}, {"name": "updater_{{Rid}}.zip", "browser_download_url": "https://example.com/u.zip"}]}""";
+    }
+
+    private readonly string _updaterDir = Path.Combine(
+        Path.GetTempPath(), "SimpleLauncherAboutTests", Guid.NewGuid().ToString("N"));
+
+    private (AboutViewModel Vm, Mock<IMessageBoxLibraryService> MessageBox, Mock<ILogger> Logger)
         CreateVm(Func<HttpRequestMessage, HttpResponseMessage>? responder = null)
     {
         responder ??= _ => new HttpResponseMessage(System.Net.HttpStatusCode.NotFound);
@@ -19,9 +30,22 @@ public class AboutViewModelTests
         var factory = TestDependencies.HttpFactory(client);
         var messageBox = TestDependencies.MessageBox();
         var logger = TestDependencies.Logger();
-        var updateChecker = new AvaloniaCheckForUpdatesService(factory.Object, messageBox.Object, logger.Object);
+        Directory.CreateDirectory(_updaterDir);
+        var updateChecker = new AvaloniaCheckForUpdatesService(factory.Object, messageBox.Object, logger.Object, new Mock<IApplicationLifetime>().Object, _updaterDir);
         var vm = new AboutViewModel(logger.Object, messageBox.Object, updateChecker);
         return (vm, messageBox, logger);
+    }
+
+    public void Dispose()
+    {
+        try
+        {
+            if (Directory.Exists(_updaterDir)) Directory.Delete(_updaterDir, true);
+        }
+        catch
+        {
+            // Temp cleanup best-effort
+        }
     }
 
     [Fact]
@@ -63,9 +87,7 @@ public class AboutViewModelTests
         var (vm, messageBox, _) = CreateVm(_ =>
             new HttpResponseMessage(System.Net.HttpStatusCode.OK)
             {
-                Content = new StringContent(
-                    """{"tag_name": "v9.9.9", "assets": [{"name": "release_9.9.9_win-x64.zip", "browser_download_url": "https://example.com/x.zip"}]}""",
-                    System.Text.Encoding.UTF8, "application/json")
+                Content = new StringContent(AssetsJson("v9.9.9"), System.Text.Encoding.UTF8, "application/json")
             });
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
             .ReturnsAsync(CoreMessageBoxResult.Yes);
@@ -84,15 +106,14 @@ public class AboutViewModelTests
         // (and therefore the command's CanExecute) is observable mid-flight.
         var handler = new DelayedHandler(TimeSpan.FromMilliseconds(300), new HttpResponseMessage(System.Net.HttpStatusCode.OK)
         {
-            Content = new StringContent(
-                """{"tag_name": "v9.9.9", "assets": [{"name": "release_9.9.9_win-x64.zip", "browser_download_url": "https://example.com/x.zip"}]}""",
-                System.Text.Encoding.UTF8, "application/json")
+            Content = new StringContent(AssetsJson("v9.9.9"), System.Text.Encoding.UTF8, "application/json")
         });
         var client = new HttpClient(handler);
         var factory = TestDependencies.HttpFactory(client);
         var messageBox = TestDependencies.MessageBox();
         var logger = TestDependencies.Logger();
-        var updateChecker = new AvaloniaCheckForUpdatesService(factory.Object, messageBox.Object, logger.Object);
+        Directory.CreateDirectory(_updaterDir);
+        var updateChecker = new AvaloniaCheckForUpdatesService(factory.Object, messageBox.Object, logger.Object, new Mock<IApplicationLifetime>().Object, _updaterDir);
         var vm = new AboutViewModel(logger.Object, messageBox.Object, updateChecker);
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), It.IsAny<string>()))
             .ReturnsAsync(CoreMessageBoxResult.No);

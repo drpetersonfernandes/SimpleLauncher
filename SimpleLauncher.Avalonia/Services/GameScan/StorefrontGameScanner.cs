@@ -1,15 +1,51 @@
 using System.Runtime.Versioning;
 using System.Text.Json;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
+using SimpleLauncher.Avalonia.Services.SystemManager;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.SanitizeInputString;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Avalonia.Services.GameScan;
 
 /// <summary>
 /// Scans installed PC games from digital storefronts via registry, known paths, and manifest files.
-/// Simplified replacement for the old 11-scanner system. No image download or shortcut creation.
+/// Simplified replacement for the old 11-scanner system. No image download; discovered games are
+/// exposed as .url shortcuts in the "Microsoft Windows" system's ROM folder.
 /// </summary>
 public class StorefrontGameScanner
 {
+    /// <summary>Name of the system entry created for storefront-discovered PC games.</summary>
+    public const string WindowsSystemName = "Microsoft Windows";
+
+    /// <summary>
+    /// Names of storefront titles that should not be scanned as games.
+    /// </summary>
+    public static readonly HashSet<string> IgnoredGameNames = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "Steamworks Common Redistributables",
+        "Unreal Engine",
+        "Fab UE Plugin",
+        "Quixel Bridge",
+        "DirectX",
+        "Google Earth VR",
+        "Spacewar",
+        "PC Health Check",
+        "Rockstar Games Launcher",
+        "Battle.net",
+        "Ubisoft Connect"
+    };
+
+    private readonly SystemManagerService _systemManager;
+    private readonly IConfiguration _configuration;
+
+    public StorefrontGameScanner(SystemManagerService systemManager, IConfiguration configuration)
+    {
+        _systemManager = systemManager;
+        _configuration = configuration;
+    }
+
     // Steam libraryfolders.vdf / appmanifest_*.acf parsing (VDF key = "value" lines)
     private static readonly System.Text.RegularExpressions.Regex SteamPathRegex =
         new("""
@@ -52,12 +88,120 @@ public class StorefrontGameScanner
             results.AddRange(ScanMicrosoftStore());
         });
 
-        // Deduplicate by name (keep first found)
+        // Deduplicate by name (keep first found); drop storefront meta titles
         return results
+            .Where(r => !IgnoredGameNames.Contains(r.Item1))
             .GroupBy(r => r.Item1, StringComparer.OrdinalIgnoreCase)
             .Select(g => g.First())
             .OrderBy(r => r.Item1)
             .ToList();
+    }
+
+    /// <summary>
+    /// Scans all storefronts and materializes the results as a "Microsoft Windows" system:
+    /// one .url shortcut per discovered game in the system's ROM folder, plus the system
+    /// entry in system.xml when it does not exist yet (Direct Launch emulator, url/lnk/bat formats).
+    /// Existing shortcuts and systems are never overwritten — re-runs only add new games.
+    /// </summary>
+    public async Task<StorefrontScanResult> ScanAndCreateWindowsSystemAsync()
+    {
+        var games = await ScanAllAsync();
+
+        // Registry scanning already ran off-thread; keep the file work off the UI thread too.
+        return await Task.Run(() => CreateShortcutsForGames(games));
+    }
+
+    /// <summary>
+    /// Creates the "Microsoft Windows" system entry (when missing) and one .url shortcut per game.
+    /// Storefront meta titles (see <see cref="IgnoredGameNames"/>) are skipped, mirroring the WPF
+    /// scanners which filter before creating shortcuts.
+    /// </summary>
+    public StorefrontScanResult CreateShortcutsForGames(
+        IReadOnlyList<(string Name, string ExePath, string Storefront)> games)
+    {
+        var (romsPath, systemWasCreated) = EnsureWindowsSystemPaths();
+        if (romsPath is null)
+        {
+            return new StorefrontScanResult(games.Count, 0, systemWasCreated);
+        }
+
+        Directory.CreateDirectory(romsPath);
+
+        var shortcutsCreated = 0;
+        foreach (var (name, exePath, _) in games)
+        {
+            if (IgnoredGameNames.Contains(name)) continue;
+            if (string.IsNullOrWhiteSpace(exePath)) continue;
+
+            var shortcutPath = Path.Combine(romsPath, $"{SanitizeInputSystemName.SanitizeFolderName(name)}.url");
+            if (File.Exists(shortcutPath)) continue;
+
+            try
+            {
+                // file:/// protocol targets the game executable (UseShellExecute launches it)
+                File.WriteAllText(shortcutPath, $"[InternetShortcut]\nURL=file:///{exePath}");
+                shortcutsCreated++;
+            }
+            catch (Exception ex)
+            {
+                Log.Debug(ex, "Failed to create .url shortcut {Path}", shortcutPath);
+            }
+        }
+
+        return new StorefrontScanResult(games.Count, shortcutsCreated, systemWasCreated);
+    }
+
+    /// <summary>
+    /// Resolves the ROM folder for the "Microsoft Windows" system, creating the system entry
+    /// and its default folders on first run. Mirrors the WPF GameScannerService behavior —
+    /// identical %BASEFOLDER% paths so both apps see the same games.
+    /// </summary>
+    private (string? RomsPath, bool SystemWasCreated) EnsureWindowsSystemPaths()
+    {
+        try
+        {
+            var existingSystem = _systemManager.LoadSystems()
+                .FirstOrDefault(s => string.Equals(s.SystemName, WindowsSystemName, StringComparison.OrdinalIgnoreCase));
+
+            if (existingSystem is not null)
+            {
+                return (PathHelper.ResolveRelativeToAppDirectory(existingSystem.PrimarySystemFolder), false);
+            }
+
+            var defaultRomsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", WindowsSystemName);
+            var defaultImagesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", WindowsSystemName);
+
+            SystemManagerService.SaveSystemConfigurationAsync(
+                WindowsSystemName,
+                [$"%BASEFOLDER%\\roms\\{WindowsSystemName}"],
+                $"%BASEFOLDER%\\images\\{WindowsSystemName}",
+                ["url", "lnk", "bat"],
+                [],
+                false,
+                new Emulator
+                {
+                    EmulatorName = "Direct Launch",
+                    EmulatorLocation = "",
+                    EmulatorParameters = "",
+                    ReceiveANotificationOnEmulatorError = true
+                },
+                WindowsSystemName,
+                _configuration).GetAwaiter().GetResult();
+
+            // The SystemManagerService cache is stale now — subsequent scans must see
+            // the entry as existing instead of re-creating it.
+            _systemManager.InvalidateCache();
+
+            Directory.CreateDirectory(defaultRomsPath);
+            Directory.CreateDirectory(defaultImagesPath);
+
+            return (defaultRomsPath, true);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to initialize '{System}' system paths", WindowsSystemName);
+            return (null, false);
+        }
     }
 
     #region Steam
@@ -476,3 +620,8 @@ public class StorefrontGameScanner
 
     #endregion
 }
+
+/// <summary>
+/// Result of a storefront scan that materialized games into the "Microsoft Windows" system.
+/// </summary>
+public sealed record StorefrontScanResult(int GamesFound, int ShortcutsCreated, bool SystemWasCreated);

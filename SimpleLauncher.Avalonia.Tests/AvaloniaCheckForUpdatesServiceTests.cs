@@ -1,3 +1,4 @@
+using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
 using Moq;
@@ -10,20 +11,37 @@ namespace SimpleLauncher.Avalonia.Tests;
 /// <summary>
 /// Tests for <see cref="AvaloniaCheckForUpdatesService"/> (Phase 3 service).
 /// All HTTP traffic is served by a fake HttpMessageHandler, so no live endpoints are hit.
+/// The updater launch flow is exercised against an isolated temp directory — the real
+/// updater shipped in the application output is never launched.
 /// </summary>
-public class AvaloniaCheckForUpdatesServiceTests
+public class AvaloniaCheckForUpdatesServiceTests : IDisposable
 {
-    private static string GitHubReleaseJson(string versionTag, string assetName)
+    private readonly string _updaterDir = Path.Combine(
+        Path.GetTempPath(), "SimpleLauncherUpdateTests", Guid.NewGuid().ToString("N"));
+
+    private static string Rid => AvaloniaCheckForUpdatesService.CurrentRuntimeIdentifier;
+
+    private static string GitHubReleaseJson(string versionTag, params string[] assetNames)
     {
-        var assetUrl = $"https://github.com/drpetersonfernandes/SimpleLauncher/releases/download/{versionTag}/{assetName}";
         return JsonSerializer.Serialize(new
         {
             tag_name = versionTag,
-            assets = new[] { new { name = assetName, browser_download_url = assetUrl } }
+            assets = assetNames.Select(n => new
+            {
+                name = n,
+                browser_download_url = $"https://github.com/drpetersonfernandes/SimpleLauncher/releases/download/{versionTag}/{n}"
+            })
         });
     }
 
-    private static (AvaloniaCheckForUpdatesService Service, Mock<IMessageBoxLibraryService> MessageBox, Mock<ILogger> Logger)
+    private static string LatestReleaseAssetsJson(string versionTag)
+    {
+        return GitHubReleaseJson(versionTag,
+            $"release_{versionTag.TrimStart('v')}_{Rid}.zip",
+            $"updater_{Rid}.zip");
+    }
+
+    private (AvaloniaCheckForUpdatesService Service, Mock<IMessageBoxLibraryService> MessageBox, Mock<IApplicationLifetime> Lifetime)
         CreateService(Func<HttpRequestMessage, HttpResponseMessage> responder)
     {
         var handler = new FakeMessageHandler(responder);
@@ -34,9 +52,11 @@ public class AvaloniaCheckForUpdatesServiceTests
 
         var messageBox = new Mock<IMessageBoxLibraryService>();
         var logger = new Mock<ILogger>();
+        var lifetime = new Mock<IApplicationLifetime>();
 
-        var service = new AvaloniaCheckForUpdatesService(httpClientFactory.Object, messageBox.Object, logger.Object);
-        return (service, messageBox, logger);
+        Directory.CreateDirectory(_updaterDir);
+        var service = new AvaloniaCheckForUpdatesService(httpClientFactory.Object, messageBox.Object, logger.Object, lifetime.Object, _updaterDir);
+        return (service, messageBox, lifetime);
     }
 
     private static HttpResponseMessage Json(string content, int status = 200)
@@ -55,13 +75,55 @@ public class AvaloniaCheckForUpdatesServiceTests
         };
     }
 
-    [Fact]
-    public async Task ManualCheck_NewerVersionOnGitHub_UserAccepts_GuidesToManualDownload()
+    private static HttpResponseMessage Zip(byte[] bytes, int status = 200)
     {
-        var (service, messageBox, _) = CreateService(request =>
-            request.RequestUri!.Host.StartsWith("api.github.com", StringComparison.Ordinal)
-                ? Json(GitHubReleaseJson("v9.9.9", "release_9.9.9_win-x64.zip"))
-                : throw new InvalidOperationException("Unexpected request: " + request.RequestUri));
+        return new HttpResponseMessage((System.Net.HttpStatusCode)status)
+        {
+            Content = new ByteArrayContent(bytes)
+        };
+    }
+
+    private static byte[] CreateZip(params (string EntryName, byte[] Content)[] entries)
+    {
+        using var ms = new MemoryStream();
+        using (var archive = new ZipArchive(ms, ZipArchiveMode.Create, leaveOpen: true))
+        {
+            foreach (var (entryName, content) in entries)
+            {
+                var entry = archive.CreateEntry(entryName);
+                using var stream = entry.Open();
+                stream.Write(content);
+            }
+        }
+
+        return ms.ToArray();
+    }
+
+    public void Dispose()
+    {
+        try
+        {
+            if (Directory.Exists(_updaterDir)) Directory.Delete(_updaterDir, true);
+        }
+        catch
+        {
+            // Temp cleanup best-effort
+        }
+    }
+
+    [Fact]
+    public async Task ManualCheck_NewerVersionOnGitHub_UserAccepts_UpdaterDownloadFails_GuidesToManualDownload()
+    {
+        var (service, messageBox, lifetime) = CreateService(request =>
+        {
+            if (request.RequestUri!.Host.StartsWith("api.github.com", StringComparison.Ordinal))
+            {
+                return Json(LatestReleaseAssetsJson("v9.9.9"));
+            }
+
+            // Updater zip download fails
+            return new HttpResponseMessage(System.Net.HttpStatusCode.NotFound);
+        });
 
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
             .ReturnsAsync(CoreMessageBoxResult.Yes);
@@ -70,14 +132,125 @@ public class AvaloniaCheckForUpdatesServiceTests
 
         messageBox.Verify(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"), Times.Once);
         messageBox.Verify(m => m.InstallUpdateManuallyMessageBoxAsync(), Times.Once);
-        messageBox.Verify(m => m.ThereIsNoUpdateAvailableMessageBoxAsync(It.IsAny<string>()), Times.Never);
+        messageBox.Verify(m => m.UpdaterLaunchFailedMessageBoxAsync(), Times.Never);
+        lifetime.Verify(m => m.Shutdown(), Times.Never);
     }
 
     [Fact]
-    public async Task ManualCheck_NewerVersionOnGitHub_UserDeclines_NoManualDownload()
+    public async Task ManualCheck_NewerVersionOnGitHub_UserAccepts_UpdaterZipEmpty_GuidesToManualDownload()
     {
-        var (service, messageBox, _) = CreateService(request =>
-            Json(GitHubReleaseJson("v9.9.9", "release_9.9.9_win-x64.zip")));
+        var (service, messageBox, lifetime) = CreateService(request =>
+        {
+            if (request.RequestUri!.Host.StartsWith("api.github.com", StringComparison.Ordinal))
+            {
+                return Json(LatestReleaseAssetsJson("v9.9.9"));
+            }
+
+            return Zip(CreateZip(("dir/", [])));
+        });
+
+        messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
+            .ReturnsAsync(CoreMessageBoxResult.Yes);
+
+        await service.ManualCheckForUpdatesAsync(owner: null);
+
+        messageBox.Verify(m => m.InstallUpdateManuallyMessageBoxAsync(), Times.Once);
+        lifetime.Verify(m => m.Shutdown(), Times.Never);
+    }
+
+    [Fact]
+    public async Task ManualCheck_UpdaterMissing_DownloadSucceeds_ExtractsAndAttemptsLaunch()
+    {
+        var (service, messageBox, lifetime) = CreateService(request =>
+        {
+            if (request.RequestUri!.Host.StartsWith("api.github.com", StringComparison.Ordinal))
+            {
+                return Json(LatestReleaseAssetsJson("v9.9.9"));
+            }
+
+            // A valid zip carrying a broken "updater" executable — extraction succeeds,
+            // the launch attempt then fails (not a valid executable).
+            return Zip(CreateZip(
+                (AvaloniaCheckForUpdatesService.UpdaterExecutableName, Encoding.UTF8.GetBytes("not an executable")),
+                ("some-other-file.txt", Encoding.UTF8.GetBytes("x"))));
+        });
+
+        messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
+            .ReturnsAsync(CoreMessageBoxResult.Yes);
+
+        await service.ManualCheckForUpdatesAsync(owner: null);
+
+        // The updater was extracted next to the (test) app directory
+        Assert.True(File.Exists(Path.Combine(_updaterDir, AvaloniaCheckForUpdatesService.UpdaterExecutableName)));
+        Assert.True(File.Exists(Path.Combine(_updaterDir, "some-other-file.txt")));
+
+        messageBox.Verify(m => m.UpdaterLaunchFailedMessageBoxAsync(), Times.Once);
+        messageBox.Verify(m => m.InstallUpdateManuallyMessageBoxAsync(), Times.Never);
+        lifetime.Verify(m => m.Shutdown(), Times.Never);
+    }
+
+    [Fact]
+    public async Task ManualCheck_UpdaterPresentButBroken_ShowsLaunchFailed()
+    {
+        var (service, messageBox, lifetime) = CreateService(request =>
+            Json(LatestReleaseAssetsJson("v9.9.9")));
+
+        File.WriteAllText(Path.Combine(_updaterDir, AvaloniaCheckForUpdatesService.UpdaterExecutableName), "not an executable");
+
+        messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
+            .ReturnsAsync(CoreMessageBoxResult.Yes);
+
+        await service.ManualCheckForUpdatesAsync(owner: null);
+
+        messageBox.Verify(m => m.UpdaterLaunchFailedMessageBoxAsync(), Times.Once);
+        messageBox.Verify(m => m.InstallUpdateManuallyMessageBoxAsync(), Times.Never);
+        lifetime.Verify(m => m.Shutdown(), Times.Never);
+    }
+
+    [Fact]
+    public async Task ManualCheck_UpdaterZipPathTraversal_AbortsExtractionAndShowsManual()
+    {
+        var (service, messageBox, lifetime) = CreateService(request =>
+        {
+            if (request.RequestUri!.Host.StartsWith("api.github.com", StringComparison.Ordinal))
+            {
+                return Json(LatestReleaseAssetsJson("v9.9.9"));
+            }
+
+            return Zip(CreateZip(("../evil.txt", Encoding.UTF8.GetBytes("pwned"))));
+        });
+
+        messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
+            .ReturnsAsync(CoreMessageBoxResult.Yes);
+
+        await service.ManualCheckForUpdatesAsync(owner: null);
+
+        // The traversal entry must never be written outside the updater directory
+        Assert.False(File.Exists(Path.Combine(Path.GetDirectoryName(_updaterDir)!, "evil.txt")));
+        messageBox.Verify(m => m.InstallUpdateManuallyMessageBoxAsync(), Times.Once);
+        lifetime.Verify(m => m.Shutdown(), Times.Never);
+    }
+
+    [Fact]
+    public async Task ManualCheck_UpdaterAssetMissingFromRelease_ShowsManual()
+    {
+        var (service, messageBox, lifetime) = CreateService(request =>
+            Json(GitHubReleaseJson("v9.9.9", $"release_9.9.9_{Rid}.zip")));
+
+        messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
+            .ReturnsAsync(CoreMessageBoxResult.Yes);
+
+        await service.ManualCheckForUpdatesAsync(owner: null);
+
+        messageBox.Verify(m => m.InstallUpdateManuallyMessageBoxAsync(), Times.Once);
+        lifetime.Verify(m => m.Shutdown(), Times.Never);
+    }
+
+    [Fact]
+    public async Task ManualCheck_NewerVersionOnGitHub_UserDeclines_NoUpdaterFlow()
+    {
+        var (service, messageBox, lifetime) = CreateService(request =>
+            Json(LatestReleaseAssetsJson("v9.9.9")));
 
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
             .ReturnsAsync(CoreMessageBoxResult.No);
@@ -86,13 +259,15 @@ public class AvaloniaCheckForUpdatesServiceTests
 
         messageBox.Verify(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"), Times.Once);
         messageBox.Verify(m => m.InstallUpdateManuallyMessageBoxAsync(), Times.Never);
+        messageBox.Verify(m => m.UpdaterLaunchFailedMessageBoxAsync(), Times.Never);
+        lifetime.Verify(m => m.Shutdown(), Times.Never);
     }
 
     [Fact]
     public async Task ManualCheck_CurrentVersionUpToDate_ShowsNoUpdateAvailable()
     {
         var (service, messageBox, _) = CreateService(request =>
-            Json(GitHubReleaseJson("v5.6.1", "release_5.6.1_win-x64.zip")));
+            Json(LatestReleaseAssetsJson("v5.6.1")));
 
         await service.ManualCheckForUpdatesAsync(owner: null);
 
@@ -126,6 +301,7 @@ public class AvaloniaCheckForUpdatesServiceTests
 
         messageBox.Verify(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"), Times.Once);
         messageBox.Verify(m => m.ErrorCheckingForUpdatesMessageBoxAsync(), Times.Never);
+        messageBox.Verify(m => m.InstallUpdateManuallyMessageBoxAsync(), Times.Once); // updater zip is not a valid zip
     }
 
     [Fact]

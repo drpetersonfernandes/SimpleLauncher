@@ -208,4 +208,21 @@
         <Using Include="System.Net.Http" />
         <Using Include="Serilog" />
     </ItemGroup>
+
+    <!-- ── Avalonia Updater (phase 1.1: ship the updater next to the app) ──
+         The updater is a standalone executable (no compile reference — ReferenceOutputAssembly=false),
+         but it must ship in the same folder as the app so updates can replace the app files while
+         the updater itself stays locked/running. -->
+    <ItemGroup>
+        <ProjectReference Include="..\SimpleLauncher.Avalonia.Updater\SimpleLauncher.Avalonia.Updater.csproj" ReferenceOutputAssembly="false" />
+    </ItemGroup>
+
+    <Target Name="CopyAvaloniaUpdaterToOutput" AfterTargets="Build" Condition="'$(TargetFramework)' != ''">
+        <ItemGroup>
+            <AvaloniaUpdaterFiles Include="..\SimpleLauncher.Avalonia.Updater\bin\$(Configuration)\$(TargetFramework)\**\*.*" />
+        </ItemGroup>
+        <Copy SourceFiles="@(AvaloniaUpdaterFiles)"
+              DestinationFiles="@(AvaloniaUpdaterFiles->'$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')"
+              SkipUnchangedFiles="true" />
+    </Target>
 </Project>

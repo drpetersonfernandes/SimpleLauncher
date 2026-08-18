@@ -8,6 +8,7 @@ namespace SimpleLauncher.Avalonia.Services;
 /// </summary>
 public class LocalizationService
 {
+    private readonly string _resourcesDir;
     private readonly Dictionary<string, string> _strings = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, string> _enFallback;
 
@@ -40,8 +41,17 @@ public class LocalizationService
         ["zh-Hans"] = "简体中文"
     };
 
-    public LocalizationService()
+    public LocalizationService() : this(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources"))
     {
+    }
+
+    /// <summary>
+    /// Test seam: allows tests to load strings from an isolated directory instead of
+    /// mutating the shared output Resources folder (which races with LocalizationTests).
+    /// </summary>
+    internal LocalizationService(string resourcesDir)
+    {
+        _resourcesDir = resourcesDir;
         LoadLanguage("en");
         _enFallback = new Dictionary<string, string>(_strings, StringComparer.OrdinalIgnoreCase);
     }
@@ -56,7 +66,7 @@ public class LocalizationService
 
         // Resolve the resource file case-insensitively (settings may store codes
         // like 'pt-br' or 'zh-hans' from the WPF app while the files use 'pt-BR'/'zh-Hans').
-        var resourcesDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources");
+        var resourcesDir = _resourcesDir;
         var path = Directory.Exists(resourcesDir)
             ? Directory.EnumerateFiles(resourcesDir, "strings.*.json")
                 .FirstOrDefault(f => string.Equals(Path.GetFileNameWithoutExtension(f).Substring("strings.".Length),

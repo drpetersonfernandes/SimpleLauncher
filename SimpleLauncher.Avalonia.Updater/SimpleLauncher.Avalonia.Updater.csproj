@@ -6,8 +6,8 @@
         <AssemblyName>SimpleLauncher.Avalonia.Updater</AssemblyName>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <AssemblyVersion>5.6.0</AssemblyVersion>
-        <FileVersion>5.6.0</FileVersion>
+        <AssemblyVersion>5.6.1</AssemblyVersion>
+        <FileVersion>5.6.1</FileVersion>
         <IsPackable>false</IsPackable>
         <LangVersion>14</LangVersion>
         <ApplicationIcon>icon\icon.ico</ApplicationIcon>
