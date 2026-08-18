@@ -1107,10 +1107,24 @@ public partial class MainWindow : Window
 
     private void UpdateLanguageCheckMarks(string lang)
     {
+        LanguageArabic.IsChecked = string.Equals(lang, "ar", StringComparison.OrdinalIgnoreCase);
+        LanguageBengali.IsChecked = string.Equals(lang, "bn", StringComparison.OrdinalIgnoreCase);
+        LanguageGerman.IsChecked = string.Equals(lang, "de", StringComparison.OrdinalIgnoreCase);
         LanguageEnglish.IsChecked = string.Equals(lang, "en", StringComparison.OrdinalIgnoreCase);
         LanguageSpanish.IsChecked = string.Equals(lang, "es", StringComparison.OrdinalIgnoreCase);
         LanguageFrench.IsChecked = string.Equals(lang, "fr", StringComparison.OrdinalIgnoreCase);
+        LanguageHindi.IsChecked = string.Equals(lang, "hi", StringComparison.OrdinalIgnoreCase);
+        LanguageIndonesianMalay.IsChecked = string.Equals(lang, "id", StringComparison.OrdinalIgnoreCase);
+        LanguageItalian.IsChecked = string.Equals(lang, "it", StringComparison.OrdinalIgnoreCase);
+        LanguageJapanese.IsChecked = string.Equals(lang, "ja", StringComparison.OrdinalIgnoreCase);
+        LanguageKorean.IsChecked = string.Equals(lang, "ko", StringComparison.OrdinalIgnoreCase);
+        LanguageDutch.IsChecked = string.Equals(lang, "nl", StringComparison.OrdinalIgnoreCase);
         LanguagePortugueseBr.IsChecked = string.Equals(lang, "pt-BR", StringComparison.OrdinalIgnoreCase);
+        LanguageRussian.IsChecked = string.Equals(lang, "ru", StringComparison.OrdinalIgnoreCase);
+        LanguageTurkish.IsChecked = string.Equals(lang, "tr", StringComparison.OrdinalIgnoreCase);
+        LanguageUrdu.IsChecked = string.Equals(lang, "ur", StringComparison.OrdinalIgnoreCase);
+        LanguageVietnamese.IsChecked = string.Equals(lang, "vi", StringComparison.OrdinalIgnoreCase);
+        LanguageChineseSimplified.IsChecked = string.Equals(lang, "zh-Hans", StringComparison.OrdinalIgnoreCase);
     }
 
     private void UpdateThumbnailSizeCheckMarks(int size)
@@ -1181,9 +1195,23 @@ public partial class MainWindow : Window
 
             var lang = item.Name switch
             {
+                "LanguageArabic" => "ar",
+                "LanguageBengali" => "bn",
+                "LanguageGerman" => "de",
                 "LanguageSpanish" => "es",
                 "LanguageFrench" => "fr",
+                "LanguageHindi" => "hi",
+                "LanguageIndonesianMalay" => "id",
+                "LanguageItalian" => "it",
+                "LanguageJapanese" => "ja",
+                "LanguageKorean" => "ko",
+                "LanguageDutch" => "nl",
                 "LanguagePortugueseBr" => "pt-BR",
+                "LanguageRussian" => "ru",
+                "LanguageTurkish" => "tr",
+                "LanguageUrdu" => "ur",
+                "LanguageVietnamese" => "vi",
+                "LanguageChineseSimplified" => "zh-Hans",
                 _ => "en"
             };
 

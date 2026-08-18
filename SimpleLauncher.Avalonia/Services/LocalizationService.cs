@@ -16,22 +16,28 @@ public class LocalizationService
     public IReadOnlyDictionary<string, string> AllStrings => _strings;
 
     /// <summary>
-    /// Available languages with display names.
+    /// Available languages with display names (canonical set matches the WPF app).
     /// </summary>
     public static readonly Dictionary<string, string> AvailableLanguages = new()
     {
+        ["ar"] = "العربية",
+        ["bn"] = "বাংলা",
+        ["de"] = "Deutsch",
         ["en"] = "English",
-        ["pt-BR"] = "Português",
         ["es"] = "Español",
         ["fr"] = "Français",
-        ["de"] = "Deutsch",
+        ["hi"] = "हिन्दी",
+        ["id"] = "Indonesian (Malay)",
+        ["it"] = "Italiano",
         ["ja"] = "日本語",
         ["ko"] = "한국어",
-        ["zh-Hans"] = "简体中文",
-        ["ru"] = "Русский",
-        ["it"] = "Italiano",
         ["nl"] = "Nederlands",
-        ["tr"] = "Türkçe"
+        ["pt-BR"] = "Português",
+        ["ru"] = "Русский",
+        ["tr"] = "Türkçe",
+        ["ur"] = "اردو",
+        ["vi"] = "Tiếng Việt",
+        ["zh-Hans"] = "简体中文"
     };
 
     public LocalizationService()
@@ -48,7 +54,24 @@ public class LocalizationService
         CurrentLanguage = lang;
         _strings.Clear();
 
-        var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", $"strings.{lang}.json");
+        // Resolve the resource file case-insensitively (settings may store codes
+        // like 'pt-br' or 'zh-hans' from the WPF app while the files use 'pt-BR'/'zh-Hans').
+        var resourcesDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources");
+        var path = Directory.Exists(resourcesDir)
+            ? Directory.EnumerateFiles(resourcesDir, "strings.*.json")
+                .FirstOrDefault(f => string.Equals(Path.GetFileNameWithoutExtension(f).Substring("strings.".Length),
+                    lang, StringComparison.OrdinalIgnoreCase))
+            : null;
+        path ??= Path.Combine(resourcesDir, $"strings.{lang}.json");
+
+        if (File.Exists(path))
+        {
+            // Canonicalize CurrentLanguage to the actual file's code (e.g. 'pt-br' -> 'pt-BR')
+            var fileName = Path.GetFileNameWithoutExtension(path);
+            CurrentLanguage = fileName.StartsWith("strings.", StringComparison.Ordinal)
+                ? fileName["strings.".Length..]
+                : lang;
+        }
 
         if (File.Exists(path))
         {
@@ -72,7 +95,7 @@ public class LocalizationService
         }
 
         // If not English, merge English fallback for missing keys
-        if (lang != "en" && _enFallback.Count > 0)
+        if (!string.Equals(lang, "en", StringComparison.OrdinalIgnoreCase) && _enFallback.Count > 0)
         {
             foreach (var kvp in _enFallback)
             {

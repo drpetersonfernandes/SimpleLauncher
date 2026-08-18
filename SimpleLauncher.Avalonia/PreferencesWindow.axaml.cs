@@ -161,7 +161,7 @@ public partial class PreferencesWindow : Window
         // General
         foreach (var lbi in LanguageCombo.Items.OfType<ComboBoxItem>())
         {
-            if (lbi.Tag as string == _settings.Language)
+            if (string.Equals(lbi.Tag as string, _settings.Language, StringComparison.OrdinalIgnoreCase))
             {
                 LanguageCombo.SelectedItem = lbi;
                 break;
