@@ -1,0 +1,403 @@
+using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using SimpleLauncher.Avalonia.Models;
+using SimpleLauncher.Avalonia.Services.SystemManager;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.PlaySound;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
+
+namespace SimpleLauncher.Avalonia.ViewModels;
+
+/// <summary>
+/// ViewModel for the Global Search section of the main window, providing
+/// cross-system ROM search with logical operators and scoring (WPF GlobalSearchPage equivalent).
+/// </summary>
+public partial class GlobalSearchSectionViewModel : ObservableObject
+{
+    private readonly SystemManagerService _systemManagerService;
+    private readonly IGetListOfFilesService _getListOfFiles;
+    private readonly IFindCoverImageService _findCoverImage;
+    private readonly IMameDataService _mameData;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly MainViewModel _mainViewModel;
+    private readonly ILogger _logErrors;
+    private CancellationTokenSource _cancellationTokenSource = new();
+
+    [ObservableProperty] private ObservableCollection<SearchResult> _searchResults = [];
+
+    [ObservableProperty] private SearchResult? _selectedResult;
+
+    [ObservableProperty] private bool _isLoading;
+
+    [ObservableProperty] private string _loadingMessage = "";
+
+    [ObservableProperty] private bool _noResultsVisible;
+
+    [ObservableProperty] private string _resultsCountText = "";
+
+    [ObservableProperty] private bool _launchButtonEnabled;
+
+    [ObservableProperty] private List<string> _systemNames = [];
+
+    [ObservableProperty] private int _selectedSystemIndex;
+
+    [ObservableProperty] private string _searchText = "";
+
+    [ObservableProperty] private bool _searchFilename = true;
+
+    [ObservableProperty] private bool _searchMameDescription = true;
+
+    [ObservableProperty] private bool _searchFolderName;
+
+    [ObservableProperty] private bool _searchRecursively;
+
+    public GlobalSearchSectionViewModel(
+        SystemManagerService systemManagerService,
+        IGetListOfFilesService getListOfFiles,
+        IFindCoverImageService findCoverImage,
+        IMameDataService mameData,
+        PlaySoundEffects playSoundEffects,
+        IMessageBoxLibraryService messageBox,
+        MainViewModel mainViewModel,
+        ILogger logErrors)
+    {
+        _systemManagerService = systemManagerService;
+        _getListOfFiles = getListOfFiles;
+        _findCoverImage = findCoverImage;
+        _mameData = mameData;
+        _playSoundEffects = playSoundEffects;
+        _messageBox = messageBox;
+        _mainViewModel = mainViewModel;
+        _logErrors = logErrors;
+
+        InitializeSystemNames();
+    }
+
+    private void InitializeSystemNames()
+    {
+        var names = new List<string> { "All Systems" };
+        names.AddRange(_systemManagerService.LoadSystems()
+            .Select(static s => s.SystemName)
+            .OrderBy(static name => name, StringComparer.Ordinal));
+        SystemNames = names;
+        SelectedSystemIndex = 0;
+    }
+
+    partial void OnSelectedResultChanged(SearchResult? value)
+    {
+        LaunchButtonEnabled = value is not null;
+    }
+
+    [RelayCommand]
+    private async Task SearchAsync()
+    {
+        try
+        {
+            await _cancellationTokenSource.CancelAsync();
+            _cancellationTokenSource.Dispose();
+            _cancellationTokenSource = new CancellationTokenSource();
+            var token = _cancellationTokenSource.Token;
+
+            var searchTerm = SearchText;
+            var parsedTerms = ParseSearchTerms(searchTerm);
+            var hasMeaningfulKeywords = parsedTerms
+                .Any(static t => !t.Equals("and", StringComparison.OrdinalIgnoreCase) &&
+                                 !t.Equals("or", StringComparison.OrdinalIgnoreCase));
+
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                _mainViewModel.StatusText = "Please enter a search term.";
+                return;
+            }
+
+            if (!hasMeaningfulKeywords)
+            {
+                await _messageBox.EnterValidSearchTermsMessageBoxAsync();
+                return;
+            }
+
+            _playSoundEffects.PlayNotificationSound();
+
+            var selectedSystem = SelectedSystemIndex >= 0 && SelectedSystemIndex < SystemNames.Count
+                ? SystemNames[SelectedSystemIndex]
+                : SystemNames.FirstOrDefault();
+
+            LaunchButtonEnabled = false;
+            IsLoading = true;
+            LoadingMessage = "Searching... Please wait.";
+            NoResultsVisible = false;
+            ResultsCountText = "";
+
+            try
+            {
+                var results = await Task.Run(() => PerformSearch(
+                    searchTerm, selectedSystem,
+                    SearchFilename, SearchMameDescription, SearchFolderName, SearchRecursively, token), token);
+
+                if (results.Count > 0)
+                {
+                    SearchResults = new ObservableCollection<SearchResult>(results);
+                    NoResultsVisible = false;
+                    ResultsCountText = $"Found {results.Count} results";
+                }
+                else
+                {
+                    SearchResults = [];
+                    SelectedResult = null;
+                    NoResultsVisible = true;
+                    ResultsCountText = "";
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                // Search was canceled — ignore
+            }
+            catch (Exception ex)
+            {
+                _logErrors.Error(ex, "Error during the global search operation.");
+                await _messageBox.GlobalSearchErrorMessageBoxAsync();
+                SearchResults = [];
+                SelectedResult = null;
+                NoResultsVisible = true;
+                ResultsCountText = "";
+            }
+            finally
+            {
+                if (!_cancellationTokenSource.IsCancellationRequested)
+                {
+                    IsLoading = false;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            _logErrors.Error(ex, "Error in the global search command.");
+        }
+    }
+
+    private List<SearchResult> PerformSearch(
+        string searchTerm, string? selectedSystem,
+        bool searchFilename, bool searchMameDescription, bool searchFolderName, bool searchRecursively,
+        CancellationToken token)
+    {
+        var results = new List<SearchResult>();
+        var searchTerms = ParseSearchTerms(searchTerm);
+        var systems = _systemManagerService.LoadSystems();
+
+        IEnumerable<SystemManagerConfig> systemsToSearch = systems;
+        if (!string.IsNullOrEmpty(selectedSystem) &&
+            !string.Equals(selectedSystem, "All Systems", StringComparison.Ordinal))
+        {
+            systemsToSearch = systems.Where(sm =>
+                sm.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
+        }
+
+        foreach (var systemManager in systemsToSearch)
+        {
+            token.ThrowIfCancellationRequested();
+
+            var effectiveSystem = searchRecursively switch
+            {
+                true when systemManager.DisableRecursiveSearch =>
+                    CloneWithRecursion(systemManager, disableRecursive: false),
+                false when !systemManager.DisableRecursiveSearch =>
+                    CloneWithRecursion(systemManager, disableRecursive: true),
+                _ => systemManager
+            };
+
+            foreach (var systemFolderPathRaw in systemManager.SystemFolders)
+            {
+                token.ThrowIfCancellationRequested();
+
+                var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemFolderPathRaw);
+                if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath))
+                {
+                    continue;
+                }
+
+                var matchedFilesList = _getListOfFiles.GetFilesAsync(
+                    systemFolderPath, systemManager.FileFormatsToSearch,
+                    effectiveSystem.DisableRecursiveSearch, effectiveSystem.GroupByFolder, token).GetAwaiter().GetResult();
+
+                var matchedFiles = matchedFilesList.Where(file =>
+                {
+                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+
+                    var filenameMatch = searchFilename &&
+                                        MatchesSearchQuery(fileNameWithoutExtension.ToLowerInvariant(), searchTerms);
+
+                    var mameDescriptionMatch = searchMameDescription &&
+                                               _mameData.Lookup.TryGetValue(fileNameWithoutExtension, out var description) &&
+                                               MatchesSearchQuery(description.ToLowerInvariant(), searchTerms);
+
+                    var folderNameMatch = false;
+                    if (searchFolderName)
+                    {
+                        var dir = Path.GetDirectoryName(file);
+                        var directoryName = dir is null ? null : new DirectoryInfo(dir).Name;
+                        folderNameMatch = MatchesSearchQuery(directoryName?.ToLowerInvariant(), searchTerms);
+                    }
+
+                    return filenameMatch || mameDescriptionMatch || folderNameMatch;
+                });
+
+                foreach (var filePath in matchedFiles)
+                {
+                    token.ThrowIfCancellationRequested();
+
+                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+                    var machine = _mameData.Machines.FirstOrDefault(m =>
+                        m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+
+                    results.Add(new SearchResult
+                    {
+                        FileName = fileNameWithoutExtension,
+                        FileNameWithExtension = Path.GetFileName(filePath),
+                        FolderName = Path.GetDirectoryName(filePath)?.Split(Path.DirectorySeparatorChar).LastOrDefault() ?? "",
+                        FilePath = filePath,
+                        MachineName = machine?.Description ?? "",
+                        SystemName = systemManager.SystemName,
+                        EmulatorManager = systemManager.Emulators.FirstOrDefault(),
+                        CoverImage = _findCoverImage.FindCoverImagePath(
+                            fileNameWithoutExtension, systemManager.SystemName, systemManager.SystemImageFolder)
+                    });
+                }
+            }
+        }
+
+        return ScoreResults(results, searchTerms);
+    }
+
+    /// <summary>
+    /// Clones the system config with an overridden recursive-search setting
+    /// (SystemManagerConfig is immutable, mirroring the WPF page behavior).
+    /// </summary>
+    private static SystemManagerConfig CloneWithRecursion(SystemManagerConfig source, bool disableRecursive)
+    {
+        return new SystemManagerConfig
+        {
+            SystemName = source.SystemName,
+            SystemFolders = source.SystemFolders,
+            SystemImageFolder = source.SystemImageFolder,
+            FileFormatsToSearch = source.FileFormatsToSearch,
+            ExtractFileBeforeLaunch = source.ExtractFileBeforeLaunch,
+            FileFormatsToLaunch = source.FileFormatsToLaunch,
+            Emulators = source.Emulators,
+            GroupByFolder = source.GroupByFolder,
+            DisableRecursiveSearch = disableRecursive
+        };
+    }
+
+    [RelayCommand]
+    private async Task LaunchSelectedAsync()
+    {
+        try
+        {
+            if (SelectedResult is not { } result)
+            {
+                _mainViewModel.StatusText = "Select a game to launch first.";
+                return;
+            }
+
+            if (string.IsNullOrEmpty(result.FilePath) || string.IsNullOrEmpty(result.SystemName) ||
+                result.EmulatorManager is null)
+            {
+                await _messageBox.ErrorLaunchingGameMessageBoxAsync(null);
+                return;
+            }
+
+            _playSoundEffects.PlayNotificationSound();
+            await _mainViewModel.LaunchGameAtPathAsync(result.FilePath, result.SystemName);
+        }
+        catch (Exception ex)
+        {
+            _logErrors.Error(ex, "Error launching game from the global search results.");
+            await _messageBox.ErrorLaunchingGameMessageBoxAsync(null);
+        }
+    }
+
+    /// <summary>Cancels any in-progress search operation.</summary>
+    public void CancelSearch()
+    {
+        _cancellationTokenSource.Cancel();
+    }
+
+    private static List<SearchResult> ScoreResults(List<SearchResult> results, List<string> searchTerms)
+    {
+        foreach (var result in results)
+        {
+            var fileName = result.FileName.ToLowerInvariant();
+            var machineName = result.MachineName?.ToLowerInvariant() ?? "";
+            var folderName = result.FolderName?.ToLowerInvariant() ?? "";
+
+            result.Score = CalculateScore(fileName, searchTerms)
+                           + CalculateScore(machineName, searchTerms)
+                           + CalculateScore(folderName, searchTerms);
+        }
+
+        return results.OrderByDescending(static r => r.Score)
+            .ThenBy(static r => r.FileName, StringComparer.OrdinalIgnoreCase).ToList();
+    }
+
+    private static int CalculateScore(string text, List<string> searchTerms)
+    {
+        if (string.IsNullOrEmpty(text)) return 0;
+
+        var score = 0;
+        foreach (var term in searchTerms)
+        {
+            var index = text.IndexOf(term, StringComparison.OrdinalIgnoreCase);
+            if (index < 0) continue;
+
+            score += 10;
+            score += text.Length - index;
+        }
+
+        return score;
+    }
+
+    private static bool MatchesSearchQuery(string? text, IReadOnlyCollection<string> searchTerms)
+    {
+        if (text == null) return false;
+
+        var keywords = searchTerms
+            .Where(static t => !t.Equals("and", StringComparison.OrdinalIgnoreCase) &&
+                               !t.Equals("or", StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        if (keywords.Count == 0) return true;
+
+        var hasAndOperator = searchTerms.Any(static t => t.Equals("and", StringComparison.OrdinalIgnoreCase));
+        var hasOrOperator = searchTerms.Any(static t => t.Equals("or", StringComparison.OrdinalIgnoreCase));
+
+        if (hasAndOperator)
+        {
+            return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+        }
+
+        if (hasOrOperator)
+        {
+            return keywords.Any(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+        }
+
+        return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private static List<string> ParseSearchTerms(string searchTerm)
+    {
+        var terms = new List<string>();
+        foreach (Match match in MyRegex().Matches(searchTerm))
+        {
+            terms.Add(match.Value.Trim('"').ToLowerInvariant());
+        }
+
+        return terms.Where(static t => !string.IsNullOrWhiteSpace(t)).ToList();
+    }
+
+    [GeneratedRegex("""[\"](.+?)[\"]|([^ ]+)""", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
+    private static partial Regex MyRegex();
+}

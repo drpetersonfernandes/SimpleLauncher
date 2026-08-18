@@ -438,6 +438,12 @@
                                         <Run Text="Favorites" />
                                     </TextBlock>
                                 </ListBoxItem>
+                                <ListBoxItem Tag="global_search">
+                                    <TextBlock>
+                                        <Run Text="🔍  " FontSize="14" />
+                                        <Run Text="Global Search" />
+                                    </TextBlock>
+                                </ListBoxItem>
                             </ListBox>
 
                             <!-- Spacer -->
@@ -501,6 +507,9 @@
                                 VerticalAlignment="Top" HorizontalAlignment="Right"
                                 Margin="16" MaxWidth="360"
                                 IsVisible="False" ZIndex="100" />
+
+                    <!-- Game browser (grid / list / empty state) — hidden while a section is open -->
+                    <Grid x:Name="GameBrowserPanel">
 
                     <!-- Game Grid View -->
                     <ListBox x:Name="GameGridView"
@@ -703,6 +712,7 @@
                                    HorizontalAlignment="Center"
                                    FontFamily="{DynamicResource PrimaryFont}" />
                     </StackPanel>
+                    </Grid>
 
                     <!-- Loading overlay -->
                     <Border x:Name="LoadingOverlay"
@@ -717,6 +727,178 @@
                                        HorizontalAlignment="Center" Margin="0,12,0,0" />
                         </StackPanel>
                     </Border>
+
+                    <!-- ═══ FAVORITES SECTION (WPF FavoritesPage equivalent) ═══ -->
+                    <Grid x:Name="FavoritesSectionRoot" IsVisible="False" RowDefinitions="Auto,*" Margin="10">
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8"
+                                    Margin="0,4,0,8" VerticalAlignment="Center">
+                            <TextBlock Text="Favorites" FontSize="22" FontWeight="Bold"
+                                       VerticalAlignment="Center" Margin="0,0,12,0"
+                                       FontFamily="{DynamicResource PrimaryFont}" />
+                            <Button Classes="secondary" Content="Remove from Favorites"
+                                    Command="{Binding RemoveSelectedCommand}" />
+                            <Button Classes="primary" Content="Launch Selected Game"
+                                    Command="{Binding LaunchSelectedCommand}" />
+                        </StackPanel>
+                        <Grid Grid.Row="1" ColumnDefinitions="*,6,240">
+                            <DataGrid Grid.Column="0"
+                                      ItemsSource="{Binding Favorites}"
+                                      SelectedItem="{Binding SelectedFavorite}"
+                                      AutoGenerateColumns="False"
+                                      IsReadOnly="True"
+                                      GridLinesVisibility="All"
+                                      BorderThickness="1"
+                                      DoubleTapped="FavoritesDataGrid_DoubleTapped"
+                                      KeyDown="FavoritesDataGrid_KeyDown">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="File Name" Binding="{Binding DisplayName}" Width="*" />
+                                    <DataGridTextColumn Header="Machine Description" Binding="{Binding MachineDescription}" Width="*" />
+                                    <DataGridTextColumn Header="Default Emulator" Binding="{Binding DefaultEmulator}" Width="180" />
+                                    <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="200" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <GridSplitter Grid.Column="1" Width="4"
+                                          Background="Transparent"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Stretch" />
+                            <Border Grid.Column="2" BorderBrush="{DynamicResource BorderSubtleBrush}"
+                                    BorderThickness="1" Padding="5">
+                                <Image Source="{Binding SelectedFavorite.CoverImage, Converter={StaticResource PathToImage}}"
+                                       Stretch="Uniform"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       RenderOptions.BitmapInterpolationMode="HighQuality" />
+                            </Border>
+                        </Grid>
+                    </Grid>
+
+                    <!-- ═══ PLAY HISTORY SECTION (WPF PlayHistoryPage equivalent) ═══ -->
+                    <Grid x:Name="PlayHistorySectionRoot" IsVisible="False" RowDefinitions="Auto,Auto,*" Margin="10">
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8"
+                                    Margin="0,4,0,4" VerticalAlignment="Center">
+                            <TextBlock Text="Play History" FontSize="22" FontWeight="Bold"
+                                       VerticalAlignment="Center" Margin="0,0,12,0"
+                                       FontFamily="{DynamicResource PrimaryFont}" />
+                            <Button Classes="secondary" Content="Remove from History"
+                                    Command="{Binding RemoveSelectedCommand}" />
+                            <Button Classes="secondary" Content="Remove All from History"
+                                    Command="{Binding RemoveAllCommand}" />
+                            <Button Classes="primary" Content="Launch Selected Game"
+                                    Command="{Binding LaunchSelectedCommand}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
+                            <Button Classes="secondary" Content="Sort by Date"
+                                    Command="{Binding SortByDateCommand}" />
+                            <Button Classes="secondary" Content="Sort by Play Time"
+                                    Command="{Binding SortByTotalPlayTimeCommand}" />
+                            <Button Classes="secondary" Content="Sort by Times Played"
+                                    Command="{Binding SortByTimesPlayedCommand}" />
+                        </StackPanel>
+                        <Grid Grid.Row="2" ColumnDefinitions="*,6,240">
+                            <DataGrid Grid.Column="0"
+                                      ItemsSource="{Binding PlayHistoryList}"
+                                      SelectedItem="{Binding SelectedItem}"
+                                      AutoGenerateColumns="False"
+                                      IsReadOnly="True"
+                                      GridLinesVisibility="All"
+                                      BorderThickness="1"
+                                      DoubleTapped="PlayHistoryDataGrid_DoubleTapped"
+                                      KeyDown="PlayHistoryDataGrid_KeyDown">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="File Name" Binding="{Binding DisplayName}" Width="*" />
+                                    <DataGridTextColumn Header="Machine Description" Binding="{Binding MachineDescription}" Width="*" />
+                                    <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="160" />
+                                    <DataGridTextColumn Header="Default Emulator" Binding="{Binding DefaultEmulator}" Width="180" />
+                                    <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="110" />
+                                    <DataGridTextColumn Header="Play Time" Binding="{Binding FormattedPlayTime}" Width="110" />
+                                    <DataGridTextColumn Header="Last Played Date" Binding="{Binding LastPlayDate}" Width="130" />
+                                    <DataGridTextColumn Header="Last Played Time" Binding="{Binding LastPlayTime}" Width="130" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <GridSplitter Grid.Column="1" Width="4"
+                                          Background="Transparent"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Stretch" />
+                            <Border Grid.Column="2" BorderBrush="{DynamicResource BorderSubtleBrush}"
+                                    BorderThickness="1" Padding="5">
+                                <Image Source="{Binding SelectedItem.CoverImage, Converter={StaticResource PathToImage}}"
+                                       Stretch="Uniform"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       RenderOptions.BitmapInterpolationMode="HighQuality" />
+                            </Border>
+                        </Grid>
+                    </Grid>
+
+                    <!-- ═══ GLOBAL SEARCH SECTION (WPF GlobalSearchPage equivalent) ═══ -->
+                    <Grid x:Name="GlobalSearchSectionRoot" IsVisible="False" RowDefinitions="Auto,Auto,*" Margin="10">
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8"
+                                    Margin="0,4,0,4" VerticalAlignment="Center">
+                            <TextBlock Text="Global Search" FontSize="22" FontWeight="Bold"
+                                       VerticalAlignment="Center" Margin="0,0,12,0"
+                                       FontFamily="{DynamicResource PrimaryFont}" />
+                            <TextBox x:Name="GlobalSearchTextBox" Width="220" VerticalAlignment="Center"
+                                     Text="{Binding SearchText}"
+                                     KeyDown="GlobalSearchTextBox_KeyDown" />
+                            <ComboBox ItemsSource="{Binding SystemNames}"
+                                      SelectedIndex="{Binding SelectedSystemIndex}"
+                                      Width="180" VerticalAlignment="Center" />
+                            <Button Classes="secondary" Content="Search" VerticalAlignment="Center"
+                                    Command="{Binding SearchCommand}" />
+                            <Button Classes="primary" Content="Launch Selected" VerticalAlignment="Center"
+                                    Command="{Binding LaunchSelectedCommand}"
+                                    IsEnabled="{Binding LaunchButtonEnabled}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="16" Margin="0,0,0,8">
+                            <CheckBox Content="Filename" IsChecked="{Binding SearchFilename}" />
+                            <CheckBox Content="MAME Description" IsChecked="{Binding SearchMameDescription}" />
+                            <CheckBox Content="Folder Name" IsChecked="{Binding SearchFolderName}" />
+                            <CheckBox Content="Search Recursively" IsChecked="{Binding SearchRecursively}" />
+                            <TextBlock Text="{Binding ResultsCountText}" FontWeight="SemiBold"
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextSecondaryBrush}" />
+                        </StackPanel>
+                        <Grid Grid.Row="2" ColumnDefinitions="*,6,240">
+                            <Grid Grid.Column="0">
+                                <DataGrid ItemsSource="{Binding SearchResults}"
+                                          SelectedItem="{Binding SelectedResult}"
+                                          AutoGenerateColumns="False"
+                                          IsReadOnly="True"
+                                          GridLinesVisibility="All"
+                                          BorderThickness="1"
+                                          DoubleTapped="GlobalSearchResults_DoubleTapped">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="File Name" Binding="{Binding FileNameWithExtension}" Width="*" />
+                                        <DataGridTextColumn Header="Machine Name" Binding="{Binding MachineName}" Width="*" />
+                                        <DataGridTextColumn Header="Default Emulator" Binding="{Binding DefaultEmulator}" Width="180" />
+                                        <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="200" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Border Background="{DynamicResource BgPrimaryBrush}"
+                                        IsVisible="{Binding NoResultsVisible}"
+                                        BorderBrush="{DynamicResource BorderSubtleBrush}"
+                                        BorderThickness="1" CornerRadius="2">
+                                    <TextBlock Text="No results found"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               FontSize="18" FontWeight="Bold"
+                                               Foreground="{DynamicResource TextPrimaryBrush}"
+                                               Margin="20" />
+                                </Border>
+                            </Grid>
+                            <GridSplitter Grid.Column="1" Width="4"
+                                          Background="Transparent"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Stretch" />
+                            <Border Grid.Column="2" BorderBrush="{DynamicResource BorderSubtleBrush}"
+                                    BorderThickness="1" Padding="5">
+                                <Image Source="{Binding SelectedResult.CoverImage, Converter={StaticResource PathToImage}}"
+                                       Stretch="Uniform"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       RenderOptions.BitmapInterpolationMode="HighQuality" />
+                            </Border>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Border>
         </Grid>

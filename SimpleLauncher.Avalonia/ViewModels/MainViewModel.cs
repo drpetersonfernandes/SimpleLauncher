@@ -399,23 +399,38 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     {
         if (game is null) return;
 
-        var system = _systemManager.GetSystem(game.SystemName);
+        var playTime = await LaunchGameAtPathAsync(game.FilePath, game.SystemName);
+        if (playTime.TotalSeconds >= 5)
+        {
+            game.PlayCount++;
+            game.LastPlayed = DateTime.Now.ToString("d");
+        }
+    }
+
+    /// <summary>
+    /// Launches a game by file path and system name (shared by the game grid and the
+    /// Favorites / Play History / Global Search sections). Records play history and
+    /// usage stats; returns the measured play time so callers can update their rows.
+    /// </summary>
+    public async Task<TimeSpan> LaunchGameAtPathAsync(string filePath, string systemName)
+    {
+        var system = _systemManager.GetSystem(systemName);
         var emulator = system?.Emulators.FirstOrDefault();
         var windowContext = App.ServiceProvider.GetRequiredService<IWindowContext>();
 
         if (system is null || emulator is null)
         {
-            StatusText = $"Cannot launch: no emulator configured for {game.SystemName}";
-            return;
+            StatusText = $"Cannot launch: no emulator configured for {systemName}";
+            return TimeSpan.Zero;
         }
 
         IsLoading = true;
-        StatusText = $"Launching: {game.DisplayTitle}...";
+        StatusText = $"Launching: {Path.GetFileNameWithoutExtension(filePath)}...";
 
         try
         {
             await _launcher.LaunchRegularEmulatorAsync(
-                game.FilePath,
+                filePath,
                 emulator.EmulatorName,
                 system,
                 emulator,
@@ -428,9 +443,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
             var playSeconds = (long)_launcher.LastPlayTime.TotalSeconds;
             if (playSeconds >= 5)
             {
-                await _playHistoryManager.RecordPlayAsync(game.FilePath, game.SystemName, playSeconds);
-                game.PlayCount++;
-                game.LastPlayed = DateTime.Now.ToString("d");
+                await _playHistoryManager.RecordPlayAsync(filePath, systemName, playSeconds);
             }
 
             // Fire-and-forget usage stats (emulator launch event)
@@ -442,21 +455,32 @@ public partial class MainViewModel : ObservableObject, ILoadingState
                 }
                 catch (Exception ex)
                 {
-                    Log.Debug(ex, "Stats API call failed after launching {Game}", game.FilePath);
+                    Log.Debug(ex, "Stats API call failed after launching {Game}", filePath);
                 }
             });
 
-            StatusText = $"Played: {game.DisplayTitle}";
+            StatusText = $"Played: {Path.GetFileNameWithoutExtension(filePath)}";
+            return _launcher.LastPlayTime;
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Failed to launch game {Game}", game.FilePath);
+            Log.Error(ex, "Failed to launch game {Game}", filePath);
             StatusText = $"Launch error: {ex.Message}";
+            return TimeSpan.Zero;
         }
         finally
         {
             IsLoading = false;
         }
+    }
+
+    /// <summary>
+    /// Re-applies favorites and play-history state to the currently displayed games
+    /// (called after the Favorites / Play History sections mutate their data).
+    /// </summary>
+    public void RefreshFavoritesAndHistory()
+    {
+        ApplyFavoritesAndHistory(Games.ToList());
     }
 
     /// <summary>

@@ -340,6 +340,11 @@ public class App : Application, IDisposable
         services.AddSingleton<MainViewModel>();
         services.AddTransient<EasyModeViewModel>();
 
+        // ── MainWindow page sections (WPF FavoritesPage / PlayHistoryPage / GlobalSearchPage equivalents) ──
+        services.AddSingleton<FavoritesSectionViewModel>();
+        services.AddSingleton<PlayHistorySectionViewModel>();
+        services.AddSingleton<GlobalSearchSectionViewModel>();
+
         // ── App services (Phase 4–6) ──
         services.AddSingleton(_ => FavoritesManager.LoadFavorites(Log.Logger));
         services.AddSingleton(_ => PlayHistoryManager.LoadPlayHistory(Log.Logger));

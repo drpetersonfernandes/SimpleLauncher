@@ -39,6 +39,15 @@ public partial class MainWindow : Window
     private readonly PlaySoundEffects _playSound;
     private readonly StorefrontGameScanner _storefrontScanner;
 
+    /// <summary>Favorites page section ViewModel (WPF FavoritesPage equivalent).</summary>
+    public FavoritesSectionViewModel FavoritesSection { get; }
+
+    /// <summary>Play history page section ViewModel (WPF PlayHistoryPage equivalent).</summary>
+    public PlayHistorySectionViewModel PlayHistorySection { get; }
+
+    /// <summary>Global search page section ViewModel (WPF GlobalSearchPage equivalent).</summary>
+    public GlobalSearchSectionViewModel GlobalSearchSection { get; }
+
     // Bounds persistence (separate file from the WPF app)
     private static readonly string BoundsFilePath = Path.Combine(
         Core.Services.AppDataPaths.SimpleLauncherDataFolder, "window_bounds_avalonia.json");
@@ -51,7 +60,10 @@ public partial class MainWindow : Window
         LocalizationService localization,
         ExternalToolLauncherService externalToolLauncher,
         PlaySoundEffects playSound,
-        StorefrontGameScanner storefrontScanner)
+        StorefrontGameScanner storefrontScanner,
+        FavoritesSectionViewModel favoritesSection,
+        PlayHistorySectionViewModel playHistorySection,
+        GlobalSearchSectionViewModel globalSearchSection)
     {
         _viewModel = viewModel;
         _systemManagerService = systemManagerService;
@@ -60,12 +72,20 @@ public partial class MainWindow : Window
         _externalToolLauncher = externalToolLauncher;
         _playSound = playSound;
         _storefrontScanner = storefrontScanner;
+        FavoritesSection = favoritesSection;
+        PlayHistorySection = playHistorySection;
+        GlobalSearchSection = globalSearchSection;
         DataContext = _viewModel;
 
         // Initialize converter with ratio service
         ConsoleToCardHeightConverter.SetRatioService(ratioService);
 
         InitializeComponent();
+
+        // Bind the page-section ViewModels (WPF FavoritesPage / PlayHistoryPage / GlobalSearchPage equivalents)
+        FavoritesSectionRoot.DataContext = FavoritesSection;
+        PlayHistorySectionRoot.DataContext = PlayHistorySection;
+        GlobalSearchSectionRoot.DataContext = GlobalSearchSection;
 
         // Wire up manufacturer group collapse/expand
         WireGroupHeader(ArcadeGroupHeader, ArcadeGroupPanel);
@@ -392,13 +412,48 @@ public partial class MainWindow : Window
         switch (clicked.Name)
         {
             case "GamesTab":
+                _ = ShowSectionAsync(MainSection.None);
                 _viewModel.NavigateToAllGamesCommand.Execute(null);
                 break;
             case "RecentTab":
-                _viewModel.NavigateToRecentlyPlayedCommand.Execute(null);
+                _ = ShowSectionAsync(MainSection.PlayHistory);
                 break;
             case "FavoritesTab":
-                _viewModel.NavigateToFavoritesCommand.Execute(null);
+                _ = ShowSectionAsync(MainSection.Favorites);
+                break;
+        }
+    }
+
+    /// <summary>
+    /// The page sections embedded in the content area (WPF FavoritesPage /
+    /// PlayHistoryPage / GlobalSearchPage equivalents).
+    /// </summary>
+    private enum MainSection
+    {
+        None,
+        Favorites,
+        PlayHistory,
+        GlobalSearch
+    }
+
+    /// <summary>
+    /// Shows the requested section and hides the others (including the game browser).
+    /// Favorites and Play History reload their data every time they are opened.
+    /// </summary>
+    private async Task ShowSectionAsync(MainSection section)
+    {
+        FavoritesSectionRoot.IsVisible = section == MainSection.Favorites;
+        PlayHistorySectionRoot.IsVisible = section == MainSection.PlayHistory;
+        GlobalSearchSectionRoot.IsVisible = section == MainSection.GlobalSearch;
+        GameBrowserPanel.IsVisible = section == MainSection.None;
+
+        switch (section)
+        {
+            case MainSection.Favorites:
+                await FavoritesSection.LoadFavoritesAsync();
+                break;
+            case MainSection.PlayHistory:
+                await PlayHistorySection.LoadHistoryAsync();
                 break;
         }
     }
@@ -434,18 +489,24 @@ public partial class MainWindow : Window
                 switch (tag)
                 {
                     case "all":
+                        _ = ShowSectionAsync(MainSection.None);
                         _viewModel.NavigateToAllGamesCommand.Execute(null);
                         break;
                     case "recently_added":
+                        _ = ShowSectionAsync(MainSection.None);
                         _viewModel.NavigateToRecentlyAddedCommand.Execute(null);
                         break;
                     case "recently_played":
-                        _viewModel.NavigateToRecentlyPlayedCommand.Execute(null);
+                        _ = ShowSectionAsync(MainSection.PlayHistory);
                         break;
                     case "favorites":
-                        _viewModel.NavigateToFavoritesCommand.Execute(null);
+                        _ = ShowSectionAsync(MainSection.Favorites);
+                        break;
+                    case "global_search":
+                        _ = ShowSectionAsync(MainSection.GlobalSearch);
                         break;
                     default:
+                        _ = ShowSectionAsync(MainSection.None);
                         _viewModel.NavigateToSystemCommand.Execute(tag);
                         break;
                 }
@@ -556,6 +617,105 @@ public partial class MainWindow : Window
     private static T? FindParent<T>(Visual child) where T : Visual
     {
         return child.FindAncestorOfType<T>();
+    }
+
+    #endregion
+
+    #region Page Sections (Favorites / Play History / Global Search)
+
+    private async void FavoritesDataGrid_DoubleTapped(object? sender, TappedEventArgs e)
+    {
+        try
+        {
+            await FavoritesSection.LaunchSelectedCommand.ExecuteAsync(null);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method FavoritesDataGrid_DoubleTapped");
+        }
+    }
+
+    private async void FavoritesDataGrid_KeyDown(object? sender, KeyEventArgs e)
+    {
+        try
+        {
+            switch (e.Key)
+            {
+                case Key.Delete:
+                    e.Handled = true;
+                    await FavoritesSection.RemoveSelectedCommand.ExecuteAsync(null);
+                    break;
+                case Key.Enter:
+                    e.Handled = true;
+                    await FavoritesSection.LaunchSelectedCommand.ExecuteAsync(null);
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method FavoritesDataGrid_KeyDown");
+        }
+    }
+
+    private async void PlayHistoryDataGrid_DoubleTapped(object? sender, TappedEventArgs e)
+    {
+        try
+        {
+            await PlayHistorySection.LaunchSelectedCommand.ExecuteAsync(null);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method PlayHistoryDataGrid_DoubleTapped");
+        }
+    }
+
+    private async void PlayHistoryDataGrid_KeyDown(object? sender, KeyEventArgs e)
+    {
+        try
+        {
+            switch (e.Key)
+            {
+                case Key.Delete:
+                    e.Handled = true;
+                    await PlayHistorySection.RemoveSelectedCommand.ExecuteAsync(null);
+                    break;
+                case Key.Enter:
+                    e.Handled = true;
+                    await PlayHistorySection.LaunchSelectedCommand.ExecuteAsync(null);
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method PlayHistoryDataGrid_KeyDown");
+        }
+    }
+
+    private async void GlobalSearchTextBox_KeyDown(object? sender, KeyEventArgs e)
+    {
+        try
+        {
+            if (e.Key != Key.Enter) return;
+
+            e.Handled = true;
+            await GlobalSearchSection.SearchCommand.ExecuteAsync(null);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method GlobalSearchTextBox_KeyDown");
+        }
+    }
+
+    private async void GlobalSearchResults_DoubleTapped(object? sender, TappedEventArgs e)
+    {
+        try
+        {
+            await GlobalSearchSection.LaunchSelectedCommand.ExecuteAsync(null);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method GlobalSearchResults_DoubleTapped");
+        }
     }
 
     #endregion
