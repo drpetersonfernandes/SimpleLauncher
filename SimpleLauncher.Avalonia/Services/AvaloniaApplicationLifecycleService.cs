@@ -1,7 +1,6 @@
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.UsageStats;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
-using SimpleLauncher.Avalonia.Services.SystemManager;
 
 namespace SimpleLauncher.Avalonia.Services;
 

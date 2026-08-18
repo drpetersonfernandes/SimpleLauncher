@@ -195,7 +195,7 @@ public class AvaloniaLanguageMenuAndWatcherServiceTests
             new SimpleLauncher.Core.Models.SystemManagerConfig
             {
                 SystemName = "Arcade",
-                SystemFolders = ["C:\\does\\not\\exist"],
+                SystemFolders = [@"C:\does\not\exist"],
                 FileFormatsToSearch = [".zip"]
             }
         ]);

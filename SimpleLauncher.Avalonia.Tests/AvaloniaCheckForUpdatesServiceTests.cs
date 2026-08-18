@@ -171,8 +171,8 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
             // A valid zip carrying a broken "updater" executable — extraction succeeds,
             // the launch attempt then fails (not a valid executable).
             return Zip(CreateZip(
-                (AvaloniaCheckForUpdatesService.UpdaterExecutableName, Encoding.UTF8.GetBytes("not an executable")),
-                ("some-other-file.txt", Encoding.UTF8.GetBytes("x"))));
+                (AvaloniaCheckForUpdatesService.UpdaterExecutableName, "not an executable"u8.ToArray()),
+                ("some-other-file.txt", "x"u8.ToArray())));
         });
 
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
@@ -192,7 +192,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
     [Fact]
     public async Task ManualCheck_UpdaterPresentButBroken_ShowsLaunchFailed()
     {
-        var (service, messageBox, lifetime) = CreateService(request =>
+        var (service, messageBox, lifetime) = CreateService(_ =>
             Json(LatestReleaseAssetsJson("v9.9.9")));
 
         File.WriteAllText(Path.Combine(_updaterDir, AvaloniaCheckForUpdatesService.UpdaterExecutableName), "not an executable");
@@ -217,7 +217,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
                 return Json(LatestReleaseAssetsJson("v9.9.9"));
             }
 
-            return Zip(CreateZip(("../evil.txt", Encoding.UTF8.GetBytes("pwned"))));
+            return Zip(CreateZip(("../evil.txt", "pwned"u8.ToArray())));
         });
 
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
@@ -234,7 +234,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
     [Fact]
     public async Task ManualCheck_UpdaterAssetMissingFromRelease_ShowsManual()
     {
-        var (service, messageBox, lifetime) = CreateService(request =>
+        var (service, messageBox, lifetime) = CreateService(_ =>
             Json(GitHubReleaseJson("v9.9.9", $"release_9.9.9_{Rid}.zip")));
 
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
@@ -249,7 +249,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
     [Fact]
     public async Task ManualCheck_NewerVersionOnGitHub_UserDeclines_NoUpdaterFlow()
     {
-        var (service, messageBox, lifetime) = CreateService(request =>
+        var (service, messageBox, lifetime) = CreateService(_ =>
             Json(LatestReleaseAssetsJson("v9.9.9")));
 
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
@@ -266,7 +266,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
     [Fact]
     public async Task ManualCheck_CurrentVersionUpToDate_ShowsNoUpdateAvailable()
     {
-        var (service, messageBox, _) = CreateService(request =>
+        var (service, messageBox, _) = CreateService(_ =>
             Json(LatestReleaseAssetsJson("v5.6.1")));
 
         await service.ManualCheckForUpdatesAsync(owner: null);

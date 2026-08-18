@@ -14,6 +14,7 @@ namespace SimpleLauncher.Avalonia.Tests;
 internal static class HeadlessAvalonia
 {
     private static readonly object Sync = new();
+    private static readonly CancellationTokenSource Lifetime = new();
     private static bool _initialized;
 
     /// <summary>
@@ -23,13 +24,17 @@ internal static class HeadlessAvalonia
     /// </summary>
     public static void EnsureInitialized()
     {
-        if (_initialized) return;
+        lock (Sync)
+        {
+            if (_initialized) return;
+        }
 
         lock (Sync)
         {
             if (_initialized) return;
 
             var ready = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+
             var uiThread = new Thread(() =>
             {
                 AppBuilder.Configure<Application>()
@@ -41,7 +46,7 @@ internal static class HeadlessAvalonia
                 _ = Dispatcher.UIThread;
                 ready.SetResult(true);
 
-                while (true)
+                while (!Lifetime.IsCancellationRequested)
                 {
                     Dispatcher.UIThread.RunJobs();
                     Thread.Sleep(1);
@@ -112,7 +117,10 @@ internal static class TestEnvironment
     /// </summary>
     public static void EnsurePortableSettings()
     {
-        if (_portableSettingsReady) return;
+        lock (Sync)
+        {
+            if (_portableSettingsReady) return;
+        }
 
         lock (Sync)
         {

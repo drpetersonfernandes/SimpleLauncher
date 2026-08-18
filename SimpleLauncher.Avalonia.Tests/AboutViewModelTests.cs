@@ -22,7 +22,7 @@ public class AboutViewModelTests : IDisposable
     private readonly string _updaterDir = Path.Combine(
         Path.GetTempPath(), "SimpleLauncherAboutTests", Guid.NewGuid().ToString("N"));
 
-    private (AboutViewModel Vm, Mock<IMessageBoxLibraryService> MessageBox, Mock<ILogger> Logger)
+    private (AboutViewModel Vm, Mock<IMessageBoxLibraryService> MessageBox)
         CreateVm(Func<HttpRequestMessage, HttpResponseMessage>? responder = null)
     {
         responder ??= _ => new HttpResponseMessage(System.Net.HttpStatusCode.NotFound);
@@ -33,7 +33,7 @@ public class AboutViewModelTests : IDisposable
         Directory.CreateDirectory(_updaterDir);
         var updateChecker = new AvaloniaCheckForUpdatesService(factory.Object, messageBox.Object, logger.Object, new Mock<IApplicationLifetime>().Object, _updaterDir);
         var vm = new AboutViewModel(logger.Object, messageBox.Object, updateChecker);
-        return (vm, messageBox, logger);
+        return (vm, messageBox);
     }
 
     public void Dispose()
@@ -51,7 +51,7 @@ public class AboutViewModelTests : IDisposable
     [Fact]
     public void Ctor_SetsVersionAndLogoPath()
     {
-        var (vm, _, _) = CreateVm();
+        var (vm, _) = CreateVm();
         Assert.StartsWith("Version: ", vm.AppVersion);
         Assert.False(string.IsNullOrEmpty(vm.LogoPath));
         Assert.EndsWith(Path.Combine("images", "logo2.png"), vm.LogoPath);
@@ -60,7 +60,7 @@ public class AboutViewModelTests : IDisposable
     [Fact]
     public void CloseCommand_RaisesCloseRequested()
     {
-        var (vm, _, _) = CreateVm();
+        var (vm, _) = CreateVm();
         var raised = false;
         vm.CloseRequested += (_, _) => { raised = true; };
 
@@ -72,7 +72,7 @@ public class AboutViewModelTests : IDisposable
     [Fact]
     public void OpenUpdateHistoryCommand_RaisesOpenUpdateHistoryRequested()
     {
-        var (vm, _, _) = CreateVm();
+        var (vm, _) = CreateVm();
         var raised = false;
         vm.OpenUpdateHistoryRequested += (_, _) => { raised = true; };
 
@@ -84,7 +84,7 @@ public class AboutViewModelTests : IDisposable
     [Fact]
     public async Task CheckForUpdates_NewerVersionAvailable_AsksUser()
     {
-        var (vm, messageBox, _) = CreateVm(_ =>
+        var (vm, messageBox) = CreateVm(_ =>
             new HttpResponseMessage(System.Net.HttpStatusCode.OK)
             {
                 Content = new StringContent(AssetsJson("v9.9.9"), System.Text.Encoding.UTF8, "application/json")

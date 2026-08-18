@@ -90,7 +90,7 @@ public sealed partial class AvaloniaGlobalHotkeyService : IDisposable
             return;
         }
 
-        SetWindowLongPtr(_hwnd, GwlWndProc, Marshal.GetFunctionPointerForDelegate(_wndProcDelegate));
+        _ = SetWindowLongPtr(_hwnd, GwlWndProc, Marshal.GetFunctionPointerForDelegate(_wndProcDelegate));
 
         if (!RegisterHotKey(_hwnd, HotkeyId, 0, VkF8))
         {

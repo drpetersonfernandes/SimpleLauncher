@@ -18,11 +18,30 @@ public class AvaloniaPaginationServiceTests
         public string? Label { get; private set; }
         public int NoFilesMessageCount { get; private set; }
 
-        public void SetPrevPageButtonEnabled(bool enabled) => PrevEnabled = enabled;
-        public void SetNextPageButtonEnabled(bool enabled) => NextEnabled = enabled;
-        public void ScrollToTop() => ScrollToTopCount++;
-        public void UpdateTotalFilesLabel(string? text) => Label = text;
-        public void AddNoFilesMessage() => NoFilesMessageCount++;
+        public void SetPrevPageButtonEnabled(bool enabled)
+        {
+            PrevEnabled = enabled;
+        }
+
+        public void SetNextPageButtonEnabled(bool enabled)
+        {
+            NextEnabled = enabled;
+        }
+
+        public void ScrollToTop()
+        {
+            ScrollToTopCount++;
+        }
+
+        public void UpdateTotalFilesLabel(string? text)
+        {
+            Label = text;
+        }
+
+        public void AddNoFilesMessage()
+        {
+            NoFilesMessageCount++;
+        }
     }
 
     private static (AvaloniaPaginationService Service, FakePaginationHost Host) Create(int filesPerPage = 10, int threshold = 10)

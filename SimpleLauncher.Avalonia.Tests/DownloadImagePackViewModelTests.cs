@@ -41,10 +41,10 @@ public class DownloadImagePackViewModelTests
         ]
         """;
 
-    private static DownloadImagePackViewModel CreateVm(out Mock<IMessageBoxLibraryService> messageBox, out Mock<ILogger> logger)
+    private static DownloadImagePackViewModel CreateVm()
     {
-        messageBox = TestDependencies.MessageBox();
-        logger = TestDependencies.Logger();
+        var messageBox = TestDependencies.MessageBox();
+        var logger = TestDependencies.Logger();
 
         var settings = TestDependencies.Settings(messageBox: messageBox);
         settings.EnableNotificationSound = false;
@@ -78,7 +78,7 @@ public class DownloadImagePackViewModelTests
     [Fact]
     public async Task Initialize_LoadsSystemsWithImagePacks()
     {
-        var vm = CreateVm(out _, out _);
+        var vm = CreateVm();
         try
         {
             await vm.InitializeAsync();
@@ -95,7 +95,7 @@ public class DownloadImagePackViewModelTests
     [Fact]
     public async Task SelectingSystem_PopulatesImagePackList()
     {
-        var vm = CreateVm(out _, out _);
+        var vm = CreateVm();
         try
         {
             await vm.InitializeAsync();
@@ -117,7 +117,7 @@ public class DownloadImagePackViewModelTests
     [Fact]
     public async Task SelectingUnknownSystem_YieldsEmptyList()
     {
-        var vm = CreateVm(out _, out _);
+        var vm = CreateVm();
         try
         {
             await vm.InitializeAsync();
@@ -134,7 +134,7 @@ public class DownloadImagePackViewModelTests
     [Fact]
     public async Task SelectingEmptySystem_ClearsList()
     {
-        var vm = CreateVm(out _, out _);
+        var vm = CreateVm();
         try
         {
             await vm.InitializeAsync();
@@ -153,7 +153,7 @@ public class DownloadImagePackViewModelTests
     [Fact]
     public async Task StopDownload_DoesNotThrow()
     {
-        var vm = CreateVm(out _, out _);
+        var vm = CreateVm();
         try
         {
             await vm.InitializeAsync();
@@ -171,7 +171,7 @@ public class DownloadImagePackViewModelTests
     [Fact]
     public async Task EmergencyOverlayRelease_ResetsUiState()
     {
-        var vm = CreateVm(out _, out _);
+        var vm = CreateVm();
         try
         {
             await vm.InitializeAsync();
@@ -190,14 +190,14 @@ public class DownloadImagePackViewModelTests
     [Fact]
     public async Task CloseWindowRoutineAsync_Completes()
     {
-        var vm = CreateVm(out _, out _);
+        var vm = CreateVm();
         await vm.CloseWindowRoutineAsync();
     }
 
     [Fact]
     public void Dispose_IsIdempotent()
     {
-        var vm = CreateVm(out _, out _);
+        var vm = CreateVm();
         vm.Dispose();
         vm.Dispose();
     }

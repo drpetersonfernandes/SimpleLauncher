@@ -132,7 +132,7 @@ public class AvaloniaPaginationService : IPaginationService
         catch (FormatException)
         {
             // Malformed translation (wrong placeholder count): fall back to English
-            return string.Format("Displaying files {0} to {1} out of {2} total", startIndex, endIndex, total);
+            return $"Displaying files {startIndex} to {endIndex} out of {total} total";
         }
     }
 }

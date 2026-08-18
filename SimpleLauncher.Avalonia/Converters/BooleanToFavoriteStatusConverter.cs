@@ -28,7 +28,7 @@ public class BooleanToFavoriteStatusConverter : IValueConverter
         return _localization;
     }
 
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         var localization = GetLocalizationService();
         if (value is bool isFavorite)
@@ -47,7 +47,7 @@ public class BooleanToFavoriteStatusConverter : IValueConverter
         }
     }
 
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotSupportedException();
     }

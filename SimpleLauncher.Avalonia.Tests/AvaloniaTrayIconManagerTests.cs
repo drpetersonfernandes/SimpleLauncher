@@ -65,8 +65,13 @@ public class AvaloniaTrayIconManagerTests
         }
         finally
         {
-            manager.Dispose();
-            HeadlessAvalonia.RunOnUiThread(window.Close);
+            // Dispose and close on the UI thread (the same thread the manager's
+            // resources were created on).
+            HeadlessAvalonia.RunOnUiThread(() =>
+            {
+                manager.Dispose();
+                window.Close();
+            });
         }
     }
 
@@ -93,8 +98,11 @@ public class AvaloniaTrayIconManagerTests
         }
         finally
         {
-            manager.Dispose();
-            HeadlessAvalonia.RunOnUiThread(window.Close);
+            HeadlessAvalonia.RunOnUiThread(() =>
+            {
+                manager.Dispose();
+                window.Close();
+            });
         }
     }
 
@@ -108,8 +116,11 @@ public class AvaloniaTrayIconManagerTests
         try
         {
             HeadlessAvalonia.RunOnUiThread(() => manager.Initialize(window));
-            manager.Dispose();
-            manager.Dispose(); // must not throw
+            HeadlessAvalonia.RunOnUiThread(() =>
+            {
+                manager.Dispose();
+                manager.Dispose(); // must not throw
+            });
         }
         finally
         {
@@ -127,8 +138,11 @@ public class AvaloniaTrayIconManagerTests
         try
         {
             HeadlessAvalonia.RunOnUiThread(() => manager.Initialize(window));
-            manager.Dispose();
-            HeadlessAvalonia.RunOnUiThread(() => manager.Initialize(window)); // no-op, must not throw
+            HeadlessAvalonia.RunOnUiThread(() =>
+            {
+                manager.Dispose();
+                manager.Initialize(window); // no-op, must not throw
+            });
 
             // The disposed manager never created a second icon and never detached the
             // first one (detachment is the app-lifetime's job) — exactly one icon remains.

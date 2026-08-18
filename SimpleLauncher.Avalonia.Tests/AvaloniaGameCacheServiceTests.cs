@@ -47,7 +47,7 @@ public class AvaloniaGameCacheServiceTests
     public void GetCachedOrScan_OnlyInvokesFactoryOnce()
     {
         var cache = new AvaloniaGameCacheService();
-        var system = System("NES", "C:\\roms\\nes");
+        var system = System("NES", @"C:\roms\nes");
         var scanCount = 0;
 
         var first = cache.GetCachedOrScan(system, _ =>
@@ -71,12 +71,20 @@ public class AvaloniaGameCacheServiceTests
     public void Invalidate_ForcesRescan()
     {
         var cache = new AvaloniaGameCacheService();
-        var system = System("NES", "C:\\roms\\nes");
+        var system = System("NES", @"C:\roms\nes");
         var scanCount = 0;
 
-        cache.GetCachedOrScan(system, _ => { scanCount++; return ["a.zip"]; });
+        cache.GetCachedOrScan(system, _ =>
+        {
+            scanCount++;
+            return ["a.zip"];
+        });
         cache.Invalidate("NES");
-        var after = cache.GetCachedOrScan(system, _ => { scanCount++; return ["a.zip", "b.zip"]; });
+        var after = cache.GetCachedOrScan(system, _ =>
+        {
+            scanCount++;
+            return ["a.zip", "b.zip"];
+        });
 
         Assert.Equal(2, scanCount);
         Assert.Equal(2, after.Count);
@@ -136,7 +144,7 @@ public class AvaloniaGameCacheServiceTests
     [Fact]
     public void GetGameFiles_SkipsMissingAndInaccessibleFolders()
     {
-        var system = System("Arcade", "C:\\does\\not\\exist", "Z:\\also\\missing");
+        var system = System("Arcade", @"C:\does\not\exist", @"Z:\also\missing");
         var orchestrator = new AvaloniaGameFileLoadingOrchestrator(new AvaloniaGameCacheService(), new Mock<ILogger>().Object);
 
         var files = orchestrator.GetGameFiles(system);
@@ -193,7 +201,10 @@ public class AvaloniaGameCacheServiceTests
             _path = path;
         }
 
-        public static implicit operator string(TempDirectory dir) => dir._path;
+        public static implicit operator string(TempDirectory dir)
+        {
+            return dir._path;
+        }
 
         public void Dispose()
         {

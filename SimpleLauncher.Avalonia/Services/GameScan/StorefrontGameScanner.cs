@@ -173,8 +173,8 @@ public class StorefrontGameScanner
 
             SystemManagerService.SaveSystemConfigurationAsync(
                 WindowsSystemName,
-                [$"%BASEFOLDER%\\roms\\{WindowsSystemName}"],
-                $"%BASEFOLDER%\\images\\{WindowsSystemName}",
+                [$@"%BASEFOLDER%\roms\{WindowsSystemName}"],
+                $@"%BASEFOLDER%\images\{WindowsSystemName}",
                 ["url", "lnk", "bat"],
                 [],
                 false,

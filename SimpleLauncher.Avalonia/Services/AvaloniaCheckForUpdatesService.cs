@@ -249,7 +249,7 @@ public partial class AvaloniaCheckForUpdatesService
             response.EnsureSuccessStatusCode();
 
             await using var stream = await response.Content.ReadAsStreamAsync();
-            using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
+            await using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
 
             var fullDestinationPath = Path.GetFullPath(destinationPath);
             if (!fullDestinationPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))

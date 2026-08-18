@@ -194,10 +194,10 @@ public class LaunchStrategyTests
 
         var strategies = new List<ILaunchStrategy>
         {
-            new DefaultLaunchStrategy(),                                // 999
+            new DefaultLaunchStrategy(), // 999
             new ZipMountStrategy(config, logger, messageBox, new Mock<IMountZipFiles>().Object), // 30
             new XisoMountStrategy(config, logger, messageBox, new Mock<IMountXisoFiles>().Object), // 20
-            new ChdMountStrategy(config, messageBox, chd, logger),      // 10
+            new ChdMountStrategy(config, messageBox, chd, logger), // 10
             new PbpToCueStrategy(messageBox, logger, converter, config), // 15
             new CommanderGeniusLaunchStrategy(extraction, config, messageBox, logger), // 20
             new ChdToCueStrategy(messageBox, logger, converter, config), // 25

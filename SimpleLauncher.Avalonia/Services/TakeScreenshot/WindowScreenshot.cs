@@ -1,4 +1,7 @@
+// ReSharper disable once RedundantUsingDirective
+
 using System.Runtime.InteropServices;
+// ReSharper disable once RedundantUsingDirective
 using WindowScreenshotModel = SimpleLauncher.Avalonia.Models.WindowScreenshot;
 
 #if WINDOWS

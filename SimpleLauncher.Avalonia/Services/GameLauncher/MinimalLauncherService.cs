@@ -98,8 +98,7 @@ public class MinimalLauncherService : ILauncherService
         try
         {
             // 2. Validate SystemManagerService and Emulators before resolving
-            if (context.SystemManagerService == null ||
-                context.SystemManagerService.Emulators == null ||
+            if (context.SystemManagerService?.Emulators == null ||
                 context.SystemManagerService.Emulators.Count == 0 ||
                 context.EmulatorManager == null)
             {

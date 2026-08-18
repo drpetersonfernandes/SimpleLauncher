@@ -18,8 +18,8 @@ public class DosBoxFileSelectionViewModelTests
 
         Assert.Equal(2, vm.FileItems.Count);
         Assert.Equal("game.bat", vm.FileItems[0].DisplayName);
-        Assert.Equal("", vm.FileItems[0].RelativePath);      // same folder as base
-        Assert.Equal("sub", vm.FileItems[1].RelativePath);   // relative subfolder
+        Assert.Equal("", vm.FileItems[0].RelativePath); // same folder as base
+        Assert.Equal("sub", vm.FileItems[1].RelativePath); // relative subfolder
         Assert.False(vm.IsLaunchEnabled);
     }
 

@@ -66,13 +66,12 @@ public class LocalizationService
 
         // Resolve the resource file case-insensitively (settings may store codes
         // like 'pt-br' or 'zh-hans' from the WPF app while the files use 'pt-BR'/'zh-Hans').
-        var resourcesDir = _resourcesDir;
-        var path = Directory.Exists(resourcesDir)
-            ? Directory.EnumerateFiles(resourcesDir, "strings.*.json")
+        var path = Directory.Exists(_resourcesDir)
+            ? Directory.EnumerateFiles(_resourcesDir, "strings.*.json")
                 .FirstOrDefault(f => string.Equals(Path.GetFileNameWithoutExtension(f).Substring("strings.".Length),
                     lang, StringComparison.OrdinalIgnoreCase))
             : null;
-        path ??= Path.Combine(resourcesDir, $"strings.{lang}.json");
+        path ??= Path.Combine(_resourcesDir, $"strings.{lang}.json");
 
         if (File.Exists(path))
         {

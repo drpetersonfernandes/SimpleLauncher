@@ -13,17 +13,17 @@ namespace SimpleLauncher.Avalonia.Tests;
 public class StorefrontGameScannerTests
 {
     private static string DefaultRomsPath =>
-        PathHelper.ResolveRelativeToAppDirectory($"%BASEFOLDER%\\roms\\{StorefrontGameScanner.WindowsSystemName}")!;
+        PathHelper.ResolveRelativeToAppDirectory($@"%BASEFOLDER%\roms\{StorefrontGameScanner.WindowsSystemName}")!;
 
     private static string DefaultImagesPath =>
-        PathHelper.ResolveRelativeToAppDirectory($"%BASEFOLDER%\\images\\{StorefrontGameScanner.WindowsSystemName}")!;
+        PathHelper.ResolveRelativeToAppDirectory($@"%BASEFOLDER%\images\{StorefrontGameScanner.WindowsSystemName}")!;
 
     private static StorefrontGameScanner ScannerWithTempSystemXml(string systemXmlPath)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(systemXmlPath)!);
         File.WriteAllText(systemXmlPath, "<SystemConfigs />");
 
-        var json = $$"""{"SystemXmlPath": "{{systemXmlPath.Replace("\\", "\\\\")}}"}""";
+        var json = $$"""{"SystemXmlPath": "{{systemXmlPath.Replace("\\", @"\\")}}"}""";
         var config = TestEnvironment.ConfigurationFromJson(json);
         return new StorefrontGameScanner(new SystemManagerService(config), config);
     }
@@ -75,7 +75,7 @@ public class StorefrontGameScannerTests
         Assert.True(File.Exists(hollowShortcut));
         var content = File.ReadAllText(hollowShortcut);
         Assert.StartsWith("[InternetShortcut]", content);
-        Assert.Contains("URL=file:///C:\\Games\\HollowKnight\\hollow.exe", content);
+        Assert.Contains(@"URL=file:///C:\Games\HollowKnight\hollow.exe", content);
 
         var doc = XDocument.Load(systemXml);
         var config = Assert.Single(doc.Root!.Elements("SystemConfig"),
@@ -86,7 +86,7 @@ public class StorefrontGameScannerTests
             config.Element("FileFormatsToSearch")?.Elements("FormatToSearch").Select(static e => e.Value).ToList());
         Assert.Equal("Direct Launch", config.Element("Emulators")?.Element("Emulator")?.Element("EmulatorName")?.Value);
         Assert.Equal(
-            $"%BASEFOLDER%\\roms\\{StorefrontGameScanner.WindowsSystemName}",
+            $@"%BASEFOLDER%\roms\{StorefrontGameScanner.WindowsSystemName}",
             config.Element("SystemFolders")?.Element("SystemFolder")?.Value);
     }
 
@@ -113,7 +113,7 @@ public class StorefrontGameScannerTests
         Assert.False(third.SystemWasCreated);
 
         var doc = XDocument.Load(systemXml);
-        var config = Assert.Single(doc.Root!.Elements("SystemConfig"),
+        _ = Assert.Single(doc.Root!.Elements("SystemConfig"),
             static e => e.Element("SystemName")?.Value == StorefrontGameScanner.WindowsSystemName);
 
         // Existing shortcut content is never overwritten
@@ -184,7 +184,7 @@ public class StorefrontGameScannerTests
             </SystemConfigs>
             """);
         var config = TestEnvironment.ConfigurationFromJson(
-            $$"""{"SystemXmlPath": "{{systemXml.Replace("\\", "\\\\")}}"}""");
+            $$"""{"SystemXmlPath": "{{systemXml.Replace("\\", @"\\")}}"}""");
         var scanner = new StorefrontGameScanner(new SystemManagerService(config), config);
 
         var result = scanner.CreateShortcutsForGames(Games(("Skyrim", @"C:\Games\Skyrim\skyrim.exe", "Steam")));

@@ -242,7 +242,7 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         }
 
         string? tempExtractionPath = null;
-        string? hash = null;
+        string? hash;
         var isExtractionSuccessful = true; // Assume success initially
         string? extractionErrorMessage = null;
 
