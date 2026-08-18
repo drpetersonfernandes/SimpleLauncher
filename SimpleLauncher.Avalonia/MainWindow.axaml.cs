@@ -655,7 +655,7 @@ public partial class MainWindow : Window
                     UseShellExecute = true
                 });
             }
-            else if (TopLevel.GetTopLevel(this)?.Launcher is { } launcher)
+            else if (GetTopLevel(this)?.Launcher is { } launcher)
             {
                 await launcher.LaunchDirectoryInfoAsync(new DirectoryInfo(directory));
             }
@@ -1802,7 +1802,7 @@ public partial class MainWindow : Window
 
     private async void LaunchTool_Click(object? sender, RoutedEventArgs e)
     {
-        string tool = "";
+        var tool = "";
         try
         {
             if (sender is not MenuItem { Tag: string toolTag }) return;

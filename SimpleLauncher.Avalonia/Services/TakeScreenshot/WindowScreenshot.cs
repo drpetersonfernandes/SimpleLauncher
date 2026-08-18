@@ -1,5 +1,4 @@
 using System.Runtime.InteropServices;
-using SimpleLauncher.Avalonia.Models;
 using WindowScreenshotModel = SimpleLauncher.Avalonia.Models.WindowScreenshot;
 
 #if WINDOWS

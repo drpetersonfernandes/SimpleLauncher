@@ -2,7 +2,6 @@ using Avalonia;
 using Avalonia.Controls;
 using SimpleLauncher.Core.Interfaces;
 using TrayIconControl = Avalonia.Controls.TrayIcon;
-using TrayIconsList = Avalonia.Controls.TrayIcons;
 
 namespace SimpleLauncher.Avalonia.Services.TrayIcon;
 
@@ -48,7 +47,7 @@ public class AvaloniaTrayIconManager : IDisposable
         };
         _trayIcon.Clicked += (_, _) => OnOpen();
 
-        TrayIconControl.SetIcons(Application.Current!, new TrayIconsList { _trayIcon });
+        TrayIconControl.SetIcons(Application.Current!, [_trayIcon]);
 
         _logger.Debug("AvaloniaTrayIconManager was initialized.");
     }

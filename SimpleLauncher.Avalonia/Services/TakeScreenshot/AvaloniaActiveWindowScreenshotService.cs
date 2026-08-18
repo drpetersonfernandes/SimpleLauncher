@@ -2,7 +2,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Avalonia.Models;
 using SimpleLauncher.Core.Interfaces;
 using WindowScreenshotModel = SimpleLauncher.Avalonia.Models.WindowScreenshot;
 
@@ -86,9 +85,9 @@ public sealed partial class AvaloniaActiveWindowScreenshotService
             using (var graphics = Graphics.FromImage(bitmap))
             {
                 graphics.CopyFromScreen(
-                    new System.Drawing.Point(rectangle.Left, rectangle.Top),
-                    System.Drawing.Point.Empty,
-                    new System.Drawing.Size(width, height));
+                    new Point(rectangle.Left, rectangle.Top),
+                    Point.Empty,
+                    new Size(width, height));
 
                 bitmap.Save(screenshotPath, ImageFormat.Png);
             }
