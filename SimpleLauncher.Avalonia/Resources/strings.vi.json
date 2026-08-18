@@ -65,5 +65,6 @@
   "Keyboard.Escape": "Xóa tìm kiếm / Đặt lại chế độ xem",
   "Keyboard.CtrlF": "Tập trung tìm kiếm",
   "Keyboard.Enter": "Khởi chạy trò chơi đã chọn",
-  "Keyboard.F5": "Làm mới danh sách trò chơi"
+  "Keyboard.F5": "Làm mới danh sách trò chơi",
+  "Pagination.Displaying": "Đang hiển thị tệp {0} đến {1} trong tổng số {2}"
 }

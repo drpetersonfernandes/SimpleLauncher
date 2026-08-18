@@ -96,6 +96,21 @@
                                  Foreground="{DynamicResource TextPrimaryBrush}"
                                  BorderBrush="{DynamicResource BorderNormalBrush}" />
 
+                        <!-- Parameters help (parity with the WPF HelpUserTextBlock) -->
+                        <TextBlock Text="System Help" FontSize="12"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" />
+                        <Border Background="{DynamicResource BgTertiaryBrush}"
+                                BorderBrush="{DynamicResource BorderSubtleBrush}"
+                                BorderThickness="1" CornerRadius="4"
+                                Padding="10" Margin="0,4,0,12">
+                            <TextBlock x:Name="SystemHelpTextBlock"
+                                       Text="Select a system to see its parameters help."
+                                       TextWrapping="Wrap"
+                                       FontSize="12"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       MaxHeight="220" />
+                        </Border>
+
                         <!-- System folders -->
                         <TextBlock Text="System Folder (ROMs)" FontSize="12"
                                    Foreground="{DynamicResource TextSecondaryBrush}" />

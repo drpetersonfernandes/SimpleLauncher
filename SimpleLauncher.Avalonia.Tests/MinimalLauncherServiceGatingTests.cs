@@ -3,6 +3,7 @@ using SimpleLauncher.Avalonia.Services.GameLauncher;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.GameLauncher.Strategies;
 using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Avalonia.Tests;
@@ -65,7 +66,8 @@ public class MinimalLauncherServiceGatingTests : IDisposable
             new Mock<IMountChdFiles>().Object,
             new Mock<IMountZipFiles>().Object,
             askAi,
-            settings);
+            settings,
+            [new DefaultLaunchStrategy()]);
     }
 
     private static Emulator CreateEmulator(string name)

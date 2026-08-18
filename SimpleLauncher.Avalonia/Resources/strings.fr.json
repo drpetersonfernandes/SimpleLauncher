@@ -65,5 +65,6 @@
   "Keyboard.Escape": "Effacer la recherche / Réinitialiser la vue",
   "Keyboard.CtrlF": "Focaliser la recherche",
   "Keyboard.Enter": "Lancer le jeu sélectionné",
-  "Keyboard.F5": "Actualiser la liste des jeux"
+  "Keyboard.F5": "Actualiser la liste des jeux",
+  "Pagination.Displaying": "Affichage des fichiers {0} à {1} sur {2} au total"
 }

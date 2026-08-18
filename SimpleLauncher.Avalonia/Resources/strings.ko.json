@@ -65,5 +65,6 @@
   "Keyboard.Escape": "검색 지우기 / 보기 재설정",
   "Keyboard.CtrlF": "검색에 포커스",
   "Keyboard.Enter": "선택한 게임 실행",
-  "Keyboard.F5": "게임 목록 새로 고침"
+  "Keyboard.F5": "게임 목록 새로 고침",
+  "Pagination.Displaying": "전체 {2}개 파일 중 {0}~{1} 표시 중"
 }

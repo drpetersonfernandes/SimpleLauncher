@@ -10,7 +10,7 @@ using SimpleLauncher.Avalonia.Services.Favorites;
 using SimpleLauncher.Avalonia.Services.GameLauncher;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Avalonia.Services.SystemManager;
-using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
+using SimpleLauncher.Avalonia.Services;
 
 namespace SimpleLauncher.Avalonia.ViewModels;
 
@@ -27,10 +27,18 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     private readonly IFindCoverImageService _findCoverImage;
     private readonly Stats _stats;
     private readonly SettingsManagerService _settings;
+    private readonly IPaginationService _pagination;
+    private readonly AvaloniaGameFileLoadingOrchestrator _loadingOrchestrator;
 
     private CancellationTokenSource? _searchCts;
     private HashSet<string> _favoritePaths;
     private List<SystemManagerConfig> _allSystems;
+
+    /// <summary>
+    /// The full (un-paginated) game list of the current view. Pagination slices this
+    /// into <see cref="Games"/> when the total exceeds the configured page size.
+    /// </summary>
+    private List<GameCardViewModel> _currentAllGames = [];
 
     [ObservableProperty] private ObservableCollection<GameCardViewModel> _games = new();
 
@@ -93,7 +101,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         MinimalLauncherService launcher,
         IFindCoverImageService findCoverImage,
         Stats stats,
-        SettingsManagerService settings)
+        SettingsManagerService settings,
+        IPaginationService pagination,
+        AvaloniaGameFileLoadingOrchestrator loadingOrchestrator)
     {
         _favoritesManager = favoritesManager;
         _playHistoryManager = playHistoryManager;
@@ -102,6 +112,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         _findCoverImage = findCoverImage;
         _stats = stats;
         _settings = settings;
+        _pagination = pagination;
+        _loadingOrchestrator = loadingOrchestrator;
 
         _favoritePaths = _favoritesManager.GetFavoritePaths();
         _allSystems = _systemManager.LoadSystems();
@@ -130,6 +142,86 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     /// </summary>
     public void ReloadGames()
     {
+        LoadAllGames();
+    }
+
+    /// <summary>
+    /// Applies the saved Games Per Page setting to the pagination service (called once
+    /// after the main window loads, and again whenever the setting changes via the menu).
+    /// </summary>
+    public void ConfigurePagination(int filesPerPage)
+    {
+        _pagination.FilesPerPage = filesPerPage;
+        _pagination.PaginationThreshold = filesPerPage;
+    }
+
+    /// <summary>
+    /// Navigates to the previous page of the current view (called by the status-bar button).
+    /// </summary>
+    public void GoToPreviousPage()
+    {
+        _pagination.GoToPreviousPage();
+        ReapplyPagination();
+    }
+
+    /// <summary>
+    /// Navigates to the next page of the current view (called by the status-bar button).
+    /// </summary>
+    public void GoToNextPage()
+    {
+        _pagination.GoToNextPage();
+        ReapplyPagination();
+    }
+
+    /// <summary>
+    /// Re-applies pagination to <see cref="_currentAllGames"/> and updates the displayed
+    /// <see cref="Games"/> collection plus the game count label.
+    /// </summary>
+    private void ReapplyPagination()
+    {
+        var pageFiles = _pagination.ApplyPagination(_currentAllGames.Select(g => g.FilePath).ToList());
+        var pageSet = pageFiles.ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        Games = new ObservableCollection<GameCardViewModel>(
+            _currentAllGames.Where(g => pageSet.Contains(g.FilePath)));
+        UpdateGameCount();
+    }
+
+    /// <summary>
+    /// Stores the full list for the current view and displays it through pagination
+    /// (every navigation/search/refresh path routes through this method).
+    /// </summary>
+    private void ShowGames(List<GameCardViewModel> fullList)
+    {
+        _currentAllGames = fullList;
+        ReapplyPagination();
+    }
+
+    /// <summary>
+    /// Reloads the current view (search / favorites / selected system / all games)
+    /// after the game file watcher detects changes on disk. Keeps the user where
+    /// they were instead of resetting to the All Games view.
+    /// </summary>
+    public void RefreshCurrentView()
+    {
+        if (!string.IsNullOrWhiteSpace(SearchText))
+        {
+            ExecuteSearch(SearchText);
+            return;
+        }
+
+        if (IsShowingFavorites)
+        {
+            NavigateToFavoritesCommand.Execute(null);
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(SelectedSystem))
+        {
+            NavigateToSystemCommand.Execute(SelectedSystem);
+            return;
+        }
+
         LoadAllGames();
     }
 
@@ -176,10 +268,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState
             IsShowingFavorites = false;
             IsMixedView = true;
             SelectedSystem = "";
-            Games = new ObservableCollection<GameCardViewModel>(games);
+            ShowGames(games);
             StatusText = "All Games";
             ToolbarTitle = "SimpleLauncher";
-            UpdateGameCount();
         }
         catch (Exception ex)
         {
@@ -240,7 +331,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
             .ToList();
 
         ApplyFavoritesAndHistory(results);
-        Games = new ObservableCollection<GameCardViewModel>(results);
+        ShowGames(results);
         StatusText = $"{results.Count} result{(results.Count == 1 ? "" : "s")} for \"{query}\"";
     }
 
@@ -258,7 +349,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
 
             var games = ScanGames(systems);
             ApplyFavoritesAndHistory(games);
-            Games = new ObservableCollection<GameCardViewModel>(games);
+            ShowGames(games);
             var count = games.Count;
             StatusText = string.IsNullOrEmpty(systemName) ? "All Games" : systemName;
             ToolbarTitle = string.IsNullOrEmpty(systemName) ? "SimpleLauncher" : $"SimpleLauncher — {systemName} ({count} game{(count == 1 ? "" : "s")})";
@@ -296,7 +387,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
             ApplyFavoritesAndHistory(allGames);
             var favorites = allGames.Where(g => g.IsFavorite).ToList();
 
-            Games = new ObservableCollection<GameCardViewModel>(favorites);
+            ShowGames(favorites);
             StatusText = "Favorites";
             ToolbarTitle = "SimpleLauncher — Favorites";
         }
@@ -322,7 +413,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
                 .Take(20)
                 .ToList();
 
-            Games = new ObservableCollection<GameCardViewModel>(recent);
+            ShowGames(recent);
             StatusText = "Recently Played";
             ToolbarTitle = "SimpleLauncher — Recently Played";
         }
@@ -359,7 +450,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
                 .Take(50)
                 .ToList();
 
-            Games = new ObservableCollection<GameCardViewModel>(recent);
+            ShowGames(recent);
             StatusText = "Recently Added";
             ToolbarTitle = "SimpleLauncher — Recently Added";
         }
@@ -429,9 +520,10 @@ public partial class MainViewModel : ObservableObject, ILoadingState
 
         try
         {
-            await _launcher.LaunchRegularEmulatorAsync(
+            await _launcher.HandleButtonClickAsync(
                 filePath,
                 emulator.EmulatorName,
+                system.SystemName,
                 system,
                 emulator,
                 emulator.EmulatorParameters,
@@ -480,7 +572,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     /// </summary>
     public void RefreshFavoritesAndHistory()
     {
-        ApplyFavoritesAndHistory(Games.ToList());
+        ApplyFavoritesAndHistory(_currentAllGames);
+        ReapplyPagination();
     }
 
     /// <summary>
@@ -492,6 +585,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     {
         if (game is null) return;
 
+        _currentAllGames.Remove(game);
         Games.Remove(game);
         StatusText = $"Removed from view: {game.DisplayTitle}";
         UpdateGameCount();
@@ -500,6 +594,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     /// <summary>
     /// Scans ROM folders for games and returns card ViewModels with cover art resolved
     /// from each system's image folder. Folder paths are resolved (%BASEFOLDER% / relative) first.
+    /// File enumeration goes through the loading orchestrator, which caches the file
+    /// list per system so repeat navigation does not re-enumerate the disk.
     /// </summary>
     private List<GameCardViewModel> ScanGames(List<SystemManagerConfig> systems)
     {
@@ -507,7 +603,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
 
         foreach (var system in systems)
         {
-            foreach (var file in EnumerateSystemFiles(system))
+            foreach (var file in _loadingOrchestrator.GetGameFiles(system))
             {
                 var coverPath = _findCoverImage.FindCoverImagePath(
                     Path.GetFileNameWithoutExtension(file),
@@ -560,83 +656,22 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     }
 
     /// <summary>
-    /// Enumerates game files for a system from its configured folders,
-    /// resolving %BASEFOLDER% / relative paths to real directories first.
+    /// Invalidates the cached file list for one system (called when the game file
+    /// watcher detects changes on disk, so the next scan picks them up).
     /// </summary>
-    internal static IEnumerable<string> EnumerateSystemFiles(SystemManagerConfig system)
+    /// <param name="systemName">The affected system name.</param>
+    public void InvalidateGameFileCacheForSystem(string systemName)
     {
-        foreach (var folder in system.SystemFolders)
-        {
-            var resolvedFolder = PathHelper.ResolveRelativeToAppDirectory(folder);
-            if (resolvedFolder == null || !Directory.Exists(resolvedFolder)) continue;
-
-            var extensions = system.FileFormatsToSearch.Count > 0
-                ? system.FileFormatsToSearch
-                : [".zip", ".7z", ".rar", ".iso", ".chd", ".cue", ".bin", ".exe", ".bat"];
-
-            var extensionSet = extensions
-                .Select(static e => e.StartsWith('.') ? e : $".{e}")
-                .ToHashSet(StringComparer.OrdinalIgnoreCase);
-
-            // Same rule as the WPF GetListOfFilesService: recursion stays on when
-            // GroupByFolder is enabled even if DisableRecursiveSearch is set — games
-            // must be found in subfolders to be grouped by folder.
-            var doRecurse = system is not { DisableRecursiveSearch: true, GroupByFolder: false };
-
-            foreach (var file in EnumerateFilesTolerant(resolvedFolder, doRecurse))
-            {
-                if (extensionSet.Contains(Path.GetExtension(file)))
-                {
-                    yield return file;
-                }
-            }
-        }
+        _loadingOrchestrator.InvalidateSystem(systemName);
     }
 
     /// <summary>
-    /// Recursively enumerates files, tolerating per-directory access failures instead
-    /// of aborting the whole scan when one subfolder is inaccessible (mirrors the
-    /// per-directory error handling of the WPF GetListOfFilesService).
+    /// Invalidates all cached file lists (called when the system configuration
+    /// changes, e.g. after adding a system in Easy Mode).
     /// </summary>
-    private static IEnumerable<string> EnumerateFilesTolerant(string directory, bool recurse)
+    public void InvalidateAllGameFileCaches()
     {
-        IEnumerable<string> files;
-        try
-        {
-            files = Directory.EnumerateFiles(directory);
-        }
-        catch (Exception ex)
-        {
-            // Skip inaccessible folders instead of dropping the entire scan
-            Log.Debug(ex, "Skipping inaccessible folder {Folder}", directory);
-            yield break;
-        }
-
-        foreach (var file in files)
-        {
-            yield return file;
-        }
-
-        if (!recurse) yield break;
-
-        IEnumerable<string> subDirectories;
-        try
-        {
-            subDirectories = Directory.EnumerateDirectories(directory);
-        }
-        catch (Exception ex)
-        {
-            Log.Debug(ex, "Skipping inaccessible folder {Folder}", directory);
-            yield break;
-        }
-
-        foreach (var subDirectory in subDirectories)
-        {
-            foreach (var file in EnumerateFilesTolerant(subDirectory, true))
-            {
-                yield return file;
-            }
-        }
+        _loadingOrchestrator.InvalidateAll();
     }
 
     private void LoadAllGames()
@@ -652,10 +687,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState
 
             var games = ScanGames(_allSystems);
             ApplyFavoritesAndHistory(games);
-            Games = new ObservableCollection<GameCardViewModel>(games);
+            ShowGames(games);
             StatusText = "All Games";
             ToolbarTitle = "SimpleLauncher";
-            UpdateGameCount();
         }
         catch (Exception ex)
         {
@@ -711,19 +745,12 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     }
 
     /// <summary>
-    /// Computes per-system game counts from a full scan of the configured system folders
-    /// (resolving %BASEFOLDER% / relative paths). Pure computation — safe on any thread.
+    /// Computes per-system game counts via the loading orchestrator (cached file lists).
+    /// Pure computation — safe on any thread.
     /// </summary>
-    private static Dictionary<string, int> ComputeSystemCounts(List<SystemManagerConfig> systems)
+    private Dictionary<string, int> ComputeSystemCounts(List<SystemManagerConfig> systems)
     {
-        var counts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-
-        foreach (var system in systems)
-        {
-            counts[system.SystemName] = EnumerateSystemFiles(system).Count();
-        }
-
-        return counts;
+        return _loadingOrchestrator.ComputeSystemCounts(systems);
     }
 
     private void UpdateGameCount(int? count = null)

@@ -923,13 +923,35 @@
         <!-- ═══ STATUS BAR (Row 3) ═══ -->
         <Border Grid.Row="3" Background="{DynamicResource BgSecondaryBrush}"
                 BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,1,0,0">
-            <Grid Margin="10,0">
+            <Grid Margin="10,0" ColumnDefinitions="*,Auto,*">
                 <TextBlock x:Name="StatusLeft"
                            Text="{Binding GameCountText}"
                            Foreground="{DynamicResource TextMutedBrush}"
                            FontSize="11" VerticalAlignment="Center"
                            HorizontalAlignment="Left" />
-                <TextBlock x:Name="StatusRight"
+                <!-- Pagination controls (hidden until a label is set by the pagination service) -->
+                <StackPanel x:Name="PaginationPanel" Grid.Column="1" Orientation="Horizontal"
+                            Spacing="8" VerticalAlignment="Center"
+                            IsVisible="False">
+                    <Button x:Name="PrevPageButton"
+                            Classes="secondary"
+                            Padding="10,2"
+                            IsEnabled="False"
+                            Click="PrevPage_Click"
+                            ToolTip.Tip="Previous page"
+                            Content="◀" />
+                    <TextBlock x:Name="PaginationLabel"
+                               Foreground="{DynamicResource TextMutedBrush}"
+                               FontSize="11" VerticalAlignment="Center" />
+                    <Button x:Name="NextPageButton"
+                            Classes="secondary"
+                            Padding="10,2"
+                            IsEnabled="False"
+                            Click="NextPage_Click"
+                            ToolTip.Tip="Next page"
+                            Content="▶" />
+                </StackPanel>
+                <TextBlock x:Name="StatusRight" Grid.Column="2"
                            Text="{Binding StatusText}"
                            Foreground="{DynamicResource TextMutedBrush}"
                            FontSize="11" VerticalAlignment="Center"

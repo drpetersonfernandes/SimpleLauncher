@@ -27,6 +27,7 @@ public class MinimalLauncherService : ILauncherService
     private readonly IMountZipFiles _mountZipFiles;
     private readonly AskAiToFixParameters _askAiToFixParameters;
     private readonly SettingsManagerService _settings;
+    private readonly IEnumerable<ILaunchStrategy> _launchStrategies;
     private readonly HashSet<string> _emulatorsToSkipErrorChecking;
 
     /// <summary>
@@ -44,7 +45,8 @@ public class MinimalLauncherService : ILauncherService
         IMountChdFiles mountChdFiles,
         IMountZipFiles mountZipFiles,
         AskAiToFixParameters askAiToFixParameters,
-        SettingsManagerService settings)
+        SettingsManagerService settings,
+        IEnumerable<ILaunchStrategy> launchStrategies)
     {
         _messageBox = messageBox;
         _configHandlers = configHandlers;
@@ -55,10 +57,146 @@ public class MinimalLauncherService : ILauncherService
         _mountZipFiles = mountZipFiles;
         _askAiToFixParameters = askAiToFixParameters;
         _settings = settings;
+        _launchStrategies = launchStrategies.OrderBy(static s => s.Priority).ToList();
         _emulatorsToSkipErrorChecking = configuration
             .GetSection("EmulatorsToSkipErrorChecking")
             .Get<string[]>()?
             .ToHashSet(StringComparer.OrdinalIgnoreCase) ?? [];
+    }
+
+    /// <summary>
+    /// Game launch pipeline entry point (port of the WPF GameLauncherService.HandleButtonClickAsync):
+    /// resolves the path, builds a <see cref="LaunchContext"/>, runs light validation, and dispatches
+    /// to the first matching <see cref="ILaunchStrategy"/> (ascending priority, Default last).
+    /// Play-time tracking stays with <see cref="LastPlayTime"/>.
+    /// </summary>
+    public async Task HandleButtonClickAsync(
+        string filePath,
+        string selectedEmulatorName,
+        string selectedSystemName,
+        ISystemManager selectedSystemManager,
+        Emulator selectedEmulatorManager,
+        string rawEmulatorParameters,
+        IWindowContext windowContext,
+        ILoadingState? loadingStateProvider)
+    {
+        // 1. Create Context
+        var context = new LaunchContext
+        {
+            FilePath = filePath,
+            ResolvedFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath) ?? filePath,
+            EmulatorName = selectedEmulatorName,
+            SystemName = selectedSystemName,
+            SystemManagerService = selectedSystemManager,
+            EmulatorManager = selectedEmulatorManager,
+            Parameters = rawEmulatorParameters,
+            Settings = _settings,
+            WindowContext = windowContext,
+            LoadingState = loadingStateProvider
+        };
+
+        try
+        {
+            // 2. Validate SystemManagerService and Emulators before resolving
+            if (context.SystemManagerService == null ||
+                context.SystemManagerService.Emulators == null ||
+                context.SystemManagerService.Emulators.Count == 0 ||
+                context.EmulatorManager == null)
+            {
+                Log.Warning("SystemManagerService or Emulators is null/empty when attempting to launch.");
+                await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(LogFilePath());
+                return;
+            }
+
+            // 3. Perform Validation (file exists — expected user condition, Information level)
+            if (!await ValidateContextAsync(context))
+            {
+                return;
+            }
+
+            // 4. Select and execute the first matching strategy (ascending priority).
+            // The inline dispatch inside LaunchRegularEmulatorAsync mirrors the WPF
+            // Default/ZIP/XISO/CHD-mount strategies, so only strategies that previously
+            // had no Avalonia handling (PBP conversion, DOSBox, Commander Genius,
+            // CHD-to-CUE) can match before the Default fallback runs.
+            var strategy = _launchStrategies.FirstOrDefault(s => s.IsMatch(context));
+            if (strategy == null)
+            {
+                Log.Warning("No launch strategy found for the context: SystemName='{System}', EmulatorName='{Emulator}', FilePath='{Path}'",
+                    context.SystemName, context.EmulatorName, context.FilePath);
+                await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(LogFilePath());
+                return;
+            }
+
+            await strategy.ExecuteAsync(context, this);
+        }
+        catch (Exception ex)
+        {
+            var detailedMessage = $"Launch Pipeline Failed.\n" +
+                                  $"Exception Type: {ex.GetType().FullName}\n" +
+                                  $"SystemName: '{context.SystemName ?? "null"}'\n" +
+                                  $"EmulatorName: '{context.EmulatorName ?? "null"}'\n" +
+                                  $"FilePath: '{context.FilePath ?? "null"}'\n" +
+                                  $"ResolvedFilePath: '{context.ResolvedFilePath ?? "null"}'";
+            Log.Error(ex, detailedMessage);
+            await _messageBox.CouldNotLaunchGameMessageBoxAsync(LogFilePath());
+        }
+    }
+
+    private async Task<bool> ValidateContextAsync(LaunchContext context)
+    {
+        if (string.IsNullOrWhiteSpace(context.ResolvedFilePath))
+        {
+            Log.Warning("Resolved file path is empty");
+            await _messageBox.FilePathIsInvalidMessageBoxAsync(LogFilePath());
+            return false;
+        }
+
+        var fileExists = File.Exists(context.ResolvedFilePath);
+        var directoryExists = Directory.Exists(context.ResolvedFilePath);
+
+        if (!fileExists && !directoryExists)
+        {
+            // Expected condition: the game entry is stale (file deleted/moved since the list
+            // was loaded) and the user is already notified via the message box — not a bug report.
+            Log.Information("File not found: {Path}", context.ResolvedFilePath);
+            await _messageBox.FilePathIsInvalidMessageBoxAsync(LogFilePath());
+            return false;
+        }
+
+        if (string.IsNullOrWhiteSpace(context.EmulatorName))
+        {
+            Log.Warning("Emulator name is empty");
+            await _messageBox.CouldNotLaunchGameMessageBoxAsync(LogFilePath());
+            return false;
+        }
+
+        // Add the GroupByFolder check
+        if (context.SystemManagerService is { GroupByFolder: true })
+        {
+            var emulatorName = context.EmulatorName;
+            var emulatorLocation = context.EmulatorManager?.EmulatorLocation ?? "";
+
+            var isMame = emulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
+                         emulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
+                         emulatorLocation.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase);
+
+            var isDosBox = emulatorName.Contains("DOSBox", StringComparison.OrdinalIgnoreCase) ||
+                           emulatorLocation.Contains("dosbox", StringComparison.OrdinalIgnoreCase);
+
+            if (!isMame && !isDosBox)
+            {
+                await _messageBox.GroupByFolderOnlyForMameAndDosBoxMessageBoxAsync();
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private string LogFilePath()
+    {
+        return PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
     }
 
     public async Task LaunchRegularEmulatorAsync(

@@ -30,6 +30,7 @@ using SimpleLauncher.Core.Services.EasyMode;
 using SimpleLauncher.Core.Services.ExternalToolLauncher;
 using SimpleLauncher.Core.Services.ExtractFiles;
 using SimpleLauncher.Core.Services.FindCoverImage;
+using SimpleLauncher.Core.Services.GameFileWatcher;
 using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Core.Services.GetListOfFiles;
 using SimpleLauncher.Core.Services.MameData;
@@ -41,6 +42,8 @@ using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Core.Services.SystemConfiguration;
 using SimpleLauncher.Core.Services.UsageStats;
 using SimpleLauncher.Core.Services.WpfServices;
+using SimpleLauncher.Avalonia.Services.GameLauncher.Strategies;
+using SimpleLauncher.Core.Services.GameLauncher.Strategies;
 #if WINDOWS
 using SimpleLauncher.Avalonia.Services.TakeScreenshot;
 #endif
@@ -241,6 +244,46 @@ public class App : Application, IDisposable
             {
                 Log.Error(ex, "Error initializing the tray icon. The application will continue without it.");
             }
+
+            // Phase 3 lifecycle: status-bar timer, write-access + required-files checks,
+            // play-history migration, usage stats, and the silent update check.
+            try
+            {
+                var lifecycle = ServiceProvider.GetRequiredService<AvaloniaApplicationLifecycleService>();
+                var startupService = ServiceProvider.GetRequiredService<AvaloniaStartupInitializationService>();
+
+                // Status text auto-clears after the configured timeout (default 3 s)
+                startupService.StatusBarTimeout += mainWindow.ResetStatusText;
+                // Pagination buttons start disabled until the first library load
+                startupService.PaginationReset += () =>
+                {
+                    mainWindow.SetPrevPageButtonEnabled(false);
+                    mainWindow.SetNextPageButtonEnabled(false);
+                };
+
+                // Silent update check: toast on the UI thread when a newer release exists
+                lifecycle.NewVersionAvailable += (_, latestVersion) =>
+                {
+                    try
+                    {
+                        Dispatcher.UIThread.Post(() =>
+                        {
+                            mainWindow.ShowToast("Update Available",
+                                $"SimpleLauncher {latestVersion} is available. Check the Options → Check for Updates menu to download it.");
+                        });
+                    }
+                    catch (Exception toastEx)
+                    {
+                        Log.Debug(toastEx, "Failed to show the silent update notification toast");
+                    }
+                };
+
+                _ = RunStartupTasksAsync(lifecycle, ServiceProvider);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error initializing the application lifecycle service.");
+            }
         }
 
         base.OnFrameworkInitializationCompleted();
@@ -376,6 +419,14 @@ public class App : Application, IDisposable
 
         // ── App-specific services ──
         services.AddSingleton<SystemArtRatioService>();
+        services.AddSingleton<IPaginationService, AvaloniaPaginationService>();
+        // Game file watcher: Core service monitors the folders, the Avalonia wrapper
+        // re-raises events for the main window's live library refresh.
+        services.AddSingleton<GameFileWatcherService>();
+        services.AddSingleton<AvaloniaGameFileWatcherService>();
+        // Game file loading: per-system file list cache + scan orchestration.
+        services.AddSingleton<AvaloniaGameCacheService>();
+        services.AddSingleton<AvaloniaGameFileLoadingOrchestrator>();
 
         // ── ViewModels ──
         services.AddSingleton<MainViewModel>();
@@ -395,6 +446,16 @@ public class App : Application, IDisposable
         // to the SAME instance.
         services.AddSingleton<MinimalLauncherService>();
         services.AddSingleton<ILauncherService>(sp => sp.GetRequiredService<MinimalLauncherService>());
+
+        // ── Launch strategies (full WPF pipeline: ascending priority, Default last) ──
+        services.AddSingleton<ILaunchStrategy, ChdMountStrategy>();
+        services.AddSingleton<ILaunchStrategy, PbpToCueStrategy>();
+        services.AddSingleton<ILaunchStrategy, CommanderGeniusLaunchStrategy>();
+        services.AddSingleton<ILaunchStrategy, ChdToCueStrategy>();
+        services.AddSingleton<ILaunchStrategy, DosBoxLaunchStrategy>();
+        services.AddSingleton<ILaunchStrategy, XisoMountStrategy>();
+        services.AddSingleton<ILaunchStrategy, ZipMountStrategy>();
+        services.AddSingleton<ILaunchStrategy, DefaultLaunchStrategy>();
         services.AddSingleton<AskAiToFixParameters>();
         services.AddSingleton<EmulatorPathResolver>();
         services.AddSingleton<LocalizationService>(sp =>
@@ -414,6 +475,16 @@ public class App : Application, IDisposable
         services.AddSingleton<StorefrontGameScanner>();
         services.AddSingleton<RetroAchievementsService>();
         services.AddSingleton<AvaloniaCheckForUpdatesService>();
+
+        // ── Phase 3 lifecycle services ──
+        services.AddSingleton<CheckForRequiredFilesService>();
+        services.AddSingleton<AvaloniaStartupInitializationService>();
+        services.AddSingleton<AvaloniaApplicationLifecycleService>();
+        // Parameters help (parameters.md) for the Edit System window
+        services.AddSingleton<AvaloniaHelpUserService>();
+        // Language menu + option menu check marks (used by the main window menu bar)
+        services.AddSingleton<AvaloniaLanguageMenuService>();
+        services.AddSingleton<AvaloniaMenuCheckMarkService>();
 
         // ── Emulator config injection (21 emulators) ──
         // ViewModels (transient — one per window instance)
@@ -543,6 +614,7 @@ public class App : Application, IDisposable
                 sp.GetRequiredService<FavoritesManager>(),
                 sp.GetRequiredService<PlayHistoryManager>(),
                 sp.GetRequiredService<IParameterResolverService>(),
+                sp.GetRequiredService<AvaloniaHelpUserService>(),
                 preSelectedSystemName));
 
         // ── Phase 4.1 windows (ViewModels transient — one per window instance) ──
@@ -623,6 +695,59 @@ public class App : Application, IDisposable
         }
     }
 
+    /// <summary>
+    /// Runs the startup sequence in the background: play-history migration, startup
+    /// initialization checks, usage stats, and the silent update check. All failures
+    /// are logged — none of them should block the main window from showing.
+    /// </summary>
+    private static async Task RunStartupTasksAsync(AvaloniaApplicationLifecycleService lifecycle, IServiceProvider services)
+    {
+        try
+        {
+            // Migrate legacy play-history entries (filename → full path) before the
+            // first library scan so "Recently Played" resolves old entries correctly.
+            var systems = services.GetRequiredService<SystemManagerService>().LoadSystems();
+            await lifecycle.MigratePlayHistoryAsync(systems);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to migrate play history on startup.");
+        }
+
+        try
+        {
+            await lifecycle.RunStartupInitializationAsync();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to run the startup initialization tasks.");
+        }
+
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                await lifecycle.ReportUsageAsync();
+            }
+            catch (Exception ex)
+            {
+                Log.Debug(ex, "Usage stats reporting failed on startup.");
+            }
+        });
+
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                await lifecycle.SilentCheckForUpdatesAsync();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Silent update check failed on startup.");
+            }
+        });
+    }
+
     #region Global Exception Handlers
 
     private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -690,6 +815,15 @@ public class App : Application, IDisposable
         catch (Exception ex)
         {
             Log.Debug(ex, "Error disposing the tray icon manager.");
+        }
+
+        try
+        {
+            ServiceProvider?.GetService<AvaloniaGameFileWatcherService>()?.Dispose();
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "Error disposing the game file watcher service.");
         }
 
         _singleInstanceMutex?.Dispose();

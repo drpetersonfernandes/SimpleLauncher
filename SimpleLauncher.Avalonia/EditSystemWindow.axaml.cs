@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Avalonia.Services.Favorites;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Avalonia.Services.SystemManager;
+using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services;
@@ -39,6 +40,7 @@ public partial class EditSystemWindow : Window
     private readonly PlayHistoryManager _playHistoryManager;
     private readonly IParameterResolverService _parameterResolver;
     private readonly string? _preSelectedSystemName;
+    private readonly AvaloniaHelpUserService _helpUserService;
 
     private List<SystemManagerConfig> _systems = [];
     private string? _originalSystemName;
@@ -54,6 +56,7 @@ public partial class EditSystemWindow : Window
         FavoritesManager favoritesManager,
         PlayHistoryManager playHistoryManager,
         IParameterResolverService parameterResolver,
+        AvaloniaHelpUserService helpUserService,
         string? preSelectedSystemName = null)
     {
         InitializeComponent();
@@ -69,6 +72,7 @@ public partial class EditSystemWindow : Window
         _favoritesManager = favoritesManager;
         _playHistoryManager = playHistoryManager;
         _parameterResolver = parameterResolver;
+        _helpUserService = helpUserService;
         _preSelectedSystemName = preSelectedSystemName;
 
         SaveSystemButton.IsEnabled = false;
@@ -151,6 +155,7 @@ public partial class EditSystemWindow : Window
             SaveSystemButton.IsEnabled = false;
             DeleteSystemButton.IsEnabled = false;
             StatusTextBlock.Text = "Select a system to edit, or click Add New to create one.";
+            SystemHelpTextBlock.Text = "Select a system to see its parameters help.";
         }
         else
         {
@@ -173,6 +178,7 @@ public partial class EditSystemWindow : Window
             {
                 SystemNameTextBox.Text = selectedSystem.SystemName;
                 StatusTextBlock.Text = $"Editing: {selectedSystem.SystemName}";
+                SystemHelpTextBlock.Text = _helpUserService.GetHelpText(selectedSystem.SystemName);
 
                 SystemFolderTextBox.Text = selectedSystem.PrimarySystemFolder ?? "";
 

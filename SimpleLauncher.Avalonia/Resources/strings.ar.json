@@ -65,5 +65,6 @@
   "Keyboard.Escape": "مسح البحث / إعادة تعيين العرض",
   "Keyboard.CtrlF": "التركيز على البحث",
   "Keyboard.Enter": "تشغيل اللعبة المحددة",
-  "Keyboard.F5": "تحديث قائمة الألعاب"
+  "Keyboard.F5": "تحديث قائمة الألعاب",
+  "Pagination.Displaying": "عرض الملفات من {0} إلى {1} من أصل {2}"
 }

@@ -3,6 +3,7 @@ using System.Globalization;
 using MessagePack;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services;
+using SimpleLauncher.Core.Services.CheckPaths;
 using ILogger = Serilog.ILogger;
 
 namespace SimpleLauncher.Avalonia.Services.PlayHistory;
@@ -163,6 +164,42 @@ public class PlayHistoryManager
         }
 
         return SavePlayHistoryAsync();
+    }
+
+    /// <summary>
+    /// Migrates old records that only contain filenames to full absolute paths
+    /// (legacy WPF history entries written before full-path recording). Runs once
+    /// at startup with the current system configuration.
+    /// </summary>
+    /// <param name="systemManagers">The configured systems used to resolve missing files.</param>
+    /// <returns>A task representing the save operation (no-op when nothing changed).</returns>
+    public async Task MigrateFilenamesToFullPathsAsync(List<SystemManagerConfig> systemManagers)
+    {
+        var needsSave = false;
+        lock (_historyLock)
+        {
+            foreach (var item in PlayHistoryList)
+            {
+                // If the path is not rooted, it's an old "filename only" record
+                if (Path.IsPathRooted(item.FileName)) continue;
+
+                var system = systemManagers.FirstOrDefault(s =>
+                    s.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
+                if (system is null) continue;
+
+                var resolvedPath = PathHelper.FindFileInSystemFolders(system.SystemFolders, item.FileName);
+                if (!string.IsNullOrEmpty(resolvedPath))
+                {
+                    item.FileName = resolvedPath;
+                    needsSave = true;
+                }
+            }
+        }
+
+        if (needsSave)
+        {
+            await SavePlayHistoryAsync();
+        }
     }
 
     /// <summary>

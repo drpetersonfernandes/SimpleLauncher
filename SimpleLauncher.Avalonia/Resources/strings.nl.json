@@ -65,5 +65,6 @@
   "Keyboard.Escape": "Zoekopdracht wissen / Weergave resetten",
   "Keyboard.CtrlF": "Focus op zoeken",
   "Keyboard.Enter": "Geselecteerd spel starten",
-  "Keyboard.F5": "Spellijst vernieuwen"
+  "Keyboard.F5": "Spellijst vernieuwen",
+  "Pagination.Displaying": "Bestanden {0} tot {1} van {2} in totaal weergegeven"
 }

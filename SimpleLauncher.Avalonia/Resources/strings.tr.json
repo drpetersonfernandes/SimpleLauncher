@@ -65,5 +65,6 @@
   "Keyboard.Escape": "Aramayı temizle / Görünümü sıfırla",
   "Keyboard.CtrlF": "Aramaya odaklan",
   "Keyboard.Enter": "Seçili oyunu başlat",
-  "Keyboard.F5": "Oyun listesini yenile"
+  "Keyboard.F5": "Oyun listesini yenile",
+  "Pagination.Displaying": "Toplam {2} dosyadan {0} ile {1} arası gösteriliyor"
 }

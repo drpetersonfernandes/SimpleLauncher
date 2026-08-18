@@ -30,7 +30,7 @@ namespace SimpleLauncher.Avalonia;
 /// Main application window — OpenEmu-inspired shell with sidebar, toolbar, and game content area.
 /// Avalonia port of the WPF-UI MainWindow.
 /// </summary>
-public partial class MainWindow : Window
+public partial class MainWindow : Window, IPaginationHost
 {
     private readonly MainViewModel _viewModel;
     private readonly Services.SystemManager.SystemManagerService _systemManagerService;
@@ -39,6 +39,10 @@ public partial class MainWindow : Window
     private readonly ExternalToolLauncherService _externalToolLauncher;
     private readonly PlaySoundEffects _playSound;
     private readonly StorefrontGameScanner _storefrontScanner;
+    private readonly IPaginationService _pagination;
+    private readonly AvaloniaGameFileWatcherService _fileWatcher;
+    private readonly AvaloniaLanguageMenuService _languageMenu;
+    private readonly AvaloniaMenuCheckMarkService _menuCheckMarks;
 
     /// <summary>Favorites page section ViewModel (WPF FavoritesPage equivalent).</summary>
     public FavoritesSectionViewModel FavoritesSection { get; }
@@ -64,7 +68,11 @@ public partial class MainWindow : Window
         StorefrontGameScanner storefrontScanner,
         FavoritesSectionViewModel favoritesSection,
         PlayHistorySectionViewModel playHistorySection,
-        GlobalSearchSectionViewModel globalSearchSection)
+        GlobalSearchSectionViewModel globalSearchSection,
+        IPaginationService pagination,
+        AvaloniaGameFileWatcherService fileWatcher,
+        AvaloniaLanguageMenuService languageMenu,
+        AvaloniaMenuCheckMarkService menuCheckMarks)
     {
         _viewModel = viewModel;
         _systemManagerService = systemManagerService;
@@ -73,6 +81,10 @@ public partial class MainWindow : Window
         _externalToolLauncher = externalToolLauncher;
         _playSound = playSound;
         _storefrontScanner = storefrontScanner;
+        _pagination = pagination;
+        _fileWatcher = fileWatcher;
+        _languageMenu = languageMenu;
+        _menuCheckMarks = menuCheckMarks;
         FavoritesSection = favoritesSection;
         PlayHistorySection = playHistorySection;
         GlobalSearchSection = globalSearchSection;
@@ -136,7 +148,115 @@ public partial class MainWindow : Window
 
         // Set initial check marks from the saved settings (settings.xml)
         UpdateMenuCheckMarks();
+
+        // Wire the pagination service to the status-bar controls and apply the saved
+        // Games Per Page preference (mirrors the WPF app, which paginates the game
+        // list once the total exceeds the configured page size).
+        _pagination.Initialize(this);
+        _viewModel.ConfigurePagination(_settings.GamesPerPage);
+
+        // Live library refresh: when a watched ROM folder changes on disk, reload the
+        // current view on the UI thread (same debounced behavior as the WPF app).
+        _fileWatcher.GameFilesChanged += (_, e) =>
+        {
+            try
+            {
+                Dispatcher.UIThread.Post(() =>
+                {
+                    // The affected system's cached file list is stale — drop it so the
+                    // refresh below re-scans that system's folders from disk.
+                    _viewModel.InvalidateGameFileCacheForSystem(e.Value);
+                    _viewModel.RefreshCurrentView();
+                    RefreshSidebarCounts();
+                    ShowToast("Game Library", _localization.GetString("Toast.Refreshed", "Game list reloaded."));
+                    _playSound.PlayNotificationSound();
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Debug(ex, "Failed to refresh the game list after a file change for system '{System}'", e.Value);
+            }
+        };
     }
+
+    #region IPaginationHost
+
+    /// <inheritdoc />
+    public void SetPrevPageButtonEnabled(bool enabled)
+    {
+        PrevPageButton.IsEnabled = enabled;
+    }
+
+    /// <inheritdoc />
+    public void SetNextPageButtonEnabled(bool enabled)
+    {
+        NextPageButton.IsEnabled = enabled;
+    }
+
+    /// <inheritdoc />
+    public void ScrollToTop()
+    {
+        if (GameGridView.Items.Count > 0)
+        {
+            GameGridView.ScrollIntoView(GameGridView.Items[0]!);
+        }
+
+        if (GameListView.Items.Count > 0)
+        {
+            GameListView.ScrollIntoView(GameListView.Items[0]!);
+        }
+    }
+
+    /// <inheritdoc />
+    public void UpdateTotalFilesLabel(string? text)
+    {
+        PaginationPanel.IsVisible = !string.IsNullOrEmpty(text);
+        PaginationLabel.Text = text;
+    }
+
+    /// <inheritdoc />
+    public void AddNoFilesMessage()
+    {
+        PaginationLabel.Text = "";
+        StatusRight.Text = _localization.GetString("Empty.Title", "No Games Found");
+    }
+
+    /// <summary>
+    /// Clears the status text (wired to the status-bar timeout timer of the startup
+    /// initialization service).
+    /// </summary>
+    public void ResetStatusText()
+    {
+        StatusRight.Text = "";
+    }
+
+    private void PrevPage_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            _viewModel.GoToPreviousPage();
+            _playSound.PlayNotificationSound();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error navigating to the previous page");
+        }
+    }
+
+    private void NextPage_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            _viewModel.GoToNextPage();
+            _playSound.PlayNotificationSound();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error navigating to the next page");
+        }
+    }
+
+    #endregion
 
     /// <summary>
     /// Loads the game library after the window is shown so the UI thread is not
@@ -148,6 +268,9 @@ public partial class MainWindow : Window
         {
             await _viewModel.InitializeAsync();
             RefreshSidebarCounts();
+
+            // Start watching all configured ROM folders (debounced live refresh)
+            _fileWatcher.StartWatchingForSystems(_systemManagerService.LoadSystems());
         }
         catch (Exception ex)
         {
@@ -844,6 +967,7 @@ public partial class MainWindow : Window
             if (easyModeWindow.DataContext is EasyModeViewModel { SystemAdded: true })
             {
                 _systemManagerService.InvalidateCache();
+                _viewModel.InvalidateAllGameFileCaches();
                 _viewModel.NavigateToAllGamesCommand.Execute(null);
             }
         }
@@ -1107,48 +1231,27 @@ public partial class MainWindow : Window
 
     private void UpdateLanguageCheckMarks(string lang)
     {
-        LanguageArabic.IsChecked = string.Equals(lang, "ar", StringComparison.OrdinalIgnoreCase);
-        LanguageBengali.IsChecked = string.Equals(lang, "bn", StringComparison.OrdinalIgnoreCase);
-        LanguageGerman.IsChecked = string.Equals(lang, "de", StringComparison.OrdinalIgnoreCase);
-        LanguageEnglish.IsChecked = string.Equals(lang, "en", StringComparison.OrdinalIgnoreCase);
-        LanguageSpanish.IsChecked = string.Equals(lang, "es", StringComparison.OrdinalIgnoreCase);
-        LanguageFrench.IsChecked = string.Equals(lang, "fr", StringComparison.OrdinalIgnoreCase);
-        LanguageHindi.IsChecked = string.Equals(lang, "hi", StringComparison.OrdinalIgnoreCase);
-        LanguageIndonesianMalay.IsChecked = string.Equals(lang, "id", StringComparison.OrdinalIgnoreCase);
-        LanguageItalian.IsChecked = string.Equals(lang, "it", StringComparison.OrdinalIgnoreCase);
-        LanguageJapanese.IsChecked = string.Equals(lang, "ja", StringComparison.OrdinalIgnoreCase);
-        LanguageKorean.IsChecked = string.Equals(lang, "ko", StringComparison.OrdinalIgnoreCase);
-        LanguageDutch.IsChecked = string.Equals(lang, "nl", StringComparison.OrdinalIgnoreCase);
-        LanguagePortugueseBr.IsChecked = string.Equals(lang, "pt-BR", StringComparison.OrdinalIgnoreCase);
-        LanguageRussian.IsChecked = string.Equals(lang, "ru", StringComparison.OrdinalIgnoreCase);
-        LanguageTurkish.IsChecked = string.Equals(lang, "tr", StringComparison.OrdinalIgnoreCase);
-        LanguageUrdu.IsChecked = string.Equals(lang, "ur", StringComparison.OrdinalIgnoreCase);
-        LanguageVietnamese.IsChecked = string.Equals(lang, "vi", StringComparison.OrdinalIgnoreCase);
-        LanguageChineseSimplified.IsChecked = string.Equals(lang, "zh-Hans", StringComparison.OrdinalIgnoreCase);
+        // Check exactly the language menu item whose code matches the active language
+        var checkedName = _languageMenu.GetMenuItemNameForLanguageCode(lang);
+        foreach (var item in LanguageMenu.Items.OfType<MenuItem>())
+        {
+            item.IsChecked = _languageMenu.IsLanguageMenuItem(item.Name) && string.Equals(item.Name, checkedName, StringComparison.Ordinal);
+        }
     }
 
     private void UpdateThumbnailSizeCheckMarks(int size)
     {
-        foreach (var item in SizeMenu.Items.OfType<MenuItem>())
-        {
-            item.IsChecked = item.Tag is string tag && int.TryParse(tag, out var tagSize) && tagSize == size;
-        }
+        _menuCheckMarks.UpdateCheckedByTag(SizeMenu.Items.OfType<MenuItem>(), size);
     }
 
     private void UpdateButtonAspectRatioCheckMarks(string? ratio)
     {
-        foreach (var item in AspectRatioMenu.Items.OfType<MenuItem>())
-        {
-            item.IsChecked = string.Equals(item.Name, ratio, StringComparison.Ordinal);
-        }
+        _menuCheckMarks.UpdateCheckedByName(AspectRatioMenu.Items.OfType<MenuItem>(), ratio);
     }
 
     private void UpdateGamesPerPageCheckMarks(int page)
     {
-        foreach (var item in GamesPerPageMenu.Items.OfType<MenuItem>())
-        {
-            item.IsChecked = item.Tag is string tag && int.TryParse(tag, out var tagPage) && tagPage == page;
-        }
+        _menuCheckMarks.UpdateCheckedByTag(GamesPerPageMenu.Items.OfType<MenuItem>(), page);
     }
 
     private void UpdateViewModeCheckMarks()
@@ -1193,27 +1296,7 @@ public partial class MainWindow : Window
         {
             if (sender is not MenuItem item) return;
 
-            var lang = item.Name switch
-            {
-                "LanguageArabic" => "ar",
-                "LanguageBengali" => "bn",
-                "LanguageGerman" => "de",
-                "LanguageSpanish" => "es",
-                "LanguageFrench" => "fr",
-                "LanguageHindi" => "hi",
-                "LanguageIndonesianMalay" => "id",
-                "LanguageItalian" => "it",
-                "LanguageJapanese" => "ja",
-                "LanguageKorean" => "ko",
-                "LanguageDutch" => "nl",
-                "LanguagePortugueseBr" => "pt-BR",
-                "LanguageRussian" => "ru",
-                "LanguageTurkish" => "tr",
-                "LanguageUrdu" => "ur",
-                "LanguageVietnamese" => "vi",
-                "LanguageChineseSimplified" => "zh-Hans",
-                _ => "en"
-            };
+            var lang = _languageMenu.GetLanguageCodeFromMenuItemName(item.Name) ?? "en";
 
             _settings.Language = lang;
             await _settings.SaveAsync();
@@ -1282,6 +1365,8 @@ public partial class MainWindow : Window
             _settings.GamesPerPage = page;
             await _settings.SaveAsync();
             UpdateGamesPerPageCheckMarks(page);
+            _viewModel.ConfigurePagination(page);
+            _viewModel.ReloadGames();
             _playSound.PlayNotificationSound();
             ShowToast("Games Per Page", $"Preference saved: {page} games per page.");
         }

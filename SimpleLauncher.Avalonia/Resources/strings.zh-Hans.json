@@ -65,5 +65,6 @@
   "Keyboard.Escape": "清除搜索 / 重置视图",
   "Keyboard.CtrlF": "聚焦搜索",
   "Keyboard.Enter": "启动选定的游戏",
-  "Keyboard.F5": "刷新游戏列表"
+  "Keyboard.F5": "刷新游戏列表",
+  "Pagination.Displaying": "正在显示共 {2} 个文件中的第 {0} 至 {1} 个"
 }

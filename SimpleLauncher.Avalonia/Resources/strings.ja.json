@@ -65,5 +65,6 @@
   "Keyboard.Escape": "検索をクリア / 表示をリセット",
   "Keyboard.CtrlF": "検索にフォーカス",
   "Keyboard.Enter": "選択したゲームを起動",
-  "Keyboard.F5": "ゲームリストを更新"
+  "Keyboard.F5": "ゲームリストを更新",
+  "Pagination.Displaying": "全{2}ファイル中 {0}〜{1} を表示中"
 }

@@ -53,6 +53,46 @@ public partial class AvaloniaCheckForUpdatesService
     }
 
     /// <summary>
+    /// Raised (on a thread-pool thread) when a newer release is found by
+    /// <see cref="SilentCheckForUpdatesAsync"/>; the string parameter is the latest version.
+    /// </summary>
+    public event EventHandler<string>? NewVersionAvailable;
+
+    /// <summary>
+    /// Checks for updates without showing any dialog. When a newer version exists,
+    /// raises <see cref="NewVersionAvailable"/> (the host decides how to surface it —
+    /// the WPF app shows a toast notification). Unreachable sources and "no update"
+    /// are expected conditions and are only logged.
+    /// </summary>
+    /// <returns>A task representing the asynchronous update check operation.</returns>
+    public async Task SilentCheckForUpdatesAsync()
+    {
+        try
+        {
+            var (latestVersion, _, _, _) = await GetLatestReleaseInfoAsync();
+
+            if (latestVersion == null)
+            {
+                _logger.Information("Silent update check: could not determine the latest version (GitHub and the secondary server are unreachable).");
+                return;
+            }
+
+            if (!IsNewVersionAvailable(CurrentVersion, latestVersion))
+            {
+                _logger.Information("Silent update check: no update available (current {CurrentVersion}, latest {LatestVersion}).", CurrentVersion, latestVersion);
+                return;
+            }
+
+            _logger.Information("Silent update check: update {LatestVersion} available (current {CurrentVersion}).", latestVersion, CurrentVersion);
+            NewVersionAvailable?.Invoke(this, latestVersion);
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error checking for updates (silent).");
+        }
+    }
+
+    /// <summary>
     /// Checks for updates manually and notifies the user whether an update is available or not.
     /// </summary>
     /// <param name="owner">The owner window for update dialogs (may be null).</param>

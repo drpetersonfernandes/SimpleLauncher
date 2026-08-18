@@ -65,5 +65,6 @@
   "Keyboard.Escape": "Bersihkan pencarian / Reset tampilan",
   "Keyboard.CtrlF": "Fokus pencarian",
   "Keyboard.Enter": "Luncurkan game yang dipilih",
-  "Keyboard.F5": "Segarkan daftar game"
+  "Keyboard.F5": "Segarkan daftar game",
+  "Pagination.Displaying": "Menampilkan file {0} hingga {1} dari total {2}"
 }
