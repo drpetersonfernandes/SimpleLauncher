@@ -90,6 +90,9 @@ public partial class MainWindow : Window, IPaginationHost
         GlobalSearchSection = globalSearchSection;
         DataContext = _viewModel;
 
+        // Surface ViewModel toast requests (e.g. RetroAchievements hash scan status)
+        _viewModel.ToastRequested += (title, message) => ShowToast(title, message);
+
         // Initialize converter with ratio service
         ConsoleToCardHeightConverter.SetRatioService(ratioService);
         BooleanToFavoriteStatusConverter.SetLocalizationService(localization);

@@ -392,6 +392,8 @@ public class App : Application, IDisposable
         services.AddSingleton<IRetroAchievementsFileHasher, RetroAchievementsFileHasher>();
         services.AddSingleton<IRetroAchievementsEmulatorConfiguratorService, RetroAchievementsEmulatorConfiguratorService>();
         services.AddSingleton<IRetroAchievementsSystemMatcher, RetroAchievementsSystemMatcher>();
+        services.AddSingleton<IRetroAchievementsHashStore, RetroAchievementsHashStore>();
+        services.AddSingleton<IRetroAchievementsHashScanner, RetroAchievementsHashScanner>();
         services.AddSingleton<ParameterResolverService>();
         services.AddSingleton<IParameterResolverService>(sp => sp.GetRequiredService<ParameterResolverService>());
         services.AddSingleton<GetListOfFilesService>();

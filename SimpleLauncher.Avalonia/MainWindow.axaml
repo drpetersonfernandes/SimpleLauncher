@@ -153,6 +153,7 @@
                 <MenuItem Header="RetroAchievements Settings">
                     <MenuItem Header="RetroAchievements Settings" Click="RetroAchievementsSettings_Click" />
                     <Separator />
+                    <MenuItem Header="Show Games With RetroAchievements" Command="{Binding ShowGamesWithRetroAchievementsCommand}" />
                     <MenuItem Header="Calculate Hashes For All Game Paths" Click="CalculateHashesForAllGamePaths_Click" />
                 </MenuItem>
                 <MenuItem Header="Inject Emulator Config">

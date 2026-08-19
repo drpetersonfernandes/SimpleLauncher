@@ -1,10 +1,12 @@
 using System.Collections.ObjectModel;
+using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.UsageStats;
+using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Avalonia.Services.Favorites;
 using SimpleLauncher.Avalonia.Services.GameLauncher;
@@ -29,6 +31,10 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     private readonly SettingsManagerService _settings;
     private readonly IPaginationService _pagination;
     private readonly AvaloniaGameFileLoadingOrchestrator _loadingOrchestrator;
+    private readonly IRetroAchievementsHashScanner _raHashScanner;
+    private readonly IRetroAchievementsHashStore _raHashStore;
+    private readonly RetroAchievementsManager _raManager;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     private CancellationTokenSource? _searchCts;
     private HashSet<string> _favoritePaths;
@@ -49,6 +55,12 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     [ObservableProperty] private bool _isMixedView = true;
 
     [ObservableProperty] private bool _isShowingFavorites;
+
+    /// <summary>
+    /// True when the game list is filtered to RetroAchievements-compatible games
+    /// (hash-based match, same as the WPF "Show Games With RetroAchievements").
+    /// </summary>
+    [ObservableProperty] private bool _isShowingRetroAchievements;
 
     [ObservableProperty] private string _searchText = "";
 
@@ -103,7 +115,11 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         Stats stats,
         SettingsManagerService settings,
         IPaginationService pagination,
-        AvaloniaGameFileLoadingOrchestrator loadingOrchestrator)
+        AvaloniaGameFileLoadingOrchestrator loadingOrchestrator,
+        IRetroAchievementsHashScanner raHashScanner,
+        IRetroAchievementsHashStore raHashStore,
+        RetroAchievementsManager raManager,
+        IMessageBoxLibraryService messageBox)
     {
         _favoritesManager = favoritesManager;
         _playHistoryManager = playHistoryManager;
@@ -114,6 +130,10 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         _settings = settings;
         _pagination = pagination;
         _loadingOrchestrator = loadingOrchestrator;
+        _raHashScanner = raHashScanner;
+        _raHashStore = raHashStore;
+        _raManager = raManager;
+        _messageBox = messageBox;
 
         _favoritePaths = _favoritesManager.GetFavoritePaths();
         _allSystems = _systemManager.LoadSystems();
@@ -210,6 +230,12 @@ public partial class MainViewModel : ObservableObject, ILoadingState
             return;
         }
 
+        if (IsShowingRetroAchievements)
+        {
+            _ = RefreshRetroAchievementsViewAsync();
+            return;
+        }
+
         if (IsShowingFavorites)
         {
             NavigateToFavoritesCommand.Execute(null);
@@ -223,6 +249,162 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         }
 
         LoadAllGames();
+    }
+
+    /// <summary>
+    /// Requests a toast notification (surfaced by the main window). Raised on the
+    /// UI thread so subscribers can touch UI directly.
+    /// </summary>
+    public event Action<string, string>? ToastRequested;
+
+    private void ShowToast(string title, string message)
+    {
+        ToastRequested?.Invoke(title, message);
+    }
+
+    // ---- RetroAchievements Filter ----
+
+    /// <summary>
+    /// Filters the game list to show only games that have RetroAchievements support
+    /// (same hash-based flow as the WPF app): when no hash scan exists for the selected
+    /// system, the user is prompted to run one in the background first. With no system
+    /// selected, every system is filtered using its stored hash scan.
+    /// </summary>
+    [RelayCommand]
+    private async Task ShowGamesWithRetroAchievements()
+    {
+        try
+        {
+            // Prevent parallel hash calculations (they would spawn many CLI processes at once)
+            if (_raHashScanner.IsScanning)
+            {
+                ShowToast("RetroAchievements", "A RetroAchievements hash calculation is already in progress. Please wait for it to finish before trying again.");
+                return;
+            }
+
+            // No system selected: best-effort filter across all systems using the
+            // stored hash scans (systems without a scan simply contribute nothing).
+            if (string.IsNullOrEmpty(SelectedSystem))
+            {
+                await ShowRetroAchievementsGamesAsync(_allSystems);
+                return;
+            }
+
+            var system = _systemManager.GetSystem(SelectedSystem);
+            if (system == null)
+            {
+                return;
+            }
+
+            // If no valid hash scan result exists yet (missing or produced by older
+            // hash logic), ask the user to scan the game path first
+            if (!_raHashScanner.IsScanUpToDate(system.SystemName))
+            {
+                if (!_raHashScanner.IsSystemScannable(system.SystemName))
+                {
+                    ShowToast("RetroAchievements", $"{system.SystemName} is not supported for RetroAchievements hashing.");
+                    return;
+                }
+
+                var result = await _messageBox.ScanGamePathForRetroAchievementsMessageBoxAsync();
+                if (result != MessageBoxResult.Yes)
+                {
+                    // User cancelled: do not filter the list of games
+                    return;
+                }
+
+                // Non-blocking notification: the app stays fully responsive while
+                // the hash calculation runs in the background
+                _ = _raHashScanner.ScanSystemAsync(
+                    system.SystemName,
+                    system.SystemFolders,
+                    system.FileFormatsToSearch,
+                    system.FileFormatsToLaunch,
+                    system.DisableRecursiveSearch,
+                    system.GroupByFolder,
+                    onCompleted: OnHashScanCompleted);
+
+                ShowToast("RetroAchievements", "The hash calculation will happen in the background. You can click the filter button again later to see if the hashing is complete.");
+                return;
+            }
+
+            await ShowRetroAchievementsGamesAsync([system]);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error showing games with RetroAchievements");
+            StatusText = "Error filtering games";
+        }
+    }
+
+    /// <summary>
+    /// Re-applies the RetroAchievements filter to the current view without prompting
+    /// for a scan (called after the game file watcher detects changes on disk).
+    /// </summary>
+    private async Task RefreshRetroAchievementsViewAsync()
+    {
+        try
+        {
+            var systems = string.IsNullOrEmpty(SelectedSystem)
+                ? _allSystems
+                : _allSystems.Where(s => string.Equals(s.SystemName, SelectedSystem, StringComparison.OrdinalIgnoreCase)).ToList();
+            await ShowRetroAchievementsGamesAsync(systems);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error refreshing the RetroAchievements filter");
+        }
+    }
+
+    /// <summary>
+    /// Filters the given systems' games to those whose file hash exists in the local
+    /// RetroAchievements hash scan AND resolves to a known RA game (the exact same
+    /// hash-based matching used by the WPF app).
+    /// </summary>
+    private async Task ShowRetroAchievementsGamesAsync(List<SystemManagerConfig> systems)
+    {
+        var (matched, total) = await Task.Run(() =>
+        {
+            var allGames = ScanGames(systems);
+            ApplyFavoritesAndHistory(allGames);
+
+            // Hash-based matching: only games whose file hash exists in the local
+            // RetroAchievements hash scan AND resolves to a known RA game are kept.
+            var systemHashesCache = new Dictionary<string, RaSystemHashes?>(StringComparer.OrdinalIgnoreCase);
+            var matched = allGames.Where(game =>
+            {
+                if (!systemHashesCache.TryGetValue(game.SystemName, out var systemHashes))
+                {
+                    systemHashes = _raHashStore.LoadSystemHashes(game.SystemName);
+                    systemHashesCache[game.SystemName] = systemHashes;
+                }
+
+                if (systemHashes == null || systemHashes.Hashes.Count == 0)
+                {
+                    return false;
+                }
+
+                return systemHashes.Hashes.TryGetValue(game.FilePath, out var hash) &&
+                       !string.IsNullOrEmpty(hash) &&
+                       _raManager.GetGameInfoByHash(hash) != null;
+            }).ToList();
+
+            return (matched, allGames.Count);
+        });
+
+        IsShowingRetroAchievements = true;
+        ShowGames(matched);
+        StatusText = $"{matched.Count} of {total} games with RetroAchievements";
+        ToolbarTitle = "SimpleLauncher — RetroAchievements";
+    }
+
+    /// <summary>
+    /// Shows a completion toast after a system hash scan finishes. Runs on a
+    /// background thread, so the toast is marshaled to the UI thread.
+    /// </summary>
+    private void OnHashScanCompleted(string systemName)
+    {
+        Dispatcher.UIThread.Post(() => ShowToast("RetroAchievements", $"RetroAchievements hash calculation is complete for {systemName}."));
     }
 
     /// <summary>
@@ -266,6 +448,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
             _allSystems = systems;
             SystemGameCounts = counts;
             IsShowingFavorites = false;
+            IsShowingRetroAchievements = false;
             IsMixedView = true;
             SelectedSystem = "";
             ShowGames(games);
@@ -326,6 +509,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState
 
     private void ExecuteSearch(string query)
     {
+        IsShowingRetroAchievements = false;
+
         var results = ScanGames(_allSystems)
             .Where(g => g.DisplayTitle.Contains(query, StringComparison.OrdinalIgnoreCase))
             .ToList();
@@ -342,6 +527,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         {
             SelectedSystem = systemName;
             IsMixedView = string.IsNullOrEmpty(systemName);
+            IsShowingRetroAchievements = false;
 
             var systems = string.IsNullOrEmpty(systemName)
                 ? _allSystems
@@ -381,6 +567,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         try
         {
             IsShowingFavorites = true;
+            IsShowingRetroAchievements = false;
             _favoritePaths = _favoritesManager.GetFavoritePaths();
 
             var allGames = ScanGames(_allSystems);
@@ -403,6 +590,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     {
         try
         {
+            IsShowingRetroAchievements = false;
+
             var historyLookup = _playHistoryManager.GetHistoryLookup();
             var allGames = ScanGames(_allSystems);
             ApplyFavoritesAndHistory(allGames);
@@ -429,6 +618,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     {
         try
         {
+            IsShowingRetroAchievements = false;
+
             var allGames = ScanGames(_allSystems);
             ApplyFavoritesAndHistory(allGames);
 
@@ -679,6 +870,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         try
         {
             IsShowingFavorites = false;
+            IsShowingRetroAchievements = false;
             IsMixedView = true;
             SelectedSystem = "";
             _allSystems = _systemManager.LoadSystems();

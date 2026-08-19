@@ -1002,9 +1002,16 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task<MessageBoxResult> ScanGamePathForRetroAchievementsMessageBoxAsync()
+    public async Task<MessageBoxResult> ScanGamePathForRetroAchievementsMessageBoxAsync()
     {
-        return Task.FromResult(MessageBoxResult.Yes);
+        if (O != null)
+        {
+            return await ShowAsync(O,
+                "We need to scan your game path to see what game is compatible with RetroAchievements.",
+                "RetroAchievements", MessageButtons.YesNo, MessageIcon.Question);
+        }
+
+        return MessageBoxResult.Cancel;
     }
 
     public Task UnsupportedArchitectureMessageBoxAsync()
