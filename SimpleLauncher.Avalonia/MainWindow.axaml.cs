@@ -38,7 +38,7 @@ public partial class MainWindow : Window, IPaginationHost
     private readonly LocalizationService _localization;
     private readonly ExternalToolLauncherService _externalToolLauncher;
     private readonly PlaySoundEffects _playSound;
-    private readonly StorefrontGameScanner _storefrontScanner;
+    private readonly GameScannerService _gameScannerService;
     private readonly IPaginationService _pagination;
     private readonly AvaloniaGameFileWatcherService _fileWatcher;
     private readonly AvaloniaLanguageMenuService _languageMenu;
@@ -65,7 +65,7 @@ public partial class MainWindow : Window, IPaginationHost
         LocalizationService localization,
         ExternalToolLauncherService externalToolLauncher,
         PlaySoundEffects playSound,
-        StorefrontGameScanner storefrontScanner,
+        GameScannerService gameScannerService,
         FavoritesSectionViewModel favoritesSection,
         PlayHistorySectionViewModel playHistorySection,
         GlobalSearchSectionViewModel globalSearchSection,
@@ -80,7 +80,7 @@ public partial class MainWindow : Window, IPaginationHost
         _localization = localization;
         _externalToolLauncher = externalToolLauncher;
         _playSound = playSound;
-        _storefrontScanner = storefrontScanner;
+        _gameScannerService = gameScannerService;
         _pagination = pagination;
         _fileWatcher = fileWatcher;
         _languageMenu = languageMenu;
@@ -1741,7 +1741,7 @@ public partial class MainWindow : Window, IPaginationHost
         {
             _viewModel.IsLoading = true;
             _viewModel.StatusText = "Scanning for Windows games...";
-            var result = await _storefrontScanner.ScanAndCreateWindowsSystemAsync();
+            var result = await _gameScannerService.ScanForStoreGamesAsync();
 
             if (result.GamesFound > 0)
             {

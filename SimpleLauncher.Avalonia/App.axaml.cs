@@ -309,7 +309,14 @@ public class App : Application, IDisposable
             client.Timeout = TimeSpan.FromSeconds(30);
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher.Avalonia/1.0");
         });
-        services.AddHttpClient("GameImageClient");
+        services.AddHttpClient("GameImageClient", client =>
+        {
+            var apiUrl = configuration.GetValue<string>("ApiSettings:GameImageUrl")
+                          ?? "https://simple-launcher-api.doutorpeterson.workers.dev/";
+            client.BaseAddress = new Uri(apiUrl);
+            client.Timeout = TimeSpan.FromSeconds(20);
+            client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher.Avalonia/1.0");
+        });
         services.AddHttpClient("SupportWindowClient");
         services.AddHttpClient("EasyModeClient", client =>
         {
@@ -324,7 +331,15 @@ public class App : Application, IDisposable
             client.BaseAddress = new Uri(easyModeUrl);
             client.Timeout = TimeSpan.FromSeconds(30);
         });
-        services.AddHttpClient("GameClassificationClient");
+        services.AddHttpClient("GameClassificationClient", client =>
+        {
+            // Set the base address for the Microsoft Store game classification API
+            var classificationUrl = configuration.GetValue<string>("Urls:GameClassificationApi")
+                                    ?? "https://www.purelogiccode.com/simplelauncheradmin/";
+            client.BaseAddress = new Uri(classificationUrl);
+            client.Timeout = TimeSpan.FromSeconds(30);
+            client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher.Avalonia/1.0");
+        });
         services.AddHttpClient("ParameterResolverClient", client =>
         {
             // Set the base address for the parameter resolver API (same as the WPF app)
@@ -472,7 +487,22 @@ public class App : Application, IDisposable
 
             return localization;
         });
-        services.AddSingleton<StorefrontGameScanner>();
+        // ── Game platform scanners (WPF parity: Steam, Epic, Amazon, Battle.net, GOG,
+        // Humble, itch.io, Rockstar, Ubisoft, EA, Microsoft Store) ──
+        services.AddSingleton<ISteamVdfParser, SteamVdfParser>();
+        services.AddSingleton<IIconExtractor, IconExtractor>();
+        services.AddSingleton<IGamePlatformScanner, ScanSteamGames>();
+        services.AddSingleton<IGamePlatformScanner, ScanEpicGames>();
+        services.AddSingleton<IGamePlatformScanner, ScanAmazonGames>();
+        services.AddSingleton<IGamePlatformScanner, ScanBattleNetGames>();
+        services.AddSingleton<IGamePlatformScanner, ScanGogGames>();
+        services.AddSingleton<IGamePlatformScanner, ScanHumbleGames>();
+        services.AddSingleton<IGamePlatformScanner, ScanItchioGames>();
+        services.AddSingleton<IGamePlatformScanner, ScanRockstarGames>();
+        services.AddSingleton<IGamePlatformScanner, ScanUplayGames>();
+        services.AddSingleton<IGamePlatformScanner, ScanEaGames>();
+        services.AddSingleton<IGamePlatformScanner, ScanMicrosoftStoreGames>();
+        services.AddSingleton<GameScannerService>();
         services.AddSingleton<RetroAchievementsService>();
         services.AddSingleton<AvaloniaCheckForUpdatesService>();
 
