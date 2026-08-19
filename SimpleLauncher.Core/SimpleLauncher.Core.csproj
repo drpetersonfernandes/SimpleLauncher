@@ -32,13 +32,13 @@
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
         <PackageReference Include="InputSimulatorCore" Version="1.0.5" />
-        <PackageReference Include="Meziantou.Analyzer" Version="3.0.163">
+        <PackageReference Include="Meziantou.Analyzer" Version="3.0.165">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="MessagePack" Version="3.1.8" />
-        <PackageReference Include="NAudio.Alsa" Version="3.0.0" />
-        <PackageReference Include="NAudio.SoundFile" Version="3.0.0" />
+        <PackageReference Include="NAudio.Alsa" Version="3.0.1" />
+        <PackageReference Include="NAudio.SoundFile" Version="3.0.1" />
         <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.400">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -51,9 +51,8 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.11" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.11" />
         <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.9.0" />
-        <PackageReference Include="NAudio.Core" Version="3.0.0" />
-        <PackageReference Include="NAudio.Wasapi" Version="3.0.0" />
-        <PackageReference Include="NAudio.WinMM" Version="3.0.0" Condition="'$(TargetFramework)' == 'net10.0-windows'" />
+        <PackageReference Include="NAudio.Core" Version="3.0.1" />
+        <PackageReference Include="NAudio.Wasapi" Version="3.0.1" />
         <PackageReference Include="SharpCompress" Version="0.50.4" />
         <PackageReference Include="SourceGear.sqlite3" Version="3.53.4" />
         <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="10.0.11" />
@@ -90,6 +89,10 @@
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
             <_Parameter1>SimpleLauncher.New.Tests</_Parameter1>
         </AssemblyAttribute>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net10.0-windows'">
+      <PackageReference Include="NAudio.WinMM" Version="3.0.1" />
     </ItemGroup>
 
     <!-- net10.0 is the Linux TFM; the WINDOWS symbol is defined only for
