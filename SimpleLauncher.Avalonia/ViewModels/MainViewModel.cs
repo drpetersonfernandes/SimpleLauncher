@@ -35,6 +35,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     private readonly IRetroAchievementsHashStore _raHashStore;
     private readonly RetroAchievementsManager _raManager;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IMameDataService _mameData;
 
     private CancellationTokenSource? _searchCts;
     private HashSet<string> _favoritePaths;
@@ -45,6 +46,28 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     /// into <see cref="Games"/> when the total exceeds the configured page size.
     /// </summary>
     private List<GameCardViewModel> _currentAllGames = [];
+
+    /// <summary>
+    /// The unfiltered full game list of the current view (before the letter filter
+    /// is applied). Clearing the letter filter restores the games from this list.
+    /// </summary>
+    private List<GameCardViewModel> _currentBaseGames = [];
+
+    /// <summary>
+    /// The active letter/# filter (empty string = All). Matches the WPF "FilterMenu".
+    /// </summary>
+    private string _letterFilter = "";
+
+    /// <summary>
+    /// MAME sort order toggle state: "FileName" (default) or "MachineDescription".
+    /// Matches the WPF sort-order toggle button.
+    /// </summary>
+    private string _mameSortOrder = "FileName";
+
+    /// <summary>
+    /// Gets the current MAME sort order ("FileName" or "MachineDescription").
+    /// </summary>
+    public string MameSortOrder => _mameSortOrder;
 
     [ObservableProperty] private ObservableCollection<GameCardViewModel> _games = new();
 
@@ -119,7 +142,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         IRetroAchievementsHashScanner raHashScanner,
         IRetroAchievementsHashStore raHashStore,
         RetroAchievementsManager raManager,
-        IMessageBoxLibraryService messageBox)
+        IMessageBoxLibraryService messageBox,
+        IMameDataService mameData)
     {
         _favoritesManager = favoritesManager;
         _playHistoryManager = playHistoryManager;
@@ -134,6 +158,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         _raHashStore = raHashStore;
         _raManager = raManager;
         _messageBox = messageBox;
+        _mameData = mameData;
 
         _favoritePaths = _favoritesManager.GetFavoritePaths();
         _allSystems = _systemManager.LoadSystems();
@@ -213,8 +238,141 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     /// </summary>
     private void ShowGames(List<GameCardViewModel> fullList)
     {
-        _currentAllGames = fullList;
+        _currentBaseGames = fullList;
+        ReapplyLetterFilterAndPagination();
+    }
+
+    /// <summary>
+    /// Re-applies the current letter filter to the base game list, then re-applies
+    /// pagination and updates the displayed collection.
+    /// </summary>
+    private void ReapplyLetterFilterAndPagination()
+    {
+        _currentAllGames = ApplyLetterFilter(_currentBaseGames);
         ReapplyPagination();
+    }
+
+    /// <summary>
+    /// Filters the given game list by the active <see cref="LetterFilter"/> ("" = all).
+    /// Mirrors the WPF FilterMenu: "#" matches files that start with a digit, a letter
+    /// matches case-insensitively on the file name.
+    /// </summary>
+    private List<GameCardViewModel> ApplyLetterFilter(List<GameCardViewModel> games)
+    {
+        if (string.IsNullOrEmpty(_letterFilter)) return games;
+
+        if (string.Equals(_letterFilter, "#", StringComparison.Ordinal))
+        {
+            return games.Where(game =>
+            {
+                var fileName = Path.GetFileName(game.FilePath);
+                return !string.IsNullOrEmpty(fileName) && char.IsDigit(fileName[0]);
+            }).ToList();
+        }
+
+        return games.Where(game =>
+        {
+            var fileName = Path.GetFileName(game.FilePath);
+            return !string.IsNullOrEmpty(fileName) &&
+                   fileName.StartsWith(_letterFilter, StringComparison.OrdinalIgnoreCase);
+        }).ToList();
+    }
+
+    /// <summary>
+    /// Sets the active letter filter ("" = All) and re-applies it to the current view.
+    /// </summary>
+    public void SetLetterFilter(string letter)
+    {
+        _letterFilter = letter ?? "";
+        ReapplyLetterFilterAndPagination();
+        StatusText = string.IsNullOrEmpty(_letterFilter) ? "All Games" : $"Filtering by {_letterFilter}";
+    }
+
+    /// <summary>
+    /// Clears the letter filter (equivalent to pressing the "All" letter button).
+    /// </summary>
+    public void ClearLetterFilter()
+    {
+        SetLetterFilter("");
+    }
+
+    /// <summary>
+    /// Returns a random game from the current view, or null when the list is empty.
+    /// </summary>
+    public GameCardViewModel? GetRandomGame()
+    {
+        var candidates = _currentAllGames.Count > 0 ? _currentAllGames : _currentBaseGames;
+        if (candidates.Count == 0) return null;
+
+        return candidates[Random.Shared.Next(candidates.Count)];
+    }
+
+    /// <summary>
+    /// Toggles the MAME sort order between file name and machine description
+    /// (WPF sort-order toggle), then re-sorts the current view.
+    /// </summary>
+    public void ToggleMameSortOrder()
+    {
+        _mameSortOrder = string.Equals(_mameSortOrder, "FileName", StringComparison.Ordinal)
+            ? "MachineDescription"
+            : "FileName";
+
+        _currentBaseGames = SortByMameOrder(_currentBaseGames);
+        ReapplyLetterFilterAndPagination();
+        StatusText = _mameSortOrder == "MachineDescription" ? "Sorted by machine description" : "Sorted by file name";
+    }
+
+    /// <summary>
+    /// Sorts the given game list by the current <see cref="_mameSortOrder"/>.
+    /// MachineDescription sorts by the MAME.dat machine description when known,
+    /// falling back to the file name — same rule as the WPF GameFilterService.
+    /// </summary>
+    private List<GameCardViewModel> SortByMameOrder(List<GameCardViewModel> games)
+    {
+        if (string.Equals(_mameSortOrder, "MachineDescription", StringComparison.Ordinal))
+        {
+            return games.OrderBy(game =>
+            {
+                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(game.FilePath);
+                return _mameData.Lookup.TryGetValue(fileNameWithoutExtension, out var description) &&
+                       !string.IsNullOrWhiteSpace(description)
+                    ? description
+                    : fileNameWithoutExtension;
+            }, StringComparer.OrdinalIgnoreCase).ToList();
+        }
+
+        return games.OrderBy(game => Path.GetFileName(game.FilePath), StringComparer.OrdinalIgnoreCase).ToList();
+    }
+
+    /// <summary>
+    /// Increases the thumbnail/card width by one zoom step (saves the preference).
+    /// </summary>
+    public void ZoomIn()
+    {
+        AdjustZoomStep(1);
+    }
+
+    /// <summary>
+    /// Decreases the thumbnail/card width by one zoom step (saves the preference).
+    /// </summary>
+    public void ZoomOut()
+    {
+        AdjustZoomStep(-1);
+    }
+
+    private static readonly int MinThumbnailSize = 50;
+    private static readonly int MaxThumbnailSize = 800;
+    private const int ZoomStep = 50;
+
+    private void AdjustZoomStep(int direction)
+    {
+        var newSize = Math.Clamp((int)CardWidth + (direction * ZoomStep), MinThumbnailSize, MaxThumbnailSize);
+        if (newSize == (int)CardWidth) return;
+
+        CardWidth = newSize;
+        _settings.ThumbnailSize = newSize;
+        _ = _settings.SaveAsync();
+        StatusText = direction > 0 ? $"Zooming in... {newSize}px" : $"Zooming out... {newSize}px";
     }
 
     /// <summary>
@@ -393,6 +551,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         });
 
         IsShowingRetroAchievements = true;
+        _letterFilter = "";
         ShowGames(matched);
         StatusText = $"{matched.Count} of {total} games with RetroAchievements";
         ToolbarTitle = "SimpleLauncher — RetroAchievements";
@@ -451,6 +610,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
             IsShowingRetroAchievements = false;
             IsMixedView = true;
             SelectedSystem = "";
+            _letterFilter = "";
             ShowGames(games);
             StatusText = "All Games";
             ToolbarTitle = "SimpleLauncher";
@@ -510,6 +670,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     private void ExecuteSearch(string query)
     {
         IsShowingRetroAchievements = false;
+        _letterFilter = "";
 
         var results = ScanGames(_allSystems)
             .Where(g => g.DisplayTitle.Contains(query, StringComparison.OrdinalIgnoreCase))
@@ -528,6 +689,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
             SelectedSystem = systemName;
             IsMixedView = string.IsNullOrEmpty(systemName);
             IsShowingRetroAchievements = false;
+            _letterFilter = "";
 
             var systems = string.IsNullOrEmpty(systemName)
                 ? _allSystems
@@ -568,6 +730,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         {
             IsShowingFavorites = true;
             IsShowingRetroAchievements = false;
+            _letterFilter = "";
             _favoritePaths = _favoritesManager.GetFavoritePaths();
 
             var allGames = ScanGames(_allSystems);
@@ -591,6 +754,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         try
         {
             IsShowingRetroAchievements = false;
+            _letterFilter = "";
 
             var historyLookup = _playHistoryManager.GetHistoryLookup();
             var allGames = ScanGames(_allSystems);
@@ -619,6 +783,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         try
         {
             IsShowingRetroAchievements = false;
+            _letterFilter = "";
 
             var allGames = ScanGames(_allSystems);
             ApplyFavoritesAndHistory(allGames);
@@ -873,6 +1038,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
             IsShowingRetroAchievements = false;
             IsMixedView = true;
             SelectedSystem = "";
+            _letterFilter = "";
             _allSystems = _systemManager.LoadSystems();
 
             RefreshSystemCounts();

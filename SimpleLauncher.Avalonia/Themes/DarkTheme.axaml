@@ -281,6 +281,42 @@
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
     </Style>
 
+    <!-- ── TOOLBAR ICON BUTTON (Home / Random / Sort quick actions) ── -->
+    <Style Selector="Button.toolbar-icon">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="8,4" />
+        <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="Button">
+                <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="{StaticResource ButtonCornerRadius}"
+                        Padding="{TemplateBinding Padding}">
+                    <ContentPresenter Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="Button.toolbar-icon:pointerover">
+        <Setter Property="Background" Value="{DynamicResource BgQuaternaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+    </Style>
+    <Style Selector="Button.toolbar-icon:pressed">
+        <Setter Property="Background" Value="{DynamicResource BgTertiaryBrush}" />
+    </Style>
+    <!-- Active letter filter selection (Classes="active" toggled by the letter bar) -->
+    <Style Selector="Button.toolbar-icon.active">
+        <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
     <!-- ── SEARCH TEXTBOX (pill-shaped) ── -->
     <Style Selector="TextBox.search-textbox">
         <Setter Property="Background" Value="Transparent" />

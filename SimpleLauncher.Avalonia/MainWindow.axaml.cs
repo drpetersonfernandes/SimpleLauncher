@@ -158,6 +158,14 @@ public partial class MainWindow : Window, IPaginationHost
         _pagination.Initialize(this);
         _viewModel.ConfigurePagination(_settings.GamesPerPage);
 
+        // Populate the letter/number quick-filter bar (WPF FilterMenu parity) and
+        // sync the MAME sort-order button tooltip from the current setting.
+        PopulateLetterFilterBar();
+        UpdateMameSortOrderButtonToolTip();
+
+        // Ctrl+wheel zooms the card size over the game grid (WPF MainWindow_MouseWheelAsync parity).
+        AddHandler(InputElement.PointerWheelChangedEvent, OnPointerWheelChangedForZoom, handledEventsToo: true);
+
         // Live library refresh: when a watched ROM folder changes on disk, reload the
         // current view on the UI thread (same debounced behavior as the WPF app).
         _fileWatcher.GameFilesChanged += (_, e) =>
@@ -539,6 +547,160 @@ public partial class MainWindow : Window, IPaginationHost
                 ShowToast("Refreshed", "Game list reloaded.");
                 e.Handled = true;
                 break;
+        }
+    }
+
+    #endregion
+
+    #region Quick Actions (Home / Random / Sort / Letter Bar)
+
+    private void HomeButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            _viewModel.NavigateToAllGamesCommand.Execute(null);
+            ScrollToTop();
+            _playSound.PlayNotificationSound();
+            UpdateLetterBarSelection("");
+            ShowToast("Restart", _localization.GetString("Toast.Restarted", "Returned to the main game list."));
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in HomeButton_Click");
+        }
+    }
+
+    private void RandomGameButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var randomGame = _viewModel.GetRandomGame();
+            if (randomGame is null)
+            {
+                ShowToast("Feeling Lucky", _localization.GetString("Toast.NoGameFound", "No games found to pick from."));
+                return;
+            }
+
+            _playSound.PlayNotificationSound();
+            if (_viewModel.IsGridView)
+            {
+                GameGridView.SelectedItem = randomGame;
+                GameGridView.ScrollIntoView(randomGame);
+            }
+            else
+            {
+                GameListView.SelectedItem = randomGame;
+                GameListView.ScrollIntoView(randomGame);
+            }
+
+            ShowToast("Feeling Lucky", _localization.GetString("Toast.FeelingLucky", "Picked a random game."));
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in RandomGameButton_Click");
+        }
+    }
+
+    private void MameSortOrderButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            _playSound.PlayNotificationSound();
+            _viewModel.ToggleMameSortOrder();
+            UpdateMameSortOrderButtonToolTip();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in MameSortOrderButton_Click");
+        }
+    }
+
+    private void UpdateMameSortOrderButtonToolTip()
+    {
+        try
+        {
+            var tooltip = string.Equals(_viewModel.MameSortOrder, "MachineDescription", StringComparison.Ordinal)
+                ? "Sort order: Machine Description"
+                : "Sort order: File Name";
+            ToolTip.SetTip(MameSortOrderButton, tooltip);
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "Failed to update the MAME sort order button tooltip");
+        }
+    }
+
+    private void PopulateLetterFilterBar()
+    {
+        try
+        {
+            LetterFilterBar.Children.Clear();
+            AddLetterButton("All", "");
+            AddLetterButton("#", "#");
+            foreach (var c in Enumerable.Range('A', 26).Select(static x => (char)x))
+            {
+                AddLetterButton(c.ToString(), c.ToString());
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to populate the letter filter bar");
+        }
+    }
+
+    private void AddLetterButton(string label, string letter)
+    {
+        var button = new Button
+        {
+            Content = label,
+            Padding = new Thickness(7, 2),
+            MinWidth = 28,
+            Tag = letter
+        };
+        button.Classes.Add("toolbar-icon");
+        button.Click += (_, _) => LetterFilterButton_Click(letter, button);
+        LetterFilterBar.Children.Add(button);
+    }
+
+    private void LetterFilterButton_Click(string letter, Button clickedButton)
+    {
+        try
+        {
+            _playSound.PlayNotificationSound();
+            _viewModel.SetLetterFilter(letter);
+            UpdateLetterBarSelection(letter);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in LetterFilterButton_Click");
+        }
+    }
+
+    private void UpdateLetterBarSelection(string letter)
+    {
+        foreach (var child in LetterFilterBar.Children)
+        {
+            if (child is not Button button) continue;
+
+            var isActive = string.Equals((button.Tag as string) ?? "", letter, StringComparison.Ordinal);
+            button.Classes.Set("active", isActive);
+        }
+    }
+
+    private void OnPointerWheelChangedForZoom(object? sender, PointerWheelEventArgs e)
+    {
+        if (e.KeyModifiers.HasFlag(KeyModifiers.Control))
+        {
+            if (e.Delta.Y > 0)
+            {
+                _viewModel.ZoomIn();
+                e.Handled = true;
+            }
+            else if (e.Delta.Y < 0)
+            {
+                _viewModel.ZoomOut();
+                e.Handled = true;
+            }
         }
     }
 

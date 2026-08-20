@@ -39,7 +39,7 @@
         </DataTemplate>
     </Window.Resources>
 
-    <Grid RowDefinitions="32,44,*,24">
+    <Grid RowDefinitions="32,44,28,*,24">
 
         <!-- ═══ MENU BAR (Row 0) ═══ -->
         <Menu Grid.Row="0"
@@ -231,9 +231,9 @@
         <!-- ═══ TOOLBAR (Row 1) ═══ -->
         <Border Grid.Row="1" Background="{DynamicResource BgTertiaryBrush}"
                 BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,0,0,1">
-            <Grid Margin="8,0" ColumnDefinitions="Auto,Auto,*,Auto">
+            <Grid Margin="8,0" ColumnDefinitions="Auto,Auto,*,Auto,Auto">
 
-                <!-- Left: View toggle -->
+                <!-- Left: View toggle + quick actions -->
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                     <ToggleButton x:Name="GridViewToggle"
                                   Classes="toolbar-toggle"
@@ -249,6 +249,30 @@
                                   Click="ViewToggle_Click">
                         <TextBlock Text="☰" FontSize="13" />
                     </ToggleButton>
+                    <Button x:Name="HomeButton"
+                            Classes="toolbar-icon"
+                            Padding="8,4"
+                            Margin="8,0,0,0"
+                            ToolTip.Tip="Restart / Home"
+                            Click="HomeButton_Click">
+                        <TextBlock Text="⌂" FontSize="15" />
+                    </Button>
+                    <Button x:Name="RandomGameButton"
+                            Classes="toolbar-icon"
+                            Padding="8,4"
+                            Margin="4,0,0,0"
+                            ToolTip.Tip="Feeling Lucky - pick a random game"
+                            Click="RandomGameButton_Click">
+                        <TextBlock Text="🎲" FontSize="13" />
+                    </Button>
+                    <Button x:Name="MameSortOrderButton"
+                            Classes="toolbar-icon"
+                            Padding="8,4"
+                            Margin="4,0,0,0"
+                            ToolTip.Tip="Sort order: File Name"
+                            Click="MameSortOrderButton_Click">
+                        <TextBlock Text="⇅" FontSize="14" />
+                    </Button>
                 </StackPanel>
 
                 <!-- Card size slider -->
@@ -302,8 +326,19 @@
             </Grid>
         </Border>
 
-        <!-- ═══ BODY (Row 2): Sidebar + Content ═══ -->
-        <Grid Grid.Row="2">
+        <!-- ═══ LETTER / NUMBER FILTER BAR (Row 2) ═══ -->
+        <Border Grid.Row="2" Background="{DynamicResource BgQuaternaryBrush}"
+                BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,0,0,1">
+            <ScrollViewer x:Name="LetterBarScroller"
+                          HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Disabled"
+                          Height="26">
+                <StackPanel x:Name="LetterFilterBar" Orientation="Horizontal" Spacing="2" />
+            </ScrollViewer>
+        </Border>
+
+        <!-- ═══ BODY (Row 3): Sidebar + Content ═══ -->
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220" MinWidth="180" MaxWidth="350" />
                 <ColumnDefinition Width="Auto" />
@@ -921,8 +956,8 @@
             </Border>
         </Grid>
 
-        <!-- ═══ STATUS BAR (Row 3) ═══ -->
-        <Border Grid.Row="3" Background="{DynamicResource BgSecondaryBrush}"
+        <!-- ═══ STATUS BAR (Row 4) ═══ -->
+        <Border Grid.Row="4" Background="{DynamicResource BgSecondaryBrush}"
                 BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,1,0,0">
             <Grid Margin="10,0" ColumnDefinitions="*,Auto,*">
                 <TextBlock x:Name="StatusLeft"
