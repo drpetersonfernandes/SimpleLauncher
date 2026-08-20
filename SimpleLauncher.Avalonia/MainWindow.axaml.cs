@@ -104,16 +104,6 @@ public partial class MainWindow : Window, IPaginationHost
         PlayHistorySectionRoot.DataContext = PlayHistorySection;
         GlobalSearchSectionRoot.DataContext = GlobalSearchSection;
 
-        // Wire up manufacturer group collapse/expand
-        WireGroupHeader(ArcadeGroupHeader, ArcadeGroupPanel);
-        WireGroupHeader(NintendoGroupHeader, NintendoGroupPanel);
-        WireGroupHeader(SegaGroupHeader, SegaGroupPanel);
-        WireGroupHeader(SonyGroupHeader, SonyGroupPanel);
-        WireGroupHeader(NecGroupHeader, NecGroupPanel);
-        WireGroupHeader(SnkGroupHeader, SnkGroupPanel);
-        WireGroupHeader(OtherGroupHeader, OtherGroupPanel);
-        WireGroupHeader(ConsolesHeader, ConsolesPanel);
-
         // Populate sidebar from system.xml
         PopulateSidebarFromSystemXml();
 
@@ -312,11 +302,6 @@ public partial class MainWindow : Window, IPaginationHost
     public void RefreshSidebarCounts()
     {
         _viewModel.Sidebar.RefreshCounts(_viewModel.SystemGameCounts);
-    }
-
-    private static void WireGroupHeader(ToggleButton header, Panel panel)
-    {
-        header.IsCheckedChanged += (_, _) => { panel.IsVisible = header.IsChecked == true; };
     }
 
     #region Window Bounds Persistence
@@ -1109,10 +1094,15 @@ public partial class MainWindow : Window, IPaginationHost
 
     #region Preferences
 
-    private void Preferences_Click(object? sender, RoutedEventArgs e)
+    private async void Preferences_Click(object? sender, RoutedEventArgs e)
     {
         var prefsWindow = App.ServiceProvider.GetRequiredService<PreferencesWindow>();
-        prefsWindow.ShowDialog(this);
+        await prefsWindow.ShowDialog(this);
+
+        // Preferences can launch Easy Mode / Edit System / image-pack flows that modify
+        // system.xml — refresh the sidebar so any added or renamed system shows up.
+        _systemManagerService.InvalidateCache();
+        PopulateSidebarFromSystemXml();
     }
 
     #endregion
@@ -1134,6 +1124,11 @@ public partial class MainWindow : Window, IPaginationHost
                 _systemManagerService.InvalidateCache();
                 _viewModel.InvalidateAllGameFileCaches();
                 _viewModel.NavigateToAllGamesCommand.Execute(null);
+
+                // Rebuild the sidebar so the new system (e.g. Atari 2600) appears in the
+                // left menu immediately and can be clicked to filter its games.
+                PopulateSidebarFromSystemXml();
+                _fileWatcher.StartWatchingForSystems(_systemManagerService.LoadSystems());
             }
         }
         catch (Exception ex)
@@ -1886,13 +1881,17 @@ public partial class MainWindow : Window, IPaginationHost
         AddSystem_Click(sender, e);
     }
 
-    private void ExpertMode_Click(object? sender, RoutedEventArgs e)
+    private async void ExpertMode_Click(object? sender, RoutedEventArgs e)
     {
         try
         {
             var factory = App.ServiceProvider.GetRequiredService<Func<string?, EditSystemWindow>>();
             var editWindow = factory(null);
-            editWindow.ShowDialog(this);
+            await editWindow.ShowDialog(this);
+
+            // The Expert window can add, rename, or delete systems — keep the sidebar in sync.
+            _systemManagerService.InvalidateCache();
+            PopulateSidebarFromSystemXml();
         }
         catch (Exception ex)
         {

@@ -11,7 +11,7 @@
         Closed="Window_Closed">
 
     <Window.Resources>
-        <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility" />
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
         <converters:InverseBoolConverter x:Key="InverseBool" />
     </Window.Resources>
 
@@ -142,31 +142,31 @@
                                 <Button Content="Image Pack 1"
                                         Command="{Binding DownloadImagePack1Command}"
                                         IsEnabled="{Binding IsImagePack1Downloaded, Converter={StaticResource InverseBool}}"
-                                        IsVisible="{Binding IsImagePack1Available, Converter={StaticResource InverseBoolToVisibility}}"
+                                        IsVisible="{Binding IsImagePack1Available, Converter={StaticResource BoolToVisibility}}"
                                         Height="38" Margin="4"
                                         Classes="primary" />
                                 <Button Content="Image Pack 2"
                                         Command="{Binding DownloadImagePack2Command}"
                                         IsEnabled="{Binding IsImagePack2Downloaded, Converter={StaticResource InverseBool}}"
-                                        IsVisible="{Binding IsImagePack2Available, Converter={StaticResource InverseBoolToVisibility}}"
+                                        IsVisible="{Binding IsImagePack2Available, Converter={StaticResource BoolToVisibility}}"
                                         Height="38" Margin="4"
                                         Classes="primary" />
                                 <Button Content="Image Pack 3"
                                         Command="{Binding DownloadImagePack3Command}"
                                         IsEnabled="{Binding IsImagePack3Downloaded, Converter={StaticResource InverseBool}}"
-                                        IsVisible="{Binding IsImagePack3Available, Converter={StaticResource InverseBoolToVisibility}}"
+                                        IsVisible="{Binding IsImagePack3Available, Converter={StaticResource BoolToVisibility}}"
                                         Height="38" Margin="4"
                                         Classes="primary" />
                                 <Button Content="Image Pack 4"
                                         Command="{Binding DownloadImagePack4Command}"
                                         IsEnabled="{Binding IsImagePack4Downloaded, Converter={StaticResource InverseBool}}"
-                                        IsVisible="{Binding IsImagePack4Available, Converter={StaticResource InverseBoolToVisibility}}"
+                                        IsVisible="{Binding IsImagePack4Available, Converter={StaticResource BoolToVisibility}}"
                                         Height="38" Margin="4"
                                         Classes="primary" />
                                 <Button Content="Image Pack 5"
                                         Command="{Binding DownloadImagePack5Command}"
                                         IsEnabled="{Binding IsImagePack5Downloaded, Converter={StaticResource InverseBool}}"
-                                        IsVisible="{Binding IsImagePack5Available, Converter={StaticResource InverseBoolToVisibility}}"
+                                        IsVisible="{Binding IsImagePack5Available, Converter={StaticResource BoolToVisibility}}"
                                         Height="38" Margin="4"
                                         Classes="primary" />
                             </UniformGrid>
@@ -187,7 +187,7 @@
 
                     <Grid>
                         <ProgressBar Height="20"
-                                     Value="{Binding DownloadProgress}"
+                                     Value="{Binding DownloadProgress, Mode=OneWay}"
                                      Minimum="0" Maximum="100" />
                         <TextBlock Text="Download Progress"
                                    HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -228,7 +228,7 @@
                 IsVisible="False">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock x:Name="LoadingText"
-                           Text="Loading configuration..."
+                           Text="{Binding LoadingMessage}"
                            Foreground="{DynamicResource TextPrimaryBrush}"
                            FontSize="14"
                            HorizontalAlignment="Center" />

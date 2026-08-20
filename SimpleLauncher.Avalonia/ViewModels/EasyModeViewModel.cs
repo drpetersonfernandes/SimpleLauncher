@@ -48,6 +48,8 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
 
     [ObservableProperty] private bool _isLoading;
 
+    [ObservableProperty] private string _loadingMessage = "Loading configuration...";
+
     [ObservableProperty] private bool _isOperationInProgress;
 
     [ObservableProperty] private bool _canStopDownload;
@@ -114,6 +116,7 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
     private async Task LoadAsync()
     {
         IsLoading = true;
+        LoadingMessage = "Loading configuration...";
         await Task.Yield();
 
         _manager = await _easyModeManager.LoadAsync();
@@ -456,10 +459,20 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
 
                 if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
                 {
-                    DownloadStatus = $"Extracting {componentName}...";
-                    DownloadProgress = 0;
+                    await Dispatcher.UIThread.InvokeAsync(() =>
+                    {
+                        DownloadStatus = $"Extracting {componentName}...";
+                        DownloadProgress = 0;
+                        LoadingMessage = $"Extracting {componentName}...";
+                        IsLoading = true;
+                    });
 
                     success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
+
+                    await Dispatcher.UIThread.InvokeAsync(() =>
+                    {
+                        IsLoading = false;
+                    });
                 }
 
                 if (success)
