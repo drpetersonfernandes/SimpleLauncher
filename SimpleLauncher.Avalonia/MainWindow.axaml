@@ -5,7 +5,7 @@
         xmlns:vm="using:SimpleLauncher.Avalonia.ViewModels"
         Title="{Binding ToolbarTitle}"
         Height="800" Width="1280"
-        MinHeight="550" MinWidth="900"
+        MinHeight="650" MinWidth="1050"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource BgPrimaryBrush}"
         Opened="Window_Opened"
@@ -20,135 +20,9 @@
         <converters:SmartTitleCaseConverter x:Key="SmartTitleCase" />
         <converters:ConsoleToCardHeightConverter x:Key="CardHeightConverter" />
         <converters:BooleanToFavoriteStatusConverter x:Key="FavoriteStatusConverter" />
-
-        <!-- Sidebar system item: icon (or glyph fallback) + name + live count badge -->
-        <DataTemplate x:Key="SidebarSystemItemTemplate" DataType="{x:Type vm:SidebarSystemItem}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="{Binding IconPath}"
-                       Width="20" Height="20" Margin="0,0,6,0"
-                       VerticalAlignment="Center"
-                       IsVisible="{Binding HasIcon}" />
-                <TextBlock Text="🎮" FontSize="14" Margin="0,0,6,0"
-                           VerticalAlignment="Center"
-                           IsVisible="{Binding HasIcon, Converter={StaticResource InverseBoolToVisibility}}" />
-                <TextBlock Text="{Binding SystemName}" VerticalAlignment="Center" />
-                <TextBlock Text="{Binding CountText}"
-                           Foreground="{DynamicResource TextMutedBrush}"
-                           FontSize="11" VerticalAlignment="Center" Margin="8,0,0,0" />
-            </StackPanel>
-        </DataTemplate>
     </Window.Resources>
 
-    <Grid ColumnDefinitions="220,Auto,*">
-
-        <!-- ═══ SIDEBAR (full height — its top edge meets the top menu) ═══ -->
-        <Border Grid.Column="0" Background="{DynamicResource BgSecondaryBrush}">
-            <Grid RowDefinitions="*,Auto">
-
-                <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-                    <StackPanel Margin="0,8,0,0">
-
-                        <!-- ALL SYSTEMS (flat, no manufacturer headers) -->
-                        <ListBox x:Name="SystemsList"
-                                 Classes="sidebar-list"
-                                 ItemsSource="{Binding Sidebar.Systems}"
-                                 ItemTemplate="{StaticResource SidebarSystemItemTemplate}"
-                                 SelectionChanged="SystemList_SelectionChanged" />
-
-                        <!-- COLLECTIONS section -->
-                        <TextBlock Classes="sidebar-group-header"
-                                   Text="COLLECTIONS" Margin="16,16,16,4" />
-
-                        <ListBox x:Name="CollectionsList"
-                                 Classes="sidebar-list"
-                                 SelectionChanged="SystemList_SelectionChanged">
-                            <ListBoxItem Tag="all">
-                                <TextBlock>
-                                    <Run Text="⊞  " FontSize="14" />
-                                    <Run Text="All Games" />
-                                </TextBlock>
-                            </ListBoxItem>
-                            <ListBoxItem Tag="recently_added">
-                                <TextBlock>
-                                    <Run Text="🕐  " FontSize="14" />
-                                    <Run Text="Recently Added" />
-                                </TextBlock>
-                            </ListBoxItem>
-                            <ListBoxItem Tag="recently_played">
-                                <TextBlock>
-                                    <Run Text="◷  " FontSize="14" />
-                                    <Run Text="Recently Played" />
-                                </TextBlock>
-                            </ListBoxItem>
-                            <ListBoxItem Tag="favorites">
-                                <TextBlock>
-                                    <Run Text="♡  " FontSize="14" />
-                                    <Run Text="Favorites" />
-                                </TextBlock>
-                            </ListBoxItem>
-                            <ListBoxItem Tag="global_search">
-                                <TextBlock>
-                                    <Run Text="🔍  " FontSize="14" />
-                                    <Run Text="Global Search" />
-                                </TextBlock>
-                            </ListBoxItem>
-                        </ListBox>
-
-                        <!-- Spacer -->
-                        <Rectangle Height="20" />
-
-                    </StackPanel>
-                </ScrollViewer>
-
-                <!-- Bottom: Add System + Preferences buttons -->
-                <StackPanel Grid.Row="1" Margin="8,4,8,8">
-                    <Button Classes="primary"
-                            Padding="12,8"
-                            Click="AddSystem_Click">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="＋  " FontSize="14" />
-                            <TextBlock Text="Add System" />
-                        </StackPanel>
-                    </Button>
-                    <Button Classes="secondary"
-                            Margin="0,4,0,0"
-                            Padding="12,8"
-                            Click="Preferences_Click">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="⚙  " FontSize="14" />
-                            <TextBlock Text="Preferences" />
-                        </StackPanel>
-                    </Button>
-                    <Button Classes="secondary"
-                            Margin="0,4,0,0"
-                            Padding="12,8"
-                            Click="EmulatorSettings_Click">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="🎮  " FontSize="14" />
-                            <TextBlock Text="Emulator Settings" />
-                        </StackPanel>
-                    </Button>
-                    <Button Classes="secondary"
-                            Margin="0,4,0,0"
-                            Padding="12,8"
-                            Click="RetroAchievements_Click">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="🏆  " FontSize="14" />
-                            <TextBlock Text="RetroAchievements" />
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-            </Grid>
-        </Border>
-
-        <!-- Sidebar resize grip -->
-        <GridSplitter Grid.Column="1" Width="4"
-                      Background="Transparent"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Stretch" />
-
-        <!-- ═══ MAIN COLUMN: menu / toolbar / letter bar / content / status ═══ -->
-        <Grid Grid.Column="2" RowDefinitions="32,44,28,*,24">
+    <Grid RowDefinitions="Auto,*">
 
         <!-- ═══ MENU BAR (Row 0) ═══ -->
         <Menu Grid.Row="0"
@@ -161,6 +35,7 @@
 
             <!-- ── OPTIONS ── -->
             <MenuItem Header="Options">
+                <MenuItem Header="Preferences" Click="Preferences_Click" />
                 <MenuItem x:Name="LanguageMenu" Header="Language">
                     <MenuItem x:Name="LanguageArabic" GroupName="LanguageGroup" Header="العربية" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
                     <MenuItem x:Name="LanguageBengali" GroupName="LanguageGroup" Header="বাংলা" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
@@ -337,559 +212,616 @@
             </MenuItem>
         </Menu>
 
-        <!-- ═══ TOOLBAR (Row 1) ═══ -->
-        <Border Grid.Row="1" Background="{DynamicResource BgTertiaryBrush}"
-                BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,0,0,1">
-            <Grid Margin="8,0" ColumnDefinitions="Auto,Auto,*,Auto,Auto">
+        <!-- ═══ BODY (Row 1) ═══ -->
+        <Grid Grid.Row="1" ColumnDefinitions="64,4,*">
 
-                <!-- Left: View toggle + quick actions -->
-                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                    <ToggleButton x:Name="GridViewToggle"
-                                  Classes="toolbar-toggle"
-                                  IsChecked="True"
-                                  ToolTip.Tip="Grid View"
-                                  Click="ViewToggle_Click">
-                        <TextBlock Text="≡" FontSize="15" />
-                    </ToggleButton>
-                    <ToggleButton x:Name="ListViewToggle"
-                                  Classes="toolbar-toggle"
-                                  IsChecked="False"
-                                  ToolTip.Tip="List View"
-                                  Click="ViewToggle_Click">
-                        <TextBlock Text="☰" FontSize="13" />
-                    </ToggleButton>
-                    <Button x:Name="HomeButton"
-                            Classes="toolbar-icon"
-                            Padding="8,4"
-                            Margin="8,0,0,0"
-                            ToolTip.Tip="Restart / Home"
-                            Click="HomeButton_Click">
-                        <TextBlock Text="⌂" FontSize="15" />
+            <!-- ═══ LEFT NAVIGATION RAIL (WPF LeftNavigationPanel parity) ═══ -->
+            <Border Grid.Column="0" Width="64"
+                    Background="{DynamicResource BgSecondaryBrush}"
+                    BorderBrush="{DynamicResource BorderSubtleBrush}"
+                    BorderThickness="0,0,1,0"
+                    ToolTip.Tip="Navigation">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="2">
+                    <Button x:Name="NavRestartButton" Classes="nav-icon" ToolTip.Tip="Restart / Home"
+                            Click="NavRestartButton_Click">
+                        <TextBlock Text="⌂" FontSize="18" />
                     </Button>
-                    <Button x:Name="RandomGameButton"
-                            Classes="toolbar-icon"
-                            Padding="8,4"
-                            Margin="4,0,0,0"
-                            ToolTip.Tip="Feeling Lucky - pick a random game"
-                            Click="RandomGameButton_Click">
-                        <TextBlock Text="🎲" FontSize="13" />
+                    <Button x:Name="NavFavoritesButton" Classes="nav-icon" ToolTip.Tip="Favorites"
+                            Click="NavFavoritesButton_Click">
+                        <TextBlock Text="♥" FontSize="16" />
                     </Button>
-                    <Button x:Name="MameSortOrderButton"
-                            Classes="toolbar-icon"
-                            Padding="8,4"
-                            Margin="4,0,0,0"
-                            ToolTip.Tip="Sort order: File Name"
-                            Click="MameSortOrderButton_Click">
-                        <TextBlock Text="⇅" FontSize="14" />
+                    <Button x:Name="NavGlobalSearchButton" Classes="nav-icon" ToolTip.Tip="Global Search"
+                            Click="NavGlobalSearchButton_Click">
+                        <TextBlock Text="🔍" FontSize="14" />
+                    </Button>
+                    <Button x:Name="NavHistoryButton" Classes="nav-icon" ToolTip.Tip="Play History"
+                            Click="NavHistoryButton_Click">
+                        <TextBlock Text="◷" FontSize="16" />
+                    </Button>
+                    <Button x:Name="NavRetroAchievementsButton" Classes="nav-icon" ToolTip.Tip="RetroAchievements"
+                            Click="NavRetroAchievementsButton_Click">
+                        <TextBlock Text="🏆" FontSize="14" />
+                    </Button>
+                    <Button x:Name="NavEditSystemButton" Classes="nav-icon" ToolTip.Tip="Edit System"
+                            Click="NavEditSystemButton_Click">
+                        <TextBlock Text="⚙" FontSize="16" />
+                    </Button>
+                    <Button x:Name="NavToggleViewModeButton" Classes="nav-icon" ToolTip.Tip="Toggle View Mode"
+                            Click="NavToggleViewModeButton_Click">
+                        <TextBlock Text="⊞" FontSize="16" />
+                    </Button>
+                    <Button x:Name="NavToggleButtonAspectRatioButton" Classes="nav-icon" ToolTip.Tip="Toggle Button Aspect Ratio"
+                            Click="NavToggleButtonAspectRatioButton_Click">
+                        <TextBlock Text="⛶" FontSize="16" />
+                    </Button>
+                    <Button x:Name="NavZoomInButton" Classes="nav-icon" ToolTip.Tip="Zoom In"
+                            Click="NavZoomInButton_Click">
+                        <TextBlock Text="＋" FontSize="16" />
+                    </Button>
+                    <Button x:Name="NavZoomOutButton" Classes="nav-icon" ToolTip.Tip="Zoom Out"
+                            Click="NavZoomOutButton_Click">
+                        <TextBlock Text="－" FontSize="16" />
                     </Button>
                 </StackPanel>
+            </Border>
 
-                <!-- Card size slider -->
-                <StackPanel Grid.Column="1" Orientation="Horizontal"
-                            VerticalAlignment="Center" Margin="14,0,0,0">
-                    <TextBlock Text="◉" Foreground="{DynamicResource TextMutedBrush}"
-                               FontSize="10" VerticalAlignment="Center" />
-                    <Slider x:Name="CardSizeSlider"
-                            Width="80" Minimum="50" Maximum="800"
-                            Value="{Binding CardWidth}"
-                            Margin="6,0" VerticalAlignment="Center" />
-                    <TextBlock Text="○" Foreground="{DynamicResource TextMutedBrush}"
-                               FontSize="10" VerticalAlignment="Center" />
-                </StackPanel>
+            <!-- Rail resize grip -->
+            <GridSplitter Grid.Column="1" Width="4"
+                          Background="Transparent"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Stretch" />
 
-                <!-- Center: Category tabs -->
-                <StackPanel Grid.Column="2" Orientation="Horizontal"
-                            HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ToggleButton x:Name="GamesTab"
-                                  Classes="toolbar-toggle"
-                                  IsChecked="True"
-                                  Content="Games"
-                                  Click="CategoryTab_Click" />
-                    <ToggleButton x:Name="RecentTab"
-                                  Classes="toolbar-toggle"
-                                  IsChecked="False"
-                                  Content="Recently Played"
-                                  Click="CategoryTab_Click" Margin="2,0,0,0" />
-                    <ToggleButton x:Name="FavoritesTab"
-                                  Classes="toolbar-toggle"
-                                  IsChecked="False"
-                                  Content="Favorites"
-                                  Click="CategoryTab_Click" Margin="2,0,0,0" />
-                </StackPanel>
+            <!-- ═══ MAIN AREA ═══ -->
+            <Grid Grid.Column="2" RowDefinitions="Auto,*,Auto">
 
-                <!-- Right: Search box -->
-                <Border Grid.Column="3" Background="{DynamicResource BgQuaternaryBrush}"
-                        CornerRadius="14" Padding="10,4" MinWidth="200">
-                    <Grid>
-                        <TextBlock x:Name="SearchPlaceholder"
-                                   Text="🔍  Search…"
-                                   Foreground="{DynamicResource TextMutedBrush}"
-                                   FontSize="12" VerticalAlignment="Center"
-                                   IsHitTestVisible="False" />
-                        <TextBox x:Name="SearchBox"
-                                 Classes="search-textbox"
-                                 BorderThickness="0" Padding="0,4"
-                                 TextChanged="SearchBox_TextChanged" />
-                    </Grid>
-                </Border>
-            </Grid>
-        </Border>
+                <!-- ═══ TOP SYSTEM SELECTION (WPF TopSystemSelection parity) ═══ -->
+                <Border Grid.Row="0" Background="{DynamicResource BgTertiaryBrush}"
+                        BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,0,0,1">
+                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,Auto,*,Auto,Auto">
 
-        <!-- ═══ LETTER / NUMBER FILTER BAR (Row 2) ═══ -->
-        <Border Grid.Row="2" Background="{DynamicResource BgQuaternaryBrush}"
-                BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,0,0,1">
-            <ScrollViewer x:Name="LetterBarScroller"
-                          HorizontalScrollBarVisibility="Auto"
-                          VerticalScrollBarVisibility="Disabled"
-                          Height="26">
-                <StackPanel x:Name="LetterFilterBar" Orientation="Horizontal" Spacing="2" />
-            </ScrollViewer>
-        </Border>
+                        <!-- Row 0: Letter / number filter bar -->
+                        <ScrollViewer Grid.Row="0" Grid.ColumnSpan="5"
+                                      x:Name="LetterBarScroller"
+                                      HorizontalScrollBarVisibility="Auto"
+                                      VerticalScrollBarVisibility="Disabled"
+                                      Height="28">
+                            <StackPanel x:Name="LetterFilterBar" Orientation="Horizontal" Spacing="2" />
+                        </ScrollViewer>
 
-        <!-- ═══ BODY (Row 3): Game content ═══ -->
-        <Border Grid.Row="3" Background="{DynamicResource BgPrimaryBrush}">
-            <Grid>
-                    <!-- Toast notification stack (top-right) -->
-                    <StackPanel x:Name="ToastStack"
-                                VerticalAlignment="Top" HorizontalAlignment="Right"
-                                Margin="16" MaxWidth="360"
-                                IsVisible="False" ZIndex="100" />
+                        <!-- Row 1: System + Emulator ComboBoxes -->
+                        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal"
+                                    VerticalAlignment="Center" Margin="8,2,0,0">
+                            <TextBlock Text="System:" FontSize="12"
+                                       Foreground="{DynamicResource TextMutedBrush}"
+                                       VerticalAlignment="Center" Margin="0,0,4,0" />
+                            <ComboBox x:Name="SystemComboBox" Width="190" MinWidth="150"
+                                      VerticalAlignment="Center"
+                                      SelectionChanged="SystemComboBox_SelectionChanged" />
+                            <TextBlock Text="  Emulator:" FontSize="12"
+                                       Foreground="{DynamicResource TextMutedBrush}"
+                                       VerticalAlignment="Center" Margin="6,0,4,0" />
+                            <ComboBox x:Name="EmulatorComboBox" Width="150" MinWidth="120"
+                                      VerticalAlignment="Center"
+                                      SelectionChanged="EmulatorComboBox_SelectionChanged" />
+                        </StackPanel>
 
-                    <!-- Game browser (grid / list / empty state) — hidden while a section is open -->
-                    <Grid x:Name="GameBrowserPanel">
-
-                    <!-- Game Grid View -->
-                    <ListBox x:Name="GameGridView"
-                             ItemsSource="{Binding Games}"
-                             IsVisible="{Binding IsGridView}"
-                             Background="Transparent"
-                             BorderThickness="0"
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                             ScrollViewer.VerticalScrollBarVisibility="Auto">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel />
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate DataType="{x:Type vm:GameCardViewModel}">
-                                <!-- Card: width from MainViewModel, height from per-system art ratio -->
-                                <Border Width="{Binding DataContext.CardWidth, RelativeSource={RelativeSource AncestorType=ListBox}, FallbackValue=168}"
-                                        Margin="6"
-                                        Cursor="Hand"
-                                        PointerPressed="GameCard_Click">
-                                    <Border.Height>
-                                        <MultiBinding Converter="{StaticResource CardHeightConverter}">
-                                            <Binding Path="DataContext.CardWidth" RelativeSource="{RelativeSource AncestorType=ListBox}" FallbackValue="168" />
-                                            <Binding Path="SystemName" />
-                                            <Binding Path="DataContext.IsMixedView" RelativeSource="{RelativeSource AncestorType=ListBox}" FallbackValue="False" />
-                                        </MultiBinding>
-                                    </Border.Height>
-                                    <Border.Effect>
-                                        <DropShadowEffect Color="{DynamicResource ShadowColor}"
-                                                          BlurRadius="1"
-                                                          OffsetX="0" OffsetY="0"
-                                                          Opacity="0.5" />
-                                    </Border.Effect>
-
-                                    <Grid RowDefinitions="*,Auto">
-
-                                        <!-- Art area -->
-                                        <Border Grid.Row="0"
-                                                CornerRadius="{DynamicResource CardCornerRadius}"
-                                                ClipToBounds="True"
-                                                Margin="2">
-                                            <Grid>
-                                                <!-- Selection ring -->
-                                                <Border x:Name="SelectionRing"
-                                                        BorderBrush="{DynamicResource SelectionRingBrush}"
-                                                        BorderThickness="3"
-                                                        CornerRadius="{DynamicResource CardCornerRadius}"
-                                                        IsVisible="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" />
-
-                                                <!-- Placeholder (no art) -->
-                                                <Border x:Name="PlaceholderBorder"
-                                                        Background="{DynamicResource PlaceholderFillBrush}"
-                                                        BorderBrush="{DynamicResource PlaceholderStrokeBrush}"
-                                                        BorderThickness="1"
-                                                        CornerRadius="10"
-                                                        IsVisible="{Binding HasCover, Converter={StaticResource InverseBoolToVisibility}}">
-                                                    <TextBlock Text="{Binding DisplayTitle, Converter={StaticResource SmartTitleCase}}"
-                                                               Foreground="{DynamicResource TextMutedBrush}"
-                                                               FontSize="12"
-                                                               TextWrapping="Wrap"
-                                                               TextAlignment="Center"
-                                                               VerticalAlignment="Center"
-                                                               Margin="8" />
-                                                </Border>
-
-                                                <!-- Cover image -->
-                                                <Image Source="{Binding CoverPath, Converter={StaticResource PathToImage}}"
-                                                       Stretch="Uniform"
-                                                       IsVisible="{Binding HasCover}"
-                                                       RenderOptions.BitmapInterpolationMode="HighQuality" />
-
-                                                <!-- Favorite heart -->
-                                                <Border Background="#99000000"
-                                                        CornerRadius="0,0,8,0"
-                                                        IsVisible="{Binding IsFavorite}"
-                                                        HorizontalAlignment="Right"
-                                                        VerticalAlignment="Top"
-                                                        Padding="4">
-                                                    <TextBlock Text="♥"
-                                                           Foreground="{DynamicResource FavoriteHeartBrush}"
-                                                           FontSize="14"
-                                                           AutomationProperties.Name="{Binding IsFavorite, Converter={StaticResource FavoriteStatusConverter}}" />
-                                                </Border>
-
-                                                <!-- RA trophy badge -->
-                                                <Border Background="#99000000"
-                                                        CornerRadius="8,0,0,0"
-                                                        IsVisible="{Binding IsRaSupported}"
-                                                        HorizontalAlignment="Left"
-                                                        VerticalAlignment="Bottom"
-                                                        Padding="4,2">
-                                                    <TextBlock Text="🏆"
-                                                               FontSize="12"
-                                                               ToolTip.Tip="RetroAchievements supported" />
-                                                </Border>
-                                            </Grid>
-                                        </Border>
-
-                                        <!-- Caption area -->
-                                        <StackPanel Grid.Row="1" Margin="4,6,4,4">
-                                            <TextBlock Text="{Binding DisplayTitle, Converter={StaticResource SmartTitleCase}}"
-                                                       Foreground="{DynamicResource TextPrimaryBrush}"
-                                                       FontFamily="{DynamicResource PrimaryFont}"
-                                                       FontSize="{Binding DataContext.CaptionFontSize, RelativeSource={RelativeSource AncestorType=ListBox}, FallbackValue=13}"
-                                                       MaxHeight="32"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       ToolTip.Tip="{Binding DisplayTitle}" />
-                                            <!-- Rating stars -->
-                                            <StackPanel Orientation="Horizontal"
-                                                        IsVisible="{Binding Rating, Converter={StaticResource NullToVisibility}}"
-                                                        Margin="0,2,0,0">
-                                                <TextBlock Text="★★★★★"
-                                                           Foreground="{DynamicResource TextMutedBrush}"
-                                                           FontSize="10" />
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-
-                    <!-- Game List View -->
-                    <Grid IsVisible="{Binding IsGridView, Converter={StaticResource InverseBoolToVisibility}}" RowDefinitions="Auto,*">
-                        <!-- Sortable column headers -->
-                        <Border Grid.Row="0"
-                                Background="{DynamicResource BgTertiaryBrush}"
-                                BorderBrush="{DynamicResource BorderSubtleBrush}"
-                                BorderThickness="0,0,0,1">
-                            <Grid Margin="10,6" ColumnDefinitions="250,120,100,*">
-                                <TextBlock x:Name="ListHeaderName" Text="Name"
-                                           Classes="sidebar-group-header" Margin="0"
-                                           Cursor="Hand" PointerPressed="ListHeader_Click" Tag="Name" />
-                                <TextBlock x:Name="ListHeaderSystem" Grid.Column="1" Text="System"
-                                           Classes="sidebar-group-header" Margin="0"
-                                           Cursor="Hand" PointerPressed="ListHeader_Click" Tag="System" />
-                                <TextBlock x:Name="ListHeaderPlayed" Grid.Column="2" Text="Times Played"
-                                           Classes="sidebar-group-header" Margin="0"
-                                           Cursor="Hand" PointerPressed="ListHeader_Click" Tag="Times Played" />
-                                <TextBlock x:Name="ListHeaderPath" Grid.Column="3" Text="Path"
-                                           Classes="sidebar-group-header" Margin="0"
-                                           Cursor="Hand" PointerPressed="ListHeader_Click" Tag="Path" />
+                        <!-- Row 1: Search box -->
+                        <Border Grid.Row="1" Grid.Column="2" Background="{DynamicResource BgQuaternaryBrush}"
+                                CornerRadius="14" Padding="10,4" MinWidth="180" MaxWidth="280">
+                            <Grid>
+                                <TextBlock x:Name="SearchPlaceholder"
+                                           Text="🔍  Search…"
+                                           Foreground="{DynamicResource TextMutedBrush}"
+                                           FontSize="12" VerticalAlignment="Center"
+                                           IsHitTestVisible="False" />
+                                <TextBox x:Name="SearchBox"
+                                         Classes="search-textbox"
+                                         BorderThickness="0" Padding="0,4"
+                                         TextChanged="SearchBox_TextChanged" />
                             </Grid>
                         </Border>
-                        <ListBox x:Name="GameListView"
-                                 Grid.Row="1"
+
+                        <!-- Row 1: Quick actions (view toggle / home / random / sort / card size) -->
+                        <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal"
+                                    VerticalAlignment="Center" Spacing="2">
+                            <ToggleButton x:Name="GridViewToggle"
+                                          Classes="toolbar-toggle"
+                                          IsChecked="True"
+                                          ToolTip.Tip="Grid View"
+                                          Click="ViewToggle_Click">
+                                <TextBlock Text="≡" FontSize="15" />
+                            </ToggleButton>
+                            <ToggleButton x:Name="ListViewToggle"
+                                          Classes="toolbar-toggle"
+                                          IsChecked="False"
+                                          ToolTip.Tip="List View"
+                                          Click="ViewToggle_Click">
+                                <TextBlock Text="☰" FontSize="13" />
+                            </ToggleButton>
+                            <Button x:Name="HomeButton"
+                                    Classes="toolbar-icon"
+                                    Padding="8,4"
+                                    ToolTip.Tip="Restart / Home"
+                                    Click="HomeButton_Click">
+                                <TextBlock Text="⌂" FontSize="15" />
+                            </Button>
+                            <Button x:Name="RandomGameButton"
+                                    Classes="toolbar-icon"
+                                    Padding="8,4"
+                                    ToolTip.Tip="Feeling Lucky - pick a random game"
+                                    Click="RandomGameButton_Click">
+                                <TextBlock Text="🎲" FontSize="13" />
+                            </Button>
+                            <Button x:Name="MameSortOrderButton"
+                                    Classes="toolbar-icon"
+                                    Padding="8,4"
+                                    ToolTip.Tip="Sort order: File Name"
+                                    Click="MameSortOrderButton_Click">
+                                <TextBlock Text="⇅" FontSize="14" />
+                            </Button>
+                        </StackPanel>
+
+                        <!-- Row 1: Card size slider -->
+                        <StackPanel Grid.Row="1" Grid.Column="4" Orientation="Horizontal"
+                                    VerticalAlignment="Center" Margin="8,0,0,0">
+                            <TextBlock Text="◉" Foreground="{DynamicResource TextMutedBrush}"
+                                       FontSize="10" VerticalAlignment="Center" />
+                            <Slider x:Name="CardSizeSlider"
+                                    Width="80" Minimum="50" Maximum="800"
+                                    Value="{Binding CardWidth}"
+                                    Margin="4,0" VerticalAlignment="Center" />
+                            <TextBlock Text="○" Foreground="{DynamicResource TextMutedBrush}"
+                                       FontSize="10" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- ═══ BODY (Row 1): Game content ═══ -->
+                <Border Grid.Row="1" Background="{DynamicResource BgPrimaryBrush}">
+                    <Grid>
+                        <!-- Toast notification stack (top-right) -->
+                        <StackPanel x:Name="ToastStack"
+                                    VerticalAlignment="Top" HorizontalAlignment="Right"
+                                    Margin="16" MaxWidth="360"
+                                    IsVisible="False" ZIndex="100" />
+
+                        <!-- Game browser (grid / list / empty state) — hidden while a section is open -->
+                        <Grid x:Name="GameBrowserPanel">
+
+                        <!-- Game Grid View -->
+                        <ListBox x:Name="GameGridView"
                                  ItemsSource="{Binding Games}"
+                                 IsVisible="{Binding IsGridView}"
                                  Background="Transparent"
                                  BorderThickness="0"
-                                 SelectionMode="Single"
-                                 DoubleTapped="GameListView_DoubleClick">
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
                                 <DataTemplate DataType="{x:Type vm:GameCardViewModel}">
-                                    <Grid ColumnDefinitions="250,120,100,*" Margin="10,4"
-                                          Cursor="Hand" PointerPressed="GameListItem_Click">
-                                        <TextBlock Text="{Binding DisplayTitle, Converter={StaticResource SmartTitleCase}}"
-                                                   TextTrimming="CharacterEllipsis"
-                                                   Foreground="{DynamicResource TextPrimaryBrush}" />
-                                        <TextBlock Grid.Column="1" Text="{Binding SystemName}"
-                                                   TextTrimming="CharacterEllipsis"
-                                                   Foreground="{DynamicResource TextSecondaryBrush}" />
-                                        <TextBlock Grid.Column="2" Text="{Binding PlayCount}"
-                                                   Foreground="{DynamicResource TextSecondaryBrush}" />
-                                        <TextBlock Grid.Column="3" Text="{Binding FilePath}"
-                                                   TextTrimming="CharacterEllipsis"
-                                                   Foreground="{DynamicResource TextMutedBrush}" />
-                                    </Grid>
+                                    <!-- Card: width from MainViewModel, height from per-system art ratio -->
+                                    <Border Width="{Binding DataContext.CardWidth, RelativeSource={RelativeSource AncestorType=ListBox}, FallbackValue=168}"
+                                            Margin="6"
+                                            Cursor="Hand"
+                                            PointerPressed="GameCard_Click">
+                                        <Border.Height>
+                                            <MultiBinding Converter="{StaticResource CardHeightConverter}">
+                                                <Binding Path="DataContext.CardWidth" RelativeSource="{RelativeSource AncestorType=ListBox}" FallbackValue="168" />
+                                                <Binding Path="SystemName" />
+                                                <Binding Path="DataContext.IsMixedView" RelativeSource="{RelativeSource AncestorType=ListBox}" FallbackValue="False" />
+                                            </MultiBinding>
+                                        </Border.Height>
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="{DynamicResource ShadowColor}"
+                                                              BlurRadius="1"
+                                                              OffsetX="0" OffsetY="0"
+                                                              Opacity="0.5" />
+                                        </Border.Effect>
+
+                                        <Grid RowDefinitions="*,Auto">
+
+                                            <!-- Art area -->
+                                            <Border Grid.Row="0"
+                                                    CornerRadius="{DynamicResource CardCornerRadius}"
+                                                    ClipToBounds="True"
+                                                    Margin="2">
+                                                <Grid>
+                                                    <!-- Selection ring -->
+                                                    <Border x:Name="SelectionRing"
+                                                            BorderBrush="{DynamicResource SelectionRingBrush}"
+                                                            BorderThickness="3"
+                                                            CornerRadius="{DynamicResource CardCornerRadius}"
+                                                            IsVisible="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" />
+
+                                                    <!-- Placeholder (no art) -->
+                                                    <Border x:Name="PlaceholderBorder"
+                                                            Background="{DynamicResource PlaceholderFillBrush}"
+                                                            BorderBrush="{DynamicResource PlaceholderStrokeBrush}"
+                                                            BorderThickness="1"
+                                                            CornerRadius="10"
+                                                            IsVisible="{Binding HasCover, Converter={StaticResource InverseBoolToVisibility}}">
+                                                        <TextBlock Text="{Binding DisplayTitle, Converter={StaticResource SmartTitleCase}}"
+                                                                   Foreground="{DynamicResource TextMutedBrush}"
+                                                                   FontSize="12"
+                                                                   TextWrapping="Wrap"
+                                                                   TextAlignment="Center"
+                                                                   VerticalAlignment="Center"
+                                                                   Margin="8" />
+                                                    </Border>
+
+                                                    <!-- Cover image -->
+                                                    <Image Source="{Binding CoverPath, Converter={StaticResource PathToImage}}"
+                                                           Stretch="Uniform"
+                                                           IsVisible="{Binding HasCover}"
+                                                           RenderOptions.BitmapInterpolationMode="HighQuality" />
+
+                                                    <!-- Favorite heart -->
+                                                    <Border Background="#99000000"
+                                                            CornerRadius="0,0,8,0"
+                                                            IsVisible="{Binding IsFavorite}"
+                                                            HorizontalAlignment="Right"
+                                                            VerticalAlignment="Top"
+                                                            Padding="4">
+                                                        <TextBlock Text="♥"
+                                                                   Foreground="{DynamicResource FavoriteHeartBrush}"
+                                                                   FontSize="14"
+                                                                   AutomationProperties.Name="{Binding IsFavorite, Converter={StaticResource FavoriteStatusConverter}}" />
+                                                    </Border>
+
+                                                    <!-- RA trophy badge -->
+                                                    <Border Background="#99000000"
+                                                            CornerRadius="8,0,0,0"
+                                                            IsVisible="{Binding IsRaSupported}"
+                                                            HorizontalAlignment="Left"
+                                                            VerticalAlignment="Bottom"
+                                                            Padding="4,2">
+                                                        <TextBlock Text="🏆"
+                                                                   FontSize="12"
+                                                                   ToolTip.Tip="RetroAchievements supported" />
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+
+                                            <!-- Caption area -->
+                                            <StackPanel Grid.Row="1" Margin="4,6,4,4">
+                                                <TextBlock Text="{Binding DisplayTitle, Converter={StaticResource SmartTitleCase}}"
+                                                           Foreground="{DynamicResource TextPrimaryBrush}"
+                                                           FontFamily="{DynamicResource PrimaryFont}"
+                                                           FontSize="{Binding DataContext.CaptionFontSize, RelativeSource={RelativeSource AncestorType=ListBox}, FallbackValue=13}"
+                                                           MaxHeight="32"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           ToolTip.Tip="{Binding DisplayTitle}" />
+                                                <!-- Rating stars -->
+                                                <StackPanel Orientation="Horizontal"
+                                                            IsVisible="{Binding Rating, Converter={StaticResource NullToVisibility}}"
+                                                            Margin="0,2,0,0">
+                                                    <TextBlock Text="★★★★★"
+                                                               Foreground="{DynamicResource TextMutedBrush}"
+                                                               FontSize="10" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
-                            <ListBox.Styles>
-                                <Style Selector="ListBoxItem">
-                                    <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
-                                    <Setter Property="FontSize" Value="13" />
-                                    <Setter Property="Padding" Value="0" />
-                                    <Setter Property="Background" Value="Transparent" />
-                                </Style>
-                                <Style Selector="ListBoxItem:pointerover">
-                                    <Setter Property="Background" Value="{DynamicResource BgQuaternaryBrush}" />
-                                </Style>
-                                <Style Selector="ListBoxItem:selected">
-                                    <Setter Property="Background" Value="{DynamicResource SelectionBackgroundBrush}" />
-                                </Style>
-                            </ListBox.Styles>
                         </ListBox>
-                    </Grid>
 
-                    <!-- Empty state -->
-                    <StackPanel x:Name="EmptyState"
-                                VerticalAlignment="Center" HorizontalAlignment="Center"
-                                IsVisible="{Binding IsEmpty}">
-                        <TextBlock Text="🎮" FontSize="64" HorizontalAlignment="Center"
-                                   Foreground="{DynamicResource TextMutedBrush}" />
-                        <TextBlock Text="No Games Found"
-                                   FontSize="20" FontWeight="Medium"
-                                   Foreground="{DynamicResource TextPrimaryBrush}"
-                                   HorizontalAlignment="Center" Margin="0,16,0,4"
-                                   FontFamily="{DynamicResource PrimaryFont}" />
-                        <TextBlock Text="Select a system from the sidebar or scan for games"
-                                   FontSize="13"
-                                   Foreground="{DynamicResource TextSecondaryBrush}"
-                                   HorizontalAlignment="Center"
-                                   FontFamily="{DynamicResource PrimaryFont}" />
-                    </StackPanel>
-                    </Grid>
-
-                    <!-- Loading overlay -->
-                    <Border x:Name="LoadingOverlay"
-                            Background="{DynamicResource OverlayProcessingBrush}"
-                            IsVisible="{Binding IsLoading}" ZIndex="50">
-                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <ProgressBar IsIndeterminate="True" Width="200" Height="4"
-                                         Foreground="{DynamicResource AccentBrush}" />
-                            <TextBlock x:Name="LoadingMessage"
-                                       Text="{Binding LoadingMessage}"
-                                       Foreground="White" FontSize="14"
-                                       HorizontalAlignment="Center" Margin="0,12,0,0" />
-                        </StackPanel>
-                    </Border>
-
-                    <!-- ═══ FAVORITES SECTION (WPF FavoritesPage equivalent) ═══ -->
-                    <Grid x:Name="FavoritesSectionRoot" IsVisible="False" RowDefinitions="Auto,*" Margin="10">
-                        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8"
-                                    Margin="0,4,0,8" VerticalAlignment="Center">
-                            <TextBlock Text="Favorites" FontSize="22" FontWeight="Bold"
-                                       VerticalAlignment="Center" Margin="0,0,12,0"
-                                       FontFamily="{DynamicResource PrimaryFont}" />
-                            <Button Classes="secondary" Content="Remove from Favorites"
-                                    Command="{Binding RemoveSelectedCommand}" />
-                            <Button Classes="primary" Content="Launch Selected Game"
-                                    Command="{Binding LaunchSelectedCommand}" />
-                        </StackPanel>
-                        <Grid Grid.Row="1" ColumnDefinitions="*,6,240">
-                            <DataGrid Grid.Column="0"
-                                      ItemsSource="{Binding Favorites}"
-                                      SelectedItem="{Binding SelectedFavorite}"
-                                      AutoGenerateColumns="False"
-                                      IsReadOnly="True"
-                                      GridLinesVisibility="All"
-                                      BorderThickness="1"
-                                      DoubleTapped="FavoritesDataGrid_DoubleTapped"
-                                      KeyDown="FavoritesDataGrid_KeyDown">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="File Name" Binding="{Binding DisplayName}" Width="*" />
-                                    <DataGridTextColumn Header="Machine Description" Binding="{Binding MachineDescription}" Width="*" />
-                                    <DataGridTextColumn Header="Default Emulator" Binding="{Binding DefaultEmulator}" Width="180" />
-                                    <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="200" />
-                                </DataGrid.Columns>
-                            </DataGrid>
-                            <GridSplitter Grid.Column="1" Width="4"
-                                          Background="Transparent"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Stretch" />
-                            <Border Grid.Column="2" BorderBrush="{DynamicResource BorderSubtleBrush}"
-                                    BorderThickness="1" Padding="5">
-                                <Image Source="{Binding SelectedFavorite.CoverImage, Converter={StaticResource PathToImage}}"
-                                       Stretch="Uniform"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       RenderOptions.BitmapInterpolationMode="HighQuality" />
+                        <!-- Game List View -->
+                        <Grid IsVisible="{Binding IsGridView, Converter={StaticResource InverseBoolToVisibility}}" RowDefinitions="Auto,*">
+                            <!-- Sortable column headers -->
+                            <Border Grid.Row="0"
+                                    Background="{DynamicResource BgTertiaryBrush}"
+                                    BorderBrush="{DynamicResource BorderSubtleBrush}"
+                                    BorderThickness="0,0,0,1">
+                                <Grid Margin="10,6" ColumnDefinitions="250,120,100,*">
+                                    <TextBlock x:Name="ListHeaderName" Text="Name"
+                                               Classes="sidebar-group-header" Margin="0"
+                                               Cursor="Hand" PointerPressed="ListHeader_Click" Tag="Name" />
+                                    <TextBlock x:Name="ListHeaderSystem" Grid.Column="1" Text="System"
+                                               Classes="sidebar-group-header" Margin="0"
+                                               Cursor="Hand" PointerPressed="ListHeader_Click" Tag="System" />
+                                    <TextBlock x:Name="ListHeaderPlayed" Grid.Column="2" Text="Times Played"
+                                               Classes="sidebar-group-header" Margin="0"
+                                               Cursor="Hand" PointerPressed="ListHeader_Click" Tag="Times Played" />
+                                    <TextBlock x:Name="ListHeaderPath" Grid.Column="3" Text="Path"
+                                               Classes="sidebar-group-header" Margin="0"
+                                               Cursor="Hand" PointerPressed="ListHeader_Click" Tag="Path" />
+                                </Grid>
                             </Border>
+                            <ListBox x:Name="GameListView"
+                                     Grid.Row="1"
+                                     ItemsSource="{Binding Games}"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     SelectionMode="Single"
+                                     DoubleTapped="GameListView_DoubleClick">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type vm:GameCardViewModel}">
+                                        <Grid ColumnDefinitions="*,120,100,*" Margin="10,4"
+                                              Cursor="Hand" PointerPressed="GameListItem_Click">
+                                            <TextBlock Text="{Binding DisplayTitle, Converter={StaticResource SmartTitleCase}}"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       Foreground="{DynamicResource TextPrimaryBrush}" />
+                                            <TextBlock Grid.Column="1" Text="{Binding SystemName}"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       Foreground="{DynamicResource TextSecondaryBrush}" />
+                                            <TextBlock Grid.Column="2" Text="{Binding PlayCount}"
+                                                       Foreground="{DynamicResource TextSecondaryBrush}" />
+                                            <TextBlock Grid.Column="3" Text="{Binding FilePath}"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       Foreground="{DynamicResource TextMutedBrush}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                                <ListBox.Styles>
+                                    <Style Selector="ListBoxItem">
+                                        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+                                        <Setter Property="FontSize" Value="13" />
+                                        <Setter Property="Padding" Value="0" />
+                                        <Setter Property="Background" Value="Transparent" />
+                                    </Style>
+                                    <Style Selector="ListBoxItem:pointerover">
+                                        <Setter Property="Background" Value="{DynamicResource BgQuaternaryBrush}" />
+                                    </Style>
+                                    <Style Selector="ListBoxItem:selected">
+                                        <Setter Property="Background" Value="{DynamicResource SelectionBackgroundBrush}" />
+                                    </Style>
+                                </ListBox.Styles>
+                            </ListBox>
                         </Grid>
-                    </Grid>
 
-                    <!-- ═══ PLAY HISTORY SECTION (WPF PlayHistoryPage equivalent) ═══ -->
-                    <Grid x:Name="PlayHistorySectionRoot" IsVisible="False" RowDefinitions="Auto,Auto,*" Margin="10">
-                        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8"
-                                    Margin="0,4,0,4" VerticalAlignment="Center">
-                            <TextBlock Text="Play History" FontSize="22" FontWeight="Bold"
-                                       VerticalAlignment="Center" Margin="0,0,12,0"
+                        <!-- Empty state -->
+                        <StackPanel x:Name="EmptyState"
+                                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                                    IsVisible="{Binding IsEmpty}">
+                            <TextBlock Text="🎮" FontSize="64" HorizontalAlignment="Center"
+                                       Foreground="{DynamicResource TextMutedBrush}" />
+                            <TextBlock Text="No Games Found"
+                                       FontSize="20" FontWeight="Medium"
+                                       Foreground="{DynamicResource TextPrimaryBrush}"
+                                       HorizontalAlignment="Center" Margin="0,16,0,4"
                                        FontFamily="{DynamicResource PrimaryFont}" />
-                            <Button Classes="secondary" Content="Remove from History"
-                                    Command="{Binding RemoveSelectedCommand}" />
-                            <Button Classes="secondary" Content="Remove All from History"
-                                    Command="{Binding RemoveAllCommand}" />
-                            <Button Classes="primary" Content="Launch Selected Game"
-                                    Command="{Binding LaunchSelectedCommand}" />
-                        </StackPanel>
-                        <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
-                            <Button Classes="secondary" Content="Sort by Date"
-                                    Command="{Binding SortByDateCommand}" />
-                            <Button Classes="secondary" Content="Sort by Play Time"
-                                    Command="{Binding SortByTotalPlayTimeCommand}" />
-                            <Button Classes="secondary" Content="Sort by Times Played"
-                                    Command="{Binding SortByTimesPlayedCommand}" />
-                        </StackPanel>
-                        <Grid Grid.Row="2" ColumnDefinitions="*,6,240">
-                            <DataGrid Grid.Column="0"
-                                      ItemsSource="{Binding PlayHistoryList}"
-                                      SelectedItem="{Binding SelectedItem}"
-                                      AutoGenerateColumns="False"
-                                      IsReadOnly="True"
-                                      GridLinesVisibility="All"
-                                      BorderThickness="1"
-                                      DoubleTapped="PlayHistoryDataGrid_DoubleTapped"
-                                      KeyDown="PlayHistoryDataGrid_KeyDown">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="File Name" Binding="{Binding DisplayName}" Width="*" />
-                                    <DataGridTextColumn Header="Machine Description" Binding="{Binding MachineDescription}" Width="*" />
-                                    <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="160" />
-                                    <DataGridTextColumn Header="Default Emulator" Binding="{Binding DefaultEmulator}" Width="180" />
-                                    <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="110" />
-                                    <DataGridTextColumn Header="Play Time" Binding="{Binding FormattedPlayTime}" Width="110" />
-                                    <DataGridTextColumn Header="Last Played Date" Binding="{Binding LastPlayDate}" Width="130" />
-                                    <DataGridTextColumn Header="Last Played Time" Binding="{Binding LastPlayTime}" Width="130" />
-                                </DataGrid.Columns>
-                            </DataGrid>
-                            <GridSplitter Grid.Column="1" Width="4"
-                                          Background="Transparent"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Stretch" />
-                            <Border Grid.Column="2" BorderBrush="{DynamicResource BorderSubtleBrush}"
-                                    BorderThickness="1" Padding="5">
-                                <Image Source="{Binding SelectedItem.CoverImage, Converter={StaticResource PathToImage}}"
-                                       Stretch="Uniform"
+                            <TextBlock Text="Select a system or scan for games"
+                                       FontSize="13"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
                                        HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       RenderOptions.BitmapInterpolationMode="HighQuality" />
-                            </Border>
-                        </Grid>
-                    </Grid>
-
-                    <!-- ═══ GLOBAL SEARCH SECTION (WPF GlobalSearchPage equivalent) ═══ -->
-                    <Grid x:Name="GlobalSearchSectionRoot" IsVisible="False" RowDefinitions="Auto,Auto,*" Margin="10">
-                        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8"
-                                    Margin="0,4,0,4" VerticalAlignment="Center">
-                            <TextBlock Text="Global Search" FontSize="22" FontWeight="Bold"
-                                       VerticalAlignment="Center" Margin="0,0,12,0"
                                        FontFamily="{DynamicResource PrimaryFont}" />
-                            <TextBox x:Name="GlobalSearchTextBox" Width="220" VerticalAlignment="Center"
-                                     Text="{Binding SearchText}"
-                                     KeyDown="GlobalSearchTextBox_KeyDown" />
-                            <ComboBox ItemsSource="{Binding SystemNames}"
-                                      SelectedIndex="{Binding SelectedSystemIndex}"
-                                      Width="180" VerticalAlignment="Center" />
-                            <Button Classes="secondary" Content="Search" VerticalAlignment="Center"
-                                    Command="{Binding SearchCommand}" />
-                            <Button Classes="primary" Content="Launch Selected" VerticalAlignment="Center"
-                                    Command="{Binding LaunchSelectedCommand}"
-                                    IsEnabled="{Binding LaunchButtonEnabled}" />
                         </StackPanel>
-                        <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="16" Margin="0,0,0,8">
-                            <CheckBox Content="Filename" IsChecked="{Binding SearchFilename}" />
-                            <CheckBox Content="MAME Description" IsChecked="{Binding SearchMameDescription}" />
-                            <CheckBox Content="Folder Name" IsChecked="{Binding SearchFolderName}" />
-                            <CheckBox Content="Search Recursively" IsChecked="{Binding SearchRecursively}" />
-                            <TextBlock Text="{Binding ResultsCountText}" FontWeight="SemiBold"
-                                       VerticalAlignment="Center"
-                                       Foreground="{DynamicResource TextSecondaryBrush}" />
-                        </StackPanel>
-                        <Grid Grid.Row="2" ColumnDefinitions="*,6,240">
-                            <Grid Grid.Column="0">
-                                <DataGrid ItemsSource="{Binding SearchResults}"
-                                          SelectedItem="{Binding SelectedResult}"
+                        </Grid>
+
+                        <!-- Loading overlay -->
+                        <Border x:Name="LoadingOverlay"
+                                Background="{DynamicResource OverlayProcessingBrush}"
+                                IsVisible="{Binding IsLoading}" ZIndex="50">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <ProgressBar IsIndeterminate="True" Width="200" Height="4"
+                                             Foreground="{DynamicResource AccentBrush}" />
+                                <TextBlock x:Name="LoadingMessage"
+                                           Text="{Binding LoadingMessage}"
+                                           Foreground="White" FontSize="14"
+                                           HorizontalAlignment="Center" Margin="0,12,0,0" />
+                            </StackPanel>
+                        </Border>
+
+                        <!-- ═══ FAVORITES SECTION (WPF FavoritesPage equivalent) ═══ -->
+                        <Grid x:Name="FavoritesSectionRoot" IsVisible="False" RowDefinitions="Auto,*" Margin="10">
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8"
+                                        Margin="0,4,0,8" VerticalAlignment="Center">
+                                <TextBlock Text="Favorites" FontSize="22" FontWeight="Bold"
+                                           VerticalAlignment="Center" Margin="0,0,12,0"
+                                           FontFamily="{DynamicResource PrimaryFont}" />
+                                <Button Classes="secondary" Content="Remove from Favorites"
+                                        Command="{Binding RemoveSelectedCommand}" />
+                                <Button Classes="primary" Content="Launch Selected Game"
+                                        Command="{Binding LaunchSelectedCommand}" />
+                            </StackPanel>
+                            <Grid Grid.Row="1" ColumnDefinitions="*,6,240">
+                                <DataGrid Grid.Column="0"
+                                          ItemsSource="{Binding Favorites}"
+                                          SelectedItem="{Binding SelectedFavorite}"
                                           AutoGenerateColumns="False"
                                           IsReadOnly="True"
                                           GridLinesVisibility="All"
                                           BorderThickness="1"
-                                          DoubleTapped="GlobalSearchResults_DoubleTapped">
+                                          DoubleTapped="FavoritesDataGrid_DoubleTapped"
+                                          KeyDown="FavoritesDataGrid_KeyDown">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="File Name" Binding="{Binding FileNameWithExtension}" Width="*" />
-                                        <DataGridTextColumn Header="Machine Name" Binding="{Binding MachineName}" Width="*" />
+                                        <DataGridTextColumn Header="File Name" Binding="{Binding DisplayName}" Width="*" />
+                                        <DataGridTextColumn Header="Machine Description" Binding="{Binding MachineDescription}" Width="*" />
                                         <DataGridTextColumn Header="Default Emulator" Binding="{Binding DefaultEmulator}" Width="180" />
                                         <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="200" />
                                     </DataGrid.Columns>
                                 </DataGrid>
-                                <Border Background="{DynamicResource BgPrimaryBrush}"
-                                        IsVisible="{Binding NoResultsVisible}"
-                                        BorderBrush="{DynamicResource BorderSubtleBrush}"
-                                        BorderThickness="1" CornerRadius="2">
-                                    <TextBlock Text="No results found"
-                                               VerticalAlignment="Center" HorizontalAlignment="Center"
-                                               FontSize="18" FontWeight="Bold"
-                                               Foreground="{DynamicResource TextPrimaryBrush}"
-                                               Margin="20" />
+                                <GridSplitter Grid.Column="1" Width="4"
+                                              Background="Transparent"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Stretch" />
+                                <Border Grid.Column="2" BorderBrush="{DynamicResource BorderSubtleBrush}"
+                                        BorderThickness="1" Padding="5">
+                                    <Image Source="{Binding SelectedFavorite.CoverImage, Converter={StaticResource PathToImage}}"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           RenderOptions.BitmapInterpolationMode="HighQuality" />
                                 </Border>
                             </Grid>
-                            <GridSplitter Grid.Column="1" Width="4"
-                                          Background="Transparent"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Stretch" />
-                            <Border Grid.Column="2" BorderBrush="{DynamicResource BorderSubtleBrush}"
-                                    BorderThickness="1" Padding="5">
-                                <Image Source="{Binding SelectedResult.CoverImage, Converter={StaticResource PathToImage}}"
-                                       Stretch="Uniform"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       RenderOptions.BitmapInterpolationMode="HighQuality" />
-                            </Border>
+                        </Grid>
+
+                        <!-- ═══ PLAY HISTORY SECTION (WPF PlayHistoryPage equivalent) ═══ -->
+                        <Grid x:Name="PlayHistorySectionRoot" IsVisible="False" RowDefinitions="Auto,Auto,*" Margin="10">
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8"
+                                        Margin="0,4,0,4" VerticalAlignment="Center">
+                                <TextBlock Text="Play History" FontSize="22" FontWeight="Bold"
+                                           VerticalAlignment="Center" Margin="0,0,12,0"
+                                           FontFamily="{DynamicResource PrimaryFont}" />
+                                <Button Classes="secondary" Content="Remove from History"
+                                        Command="{Binding RemoveSelectedCommand}" />
+                                <Button Classes="secondary" Content="Remove All from History"
+                                        Command="{Binding RemoveAllCommand}" />
+                                <Button Classes="primary" Content="Launch Selected Game"
+                                        Command="{Binding LaunchSelectedCommand}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
+                                <Button Classes="secondary" Content="Sort by Date"
+                                        Command="{Binding SortByDateCommand}" />
+                                <Button Classes="secondary" Content="Sort by Play Time"
+                                        Command="{Binding SortByTotalPlayTimeCommand}" />
+                                <Button Classes="secondary" Content="Sort by Times Played"
+                                        Command="{Binding SortByTimesPlayedCommand}" />
+                            </StackPanel>
+                            <Grid Grid.Row="2" ColumnDefinitions="*,6,240">
+                                <DataGrid Grid.Column="0"
+                                          ItemsSource="{Binding PlayHistoryList}"
+                                          SelectedItem="{Binding SelectedItem}"
+                                          AutoGenerateColumns="False"
+                                          IsReadOnly="True"
+                                          GridLinesVisibility="All"
+                                          BorderThickness="1"
+                                          DoubleTapped="PlayHistoryDataGrid_DoubleTapped"
+                                          KeyDown="PlayHistoryDataGrid_KeyDown">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="File Name" Binding="{Binding DisplayName}" Width="*" />
+                                        <DataGridTextColumn Header="Machine Description" Binding="{Binding MachineDescription}" Width="*" />
+                                        <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="160" />
+                                        <DataGridTextColumn Header="Default Emulator" Binding="{Binding DefaultEmulator}" Width="180" />
+                                        <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="110" />
+                                        <DataGridTextColumn Header="Play Time" Binding="{Binding FormattedPlayTime}" Width="110" />
+                                        <DataGridTextColumn Header="Last Played Date" Binding="{Binding LastPlayDate}" Width="130" />
+                                        <DataGridTextColumn Header="Last Played Time" Binding="{Binding LastPlayTime}" Width="130" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <GridSplitter Grid.Column="1" Width="6"
+                                              Background="Transparent"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Stretch" />
+                                <Border Grid.Column="2" BorderBrush="{DynamicResource BorderSubtleBrush}"
+                                        BorderThickness="1" Padding="5">
+                                    <Image Source="{Binding SelectedItem.CoverImage, Converter={StaticResource PathToImage}}"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           RenderOptions.BitmapInterpolationMode="HighQuality" />
+                                </Border>
+                            </Grid>
+                        </Grid>
+
+                        <!-- ═══ GLOBAL SEARCH SECTION (WPF GlobalSearchPage equivalent) ═══ -->
+                        <Grid x:Name="GlobalSearchSectionRoot" IsVisible="False" RowDefinitions="Auto,Auto,*" Margin="10">
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8"
+                                        Margin="0,4,0,4" VerticalAlignment="Center">
+                                <TextBlock Text="Global Search" FontSize="22" FontWeight="Bold"
+                                           VerticalAlignment="Center" Margin="0,0,12,0"
+                                           FontFamily="{DynamicResource PrimaryFont}" />
+                                <TextBox x:Name="GlobalSearchTextBox" Width="220" VerticalAlignment="Center"
+                                         Text="{Binding SearchText}"
+                                         KeyDown="GlobalSearchTextBox_KeyDown" />
+                                <ComboBox ItemsSource="{Binding SystemNames}"
+                                          SelectedIndex="{Binding SelectedSystemIndex}"
+                                          Width="180" VerticalAlignment="Center" />
+                                <Button Classes="secondary" Content="Search" VerticalAlignment="Center"
+                                        Command="{Binding SearchCommand}" />
+                                <Button Classes="primary" Content="Launch Selected" VerticalAlignment="Center"
+                                        Command="{Binding LaunchSelectedCommand}"
+                                        IsEnabled="{Binding LaunchButtonEnabled}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="16" Margin="0,0,0,8">
+                                <CheckBox Content="Filename" IsChecked="{Binding SearchFilename}" />
+                                <CheckBox Content="MAME Description" IsChecked="{Binding SearchMameDescription}" />
+                                <CheckBox Content="Folder Name" IsChecked="{Binding SearchFolderName}" />
+                                <CheckBox Content="Search Recursively" IsChecked="{Binding SearchRecursively}" />
+                                <TextBlock Text="{Binding ResultsCountText}" FontWeight="SemiBold"
+                                           VerticalAlignment="Center"
+                                           Foreground="{DynamicResource TextSecondaryBrush}" />
+                            </StackPanel>
+                            <Grid Grid.Row="2" ColumnDefinitions="*,6,240">
+                                <Grid Grid.Column="0">
+                                    <DataGrid ItemsSource="{Binding SearchResults}"
+                                              SelectedItem="{Binding SelectedResult}"
+                                              AutoGenerateColumns="False"
+                                              IsReadOnly="True"
+                                              GridLinesVisibility="All"
+                                              BorderThickness="1"
+                                              DoubleTapped="GlobalSearchResults_DoubleTapped">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="File Name" Binding="{Binding FileNameWithExtension}" Width="*" />
+                                            <DataGridTextColumn Header="Machine Name" Binding="{Binding MachineName}" Width="*" />
+                                            <DataGridTextColumn Header="Default Emulator" Binding="{Binding DefaultEmulator}" Width="180" />
+                                            <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="200" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    <Border Background="{DynamicResource BgPrimaryBrush}"
+                                            IsVisible="{Binding NoResultsVisible}"
+                                            BorderBrush="{DynamicResource BorderSubtleBrush}"
+                                            BorderThickness="1" CornerRadius="2">
+                                        <TextBlock Text="No results found"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                   FontSize="18" FontWeight="Bold"
+                                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                                   Margin="20" />
+                                    </Border>
+                                </Grid>
+                                <GridSplitter Grid.Column="1" Width="6"
+                                              Background="Transparent"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Stretch" />
+                                <Border Grid.Column="2" BorderBrush="{DynamicResource BorderSubtleBrush}"
+                                        BorderThickness="1" Padding="5">
+                                    <Image Source="{Binding SelectedResult.CoverImage, Converter={StaticResource PathToImage}}"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           RenderOptions.BitmapInterpolationMode="HighQuality" />
+                                </Border>
+                            </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
-            </Border>
+                </Border>
 
-        <!-- ═══ STATUS BAR (Row 4) ═══ -->
-        <Border Grid.Row="4" Background="{DynamicResource BgSecondaryBrush}"
-                BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,1,0,0">
-            <Grid Margin="10,0" ColumnDefinitions="*,Auto,*">
-                <TextBlock x:Name="StatusLeft"
-                           Text="{Binding GameCountText}"
-                           Foreground="{DynamicResource TextMutedBrush}"
-                           FontSize="11" VerticalAlignment="Center"
-                           HorizontalAlignment="Left" />
-                <!-- Pagination controls (hidden until a label is set by the pagination service) -->
-                <StackPanel x:Name="PaginationPanel" Grid.Column="1" Orientation="Horizontal"
-                            Spacing="8" VerticalAlignment="Center"
-                            IsVisible="False">
-                    <Button x:Name="PrevPageButton"
-                            Classes="secondary"
-                            Padding="10,2"
-                            IsEnabled="False"
-                            Click="PrevPage_Click"
-                            ToolTip.Tip="Previous page"
-                            Content="◀" />
-                    <TextBlock x:Name="PaginationLabel"
-                               Foreground="{DynamicResource TextMutedBrush}"
-                               FontSize="11" VerticalAlignment="Center" />
-                    <Button x:Name="NextPageButton"
-                            Classes="secondary"
-                            Padding="10,2"
-                            IsEnabled="False"
-                            Click="NextPage_Click"
-                            ToolTip.Tip="Next page"
-                            Content="▶" />
-                </StackPanel>
-                <TextBlock x:Name="StatusRight" Grid.Column="2"
-                           Text="{Binding StatusText}"
-                           Foreground="{DynamicResource TextMutedBrush}"
-                           FontSize="11" VerticalAlignment="Center"
-                           HorizontalAlignment="Right" />
+                <!-- ═══ STATUS BAR (Bottom) ═══ -->
+                <Border Grid.Row="2" Background="{DynamicResource BgSecondaryBrush}"
+                        BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,1,0,0">
+                    <Grid Margin="10,0" ColumnDefinitions="*,Auto,*">
+                        <TextBlock x:Name="StatusLeft"
+                                   Text="{Binding GameCountText}"
+                                   Foreground="{DynamicResource TextMutedBrush}"
+                                   FontSize="11" VerticalAlignment="Center"
+                                   HorizontalAlignment="Left" />
+                        <!-- Pagination controls (hidden until a label is set by the pagination service) -->
+                        <StackPanel x:Name="PaginationPanel" Grid.Column="1" Orientation="Horizontal"
+                                    Spacing="8" VerticalAlignment="Center"
+                                    IsVisible="False">
+                            <Button x:Name="PrevPageButton"
+                                    Classes="secondary"
+                                    Padding="10,2"
+                                    IsEnabled="False"
+                                    Click="PrevPage_Click"
+                                    ToolTip.Tip="Previous page"
+                                    Content="◀" />
+                            <TextBlock x:Name="PaginationLabel"
+                                       Foreground="{DynamicResource TextMutedBrush}"
+                                       FontSize="11" VerticalAlignment="Center" />
+                            <Button x:Name="NextPageButton"
+                                    Classes="secondary"
+                                    Padding="10,2"
+                                    IsEnabled="False"
+                                    Click="NextPage_Click"
+                                    ToolTip.Tip="Next page"
+                                    Content="▶" />
+                        </StackPanel>
+                        <TextBlock x:Name="StatusRight" Grid.Column="2"
+                                   Text="{Binding StatusText}"
+                                   Foreground="{DynamicResource TextMutedBrush}"
+                                   FontSize="11" VerticalAlignment="Center"
+                                   HorizontalAlignment="Right" />
+                    </Grid>
+                </Border>
+
             </Grid>
-        </Border>
+        </Grid>
 
-    </Grid>
     </Grid>
 </Window>

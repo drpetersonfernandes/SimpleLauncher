@@ -317,6 +317,39 @@
         <Setter Property="Foreground" Value="White" />
     </Style>
 
+    <!-- ── NAV RAIL ICON BUTTON (left 64px rail — WPF LeftNavigationPanel parity) ── -->
+    <Style Selector="Button.nav-icon">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="10,6" />
+        <Setter Property="MinWidth" Value="56" />
+        <Setter Property="MinHeight" Value="40" />
+        <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="Button">
+                <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="{StaticResource ButtonCornerRadius}"
+                        Padding="{TemplateBinding Padding}">
+                    <ContentPresenter Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="Button.nav-icon:pointerover">
+        <Setter Property="Background" Value="{DynamicResource BgTertiaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+    </Style>
+    <Style Selector="Button.nav-icon:pressed">
+        <Setter Property="Background" Value="{DynamicResource BgQuaternaryBrush}" />
+    </Style>
+
     <!-- ── SEARCH TEXTBOX (pill-shaped) ── -->
     <Style Selector="TextBox.search-textbox">
         <Setter Property="Background" Value="Transparent" />

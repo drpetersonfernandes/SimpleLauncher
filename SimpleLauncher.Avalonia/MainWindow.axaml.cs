@@ -104,13 +104,14 @@ public partial class MainWindow : Window, IPaginationHost
         PlayHistorySectionRoot.DataContext = PlayHistorySection;
         GlobalSearchSectionRoot.DataContext = GlobalSearchSection;
 
-        // Populate sidebar from system.xml
+        // Populate system data from system.xml (sidebar + top System ComboBox)
         PopulateSidebarFromSystemXml();
+        PopulateSystemComboBox();
 
-        // NOTE: no initial sidebar selection here — selecting "All Games" would fire
-        // SystemList_SelectionChanged synchronously and trigger a full library scan on
-        // the UI thread during construction. Window_Opened → InitializeAsync does the
-        // single initial scan asynchronously instead.
+        // NOTE: no initial System ComboBox selection here — selecting a system would
+        // fire SystemComboBox_SelectionChanged synchronously and trigger a full library
+        // scan on the UI thread during construction. Window_Opened → InitializeAsync
+        // does the single initial scan asynchronously instead.
 
         // Restore window position/size before the window is shown
         RestoreWindowBounds();
@@ -287,8 +288,10 @@ public partial class MainWindow : Window, IPaginationHost
     {
         try
         {
-            _viewModel.Sidebar.Populate(_systemManagerService.LoadSystems());
+            var systems = _systemManagerService.LoadSystems();
+            _viewModel.Sidebar.Populate(systems);
             _viewModel.Sidebar.RefreshCounts(_viewModel.SystemGameCounts);
+            PopulateSystemComboBox();
         }
         catch (Exception ex)
         {
@@ -693,35 +696,6 @@ public partial class MainWindow : Window, IPaginationHost
 
     #region Category Tabs
 
-    private void CategoryTab_Click(object? sender, RoutedEventArgs e)
-    {
-        if (sender is not ToggleButton clicked) return;
-
-        foreach (var tab in new[] { GamesTab, RecentTab, FavoritesTab })
-        {
-            if (tab != clicked)
-            {
-                tab.IsChecked = false;
-            }
-        }
-
-        clicked.IsChecked = true;
-
-        switch (clicked.Name)
-        {
-            case "GamesTab":
-                _ = ShowSectionAsync(MainSection.None);
-                _viewModel.NavigateToAllGamesCommand.Execute(null);
-                break;
-            case "RecentTab":
-                _ = ShowSectionAsync(MainSection.PlayHistory);
-                break;
-            case "FavoritesTab":
-                _ = ShowSectionAsync(MainSection.Favorites);
-                break;
-        }
-    }
-
     /// <summary>
     /// The page sections embedded in the content area (WPF FavoritesPage /
     /// PlayHistoryPage / GlobalSearchPage equivalents).
@@ -770,49 +744,179 @@ public partial class MainWindow : Window, IPaginationHost
 
     #endregion
 
-    #region Sidebar System Selection
+    #region System & Emulator Selection (Top Bar)
 
-    private void SystemList_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    /// <summary>
+    /// Populates the System ComboBox from system.xml (WPF SystemComboBox parity).
+    /// Called after the sidebar is built and whenever systems change.
+    /// </summary>
+    private void PopulateSystemComboBox()
     {
-        if (sender is not ListBox { SelectedItem: not null } listBox) return;
-
-        // System lists are bound to SidebarSystemItem; the collections list uses
-        // ListBoxItem items with a Tag.
-        switch (listBox.SelectedItem)
+        try
         {
-            case SidebarSystemItem systemItem:
-                _viewModel.NavigateToSystemCommand.Execute(systemItem.SystemName);
-                break;
-            case ListBoxItem { Tag: string tag }:
-                switch (tag)
-                {
-                    case "all":
-                        _ = ShowSectionAsync(MainSection.None);
-                        _viewModel.NavigateToAllGamesCommand.Execute(null);
-                        break;
-                    case "recently_added":
-                        _ = ShowSectionAsync(MainSection.None);
-                        _viewModel.NavigateToRecentlyAddedCommand.Execute(null);
-                        break;
-                    case "recently_played":
-                        _ = ShowSectionAsync(MainSection.PlayHistory);
-                        break;
-                    case "favorites":
-                        _ = ShowSectionAsync(MainSection.Favorites);
-                        break;
-                    case "global_search":
-                        _ = ShowSectionAsync(MainSection.GlobalSearch);
-                        break;
-                    default:
-                        _ = ShowSectionAsync(MainSection.None);
-                        _viewModel.NavigateToSystemCommand.Execute(tag);
-                        break;
-                }
-
-                break;
+            var systemNames = _systemManagerService.LoadSystems()
+                .Select(static s => s.SystemName)
+                .OrderBy(static name => name, StringComparer.Ordinal)
+                .ToList();
+            SystemComboBox.ItemsSource = systemNames;
         }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to populate the System ComboBox from system.xml");
+        }
+    }
 
-        listBox.SelectedIndex = -1;
+    /// <summary>
+    /// Populates the Emulator ComboBox for the given system (WPF EmulatorComboBox parity).
+    /// </summary>
+    private void PopulateEmulatorComboBox(string? systemName)
+    {
+        try
+        {
+            var emulatorNames = string.IsNullOrEmpty(systemName)
+                ? []
+                : (_systemManagerService.GetSystem(systemName)?.Emulators ?? [])
+                    .Select(static e => e.EmulatorName).ToList();
+
+            EmulatorComboBox.ItemsSource = emulatorNames;
+            EmulatorComboBox.SelectedIndex = emulatorNames.Count > 0 ? 0 : -1;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to populate the Emulator ComboBox for {System}", systemName);
+        }
+    }
+
+    /// <summary>
+    /// Top System ComboBox: navigates to the selected system and refreshes the
+    /// Emulator ComboBox for that system.
+    /// </summary>
+    private void SystemComboBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (SystemComboBox.SelectedItem is not string systemName || string.IsNullOrEmpty(systemName)) return;
+
+        _viewModel.NavigateToSystemCommand.Execute(systemName);
+        PopulateEmulatorComboBox(systemName);
+    }
+
+    /// <summary>
+    /// Top Emulator ComboBox: stores the chosen emulator so launches use it instead
+    /// of the system's first emulator.
+    /// </summary>
+    private void EmulatorComboBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        _viewModel.SelectedEmulatorName = EmulatorComboBox.SelectedItem?.ToString();
+    }
+
+    #endregion
+
+    #region Left Navigation Rail
+
+    /// <summary>Nav rail: restart / home — returns to the All Games view.</summary>
+    private void NavRestartButton_Click(object? sender, RoutedEventArgs e)
+    {
+        HomeButton_Click(sender, e);
+    }
+
+    /// <summary>Nav rail: opens the Favorites section.</summary>
+    private void NavFavoritesButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            _ = ShowSectionAsync(MainSection.Favorites);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method NavFavoritesButton_Click");
+        }
+    }
+
+    /// <summary>Nav rail: opens the Global Search section.</summary>
+    private void NavGlobalSearchButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            _ = ShowSectionAsync(MainSection.GlobalSearch);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method NavGlobalSearchButton_Click");
+        }
+    }
+
+    /// <summary>Nav rail: opens the Play History section.</summary>
+    private void NavHistoryButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            _ = ShowSectionAsync(MainSection.PlayHistory);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method NavHistoryButton_Click");
+        }
+    }
+
+    /// <summary>Nav rail: opens the RetroAchievements window.</summary>
+    private void NavRetroAchievementsButton_Click(object? sender, RoutedEventArgs e)
+    {
+        RetroAchievements_Click(sender, e);
+    }
+
+    /// <summary>Nav rail: opens the Edit System (expert) window.</summary>
+    private void NavEditSystemButton_Click(object? sender, RoutedEventArgs e)
+    {
+        ExpertMode_Click(sender, e);
+    }
+
+    /// <summary>Nav rail: toggles between grid and list view (WPF ToggleViewMode parity).</summary>
+    private void NavToggleViewModeButton_Click(object? sender, RoutedEventArgs e)
+    {
+        _viewModel.IsGridView = !_viewModel.IsGridView;
+        GridViewToggle.IsChecked = _viewModel.IsGridView;
+        ListViewToggle.IsChecked = !_viewModel.IsGridView;
+        _settings.ViewMode = _viewModel.IsGridView ? "GridView" : "ListView";
+        _ = _settings.SaveAsync();
+        UpdateViewModeCheckMarks();
+        _playSound.PlayNotificationSound();
+    }
+
+    /// <summary>Nav rail: cycles the button aspect ratio (WPF NavToggleButtonAspectRatio parity).</summary>
+    private async void NavToggleButtonAspectRatioButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var aspectRatios = new List<string> { "Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2" };
+
+            var currentIndex = Math.Max(aspectRatios.IndexOf(_settings.ButtonAspectRatio ?? "Square"), 0);
+            var nextIndex = (currentIndex + 1) % aspectRatios.Count;
+            var newAspectRatio = aspectRatios[nextIndex];
+
+            _settings.ButtonAspectRatio = newAspectRatio;
+            await _settings.SaveAsync();
+            UpdateButtonAspectRatioCheckMarks(newAspectRatio);
+            _viewModel.ReloadGames();
+            _playSound.PlayNotificationSound();
+            ShowToast("Button Aspect Ratio", $"Toggling button aspect ratio... {newAspectRatio}");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method NavToggleButtonAspectRatioButton_Click");
+        }
+    }
+
+    /// <summary>Nav rail: zooms the card size in (WPF NavZoomInButton parity).</summary>
+    private void NavZoomInButton_Click(object? sender, RoutedEventArgs e)
+    {
+        _viewModel.ZoomIn();
+        _playSound.PlayNotificationSound();
+    }
+
+    /// <summary>Nav rail: zooms the card size out (WPF NavZoomOutButton parity).</summary>
+    private void NavZoomOutButton_Click(object? sender, RoutedEventArgs e)
+    {
+        _viewModel.ZoomOut();
+        _playSound.PlayNotificationSound();
     }
 
     #endregion

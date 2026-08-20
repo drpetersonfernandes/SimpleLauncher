@@ -105,6 +105,12 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     [ObservableProperty] private double _captionFontSize = 13;
 
     /// <summary>
+    /// The emulator selected in the top System Selection bar. When set, launches use
+    /// it instead of the system's first configured emulator (WPF EmulatorComboBox parity).
+    /// </summary>
+    public string? SelectedEmulatorName { get; set; }
+
+    /// <summary>
     /// ILoadingState implementation for the launcher: shows the overlay and updates
     /// the message ("Mounting CHD...", "Extracting...", ...) during long operations.
     /// </summary>
@@ -862,7 +868,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     public async Task<TimeSpan> LaunchGameAtPathAsync(string filePath, string systemName)
     {
         var system = _systemManager.GetSystem(systemName);
-        var emulator = system?.Emulators.FirstOrDefault();
+        var emulator = system?.Emulators.FirstOrDefault(e =>
+                          string.Equals(e.EmulatorName, SelectedEmulatorName, StringComparison.OrdinalIgnoreCase))
+                      ?? system?.Emulators.FirstOrDefault();
         var windowContext = App.ServiceProvider.GetRequiredService<IWindowContext>();
 
         if (system is null || emulator is null)
