@@ -310,7 +310,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
             }
         }
 
-        DoYouWantToSaveTheReportMessageBoxAsync();
+        _ = DoYouWantToSaveTheReportMessageBoxAsync();
     }
 
     private Task<List<SystemStatsData>> CalculateSystemStatsSequentialAsync(CancellationToken cancellationToken)
@@ -417,7 +417,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         BusyOverlayText = _resourceProvider.GetString("Processingpleasewait", "Processing");
     }
 
-    private async void DoYouWantToSaveTheReportMessageBoxAsync()
+    private async Task DoYouWantToSaveTheReportMessageBoxAsync()
     {
         try
         {

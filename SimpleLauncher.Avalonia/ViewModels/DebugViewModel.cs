@@ -76,7 +76,7 @@ public partial class DebugViewModel : ObservableObject
     {
         if (!Dispatcher.UIThread.CheckAccess())
         {
-            Dispatcher.UIThread.Invoke(() => LoadBufferedMessages(formattedMessages));
+            Dispatcher.UIThread.InvokeAsync(() => LoadBufferedMessages(formattedMessages));
             return;
         }
 
@@ -105,7 +105,7 @@ public partial class DebugViewModel : ObservableObject
     {
         if (!Dispatcher.UIThread.CheckAccess())
         {
-            Dispatcher.UIThread.Invoke(ClearLog);
+            Dispatcher.UIThread.InvokeAsync(ClearLog);
             return;
         }
 

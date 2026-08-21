@@ -7,9 +7,6 @@
         Height="270"
         CanResize="False"
         WindowStartupLocation="CenterScreen">
-    <Window.Resources>
-        <converters:PathToImageConverter x:Key="PathToImage" />
-    </Window.Resources>
     <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,Auto,*">
 
         <!-- Explanation -->

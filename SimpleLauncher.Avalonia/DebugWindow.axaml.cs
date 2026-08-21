@@ -90,7 +90,7 @@ public partial class DebugWindow : Window
     {
         if (!Dispatcher.UIThread.CheckAccess())
         {
-            Dispatcher.UIThread.Invoke(ShowDebugWindow);
+            Dispatcher.UIThread.InvokeAsync(ShowDebugWindow);
             return;
         }
 

@@ -6,9 +6,6 @@
         Width="800" Height="600"
         WindowStartupLocation="CenterOwner"
         Background="{DynamicResource BgPrimaryBrush}">
-    <Window.Resources>
-        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
-    </Window.Resources>
     <Grid>
         <Image Source="{Binding ImageSource}" Stretch="Uniform"
                HorizontalAlignment="Center" VerticalAlignment="Center"

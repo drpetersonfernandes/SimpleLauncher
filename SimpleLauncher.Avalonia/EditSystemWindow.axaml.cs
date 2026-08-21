@@ -143,7 +143,7 @@ public partial class EditSystemWindow : Window
         }
     }
 
-    private void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var currentSelectedSystemName = SystemNameDropdown.SelectedItem?.ToString();
         _originalSystemName = currentSelectedSystemName;
@@ -159,11 +159,11 @@ public partial class EditSystemWindow : Window
         }
         else
         {
-            LoadSystemDetails(currentSelectedSystemName);
+            await LoadSystemDetails(currentSelectedSystemName);
         }
     }
 
-    private async void LoadSystemDetails(string systemNameToLoad)
+    private async Task LoadSystemDetails(string systemNameToLoad)
     {
         try
         {
@@ -1159,7 +1159,7 @@ public partial class EditSystemWindow : Window
 
                 await LoadSystemsAsync();
                 SystemNameDropdown.SelectedItem = systemNameText;
-                LoadSystemDetails(systemNameText);
+                await LoadSystemDetails(systemNameText);
 
                 StatusTextBlock.Text = $"System saved: {systemNameText}";
                 await _messageBox.SystemSavedSuccessfullyMessageBoxAsync();

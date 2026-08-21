@@ -11,6 +11,7 @@ namespace SimpleLauncher.Avalonia;
 public partial class FlashOverlayWindow : Window, IDisposable
 {
     private readonly FlashOverlayViewModel _viewModel;
+    private readonly EventHandler _closeRequestedHandler;
     private CancellationTokenSource? _cts;
 
     /// <summary>
@@ -22,7 +23,8 @@ public partial class FlashOverlayWindow : Window, IDisposable
         InitializeComponent();
 
         _viewModel = viewModel;
-        _viewModel.CloseRequested += (_, _) => Close();
+        _closeRequestedHandler = (_, _) => Close();
+        _viewModel.CloseRequested += _closeRequestedHandler;
 
         DataContext = _viewModel;
 
@@ -84,6 +86,7 @@ public partial class FlashOverlayWindow : Window, IDisposable
     /// </summary>
     public void Dispose()
     {
+        _viewModel.CloseRequested -= _closeRequestedHandler;
         _cts?.Dispose();
         _cts = null;
         GC.SuppressFinalize(this);

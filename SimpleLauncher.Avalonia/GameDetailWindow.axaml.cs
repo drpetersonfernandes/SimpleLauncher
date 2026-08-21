@@ -159,8 +159,4 @@ public partial class GameDetailWindow : Window
         FavoriteButton.Classes.Set("secondary", !_game.IsFavorite);
     }
 
-    private void Window_Closing(object? sender, WindowClosingEventArgs e)
-    {
-        // Cleanup
-    }
 }

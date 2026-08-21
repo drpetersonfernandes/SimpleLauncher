@@ -2,6 +2,8 @@
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="using:SimpleLauncher.Avalonia.Controls"
+        xmlns:models="using:SimpleLauncher.Core.Models"
+        xmlns:local="using:SimpleLauncher.Avalonia.Models"
         Title="RetroAchievements"
         WindowState="Maximized"
         WindowStartupLocation="CenterOwner"
@@ -133,7 +135,7 @@
                             <DataGrid.Columns>
                                 <DataGridTemplateColumn Header="Icon" Width="Auto">
                                     <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
+                                        <DataTemplate x:DataType="local:RaAchievement">
                                             <controls:RemoteImage Url="{Binding BadgeUri}" Width="40" Height="40" Margin="5" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -343,7 +345,7 @@
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Icon" Width="Auto">
                                         <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
+                                            <DataTemplate x:DataType="local:RaAchievement">
                                                 <controls:RemoteImage Url="{Binding BadgeUri}" Width="40" Height="40" Margin="5" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
@@ -584,7 +586,7 @@
                                      BorderBrush="{DynamicResource BorderNormalBrush}"
                                      Background="{DynamicResource BgSecondaryBrush}">
                                 <ListBox.ItemTemplate>
-                                    <DataTemplate>
+                                    <DataTemplate x:DataType="models:RaRecentlyPlayedGame">
                                         <StackPanel Orientation="Horizontal" Margin="0,2">
                                             <controls:RemoteImage Url="{Binding GameIconUrl}"
                                                                   Width="40" Height="40" Stretch="Uniform"
@@ -678,7 +680,7 @@
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Game Icon" Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
+                                    <DataTemplate x:DataType="models:RaEarnedAchievement">
                                         <controls:RemoteImage Url="{Binding GameIconFullUrl}" Width="32" Height="32" Margin="5" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -686,7 +688,7 @@
                             <DataGridTextColumn Header="Game Title" Binding="{Binding GameTitle}" Width="*" SortMemberPath="GameTitle" />
                             <DataGridTemplateColumn Header="Badge" Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
+                                    <DataTemplate x:DataType="models:RaEarnedAchievement">
                                         <controls:RemoteImage Url="{Binding BadgeFullUrl}" Width="32" Height="32" Margin="5" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -729,7 +731,7 @@
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Icon" Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
+                                    <DataTemplate x:DataType="models:RaUserCompletionGame">
                                         <controls:RemoteImage Url="{Binding ImageIcon}" Width="32" Height="32" Margin="5" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

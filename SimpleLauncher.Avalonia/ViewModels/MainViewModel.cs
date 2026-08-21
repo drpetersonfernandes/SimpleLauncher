@@ -325,7 +325,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
 
         _currentBaseGames = SortByMameOrder(_currentBaseGames);
         ReapplyLetterFilterAndPagination();
-        StatusText = _mameSortOrder == "MachineDescription" ? "Sorted by machine description" : "Sorted by file name";
+        StatusText = string.Equals(_mameSortOrder, "MachineDescription", StringComparison.Ordinal) ? "Sorted by machine description" : "Sorted by file name";
     }
 
     /// <summary>
@@ -642,6 +642,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         try
         {
             _searchCts?.Cancel();
+            _searchCts?.Dispose();
             _searchCts = new CancellationTokenSource();
             var token = _searchCts.Token;
 
@@ -1084,7 +1085,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         var showGamesMode = _settings.ShowGames;
         if (showGamesMode is not "ShowAll")
         {
-            games.RemoveAll(g => showGamesMode == "ShowWithCover" ? !g.HasCover : g.HasCover);
+            games.RemoveAll(g => string.Equals(showGamesMode, "ShowWithCover", StringComparison.Ordinal) ? !g.HasCover : g.HasCover);
         }
     }
 

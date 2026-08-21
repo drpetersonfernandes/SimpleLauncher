@@ -174,7 +174,7 @@ public class GameScannerService
             var defaultRomsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", WindowsSystemName);
             var defaultImagesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", WindowsSystemName);
 
-            SystemManagerService.SaveSystemConfigurationAsync(
+            await SystemManagerService.SaveSystemConfigurationAsync(
                 WindowsSystemName,
                 [$@"%BASEFOLDER%\roms\{WindowsSystemName}"],
                 $@"%BASEFOLDER%\images\{WindowsSystemName}",
@@ -189,7 +189,7 @@ public class GameScannerService
                     ReceiveANotificationOnEmulatorError = true
                 },
                 WindowsSystemName,
-                _configuration).GetAwaiter().GetResult();
+                _configuration);
 
             // The SystemManagerService cache is stale now — subsequent scans must see
             // the entry as existing instead of re-creating it.

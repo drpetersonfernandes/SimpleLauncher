@@ -134,9 +134,9 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
 
             try
             {
-                var results = await Task.Run(() => PerformSearch(
+                var results = await PerformSearch(
                     searchTerm, selectedSystem,
-                    SearchFilename, SearchMameDescription, SearchFolderName, SearchRecursively, token), token);
+                    SearchFilename, SearchMameDescription, SearchFolderName, SearchRecursively, token);
 
                 if (results.Count > 0)
                 {
@@ -179,7 +179,7 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
         }
     }
 
-    private List<SearchResult> PerformSearch(
+    private async Task<List<SearchResult>> PerformSearch(
         string searchTerm, string? selectedSystem,
         bool searchFilename, bool searchMameDescription, bool searchFolderName, bool searchRecursively,
         CancellationToken token)
@@ -219,9 +219,9 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
                     continue;
                 }
 
-                var matchedFilesList = _getListOfFiles.GetFilesAsync(
+                var matchedFilesList = await _getListOfFiles.GetFilesAsync(
                     systemFolderPath, systemManager.FileFormatsToSearch,
-                    effectiveSystem.DisableRecursiveSearch, effectiveSystem.GroupByFolder, token).GetAwaiter().GetResult();
+                    effectiveSystem.DisableRecursiveSearch, effectiveSystem.GroupByFolder, token);
 
                 var matchedFiles = matchedFilesList.Where(file =>
                 {

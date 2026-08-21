@@ -13,6 +13,12 @@
 
         <!-- ═══ GLOBAL CONVERTERS (shared by all windows) ═══ -->
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+        <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility" />
+        <converters:NullToVisibilityConverter x:Key="NullToVisibility" />
+        <converters:PathToImageConverter x:Key="PathToImage" />
+        <converters:SmartTitleCaseConverter x:Key="SmartTitleCase" />
+        <converters:ConsoleToCardHeightConverter x:Key="CardHeightConverter" />
+        <converters:BooleanToFavoriteStatusConverter x:Key="FavoriteStatusConverter" />
 
         <!-- ═══ SURFACE COLORS ═══ -->
         <Color x:Key="BgPrimaryColor">#1E1E1E</Color>

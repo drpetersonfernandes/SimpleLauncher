@@ -57,6 +57,11 @@ public partial class MainWindow : Window, IPaginationHost
     private static readonly string BoundsFilePath = Path.Combine(
         Core.Services.AppDataPaths.SimpleLauncherDataFolder, "window_bounds_avalonia.json");
 
+    // Event handler references for cleanup
+    private readonly Action<string, string> _toastRequestedHandler;
+    private readonly EventHandler<EventArgs<string>> _gameFilesChangedHandler;
+    private readonly EventHandler<PointerWheelEventArgs> _pointerWheelChangedHandler;
+
     public MainWindow(
         MainViewModel viewModel,
         SystemArtRatioService ratioService,
@@ -91,7 +96,8 @@ public partial class MainWindow : Window, IPaginationHost
         DataContext = _viewModel;
 
         // Surface ViewModel toast requests (e.g. RetroAchievements hash scan status)
-        _viewModel.ToastRequested += (title, message) => ShowToast(title, message);
+        _toastRequestedHandler = (title, message) => ShowToast(title, message);
+        _viewModel.ToastRequested += _toastRequestedHandler;
 
         // Initialize converter with ratio service
         ConsoleToCardHeightConverter.SetRatioService(ratioService);
@@ -120,6 +126,11 @@ public partial class MainWindow : Window, IPaginationHost
         // within the grace period, force-exit so the app can never linger in the background.
         Closed += (_, _) =>
         {
+            // Unsubscribe event handlers to prevent memory leaks
+            _viewModel.ToastRequested -= _toastRequestedHandler;
+            _fileWatcher.GameFilesChanged -= _gameFilesChangedHandler;
+            RemoveHandler(InputElement.PointerWheelChangedEvent, _pointerWheelChangedHandler);
+
             _shutdownWatchdogCts?.Cancel();
             _shutdownWatchdogCts?.Dispose();
             _shutdownWatchdogCts = new CancellationTokenSource();
@@ -155,11 +166,12 @@ public partial class MainWindow : Window, IPaginationHost
         UpdateMameSortOrderButtonToolTip();
 
         // Ctrl+wheel zooms the card size over the game grid (WPF MainWindow_MouseWheelAsync parity).
-        AddHandler(InputElement.PointerWheelChangedEvent, OnPointerWheelChangedForZoom, handledEventsToo: true);
+        _pointerWheelChangedHandler = OnPointerWheelChangedForZoom;
+        AddHandler(InputElement.PointerWheelChangedEvent, _pointerWheelChangedHandler, handledEventsToo: true);
 
         // Live library refresh: when a watched ROM folder changes on disk, reload the
         // current view on the UI thread (same debounced behavior as the WPF app).
-        _fileWatcher.GameFilesChanged += (_, e) =>
+        _gameFilesChangedHandler = (_, e) =>
         {
             try
             {
@@ -179,6 +191,7 @@ public partial class MainWindow : Window, IPaginationHost
                 Log.Debug(ex, "Failed to refresh the game list after a file change for system '{System}'", e.Value);
             }
         };
+        _fileWatcher.GameFilesChanged += _gameFilesChangedHandler;
     }
 
     #region IPaginationHost
@@ -1648,11 +1661,14 @@ public partial class MainWindow : Window, IPaginationHost
         {
             if (sender is not MenuItem item) return;
 
-            _viewModel.IsGridView = item.Name == "GridView";
+            _viewModel.IsGridView = string.Equals(item.Name, "GridView", StringComparison.Ordinal);
             GridViewToggle.IsChecked = _viewModel.IsGridView;
             ListViewToggle.IsChecked = !_viewModel.IsGridView;
             _settings.ViewMode = _viewModel.IsGridView ? "GridView" : "ListView";
-            _ = _settings.SaveAsync();
+            _ = _settings.SaveAsync().ContinueWith(t =>
+            {
+                if (t.IsFaulted) Log.Warning(t.Exception, "Failed to save view mode preference");
+            }, TaskContinuationOptions.OnlyOnFaulted);
             UpdateViewModeCheckMarks();
         }
         catch (Exception ex)

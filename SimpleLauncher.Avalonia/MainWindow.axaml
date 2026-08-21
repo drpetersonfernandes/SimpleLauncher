@@ -11,17 +11,6 @@
         Opened="Window_Opened"
         Closing="Window_Closing">
 
-    <Window.Resources>
-        <!-- ReSharper disable once Xaml.RedundantResource -->
-        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
-        <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility" />
-        <converters:NullToVisibilityConverter x:Key="NullToVisibility" />
-        <converters:PathToImageConverter x:Key="PathToImage" />
-        <converters:SmartTitleCaseConverter x:Key="SmartTitleCase" />
-        <converters:ConsoleToCardHeightConverter x:Key="CardHeightConverter" />
-        <converters:BooleanToFavoriteStatusConverter x:Key="FavoriteStatusConverter" />
-    </Window.Resources>
-
     <Grid RowDefinitions="Auto,*">
 
         <!-- ═══ MENU BAR (Row 0) ═══ -->

@@ -217,7 +217,10 @@ public partial class PlayHistorySectionViewModel : ObservableObject
     private void SyncToManager()
     {
         _playHistoryManager.PlayHistoryList = PlayHistoryList;
-        _ = _playHistoryManager.SavePlayHistoryAsync();
+        _ = _playHistoryManager.SavePlayHistoryAsync().ContinueWith(t =>
+        {
+            if (t.IsFaulted) Log.Warning(t.Exception, "Failed to save play history");
+        }, TaskContinuationOptions.OnlyOnFaulted);
     }
 
     private PlayHistoryItem CreateProcessedItem(PlayHistoryItem source)

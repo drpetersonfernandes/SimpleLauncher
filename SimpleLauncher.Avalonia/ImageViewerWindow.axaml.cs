@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Media.Imaging;
 using SimpleLauncher.Avalonia.ViewModels;
 
 namespace SimpleLauncher.Avalonia;
@@ -6,7 +7,7 @@ namespace SimpleLauncher.Avalonia;
 /// <summary>
 /// Window for displaying images from local paths or URIs.
 /// </summary>
-public partial class ImageViewerWindow : Window
+public partial class ImageViewerWindow : Window, IDisposable
 {
     private readonly ImageViewerViewModel _viewModel;
 
@@ -20,6 +21,8 @@ public partial class ImageViewerWindow : Window
 
         _viewModel = viewModel;
         DataContext = _viewModel;
+
+        Closing += (_, _) => Dispose();
     }
 
     /// <summary>
@@ -37,6 +40,15 @@ public partial class ImageViewerWindow : Window
     /// <param name="imageUri">The URI of the image.</param>
     public void LoadImageUrl(Uri imageUri)
     {
-        _viewModel.LoadImageFromUri(imageUri);
+        _ = _viewModel.LoadImageFromUri(imageUri);
+    }
+
+    /// <summary>
+    /// Disposes the bitmap held by the ViewModel to free unmanaged memory.
+    /// </summary>
+    public void Dispose()
+    {
+        _viewModel.ImageSource?.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

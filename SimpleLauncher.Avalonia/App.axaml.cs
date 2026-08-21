@@ -840,6 +840,11 @@ public class App : Application, IDisposable
     /// </summary>
     public void Dispose()
     {
+        // Unsubscribe global exception handlers
+        AppDomain.CurrentDomain.UnhandledException -= CurrentDomain_UnhandledException;
+        Dispatcher.UIThread.UnhandledException -= App_DispatcherUnhandledException;
+        TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
+
         try
         {
             ServiceProvider?.GetService<AvaloniaTrayIconManager>()?.Dispose();

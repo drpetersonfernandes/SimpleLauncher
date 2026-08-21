@@ -7,10 +7,6 @@
         WindowStartupLocation="CenterOwner"
         Background="{DynamicResource BgPrimaryBrush}">
 
-    <Window.Resources>
-        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
-    </Window.Resources>
-
     <Grid Margin="10" RowDefinitions="*,Auto">
 
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">

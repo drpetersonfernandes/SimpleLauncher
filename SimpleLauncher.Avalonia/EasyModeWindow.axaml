@@ -2,6 +2,7 @@
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
+        xmlns:models="using:SimpleLauncher.Core.Models"
         Title="Add New System"
         Width="900" MinWidth="700"
         Height="610" MinHeight="550"
@@ -11,7 +12,6 @@
         Closed="Window_Closed">
 
     <Window.Resources>
-        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
         <converters:InverseBoolConverter x:Key="InverseBool" />
     </Window.Resources>
 
@@ -56,7 +56,7 @@
                           BorderBrush="{DynamicResource BorderNormalBrush}"
                           Margin="0,0,0,20">
                     <ComboBox.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="models:EasyModeSystemConfig">
                             <TextBlock Text="{Binding SystemName}" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>

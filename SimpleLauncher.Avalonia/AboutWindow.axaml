@@ -6,9 +6,6 @@
         Width="450" Height="420"
         CanResize="False"
         WindowStartupLocation="CenterScreen">
-    <Window.Resources>
-        <converters:PathToImageConverter x:Key="PathToImage" />
-    </Window.Resources>
     <Grid RowDefinitions="Auto,Auto,Auto">
 
         <StackPanel Grid.Row="0" Margin="10"

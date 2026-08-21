@@ -2,14 +2,11 @@
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
+        xmlns:models="using:SimpleLauncher.Core.Models"
         Title="Xenia Configuration"
         Height="850" Width="700"
         WindowStartupLocation="CenterOwner"
         Background="{DynamicResource BgPrimaryBrush}">
-
-    <Window.Resources>
-        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
-    </Window.Resources>
 
     <Grid Margin="10" RowDefinitions="*,Auto">
 
@@ -57,7 +54,7 @@
                                   SelectedValueBinding="{Binding Tag}"
                                   ToolTip.Tip="Reduces jagged edges using FXAA.">
                             <ComboBox.ItemTemplate>
-                                <DataTemplate>
+                                <DataTemplate x:DataType="models:TagOption">
                                     <TextBlock Text="{Binding Display}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
@@ -130,7 +127,7 @@
                                       SelectedValueBinding="{Binding Tag}"
                                       ToolTip.Tip="The system language reported to the game.">
                                 <ComboBox.ItemTemplate>
-                                    <DataTemplate>
+                                    <DataTemplate x:DataType="models:TagOption">
                                         <TextBlock Text="{Binding Display}" />
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>

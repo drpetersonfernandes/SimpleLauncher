@@ -97,7 +97,7 @@ public class AvaloniaFilePickerService : IFilePickerService
             }
 
             // "All files|*.*" maps to the built-in all-files type (null filter on Windows).
-            if (patterns.All(p => p == "*.*"))
+            if (patterns.All(p => string.Equals(p, "*.*", StringComparison.Ordinal)))
             {
                 return null;
             }

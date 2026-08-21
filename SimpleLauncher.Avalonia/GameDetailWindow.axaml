@@ -6,13 +6,7 @@
         Width="500" Height="450"
         MinWidth="400" MinHeight="350"
         WindowStartupLocation="CenterOwner"
-        Background="{DynamicResource BgPrimaryBrush}"
-        Closing="Window_Closing">
-
-    <Window.Resources>
-        <converters:PathToImageConverter x:Key="PathToImage" />
-        <converters:SmartTitleCaseConverter x:Key="SmartTitleCase" />
-    </Window.Resources>
+        Background="{DynamicResource BgPrimaryBrush}">
 
     <Grid Margin="16" RowDefinitions="Auto,*,Auto">
 

@@ -74,7 +74,7 @@ public class ImageViewerViewModel : ObservableObject
     /// Loads an image from a URI (local or web).
     /// </summary>
     /// <param name="imageUri">The URI of the image.</param>
-    public async void LoadImageFromUri(Uri imageUri)
+    public async Task LoadImageFromUri(Uri imageUri)
     {
         try
         {
