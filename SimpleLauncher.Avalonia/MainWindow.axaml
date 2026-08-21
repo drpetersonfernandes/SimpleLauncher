@@ -616,6 +616,28 @@
                             </Grid>
                         </Border>
 
+                        <!-- ═══ SYSTEM SELECTION SCREEN (WPF DisplaySystemSelectionScreenAsync parity) ═══ -->
+                        <Border x:Name="SystemSelectionRoot" IsVisible="False"
+                                Background="{DynamicResource BgPrimaryBrush}" Padding="16">
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Top" Text="Select a System"
+                                           FontSize="22" FontWeight="Bold"
+                                           Foreground="{DynamicResource TextPrimaryBrush}"
+                                           Margin="0,0,0,12"
+                                           FontFamily="{DynamicResource PrimaryFont}" />
+                                <TextBlock x:Name="NoSystemsConfiguredMessage"
+                                           DockPanel.Dock="Top"
+                                           Text="No systems configured. Please use the 'Edit System' menu to add systems."
+                                           FontSize="14"
+                                           Foreground="{DynamicResource TextSecondaryBrush}"
+                                           IsVisible="False"
+                                           Margin="0,0,0,12" />
+                                <ScrollViewer>
+                                    <WrapPanel x:Name="SystemSelectionWrapPanel" />
+                                </ScrollViewer>
+                            </DockPanel>
+                        </Border>
+
                         <!-- ═══ FAVORITES SECTION (WPF FavoritesPage equivalent) ═══ -->
                         <Grid x:Name="FavoritesSectionRoot" IsVisible="False" RowDefinitions="Auto,*" Margin="10">
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8"

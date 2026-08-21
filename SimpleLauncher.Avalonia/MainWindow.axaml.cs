@@ -7,6 +7,8 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Layout;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -340,6 +342,10 @@ public partial class MainWindow : Window, IPaginationHost
 
             // Start watching all configured ROM folders (debounced live refresh)
             _fileWatcher.StartWatchingForSystems(_systemManagerService.LoadSystems());
+
+            // WPF parity: show system selection screen at startup instead of
+            // the All Games browser. User picks a system from the grid to begin.
+            await ShowSystemSelectionScreenAsync();
         }
         catch (Exception ex)
         {
@@ -798,6 +804,9 @@ public partial class MainWindow : Window, IPaginationHost
     /// </summary>
     private async Task ShowSectionAsync(MainSection section)
     {
+        // System selection screen is always hidden when a content view is active
+        SystemSelectionRoot.IsVisible = false;
+
         FavoritesSectionRoot.IsVisible = section == MainSection.Favorites;
         PlayHistorySectionRoot.IsVisible = section == MainSection.PlayHistory;
         GlobalSearchSectionRoot.IsVisible = section == MainSection.GlobalSearch;
@@ -859,11 +868,11 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>Nav rail: opens the Favorites section.</summary>
-    private void NavFavoritesButton_Click(object? sender, RoutedEventArgs e)
+    private async void NavFavoritesButton_Click(object? sender, RoutedEventArgs e)
     {
         try
         {
-            _ = ShowSectionAsync(MainSection.Favorites);
+            await ShowSectionAsync(MainSection.Favorites);
         }
         catch (Exception ex)
         {
@@ -872,11 +881,11 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>Nav rail: opens the Global Search section.</summary>
-    private void NavGlobalSearchButton_Click(object? sender, RoutedEventArgs e)
+    private async void NavGlobalSearchButton_Click(object? sender, RoutedEventArgs e)
     {
         try
         {
-            _ = ShowSectionAsync(MainSection.GlobalSearch);
+            await ShowSectionAsync(MainSection.GlobalSearch);
         }
         catch (Exception ex)
         {
@@ -885,11 +894,11 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>Nav rail: opens the Play History section.</summary>
-    private void NavHistoryButton_Click(object? sender, RoutedEventArgs e)
+    private async void NavHistoryButton_Click(object? sender, RoutedEventArgs e)
     {
         try
         {
-            _ = ShowSectionAsync(MainSection.PlayHistory);
+            await ShowSectionAsync(MainSection.PlayHistory);
         }
         catch (Exception ex)
         {
@@ -926,6 +935,12 @@ public partial class MainWindow : Window, IPaginationHost
     {
         try
         {
+            // WPF parity: ignore the toggle while a game-library load is in progress.
+            if (_viewModel.IsLoading)
+            {
+                return;
+            }
+
             var aspectRatios = new List<string> { "Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2" };
 
             var currentIndex = Math.Max(aspectRatios.IndexOf(_settings.ButtonAspectRatio ?? "Square"), 0);
@@ -2011,8 +2026,10 @@ public partial class MainWindow : Window, IPaginationHost
     {
         try
         {
+            var selectedSystem = _viewModel.SelectedSystem;
+            var systemToPreselect = string.IsNullOrWhiteSpace(selectedSystem) ? null : selectedSystem;
             var factory = App.ServiceProvider.GetRequiredService<Func<string?, EditSystemWindow>>();
-            var editWindow = factory(null);
+            var editWindow = factory(systemToPreselect);
             await editWindow.ShowDialog(this);
 
             // The Expert window can add, rename, or delete systems — keep the sidebar in sync.
@@ -2054,6 +2071,207 @@ public partial class MainWindow : Window, IPaginationHost
         finally
         {
             _viewModel.IsLoading = false;
+        }
+    }
+
+    // ── System Selection Screen (WPF DisplaySystemSelectionScreenAsync parity) ──
+
+    /// <summary>
+    /// Shows the system selection grid and hides all other content panels.
+    /// Mirrors WPF's DisplaySystemSelectionScreenAsync which populates the
+    /// GameFileGrid with clickable system icon buttons.
+    /// </summary>
+    private async Task ShowSystemSelectionScreenAsync()
+    {
+        FavoritesSectionRoot.IsVisible = false;
+        PlayHistorySectionRoot.IsVisible = false;
+        GlobalSearchSectionRoot.IsVisible = false;
+        GameBrowserPanel.IsVisible = false;
+        SystemSelectionRoot.IsVisible = true;
+
+        await PopulateSystemSelectionGridAsync();
+    }
+
+    /// <summary>
+    /// Populates the system selection grid with clickable system cards
+    /// (icon + name), mirroring WPF PopulateSystemSelectionGridAsync.
+    /// </summary>
+    private async Task PopulateSystemSelectionGridAsync()
+    {
+        SystemSelectionWrapPanel.Children.Clear();
+        NoSystemsConfiguredMessage.IsVisible = false;
+
+        var systems = _systemManagerService.LoadSystems()
+            .OrderBy(static s => s.SystemName, StringComparer.Ordinal)
+            .ToList();
+
+        if (systems.Count == 0)
+        {
+            NoSystemsConfiguredMessage.IsVisible = true;
+            return;
+        }
+
+        // Rebuild sidebar data so icon paths are resolved
+        _viewModel.PopulateSidebar(systems);
+        _viewModel.Sidebar.RefreshCounts(_viewModel.SystemGameCounts);
+
+        var systemImageSize = _settings.ThumbnailSizeForSystem;
+
+        foreach (var sidebarItem in _viewModel.Sidebar.Systems)
+        {
+            var systemName = sidebarItem.SystemName;
+            var iconPath = sidebarItem.IconPath;
+
+            var buttonContentPanel = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+
+            // System icon image — or fallback glyph if no icon resolved
+            if (!string.IsNullOrEmpty(iconPath) && File.Exists(iconPath))
+            {
+                try
+                {
+                    using var stream = File.OpenRead(iconPath);
+                    var bitmap = Bitmap.DecodeToWidth(stream, (int)(systemImageSize * 1.3 * 1.6));
+                    var image = new Image
+                    {
+                        Source = bitmap,
+                        Height = systemImageSize * 1.3,
+                        Width = systemImageSize * 1.3 * 1.6,
+                        Stretch = Stretch.Uniform,
+                        Margin = new Thickness(5)
+                    };
+                    buttonContentPanel.Children.Add(image);
+                }
+                catch
+                {
+                    buttonContentPanel.Children.Add(new TextBlock
+                    {
+                        Text = "🎮",
+                        FontSize = 36,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Margin = new Thickness(0, 10, 0, 0)
+                    });
+                }
+            }
+            else
+            {
+                buttonContentPanel.Children.Add(new TextBlock
+                {
+                    Text = "🎮",
+                    FontSize = 36,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 10, 0, 0)
+                });
+            }
+
+            buttonContentPanel.Children.Add(new TextBlock
+            {
+                Text = systemName,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                TextAlignment = TextAlignment.Center,
+                FontWeight = FontWeight.Bold,
+                TextTrimming = TextTrimming.CharacterEllipsis,
+                FontSize = 12,
+                MaxWidth = systemImageSize * 1.3 * 1.6,
+                TextWrapping = TextWrapping.Wrap,
+                Margin = new Thickness(0, 5, 0, 0)
+            });
+            ToolTip.SetTip(buttonContentPanel.Children[^1], systemName);
+
+            var systemButton = new Button
+            {
+                Content = buttonContentPanel,
+                Tag = systemName,
+                Width = systemImageSize * 1.3 * 1.6 + 20,
+                Height = systemImageSize * 1.3 + 40 + 20,
+                Margin = new Thickness(5),
+                Padding = new Thickness(5)
+            };
+            systemButton.Click += SystemCard_Click;
+
+            // Right-click context menu (WPF parity: Select / Edit / Delete)
+            var contextMenu = new ContextMenu();
+            var selectItem = new MenuItem { Header = "Select System" };
+            selectItem.Click += (_, _) => SystemComboBox.SelectedItem = systemName;
+            var editItem = new MenuItem { Header = "Edit System" };
+            editItem.Click += (_, _) => EditSystemFromGrid(systemName);
+            var deleteItem = new MenuItem { Header = "Delete System" };
+            deleteItem.Click += (_, _) => _ = DeleteSystemFromGrid(systemName);
+            contextMenu.Items.Add(selectItem);
+            contextMenu.Items.Add(editItem);
+            contextMenu.Items.Add(deleteItem);
+            systemButton.ContextMenu = contextMenu;
+
+            SystemSelectionWrapPanel.Children.Add(systemButton);
+        }
+
+        await Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// System card click — sets the System ComboBox to the clicked system,
+    /// which fires the orchestrator pipeline that loads games and returns
+    /// to the game browser.
+    /// </summary>
+    private void SystemCard_Click(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button btn) return;
+        var systemName = btn.Tag as string;
+        if (string.IsNullOrEmpty(systemName)) return;
+
+        _playSound.PlayNotificationSound();
+        SystemComboBox.SelectedItem = systemName;
+    }
+
+    /// <summary>
+    /// Opens Edit System for the specified system, then refreshes the grid.
+    /// </summary>
+    private async void EditSystemFromGrid(string systemName)
+    {
+        try
+        {
+            _playSound.PlayNotificationSound();
+            var factory = App.ServiceProvider.GetRequiredService<Func<string?, EditSystemWindow>>();
+            var editWindow = factory(systemName);
+            await editWindow.ShowDialog(this);
+            await _systemSelectionOrchestrator.ReloadAfterConfigurationChangeAsync();
+            RefreshSidebarCounts();
+            await ShowSystemSelectionScreenAsync();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error editing system from grid");
+        }
+    }
+
+    /// <summary>
+    /// Deletes a system after confirmation, then refreshes the grid.
+    /// </summary>
+    private async Task DeleteSystemFromGrid(string systemName)
+    {
+        try
+        {
+            var messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+            var result = await messageBox.AreYouSureDoYouWantToDeleteThisSystemMessageBoxAsync();
+            if (result != MessageBoxResult.Yes) return;
+
+            _playSound.PlayNotificationSound();
+
+            var writer = App.ServiceProvider.GetRequiredService<ISystemConfigurationWriterService>();
+            await writer.DeleteSystemAsync(systemName);
+
+            await _systemSelectionOrchestrator.ReloadAfterConfigurationChangeAsync();
+            RefreshSidebarCounts();
+            await ShowSystemSelectionScreenAsync();
+
+            await messageBox.SystemHasBeenDeletedMessageBoxAsync(systemName);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error deleting system from grid");
         }
     }
 

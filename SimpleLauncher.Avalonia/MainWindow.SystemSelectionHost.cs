@@ -26,6 +26,9 @@ public partial class MainWindow : ISystemSelectionHost
 
     void ISystemSelectionHost.NavigateToSystem(string systemName)
     {
+        // Selecting a system always returns to the game browser — otherwise games
+        // would load invisibly behind an open Favorites / History / Search section.
+        _ = ShowSectionAsync(MainSection.None);
         _viewModel.NavigateToSystemCommand.Execute(systemName);
     }
 

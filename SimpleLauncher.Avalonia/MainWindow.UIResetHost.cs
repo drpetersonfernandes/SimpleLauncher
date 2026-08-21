@@ -64,10 +64,9 @@ public partial class MainWindow : IUiResetHost
 
     Task IUiResetHost.DisplaySystemSelectionScreenAsync(CancellationToken cancellationToken)
     {
-        _viewModel.NavigateToAllGamesCommand.Execute(null);
-        RefreshSidebarCounts();
-        ScrollToTop();
-        UpdateLetterBarSelection("");
+        // WPF parity: restart / home / emergency release always returns to
+        // the system selection screen (DisplaySystemSelectionScreenAsync).
+        _ = ShowSystemSelectionScreenAsync();
         return Task.CompletedTask;
     }
 
