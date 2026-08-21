@@ -4,7 +4,11 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Http.Resilience;
+using Polly;
 using Serilog.Events;
+using System.Net.Security;
+using System.Security.Authentication;
 using SimpleLauncher.Core;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.AvaloniaServices;
@@ -302,14 +306,21 @@ public class App : Application, IDisposable
         services.AddSingleton(Log.Logger);
 
         // ── Named HttpClient factories ──
-        services.AddHttpClient("LogErrorsClient");
-        services.AddHttpClient("StatsClient");
-        services.AddHttpClient("UpdateCheckerClient");
-        services.AddHttpClient("RetroAchievementsClient", client =>
+        // Each client gets its own SocketsHttpHandler with explicit TLS 1.2/1.3 support
+        // (mirror of the WPF App.xaml.cs registrations).
+        services.AddHttpClient("LogErrorsClient").ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
+        services.AddHttpClient("StatsClient").ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
+        services.AddHttpClient("UpdateCheckerClient", static client =>
+        {
+            // Keep the check responsive: a hung GitHub/fallback request must not stall
+            // the update check for the default 100 s.
+            client.Timeout = TimeSpan.FromSeconds(30);
+        }).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
+        services.AddHttpClient("RetroAchievementsClient", static client =>
         {
             client.Timeout = TimeSpan.FromSeconds(30);
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher.Avalonia/1.0");
-        });
+        }).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
         services.AddHttpClient("GameImageClient", client =>
         {
             var apiUrl = configuration.GetValue<string>("ApiSettings:GameImageUrl")
@@ -317,8 +328,8 @@ public class App : Application, IDisposable
             client.BaseAddress = new Uri(apiUrl);
             client.Timeout = TimeSpan.FromSeconds(20);
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher.Avalonia/1.0");
-        });
-        services.AddHttpClient("SupportWindowClient");
+        }).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
+        services.AddHttpClient("SupportWindowClient").ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
         services.AddHttpClient("EasyModeClient", client =>
         {
             // Set the base address for the EasyMode configuration API
@@ -331,7 +342,7 @@ public class App : Application, IDisposable
 
             client.BaseAddress = new Uri(easyModeUrl);
             client.Timeout = TimeSpan.FromSeconds(30);
-        });
+        }).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
         services.AddHttpClient("GameClassificationClient", client =>
         {
             // Set the base address for the Microsoft Store game classification API
@@ -340,7 +351,7 @@ public class App : Application, IDisposable
             client.BaseAddress = new Uri(classificationUrl);
             client.Timeout = TimeSpan.FromSeconds(30);
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher.Avalonia/1.0");
-        });
+        }).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
         services.AddHttpClient("ParameterResolverClient", client =>
         {
             // Set the base address for the parameter resolver API (same as the WPF app)
@@ -354,8 +365,22 @@ public class App : Application, IDisposable
             client.BaseAddress = new Uri(resolverUrl);
             client.Timeout = TimeSpan.FromSeconds(60);
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher.Avalonia/1.0");
-        });
-        services.AddHttpClient("DownloadClient");
+        }).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
+
+        // Downloads get the standard resilience pipeline (retry with exponential backoff +
+        // jitter) — image packs are large, multi-hundred-MB files over flaky home connections.
+        // Same options as the WPF app. Retries are limited to this client because download
+        // GETs are idempotent; API POSTs (bug reports, stats) must not be replayed.
+        services.AddHttpClient("DownloadClient")
+            .ConfigurePrimaryHttpMessageHandler(CreateHttpHandler)
+            .SetHandlerLifetime(TimeSpan.FromMinutes(5))
+            .AddStandardResilienceHandler(static options =>
+            {
+                options.Retry.MaxRetryAttempts = 5;
+                options.Retry.Delay = TimeSpan.FromSeconds(2);
+                options.Retry.BackoffType = DelayBackoffType.Exponential;
+                options.Retry.UseJitter = true;
+            });
 
         // ── Host services (implement Core interfaces) ──
         services.AddSingleton<IDispatcherService, AvaloniaDispatcherService>();
@@ -692,6 +717,24 @@ public class App : Application, IDisposable
         services.AddSingleton<AvaloniaGlobalHotkeyService>();
         services.AddSingleton<AvaloniaActiveWindowScreenshotService>();
 #endif
+    }
+
+    /// <summary>
+    /// Creates the primary handler for named HttpClients: explicit TLS 1.2/1.3,
+    /// 5-minute pooled connection lifetime, and a 20-second connect timeout.
+    /// Mirror of the WPF App.xaml.cs CreateHttpHandler.
+    /// </summary>
+    private static HttpMessageHandler CreateHttpHandler()
+    {
+        return new SocketsHttpHandler
+        {
+            SslOptions = new SslClientAuthenticationOptions
+            {
+                EnabledSslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13
+            },
+            PooledConnectionLifetime = TimeSpan.FromMinutes(5),
+            ConnectTimeout = TimeSpan.FromSeconds(20)
+        };
     }
 
     /// <summary>

@@ -7,20 +7,18 @@
 6. [Game Launcher — Play History & Stats Integration](#6-game-launcher--play-history--stats-integration)
 7. [Game Launcher — Validation & Safety Checks](#7-game-launcher--validation--safety-checks)
 8. [Context Menu Localization](#8-context-menu-localization)
-9. [Missing NuGet Packages](#9-missing-nuget-packages)
+9. [NuGet Package Comparison](#9-nuget-package-comparison)
 10. [Missing Services (extracted from MainWindow)](#10-missing-services-extracted-from-mainwindow)
 11. [Other Gaps](#11-other-gaps)
 12. [Summary — Priority Matrix](#12-summary--priority-matrix)
 
 ---
 
----
-
 ## 2. Localization
 
-**WPF:** 18 languages, ~2,370 string keys in XAML resource dictionaries.
+**WPF:** 18 languages, ~2,370 string keys in XAML resource dictionaries (`resources\strings.*.xaml`).
 
-**Avalonia:** 18 languages present, but only **68 string keys** (~2.9% coverage).
+**Avalonia:** 18 languages present (`Resources\strings.*.json`), but only **68 string keys** (~2.9% coverage).
 
 | Missing Coverage | Examples |
 |---|---|
@@ -29,7 +27,7 @@
 | Error messages | Launch failures, file-not-found, emulator errors, validation messages |
 | Emulator config | All 21 inject config window labels/descriptions |
 | Settings labels | PreferencesWindow, SoundConfiguration, FuzzyMatching, GamepadDeadZone |
-| Window titles | All 27+ window title strings |
+| Window titles | All window title strings |
 | Status messages | Startup, scanning, loading, error status texts |
 | Tooltip text | Button tooltips, menu item tooltips |
 | Confirmation dialogs | Delete confirmations, exit confirmations, overwrite warnings |
@@ -42,17 +40,18 @@ The `LocalizationService` infrastructure is solid — keys just need to be added
 
 **WPF:** Full SharpDX XInput/DirectInput gamepad with dead zone config, button mapping, analog stick scrolling.
 
-**Avalonia:** UI shell exists (dead zone window, toggle checkbox) but **runtime not wired**.
+**Avalonia:** **Functional on Windows.** `GamePadController` lives in Core and is shared by both UIs:
 
-| What's Missing | WPF Source | Notes |
-|---|---|---|
-| `GamePadController` DI registration | `App.xaml.cs` | Not registered in Avalonia's DI container |
-| SharpDX packages in .csproj | `SimpleLauncher.csproj` | `SharpDX`, `SharpDX.DirectInput`, `SharpDX.XInput` not referenced |
-| Gamepad navigation logic | `MainWindow.xaml.cs` | D-pad/scroll stick scrolling of game grid, button-to-action mapping |
-| Pause/resume on game launch | `GameLauncherService.cs` | Pause controller input while emulator is running |
-| Gamepad state in context menu | `RightClickContext` | Constructor accepts `GamePadController` but none is passed |
+| What Was Missing | Status |
+|---|---|
+| `GamePadController` DI registration | Done — `App.axaml.cs` registers it as a singleton |
+| SharpDX packages in .csproj | Done — flows transitively from `SimpleLauncher.Core` (SharpDX, SharpDX.DirectInput, SharpDX.XInput) |
+| Start/stop lifecycle | Done — started/stopped with MainWindow, initialized by `AvaloniaStartupInitializationService` (dead zones applied from settings), toggle in PreferencesWindow |
+| Pause/resume on game launch | Done — `MinimalLauncherService` stops the controller before launch and resumes after exit |
+| Dead zone configuration | Done — `SetGamepadDeadZoneWindow` + `SetGamepadDeadZoneViewModel`, persisted via `SettingsManagerService` |
+| Gamepad state in context menu | Done — `RightClickContext` accepts `GamePadController` |
 
-**Note:** SharpDX is Windows-only. Linux gamepad would require a different library (e.g., `SDL2-CS` or `OpenTK`).
+**Remaining gap:** SharpDX/XInput/DirectInput are Windows-only. On the `net10.0` Linux TFM the controller compiles but cannot function — Linux gamepad support would require a different library (e.g., `SDL2-CS` or `OpenTK`) behind a platform abstraction.
 
 ---
 
@@ -111,18 +110,20 @@ Implemented in `MinimalLauncherService.cs` via `UpdateStatsAndPlayCountAsync()`:
 
 ## 7. Game Launcher — Validation & Safety Checks
 
-**WPF** has extensive pre-launch and post-launch validation. **Avalonia** has basic checks only.
+**WPF** has extensive pre-launch and post-launch validation. **Avalonia `MinimalLauncherService.cs`** now implements all of them.
 
-| What's Missing | WPF Source | Notes |
+| Check | WPF Source | Avalonia Status |
 |---|---|---|
-| Batch file path validation | `ValidateBatchFile.FindInvalidQuotedPathsSimple()` | Detects broken quoted paths in .bat files |
-| Protocol handler registry check | `LaunchShortcutFileAsync` | Verifies .URL protocol handler exists |
-| Unicode normalization | `ValidateContextAsync` → `TryFindFileWithNormalizedPath()` | Handles Unicode-normalized file paths |
-| Long path support | `PathHelper.GetLongPath()` | Windows long path (>260 char) handling |
-| OneDrive guidance | `ValidateContextAsync` | Detects OneDrive-managed folders, warns user |
-| Ootake input validation | Pre-launch check | Prevents passing image files to Ootake |
-| Geolith input validation | Pre-launch check | Prevents passing compressed files to Geolith |
-| Emulator path normalization | Pre-launch check | Normalizes Unicode in emulator executable path |
+| Batch file path validation | `ValidateBatchFile.FindInvalidQuotedPathsSimple()` | Done — `RunBatchFileAsync` detects broken quoted paths, offers continue/abort via `BatchFilePathsMissingMessageBoxAsync` |
+| Protocol handler registry check | `LaunchShortcutFileAsync` | Done — `.URL` targets verified against HKEY_CLASSES_ROOT (`IsProtocolRegistered`, Windows-only guard); missing handler shows `ProtocolHandlerNotRegisteredMessageBoxAsync`. Invalid .url files are rejected instead of silently launched |
+| Unicode normalization | `ValidateContextAsync` → `TryFindFileWithNormalizedPath()` | Done — game path retried across NFC/NFD/KC/KD forms; found path replaces `ResolvedFilePath` |
+| Long path support | `PathHelper.GetLongPath()` | Done — existence checks run in both standard and `\\?\` long-path formats |
+| OneDrive guidance | `ValidateContextAsync` | Done — distinguishes unsynced file vs. inaccessible parent folder; also applied to emulator executable resolution |
+| Ootake input validation | Pre-launch check | Done — blocks .chd/.bin/.cue/.iso on the post-extraction launch path (`OotakeDoesNotSupportImageFilesMessageBoxAsync`) |
+| Geolith input validation | Pre-launch check | Done — blocks .zip/.7z/.rar when parameters reference `geolith_libretro` (`GeolithDoesNotSupportCompressedFilesMessageBoxAsync`) |
+| Emulator path normalization | Pre-launch check | Done — emulator executable resolution retries via long path + Unicode normalization before failing, with OneDrive guidance |
+
+Also ported: the WPF path-format mismatch diagnostic (standard vs. long path existence disagreement is logged for developer investigation without blocking the launch).
 
 ---
 
@@ -130,42 +131,68 @@ Implemented in `MinimalLauncherService.cs` via `UpdateStatsAndPlayCountAsync()`:
 
 **WPF:** Context menu items use `{DynamicResource ...}` bindings to localized strings.
 
-**Avalonia:** Context menu items are hardcoded English strings in `MainWindow.axaml.cs`.
+**Avalonia:** Context menu items are hardcoded English strings (with emoji prefixes) built programmatically in `MainWindow.axaml.cs` → `ShowGameContextMenu()`.
 
 | Hardcoded String | Should Be Localized |
 |---|---|
-| `"Play"` | `ContextPlay` |
-| `"Add to Favorites"` / `"Remove from Favorites"` | `ContextAddFavorite` / `ContextRemoveFavorite` |
-| `"Show Details"` | `ContextShowDetails` |
-| `"Achievements"` | `ContextAchievements` |
-| `"Copy Path"` | `ContextCopyPath` |
-| `"Copy Name"` | `ContextCopyName` |
-| `"Show in Folder"` | `ContextShowInFolder` |
-| `"Edit System"` | `ContextEditSystem` |
+| `"▶ Play"` | `ContextPlay` |
+| `"♡ Add to Favorites"` / `"♥ Remove from Favorites"` | `ContextAddFavorite` / `ContextRemoveFavorite` |
+| `"ℹ Show Details"` | `ContextShowDetails` |
+| `"🏆 Achievements"` | `ContextAchievements` |
+| `"📋 Copy Path"` | `ContextCopyPath` |
+| `"📝 Copy Name"` | `ContextCopyName` |
+| `"📂 Show in Folder"` | `ContextShowInFolder` |
+| `"✏ Edit System"` | `ContextEditSystem` |
 
 ---
 
-## 9. Missing NuGet Packages
+## 9. NuGet Package Comparison
 
-| WPF Package | Purpose | Avalonia Status |
+Most WPF packages are no longer missing from Avalonia — they flow **transitively via the `SimpleLauncher.Core` project reference**, which now references them directly.
+
+### Provided transitively by SimpleLauncher.Core (no action needed)
+
+| WPF Package | Purpose | Avalonia Access |
 |---|---|---|
-| `InputSimulatorCore` | Keyboard/mouse simulation | Not referenced — needed for gamepad-to-keyboard mapping |
-| `MahApps.Metro` | MetroWindow, themes, controls | N/A (Avalonia uses Fluent theme) |
-| `MdXaml` | Markdown rendering | Not referenced — need alternative (e.g., Markdig) |
-| `Microsoft.Extensions.Caching.Memory` | In-memory caching | Not referenced — `RemoteImageLoader` uses custom cache |
-| `Microsoft.Extensions.Http.Resilience` | HTTP retry policies | Not referenced — no resilience on HTTP clients |
-| `SharpDX` / `SharpDX.DirectInput` / `SharpDX.XInput` | Gamepad input | Not referenced — gamepad non-functional |
-| `SharpCompress` | Archive extraction (RAR, 7z) | Not referenced — may be in Core |
-| `Tomlyn` | TOML parsing (Xenia config) | Not referenced — may be in Core |
-| `YamlDotNet` | YAML parsing | Not referenced — may be in Core |
-| `SourceGear.sqlite3` | Native SQLite binaries | Not referenced — may be in Core |
-| `NAudio.*` | Audio playback | Referenced in Core, not directly in Avalonia .csproj |
+| `MessagePack` | Favorites/history serialization | Via Core |
+| `Microsoft.Data.Sqlite` + `SourceGear.sqlite3` | SQLite | Via Core |
+| `Microsoft.Extensions.Caching.Memory` | In-memory caching | Via Core |
+| `Microsoft.Extensions.Http.Resilience` | HTTP retry policies | Via Core — now wired into `DownloadClient` (see below) |
+| `NAudio.*` (Core/Wasapi/WinMM/Alsa/SoundFile) | Audio playback | Via Core (cross-platform: WASAPI/WinMM on Windows, ALSA/libsndfile on Linux) |
+| `SharpCompress` | Archive extraction (RAR, 7z) | Via Core |
+| `Tomlyn` | TOML parsing (Xenia config) | Via Core |
+| `YamlDotNet` | YAML parsing (RPCS3 config) | Via Core |
+| `InputSimulatorCore` | Keyboard/mouse simulation (gamepad) | Via Core |
+| `SharpDX` / `SharpDX.DirectInput` / `SharpDX.XInput` | Gamepad input | Via Core (Windows-only at runtime) |
+
+### Avalonia-specific packages (replacing WPF-only equivalents)
+
+| Avalonia Package | Replaces / Purpose |
+|---|---|
+| `Avalonia` / `Avalonia.Desktop` / `Avalonia.Themes.Fluent` 12.1.1 | UI framework (replaces WPF + `MahApps.Metro`) |
+| `Avalonia.Controls.DataGrid` 12.1.2 | DataGrid control |
+| `Markdown.Avalonia` 11.0.3 | Replaces `MdXaml` |
+| `System.Drawing.Common` 10.0.11 (net10.0-windows TFM only) | F8 screenshot capture (Windows-only) |
+
+### Intentionally absent (platform equivalents)
+
+| WPF Package | Reason |
+|---|---|
+| `MahApps.Metro` | N/A — Avalonia uses the Fluent theme |
+| `Hardcodet.NotifyIcon.Wpf` | N/A — Avalonia has built-in `TrayIcon` (`AvaloniaTrayIconManager`) |
+
+### HTTP resilience (wired)
+
+All named HttpClients in Avalonia's `App.axaml.cs` now mirror the WPF wiring:
+
+- Every client gets a `SocketsHttpHandler` primary handler with explicit TLS 1.2/1.3, 5-minute pooled connection lifetime, and a 20-second connect timeout (`CreateHttpHandler`).
+- `DownloadClient` additionally gets `.SetHandlerLifetime(5 min)` + `.AddStandardResilienceHandler()` (5 retries, 2 s delay, exponential backoff, jitter) — same options as WPF. Retries are limited to this client because download GETs are idempotent; API POSTs (bug reports, stats) must not be replayed.
 
 ---
 
 ## 10. Missing Services (extracted from MainWindow)
 
-The WPF project extracts business logic into standalone services. The Avalonia project inlines this logic into `MainWindow.axaml.cs` and `MainViewModel.cs`. While the functionality may exist, it's not in a testable, reusable service.
+The WPF project extracts business logic into standalone services (all under `SimpleLauncher\Services\`). The Avalonia project inlines this logic into `MainWindow.axaml.cs` and `MainViewModel.cs`. While the functionality may exist, it's not in a testable, reusable service.
 
 | WPF Service | Purpose | Avalonia Status |
 |---|---|---|
@@ -189,15 +216,12 @@ The WPF project extracts business logic into standalone services. The Avalonia p
 
 | Gap | WPF | Avalonia | Impact |
 |---|---|---|---|
-| `GameDetailWindow` missing | Does not exist in WPF | **Avalonia has it** — this is an Avalonia addition | N/A |
-| `PreferencesWindow` missing | Settings scattered across menus | **Avalonia has it** — consolidated settings dialog | N/A |
 | Emergency return button on loading | Loading overlay has cancel button after timeout | Not implemented | Low |
-| `MessagePack` NuGet | Used for favorites/history serialization | Referenced in Avalonia .csproj | OK |
-| `AppSettings` static class | WPF-specific settings accessor | Avalonia uses `SettingsManagerService` from Core | OK |
 | `ApplicationStats` static class | WPF-specific stats helper | Avalonia uses Core `Stats` class directly | Minor |
 | WPF-specific converters | `ImageUrlConverter`, `BooleanToFavoriteStatusConverter` | Avalonia has equivalents (`PathToImageConverter`, `BooleanToFavoriteStatusConverter`) | OK |
 | `FilterMenu` letter/number panel | `UiHelpers/FilterMenu.cs` | Built into `MainViewModel.ApplyLetterFilter()` | OK |
-| Window count (WPF: 27 + 21 inject = 48) | All WPF windows | Avalonia has 28 + 21 inject = 49 (includes `GameDetailWindow` + `PreferencesWindow` + `MessageDialogWindow`) | OK |
+| Updater | Standalone `Updater.exe` shipped next to the app | `SimpleLauncher.Avalonia.Updater` project referenced and copied to output by build target | OK |
+| Window count (WPF: 24 + 21 inject = 45) | All WPF windows | Avalonia has 26 + 21 inject = 47 (adds `GameDetailWindow` + `PreferencesWindow` + `MessageDialogWindow`; WPF's `ToastNotificationWindow` replaced by in-window toast stack) | OK |
 
 ---
 
@@ -209,23 +233,21 @@ The WPF project extracts business logic into standalone services. The Avalonia p
 |---|---|---|
 | 1 | **Theme system** — Light/Adaptive/HighContrast/Midnight + 27 accent colors | Large |
 | 2 | **Localization** — expand from 68 to ~2,370 keys across 18 languages | Large |
-| 3 | **Gamepad support** — wire up `GamePadController` in DI, add SharpDX or alternative | Medium |
 
 ### Important (parity gaps)
 
 | # | Feature | Effort |
 |---|---|---|
-| 4 | **Pre-launch validation** — batch file paths, Unicode normalization, long paths | Medium |
-| 5 | **Context menu localization** — replace hardcoded English strings | Small |
+| 3 | **Context menu localization** — replace hardcoded English strings | Small |
 
 ### Nice-to-have (architectural improvements)
 
 | # | Feature | Effort |
 |---|---|---|
-| 6 | **Extract services from MainWindow** — MenuOrchestrator, UIReset, etc. | Large |
-| 7 | **HTTP resilience** — add `Microsoft.Extensions.Http.Resilience` | Small |
-| 8 | **DisplaySystemInformation** — OS/hardware info window | Small |
-| 9 | **SystemImageResolverService** — fuzzy-matching system image resolver | Medium |
+| 4 | **Extract services from MainWindow** — MenuOrchestrator, UIReset, etc. | Large |
+| 5 | **DisplaySystemInformation** — OS/hardware info window | Small |
+| 6 | **SystemImageResolverService** — fuzzy-matching system image resolver | Medium |
+| 7 | **Linux gamepad backend** — SDL2-CS/OpenTK alternative to SharpDX for the net10.0 TFM | Medium |
 
 ### Already at parity (no action needed)
 
@@ -235,7 +257,7 @@ The WPF project extracts business logic into standalone services. The Avalonia p
 - Loading overlays (per-window)
 - Image viewer
 - Flash overlay
-- F8 screenshot (Windows-only)
+- F8 screenshot (Windows-only, `System.Drawing.Common` on the net10.0-windows TFM)
 - Favorites / Play History / Global Search (embedded sections)
 - Game launch strategies (8 total, all present)
 - Emulator config handlers (21 total, all present)
@@ -244,8 +266,11 @@ The WPF project extracts business logic into standalone services. The Avalonia p
 - Markdown rendering (`Markdown.Avalonia` v11.0.3 — `MarkdownScrollViewer` in `UpdateHistoryWindow`)
 - Post-exit error analysis (`AnalyzeProcessExitAsync` in `MinimalLauncherService` — all 9 handlers + emulator skip list + MAME INI auto-restore)
 - Play history & stats integration (`UpdateStatsAndPlayCountAsync` — `RecordPlayAsync`, `Stats.CallApiAsync`, `GamePlayed` event, 5s threshold, `ReceiveANotificationOnEmulatorError` gate)
+- Pre-launch validation & safety checks (batch file paths, protocol handler registry, Unicode normalization, long paths, OneDrive guidance, Ootake/Geolith input gates, emulator path normalization)
+- HTTP resilience (SocketsHttpHandler primary handler on all named clients; standard resilience pipeline with retry/backoff/jitter on `DownloadClient` — mirrors WPF)
+- Gamepad support on Windows (DI registration, lifecycle, pause-on-launch, dead zone config — SharpDX via Core)
 - Bug report sink (shared from Core)
 - File watcher (Core + Avalonia wrapper)
 - Game cache (`AvaloniaGameCacheService`)
-- Update checker (`AvaloniaCheckForUpdatesService`)
+- Update checker (`AvaloniaCheckForUpdatesService`) + self-updater (`SimpleLauncher.Avalonia.Updater` shipped next to the app)
 - 18 language files (just need more keys)

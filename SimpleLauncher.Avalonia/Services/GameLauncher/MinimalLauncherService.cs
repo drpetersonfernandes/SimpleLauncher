@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.Versioning;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
@@ -179,16 +180,74 @@ public class MinimalLauncherService : ILauncherService
             return false;
         }
 
-        var fileExists = File.Exists(context.ResolvedFilePath);
-        var directoryExists = Directory.Exists(context.ResolvedFilePath);
+        var standardPath = context.ResolvedFilePath;
+        var longPath = PathHelper.GetLongPath(standardPath);
+
+        // Check both standard and long path formats for maximum compatibility (>260 char paths)
+        var standardFileExists = File.Exists(standardPath);
+        var longFileExists = File.Exists(longPath);
+        var standardDirExists = Directory.Exists(standardPath);
+        var longDirExists = Directory.Exists(longPath);
+
+        var fileExists = standardFileExists || longFileExists;
+        var directoryExists = standardDirExists || longDirExists;
+
+        // If file doesn't exist, try Unicode normalization variations.
+        // This handles cases where filenames have different normalization forms (NFC vs NFD),
+        // commonly occurring when files are created on different operating systems (macOS vs Windows).
+        string? normalizedPath = null;
+        if (!fileExists && !directoryExists)
+        {
+            normalizedPath = PathHelper.TryFindFileWithNormalizedPath(standardPath);
+            if (!string.IsNullOrEmpty(normalizedPath))
+            {
+                fileExists = true;
+                context.ResolvedFilePath = normalizedPath;
+                Log.Debug("[ValidateContextAsync] Found file using Unicode normalization: {Path}", normalizedPath);
+            }
+        }
 
         if (!fileExists && !directoryExists)
         {
+            var msg = $"File not found: {context.ResolvedFilePath}";
+
+            // OneDrive-specific guidance: cloud-only placeholders and unsynced folders are
+            // the most common cause of "file not found" for otherwise valid library entries.
+            if (context.ResolvedFilePath.Contains("OneDrive", StringComparison.OrdinalIgnoreCase))
+            {
+                var parentDir = Path.GetDirectoryName(context.ResolvedFilePath);
+                var oneDriveFolderExists = !string.IsNullOrEmpty(parentDir) && Directory.Exists(parentDir);
+                msg += oneDriveFolderExists
+                    ? "\nThe file is in a OneDrive folder but could not be found. " +
+                      "Ensure the file is synced and downloaded to your device. " +
+                      "Right-click the file in File Explorer and select 'Always keep on this device'."
+                    : "\nThe parent OneDrive folder does not exist or is not accessible. " +
+                      "Ensure OneDrive is signed in and synced, and that the folder is available on this device.";
+            }
+
             // Expected condition: the game entry is stale (file deleted/moved since the list
             // was loaded) and the user is already notified via the message box — not a bug report.
-            Log.Information("File not found: {Path}", context.ResolvedFilePath);
+            Log.Information(new FileNotFoundException(msg), msg);
             await _messageBox.FilePathIsInvalidMessageBoxAsync(LogFilePath());
             return false;
+        }
+
+        // Detect path format mismatch (exists in one format but not the other).
+        // Helps identify Unicode normalization or path handling issues; logged for developer
+        // investigation but does not block the launch.
+        if ((standardFileExists != longFileExists) || (standardDirExists != longDirExists))
+        {
+            Log.Error(
+                "Path validation mismatch detected:\n" +
+                "  Original Path: {Original}\n" +
+                "  Resolved Path: {Resolved}\n" +
+                "  Long Path: {Long}\n" +
+                "  Normalized Path Found: {Normalized}\n" +
+                "  Standard File.Exists: {StdFile}, Long Path File.Exists: {LongFile}\n" +
+                "  Standard Directory.Exists: {StdDir}, Long Path Directory.Exists: {LongDir}\n" +
+                "  This may indicate a Unicode normalization or path handling issue.",
+                context.FilePath, standardPath, longPath, normalizedPath ?? "N/A",
+                standardFileExists, longFileExists, standardDirExists, longDirExists);
         }
 
         if (string.IsNullOrWhiteSpace(context.EmulatorName))
@@ -416,6 +475,35 @@ public class MinimalLauncherService : ILauncherService
                 }
             }
 
+            // ── Emulator input validation (ported from the WPF launcher) ──
+            // Checked on the post-extraction/mount path (actualFilePath), mirroring the
+            // WPF launcher which validates after archive extraction.
+            var isOotakeEmulator = emulatorName.Contains("Ootake", StringComparison.OrdinalIgnoreCase) ||
+                                   emulatorLocation.Contains("ootake.exe", StringComparison.OrdinalIgnoreCase);
+            if (isOotakeEmulator &&
+                Path.GetExtension(actualFilePath) is ".chd" or ".bin" or ".cue" or ".iso")
+            {
+                Log.Information(
+                    "Ootake does not support CHD/ISO/CUE-BIN image files. Launch blocked. File: {Path}",
+                    actualFilePath);
+                await _messageBox.OotakeDoesNotSupportImageFilesMessageBoxAsync();
+                loadingStateProvider?.SetLoadingState(false);
+                return;
+            }
+
+            var isGeolithCore = (selectedEmulatorManager.EmulatorParameters ?? "")
+                .Contains("geolith_libretro", StringComparison.OrdinalIgnoreCase);
+            if (isGeolithCore &&
+                Path.GetExtension(actualFilePath) is ".zip" or ".7z" or ".rar")
+            {
+                Log.Information(
+                    "The Geolith libretro core only supports NEO files. Launch blocked. File: {Path}",
+                    actualFilePath);
+                await _messageBox.GeolithDoesNotSupportCompressedFilesMessageBoxAsync();
+                loadingStateProvider?.SetLoadingState(false);
+                return;
+            }
+
             // ── Run matching emulator config handlers ──
             var emulatorPath = selectedEmulatorManager.EmulatorLocation ?? "";
             var matchingHandlers = _configHandlers.Where(h => h.IsMatch(emulatorName, emulatorPath)).ToList();
@@ -499,10 +587,41 @@ public class MinimalLauncherService : ILauncherService
                 return;
             }
 
-            // Resolve %BASEFOLDER% / relative emulator paths from system.xml to a real path
+            // Resolve %BASEFOLDER% / relative emulator paths from system.xml to a real path,
+            // tolerating long paths (>260 chars) and Unicode normalization differences (NFC vs NFD).
             var resolvedEmulatorPath = PathHelper.ResolveRelativeToAppDirectory(emulatorPath);
-            if (resolvedEmulatorPath == null || !File.Exists(resolvedEmulatorPath))
+            if (string.IsNullOrEmpty(resolvedEmulatorPath) ||
+                (!File.Exists(resolvedEmulatorPath) && !File.Exists(PathHelper.GetLongPath(resolvedEmulatorPath))))
             {
+                var normalizedEmulatorPath = PathHelper.TryFindFileWithNormalizedPath(resolvedEmulatorPath);
+                if (!string.IsNullOrEmpty(normalizedEmulatorPath))
+                {
+                    Log.Debug("[LaunchRegularEmulatorAsync] Found emulator using Unicode normalization: {Path}",
+                        normalizedEmulatorPath);
+                    resolvedEmulatorPath = normalizedEmulatorPath;
+                }
+            }
+
+            if (string.IsNullOrEmpty(resolvedEmulatorPath) || !File.Exists(resolvedEmulatorPath))
+            {
+                var msg = $"Emulator executable not found after resolving: '{emulatorPath}' -> '{resolvedEmulatorPath}'";
+
+                // OneDrive-specific guidance for the emulator executable
+                if (!string.IsNullOrEmpty(resolvedEmulatorPath) &&
+                    resolvedEmulatorPath.Contains("OneDrive", StringComparison.OrdinalIgnoreCase))
+                {
+                    var parentDir = Path.GetDirectoryName(resolvedEmulatorPath);
+                    var oneDriveFolderExists = !string.IsNullOrEmpty(parentDir) && Directory.Exists(parentDir);
+                    msg += oneDriveFolderExists
+                        ? "\nThe emulator file is in a OneDrive folder but could not be found. " +
+                          "Ensure the file is synced and downloaded to your device. " +
+                          "Right-click the file in File Explorer and select 'Always keep on this device'."
+                        : "\nThe parent OneDrive folder does not exist or is not accessible. " +
+                          "Ensure OneDrive is signed in and synced, and that the folder is available on this device.";
+                }
+
+                // Expected user condition (emulator moved/deleted/unconfigured) — Information level.
+                Log.Information(msg);
                 await _messageBox.ErrorLaunchingGameMessageBoxAsync($"Emulator not found: {emulatorPath}");
                 return;
             }
@@ -712,6 +831,28 @@ public class MinimalLauncherService : ILauncherService
         Emulator selectedEmulatorManager,
         IWindowContext windowContext)
     {
+        // Detect broken quoted paths inside the .bat file before running it
+        // (port of the WPF launcher pre-flight check).
+        IList<string> invalidPaths;
+        try
+        {
+            invalidPaths = Core.Services.GameLauncher.ValidateBatchFile.FindInvalidQuotedPathsSimple(resolvedFilePath);
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "Batch file validation could not complete for {Path}", resolvedFilePath);
+            invalidPaths = [];
+        }
+
+        if (invalidPaths.Count > 0)
+        {
+            // Expected user condition (broken/moved paths referenced by the .bat) — Information level.
+            Log.Information("Batch file references {Count} missing path(s): {Paths}",
+                invalidPaths.Count, string.Join("; ", invalidPaths));
+            var shouldContinue = await _messageBox.BatchFilePathsMissingMessageBoxAsync(invalidPaths);
+            if (!shouldContinue) return;
+        }
+
         Exception? error = null;
         await Task.Run(() =>
         {
@@ -765,28 +906,56 @@ public class MinimalLauncherService : ILauncherService
         Emulator selectedEmulatorManager,
         IWindowContext windowContext)
     {
+        // Validate the shortcut itself exists (long-path safe on Windows)
+        var shortcutExists = File.Exists(resolvedFilePath) ||
+                             (OperatingSystem.IsWindows() && File.Exists(PathHelper.GetLongPath(resolvedFilePath)));
+        if (!shortcutExists)
+        {
+            Log.Information("Shortcut file not found: {Path}", resolvedFilePath);
+            await _messageBox.ErrorLaunchingGameMessageBoxAsync($"Shortcut file not found: {resolvedFilePath}");
+            return;
+        }
+
+        string? targetUrl = null;
+        if (Path.GetExtension(resolvedFilePath).Equals(".url", StringComparison.OrdinalIgnoreCase))
+        {
+            targetUrl = ExtractUrlFromShortcutFile(resolvedFilePath);
+            if (string.IsNullOrWhiteSpace(targetUrl))
+            {
+                Log.Information("Invalid .url file format or missing URL in: {Path}", resolvedFilePath);
+                await _messageBox.ErrorLaunchingGameMessageBoxAsync($"Invalid .url file: {resolvedFilePath}");
+                return;
+            }
+
+            // Verify the protocol handler is registered ONLY for real URIs (contains "://")
+            // so drive letters (C:\) are not treated as protocols. Windows-only: the
+            // HKEY_CLASSES_ROOT shell-registration concept does not exist on Linux.
+            var protocolIndex = targetUrl.IndexOf("://", StringComparison.Ordinal);
+            if (protocolIndex > 0 && OperatingSystem.IsWindows())
+            {
+                var protocol = targetUrl[..protocolIndex];
+                if (!IsProtocolRegistered(protocol))
+                {
+                    Log.Information(
+                        "Protocol handler '{Protocol}' is not registered. Cannot launch: {Url}",
+                        protocol, targetUrl);
+                    await _messageBox.ProtocolHandlerNotRegisteredMessageBoxAsync(protocol);
+                    return;
+                }
+            }
+        }
+
         Exception? error = null;
         await Task.Run(() =>
         {
             try
             {
-                var target = resolvedFilePath;
-
-                // .URL files are plain-text internet shortcuts — extract the target URL
-                if (Path.GetExtension(resolvedFilePath).Equals(".url", StringComparison.OrdinalIgnoreCase))
-                {
-                    var url = ExtractUrlFromShortcutFile(resolvedFilePath);
-                    if (!string.IsNullOrEmpty(url))
-                    {
-                        target = url;
-                    }
-                }
-
                 var process = new Process
                 {
                     StartInfo = new ProcessStartInfo
                     {
-                        FileName = target,
+                        // Launch the extracted URL directly for .url files, not the shortcut itself
+                        FileName = targetUrl ?? resolvedFilePath,
                         UseShellExecute = true
                     }
                 };
@@ -1247,6 +1416,55 @@ public class MinimalLauncherService : ILauncherService
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// Checks the Windows registry (HKEY_CLASSES_ROOT) for a registered handler for the
+    /// given URL protocol. Port of the WPF GameLauncherService.IsProtocolRegistered.
+    /// Callers must guard with <see cref="OperatingSystem.IsWindows()"/>.
+    /// </summary>
+    [SupportedOSPlatform("windows")]
+    private bool IsProtocolRegistered(string protocol)
+    {
+        if (string.IsNullOrEmpty(protocol)) return false;
+
+        try
+        {
+            // Protocol names are case-insensitive in the registry, but typically stored lowercase
+            using var protocolKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(protocol.ToLowerInvariant());
+            if (protocolKey == null)
+            {
+                Log.Debug("[IsProtocolRegistered] Protocol key '{Protocol}' not found in HKEY_CLASSES_ROOT.",
+                    protocol.ToLowerInvariant());
+                return false;
+            }
+
+            // A protocol is considered "registered" if it has a command handler (shell\open\command)
+            using var shellOpenCommandKey = protocolKey.OpenSubKey(@"shell\open\command");
+            if (shellOpenCommandKey == null)
+            {
+                Log.Debug("[IsProtocolRegistered] 'shell\\open\\command' subkey not found for protocol '{Protocol}'.",
+                    protocol.ToLowerInvariant());
+                return false;
+            }
+
+            var command = shellOpenCommandKey.GetValue(null) as string;
+            if (string.IsNullOrWhiteSpace(command))
+            {
+                Log.Debug("[IsProtocolRegistered] Command handler is empty for protocol '{Protocol}'.",
+                    protocol.ToLowerInvariant());
+                return false;
+            }
+
+            Log.Debug("[IsProtocolRegistered] Protocol '{Protocol}' is registered with command: '{Command}'.",
+                protocol.ToLowerInvariant(), command);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error checking if protocol '{Protocol}' is registered.", protocol);
+            return false;
+        }
     }
 
     private bool IsInEmulatorsToSkipList(string? emulatorName)
