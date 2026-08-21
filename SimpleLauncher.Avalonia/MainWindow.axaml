@@ -586,14 +586,34 @@
                         <Border x:Name="LoadingOverlay"
                                 Background="{DynamicResource OverlayProcessingBrush}"
                                 IsVisible="{Binding IsLoading}" ZIndex="50">
-                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <ProgressBar IsIndeterminate="True" Width="200" Height="4"
-                                             Foreground="{DynamicResource AccentBrush}" />
-                                <TextBlock x:Name="LoadingMessage"
-                                           Text="{Binding LoadingMessage}"
-                                           Foreground="White" FontSize="14"
-                                           HorizontalAlignment="Center" Margin="0,12,0,0" />
-                            </StackPanel>
+                            <Grid>
+                                <!-- Center Content (Spinner and Message) -->
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <ProgressBar IsIndeterminate="True" Width="200" Height="4"
+                                                 Foreground="{DynamicResource AccentBrush}" />
+                                    <TextBlock x:Name="LoadingMessage"
+                                               Text="{Binding LoadingMessage}"
+                                               Foreground="White" FontSize="14"
+                                               HorizontalAlignment="Center" Margin="0,12,0,0" />
+                                </StackPanel>
+
+                                <!-- Emergency Return Button at Bottom Right -->
+                                <Button x:Name="EmergencyReturnButton"
+                                        Content="Return"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Bottom"
+                                        Margin="30"
+                                        Padding="15,8"
+                                        FontSize="14"
+                                        FontWeight="Bold"
+                                        Background="#AAE53935"
+                                        Foreground="White"
+                                        BorderBrush="White"
+                                        BorderThickness="1"
+                                        Cursor="Hand"
+                                        ToolTip.Tip="Click here if the loading screen is stuck to return to the main menu"
+                                        Click="EmergencyReturnButton_Click" />
+                            </Grid>
                         </Border>
 
                         <!-- ═══ FAVORITES SECTION (WPF FavoritesPage equivalent) ═══ -->

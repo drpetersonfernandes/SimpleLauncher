@@ -19,6 +19,7 @@ using SimpleLauncher.Avalonia.Services.GameScan;
 using SimpleLauncher.Avalonia.Services.SystemSelectionOrchestrator;
 using SimpleLauncher.Avalonia.Services.UIReset;
 using SimpleLauncher.Avalonia.Services.ContextMenus;
+using SimpleLauncher.Avalonia.Services.LoadingOverlay;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
@@ -51,6 +52,7 @@ public partial class MainWindow : Window, IPaginationHost
     private readonly UiResetService _uiResetService;
     private readonly AvaloniaSystemSelectionOrchestratorService _systemSelectionOrchestrator;
     private readonly AvaloniaContextMenuService _contextMenuService;
+    private readonly AvaloniaLoadingOverlayService _loadingOverlay;
 
     /// <summary>Favorites page section ViewModel (WPF FavoritesPage equivalent).</summary>
     public FavoritesSectionViewModel FavoritesSection { get; }
@@ -90,7 +92,8 @@ public partial class MainWindow : Window, IPaginationHost
         GamePadController gamePadController,
         UiResetService uiResetService,
         AvaloniaSystemSelectionOrchestratorService systemSelectionOrchestrator,
-        AvaloniaContextMenuService contextMenuService)
+        AvaloniaContextMenuService contextMenuService,
+        AvaloniaLoadingOverlayService loadingOverlay)
     {
         _viewModel = viewModel;
         _systemManagerService = systemManagerService;
@@ -107,6 +110,7 @@ public partial class MainWindow : Window, IPaginationHost
         _uiResetService = uiResetService;
         _systemSelectionOrchestrator = systemSelectionOrchestrator;
         _contextMenuService = contextMenuService;
+        _loadingOverlay = loadingOverlay;
         FavoritesSection = favoritesSection;
         PlayHistorySection = playHistorySection;
         GlobalSearchSection = globalSearchSection;
@@ -593,6 +597,23 @@ public partial class MainWindow : Window, IPaginationHost
                 ShowToast("Refreshed", "Game list reloaded.");
                 e.Handled = true;
                 break;
+        }
+    }
+
+    #endregion
+
+    #region Emergency Return Button
+
+    private void EmergencyReturnButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            _loadingOverlay.EmergencyRelease();
+            ShowToast("Emergency Reset", _localization.GetString("Toast.EmergencyReset", "Loading overlay dismissed. UI has been reset."));
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in EmergencyReturnButton_Click");
         }
     }
 

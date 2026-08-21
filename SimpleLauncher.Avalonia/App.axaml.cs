@@ -31,6 +31,7 @@ using SimpleLauncher.Avalonia.Services.SearchOrchestrator;
 using SimpleLauncher.Avalonia.Services.ContextMenus;
 using SimpleLauncher.Avalonia.Services.DisplaySystemInfo;
 using SimpleLauncher.Avalonia.Services.LoadingOverlay;
+using SimpleLauncher.Avalonia.Services.UsageStats;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services;
@@ -838,6 +839,21 @@ public class App : Application, IDisposable
             catch (Exception ex)
             {
                 Log.Debug(ex, "Usage stats reporting failed on startup.");
+            }
+        });
+
+        // Call ApplicationStats API on startup (WPF parity)
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                var configuration = services.GetRequiredService<IConfiguration>();
+                var logger = services.GetRequiredService<ILogger>();
+                await ApplicationStats.CallApplicationStatsAsync(configuration, logger);
+            }
+            catch (Exception ex)
+            {
+                Log.Debug(ex, "ApplicationStats API call failed on startup.");
             }
         });
 
