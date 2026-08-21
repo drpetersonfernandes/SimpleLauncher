@@ -2034,6 +2034,7 @@ public partial class MainWindow : Window, IPaginationHost
 
             // The Expert window can add, rename, or delete systems — keep the sidebar in sync.
             await _systemSelectionOrchestrator.ReloadAfterConfigurationChangeAsync();
+            RefreshSidebarCounts();
         }
         catch (Exception ex)
         {
