@@ -6,8 +6,8 @@ namespace SimpleLauncher.Avalonia.Services;
 /// <summary>
 /// Provides emulator parameter help text for systems, sourced from parameters.md
 /// (loaded by the Core <see cref="HelpUserManager"/>). Avalonia port of the WPF
-/// <c>HelpUserService</c> — the Markdown rendering stays plain text because the
-/// port convention is plain-text viewers (no RichTextBox dependency).
+/// <c>HelpUserService</c> — the markdown is rendered by Markdown.Avalonia viewers
+/// (no RichTextBox dependency).
 /// </summary>
 public class AvaloniaHelpUserService
 {
@@ -333,7 +333,8 @@ public class AvaloniaHelpUserService
         }
 
         var canonicalName = AliasToCanonicalName.GetValueOrDefault(systemName, systemName);
-        return GetSystemDetails(canonicalName);
+        // parameters.md uses <br> tags; strip them like the WPF renderer does
+        return GetSystemDetails(canonicalName).Replace("<br>", string.Empty);
     }
 
     /// <summary>

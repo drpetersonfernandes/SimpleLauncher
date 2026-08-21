@@ -1000,51 +1000,53 @@ public partial class MainWindow : Window, IPaginationHost
             Placement = PlacementMode.Pointer
         };
 
-        var playItem = new MenuItem { Header = "▶ Play" };
+        var playItem = new MenuItem { Header = $"▶ {_localization.GetString("Context.Play")}" };
         playItem.Click += (_, _) => _viewModel.PlayGameCommand.Execute(game);
         contextMenu.Items.Add(playItem);
 
         var favItem = new MenuItem
         {
-            Header = game.IsFavorite ? "♥ Remove from Favorites" : "♡ Add to Favorites"
+            Header = game.IsFavorite
+                ? $"♥ {_localization.GetString("Context.RemoveFavorites")}"
+                : $"♡ {_localization.GetString("Context.AddFavorites")}"
         };
         favItem.Click += async (_, _) => await _viewModel.ToggleFavoriteCommand.ExecuteAsync(game);
         contextMenu.Items.Add(favItem);
 
         contextMenu.Items.Add(new Separator());
 
-        var detailItem = new MenuItem { Header = "ℹ Show Details" };
+        var detailItem = new MenuItem { Header = $"ℹ {_localization.GetString("Context.ShowDetails")}" };
         detailItem.Click += (_, _) => OpenGameDetail(game);
         contextMenu.Items.Add(detailItem);
 
-        var raItem = new MenuItem { Header = "🏆 Achievements" };
+        var raItem = new MenuItem { Header = $"🏆 {_localization.GetString("Context.Achievements")}" };
         raItem.Click += async (_, _) => await OpenRetroAchievementsForGameAsync(game);
         contextMenu.Items.Add(raItem);
 
-        var copyItem = new MenuItem { Header = "📋 Copy Path" };
+        var copyItem = new MenuItem { Header = $"📋 {_localization.GetString("Context.CopyPath")}" };
         copyItem.Click += async (_, _) =>
         {
             await CopyToClipboardAsync(game.FilePath);
-            ShowToast("Copied", game.FilePath);
+            ShowToast(_localization.GetString("Context.Copied"), game.FilePath);
         };
         contextMenu.Items.Add(copyItem);
 
-        var copyNameItem = new MenuItem { Header = "📝 Copy Name" };
+        var copyNameItem = new MenuItem { Header = $"📝 {_localization.GetString("Context.CopyName")}" };
         copyNameItem.Click += async (_, _) =>
         {
             var fileName = Path.GetFileName(game.FilePath);
             await CopyToClipboardAsync(fileName);
-            ShowToast("Copied", fileName);
+            ShowToast(_localization.GetString("Context.Copied"), fileName);
         };
         contextMenu.Items.Add(copyNameItem);
 
         contextMenu.Items.Add(new Separator());
 
-        var showInFolderItem = new MenuItem { Header = "📂 Show in Folder" };
+        var showInFolderItem = new MenuItem { Header = $"📂 {_localization.GetString("Context.ShowInFolder")}" };
         showInFolderItem.Click += async (_, _) => await ShowGameInFolderAsync(game);
         contextMenu.Items.Add(showInFolderItem);
 
-        var editSystemItem = new MenuItem { Header = "✏ Edit System" };
+        var editSystemItem = new MenuItem { Header = $"✏ {_localization.GetString("Context.EditSystem")}" };
         editSystemItem.Click += (_, _) => OpenEditSystemForGame(game);
         contextMenu.Items.Add(editSystemItem);
 

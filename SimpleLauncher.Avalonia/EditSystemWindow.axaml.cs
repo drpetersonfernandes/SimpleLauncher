@@ -155,7 +155,7 @@ public partial class EditSystemWindow : Window
             SaveSystemButton.IsEnabled = false;
             DeleteSystemButton.IsEnabled = false;
             StatusTextBlock.Text = "Select a system to edit, or click Add New to create one.";
-            SystemHelpTextBlock.Text = "Select a system to see its parameters help.";
+            SystemHelpMarkdownViewer.Markdown = "Select a system to see its parameters help.";
         }
         else
         {
@@ -178,7 +178,7 @@ public partial class EditSystemWindow : Window
             {
                 SystemNameTextBox.Text = selectedSystem.SystemName;
                 StatusTextBlock.Text = $"Editing: {selectedSystem.SystemName}";
-                SystemHelpTextBlock.Text = _helpUserService.GetHelpText(selectedSystem.SystemName);
+                SystemHelpMarkdownViewer.Markdown = _helpUserService.GetHelpText(selectedSystem.SystemName);
 
                 SystemFolderTextBox.Text = selectedSystem.PrimarySystemFolder ?? "";
 

@@ -1,6 +1,8 @@
 <Window x:Class="SimpleLauncher.Avalonia.EditSystemWindow"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:doc="clr-namespace:Avalonia.Controls.Documents;assembly=Avalonia.Controls"
+        xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
         Title="Edit Systems"
         Width="940" MinWidth="820"
         Height="780" MinHeight="600"
@@ -103,12 +105,11 @@
                                 BorderBrush="{DynamicResource BorderSubtleBrush}"
                                 BorderThickness="1" CornerRadius="4"
                                 Padding="10" Margin="0,4,0,12">
-                            <TextBlock x:Name="SystemHelpTextBlock"
-                                       Text="Select a system to see its parameters help."
-                                       TextWrapping="Wrap"
-                                       FontSize="12"
-                                       Foreground="{DynamicResource TextSecondaryBrush}"
-                                       MaxHeight="220" />
+                            <md:MarkdownScrollViewer x:Name="SystemHelpMarkdownViewer"
+                                                     MaxHeight="220"
+                                                     doc:TextElement.Foreground="{DynamicResource TextPrimaryBrush}">
+                                Select a system to see its parameters help.
+                            </md:MarkdownScrollViewer>
                         </Border>
 
                         <!-- System folders -->
