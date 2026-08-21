@@ -35,6 +35,7 @@ using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Core.Services.GetListOfFiles;
 using SimpleLauncher.Core.Services.MameData;
 using SimpleLauncher.Core.Services.ParameterResolver;
+using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.SanitizeInputString;
@@ -409,6 +410,7 @@ public class App : Application, IDisposable
         services.AddSingleton<ExternalToolLauncherService>();
         services.AddSingleton<PlaySoundEffects>();
         services.AddSingleton<IPlaySoundEffects>(sp => sp.GetRequiredService<PlaySoundEffects>());
+        services.AddSingleton<GamePadController>();
         services.AddSingleton<SystemConfigurationWriterService>();
         services.AddSingleton<ISystemConfigurationWriterService>(sp => sp.GetRequiredService<SystemConfigurationWriterService>());
         services.AddSingleton<Stats>();
@@ -852,6 +854,20 @@ public class App : Application, IDisposable
         catch (Exception ex)
         {
             Log.Debug(ex, "Error disposing the tray icon manager.");
+        }
+
+        try
+        {
+            var gamePadController = ServiceProvider?.GetService<GamePadController>();
+            if (gamePadController is not null)
+            {
+                _ = gamePadController.StopAsync();
+                gamePadController.Dispose();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "Error disposing the gamepad controller.");
         }
 
         try

@@ -1,10 +1,14 @@
+using System.Net.Http;
 using Moq;
 using SimpleLauncher.Avalonia.Services.GameLauncher;
+using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.GameLauncher.Strategies;
+using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Core.Services.UsageStats;
 
 namespace SimpleLauncher.Avalonia.Tests;
 
@@ -67,7 +71,10 @@ public class MinimalLauncherServiceGatingTests : IDisposable
             new Mock<IMountZipFiles>().Object,
             askAi,
             settings,
-            [new DefaultLaunchStrategy()]);
+            [new DefaultLaunchStrategy()],
+            new PlayHistoryManager(),
+            new Mock<Stats>(new Mock<IHttpClientFactory>().Object, config, logger).Object,
+            new Mock<GamePadController>(_messageBox.Object, config, logger).Object);
     }
 
     private static Emulator CreateEmulator(string name)

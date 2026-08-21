@@ -20,6 +20,7 @@ using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.ExternalToolLauncher;
+using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.SettingsManager;
@@ -43,6 +44,7 @@ public partial class MainWindow : Window, IPaginationHost
     private readonly AvaloniaGameFileWatcherService _fileWatcher;
     private readonly AvaloniaLanguageMenuService _languageMenu;
     private readonly AvaloniaMenuCheckMarkService _menuCheckMarks;
+    private readonly GamePadController _gamePadController;
 
     /// <summary>Favorites page section ViewModel (WPF FavoritesPage equivalent).</summary>
     public FavoritesSectionViewModel FavoritesSection { get; }
@@ -61,6 +63,7 @@ public partial class MainWindow : Window, IPaginationHost
     private readonly Action<string, string> _toastRequestedHandler;
     private readonly EventHandler<EventArgs<string>> _gameFilesChangedHandler;
     private readonly EventHandler<PointerWheelEventArgs> _pointerWheelChangedHandler;
+    private bool _wasControllerRunningBeforeDeactivation;
 
     public MainWindow(
         MainViewModel viewModel,
@@ -77,7 +80,8 @@ public partial class MainWindow : Window, IPaginationHost
         IPaginationService pagination,
         AvaloniaGameFileWatcherService fileWatcher,
         AvaloniaLanguageMenuService languageMenu,
-        AvaloniaMenuCheckMarkService menuCheckMarks)
+        AvaloniaMenuCheckMarkService menuCheckMarks,
+        GamePadController gamePadController)
     {
         _viewModel = viewModel;
         _systemManagerService = systemManagerService;
@@ -90,6 +94,7 @@ public partial class MainWindow : Window, IPaginationHost
         _fileWatcher = fileWatcher;
         _languageMenu = languageMenu;
         _menuCheckMarks = menuCheckMarks;
+        _gamePadController = gamePadController;
         FavoritesSection = favoritesSection;
         PlayHistorySection = playHistorySection;
         GlobalSearchSection = globalSearchSection;
@@ -121,6 +126,31 @@ public partial class MainWindow : Window, IPaginationHost
 
         // Restore window position/size before the window is shown
         RestoreWindowBounds();
+
+        // Pause/resume gamepad controller on window focus changes to prevent
+        // mouse input leaking to other windows (mirrors the WPF app behavior).
+        Activated += (_, _) =>
+        {
+            if (_wasControllerRunningBeforeDeactivation)
+            {
+                _ = _gamePadController.StartAsync();
+                Log.Debug("Gamepad controller restarted on window activation.");
+            }
+            _wasControllerRunningBeforeDeactivation = false;
+        };
+        Deactivated += (_, _) =>
+        {
+            if (_gamePadController.IsRunning)
+            {
+                _wasControllerRunningBeforeDeactivation = true;
+                _ = _gamePadController.StopAsync();
+                Log.Debug("Gamepad controller temporarily stopped on window deactivation.");
+            }
+            else
+            {
+                _wasControllerRunningBeforeDeactivation = false;
+            }
+        };
 
         // Failsafe shutdown watchdog: if normal shutdown has not terminated the process
         // within the grace period, force-exit so the app can never linger in the background.
@@ -1823,7 +1853,17 @@ public partial class MainWindow : Window, IPaginationHost
         try
         {
             var window = App.ServiceProvider.GetRequiredService<SetGamepadDeadZoneWindow>();
-            window.ShowDialog(this);
+            window.ShowDialog(this).ContinueWith(_ =>
+            {
+                // Apply the new dead zone values to the running controller
+                _gamePadController.DeadZoneX = _settings.DeadZoneX;
+                _gamePadController.DeadZoneY = _settings.DeadZoneY;
+                if (_settings.EnableGamePadNavigation)
+                {
+                    _ = _gamePadController.StopAsync();
+                    _ = _gamePadController.StartAsync();
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
         catch (Exception ex)
         {
@@ -1920,6 +1960,12 @@ public partial class MainWindow : Window, IPaginationHost
 
             _settings.EnableGamePadNavigation = item.IsChecked;
             await _settings.SaveAsync();
+
+            if (item.IsChecked)
+                await _gamePadController.StartAsync();
+            else
+                await _gamePadController.StopAsync();
+
             _playSound.PlayNotificationSound();
             ShowToast("Gamepad Support", item.IsChecked ? "Enabled" : "Disabled");
         }

@@ -1,3 +1,4 @@
+using System.Net.Http;
 using Moq;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.Favorites;
@@ -12,6 +13,7 @@ using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.SettingsManager;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Services.GameLauncher.Strategies;
+using SimpleLauncher.Core.Services.GamePad;
 
 namespace SimpleLauncher.Avalonia.Tests;
 
@@ -138,7 +140,10 @@ public class MainViewModelQuickActionsTests : IDisposable
             new Mock<IMountZipFiles>().Object,
             askAi,
             settings,
-            [new DefaultLaunchStrategy()]);
+            [new DefaultLaunchStrategy()],
+            new PlayHistoryManager(),
+            new Mock<Stats>(new Mock<IHttpClientFactory>().Object, config, logger).Object,
+            new Mock<GamePadController>(messageBox.Object, config, logger).Object);
     }
 
     private int FullGameCount()

@@ -52,6 +52,7 @@ public class AvaloniaApplicationLifecycleService
         _startupInitializationService.InitializeStatusBarTimer();
         await _startupInitializationService.CheckWriteAccessAsync();
         _startupInitializationService.ResetPaginationDefaults();
+        _startupInitializationService.InitializeGamePad();
         await _startupInitializationService.CheckRequiredFilesAsync();
     }
 

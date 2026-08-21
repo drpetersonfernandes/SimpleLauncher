@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.RetroAchievements;
 using SimpleLauncher.Avalonia.Views;
+using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Avalonia;
@@ -18,15 +19,17 @@ public partial class PreferencesWindow : Window
     private readonly LocalizationService _localization;
     private readonly AvaloniaCheckForUpdatesService _updateService;
     private readonly RetroAchievementsService? _raService;
+    private readonly GamePadController _gamePadController;
     private readonly Dictionary<string, Panel> _panels = new();
 
     public PreferencesWindow(SettingsManagerService settings, LocalizationService localization,
-        AvaloniaCheckForUpdatesService updateService)
+        AvaloniaCheckForUpdatesService updateService, GamePadController gamePadController)
     {
         InitializeComponent();
         _settings = settings;
         _localization = localization;
         _updateService = updateService;
+        _gamePadController = gamePadController;
 
         try
         {
@@ -80,6 +83,12 @@ public partial class PreferencesWindow : Window
             _settings.RaApiKey = RaApiKeyBox.Text?.Trim() ?? "";
 
             _ = _settings.SaveAsync();
+
+            // Start or stop the gamepad controller to match the new preference
+            if (_settings.EnableGamePadNavigation)
+                _ = _gamePadController.StartAsync();
+            else
+                _ = _gamePadController.StopAsync();
         }
         catch (Exception ex)
         {

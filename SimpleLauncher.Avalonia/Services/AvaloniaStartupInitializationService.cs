@@ -3,15 +3,17 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services;
 using SimpleLauncher.Core.Services.CheckIfDirectoryIsWritable;
+using SimpleLauncher.Core.Services.GamePad;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Avalonia.Services;
 
 /// <summary>
 /// Orchestrates application startup initialization tasks that the Avalonia app
 /// performs after the main window is shown: the status-bar timeout timer, the
-/// write-access check, the required-files check, and pagination defaults.
-/// Avalonia port of the WPF <c>StartupInitializationService</c> (theme, tray icon,
-/// gamepad, and language tasks are handled elsewhere in the Avalonia app).
+/// write-access check, the required-files check, pagination defaults, and
+/// gamepad controller initialization.
+/// Avalonia port of the WPF <c>StartupInitializationService</c>.
 /// </summary>
 public class AvaloniaStartupInitializationService
 {
@@ -19,6 +21,8 @@ public class AvaloniaStartupInitializationService
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly ILogger _logger;
     private readonly CheckForRequiredFilesService _requiredFiles;
+    private readonly GamePadController _gamePadController;
+    private readonly SettingsManagerService _settings;
     private DispatcherTimer? _statusBarTimer;
 
     /// <summary>
@@ -28,16 +32,22 @@ public class AvaloniaStartupInitializationService
     /// <param name="messageBox">The message box service (used by the required-files check).</param>
     /// <param name="logger">The Serilog logger.</param>
     /// <param name="requiredFiles">The required-files checker.</param>
+    /// <param name="gamePadController">The gamepad input controller.</param>
+    /// <param name="settings">The application settings manager.</param>
     public AvaloniaStartupInitializationService(
         IConfiguration configuration,
         IMessageBoxLibraryService messageBox,
         ILogger logger,
-        CheckForRequiredFilesService requiredFiles)
+        CheckForRequiredFilesService requiredFiles,
+        GamePadController gamePadController,
+        SettingsManagerService settings)
     {
         _configuration = configuration;
         _messageBox = messageBox;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _requiredFiles = requiredFiles;
+        _gamePadController = gamePadController;
+        _settings = settings;
     }
 
     /// <summary>
@@ -130,6 +140,29 @@ public class AvaloniaStartupInitializationService
         catch (Exception ex)
         {
             _logger.Error(ex, "Failed to reset pagination defaults.");
+        }
+    }
+
+    /// <summary>
+    /// Initializes the gamepad controller: wires the error logger, applies dead zone
+    /// settings, and starts or stops the controller based on the saved preference.
+    /// </summary>
+    public void InitializeGamePad()
+    {
+        try
+        {
+            _gamePadController.ErrorLogger = (ex, msg) => { _logger.Error(ex, msg); };
+            _gamePadController.DeadZoneX = _settings.DeadZoneX;
+            _gamePadController.DeadZoneY = _settings.DeadZoneY;
+
+            if (_settings.EnableGamePadNavigation)
+                _ = _gamePadController.StartAsync();
+            else
+                _ = _gamePadController.StopAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Failed to initialize the gamepad controller.");
         }
     }
 }

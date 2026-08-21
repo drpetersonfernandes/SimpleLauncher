@@ -6,6 +6,7 @@ using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
+using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using SimpleLauncher.Core.Services.UsageStats;
@@ -35,6 +36,7 @@ public class MinimalLauncherService : ILauncherService
     private readonly HashSet<string> _emulatorsToSkipErrorChecking;
     private readonly PlayHistoryManager _playHistoryManager;
     private readonly Stats _stats;
+    private readonly GamePadController _gamePadController;
 
     /// <summary>
     /// Real emulator run time of the last launch (from process start to exit).
@@ -59,7 +61,8 @@ public class MinimalLauncherService : ILauncherService
         SettingsManagerService settings,
         IEnumerable<ILaunchStrategy> launchStrategies,
         PlayHistoryManager playHistoryManager,
-        Stats stats)
+        Stats stats,
+        GamePadController gamePadController)
     {
         _messageBox = messageBox;
         _configHandlers = configHandlers;
@@ -77,6 +80,7 @@ public class MinimalLauncherService : ILauncherService
             .ToHashSet(StringComparer.OrdinalIgnoreCase) ?? [];
         _playHistoryManager = playHistoryManager;
         _stats = stats;
+        _gamePadController = gamePadController;
     }
 
     /// <summary>
@@ -109,6 +113,11 @@ public class MinimalLauncherService : ILauncherService
             WindowContext = windowContext,
             LoadingState = loadingStateProvider
         };
+
+        // Pause gamepad input while the emulator is running to prevent
+        // mouse/scroll leaking to the desktop (mirrors the WPF app behavior).
+        var wasGamePadRunning = _gamePadController.IsRunning;
+        if (wasGamePadRunning) await _gamePadController.StopAsync();
 
         try
         {
@@ -154,6 +163,10 @@ public class MinimalLauncherService : ILauncherService
                                   $"ResolvedFilePath: '{context.ResolvedFilePath ?? "null"}'";
             Log.Error(ex, detailedMessage);
             await _messageBox.CouldNotLaunchGameMessageBoxAsync(LogFilePath());
+        }
+        finally
+        {
+            if (wasGamePadRunning) await _gamePadController.StartAsync();
         }
     }
 
