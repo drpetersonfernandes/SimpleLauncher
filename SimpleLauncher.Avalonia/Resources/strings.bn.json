@@ -70,5 +70,8 @@
   "Keyboard.CtrlF": "অনুসন্ধানে ফোকাস",
   "Keyboard.Enter": "নির্বাচিত গেম চালু করুন",
   "Keyboard.F5": "গেম তালিকা রিফ্রেশ করুন",
-  "Pagination.Displaying": "মোট {2}টি ফাইলের মধ্যে {0} থেকে {1} পর্যন্ত দেখানো হচ্ছে"
+  "Pagination.Displaying": "মোট {2}টি ফাইলের মধ্যে {0} থেকে {1} পর্যন্ত দেখানো হচ্ছে",
+  "ReturnButton": "[ ফিরে যান ]",
+  "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "লোডিং স্ক্রিন আটকে গেলে মূল মেনুতে ফিরে যেতে এখানে ক্লিক করুন",
+  "Toast.EmergencyReset": "লোডিং ওভারলে বন্ধ করা হয়েছে। UI রিসেট করা হয়েছে।"
 }

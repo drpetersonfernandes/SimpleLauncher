@@ -70,5 +70,8 @@
   "Keyboard.CtrlF": "التركيز على البحث",
   "Keyboard.Enter": "تشغيل اللعبة المحددة",
   "Keyboard.F5": "تحديث قائمة الألعاب",
-  "Pagination.Displaying": "عرض الملفات من {0} إلى {1} من أصل {2}"
+  "Pagination.Displaying": "عرض الملفات من {0} إلى {1} من أصل {2}",
+  "ReturnButton": "[ عودة ]",
+  "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "انقر هنا إذا توقفت شاشة التحميل للعودة إلى القائمة الرئيسية",
+  "Toast.EmergencyReset": "تم إغلاق شاشة التحميل. تمت إعادة تعيين الواجهة."
 }

@@ -70,5 +70,8 @@
   "Keyboard.CtrlF": "Focus op zoeken",
   "Keyboard.Enter": "Geselecteerd spel starten",
   "Keyboard.F5": "Spellijst vernieuwen",
-  "Pagination.Displaying": "Bestanden {0} tot {1} van {2} in totaal weergegeven"
+  "Pagination.Displaying": "Bestanden {0} tot {1} van {2} in totaal weergegeven",
+  "ReturnButton": "[ Terug ]",
+  "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "Klik hier als het laadscherm vastloopt om terug te keren naar het hoofdmenu",
+  "Toast.EmergencyReset": "Laadoverlay gesloten. De gebruikersinterface is gereset."
 }

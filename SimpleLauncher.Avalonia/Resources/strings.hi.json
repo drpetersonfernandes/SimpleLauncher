@@ -70,5 +70,8 @@
   "Keyboard.CtrlF": "खोज पर फोकस करें",
   "Keyboard.Enter": "चयनित गेम लॉन्च करें",
   "Keyboard.F5": "गेम सूची रीफ़्रेश करें",
-  "Pagination.Displaying": "कुल {2} फ़ाइलों में से {0} से {1} तक दिखाई जा रही हैं"
+  "Pagination.Displaying": "कुल {2} फ़ाइलों में से {0} से {1} तक दिखाई जा रही हैं",
+  "ReturnButton": "[ वापस जाएं ]",
+  "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "यदि लोडिंग स्क्रीन अटक गई है, तो मुख्य मेनू पर लौटने के लिए यहाँ क्लिक करें",
+  "Toast.EmergencyReset": "लोडिंग ओवरले हटा दिया गया है। UI रीसेट कर दिया गया है।"
 }

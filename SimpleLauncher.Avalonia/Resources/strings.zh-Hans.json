@@ -70,5 +70,8 @@
   "Keyboard.CtrlF": "聚焦搜索",
   "Keyboard.Enter": "启动选定的游戏",
   "Keyboard.F5": "刷新游戏列表",
-  "Pagination.Displaying": "正在显示共 {2} 个文件中的第 {0} 至 {1} 个"
+  "Pagination.Displaying": "正在显示共 {2} 个文件中的第 {0} 至 {1} 个",
+  "ReturnButton": "[ 返回 ]",
+  "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "如果加载界面卡住，请点击此处返回主菜单",
+  "Toast.EmergencyReset": "加载遮罩已关闭。界面已重置。"
 }

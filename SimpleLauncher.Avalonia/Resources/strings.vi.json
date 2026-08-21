@@ -70,5 +70,8 @@
   "Keyboard.CtrlF": "Tập trung tìm kiếm",
   "Keyboard.Enter": "Khởi chạy trò chơi đã chọn",
   "Keyboard.F5": "Làm mới danh sách trò chơi",
-  "Pagination.Displaying": "Đang hiển thị tệp {0} đến {1} trong tổng số {2}"
+  "Pagination.Displaying": "Đang hiển thị tệp {0} đến {1} trong tổng số {2}",
+  "ReturnButton": "[ Quay lại ]",
+  "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "Nhấp vào đây nếu màn hình tải bị kẹt để quay lại menu chính",
+  "Toast.EmergencyReset": "Đã đóng lớp phủ tải. Giao diện đã được đặt lại."
 }

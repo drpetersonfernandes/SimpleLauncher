@@ -70,5 +70,8 @@
   "Keyboard.CtrlF": "Suche fokussieren",
   "Keyboard.Enter": "Ausgewähltes Spiel starten",
   "Keyboard.F5": "Spieleliste aktualisieren",
-  "Pagination.Displaying": "Dateien {0} bis {1} von insgesamt {2} werden angezeigt"
+  "Pagination.Displaying": "Dateien {0} bis {1} von insgesamt {2} werden angezeigt",
+  "ReturnButton": "[ Zurück ]",
+  "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "Hier klicken, falls der Ladebildschirm hängt, um zum Hauptmenü zurückzukehren",
+  "Toast.EmergencyReset": "Ladeoverlay geschlossen. Die Benutzeroberfläche wurde zurückgesetzt."
 }

@@ -17,11 +17,16 @@ public partial class SupportWindow : Window
     /// Initializes a new instance of the <see cref="SupportWindow"/> class.
     /// </summary>
     /// <param name="viewModel">The view model providing support form logic.</param>
-    public SupportWindow(SupportViewModel viewModel)
+    public SupportWindow(SupportViewModel viewModel, Services.LocalizationService localization)
     {
         InitializeComponent();
 
         _viewModel = viewModel;
+
+        // Localize the emergency return button (WPF DynamicResource ReturnButton parity)
+        EmergencyButton.Content = localization.GetString("ReturnButton");
+        ToolTip.SetTip(EmergencyButton,
+            localization.GetString("ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu"));
 
         _viewModel.CloseRequested += OnCloseRequested;
         _viewModel.FormCleared += OnFormCleared;

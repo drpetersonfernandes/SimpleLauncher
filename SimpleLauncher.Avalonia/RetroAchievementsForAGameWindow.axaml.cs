@@ -45,6 +45,12 @@ public partial class RetroAchievementsForAGameWindow : Window, ILoadingState
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
 
+        // Localize the emergency return button (WPF DynamicResource ReturnButton parity)
+        var localization = App.ServiceProvider.GetRequiredService<Services.LocalizationService>();
+        EmergencyReturnButton.Content = localization.GetString("ReturnButton");
+        ToolTip.SetTip(EmergencyReturnButton,
+            localization.GetString("ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu"));
+
         Opened += AchievementsWindow_Opened;
     }
 

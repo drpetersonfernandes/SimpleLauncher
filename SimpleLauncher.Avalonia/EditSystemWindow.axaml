@@ -471,6 +471,12 @@
                 <TextBlock x:Name="LoadingText" Text="Loading systems..." FontSize="14"
                            Foreground="{DynamicResource TextPrimaryBrush}"
                            HorizontalAlignment="Center" />
+                <Button x:Name="EmergencyButton"
+                        Content="Return"
+                        Width="100" Margin="0,16,0,0"
+                        Classes="secondary"
+                        Click="EmergencyOverlayRelease_Click"
+                        HorizontalAlignment="Center" />
             </StackPanel>
         </Border>
     </Grid>

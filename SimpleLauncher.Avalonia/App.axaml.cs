@@ -704,6 +704,7 @@ public class App : Application, IDisposable
                 sp.GetRequiredService<PlayHistoryManager>(),
                 sp.GetRequiredService<IParameterResolverService>(),
                 sp.GetRequiredService<AvaloniaHelpUserService>(),
+                sp.GetRequiredService<LocalizationService>(),
                 preSelectedSystemName));
 
         // ── Phase 4.1 windows (ViewModels transient — one per window instance) ──

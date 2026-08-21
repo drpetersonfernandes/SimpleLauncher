@@ -1,4 +1,5 @@
 using Avalonia.Threading;
+using SimpleLauncher.Core.Services.PlaySound;
 
 namespace SimpleLauncher.Avalonia.Services.LoadingOverlay;
 
@@ -27,8 +28,14 @@ public interface IAvaloniaLoadingOverlayHost
 public class AvaloniaLoadingOverlayService
 {
     private IAvaloniaLoadingOverlayHost? _host;
+    private readonly PlaySoundEffects _playSoundEffects;
     private int _loadingOperationsCount;
     private readonly Lock _loadingStateLock = new();
+
+    public AvaloniaLoadingOverlayService(PlaySoundEffects playSoundEffects)
+    {
+        _playSoundEffects = playSoundEffects;
+    }
 
     /// <summary>Initializes the service with the specified UI host.</summary>
     public void Initialize(IAvaloniaLoadingOverlayHost host)
@@ -89,6 +96,8 @@ public class AvaloniaLoadingOverlayService
         var host = _host;
         if (host == null) return;
 
+        _playSoundEffects.PlayNotificationSound();
+
         lock (_loadingStateLock)
         {
             _loadingOperationsCount = 0;
@@ -101,5 +110,6 @@ public class AvaloniaLoadingOverlayService
         });
 
         _ = host?.ResetUiAsync();
+        Log.Debug("[Emergency] User forced overlay dismissal via Return button.");
     }
 }

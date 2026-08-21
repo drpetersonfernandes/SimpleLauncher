@@ -17,13 +17,19 @@ public partial class DownloadImagePackWindow : Window, IDisposable
     /// </summary>
     /// <param name="logErrors">The logger instance for error logging.</param>
     /// <param name="viewModel">The view model providing download and extraction logic.</param>
-    public DownloadImagePackWindow(ILogger logErrors, DownloadImagePackViewModel viewModel)
+    public DownloadImagePackWindow(ILogger logErrors, DownloadImagePackViewModel viewModel,
+        Services.LocalizationService localization)
     {
         InitializeComponent();
         _logger = logErrors;
 
         _viewModel = viewModel;
         DataContext = _viewModel;
+
+        // Localize the emergency return button (WPF DynamicResource ReturnButton parity)
+        EmergencyButton.Content = localization.GetString("ReturnButton");
+        ToolTip.SetTip(EmergencyButton,
+            localization.GetString("ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu"));
 
         Closing += CloseWindowRoutineAsync;
         Loaded += DownloadImagePackWindowLoadedAsync;

@@ -70,5 +70,8 @@
   "Keyboard.CtrlF": "Aramaya odaklan",
   "Keyboard.Enter": "Seçili oyunu başlat",
   "Keyboard.F5": "Oyun listesini yenile",
-  "Pagination.Displaying": "Toplam {2} dosyadan {0} ile {1} arası gösteriliyor"
+  "Pagination.Displaying": "Toplam {2} dosyadan {0} ile {1} arası gösteriliyor",
+  "ReturnButton": "[ Geri Dön ]",
+  "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "Yükleme ekranı takılırsa ana menüye dönmek için buraya tıklayın",
+  "Toast.EmergencyReset": "Yükleme katmanı kapatıldı. Kullanıcı arayüzü sıfırlandı."
 }

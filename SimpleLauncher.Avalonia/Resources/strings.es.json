@@ -70,5 +70,8 @@
   "Keyboard.CtrlF": "Enfocar búsqueda",
   "Keyboard.Enter": "Iniciar juego seleccionado",
   "Keyboard.F5": "Actualizar lista de juegos",
-  "Pagination.Displaying": "Mostrando archivos del {0} al {1} de {2} en total"
+  "Pagination.Displaying": "Mostrando archivos del {0} al {1} de {2} en total",
+  "ReturnButton": "[ Volver ]",
+  "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "Haga clic aquí si la pantalla de carga se queda bloqueada para volver al menú principal",
+  "Toast.EmergencyReset": "Superposición de carga cerrada. La interfaz se ha restablecido."
 }

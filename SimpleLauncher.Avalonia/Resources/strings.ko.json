@@ -70,5 +70,8 @@
   "Keyboard.CtrlF": "검색에 포커스",
   "Keyboard.Enter": "선택한 게임 실행",
   "Keyboard.F5": "게임 목록 새로 고침",
-  "Pagination.Displaying": "전체 {2}개 파일 중 {0}~{1} 표시 중"
+  "Pagination.Displaying": "전체 {2}개 파일 중 {0}~{1} 표시 중",
+  "ReturnButton": "[ 돌아가기 ]",
+  "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "로딩 화면이 멈춘 경우 여기를 클릭하여 메인 메뉴로 돌아가십시오",
+  "Toast.EmergencyReset": "로딩 오버레이가 닫혔습니다. UI가 초기화되었습니다."
 }

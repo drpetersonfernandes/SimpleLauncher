@@ -70,5 +70,8 @@
   "Keyboard.CtrlF": "検索にフォーカス",
   "Keyboard.Enter": "選択したゲームを起動",
   "Keyboard.F5": "ゲームリストを更新",
-  "Pagination.Displaying": "全{2}ファイル中 {0}〜{1} を表示中"
+  "Pagination.Displaying": "全{2}ファイル中 {0}〜{1} を表示中",
+  "ReturnButton": "[ 戻る ]",
+  "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "ロード画面が止まった場合は、ここをクリックしてメインメニューに戻ります",
+  "Toast.EmergencyReset": "読み込みオーバーレイを閉じました。UI をリセットしました。"
 }

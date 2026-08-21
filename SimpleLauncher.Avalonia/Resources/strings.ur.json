@@ -70,5 +70,8 @@
   "Keyboard.CtrlF": "تلاش پر فوکس",
   "Keyboard.Enter": "منتخب گیم لانچ کریں",
   "Keyboard.F5": "گیم کی فہرست ریفریش کریں",
-  "Pagination.Displaying": "کل {2} فائلوں میں سے {0} سے {1} تک دکھائی جا رہی ہیں"
+  "Pagination.Displaying": "کل {2} فائلوں میں سے {0} سے {1} تک دکھائی جا رہی ہیں",
+  "ReturnButton": "[ واپسی ]",
+  "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "اگر لوڈنگ اسکرین پھنس جائے تو مین مینو پر واپس جانے کے لیے یہاں کلک کریں",
+  "Toast.EmergencyReset": "لوڈنگ اوورلے ہٹا دیا گیا۔ یو آئی ری سیٹ کر دی گئی ہے۔"
 }

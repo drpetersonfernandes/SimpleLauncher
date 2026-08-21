@@ -70,5 +70,8 @@
   "Keyboard.CtrlF": "Фокус на поиске",
   "Keyboard.Enter": "Запустить выбранную игру",
   "Keyboard.F5": "Обновить список игр",
-  "Pagination.Displaying": "Отображаются файлы с {0} по {1} из {2} всего"
+  "Pagination.Displaying": "Отображаются файлы с {0} по {1} из {2} всего",
+  "ReturnButton": "[ Назад ]",
+  "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "Нажмите здесь, если экран загрузки завис, чтобы вернуться в главное меню",
+  "Toast.EmergencyReset": "Оверлей загрузки закрыт. Пользовательский интерфейс сброшен."
 }

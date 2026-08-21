@@ -130,6 +130,11 @@ public partial class MainWindow : Window, IPaginationHost
         _uiResetService.Initialize(this);
         _systemSelectionOrchestrator.Initialize(this);
 
+        // Localize the emergency return button (WPF DynamicResource ReturnButton parity)
+        EmergencyReturnButton.Content = _localization.GetString("ReturnButton");
+        ToolTip.SetTip(EmergencyReturnButton,
+            _localization.GetString("ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu"));
+
         // Bind the page-section ViewModels (WPF FavoritesPage / PlayHistoryPage / GlobalSearchPage equivalents)
         FavoritesSectionRoot.DataContext = FavoritesSection;
         PlayHistorySectionRoot.DataContext = PlayHistorySection;
@@ -609,7 +614,7 @@ public partial class MainWindow : Window, IPaginationHost
         try
         {
             _loadingOverlay.EmergencyRelease();
-            ShowToast("Emergency Reset", _localization.GetString("Toast.EmergencyReset", "Loading overlay dismissed. UI has been reset."));
+            ShowToast("Emergency Reset", _localization.GetString("Toast.EmergencyReset"));
         }
         catch (Exception ex)
         {

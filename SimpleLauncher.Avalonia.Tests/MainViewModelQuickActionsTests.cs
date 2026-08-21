@@ -16,6 +16,7 @@ using SimpleLauncher.Core.Services.SettingsManager;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Services.GameLauncher.Strategies;
 using SimpleLauncher.Core.Services.GamePad;
+using SimpleLauncher.Core.Services.PlaySound;
 
 namespace SimpleLauncher.Avalonia.Tests;
 
@@ -96,7 +97,7 @@ public class MainViewModelQuickActionsTests : IDisposable
             _messageBox.Object,
             _mameData.Object,
             new AvaloniaGameFilterService(new Mock<IFindCoverImageService>().Object, settings, _mameData.Object),
-            new AvaloniaLoadingOverlayService());
+            new AvaloniaLoadingOverlayService(new PlaySoundEffects(settings, _logger.Object)));
 
         // Paginate only above 1 million games so the test views are never sliced.
         _viewModel.ConfigurePagination(1_000_000);

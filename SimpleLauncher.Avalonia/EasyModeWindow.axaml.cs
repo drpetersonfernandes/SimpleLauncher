@@ -19,10 +19,15 @@ public partial class EasyModeWindow : Window, IDisposable
     private readonly PropertyChangedEventHandler _onViewModelPropertyChanged;
     private bool _disposed;
 
-    public EasyModeWindow(EasyModeViewModel viewModel)
+    public EasyModeWindow(EasyModeViewModel viewModel, Services.LocalizationService localization)
     {
         InitializeComponent();
         DataContext = _viewModel = viewModel;
+
+        // Localize the emergency return button (WPF DynamicResource ReturnButton parity)
+        EmergencyButton.Content = localization.GetString("ReturnButton");
+        ToolTip.SetTip(EmergencyButton,
+            localization.GetString("ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu"));
 
         // Set up the close callback so the ViewModel can request window close after successful add
         _viewModel.RequestClose = () => Dispatcher.UIThread.InvokeAsync(() => Close());

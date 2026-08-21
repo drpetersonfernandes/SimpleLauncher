@@ -41,6 +41,7 @@ public partial class EditSystemWindow : Window
     private readonly IParameterResolverService _parameterResolver;
     private readonly string? _preSelectedSystemName;
     private readonly AvaloniaHelpUserService _helpUserService;
+    private readonly Services.LocalizationService _localization;
 
     private List<SystemManagerConfig> _systems = [];
     private string? _originalSystemName;
@@ -57,6 +58,7 @@ public partial class EditSystemWindow : Window
         PlayHistoryManager playHistoryManager,
         IParameterResolverService parameterResolver,
         AvaloniaHelpUserService helpUserService,
+        Services.LocalizationService localization,
         string? preSelectedSystemName = null)
     {
         InitializeComponent();
@@ -73,10 +75,16 @@ public partial class EditSystemWindow : Window
         _playHistoryManager = playHistoryManager;
         _parameterResolver = parameterResolver;
         _helpUserService = helpUserService;
+        _localization = localization;
         _preSelectedSystemName = preSelectedSystemName;
 
         SaveSystemButton.IsEnabled = false;
         DeleteSystemButton.IsEnabled = false;
+
+        // Localize the emergency return button (WPF DynamicResource ReturnButton parity)
+        EmergencyButton.Content = _localization.GetString("ReturnButton");
+        ToolTip.SetTip(EmergencyButton,
+            _localization.GetString("ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu"));
     }
 
     private async void Window_Opened(object? sender, EventArgs e)
@@ -125,6 +133,14 @@ public partial class EditSystemWindow : Window
         {
             LoadingText.Text = message ?? "Loading...";
         }
+    }
+
+    private void EmergencyOverlayRelease_Click(object? sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        LoadingOverlay.IsVisible = false;
+
+        _logger.Debug("[Emergency] User forced overlay dismissal in EditSystemWindow.");
     }
 
     private void PopulateSystemNamesDropdown()

@@ -70,5 +70,8 @@
   "Keyboard.CtrlF": "Focus search",
   "Keyboard.Enter": "Launch selected game",
   "Keyboard.F5": "Refresh game list",
-  "Pagination.Displaying": "Displaying files {0} to {1} out of {2} total"
+  "Pagination.Displaying": "Displaying files {0} to {1} out of {2} total",
+  "ReturnButton": "[ Return ]",
+  "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "Click here if the loading screen is stuck to return to the main menu",
+  "Toast.EmergencyReset": "Loading overlay dismissed. UI has been reset."
 }
