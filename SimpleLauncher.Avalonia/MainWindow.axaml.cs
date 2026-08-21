@@ -16,6 +16,9 @@ using SimpleLauncher.Avalonia.Converters;
 using SimpleLauncher.Avalonia.InjectConfigWindows;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.GameScan;
+using SimpleLauncher.Avalonia.Services.SystemSelectionOrchestrator;
+using SimpleLauncher.Avalonia.Services.UIReset;
+using SimpleLauncher.Avalonia.Services.ContextMenus;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
@@ -45,6 +48,9 @@ public partial class MainWindow : Window, IPaginationHost
     private readonly AvaloniaLanguageMenuService _languageMenu;
     private readonly AvaloniaMenuCheckMarkService _menuCheckMarks;
     private readonly GamePadController _gamePadController;
+    private readonly UiResetService _uiResetService;
+    private readonly AvaloniaSystemSelectionOrchestratorService _systemSelectionOrchestrator;
+    private readonly AvaloniaContextMenuService _contextMenuService;
 
     /// <summary>Favorites page section ViewModel (WPF FavoritesPage equivalent).</summary>
     public FavoritesSectionViewModel FavoritesSection { get; }
@@ -81,7 +87,10 @@ public partial class MainWindow : Window, IPaginationHost
         AvaloniaGameFileWatcherService fileWatcher,
         AvaloniaLanguageMenuService languageMenu,
         AvaloniaMenuCheckMarkService menuCheckMarks,
-        GamePadController gamePadController)
+        GamePadController gamePadController,
+        UiResetService uiResetService,
+        AvaloniaSystemSelectionOrchestratorService systemSelectionOrchestrator,
+        AvaloniaContextMenuService contextMenuService)
     {
         _viewModel = viewModel;
         _systemManagerService = systemManagerService;
@@ -95,6 +104,9 @@ public partial class MainWindow : Window, IPaginationHost
         _languageMenu = languageMenu;
         _menuCheckMarks = menuCheckMarks;
         _gamePadController = gamePadController;
+        _uiResetService = uiResetService;
+        _systemSelectionOrchestrator = systemSelectionOrchestrator;
+        _contextMenuService = contextMenuService;
         FavoritesSection = favoritesSection;
         PlayHistorySection = playHistorySection;
         GlobalSearchSection = globalSearchSection;
@@ -110,6 +122,10 @@ public partial class MainWindow : Window, IPaginationHost
 
         InitializeComponent();
 
+        // Wire the extracted services to this host (WPF parity)
+        _uiResetService.Initialize(this);
+        _systemSelectionOrchestrator.Initialize(this);
+
         // Bind the page-section ViewModels (WPF FavoritesPage / PlayHistoryPage / GlobalSearchPage equivalents)
         FavoritesSectionRoot.DataContext = FavoritesSection;
         PlayHistorySectionRoot.DataContext = PlayHistorySection;
@@ -117,7 +133,6 @@ public partial class MainWindow : Window, IPaginationHost
 
         // Populate system data from system.xml (sidebar + top System ComboBox)
         PopulateSidebarFromSystemXml();
-        PopulateSystemComboBox();
 
         // NOTE: no initial System ComboBox selection here — selecting a system would
         // fire SystemComboBox_SelectionChanged synchronously and trigger a full library
@@ -332,9 +347,9 @@ public partial class MainWindow : Window, IPaginationHost
         try
         {
             var systems = _systemManagerService.LoadSystems();
-            _viewModel.Sidebar.Populate(systems);
+            _viewModel.PopulateSidebar(systems);
             _viewModel.Sidebar.RefreshCounts(_viewModel.SystemGameCounts);
-            PopulateSystemComboBox();
+            _systemSelectionOrchestrator.LoadOrReloadSystemManager();
         }
         catch (Exception ex)
         {
@@ -551,7 +566,7 @@ public partial class MainWindow : Window, IPaginationHost
             case Key.Escape:
                 SearchBox.Text = "";
                 _viewModel.SearchText = "";
-                _viewModel.NavigateToAllGamesCommand.Execute(null);
+                _ = _uiResetService.ResetUiAsync();
                 e.Handled = true;
                 break;
             case Key.F when e.KeyModifiers.HasFlag(KeyModifiers.Control):
@@ -585,11 +600,11 @@ public partial class MainWindow : Window, IPaginationHost
 
     #region Quick Actions (Home / Random / Sort / Letter Bar)
 
-    private void HomeButton_Click(object? sender, RoutedEventArgs e)
+    private async void HomeButton_Click(object? sender, RoutedEventArgs e)
     {
         try
         {
-            _viewModel.NavigateToAllGamesCommand.Execute(null);
+            await _uiResetService.ResetUiAsync();
             ScrollToTop();
             _playSound.PlayNotificationSound();
             UpdateLetterBarSelection("");
@@ -790,56 +805,12 @@ public partial class MainWindow : Window, IPaginationHost
     #region System & Emulator Selection (Top Bar)
 
     /// <summary>
-    /// Populates the System ComboBox from system.xml (WPF SystemComboBox parity).
-    /// Called after the sidebar is built and whenever systems change.
-    /// </summary>
-    private void PopulateSystemComboBox()
-    {
-        try
-        {
-            var systemNames = _systemManagerService.LoadSystems()
-                .Select(static s => s.SystemName)
-                .OrderBy(static name => name, StringComparer.Ordinal)
-                .ToList();
-            SystemComboBox.ItemsSource = systemNames;
-        }
-        catch (Exception ex)
-        {
-            Log.Error(ex, "Failed to populate the System ComboBox from system.xml");
-        }
-    }
-
-    /// <summary>
-    /// Populates the Emulator ComboBox for the given system (WPF EmulatorComboBox parity).
-    /// </summary>
-    private void PopulateEmulatorComboBox(string? systemName)
-    {
-        try
-        {
-            var emulatorNames = string.IsNullOrEmpty(systemName)
-                ? []
-                : (_systemManagerService.GetSystem(systemName)?.Emulators ?? [])
-                    .Select(static e => e.EmulatorName).ToList();
-
-            EmulatorComboBox.ItemsSource = emulatorNames;
-            EmulatorComboBox.SelectedIndex = emulatorNames.Count > 0 ? 0 : -1;
-        }
-        catch (Exception ex)
-        {
-            Log.Error(ex, "Failed to populate the Emulator ComboBox for {System}", systemName);
-        }
-    }
-
-    /// <summary>
-    /// Top System ComboBox: navigates to the selected system and refreshes the
-    /// Emulator ComboBox for that system.
+    /// Top System ComboBox: delegates to the system selection orchestrator
+    /// which navigates to the selected system and refreshes the Emulator ComboBox.
     /// </summary>
     private void SystemComboBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (SystemComboBox.SelectedItem is not string systemName || string.IsNullOrEmpty(systemName)) return;
-
-        _viewModel.NavigateToSystemCommand.Execute(systemName);
-        PopulateEmulatorComboBox(systemName);
+        _systemSelectionOrchestrator.HandleSystemSelectionChanged();
     }
 
     /// <summary>
@@ -995,62 +966,26 @@ public partial class MainWindow : Window, IPaginationHost
 
     private void ShowGameContextMenu(GameCardViewModel game, Control placementTarget)
     {
-        var contextMenu = new ContextMenu
+        _contextMenuService.ShowGameContextMenu(game, placementTarget, new GameContextMenuCallbacks
         {
-            Placement = PlacementMode.Pointer
-        };
-
-        var playItem = new MenuItem { Header = $"▶ {_localization.GetString("Context.Play")}" };
-        playItem.Click += (_, _) => _viewModel.PlayGameCommand.Execute(game);
-        contextMenu.Items.Add(playItem);
-
-        var favItem = new MenuItem
-        {
-            Header = game.IsFavorite
-                ? $"♥ {_localization.GetString("Context.RemoveFavorites")}"
-                : $"♡ {_localization.GetString("Context.AddFavorites")}"
-        };
-        favItem.Click += async (_, _) => await _viewModel.ToggleFavoriteCommand.ExecuteAsync(game);
-        contextMenu.Items.Add(favItem);
-
-        contextMenu.Items.Add(new Separator());
-
-        var detailItem = new MenuItem { Header = $"ℹ {_localization.GetString("Context.ShowDetails")}" };
-        detailItem.Click += (_, _) => OpenGameDetail(game);
-        contextMenu.Items.Add(detailItem);
-
-        var raItem = new MenuItem { Header = $"🏆 {_localization.GetString("Context.Achievements")}" };
-        raItem.Click += async (_, _) => await OpenRetroAchievementsForGameAsync(game);
-        contextMenu.Items.Add(raItem);
-
-        var copyItem = new MenuItem { Header = $"📋 {_localization.GetString("Context.CopyPath")}" };
-        copyItem.Click += async (_, _) =>
-        {
-            await CopyToClipboardAsync(game.FilePath);
-            ShowToast(_localization.GetString("Context.Copied"), game.FilePath);
-        };
-        contextMenu.Items.Add(copyItem);
-
-        var copyNameItem = new MenuItem { Header = $"📝 {_localization.GetString("Context.CopyName")}" };
-        copyNameItem.Click += async (_, _) =>
-        {
-            var fileName = Path.GetFileName(game.FilePath);
-            await CopyToClipboardAsync(fileName);
-            ShowToast(_localization.GetString("Context.Copied"), fileName);
-        };
-        contextMenu.Items.Add(copyNameItem);
-
-        contextMenu.Items.Add(new Separator());
-
-        var showInFolderItem = new MenuItem { Header = $"📂 {_localization.GetString("Context.ShowInFolder")}" };
-        showInFolderItem.Click += async (_, _) => await ShowGameInFolderAsync(game);
-        contextMenu.Items.Add(showInFolderItem);
-
-        var editSystemItem = new MenuItem { Header = $"✏ {_localization.GetString("Context.EditSystem")}" };
-        editSystemItem.Click += (_, _) => OpenEditSystemForGame(game);
-        contextMenu.Items.Add(editSystemItem);
-
-        contextMenu.Open(placementTarget);
+            OnPlay = g => _viewModel.PlayGameCommand.Execute(g),
+            OnToggleFavorite = g => _ = _viewModel.ToggleFavoriteCommand.ExecuteAsync(g),
+            OnShowDetails = OpenGameDetail,
+            OnShowAchievements = g => _ = OpenRetroAchievementsForGameAsync(g),
+            OnCopyPath = g =>
+            {
+                _ = CopyToClipboardAsync(g.FilePath);
+                ShowToast(_localization.GetString("Context.Copied"), g.FilePath);
+            },
+            OnCopyName = g =>
+            {
+                var fileName = Path.GetFileName(g.FilePath);
+                _ = CopyToClipboardAsync(fileName);
+                ShowToast(_localization.GetString("Context.Copied"), fileName);
+            },
+            OnShowInFolder = g => _ = ShowGameInFolderAsync(g),
+            OnEditSystem = OpenEditSystemForGame
+        });
     }
 
     /// <summary>
@@ -1250,8 +1185,7 @@ public partial class MainWindow : Window, IPaginationHost
 
         // Preferences can launch Easy Mode / Edit System / image-pack flows that modify
         // system.xml — refresh the sidebar so any added or renamed system shows up.
-        _systemManagerService.InvalidateCache();
-        PopulateSidebarFromSystemXml();
+        await _systemSelectionOrchestrator.ReloadAfterConfigurationChangeAsync();
     }
 
     #endregion
@@ -1270,14 +1204,12 @@ public partial class MainWindow : Window, IPaginationHost
             // If a system was added, refresh the UI
             if (easyModeWindow.DataContext is EasyModeViewModel { SystemAdded: true })
             {
-                _systemManagerService.InvalidateCache();
                 _viewModel.InvalidateAllGameFileCaches();
                 _viewModel.NavigateToAllGamesCommand.Execute(null);
 
                 // Rebuild the sidebar so the new system (e.g. Atari 2600) appears in the
                 // left menu immediately and can be clicked to filter its games.
-                PopulateSidebarFromSystemXml();
-                _fileWatcher.StartWatchingForSystems(_systemManagerService.LoadSystems());
+                await _systemSelectionOrchestrator.ReloadAfterConfigurationChangeAsync();
             }
         }
         catch (Exception ex)
@@ -2058,8 +1990,7 @@ public partial class MainWindow : Window, IPaginationHost
             await editWindow.ShowDialog(this);
 
             // The Expert window can add, rename, or delete systems — keep the sidebar in sync.
-            _systemManagerService.InvalidateCache();
-            PopulateSidebarFromSystemXml();
+            await _systemSelectionOrchestrator.ReloadAfterConfigurationChangeAsync();
         }
         catch (Exception ex)
         {
@@ -2079,10 +2010,8 @@ public partial class MainWindow : Window, IPaginationHost
             {
                 // Reload systems + games so the new/updated system shows up immediately
                 // (sidebars, counts, and the file watcher pick up the new folders too).
-                _systemManagerService.InvalidateCache();
                 await _viewModel.InitializeAsync();
-                PopulateSidebarFromSystemXml();
-                _fileWatcher.StartWatchingForSystems(_systemManagerService.LoadSystems());
+                await _systemSelectionOrchestrator.ReloadAfterConfigurationChangeAsync();
             }
 
             var action = result.SystemWasCreated ? "Created" : "Updated";

@@ -11,8 +11,11 @@ using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Avalonia.Services.Favorites;
 using SimpleLauncher.Avalonia.Services.GameLauncher;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
+using SimpleLauncher.Avalonia.Services.SystemImageResolver;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Avalonia.Services;
+using SimpleLauncher.Avalonia.Services.GameFilter;
+using SimpleLauncher.Avalonia.Services.LoadingOverlay;
 
 namespace SimpleLauncher.Avalonia.ViewModels;
 
@@ -36,6 +39,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     private readonly RetroAchievementsManager _raManager;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMameDataService _mameData;
+    private readonly ISystemImageResolverService? _systemImageResolver;
+    private readonly AvaloniaGameFilterService _gameFilter;
+    private readonly AvaloniaLoadingOverlayService _loadingOverlay;
 
     private CancellationTokenSource? _searchCts;
     private HashSet<string> _favoritePaths;
@@ -111,16 +117,13 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     public string? SelectedEmulatorName { get; set; }
 
     /// <summary>
-    /// ILoadingState implementation for the launcher: shows the overlay and updates
-    /// the message ("Mounting CHD...", "Extracting...", ...) during long operations.
+    /// ILoadingState implementation for the launcher: delegates to the
+    /// <see cref="AvaloniaLoadingOverlayService"/> for thread-safe reference-counted
+    /// loading state management.
     /// </summary>
     public void SetLoadingState(bool isLoading, string? message = null)
     {
-        IsLoading = isLoading;
-        if (!string.IsNullOrEmpty(message))
-        {
-            LoadingMessage = message;
-        }
+        _loadingOverlay.SetLoadingState(isLoading, message);
     }
 
     public bool IsEmpty => Games.Count == 0;
@@ -128,7 +131,17 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     /// <summary>
     /// Sidebar state (system groups, icons, live counts). Populated by the window after load.
     /// </summary>
-    public SidebarViewModel Sidebar { get; } = new();
+    public SidebarViewModel Sidebar { get; }
+
+    /// <summary>
+    /// Rebuilds the sidebar from the given system configurations, passing the
+    /// image resolver (if registered) so sidebar icons use annotation-stripped
+    /// and fuzzy matching (WPF SystemImageResolverService parity).
+    /// </summary>
+    public void PopulateSidebar(IEnumerable<SystemManagerConfig> systems)
+    {
+        Sidebar.Populate(systems, _systemImageResolver);
+    }
 
     /// <summary>
     /// Gets the number of games per system name. Updated after each navigation/scan.
@@ -149,7 +162,10 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         IRetroAchievementsHashStore raHashStore,
         RetroAchievementsManager raManager,
         IMessageBoxLibraryService messageBox,
-        IMameDataService mameData)
+        IMameDataService mameData,
+        AvaloniaGameFilterService gameFilter,
+        AvaloniaLoadingOverlayService loadingOverlay,
+        ISystemImageResolverService? systemImageResolver = null)
     {
         _favoritesManager = favoritesManager;
         _playHistoryManager = playHistoryManager;
@@ -165,6 +181,10 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         _raManager = raManager;
         _messageBox = messageBox;
         _mameData = mameData;
+        _gameFilter = gameFilter;
+        _loadingOverlay = loadingOverlay;
+        _systemImageResolver = systemImageResolver;
+        Sidebar = new SidebarViewModel();
 
         _favoritePaths = _favoritesManager.GetFavoritePaths();
         _allSystems = _systemManager.LoadSystems();
@@ -260,29 +280,18 @@ public partial class MainViewModel : ObservableObject, ILoadingState
 
     /// <summary>
     /// Filters the given game list by the active <see cref="LetterFilter"/> ("" = all).
-    /// Mirrors the WPF FilterMenu: "#" matches files that start with a digit, a letter
-    /// matches case-insensitively on the file name.
+    /// Delegates to <see cref="AvaloniaGameFilterService.FilterByLetter"/>.
     /// </summary>
     private List<GameCardViewModel> ApplyLetterFilter(List<GameCardViewModel> games)
     {
-        if (string.IsNullOrEmpty(_letterFilter)) return games;
-
-        if (string.Equals(_letterFilter, "#", StringComparison.Ordinal))
-        {
-            return games.Where(game =>
-            {
-                var fileName = Path.GetFileName(game.FilePath);
-                return !string.IsNullOrEmpty(fileName) && char.IsDigit(fileName[0]);
-            }).ToList();
-        }
-
-        return games.Where(game =>
-        {
-            var fileName = Path.GetFileName(game.FilePath);
-            return !string.IsNullOrEmpty(fileName) &&
-                   fileName.StartsWith(_letterFilter, StringComparison.OrdinalIgnoreCase);
-        }).ToList();
+        return _gameFilter.FilterByLetter(games, _letterFilter);
     }
+
+    /// <summary>
+    /// Gets the current active letter filter (empty string = All).
+    /// Used by the UI reset host to read and restore the filter state.
+    /// </summary>
+    public string LetterFilter => _letterFilter;
 
     /// <summary>
     /// Sets the active letter filter ("" = All) and re-applies it to the current view.
@@ -319,10 +328,18 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     /// </summary>
     public void ToggleMameSortOrder()
     {
-        _mameSortOrder = string.Equals(_mameSortOrder, "FileName", StringComparison.Ordinal)
+        var newOrder = string.Equals(_mameSortOrder, "FileName", StringComparison.Ordinal)
             ? "MachineDescription"
             : "FileName";
+        SetMameSortOrder(newOrder);
+    }
 
+    /// <summary>
+    /// Sets the MAME sort order explicitly (used by the UI reset host) and re-sorts the current view.
+    /// </summary>
+    public void SetMameSortOrder(string sortOrder)
+    {
+        _mameSortOrder = sortOrder;
         _currentBaseGames = SortByMameOrder(_currentBaseGames);
         ReapplyLetterFilterAndPagination();
         StatusText = string.Equals(_mameSortOrder, "MachineDescription", StringComparison.Ordinal) ? "Sorted by machine description" : "Sorted by file name";
@@ -330,24 +347,11 @@ public partial class MainViewModel : ObservableObject, ILoadingState
 
     /// <summary>
     /// Sorts the given game list by the current <see cref="_mameSortOrder"/>.
-    /// MachineDescription sorts by the MAME.dat machine description when known,
-    /// falling back to the file name — same rule as the WPF GameFilterService.
+    /// Delegates to <see cref="AvaloniaGameFilterService.SortByMameOrder"/>.
     /// </summary>
     private List<GameCardViewModel> SortByMameOrder(List<GameCardViewModel> games)
     {
-        if (string.Equals(_mameSortOrder, "MachineDescription", StringComparison.Ordinal))
-        {
-            return games.OrderBy(game =>
-            {
-                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(game.FilePath);
-                return _mameData.Lookup.TryGetValue(fileNameWithoutExtension, out var description) &&
-                       !string.IsNullOrWhiteSpace(description)
-                    ? description
-                    : fileNameWithoutExtension;
-            }, StringComparer.OrdinalIgnoreCase).ToList();
-        }
-
-        return games.OrderBy(game => Path.GetFileName(game.FilePath), StringComparer.OrdinalIgnoreCase).ToList();
+        return _gameFilter.SortByMameOrder(games, _mameSortOrder);
     }
 
     /// <summary>
@@ -679,9 +683,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         IsShowingRetroAchievements = false;
         _letterFilter = "";
 
-        var results = ScanGames(_allSystems)
-            .Where(g => g.DisplayTitle.Contains(query, StringComparison.OrdinalIgnoreCase))
-            .ToList();
+        var allGames = ScanGames(_allSystems);
+        var results = _gameFilter.FilterBySearchQuery(allGames, query);
 
         ApplyFavoritesAndHistory(results);
         ShowGames(results);
@@ -1081,11 +1084,12 @@ public partial class MainViewModel : ObservableObject, ILoadingState
             }
         }
 
-        // Show Games filter (settings.xml): all / with cover / without cover
-        var showGamesMode = _settings.ShowGames;
-        if (showGamesMode is not "ShowAll")
+        // Apply Show Games filter via the service
+        var filtered = _gameFilter.FilterByShowGamesSetting(games);
+        if (filtered.Count != games.Count)
         {
-            games.RemoveAll(g => string.Equals(showGamesMode, "ShowWithCover", StringComparison.Ordinal) ? !g.HasCover : g.HasCover);
+            games.Clear();
+            games.AddRange(filtered);
         }
     }
 

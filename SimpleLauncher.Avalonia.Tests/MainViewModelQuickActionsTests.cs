@@ -2,7 +2,9 @@ using System.Net.Http;
 using Moq;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.Favorites;
+using SimpleLauncher.Avalonia.Services.GameFilter;
 using SimpleLauncher.Avalonia.Services.GameLauncher;
+using SimpleLauncher.Avalonia.Services.LoadingOverlay;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Avalonia.ViewModels;
@@ -92,7 +94,9 @@ public class MainViewModelQuickActionsTests : IDisposable
             new Mock<IRetroAchievementsHashStore>().Object,
             new RetroAchievementsManager(),
             _messageBox.Object,
-            _mameData.Object);
+            _mameData.Object,
+            new AvaloniaGameFilterService(new Mock<IFindCoverImageService>().Object, settings, _mameData.Object),
+            new AvaloniaLoadingOverlayService());
 
         // Paginate only above 1 million games so the test views are never sliced.
         _viewModel.ConfigurePagination(1_000_000);

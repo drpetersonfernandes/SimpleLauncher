@@ -21,7 +21,16 @@ using SimpleLauncher.Avalonia.InjectConfigWindows;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Avalonia.Services.RetroAchievements;
 using SimpleLauncher.Avalonia.Services.SystemManager;
+using SimpleLauncher.Avalonia.Services.SystemSelectionOrchestrator;
+using SimpleLauncher.Avalonia.Services.SystemImageResolver;
 using SimpleLauncher.Avalonia.Services.TrayIcon;
+using SimpleLauncher.Avalonia.Services.UIReset;
+using SimpleLauncher.Avalonia.Services.GameFilter;
+using SimpleLauncher.Avalonia.Services.UpdateStatusBar;
+using SimpleLauncher.Avalonia.Services.SearchOrchestrator;
+using SimpleLauncher.Avalonia.Services.ContextMenus;
+using SimpleLauncher.Avalonia.Services.DisplaySystemInfo;
+using SimpleLauncher.Avalonia.Services.LoadingOverlay;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services;
@@ -471,6 +480,26 @@ public class App : Application, IDisposable
         // Game file loading: per-system file list cache + scan orchestration.
         services.AddSingleton<AvaloniaGameCacheService>();
         services.AddSingleton<AvaloniaGameFileLoadingOrchestrator>();
+        // System image resolver: fuzzy-matching system icon lookup (WPF SystemImageResolverService parity).
+        services.AddSingleton<ISystemImageResolverService, SystemImageResolverService>();
+        // UI reset: clears filters, selections, and returns to All Games (WPF UiResetService parity).
+        services.AddSingleton<UiResetService>();
+        // System selection orchestrator: coordinates System/Emulator combos, sidebar, and watcher (WPF SystemSelectionOrchestratorService parity).
+        services.AddSingleton<AvaloniaSystemSelectionOrchestratorService>();
+
+        // ── Extracted services (WPF parity — Section 10 of AvaloniaMissingFeatures.md) ──
+        // Game filter: letter filter, MAME sort, search query, show-games visibility.
+        services.AddSingleton<AvaloniaGameFilterService>();
+        // Status bar: status text updates with auto-clear timeout.
+        services.AddSingleton<AvaloniaUpdateStatusBarService>();
+        // Search orchestrator: validates search queries before execution.
+        services.AddSingleton<AvaloniaSearchOrchestratorService>();
+        // Context menu: builds game right-click context menus.
+        services.AddSingleton<AvaloniaContextMenuService>();
+        // Display system info: validates system configuration and produces display models.
+        services.AddSingleton<AvaloniaDisplaySystemInformation>();
+        // Loading overlay: thread-safe reference-counted loading state.
+        services.AddSingleton<AvaloniaLoadingOverlayService>();
 
         // ── ViewModels ──
         services.AddSingleton<MainViewModel>();

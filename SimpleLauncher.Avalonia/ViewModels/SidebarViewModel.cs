@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using SimpleLauncher.Avalonia.Services.SystemImageResolver;
 using SimpleLauncher.Core.Models;
 
 namespace SimpleLauncher.Avalonia.ViewModels;
@@ -44,22 +45,33 @@ public class SidebarViewModel
 
     /// <summary>
     /// Builds the system items from system.xml data. Idempotent — clears and refills the list.
+    /// When an image resolver is supplied, icons are resolved with annotation-stripped
+    /// and fuzzy matching (WPF SystemImageResolverService parity); otherwise only the
+    /// exact "images/systems/{name}.png" file is used.
     /// </summary>
-    public void Populate(IEnumerable<SystemManagerConfig> systems)
+    public void Populate(IEnumerable<SystemManagerConfig> systems, ISystemImageResolverService? imageResolver = null)
     {
         Systems.Clear();
 
         foreach (var system in systems)
         {
-            var iconPath = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory, "images", "systems", system.SystemName + ".png");
+            var iconPath = imageResolver is not null
+                ? imageResolver.ResolveSystemIconAsync(system.SystemName).GetAwaiter().GetResult()
+                : ExactPngIcon(system.SystemName);
 
             Systems.Add(new SidebarSystemItem
             {
                 SystemName = system.SystemName,
-                IconPath = File.Exists(iconPath) ? iconPath : null
+                IconPath = iconPath
             });
         }
+    }
+
+    private static string? ExactPngIcon(string systemName)
+    {
+        var iconPath = Path.Combine(
+            AppDomain.CurrentDomain.BaseDirectory, "images", "systems", systemName + ".png");
+        return File.Exists(iconPath) ? iconPath : null;
     }
 
     /// <summary>
