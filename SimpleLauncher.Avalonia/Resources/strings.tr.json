@@ -73,5 +73,10 @@
   "Pagination.Displaying": "Toplam {2} dosyadan {0} ile {1} arası gösteriliyor",
   "ReturnButton": "[ Geri Dön ]",
   "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "Yükleme ekranı takılırsa ana menüye dönmek için buraya tıklayın",
-  "Toast.EmergencyReset": "Yükleme katmanı kapatıldı. Kullanıcı arayüzü sıfırlandı."
+  "Toast.EmergencyReset": "Yükleme katmanı kapatıldı. Kullanıcı arayüzü sıfırlandı.",
+  "DeveloperSuggestion": "Geliştirici önerisi",
+  "TooltipDeveloperSuggestionLabel": "Bu sistemi yapılandırmak için geliştirici önerileri ve yardım belgeleri",
+  "Nodetailsavailablefor": "İçin detay bulunamadı",
+  "Noinformationavailableforsystem": "Sistem için kullanılabilir bilgi yok:",
+  "Nosystemnameprovided": "Sistem adı belirtilmedi."
 }

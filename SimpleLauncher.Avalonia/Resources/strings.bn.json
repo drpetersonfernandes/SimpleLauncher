@@ -73,5 +73,10 @@
   "Pagination.Displaying": "মোট {2}টি ফাইলের মধ্যে {0} থেকে {1} পর্যন্ত দেখানো হচ্ছে",
   "ReturnButton": "[ ফিরে যান ]",
   "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "লোডিং স্ক্রিন আটকে গেলে মূল মেনুতে ফিরে যেতে এখানে ক্লিক করুন",
-  "Toast.EmergencyReset": "লোডিং ওভারলে বন্ধ করা হয়েছে। UI রিসেট করা হয়েছে।"
+  "Toast.EmergencyReset": "লোডিং ওভারলে বন্ধ করা হয়েছে। UI রিসেট করা হয়েছে।",
+  "DeveloperSuggestion": "ডেভেলপারদের পরামর্শ",
+  "TooltipDeveloperSuggestionLabel": "এই সিস্টেম কনফিগার করার জন্য ডেভেলপারদের পরামর্শ এবং সাহায্য ডকুমেন্টেশন",
+  "Nodetailsavailablefor": "এর জন্য কোনো বিবরণ উপলব্ধ নেই",
+  "Noinformationavailableforsystem": "সিস্টেমের জন্য কোনো তথ্য নেই।",
+  "Nosystemnameprovided": "কোনও সিস্টেম নাম পাওয়া যায়নি।"
 }

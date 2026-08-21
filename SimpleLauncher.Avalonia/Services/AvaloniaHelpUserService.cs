@@ -13,6 +13,7 @@ public class AvaloniaHelpUserService
 {
     private readonly HelpUserManager _manager;
     private readonly ILogger _logger;
+    private readonly LocalizationService? _localization;
 
     /// <summary>
     /// Maps system-name aliases (user-typed names) to the canonical names used by parameters.md.
@@ -304,9 +305,15 @@ public class AvaloniaHelpUserService
     /// </summary>
     /// <param name="logger">The Serilog logger.</param>
     /// <param name="messageBoxLibrary">The message box service for user notifications.</param>
-    public AvaloniaHelpUserService(ILogger logger, IMessageBoxLibraryService messageBoxLibrary)
+    /// <param name="localization">Optional localization service for fallback messages
+    /// (WPF DynamicResource Nosystemnameprovided / Nodetailsavailablefor parity).</param>
+    public AvaloniaHelpUserService(
+        ILogger logger,
+        IMessageBoxLibraryService messageBoxLibrary,
+        LocalizationService? localization = null)
     {
         _logger = logger;
+        _localization = localization;
         _manager = new HelpUserManager(logger, messageBoxLibrary);
         try
         {
@@ -329,7 +336,7 @@ public class AvaloniaHelpUserService
     {
         if (string.IsNullOrEmpty(systemName))
         {
-            return "No system name provided.";
+            return _localization?.GetString("Nosystemnameprovided") ?? "No system name provided.";
         }
 
         var canonicalName = AliasToCanonicalName.GetValueOrDefault(systemName, systemName);
@@ -354,6 +361,7 @@ public class AvaloniaHelpUserService
         // Fetch the system details from the configuration
         var system = _manager.Systems.FirstOrDefault(s => s.SystemName.Contains(systemName, StringComparison.OrdinalIgnoreCase));
 
-        return system?.SystemHelperText ?? $"No details available for '{systemName}'.";
+        var fallback = _localization?.GetString("Nodetailsavailablefor") ?? "No details available for";
+        return system?.SystemHelperText ?? $"{fallback} '{systemName}'.";
     }
 }

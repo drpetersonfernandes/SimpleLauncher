@@ -73,5 +73,10 @@
   "Pagination.Displaying": "Menampilkan file {0} hingga {1} dari total {2}",
   "ReturnButton": "[ Kembali ]",
   "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "Klik di sini jika layar pemuatan macet untuk kembali ke menu utama",
-  "Toast.EmergencyReset": "Overlay pemuatan ditutup. UI telah direset."
+  "Toast.EmergencyReset": "Overlay pemuatan ditutup. UI telah direset.",
+  "DeveloperSuggestion": "Saran Pengembang",
+  "TooltipDeveloperSuggestionLabel": "Saran pengembang dan dokumentasi bantuan untuk mengonfigurasi sistem ini",
+  "Nodetailsavailablefor": "Tidak ada detail yang tersedia untuk",
+  "Noinformationavailableforsystem": "Tidak ada informasi yang tersedia untuk sistem:",
+  "Nosystemnameprovided": "Tidak ada nama sistem yang diberikan."
 }

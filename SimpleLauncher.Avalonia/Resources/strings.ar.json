@@ -73,5 +73,10 @@
   "Pagination.Displaying": "عرض الملفات من {0} إلى {1} من أصل {2}",
   "ReturnButton": "[ عودة ]",
   "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "انقر هنا إذا توقفت شاشة التحميل للعودة إلى القائمة الرئيسية",
-  "Toast.EmergencyReset": "تم إغلاق شاشة التحميل. تمت إعادة تعيين الواجهة."
+  "Toast.EmergencyReset": "تم إغلاق شاشة التحميل. تمت إعادة تعيين الواجهة.",
+  "DeveloperSuggestion": "اقتراح المطور",
+  "TooltipDeveloperSuggestionLabel": "اقتراحات المطورين ووثائق المساعدة لتكوين هذا النظام",
+  "Nodetailsavailablefor": "لا توجد تفاصيل متاحة لـ",
+  "Noinformationavailableforsystem": "لا توجد معلومات متاحة للنظام:",
+  "Nosystemnameprovided": "لم يتم توفير اسم النظام."
 }

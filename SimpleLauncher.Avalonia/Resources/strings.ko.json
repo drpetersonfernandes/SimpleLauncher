@@ -73,5 +73,10 @@
   "Pagination.Displaying": "전체 {2}개 파일 중 {0}~{1} 표시 중",
   "ReturnButton": "[ 돌아가기 ]",
   "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "로딩 화면이 멈춘 경우 여기를 클릭하여 메인 메뉴로 돌아가십시오",
-  "Toast.EmergencyReset": "로딩 오버레이가 닫혔습니다. UI가 초기화되었습니다."
+  "Toast.EmergencyReset": "로딩 오버레이가 닫혔습니다. UI가 초기화되었습니다.",
+  "DeveloperSuggestion": "개발자 제안",
+  "TooltipDeveloperSuggestionLabel": "이 시스템 구성을 위한 개발자 제안 및 도움말 문서",
+  "Nodetailsavailablefor": "세부 정보가 없습니다:",
+  "Noinformationavailableforsystem": "시스템에 대한 정보가 제공되지 않았습니다:",
+  "Nosystemnameprovided": "시스템 이름이 제공되지 않았습니다."
 }

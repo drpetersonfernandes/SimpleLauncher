@@ -73,5 +73,10 @@
   "Pagination.Displaying": "Affichage des fichiers {0} à {1} sur {2} au total",
   "ReturnButton": "[ Retour ]",
   "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "Cliquez ici si l'écran de chargement est bloqué pour revenir au menu principal",
-  "Toast.EmergencyReset": "Superposition de chargement fermée. L'interface a été réinitialisée."
+  "Toast.EmergencyReset": "Superposition de chargement fermée. L'interface a été réinitialisée.",
+  "DeveloperSuggestion": "Suggestion du développeur",
+  "TooltipDeveloperSuggestionLabel": "Suggestions du développeur et documentation d'aide pour la configuration de ce système",
+  "Nodetailsavailablefor": "Aucun détail disponible pour",
+  "Noinformationavailableforsystem": "Aucune information disponible pour le système :",
+  "Nosystemnameprovided": "Aucun nom de système fourni."
 }

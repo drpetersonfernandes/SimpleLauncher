@@ -4,8 +4,8 @@
         xmlns:doc="clr-namespace:Avalonia.Controls.Documents;assembly=Avalonia.Controls"
         xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
         Title="Edit Systems"
-        Width="940" MinWidth="820"
-        Height="780" MinHeight="600"
+        Width="1200" MinWidth="1000"
+        Height="600" MinHeight="550"
         WindowStartupLocation="CenterOwner"
         Background="{DynamicResource BgPrimaryBrush}"
         Opened="Window_Opened"
@@ -59,9 +59,10 @@
             </Grid>
         </Border>
 
-        <!-- Row 1: form -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="16,12">
-            <StackPanel>
+        <!-- Row 1: form (left) + splitter + System Help (right) — WPF EditSystemWindow 3-column parity -->
+        <Grid Grid.Row="1" ColumnDefinitions="1.5*,5,*">
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" Padding="16,12">
+                <StackPanel>
                 <!-- ═══ SYSTEM ═══ -->
                 <Border Background="{DynamicResource BgSecondaryBrush}"
                         BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="1"
@@ -96,21 +97,8 @@
                         <TextBox x:Name="SystemNameTextBox" Height="40" Margin="0,4,0,12"
                                  Background="{DynamicResource BgTertiaryBrush}"
                                  Foreground="{DynamicResource TextPrimaryBrush}"
-                                 BorderBrush="{DynamicResource BorderNormalBrush}" />
-
-                        <!-- Parameters help (parity with the WPF HelpUserTextBlock) -->
-                        <TextBlock Text="System Help" FontSize="12"
-                                   Foreground="{DynamicResource TextSecondaryBrush}" />
-                        <Border Background="{DynamicResource BgTertiaryBrush}"
-                                BorderBrush="{DynamicResource BorderSubtleBrush}"
-                                BorderThickness="1" CornerRadius="4"
-                                Padding="10" Margin="0,4,0,12">
-                            <md:MarkdownScrollViewer x:Name="SystemHelpMarkdownViewer"
-                                                     MaxHeight="220"
-                                                     doc:TextElement.Foreground="{DynamicResource TextPrimaryBrush}">
-                                Select a system to see its parameters help.
-                            </md:MarkdownScrollViewer>
-                        </Border>
+                                 BorderBrush="{DynamicResource BorderNormalBrush}"
+                                 LostFocus="SystemNameTextBox_LostFocus" />
 
                         <!-- System folders -->
                         <TextBlock Text="System Folder (ROMs)" FontSize="12"
@@ -451,7 +439,33 @@
                     </StackPanel>
                 </Border>
             </StackPanel>
-        </ScrollViewer>
+            </ScrollViewer>
+
+            <!-- Rail resize grip (WPF GridSplitter parity) -->
+            <GridSplitter Grid.Column="1" Width="5"
+                          Background="Transparent"
+                          ResizeBehavior="PreviousAndNext"
+                          Cursor="SizeWE" />
+
+            <!-- Right column: Developer Suggestion / System Help (WPF HelpUserTextBlock parity) -->
+            <Grid Grid.Column="2" Margin="10" RowDefinitions="Auto,*">
+                <TextBlock x:Name="HelpTitleTextBlock"
+                           Margin="0,0,0,8"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           FontSize="14"
+                           Foreground="{DynamicResource TextPrimaryBrush}" />
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <Border Background="{DynamicResource BgSecondaryBrush}"
+                            BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="1"
+                            CornerRadius="6" Padding="10">
+                        <md:MarkdownScrollViewer x:Name="SystemHelpMarkdownViewer"
+                                                 doc:TextElement.Foreground="{DynamicResource TextPrimaryBrush}" />
+                    </Border>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
 
         <!-- Row 2: status -->
         <Border Grid.Row="2" Background="{DynamicResource BgSecondaryBrush}"

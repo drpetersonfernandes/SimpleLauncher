@@ -73,5 +73,10 @@
   "Pagination.Displaying": "کل {2} فائلوں میں سے {0} سے {1} تک دکھائی جا رہی ہیں",
   "ReturnButton": "[ واپسی ]",
   "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "اگر لوڈنگ اسکرین پھنس جائے تو مین مینو پر واپس جانے کے لیے یہاں کلک کریں",
-  "Toast.EmergencyReset": "لوڈنگ اوورلے ہٹا دیا گیا۔ یو آئی ری سیٹ کر دی گئی ہے۔"
+  "Toast.EmergencyReset": "لوڈنگ اوورلے ہٹا دیا گیا۔ یو آئی ری سیٹ کر دی گئی ہے۔",
+  "DeveloperSuggestion": "ڈویلپر کی تجویز",
+  "TooltipDeveloperSuggestionLabel": "اس سسٹم کو ترتیب دینے کے لیے ڈویلپر کی تجاویز اور مدد کی دستاویزات",
+  "Nodetailsavailablefor": "کے لئے تفصیلات دستیاب نہیں ہیں",
+  "Noinformationavailableforsystem": "سسٹم کے لیے کوئی معلومات دستیاب نہیں ہیں:",
+  "Nosystemnameprovided": "کوئی سسٹم کا نام فراہم نہیں کیا گیا۔"
 }

@@ -73,5 +73,10 @@
   "Pagination.Displaying": "全{2}ファイル中 {0}〜{1} を表示中",
   "ReturnButton": "[ 戻る ]",
   "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "ロード画面が止まった場合は、ここをクリックしてメインメニューに戻ります",
-  "Toast.EmergencyReset": "読み込みオーバーレイを閉じました。UI をリセットしました。"
+  "Toast.EmergencyReset": "読み込みオーバーレイを閉じました。UI をリセットしました。",
+  "DeveloperSuggestion": "開発者の提案",
+  "TooltipDeveloperSuggestionLabel": "このシステムを設定するための開発者の提案とヘルプドキュメント",
+  "Nodetailsavailablefor": "詳細は利用できません:",
+  "Noinformationavailableforsystem": "このシステムに関する情報はありません：",
+  "Nosystemnameprovided": "システム名が指定されていません。"
 }

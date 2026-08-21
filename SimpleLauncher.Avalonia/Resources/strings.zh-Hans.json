@@ -73,5 +73,10 @@
   "Pagination.Displaying": "正在显示共 {2} 个文件中的第 {0} 至 {1} 个",
   "ReturnButton": "[ 返回 ]",
   "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "如果加载界面卡住，请点击此处返回主菜单",
-  "Toast.EmergencyReset": "加载遮罩已关闭。界面已重置。"
+  "Toast.EmergencyReset": "加载遮罩已关闭。界面已重置。",
+  "DeveloperSuggestion": "开发者建议",
+  "TooltipDeveloperSuggestionLabel": "开发人员建议和配置此系统的帮助文档",
+  "Nodetailsavailablefor": "暂无可用详细信息",
+  "Noinformationavailableforsystem": "没有可用的系统信息：",
+  "Nosystemnameprovided": "未提供系统名称。"
 }

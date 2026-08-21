@@ -73,5 +73,10 @@
   "Pagination.Displaying": "Displaying files {0} to {1} out of {2} total",
   "ReturnButton": "[ Return ]",
   "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "Click here if the loading screen is stuck to return to the main menu",
-  "Toast.EmergencyReset": "Loading overlay dismissed. UI has been reset."
+  "Toast.EmergencyReset": "Loading overlay dismissed. UI has been reset.",
+  "DeveloperSuggestion": "Developer Suggestion",
+  "TooltipDeveloperSuggestionLabel": "Developer suggestions and help documentation for configuring this system",
+  "Nodetailsavailablefor": "No details available for",
+  "Noinformationavailableforsystem": "No information available for system:",
+  "Nosystemnameprovided": "No system name provided."
 }

@@ -73,5 +73,10 @@
   "Pagination.Displaying": "Dateien {0} bis {1} von insgesamt {2} werden angezeigt",
   "ReturnButton": "[ Zurück ]",
   "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "Hier klicken, falls der Ladebildschirm hängt, um zum Hauptmenü zurückzukehren",
-  "Toast.EmergencyReset": "Ladeoverlay geschlossen. Die Benutzeroberfläche wurde zurückgesetzt."
+  "Toast.EmergencyReset": "Ladeoverlay geschlossen. Die Benutzeroberfläche wurde zurückgesetzt.",
+  "DeveloperSuggestion": "Entwicklervorschlag",
+  "TooltipDeveloperSuggestionLabel": "Entwicklervorschläge und Hilfedokumentation zur Konfiguration dieses Systems",
+  "Nodetailsavailablefor": "Keine Details verfügbar für",
+  "Noinformationavailableforsystem": "Keine Informationen für das System verfügbar:",
+  "Nosystemnameprovided": "Kein Systemname angegeben."
 }

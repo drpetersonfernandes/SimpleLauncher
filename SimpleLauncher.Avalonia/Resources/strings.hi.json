@@ -73,5 +73,10 @@
   "Pagination.Displaying": "कुल {2} फ़ाइलों में से {0} से {1} तक दिखाई जा रही हैं",
   "ReturnButton": "[ वापस जाएं ]",
   "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "यदि लोडिंग स्क्रीन अटक गई है, तो मुख्य मेनू पर लौटने के लिए यहाँ क्लिक करें",
-  "Toast.EmergencyReset": "लोडिंग ओवरले हटा दिया गया है। UI रीसेट कर दिया गया है।"
+  "Toast.EmergencyReset": "लोडिंग ओवरले हटा दिया गया है। UI रीसेट कर दिया गया है।",
+  "DeveloperSuggestion": "डेवलपर का सुझाव",
+  "TooltipDeveloperSuggestionLabel": "इस सिस्टम को कॉन्फ़िगर करने के लिए डेवलपर सुझाव और सहायता दस्तावेज़",
+  "Nodetailsavailablefor": "इसके लिए कोई विवरण उपलब्ध नहीं है",
+  "Noinformationavailableforsystem": "सिस्टम के लिए कोई जानकारी उपलब्ध नहीं है:",
+  "Nosystemnameprovided": "कोई सिस्टम नाम प्रदान नहीं किया गया।"
 }

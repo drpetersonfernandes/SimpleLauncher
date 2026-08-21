@@ -73,5 +73,10 @@
   "Pagination.Displaying": "Bestanden {0} tot {1} van {2} in totaal weergegeven",
   "ReturnButton": "[ Terug ]",
   "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "Klik hier als het laadscherm vastloopt om terug te keren naar het hoofdmenu",
-  "Toast.EmergencyReset": "Laadoverlay gesloten. De gebruikersinterface is gereset."
+  "Toast.EmergencyReset": "Laadoverlay gesloten. De gebruikersinterface is gereset.",
+  "DeveloperSuggestion": "Suggestie van ontwikkelaar",
+  "TooltipDeveloperSuggestionLabel": "Suggesties van ontwikkelaars en hulpdocumentatie voor het configureren van dit systeem",
+  "Nodetailsavailablefor": "Geen details beschikbaar voor",
+  "Noinformationavailableforsystem": "Geen informatie beschikbaar voor het systeem:",
+  "Nosystemnameprovided": "Geen systeemnaam opgegeven."
 }

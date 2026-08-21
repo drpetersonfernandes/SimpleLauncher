@@ -73,5 +73,10 @@
   "Pagination.Displaying": "Đang hiển thị tệp {0} đến {1} trong tổng số {2}",
   "ReturnButton": "[ Quay lại ]",
   "ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu": "Nhấp vào đây nếu màn hình tải bị kẹt để quay lại menu chính",
-  "Toast.EmergencyReset": "Đã đóng lớp phủ tải. Giao diện đã được đặt lại."
+  "Toast.EmergencyReset": "Đã đóng lớp phủ tải. Giao diện đã được đặt lại.",
+  "DeveloperSuggestion": "Gợi ý từ nhà phát triển",
+  "TooltipDeveloperSuggestionLabel": "Gợi ý của nhà phát triển và tài liệu trợ giúp để cấu hình hệ thống này",
+  "Nodetailsavailablefor": "Không có chi tiết nào khả dụng cho",
+  "Noinformationavailableforsystem": "Không có thông tin nào cho hệ thống:",
+  "Nosystemnameprovided": "Không có tên hệ thống được cung cấp."
 }

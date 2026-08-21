@@ -85,6 +85,11 @@ public partial class EditSystemWindow : Window
         EmergencyButton.Content = _localization.GetString("ReturnButton");
         ToolTip.SetTip(EmergencyButton,
             _localization.GetString("ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu"));
+
+        // Localize the System Help panel title (WPF DeveloperSuggestion label parity)
+        HelpTitleTextBlock.Text = _localization.GetString("DeveloperSuggestion");
+        ToolTip.SetTip(HelpTitleTextBlock,
+            _localization.GetString("TooltipDeveloperSuggestionLabel"));
     }
 
     private async void Window_Opened(object? sender, EventArgs e)
@@ -171,7 +176,7 @@ public partial class EditSystemWindow : Window
             SaveSystemButton.IsEnabled = false;
             DeleteSystemButton.IsEnabled = false;
             StatusTextBlock.Text = "Select a system to edit, or click Add New to create one.";
-            SystemHelpMarkdownViewer.Markdown = "Select a system to see its parameters help.";
+            ClearSystemHelp();
         }
         else
         {
@@ -194,7 +199,6 @@ public partial class EditSystemWindow : Window
             {
                 SystemNameTextBox.Text = selectedSystem.SystemName;
                 StatusTextBlock.Text = $"Editing: {selectedSystem.SystemName}";
-                SystemHelpMarkdownViewer.Markdown = _helpUserService.GetHelpText(selectedSystem.SystemName);
 
                 SystemFolderTextBox.Text = selectedSystem.PrimarySystemFolder ?? "";
 
@@ -239,6 +243,9 @@ public partial class EditSystemWindow : Window
                 SetFieldValidationState(Emulator3PathTextBox, string.IsNullOrWhiteSpace(Emulator3PathTextBox.Text) || CheckPath.IsValidPath(Emulator3PathTextBox.Text));
                 SetFieldValidationState(Emulator4PathTextBox, string.IsNullOrWhiteSpace(Emulator4PathTextBox.Text) || CheckPath.IsValidPath(Emulator4PathTextBox.Text));
                 SetFieldValidationState(Emulator5PathTextBox, string.IsNullOrWhiteSpace(Emulator5PathTextBox.Text) || CheckPath.IsValidPath(Emulator5PathTextBox.Text));
+
+                // Update the System Help panel (WPF UpdateHelpUserTextBlock parity)
+                UpdateSystemHelp();
             }
             else
             {
@@ -319,6 +326,7 @@ public partial class EditSystemWindow : Window
             EnableFields();
 
             UpdateSystemImagePreview();
+            ClearSystemHelp();
 
             SaveSystemButton.IsEnabled = true;
             DeleteSystemButton.IsEnabled = false;
@@ -336,6 +344,8 @@ public partial class EditSystemWindow : Window
     {
         try
         {
+            ClearSystemHelp();
+
             if (SystemNameDropdown.SelectedItem == null)
             {
                 await _messageBox.SelectASystemToDeleteMessageBoxAsync();
@@ -559,11 +569,41 @@ public partial class EditSystemWindow : Window
                 pathTextBox.Text = path;
                 SetFieldValidationState(pathTextBox, true);
             }
+
+            // Update the System Help panel (WPF ChooseEmulatorPath parity)
+            UpdateSystemHelp();
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Error in method ChooseEmulatorPath");
         }
+    }
+
+    // ── System Help panel (WPF HelpUserTextBlock parity) ──────────────
+
+    /// <summary>
+    /// Refreshes the right-side System Help panel from the name currently in
+    /// SystemNameTextBox (WPF UpdateHelpUserTextBlock parity).
+    /// </summary>
+    private void UpdateSystemHelp()
+    {
+        var systemName = SystemNameTextBox.Text?.Trim() ?? string.Empty;
+        SystemHelpMarkdownViewer.Markdown = _helpUserService.GetHelpText(systemName);
+    }
+
+    /// <summary>
+    /// Clears the right-side System Help panel (WPF HelpUserTextBlock.Document.Blocks.Clear() parity).
+    /// </summary>
+    private void ClearSystemHelp()
+    {
+        SystemHelpMarkdownViewer.Markdown = string.Empty;
+    }
+
+    private void SystemNameTextBox_LostFocus(object? sender, RoutedEventArgs e)
+    {
+        // Update System Help when the user edits/renames the system name
+        // (WPF SystemNameTextBox_LostFocus parity).
+        UpdateSystemHelp();
     }
 
     private async void AddAdditionalFolder_Click(object? sender, RoutedEventArgs e)
