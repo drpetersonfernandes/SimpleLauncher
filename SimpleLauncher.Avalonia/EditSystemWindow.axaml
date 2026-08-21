@@ -445,7 +445,7 @@
             <GridSplitter Grid.Column="1" Width="5"
                           Background="Transparent"
                           ResizeBehavior="PreviousAndNext"
-                          Cursor="SizeWE" />
+                          Cursor="SizeWestEast" />
 
             <!-- Right column: Developer Suggestion / System Help (WPF HelpUserTextBlock parity) -->
             <Grid Grid.Column="2" Margin="10" RowDefinitions="Auto,*">
