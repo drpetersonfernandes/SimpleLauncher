@@ -1,5 +1,7 @@
+using System.Diagnostics;
 using System.Text;
 using Avalonia.Controls;
+using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Avalonia.Views;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
@@ -9,10 +11,12 @@ namespace SimpleLauncher.Avalonia.Services.AvaloniaServices;
 public class MessageBoxLibraryService : IMessageBoxLibraryService
 {
     private readonly IWindowContext _ctx;
+    private readonly IConfiguration _configuration;
 
-    public MessageBoxLibraryService(IWindowContext c)
+    public MessageBoxLibraryService(IWindowContext c, IConfiguration configuration)
     {
         _ctx = c;
+        _configuration = configuration;
     }
 
     private Window? O => _ctx.PlatformWindow as Window;
@@ -368,9 +372,27 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task WouldYouLikeToOpenTheLogMessageBoxAsync(string? logPath)
+    public async Task WouldYouLikeToOpenTheLogMessageBoxAsync(string? logPath)
     {
-        return Task.CompletedTask;
+        if (O == null) return;
+
+        var result = await ShowAsync(O,
+            "'Simple Launcher' was unable to launch this game.\n\n" +
+            "Would you like to open the 'error_user.log' file to debug the error?",
+            "Error", MessageButtons.YesNo, MessageIcon.Error);
+
+        if (result == MessageBoxResult.Yes && !string.IsNullOrEmpty(logPath))
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo { FileName = logPath, UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to open the 'error_user.log' file.");
+                await ShowAsync(O, "The file 'error_user.log' was not found!", "Error", MessageButtons.Ok, MessageIcon.Error);
+            }
+        }
     }
 
     public Task FileSystemXmlIsCorruptedMessageBoxAsync(string? logPath)
@@ -658,9 +680,30 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task CouldNotLaunchGameMessageBoxAsync(string? logPath)
+    public async Task CouldNotLaunchGameMessageBoxAsync(string? logPath)
     {
-        return Task.CompletedTask;
+        if (O == null) return;
+
+        var result = await ShowAsync(O,
+            "'Simple Launcher' could not launch the selected game.\n\n" +
+            "Make sure the ROM or ISO you're trying to run is not corrupted.\n" +
+            "If you are trying to run Retroarch, ensure that the BIOS or required files for the core are installed.\n" +
+            "Also, make sure you are calling the emulator with the correct parameter.\n\n" +
+            "You can turn off this error message in Expert mode.\n\n" +
+            "Do you want to open the file 'error_user.log' to debug the error?",
+            "Error", MessageButtons.YesNo, MessageIcon.Error);
+
+        if (result == MessageBoxResult.Yes && !string.IsNullOrEmpty(logPath))
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo { FileName = logPath, UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to open the error log file.");
+            }
+        }
     }
 
     public Task InvalidOperationExceptionMessageBoxAsync(string? logPath)
@@ -1479,19 +1522,84 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task MameRomSetErrorMessageBoxAsync()
+    public async Task MameRomSetErrorMessageBoxAsync()
     {
-        return Task.CompletedTask;
+        if (O == null) return;
+
+        var result = await ShowAsync(O,
+            "MAME emulator could not find required files to launch this game.\n\n" +
+            "MAME is very restrictive about the filename of the game.\n\n" +
+            "Please ensure you are running a compatible ROM set.\n\n" +
+            "Would you like to visit the PleasureDome website to download a compatible ROM set?",
+            "ROM Files Not Found", MessageButtons.YesNo, MessageIcon.Warning);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                var url = _configuration.GetValue<string>("Urls:PleasureDomeWebsite") ??
+                          "https://pleasuredome.github.io/pleasuredome/index.html";
+                Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Could not open browser");
+            }
+        }
     }
 
-    public Task MameUnknownSystemErrorMessageBoxAsync()
+    public async Task MameUnknownSystemErrorMessageBoxAsync()
     {
-        return Task.CompletedTask;
+        if (O == null) return;
+
+        var result = await ShowAsync(O,
+            "MAME emulator could not find a matching compatible system to launch.\n\n" +
+            "MAME is very restrictive about the filename of the game.\n\n" +
+            "The filename of your game must match the expected filename to run on MAME.\n\n" +
+            "Please ensure you are running a compatible ROM set.\n\n" +
+            "Would you like to visit the PleasureDome website to download a compatible ROM set?",
+            "Unknown System Error", MessageButtons.YesNo, MessageIcon.Warning);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                var url = _configuration.GetValue<string>("Urls:PleasureDomeWebsite") ??
+                          "https://pleasuredome.github.io/pleasuredome/index.html";
+                Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Could not open browser");
+            }
+        }
     }
 
-    public Task MameUnableToLoadImageMessageBoxAsync()
+    public async Task MameUnableToLoadImageMessageBoxAsync()
     {
-        return Task.CompletedTask;
+        if (O == null) return;
+
+        var result = await ShowAsync(O,
+            "MAME emulator could not load the image file.\n\n" +
+            "MAME is very restrictive about the filename of the game.\n\n" +
+            "The filename of your game must match the expected filename to run on MAME.\n\n" +
+            "Please ensure you are running a compatible ROM set.\n\n" +
+            "Would you like to visit the PleasureDome website to download a compatible ROM set?",
+            "Unable to Load Image", MessageButtons.YesNo, MessageIcon.Warning);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                var url = _configuration.GetValue<string>("Urls:PleasureDomeWebsite") ??
+                          "https://pleasuredome.github.io/pleasuredome/index.html";
+                Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Could not open browser");
+            }
+        }
     }
 
     public Task OotakeDoesNotSupportImageFilesMessageBoxAsync()
@@ -1509,14 +1617,43 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         return Task.CompletedTask;
     }
 
-    public Task RetroArchParameterIssueMessageBoxAsync(string? logPath)
+    public async Task RetroArchParameterIssueMessageBoxAsync(string? logPath)
     {
-        return Task.CompletedTask;
+        if (O == null) return;
+
+        var result = await ShowAsync(O,
+            "RetroArch could not launch your game.\n\n" +
+            "99% of the launch failures are due to incorrect parameters.\n\n" +
+            "Go back to 'Expert Mode' and double-check the parameter field for this emulator. " +
+            "Double-check the path to the desired core. Read the recommendations from the 'Simple Launcher' developer for the specific system.\n\n" +
+            "Check the core requirements to run it. Some cores require a BIOS file to work. " +
+            "Read the core documentation to figure out what the requirements are for that specific core.\n\n" +
+            "Do you want to open the file 'error_user.log' to debug the error?",
+            "Error", MessageButtons.YesNo, MessageIcon.Error);
+
+        if (result == MessageBoxResult.Yes && !string.IsNullOrEmpty(logPath))
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo { FileName = logPath, UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to open the error log file.");
+                await ShowAsync(O, "The file 'error_user.log' was not found!", "Error", MessageButtons.Ok, MessageIcon.Error);
+            }
+        }
     }
 
-    public Task RetroArchSpecialCharactersInPathMessageBoxAsync()
+    public async Task RetroArchSpecialCharactersInPathMessageBoxAsync()
     {
-        return Task.CompletedTask;
+        if (O == null) return;
+
+        await ShowAsync(O,
+            "The emulator could not launch the game because the file path contains special characters (for example: ´, `, ~, !, ?).\n\n" +
+            "RetroArch cannot create its required folders in paths with these characters.\n\n" +
+            "To fix this, please move your emulator and your game files to a folder that uses only standard letters and numbers, such as C:\\Games\\.",
+            "Error", MessageButtons.Ok, MessageIcon.Error);
     }
 
     public Task AzaharConfigurationInjectionPermissionErrorMessageBoxAsync()

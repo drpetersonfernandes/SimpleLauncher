@@ -1,10 +1,14 @@
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Core.Services.InjectEmulatorConfig;
+using SimpleLauncher.Core.Services.UsageStats;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Avalonia.Services.GameLauncher;
@@ -29,12 +33,19 @@ public class MinimalLauncherService : ILauncherService
     private readonly SettingsManagerService _settings;
     private readonly IEnumerable<ILaunchStrategy> _launchStrategies;
     private readonly HashSet<string> _emulatorsToSkipErrorChecking;
+    private readonly PlayHistoryManager _playHistoryManager;
+    private readonly Stats _stats;
 
     /// <summary>
     /// Real emulator run time of the last launch (from process start to exit).
     /// Zero for shortcut launches (which do not wait for exit).
     /// </summary>
     public TimeSpan LastPlayTime { get; private set; }
+
+    /// <summary>
+    /// Raised after a game has finished playing with a play time above the 5-second threshold.
+    /// </summary>
+    public event EventHandler<GamePlayedEventArgs>? GamePlayed;
 
     public MinimalLauncherService(
         IMessageBoxLibraryService messageBox,
@@ -46,7 +57,9 @@ public class MinimalLauncherService : ILauncherService
         IMountZipFiles mountZipFiles,
         AskAiToFixParameters askAiToFixParameters,
         SettingsManagerService settings,
-        IEnumerable<ILaunchStrategy> launchStrategies)
+        IEnumerable<ILaunchStrategy> launchStrategies,
+        PlayHistoryManager playHistoryManager,
+        Stats stats)
     {
         _messageBox = messageBox;
         _configHandlers = configHandlers;
@@ -62,6 +75,8 @@ public class MinimalLauncherService : ILauncherService
             .GetSection("EmulatorsToSkipErrorChecking")
             .Get<string[]>()?
             .ToHashSet(StringComparer.OrdinalIgnoreCase) ?? [];
+        _playHistoryManager = playHistoryManager;
+        _stats = stats;
     }
 
     /// <summary>
@@ -526,6 +541,8 @@ public class MinimalLauncherService : ILauncherService
 
             Exception? launchException = null;
             var stderrOutput = "";
+            var stdoutOutput = "";
+            var processExitCode = 0;
             var processStartTime = DateTime.Now;
 
             await Task.Run(async () =>
@@ -535,6 +552,7 @@ public class MinimalLauncherService : ILauncherService
                     var isBatchFile = Path.GetExtension(resolvedEmulatorPath)
                         .Equals(".bat", StringComparison.OrdinalIgnoreCase);
                     var stderrBuffer = new StringBuilder();
+                    var stdoutBuffer = new StringBuilder();
 
                     using var process = new Process();
                     process.StartInfo = new ProcessStartInfo
@@ -556,7 +574,13 @@ public class MinimalLauncherService : ILauncherService
                         // Drain BOTH streams asynchronously: a chatty emulator (MAME, RetroArch
                         // with log verbosity, CLI tools) would otherwise fill the pipe buffer
                         // and block forever, deadlocking WaitForExit (mirrors the WPF launcher).
-                        process.OutputDataReceived += (_, _) => { };
+                        process.OutputDataReceived += (_, e) =>
+                        {
+                            if (e.Data is not null)
+                            {
+                                stdoutBuffer.AppendLine(e.Data);
+                            }
+                        };
                         process.ErrorDataReceived += (_, e) =>
                         {
                             if (e.Data is not null)
@@ -577,6 +601,8 @@ public class MinimalLauncherService : ILauncherService
                     // WaitForExitAsync also waits for the async output reads to complete.
                     await process.WaitForExitAsync();
                     stderrOutput = stderrBuffer.ToString();
+                    stdoutOutput = stdoutBuffer.ToString();
+                    processExitCode = process.ExitCode;
                 }
                 catch (Exception ex)
                 {
@@ -599,11 +625,27 @@ public class MinimalLauncherService : ILauncherService
                 return;
             }
 
-            // ── Post-exit analysis (lightweight port of the original) ──
+            // ── Post-exit error analysis (ported from the WPF GameLauncherService) ──
             if (!string.IsNullOrWhiteSpace(stderrOutput))
             {
                 Log.Debug("Emulator stderr for {Emulator}: {Stderr}", emulatorName,
                     stderrOutput.Length > 2000 ? stderrOutput[..2000] : stderrOutput);
+            }
+
+            await AnalyzeProcessExitAsync(
+                processExitCode, stdoutOutput, stderrOutput,
+                resolvedEmulatorPath, arguments,
+                emulatorName, emulatorLocation,
+                selectedEmulatorManager, selectedSystemManager,
+                loadingStateProvider);
+
+            // ── Play history & stats integration (ported from WPF) ──
+            if (LastPlayTime.TotalSeconds > 5)
+            {
+                await UpdateStatsAndPlayCountAsync(
+                    LastPlayTime, resolvedFilePath, selectedSystemManager.SystemName,
+                    emulatorName, selectedEmulatorManager);
+                GamePlayed?.Invoke(this, new GamePlayedEventArgs(resolvedFilePath, selectedSystemManager.SystemName));
             }
 
             loadingStateProvider?.SetLoadingState(false, "Done");
@@ -797,6 +839,254 @@ public class MinimalLauncherService : ILauncherService
     #endregion
 
     #region Helpers
+
+    /// <summary>
+    /// Updates play time statistics, records play history, and reports to the stats API.
+    /// Port of the WPF GameLauncherService.UpdateStatsAndPlayCountAsync.
+    /// </summary>
+    private async Task UpdateStatsAndPlayCountAsync(
+        TimeSpan playTime, string filePath, string systemName,
+        string emulatorName, Emulator selectedEmulatorManager)
+    {
+        // Update per-system play time in settings
+        try
+        {
+            _settings.UpdateSystemPlayTime(systemName, playTime);
+            await _settings.SaveAsync();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error updating system play time in settings");
+        }
+
+        // Record play history
+        try
+        {
+            await _playHistoryManager.RecordPlayAsync(filePath, systemName, (long)playTime.TotalSeconds);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error updating play history");
+        }
+
+        // Report to stats API (fire-and-forget)
+        _ = _stats.CallApiAsync(emulatorName);
+    }
+
+    // ── Post-exit error analysis constants ──
+    private const int MemoryAccessViolation = -1073741819;
+    private const int DepViolation = -1073740791;
+
+    /// <summary>
+    /// Post-exit error analysis — port of the WPF GameLauncherService's
+    /// DoNotCheckErrorsOnSpecificEmulators + CheckForMemoryAccessViolationAsync +
+    /// CheckForDepViolationAsync + CheckForExitCodeWithErrorAnyAsync pipeline.
+    /// </summary>
+    private async Task AnalyzeProcessExitAsync(
+        int exitCode,
+        string stdout,
+        string stderr,
+        string emulatorPath,
+        string arguments,
+        string emulatorName,
+        string? emulatorLocation,
+        Emulator selectedEmulatorManager,
+        ISystemManager selectedSystemManager,
+        ILoadingState? loadingStateProvider)
+    {
+        // Skip error checking for known problematic emulators
+        if (IsInEmulatorsToSkipList(emulatorName) || IsInEmulatorsToSkipList(Path.GetFileName(emulatorPath)))
+        {
+            Log.Information(
+                "User just ran {Emulator}. Simple Launcher does not track error codes for this emulator.\n" +
+                "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}",
+                emulatorName, exitCode, emulatorPath, arguments);
+            return;
+        }
+
+        // Success — nothing to analyze
+        if (exitCode == 0)
+        {
+            return;
+        }
+
+        // Memory access violation — log only, no user notification
+        if (exitCode == MemoryAccessViolation)
+        {
+            Log.Warning(
+                "Memory access violation error running the emulator.\n" +
+                "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
+                "Stdout: {Stdout}\nStderr: {Stderr}",
+                exitCode, emulatorPath, arguments, stdout, stderr);
+            return;
+        }
+
+        // DEP violation — log only, no user notification
+        if (exitCode == DepViolation)
+        {
+            Log.Warning(
+                "Data Execution Prevention (DEP) violation error running the emulator.\n" +
+                "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
+                "Stdout: {Stdout}\nStderr: {Stderr}",
+                exitCode, emulatorPath, arguments, stdout, stderr);
+            return;
+        }
+
+        var combinedOutput = stdout + "\n" + stderr;
+
+        // Ignore RetroArch "File open/read error" — not actionable
+        if (combinedOutput.Contains("File open/read error", StringComparison.OrdinalIgnoreCase))
+        {
+            Log.Debug("Ignored exit code {ExitCode} due to 'File open/read error' in output.", exitCode);
+            return;
+        }
+
+        var isRetroArch = emulatorName.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ||
+                          (emulatorLocation ?? "").Contains("retroarch", StringComparison.OrdinalIgnoreCase);
+        var isMame = emulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
+                     (emulatorLocation ?? "").Contains("mame", StringComparison.OrdinalIgnoreCase) ||
+                     (emulatorLocation ?? "").Contains("mame64", StringComparison.OrdinalIgnoreCase);
+
+        // RetroArch mkdir permission denied (special characters in path)
+        if (isRetroArch &&
+            combinedOutput.Contains("mkdir(", StringComparison.OrdinalIgnoreCase) &&
+            combinedOutput.Contains("Permission denied", StringComparison.OrdinalIgnoreCase))
+        {
+            Log.Debug("RetroArch mkdir permission denied due to special characters in path.");
+            Log.Warning(
+                "RetroArch special characters error.\n" +
+                "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
+                "Stdout: {Stdout}\nStderr: {Stderr}",
+                exitCode, emulatorPath, arguments, stdout, stderr);
+
+            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+            {
+                await _messageBox.RetroArchSpecialCharactersInPathMessageBoxAsync();
+                await _messageBox.WouldYouLikeToOpenTheLogMessageBoxAsync(LogFilePath());
+                await _askAiToFixParameters.ExecuteAsync(
+                    selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
+            }
+            return;
+        }
+
+        // RetroArch generic parameter issues
+        if (isRetroArch)
+        {
+            Log.Debug("RetroArch parameter issues detected.");
+            Log.Warning(
+                "RetroArch parameter issue.\n" +
+                "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
+                "Stdout: {Stdout}\nStderr: {Stderr}",
+                exitCode, emulatorPath, arguments, stdout, stderr);
+
+            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+            {
+                await _messageBox.RetroArchParameterIssueMessageBoxAsync(LogFilePath());
+                await _askAiToFixParameters.ExecuteAsync(
+                    selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
+            }
+            return;
+        }
+
+        // MAME ROM set error
+        if ((isMame || isRetroArch) &&
+            (combinedOutput.Contains("Not Found", StringComparison.OrdinalIgnoreCase) ||
+             combinedOutput.Contains("WRONG LENGTH", StringComparison.OrdinalIgnoreCase) ||
+             combinedOutput.Contains("Required files are missing", StringComparison.OrdinalIgnoreCase)))
+        {
+            Log.Debug("MAME ROM set error detected.");
+            Log.Warning(
+                "MAME ROM set error.\n" +
+                "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
+                "Stdout: {Stdout}\nStderr: {Stderr}",
+                exitCode, emulatorPath, arguments, stdout, stderr);
+
+            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+            {
+                await _messageBox.MameRomSetErrorMessageBoxAsync();
+                await _messageBox.WouldYouLikeToOpenTheLogMessageBoxAsync(LogFilePath());
+                await _askAiToFixParameters.ExecuteAsync(
+                    selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
+            }
+            return;
+        }
+
+        // MAME Unknown system
+        if ((isMame || isRetroArch) &&
+            (combinedOutput.Contains("Unknown system", StringComparison.OrdinalIgnoreCase) ||
+             combinedOutput.Contains("approximately matches the following", StringComparison.OrdinalIgnoreCase)))
+        {
+            Log.Debug("MAME Unknown system error detected.");
+            Log.Warning(
+                "MAME Unknown system error.\n" +
+                "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
+                "Stdout: {Stdout}\nStderr: {Stderr}",
+                exitCode, emulatorPath, arguments, stdout, stderr);
+
+            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+            {
+                await _messageBox.MameUnknownSystemErrorMessageBoxAsync();
+                await _messageBox.WouldYouLikeToOpenTheLogMessageBoxAsync(LogFilePath());
+                await _askAiToFixParameters.ExecuteAsync(
+                    selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
+            }
+            return;
+        }
+
+        // MAME Unable to load image
+        if (isMame &&
+            (combinedOutput.Contains("Unable to load image", StringComparison.OrdinalIgnoreCase) ||
+             combinedOutput.Contains("No such file or directory", StringComparison.OrdinalIgnoreCase)))
+        {
+            Log.Debug("MAME Unable to load image error detected.");
+            Log.Warning(
+                "MAME Unable to load image error.\n" +
+                "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
+                "Stdout: {Stdout}\nStderr: {Stderr}",
+                exitCode, emulatorPath, arguments, stdout, stderr);
+
+            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+            {
+                await _messageBox.MameUnableToLoadImageMessageBoxAsync();
+                await _messageBox.WouldYouLikeToOpenTheLogMessageBoxAsync(LogFilePath());
+                await _askAiToFixParameters.ExecuteAsync(
+                    selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
+            }
+            return;
+        }
+
+        // MAME corrupted INI (auto-restore from sample)
+        if (isMame &&
+            stderr.Contains("Warning: unknown option in INI", StringComparison.OrdinalIgnoreCase))
+        {
+            Log.Debug("MAME unknown option in INI detected. Attempting to restore mame.ini from sample.");
+            var restored = MameConfigurationService.RestoreMameIniFromSample(emulatorPath, Log.Logger);
+            if (restored)
+            {
+                Log.Debug("mame.ini restored successfully. User should retry.");
+            }
+            else
+            {
+                Log.Debug("Failed to restore mame.ini from sample.");
+            }
+            return;
+        }
+
+        // Generic fallback — any other non-zero exit code
+        Log.Debug("Exit code {ExitCode} detected for {Emulator}.", exitCode, emulatorName);
+        Log.Warning(
+            "Emulator exited with error.\n" +
+            "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
+            "Stdout: {Stdout}\nStderr: {Stderr}",
+            exitCode, emulatorPath, arguments, stdout, stderr);
+
+        if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+        {
+            await _messageBox.CouldNotLaunchGameMessageBoxAsync(LogFilePath());
+            await _askAiToFixParameters.ExecuteAsync(
+                selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
+        }
+    }
 
     /// <summary>
     /// Determines which launchable file to look for inside a mounted CHD image for the

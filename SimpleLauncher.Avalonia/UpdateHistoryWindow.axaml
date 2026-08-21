@@ -1,17 +1,14 @@
 <Window x:Class="SimpleLauncher.Avalonia.UpdateHistoryWindow"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
         Title="Update History"
         Width="800" Height="700"
         MinWidth="700" MinHeight="550"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <TextBox x:Name="HistoryTextBox"
-                 IsReadOnly="True"
-                 TextWrapping="Wrap"
-                 AcceptsReturn="True"
-                 Margin="10"
-                 Text="{Binding MarkdownContent, Mode=OneWay}"
-                 FontFamily="Consolas, Courier New, monospace" />
+        <md:MarkdownScrollViewer x:Name="HistoryMarkdownViewer"
+                                 Margin="10"
+                                 Markdown="{Binding MarkdownContent, Mode=OneWay}" />
     </Grid>
 </Window>
