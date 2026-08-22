@@ -12,10 +12,9 @@ namespace SimpleLauncher.Avalonia.Extensions;
 /// </summary>
 public class TranslateExtension : MarkupExtension
 {
-    public TranslateExtension()
-    {
-    }
-
+    // Single constructor: the designer's runtime XAML compiler resolves the
+    // positional {ext:Translate Key} argument against the ctor list and fails
+    // with "Parameters mismatch" when a parameterless overload also exists.
     public TranslateExtension(string key)
     {
         Key = key;

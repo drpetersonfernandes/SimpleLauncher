@@ -78,7 +78,6 @@ public partial class MainWindow : IUiResetHost
     void IUiResetHost.SetSearchTextBoxText(string text)
     {
         SearchBox.Text = text;
-        SearchPlaceholder.IsVisible = string.IsNullOrEmpty(text);
         _viewModel.SearchText = text;
     }
 

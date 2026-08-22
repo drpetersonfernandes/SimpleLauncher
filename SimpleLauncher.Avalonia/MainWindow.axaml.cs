@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Avalonia.Converters;
 using SimpleLauncher.Avalonia.InjectConfigWindows;
+using SimpleLauncher.Avalonia.Models;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.GameScan;
 using SimpleLauncher.Avalonia.Services.SystemSelectionOrchestrator;
@@ -647,7 +648,6 @@ public partial class MainWindow : Window, IPaginationHost
             // Reset the visible filter controls (the ViewModel resets its own state)
             UpdateLetterBarSelection("");
             SearchBox.Text = "";
-            SearchPlaceholder.IsVisible = true;
 
             var randomGame = await _viewModel.PickRandomGameAsync();
             if (randomGame is null)
@@ -671,6 +671,27 @@ public partial class MainWindow : Window, IPaginationHost
             Log.Error(ex, "Error in RandomGameButton_Click");
             var messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
             await messageBox.ErrorMessageBoxAsync();
+        }
+    }
+
+    /// <summary>Star button (WPF SelectedSystemFavoriteButton parity): favorites of the selected system.</summary>
+    private void SelectedSystemFavoriteButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            _playSound.PlayNotificationSound();
+
+            if (string.IsNullOrEmpty(_viewModel.SelectedSystem))
+            {
+                _viewModel.NavigateToFavoritesCommand.Execute(null);
+                return;
+            }
+
+            _viewModel.NavigateToSelectedSystemFavoritesCommand.Execute(null);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method SelectedSystemFavoriteButton_Click");
         }
     }
 
@@ -825,7 +846,6 @@ public partial class MainWindow : Window, IPaginationHost
     private void SearchBox_TextChanged(object? sender, TextChangedEventArgs e)
     {
         var query = SearchBox.Text;
-        SearchPlaceholder.IsVisible = string.IsNullOrEmpty(query);
         _viewModel.SearchText = query ?? "";
         _viewModel.StatusText = string.IsNullOrEmpty(query) ? "Ready" : $"Search: \"{query}\"";
     }
@@ -834,7 +854,6 @@ public partial class MainWindow : Window, IPaginationHost
     private void SearchButton_Click(object? sender, RoutedEventArgs e)
     {
         var query = SearchBox.Text;
-        SearchPlaceholder.IsVisible = string.IsNullOrEmpty(query);
         _viewModel.SearchText = query ?? "";
         _viewModel.StatusText = string.IsNullOrEmpty(query) ? "Ready" : $"Search: \"{query}\"";
         SearchBox.Focus();
@@ -981,7 +1000,7 @@ public partial class MainWindow : Window, IPaginationHost
 
     #region Game Card Interaction
 
-    /// <summary>Single left click on a game card: selects it in the grid.</summary>
+    /// <summary>Single left click on a game card: launches the game (and keeps it selected).</summary>
     private void GameCard_Click(object? sender, RoutedEventArgs e)
     {
         if (sender is Control { DataContext: GameCardViewModel game } card)
@@ -991,14 +1010,7 @@ public partial class MainWindow : Window, IPaginationHost
             {
                 listBoxItem.IsSelected = true;
             }
-        }
-    }
 
-    /// <summary>Double click / double tap on a game card: launches the game.</summary>
-    private void GameCard_DoubleTapped(object? sender, TappedEventArgs e)
-    {
-        if (sender is Control { DataContext: GameCardViewModel game })
-        {
             _viewModel.PlayGameCommand.Execute(game);
         }
     }
@@ -1020,12 +1032,38 @@ public partial class MainWindow : Window, IPaginationHost
 
     private void ShowGameContextMenu(GameCardViewModel game, Control placementTarget)
     {
-        _contextMenuService.ShowGameContextMenu(game, placementTarget, new GameContextMenuCallbacks
+        var context = BuildRightClickContext(game.FilePath, game.SystemName, game);
+        _contextMenuService.ShowContextMenu(context, placementTarget, BuildExtraCallbacks());
+    }
+
+    /// <summary>Builds the WPF-parity right-click context for a game file.</summary>
+    private AvaloniaRightClickContext BuildRightClickContext(string filePath, string systemName, GameCardViewModel? card = null,
+        string? fileNameWithExtensionOverride = null, Action? onFavoriteRemoved = null)
+    {
+        var sp = App.ServiceProvider;
+        var fileNameWithExtension = fileNameWithExtensionOverride ?? Path.GetFileName(filePath) ?? filePath;
+        var safeFilePath = filePath ?? "";
+        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(safeFilePath);
+        return new AvaloniaRightClickContext(
+            filePath: safeFilePath,
+            fileNameWithExtension: fileNameWithExtension,
+            fileNameWithoutExtension: fileNameWithoutExtension,
+            selectedSystemName: systemName,
+            selectedSystemManager: _systemManagerService,
+            settings: sp.GetRequiredService<SettingsManagerService>(),
+            favoritesManager: sp.GetRequiredService<Services.Favorites.FavoritesManager>(),
+            ownerWindow: this,
+            mainViewModel: _viewModel,
+            sourceCard: card,
+            onFavoriteRemoved: onFavoriteRemoved);
+    }
+
+    /// <summary>Avalonia-only extras appended to the WPF-parity context menu.</summary>
+    private GameContextMenuCallbacks BuildExtraCallbacks()
+    {
+        return new GameContextMenuCallbacks
         {
-            OnPlay = g => _viewModel.PlayGameCommand.Execute(g),
-            OnToggleFavorite = g => _ = _viewModel.ToggleFavoriteCommand.ExecuteAsync(g),
             OnShowDetails = OpenGameDetail,
-            OnShowAchievements = g => _ = OpenRetroAchievementsForGameAsync(g),
             OnCopyPath = g =>
             {
                 _ = CopyToClipboardAsync(g.FilePath);
@@ -1039,7 +1077,7 @@ public partial class MainWindow : Window, IPaginationHost
             },
             OnShowInFolder = g => _ = ShowGameInFolderAsync(g),
             OnEditSystem = OpenEditSystemForGame
-        });
+        };
     }
 
     /// <summary>
@@ -1145,6 +1183,97 @@ public partial class MainWindow : Window, IPaginationHost
         }
     }
 
+    /// <summary>Remove button (WPF RemoveFavoriteButton_ClickAsync parity): removes all selected favorites.</summary>
+    private async void FavoritesRemoveButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var selected = FavoritesDataGrid.SelectedItems.Cast<FavoriteRowViewModel>().ToList();
+            await FavoritesSection.RemoveFavoritesAsync(selected);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method FavoritesRemoveButton_Click");
+        }
+    }
+
+    /// <summary>Right-click on a favorites row: opens the WPF-parity context menu.</summary>
+    private void FavoritesDataGrid_RightClick(object? sender, PointerReleasedEventArgs e)
+    {
+        try
+        {
+            if (e.InitialPressMouseButton != MouseButton.Right) return;
+            if (e.Source is not Visual favoritesVisual
+                || FindParent<DataGridRow>(favoritesVisual) is not { } row
+                || row.DataContext is not FavoriteRowViewModel favorite)
+            {
+                return;
+            }
+
+            // WPF stores favorites as a file NAME resolved against the system folders;
+            // resolve it for launch/media actions while keeping the stored name for
+            // favorites matching.
+            var filePath = FavoritesSection.ResolveFavoritePath(favorite) ?? favorite.FilePath;
+            var context = BuildRightClickContext(
+                filePath, favorite.SystemName,
+                fileNameWithExtensionOverride: favorite.FilePath,
+                onFavoriteRemoved: () => _ = FavoritesSection.LoadFavoritesAsync());
+
+            _contextMenuService.ShowContextMenu(context, FavoritesDataGrid);
+            e.Handled = true;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method FavoritesDataGrid_RightClick");
+        }
+    }
+
+    /// <summary>Right-click on a play history row: opens the WPF-parity context menu.</summary>
+    private void PlayHistoryDataGrid_RightClick(object? sender, PointerReleasedEventArgs e)
+    {
+        try
+        {
+            if (e.InitialPressMouseButton != MouseButton.Right) return;
+            if (e.Source is not Visual historyVisual
+                || FindParent<DataGridRow>(historyVisual) is not { } row
+                || row.DataContext is not PlayHistoryItem item)
+            {
+                return;
+            }
+
+            var context = BuildRightClickContext(item.FileName, item.SystemName);
+            _contextMenuService.ShowContextMenu(context, PlayHistoryDataGrid);
+            e.Handled = true;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method PlayHistoryDataGrid_RightClick");
+        }
+    }
+
+    /// <summary>Right-click on a global search result row: opens the WPF-parity context menu.</summary>
+    private void GlobalSearchResults_RightClick(object? sender, PointerReleasedEventArgs e)
+    {
+        try
+        {
+            if (e.InitialPressMouseButton != MouseButton.Right) return;
+            if (e.Source is not Visual searchVisual
+                || FindParent<DataGridRow>(searchVisual) is not { } row
+                || row.DataContext is not SearchResult result)
+            {
+                return;
+            }
+
+            var context = BuildRightClickContext(result.FilePath, result.SystemName);
+            _contextMenuService.ShowContextMenu(context, GlobalSearchResultsDataGrid);
+            e.Handled = true;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in the method GlobalSearchResults_RightClick");
+        }
+    }
+
     private async void FavoritesDataGrid_KeyDown(object? sender, KeyEventArgs e)
     {
         try
@@ -1153,7 +1282,8 @@ public partial class MainWindow : Window, IPaginationHost
             {
                 case Key.Delete:
                     e.Handled = true;
-                    await FavoritesSection.RemoveSelectedCommand.ExecuteAsync(null);
+                    var selected = FavoritesDataGrid.SelectedItems.Cast<FavoriteRowViewModel>().ToList();
+                    await FavoritesSection.RemoveFavoritesAsync(selected);
                     break;
                 case Key.Enter:
                     e.Handled = true;
@@ -2081,6 +2211,9 @@ public partial class MainWindow : Window, IPaginationHost
     /// </summary>
     private async Task ShowSystemSelectionScreenAsync()
     {
+        // WPF parity: the top system-selection bar is hidden while the full-screen
+        // system selection grid is shown (SystemSelectionOrchestratorService line-parity).
+        TopSystemSelection.IsVisible = false;
         FavoritesSectionRoot.IsVisible = false;
         PlayHistorySectionRoot.IsVisible = false;
         GlobalSearchSectionRoot.IsVisible = false;

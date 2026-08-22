@@ -449,7 +449,7 @@
             <!-- ═══ LEFT NAVIGATION RAIL (WPF LeftNavigationPanel parity) ═══ -->
             <Border Grid.Column="0" Width="60"
                     VerticalAlignment="Top"
-                    Margin="8,5,0,0"
+                    Margin="5,5,0,5"
                     CornerRadius="5"
                     BorderThickness="1"
                     Background="{DynamicResource BgTertiaryBrush}"
@@ -513,94 +513,107 @@
             <Grid Grid.Column="1" RowDefinitions="Auto,*,Auto">
 
                 <!-- ═══ TOP SYSTEM SELECTION (WPF TopSystemSelection parity) ═══ -->
-                <Border Grid.Row="0" Background="{DynamicResource BgTertiaryBrush}"
-                        BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,0,0,1">
-                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,Auto,*,Auto,Auto">
+                <Border Grid.Row="0" x:Name="TopSystemSelection"
+                        Background="{DynamicResource BgTertiaryBrush}"
+                        BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="1"
+                        CornerRadius="5" Margin="5,5,5,5" Padding="5"
+                        ToolTip.Tip="{ext:Translate TooltipTopSystemSelection}">
+                    <Grid RowDefinitions="Auto,Auto,Auto"
+                          ColumnDefinitions="Auto,*,Auto,Auto,Auto,Auto,Auto,Auto">
 
-                        <!-- Row 0: Letter / number filter bar -->
-                        <ScrollViewer Grid.Row="0" Grid.ColumnSpan="5"
+                        <!-- Row 0: Letter / number filter bar (WPF LetterNumberMenu parity) -->
+                        <ScrollViewer Grid.Row="0" Grid.ColumnSpan="8"
                                       x:Name="LetterBarScroller"
                                       HorizontalScrollBarVisibility="Auto"
                                       VerticalScrollBarVisibility="Disabled"
                                       Height="28">
-                            <StackPanel x:Name="LetterFilterBar" Orientation="Horizontal" Spacing="2" />
+                            <StackPanel x:Name="LetterFilterBar" Orientation="Horizontal" Spacing="2"
+                                        ToolTip.Tip="{ext:Translate TooltipLetterNumberMenu}" />
                         </ScrollViewer>
 
-                        <!-- Row 1: System + Emulator ComboBoxes -->
-                        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal"
-                                    VerticalAlignment="Center" Margin="8,2,0,0">
-                            <TextBlock Text="System:" FontSize="12"
-                                       Foreground="{DynamicResource TextMutedBrush}"
-                                       VerticalAlignment="Center" Margin="0,0,4,0" />
-                            <ComboBox x:Name="SystemComboBox" Width="190" MinWidth="150"
-                                      VerticalAlignment="Center"
-                                      SelectionChanged="SystemComboBox_SelectionChanged" />
-                            <TextBlock Text="  Emulator:" FontSize="12"
-                                       Foreground="{DynamicResource TextMutedBrush}"
-                                       VerticalAlignment="Center" Margin="6,0,4,0" />
-                            <ComboBox x:Name="EmulatorComboBox" Width="150" MinWidth="120"
-                                      VerticalAlignment="Center"
-                                      SelectionChanged="EmulatorComboBox_SelectionChanged" />
-                        </StackPanel>
+                        <!-- Row 1: Select System -->
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+                                   Text="{ext:Translate SelectSystem}"
+                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                   VerticalAlignment="Center" Margin="0,10,0,0"
+                                   ToolTip.Tip="{ext:Translate TooltipSelectSystemLabel}" />
+                        <ComboBox x:Name="SystemComboBox" Grid.Row="1" Grid.Column="1"
+                                  HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                  Margin="5,10,0,0"
+                                  SelectionChanged="SystemComboBox_SelectionChanged"
+                                  ToolTip.Tip="{ext:Translate TooltipSelectSystem}" />
 
-                        <!-- Row 1: Search box + search button (WPF SearchTextBox + SearchButton parity) -->
-                        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal"
-                                    VerticalAlignment="Center" Spacing="6">
-                            <Border Background="{DynamicResource BgQuaternaryBrush}"
-                                    CornerRadius="14" Padding="10,4" MinWidth="180" MaxWidth="280">
-                                <Grid>
-                                    <TextBlock x:Name="SearchPlaceholder"
-                                               Text="🔍  Search…"
-                                               Foreground="{DynamicResource TextMutedBrush}"
-                                               FontSize="12" VerticalAlignment="Center"
-                                               IsHitTestVisible="False" />
-                                    <TextBox x:Name="SearchBox"
-                                             Classes="search-textbox"
-                                             BorderThickness="0" Padding="0,4"
-                                             TextChanged="SearchBox_TextChanged" />
-                                </Grid>
-                            </Border>
+                        <!-- Rows 1-2, Column 2: Search box + button (WPF SearchTextBox/SearchButton) -->
+                        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="2"
+                                    Orientation="Horizontal" Spacing="10"
+                                    VerticalAlignment="Center" Margin="10,10,0,0">
+                            <TextBox x:Name="SearchBox" Width="200"
+                                     Classes="search-textbox"
+                                     VerticalAlignment="Center"
+                                     TextChanged="SearchBox_TextChanged"
+                                     ToolTip.Tip="{ext:Translate TooltipSearch}"
+                                     AutomationProperties.Name="{ext:Translate SearchTextBoxLabel}" />
                             <Button x:Name="SearchButton"
-                                    Classes="toolbar-icon"
-                                    Padding="6,4"
-                                    ToolTip.Tip="Search"
+                                    Classes="toolbar-icon" Padding="6,4"
+                                    ToolTip.Tip="{ext:Translate TooltipSearch}"
                                     Click="SearchButton_Click">
                                 <Image Source="avares://SimpleLauncher.Avalonia/images/search3.png"
                                        Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                             </Button>
                         </StackPanel>
 
-                        <!-- Row 1: Quick actions (random / RetroAchievements / MAME sort — WPF parity) -->
-                        <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal"
-                                    VerticalAlignment="Center" Spacing="2">
-                            <Button x:Name="RandomGameButton"
-                                    Classes="toolbar-icon"
-                                    Padding="8,4"
-                                    ToolTip.Tip="Feeling Lucky - pick a random game"
-                                    Click="RandomGameButton_Click">
-                                <Image Source="avares://SimpleLauncher.Avalonia/images/dice.png"
-                                       Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
-                            </Button>
-                            <Button x:Name="RetroAchievementsGameButton"
-                                    Classes="toolbar-icon"
-                                    Padding="8,4"
-                                    ToolTip.Tip="Show Games With RetroAchievements"
-                                    Command="{Binding ShowGamesWithRetroAchievementsCommand}">
-                                <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png"
-                                       Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
-                            </Button>
-                            <Button x:Name="MameSortOrderButton"
-                                    Classes="toolbar-icon"
-                                    Padding="8,4"
-                                    ToolTip.Tip="Sort order: File Name"
-                                    Click="MameSortOrderButton_Click">
-                                <Image Source="avares://SimpleLauncher.Avalonia/images/sort-az.png"
-                                       Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
-                            </Button>
-                        </StackPanel>
+                        <!-- Row 2: Select Emulator -->
+                        <TextBlock Grid.Row="2" Grid.Column="0"
+                                   Text="{ext:Translate SelectEmulator}"
+                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                   VerticalAlignment="Center" Margin="0,5,0,0"
+                                   ToolTip.Tip="{ext:Translate TooltipSelectEmulatorLabel}" />
+                        <ComboBox x:Name="EmulatorComboBox" Grid.Row="2" Grid.Column="1"
+                                  HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                  Margin="5,5,0,0"
+                                  SelectionChanged="EmulatorComboBox_SelectionChanged"
+                                  ToolTip.Tip="{ext:Translate TooltipSelectEmulator}" />
 
-                        <!-- Row 1: Card size slider -->
-                        <StackPanel Grid.Row="1" Grid.Column="4" Orientation="Horizontal"
+                        <!-- Rows 1-2: action buttons (favorite / dice / RA / sort — WPF order) -->
+                        <Button x:Name="SelectedSystemFavoriteButton"
+                                Classes="toolbar-icon" Padding="8,4"
+                                Grid.Row="1" Grid.RowSpan="2" Grid.Column="3"
+                                VerticalAlignment="Center" Margin="10,10,0,0"
+                                ToolTip.Tip="{ext:Translate TooltipSelectedSystemFavorite2}"
+                                Click="SelectedSystemFavoriteButton_Click">
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/star.png"
+                                   Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
+                        </Button>
+                        <Button x:Name="RandomGameButton"
+                                Classes="toolbar-icon" Padding="8,4"
+                                Grid.Row="1" Grid.RowSpan="2" Grid.Column="4"
+                                VerticalAlignment="Center" Margin="10,10,0,0"
+                                ToolTip.Tip="{ext:Translate TooltipFeelingLucky}"
+                                Click="RandomGameButton_Click">
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/dice.png"
+                                   Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
+                        </Button>
+                        <Button x:Name="RetroAchievementsGameButton"
+                                Classes="toolbar-icon" Padding="8,4"
+                                Grid.Row="1" Grid.RowSpan="2" Grid.Column="5"
+                                VerticalAlignment="Center" Margin="10,10,0,0"
+                                ToolTip.Tip="{ext:Translate TooltipShowGamesWithRA}"
+                                Command="{Binding ShowGamesWithRetroAchievementsCommand}">
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png"
+                                   Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
+                        </Button>
+                        <Button x:Name="MameSortOrderButton"
+                                Classes="toolbar-icon" Padding="8,4"
+                                Grid.Row="1" Grid.RowSpan="2" Grid.Column="6"
+                                VerticalAlignment="Center" Margin="10,10,0,0"
+                                ToolTip.Tip="{ext:Translate TooltipSortOrder}"
+                                Click="MameSortOrderButton_Click">
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/sort-az.png"
+                                   Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
+                        </Button>
+
+                        <!-- Column 7: Card size slider (Avalonia extra, kept by request) -->
+                        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="7" Orientation="Horizontal"
                                     VerticalAlignment="Center" Margin="8,0,0,0">
                             <TextBlock Text="◉" Foreground="{DynamicResource TextMutedBrush}"
                                        FontSize="10" VerticalAlignment="Center" />
@@ -670,7 +683,6 @@
                                     <Button Classes="game-button-3d"
                                             Width="{Binding DataContext.CardWidth, RelativeSource={RelativeSource AncestorType=ListBox}, FallbackValue=168}"
                                             Click="GameCard_Click"
-                                            DoubleTapped="GameCard_DoubleTapped"
                                             PointerPressed="GameCard_PointerPressed">
                                         <Button.Height>
                                             <MultiBinding Converter="{StaticResource CardHeightConverter}">
@@ -915,20 +927,23 @@
                                            VerticalAlignment="Center" Margin="0,0,12,0"
                                            FontFamily="{DynamicResource PrimaryFont}" />
                                 <Button Classes="secondary" Content="Remove from Favorites"
-                                        Command="{Binding RemoveSelectedCommand}" />
+                                        Click="FavoritesRemoveButton_Click" />
                                 <Button Classes="primary" Content="Launch Selected Game"
                                         Command="{Binding LaunchSelectedCommand}" />
                             </StackPanel>
                             <Grid Grid.Row="1" ColumnDefinitions="*,6,240">
                                 <DataGrid Grid.Column="0"
+                                          x:Name="FavoritesDataGrid"
                                           ItemsSource="{Binding Favorites}"
                                           SelectedItem="{Binding SelectedFavorite}"
+                                          SelectionMode="Extended"
                                           AutoGenerateColumns="False"
                                           IsReadOnly="True"
                                           GridLinesVisibility="All"
                                           BorderThickness="1"
                                           DoubleTapped="FavoritesDataGrid_DoubleTapped"
-                                          KeyDown="FavoritesDataGrid_KeyDown">
+                                          KeyDown="FavoritesDataGrid_KeyDown"
+                                          PointerReleased="FavoritesDataGrid_RightClick">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="File Name" Binding="{Binding DisplayName}" Width="*" />
                                         <DataGridTextColumn Header="Machine Description" Binding="{Binding MachineDescription}" Width="*" />
@@ -975,6 +990,7 @@
                             </StackPanel>
                             <Grid Grid.Row="2" ColumnDefinitions="*,6,240">
                                 <DataGrid Grid.Column="0"
+                                          x:Name="PlayHistoryDataGrid"
                                           ItemsSource="{Binding PlayHistoryList}"
                                           SelectedItem="{Binding SelectedItem}"
                                           AutoGenerateColumns="False"
@@ -982,7 +998,8 @@
                                           GridLinesVisibility="All"
                                           BorderThickness="1"
                                           DoubleTapped="PlayHistoryDataGrid_DoubleTapped"
-                                          KeyDown="PlayHistoryDataGrid_KeyDown">
+                                          KeyDown="PlayHistoryDataGrid_KeyDown"
+                                          PointerReleased="PlayHistoryDataGrid_RightClick">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="File Name" Binding="{Binding DisplayName}" Width="*" />
                                         <DataGridTextColumn Header="Machine Description" Binding="{Binding MachineDescription}" Width="*" />
@@ -1039,13 +1056,15 @@
                             </StackPanel>
                             <Grid Grid.Row="2" ColumnDefinitions="*,6,240">
                                 <Grid Grid.Column="0">
-                                    <DataGrid ItemsSource="{Binding SearchResults}"
+                                    <DataGrid x:Name="GlobalSearchResultsDataGrid"
+                                              ItemsSource="{Binding SearchResults}"
                                               SelectedItem="{Binding SelectedResult}"
                                               AutoGenerateColumns="False"
                                               IsReadOnly="True"
                                               GridLinesVisibility="All"
                                               BorderThickness="1"
-                                              DoubleTapped="GlobalSearchResults_DoubleTapped">
+                                              DoubleTapped="GlobalSearchResults_DoubleTapped"
+                                              PointerReleased="GlobalSearchResults_RightClick">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="File Name" Binding="{Binding FileNameWithExtension}" Width="*" />
                                             <DataGridTextColumn Header="Machine Name" Binding="{Binding MachineName}" Width="*" />

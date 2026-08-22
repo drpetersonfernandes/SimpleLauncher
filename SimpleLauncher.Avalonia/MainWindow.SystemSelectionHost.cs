@@ -26,6 +26,9 @@ public partial class MainWindow : ISystemSelectionHost
 
     void ISystemSelectionHost.NavigateToSystem(string systemName)
     {
+        // WPF parity: the top system-selection bar comes back once a system is loaded.
+        TopSystemSelection.IsVisible = true;
+
         // Selecting a system always returns to the game browser — otherwise games
         // would load invisibly behind an open Favorites / History / Search section.
         _ = ShowSectionAsync(MainSection.None);

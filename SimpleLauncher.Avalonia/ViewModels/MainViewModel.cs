@@ -846,6 +846,48 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         }
     }
 
+    /// <summary>
+    /// WPF SelectedSystemFavoriteButton parity: shows only the favorites
+    /// for the currently selected system (all systems when none is selected).
+    /// </summary>
+    [RelayCommand]
+    private void NavigateToSelectedSystemFavorites()
+    {
+        try
+        {
+            IsShowingFavorites = true;
+            IsShowingRetroAchievements = false;
+            _letterFilter = "";
+            _favoritePaths = _favoritesManager.GetFavoritePaths();
+
+            var systems = string.IsNullOrEmpty(SelectedSystem)
+                ? _allSystems
+                : _allSystems.Where(s => string.Equals(s.SystemName, SelectedSystem, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            var allGames = ScanGames(systems);
+            ApplyFavoritesAndHistory(allGames);
+            var favorites = allGames.Where(g => g.IsFavorite).ToList();
+
+            ShowGames(favorites);
+
+            if (string.IsNullOrEmpty(SelectedSystem))
+            {
+                StatusText = "Favorites";
+                ToolbarTitle = "SimpleLauncher — Favorites";
+            }
+            else
+            {
+                StatusText = $"Favorites — {SelectedSystem}";
+                ToolbarTitle = $"SimpleLauncher — {SelectedSystem} Favorites";
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to navigate to Favorites of the selected system");
+            StatusText = "Error loading favorites";
+        }
+    }
+
     [RelayCommand]
     private void NavigateToRecentlyPlayed()
     {

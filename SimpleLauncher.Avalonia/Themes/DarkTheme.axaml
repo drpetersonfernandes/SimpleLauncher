@@ -430,17 +430,20 @@
         <Setter Property="BoxShadow" Value="0 0 0 2 #66D12733, 0 2 6 0 #4D000000" />
     </Style>
 
-    <!-- ── SEARCH TEXTBOX (pill-shaped) ── -->
+    <!-- ── SEARCH TEXTBOX (bordered WPF-style field) ── -->
     <Style Selector="TextBox.search-textbox">
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{DynamicResource BgQuaternaryBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Padding" Value="14,6" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderSubtleBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="MinHeight" Value="30" />
+        <Setter Property="Padding" Value="10,5" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="CaretBrush" Value="{DynamicResource TextPrimaryBrush}" />
         <Setter Property="SelectionBrush" Value="{DynamicResource SelectionBackgroundBrush}" />
-        <Setter Property="CornerRadius" Value="{StaticResource PillCornerRadius}" />
+        <Setter Property="CornerRadius" Value="6" />
     </Style>
 
     <!-- ── GROUP BOX (form section in emulator config dialogs) ──

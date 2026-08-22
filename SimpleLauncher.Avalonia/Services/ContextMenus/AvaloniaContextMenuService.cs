@@ -1,0 +1,279 @@
+using System.Diagnostics;
+using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Avalonia.Models;
+using SimpleLauncher.Avalonia.ViewModels;
+using SimpleLauncher.Core.Interfaces;
+using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
+using ILogger = Serilog.ILogger;
+
+namespace SimpleLauncher.Avalonia.Services.ContextMenus;
+
+/// <summary>
+/// Builds right-click context menus for game items (port of the WPF ContextMenuService).
+/// The item set, order, separators, conditional achievements entry, and icons mirror
+/// the original WPF implementation; the Avalonia-only extras are appended at the end.
+/// </summary>
+public class AvaloniaContextMenuService
+{
+    private readonly LocalizationService _localization;
+    private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly AvaloniaContextMenuFunctions _functions;
+
+    public AvaloniaContextMenuService(
+        LocalizationService localization,
+        ILogger logger,
+        IMessageBoxLibraryService messageBox,
+        AvaloniaContextMenuFunctions functions)
+    {
+        _localization = localization;
+        _logger = logger;
+        _messageBox = messageBox;
+        _functions = functions;
+    }
+
+    /// <summary>
+    /// Builds and opens a context menu for the given game context at the pointer location.
+    /// </summary>
+    /// <param name="context">The game and services context.</param>
+    /// <param name="placementTarget">The control to anchor the menu to.</param>
+    /// <param name="extras">Optional Avalonia-only extra actions (details/clipboard/folder/edit-system).</param>
+    public void ShowContextMenu(AvaloniaRightClickContext context, Control placementTarget, GameContextMenuCallbacks? extras = null)
+    {
+        var contextMenu = new ContextMenu
+        {
+            Placement = PlacementMode.Pointer
+        };
+
+        // Launch Game Context Menu
+        AddItem(contextMenu, "LaunchGame", "Launch Game", "launch.png",
+            () => _ = SafeAsync(() => _functions.LaunchGameAsync(context)));
+
+        // Add To Favorites Context Menu
+        AddItem(contextMenu, "AddToFavorites", "Add To Favorites", "heart.png", () =>
+        {
+            context.MainViewModel.StatusText = GetStatusOrFallback("AddingToFavorites", "Adding to favorites...");
+            _ = SafeAsync(() => _functions.AddToFavoritesAsync(context));
+        });
+
+        // Remove From Favorites Context Menu
+        AddItem(contextMenu, "RemoveFromFavorites", "Remove From Favorites", "brokenheart.png", () =>
+        {
+            context.MainViewModel.StatusText = GetStatusOrFallback("RemovingFromFavorites", "Removing from favorites...");
+            _ = SafeAsync(() => _functions.RemoveFromFavoritesAsync(context));
+        });
+
+        contextMenu.Items.Add(new Separator());
+
+        // View Achievements Context Menu - Only add for supported systems (WPF parity)
+        if (IsSystemSupportedForRetroAchievements(context))
+        {
+            AddItem(contextMenu, "ViewAchievements", "View Achievements", "trophy.png",
+                () => _ = SafeAsync(() => _functions.OpenRetroAchievementsWindowAsync(context)));
+            contextMenu.Items.Add(new Separator());
+        }
+
+        // Open Video Link Context Menu
+        AddItem(contextMenu, "OpenVideoLink", "Open Video Link", "video.png", () =>
+        {
+            context.MainViewModel.StatusText = GetStatusOrFallback("OpeningVideoLink", "Opening video link...");
+            _ = SafeAsync(() => _functions.OpenVideoLinkAsync(context));
+        });
+
+        // Open Info Link Context Menu
+        AddItem(contextMenu, "OpenInfoLink", "Open Info Link", "info.png", () =>
+        {
+            context.MainViewModel.StatusText = GetStatusOrFallback("OpeningInfoLink", "Opening info link...");
+            _ = SafeAsync(() => _functions.OpenInfoLinkAsync(context));
+        });
+
+        // Open History Context Menu
+        AddItem(contextMenu, "OpenROMHistory", "Open ROM History", "romhistory.png", () =>
+        {
+            context.MainViewModel.StatusText = GetStatusOrFallback("OpeningROMHistory", "Opening ROM history...");
+            _ = SafeAsync(() => _functions.OpenRomHistoryWindowAsync(context));
+        });
+
+        contextMenu.Items.Add(new Separator());
+
+        // Media entries (WPF order: cover, title snapshot, gameplay snapshot, cart,
+        // video, manual, walkthrough, cabinet, flyer, pcb)
+        AddItem(contextMenu, "Cover", "Cover", "cover.png",
+            () => _ = SafeAsync(() => _functions.OpenCoverAsync(context)));
+        AddItem(contextMenu, "TitleSnapshot", "Title Snapshot", "snapshot.png",
+            () => _ = SafeAsync(() => _functions.OpenTitleSnapshotAsync(context)));
+        AddItem(contextMenu, "GameplaySnapshot", "Gameplay Snapshot", "snapshot.png",
+            () => _ = SafeAsync(() => _functions.OpenGameplaySnapshotAsync(context)));
+        AddItem(contextMenu, "Cart", "Cart", "cart.png",
+            () => _ = SafeAsync(() => _functions.OpenCartAsync(context)));
+        AddItem(contextMenu, "Video", "Video", "video.png",
+            () => _ = SafeAsync(() => _functions.PlayVideoAsync(context)));
+        AddItem(contextMenu, "Manual", "Manual", "manual.png",
+            () => _ = SafeAsync(() => _functions.OpenManualAsync(context)));
+        AddItem(contextMenu, "Walkthrough", "Walkthrough", "walkthrough.png",
+            () => _ = SafeAsync(() => _functions.OpenWalkthroughAsync(context)));
+        AddItem(contextMenu, "Cabinet", "Cabinet", "cabinet.png",
+            () => _ = SafeAsync(() => _functions.OpenCabinetAsync(context)));
+        AddItem(contextMenu, "Flyer", "Flyer", "flyer.png",
+            () => _ = SafeAsync(() => _functions.OpenFlyerAsync(context)));
+        AddItem(contextMenu, "PCB", "PCB", "pcb.png",
+            () => _ = SafeAsync(() => _functions.OpenPcbAsync(context)));
+
+        contextMenu.Items.Add(new Separator());
+
+        // Take Screenshot Context Menu
+        AddItem(contextMenu, "TakeScreenshot", "Take Screenshot", "snapshot.png", async () =>
+        {
+            try
+            {
+                context.MainViewModel.StatusText = GetStatusOrFallback("TakingScreenshot", "Taking screenshot...");
+                await _messageBox.TakeScreenShotMessageBoxAsync();
+                await _functions.TakeScreenshotOfSelectedWindowAsync(context);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "[ShowContextMenu] Error taking the screenshot.");
+            }
+        });
+
+        // Delete Game Context Menu
+        AddItem(contextMenu, "DeleteGame", "Delete Game", "delete.png", async () =>
+        {
+            try
+            {
+                context.MainViewModel.StatusText = GetStatusOrFallback("DeletingGame", "Deleting game...");
+                var result = await _messageBox.AreYouSureYouWantToDeleteTheGameMessageBoxAsync(context.FileNameWithExtension);
+                if (result == CoreMessageBoxResult.Yes)
+                {
+                    await _functions.RemoveFromFavoritesAsync(context);
+                    await Task.Delay(500);
+                    await _functions.DeleteGameAsync(context);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "[ShowContextMenu] Error deleting the game.");
+            }
+        });
+
+        // Delete Cover Image Context Menu
+        AddItem(contextMenu, "DeleteCoverImage", "Delete Cover Image", "delete.png", async () =>
+        {
+            try
+            {
+                context.MainViewModel.StatusText = GetStatusOrFallback("DeletingCoverImage", "Deleting cover image...");
+                var result = await _messageBox.AreYouSureYouWantToDeleteTheCoverImageMessageBoxAsync(context.FileNameWithoutExtension);
+                if (result == CoreMessageBoxResult.Yes)
+                {
+                    await _functions.DeleteCoverImageAsync(context);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "[ShowContextMenu] Error deleting the cover image of {Name}.", context.FileNameWithoutExtension);
+                await _messageBox.ThereWasAnErrorDeletingTheCoverImageMessageBoxAsync();
+            }
+        });
+
+        // ──── Avalonia-only extras (kept from the earlier port) ────
+        if (extras is not null && context.SourceCard is { } card)
+        {
+            contextMenu.Items.Add(new Separator());
+
+            void AddExtra(string resourceKey, string fallback, string glyph, Action<GameCardViewModel> action)
+            {
+                var header = _localization.GetString(resourceKey) is { } s && s != resourceKey ? s : fallback;
+                var menuItem = new MenuItem { Header = $"{glyph} {header}" };
+                menuItem.Click += (_, _) => action(card);
+                contextMenu.Items.Add(menuItem);
+            }
+
+            AddExtra("Context.ShowDetails", "Details", "\u2139", extras.OnShowDetails);
+            AddExtra("Context.CopyPath", "Copy Path", "\uD83D\uDCCB", g => extras.OnCopyPath(g));
+            AddExtra("Context.CopyName", "Copy Name", "\uD83D\uDCDD", g => extras.OnCopyName(g));
+            AddExtra("Context.ShowInFolder", "Show in Folder", "\uD83D\uDCC2", g => extras.OnShowInFolder(g));
+            AddExtra("Context.EditSystem", "Edit System", "\u270F", g => extras.OnEditSystem(g));
+        }
+
+        contextMenu.Open(placementTarget);
+    }
+
+    private void AddItem(ContextMenu contextMenu, string resourceKey, string fallback, string iconFile, Action click)
+    {
+        var header = _localization.GetString(resourceKey) is { } s && s != resourceKey ? s : fallback;
+        var menuItem = new MenuItem
+        {
+            Header = header,
+            Icon = CreateIcon(iconFile)
+        };
+        menuItem.Click += (_, _) => click();
+        contextMenu.Items.Add(menuItem);
+    }
+
+    private string GetStatusOrFallback(string key, string fallback)
+    {
+        return _localization.GetString(key) is { } s && s != key ? s : fallback;
+    }
+
+    private bool IsSystemSupportedForRetroAchievements(AvaloniaRightClickContext context)
+    {
+        try
+        {
+            var hasherTool = App.ServiceProvider.GetRequiredService<IRetroAchievementsHasherTool>();
+            return hasherTool.IsSystemSupportedForHashing(context.SelectedSystemName);
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "[AvaloniaContextMenuService] Error checking RetroAchievements system support.");
+            return false;
+        }
+    }
+
+    private async Task SafeAsync(Func<Task> action)
+    {
+        try
+        {
+            await action();
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "[AvaloniaContextMenuService] Error executing a context menu action.");
+        }
+    }
+
+    private static Control CreateIcon(string imageFileName)
+    {
+        try
+        {
+            var uri = new Uri($"avares://SimpleLauncher.Avalonia/images/{imageFileName}");
+            var bitmap = new Bitmap(AssetLoader.Open(uri));
+            return new Image
+            {
+                Source = bitmap,
+                Width = 16,
+                Height = 16
+            };
+        }
+        catch (Exception)
+        {
+            // Icon assets are linked into the bundle; a missing file must never break the menu.
+            return new Panel();
+        }
+    }
+}
+
+/// <summary>
+/// Avalonia-only extra actions appended after the WPF-parity menu entries.
+/// </summary>
+public class GameContextMenuCallbacks
+{
+    public required Action<GameCardViewModel> OnShowDetails { get; init; }
+    public required Action<GameCardViewModel> OnCopyPath { get; init; }
+    public required Action<GameCardViewModel> OnCopyName { get; init; }
+    public required Action<GameCardViewModel> OnShowInFolder { get; init; }
+    public required Action<GameCardViewModel> OnEditSystem { get; init; }
+}

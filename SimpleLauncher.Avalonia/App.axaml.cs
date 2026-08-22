@@ -87,6 +87,14 @@ public class App : Application, IDisposable
     /// </summary>
     public override void OnFrameworkInitializationCompleted()
     {
+        // The XAML Previewer (Avalonia.Designer.HostApp) runs this App class too.
+        // It must never acquire the single-instance mutex or start DI/logging,
+        // otherwise real launches silently exit as "second instance".
+        if (Design.IsDesignMode)
+        {
+            return;
+        }
+
         AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
         Dispatcher.UIThread.UnhandledException += App_DispatcherUnhandledException;
         TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
@@ -496,6 +504,7 @@ public class App : Application, IDisposable
         // Search orchestrator: validates search queries before execution.
         services.AddSingleton<AvaloniaSearchOrchestratorService>();
         // Context menu: builds game right-click context menus.
+        services.AddSingleton<AvaloniaContextMenuFunctions>();
         services.AddSingleton<AvaloniaContextMenuService>();
         // Display system info: validates system configuration and produces display models.
         services.AddSingleton<AvaloniaDisplaySystemInformation>();

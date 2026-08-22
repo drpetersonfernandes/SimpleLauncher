@@ -1,16 +1,21 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Avalonia.Services.Favorites;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.PlaySound;
+using ILogger = Serilog.ILogger;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
 /// ViewModel for the Favorites section of the main window, showing the user's
-/// favorite games in a table with preview, removal, and launching (WPF FavoritesPage equivalent).
+/// favorite games in a table with preview, removal, and launching.
+/// Mirrors the WPF FavoritesPage / FavoritesViewModel flow: favorites are stored
+/// as a file NAME and resolved against the system folders at use time.
 /// </summary>
 public partial class FavoritesSectionViewModel : ObservableObject
 {
@@ -20,6 +25,7 @@ public partial class FavoritesSectionViewModel : ObservableObject
     private readonly IMameDataService _mameData;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IConfiguration _configuration;
     private readonly MainViewModel _mainViewModel;
     private readonly ILogger _logErrors;
 
@@ -38,6 +44,7 @@ public partial class FavoritesSectionViewModel : ObservableObject
         IMameDataService mameData,
         PlaySoundEffects playSoundEffects,
         IMessageBoxLibraryService messageBox,
+        IConfiguration configuration,
         MainViewModel mainViewModel,
         ILogger logErrors)
     {
@@ -47,6 +54,7 @@ public partial class FavoritesSectionViewModel : ObservableObject
         _mameData = mameData;
         _playSoundEffects = playSoundEffects;
         _messageBox = messageBox;
+        _configuration = configuration;
         _mainViewModel = mainViewModel;
         _logErrors = logErrors;
     }
@@ -71,6 +79,8 @@ public partial class FavoritesSectionViewModel : ObservableObject
 
                 foreach (var favorite in favorites)
                 {
+                    // WPF parity: FileName is a bare file name resolved against the
+                    // system folders (older entries may hold full paths — kept as-is).
                     var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(favorite.FileName) ?? favorite.FileName;
                     var system = _systemManager.GetSystem(favorite.SystemName);
 
@@ -106,12 +116,32 @@ public partial class FavoritesSectionViewModel : ObservableObject
         }
     }
 
-    [RelayCommand]
-    private async Task RemoveSelectedAsync()
+    /// <summary>
+    /// Resolves a favorite row to an existing file path (WPF FindFileInSystemFolders parity).
+    /// Falls back to the stored value so legacy full-path entries keep working.
+    /// </summary>
+    public string? ResolveFavoritePath(FavoriteRowViewModel row)
+    {
+        var system = _systemManager.GetSystem(row.SystemName);
+        if (system is null) return null;
+
+        return PathHelper.FindFileInSystemFolders(system.SystemFolders, row.FilePath) ?? row.FilePath;
+    }
+
+    private string GetLogFilePath()
+    {
+        return PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
+    }
+
+    /// <summary>
+    /// Removes the given favorite rows (WPF RemoveFavoriteButton_ClickAsync parity:
+    /// trash sound, per-row removal, preview reset, main-view refresh).
+    /// </summary>
+    public async Task RemoveFavoritesAsync(IReadOnlyList<FavoriteRowViewModel> rows)
     {
         try
         {
-            if (SelectedFavorite is not { } favorite)
+            if (rows.Count == 0)
             {
                 _mainViewModel.StatusText = "Select a favorite to remove first.";
                 return;
@@ -119,10 +149,18 @@ public partial class FavoritesSectionViewModel : ObservableObject
 
             _playSoundEffects.PlayTrashSound();
 
-            await _favoritesManager.RemoveFavoriteAsync(favorite.FilePath);
-            Favorites.Remove(favorite);
+            foreach (var row in rows)
+            {
+                await _favoritesManager.RemoveFavoriteAsync(row.FilePath);
+                Favorites.Remove(row);
+            }
+
             SelectedFavorite = null;
-            _mainViewModel.StatusText = $"Removed from favorites: {favorite.DisplayName}";
+
+            var lastName = rows[^1].DisplayName;
+            _mainViewModel.StatusText = rows.Count == 1
+                ? $"Removed from favorites: {lastName}"
+                : $"Removed {rows.Count} favorites";
 
             _mainViewModel.RefreshFavoritesAndHistory();
         }
@@ -132,6 +170,17 @@ public partial class FavoritesSectionViewModel : ObservableObject
         }
     }
 
+    [RelayCommand]
+    private Task RemoveSelectedAsync()
+    {
+        return RemoveFavoritesAsync(SelectedFavorite is null ? [] : [SelectedFavorite]);
+    }
+
+    /// <summary>
+    /// Launches the selected favorite (WPF LaunchGameFromFavoriteAsync parity):
+    /// resolve against system folders, prompt to delete when the file is gone,
+    /// and report missing systems/emulators through message boxes.
+    /// </summary>
     [RelayCommand]
     private async Task LaunchSelectedAsync()
     {
@@ -145,19 +194,42 @@ public partial class FavoritesSectionViewModel : ObservableObject
 
             _playSoundEffects.PlayNotificationSound();
 
-            if (!File.Exists(favorite.FilePath))
+            var system = _systemManager.GetSystem(favorite.SystemName);
+            if (system is null)
             {
-                // Expected condition (favorite points to a missing file) — keep out of the bug report service.
-                _logErrors.Information("Favorite file does not exist: {Path}", favorite.FilePath);
-                _mainViewModel.StatusText = $"File does not exist: {favorite.DisplayName}";
+                // Expected condition (favorite references a removed system).
+                _logErrors.Information("[Favorites] systemManager is null for '{System}'", favorite.SystemName);
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(GetLogFilePath());
                 return;
             }
 
-            await _mainViewModel.LaunchGameAtPathAsync(favorite.FilePath, favorite.SystemName);
+            var filePath = ResolveFavoritePath(favorite);
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+            {
+                var result = await _messageBox.FavoriteFileDoesNotExistAskToDeleteMessageBoxAsync(filePath ?? favorite.DisplayName);
+                if (result == Core.Models.MessageBoxResult.Yes)
+                {
+                    await RemoveFavoritesAsync([favorite]);
+                }
+
+                return;
+            }
+
+            var emulator = system.Emulators.FirstOrDefault();
+            if (emulator is null)
+            {
+                // Expected condition (system has no emulators configured).
+                _logErrors.Information("[Favorites] emulatorManager is null for '{System}'", favorite.SystemName);
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(GetLogFilePath());
+                return;
+            }
+
+            await _mainViewModel.LaunchGameAtPathAsync(filePath, favorite.SystemName);
         }
         catch (Exception ex)
         {
             _logErrors.Error(ex, "Error launching favorite from the Favorites section.");
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(GetLogFilePath());
         }
     }
 }
