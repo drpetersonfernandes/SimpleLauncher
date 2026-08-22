@@ -141,6 +141,12 @@
         <None Include="..\SimpleLauncher\images\*.png" Link="images\%(Filename)%(Extension)">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <!-- UI icons embedded into the binary (Avalonia equivalent of the WPF
+             <Resource Include="images\*.png" /> entries) — loaded via
+             avares://SimpleLauncher.Avalonia/images/*.png. Loose copies below are kept
+             because appsettings.json / user config reference some icons by file path
+             (e.g. images\default.png), exactly like the WPF app ships them. -->
+        <AvaloniaResource Include="..\SimpleLauncher\images\*.png" Link="images\%(Filename)%(Extension)" />
         <None Include="icon\icon.ico">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>

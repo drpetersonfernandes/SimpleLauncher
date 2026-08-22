@@ -24,8 +24,15 @@
 
             <!-- ── OPTIONS ── -->
             <MenuItem Header="Options">
-                <MenuItem Header="Preferences" Click="Preferences_Click" />
+                <MenuItem Header="Preferences" Click="Preferences_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/settings.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem x:Name="LanguageMenu" Header="Language">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/language.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
                     <MenuItem x:Name="LanguageArabic" GroupName="LanguageGroup" Header="العربية" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
                     <MenuItem x:Name="LanguageBengali" GroupName="LanguageGroup" Header="বাংলা" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
                     <MenuItem x:Name="LanguageGerman" GroupName="LanguageGroup" Header="Deutsch" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
@@ -47,6 +54,9 @@
                 </MenuItem>
                 <Separator />
                 <MenuItem x:Name="SizeMenu" Header="Set Button Size">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/buttonsize.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
                     <MenuItem Header="50 px" Tag="50" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
                     <MenuItem Header="100 px" Tag="100" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
                     <MenuItem Header="150 px" Tag="150" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
@@ -65,6 +75,9 @@
                     <MenuItem Header="800 px" Tag="800" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
                 </MenuItem>
                 <MenuItem x:Name="AspectRatioMenu" Header="Set Button Aspect Ratio">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/aspectratio.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
                     <MenuItem x:Name="Square" GroupName="AspectRatioGroup" Header="Square" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
                     <MenuItem x:Name="Wider" GroupName="AspectRatioGroup" Header="Wider" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
                     <MenuItem x:Name="SuperWider" GroupName="AspectRatioGroup" Header="Super Wider" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
@@ -74,6 +87,9 @@
                     <MenuItem x:Name="SuperTaller2" GroupName="AspectRatioGroup" Header="Super Taller 2" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
                 </MenuItem>
                 <MenuItem x:Name="GamesPerPageMenu" Header="Set Number of Games Per Page">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/setnumber.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
                     <MenuItem Header="100 games" Tag="100" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
                     <MenuItem Header="200 games" Tag="200" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
                     <MenuItem Header="300 games" Tag="300" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
@@ -85,15 +101,24 @@
                 </MenuItem>
                 <Separator />
                 <MenuItem Header="View Mode">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/show.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
                     <MenuItem x:Name="GridView" GroupName="ViewModeGroup" Header="Grid View" Click="ChangeViewMode_Click" ToggleType="CheckBox" />
                     <MenuItem x:Name="ListView" GroupName="ViewModeGroup" Header="List View" Click="ChangeViewMode_Click" ToggleType="CheckBox" />
                 </MenuItem>
                 <MenuItem Header="Show Games">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/noimage.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
                     <MenuItem x:Name="ShowAll" GroupName="ShowGamesGroup" Header="Show All Games" Click="ShowGamesClickAsync" ToggleType="CheckBox" />
                     <MenuItem x:Name="ShowWithCover" GroupName="ShowGamesGroup" Header="Show Only Games With Cover" Click="ShowGamesClickAsync" ToggleType="CheckBox" />
                     <MenuItem x:Name="ShowWithoutCover" GroupName="ShowGamesGroup" Header="Show Only Games Without Cover" Click="ShowGamesClickAsync" ToggleType="CheckBox" />
                 </MenuItem>
                 <MenuItem Header="Filename Preferences">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/filename.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
                     <MenuItem x:Name="FilenameDisplayOriginal" GroupName="FilenameGroup" Header="Display Original Filenames" Click="FilenameDisplayMode_ClickAsync" ToggleType="CheckBox" />
                     <MenuItem x:Name="FilenameDisplayCleanUp" GroupName="FilenameGroup" Header="Display Clean Up Filenames" Click="FilenameDisplayMode_ClickAsync" ToggleType="CheckBox" />
                     <MenuItem x:Name="FilenameDisplayNoFilename" GroupName="FilenameGroup" Header="Display No Filename" Click="FilenameDisplayMode_ClickAsync" ToggleType="CheckBox" />
@@ -112,47 +137,184 @@
                     </MenuItem>
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="Edit Links" Click="EditLinks_Click" />
+                <MenuItem Header="Edit Links">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/links.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                    <MenuItem Header="Edit Links" Click="EditLinks_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/links.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
                 <MenuItem Header="Gamepad Support">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/gamepad.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
                     <MenuItem x:Name="ToggleGamepad" Header="Enable" Click="ToggleGamepad_Click" ToggleType="CheckBox" />
-                    <MenuItem Header="Set Gamepad Dead Zone" Click="SetGamepadDeadZone_Click" />
+                    <MenuItem Header="Set Gamepad Dead Zone" Click="SetGamepadDeadZone_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/setdeadzone.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="Fuzzy Image Matching">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/match.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
                     <MenuItem x:Name="ToggleFuzzyMatching" Header="Enable" Click="ToggleFuzzyMatchingClickAsync" ToggleType="CheckBox" />
                     <MenuItem x:Name="ToggleAnnotationStripping" Header="Strip Annotations" Click="ToggleAnnotationStrippingClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="Set Threshold" Click="SetFuzzyMatchingThreshold_Click" />
+                    <MenuItem Header="Set Threshold" Click="SetFuzzyMatchingThreshold_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/setthreshold.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
-                <MenuItem Header="Sound Configuration" Click="SoundConfiguration_Click" />
+                <MenuItem Header="Sound Configuration">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/sound.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                    <MenuItem Header="Sound Configuration" Click="SoundConfiguration_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/sound.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
                 <MenuItem Header="RetroAchievements Settings">
-                    <MenuItem Header="RetroAchievements Settings" Click="RetroAchievementsSettings_Click" />
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                    <MenuItem Header="RetroAchievements Settings" Click="RetroAchievementsSettings_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <Separator />
-                    <MenuItem Header="Show Games With RetroAchievements" Command="{Binding ShowGamesWithRetroAchievementsCommand}" />
-                    <MenuItem Header="Calculate Hashes For All Game Paths" Click="CalculateHashesForAllGamePaths_Click" />
+                    <MenuItem Header="Show Games With RetroAchievements" Command="{Binding ShowGamesWithRetroAchievementsCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Calculate Hashes For All Game Paths" Click="CalculateHashesForAllGamePaths_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="Inject Emulator Config">
-                    <MenuItem Header="Ares Settings" Tag="Ares" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="Azahar Settings" Tag="Azahar" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="Blastem Settings" Tag="Blastem" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="Cemu Settings" Tag="Cemu" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="Daphne Settings" Tag="Daphne" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="Dolphin Settings" Tag="Dolphin" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="DuckStation Settings" Tag="DuckStation" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="Flycast Settings" Tag="Flycast" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="Mame Settings" Tag="Mame" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="Mednafen Settings" Tag="Mednafen" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="Mesen Settings" Tag="Mesen" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="PCSX2 Settings" Tag="PCSX2" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="Raine Settings" Tag="Raine" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="Redream Settings" Tag="Redream" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="RetroArch Settings" Tag="RetroArch" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="RPCS3 Settings" Tag="RPCS3" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="SEGA Model 2 Settings" Tag="SegaModel2" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="Stella Settings" Tag="Stella" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="Supermodel Settings" Tag="Supermodel" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="Xenia Settings" Tag="Xenia" Click="ShowEmulatorConfig_Click" />
-                    <MenuItem Header="Yumir Settings" Tag="Yumir" Click="ShowEmulatorConfig_Click" />
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/inject.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                    <MenuItem Header="Ares Settings" Tag="Ares" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/ares.png" Width="16" Height="16" AutomationProperties.Name="Ares" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Azahar Settings" Tag="Azahar" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/azahar.png" Width="16" Height="16" AutomationProperties.Name="Azahar" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Blastem Settings" Tag="Blastem" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/blastem.png" Width="16" Height="16" AutomationProperties.Name="Blastem" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Cemu Settings" Tag="Cemu" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/cemu.png" Width="16" Height="16" AutomationProperties.Name="Cemu" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Daphne Settings" Tag="Daphne" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/daphne.png" Width="16" Height="16" AutomationProperties.Name="Daphne" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Dolphin Settings" Tag="Dolphin" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/dolphin.png" Width="16" Height="16" AutomationProperties.Name="Dolphin" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="DuckStation Settings" Tag="DuckStation" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/duckstation.png" Width="16" Height="16" AutomationProperties.Name="DuckStation" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Flycast Settings" Tag="Flycast" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/flycast.png" Width="16" Height="16" AutomationProperties.Name="Flycast" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Mame Settings" Tag="Mame" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/mame.png" Width="16" Height="16" AutomationProperties.Name="MAME" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Mednafen Settings" Tag="Mednafen" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/mednafen.png" Width="16" Height="16" AutomationProperties.Name="Mednafen" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Mesen Settings" Tag="Mesen" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/mesen.png" Width="16" Height="16" AutomationProperties.Name="Mesen" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="PCSX2 Settings" Tag="PCSX2" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/pcsx2.png" Width="16" Height="16" AutomationProperties.Name="PCSX2" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Raine Settings" Tag="Raine" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/raine.png" Width="16" Height="16" AutomationProperties.Name="Raine" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Redream Settings" Tag="Redream" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/redream.png" Width="16" Height="16" AutomationProperties.Name="Redream" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="RetroArch Settings" Tag="RetroArch" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/retroarch.png" Width="16" Height="16" AutomationProperties.Name="RetroArch" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="RPCS3 Settings" Tag="RPCS3" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/rpcs3.png" Width="16" Height="16" AutomationProperties.Name="RPCS3" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="SEGA Model 2 Settings" Tag="SegaModel2" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/supermodel.png" Width="16" Height="16" AutomationProperties.Name="SEGA Model 2" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Stella Settings" Tag="Stella" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/stella.png" Width="16" Height="16" AutomationProperties.Name="Stella" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Supermodel Settings" Tag="Supermodel" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/supermodel.png" Width="16" Height="16" AutomationProperties.Name="Supermodel" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Xenia Settings" Tag="Xenia" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/xenia.png" Width="16" Height="16" AutomationProperties.Name="Xenia" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Yumir Settings" Tag="Yumir" Click="ShowEmulatorConfig_Click">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/yumir.png" Width="16" Height="16" AutomationProperties.Name="Yumir" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="Overlay Button Settings">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/overlaybutton.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
                     <MenuItem x:Name="RetroAchievementButton" Header="RetroAchievement Overlay Button" Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox" />
                     <MenuItem x:Name="VideoLinkButton" Header="Video Link Overlay Button" Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox" />
                     <MenuItem x:Name="InfoLinkButton" Header="Info Link Overlay Button" Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox" />
@@ -161,107 +323,205 @@
 
             <!-- ── EDIT SYSTEM ── -->
             <MenuItem Header="Edit System">
-                <MenuItem Header="Add New System" Click="EasyMode_Click" />
-                <MenuItem Header="Edit System" Click="ExpertMode_Click" />
-                <MenuItem Header="Download Image Pack" Click="DownloadImagePack_Click" />
-                <MenuItem Header="Scan For Microsoft Windows Games" Click="ScanForMicrosoftWindowsGames_ClickAsync" />
+                <MenuItem Header="Add New System" Click="EasyMode_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/add.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Edit System" Click="ExpertMode_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/settings.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Download Image Pack" Click="DownloadImagePack_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/image.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Scan For Microsoft Windows Games" Click="ScanForMicrosoftWindowsGames_ClickAsync">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/search2.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
 
             <!-- ── SELECT WINDOW ── -->
             <MenuItem Header="Select Window">
-                <MenuItem Header="Global Stats" Click="GlobalStats_Click" />
-                <MenuItem Header="RetroAchievements" Click="RetroAchievements_Click" />
+                <MenuItem Header="Global Stats" Click="GlobalStats_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/stats.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="RetroAchievements" Click="RetroAchievements_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
 
             <!-- ── TOOLS ── -->
             <MenuItem Header="Tools">
-                <MenuItem Header="Batch Convert Iso To Xiso" Tag="BatchConvertIsoToXiso" Click="LaunchTool_Click" />
-                <MenuItem Header="Batch Convert To CHD" Tag="BatchConvertToCHD" Click="LaunchTool_Click" />
-                <MenuItem Header="Batch Convert To Compressed File" Tag="BatchConvertToCompressedFile" Click="LaunchTool_Click" />
-                <MenuItem Header="Batch Convert To RVZ" Tag="BatchConvertToRVZ" Click="LaunchTool_Click" />
-                <MenuItem Header="Create Batch Files For PS3 Games" Tag="CreateBatchFilesForPS3Games" Click="LaunchTool_Click" />
-                <MenuItem Header="Create Batch Files For ScummVM Games" Tag="CreateBatchFilesForScummVMGames" Click="LaunchTool_Click" />
-                <MenuItem Header="Create Batch Files For Windows Games" Tag="CreateBatchFilesForWindowsGames" Click="LaunchTool_Click" />
-                <MenuItem Header="Create Batch Files For Xbox360 XBLA Games" Tag="CreateBatchFilesForXbox360XBLAGames" Click="LaunchTool_Click" />
-                <MenuItem Header="Find Rom Cover" Tag="FindRomCover" Click="LaunchTool_Click" />
-                <MenuItem Header="Retro Game Cover Downloader" Tag="RetroGameCoverDownloader" Click="LaunchTool_Click" />
-                <MenuItem Header="Rom Validator" Tag="RomValidator" Click="LaunchTool_Click" />
+                <MenuItem Header="Batch Convert Iso To Xiso" Tag="BatchConvertIsoToXiso" Click="LaunchTool_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/xiso.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Batch Convert To CHD" Tag="BatchConvertToCHD" Click="LaunchTool_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/chd.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Batch Convert To Compressed File" Tag="BatchConvertToCompressedFile" Click="LaunchTool_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/tools.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Batch Convert To RVZ" Tag="BatchConvertToRVZ" Click="LaunchTool_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/rvz.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Create Batch Files For PS3 Games" Tag="CreateBatchFilesForPS3Games" Click="LaunchTool_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/ps3.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Create Batch Files For ScummVM Games" Tag="CreateBatchFilesForScummVMGames" Click="LaunchTool_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/scummvm.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Create Batch Files For Windows Games" Tag="CreateBatchFilesForWindowsGames" Click="LaunchTool_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/tools.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Create Batch Files For Xbox360 XBLA Games" Tag="CreateBatchFilesForXbox360XBLAGames" Click="LaunchTool_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/xboxxbla.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Find Rom Cover" Tag="FindRomCover" Click="LaunchTool_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/findromcover.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Retro Game Cover Downloader" Tag="RetroGameCoverDownloader" Click="LaunchTool_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/retrogamecoverdownloader.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Rom Validator" Tag="RomValidator" Click="LaunchTool_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/romvalidator.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
 
             <!-- ── DONATE ── -->
-            <MenuItem Header="Donate" Click="Donate_Click" />
+            <MenuItem Header="Donate" Click="Donate_Click">
+                <MenuItem.Icon>
+                    <Image Source="avares://SimpleLauncher.Avalonia/images/donate.png" Width="16" Height="16" />
+                </MenuItem.Icon>
+            </MenuItem>
 
             <!-- ── ABOUT ── -->
             <MenuItem Header="About">
-                <MenuItem Header="About" Click="About_Click" />
-                <MenuItem Header="Support" Click="Support_Click" />
-                <MenuItem Header="Open App Data Path" Click="OpenAppDataPath_Click" />
+                <MenuItem.Icon>
+                    <Image Source="avares://SimpleLauncher.Avalonia/images/about.png" Width="16" Height="16" />
+                </MenuItem.Icon>
+                <MenuItem Header="About" Click="About_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/about.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Support" Click="Support_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/support.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Open App Data Path" Click="OpenAppDataPath_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/settings.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator />
-                <MenuItem Header="Exit" Click="Exit_Click" />
+                <MenuItem Header="Exit" Click="Exit_Click">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/exit.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
 
         <!-- ═══ BODY (Row 1) ═══ -->
-        <Grid Grid.Row="1" ColumnDefinitions="64,4,*">
+        <Grid Grid.Row="1" ColumnDefinitions="Auto,*">
 
             <!-- ═══ LEFT NAVIGATION RAIL (WPF LeftNavigationPanel parity) ═══ -->
-            <Border Grid.Column="0" Width="64"
-                    Background="{DynamicResource BgSecondaryBrush}"
+            <Border Grid.Column="0" Width="60"
+                    VerticalAlignment="Top"
+                    Margin="8,5,0,0"
+                    CornerRadius="5"
+                    BorderThickness="1"
+                    Background="{DynamicResource BgTertiaryBrush}"
                     BorderBrush="{DynamicResource BorderSubtleBrush}"
-                    BorderThickness="0,0,1,0"
                     ToolTip.Tip="Navigation">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="2">
                     <Button x:Name="NavRestartButton" Classes="nav-icon" ToolTip.Tip="Restart / Home"
                             Click="NavRestartButton_Click">
-                        <TextBlock Text="⌂" FontSize="18" />
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/home.png"
+                               Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
                     <Button x:Name="NavFavoritesButton" Classes="nav-icon" ToolTip.Tip="Favorites"
                             Click="NavFavoritesButton_Click">
-                        <TextBlock Text="♥" FontSize="16" />
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/heart.png"
+                               Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
                     <Button x:Name="NavGlobalSearchButton" Classes="nav-icon" ToolTip.Tip="Global Search"
                             Click="NavGlobalSearchButton_Click">
-                        <TextBlock Text="🔍" FontSize="14" />
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/search2.png"
+                               Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
                     <Button x:Name="NavHistoryButton" Classes="nav-icon" ToolTip.Tip="Play History"
                             Click="NavHistoryButton_Click">
-                        <TextBlock Text="◷" FontSize="16" />
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/playhistory.png"
+                               Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
                     <Button x:Name="NavRetroAchievementsButton" Classes="nav-icon" ToolTip.Tip="RetroAchievements"
                             Click="NavRetroAchievementsButton_Click">
-                        <TextBlock Text="🏆" FontSize="14" />
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png"
+                               Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
                     <Button x:Name="NavEditSystemButton" Classes="nav-icon" ToolTip.Tip="Edit System"
                             Click="NavEditSystemButton_Click">
-                        <TextBlock Text="⚙" FontSize="16" />
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/settings.png"
+                               Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
                     <Button x:Name="NavToggleViewModeButton" Classes="nav-icon" ToolTip.Tip="Toggle View Mode"
                             Click="NavToggleViewModeButton_Click">
-                        <TextBlock Text="⊞" FontSize="16" />
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/show.png"
+                               Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
                     <Button x:Name="NavToggleButtonAspectRatioButton" Classes="nav-icon" ToolTip.Tip="Toggle Button Aspect Ratio"
                             Click="NavToggleButtonAspectRatioButton_Click">
-                        <TextBlock Text="⛶" FontSize="16" />
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/aspectratio.png"
+                               Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
                     <Button x:Name="NavZoomInButton" Classes="nav-icon" ToolTip.Tip="Zoom In"
                             Click="NavZoomInButton_Click">
-                        <TextBlock Text="＋" FontSize="16" />
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/zoom-in.png"
+                               Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
                     <Button x:Name="NavZoomOutButton" Classes="nav-icon" ToolTip.Tip="Zoom Out"
                             Click="NavZoomOutButton_Click">
-                        <TextBlock Text="－" FontSize="16" />
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/zoom-out.png"
+                               Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
                 </StackPanel>
             </Border>
 
-            <!-- Rail resize grip -->
-            <GridSplitter Grid.Column="1" Width="4"
-                          Background="Transparent"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Stretch" />
-
             <!-- ═══ MAIN AREA ═══ -->
-            <Grid Grid.Column="2" RowDefinitions="Auto,*,Auto">
+            <Grid Grid.Column="1" RowDefinitions="Auto,*,Auto">
 
                 <!-- ═══ TOP SYSTEM SELECTION (WPF TopSystemSelection parity) ═══ -->
                 <Border Grid.Row="0" Background="{DynamicResource BgTertiaryBrush}"
@@ -294,59 +554,59 @@
                                       SelectionChanged="EmulatorComboBox_SelectionChanged" />
                         </StackPanel>
 
-                        <!-- Row 1: Search box -->
-                        <Border Grid.Row="1" Grid.Column="2" Background="{DynamicResource BgQuaternaryBrush}"
-                                CornerRadius="14" Padding="10,4" MinWidth="180" MaxWidth="280">
-                            <Grid>
-                                <TextBlock x:Name="SearchPlaceholder"
-                                           Text="🔍  Search…"
-                                           Foreground="{DynamicResource TextMutedBrush}"
-                                           FontSize="12" VerticalAlignment="Center"
-                                           IsHitTestVisible="False" />
-                                <TextBox x:Name="SearchBox"
-                                         Classes="search-textbox"
-                                         BorderThickness="0" Padding="0,4"
-                                         TextChanged="SearchBox_TextChanged" />
-                            </Grid>
-                        </Border>
+                        <!-- Row 1: Search box + search button (WPF SearchTextBox + SearchButton parity) -->
+                        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal"
+                                    VerticalAlignment="Center" Spacing="6">
+                            <Border Background="{DynamicResource BgQuaternaryBrush}"
+                                    CornerRadius="14" Padding="10,4" MinWidth="180" MaxWidth="280">
+                                <Grid>
+                                    <TextBlock x:Name="SearchPlaceholder"
+                                               Text="🔍  Search…"
+                                               Foreground="{DynamicResource TextMutedBrush}"
+                                               FontSize="12" VerticalAlignment="Center"
+                                               IsHitTestVisible="False" />
+                                    <TextBox x:Name="SearchBox"
+                                             Classes="search-textbox"
+                                             BorderThickness="0" Padding="0,4"
+                                             TextChanged="SearchBox_TextChanged" />
+                                </Grid>
+                            </Border>
+                            <Button x:Name="SearchButton"
+                                    Classes="toolbar-icon"
+                                    Padding="6,4"
+                                    ToolTip.Tip="Search"
+                                    Click="SearchButton_Click">
+                                <Image Source="avares://SimpleLauncher.Avalonia/images/search3.png"
+                                       Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
+                            </Button>
+                        </StackPanel>
 
-                        <!-- Row 1: Quick actions (view toggle / home / random / sort / card size) -->
+                        <!-- Row 1: Quick actions (random / RetroAchievements / MAME sort — WPF parity) -->
                         <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal"
                                     VerticalAlignment="Center" Spacing="2">
-                            <ToggleButton x:Name="GridViewToggle"
-                                          Classes="toolbar-toggle"
-                                          IsChecked="True"
-                                          ToolTip.Tip="Grid View"
-                                          Click="ViewToggle_Click">
-                                <TextBlock Text="≡" FontSize="15" />
-                            </ToggleButton>
-                            <ToggleButton x:Name="ListViewToggle"
-                                          Classes="toolbar-toggle"
-                                          IsChecked="False"
-                                          ToolTip.Tip="List View"
-                                          Click="ViewToggle_Click">
-                                <TextBlock Text="☰" FontSize="13" />
-                            </ToggleButton>
-                            <Button x:Name="HomeButton"
-                                    Classes="toolbar-icon"
-                                    Padding="8,4"
-                                    ToolTip.Tip="Restart / Home"
-                                    Click="HomeButton_Click">
-                                <TextBlock Text="⌂" FontSize="15" />
-                            </Button>
                             <Button x:Name="RandomGameButton"
                                     Classes="toolbar-icon"
                                     Padding="8,4"
                                     ToolTip.Tip="Feeling Lucky - pick a random game"
                                     Click="RandomGameButton_Click">
-                                <TextBlock Text="🎲" FontSize="13" />
+                                <Image Source="avares://SimpleLauncher.Avalonia/images/dice.png"
+                                       Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
+                            </Button>
+                            <Button x:Name="RetroAchievementsGameButton"
+                                    Classes="toolbar-icon"
+                                    Padding="8,4"
+                                    ToolTip.Tip="Show Games With RetroAchievements"
+                                    Command="{Binding ShowGamesWithRetroAchievementsCommand}">
+                                <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png"
+                                       Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                             </Button>
                             <Button x:Name="MameSortOrderButton"
                                     Classes="toolbar-icon"
                                     Padding="8,4"
                                     ToolTip.Tip="Sort order: File Name"
                                     Click="MameSortOrderButton_Click">
-                                <TextBlock Text="⇅" FontSize="14" />
+                                <Image Source="avares://SimpleLauncher.Avalonia/images/sort-az.png"
+                                       Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                             </Button>
                         </StackPanel>
 
@@ -827,21 +1087,25 @@
                                     IsVisible="False">
                             <Button x:Name="PrevPageButton"
                                     Classes="secondary"
-                                    Padding="10,2"
+                                    Padding="8,3"
                                     IsEnabled="False"
                                     Click="PrevPage_Click"
-                                    ToolTip.Tip="Previous page"
-                                    Content="◀" />
+                                    ToolTip.Tip="Previous page">
+                                <Image Source="avares://SimpleLauncher.Avalonia/images/arrowleft.png"
+                                       Width="16" Height="16" RenderOptions.BitmapInterpolationMode="HighQuality" />
+                            </Button>
                             <TextBlock x:Name="PaginationLabel"
                                        Foreground="{DynamicResource TextMutedBrush}"
                                        FontSize="11" VerticalAlignment="Center" />
                             <Button x:Name="NextPageButton"
                                     Classes="secondary"
-                                    Padding="10,2"
+                                    Padding="8,3"
                                     IsEnabled="False"
                                     Click="NextPage_Click"
-                                    ToolTip.Tip="Next page"
-                                    Content="▶" />
+                                    ToolTip.Tip="Next page">
+                                <Image Source="avares://SimpleLauncher.Avalonia/images/arrowright.png"
+                                       Width="16" Height="16" RenderOptions.BitmapInterpolationMode="HighQuality" />
+                            </Button>
                         </StackPanel>
                         <TextBlock x:Name="StatusRight" Grid.Column="2"
                                    Text="{Binding StatusText}"

@@ -475,23 +475,6 @@ public partial class MainWindow : Window, IPaginationHost
     private string _lastSortColumn = "";
     private bool _sortAscending = true;
 
-    private void ViewToggle_Click(object? sender, RoutedEventArgs e)
-    {
-        // Set the view state explicitly per button (mirroring the single stateful
-        // toggle of the WPF app) and keep both toggle buttons mutually exclusive.
-        if (ReferenceEquals(sender, GridViewToggle))
-        {
-            _viewModel.IsGridView = true;
-        }
-        else if (ReferenceEquals(sender, ListViewToggle))
-        {
-            _viewModel.IsGridView = false;
-        }
-
-        GridViewToggle.IsChecked = _viewModel.IsGridView;
-        ListViewToggle.IsChecked = !_viewModel.IsGridView;
-    }
-
     private void ListHeader_Click(object? sender, PointerPressedEventArgs e)
     {
         if (sender is not TextBlock { Tag: string columnName } header)
@@ -835,6 +818,16 @@ public partial class MainWindow : Window, IPaginationHost
         _viewModel.StatusText = string.IsNullOrEmpty(query) ? "Ready" : $"Search: \"{query}\"";
     }
 
+    /// <summary>Search button (WPF SearchButton parity): re-applies the current filter.</summary>
+    private void SearchButton_Click(object? sender, RoutedEventArgs e)
+    {
+        var query = SearchBox.Text;
+        SearchPlaceholder.IsVisible = string.IsNullOrEmpty(query);
+        _viewModel.SearchText = query ?? "";
+        _viewModel.StatusText = string.IsNullOrEmpty(query) ? "Ready" : $"Search: \"{query}\"";
+        SearchBox.Focus();
+    }
+
     #endregion
 
     #region System & Emulator Selection (Top Bar)
@@ -922,8 +915,6 @@ public partial class MainWindow : Window, IPaginationHost
     private void NavToggleViewModeButton_Click(object? sender, RoutedEventArgs e)
     {
         _viewModel.IsGridView = !_viewModel.IsGridView;
-        GridViewToggle.IsChecked = _viewModel.IsGridView;
-        ListViewToggle.IsChecked = !_viewModel.IsGridView;
         _settings.ViewMode = _viewModel.IsGridView ? "GridView" : "ListView";
         _ = _settings.SaveAsync();
         UpdateViewModeCheckMarks();
@@ -1667,8 +1658,6 @@ public partial class MainWindow : Window, IPaginationHost
             if (sender is not MenuItem item) return;
 
             _viewModel.IsGridView = string.Equals(item.Name, "GridView", StringComparison.Ordinal);
-            GridViewToggle.IsChecked = _viewModel.IsGridView;
-            ListViewToggle.IsChecked = !_viewModel.IsGridView;
             _settings.ViewMode = _viewModel.IsGridView ? "GridView" : "ListView";
             _ = _settings.SaveAsync().ContinueWith(t =>
             {
