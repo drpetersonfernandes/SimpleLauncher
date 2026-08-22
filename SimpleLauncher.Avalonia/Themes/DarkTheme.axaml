@@ -123,7 +123,7 @@
              CORNER RADII
              ═══════════════════════════════════════════════════════════ -->
         <CornerRadius x:Key="ButtonCornerRadius">0</CornerRadius>
-        <CornerRadius x:Key="CardCornerRadius">0</CornerRadius>
+        <CornerRadius x:Key="CardCornerRadius">10</CornerRadius>
         <CornerRadius x:Key="PillCornerRadius">0</CornerRadius>
 
         <!-- ═══════════════════════════════════════════════════════════
@@ -354,6 +354,80 @@
     </Style>
     <Style Selector="Button.nav-icon:pressed">
         <Setter Property="Background" Value="{DynamicResource BgQuaternaryBrush}" />
+    </Style>
+
+    <!-- ── 3D BUTTON EFFECT (WPF GameButton3DTemplate / SystemButton3DTemplate parity) ──
+         Raised card using Avalonia's native Border.BoxShadow (GPU-composited, layered):
+         rest → soft drop shadow; hover → accent ring + glow + 1.02 scale;
+         pressed → inset shadow + nudge. -->
+    <Style Selector="Button.game-button-3d">
+        <Setter Property="Background" Value="{DynamicResource BgTertiaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderSubtleBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Padding" Value="0,5,0,0" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="RootBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <ContentPresenter Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      Margin="{TemplateBinding Padding}"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Style.Animations>
+            <!-- Fade-in on attach (WPF GameButtonStyle Loaded storyboard parity) -->
+            <Animation Duration="0:0:0.5" FillMode="Forward">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="1" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+    <!-- Elevation: native BoxShadow layers (offsetX offsetY blur spread color) -->
+    <Style Selector="Button.game-button-3d /template/ Border#RootBorder">
+        <Setter Property="BoxShadow" Value="0 2 6 0 #4D000000" />
+    </Style>
+    <Style Selector="Button.game-button-3d:pointerover /template/ Border#RootBorder">
+        <Setter Property="BoxShadow" Value="0 0 0 1.5 #FFD12733, 0 3 16 2 #80D12733" />
+    </Style>
+    <Style Selector="Button.game-button-3d:pressed /template/ Border#RootBorder">
+        <Setter Property="BoxShadow" Value="inset 0 2 8 0 #66000000, 0 1 2 0 #66000000" />
+    </Style>
+    <Style Selector="Button.game-button-3d:pointerover">
+        <Setter Property="Background" Value="{DynamicResource BgQuaternaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentHoverBrush}" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1.02" ScaleY="1.02" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style Selector="Button.game-button-3d:pressed">
+        <Setter Property="Background" Value="{DynamicResource AccentPressedBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentHoverBrush}" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TranslateTransform X="1" Y="1" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style Selector="Button.game-button-3d:focus /template/ Border#RootBorder">
+        <Setter Property="BoxShadow" Value="0 0 0 2 #66D12733, 0 2 6 0 #4D000000" />
     </Style>
 
     <!-- ── SEARCH TEXTBOX (pill-shaped) ── -->

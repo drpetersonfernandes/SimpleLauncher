@@ -645,6 +645,29 @@
                                  BorderThickness="0"
                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListBox.Styles>
+                                <!-- Neutralize Fluent ListBoxItem chrome (white hover tint / accent
+                                     selected fill) — the card Button carries all visual states. -->
+                                <Style Selector="ListBoxItem">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="Padding" Value="0" />
+                                </Style>
+                                <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                                    <Setter Property="Background" Value="Transparent" />
+                                </Style>
+                                <Style Selector="ListBoxItem:pressed /template/ ContentPresenter#PART_ContentPresenter">
+                                    <Setter Property="Background" Value="Transparent" />
+                                </Style>
+                                <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+                                    <Setter Property="Background" Value="Transparent" />
+                                </Style>
+                                <Style Selector="ListBoxItem:selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                                    <Setter Property="Background" Value="Transparent" />
+                                </Style>
+                                <Style Selector="ListBoxItem:selected:pressed /template/ ContentPresenter#PART_ContentPresenter">
+                                    <Setter Property="Background" Value="Transparent" />
+                                </Style>
+                            </ListBox.Styles>
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel />
@@ -652,24 +675,21 @@
                             </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
                                 <DataTemplate DataType="{x:Type vm:GameCardViewModel}">
-                                    <!-- Card: width from MainViewModel, height from per-system art ratio -->
-                                    <Border Width="{Binding DataContext.CardWidth, RelativeSource={RelativeSource AncestorType=ListBox}, FallbackValue=168}"
-                                            Margin="6"
-                                            Cursor="Hand"
-                                            PointerPressed="GameCard_Click">
-                                        <Border.Height>
+                                    <!-- Card: width from MainViewModel, height from per-system art ratio.
+                                         Root is a real Button carrying the WPF GameButton3D 3D effect
+                                         (Classes="game-button-3d" — see DarkTheme.axaml). -->
+                                    <Button Classes="game-button-3d"
+                                            Width="{Binding DataContext.CardWidth, RelativeSource={RelativeSource AncestorType=ListBox}, FallbackValue=168}"
+                                            Click="GameCard_Click"
+                                            DoubleTapped="GameCard_DoubleTapped"
+                                            PointerPressed="GameCard_PointerPressed">
+                                        <Button.Height>
                                             <MultiBinding Converter="{StaticResource CardHeightConverter}">
                                                 <Binding Path="DataContext.CardWidth" RelativeSource="{RelativeSource AncestorType=ListBox}" FallbackValue="168" />
                                                 <Binding Path="SystemName" />
                                                 <Binding Path="DataContext.IsMixedView" RelativeSource="{RelativeSource AncestorType=ListBox}" FallbackValue="False" />
                                             </MultiBinding>
-                                        </Border.Height>
-                                        <Border.Effect>
-                                            <DropShadowEffect Color="{DynamicResource ShadowColor}"
-                                                              BlurRadius="1"
-                                                              OffsetX="0" OffsetY="0"
-                                                              Opacity="0.5" />
-                                        </Border.Effect>
+                                        </Button.Height>
 
                                         <Grid RowDefinitions="*,Auto">
 
@@ -754,7 +774,7 @@
                                                 </StackPanel>
                                             </StackPanel>
                                         </Grid>
-                                    </Border>
+                                    </Button>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
