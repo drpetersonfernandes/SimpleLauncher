@@ -1,5 +1,3 @@
-using Avalonia.Media.Imaging;
-
 namespace SimpleLauncher.Avalonia.Models;
 
 /// <summary>
@@ -31,11 +29,6 @@ public class RaAchievement
     /// Gets or sets the URL of the achievement badge image.
     /// </summary>
     public string BadgeUri { get; set; } = "";
-
-    /// <summary>
-    /// Gets or sets the loaded badge image for the achievement.
-    /// </summary>
-    public Bitmap? BadgeImage { get; set; }
 
     /// <summary>
     /// Gets or sets whether the achievement has been unlocked by the user.

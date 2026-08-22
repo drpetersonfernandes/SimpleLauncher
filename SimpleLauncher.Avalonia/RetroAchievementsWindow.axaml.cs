@@ -18,6 +18,7 @@ public partial class RetroAchievementsWindow : Window
     private readonly RetroAchievementsViewModel _viewModel;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly Core.Interfaces.IResourceProvider _resourceProvider;
     private readonly ILogger _logger;
 
     /// <summary>
@@ -34,6 +35,7 @@ public partial class RetroAchievementsWindow : Window
         _playSoundEffects = playSoundEffects;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+        _resourceProvider = App.ServiceProvider.GetRequiredService<Core.Interfaces.IResourceProvider>();
 
         // Localize the emergency return button (WPF DynamicResource ReturnButton parity)
         var localization = App.ServiceProvider.GetRequiredService<Services.LocalizationService>();
@@ -270,11 +272,11 @@ public partial class RetroAchievementsWindow : Window
         }
     }
 
-    private void OpenRaSettings_Click(object? sender, RoutedEventArgs e)
+    private async void OpenRaSettings_Click(object? sender, RoutedEventArgs e)
     {
         var settingsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsSettingsWindow>();
         _playSoundEffects.PlayNotificationSound();
-        settingsWindow.ShowDialog(this);
+        await settingsWindow.ShowDialog(this);
 
         // Reload current tab
         if (TabControl.SelectedItem is TabItem selectedTab)
@@ -307,9 +309,11 @@ public partial class RetroAchievementsWindow : Window
         LoadingOverlay.IsVisible = isLoading;
         if (isLoading)
         {
-            LoadingOverlayMessage.Text = message ?? "Loading...";
+            LoadingOverlayMessage.Text = message ?? _resourceProvider.GetString("Loading", "Loading...");
         }
     }
+
+    private string L(string key, string fallback) => _resourceProvider.GetString(key, fallback);
 
     private void EmergencyOverlayRelease_Click(object? sender, RoutedEventArgs e)
     {

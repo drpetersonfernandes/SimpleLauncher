@@ -145,7 +145,7 @@ public class RetroAchievementsService
                     Title = a.Title,
                     Description = a.Description,
                     Points = a.Points,
-                    BadgeUri = $"{_siteBaseUrl}/Badge/{a.BadgeName}.png",
+                    BadgeUri = $"{_siteBaseUrl.TrimEnd('/')}/Badge/{a.BadgeName}.png",
                     IsUnlocked = a.DateEarned != null || a.DateEarnedHardcore != null,
                     DateUnlocked = a.DateEarnedHardcore ?? a.DateEarned,
                     UnlockedInHardcore = a.DateEarnedHardcore != null,

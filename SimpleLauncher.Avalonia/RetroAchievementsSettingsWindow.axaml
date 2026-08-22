@@ -1,57 +1,58 @@
 <Window x:Class="SimpleLauncher.Avalonia.RetroAchievementsSettingsWindow"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Retro Achievements Settings"
-        Width="550" Height="520"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        Title="{ext:Translate RetroAchievementsSettings}"
+        Width="550" Height="500"
         WindowStartupLocation="CenterOwner"
         Background="{DynamicResource BgPrimaryBrush}">
     <Grid Margin="15" RowDefinitions="Auto,Auto,Auto,Auto,*,Auto" ColumnDefinitions="Auto,*">
 
         <!-- Username -->
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Username" Classes="form-label" Margin="0,0,10,10" />
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="{ext:Translate Username}" Classes="form-label" Margin="0,0,10,10" />
         <TextBox Grid.Row="0" Grid.Column="1" Classes="dialog-textbox" VerticalAlignment="Center" Margin="0,0,0,10"
-                 Text="{Binding Username}" ToolTip.Tip="Your RetroAchievements.org username" />
+                 Text="{Binding Username}" ToolTip.Tip="{ext:Translate TooltipRaUsername}" />
 
         <!-- API Key -->
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="ApiKey" Classes="form-label" Margin="0,0,10,10" />
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="{ext:Translate ApiKey}" Classes="form-label" Margin="0,0,10,10" />
         <TextBox x:Name="ApiKeyPasswordBox" Grid.Row="1" Grid.Column="1" Classes="dialog-textbox"
                  PasswordChar="●"
                  VerticalAlignment="Center" Margin="0,0,0,10"
-                 ToolTip.Tip="Your RetroAchievements API key (found in your RA control panel)" />
+                 ToolTip.Tip="{ext:Translate TooltipRaApiKey}" />
 
         <!-- RA Password -->
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Password" Classes="form-label" Margin="0,0,10,10" />
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="{ext:Translate RetroAchievementsPassword}" Classes="form-label" Margin="0,0,10,10" />
         <TextBox x:Name="RaPasswordPasswordBox" Grid.Row="2" Grid.Column="1" Classes="dialog-textbox"
                  PasswordChar="●"
                  VerticalAlignment="Center" Margin="0,0,0,10"
-                 ToolTip.Tip="Your RetroAchievements password (for hardcore mode)" />
+                 ToolTip.Tip="{ext:Translate TooltipRaPassword}" />
 
         <!-- Link to control panel -->
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,10,0,10">
-            <TextBlock Text="Find Your Api Key Here — " VerticalAlignment="Center" TextWrapping="Wrap" />
-            <Button Content="RetroAchievements Control Panel"
+            <TextBlock Text="{ext:Translate FindYourApiKeyHere}" VerticalAlignment="Center" TextWrapping="Wrap" />
+            <Button Content="{ext:Translate RaSettingsControlPanelLink}"
                     Classes="secondary"
                     Padding="10,4"
                     Click="OpenControlPanel_Click" />
         </StackPanel>
 
         <!-- Emulator Integration Section -->
-        <GroupBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Header="Emulator Integration (Auto-Setup)" Margin="0,20,0,10">
+        <GroupBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Header="{ext:Translate EmulatorIntegration}" Margin="0,20,0,10">
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="BizHawk" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="BizHawk" Classes="secondary" Margin="5" ToolTip.Tip="Auto-configure BizHawk for RetroAchievements" />
-                <Button Content="Dolphin" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="Dolphin" Classes="secondary" Margin="5" ToolTip.Tip="Auto-configure Dolphin for RetroAchievements" />
-                <Button Content="DuckStation" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="DuckStation" Classes="secondary" Margin="5" ToolTip.Tip="Auto-configure DuckStation for RetroAchievements" />
-                <Button Content="Flycast" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="Flycast" Classes="secondary" Margin="5" ToolTip.Tip="Auto-configure Flycast for RetroAchievements" />
-                <Button Content="PCSX2" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="PCSX2" Classes="secondary" Margin="5" ToolTip.Tip="Auto-configure PCSX2 for RetroAchievements" />
-                <Button Content="PPSSPP" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="PPSSPP" Classes="secondary" Margin="5" ToolTip.Tip="Auto-configure PPSSPP for RetroAchievements" />
-                <Button Content="RetroArch" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="RetroArch" Classes="secondary" Margin="5" ToolTip.Tip="Auto-configure RetroArch for RetroAchievements" />
+                <Button Content="BizHawk" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="BizHawk" Classes="secondary" Margin="5" ToolTip.Tip="{ext:Translate TooltipConfigureBizHawk}" />
+                <Button Content="Dolphin" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="Dolphin" Classes="secondary" Margin="5" ToolTip.Tip="{ext:Translate TooltipConfigureDolphin}" />
+                <Button Content="DuckStation" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="DuckStation" Classes="secondary" Margin="5" ToolTip.Tip="{ext:Translate TooltipConfigureDuckStation}" />
+                <Button Content="Flycast" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="Flycast" Classes="secondary" Margin="5" ToolTip.Tip="{ext:Translate TooltipConfigureFlycast}" />
+                <Button Content="PCSX2" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="PCSX2" Classes="secondary" Margin="5" ToolTip.Tip="{ext:Translate TooltipConfigurePcsx2}" />
+                <Button Content="PPSSPP" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="PPSSPP" Classes="secondary" Margin="5" ToolTip.Tip="{ext:Translate TooltipConfigurePpspp}" />
+                <Button Content="RetroArch" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="RetroArch" Classes="secondary" Margin="5" ToolTip.Tip="{ext:Translate TooltipConfigureRetroArch}" />
             </WrapPanel>
         </GroupBox>
 
         <!-- Buttons -->
         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button Content="Save" Command="{Binding SaveCommand}" Classes="primary" IsDefault="True" Width="90" Margin="0,0,10,0" ToolTip.Tip="Save RetroAchievements settings" />
-            <Button Content="Cancel" Command="{Binding CancelCommand}" Classes="secondary" IsCancel="True" Width="90" ToolTip.Tip="Cancel" />
+            <Button Content="{ext:Translate Save}" Command="{Binding SaveCommand}" Classes="primary" IsDefault="True" Width="90" Margin="0,0,10,0" ToolTip.Tip="{ext:Translate TooltipSaveRaSettings}" />
+            <Button Content="{ext:Translate Cancel}" Command="{Binding CancelCommand}" Classes="secondary" IsCancel="True" Width="90" ToolTip.Tip="{ext:Translate ToolTipCancel}" />
         </StackPanel>
     </Grid>
 </Window>
