@@ -631,24 +631,34 @@ public partial class MainWindow : Window, IPaginationHost
         }
     }
 
-    private void RandomGameButton_Click(object? sender, RoutedEventArgs e)
+    private async void RandomGameButton_Click(object? sender, RoutedEventArgs e)
     {
         try
         {
-            var randomGame = _viewModel.GetRandomGame();
+            // WPF parity: Feeling Lucky operates on the currently selected system
+            if (string.IsNullOrEmpty(_viewModel.SelectedSystem))
+            {
+                ShowToast("Feeling Lucky", _localization.GetString("Toast.SelectSystemFirst", "Please select a system first."));
+                return;
+            }
+
+            _playSound.PlayNotificationSound();
+
+            // Reset the visible filter controls (the ViewModel resets its own state)
+            UpdateLetterBarSelection("");
+            SearchBox.Text = "";
+            SearchPlaceholder.IsVisible = true;
+
+            var randomGame = await _viewModel.PickRandomGameAsync();
             if (randomGame is null)
             {
                 ShowToast("Feeling Lucky", _localization.GetString("Toast.NoGameFound", "No games found to pick from."));
                 return;
             }
 
-            _playSound.PlayNotificationSound();
-            if (_viewModel.IsGridView)
-            {
-                GameGridView.SelectedItem = randomGame;
-                GameGridView.ScrollIntoView(randomGame);
-            }
-            else
+            // ListView mode auto-selects the picked game (WPF DataGrid row-0 parity);
+            // GridView intentionally leaves nothing selected, like the WPF app.
+            if (!_viewModel.IsGridView)
             {
                 GameListView.SelectedItem = randomGame;
                 GameListView.ScrollIntoView(randomGame);
@@ -659,6 +669,8 @@ public partial class MainWindow : Window, IPaginationHost
         catch (Exception ex)
         {
             Log.Error(ex, "Error in RandomGameButton_Click");
+            var messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+            await messageBox.ErrorMessageBoxAsync();
         }
     }
 
@@ -969,7 +981,30 @@ public partial class MainWindow : Window, IPaginationHost
 
     #region Game Card Interaction
 
-    private void GameCard_Click(object? sender, PointerPressedEventArgs e)
+    /// <summary>Single left click on a game card: selects it in the grid.</summary>
+    private void GameCard_Click(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Control { DataContext: GameCardViewModel game } card)
+        {
+            var listBoxItem = FindParent<ListBoxItem>(card);
+            if (listBoxItem is not null)
+            {
+                listBoxItem.IsSelected = true;
+            }
+        }
+    }
+
+    /// <summary>Double click / double tap on a game card: launches the game.</summary>
+    private void GameCard_DoubleTapped(object? sender, TappedEventArgs e)
+    {
+        if (sender is Control { DataContext: GameCardViewModel game })
+        {
+            _viewModel.PlayGameCommand.Execute(game);
+        }
+    }
+
+    /// <summary>Right-button press on a game card: opens the context menu.</summary>
+    private void GameCard_PointerPressed(object? sender, PointerPressedEventArgs e)
     {
         if (sender is Control { DataContext: GameCardViewModel game } card)
         {
@@ -979,19 +1014,6 @@ public partial class MainWindow : Window, IPaginationHost
             {
                 ShowGameContextMenu(game, card);
                 e.Handled = true; // prevent the popup from closing on the subsequent mouse-up
-            }
-            else if (e.ClickCount == 2)
-            {
-                _viewModel.PlayGameCommand.Execute(game);
-            }
-            else
-            {
-                // Single left click: select the game
-                var listBoxItem = FindParent<ListBoxItem>(card);
-                if (listBoxItem is not null)
-                {
-                    listBoxItem.IsSelected = true;
-                }
             }
         }
     }
@@ -2180,6 +2202,7 @@ public partial class MainWindow : Window, IPaginationHost
                 Margin = new Thickness(5),
                 Padding = new Thickness(5)
             };
+            systemButton.Classes.Add("game-button-3d"); // WPF SystemButton3DTemplate parity
             systemButton.Click += SystemCard_Click;
 
             // Right-click context menu (WPF parity: Select / Edit / Delete)

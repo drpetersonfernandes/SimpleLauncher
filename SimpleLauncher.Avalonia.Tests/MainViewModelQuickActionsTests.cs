@@ -196,13 +196,41 @@ public class MainViewModelQuickActionsTests : IDisposable
     }
 
     [Fact]
-    public void RandomGame_ReturnsGameFromCurrentView()
+    public async Task PickRandomGame_ReplacesViewWithSingleGameFromSelectedSystem()
     {
-        _viewModel.NavigateToAllGamesCommand.Execute(null);
+        _viewModel.NavigateToSystemCommand.Execute("Test System");
 
-        var randomGame = _viewModel.GetRandomGame();
+        var randomGame = await _viewModel.PickRandomGameAsync();
 
         Assert.NotNull(randomGame);
+        Assert.Equal("Test System", randomGame.SystemName);
+        var shown = Assert.Single(_viewModel.Games);
+        Assert.Equal(randomGame.FilePath, shown.FilePath);
+    }
+
+    [Fact]
+    public async Task PickRandomGame_WithoutSelectedSystemReturnsNullAndKeepsView()
+    {
+        _viewModel.NavigateToAllGamesCommand.Execute(null);
+        var countBefore = _viewModel.Games.Count;
+
+        var randomGame = await _viewModel.PickRandomGameAsync();
+
+        Assert.Null(randomGame);
+        Assert.Equal(countBefore, _viewModel.Games.Count);
+    }
+
+    [Fact]
+    public async Task PickRandomGame_ClearsLetterFilterAndPicksFromFullLibrary()
+    {
+        _viewModel.NavigateToSystemCommand.Execute("Test System");
+        _viewModel.SetLetterFilter("A");
+
+        var randomGame = await _viewModel.PickRandomGameAsync();
+
+        // The pick comes from the FULL system library, not the letter-filtered subset
+        Assert.NotNull(randomGame);
+        Assert.Equal("", _viewModel.LetterFilter);
         Assert.Contains(_viewModel.Games, g => g.FilePath == randomGame!.FilePath);
     }
 

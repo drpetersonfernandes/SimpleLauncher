@@ -312,14 +312,101 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     }
 
     /// <summary>
-    /// Returns a random game from the current view, or null when the list is empty.
+    /// Guards the programmatic <see cref="SearchText"/> reset inside
+    /// <see cref="PickRandomGameAsync"/> so it does not start a debounced reload
+    /// that would wipe the random-pick result.
     /// </summary>
-    public GameCardViewModel? GetRandomGame()
-    {
-        var candidates = _currentAllGames.Count > 0 ? _currentAllGames : _currentBaseGames;
-        if (candidates.Count == 0) return null;
+    private bool _suppressSearchReload;
 
-        return candidates[Random.Shared.Next(candidates.Count)];
+    /// <summary>
+    /// Feeling Lucky (WPF ShowSystemFeelingLuckyClickAsync parity): resets every view
+    /// filter, forces the Show Games setting back to "ShowAll" (so games without cover
+    /// art can be picked too), then picks ONE random game from the FULL library of the
+    /// currently selected system and replaces the displayed list with it.
+    /// Returns the picked game, or null when the system has no games.
+    /// </summary>
+    public async Task<GameCardViewModel?> PickRandomGameAsync()
+    {
+        var systems = string.IsNullOrEmpty(SelectedSystem)
+            ? []
+            : _allSystems.Where(s => string.Equals(s.SystemName, SelectedSystem, StringComparison.OrdinalIgnoreCase)).ToList();
+        if (systems.Count == 0) return null;
+
+        // Force the Show Games filter to ShowAll and persist it (WPF parity)
+        if (!string.Equals(_settings.ShowGames, "ShowAll", StringComparison.OrdinalIgnoreCase))
+        {
+            _settings.ShowGames = "ShowAll";
+            await _settings.SaveAsync();
+        }
+
+        // Reset every active filter (letter / search / favorites / RetroAchievements)
+        CancelPendingSearch();
+        IsShowingFavorites = false;
+        IsShowingRetroAchievements = false;
+        _letterFilter = "";
+        _suppressSearchReload = true;
+        try
+        {
+            SearchText = "";
+        }
+        finally
+        {
+            _suppressSearchReload = false;
+        }
+
+        SetLoadingState(true, "Loading Games...");
+        try
+        {
+            // Full library scan for the selected system — ignores letter/search/
+            // cover-image filters exactly like the WPF RANDOM_SELECTION mode
+            var pool = await Task.Run(() => ScanGames(systems));
+
+            GameCardViewModel? picked = null;
+            if (pool.Count > 0)
+            {
+                picked = pool[Random.Shared.Next(pool.Count)];
+                picked.IsFavorite = _favoritesManager.GetFavoritePaths().Contains(picked.FilePath);
+
+                var historyLookup = _playHistoryManager.GetHistoryLookup();
+                if (historyLookup.TryGetValue(picked.FilePath, out var history))
+                {
+                    picked.PlayCount = history.TimesPlayed;
+                    picked.LastPlayed = history.LastPlayDate;
+                }
+            }
+
+            // Replace the whole visible list with the single picked game (an empty
+            // pool renders the inline no-games state, like the WPF app)
+            _currentBaseGames = picked is null ? [] : [picked];
+            ReapplyLetterFilterAndPagination();
+
+            if (picked != null)
+            {
+                StatusText = $"Picked a random game: {picked.DisplayTitle}";
+                ToolbarTitle = $"SimpleLauncher — {SelectedSystem} (1 game)";
+            }
+            else
+            {
+                StatusText = "No games found for the random selection.";
+            }
+
+            return picked;
+        }
+        finally
+        {
+            SetLoadingState(false);
+        }
+    }
+
+    /// <summary>
+    /// Cancels a pending debounced search (if any) so a queued reload cannot
+    /// overwrite the random-pick result.
+    /// </summary>
+    private void CancelPendingSearch()
+    {
+        _searchCts?.Cancel();
+        _searchCts?.Dispose();
+        _searchCts = null;
     }
 
     /// <summary>
@@ -638,6 +725,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
 
     partial void OnSearchTextChanged(string value)
     {
+        if (_suppressSearchReload) return;
         _ = DebounceSearchAsync(value);
     }
 
