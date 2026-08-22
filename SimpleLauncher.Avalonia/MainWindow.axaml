@@ -2,6 +2,7 @@
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:vm="using:SimpleLauncher.Avalonia.ViewModels"
         Title="{Binding ToolbarTitle}"
         Height="800" Width="1280"
@@ -20,325 +21,314 @@
               BorderThickness="0,0,0,1"
               FontFamily="{DynamicResource PrimaryFont}"
               FontSize="13"
-              Foreground="{DynamicResource TextPrimaryBrush}">
+              Foreground="{DynamicResource TextPrimaryBrush}"
+              ToolTip.Tip="{ext:Translate TooltipOptionsMenu}">
 
             <!-- ── OPTIONS ── -->
-            <MenuItem Header="Options">
-                <MenuItem Header="Preferences" Click="Preferences_Click">
-                    <MenuItem.Icon>
-                        <Image Source="avares://SimpleLauncher.Avalonia/images/settings.png" Width="16" Height="16" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem x:Name="LanguageMenu" Header="Language">
+            <MenuItem Header="{ext:Translate Options}"
+                      ToolTip.Tip="{ext:Translate TooltipOptionsMenu}">
+                <MenuItem x:Name="LanguageMenu" Header="{ext:Translate Language}" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/language.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="LanguageArabic" GroupName="LanguageGroup" Header="العربية" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguageBengali" GroupName="LanguageGroup" Header="বাংলা" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguageGerman" GroupName="LanguageGroup" Header="Deutsch" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguageEnglish" GroupName="LanguageGroup" Header="English" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguageSpanish" GroupName="LanguageGroup" Header="Español" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguageFrench" GroupName="LanguageGroup" Header="Français" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguageHindi" GroupName="LanguageGroup" Header="हिन्दी" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguageIndonesianMalay" GroupName="LanguageGroup" Header="Indonesian (Malay)" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguageItalian" GroupName="LanguageGroup" Header="Italiano" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguageJapanese" GroupName="LanguageGroup" Header="日本語" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguageKorean" GroupName="LanguageGroup" Header="한국어" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguageDutch" GroupName="LanguageGroup" Header="Nederlands" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguagePortugueseBr" GroupName="LanguageGroup" Header="Português" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguageRussian" GroupName="LanguageGroup" Header="Русский" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguageTurkish" GroupName="LanguageGroup" Header="Türkçe" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguageUrdu" GroupName="LanguageGroup" Header="اردو" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguageVietnamese" GroupName="LanguageGroup" Header="Tiếng Việt" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="LanguageChineseSimplified" GroupName="LanguageGroup" Header="简体中文" Click="ChangeLanguage_Click" ToggleType="CheckBox" />
+                    <MenuItem x:Name="LanguageArabic" GroupName="LanguageGroup" Header="العربية" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageBengali" GroupName="LanguageGroup" Header="বাংলা" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageGerman" GroupName="LanguageGroup" Header="Deutsch" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageEnglish" GroupName="LanguageGroup" Header="English" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageSpanish" GroupName="LanguageGroup" Header="Español" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageFrench" GroupName="LanguageGroup" Header="Français" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageHindi" GroupName="LanguageGroup" Header="हिन्दी" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageIndonesianMalay" GroupName="LanguageGroup" Header="Indonesian (Malay)" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageItalian" GroupName="LanguageGroup" Header="Italiano" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageJapanese" GroupName="LanguageGroup" Header="日本語" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageKorean" GroupName="LanguageGroup" Header="한국어" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageDutch" GroupName="LanguageGroup" Header="Nederlands" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguagePortugueseBr" GroupName="LanguageGroup" Header="Português" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageRussian" GroupName="LanguageGroup" Header="Русский" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageTurkish" GroupName="LanguageGroup" Header="Türkçe" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageUrdu" GroupName="LanguageGroup" Header="اردو" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageVietnamese" GroupName="LanguageGroup" Header="Tiếng Việt" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageChineseSimplified" GroupName="LanguageGroup" Header="简体中文" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
                 </MenuItem>
-                <Separator />
-                <MenuItem x:Name="SizeMenu" Header="Set Button Size">
+                <MenuItem x:Name="SizeMenu" Header="{ext:Translate SetButtonSize}" ToolTip.Tip="{ext:Translate TooltipButtonSizeMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/buttonsize.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Header="50 px" Tag="50" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="100 px" Tag="100" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="150 px" Tag="150" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="200 px" Tag="200" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="250 px" Tag="250" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="300 px" Tag="300" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="350 px" Tag="350" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="400 px" Tag="400" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="450 px" Tag="450" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="500 px" Tag="500" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="550 px" Tag="550" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="600 px" Tag="600" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="650 px" Tag="650" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="700 px" Tag="700" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="750 px" Tag="750" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="800 px" Tag="800" Click="ButtonSizeClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="{ext:Translate 50pixels}" Tag="50" Click="ButtonSizeClickAsync" />
+                    <MenuItem Header="{ext:Translate 100pixels}" Tag="100" Click="ButtonSizeClickAsync" />
+                    <MenuItem Header="{ext:Translate 150pixels}" Tag="150" Click="ButtonSizeClickAsync" />
+                    <MenuItem Header="{ext:Translate 200pixels}" Tag="200" Click="ButtonSizeClickAsync" />
+                    <MenuItem Header="{ext:Translate 250pixels}" Tag="250" Click="ButtonSizeClickAsync" />
+                    <MenuItem Header="{ext:Translate 300pixels}" Tag="300" Click="ButtonSizeClickAsync" />
+                    <MenuItem Header="{ext:Translate 350pixels}" Tag="350" Click="ButtonSizeClickAsync" />
+                    <MenuItem Header="{ext:Translate 400pixels}" Tag="400" Click="ButtonSizeClickAsync" />
+                    <MenuItem Header="{ext:Translate 450pixels}" Tag="450" Click="ButtonSizeClickAsync" />
+                    <MenuItem Header="{ext:Translate 500pixels}" Tag="500" Click="ButtonSizeClickAsync" />
+                    <MenuItem Header="{ext:Translate 550pixels}" Tag="550" Click="ButtonSizeClickAsync" />
+                    <MenuItem Header="{ext:Translate 600pixels}" Tag="600" Click="ButtonSizeClickAsync" />
+                    <MenuItem Header="{ext:Translate 650pixels}" Tag="650" Click="ButtonSizeClickAsync" />
+                    <MenuItem Header="{ext:Translate 700pixels}" Tag="700" Click="ButtonSizeClickAsync" />
+                    <MenuItem Header="{ext:Translate 750pixels}" Tag="750" Click="ButtonSizeClickAsync" />
+                    <MenuItem Header="{ext:Translate 800pixels}" Tag="800" Click="ButtonSizeClickAsync" />
                 </MenuItem>
-                <MenuItem x:Name="AspectRatioMenu" Header="Set Button Aspect Ratio">
+                <MenuItem x:Name="AspectRatioMenu" Header="{ext:Translate SetButtonAspectRatio}" ToolTip.Tip="{ext:Translate TooltipAspectRatioMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/aspectratio.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="Square" GroupName="AspectRatioGroup" Header="Square" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
-                    <MenuItem x:Name="Wider" GroupName="AspectRatioGroup" Header="Wider" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
-                    <MenuItem x:Name="SuperWider" GroupName="AspectRatioGroup" Header="Super Wider" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
-                    <MenuItem x:Name="SuperWider2" GroupName="AspectRatioGroup" Header="Super Wider 2" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
-                    <MenuItem x:Name="Taller" GroupName="AspectRatioGroup" Header="Taller" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
-                    <MenuItem x:Name="SuperTaller" GroupName="AspectRatioGroup" Header="Super Taller" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
-                    <MenuItem x:Name="SuperTaller2" GroupName="AspectRatioGroup" Header="Super Taller 2" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="Square" Header="{ext:Translate Square}" Click="ButtonAspectRatioClickAsync" />
+                    <MenuItem x:Name="Wider" Header="{ext:Translate Wider}" Click="ButtonAspectRatioClickAsync" />
+                    <MenuItem x:Name="SuperWider" Header="{ext:Translate SuperWider}" Click="ButtonAspectRatioClickAsync" />
+                    <MenuItem x:Name="SuperWider2" Header="{ext:Translate SuperWider2}" Click="ButtonAspectRatioClickAsync" />
+                    <MenuItem x:Name="Taller" Header="{ext:Translate Taller}" Click="ButtonAspectRatioClickAsync" />
+                    <MenuItem x:Name="SuperTaller" Header="{ext:Translate SuperTaller}" Click="ButtonAspectRatioClickAsync" />
+                    <MenuItem x:Name="SuperTaller2" Header="{ext:Translate SuperTaller2}" Click="ButtonAspectRatioClickAsync" />
                 </MenuItem>
-                <MenuItem x:Name="GamesPerPageMenu" Header="Set Number of Games Per Page">
+                <MenuItem x:Name="GamesPerPageMenu" Header="{ext:Translate SetNumberOfGamesPerPage}" ToolTip.Tip="{ext:Translate TooltipGamesPerPageMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/setnumber.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Header="100 games" Tag="100" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="200 games" Tag="200" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="300 games" Tag="300" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="400 games" Tag="400" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="500 games" Tag="500" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="1000 games" Tag="1000" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="10000 games" Tag="10000" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="1000000 games" Tag="1000000" Click="GamesPerPageClickAsync" ToggleType="CheckBox" />
+                    <MenuItem Header="{ext:Translate 100games}" Tag="100" Click="GamesPerPageClickAsync" />
+                    <MenuItem Header="{ext:Translate 200games}" Tag="200" Click="GamesPerPageClickAsync" />
+                    <MenuItem Header="{ext:Translate 300games}" Tag="300" Click="GamesPerPageClickAsync" />
+                    <MenuItem Header="{ext:Translate 400games}" Tag="400" Click="GamesPerPageClickAsync" />
+                    <MenuItem Header="{ext:Translate 500games}" Tag="500" Click="GamesPerPageClickAsync" />
+                    <MenuItem Header="{ext:Translate 1000games}" Tag="1000" Click="GamesPerPageClickAsync" />
+                    <MenuItem Header="{ext:Translate 10000games}" Tag="10000" Click="GamesPerPageClickAsync" />
+                    <MenuItem Header="{ext:Translate 1000000games}" Tag="1000000" Click="GamesPerPageClickAsync" />
                 </MenuItem>
-                <Separator />
-                <MenuItem Header="View Mode">
+                <MenuItem Header="{ext:Translate ViewMode}" ToolTip.Tip="{ext:Translate TooltipViewModeMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/show.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="GridView" GroupName="ViewModeGroup" Header="Grid View" Click="ChangeViewMode_Click" ToggleType="CheckBox" />
-                    <MenuItem x:Name="ListView" GroupName="ViewModeGroup" Header="List View" Click="ChangeViewMode_Click" ToggleType="CheckBox" />
+                    <MenuItem x:Name="GridView" GroupName="ViewModeGroup" Header="{ext:Translate GridView}" Click="ChangeViewMode_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipViewModeMenu}" />
+                    <MenuItem x:Name="ListView" GroupName="ViewModeGroup" Header="{ext:Translate ListView}" Click="ChangeViewMode_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipViewModeMenu}" />
                 </MenuItem>
-                <MenuItem Header="Show Games">
+                <MenuItem Header="{ext:Translate ShowGames}" ToolTip.Tip="{ext:Translate TooltipShowGamesMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/noimage.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="ShowAll" GroupName="ShowGamesGroup" Header="Show All Games" Click="ShowGamesClickAsync" ToggleType="CheckBox" />
-                    <MenuItem x:Name="ShowWithCover" GroupName="ShowGamesGroup" Header="Show Only Games With Cover" Click="ShowGamesClickAsync" ToggleType="CheckBox" />
-                    <MenuItem x:Name="ShowWithoutCover" GroupName="ShowGamesGroup" Header="Show Only Games Without Cover" Click="ShowGamesClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="ShowAll" GroupName="ShowGamesGroup" Header="{ext:Translate ShowAllGames}" Click="ShowGamesClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipShowGamesMenu}" />
+                    <MenuItem x:Name="ShowWithCover" GroupName="ShowGamesGroup" Header="{ext:Translate ShowOnlyGamesWithCover}" Click="ShowGamesClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipShowGamesMenu}" />
+                    <MenuItem x:Name="ShowWithoutCover" GroupName="ShowGamesGroup" Header="{ext:Translate ShowOnlyGamesWithoutCover}" Click="ShowGamesClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipShowGamesMenu}" />
                 </MenuItem>
-                <MenuItem Header="Filename Preferences">
+                <MenuItem Header="{ext:Translate FilenamePreferences}" ToolTip.Tip="{ext:Translate TooltipFilenamePreferencesMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/filename.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="FilenameDisplayOriginal" GroupName="FilenameGroup" Header="Display Original Filenames" Click="FilenameDisplayMode_ClickAsync" ToggleType="CheckBox" />
-                    <MenuItem x:Name="FilenameDisplayCleanUp" GroupName="FilenameGroup" Header="Display Clean Up Filenames" Click="FilenameDisplayMode_ClickAsync" ToggleType="CheckBox" />
-                    <MenuItem x:Name="FilenameDisplayNoFilename" GroupName="FilenameGroup" Header="Display No Filename" Click="FilenameDisplayMode_ClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="FilenameDisplayOriginal" GroupName="FilenameGroup" Header="{ext:Translate DisplayOriginalFilenames}" Click="FilenameDisplayMode_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameDisplayModeMenu}" />
+                    <MenuItem x:Name="FilenameDisplayCleanUp" GroupName="FilenameGroup" Header="{ext:Translate DisplayCleanUpFilenames}" Click="FilenameDisplayMode_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameDisplayModeMenu}" />
+                    <MenuItem x:Name="FilenameDisplayNoFilename" GroupName="FilenameGroup" Header="{ext:Translate DisplayNoFilename}" Click="FilenameDisplayMode_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameDisplayModeMenu}" />
                     <Separator />
-                    <MenuItem x:Name="DisplayMachineNameToggle" Header="Display Machine Name" Click="DisplayMachineName_ClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="DisplayMachineNameToggle" Header="{ext:Translate DisplayMachineName}" Click="DisplayMachineName_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipDisplayMachineNameMenu}" />
                     <Separator />
-                    <MenuItem x:Name="FilenameFontSizeMenu" Header="Filename Font Size">
-                        <MenuItem x:Name="FilenameFontSizeSmall" GroupName="FilenameFontGroup" Header="Small" Click="FilenameFontSize_ClickAsync" ToggleType="CheckBox" />
-                        <MenuItem x:Name="FilenameFontSizeNormal" GroupName="FilenameFontGroup" Header="Normal" Click="FilenameFontSize_ClickAsync" ToggleType="CheckBox" />
-                        <MenuItem x:Name="FilenameFontSizeBig" GroupName="FilenameFontGroup" Header="Big" Click="FilenameFontSize_ClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="FilenameFontSizeMenu" Header="{ext:Translate FilenameFontSize}" ToolTip.Tip="{ext:Translate TooltipFilenameFontSizeMenu}">
+                        <MenuItem x:Name="FilenameFontSizeSmall" GroupName="FilenameFontGroup" Header="{ext:Translate Small}" Click="FilenameFontSize_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameFontSizeMenu}" />
+                        <MenuItem x:Name="FilenameFontSizeNormal" GroupName="FilenameFontGroup" Header="{ext:Translate Normal}" Click="FilenameFontSize_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameFontSizeMenu}" />
+                        <MenuItem x:Name="FilenameFontSizeBig" GroupName="FilenameFontGroup" Header="{ext:Translate Big}" Click="FilenameFontSize_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameFontSizeMenu}" />
                     </MenuItem>
-                    <MenuItem x:Name="MachineNameFontSizeMenu" Header="Machine Name Font Size">
-                        <MenuItem x:Name="MachineNameFontSizeSmall" GroupName="MachineNameFontGroup" Header="Small" Click="MachineNameFontSize_ClickAsync" ToggleType="CheckBox" />
-                        <MenuItem x:Name="MachineNameFontSizeNormal" GroupName="MachineNameFontGroup" Header="Normal" Click="MachineNameFontSize_ClickAsync" ToggleType="CheckBox" />
-                        <MenuItem x:Name="MachineNameFontSizeBig" GroupName="MachineNameFontGroup" Header="Big" Click="MachineNameFontSize_ClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="MachineNameFontSizeMenu" Header="{ext:Translate MachineNameFontSize}" ToolTip.Tip="{ext:Translate TooltipMachineNameFontSizeMenu}">
+                        <MenuItem x:Name="MachineNameFontSizeSmall" GroupName="MachineNameFontGroup" Header="{ext:Translate Small}" Click="MachineNameFontSize_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipMachineNameFontSizeMenu}" />
+                        <MenuItem x:Name="MachineNameFontSizeNormal" GroupName="MachineNameFontGroup" Header="{ext:Translate Normal}" Click="MachineNameFontSize_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipMachineNameFontSizeMenu}" />
+                        <MenuItem x:Name="MachineNameFontSizeBig" GroupName="MachineNameFontGroup" Header="{ext:Translate Big}" Click="MachineNameFontSize_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipMachineNameFontSizeMenu}" />
                     </MenuItem>
                 </MenuItem>
-                <Separator />
-                <MenuItem Header="Edit Links">
+                <MenuItem Header="{ext:Translate EditLinks}" ToolTip.Tip="{ext:Translate TooltipEditLinksMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/links.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Header="Edit Links" Click="EditLinks_Click">
+                    <MenuItem Header="{ext:Translate EditLinks}" Click="EditLinks_Click" ToolTip.Tip="{ext:Translate TooltipEditLinksMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/links.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="Gamepad Support">
+                <MenuItem Header="{ext:Translate GamepadSupport}" ToolTip.Tip="{ext:Translate TooltipGamepadSupportMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/gamepad.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="ToggleGamepad" Header="Enable" Click="ToggleGamepad_Click" ToggleType="CheckBox" />
-                    <MenuItem Header="Set Gamepad Dead Zone" Click="SetGamepadDeadZone_Click">
+                    <MenuItem x:Name="ToggleGamepad" Header="{ext:Translate Enable}" Click="ToggleGamepad_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipGamepadSupportMenu}" />
+                    <MenuItem Header="{ext:Translate SetGamepadDeadZone}" Click="SetGamepadDeadZone_Click" ToolTip.Tip="{ext:Translate TooltipGamepadSupportMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/setdeadzone.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="Fuzzy Image Matching">
+                <MenuItem Header="{ext:Translate FuzzyImageMatching}" ToolTip.Tip="{ext:Translate TooltipFuzzyMatchingMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/match.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="ToggleFuzzyMatching" Header="Enable" Click="ToggleFuzzyMatchingClickAsync" ToggleType="CheckBox" />
-                    <MenuItem x:Name="ToggleAnnotationStripping" Header="Strip Annotations" Click="ToggleAnnotationStrippingClickAsync" ToggleType="CheckBox" />
-                    <MenuItem Header="Set Threshold" Click="SetFuzzyMatchingThreshold_Click">
+                    <MenuItem x:Name="ToggleFuzzyMatching" Header="{ext:Translate Enable}" Click="ToggleFuzzyMatchingClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFuzzyMatchingMenu}" />
+                    <MenuItem x:Name="ToggleAnnotationStripping" Header="{ext:Translate StripAnnotations}" Click="ToggleAnnotationStrippingClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipAnnotationStripping}" />
+                    <MenuItem Header="{ext:Translate SetThreshold}" Click="SetFuzzyMatchingThreshold_Click" ToolTip.Tip="{ext:Translate TooltipFuzzyMatchingMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/setthreshold.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="Sound Configuration">
+                <MenuItem Header="{ext:Translate SoundConfiguration}" ToolTip.Tip="{ext:Translate TooltipSoundConfigMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/sound.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Header="Sound Configuration" Click="SoundConfiguration_Click">
+                    <MenuItem Header="{ext:Translate SoundConfiguration}" Click="SoundConfiguration_Click" ToolTip.Tip="{ext:Translate TooltipSoundConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/sound.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="RetroAchievements Settings">
+                <MenuItem Header="{ext:Translate RetroAchievementsSettings}" ToolTip.Tip="{ext:Translate TooltipRaSettingsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Header="RetroAchievements Settings" Click="RetroAchievementsSettings_Click">
+                    <MenuItem Header="{ext:Translate RetroAchievementsSettings}" Click="RetroAchievementsSettings_Click" ToolTip.Tip="{ext:Translate TooltipRaSettingsMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
-                    <MenuItem Header="Show Games With RetroAchievements" Command="{Binding ShowGamesWithRetroAchievementsCommand}">
-                        <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Header="Calculate Hashes For All Game Paths" Click="CalculateHashesForAllGamePaths_Click">
+                    <MenuItem Header="{ext:Translate CalculateHashesForAllGamePaths}" Click="CalculateHashesForAllGamePaths_Click" ToolTip.Tip="{ext:Translate TooltipCalculateHashesForAllGamePaths}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="Inject Emulator Config">
+                <MenuItem Header="{ext:Translate InjectEmulatorConfig}" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/inject.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Header="Ares Settings" Tag="Ares" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate AresSettings}" Tag="Ares" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/ares.png" Width="16" Height="16" AutomationProperties.Name="Ares" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Azahar Settings" Tag="Azahar" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate AzaharSettings}" Tag="Azahar" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/azahar.png" Width="16" Height="16" AutomationProperties.Name="Azahar" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Blastem Settings" Tag="Blastem" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate BlastemSettings}" Tag="Blastem" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/blastem.png" Width="16" Height="16" AutomationProperties.Name="Blastem" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Cemu Settings" Tag="Cemu" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate CemuSettings}" Tag="Cemu" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/cemu.png" Width="16" Height="16" AutomationProperties.Name="Cemu" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Daphne Settings" Tag="Daphne" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate DaphneSettings}" Tag="Daphne" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/daphne.png" Width="16" Height="16" AutomationProperties.Name="Daphne" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Dolphin Settings" Tag="Dolphin" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate DolphinSettings}" Tag="Dolphin" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/dolphin.png" Width="16" Height="16" AutomationProperties.Name="Dolphin" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="DuckStation Settings" Tag="DuckStation" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate DuckStationSettings}" Tag="DuckStation" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/duckstation.png" Width="16" Height="16" AutomationProperties.Name="DuckStation" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Flycast Settings" Tag="Flycast" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate FlycastSettings}" Tag="Flycast" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/flycast.png" Width="16" Height="16" AutomationProperties.Name="Flycast" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Mame Settings" Tag="Mame" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate MameSettings}" Tag="Mame" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/mame.png" Width="16" Height="16" AutomationProperties.Name="MAME" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Mednafen Settings" Tag="Mednafen" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate MednafenSettings}" Tag="Mednafen" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/mednafen.png" Width="16" Height="16" AutomationProperties.Name="Mednafen" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Mesen Settings" Tag="Mesen" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate MesenSettings}" Tag="Mesen" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/mesen.png" Width="16" Height="16" AutomationProperties.Name="Mesen" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="PCSX2 Settings" Tag="PCSX2" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate PCSX2Settings}" Tag="PCSX2" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/pcsx2.png" Width="16" Height="16" AutomationProperties.Name="PCSX2" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Raine Settings" Tag="Raine" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate RaineSettings}" Tag="Raine" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/raine.png" Width="16" Height="16" AutomationProperties.Name="Raine" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Redream Settings" Tag="Redream" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate RedreamSettings}" Tag="Redream" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/redream.png" Width="16" Height="16" AutomationProperties.Name="Redream" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="RetroArch Settings" Tag="RetroArch" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate RetroArchSettings}" Tag="RetroArch" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/retroarch.png" Width="16" Height="16" AutomationProperties.Name="RetroArch" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="RPCS3 Settings" Tag="RPCS3" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate RPCS3Settings}" Tag="RPCS3" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/rpcs3.png" Width="16" Height="16" AutomationProperties.Name="RPCS3" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="SEGA Model 2 Settings" Tag="SegaModel2" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate SegaModel2Settings}" Tag="SegaModel2" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/supermodel.png" Width="16" Height="16" AutomationProperties.Name="SEGA Model 2" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Stella Settings" Tag="Stella" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate StellaSettings}" Tag="Stella" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/stella.png" Width="16" Height="16" AutomationProperties.Name="Stella" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Supermodel Settings" Tag="Supermodel" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate SupermodelSettings}" Tag="Supermodel" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/supermodel.png" Width="16" Height="16" AutomationProperties.Name="Supermodel" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Xenia Settings" Tag="Xenia" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate XeniaSettings}" Tag="Xenia" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/xenia.png" Width="16" Height="16" AutomationProperties.Name="Xenia" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Yumir Settings" Tag="Yumir" Click="ShowEmulatorConfig_Click">
+                    <MenuItem Header="{ext:Translate YumirSettings}" Tag="Yumir" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/yumir.png" Width="16" Height="16" AutomationProperties.Name="Yumir" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="Overlay Button Settings">
+                <MenuItem Header="{ext:Translate OverlayButtonSettings}" ToolTip.Tip="{ext:Translate TooltipOverlayButtonMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/overlaybutton.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="RetroAchievementButton" Header="RetroAchievement Overlay Button" Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox" />
-                    <MenuItem x:Name="VideoLinkButton" Header="Video Link Overlay Button" Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox" />
-                    <MenuItem x:Name="InfoLinkButton" Header="Info Link Overlay Button" Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox" />
+                    <MenuItem x:Name="RetroAchievementButton" Header="{ext:Translate RetroAchievementOverlayButton}" Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipOverlayButtonMenu}" />
+                    <MenuItem x:Name="VideoLinkButton" Header="{ext:Translate VideoLinkOverlayButton}" Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipOverlayButtonMenu}" />
+                    <MenuItem x:Name="InfoLinkButton" Header="{ext:Translate InfoLinkOverlayButton}" Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipOverlayButtonMenu}" />
                 </MenuItem>
             </MenuItem>
 
             <!-- ── EDIT SYSTEM ── -->
-            <MenuItem Header="Edit System">
-                <MenuItem Header="Add New System" Click="EasyMode_Click">
+            <MenuItem Header="{ext:Translate EditSystem}" ToolTip.Tip="{ext:Translate TooltipEditSystem}">
+                <MenuItem Header="{ext:Translate AddNewSystem}" Click="EasyMode_Click" ToolTip.Tip="{ext:Translate TooltipAddNewSystem}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/add.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Edit System" Click="ExpertMode_Click">
+                <MenuItem Header="{ext:Translate EditSystem}" Click="ExpertMode_Click" ToolTip.Tip="{ext:Translate TooltipEditSystem}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/settings.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Download Image Pack" Click="DownloadImagePack_Click">
+                <MenuItem Header="{ext:Translate DownloadImagePack}" Click="DownloadImagePack_Click" ToolTip.Tip="{ext:Translate TooltipEditSystem}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/image.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Scan For Microsoft Windows Games" Click="ScanForMicrosoftWindowsGames_ClickAsync">
+                <MenuItem Header="{ext:Translate ScanForMicrosoftWindowsGames}" Click="ScanForMicrosoftWindowsGames_ClickAsync" ToolTip.Tip="{ext:Translate TooltipEditSystem}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/search2.png" Width="16" Height="16" />
                     </MenuItem.Icon>
@@ -346,13 +336,13 @@
             </MenuItem>
 
             <!-- ── SELECT WINDOW ── -->
-            <MenuItem Header="Select Window">
-                <MenuItem Header="Global Stats" Click="GlobalStats_Click">
+            <MenuItem Header="{ext:Translate SelectWindow}" ToolTip.Tip="{ext:Translate TooltipSelectWindowMenu}">
+                <MenuItem Header="{ext:Translate GlobalStats}" Click="GlobalStats_Click" ToolTip.Tip="{ext:Translate TooltipSelectWindowMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/stats.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="RetroAchievements" Click="RetroAchievements_Click">
+                <MenuItem Header="{ext:Translate RetroAchievements}" Click="RetroAchievements_Click" ToolTip.Tip="{ext:Translate TooltipSelectWindowMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
                     </MenuItem.Icon>
@@ -360,58 +350,58 @@
             </MenuItem>
 
             <!-- ── TOOLS ── -->
-            <MenuItem Header="Tools">
-                <MenuItem Header="Batch Convert Iso To Xiso" Tag="BatchConvertIsoToXiso" Click="LaunchTool_Click">
+            <MenuItem Header="{ext:Translate Tools}" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
+                <MenuItem Header="Batch Convert Iso To Xiso" Tag="BatchConvertIsoToXiso" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/xiso.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Batch Convert To CHD" Tag="BatchConvertToCHD" Click="LaunchTool_Click">
+                <MenuItem Header="Batch Convert To CHD" Tag="BatchConvertToCHD" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/chd.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Batch Convert To Compressed File" Tag="BatchConvertToCompressedFile" Click="LaunchTool_Click">
+                <MenuItem Header="Batch Convert To Compressed File" Tag="BatchConvertToCompressedFile" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Batch Convert To RVZ" Tag="BatchConvertToRVZ" Click="LaunchTool_Click">
+                <MenuItem Header="Batch Convert To RVZ" Tag="BatchConvertToRVZ" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/rvz.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Create Batch Files For PS3 Games" Tag="CreateBatchFilesForPS3Games" Click="LaunchTool_Click">
+                <MenuItem Header="Create Batch Files For PS3 Games" Tag="CreateBatchFilesForPS3Games" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/ps3.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Create Batch Files For ScummVM Games" Tag="CreateBatchFilesForScummVMGames" Click="LaunchTool_Click">
+                <MenuItem Header="Create Batch Files For ScummVM Games" Tag="CreateBatchFilesForScummVMGames" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/scummvm.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Create Batch Files For Windows Games" Tag="CreateBatchFilesForWindowsGames" Click="LaunchTool_Click">
+                <MenuItem Header="Create Batch Files For Windows Games" Tag="CreateBatchFilesForWindowsGames" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Create Batch Files For Xbox360 XBLA Games" Tag="CreateBatchFilesForXbox360XBLAGames" Click="LaunchTool_Click">
+                <MenuItem Header="Create Batch Files For Xbox360 XBLA Games" Tag="CreateBatchFilesForXbox360XBLAGames" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/xboxxbla.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Find Rom Cover" Tag="FindRomCover" Click="LaunchTool_Click">
+                <MenuItem Header="Find Rom Cover" Tag="FindRomCover" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/findromcover.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Retro Game Cover Downloader" Tag="RetroGameCoverDownloader" Click="LaunchTool_Click">
+                <MenuItem Header="Retro Game Cover Downloader" Tag="RetroGameCoverDownloader" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/retrogamecoverdownloader.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Rom Validator" Tag="RomValidator" Click="LaunchTool_Click">
+                <MenuItem Header="Rom Validator" Tag="RomValidator" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/romvalidator.png" Width="16" Height="16" />
                     </MenuItem.Icon>
@@ -419,34 +409,33 @@
             </MenuItem>
 
             <!-- ── DONATE ── -->
-            <MenuItem Header="Donate" Click="Donate_Click">
-                <MenuItem.Icon>
-                    <Image Source="avares://SimpleLauncher.Avalonia/images/donate.png" Width="16" Height="16" />
-                </MenuItem.Icon>
+            <MenuItem Header="{ext:Translate Donate}">
+                <MenuItem Header="{ext:Translate Donate}" Click="Donate_Click" ToolTip.Tip="{ext:Translate Donate}">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/donate.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
 
             <!-- ── ABOUT ── -->
-            <MenuItem Header="About">
-                <MenuItem.Icon>
-                    <Image Source="avares://SimpleLauncher.Avalonia/images/about.png" Width="16" Height="16" />
-                </MenuItem.Icon>
-                <MenuItem Header="About" Click="About_Click">
+            <MenuItem Header="{ext:Translate About}" ToolTip.Tip="{ext:Translate TooltipAboutMenu}">
+                <MenuItem Header="{ext:Translate About}" Click="About_Click" ToolTip.Tip="{ext:Translate TooltipAboutMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/about.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Support" Click="Support_Click">
+                <MenuItem Header="{ext:Translate Support}" Click="Support_Click" ToolTip.Tip="{ext:Translate TooltipAboutMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/support.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Open App Data Path" Click="OpenAppDataPath_Click">
+                <MenuItem Header="{ext:Translate OpenAppDataPath}" Click="OpenAppDataPath_Click" ToolTip.Tip="{ext:Translate TooltipOpenAppDataPath}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/settings.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="Exit" Click="Exit_Click">
+                <MenuItem Header="{ext:Translate Exit}" Click="Exit_Click" ToolTip.Tip="{ext:Translate TooltipExitMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/exit.png" Width="16" Height="16" />
                     </MenuItem.Icon>

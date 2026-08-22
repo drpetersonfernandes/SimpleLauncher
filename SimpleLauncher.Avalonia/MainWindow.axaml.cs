@@ -1230,20 +1230,6 @@ public partial class MainWindow : Window, IPaginationHost
 
     #endregion
 
-    #region Preferences
-
-    private async void Preferences_Click(object? sender, RoutedEventArgs e)
-    {
-        var prefsWindow = App.ServiceProvider.GetRequiredService<PreferencesWindow>();
-        await prefsWindow.ShowDialog(this);
-
-        // Preferences can launch Easy Mode / Edit System / image-pack flows that modify
-        // system.xml — refresh the sidebar so any added or renamed system shows up.
-        await _systemSelectionOrchestrator.ReloadAfterConfigurationChangeAsync();
-    }
-
-    #endregion
-
     #region EasyMode
 
     private async void AddSystem_Click(object? sender, RoutedEventArgs e)
