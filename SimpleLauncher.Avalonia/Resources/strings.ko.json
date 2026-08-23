@@ -493,5 +493,16 @@
   "ViewProfileOnRaButtonTooltip": "RetroAchievements\uC5D0\uC11C \uD504\uB85C\uD544 \uBCF4\uAE30 \uBC84\uD2BC",
   "ViewProfileOnRetroAchievementsTooltip": "RetroAchievements\uC5D0\uC11C \uD504\uB85C\uD544 \uBCF4\uAE30",
   "WallActive": "\uBCBD \uD65C\uC131:",
-  "YourRankAndScore": "\uB2F9\uC2E0\uC758 \uC21C\uC704\uC640 \uC810\uC218"
+  "YourRankAndScore": "\uB2F9\uC2E0\uC758 \uC21C\uC704\uC640 \uC810\uC218",
+  "Favorites": "즐겨찾기",
+  "LaunchSelectedGame": "선택한 게임 실행",
+  "FileNameColumnHeader": "파일 이름",
+  "MachineDescriptionMameHeader": "기기 설명 (MAME 파일용)",
+  "DefaultEmulatorHeader": "기본 에뮬레이터",
+  "SystemNameHeader": "시스템 이름",
+  "PreviewImage": "이미지 미리보기",
+  "TooltipFavoritesDataGrid": "즐겨찾는 게임 목록",
+  "TooltipLaunchFavorite": "선택한 즐겨찾는 게임을 실행합니다.",
+  "TooltipRemoveFromFavorites": "선택한 게임을 즐겨찾기에서 제거합니다.",
+  "TooltipFavoritesPreviewImage": "선택한 즐겨찾는 게임의 미리보기 이미지"
 }

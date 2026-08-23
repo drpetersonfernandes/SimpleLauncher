@@ -493,5 +493,16 @@
   "ViewProfileOnRaButtonTooltip": "RetroAchievements\u3067\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u3092\u8868\u793A\u30DC\u30BF\u30F3",
   "ViewProfileOnRetroAchievementsTooltip": "RetroAchievements\u3067\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u3092\u8868\u793A",
   "WallActive": "\u30A6\u30A9\u30FC\u30EB\u30A2\u30AF\u30C6\u30A3\u30D6:",
-  "YourRankAndScore": "\u3042\u306A\u305F\u306E\u30E9\u30F3\u30AF\u3068\u30B9\u30B3\u30A2"
+  "YourRankAndScore": "\u3042\u306A\u305F\u306E\u30E9\u30F3\u30AF\u3068\u30B9\u30B3\u30A2",
+  "Favorites": "お気に入り",
+  "LaunchSelectedGame": "選択したゲームを起動する",
+  "FileNameColumnHeader": "ファイル名",
+  "MachineDescriptionMameHeader": "マシン説明 (MAMEファイル用)",
+  "DefaultEmulatorHeader": "デフォルトエミュレーター",
+  "SystemNameHeader": "システム名",
+  "PreviewImage": "プレビュー画像",
+  "TooltipFavoritesDataGrid": "お気に入りのゲームリスト",
+  "TooltipLaunchFavorite": "選択したお気に入りのゲームを起動します",
+  "TooltipRemoveFromFavorites": "選択したゲームをお気に入りから削除します",
+  "TooltipFavoritesPreviewImage": "選択したお気に入りゲームのプレビュー画像"
 }

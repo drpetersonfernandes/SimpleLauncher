@@ -493,5 +493,16 @@
   "ViewProfileOnRaButtonTooltip": "Schaltfl\u00E4che \u201EProfil auf RetroAchievements ansehen\u201C",
   "ViewProfileOnRetroAchievementsTooltip": "Profil auf RetroAchievements ansehen",
   "WallActive": "Wall aktiv:",
-  "YourRankAndScore": "Dein Rang \u0026amp;amp; Punkte"
+  "YourRankAndScore": "Dein Rang \u0026amp;amp; Punkte",
+  "Favorites": "Favoriten",
+  "LaunchSelectedGame": "Ausgewähltes Spiel starten",
+  "FileNameColumnHeader": "Dateiname",
+  "MachineDescriptionMameHeader": "Maschinenbeschreibung (für MAME-Dateien)",
+  "DefaultEmulatorHeader": "Standard-Emulator",
+  "SystemNameHeader": "Systemname",
+  "PreviewImage": "Vorschaubild",
+  "TooltipFavoritesDataGrid": "Liste Ihrer Lieblingsspiele",
+  "TooltipLaunchFavorite": "Das ausgewählte Lieblingsspiel starten",
+  "TooltipRemoveFromFavorites": "Das ausgewählte Spiel aus den Favoriten entfernen",
+  "TooltipFavoritesPreviewImage": "Vorschaubild des ausgewählten Lieblingsspiels"
 }

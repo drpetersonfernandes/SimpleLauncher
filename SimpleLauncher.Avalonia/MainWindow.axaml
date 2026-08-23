@@ -922,12 +922,14 @@
                         <Grid x:Name="FavoritesSectionRoot" IsVisible="False" RowDefinitions="Auto,*" Margin="10">
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8"
                                         Margin="0,4,0,8" VerticalAlignment="Center">
-                                <TextBlock Text="Favorites" FontSize="22" FontWeight="Bold"
+                                <TextBlock Text="{ext:Translate Favorites}" FontSize="22" FontWeight="Bold"
                                            VerticalAlignment="Center" Margin="0,0,12,0"
                                            FontFamily="{DynamicResource PrimaryFont}" />
-                                <Button Classes="secondary" Content="Remove from Favorites"
+                                <Button Classes="secondary" Content="{ext:Translate RemoveFromFavorites}"
+                                        ToolTip.Tip="{ext:Translate TooltipRemoveFromFavorites}"
                                         Click="FavoritesRemoveButton_Click" />
-                                <Button Classes="primary" Content="Launch Selected Game"
+                                <Button Classes="primary" Content="{ext:Translate LaunchSelectedGame}"
+                                        ToolTip.Tip="{ext:Translate TooltipLaunchFavorite}"
                                         Command="{Binding LaunchSelectedCommand}" />
                             </StackPanel>
                             <Grid Grid.Row="1" ColumnDefinitions="*,6,240">
@@ -940,28 +942,35 @@
                                           IsReadOnly="True"
                                           GridLinesVisibility="All"
                                           BorderThickness="1"
+                                          ToolTip.Tip="{ext:Translate TooltipFavoritesDataGrid}"
                                           DoubleTapped="FavoritesDataGrid_DoubleTapped"
                                           KeyDown="FavoritesDataGrid_KeyDown"
                                           PointerReleased="FavoritesDataGrid_RightClick">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="File Name" Binding="{Binding DisplayName}" Width="*" />
-                                        <DataGridTextColumn Header="Machine Description" Binding="{Binding MachineDescription}" Width="*" />
-                                        <DataGridTextColumn Header="Default Emulator" Binding="{Binding DefaultEmulator}" Width="180" />
-                                        <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="200" />
+                                        <DataGridTextColumn Header="{ext:Translate FileNameColumnHeader}" Binding="{Binding DisplayName}" Width="*" />
+                                        <DataGridTextColumn Header="{ext:Translate MachineDescriptionMameHeader}" Binding="{Binding MachineDescription}" Width="*" />
+                                        <DataGridTextColumn Header="{ext:Translate DefaultEmulatorHeader}" Binding="{Binding DefaultEmulator}" Width="180" />
+                                        <DataGridTextColumn Header="{ext:Translate SystemNameHeader}" Binding="{Binding SystemName}" Width="200" />
                                     </DataGrid.Columns>
                                 </DataGrid>
-                                <GridSplitter Grid.Column="1" Width="4"
+                                <GridSplitter Grid.Column="1" Width="6"
                                               Background="Transparent"
                                               HorizontalAlignment="Center"
                                               VerticalAlignment="Stretch" />
-                                <Border Grid.Column="2" BorderBrush="{DynamicResource BorderSubtleBrush}"
-                                        BorderThickness="1" Padding="5">
-                                    <Image Source="{Binding SelectedFavorite.CoverImage, Converter={StaticResource PathToImage}}"
-                                           Stretch="Uniform"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           RenderOptions.BitmapInterpolationMode="HighQuality" />
-                                </Border>
+                                <Grid Grid.Column="2" RowDefinitions="Auto,*">
+                                    <TextBlock Grid.Row="0" Text="{ext:Translate PreviewImage}"
+                                               FontSize="14" FontWeight="Bold"
+                                               HorizontalAlignment="Center"
+                                               Margin="0,0,0,10" />
+                                    <Border Grid.Row="1" BorderBrush="{DynamicResource BorderSubtleBrush}"
+                                            BorderThickness="1" Padding="5">
+                                        <Image Source="{Binding PreviewImagePath, Converter={StaticResource PathToImage}}"
+                                               Stretch="Uniform"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               RenderOptions.BitmapInterpolationMode="HighQuality" />
+                                    </Border>
+                                </Grid>
                             </Grid>
                         </Grid>
 

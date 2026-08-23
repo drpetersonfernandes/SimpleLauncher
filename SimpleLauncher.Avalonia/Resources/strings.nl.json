@@ -493,5 +493,16 @@
   "ViewProfileOnRaButtonTooltip": "Bekijk profiel op RetroAchievements knop",
   "ViewProfileOnRetroAchievementsTooltip": "Bekijk profiel op RetroAchievements",
   "WallActive": "Muur actief:",
-  "YourRankAndScore": "Uw Rang en Score"
+  "YourRankAndScore": "Uw Rang en Score",
+  "Favorites": "Favorieten",
+  "LaunchSelectedGame": "Geselecteerd spel starten",
+  "FileNameColumnHeader": "Bestandsnaam",
+  "MachineDescriptionMameHeader": "Machinebeschrijving (voor MAME-bestanden)",
+  "DefaultEmulatorHeader": "Standaardemulator",
+  "SystemNameHeader": "Systeemnaam",
+  "PreviewImage": "Voorbeeldafbeelding",
+  "TooltipFavoritesDataGrid": "Lijst met uw favoriete spellen",
+  "TooltipLaunchFavorite": "Start het geselecteerde favoriete spel",
+  "TooltipRemoveFromFavorites": "Verwijder het geselecteerde spel uit favorieten",
+  "TooltipFavoritesPreviewImage": "Voorbeeldweergave van het geselecteerde favoriete spel"
 }

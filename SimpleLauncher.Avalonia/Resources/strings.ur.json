@@ -493,5 +493,16 @@
   "ViewProfileOnRaButtonTooltip": "\u0631\u06CC\u0679\u0631\u0648 \u0627\u0686\u06CC\u0648\u0645\u0646\u0679\u0633 \u067E\u0631 \u067E\u0631\u0648\u0641\u0627\u0626\u0644 \u062F\u06CC\u06A9\u06BE\u06CC\u06BA \u0628\u0679\u0646",
   "ViewProfileOnRetroAchievementsTooltip": "\u0631\u06CC\u0679\u0631\u0648 \u0627\u0686\u06CC\u0648\u0645\u0646\u0679\u0633 \u067E\u0631 \u067E\u0631\u0648\u0641\u0627\u0626\u0644 \u062F\u06CC\u06A9\u06BE\u06CC\u06BA",
   "WallActive": "\u0648\u0627\u0644 \u0641\u0639\u0627\u0644:",
-  "YourRankAndScore": "\u0622\u067E \u06A9\u0627 \u0631\u06CC\u0646\u06A9 \u0627\u0648\u0631 \u0633\u06A9\u0648\u0631"
+  "YourRankAndScore": "\u0622\u067E \u06A9\u0627 \u0631\u06CC\u0646\u06A9 \u0627\u0648\u0631 \u0633\u06A9\u0648\u0631",
+  "Favorites": "پسندیدہ",
+  "LaunchSelectedGame": "منتخب کردہ گیم چلائیں",
+  "FileNameColumnHeader": "فائل کا نام",
+  "MachineDescriptionMameHeader": "مشین کی تفصیل (MAME فائلوں کے لیے)",
+  "DefaultEmulatorHeader": "ڈیفالٹ ایمولیٹر",
+  "SystemNameHeader": "سسٹم کا نام",
+  "PreviewImage": "پیش منظر امیج",
+  "TooltipFavoritesDataGrid": "آپ کی پسندیدہ گیمز کی فہرست",
+  "TooltipLaunchFavorite": "منتخب پسندیدہ گیم لانچ کریں",
+  "TooltipRemoveFromFavorites": "منتخب گیم کو پسندیدہ سے ہٹائیں",
+  "TooltipFavoritesPreviewImage": "منتخب کردہ پسندیدہ گیم کی پیش نظارہ تصویر"
 }

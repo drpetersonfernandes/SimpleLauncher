@@ -6,7 +6,14 @@ namespace SimpleLauncher.Avalonia.ViewModels;
 public class FavoriteRowViewModel
 {
     /// <summary>
-    /// Gets the full file path of the favorite game.
+    /// Gets the stored favorite file name exactly as persisted in favorites.dat
+    /// (a bare file name, or a legacy full path). Used for manager matching.
+    /// </summary>
+    public string StoredFileName { get; init; } = null!;
+
+    /// <summary>
+    /// Gets the full file path of the favorite game (stored name resolved against
+    /// the system folders; legacy full-path entries are kept as-is).
     /// </summary>
     public string FilePath { get; init; } = null!;
 

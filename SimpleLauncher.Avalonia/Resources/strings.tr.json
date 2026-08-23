@@ -493,5 +493,16 @@
   "ViewProfileOnRaButtonTooltip": "RetroAchievements\u0027ta profili g\u00F6r\u00FCnt\u00FCle d\u00FC\u011Fmesi",
   "ViewProfileOnRetroAchievementsTooltip": "Profili RetroAchievements\u0027ta g\u00F6r\u00FCnt\u00FCle",
   "WallActive": "Duvar Aktif:",
-  "YourRankAndScore": "S\u0131ralaman\u0131z ve Puan\u0131n\u0131z"
+  "YourRankAndScore": "S\u0131ralaman\u0131z ve Puan\u0131n\u0131z",
+  "Favorites": "Favoriler",
+  "LaunchSelectedGame": "Seçilen Oyunu Başlat",
+  "FileNameColumnHeader": "Dosya Adı",
+  "MachineDescriptionMameHeader": "Makine Açıklaması (MAME dosyaları için)",
+  "DefaultEmulatorHeader": "Varsayılan Emülatör",
+  "SystemNameHeader": "Sistem Adı",
+  "PreviewImage": "Önizleme Görseli",
+  "TooltipFavoritesDataGrid": "Favori oyunlarınızın listesi",
+  "TooltipLaunchFavorite": "Seçilen favori oyunu başlatın",
+  "TooltipRemoveFromFavorites": "Seçilen oyunu favorilerden kaldırın",
+  "TooltipFavoritesPreviewImage": "Seçili favori oyunun önizleme resmi"
 }

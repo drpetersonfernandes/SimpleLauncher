@@ -493,5 +493,16 @@
   "ViewProfileOnRaButtonTooltip": "N\u00FAt Xem h\u1ED3 s\u01A1 tr\u00EAn RetroAchievements",
   "ViewProfileOnRetroAchievementsTooltip": "Xem h\u1ED3 s\u01A1 tr\u00EAn RetroAchievements",
   "WallActive": "T\u01B0\u1EDDng ho\u1EA1t \u0111\u1ED9ng:",
-  "YourRankAndScore": "H\u1EA1ng v\u00E0 \u0110i\u1EC3m c\u1EE7a b\u1EA1n"
+  "YourRankAndScore": "H\u1EA1ng v\u00E0 \u0110i\u1EC3m c\u1EE7a b\u1EA1n",
+  "Favorites": "Yêu thích",
+  "LaunchSelectedGame": "Khởi chạy trò chơi đã chọn",
+  "FileNameColumnHeader": "Tên Tệp",
+  "MachineDescriptionMameHeader": "Mô tả máy (cho tệp MAME)",
+  "DefaultEmulatorHeader": "Trình giả lập mặc định",
+  "SystemNameHeader": "Tên hệ thống",
+  "PreviewImage": "Xem trước hình ảnh",
+  "TooltipFavoritesDataGrid": "Danh sách các trò chơi yêu thích của bạn",
+  "TooltipLaunchFavorite": "Khởi chạy trò chơi yêu thích đã chọn",
+  "TooltipRemoveFromFavorites": "Xóa trò chơi đã chọn khỏi mục yêu thích",
+  "TooltipFavoritesPreviewImage": "Hình ảnh xem trước của trò chơi yêu thích đã chọn"
 }

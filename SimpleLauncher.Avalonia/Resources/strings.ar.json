@@ -493,5 +493,16 @@
   "ViewProfileOnRaButtonTooltip": "\u0632\u0631 \u0639\u0631\u0636 \u0627\u0644\u0645\u0644\u0641 \u0627\u0644\u0634\u062E\u0635\u064A \u0639\u0644\u0649 RetroAchievements",
   "ViewProfileOnRetroAchievementsTooltip": "\u0639\u0631\u0636 \u0627\u0644\u0645\u0644\u0641 \u0627\u0644\u0634\u062E\u0635\u064A \u0639\u0644\u0649 RetroAchievements",
   "WallActive": "\u0627\u0644\u062C\u062F\u0627\u0631 \u0646\u0634\u0637:",
-  "YourRankAndScore": "\u062A\u0631\u062A\u064A\u0628\u0643 \u0648\u0646\u0642\u0627\u0637\u0643"
+  "YourRankAndScore": "\u062A\u0631\u062A\u064A\u0628\u0643 \u0648\u0646\u0642\u0627\u0637\u0643",
+  "Favorites": "المفضلة",
+  "LaunchSelectedGame": "تشغيل اللعبة المحددة",
+  "FileNameColumnHeader": "اسم الملف",
+  "MachineDescriptionMameHeader": "وصف الجهاز (لملفات MAME)",
+  "DefaultEmulatorHeader": "المحاكي الافتراضي",
+  "SystemNameHeader": "اسم النظام",
+  "PreviewImage": "معاينة الصورة",
+  "TooltipFavoritesDataGrid": "قائمة ألعابك المفضلة",
+  "TooltipLaunchFavorite": "تشغيل اللعبة المفضلة المحددة",
+  "TooltipRemoveFromFavorites": "إزالة اللعبة المحددة من المفضلة",
+  "TooltipFavoritesPreviewImage": "صورة معاينة للعبة المفضلة المحددة"
 }

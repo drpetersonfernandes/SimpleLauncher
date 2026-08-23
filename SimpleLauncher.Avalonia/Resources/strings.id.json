@@ -493,5 +493,16 @@
   "ViewProfileOnRaButtonTooltip": "Tombol Lihat profil di RetroAchievements",
   "ViewProfileOnRetroAchievementsTooltip": "Lihat profil di RetroAchievements",
   "WallActive": "Dinding Aktif:",
-  "YourRankAndScore": "Peringkat dan Skor Anda"
+  "YourRankAndScore": "Peringkat dan Skor Anda",
+  "Favorites": "Favorit",
+  "LaunchSelectedGame": "Luncurkan Game yang Dipilih",
+  "FileNameColumnHeader": "Nama File",
+  "MachineDescriptionMameHeader": "Deskripsi Mesin (untuk file MAME)",
+  "DefaultEmulatorHeader": "Emulator Default",
+  "SystemNameHeader": "Nama Sistem",
+  "PreviewImage": "Pratinjau Gambar",
+  "TooltipFavoritesDataGrid": "Daftar permainan favorit Anda",
+  "TooltipLaunchFavorite": "Luncurkan game favorit yang dipilih",
+  "TooltipRemoveFromFavorites": "Hapus game yang dipilih dari favorit",
+  "TooltipFavoritesPreviewImage": "Gambar pratinjau dari permainan favorit yang dipilih"
 }

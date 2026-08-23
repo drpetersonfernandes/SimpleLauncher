@@ -493,5 +493,16 @@
   "ViewProfileOnRaButtonTooltip": "RetroAchievements \u09AC\u09CB\u09A4\u09BE\u09AE\u09C7 \u09AA\u09CD\u09B0\u09CB\u09AB\u09BE\u0987\u09B2 \u09A6\u09C7\u0996\u09C1\u09A8",
   "ViewProfileOnRetroAchievementsTooltip": "RetroAchievements \u098F \u09AA\u09CD\u09B0\u09CB\u09AB\u09BE\u0987\u09B2 \u09A6\u09C7\u0996\u09C1\u09A8",
   "WallActive": "\u0993\u09AF\u09BC\u09BE\u09B2 \u09B8\u0995\u09CD\u09B0\u09BF\u09AF\u09BC:",
-  "YourRankAndScore": "\u0986\u09AA\u09A8\u09BE\u09B0 \u09B0\u200D\u09CD\u09AF\u09BE\u0999\u09CD\u0995 \u0993 \u09B8\u09CD\u0995\u09CB\u09B0"
+  "YourRankAndScore": "\u0986\u09AA\u09A8\u09BE\u09B0 \u09B0\u200D\u09CD\u09AF\u09BE\u0999\u09CD\u0995 \u0993 \u09B8\u09CD\u0995\u09CB\u09B0",
+  "Favorites": "প্রিয়সমূহ",
+  "LaunchSelectedGame": "নির্বাচিত গেম চালু করুন",
+  "FileNameColumnHeader": "ফাইলের নাম",
+  "MachineDescriptionMameHeader": "মেশিনের বিবরণ (MAME ফাইলগুলির জন্য)",
+  "DefaultEmulatorHeader": "ডিফল্ট এমুলেটর",
+  "SystemNameHeader": "সিস্টেমের নাম",
+  "PreviewImage": "ইমেজ পূর্বরূপ",
+  "TooltipFavoritesDataGrid": "আপনার প্রিয় গেমগুলির তালিকা",
+  "TooltipLaunchFavorite": "নির্বাচিত পছন্দের গেমটি চালু করুন",
+  "TooltipRemoveFromFavorites": "পছন্দসই থেকে নির্বাচিত গেমটি সরান",
+  "TooltipFavoritesPreviewImage": "নির্বাচিত প্রিয় গেমের পূর্বরূপ চিত্র"
 }

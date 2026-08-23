@@ -9,6 +9,10 @@ namespace SimpleLauncher.Avalonia.Services.Favorites;
 /// <summary>
 /// Manages the user's favorite games list with MessagePack serialization.
 /// Compatible with the existing favorites.dat format from SimpleLauncher.
+/// Mirrors the WPF FavoritesManager save/load logic: favorites are sorted by
+/// file name before writing, serialization uses a snapshot, and writes retry
+/// with exponential backoff on transient IO errors, falling back to the
+/// LocalAppData folder when a portable-mode write fails.
 /// </summary>
 [MessagePackObject(AllowPrivate = true)]
 public class FavoritesManager
@@ -61,20 +65,101 @@ public class FavoritesManager
     /// </summary>
     private void SaveFavoritesSync()
     {
-        for (var attempt = 0; attempt < 3; attempt++)
+        // Take a sorted snapshot for serialization without modifying the live collection.
+        List<Favorite> sortedSnapshot;
+        lock (ListLock)
+        {
+            sortedSnapshot = FavoriteList
+                .OrderBy(static fav => fav.FileName, StringComparer.OrdinalIgnoreCase)
+                .ToList();
+        }
+
+        const int maxRetries = 3;
+        var retryDelayMs = 500;
+        Exception? lastException = null;
+        var attempt = 0;
+
+        while (attempt < maxRetries)
         {
             try
             {
-                var bytes = MessagePackSerializer.Serialize(this);
+                // Serialize the sorted snapshot
+                byte[] bytes;
+                lock (ListLock)
+                {
+                    var snapshotManager = new FavoritesManager { FavoriteList = new ObservableCollection<Favorite>(sortedSnapshot), Version = Version };
+                    bytes = MessagePackSerializer.Serialize(snapshotManager);
+                }
+
+                // Write to a temporary file first to prevent corruption on crash
                 File.WriteAllBytes(TempDatFilePath, bytes);
+
+                // Atomically replace the main file with the temp file
                 File.Move(TempDatFilePath, DatFilePath, true);
-                return;
+                return; // Success
+            }
+            catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+            {
+                lastException = ex;
+                attempt++;
+
+                // If in portable mode, try falling back to LocalAppData and reset retries
+                if (IsPortableMode && attempt >= maxRetries)
+                {
+                    try
+                    {
+                        if (FileLocation.TryFallbackToLocalAppData())
+                        {
+                            attempt = 0;
+                            continue;
+                        }
+                    }
+                    catch (Exception fallbackEx)
+                    {
+                        Log.Debug($"[FavoritesManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
+                    }
+                }
+
+                if (attempt < maxRetries)
+                {
+                    // Attempt to clean up temp file before retrying
+                    try
+                    {
+                        if (File.Exists(TempDatFilePath))
+                        {
+                            File.Delete(TempDatFilePath);
+                        }
+                    }
+                    catch (Exception cleanupEx)
+                    {
+                        Log.Debug($"[FavoritesManager] Temp file cleanup failed: {cleanupEx.Message}");
+                    }
+
+                    Thread.Sleep(retryDelayMs);
+                    retryDelayMs *= 2; // Exponential backoff
+                }
             }
             catch (Exception ex)
             {
-                _logger?.Error(ex, "Error saving favorites.dat (attempt {Attempt})", attempt + 1);
-                if (attempt < 2) Thread.Sleep(100);
+                lastException = ex;
+                break; // Don't retry non-transient errors
             }
+        }
+
+        // All retries exhausted or non-transient error
+        _logger?.Error(lastException, "Error saving favorites.dat");
+
+        // Attempt to clean up temp file if it exists
+        try
+        {
+            if (File.Exists(TempDatFilePath))
+            {
+                File.Delete(TempDatFilePath);
+            }
+        }
+        catch (Exception cleanupEx)
+        {
+            _logger?.Error(cleanupEx, "Error cleaning up temporary favorites file after failed save");
         }
     }
 
@@ -83,49 +168,142 @@ public class FavoritesManager
     /// </summary>
     public async Task SaveFavoritesAsync()
     {
-        for (var attempt = 0; attempt < 3; attempt++)
+        // Take a sorted snapshot for serialization without modifying the live collection.
+        List<Favorite> sortedSnapshot;
+        lock (ListLock)
+        {
+            sortedSnapshot = FavoriteList
+                .OrderBy(static fav => fav.FileName, StringComparer.OrdinalIgnoreCase)
+                .ToList();
+        }
+
+        const int maxRetries = 3;
+        var retryDelayMs = 500;
+        Exception? lastException = null;
+        var attempt = 0;
+
+        while (attempt < maxRetries)
         {
             try
             {
-                var bytes = MessagePackSerializer.Serialize(this);
+                // Serialize using the sorted snapshot
+                byte[] bytes;
+                lock (ListLock)
+                {
+                    var snapshotManager = new FavoritesManager { FavoriteList = new ObservableCollection<Favorite>(sortedSnapshot), Version = Version };
+                    bytes = MessagePackSerializer.Serialize(snapshotManager);
+                }
+
                 await File.WriteAllBytesAsync(TempDatFilePath, bytes);
+
                 File.Move(TempDatFilePath, DatFilePath, true);
-                return;
+                return; // Success
+            }
+            catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+            {
+                lastException = ex;
+                attempt++;
+
+                // If in portable mode, try falling back to LocalAppData and reset retries
+                if (IsPortableMode && attempt >= maxRetries)
+                {
+                    try
+                    {
+                        if (FileLocation.TryFallbackToLocalAppData())
+                        {
+                            attempt = 0;
+                            continue;
+                        }
+                    }
+                    catch (Exception fallbackEx)
+                    {
+                        Log.Debug($"[FavoritesManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
+                    }
+                }
+
+                if (attempt < maxRetries)
+                {
+                    // Attempt to clean up temp file before retrying
+                    try
+                    {
+                        if (File.Exists(TempDatFilePath))
+                        {
+                            File.Delete(TempDatFilePath);
+                        }
+                    }
+                    catch (Exception cleanupEx)
+                    {
+                        Log.Debug($"[FavoritesManager] Temp file cleanup failed: {cleanupEx.Message}");
+                    }
+
+                    await Task.Delay(retryDelayMs);
+                    retryDelayMs *= 2; // Exponential backoff
+                }
             }
             catch (Exception ex)
             {
-                _logger?.Error(ex, "Error saving favorites.dat (attempt {Attempt})", attempt + 1);
-                if (attempt < 2) await Task.Delay(100);
+                lastException = ex;
+                break; // Don't retry non-transient errors
             }
+        }
+
+        // All retries exhausted or non-transient error
+        _logger?.Error(lastException, "Error saving favorites.dat");
+
+        // Attempt to clean up temp file if it exists
+        try
+        {
+            if (File.Exists(TempDatFilePath))
+            {
+                File.Delete(TempDatFilePath);
+            }
+        }
+        catch (Exception cleanupEx)
+        {
+            _logger?.Error(cleanupEx, "Error cleaning up temporary favorites file after failed save");
         }
     }
 
     /// <summary>
-    /// Checks whether a game is in the favorites list.
+    /// Gets the bare file name of a stored favorite (legacy entries may hold
+    /// a full path; matching in the WPF app is always by bare file name).
+    /// </summary>
+    private static string ToBareName(string? fileName)
+    {
+        if (string.IsNullOrEmpty(fileName)) return "";
+
+        return Path.GetFileName(fileName) ?? fileName;
+    }
+
+    /// <summary>
+    /// Checks whether a game is in the favorites list (WPF compares bare file names).
     /// </summary>
     public bool IsFavorite(string filePath)
     {
+        var bareName = ToBareName(filePath);
         lock (ListLock)
         {
             return FavoriteList.Any(f =>
-                string.Equals(f.FileName, filePath, StringComparison.OrdinalIgnoreCase));
+                string.Equals(ToBareName(f.FileName), bareName, StringComparison.OrdinalIgnoreCase));
         }
     }
 
     /// <summary>
     /// Adds a game to favorites. Returns true if added, false if already present.
+    /// Stores the bare file name (WPF parity); legacy full-path entries still match.
     /// </summary>
     public async Task<bool> AddFavoriteAsync(string filePath, string systemName)
     {
+        var bareName = ToBareName(filePath);
         lock (ListLock)
         {
             if (FavoriteList.Any(f =>
-                    string.Equals(f.FileName, filePath, StringComparison.OrdinalIgnoreCase)))
+                    string.Equals(ToBareName(f.FileName), bareName, StringComparison.OrdinalIgnoreCase)))
                 return false;
 
             FavoriteList.Add(new Favorite
             {
-                FileName = filePath,
+                FileName = bareName,
                 SystemName = systemName
             });
         }
@@ -136,13 +314,15 @@ public class FavoritesManager
 
     /// <summary>
     /// Removes a game from favorites. Returns true if removed, false if not found.
+    /// Matches by bare file name so legacy full-path entries are found too.
     /// </summary>
     public async Task<bool> RemoveFavoriteAsync(string filePath)
     {
+        var bareName = ToBareName(filePath);
         lock (ListLock)
         {
             var toRemove = FavoriteList.FirstOrDefault(f =>
-                string.Equals(f.FileName, filePath, StringComparison.OrdinalIgnoreCase));
+                string.Equals(ToBareName(f.FileName), bareName, StringComparison.OrdinalIgnoreCase));
             if (toRemove is null) return false;
 
             FavoriteList.Remove(toRemove);
@@ -229,13 +409,14 @@ public class FavoritesManager
     }
 
     /// <summary>
-    /// Gets all favorite file paths.
+    /// Gets all stored favorite file names as bare names (legacy full-path entries
+    /// are normalized so the game grid can match against Path.GetFileName).
     /// </summary>
     public HashSet<string> GetFavoritePaths()
     {
         lock (ListLock)
         {
-            return FavoriteList.Select(f => f.FileName)
+            return FavoriteList.Select(f => ToBareName(f.FileName))
                 .ToHashSet(StringComparer.OrdinalIgnoreCase);
         }
     }

@@ -493,5 +493,16 @@
   "ViewProfileOnRaButtonTooltip": "\u5728RetroAchievements\u4E0A\u67E5\u770B\u4E2A\u4EBA\u8D44\u6599\u6309\u94AE",
   "ViewProfileOnRetroAchievementsTooltip": "\u5728RetroAchievements\u4E0A\u67E5\u770B\u4E2A\u4EBA\u8D44\u6599",
   "WallActive": "\u5899\u58C1\u6D3B\u8DC3:",
-  "YourRankAndScore": "\u60A8\u7684\u6392\u540D\u548C\u5206\u6570"
+  "YourRankAndScore": "\u60A8\u7684\u6392\u540D\u548C\u5206\u6570",
+  "Favorites": "收藏夹",
+  "LaunchSelectedGame": "启动选定的游戏",
+  "FileNameColumnHeader": "文件名",
+  "MachineDescriptionMameHeader": "机器描述 (MAME 文件)",
+  "DefaultEmulatorHeader": "默认模拟器",
+  "SystemNameHeader": "系统名称",
+  "PreviewImage": "预览图片",
+  "TooltipFavoritesDataGrid": "您的收藏游戏列表",
+  "TooltipLaunchFavorite": "启动所选的收藏游戏",
+  "TooltipRemoveFromFavorites": "从收藏中移除所选游戏",
+  "TooltipFavoritesPreviewImage": "选定收藏游戏的预览图"
 }

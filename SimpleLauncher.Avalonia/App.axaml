@@ -5,6 +5,8 @@
     <Application.Styles>
         <!-- Avalonia Fluent theme (dark variant) — implicit styles for all standard controls -->
         <FluentTheme />
+        <!-- DataGrid control theme (required for the grid to render rows/columns) -->
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
         <!-- App-specific colors and remaining custom styles -->
         <StyleInclude Source="avares://SimpleLauncher.Avalonia/Themes/DarkTheme.axaml" />
     </Application.Styles>

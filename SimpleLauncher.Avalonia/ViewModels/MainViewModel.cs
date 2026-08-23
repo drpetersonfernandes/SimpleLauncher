@@ -360,7 +360,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
             if (pool.Count > 0)
             {
                 picked = pool[Random.Shared.Next(pool.Count)];
-                picked.IsFavorite = _favoritesManager.GetFavoritePaths().Contains(picked.FilePath);
+                picked.IsFavorite = _favoritesManager.GetFavoritePaths().Contains(Path.GetFileName(picked.FilePath));
 
                 var historyLookup = _playHistoryManager.GetHistoryLookup();
                 if (historyLookup.TryGetValue(picked.FilePath, out var history))
@@ -680,11 +680,16 @@ public partial class MainViewModel : ObservableObject, ILoadingState
             // Reconcile favorites against the current system configuration (mirrors the WPF app):
             // entries whose system no longer exists (renamed without migration, or deleted)
             // are dropped so they never linger in the favorites filter.
+            // Only reconcile when systems are actually loaded: an empty list must never be
+            // interpreted as "every favorite belongs to a missing system" (which would wipe them).
             var validSystemNames = _allSystems.Select(static s => s.SystemName).ToList();
-            var removedCount = await _favoritesManager.RemoveFavoritesForMissingSystemsAsync(validSystemNames);
-            if (removedCount > 0)
+            if (validSystemNames.Any())
             {
-                _favoritePaths = _favoritesManager.GetFavoritePaths();
+                var removedCount = await _favoritesManager.RemoveFavoritesForMissingSystemsAsync(validSystemNames);
+                if (removedCount > 0)
+                {
+                    _favoritePaths = _favoritesManager.GetFavoritePaths();
+                }
             }
 
             var (systems, counts, games) = await Task.Run(() =>
@@ -967,10 +972,11 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         var isNowFavorite = await _favoritesManager.ToggleAsync(game.FilePath, game.SystemName);
         game.IsFavorite = isNowFavorite;
 
+        var favoriteName = Path.GetFileName(game.FilePath) ?? game.FilePath;
         if (isNowFavorite)
-            _favoritePaths.Add(game.FilePath);
+            _favoritePaths.Add(favoriteName);
         else
-            _favoritePaths.Remove(game.FilePath);
+            _favoritePaths.Remove(favoriteName);
 
         StatusText = isNowFavorite
             ? $"Added to favorites: {game.DisplayTitle}"
@@ -1201,7 +1207,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
 
         foreach (var game in games)
         {
-            game.IsFavorite = _favoritePaths.Contains(game.FilePath);
+            game.IsFavorite = _favoritePaths.Contains(Path.GetFileName(game.FilePath));
 
             if (historyLookup.TryGetValue(game.FilePath, out var history))
             {
