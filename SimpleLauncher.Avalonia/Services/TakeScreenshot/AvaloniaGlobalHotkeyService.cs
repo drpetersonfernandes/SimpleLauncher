@@ -1,3 +1,5 @@
+// ReSharper disable once RedundantUsingDirective
+
 using System.Runtime.InteropServices;
 
 #if WINDOWS

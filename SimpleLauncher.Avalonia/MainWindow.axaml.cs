@@ -615,7 +615,7 @@ public partial class MainWindow : Window, IPaginationHost
 
     #region Quick Actions (Home / Random / Sort / Letter Bar)
 
-    private async void HomeButton_Click(object? sender, RoutedEventArgs e)
+    private async void HomeButton_Click()
     {
         try
         {
@@ -755,7 +755,7 @@ public partial class MainWindow : Window, IPaginationHost
         LetterFilterBar.Children.Add(button);
     }
 
-    private void LetterFilterButton_Click(string letter, Button clickedButton)
+    private void LetterFilterButton_Click(string letter, Button _)
     {
         try
         {
@@ -784,15 +784,16 @@ public partial class MainWindow : Window, IPaginationHost
     {
         if (e.KeyModifiers.HasFlag(KeyModifiers.Control))
         {
-            if (e.Delta.Y > 0)
+            switch (e.Delta.Y)
             {
-                _viewModel.ZoomIn();
-                e.Handled = true;
-            }
-            else if (e.Delta.Y < 0)
-            {
-                _viewModel.ZoomOut();
-                e.Handled = true;
+                case > 0:
+                    _viewModel.ZoomIn();
+                    e.Handled = true;
+                    break;
+                case < 0:
+                    _viewModel.ZoomOut();
+                    e.Handled = true;
+                    break;
             }
         }
     }
@@ -887,7 +888,7 @@ public partial class MainWindow : Window, IPaginationHost
     /// <summary>Nav rail: restart / home — returns to the All Games view.</summary>
     private void NavRestartButton_Click(object? sender, RoutedEventArgs e)
     {
-        HomeButton_Click(sender, e);
+        HomeButton_Click();
     }
 
     /// <summary>Nav rail: opens the Favorites section.</summary>
@@ -1074,7 +1075,7 @@ public partial class MainWindow : Window, IPaginationHost
                 _ = CopyToClipboardAsync(fileName);
                 ShowToast(_localization.GetString("Context.Copied"), fileName);
             },
-            OnShowInFolder = g => _ = ShowGameInFolderAsync(g),
+            OnShowInFolder = g => { _ = ShowGameInFolderAsync(g); },
             OnEditSystem = OpenEditSystemForGame
         };
     }
@@ -1202,6 +1203,7 @@ public partial class MainWindow : Window, IPaginationHost
         try
         {
             if (e.InitialPressMouseButton != MouseButton.Right) return;
+
             if (e.Source is not Visual favoritesVisual
                 || FindParent<DataGridRow>(favoritesVisual) is not { DataContext: FavoriteRowViewModel favorite })
             {
@@ -1215,7 +1217,7 @@ public partial class MainWindow : Window, IPaginationHost
             var context = BuildRightClickContext(
                 filePath, favorite.SystemName,
                 fileNameWithExtensionOverride: favorite.FilePath,
-                onFavoriteRemoved: () => _ = FavoritesSection.LoadFavoritesAsync());
+                onFavoriteRemoved: () => { _ = FavoritesSection.LoadFavoritesAsync(); });
 
             _contextMenuService.ShowContextMenu(context, FavoritesDataGrid);
             e.Handled = true;
@@ -1255,6 +1257,7 @@ public partial class MainWindow : Window, IPaginationHost
         try
         {
             if (e.InitialPressMouseButton != MouseButton.Right) return;
+
             if (e.Source is not Visual searchVisual
                 || FindParent<DataGridRow>(searchVisual) is not { DataContext: SearchResult result })
             {
@@ -1359,7 +1362,7 @@ public partial class MainWindow : Window, IPaginationHost
 
     #region EasyMode
 
-    private async void AddSystem_Click(object? sender, RoutedEventArgs e)
+    private async void AddSystem_Click()
     {
         try
         {
@@ -1795,8 +1798,8 @@ public partial class MainWindow : Window, IPaginationHost
                 _gamePadController.DeadZoneY = _settings.DeadZoneY;
                 if (_settings.EnableGamePadNavigation)
                 {
-                    _ = _gamePadController.StopAsync();
-                    _ = _gamePadController.StartAsync();
+                    _gamePadController.StopAsync();
+                    _gamePadController.StartAsync();
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
@@ -1979,7 +1982,7 @@ public partial class MainWindow : Window, IPaginationHost
 
     private void EasyMode_Click(object? sender, RoutedEventArgs e)
     {
-        AddSystem_Click(sender, e);
+        AddSystem_Click();
     }
 
     private async void ExpertMode_Click(object? sender, RoutedEventArgs e)
@@ -2097,7 +2100,7 @@ public partial class MainWindow : Window, IPaginationHost
             {
                 try
                 {
-                    using var stream = File.OpenRead(iconPath);
+                    await using var stream = File.OpenRead(iconPath);
                     var bitmap = Bitmap.DecodeToWidth(stream, (int)(systemImageSize * 1.3 * 1.6));
                     var image = new Image
                     {
@@ -2160,11 +2163,11 @@ public partial class MainWindow : Window, IPaginationHost
             // Right-click context menu (WPF parity: Select / Edit / Delete)
             var contextMenu = new ContextMenu();
             var selectItem = new MenuItem { Header = "Select System" };
-            selectItem.Click += (_, _) => SystemComboBox.SelectedItem = systemName;
+            selectItem.Click += (_, _) => { SystemComboBox.SelectedItem = systemName; };
             var editItem = new MenuItem { Header = "Edit System" };
             editItem.Click += (_, _) => EditSystemFromGrid(systemName);
             var deleteItem = new MenuItem { Header = "Delete System" };
-            deleteItem.Click += (_, _) => _ = DeleteSystemFromGrid(systemName);
+            deleteItem.Click += (_, _) => { _ = DeleteSystemFromGrid(systemName); };
             contextMenu.Items.Add(selectItem);
             contextMenu.Items.Add(editItem);
             contextMenu.Items.Add(deleteItem);
@@ -2184,6 +2187,7 @@ public partial class MainWindow : Window, IPaginationHost
     private void SystemCard_Click(object? sender, RoutedEventArgs e)
     {
         if (sender is not Button btn) return;
+
         var systemName = btn.Tag as string;
         if (string.IsNullOrEmpty(systemName)) return;
 
