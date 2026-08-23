@@ -159,8 +159,6 @@ public sealed partial class AvaloniaGlobalHotkeyService : IDisposable
         }
 
         _wndProcDelegate = null;
-
-        GC.SuppressFinalize(this);
     }
 }
 #endif

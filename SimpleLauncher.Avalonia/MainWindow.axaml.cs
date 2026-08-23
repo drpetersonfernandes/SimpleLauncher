@@ -1392,67 +1392,11 @@ public partial class MainWindow : Window, IPaginationHost
 
     #region Emulator Settings (config injection)
 
-    /// <summary>
-    /// Opens a menu listing every emulator whose configuration can be injected,
-    /// then opens the matching config window in standalone mode (no launch).
-    /// Same feature as the WPF app's "Tools → Inject Emulator Config" menu.
-    /// </summary>
-    private void EmulatorSettings_Click(object? sender, RoutedEventArgs e)
-    {
-        if (sender is not Control placementTarget) return;
-
-        var menu = new ContextMenu
-        {
-            Placement = PlacementMode.Pointer
-        };
-
-        AddInjectMenuItem(menu, "Ares", () => OpenInjectWindow<InjectAresConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "Azahar", () => OpenInjectWindow<InjectAzaharConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "Blastem", () => OpenInjectWindow<InjectBlastemConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "Cemu", () => OpenInjectWindow<InjectCemuConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "Daphne", () => OpenInjectWindow<InjectDaphneConfigWindow>(w => w.Initialize(false)));
-        AddInjectMenuItem(menu, "Dolphin", () => OpenInjectWindow<InjectDolphinConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "DuckStation", () => OpenInjectWindow<InjectDuckStationConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "Flycast", () => OpenInjectWindow<InjectFlycastConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "MAME", () => OpenInjectWindow<InjectMameConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "Mednafen", () => OpenInjectWindow<InjectMednafenConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "Mesen", () => OpenInjectWindow<InjectMesenConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "PCSX2", () => OpenInjectWindow<InjectPcsx2ConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "Raine", () => OpenInjectWindow<InjectRaineConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "Redream", () => OpenInjectWindow<InjectRedreamConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "RetroArch", () => OpenInjectWindow<InjectRetroArchConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "RPCS3", () => OpenInjectWindow<InjectRpcs3ConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "SEGA Model 2", () => OpenInjectWindow<InjectSegaModel2ConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "Stella", () => OpenInjectWindow<InjectStellaConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "Supermodel", () => OpenInjectWindow<InjectSupermodelConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "Xenia", () => OpenInjectWindow<InjectXeniaConfigWindow>(w => w.Initialize(null, false)));
-        AddInjectMenuItem(menu, "Yumir", () => OpenInjectWindow<InjectYumirConfigWindow>(w => w.Initialize(null, false)));
-
-        menu.Open(placementTarget);
-    }
-
     private void OpenInjectWindow<T>(Action<T> initialize) where T : Window
     {
         var win = App.ServiceProvider.GetRequiredService<T>();
         initialize(win);
         win.ShowDialog(this);
-    }
-
-    private static void AddInjectMenuItem(ContextMenu menu, string header, Action openWindow)
-    {
-        var item = new MenuItem { Header = header };
-        item.Click += (_, _) =>
-        {
-            try
-            {
-                openWindow();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Failed to open {Emulator} config window", header);
-            }
-        };
-        menu.Items.Add(item);
     }
 
     #endregion
