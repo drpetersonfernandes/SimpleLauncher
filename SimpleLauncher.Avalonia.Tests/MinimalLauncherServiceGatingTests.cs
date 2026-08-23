@@ -1,4 +1,3 @@
-using System.Net.Http;
 using Moq;
 using SimpleLauncher.Avalonia.Services.GameLauncher;
 using SimpleLauncher.Avalonia.Services.PlayHistory;

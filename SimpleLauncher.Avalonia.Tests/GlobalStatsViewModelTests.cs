@@ -30,7 +30,7 @@ public class GlobalStatsViewModelTests
             (filePicker ?? new Mock<IFilePickerService>()).Object);
     }
 
-    private static SystemManagerConfig System(string name, string folder, params string[] files)
+    private static SystemManagerConfig System(string name, string folder)
     {
         return new SystemManagerConfig
         {
@@ -77,7 +77,7 @@ public class GlobalStatsViewModelTests
             getFiles.Setup(f => f.GetFilesAsync(It.IsAny<string>(), It.IsAny<IList<string>>(), It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new List<string> { fileA, fileB });
 
-            vm.Initialize(new List<SystemManagerConfig> { System("NES", tempDir, fileA, fileB) });
+            vm.Initialize(new List<SystemManagerConfig> { System("NES", tempDir) });
 
             await vm.StartCommand.ExecuteAsync(null);
 
@@ -116,7 +116,7 @@ public class GlobalStatsViewModelTests
             getFiles.Setup(f => f.GetFilesAsync(It.IsAny<string>(), It.IsAny<IList<string>>(), It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new List<string> { fileA });
 
-            vm.Initialize(new List<SystemManagerConfig> { System("NES", tempDir, fileA) });
+            vm.Initialize(new List<SystemManagerConfig> { System("NES", tempDir) });
             await vm.StartCommand.ExecuteAsync(null);
 
             await vm.SaveReportCommand.ExecuteAsync(null);
@@ -149,7 +149,7 @@ public class GlobalStatsViewModelTests
         getFiles.Setup(f => f.GetFilesAsync(It.IsAny<string>(), It.IsAny<IList<string>>(), It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<CancellationToken>()))
             .Returns(gate.Task);
 
-        vm.Initialize(new List<SystemManagerConfig> { System("NES", "C:\\roms", "a.nes") });
+        vm.Initialize(new List<SystemManagerConfig> { System("NES", "C:\\roms") });
         messageBox.Setup(m => m.WouldYouLikeToSaveAReportMessageBoxAsync()).ReturnsAsync(CoreMessageBoxResult.No);
 
         var closeRequested = false;
@@ -177,7 +177,7 @@ public class GlobalStatsViewModelTests
     public void Initialize_SetsInfoAndBusyTexts()
     {
         var vm = CreateVm(out _, out _);
-        vm.Initialize(new List<SystemManagerConfig> { System("NES", "C:\\roms", "a.nes") });
+        vm.Initialize(new List<SystemManagerConfig> { System("NES", "C:\\roms") });
 
         Assert.NotNull(vm.InfoText);
         Assert.NotNull(vm.BusyOverlayText);

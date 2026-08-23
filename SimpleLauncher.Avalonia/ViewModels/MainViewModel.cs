@@ -60,11 +60,6 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     private List<GameCardViewModel> _currentBaseGames = [];
 
     /// <summary>
-    /// The active letter/# filter (empty string = All). Matches the WPF "FilterMenu".
-    /// </summary>
-    private string _letterFilter = "";
-
-    /// <summary>
     /// MAME sort order toggle state: "FileName" (default) or "MachineDescription".
     /// Matches the WPF sort-order toggle button.
     /// </summary>
@@ -284,23 +279,23 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     /// </summary>
     private List<GameCardViewModel> ApplyLetterFilter(List<GameCardViewModel> games)
     {
-        return _gameFilter.FilterByLetter(games, _letterFilter);
+        return _gameFilter.FilterByLetter(games, LetterFilter);
     }
 
     /// <summary>
     /// Gets the current active letter filter (empty string = All).
     /// Used by the UI reset host to read and restore the filter state.
     /// </summary>
-    public string LetterFilter => _letterFilter;
+    public string LetterFilter { get; private set; } = "";
 
     /// <summary>
     /// Sets the active letter filter ("" = All) and re-applies it to the current view.
     /// </summary>
     public void SetLetterFilter(string letter)
     {
-        _letterFilter = letter ?? "";
+        LetterFilter = letter ?? "";
         ReapplyLetterFilterAndPagination();
-        StatusText = string.IsNullOrEmpty(_letterFilter) ? "All Games" : $"Filtering by {_letterFilter}";
+        StatusText = string.IsNullOrEmpty(LetterFilter) ? "All Games" : $"Filtering by {LetterFilter}";
     }
 
     /// <summary>
@@ -343,7 +338,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         CancelPendingSearch();
         IsShowingFavorites = false;
         IsShowingRetroAchievements = false;
-        _letterFilter = "";
+        LetterFilter = "";
         _suppressSearchReload = true;
         try
         {
@@ -457,8 +452,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         AdjustZoomStep(-1);
     }
 
-    private static readonly int MinThumbnailSize = 50;
-    private static readonly int MaxThumbnailSize = 800;
+    private const int MinThumbnailSize = 50;
+    private const int MaxThumbnailSize = 800;
     private const int ZoomStep = 50;
 
     private void AdjustZoomStep(int direction)
@@ -648,7 +643,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         });
 
         IsShowingRetroAchievements = true;
-        _letterFilter = "";
+        LetterFilter = "";
         ShowGames(matched);
         StatusText = $"{matched.Count} of {total} games with RetroAchievements";
         ToolbarTitle = "SimpleLauncher — RetroAchievements";
@@ -707,7 +702,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
             IsShowingRetroAchievements = false;
             IsMixedView = true;
             SelectedSystem = "";
-            _letterFilter = "";
+            LetterFilter = "";
             ShowGames(games);
             StatusText = "All Games";
             ToolbarTitle = "SimpleLauncher";
@@ -726,6 +721,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     partial void OnSearchTextChanged(string value)
     {
         if (_suppressSearchReload) return;
+
         _ = DebounceSearchAsync(value);
     }
 
@@ -769,7 +765,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     private void ExecuteSearch(string query)
     {
         IsShowingRetroAchievements = false;
-        _letterFilter = "";
+        LetterFilter = "";
 
         var allGames = ScanGames(_allSystems);
         var results = _gameFilter.FilterBySearchQuery(allGames, query);
@@ -787,7 +783,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
             SelectedSystem = systemName;
             IsMixedView = string.IsNullOrEmpty(systemName);
             IsShowingRetroAchievements = false;
-            _letterFilter = "";
+            LetterFilter = "";
 
             var systems = string.IsNullOrEmpty(systemName)
                 ? _allSystems
@@ -828,7 +824,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         {
             IsShowingFavorites = true;
             IsShowingRetroAchievements = false;
-            _letterFilter = "";
+            LetterFilter = "";
             _favoritePaths = _favoritesManager.GetFavoritePaths();
 
             var allGames = ScanGames(_allSystems);
@@ -857,7 +853,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         {
             IsShowingFavorites = true;
             IsShowingRetroAchievements = false;
-            _letterFilter = "";
+            LetterFilter = "";
             _favoritePaths = _favoritesManager.GetFavoritePaths();
 
             var systems = string.IsNullOrEmpty(SelectedSystem)
@@ -894,7 +890,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         try
         {
             IsShowingRetroAchievements = false;
-            _letterFilter = "";
+            LetterFilter = "";
 
             var historyLookup = _playHistoryManager.GetHistoryLookup();
             var allGames = ScanGames(_allSystems);
@@ -923,7 +919,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         try
         {
             IsShowingRetroAchievements = false;
-            _letterFilter = "";
+            LetterFilter = "";
 
             var allGames = ScanGames(_allSystems);
             ApplyFavoritesAndHistory(allGames);
@@ -1003,8 +999,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     {
         var system = _systemManager.GetSystem(systemName);
         var emulator = system?.Emulators.FirstOrDefault(e =>
-                          string.Equals(e.EmulatorName, SelectedEmulatorName, StringComparison.OrdinalIgnoreCase))
-                      ?? system?.Emulators.FirstOrDefault();
+                           string.Equals(e.EmulatorName, SelectedEmulatorName, StringComparison.OrdinalIgnoreCase))
+                       ?? system?.Emulators.FirstOrDefault();
         var windowContext = App.ServiceProvider.GetRequiredService<IWindowContext>();
 
         if (system is null || emulator is null)
@@ -1180,7 +1176,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
             IsShowingRetroAchievements = false;
             IsMixedView = true;
             SelectedSystem = "";
-            _letterFilter = "";
+            LetterFilter = "";
             _allSystems = _systemManager.LoadSystems();
 
             RefreshSystemCounts();

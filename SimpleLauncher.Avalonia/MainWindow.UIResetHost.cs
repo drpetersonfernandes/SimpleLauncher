@@ -1,6 +1,3 @@
-using Avalonia.Threading;
-using SimpleLauncher.Avalonia.Services.UIReset;
-using SimpleLauncher.Core;
 using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Avalonia;

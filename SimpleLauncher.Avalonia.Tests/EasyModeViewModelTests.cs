@@ -219,7 +219,7 @@ public class EasyModeViewModelTests
             // Component downloads (emulator / core / image pack archives).
             return Task.FromResult(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
             {
-                Content = new ByteArrayContent(Encoding.UTF8.GetBytes("fake archive bytes"))
+                Content = new ByteArrayContent("fake archive bytes"u8.ToArray())
             });
         }
     }

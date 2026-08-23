@@ -86,9 +86,13 @@ public partial class PreferencesWindow : Window
 
             // Start or stop the gamepad controller to match the new preference
             if (_settings.EnableGamePadNavigation)
+            {
                 _ = _gamePadController.StartAsync();
+            }
             else
+            {
                 _ = _gamePadController.StopAsync();
+            }
         }
         catch (Exception ex)
         {

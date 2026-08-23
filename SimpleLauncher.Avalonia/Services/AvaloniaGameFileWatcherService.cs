@@ -57,7 +57,7 @@ public class AvaloniaGameFileWatcherService : IDisposable
             _watcher.StartWatching(system.SystemFolders, system.SystemName, system.FileFormatsToSearch);
         }
 
-        _logger.Debug("[AvaloniaGameFileWatcherService] Started watching {Count} system(s).", systemManagerConfigs.Count());
+        _logger.Debug("[AvaloniaGameFileWatcherService] Started watching {Count} system(s).", systemManagerConfigs.Count);
     }
 
     /// <summary>

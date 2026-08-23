@@ -17,8 +17,6 @@ public class AvaloniaLanguageMenuAndWatcherServiceTests
     [Fact]
     public void NameToCode_MatchesTheCanonicalLanguageSet()
     {
-        var service = new AvaloniaLanguageMenuService();
-
         var menuCodes = AvaloniaLanguageMenuService.NameToCode.Values
             .OrderBy(c => c, StringComparer.Ordinal)
             .ToList();
@@ -123,10 +121,8 @@ public class AvaloniaLanguageMenuAndWatcherServiceTests
         HeadlessAvalonia.EnsureInitialized();
         using var tempDir = new TempDirectory();
         var coreWatcher = new GameFileWatcherService(new Mock<ILogger>().Object);
-        using var watcher = new AvaloniaGameFileWatcherService(coreWatcher, new Mock<ILogger>().Object)
-        {
-            DebounceDelay = TimeSpan.FromMilliseconds(50)
-        };
+        using var watcher = new AvaloniaGameFileWatcherService(coreWatcher, new Mock<ILogger>().Object);
+        watcher.DebounceDelay = TimeSpan.FromMilliseconds(50);
 
         var changed = new TaskCompletionSource<string>(TaskCreationOptions.RunContinuationsAsynchronously);
         watcher.GameFilesChanged += (_, e) => changed.TrySetResult(e.Value);
@@ -154,10 +150,8 @@ public class AvaloniaLanguageMenuAndWatcherServiceTests
         HeadlessAvalonia.EnsureInitialized();
         using var tempDir = new TempDirectory();
         var coreWatcher = new GameFileWatcherService(new Mock<ILogger>().Object);
-        using var watcher = new AvaloniaGameFileWatcherService(coreWatcher, new Mock<ILogger>().Object)
-        {
-            DebounceDelay = TimeSpan.FromMilliseconds(30)
-        };
+        using var watcher = new AvaloniaGameFileWatcherService(coreWatcher, new Mock<ILogger>().Object);
+        watcher.DebounceDelay = TimeSpan.FromMilliseconds(30);
 
         var eventCount = 0;
         watcher.GameFilesChanged += (_, _) => Interlocked.Increment(ref eventCount);

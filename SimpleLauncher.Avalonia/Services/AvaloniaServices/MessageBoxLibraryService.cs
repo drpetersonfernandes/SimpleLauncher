@@ -1652,7 +1652,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         await ShowAsync(O,
             "The emulator could not launch the game because the file path contains special characters (for example: ´, `, ~, !, ?).\n\n" +
             "RetroArch cannot create its required folders in paths with these characters.\n\n" +
-            "To fix this, please move your emulator and your game files to a folder that uses only standard letters and numbers, such as C:\\Games\\.",
+            @"To fix this, please move your emulator and your game files to a folder that uses only standard letters and numbers, such as C:\Games\.",
             "Error", MessageButtons.Ok, MessageIcon.Error);
     }
 

@@ -1,6 +1,4 @@
-using System.Diagnostics;
 using Avalonia.Controls;
-using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Microsoft.Extensions.DependencyInjection;
@@ -51,7 +49,7 @@ public class AvaloniaContextMenuService
 
         // Launch Game Context Menu
         AddItem(contextMenu, "LaunchGame", "Launch Game", "launch.png",
-            () => _ = SafeAsync(() => _functions.LaunchGameAsync(context)));
+            () => { _ = SafeAsync(() => _functions.LaunchGameAsync(context)); });
 
         // Add To Favorites Context Menu
         AddItem(contextMenu, "AddToFavorites", "Add To Favorites", "heart.png", () =>
@@ -73,7 +71,7 @@ public class AvaloniaContextMenuService
         if (IsSystemSupportedForRetroAchievements(context))
         {
             AddItem(contextMenu, "ViewAchievements", "View Achievements", "trophy.png",
-                () => _ = SafeAsync(() => _functions.OpenRetroAchievementsWindowAsync(context)));
+                () => { _ = SafeAsync(() => _functions.OpenRetroAchievementsWindowAsync(context)); });
             contextMenu.Items.Add(new Separator());
         }
 
@@ -103,30 +101,30 @@ public class AvaloniaContextMenuService
         // Media entries (WPF order: cover, title snapshot, gameplay snapshot, cart,
         // video, manual, walkthrough, cabinet, flyer, pcb)
         AddItem(contextMenu, "Cover", "Cover", "cover.png",
-            () => _ = SafeAsync(() => _functions.OpenCoverAsync(context)));
+            () => { _ = SafeAsync(() => _functions.OpenCoverAsync(context)); });
         AddItem(contextMenu, "TitleSnapshot", "Title Snapshot", "snapshot.png",
-            () => _ = SafeAsync(() => _functions.OpenTitleSnapshotAsync(context)));
+            () => { _ = SafeAsync(() => _functions.OpenTitleSnapshotAsync(context)); });
         AddItem(contextMenu, "GameplaySnapshot", "Gameplay Snapshot", "snapshot.png",
-            () => _ = SafeAsync(() => _functions.OpenGameplaySnapshotAsync(context)));
+            () => { _ = SafeAsync(() => _functions.OpenGameplaySnapshotAsync(context)); });
         AddItem(contextMenu, "Cart", "Cart", "cart.png",
-            () => _ = SafeAsync(() => _functions.OpenCartAsync(context)));
+            () => { _ = SafeAsync(() => _functions.OpenCartAsync(context)); });
         AddItem(contextMenu, "Video", "Video", "video.png",
-            () => _ = SafeAsync(() => _functions.PlayVideoAsync(context)));
+            () => { _ = SafeAsync(() => _functions.PlayVideoAsync(context)); });
         AddItem(contextMenu, "Manual", "Manual", "manual.png",
-            () => _ = SafeAsync(() => _functions.OpenManualAsync(context)));
+            () => { _ = SafeAsync(() => _functions.OpenManualAsync(context)); });
         AddItem(contextMenu, "Walkthrough", "Walkthrough", "walkthrough.png",
-            () => _ = SafeAsync(() => _functions.OpenWalkthroughAsync(context)));
+            () => { _ = SafeAsync(() => _functions.OpenWalkthroughAsync(context)); });
         AddItem(contextMenu, "Cabinet", "Cabinet", "cabinet.png",
-            () => _ = SafeAsync(() => _functions.OpenCabinetAsync(context)));
+            () => { _ = SafeAsync(() => _functions.OpenCabinetAsync(context)); });
         AddItem(contextMenu, "Flyer", "Flyer", "flyer.png",
-            () => _ = SafeAsync(() => _functions.OpenFlyerAsync(context)));
+            () => { _ = SafeAsync(() => _functions.OpenFlyerAsync(context)); });
         AddItem(contextMenu, "PCB", "PCB", "pcb.png",
-            () => _ = SafeAsync(() => _functions.OpenPcbAsync(context)));
+            () => { _ = SafeAsync(() => _functions.OpenPcbAsync(context)); });
 
         contextMenu.Items.Add(new Separator());
 
         // Take Screenshot Context Menu
-        AddItem(contextMenu, "TakeScreenshot", "Take Screenshot", "snapshot.png", async () =>
+        AddItem(contextMenu, "TakeScreenshot", "Take Screenshot", "snapshot.png", async void () =>
         {
             try
             {
@@ -141,7 +139,7 @@ public class AvaloniaContextMenuService
         });
 
         // Delete Game Context Menu
-        AddItem(contextMenu, "DeleteGame", "Delete Game", "delete.png", async () =>
+        AddItem(contextMenu, "DeleteGame", "Delete Game", "delete.png", async void () =>
         {
             try
             {
@@ -161,7 +159,7 @@ public class AvaloniaContextMenuService
         });
 
         // Delete Cover Image Context Menu
-        AddItem(contextMenu, "DeleteCoverImage", "Delete Cover Image", "delete.png", async () =>
+        AddItem(contextMenu, "DeleteCoverImage", "Delete Cover Image", "delete.png", async void () =>
         {
             try
             {

@@ -195,7 +195,7 @@ public class AvaloniaSystemSelectionOrchestratorServiceTests : IDisposable
         await _service.ReloadAfterConfigurationChangeAsync();
 
         _host.Verify(h => h.SetEmulatorComboBoxItems(
-            It.Is<IReadOnlyList<string>>(names => names.Count == 0)),
+                It.Is<IReadOnlyList<string>>(names => names.Count == 0)),
             Times.Once);
     }
 
@@ -238,7 +238,7 @@ public class AvaloniaSystemSelectionOrchestratorServiceTests : IDisposable
         _service.LoadOrReloadSystemManager();
 
         _host.Verify(h => h.SetSystemComboBoxItems(
-            It.Is<IReadOnlyList<string>>(names => names.Count == 3)),
+                It.Is<IReadOnlyList<string>>(names => names.Count == 3)),
             Times.Once);
     }
 }

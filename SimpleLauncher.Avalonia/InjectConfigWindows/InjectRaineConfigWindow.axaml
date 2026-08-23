@@ -1,7 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectRaineConfigWindow"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
         Title="Raine Configuration"
         Height="600" Width="650"
         WindowStartupLocation="CenterOwner"

@@ -1,3 +1,5 @@
+// ReSharper disable once RedundantUsingDirective
+
 using System.Runtime.InteropServices;
 using SimpleLauncher.Core.Interfaces;
 #if WINDOWS
@@ -12,12 +14,14 @@ namespace SimpleLauncher.Avalonia.Services.GameScan;
 /// </summary>
 public class IconExtractor : IIconExtractor
 {
+#if WINDOWS
     [DllImport("shell32.dll", CharSet = CharSet.Auto)]
     private static extern IntPtr ExtractIcon(IntPtr hInst, string lpszExeFileName, int nIconIndex);
 
     [DllImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool DestroyIcon(IntPtr hIcon);
+#endif
 
     /// <summary>
     /// Extracts the first icon from an executable and saves it as a PNG file.

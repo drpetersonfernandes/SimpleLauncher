@@ -1,7 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectRpcs3ConfigWindow"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
         Title="RPCS3 Configuration"
         Height="750" Width="700"
         WindowStartupLocation="CenterOwner"

@@ -158,5 +158,4 @@ public partial class GameDetailWindow : Window
         FavoriteButton.Classes.Set("primary", _game.IsFavorite);
         FavoriteButton.Classes.Set("secondary", !_game.IsFavorite);
     }
-
 }

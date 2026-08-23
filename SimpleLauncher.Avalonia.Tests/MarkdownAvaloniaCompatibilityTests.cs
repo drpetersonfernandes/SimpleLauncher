@@ -1,5 +1,4 @@
 using Avalonia.Controls;
-using Xunit;
 
 namespace SimpleLauncher.Avalonia.Tests;
 

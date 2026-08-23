@@ -109,7 +109,7 @@ public class AvaloniaLoadingOverlayService
             host.SetLoadingMessage("Loading\u2026");
         });
 
-        _ = host?.ResetUiAsync();
+        _ = host.ResetUiAsync();
         Log.Debug("[Emergency] User forced overlay dismissal via Return button.");
     }
 }

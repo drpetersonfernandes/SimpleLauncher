@@ -274,8 +274,8 @@ public class ScanSteamGames : IGamePlatformScanner
             if (!File.Exists(destArtworkPath))
             {
                 // Source mods usually have a game.ico in the root folder
-                var modIcon = Path.Combine(modDir, "game.ico");
 #if WINDOWS
+                var modIcon = Path.Combine(modDir, "game.ico");
                 if (File.Exists(modIcon))
                 {
                     try
@@ -322,6 +322,10 @@ public class ScanSteamGames : IGamePlatformScanner
 
     private static async Task TryCopySteamArtworkAsync(GameScannerService gameScannerService, ILogger logErrors, string steamPath, string appId, string gameName, string sanitizedGameName, string gameInstallPath, string windowsImagesPath)
     {
+        // steamPath/appId are used by the Windows-only Steam cache copy below; log them
+        // unconditionally so the parameters stay referenced on every target platform.
+        logErrors.Debug($"Steam artwork copy for '{gameName}' (app {appId}) using Steam path '{steamPath}'.");
+
         var destArtworkPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
         if (File.Exists(destArtworkPath)) return;
 

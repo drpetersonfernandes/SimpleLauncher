@@ -70,7 +70,7 @@ public class AvaloniaHelpUserServiceTests
     [Fact]
     public void GetHelpText_WithLocalization_ReturnsLocalizedNoSystemNameFallback()
     {
-        var localization = new SimpleLauncher.Avalonia.Services.LocalizationService();
+        var localization = new LocalizationService();
         var service = new AvaloniaHelpUserService(
             new Mock<ILogger>().Object,
             TestDependencies.MessageBox().Object,

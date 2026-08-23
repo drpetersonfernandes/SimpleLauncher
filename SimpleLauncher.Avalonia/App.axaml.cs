@@ -4,7 +4,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Http.Resilience;
 using Polly;
 using Serilog.Events;
 using System.Net.Security;
@@ -342,7 +341,7 @@ public class App : Application, IDisposable
         services.AddHttpClient("GameImageClient", client =>
         {
             var apiUrl = configuration.GetValue<string>("ApiSettings:GameImageUrl")
-                          ?? "https://simple-launcher-api.doutorpeterson.workers.dev/";
+                         ?? "https://simple-launcher-api.doutorpeterson.workers.dev/";
             client.BaseAddress = new Uri(apiUrl);
             client.Timeout = TimeSpan.FromSeconds(20);
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher.Avalonia/1.0");

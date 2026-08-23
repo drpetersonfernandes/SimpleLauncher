@@ -1,7 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.GameDetailWindow"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
         Title="Game Details"
         Width="500" Height="450"
         MinWidth="400" MinHeight="350"

@@ -36,23 +36,23 @@ internal static class HeadlessAvalonia
             var ready = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 
             var uiThread = new Thread(() =>
-            {
-                AppBuilder.Configure<Application>()
-                    .UseHeadless(new AvaloniaHeadlessPlatformOptions())
-                    .SetupWithoutStarting();
-
-                // Force the UI dispatcher to be created on this thread BEFORE the
-                // ready signal, so Dispatcher.UIThread is owned by the pump below.
-                _ = Dispatcher.UIThread;
-                ready.SetResult(true);
-
-                while (!Lifetime.IsCancellationRequested)
                 {
-                    Dispatcher.UIThread.RunJobs();
-                    Thread.Sleep(1);
-                }
-            })
-            { IsBackground = true, Name = "AvaloniaTestUiThread" };
+                    AppBuilder.Configure<Application>()
+                        .UseHeadless(new AvaloniaHeadlessPlatformOptions())
+                        .SetupWithoutStarting();
+
+                    // Force the UI dispatcher to be created on this thread BEFORE the
+                    // ready signal, so Dispatcher.UIThread is owned by the pump below.
+                    _ = Dispatcher.UIThread;
+                    ready.SetResult(true);
+
+                    while (!Lifetime.IsCancellationRequested)
+                    {
+                        Dispatcher.UIThread.RunJobs();
+                        Thread.Sleep(1);
+                    }
+                })
+                { IsBackground = true, Name = "AvaloniaTestUiThread" };
             uiThread.Start();
 
             if (!ready.Task.Wait(TimeSpan.FromSeconds(30)))

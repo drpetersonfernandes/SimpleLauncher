@@ -1,15 +1,11 @@
 using System.ComponentModel;
 using System.Diagnostics;
-using Avalonia.Controls;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Avalonia.Models;
-using SimpleLauncher.Avalonia.Services.Favorites;
-using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
-using SimpleLauncher.Core.Services.MameData;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.RetroAchievements;
 #if WINDOWS
@@ -38,6 +34,13 @@ public class AvaloniaContextMenuFunctions(
     private RetroAchievementsManager? _raManager;
     private IRetroAchievementsHasherTool? _raHasherTool;
     private IRetroAchievementsSystemMatcher? _raSystemMatcher;
+    private readonly LocalizationService _localization = localization;
+    private readonly PlaySoundEffects _playSoundEffects = playSoundEffects;
+    private readonly IMessageBoxLibraryService _messageBox = messageBox;
+    private readonly ILogger _logErrors = logErrors;
+    private readonly IConfiguration _configuration = configuration;
+    private readonly IFindCoverImageService _findCoverImage = findCoverImage;
+    private readonly IMameDataService _mameData = mameData;
 
     private RetroAchievementsManager RaManager => _raManager ??= App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
 
@@ -45,7 +48,10 @@ public class AvaloniaContextMenuFunctions(
 
     private IRetroAchievementsSystemMatcher RaSystemMatcher => _raSystemMatcher ??= App.ServiceProvider.GetRequiredService<IRetroAchievementsSystemMatcher>();
 
-    private string GetStatus(string key, string fallback) => localization.GetString(key) is { } s && s != key ? s : fallback;
+    private string GetStatus(string key, string fallback)
+    {
+        return _localization.GetString(key) is { } s && s != key ? s : fallback;
+    }
 
     /// <summary>
     /// Resolves the emulator to use: the emulator selected in the toolbar combo box
@@ -81,7 +87,7 @@ public class AvaloniaContextMenuFunctions(
                     SystemName = context.SelectedSystemName
                 });
 
-                playSoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
 
                 await context.FavoritesManager.SaveFavoritesAsync();
 
@@ -91,20 +97,20 @@ public class AvaloniaContextMenuFunctions(
                 }
 
                 context.MainViewModel.StatusText = GetStatus("FileAddedToFavorites", "File added to favorites.");
-                await messageBox.FileAddedToFavoritesMessageBoxAsync(context.FileNameWithExtension);
+                await _messageBox.FileAddedToFavoritesMessageBoxAsync(context.FileNameWithExtension);
 
                 // Keep dependent UI (favorites table hearts, etc.) in sync.
                 context.MainViewModel.RefreshFavoritesAndHistory();
             }
             else
             {
-                await messageBox.GameIsAlreadyInFavoritesMessageBoxAsync(context.FileNameWithExtension);
+                await _messageBox.GameIsAlreadyInFavoritesMessageBoxAsync(context.FileNameWithExtension);
             }
         }
         catch (Exception ex)
         {
-            logErrors.Error(ex, "An error occurred while adding a game to the favorites.");
-            await messageBox.ErrorWhileAddingFavoritesMessageBoxAsync();
+            _logErrors.Error(ex, "An error occurred while adding a game to the favorites.");
+            await _messageBox.ErrorWhileAddingFavoritesMessageBoxAsync();
         }
     }
 
@@ -126,7 +132,7 @@ public class AvaloniaContextMenuFunctions(
 
             context.FavoritesManager.FavoriteList.Remove(favoriteToRemove);
 
-            playSoundEffects.PlayTrashSound();
+            _playSoundEffects.PlayTrashSound();
 
             await context.FavoritesManager.SaveFavoritesAsync();
 
@@ -136,15 +142,15 @@ public class AvaloniaContextMenuFunctions(
             }
 
             context.MainViewModel.StatusText = GetStatus("FileRemovedFromFavorites", "File removed from favorites.");
-            await messageBox.FileRemovedFromFavoritesMessageBoxAsync(context.FileNameWithExtension);
+            await _messageBox.FileRemovedFromFavoritesMessageBoxAsync(context.FileNameWithExtension);
 
             context.OnFavoriteRemoved?.Invoke();
             context.MainViewModel.RefreshFavoritesAndHistory();
         }
         catch (Exception ex)
         {
-            logErrors.Error(ex, "An error occurred while removing a game from favorites.");
-            await messageBox.ErrorWhileRemovingGameFromFavoriteMessageBoxAsync();
+            _logErrors.Error(ex, "An error occurred while removing a game from favorites.");
+            await _messageBox.ErrorWhileRemovingGameFromFavoriteMessageBoxAsync();
         }
     }
 
@@ -159,27 +165,27 @@ public class AvaloniaContextMenuFunctions(
         if (system is null || string.IsNullOrEmpty(system.Emulators.FirstOrDefault()?.EmulatorName))
         {
             // Expected condition (no system/emulator configured); user is notified via the message box.
-            logErrors.Information("[ContextMenu] Launch requested but no system or emulator is configured for '{System}'.", context.SelectedSystemName);
-            await messageBox.CouldNotLaunchThisGameMessageBoxAsync(GetLogFilePath());
+            _logErrors.Information("[ContextMenu] Launch requested but no system or emulator is configured for '{System}'.", context.SelectedSystemName);
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(GetLogFilePath());
             return;
         }
 
         if (string.IsNullOrEmpty(context.FilePath))
         {
-            logErrors.Information("[ContextMenu] Launch requested but FilePath is null or empty.");
-            await messageBox.CouldNotLaunchThisGameMessageBoxAsync(GetLogFilePath());
+            _logErrors.Information("[ContextMenu] Launch requested but FilePath is null or empty.");
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(GetLogFilePath());
             return;
         }
 
         var selectedEmulatorName = ResolveEmulatorName(context);
         if (string.IsNullOrEmpty(selectedEmulatorName))
         {
-            logErrors.Information("[ContextMenu] Launch requested but no emulator name was resolved.");
-            await messageBox.CouldNotLaunchThisGameMessageBoxAsync(GetLogFilePath());
+            _logErrors.Information("[ContextMenu] Launch requested but no emulator name was resolved.");
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(GetLogFilePath());
             return;
         }
 
-        playSoundEffects.PlayNotificationSound();
+        _playSoundEffects.PlayNotificationSound();
 
         await context.MainViewModel.LaunchGameAtPathAsync(context.FilePath, context.SelectedSystemName);
     }
@@ -198,14 +204,14 @@ public class AvaloniaContextMenuFunctions(
         }
         catch (Win32Exception ex) when (ex.Message.Contains("No application is associated", StringComparison.OrdinalIgnoreCase))
         {
-            logErrors.Error(ex, "Win32Exception: No default application configured for opening web links (Video Link).");
-            await messageBox.NoDefaultBrowserConfiguredMessageBoxAsync();
+            _logErrors.Error(ex, "Win32Exception: No default application configured for opening web links (Video Link).");
+            await _messageBox.NoDefaultBrowserConfiguredMessageBoxAsync();
         }
         catch (Exception ex)
         {
-            logErrors.Error(ex, "There was a problem opening the Video Link.");
+            _logErrors.Error(ex, "There was a problem opening the Video Link.");
             context.MainViewModel.StatusText = GetStatus("ErrorOpeningVideoLink", "Error opening video link.");
-            await messageBox.ErrorOpeningVideoLinkMessageBoxAsync();
+            await _messageBox.ErrorOpeningVideoLinkMessageBoxAsync();
         }
     }
 
@@ -223,14 +229,14 @@ public class AvaloniaContextMenuFunctions(
         }
         catch (Win32Exception ex) when (ex.Message.Contains("No application is associated", StringComparison.OrdinalIgnoreCase))
         {
-            logErrors.Error(ex, "Win32Exception: No default application configured for opening web links (Info Link).");
-            await messageBox.NoDefaultBrowserConfiguredMessageBoxAsync();
+            _logErrors.Error(ex, "Win32Exception: No default application configured for opening web links (Info Link).");
+            await _messageBox.NoDefaultBrowserConfiguredMessageBoxAsync();
         }
         catch (Exception ex)
         {
-            logErrors.Error(ex, "There was a problem opening the Info Link.");
+            _logErrors.Error(ex, "There was a problem opening the Info Link.");
             context.MainViewModel.StatusText = GetStatus("ErrorOpeningInfoLink", "Error opening info link.");
-            await messageBox.ProblemOpeningInfoLinkMessageBoxAsync();
+            await _messageBox.ProblemOpeningInfoLinkMessageBoxAsync();
         }
     }
 
@@ -250,9 +256,9 @@ public class AvaloniaContextMenuFunctions(
         }
         catch (Exception ex)
         {
-            logErrors.Error(ex, "There was a problem opening the History window.");
+            _logErrors.Error(ex, "There was a problem opening the History window.");
             context.MainViewModel.StatusText = GetStatus("ErrorOpeningROMHistory", "Error opening ROM history.");
-            await messageBox.CouldNotOpenHistoryWindowMessageBoxAsync();
+            await _messageBox.CouldNotOpenHistoryWindowMessageBoxAsync();
         }
     }
 
@@ -269,8 +275,8 @@ public class AvaloniaContextMenuFunctions(
 
             if (string.IsNullOrWhiteSpace(settings.RaApiKey) || string.IsNullOrWhiteSpace(settings.RaUsername))
             {
-                await messageBox.AddRaLoginMessageBoxAsync();
-                playSoundEffects.PlayNotificationSound();
+                await _messageBox.AddRaLoginMessageBoxAsync();
+                _playSoundEffects.PlayNotificationSound();
 
                 var raSettingsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsSettingsWindow>();
                 await raSettingsWindow.ShowDialog(context.OwnerWindow);
@@ -282,21 +288,21 @@ public class AvaloniaContextMenuFunctions(
                 }
             }
 
-            logErrors.Debug($"[RA Service] Original system name: {context.SelectedSystemName}");
+            _logErrors.Debug($"[RA Service] Original system name: {context.SelectedSystemName}");
             var raSystemName = RaSystemMatcher.GetBestMatchSystemName(context.SelectedSystemName);
-            logErrors.Debug($"[RA Service] Resolved system name: {raSystemName}");
+            _logErrors.Debug($"[RA Service] Resolved system name: {raSystemName}");
 
             var system = context.SelectedSystemManager.GetSystem(context.SelectedSystemName);
 
             // Check if system is supported for RetroAchievements
             if (!RaHasherTool.IsSystemSupportedForHashing(context.SelectedSystemName))
             {
-                logErrors.Debug($"[RA Service] System '{context.SelectedSystemName}' is not supported for RetroAchievements.");
+                _logErrors.Debug($"[RA Service] System '{context.SelectedSystemName}' is not supported for RetroAchievements.");
 
-                var messageBoxResult = await messageBox.GameNotSupportedByRetroAchievementsMessageBoxAsync();
+                var messageBoxResult = await _messageBox.GameNotSupportedByRetroAchievementsMessageBoxAsync();
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    playSoundEffects.PlayNotificationSound();
+                    _playSoundEffects.PlayNotificationSound();
                     context.MainViewModel.StatusText = GetStatus("OpeningRetroAchievements", "Opening RetroAchievements...");
                     var retroAchievementsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsWindow>();
                     retroAchievementsWindow.Show(context.OwnerWindow);
@@ -308,28 +314,28 @@ public class AvaloniaContextMenuFunctions(
             // Disable Hash calculation for systems that Group Files by Folder
             if (system is { GroupByFolder: true })
             {
-                await messageBox.SimpleLauncherDoesNotSupportRaHashOfSystemGroupedByFolderMessageBoxAsync();
-                logErrors.Debug("[RA Service] 'Simple Launcher' does not support RetroAchievements hash of systems Grouped by Folder.");
+                await _messageBox.SimpleLauncherDoesNotSupportRaHashOfSystemGroupedByFolderMessageBoxAsync();
+                _logErrors.Debug("[RA Service] 'Simple Launcher' does not support RetroAchievements hash of systems Grouped by Folder.");
                 return;
             }
 
             if (!File.Exists(context.FilePath))
             {
-                logErrors.Debug($"[RA Service] File not found at {context.FilePath}");
-                logErrors.Warning($"[RA Service] File not found at {context.FilePath}");
-                await messageBox.CouldNotFindAFileMessageBoxAsync();
+                _logErrors.Debug($"[RA Service] File not found at {context.FilePath}");
+                _logErrors.Warning($"[RA Service] File not found at {context.FilePath}");
+                await _messageBox.CouldNotFindAFileMessageBoxAsync();
                 return;
             }
 
             if (string.IsNullOrEmpty(raSystemName))
             {
-                logErrors.Debug("[RA Service] SystemName is null or empty after matching.");
-                logErrors.Warning("[RA Service] SystemName is null or empty after matching.");
+                _logErrors.Debug("[RA Service] SystemName is null or empty after matching.");
+                _logErrors.Warning("[RA Service] SystemName is null or empty after matching.");
 
-                var messageBoxResult = await messageBox.GameNotSupportedByRetroAchievementsMessageBoxAsync();
+                var messageBoxResult = await _messageBox.GameNotSupportedByRetroAchievementsMessageBoxAsync();
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    playSoundEffects.PlayNotificationSound();
+                    _playSoundEffects.PlayNotificationSound();
                     context.MainViewModel.StatusText = GetStatus("OpeningRetroAchievements", "Opening RetroAchievements...");
                     var retroAchievementsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsWindow>();
                     retroAchievementsWindow.Show(context.OwnerWindow);
@@ -348,11 +354,11 @@ public class AvaloniaContextMenuFunctions(
             await Task.Delay(100);
 
             var raHashResult = await RaHasherTool.GetGameHashForRetroAchievementsAsync(
-                context.FilePath, raSystemName, system?.FileFormatsToLaunch ?? [], context.MainViewModel, logErrors);
+                context.FilePath, raSystemName, system?.FileFormatsToLaunch ?? [], context.MainViewModel, _logErrors);
 
             if (string.Equals(raHashResult.ExtractionErrorMessage, "System selection cancelled by user.", StringComparison.Ordinal))
             {
-                logErrors.Debug("[RA Service] User cancelled RetroAchievements hashing.");
+                _logErrors.Debug("[RA Service] User cancelled RetroAchievements hashing.");
                 return;
             }
 
@@ -362,15 +368,15 @@ public class AvaloniaContextMenuFunctions(
             // Prioritize checking if a hash was successfully obtained.
             if (string.IsNullOrEmpty(hash))
             {
-                logErrors.Debug($"[RA Service] Failed to get hash for '{context.FileNameWithoutExtension}' (System: {raSystemName}). Reason: {raHashResult.ExtractionErrorMessage}");
+                _logErrors.Debug($"[RA Service] Failed to get hash for '{context.FileNameWithoutExtension}' (System: {raSystemName}). Reason: {raHashResult.ExtractionErrorMessage}");
 
                 if (raHashResult.ExtractionErrorMessage?.Contains("not supported for RetroAchievements hashing", StringComparison.OrdinalIgnoreCase) == true
                     || raHashResult.IsExtractionSuccessful)
                 {
-                    var messageBoxResult = await messageBox.GameNotSupportedByRetroAchievementsMessageBoxAsync();
+                    var messageBoxResult = await _messageBox.GameNotSupportedByRetroAchievementsMessageBoxAsync();
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
-                        playSoundEffects.PlayNotificationSound();
+                        _playSoundEffects.PlayNotificationSound();
                         context.MainViewModel.StatusText = GetStatus("OpeningRetroAchievements", "Opening RetroAchievements...");
                         var retroAchievementsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsWindow>();
                         retroAchievementsWindow.Show(context.OwnerWindow);
@@ -378,20 +384,20 @@ public class AvaloniaContextMenuFunctions(
                 }
                 else
                 {
-                    await messageBox.ExtractionFailedMessageBoxAsync();
+                    await _messageBox.ExtractionFailedMessageBoxAsync();
                 }
 
                 return;
             }
 
-            logErrors.Debug($"[RA Service] Successfully obtained hash: {hash}");
+            _logErrors.Debug($"[RA Service] Successfully obtained hash: {hash}");
 
             // Use the lookup method from RetroAchievementsManager
             var matchedGame = RaManager.GetGameInfoByHash(hash);
 
             if (matchedGame != null)
             {
-                logErrors.Debug($"[RA Service] Found match for hash: {hash} -> {matchedGame.Title} (ID: {matchedGame.Id})");
+                _logErrors.Debug($"[RA Service] Found match for hash: {hash} -> {matchedGame.Title} (ID: {matchedGame.Id})");
 
                 var achievementsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsForAGameWindow>();
                 achievementsWindow.Initialize(matchedGame.Id, context.FileNameWithoutExtension);
@@ -399,12 +405,12 @@ public class AvaloniaContextMenuFunctions(
             }
             else
             {
-                logErrors.Debug($"[RA Service] No match found for hash: {hash}");
+                _logErrors.Debug($"[RA Service] No match found for hash: {hash}");
 
-                var messageBoxResult = await messageBox.GameNotSupportedByRetroAchievementsMessageBoxAsync();
+                var messageBoxResult = await _messageBox.GameNotSupportedByRetroAchievementsMessageBoxAsync();
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    playSoundEffects.PlayNotificationSound();
+                    _playSoundEffects.PlayNotificationSound();
                     context.MainViewModel.StatusText = GetStatus("OpeningRetroAchievements", "Opening RetroAchievements...");
                     var retroAchievementsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsWindow>();
                     retroAchievementsWindow.Show(context.OwnerWindow);
@@ -413,8 +419,8 @@ public class AvaloniaContextMenuFunctions(
         }
         catch (Exception ex)
         {
-            logErrors.Error(ex, $"[RA Service] An unexpected error occurred while processing achievements for {context.FileNameWithoutExtension}.");
-            await messageBox.CouldNotOpenAchievementsWindowMessageBoxAsync();
+            _logErrors.Error(ex, $"[RA Service] An unexpected error occurred while processing achievements for {context.FileNameWithoutExtension}.");
+            await _messageBox.CouldNotOpenAchievementsWindowMessageBoxAsync();
         }
         finally
         {
@@ -425,7 +431,7 @@ public class AvaloniaContextMenuFunctions(
             if (!string.IsNullOrEmpty(tempExtractionPath))
             {
                 await CleanTempFolder.CleanupTempDirectoryAsync(tempExtractionPath);
-                logErrors.Debug($"[RA Service] Cleaned up temporary extraction folder: {tempExtractionPath}");
+                _logErrors.Debug($"[RA Service] Cleaned up temporary extraction folder: {tempExtractionPath}");
             }
         }
     }
@@ -439,7 +445,7 @@ public class AvaloniaContextMenuFunctions(
         var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(
             context.SelectedSystemManager.GetSystem(context.SelectedSystemName)?.SystemImageFolder);
         var globalImageDirectory = Path.Combine(baseDirectory, "images", context.SelectedSystemName);
-        var imageExtensions = configuration.GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
+        var imageExtensions = _configuration.GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
 
         if (TryFindImage(resolvedSystemImageFolder, context.FileNameWithoutExtension, imageExtensions, out var foundImagePath)
             || TryFindImage(globalImageDirectory, context.FileNameWithoutExtension, imageExtensions, out foundImagePath))
@@ -450,7 +456,7 @@ public class AvaloniaContextMenuFunctions(
         }
         else
         {
-            await messageBox.ThereIsNoCoverMessageBoxAsync();
+            await _messageBox.ThereIsNoCoverMessageBoxAsync();
         }
     }
 
@@ -459,7 +465,7 @@ public class AvaloniaContextMenuFunctions(
     {
         context.MainViewModel.StatusText = GetStatus("OpeningTitleSnapshot", "Opening title snapshot...");
         await OpenImageInSubfolderAsync(context, Path.Combine("title_snapshots", context.SelectedSystemName),
-            () => messageBox.ThereIsNoTitleSnapshotMessageBoxAsync());
+            () => _messageBox.ThereIsNoTitleSnapshotMessageBoxAsync());
     }
 
     /// <summary>Opens the gameplay snapshot image for the specified game in an image viewer window.</summary>
@@ -467,7 +473,7 @@ public class AvaloniaContextMenuFunctions(
     {
         context.MainViewModel.StatusText = GetStatus("OpeningGameplaySnapshot", "Opening gameplay snapshot...");
         await OpenImageInSubfolderAsync(context, Path.Combine("gameplay_snapshots", context.SelectedSystemName),
-            () => messageBox.ThereIsNoGameplaySnapshotMessageBoxAsync());
+            () => _messageBox.ThereIsNoGameplaySnapshotMessageBoxAsync());
     }
 
     /// <summary>Opens the cart image for the specified game in an image viewer window.</summary>
@@ -475,7 +481,7 @@ public class AvaloniaContextMenuFunctions(
     {
         context.MainViewModel.StatusText = GetStatus("OpeningCartImage", "Opening cart image...");
         await OpenImageInSubfolderAsync(context, Path.Combine("carts", context.SelectedSystemName),
-            () => messageBox.ThereIsNoCartMessageBoxAsync());
+            () => _messageBox.ThereIsNoCartMessageBoxAsync());
     }
 
     /// <summary>Plays the video file for the specified game using the default media player.</summary>
@@ -494,7 +500,7 @@ public class AvaloniaContextMenuFunctions(
             return;
         }
 
-        await messageBox.ThereIsNoVideoFileMessageBoxAsync();
+        await _messageBox.ThereIsNoVideoFileMessageBoxAsync();
     }
 
     /// <summary>Opens the PDF manual for the specified game using the default PDF viewer.</summary>
@@ -502,8 +508,8 @@ public class AvaloniaContextMenuFunctions(
     {
         context.MainViewModel.StatusText = GetStatus("OpeningManual", "Opening manual...");
         await OpenPdfInSubfolderAsync(context, Path.Combine("manuals", context.SelectedSystemName),
-            () => messageBox.ThereIsNoManualMessageBoxAsync(),
-            () => messageBox.CouldNotOpenManualMessageBoxAsync());
+            () => _messageBox.ThereIsNoManualMessageBoxAsync(),
+            () => _messageBox.CouldNotOpenManualMessageBoxAsync());
     }
 
     /// <summary>Opens the PDF walkthrough for the specified game using the default PDF viewer.</summary>
@@ -511,8 +517,8 @@ public class AvaloniaContextMenuFunctions(
     {
         context.MainViewModel.StatusText = GetStatus("OpeningWalkthrough", "Opening walkthrough...");
         await OpenPdfInSubfolderAsync(context, Path.Combine("walkthrough", context.SelectedSystemName),
-            () => messageBox.ThereIsNoWalkthroughMessageBoxAsync(),
-            () => messageBox.CouldNotOpenWalkthroughMessageBoxAsync());
+            () => _messageBox.ThereIsNoWalkthroughMessageBoxAsync(),
+            () => _messageBox.CouldNotOpenWalkthroughMessageBoxAsync());
     }
 
     /// <summary>Opens the cabinet image for the specified game in an image viewer window.</summary>
@@ -520,7 +526,7 @@ public class AvaloniaContextMenuFunctions(
     {
         context.MainViewModel.StatusText = GetStatus("OpeningCabinetImage", "Opening cabinet image...");
         await OpenImageInSubfolderAsync(context, Path.Combine("cabinets", context.SelectedSystemName),
-            () => messageBox.ThereIsNoCabinetMessageBoxAsync());
+            () => _messageBox.ThereIsNoCabinetMessageBoxAsync());
     }
 
     /// <summary>Opens the flyer image for the specified game in an image viewer window.</summary>
@@ -528,7 +534,7 @@ public class AvaloniaContextMenuFunctions(
     {
         context.MainViewModel.StatusText = GetStatus("OpeningFlyerImage", "Opening flyer image...");
         await OpenImageInSubfolderAsync(context, Path.Combine("flyers", context.SelectedSystemName),
-            () => messageBox.ThereIsNoFlyerMessageBoxAsync());
+            () => _messageBox.ThereIsNoFlyerMessageBoxAsync());
     }
 
     /// <summary>Opens the PCB (printed circuit board) image for the specified game in an image viewer window.</summary>
@@ -536,7 +542,7 @@ public class AvaloniaContextMenuFunctions(
     {
         context.MainViewModel.StatusText = GetStatus("OpeningPCBImage", "Opening PCB image...");
         await OpenImageInSubfolderAsync(context, Path.Combine("pcbs", context.SelectedSystemName),
-            () => messageBox.ThereIsNoPcbMessageBoxAsync());
+            () => _messageBox.ThereIsNoPcbMessageBoxAsync());
     }
 
     /// <summary>
@@ -562,20 +568,20 @@ public class AvaloniaContextMenuFunctions(
             }
             catch (Exception ex)
             {
-                logErrors.Error(ex, $"[TakeScreenshotOfSelectedWindow] Could not create the system image folder: {systemImageFolder}");
+                _logErrors.Error(ex, $"[TakeScreenshotOfSelectedWindow] Could not create the system image folder: {systemImageFolder}");
             }
 
 #if WINDOWS
             await TakeScreenshotWindowsAsync(context, systemImageFolder);
 #else
             await Task.CompletedTask;
-            await messageBox.ErrorMessageBoxAsync();
+            await _messageBox.ErrorMessageBoxAsync();
 #endif
         }
         catch (Exception ex)
         {
-            logErrors.Error(ex, "[TakeScreenshotOfSelectedWindow] There was a problem saving the screenshot.");
-            await messageBox.CouldNotSaveScreenshotMessageBoxAsync();
+            _logErrors.Error(ex, "[TakeScreenshotOfSelectedWindow] There was a problem saving the screenshot.");
+            await _messageBox.CouldNotSaveScreenshotMessageBoxAsync();
         }
     }
 
@@ -584,7 +590,7 @@ public class AvaloniaContextMenuFunctions(
     {
         // Capture initial window count before launch
         var initialCount = CoreWindowManager.GetOpenWindows().Count;
-        logErrors.Debug($"[Screenshot] Initial window count: {initialCount}");
+        _logErrors.Debug($"[Screenshot] Initial window count: {initialCount}");
 
         // Launch game (fire and forget, as in WPF)
         _ = context.MainViewModel.LaunchGameAtPathAsync(context.FilePath, context.SelectedSystemName);
@@ -606,7 +612,7 @@ public class AvaloniaContextMenuFunctions(
             if (currentCount > initialCount)
             {
                 // New window(s) appeared - assume game/emulator launched
-                logErrors.Debug($"[Screenshot] New window detected. Current count: {currentCount} (initial: {initialCount})");
+                _logErrors.Debug($"[Screenshot] New window detected. Current count: {currentCount} (initial: {initialCount})");
                 newWindowDetected = true;
                 break;
             }
@@ -617,8 +623,8 @@ public class AvaloniaContextMenuFunctions(
         if (!newWindowDetected)
         {
             // Timeout - no new windows appeared
-            logErrors.Debug($"[Screenshot] Timeout after {stopwatch.Elapsed.TotalSeconds:F1}s. No new windows detected.");
-            await messageBox.GameLaunchTimeoutMessageBoxAsync();
+            _logErrors.Debug($"[Screenshot] Timeout after {stopwatch.Elapsed.TotalSeconds:F1}s. No new windows detected.");
+            await _messageBox.GameLaunchTimeoutMessageBoxAsync();
             return;
         }
 
@@ -646,8 +652,8 @@ public class AvaloniaContextMenuFunctions(
         // Add a check for invalid dimensions (i.e., a minimized window)
         if (width <= 0 || height <= 0)
         {
-            await messageBox.CannotScreenshotMinimizedWindowMessageBoxAsync();
-            logErrors.Debug("Cannot take a screenshot of a minimized window.");
+            await _messageBox.CannotScreenshotMinimizedWindowMessageBoxAsync();
+            _logErrors.Debug("Cannot take a screenshot of a minimized window.");
             return;
         }
 
@@ -655,9 +661,9 @@ public class AvaloniaContextMenuFunctions(
         var screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
 
         // Capture the window into a bitmap and save it
-        AvaloniaWindowCapture.CaptureRectangleToPng(rectangle.Left, rectangle.Top, width, height, screenshotPath, logErrors);
+        AvaloniaWindowCapture.CaptureRectangleToPng(rectangle.Left, rectangle.Top, width, height, screenshotPath, _logErrors);
 
-        playSoundEffects.PlayShutterSound();
+        _playSoundEffects.PlayShutterSound();
 
         // Wait, then show the flash effect
         await Task.Delay(1000);
@@ -681,9 +687,9 @@ public class AvaloniaContextMenuFunctions(
             {
                 await DeleteFiles.TryDeleteFileAsync(context.FilePath);
 
-                playSoundEffects.PlayTrashSound();
+                _playSoundEffects.PlayTrashSound();
 
-                await messageBox.FileSuccessfullyDeletedMessageBoxAsync(context.FileNameWithExtension);
+                await _messageBox.FileSuccessfullyDeletedMessageBoxAsync(context.FileNameWithExtension);
 
                 // Remove the deleted game from favorites so the entry does not linger.
                 await RemoveFromFavoritesSilentlyAsync(context);
@@ -694,15 +700,15 @@ public class AvaloniaContextMenuFunctions(
             catch (Exception ex)
             {
                 var errorMessage = $"An error occurred while trying to delete the file '{context.FileNameWithExtension}'.";
-                logErrors.Error(ex, errorMessage);
+                _logErrors.Error(ex, errorMessage);
 
-                await messageBox.FileCouldNotBeDeletedMessageBoxAsync(context.FileNameWithExtension);
+                await _messageBox.FileCouldNotBeDeletedMessageBoxAsync(context.FileNameWithExtension);
             }
         }
         else
         {
             // Notify user the file no longer exists
-            await messageBox.FileNoLongerExistsMessageBoxAsync(context.FileNameWithExtension);
+            await _messageBox.FileNoLongerExistsMessageBoxAsync(context.FileNameWithExtension);
 
             // Refresh the game list to remove the stale entry
             await RefreshCurrentGameListAsync(context);
@@ -716,11 +722,11 @@ public class AvaloniaContextMenuFunctions(
     {
         context.MainViewModel.StatusText = GetStatus("DeletingCoverImage", "Deleting cover image...");
         var systemImageFolder = context.SelectedSystemManager.GetSystem(context.SelectedSystemName)?.SystemImageFolder ?? "";
-        var coverPath = findCoverImage.FindCoverImagePath(context.FileNameWithoutExtension, context.SelectedSystemName, systemImageFolder);
+        var coverPath = _findCoverImage.FindCoverImagePath(context.FileNameWithoutExtension, context.SelectedSystemName, systemImageFolder);
 
         try
         {
-            playSoundEffects.PlayTrashSound();
+            _playSoundEffects.PlayTrashSound();
 
             if ((string.Equals(Path.GetFileNameWithoutExtension(coverPath), context.FileNameWithoutExtension, StringComparison.Ordinal))
                 && (!string.Equals(Path.GetFileNameWithoutExtension(coverPath), "default", StringComparison.Ordinal)))
@@ -732,7 +738,7 @@ public class AvaloniaContextMenuFunctions(
 
             if (!File.Exists(coverPath))
             {
-                await messageBox.FileSuccessfullyDeletedMessageBoxAsync(coverPath);
+                await _messageBox.FileSuccessfullyDeletedMessageBoxAsync(coverPath);
 
                 // Invalidate the cards' cached covers and reload the current Game List
                 await RefreshCurrentGameListAsync(context);
@@ -741,9 +747,9 @@ public class AvaloniaContextMenuFunctions(
         catch (Exception ex)
         {
             var errorMessage = $"An error occurred while trying to delete the game cover '{coverPath}'.";
-            logErrors.Error(ex, errorMessage);
+            _logErrors.Error(ex, errorMessage);
 
-            await messageBox.FileCouldNotBeDeletedMessageBoxAsync(coverPath);
+            await _messageBox.FileCouldNotBeDeletedMessageBoxAsync(coverPath);
         }
     }
 
@@ -751,7 +757,7 @@ public class AvaloniaContextMenuFunctions(
 
     private string GetLogFilePath()
     {
-        return PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ?? "error_user.log");
+        return PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
     }
 
     /// <summary>
@@ -759,13 +765,13 @@ public class AvaloniaContextMenuFunctions(
     /// </summary>
     private string ResolveSearchTerm(AvaloniaRightClickContext context)
     {
-        return mameData.Lookup.TryGetValue(context.FileNameWithoutExtension, out var description)
+        return _mameData.Lookup.TryGetValue(context.FileNameWithoutExtension, out var description)
                && !string.IsNullOrWhiteSpace(description)
             ? description
             : context.FileNameWithoutExtension;
     }
 
-    private void OpenUrl(string url)
+    private static void OpenUrl(string url)
     {
         if (OperatingSystem.IsWindows())
         {
@@ -777,7 +783,7 @@ public class AvaloniaContextMenuFunctions(
         }
     }
 
-    private void OpenUrlOrFile(string path)
+    private static void OpenUrlOrFile(string path)
     {
         if (OperatingSystem.IsWindows())
         {
@@ -789,7 +795,7 @@ public class AvaloniaContextMenuFunctions(
         }
     }
 
-    private bool TryFindImage(string? directory, string fileNameWithoutExtension, string[] extensions, out string? foundPath)
+    private static bool TryFindImage(string? directory, string fileNameWithoutExtension, string[] extensions, out string? foundPath)
     {
         foundPath = null;
         if (string.IsNullOrEmpty(directory) || !Directory.Exists(directory))
@@ -812,7 +818,7 @@ public class AvaloniaContextMenuFunctions(
     private async Task OpenImageInSubfolderAsync(AvaloniaRightClickContext context, string directoryRelative, Func<Task> notFoundMessage)
     {
         var directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, directoryRelative);
-        var extensions = configuration.GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
+        var extensions = _configuration.GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
 
         foreach (var extension in extensions)
         {
@@ -846,12 +852,12 @@ public class AvaloniaContextMenuFunctions(
         catch (Win32Exception ex) when (ex.NativeErrorCode == 1155) // ERROR_NO_ASSOCIATION
         {
             // No application is associated with the file format (no PDF viewer installed)
-            logErrors.Error(ex, "There was a problem opening the PDF. No PDF viewer is installed.");
-            await messageBox.NoPdfViewerInstalledMessageBoxAsync();
+            _logErrors.Error(ex, "There was a problem opening the PDF. No PDF viewer is installed.");
+            await _messageBox.NoPdfViewerInstalledMessageBoxAsync();
         }
         catch (Exception ex)
         {
-            logErrors.Error(ex, "There was a problem opening the PDF.");
+            _logErrors.Error(ex, "There was a problem opening the PDF.");
             await couldNotOpenMessage();
         }
     }
@@ -876,26 +882,35 @@ public class AvaloniaContextMenuFunctions(
         }
         catch (Exception ex)
         {
-            logErrors.Error(ex, "Error removing the favorite entry of a deleted game.");
+            _logErrors.Error(ex, "Error removing the favorite entry of a deleted game.");
         }
     }
 
     /// <summary>
     /// Reloads the currently displayed game list (WPF LoadGameFilesAsync parity).
     /// </summary>
-    private async Task RefreshCurrentGameListAsync(AvaloniaRightClickContext context)
+    private Task RefreshCurrentGameListAsync(AvaloniaRightClickContext context)
     {
         try
         {
-            var mainViewModel = context.MainViewModel;
-            if (!string.IsNullOrEmpty(mainViewModel.SelectedSystem))
+            try
             {
-                mainViewModel.NavigateToSystemCommand.Execute(mainViewModel.SelectedSystem);
+                var mainViewModel = context.MainViewModel;
+                if (!string.IsNullOrEmpty(mainViewModel.SelectedSystem))
+                {
+                    mainViewModel.NavigateToSystemCommand.Execute(mainViewModel.SelectedSystem);
+                }
             }
+            catch (Exception ex)
+            {
+                _logErrors.Error(ex, "[ContextMenu] There was a problem reloading the Game List.");
+            }
+
+            return Task.CompletedTask;
         }
-        catch (Exception ex)
+        catch (Exception exception)
         {
-            logErrors.Error(ex, "[ContextMenu] There was a problem reloading the Game List.");
+            return Task.FromException(exception);
         }
     }
 }

@@ -1,5 +1,4 @@
 using Avalonia.Controls;
-using Avalonia.Media.Imaging;
 using SimpleLauncher.Avalonia.ViewModels;
 
 namespace SimpleLauncher.Avalonia;

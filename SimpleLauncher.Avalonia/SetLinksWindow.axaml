@@ -1,7 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.SetLinksWindow"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
         Title="Edit Links"
         Width="600" MinWidth="600"
         Height="270"

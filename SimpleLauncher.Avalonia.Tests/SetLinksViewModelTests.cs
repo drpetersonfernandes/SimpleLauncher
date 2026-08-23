@@ -58,7 +58,7 @@ public class SetLinksViewModelTests
     [Fact]
     public async Task Save_PreservesEnteredValues_AndRaisesSaveCompleted()
     {
-        var vm = CreateVm(out var messageBox, out var settings);
+        var vm = CreateVm(out _, out var settings);
         vm.VideoUrl = "https://my.example/search?q=";
         vm.InfoUrl = "https://my.example/info?q=";
         var saved = false;

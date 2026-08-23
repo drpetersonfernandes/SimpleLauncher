@@ -30,9 +30,11 @@ public class GameScannerServiceTests : IDisposable
     /// </summary>
     private sealed class FakeScanner(List<(string Name, string ExePath)> games) : IGamePlatformScanner
     {
+        private readonly List<(string Name, string ExePath)> _games = games;
+
         public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
         {
-            foreach (var (name, exePath) in games)
+            foreach (var (name, exePath) in _games)
             {
                 if (ignoredGameNames.Contains(name)) continue;
                 if (string.IsNullOrWhiteSpace(exePath)) continue;

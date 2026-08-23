@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Text.Json;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
@@ -29,7 +28,6 @@ using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.ExternalToolLauncher;
 using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.PlaySound;
-using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Avalonia;
@@ -163,6 +161,7 @@ public partial class MainWindow : Window, IPaginationHost
                 _ = _gamePadController.StartAsync();
                 Log.Debug("Gamepad controller restarted on window activation.");
             }
+
             _wasControllerRunningBeforeDeactivation = false;
         };
         Deactivated += (_, _) =>
@@ -186,7 +185,7 @@ public partial class MainWindow : Window, IPaginationHost
             // Unsubscribe event handlers to prevent memory leaks
             _viewModel.ToastRequested -= _toastRequestedHandler;
             _fileWatcher.GameFilesChanged -= _gameFilesChangedHandler;
-            RemoveHandler(InputElement.PointerWheelChangedEvent, _pointerWheelChangedHandler);
+            RemoveHandler(PointerWheelChangedEvent, _pointerWheelChangedHandler);
 
             _shutdownWatchdogCts?.Cancel();
             _shutdownWatchdogCts?.Dispose();
@@ -224,7 +223,7 @@ public partial class MainWindow : Window, IPaginationHost
 
         // Ctrl+wheel zooms the card size over the game grid (WPF MainWindow_MouseWheelAsync parity).
         _pointerWheelChangedHandler = OnPointerWheelChangedForZoom;
-        AddHandler(InputElement.PointerWheelChangedEvent, _pointerWheelChangedHandler, handledEventsToo: true);
+        AddHandler(PointerWheelChangedEvent, _pointerWheelChangedHandler, handledEventsToo: true);
 
         // Live library refresh: when a watched ROM folder changes on disk, reload the
         // current view on the UI thread (same debounced behavior as the WPF app).
@@ -1204,8 +1203,7 @@ public partial class MainWindow : Window, IPaginationHost
         {
             if (e.InitialPressMouseButton != MouseButton.Right) return;
             if (e.Source is not Visual favoritesVisual
-                || FindParent<DataGridRow>(favoritesVisual) is not { } row
-                || row.DataContext is not FavoriteRowViewModel favorite)
+                || FindParent<DataGridRow>(favoritesVisual) is not { DataContext: FavoriteRowViewModel favorite })
             {
                 return;
             }
@@ -1234,9 +1232,9 @@ public partial class MainWindow : Window, IPaginationHost
         try
         {
             if (e.InitialPressMouseButton != MouseButton.Right) return;
+
             if (e.Source is not Visual historyVisual
-                || FindParent<DataGridRow>(historyVisual) is not { } row
-                || row.DataContext is not PlayHistoryItem item)
+                || FindParent<DataGridRow>(historyVisual) is not { DataContext: PlayHistoryItem item })
             {
                 return;
             }
@@ -1258,8 +1256,7 @@ public partial class MainWindow : Window, IPaginationHost
         {
             if (e.InitialPressMouseButton != MouseButton.Right) return;
             if (e.Source is not Visual searchVisual
-                || FindParent<DataGridRow>(searchVisual) is not { } row
-                || row.DataContext is not SearchResult result)
+                || FindParent<DataGridRow>(searchVisual) is not { DataContext: SearchResult result })
             {
                 return;
             }

@@ -17,6 +17,7 @@ public partial class DownloadImagePackWindow : Window, IDisposable
     /// </summary>
     /// <param name="logErrors">The logger instance for error logging.</param>
     /// <param name="viewModel">The view model providing download and extraction logic.</param>
+    /// <param name="localization">The localization service used to set localized UI strings.</param>
     public DownloadImagePackWindow(ILogger logErrors, DownloadImagePackViewModel viewModel,
         Services.LocalizationService localization)
     {

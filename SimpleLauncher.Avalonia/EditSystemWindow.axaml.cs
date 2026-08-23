@@ -41,7 +41,7 @@ public partial class EditSystemWindow : Window
     private readonly IParameterResolverService _parameterResolver;
     private readonly string? _preSelectedSystemName;
     private readonly AvaloniaHelpUserService _helpUserService;
-    private readonly Services.LocalizationService _localization;
+    private readonly LocalizationService _localization;
 
     private List<SystemManagerConfig> _systems = [];
     private string? _originalSystemName;
@@ -58,7 +58,7 @@ public partial class EditSystemWindow : Window
         PlayHistoryManager playHistoryManager,
         IParameterResolverService parameterResolver,
         AvaloniaHelpUserService helpUserService,
-        Services.LocalizationService localization,
+        LocalizationService localization,
         string? preSelectedSystemName = null)
     {
         InitializeComponent();
@@ -166,21 +166,28 @@ public partial class EditSystemWindow : Window
 
     private async void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var currentSelectedSystemName = SystemNameDropdown.SelectedItem?.ToString();
-        _originalSystemName = currentSelectedSystemName;
+        try
+        {
+            var currentSelectedSystemName = SystemNameDropdown.SelectedItem?.ToString();
+            _originalSystemName = currentSelectedSystemName;
 
-        if (currentSelectedSystemName == null)
-        {
-            ClearFieldsForNoSelection();
-            DisableAllEditableFields();
-            SaveSystemButton.IsEnabled = false;
-            DeleteSystemButton.IsEnabled = false;
-            StatusTextBlock.Text = "Select a system to edit, or click Add New to create one.";
-            ClearSystemHelp();
+            if (currentSelectedSystemName == null)
+            {
+                ClearFieldsForNoSelection();
+                DisableAllEditableFields();
+                SaveSystemButton.IsEnabled = false;
+                DeleteSystemButton.IsEnabled = false;
+                StatusTextBlock.Text = "Select a system to edit, or click Add New to create one.";
+                ClearSystemHelp();
+            }
+            else
+            {
+                await LoadSystemDetails(currentSelectedSystemName);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            await LoadSystemDetails(currentSelectedSystemName);
+            _logger.Error(ex, "Error in method SystemNameDropdown_SelectionChanged");
         }
     }
 

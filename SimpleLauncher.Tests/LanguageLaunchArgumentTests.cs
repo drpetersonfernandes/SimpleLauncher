@@ -21,7 +21,7 @@ public class LanguageLaunchArgumentTests
 
     public static TheoryData<string[]> AbsentCases => new()
     {
-        { Array.Empty<string>() },
+        Array.Empty<string>(),
         { ["-debug"] },
         { ["--language"] }, // missing value
         { ["--restarting"] }

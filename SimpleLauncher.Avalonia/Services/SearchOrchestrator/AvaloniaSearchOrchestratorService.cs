@@ -1,5 +1,3 @@
-using SimpleLauncher.Avalonia.ViewModels;
-
 namespace SimpleLauncher.Avalonia.Services.SearchOrchestrator;
 
 /// <summary>
@@ -34,9 +32,13 @@ public class SearchValidationResult
     public bool IsValid { get; init; }
     public string ValidatedQuery { get; init; } = "";
 
-    public static SearchValidationResult Success(string query) =>
-        new() { IsValid = true, ValidatedQuery = query };
+    public static SearchValidationResult Success(string query)
+    {
+        return new SearchValidationResult { IsValid = true, ValidatedQuery = query };
+    }
 
-    public static SearchValidationResult Failure() =>
-        new() { IsValid = false };
+    public static SearchValidationResult Failure()
+    {
+        return new SearchValidationResult { IsValid = false };
+    }
 }

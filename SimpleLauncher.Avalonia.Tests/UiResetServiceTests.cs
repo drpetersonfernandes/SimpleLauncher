@@ -33,8 +33,11 @@ public class UiResetServiceTests
         await _service.ResetUiAsync();
 
         _host.Verify(h => h.SetSearchTextBoxText(""), Times.Once);
+        // ReSharper disable once PlaceAssignmentExpressionIntoBlock
         _host.VerifySet(h => h.CurrentFilter = null, Times.Once);
+        // ReSharper disable once PlaceAssignmentExpressionIntoBlock
         _host.VerifySet(h => h.ActiveSearchQueryOrMode = null, Times.Once);
+        // ReSharper disable once PlaceAssignmentExpressionIntoBlock
         _host.VerifySet(h => h.SelectedSystem = null, Times.Once);
         _host.Verify(h => h.ClearPreviewImage(), Times.Once);
         _host.Verify(h => h.SetSystemComboBoxSelectedItem(null), Times.Once);
@@ -58,6 +61,7 @@ public class UiResetServiceTests
         await _service.ResetUiAsync();
 
         _host.Verify(h => h.SetLoadingOverlayVisible(false), Times.Once);
+        // ReSharper disable once PlaceAssignmentExpressionIntoBlock
         _host.VerifySet(h => h.IsLoadingGames = false, Times.Once);
     }
 
@@ -78,6 +82,7 @@ public class UiResetServiceTests
     {
         await _service.ResetUiAsync();
 
+        // ReSharper disable once PlaceAssignmentExpressionIntoBlock
         _host.VerifySet(h => h.MameSortOrder = AppConstants.MameSortOrderFileName, Times.Once);
     }
 
@@ -93,12 +98,12 @@ public class UiResetServiceTests
     public async Task ResetUiAsync_SetsIsUiUpdating_GuardFlag()
     {
         var isUpdatingSequence = new List<bool>();
-        _host.SetupSet(h => h.IsUiUpdating = It.IsAny<bool>())
+        _host.SetupSet(h => { h.IsUiUpdating = It.IsAny<bool>(); })
             .Callback<bool>(v => isUpdatingSequence.Add(v));
 
         // IsUiUpdating getter returns false initially, then true during body
         var getSequence = new Queue<bool>([false, true]);
-        _host.Setup(h => h.IsUiUpdating).Returns(() => getSequence.Count > 0 ? getSequence.Dequeue() : false);
+        _host.Setup(h => h.IsUiUpdating).Returns(() => getSequence.Count > 0 && getSequence.Dequeue());
 
         await _service.ResetUiAsync();
 

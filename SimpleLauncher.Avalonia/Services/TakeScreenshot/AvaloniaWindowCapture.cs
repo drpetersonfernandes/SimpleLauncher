@@ -1,4 +1,7 @@
+// ReSharper disable once RedundantUsingDirective
+
 using System.Drawing;
+// ReSharper disable once RedundantUsingDirective
 using System.Drawing.Imaging;
 // ReSharper disable once RedundantUsingDirective
 using ILogger = Serilog.ILogger;

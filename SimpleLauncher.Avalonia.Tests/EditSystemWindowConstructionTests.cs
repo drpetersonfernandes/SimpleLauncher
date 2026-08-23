@@ -1,4 +1,3 @@
-using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using SimpleLauncher.Avalonia.Services;

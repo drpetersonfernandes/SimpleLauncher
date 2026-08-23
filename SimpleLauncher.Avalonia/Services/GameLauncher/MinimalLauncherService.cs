@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Globalization;
 using System.Runtime.Versioning;
 using System.Text;
 using Microsoft.Extensions.Configuration;
@@ -776,7 +775,7 @@ public class MinimalLauncherService : ILauncherService
             {
                 await UpdateStatsAndPlayCountAsync(
                     LastPlayTime, resolvedFilePath, selectedSystemManager.SystemName,
-                    emulatorName, selectedEmulatorManager);
+                    emulatorName);
                 GamePlayed?.Invoke(this, new GamePlayedEventArgs(resolvedFilePath, selectedSystemManager.SystemName));
             }
 
@@ -1028,7 +1027,7 @@ public class MinimalLauncherService : ILauncherService
     /// </summary>
     private async Task UpdateStatsAndPlayCountAsync(
         TimeSpan playTime, string filePath, string systemName,
-        string emulatorName, Emulator selectedEmulatorManager)
+        string emulatorName)
     {
         // Update per-system play time in settings
         try
@@ -1086,32 +1085,27 @@ public class MinimalLauncherService : ILauncherService
             return;
         }
 
-        // Success — nothing to analyze
-        if (exitCode == 0)
+        switch (exitCode)
         {
-            return;
-        }
-
-        // Memory access violation — log only, no user notification
-        if (exitCode == MemoryAccessViolation)
-        {
-            Log.Warning(
-                "Memory access violation error running the emulator.\n" +
-                "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
-                "Stdout: {Stdout}\nStderr: {Stderr}",
-                exitCode, emulatorPath, arguments, stdout, stderr);
-            return;
-        }
-
-        // DEP violation — log only, no user notification
-        if (exitCode == DepViolation)
-        {
-            Log.Warning(
-                "Data Execution Prevention (DEP) violation error running the emulator.\n" +
-                "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
-                "Stdout: {Stdout}\nStderr: {Stderr}",
-                exitCode, emulatorPath, arguments, stdout, stderr);
-            return;
+            // Success — nothing to analyze
+            case 0:
+                return;
+            // Memory access violation — log only, no user notification
+            case MemoryAccessViolation:
+                Log.Warning(
+                    "Memory access violation error running the emulator.\n" +
+                    "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
+                    "Stdout: {Stdout}\nStderr: {Stderr}",
+                    exitCode, emulatorPath, arguments, stdout, stderr);
+                return;
+            // DEP violation — log only, no user notification
+            case DepViolation:
+                Log.Warning(
+                    "Data Execution Prevention (DEP) violation error running the emulator.\n" +
+                    "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
+                    "Stdout: {Stdout}\nStderr: {Stderr}",
+                    exitCode, emulatorPath, arguments, stdout, stderr);
+                return;
         }
 
         var combinedOutput = stdout + "\n" + stderr;
@@ -1129,129 +1123,137 @@ public class MinimalLauncherService : ILauncherService
                      (emulatorLocation ?? "").Contains("mame", StringComparison.OrdinalIgnoreCase) ||
                      (emulatorLocation ?? "").Contains("mame64", StringComparison.OrdinalIgnoreCase);
 
-        // RetroArch mkdir permission denied (special characters in path)
-        if (isRetroArch &&
-            combinedOutput.Contains("mkdir(", StringComparison.OrdinalIgnoreCase) &&
-            combinedOutput.Contains("Permission denied", StringComparison.OrdinalIgnoreCase))
+        switch (isRetroArch)
         {
-            Log.Debug("RetroArch mkdir permission denied due to special characters in path.");
-            Log.Warning(
-                "RetroArch special characters error.\n" +
-                "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
-                "Stdout: {Stdout}\nStderr: {Stderr}",
-                exitCode, emulatorPath, arguments, stdout, stderr);
-
-            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+            // RetroArch mkdir permission denied (special characters in path)
+            case true when
+                combinedOutput.Contains("mkdir(", StringComparison.OrdinalIgnoreCase) &&
+                combinedOutput.Contains("Permission denied", StringComparison.OrdinalIgnoreCase):
             {
-                await _messageBox.RetroArchSpecialCharactersInPathMessageBoxAsync();
-                await _messageBox.WouldYouLikeToOpenTheLogMessageBoxAsync(LogFilePath());
-                await _askAiToFixParameters.ExecuteAsync(
-                    selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
+                Log.Debug("RetroArch mkdir permission denied due to special characters in path.");
+                Log.Warning(
+                    "RetroArch special characters error.\n" +
+                    "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
+                    "Stdout: {Stdout}\nStderr: {Stderr}",
+                    exitCode, emulatorPath, arguments, stdout, stderr);
+
+                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
+                    await _messageBox.RetroArchSpecialCharactersInPathMessageBoxAsync();
+                    await _messageBox.WouldYouLikeToOpenTheLogMessageBoxAsync(LogFilePath());
+                    await _askAiToFixParameters.ExecuteAsync(
+                        selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
+                }
+
+                return;
             }
-            return;
+            // RetroArch generic parameter issues
+            case true:
+            {
+                Log.Debug("RetroArch parameter issues detected.");
+                Log.Warning(
+                    "RetroArch parameter issue.\n" +
+                    "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
+                    "Stdout: {Stdout}\nStderr: {Stderr}",
+                    exitCode, emulatorPath, arguments, stdout, stderr);
+
+                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
+                    await _messageBox.RetroArchParameterIssueMessageBoxAsync(LogFilePath());
+                    await _askAiToFixParameters.ExecuteAsync(
+                        selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
+                }
+
+                return;
+            }
         }
 
-        // RetroArch generic parameter issues
-        if (isRetroArch)
+        switch (isMame)
         {
-            Log.Debug("RetroArch parameter issues detected.");
-            Log.Warning(
-                "RetroArch parameter issue.\n" +
-                "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
-                "Stdout: {Stdout}\nStderr: {Stderr}",
-                exitCode, emulatorPath, arguments, stdout, stderr);
-
-            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+            // MAME ROM set error
+            case true when
+                (combinedOutput.Contains("Not Found", StringComparison.OrdinalIgnoreCase) ||
+                 combinedOutput.Contains("WRONG LENGTH", StringComparison.OrdinalIgnoreCase) ||
+                 combinedOutput.Contains("Required files are missing", StringComparison.OrdinalIgnoreCase)):
             {
-                await _messageBox.RetroArchParameterIssueMessageBoxAsync(LogFilePath());
-                await _askAiToFixParameters.ExecuteAsync(
-                    selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
+                Log.Debug("MAME ROM set error detected.");
+                Log.Warning(
+                    "MAME ROM set error.\n" +
+                    "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
+                    "Stdout: {Stdout}\nStderr: {Stderr}",
+                    exitCode, emulatorPath, arguments, stdout, stderr);
+
+                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
+                    await _messageBox.MameRomSetErrorMessageBoxAsync();
+                    await _messageBox.WouldYouLikeToOpenTheLogMessageBoxAsync(LogFilePath());
+                    await _askAiToFixParameters.ExecuteAsync(
+                        selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
+                }
+
+                return;
             }
-            return;
-        }
-
-        // MAME ROM set error
-        if ((isMame || isRetroArch) &&
-            (combinedOutput.Contains("Not Found", StringComparison.OrdinalIgnoreCase) ||
-             combinedOutput.Contains("WRONG LENGTH", StringComparison.OrdinalIgnoreCase) ||
-             combinedOutput.Contains("Required files are missing", StringComparison.OrdinalIgnoreCase)))
-        {
-            Log.Debug("MAME ROM set error detected.");
-            Log.Warning(
-                "MAME ROM set error.\n" +
-                "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
-                "Stdout: {Stdout}\nStderr: {Stderr}",
-                exitCode, emulatorPath, arguments, stdout, stderr);
-
-            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+            // MAME Unknown system
+            case true when
+                (combinedOutput.Contains("Unknown system", StringComparison.OrdinalIgnoreCase) ||
+                 combinedOutput.Contains("approximately matches the following", StringComparison.OrdinalIgnoreCase)):
             {
-                await _messageBox.MameRomSetErrorMessageBoxAsync();
-                await _messageBox.WouldYouLikeToOpenTheLogMessageBoxAsync(LogFilePath());
-                await _askAiToFixParameters.ExecuteAsync(
-                    selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
+                Log.Debug("MAME Unknown system error detected.");
+                Log.Warning(
+                    "MAME Unknown system error.\n" +
+                    "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
+                    "Stdout: {Stdout}\nStderr: {Stderr}",
+                    exitCode, emulatorPath, arguments, stdout, stderr);
+
+                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
+                    await _messageBox.MameUnknownSystemErrorMessageBoxAsync();
+                    await _messageBox.WouldYouLikeToOpenTheLogMessageBoxAsync(LogFilePath());
+                    await _askAiToFixParameters.ExecuteAsync(
+                        selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
+                }
+
+                return;
             }
-            return;
-        }
-
-        // MAME Unknown system
-        if ((isMame || isRetroArch) &&
-            (combinedOutput.Contains("Unknown system", StringComparison.OrdinalIgnoreCase) ||
-             combinedOutput.Contains("approximately matches the following", StringComparison.OrdinalIgnoreCase)))
-        {
-            Log.Debug("MAME Unknown system error detected.");
-            Log.Warning(
-                "MAME Unknown system error.\n" +
-                "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
-                "Stdout: {Stdout}\nStderr: {Stderr}",
-                exitCode, emulatorPath, arguments, stdout, stderr);
-
-            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+            // MAME Unable to load image
+            case true when
+                (combinedOutput.Contains("Unable to load image", StringComparison.OrdinalIgnoreCase) ||
+                 combinedOutput.Contains("No such file or directory", StringComparison.OrdinalIgnoreCase)):
             {
-                await _messageBox.MameUnknownSystemErrorMessageBoxAsync();
-                await _messageBox.WouldYouLikeToOpenTheLogMessageBoxAsync(LogFilePath());
-                await _askAiToFixParameters.ExecuteAsync(
-                    selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
-            }
-            return;
-        }
+                Log.Debug("MAME Unable to load image error detected.");
+                Log.Warning(
+                    "MAME Unable to load image error.\n" +
+                    "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
+                    "Stdout: {Stdout}\nStderr: {Stderr}",
+                    exitCode, emulatorPath, arguments, stdout, stderr);
 
-        // MAME Unable to load image
-        if (isMame &&
-            (combinedOutput.Contains("Unable to load image", StringComparison.OrdinalIgnoreCase) ||
-             combinedOutput.Contains("No such file or directory", StringComparison.OrdinalIgnoreCase)))
-        {
-            Log.Debug("MAME Unable to load image error detected.");
-            Log.Warning(
-                "MAME Unable to load image error.\n" +
-                "Exit code: {ExitCode}, Emulator: {EmulatorPath}, Parameters: {Arguments}\n" +
-                "Stdout: {Stdout}\nStderr: {Stderr}",
-                exitCode, emulatorPath, arguments, stdout, stderr);
+                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
+                    await _messageBox.MameUnableToLoadImageMessageBoxAsync();
+                    await _messageBox.WouldYouLikeToOpenTheLogMessageBoxAsync(LogFilePath());
+                    await _askAiToFixParameters.ExecuteAsync(
+                        selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
+                }
 
-            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
-            {
-                await _messageBox.MameUnableToLoadImageMessageBoxAsync();
-                await _messageBox.WouldYouLikeToOpenTheLogMessageBoxAsync(LogFilePath());
-                await _askAiToFixParameters.ExecuteAsync(
-                    selectedSystemManager, selectedEmulatorManager, loadingStateProvider);
+                return;
             }
-            return;
-        }
+            // MAME corrupted INI (auto-restore from sample)
+            case true when
+                stderr.Contains("Warning: unknown option in INI", StringComparison.OrdinalIgnoreCase):
+            {
+                Log.Debug("MAME unknown option in INI detected. Attempting to restore mame.ini from sample.");
+                var restored = MameConfigurationService.RestoreMameIniFromSample(emulatorPath, Log.Logger);
+                if (restored)
+                {
+                    Log.Debug("mame.ini restored successfully. User should retry.");
+                }
+                else
+                {
+                    Log.Debug("Failed to restore mame.ini from sample.");
+                }
 
-        // MAME corrupted INI (auto-restore from sample)
-        if (isMame &&
-            stderr.Contains("Warning: unknown option in INI", StringComparison.OrdinalIgnoreCase))
-        {
-            Log.Debug("MAME unknown option in INI detected. Attempting to restore mame.ini from sample.");
-            var restored = MameConfigurationService.RestoreMameIniFromSample(emulatorPath, Log.Logger);
-            if (restored)
-            {
-                Log.Debug("mame.ini restored successfully. User should retry.");
+                return;
             }
-            else
-            {
-                Log.Debug("Failed to restore mame.ini from sample.");
-            }
-            return;
         }
 
         // Generic fallback — any other non-zero exit code
@@ -1424,7 +1426,7 @@ public class MinimalLauncherService : ILauncherService
     /// Callers must guard with <see cref="OperatingSystem.IsWindows()"/>.
     /// </summary>
     [SupportedOSPlatform("windows")]
-    private bool IsProtocolRegistered(string protocol)
+    private static bool IsProtocolRegistered(string protocol)
     {
         if (string.IsNullOrEmpty(protocol)) return false;
 
@@ -1443,7 +1445,7 @@ public class MinimalLauncherService : ILauncherService
             using var shellOpenCommandKey = protocolKey.OpenSubKey(@"shell\open\command");
             if (shellOpenCommandKey == null)
             {
-                Log.Debug("[IsProtocolRegistered] 'shell\\open\\command' subkey not found for protocol '{Protocol}'.",
+                Log.Debug(@"[IsProtocolRegistered] 'shell\open\command' subkey not found for protocol '{Protocol}'.",
                     protocol.ToLowerInvariant());
                 return false;
             }

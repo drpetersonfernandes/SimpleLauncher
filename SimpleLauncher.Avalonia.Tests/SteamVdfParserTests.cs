@@ -115,7 +115,7 @@ public class SteamVdfParserTests : IDisposable
 
         var result = _parser.Parse(filePath);
 
-        Assert.Equal("path\\of\\file", result["key"].ToString());
+        Assert.Equal(@"path\of\file", result["key"].ToString());
     }
 
     /// <summary>
@@ -130,7 +130,7 @@ public class SteamVdfParserTests : IDisposable
 
         var result = _parser.Parse(filePath);
 
-        Assert.Equal("C:\\games\\Steam", result["installdir"].ToString());
+        Assert.Equal(@"C:\games\Steam", result["installdir"].ToString());
     }
 
     /// <summary>

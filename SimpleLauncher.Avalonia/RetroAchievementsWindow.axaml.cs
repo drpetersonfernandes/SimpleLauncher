@@ -274,28 +274,35 @@ public partial class RetroAchievementsWindow : Window
 
     private async void OpenRaSettings_Click(object? sender, RoutedEventArgs e)
     {
-        var settingsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsSettingsWindow>();
-        _playSoundEffects.PlayNotificationSound();
-        await settingsWindow.ShowDialog(this);
-
-        // Reload current tab
-        if (TabControl.SelectedItem is TabItem selectedTab)
+        try
         {
-            switch (selectedTab.Tag?.ToString())
+            var settingsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsSettingsWindow>();
+            _playSoundEffects.PlayNotificationSound();
+            await settingsWindow.ShowDialog(this);
+
+            // Reload current tab
+            if (TabControl.SelectedItem is TabItem selectedTab)
             {
-                case "MyProfile":
-                    _playSoundEffects.PlayNotificationSound();
-                    _ = LoadUserProfileAsync();
-                    break;
-                case "Unlocks":
-                    _playSoundEffects.PlayNotificationSound();
-                    _ = LoadUnlocksByDateAsync();
-                    break;
-                case "UserProgress":
-                    _playSoundEffects.PlayNotificationSound();
-                    _ = LoadUserProgressAsync();
-                    break;
+                switch (selectedTab.Tag?.ToString())
+                {
+                    case "MyProfile":
+                        _playSoundEffects.PlayNotificationSound();
+                        _ = LoadUserProfileAsync();
+                        break;
+                    case "Unlocks":
+                        _playSoundEffects.PlayNotificationSound();
+                        _ = LoadUnlocksByDateAsync();
+                        break;
+                    case "UserProgress":
+                        _playSoundEffects.PlayNotificationSound();
+                        _ = LoadUserProgressAsync();
+                        break;
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error in method OpenRaSettings_Click");
         }
     }
 
@@ -312,8 +319,6 @@ public partial class RetroAchievementsWindow : Window
             LoadingOverlayMessage.Text = message ?? _resourceProvider.GetString("Loading", "Loading...");
         }
     }
-
-    private string L(string key, string fallback) => _resourceProvider.GetString(key, fallback);
 
     private void EmergencyOverlayRelease_Click(object? sender, RoutedEventArgs e)
     {

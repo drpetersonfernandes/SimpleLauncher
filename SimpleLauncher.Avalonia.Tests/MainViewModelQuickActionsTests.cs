@@ -1,4 +1,3 @@
-using System.Net.Http;
 using Moq;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.Favorites;
@@ -9,7 +8,6 @@ using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.UsageStats;
 using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.SettingsManager;
@@ -48,14 +46,14 @@ public class MainViewModelQuickActionsTests : IDisposable
         WriteGameFile("zero.was");
 
         _systemXmlPath = Path.Combine(_tempRoot, "system.xml");
-        File.WriteAllText(_systemXmlPath, $$"""
+        File.WriteAllText(_systemXmlPath, $"""
             <SystemConfigs>
               <SystemConfig>
                 <SystemName>Test System</SystemName>
                 <SystemFolders>
-                  <SystemFolder>{{_romsFolder}}</SystemFolder>
+                  <SystemFolder>{_romsFolder}</SystemFolder>
                 </SystemFolders>
-                <SystemImageFolder>{{_romsFolder}}\images</SystemImageFolder>
+                <SystemImageFolder>{_romsFolder}\images</SystemImageFolder>
                 <FileFormatsToSearch>
                   <FormatToSearch>.zip</FormatToSearch>
                   <FormatToSearch>.was</FormatToSearch>
@@ -124,7 +122,7 @@ public class MainViewModelQuickActionsTests : IDisposable
 
     private static MinimalLauncherService CreateLauncher(SystemManagerService systemManager, SettingsManagerService settings)
     {
-        var config = new Microsoft.Extensions.Configuration.ConfigurationBuilder().Build();
+        var config = new ConfigurationBuilder().Build();
         var logger = new Mock<ILogger>().Object;
         var messageBox = new Mock<IMessageBoxLibraryService>();
 
@@ -231,7 +229,7 @@ public class MainViewModelQuickActionsTests : IDisposable
         // The pick comes from the FULL system library, not the letter-filtered subset
         Assert.NotNull(randomGame);
         Assert.Equal("", _viewModel.LetterFilter);
-        Assert.Contains(_viewModel.Games, g => g.FilePath == randomGame!.FilePath);
+        Assert.Contains(_viewModel.Games, g => g.FilePath == randomGame.FilePath);
     }
 
     [Fact]

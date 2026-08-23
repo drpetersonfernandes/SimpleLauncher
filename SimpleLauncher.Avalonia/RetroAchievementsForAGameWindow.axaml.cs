@@ -125,7 +125,10 @@ public partial class RetroAchievementsForAGameWindow : Window, ILoadingState
         }
     }
 
-    private string L(string key, string fallback) => _resourceProvider.GetString(key, fallback);
+    private string L(string key, string fallback)
+    {
+        return _resourceProvider.GetString(key, fallback);
+    }
 
     private void UpdateProgressDisplay(RaUserGameProgress progress)
     {

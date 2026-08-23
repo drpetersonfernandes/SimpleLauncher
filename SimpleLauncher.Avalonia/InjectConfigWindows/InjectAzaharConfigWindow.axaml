@@ -1,7 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectAzaharConfigWindow"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
         Title="Azahar Configuration"
         Height="650" Width="700"
         WindowStartupLocation="CenterOwner"

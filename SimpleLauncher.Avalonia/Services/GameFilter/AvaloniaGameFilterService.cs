@@ -1,7 +1,6 @@
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.SettingsManager;
-using SimpleLauncher.Avalonia.Services.SystemManager;
 
 namespace SimpleLauncher.Avalonia.Services.GameFilter;
 

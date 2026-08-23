@@ -17,6 +17,7 @@ public partial class SupportWindow : Window
     /// Initializes a new instance of the <see cref="SupportWindow"/> class.
     /// </summary>
     /// <param name="viewModel">The view model providing support form logic.</param>
+    /// <param name="localization">The localization service used to set localized UI strings.</param>
     public SupportWindow(SupportViewModel viewModel, Services.LocalizationService localization)
     {
         InitializeComponent();
