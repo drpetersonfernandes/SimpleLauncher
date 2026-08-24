@@ -189,7 +189,9 @@ public class GameScannerService
                     ReceiveANotificationOnEmulatorError = true
                 },
                 WindowsSystemName,
-                _configuration);
+                _configuration,
+                _logger,
+                _systemManager);
 
             // The SystemManagerService cache is stale now — subsequent scans must see
             // the entry as existing instead of re-creating it.

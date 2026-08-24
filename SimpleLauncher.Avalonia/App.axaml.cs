@@ -18,6 +18,7 @@ using SimpleLauncher.Avalonia.Services.GameScan;
 using SimpleLauncher.Avalonia.Services.InjectEmulatorConfig;
 using SimpleLauncher.Avalonia.InjectConfigWindows;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
+using SimpleLauncher.Avalonia.Services.QuitOrReinstall;
 using SimpleLauncher.Avalonia.Services.RetroAchievements;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Avalonia.Services.SystemSelectionOrchestrator;
@@ -30,6 +31,7 @@ using SimpleLauncher.Avalonia.Services.SearchOrchestrator;
 using SimpleLauncher.Avalonia.Services.ContextMenus;
 using SimpleLauncher.Avalonia.Services.DisplaySystemInfo;
 using SimpleLauncher.Avalonia.Services.LoadingOverlay;
+using SimpleLauncher.Avalonia.Services.Theme;
 using SimpleLauncher.Avalonia.Services.UsageStats;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
@@ -309,6 +311,17 @@ public class App : Application, IDisposable
         }
 
         base.OnFrameworkInitializationCompleted();
+
+        // Apply the saved base theme + accent color (parity with WPF ThemeMenuService).
+        try
+        {
+            var settingsManager = ServiceProvider.GetRequiredService<SettingsManagerService>();
+            AvaloniaThemeService.ApplyTheme(settingsManager.BaseTheme, settingsManager.AccentColor);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to apply the saved theme at startup.");
+        }
     }
 
     /// <summary>
@@ -572,6 +585,9 @@ public class App : Application, IDisposable
         services.AddSingleton<GameScannerService>();
         services.AddSingleton<RetroAchievementsService>();
         services.AddSingleton<AvaloniaCheckForUpdatesService>();
+
+        // ── Quit / reinstall (WPF QuitSimpleLauncher / ReinstallSimpleLauncher parity) ──
+        services.AddSingleton<AvaloniaQuitSimpleLauncher>();
 
         // ── Phase 3 lifecycle services ──
         services.AddSingleton<CheckForRequiredFilesService>();

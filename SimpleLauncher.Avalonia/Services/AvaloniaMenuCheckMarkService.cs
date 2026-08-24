@@ -4,10 +4,11 @@ namespace SimpleLauncher.Avalonia.Services;
 
 /// <summary>
 /// Manages the checked state of option menu items (thumbnail size, games per page,
-/// aspect ratio). The Avalonia menu items carry their value in <c>Tag</c> (sizes /
-/// page counts) or <c>Name</c> (aspect ratios), so the service can drive any menu
-/// generically — the same contract the WPF <c>MenuCheckMarkService</c> provides
-/// through its named host properties.
+/// show-games filter, button aspect ratio, filename display mode, filename font size,
+/// machine-name font size, view mode). The Avalonia menu items carry their value in
+/// <c>Tag</c> (sizes / page counts) or <c>Name</c> (aspect ratios / display modes),
+/// so the service can drive any menu generically — the same 8-category contract the
+/// WPF <c>MenuCheckMarkService</c> provides through its named host properties.
 /// </summary>
 public class AvaloniaMenuCheckMarkService
 {
@@ -37,5 +38,46 @@ public class AvaloniaMenuCheckMarkService
         {
             item.IsChecked = string.Equals(item.Name, selectedName, StringComparison.Ordinal);
         }
+    }
+
+    /// <summary>
+    /// Updates the show-games filter check marks (ShowAll / ShowWithCover / ShowWithoutCover).
+    /// </summary>
+    public void UpdateShowGamesCheckMarks(IEnumerable<MenuItem> menuItems, string? selectedValue)
+    {
+        UpdateCheckedByName(menuItems, selectedValue);
+    }
+
+    /// <summary>
+    /// Updates the filename display mode check marks (Original / CleanUp / NoFilename).
+    /// </summary>
+    public void UpdateFilenameDisplayModeCheckMarks(IEnumerable<MenuItem> menuItems, string? selectedValue)
+    {
+        UpdateCheckedByName(menuItems, selectedValue);
+    }
+
+    /// <summary>
+    /// Updates the filename font size check marks (Small / Normal / Big).
+    /// </summary>
+    public void UpdateFilenameFontSizeCheckMarks(IEnumerable<MenuItem> menuItems, string? selectedValue)
+    {
+        UpdateCheckedByName(menuItems, selectedValue);
+    }
+
+    /// <summary>
+    /// Updates the machine-name font size check marks (Small / Normal / Big).
+    /// </summary>
+    public void UpdateMachineNameFontSizeCheckMarks(IEnumerable<MenuItem> menuItems, string? selectedValue)
+    {
+        UpdateCheckedByName(menuItems, selectedValue);
+    }
+
+    /// <summary>
+    /// Sets the view-mode check marks (GridView / ListView) to reflect the active view.
+    /// </summary>
+    public void SetViewModeCheckMarks(MenuItem gridViewItem, MenuItem listViewItem, bool isGridView)
+    {
+        gridViewItem.IsChecked = isGridView;
+        listViewItem.IsChecked = !isGridView;
     }
 }

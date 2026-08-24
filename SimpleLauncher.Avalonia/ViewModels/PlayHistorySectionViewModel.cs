@@ -22,6 +22,7 @@ public partial class PlayHistorySectionViewModel : ObservableObject
     private readonly IMameDataService _mameData;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly MainViewModel _mainViewModel;
+    private readonly IMessageBoxLibraryService _messageBox;
     private readonly ILogger _logErrors;
 
     [ObservableProperty] private ObservableCollection<PlayHistoryItem> _playHistoryList = [];
@@ -39,6 +40,7 @@ public partial class PlayHistorySectionViewModel : ObservableObject
         IMameDataService mameData,
         PlaySoundEffects playSoundEffects,
         MainViewModel mainViewModel,
+        IMessageBoxLibraryService messageBox,
         ILogger logErrors)
     {
         _playHistoryManager = playHistoryManager;
@@ -47,6 +49,7 @@ public partial class PlayHistorySectionViewModel : ObservableObject
         _mameData = mameData;
         _playSoundEffects = playSoundEffects;
         _mainViewModel = mainViewModel;
+        _messageBox = messageBox;
         _logErrors = logErrors;
     }
 
@@ -162,29 +165,24 @@ public partial class PlayHistorySectionViewModel : ObservableObject
 
     /// <summary>Removes all history items after user confirmation.</summary>
     [RelayCommand]
-    private Task RemoveAllAsync()
+    private async Task RemoveAllAsync()
     {
         try
         {
-            try
-            {
-                _playSoundEffects.PlayTrashSound();
-                PlayHistoryList.Clear();
-                SelectedItem = null;
-                SyncToManager();
+            // WPF parity: prompt the user before wiping the whole history.
+            var result = await _messageBox.ReallyWantToRemoveAllPlayHistoryMessageBoxAsync();
+            if (result != MessageBoxResult.Yes) return;
 
-                _mainViewModel.RefreshFavoritesAndHistory();
-            }
-            catch (Exception ex)
-            {
-                _logErrors.Error(ex, "Error removing all history items.");
-            }
+            _playSoundEffects.PlayTrashSound();
+            PlayHistoryList.Clear();
+            SelectedItem = null;
+            SyncToManager();
 
-            return Task.CompletedTask;
+            _mainViewModel.RefreshFavoritesAndHistory();
         }
-        catch (Exception exception)
+        catch (Exception ex)
         {
-            return Task.FromException(exception);
+            _logErrors.Error(ex, "Error removing all history items.");
         }
     }
 

@@ -49,6 +49,18 @@
                     <MenuItem x:Name="LanguageVietnamese" GroupName="LanguageGroup" Header="Tiếng Việt" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
                     <MenuItem x:Name="LanguageChineseSimplified" GroupName="LanguageGroup" Header="简体中文" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
                 </MenuItem>
+                <MenuItem Header="Theme" ToolTip.Tip="Base theme and accent color">
+                    <MenuItem x:Name="BaseThemeMenu" Header="Base Theme">
+                        <MenuItem x:Name="ThemeLight" GroupName="BaseThemeGroup" Header="Light" Tag="Light" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" />
+                        <MenuItem x:Name="ThemeDark" GroupName="BaseThemeGroup" Header="Dark" Tag="Dark" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" />
+                        <MenuItem x:Name="ThemeAdaptive" GroupName="BaseThemeGroup" Header="Adaptive" Tag="Adaptive" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" />
+                        <MenuItem x:Name="ThemeHighContrast" GroupName="BaseThemeGroup" Header="High Contrast" Tag="HighContrast" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" />
+                        <MenuItem x:Name="ThemeMidnight" GroupName="BaseThemeGroup" Header="Midnight" Tag="Midnight" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" />
+                    </MenuItem>
+                    <MenuItem x:Name="AccentColorMenu" Header="Accent Color">
+                        <!-- Accent color items are populated at runtime from AvaloniaThemeService.AccentColorNames -->
+                    </MenuItem>
+                </MenuItem>
                 <MenuItem x:Name="SizeMenu" Header="{ext:Translate SetButtonSize}" ToolTip.Tip="{ext:Translate TooltipButtonSizeMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/buttonsize.png" Width="16" Height="16" />

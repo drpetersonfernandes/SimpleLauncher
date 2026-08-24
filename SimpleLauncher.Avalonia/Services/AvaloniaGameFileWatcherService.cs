@@ -51,10 +51,15 @@ public class AvaloniaGameFileWatcherService : IDisposable
     {
         ObjectDisposedException.ThrowIf(_disposed, this);
 
+        // Stop any previously monitored folders once, then add a watcher for every
+        // configured system without resetting between systems — otherwise only the
+        // last system's folders would remain monitored (see GameFileWatcherService.StartWatching).
+        StopWatching();
+
         var systemManagerConfigs = systems.ToList();
         foreach (var system in systemManagerConfigs)
         {
-            _watcher.StartWatching(system.SystemFolders, system.SystemName, system.FileFormatsToSearch);
+            _watcher.StartWatching(system.SystemFolders, system.SystemName, system.FileFormatsToSearch, reset: false);
         }
 
         _logger.Debug("[AvaloniaGameFileWatcherService] Started watching {Count} system(s).", systemManagerConfigs.Count);

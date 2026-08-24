@@ -29,6 +29,7 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
     private readonly ILogger _logger;
     private readonly IConfiguration _configuration;
     private readonly PlaySoundEffects _playSoundEffects;
+    private readonly SystemManagerService? _systemManager;
 
     private EasyModeManager? _manager;
     private bool _disposed;
@@ -94,7 +95,8 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
         IMessageBoxLibraryService messageBox,
         ILogger logger,
         IConfiguration configuration,
-        PlaySoundEffects playSoundEffects)
+        PlaySoundEffects playSoundEffects,
+        SystemManagerService? systemManager = null)
     {
         _easyModeManager = easyModeManager;
         _downloadManager = downloadManager;
@@ -102,6 +104,7 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
         _logger = logger;
         _configuration = configuration;
         _playSoundEffects = playSoundEffects;
+        _systemManager = systemManager;
 
         _downloadManager.DownloadProgressChanged += OnDownloadProgressChanged;
     }
@@ -322,7 +325,7 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
                 DownloadProgress = 0;
 
                 await SystemManagerService.AddOrUpdateSystemFromEasyModeAsync(
-                    selectedSystem, systemFolder, _configuration, _logger);
+                    selectedSystem, systemFolder, _configuration, _logger, _systemManager);
 
                 DownloadStatus = "Creating system folders...";
                 await Task.Yield();

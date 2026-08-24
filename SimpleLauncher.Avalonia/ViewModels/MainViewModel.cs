@@ -16,6 +16,7 @@ using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.GameFilter;
 using SimpleLauncher.Avalonia.Services.LoadingOverlay;
+using SimpleLauncher.Avalonia.Services.SearchOrchestrator;
 
 namespace SimpleLauncher.Avalonia.ViewModels;
 
@@ -23,7 +24,7 @@ namespace SimpleLauncher.Avalonia.ViewModels;
 /// Main ViewModel for the game browser.
 /// Phase 6: Wired to real SystemManagerService, ILauncherService, and game scanning.
 /// </summary>
-public partial class MainViewModel : ObservableObject, ILoadingState
+public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFeedback
 {
     private readonly FavoritesManager _favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager;
@@ -42,6 +43,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     private readonly ISystemImageResolverService? _systemImageResolver;
     private readonly AvaloniaGameFilterService _gameFilter;
     private readonly AvaloniaLoadingOverlayService _loadingOverlay;
+    private readonly AvaloniaSearchOrchestratorService? _searchOrchestrator;
 
     private CancellationTokenSource? _searchCts;
     private HashSet<string> _favoritePaths;
@@ -106,6 +108,18 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     [ObservableProperty] private double _captionFontSize = 13;
 
     /// <summary>
+    /// Play-time string shown for the selected system (WPF PlayTime parity, driven by
+    /// the system selection orchestrator from the user's play-time settings).
+    /// </summary>
+    [ObservableProperty] private string _playTime = "00:00:00";
+
+    /// <summary>
+    /// Whether the play-time display is visible for the selected system (hidden for
+    /// url/lnk systems, matching WPF IsPlayTimeVisible).
+    /// </summary>
+    [ObservableProperty] private bool _isPlayTimeVisible = true;
+
+    /// <summary>
     /// The emulator selected in the top System Selection bar. When set, launches use
     /// it instead of the system's first configured emulator (WPF EmulatorComboBox parity).
     /// </summary>
@@ -160,7 +174,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         IMameDataService mameData,
         AvaloniaGameFilterService gameFilter,
         AvaloniaLoadingOverlayService loadingOverlay,
-        ISystemImageResolverService? systemImageResolver = null)
+        ISystemImageResolverService? systemImageResolver = null,
+        AvaloniaSearchOrchestratorService? searchOrchestrator = null)
     {
         _favoritesManager = favoritesManager;
         _playHistoryManager = playHistoryManager;
@@ -178,6 +193,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState
         _mameData = mameData;
         _gameFilter = gameFilter;
         _loadingOverlay = loadingOverlay;
+        _searchOrchestrator = searchOrchestrator;
         _systemImageResolver = systemImageResolver;
         Sidebar = new SidebarViewModel();
 
@@ -507,9 +523,20 @@ public partial class MainViewModel : ObservableObject, ILoadingState
     /// </summary>
     public event Action<string, string>? ToastRequested;
 
-    private void ShowToast(string title, string message)
+    /// <summary>
+    /// ILaunchFeedback implementation for the launcher: raises the toast event.
+    /// </summary>
+    public void ShowToast(string title, string message)
     {
         ToastRequested?.Invoke(title, message);
+    }
+
+    /// <summary>
+    /// ILaunchFeedback implementation for the launcher: sets the status bar text.
+    /// </summary>
+    public void SetStatusText(string text)
+    {
+        StatusText = text;
     }
 
     // ---- RetroAchievements Filter ----
@@ -692,13 +719,14 @@ public partial class MainViewModel : ObservableObject, ILoadingState
                 }
             }
 
-            var (systems, counts, games) = await Task.Run(() =>
+            // WPF parity: do not build the full cross-system game list at startup.
+            // The window opens on the system-selection screen; per-system scanning
+            // happens only when a system (or All Games) is selected by the user.
+            var (systems, counts) = await Task.Run(() =>
             {
                 var loadedSystems = _systemManager.LoadSystems();
                 var loadedCounts = ComputeSystemCounts(loadedSystems);
-                var loadedGames = ScanGames(loadedSystems);
-                ApplyFavoritesAndHistory(loadedGames);
-                return (loadedSystems, loadedCounts, loadedGames);
+                return (loadedSystems, loadedCounts);
             });
 
             _allSystems = systems;
@@ -708,7 +736,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState
             IsMixedView = true;
             SelectedSystem = "";
             LetterFilter = "";
-            ShowGames(games);
+            _currentBaseGames = [];
+            _currentAllGames = [];
+            ShowGames([]);
             StatusText = "All Games";
             ToolbarTitle = "SimpleLauncher";
         }
@@ -769,15 +799,33 @@ public partial class MainViewModel : ObservableObject, ILoadingState
 
     private void ExecuteSearch(string query)
     {
+        // WPF SearchOrchestrator parity: require a selected system AND a non-blank
+        // query, and clear prior search results so stale results never persist.
+        var validation = _searchOrchestrator?.ValidateAndPrepare(query, SelectedSystem)
+            ?? (string.IsNullOrWhiteSpace(query)
+                ? SimpleLauncher.Avalonia.Services.SearchOrchestrator.SearchValidationResult.Failure()
+                : SimpleLauncher.Avalonia.Services.SearchOrchestrator.SearchValidationResult.Success(query.Trim()));
+        if (!validation.IsValid)
+        {
+            _currentBaseGames = [];
+            _currentAllGames = [];
+            Games.Clear();
+            UpdateGameCount();
+            StatusText = string.IsNullOrEmpty(SelectedSystem)
+                ? "Select a system before searching."
+                : "Enter a search query.";
+            return;
+        }
+
         IsShowingRetroAchievements = false;
         LetterFilter = "";
 
         var allGames = ScanGames(_allSystems);
-        var results = _gameFilter.FilterBySearchQuery(allGames, query);
+        var results = _gameFilter.FilterBySearchQuery(allGames, validation.ValidatedQuery);
 
         ApplyFavoritesAndHistory(results);
         ShowGames(results);
-        StatusText = $"{results.Count} result{(results.Count == 1 ? "" : "s")} for \"{query}\"";
+        StatusText = $"{results.Count} result{(results.Count == 1 ? "" : "s")} for \"{validation.ValidatedQuery}\"";
     }
 
     [RelayCommand]
@@ -1030,26 +1078,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState
                 windowContext,
                 this);
 
-            // Real play-time tracking (from the original launcher): only sessions
-            // longer than 5 seconds count toward play history.
-            var playSeconds = (long)_launcher.LastPlayTime.TotalSeconds;
-            if (playSeconds >= 5)
-            {
-                await _playHistoryManager.RecordPlayAsync(filePath, systemName, playSeconds);
-            }
-
-            // Fire-and-forget usage stats (emulator launch event)
-            _ = Task.Run(async () =>
-            {
-                try
-                {
-                    await _stats.CallApiAsync(emulator.EmulatorName);
-                }
-                catch (Exception ex)
-                {
-                    Log.Debug(ex, "Stats API call failed after launching {Game}", filePath);
-                }
-            });
+            // Play history and usage stats are already recorded once by
+            // MinimalLauncherService.HandleButtonClickAsync -> UpdateStatsAndPlayCountAsync.
+            // Recording them again here would double-count launches.
 
             StatusText = $"Played: {Path.GetFileNameWithoutExtension(filePath)}";
             return _launcher.LastPlayTime;

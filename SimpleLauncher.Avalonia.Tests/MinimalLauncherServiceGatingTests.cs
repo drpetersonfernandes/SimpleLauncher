@@ -93,11 +93,13 @@ public class MinimalLauncherServiceGatingTests : IDisposable
         };
     }
 
-    private static ISystemManager CreateSystem()
+    private static ISystemManager CreateSystem(string emulatorName, string folderPath)
     {
         return Mock.Of<ISystemManager>(s =>
             s.SystemName == "Test System" &&
-            s.FileFormatsToLaunch == new List<string> { ".iso" });
+            s.SystemFolders == new List<string> { folderPath } &&
+            s.FileFormatsToLaunch == new List<string> { ".iso" } &&
+            s.Emulators == new List<Emulator> { CreateEmulator(emulatorName) });
     }
 
     [Fact]
@@ -108,10 +110,11 @@ public class MinimalLauncherServiceGatingTests : IDisposable
 
         var launcher = CreateLauncher([_handler.Object]);
 
-        await launcher.LaunchRegularEmulatorAsync(
+        await launcher.HandleButtonClickAsync(
             _isoPath,
             "TestEmulator",
-            CreateSystem(),
+            "Test System",
+            CreateSystem("TestEmulator", _tempDir),
             CreateEmulator("TestEmulator"),
             "game.iso",
             new Mock<IWindowContext>().Object,
@@ -138,10 +141,11 @@ public class MinimalLauncherServiceGatingTests : IDisposable
 
         // "RetroArch Test" without a -L parameter trips the pre-flight check AFTER handlers,
         // proving the launch continued past the handler block (and we never Process.Start).
-        await launcher.LaunchRegularEmulatorAsync(
+        await launcher.HandleButtonClickAsync(
             _isoPath,
             "RetroArch Test",
-            CreateSystem(),
+            "Test System",
+            CreateSystem("RetroArch Test", _tempDir),
             CreateEmulator("RetroArch Test"),
             "game.iso",
             new Mock<IWindowContext>().Object,
@@ -158,10 +162,11 @@ public class MinimalLauncherServiceGatingTests : IDisposable
 
         var launcher = CreateLauncher([_handler.Object]);
 
-        await launcher.LaunchRegularEmulatorAsync(
+        await launcher.HandleButtonClickAsync(
             _isoPath,
             "RetroArch Test",
-            CreateSystem(),
+            "Test System",
+            CreateSystem("RetroArch Test", _tempDir),
             CreateEmulator("RetroArch Test"),
             "game.iso",
             new Mock<IWindowContext>().Object,

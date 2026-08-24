@@ -49,7 +49,7 @@ public class AvaloniaSystemSelectionOrchestratorServiceTests : IDisposable
                     <EmulatorPath>stella.exe</EmulatorPath>
                     <EmulatorParameters></EmulatorParameters>
                   </Emulator>
-                </Emulator>
+                </Emulators>
               </SystemConfig>
               <SystemConfig>
                 <SystemName>NES</SystemName>
@@ -74,7 +74,7 @@ public class AvaloniaSystemSelectionOrchestratorServiceTests : IDisposable
                     <EmulatorPath>fceux.exe</EmulatorPath>
                     <EmulatorParameters></EmulatorParameters>
                   </Emulator>
-                </Emulator>
+                </Emulators>
               </SystemConfig>
             </SystemConfigs>
             """);

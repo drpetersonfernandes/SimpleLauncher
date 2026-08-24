@@ -187,6 +187,24 @@ public partial class AvaloniaCheckForUpdatesService
     /// application process is exiting, then restarts it.
     /// </summary>
     /// <param name="updaterZipAssetUrl">URL of the updater package, or null when unknown.</param>
+    public async Task ReinstallAndShutdownAsync(string? updaterZipAssetUrl = null)
+    {
+        if (string.IsNullOrWhiteSpace(updaterZipAssetUrl))
+        {
+            try
+            {
+                var (_, _, foundUpdaterUrl, _) = await GetLatestReleaseInfoAsync();
+                updaterZipAssetUrl = foundUpdaterUrl;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Failed to resolve the updater package URL for reinstall.");
+            }
+        }
+
+        await LaunchUpdaterAndShutdownAsync(updaterZipAssetUrl);
+    }
+
     private async Task LaunchUpdaterAndShutdownAsync(string? updaterZipAssetUrl)
     {
         var updaterPath = Path.Combine(_updaterDirectory, UpdaterExecutableName);

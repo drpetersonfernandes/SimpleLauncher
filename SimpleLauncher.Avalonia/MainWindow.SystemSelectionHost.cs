@@ -45,4 +45,22 @@ public partial class MainWindow : ISystemSelectionHost
     {
         _fileWatcher.StartWatchingForSystems(_systemManagerService.LoadSystems());
     }
+
+    string ISystemSelectionHost.PlayTime
+    {
+        get => _viewModel.PlayTime;
+        set => _viewModel.PlayTime = value;
+    }
+
+    bool ISystemSelectionHost.IsPlayTimeVisible
+    {
+        get => _viewModel.IsPlayTimeVisible;
+        set => _viewModel.IsPlayTimeVisible = value;
+    }
+
+    string ISystemSelectionHost.MameSortOrder
+    {
+        get => _viewModel.MameSortOrder;
+        set => _viewModel.SetMameSortOrder(value);
+    }
 }

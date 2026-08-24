@@ -1,4 +1,6 @@
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.Versioning;
 using System.Text;
 using Microsoft.Extensions.Configuration;
@@ -10,6 +12,7 @@ using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using SimpleLauncher.Core.Services.UsageStats;
+using CheckApplicationControlPolicyService = SimpleLauncher.Core.Services.CheckApplicationControlPolicyService;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Avalonia.Services.GameLauncher;
@@ -137,7 +140,25 @@ public class MinimalLauncherService : ILauncherService
                 return;
             }
 
-            // 4. Select and execute the first matching strategy (ascending priority).
+            // 4. Run configuration handlers BEFORE strategy dispatch (WPF parity).
+            // WPF HandleButtonClickAsync runs the first matching handler for EVERY
+            // launch — including direct .bat/.lnk/.url/.exe — and aborts the launch
+            // when a handler returns false (e.g. the user cancelled the settings window).
+            var configHandler = _configHandlers.FirstOrDefault(h =>
+                h.IsMatch(context.EmulatorName, context.EmulatorManager?.EmulatorLocation ?? ""));
+            if (configHandler != null)
+            {
+                loadingStateProvider?.SetLoadingState(true, "Configuring emulator...");
+                if (!await configHandler.HandleConfigurationAsync(context))
+                {
+                    Log.Information("Emulator config handler {Handler} aborted launch for {Emulator}",
+                        configHandler.GetType().Name, context.EmulatorName);
+                    loadingStateProvider?.SetLoadingState(false);
+                    return;
+                }
+            }
+
+            // 5. Select and execute the first matching strategy (ascending priority).
             // The inline dispatch inside LaunchRegularEmulatorAsync mirrors the WPF
             // Default/ZIP/XISO/CHD-mount strategies, so only strategies that previously
             // had no Avalonia handling (PBP conversion, DOSBox, Commander Genius,
@@ -296,6 +317,11 @@ public class MinimalLauncherService : ILauncherService
     {
         LastPlayTime = TimeSpan.Zero;
         loadingStateProvider?.SetLoadingState(true, "Preparing...");
+
+        // Use the original file path for display when provided (e.g., mounted/extracted
+        // files) so toasts show the original archive name (WPF LaunchRegularEmulatorAsync parity).
+        var displayFilePath = originalFilePathForDisplay ?? resolvedFilePath;
+        var originalFileName = Path.GetFileNameWithoutExtension(displayFilePath);
 
         var ext = Path.GetExtension(resolvedFilePath).ToUpperInvariant();
         var actualFilePath = resolvedFilePath;
@@ -503,54 +529,12 @@ public class MinimalLauncherService : ILauncherService
                 return;
             }
 
-            // ── Run matching emulator config handlers ──
-            var emulatorPath = selectedEmulatorManager.EmulatorLocation ?? "";
-            var matchingHandlers = _configHandlers.Where(h => h.IsMatch(emulatorName, emulatorPath)).ToList();
-            var launchParameters = rawEmulatorParameters;
-
-            if (matchingHandlers.Count > 0)
-            {
-                loadingStateProvider?.SetLoadingState(true, "Configuring emulator...");
-                var launchContext = new LaunchContext
-                {
-                    FilePath = resolvedFilePath,
-                    ResolvedFilePath = actualFilePath,
-                    EmulatorName = emulatorName,
-                    SystemName = selectedSystemManager.SystemName,
-                    SystemManagerService = selectedSystemManager,
-                    EmulatorManager = selectedEmulatorManager,
-                    Parameters = rawEmulatorParameters,
-                    Settings = _settings,
-                    WindowContext = windowContext,
-                    LoadingState = loadingStateProvider
-                };
-
-                foreach (var handler in matchingHandlers)
-                {
-                    try
-                    {
-                        // A handler returning false means the user cancelled (or injection
-                        // failed fatally) — abort the launch, same as the WPF launcher.
-                        if (!await handler.HandleConfigurationAsync(launchContext))
-                        {
-                            Log.Information("Emulator config handler {Handler} aborted launch for {Emulator}",
-                                handler.GetType().Name, emulatorName);
-                            loadingStateProvider?.SetLoadingState(false);
-                            return;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error(ex, "Emulator config injection failed for {Emulator}", emulatorName);
-                    }
-                }
-
-                // Handlers may modify Parameters (e.g. Daphne appends -framefile/-script) —
-                // the modified string is what must be used for the launch.
-                launchParameters = launchContext.Parameters;
-            }
-
             // ── Emulator pre-flight checks (from the original launcher) ──
+            // (Config handlers already ran in HandleButtonClickAsync, before strategy
+            // dispatch — WPF parity. Parameters may have been modified there; they flow
+            // here via rawEmulatorParameters.)
+            var launchParameters = rawEmulatorParameters;
+            var emulatorPath = selectedEmulatorManager.EmulatorLocation ?? "";
             var isRetroArch = emulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase);
             var isMame = emulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase);
             var isRaine = emulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase);
@@ -676,6 +660,14 @@ public class MinimalLauncherService : ILauncherService
             var processExitCode = 0;
             var processStartTime = DateTime.Now;
 
+            // WPF parity: show "X launched with Y" feedback before starting the emulator.
+            if (loadingStateProvider is ILaunchFeedback launchFeedback)
+            {
+                var launchedWith = "launched with";
+                launchFeedback.ShowToast("Simple Launcher", $"{originalFileName} {launchedWith} {emulatorName}");
+                launchFeedback.SetStatusText($"{originalFileName} {launchedWith} {emulatorName}");
+            }
+
             await Task.Run(async () =>
             {
                 try
@@ -746,6 +738,35 @@ public class MinimalLauncherService : ILauncherService
 
             if (launchException is not null)
             {
+                // WPF parity: Win32Exception gets dedicated OS-level handling
+                // (App-Control-Policy block, UAC elevation required, user-cancelled UAC)
+                // instead of the generic error + AI parameter fix, which cannot help
+                // with an OS-level block.
+                if (launchException is Win32Exception win32Ex)
+                {
+                    if (CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(win32Ex))
+                    {
+                        await _messageBox.ApplicationControlPolicyBlockedMessageBoxAsync();
+                        Log.Error(win32Ex, "Application control policy blocked launching emulator.");
+                        loadingStateProvider?.SetLoadingState(false);
+                        return;
+                    }
+                    else if (CheckApplicationControlPolicyService.IsElevationRequired(win32Ex))
+                    {
+                        await _messageBox.ElevationRequiredMessageBoxAsync();
+                        Log.Error(win32Ex, "Elevation required to launch emulator.");
+                        loadingStateProvider?.SetLoadingState(false);
+                        return;
+                    }
+                    else if (CheckApplicationControlPolicyService.IsOperationCanceledByUser(win32Ex))
+                    {
+                        // User cancelled the operation (e.g., clicked Cancel on the UAC
+                        // prompt) — do nothing and don't offer the AI fix.
+                        loadingStateProvider?.SetLoadingState(false);
+                        return;
+                    }
+                }
+
                 await _messageBox.ErrorLaunchingGameMessageBoxAsync(launchException.Message);
                 loadingStateProvider?.SetLoadingState(false);
 
@@ -775,7 +796,7 @@ public class MinimalLauncherService : ILauncherService
             {
                 await UpdateStatsAndPlayCountAsync(
                     LastPlayTime, resolvedFilePath, selectedSystemManager.SystemName,
-                    emulatorName);
+                    emulatorName, loadingStateProvider);
                 GamePlayed?.Invoke(this, new GamePlayedEventArgs(resolvedFilePath, selectedSystemManager.SystemName));
             }
 
@@ -1027,7 +1048,7 @@ public class MinimalLauncherService : ILauncherService
     /// </summary>
     private async Task UpdateStatsAndPlayCountAsync(
         TimeSpan playTime, string filePath, string systemName,
-        string emulatorName)
+        string emulatorName, ILoadingState? loadingStateProvider = null)
     {
         // Update per-system play time in settings
         try
@@ -1038,6 +1059,17 @@ public class MinimalLauncherService : ILauncherService
         catch (Exception ex)
         {
             Log.Error(ex, "Error updating system play time in settings");
+        }
+
+        // WPF parity: show "Playtime: h:mm:ss" toast and clear the status bar.
+        if (loadingStateProvider is ILaunchFeedback launchFeedback)
+        {
+            var totalHours = (int)playTime.TotalHours;
+            var playTimeFormatted = string.Format(
+                CultureInfo.InvariantCulture, "{0}:{1:D2}:{2:D2}",
+                totalHours, playTime.Minutes, playTime.Seconds);
+            launchFeedback.ShowToast("Simple Launcher", $"Playtime: {playTimeFormatted}");
+            launchFeedback.SetStatusText("");
         }
 
         // Record play history

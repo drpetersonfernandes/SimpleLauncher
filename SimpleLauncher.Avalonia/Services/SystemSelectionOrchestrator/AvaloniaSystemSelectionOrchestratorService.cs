@@ -1,18 +1,26 @@
+using System.Text;
+using SimpleLauncher.Core;
 using SimpleLauncher.Avalonia.Interfaces;
+using SimpleLauncher.Avalonia.Services.DisplaySystemInfo;
 using SimpleLauncher.Avalonia.Services.SystemManager;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Avalonia.Services.SystemSelectionOrchestrator;
 
 /// <summary>
 /// Orchestrates system selection UI: loading system.xml into the top System ComboBox,
-/// coordinating system selection with the Emulator ComboBox, and refreshing the whole
-/// shell after system.xml changes (port of the WPF SystemSelectionOrchestratorService
-/// onto the Avalonia sidebar shell).
+/// coordinating system selection with the Emulator ComboBox, validating the selected
+/// system's configuration, and refreshing the whole shell after system.xml changes
+/// (port of the WPF SystemSelectionOrchestratorService onto the Avalonia sidebar shell).
 /// </summary>
 public class AvaloniaSystemSelectionOrchestratorService
 {
     private readonly SystemManagerService _systemManager;
     private readonly AvaloniaGameFileLoadingOrchestrator _loadingOrchestrator;
+    private readonly AvaloniaDisplaySystemInformation? _displaySystemInformation;
+    private readonly IMessageBoxLibraryService? _messageBox;
+    private readonly SettingsManagerService? _settings;
     private readonly ILogger _logger;
     private ISystemSelectionHost _host = null!;
 
@@ -22,11 +30,17 @@ public class AvaloniaSystemSelectionOrchestratorService
     public AvaloniaSystemSelectionOrchestratorService(
         SystemManagerService systemManager,
         AvaloniaGameFileLoadingOrchestrator loadingOrchestrator,
-        ILogger logger)
+        ILogger logger,
+        AvaloniaDisplaySystemInformation? displaySystemInformation = null,
+        IMessageBoxLibraryService? messageBox = null,
+        SettingsManagerService? settings = null)
     {
         _systemManager = systemManager;
         _loadingOrchestrator = loadingOrchestrator;
         _logger = logger;
+        _displaySystemInformation = displaySystemInformation;
+        _messageBox = messageBox;
+        _settings = settings;
     }
 
     /// <summary>Initializes the orchestrator with the specified UI host.</summary>
@@ -53,21 +67,84 @@ public class AvaloniaSystemSelectionOrchestratorService
     }
 
     /// <summary>
-    /// Handles a top System ComboBox selection change: navigates the game browser to
-    /// the selected system and refreshes the Emulator ComboBox for that system.
+    /// Backward-compatible synchronous entry point (kept for tests/callers that were
+    /// written against the pre-validation orchestrator). Blocks until done.
     /// </summary>
     public void HandleSystemSelectionChanged()
+    {
+        HandleSystemSelectionChangedAsync().GetAwaiter().GetResult();
+    }
+
+    /// <summary>
+    /// Handles a top System ComboBox selection change: validates the selected system,
+    /// navigates the game browser to it, refreshes the Emulator ComboBox, and updates
+    /// the play-time display (WPF SystemComboBoxSelectionChangedAsync parity).
+    /// </summary>
+    public async Task HandleSystemSelectionChangedAsync()
     {
         try
         {
             var systemName = _host.GetSelectedSystem();
-            if (string.IsNullOrEmpty(systemName)) return;
+            if (string.IsNullOrEmpty(systemName))
+            {
+                _host.IsPlayTimeVisible = false;
+                _host.PlayTime = "00:00:00";
+                return;
+            }
+
+            var selectedManager = _systemManager.GetSystem(systemName);
+            if (selectedManager == null)
+            {
+                if (_messageBox is { } invalidConfigMessageBox)
+                {
+                    await invalidConfigMessageBox.InvalidSystemConfigMessageBoxAsync();
+                }
+                _host.IsPlayTimeVisible = false;
+                _host.PlayTime = "00:00:00";
+                return;
+            }
+
+            // Validate the selected system's folders/image folder/emulator paths
+            // (WPF DisplaySystemInfoAsync → ListOfErrorsMessageBoxAsync parity).
+            if (_displaySystemInformation is { } displaySystemInformation)
+            {
+                var validationResult = displaySystemInformation.ValidateSystemConfiguration(selectedManager);
+                if (!validationResult.IsValid)
+                {
+                    var errorMessages = new StringBuilder();
+                    foreach (var msg in validationResult.ErrorMessages)
+                    {
+                        errorMessages.Append(msg);
+                    }
+
+                    if (_messageBox is { } errorListMessageBox)
+                    {
+                        await errorListMessageBox.ListOfErrorsMessageBoxAsync(errorMessages);
+                    }
+                }
+            }
+
+            // Hide the play-time display for url/lnk systems (WPF IsPlayTimeVisible parity).
+            _host.IsPlayTimeVisible = selectedManager.FileFormatsToSearch == null
+                || !selectedManager.FileFormatsToSearch.Any(static f =>
+                    f.Equals("url", StringComparison.OrdinalIgnoreCase) ||
+                    f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
+
+            if (_settings is { } settings)
+            {
+                var systemPlayTime = settings.SystemPlayTimes.FirstOrDefault(s =>
+                    s.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+                _host.PlayTime = systemPlayTime != null ? systemPlayTime.FormattedPlayTime : "00:00:00";
+            }
+
+            // WPF parity: reset the MAME sort order to FileName on every system
+            // selection so a toggled sort never persists across system switches.
+            _host.MameSortOrder = AppConstants.MameSortOrderFileName;
 
             _host.NavigateToSystem(systemName);
 
-            var emulatorNames = _systemManager.GetSystem(systemName)?.Emulators
-                                    .Select(static e => e.EmulatorName).ToList()
-                                ?? [];
+            var emulatorNames = selectedManager.Emulators
+                                    .Select(static e => e.EmulatorName).ToList();
             _host.SetEmulatorComboBoxItems(emulatorNames);
         }
         catch (Exception ex)

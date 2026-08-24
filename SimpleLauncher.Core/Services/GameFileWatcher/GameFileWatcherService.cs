@@ -39,16 +39,17 @@ public sealed class GameFileWatcherService : IDisposable
 
     /// <summary>
     /// Starts monitoring the specified folders for file changes.
-    /// Stops monitoring any previously monitored folders first.
+    /// By default stops monitoring any previously monitored folders first.
     /// </summary>
     /// <param name="folders">The folder paths to monitor (can be relative or contain %BASEFOLDER%).</param>
     /// <param name="systemName">The system name associated with these folders.</param>
     /// <param name="fileExtensions">Optional list of file extensions to filter (e.g., ["zip", "tap"]). If null, all files are monitored.</param>
-    public void StartWatching(IEnumerable<string> folders, string systemName, IEnumerable<string>? fileExtensions = null)
+    /// <param name="reset">When true (default), any previously monitored folders are stopped first. When false, the new folders are added without clearing existing watchers (used to watch multiple systems at once).</param>
+    public void StartWatching(IEnumerable<string> folders, string systemName, IEnumerable<string>? fileExtensions = null, bool reset = true)
     {
         ObjectDisposedException.ThrowIf(_disposed, this);
 
-        StopWatching();
+        if (reset) StopWatching();
 
         var extensionFilter = fileExtensions?.Select(static e => e.TrimStart('.').ToLowerInvariant()).ToHashSet(StringComparer.Ordinal);
         var resolvedFolders = folders

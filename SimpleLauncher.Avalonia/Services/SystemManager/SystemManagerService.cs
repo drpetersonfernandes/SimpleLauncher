@@ -1,8 +1,13 @@
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services;
+using SimpleLauncher.Core.Services.CheckPaths;
 
 namespace SimpleLauncher.Avalonia.Services.SystemManager;
 
@@ -15,17 +20,23 @@ public class SystemManagerService
 {
     private static readonly Lock XmlLock = new();
     private readonly IConfiguration _configuration;
+    private readonly IMessageBoxLibraryService? _messageBox;
     private List<SystemManagerConfig>? _cachedSystems;
 
-    public SystemManagerService(IConfiguration configuration)
+    public SystemManagerService(IConfiguration configuration, IMessageBoxLibraryService? messageBox = null)
     {
         _configuration = configuration;
+        _messageBox = messageBox;
     }
 
     // ── Read ──────────────────────────────────────────────────────────
 
     /// <summary>
-    /// Loads all system configurations from system.xml.
+    /// Loads all system configurations from system.xml. Mirrors the WPF
+    /// LoadSystemManagersInternalAsync: validates each system, removes invalid
+    /// ones (notifying the user), attempts partial recovery on structural
+    /// corruption via regex, offers to restore the last backup when the file is
+    /// unrecoverable, and rewrites a cleaned, sorted copy back to disk.
     /// </summary>
     public List<SystemManagerConfig> LoadSystems()
     {
@@ -35,6 +46,9 @@ public class SystemManagerService
 
         var path = GetSystemXmlPath();
         if (!File.Exists(path)) return _cachedSystems;
+
+        var invalidErrors = new List<string>();
+        var dirty = false;
 
         try
         {
@@ -47,31 +61,223 @@ public class SystemManagerService
             using var reader = XmlReader.Create(path, settings);
             var doc = XDocument.Load(reader, LoadOptions.None);
 
-            foreach (var element in doc.Root?.Elements("SystemConfig") ?? [])
+            if (doc.Root != null)
             {
-                var config = new SystemManagerConfig
+                foreach (var element in doc.Root.Elements("SystemConfig"))
                 {
-                    SystemName = element.Element("SystemName")?.Value ?? "",
-                    SystemFolders = ParseFoldersCompat(element),
-                    SystemImageFolder = element.Element("SystemImageFolder")?.Value ?? "",
-                    FileFormatsToSearch = ParseListCompat(element, "FileFormatsToSearch", "FormatToSearch"),
-                    FileFormatsToLaunch = ParseListCompat(element, "FileFormatsToLaunch", "FormatToLaunch"),
-                    ExtractFileBeforeLaunch = bool.TryParse(element.Element("ExtractFileBeforeLaunch")?.Value, out var b) && b,
-                    GroupByFolder = bool.TryParse(element.Element("GroupByFolder")?.Value, out var g) && g,
-                    DisableRecursiveSearch = bool.TryParse(element.Element("DisableRecursiveSearch")?.Value, out var d) && d,
-                    Emulators = ParseEmulators(element.Element("Emulators"))
-                };
-
-                if (!string.IsNullOrWhiteSpace(config.SystemName))
-                    _cachedSystems.Add(config);
+                    try
+                    {
+                        var config = ParseSystemElement(element);
+                        _cachedSystems.Add(config);
+                    }
+                    catch (Exception ex)
+                    {
+                        var name = element.Element("SystemName")?.Value ?? "Unnamed System";
+                        invalidErrors.Add($"The system '{name}' was removed due to the following error(s):\n- {ex.Message}");
+                        dirty = true;
+                    }
+                }
             }
+        }
+        catch (XmlException ex)
+        {
+            Log.Error(ex, "Structural corruption in 'system.xml'. Attempting partial recovery.");
+            dirty = true;
+
+            try
+            {
+                var rawXml = File.ReadAllText(path);
+                foreach (Match match in SystemConfigBlockRegexInstance.Matches(rawXml))
+                {
+                    try
+                    {
+                        var sysConfigElement = XElement.Parse(match.Value);
+                        var config = ParseSystemElement(sysConfigElement);
+                        _cachedSystems.Add(config);
+                    }
+                    catch (Exception innerEx)
+                    {
+                        var nameMatch = SystemNameRegexInstance.Match(match.Value);
+                        var sysName = nameMatch.Success ? nameMatch.Groups[1].Value : "Unknown";
+                        invalidErrors.Add($"The system '{sysName}' was removed due to structural corruption in the XML.");
+                        Log.Error(innerEx, "Failed to validate system configuration during recovery for '{SysName}'", sysName);
+                    }
+                }
+            }
+            catch (Exception recoveryEx)
+            {
+                Log.Error(recoveryEx, "Failed to perform regex recovery on system.xml.");
+            }
+
+            if (_cachedSystems.Count == 0 && invalidErrors.Count == 0)
+            {
+                NotifyCorruptedAndMaybeRestore(path);
+            }
+        }
+        catch (IOException ex)
+        {
+            Log.Error(ex, "The file 'system.xml' is locked.");
+            _ = _messageBox?.FileSystemXmlIsLockedMessageBoxAsync();
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Failed to parse system.xml at {Path}", path);
+            NotifyCorruptedAndMaybeRestore(path);
+        }
+
+        // Notify the user about each invalid system that was removed.
+        foreach (var error in invalidErrors)
+        {
+            _ = _messageBox?.InvalidSystemConfigurationMessageBoxAsync(error);
+        }
+
+        // Rewrite a cleaned, sorted copy so future loads don't re-corrupt.
+        if (dirty && _cachedSystems.Count > 0)
+        {
+            try
+            {
+                SaveCleanedSystems(_cachedSystems, path);
+            }
+            catch (Exception saveEx)
+            {
+                Log.Error(saveEx, "Error saving cleaned 'system.xml' after loading.");
+            }
         }
 
         return _cachedSystems;
+    }
+
+    /// <summary>Informs the user the file is corrupted and offers to restore the last backup.</summary>
+    private void NotifyCorruptedAndMaybeRestore(string path)
+    {
+        _ = _messageBox?.SystemXmlIsCorruptedMessageBoxAsync(
+            PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+
+        var backup = FindLatestBackup(path);
+        if (backup is null) return;
+
+        var restoreTask = _messageBox?.WouldYouLikeToRestoreTheLastBackupMessageBoxAsync();
+        if (restoreTask is null) return;
+        var result = restoreTask.GetAwaiter().GetResult();
+        if (result != MessageBoxResult.Yes) return;
+
+        try
+        {
+            File.Copy(backup, path, true);
+            _cachedSystems = null;
+            InvalidateCache();
+            _cachedSystems = LoadSystems();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to restore 'system.xml' from backup '{Backup}'", backup);
+            _ = _messageBox?.SimpleLauncherWasUnableToRestoreBackupMessageBoxAsync();
+        }
+    }
+
+    private static string? FindLatestBackup(string path)
+    {
+        try
+        {
+            var dir = Path.GetDirectoryName(Path.GetFullPath(path));
+            if (string.IsNullOrEmpty(dir) || !Directory.Exists(dir)) return null;
+
+            return Directory.EnumerateFiles(dir, "system_backup*.xml", SearchOption.TopDirectoryOnly)
+                .OrderByDescending(File.GetLastWriteTimeUtc)
+                .FirstOrDefault();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error searching for system.xml backups.");
+            return null;
+        }
+    }
+
+    /// <summary>Parses a single SystemConfig element and throws if it is invalid.</summary>
+    private static SystemManagerConfig ParseSystemElement(XElement element)
+    {
+        var systemName = element.Element("SystemName")?.Value?.Trim();
+        if (string.IsNullOrEmpty(systemName))
+            throw new InvalidOperationException("SystemName is missing or empty.");
+
+        return new SystemManagerConfig
+        {
+            SystemName = systemName,
+            SystemFolders = ParseFoldersCompat(element),
+            SystemImageFolder = element.Element("SystemImageFolder")?.Value ?? "",
+            FileFormatsToSearch = ParseListCompat(element, "FileFormatsToSearch", "FormatToSearch"),
+            FileFormatsToLaunch = ParseListCompat(element, "FileFormatsToLaunch", "FormatToLaunch"),
+            ExtractFileBeforeLaunch = bool.TryParse(element.Element("ExtractFileBeforeLaunch")?.Value, out var b) && b,
+            GroupByFolder = bool.TryParse(element.Element("GroupByFolder")?.Value, out var g) && g,
+            DisableRecursiveSearch = bool.TryParse(element.Element("DisableRecursiveSearch")?.Value, out var d) && d,
+            Emulators = ParseEmulators(element.Element("Emulators"))
+        };
+    }
+
+    private static readonly Regex SystemConfigBlockRegexInstance =
+        new(@"<SystemConfig\b[^>]*>.*?</SystemConfig>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+
+    private static readonly Regex SystemNameRegexInstance =
+        new(@"<SystemName>\s*(.*?)\s*</SystemName>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+
+    /// <summary>Rewrites system.xml with the supplied (validated) systems, sorted by name.</summary>
+    private static void SaveCleanedSystems(List<SystemManagerConfig> systems, string path)
+    {
+        var root = new XElement("SystemConfigs");
+        foreach (var config in systems.OrderBy(static c => c.SystemName, StringComparer.OrdinalIgnoreCase))
+        {
+            var emulator = config.Emulators?.FirstOrDefault();
+            root.Add(BuildSystemConfigElement(
+                config.SystemName,
+                config.SystemFolders,
+                config.SystemImageFolder,
+                config.FileFormatsToSearch,
+                config.FileFormatsToLaunch,
+                config.ExtractFileBeforeLaunch,
+                emulator));
+        }
+
+        var doc = new XDocument(new XDeclaration("1.0", "utf-8", null), root);
+
+        const int maxRetries = 3;
+        var retryDelayMs = 500;
+        for (var attempt = 0; attempt < maxRetries; attempt++)
+        {
+            try
+            {
+                var tempPath = path + ".tmp";
+                var writerSettings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    IndentChars = "  ",
+                    NewLineHandling = NewLineHandling.Replace,
+                    Encoding = System.Text.Encoding.UTF8
+                };
+
+                using (var ms = new MemoryStream())
+                {
+                    using var writer = XmlWriter.Create(ms, writerSettings);
+                    doc.Save(writer);
+                    File.WriteAllBytes(tempPath, ms.ToArray());
+                }
+
+                File.Move(tempPath, path, true);
+                return;
+            }
+            catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+            {
+                if (attempt < maxRetries - 1)
+                {
+                    try { File.Delete(path + ".tmp"); } catch { /* ignore */ }
+                    Thread.Sleep(retryDelayMs);
+                    retryDelayMs *= 2;
+                }
+                else
+                {
+                    Log.Error(ex, "Error saving cleaned 'system.xml'.");
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -101,7 +307,8 @@ public class SystemManagerService
         EasyModeSystemConfig selectedSystem,
         string systemFolder,
         IConfiguration configuration,
-        ILogger? logErrors = null)
+        ILogger? logErrors = null,
+        SystemManagerService? cacheOwner = null)
     {
         return SaveSystemConfigurationAsync(
             selectedSystem.SystemName,
@@ -113,7 +320,8 @@ public class SystemManagerService
             ConvertEasyModeEmulator(selectedSystem.Emulators?.Emulator),
             selectedSystem.SystemName,
             configuration,
-            logErrors);
+            logErrors,
+            cacheOwner);
     }
 
     /// <summary>
@@ -130,7 +338,8 @@ public class SystemManagerService
         Emulator? emulator,
         string? originalSystemName,
         IConfiguration configuration,
-        ILogger? logErrors = null)
+        ILogger? logErrors = null,
+        SystemManagerService? cacheOwner = null)
     {
         try
         {
@@ -138,7 +347,8 @@ public class SystemManagerService
             {
                 lock (XmlLock)
                 {
-                    var systemXmlPath = GetSystemXmlPathStatic(configuration);
+                    var fileLocation = new DataFileLocation(configuration, "SystemXmlPath", "system.xml");
+                    var systemXmlPath = fileLocation.FilePath;
                     XDocument xmlDoc;
 
                     try
@@ -150,6 +360,39 @@ public class SystemManagerService
                                 ? new XDocument(new XElement("SystemConfigs"))
                                 : XDocument.Parse(xmlContent);
                             if (xmlDoc.Root?.Name != "SystemConfigs")
+                            {
+                                xmlDoc = new XDocument(new XElement("SystemConfigs"));
+                            }
+                        }
+                        else
+                        {
+                            xmlDoc = new XDocument(new XElement("SystemConfigs"));
+                        }
+                    }
+                    catch (UnauthorizedAccessException) when (fileLocation.IsPortableMode)
+                    {
+                        // WPF parity: in portable mode, fall back to LocalAppData when system.xml
+                        // cannot be read at the portable path (read-only/blocked deployment).
+                        var fallbackPath = fileLocation.GetLocalAppDataPath();
+                        if (File.Exists(fallbackPath))
+                        {
+                            try
+                            {
+                                var xmlContent = File.ReadAllText(fallbackPath);
+                                xmlDoc = string.IsNullOrWhiteSpace(xmlContent)
+                                    ? new XDocument(new XElement("SystemConfigs"))
+                                    : XDocument.Parse(xmlContent);
+                                if (xmlDoc.Root?.Name != "SystemConfigs")
+                                {
+                                    xmlDoc = new XDocument(new XElement("SystemConfigs"));
+                                }
+
+                                if (fileLocation.TryFallbackToLocalAppData())
+                                {
+                                    systemXmlPath = fileLocation.FilePath;
+                                }
+                            }
+                            catch
                             {
                                 xmlDoc = new XDocument(new XElement("SystemConfigs"));
                             }
@@ -236,6 +479,30 @@ public class SystemManagerService
                         catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
                         {
                             lastException = ex;
+
+                            // WPF parity: in portable mode, when the final in-place attempt fails
+                            // (read-only/blocked deployment), fall back to LocalAppData and retry.
+                            if (fileLocation.IsPortableMode && attempt == maxRetries - 1)
+                            {
+                                try
+                                {
+                                    var oldSystemXmlPath = systemXmlPath;
+                                    if (fileLocation.TryFallbackToLocalAppData())
+                                    {
+                                        systemXmlPath = fileLocation.FilePath;
+                                        if (!string.Equals(systemXmlPath, oldSystemXmlPath, StringComparison.Ordinal))
+                                        {
+                                            attempt--;
+                                            continue;
+                                        }
+                                    }
+                                }
+                                catch (Exception fallbackEx)
+                                {
+                                    Log.Debug(fallbackEx, "Fallback to LocalAppData failed while saving system.xml.");
+                                }
+                            }
+
                             if (attempt < maxRetries - 1)
                             {
                                 try
@@ -262,6 +529,7 @@ public class SystemManagerService
                     throw new InvalidOperationException("Failed to save system configuration.", lastException);
                 }
             });
+            cacheOwner?.InvalidateCache();
         }
         catch (Exception ex)
         {

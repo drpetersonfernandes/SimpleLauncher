@@ -773,26 +773,24 @@ public class AvaloniaContextMenuFunctions(
 
     private static void OpenUrl(string url)
     {
-        if (OperatingSystem.IsWindows())
+        // WPF parity: opening a URL/file with the OS shell is cross-platform
+        // (UseShellExecute resolves the default browser/app on every OS). The
+        // Windows-only guard previously made these context actions silent no-ops
+        // on Linux/macOS.
+        Process.Start(new ProcessStartInfo
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = url,
-                UseShellExecute = true
-            });
-        }
+            FileName = url,
+            UseShellExecute = true
+        });
     }
 
     private static void OpenUrlOrFile(string path)
     {
-        if (OperatingSystem.IsWindows())
+        Process.Start(new ProcessStartInfo
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = path,
-                UseShellExecute = true
-            });
-        }
+            FileName = path,
+            UseShellExecute = true
+        });
     }
 
     private static bool TryFindImage(string? directory, string fileNameWithoutExtension, string[] extensions, out string? foundPath)

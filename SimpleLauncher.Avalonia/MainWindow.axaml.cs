@@ -1,6 +1,8 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.Json;
+using SimpleLauncher.Avalonia.Services.Theme;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -22,6 +24,7 @@ using SimpleLauncher.Avalonia.Services.SystemSelectionOrchestrator;
 using SimpleLauncher.Avalonia.Services.UIReset;
 using SimpleLauncher.Avalonia.Services.ContextMenus;
 using SimpleLauncher.Avalonia.Services.LoadingOverlay;
+using SimpleLauncher.Avalonia.Services.QuitOrReinstall;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
@@ -54,6 +57,7 @@ public partial class MainWindow : Window, IPaginationHost
     private readonly AvaloniaSystemSelectionOrchestratorService _systemSelectionOrchestrator;
     private readonly AvaloniaContextMenuService _contextMenuService;
     private readonly AvaloniaLoadingOverlayService _loadingOverlay;
+    private readonly AvaloniaQuitSimpleLauncher _quitSimpleLauncher;
 
     /// <summary>Favorites page section ViewModel (WPF FavoritesPage equivalent).</summary>
     public FavoritesSectionViewModel FavoritesSection { get; }
@@ -94,7 +98,8 @@ public partial class MainWindow : Window, IPaginationHost
         UiResetService uiResetService,
         AvaloniaSystemSelectionOrchestratorService systemSelectionOrchestrator,
         AvaloniaContextMenuService contextMenuService,
-        AvaloniaLoadingOverlayService loadingOverlay)
+        AvaloniaLoadingOverlayService loadingOverlay,
+        AvaloniaQuitSimpleLauncher quitSimpleLauncher)
     {
         _viewModel = viewModel;
         _systemManagerService = systemManagerService;
@@ -112,6 +117,7 @@ public partial class MainWindow : Window, IPaginationHost
         _systemSelectionOrchestrator = systemSelectionOrchestrator;
         _contextMenuService = contextMenuService;
         _loadingOverlay = loadingOverlay;
+        _quitSimpleLauncher = quitSimpleLauncher;
         FavoritesSection = favoritesSection;
         PlayHistorySection = playHistorySection;
         GlobalSearchSection = globalSearchSection;
@@ -182,10 +188,31 @@ public partial class MainWindow : Window, IPaginationHost
         // within the grace period, force-exit so the app can never linger in the background.
         Closed += (_, _) =>
         {
-            // Unsubscribe event handlers to prevent memory leaks
-            _viewModel.ToastRequested -= _toastRequestedHandler;
-            _fileWatcher.GameFilesChanged -= _gameFilesChangedHandler;
-            RemoveHandler(PointerWheelChangedEvent, _pointerWheelChangedHandler);
+            // WPF CloseWindowEvents parity: full cleanup on window close — unsubscribe
+            // handlers, stop the gamepad, stop the ROM watcher, and kill any lingering
+            // CHD mounter processes so no background processes outlive the window.
+            try
+            {
+                _viewModel.ToastRequested -= _toastRequestedHandler;
+                _fileWatcher.GameFilesChanged -= _gameFilesChangedHandler;
+                RemoveHandler(PointerWheelChangedEvent, _pointerWheelChangedHandler);
+
+                if (_gamePadController.IsRunning)
+                {
+                    _ = _gamePadController.StopAsync();
+                }
+
+                _fileWatcher.StopWatching();
+
+                if (App.ServiceProvider?.GetService<IMountChdFiles>() is { } mountChdFiles)
+                {
+                    mountChdFiles.KillAllChdMounterProcesses(Log.Logger);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Debug(ex, "Error during main window cleanup");
+            }
 
             _shutdownWatchdogCts?.Cancel();
             _shutdownWatchdogCts?.Dispose();
@@ -337,11 +364,23 @@ public partial class MainWindow : Window, IPaginationHost
     {
         try
         {
+            InitializeThemeMenu();
+
             await _viewModel.InitializeAsync();
             RefreshSidebarCounts();
 
+            var systems = _systemManagerService.LoadSystems();
+
             // Start watching all configured ROM folders (debounced live refresh)
-            _fileWatcher.StartWatchingForSystems(_systemManagerService.LoadSystems());
+            _fileWatcher.StartWatchingForSystems(systems);
+
+            // First-run experience (parity with WPF MainWindow.HandleLoadedAsync):
+            // if no systems are configured yet, try to auto-discover Windows Store
+            // games and, failing that, offer Easy Mode to bootstrap configuration.
+            if (systems.Count == 0)
+            {
+                await RunFirstRunExperienceAsync();
+            }
 
             // WPF parity: show system selection screen at startup instead of
             // the All Games browser. User picks a system from the grid to begin.
@@ -350,6 +389,112 @@ public partial class MainWindow : Window, IPaginationHost
         catch (Exception ex)
         {
             Log.Error(ex, "Main window load failed");
+        }
+    }
+
+    /// <summary>
+    /// Mirrors WPF MainWindow.HandleLoadedAsync first-run flow: scans for Windows
+    /// Store games when no systems exist, then offers Easy Mode if still empty.
+    /// </summary>
+    private async Task RunFirstRunExperienceAsync()
+    {
+        try
+        {
+            _loadingOverlay.SetLoadingState(true, "Scanning for Windows games...");
+            var result = await _gameScannerService.ScanForStoreGamesAsync();
+            if (result.SystemWasCreated)
+            {
+                _systemSelectionOrchestrator.LoadOrReloadSystemManager();
+                RefreshSidebarCounts();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error during initial Windows games scan.");
+        }
+        finally
+        {
+            _loadingOverlay.SetLoadingState(false);
+        }
+
+        var systems = _systemManagerService.LoadSystems();
+        if (systems.Count == 0)
+        {
+            var messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+            var welcome = await messageBox.FirstRunWelcomeMessageBoxAsync();
+            if (welcome == MessageBoxResult.Yes)
+            {
+                var easyModeWindow = App.ServiceProvider.GetRequiredService<EasyModeWindow>();
+                await easyModeWindow.ShowDialog(this);
+                if (easyModeWindow.DataContext is EasyModeViewModel { SystemAdded: true })
+                {
+                    _systemSelectionOrchestrator.LoadOrReloadSystemManager();
+                    RefreshSidebarCounts();
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Builds the Theme menu: populates the accent-color submenu and applies the
+    /// saved check marks. Parity with WPF ThemeMenuService.
+    /// </summary>
+    private void InitializeThemeMenu()
+    {
+        if (AccentColorMenu is null || BaseThemeMenu is null) return;
+
+        AccentColorMenu.Items.Clear();
+        var currentAccent = _settings.AccentColor;
+        foreach (var accent in AvaloniaThemeService.AccentColorNames)
+        {
+            var item = new MenuItem
+            {
+                Header = accent,
+                Tag = accent,
+                ToggleType = MenuItemToggleType.CheckBox,
+                GroupName = "AccentGroup",
+                IsChecked = string.Equals(accent, currentAccent, StringComparison.OrdinalIgnoreCase)
+            };
+            item.Click += ChangeAccentColor_Click;
+            AccentColorMenu.Items.Add(item);
+        }
+
+        var currentBase = _settings.BaseTheme;
+        foreach (var item in BaseThemeMenu.Items.OfType<MenuItem>())
+        {
+            item.IsChecked = string.Equals(item.Tag?.ToString(), currentBase, StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
+    private void ChangeBaseTheme_Click(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not MenuItem item) return;
+        var baseTheme = item.Tag?.ToString();
+        if (string.IsNullOrWhiteSpace(baseTheme)) return;
+
+        _settings.BaseTheme = baseTheme;
+        _ = _settings.SaveAsync();
+        AvaloniaThemeService.ApplyTheme(_settings.BaseTheme, _settings.AccentColor);
+
+        foreach (var child in BaseThemeMenu.Items.OfType<MenuItem>())
+        {
+            child.IsChecked = child == item;
+        }
+    }
+
+    private void ChangeAccentColor_Click(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not MenuItem item) return;
+        var accent = item.Tag?.ToString();
+        if (string.IsNullOrWhiteSpace(accent)) return;
+
+        _settings.AccentColor = accent;
+        _ = _settings.SaveAsync();
+        AvaloniaThemeService.ApplyTheme(_settings.BaseTheme, _settings.AccentColor);
+
+        foreach (var child in AccentColorMenu.Items.OfType<MenuItem>())
+        {
+            child.IsChecked = child == item;
         }
     }
 
@@ -385,6 +530,19 @@ public partial class MainWindow : Window, IPaginationHost
     private void Window_Closing(object? sender, WindowClosingEventArgs e)
     {
         Log.Debug("Main window closing");
+
+        // WPF CloseWindowEvents parity: cancel in-flight background work first so
+        // background threads release locks sooner.
+        try
+        {
+            _uiResetCancellationSource.Cancel();
+            _uiResetCancellationSource.Dispose();
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "Error cancelling the UI reset token on close");
+        }
+
         SaveBounds();
     }
 
@@ -869,7 +1027,7 @@ public partial class MainWindow : Window, IPaginationHost
     /// </summary>
     private void SystemComboBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        _systemSelectionOrchestrator.HandleSystemSelectionChanged();
+        _ = _systemSelectionOrchestrator.HandleSystemSelectionChangedAsync();
     }
 
     /// <summary>
@@ -1503,36 +1661,26 @@ public partial class MainWindow : Window, IPaginationHost
 
     private void UpdateViewModeCheckMarks()
     {
-        var grid = _viewModel.IsGridView;
-        GridView.IsChecked = grid;
-        ListView.IsChecked = !grid;
+        _menuCheckMarks.SetViewModeCheckMarks(GridView, ListView, _viewModel.IsGridView);
     }
 
     private void UpdateShowGamesCheckMarks(string? mode)
     {
-        ShowAll.IsChecked = string.Equals(mode, "ShowAll", StringComparison.Ordinal);
-        ShowWithCover.IsChecked = string.Equals(mode, "ShowWithCover", StringComparison.Ordinal);
-        ShowWithoutCover.IsChecked = string.Equals(mode, "ShowWithoutCover", StringComparison.Ordinal);
+        _menuCheckMarks.UpdateShowGamesCheckMarks(
+            [ShowAll, ShowWithCover, ShowWithoutCover], mode);
     }
 
     private void UpdateFilenameCheckMarks()
     {
         var mode = _settings.FilenameDisplayMode;
-        FilenameDisplayOriginal.IsChecked = string.Equals(mode, "Original", StringComparison.Ordinal);
-        FilenameDisplayCleanUp.IsChecked = string.Equals(mode, "CleanUp", StringComparison.Ordinal);
-        FilenameDisplayNoFilename.IsChecked = string.Equals(mode, "NoFilename", StringComparison.Ordinal);
+        _menuCheckMarks.UpdateFilenameDisplayModeCheckMarks(
+            [FilenameDisplayOriginal, FilenameDisplayCleanUp, FilenameDisplayNoFilename], mode);
         DisplayMachineNameToggle.IsChecked = _settings.DisplayMachineName;
 
-        UpdateFontSizeCheckMarks(FilenameFontSizeMenu, FilenameFontSizeSmall, FilenameFontSizeNormal, FilenameFontSizeBig, _settings.FilenameFontSize);
-        UpdateFontSizeCheckMarks(MachineNameFontSizeMenu, MachineNameFontSizeSmall, MachineNameFontSizeNormal, MachineNameFontSizeBig, _settings.MachineNameFontSize);
-    }
-
-    private static void UpdateFontSizeCheckMarks(MenuItem menu, MenuItem small, MenuItem normal, MenuItem big, string? value)
-    {
-        _ = menu; // container passed for symmetry with the other check-mark helpers
-        small.IsChecked = string.Equals(value, "Small", StringComparison.Ordinal);
-        normal.IsChecked = string.Equals(value, "Normal", StringComparison.Ordinal);
-        big.IsChecked = string.Equals(value, "Big", StringComparison.Ordinal);
+        _menuCheckMarks.UpdateFilenameFontSizeCheckMarks(
+            [FilenameFontSizeSmall, FilenameFontSizeNormal, FilenameFontSizeBig], _settings.FilenameFontSize);
+        _menuCheckMarks.UpdateMachineNameFontSizeCheckMarks(
+            [MachineNameFontSizeSmall, MachineNameFontSizeNormal, MachineNameFontSizeBig], _settings.MachineNameFontSize);
     }
 
     // ── Language ──
@@ -1550,7 +1698,11 @@ public partial class MainWindow : Window, IPaginationHost
             _localization.LoadLanguage(lang);
             UpdateLanguageCheckMarks(lang);
             _playSound.PlayNotificationSound();
-            ShowToast("Language", $"Language set to {lang}. Restart the app to apply it everywhere.");
+
+            // WPF parity: LanguageMenuService.ChangeLanguageAsync restarts the app so
+            // the new language applies everywhere (not just the partial live apply).
+            var messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
+            await _quitSimpleLauncher.RestartApplicationAsync(messageBox);
         }
         catch (Exception ex)
         {
@@ -2544,7 +2696,10 @@ public partial class MainWindow : Window, IPaginationHost
     private void Exit_Click(object? sender, RoutedEventArgs e)
     {
         _playSound.PlayNotificationSound();
-        Close();
+
+        // WPF parity: Exit_Click routes through QuitSimpleLauncher.SimpleQuitApplication()
+        // for a clean shutdown (tray/process cleanup), not just Close().
+        _quitSimpleLauncher.SimpleQuitApplication();
     }
 
     #endregion

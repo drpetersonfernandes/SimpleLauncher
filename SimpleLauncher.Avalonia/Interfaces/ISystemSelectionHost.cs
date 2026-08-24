@@ -26,4 +26,13 @@ public interface ISystemSelectionHost
 
     /// <summary>Restarts the ROM folder watcher over all configured systems.</summary>
     void RestartFileWatcher();
+
+    /// <summary>Gets or sets the play-time string shown for the selected system.</summary>
+    string PlayTime { get; set; }
+
+    /// <summary>Gets or sets whether the play-time display is visible for the selected system.</summary>
+    bool IsPlayTimeVisible { get; set; }
+
+    /// <summary>Gets or sets the current MAME sort order ("FileName" or "MachineDescription").</summary>
+    string MameSortOrder { get; set; }
 }
