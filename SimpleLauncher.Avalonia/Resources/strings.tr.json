@@ -77,7 +77,7 @@
   "DeveloperSuggestion": "Geliştirici önerisi",
   "TooltipDeveloperSuggestionLabel": "Bu sistemi yapılandırmak için geliştirici önerileri ve yardım belgeleri",
   "Nodetailsavailablefor": "İçin detay bulunamadı",
-  "Noinformationavailableforsystem": "Sistem için kullanılabilir bilgi yok:",
+  "Noinformationavailableforsystem": "Sistem için bilgi mevcut değil",
   "Nosystemnameprovided": "Sistem adı belirtilmedi.",
   "Options": "Seçenekler",
   "Language": "Dil",
@@ -278,6 +278,7 @@
   "OpeningFlyerImage": "El ilanı resmi açılıyor...",
   "OpeningPCBImage": "PCB resmi açılıyor...",
   "TakingScreenshot": "Ekran görüntüsü alınıyor...",
+  "F8ShortcutInUse": "F8 kısayol tuşu başka bir program tarafından zaten kullanılıyor. Bu nedenle, ekran görüntüsü işlevi kapatıldı.",
   "DeletingGame": "Oyun siliniyor...",
   "DeletingCoverImage": "Kapak resmi siliniyor...",
   "AchievementsEarned": "Kazan\u0131lan Ba\u015Far\u0131mlar",
@@ -549,5 +550,8 @@
   "TotalSystemsWithMissingImages": "Eksik Görüntülü Sistemler:",
   "UpdateHistoryLoadError": "Hata. Güncelleme geçmişi yüklenemedi. Hata günlüğe kaydedildi.",
   "wascanceled": "iptal edildi.",
-  "WhatsNewFileNotFound": "# 'whatsnew.md' bulunamadı. Güncelleme geçmişi dosyası bulunamadı."
+  "WhatsNewFileNotFound": "# 'whatsnew.md' bulunamadı. Güncelleme geçmişi dosyası bulunamadı.",
+  "SystemFolderpathisnotvalid": "Sistem klasörü yolu geçerli değil veya mevcut değil:",
+  "SystemImageFolderpathisnotvalid": "Sistem görüntü klasörü yolu geçerli değil veya mevcut değil:",
+  "Emulatorpathisnotvalidfor": "Emülatör yolu geçersiz"
 }

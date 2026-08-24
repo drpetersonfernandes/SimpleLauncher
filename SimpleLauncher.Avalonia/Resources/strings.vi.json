@@ -77,7 +77,7 @@
   "DeveloperSuggestion": "Gợi ý từ nhà phát triển",
   "TooltipDeveloperSuggestionLabel": "Gợi ý của nhà phát triển và tài liệu trợ giúp để cấu hình hệ thống này",
   "Nodetailsavailablefor": "Không có chi tiết nào khả dụng cho",
-  "Noinformationavailableforsystem": "Không có thông tin nào cho hệ thống:",
+  "Noinformationavailableforsystem": "Không có thông tin nào cho hệ thống",
   "Nosystemnameprovided": "Không có tên hệ thống được cung cấp.",
   "Options": "Tùy chọn",
   "Language": "Ngôn ngữ",
@@ -278,6 +278,7 @@
   "OpeningFlyerImage": "Đang mở hình ảnh tờ rơi...",
   "OpeningPCBImage": "Đang mở hình ảnh PCB...",
   "TakingScreenshot": "Đang chụp màn hình...",
+  "F8ShortcutInUse": "Phím tắt F8 đã được sử dụng bởi một chương trình khác. Vì điều này, chức năng chụp màn hình đã bị tắt.",
   "DeletingGame": "Đang xóa trò chơi...",
   "DeletingCoverImage": "Đang xóa hình ảnh bìa...",
   "AchievementsEarned": "Th\u00E0nh t\u00EDch \u0111\u00E3 \u0111\u1EA1t",
@@ -549,5 +550,8 @@
   "TotalSystemsWithMissingImages": "Hệ thống Thiếu Hình ảnh:",
   "UpdateHistoryLoadError": "Lỗi. Không thể tải lịch sử cập nhật. Lỗi đã được ghi lại.",
   "wascanceled": "đã bị hủy.",
-  "WhatsNewFileNotFound": "# 'whatsnew.md' không tìm thấy. Không thể tìm thấy tệp lịch sử cập nhật."
+  "WhatsNewFileNotFound": "# 'whatsnew.md' không tìm thấy. Không thể tìm thấy tệp lịch sử cập nhật.",
+  "SystemFolderpathisnotvalid": "Đường dẫn thư mục hệ thống không hợp lệ hoặc không tồn tại:",
+  "SystemImageFolderpathisnotvalid": "Đường dẫn thư mục hình ảnh hệ thống không hợp lệ hoặc không tồn tại:",
+  "Emulatorpathisnotvalidfor": "Đường dẫn trình mô phỏng không hợp lệ cho"
 }

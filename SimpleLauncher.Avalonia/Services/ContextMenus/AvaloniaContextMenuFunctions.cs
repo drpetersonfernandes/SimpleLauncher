@@ -202,7 +202,8 @@ public class AvaloniaContextMenuFunctions(
         {
             OpenUrl(searchUrl);
         }
-        catch (Win32Exception ex) when (ex.Message.Contains("No application is associated", StringComparison.OrdinalIgnoreCase))
+        catch (Win32Exception ex) when (ex.Message.Contains("No application is associated", StringComparison.OrdinalIgnoreCase)
+                                        || ex.Message.Contains("No hay ninguna aplicación asociada", StringComparison.OrdinalIgnoreCase))
         {
             _logErrors.Error(ex, "Win32Exception: No default application configured for opening web links (Video Link).");
             await _messageBox.NoDefaultBrowserConfiguredMessageBoxAsync();
@@ -227,7 +228,8 @@ public class AvaloniaContextMenuFunctions(
         {
             OpenUrl(searchUrl);
         }
-        catch (Win32Exception ex) when (ex.Message.Contains("No application is associated", StringComparison.OrdinalIgnoreCase))
+        catch (Win32Exception ex) when (ex.Message.Contains("No application is associated", StringComparison.OrdinalIgnoreCase)
+                                        || ex.Message.Contains("No hay ninguna aplicación asociada", StringComparison.OrdinalIgnoreCase))
         {
             _logErrors.Error(ex, "Win32Exception: No default application configured for opening web links (Info Link).");
             await _messageBox.NoDefaultBrowserConfiguredMessageBoxAsync();
@@ -272,6 +274,15 @@ public class AvaloniaContextMenuFunctions(
         try
         {
             var settings = context.Settings;
+
+            // WPF parity: guard against empty fileNameWithoutExtension
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(context.FilePath);
+            if (string.IsNullOrEmpty(fileNameWithoutExtension))
+            {
+                _logErrors.Debug("[RA Service] File name without extension is empty.");
+                await _messageBox.ErrorMessageBoxAsync();
+                return;
+            }
 
             if (string.IsNullOrWhiteSpace(settings.RaApiKey) || string.IsNullOrWhiteSpace(settings.RaUsername))
             {

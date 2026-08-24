@@ -77,7 +77,7 @@
   "DeveloperSuggestion": "Saran Pengembang",
   "TooltipDeveloperSuggestionLabel": "Saran pengembang dan dokumentasi bantuan untuk mengonfigurasi sistem ini",
   "Nodetailsavailablefor": "Tidak ada detail yang tersedia untuk",
-  "Noinformationavailableforsystem": "Tidak ada informasi yang tersedia untuk sistem:",
+  "Noinformationavailableforsystem": "Tidak ada informasi yang tersedia untuk sistem",
   "Nosystemnameprovided": "Tidak ada nama sistem yang diberikan.",
   "Options": "Pilihan",
   "Language": "Bahasa",
@@ -278,6 +278,7 @@
   "OpeningFlyerImage": "Membuka gambar pamflet...",
   "OpeningPCBImage": "Membuka gambar PCB...",
   "TakingScreenshot": "Mengambil tangkapan layar...",
+  "F8ShortcutInUse": "Tombol pintas F8 sudah digunakan oleh program lain. Karena itu, fungsionalitas tangkapan layar dimatikan.",
   "DeletingGame": "Menghapus game...",
   "DeletingCoverImage": "Menghapus gambar sampul...",
   "AchievementsEarned": "Pencapaian Didapatkan",
@@ -549,5 +550,8 @@
   "TotalSystemsWithMissingImages": "Sistem dengan Gambar Hilang:",
   "UpdateHistoryLoadError": "Kesalahan. Tidak dapat memuat riwayat pembaruan. Kesalahan telah dicatat.",
   "wascanceled": "dibatalkan.",
-  "WhatsNewFileNotFound": "# 'whatsnew.md' tidak ditemukan. File riwayat pembaruan tidak dapat ditemukan."
+  "WhatsNewFileNotFound": "# 'whatsnew.md' tidak ditemukan. File riwayat pembaruan tidak dapat ditemukan.",
+  "SystemFolderpathisnotvalid": "Path folder sistem tidak valid atau tidak ada:",
+  "SystemImageFolderpathisnotvalid": "Path folder gambar sistem tidak valid atau tidak ada:",
+  "Emulatorpathisnotvalidfor": "Path emulator tidak valid untuk"
 }

@@ -492,7 +492,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     {
         if (!string.IsNullOrWhiteSpace(SearchText))
         {
-            ExecuteSearch(SearchText);
+            _ = ExecuteSearchAsync(SearchText);
             return;
         }
 
@@ -781,7 +781,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
                 }
                 else
                 {
-                    ExecuteSearch(query);
+                    await ExecuteSearchAsync(query);
                 }
             }
             catch (TaskCanceledException)
@@ -797,7 +797,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         }
     }
 
-    private void ExecuteSearch(string query)
+    private async Task ExecuteSearchAsync(string query)
     {
         // WPF SearchOrchestrator parity: require a selected system AND a non-blank
         // query, and clear prior search results so stale results never persist.
@@ -811,9 +811,20 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             _currentAllGames = [];
             Games.Clear();
             UpdateGameCount();
-            StatusText = string.IsNullOrEmpty(SelectedSystem)
-                ? "Select a system before searching."
-                : "Enter a search query.";
+
+            // Show the appropriate warning dialog (WPF parity)
+            if (string.IsNullOrEmpty(SelectedSystem))
+            {
+                StatusText = "Select a system before searching.";
+                if (_messageBox != null)
+                    await _messageBox.SelectSystemBeforeSearchMessageBoxAsync();
+            }
+            else
+            {
+                StatusText = "Enter a search query.";
+                if (_messageBox != null)
+                    await _messageBox.EnterSearchQueryMessageBoxAsync();
+            }
             return;
         }
 
@@ -880,6 +891,14 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             LetterFilter = "";
             _favoritePaths = _favoritesManager.GetFavoritePaths();
 
+            // Force the Show Games filter to ShowAll and persist it (WPF parity)
+            // Favorites might not have covers, so we need to show all games
+            if (!string.Equals(_settings.ShowGames, "ShowAll", StringComparison.OrdinalIgnoreCase))
+            {
+                _settings.ShowGames = "ShowAll";
+                _ = _settings.SaveAsync();
+            }
+
             var allGames = ScanGames(_allSystems);
             ApplyFavoritesAndHistory(allGames);
             var favorites = allGames.Where(g => g.IsFavorite).ToList();
@@ -908,6 +927,14 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             IsShowingRetroAchievements = false;
             LetterFilter = "";
             _favoritePaths = _favoritesManager.GetFavoritePaths();
+
+            // Force the Show Games filter to ShowAll and persist it (WPF parity)
+            // Favorites might not have covers, so we need to show all games
+            if (!string.Equals(_settings.ShowGames, "ShowAll", StringComparison.OrdinalIgnoreCase))
+            {
+                _settings.ShowGames = "ShowAll";
+                _ = _settings.SaveAsync();
+            }
 
             var systems = string.IsNullOrEmpty(SelectedSystem)
                 ? _allSystems

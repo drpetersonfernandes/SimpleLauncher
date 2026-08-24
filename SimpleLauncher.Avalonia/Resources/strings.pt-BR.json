@@ -77,7 +77,7 @@
   "DeveloperSuggestion": "Sugestão do desenvolvedor",
   "TooltipDeveloperSuggestionLabel": "Sugestões do desenvolvedor e documentação de ajuda para configurar este sistema",
   "Nodetailsavailablefor": "Nenhum detalhe disponível para",
-  "Noinformationavailableforsystem": "Nenhuma informação disponível para o sistema:",
+  "Noinformationavailableforsystem": "Nenhuma informação disponível para o sistema",
   "Nosystemnameprovided": "Nenhum nome de sistema fornecido.",
   "Options": "Opções",
   "Language": "Idioma",
@@ -278,6 +278,7 @@
   "OpeningFlyerImage": "Abrindo imagem do flyer...",
   "OpeningPCBImage": "Abrindo imagem da PCB...",
   "TakingScreenshot": "Tirando captura de tela...",
+  "F8ShortcutInUse": "A tecla de atalho F8 já está em uso por outro programa. Por causa disso, a funcionalidade de captura de tela está desativada.",
   "DeletingGame": "Excluindo jogo...",
   "DeletingCoverImage": "Excluindo imagem da capa...",
   "AchievementsEarned": "Conquistas Ganhas",
@@ -549,5 +550,8 @@
   "TotalSystemsWithMissingImages": "Sistemas com Imagens Faltantes:",
   "UpdateHistoryLoadError": "Erro. Não foi possível carregar o histórico de atualização. O erro foi registrado.",
   "wascanceled": "foi cancelado.",
-  "WhatsNewFileNotFound": "# 'whatsnew.md' não encontrado. O arquivo de histórico de atualização não foi encontrado."
+  "WhatsNewFileNotFound": "# 'whatsnew.md' não encontrado. O arquivo de histórico de atualização não foi encontrado.",
+  "SystemFolderpathisnotvalid": "O caminho da pasta do sistema não é válido ou não existe:",
+  "SystemImageFolderpathisnotvalid": "O caminho da pasta de imagens do sistema não é válido ou não existe:",
+  "Emulatorpathisnotvalidfor": "O caminho do emulador não é válido para"
 }

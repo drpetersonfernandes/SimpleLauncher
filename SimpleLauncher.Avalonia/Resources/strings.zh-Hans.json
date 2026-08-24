@@ -77,7 +77,7 @@
   "DeveloperSuggestion": "开发者建议",
   "TooltipDeveloperSuggestionLabel": "开发人员建议和配置此系统的帮助文档",
   "Nodetailsavailablefor": "暂无可用详细信息",
-  "Noinformationavailableforsystem": "没有可用的系统信息：",
+  "Noinformationavailableforsystem": "没有可用的系统信息",
   "Nosystemnameprovided": "未提供系统名称。",
   "Options": "选项",
   "Language": "语言",
@@ -278,6 +278,7 @@
   "OpeningFlyerImage": "正在打开传单图片...",
   "OpeningPCBImage": "正在打开PCB图片...",
   "TakingScreenshot": "正在截取屏幕截图...",
+  "F8ShortcutInUse": "F8 快捷键已被另一个程序使用。因此，截图功能已关闭。",
   "DeletingGame": "正在删除游戏...",
   "DeletingCoverImage": "正在删除封面图片...",
   "AchievementsEarned": "\u5DF2\u83B7\u5F97\u6210\u5C31",
@@ -549,5 +550,8 @@
   "TotalSystemsWithMissingImages": "缺少图像的系统：",
   "UpdateHistoryLoadError": "错误。无法加载更新历史记录。该错误已被记录。",
   "wascanceled": "已被取消。",
-  "WhatsNewFileNotFound": "# 'whatsnew.md' 未找到。无法找到更新历史文件。"
+  "WhatsNewFileNotFound": "# 'whatsnew.md' 未找到。无法找到更新历史文件。",
+  "SystemFolderpathisnotvalid": "系统文件夹路径无效或不存在:",
+  "SystemImageFolderpathisnotvalid": "系统图片文件夹路径无效或不存在:",
+  "Emulatorpathisnotvalidfor": "模拟器路径无效"
 }

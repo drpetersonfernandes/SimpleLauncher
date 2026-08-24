@@ -40,7 +40,7 @@
 
         <!-- Row 1: Main content (two columns) -->
         <Grid Grid.Row="1" Margin="24,12,24,12"
-              IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBool}}"
+              IsEnabled="{Binding IsContentEnabled}"
               ColumnDefinitions="*,20,*">
 
             <!-- Left column: Configuration -->

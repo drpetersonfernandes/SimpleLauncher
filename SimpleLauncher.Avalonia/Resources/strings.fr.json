@@ -77,7 +77,7 @@
   "DeveloperSuggestion": "Suggestion du développeur",
   "TooltipDeveloperSuggestionLabel": "Suggestions du développeur et documentation d'aide pour la configuration de ce système",
   "Nodetailsavailablefor": "Aucun détail disponible pour",
-  "Noinformationavailableforsystem": "Aucune information disponible pour le système :",
+  "Noinformationavailableforsystem": "Aucune information disponible pour le système",
   "Nosystemnameprovided": "Aucun nom de système fourni.",
   "Options": "Options",
   "Language": "Langue",
@@ -278,6 +278,7 @@
   "OpeningFlyerImage": "Ouverture de l'image du flyer...",
   "OpeningPCBImage": "Ouverture de l'image du PCB...",
   "TakingScreenshot": "Capture d'écran...",
+  "F8ShortcutInUse": "La touche de raccourci F8 est déjà utilisée par un autre programme. Pour cette raison, la fonctionnalité de capture d'écran est désactivée.",
   "DeletingGame": "Suppression du jeu...",
   "DeletingCoverImage": "Suppression de l'image de couverture...",
   "AchievementsEarned": "Succ\u00E8s d\u00E9bloqu\u00E9s",
@@ -549,5 +550,8 @@
   "TotalSystemsWithMissingImages": "Systèmes avec images manquantes :",
   "UpdateHistoryLoadError": "Erreur. Impossible de charger l'historique des mises à jour. L'erreur a été enregistrée.",
   "wascanceled": "a été annulé.",
-  "WhatsNewFileNotFound": "# 'whatsnew.md' introuvable. Le fichier d'historique des mises à jour est introuvable."
+  "WhatsNewFileNotFound": "# 'whatsnew.md' introuvable. Le fichier d'historique des mises à jour est introuvable.",
+  "SystemFolderpathisnotvalid": "Le chemin du dossier système n'est pas valide ou n'existe pas :",
+  "SystemImageFolderpathisnotvalid": "Le chemin du dossier d'images système n'est pas valide ou n'existe pas :",
+  "Emulatorpathisnotvalidfor": "Le chemin de l'émulateur n'est pas valide pour"
 }

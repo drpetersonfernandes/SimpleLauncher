@@ -77,7 +77,7 @@
   "DeveloperSuggestion": "اقتراح المطور",
   "TooltipDeveloperSuggestionLabel": "اقتراحات المطورين ووثائق المساعدة لتكوين هذا النظام",
   "Nodetailsavailablefor": "لا توجد تفاصيل متاحة لـ",
-  "Noinformationavailableforsystem": "لا توجد معلومات متاحة للنظام:",
+  "Noinformationavailableforsystem": "لا تتوفر معلومات للنظام",
   "Nosystemnameprovided": "لم يتم توفير اسم النظام.",
   "Options": "الخيارات",
   "Language": "اللغة",
@@ -278,6 +278,7 @@
   "OpeningFlyerImage": "فتح صورة النشرة...",
   "OpeningPCBImage": "فتح صورة لوحة الدوائر المطبوعة...",
   "TakingScreenshot": "التقاط لقطة شاشة...",
+  "F8ShortcutInUse": "مفتاح الاختصار F8 قيد الاستخدام بالفعل بواسطة برنامج آخر. بسبب هذا، تم إيقاف تشغيل وظيفة لقطة الشاشة.",
   "DeletingGame": "حذف اللعبة...",
   "DeletingCoverImage": "حذف صورة الغلاف...",
   "AchievementsEarned": "\u0627\u0644\u0625\u0646\u062C\u0627\u0632\u0627\u062A \u0627\u0644\u0645\u0643\u062A\u0633\u0628\u0629",
@@ -549,5 +550,8 @@
   "TotalSystemsWithMissingImages": "الأنظمة ذات الصور المفقودة:",
   "UpdateHistoryLoadError": "خطأ. تعذر تحميل سجل التحديث. تم تسجيل الخطأ.",
   "wascanceled": "تم الإلغاء.",
-  "WhatsNewFileNotFound": "# 'whatsnew.md' غير موجود. تعذر العثور على ملف سجل التحديث."
+  "WhatsNewFileNotFound": "# 'whatsnew.md' غير موجود. تعذر العثور على ملف سجل التحديث.",
+  "SystemFolderpathisnotvalid": "مسار مجلد النظام غير صالح أو غير موجود:",
+  "SystemImageFolderpathisnotvalid": "مسار مجلد صورة النظام غير صالح أو غير موجود:",
+  "Emulatorpathisnotvalidfor": "مسار المحاكي غير صالح لـ"
 }

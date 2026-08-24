@@ -65,16 +65,6 @@ public class AvaloniaApplicationLifecycleService
     }
 
     /// <summary>
-    /// Raised (on a thread-pool thread) when the silent update check finds a newer
-    /// release; the string parameter is the latest version.
-    /// </summary>
-    public event EventHandler<string>? NewVersionAvailable
-    {
-        add => _updateChecker.NewVersionAvailable += value;
-        remove => _updateChecker.NewVersionAvailable -= value;
-    }
-
-    /// <summary>
     /// Reports anonymous usage statistics.
     /// </summary>
     public async Task ReportUsageAsync()

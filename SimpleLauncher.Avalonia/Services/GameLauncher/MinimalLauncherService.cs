@@ -77,10 +77,30 @@ public class MinimalLauncherService : ILauncherService
         _askAiToFixParameters = askAiToFixParameters;
         _settings = settings;
         _launchStrategies = launchStrategies.OrderBy(static s => s.Priority).ToList();
-        _emulatorsToSkipErrorChecking = configuration
+
+        // WPF parity: read EmulatorsToSkipErrorChecking from config with hardcoded fallback
+        var configEmulatorsToSkip = configuration
             .GetSection("EmulatorsToSkipErrorChecking")
-            .Get<string[]>()?
-            .ToHashSet(StringComparer.OrdinalIgnoreCase) ?? [];
+            .Get<string[]>();
+        if (configEmulatorsToSkip is { Length: > 0 })
+        {
+            _emulatorsToSkipErrorChecking = configEmulatorsToSkip.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        }
+        else
+        {
+            // Hardcoded fallback matching WPF DoNotCheckErrorsOnSpecificEmulators
+            _emulatorsToSkipErrorChecking = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+            {
+                "Kega Fusion", "KegaFusion", "Kega", "Fusion", "Fusion.exe",
+                "Project64", "Project 64", "Project64.exe",
+                "Emulicious", "Emulicious.exe",
+                "Speccy", "Speccy.exe",
+                "ProSystem.exe", "ProSystem",
+                "fMSX.exe", "fMSX",
+                "Projec(t)64.exe"
+            };
+        }
+
         _playHistoryManager = playHistoryManager;
         _stats = stats;
         _gamePadController = gamePadController;
@@ -550,8 +570,8 @@ public class MinimalLauncherService : ILauncherService
                 return;
             }
 
-            if (isXemu && ext is ".ISO" or ".XISO" or ".CHD" &&
-                !launchParameters.Contains("-dvd_path", StringComparison.OrdinalIgnoreCase))
+            // WPF parity: block when isXemu and parameters don't contain -dvd_path for ANY file
+            if (isXemu && !launchParameters.Contains("-dvd_path", StringComparison.OrdinalIgnoreCase))
             {
                 await _messageBox.CustomErrorMessageBoxAsync(
                     "Xemu parameters must contain \"-dvd_path\" pointing to the disc image.\n\n" +
@@ -1503,8 +1523,11 @@ public class MinimalLauncherService : ILauncherService
 
     private bool IsInEmulatorsToSkipList(string? emulatorName)
     {
-        return !string.IsNullOrWhiteSpace(emulatorName) &&
-               _emulatorsToSkipErrorChecking.Contains(emulatorName);
+        if (string.IsNullOrWhiteSpace(emulatorName)) return false;
+
+        // WPF parity: substring matching (any skip-list entry contained in the emulator name)
+        return _emulatorsToSkipErrorChecking.Any(skip =>
+            emulatorName.Contains(skip, StringComparison.OrdinalIgnoreCase));
     }
 
     #endregion

@@ -77,7 +77,7 @@
   "DeveloperSuggestion": "ডেভেলপারদের পরামর্শ",
   "TooltipDeveloperSuggestionLabel": "এই সিস্টেম কনফিগার করার জন্য ডেভেলপারদের পরামর্শ এবং সাহায্য ডকুমেন্টেশন",
   "Nodetailsavailablefor": "এর জন্য কোনো বিবরণ উপলব্ধ নেই",
-  "Noinformationavailableforsystem": "সিস্টেমের জন্য কোনো তথ্য নেই।",
+  "Noinformationavailableforsystem": "সিস্টেমের জন্য কোন তথ্য পাওয়া যায়নি",
   "Nosystemnameprovided": "কোনও সিস্টেম নাম পাওয়া যায়নি।",
   "Options": "বিকল্প",
   "Language": "ভাষা",
@@ -278,6 +278,7 @@
   "OpeningFlyerImage": "ফ্লায়ার ইমেজ খোলা হচ্ছে...",
   "OpeningPCBImage": "পিসিবি ইমেজ খোলা হচ্ছে...",
   "TakingScreenshot": "স্ক্রিনশট নেওয়া হচ্ছে...",
+  "F8ShortcutInUse": "F8 শর্টকাট কীটি ইতিমধ্যে অন্য একটি প্রোগ্রাম দ্বারা ব্যবহৃত হচ্ছে। এর কারণে, স্ক্রিনশট কার্যকারিতা বন্ধ করা হয়েছে।",
   "DeletingGame": "গেম মুছে ফেলা হচ্ছে...",
   "DeletingCoverImage": "কভার ইমেজ মুছে ফেলা হচ্ছে...",
   "AchievementsEarned": "\u0985\u09B0\u09CD\u099C\u09BF\u09A4 \u0985\u09CD\u09AF\u09BE\u099A\u09BF\u09AD\u09AE\u09C7\u09A8\u09CD\u099F",
@@ -549,5 +550,8 @@
   "TotalSystemsWithMissingImages": "ছবি অনুপস্থিত সিস্টেম:",
   "UpdateHistoryLoadError": "ত্রুটি। আপডেট ইতিহাস লোড করা যায়নি। ত্রুটি লগ করা হয়েছে।",
   "wascanceled": "বাতিল করা হয়েছে।",
-  "WhatsNewFileNotFound": "# 'whatsnew.md' পাওয়া যায়নি। আপডেট ইতিহাস ফাইল খুঁজে পাওয়া যায়নি।"
+  "WhatsNewFileNotFound": "# 'whatsnew.md' পাওয়া যায়নি। আপডেট ইতিহাস ফাইল খুঁজে পাওয়া যায়নি।",
+  "SystemFolderpathisnotvalid": "সিস্টেম ফোল্ডারের পথ অবৈধ বা বিদ্যমান নেই:",
+  "SystemImageFolderpathisnotvalid": "সিস্টেম ইমেজ ফোল্ডারের পথ অবৈধ বা বিদ্যমান নেই:",
+  "Emulatorpathisnotvalidfor": "এমুলেটরের পথ অবৈধ"
 }

@@ -77,7 +77,7 @@
   "DeveloperSuggestion": "डेवलपर का सुझाव",
   "TooltipDeveloperSuggestionLabel": "इस सिस्टम को कॉन्फ़िगर करने के लिए डेवलपर सुझाव और सहायता दस्तावेज़",
   "Nodetailsavailablefor": "इसके लिए कोई विवरण उपलब्ध नहीं है",
-  "Noinformationavailableforsystem": "सिस्टम के लिए कोई जानकारी उपलब्ध नहीं है:",
+  "Noinformationavailableforsystem": "सिस्टम के लिए कोई जानकारी उपलब्ध नहीं है",
   "Nosystemnameprovided": "कोई सिस्टम नाम प्रदान नहीं किया गया।",
   "Options": "विकल्प",
   "Language": "भाषा",
@@ -278,6 +278,7 @@
   "OpeningFlyerImage": "फ़्लायर इमेज खोल रहा है...",
   "OpeningPCBImage": "PCB इमेज खोल रहा है...",
   "TakingScreenshot": "स्क्रीनशॉट ले रहा है...",
+  "F8ShortcutInUse": "F8 शॉर्टकट कुंजी पहले से ही किसी अन्य प्रोग्राम द्वारा उपयोग में है। इस कारण से, स्क्रीनशॉट कार्यक्षमता बंद कर दी गई है।",
   "DeletingGame": "गेम हटा रहा है...",
   "DeletingCoverImage": "कवर इमेज हटा रहा है...",
   "AchievementsEarned": "\u0905\u0930\u094D\u091C\u093F\u0924 \u0909\u092A\u0932\u092C\u094D\u0927\u093F\u092F\u093E\u0901",
@@ -549,5 +550,8 @@
   "TotalSystemsWithMissingImages": "गायब इमेज वाले सिस्टम:",
   "UpdateHistoryLoadError": "त्रुटि। अपडेट इतिहास लोड नहीं हो सका। त्रुटि लॉग कर दी गई है।",
   "wascanceled": "रद्द कर दिया गया।",
-  "WhatsNewFileNotFound": "# 'whatsnew.md' नहीं मिला। अपडेट इतिहास फ़ाइल नहीं मिल सकी।"
+  "WhatsNewFileNotFound": "# 'whatsnew.md' नहीं मिला। अपडेट इतिहास फ़ाइल नहीं मिल सकी।",
+  "SystemFolderpathisnotvalid": "सिस्टम फ़ोल्डर पथ मान्य नहीं है या मौजूद नहीं है:",
+  "SystemImageFolderpathisnotvalid": "सिस्टम इमेज फ़ोल्डर पथ मान्य नहीं है या मौजूद नहीं है:",
+  "Emulatorpathisnotvalidfor": "एम्यूलेटर पथ मान्य नहीं है"
 }

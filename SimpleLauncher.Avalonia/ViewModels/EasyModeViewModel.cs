@@ -57,6 +57,9 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
 
     [ObservableProperty] private bool _isAddSystemEnabled;
 
+    // WPF parity: controls are disabled when no systems are configured
+    [ObservableProperty] private bool _isContentEnabled = true;
+
     // Download state bools (bound to button IsEnabled via InverseBool:
     // true = downloaded/downloading → button disabled)
     [ObservableProperty] private bool _isEmulatorDownloaded = true;
@@ -129,6 +132,8 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
         if (_manager is not { Systems.Count: > 0 })
         {
             await _messageBox.EasyModeUnavailableMessageBoxAsync();
+            // WPF parity: disable all controls when no systems are configured
+            IsContentEnabled = false;
             return;
         }
 
@@ -601,12 +606,14 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
             return false;
 
         IsOperationInProgress = true;
+        IsContentEnabled = false; // Disable controls during operation
         return true;
     }
 
     private void EndOperation()
     {
         IsOperationInProgress = false;
+        IsContentEnabled = true; // Re-enable controls after operation
         Interlocked.Exchange(ref _operationInProgressFlag, 0);
     }
 

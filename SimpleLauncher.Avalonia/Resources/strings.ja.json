@@ -77,7 +77,7 @@
   "DeveloperSuggestion": "開発者の提案",
   "TooltipDeveloperSuggestionLabel": "このシステムを設定するための開発者の提案とヘルプドキュメント",
   "Nodetailsavailablefor": "詳細は利用できません:",
-  "Noinformationavailableforsystem": "このシステムに関する情報はありません：",
+  "Noinformationavailableforsystem": "システムに関する情報はありません",
   "Nosystemnameprovided": "システム名が指定されていません。",
   "Options": "オプション",
   "Language": "言語",
@@ -278,6 +278,7 @@
   "OpeningFlyerImage": "フライヤー画像を開いています...",
   "OpeningPCBImage": "PCB画像を開いています...",
   "TakingScreenshot": "スクリーンショットを撮影中...",
+  "F8ShortcutInUse": "F8ショートカットキーは既に別のプログラムで使用されています。このため、スクリーンショット機能はオフになっています。",
   "DeletingGame": "ゲームを削除中...",
   "DeletingCoverImage": "カバー画像を削除中...",
   "AchievementsEarned": "\u7372\u5F97\u3057\u305F\u5B9F\u7E3E",
@@ -549,5 +550,8 @@
   "TotalSystemsWithMissingImages": "画像が不足しているシステム：",
   "UpdateHistoryLoadError": "エラー。更新履歴を読み込めませんでした。エラーはログに記録されています。",
   "wascanceled": "がキャンセルされました。",
-  "WhatsNewFileNotFound": "# 'whatsnew.md' が見つかりません。更新履歴ファイルが見つかりませんでした。"
+  "WhatsNewFileNotFound": "# 'whatsnew.md' が見つかりません。更新履歴ファイルが見つかりませんでした。",
+  "SystemFolderpathisnotvalid": "システムフォルダのパスが無効か存在しません:",
+  "SystemImageFolderpathisnotvalid": "システムイメージフォルダのパスが無効か存在しません:",
+  "Emulatorpathisnotvalidfor": "エミュレータのパスが無効です"
 }

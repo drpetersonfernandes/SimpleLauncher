@@ -28,6 +28,7 @@ using SimpleLauncher.Avalonia.Services.UIReset;
 using SimpleLauncher.Avalonia.Services.GameFilter;
 using SimpleLauncher.Avalonia.Services.UpdateStatusBar;
 using SimpleLauncher.Avalonia.Services.SearchOrchestrator;
+using SimpleLauncher.Avalonia.Views;
 using SimpleLauncher.Avalonia.Services.ContextMenus;
 using SimpleLauncher.Avalonia.Services.DisplaySystemInfo;
 using SimpleLauncher.Avalonia.Services.LoadingOverlay;
@@ -251,6 +252,14 @@ public class App : Application, IDisposable
                     }
                 };
                 hotkeyService.Initialize();
+
+                if (!hotkeyService.IsRegistered)
+                {
+                    var localization = ServiceProvider.GetService<LocalizationService>();
+                    var msg = localization?.GetString("F8ShortcutInUse")
+                              ?? "The F8 shortcut key is already in use by another program. Because of this, the screenshot functionality is turned off.";
+                    _ = MessageDialogWindow.ShowAsync(mainWindow, msg, "SimpleLauncher", MessageButtons.Ok, MessageIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
@@ -283,23 +292,6 @@ public class App : Application, IDisposable
                 {
                     mainWindow.SetPrevPageButtonEnabled(false);
                     mainWindow.SetNextPageButtonEnabled(false);
-                };
-
-                // Silent update check: toast on the UI thread when a newer release exists
-                lifecycle.NewVersionAvailable += (_, latestVersion) =>
-                {
-                    try
-                    {
-                        Dispatcher.UIThread.Post(() =>
-                        {
-                            mainWindow.ShowToast("Update Available",
-                                $"SimpleLauncher {latestVersion} is available. Check the Options → Check for Updates menu to download it.");
-                        });
-                    }
-                    catch (Exception toastEx)
-                    {
-                        Log.Debug(toastEx, "Failed to show the silent update notification toast");
-                    }
                 };
 
                 _ = RunStartupTasksAsync(lifecycle, ServiceProvider);

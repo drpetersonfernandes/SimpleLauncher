@@ -77,7 +77,7 @@
   "DeveloperSuggestion": "Suggerimento del sviluppatore",
   "TooltipDeveloperSuggestionLabel": "Suggerimenti dello sviluppatore e documentazione di aiuto per la configurazione di questo sistema",
   "Nodetailsavailablefor": "Nessun dettaglio disponibile per",
-  "Noinformationavailableforsystem": "Nessuna informazione disponibile per il sistema:",
+  "Noinformationavailableforsystem": "Nessuna informazione disponibile per il sistema",
   "Nosystemnameprovided": "Nessun nome del sistema fornito.",
   "Options": "Opzioni",
   "Language": "Lingua",
@@ -278,6 +278,7 @@
   "OpeningFlyerImage": "Apertura immagine flyer...",
   "OpeningPCBImage": "Apertura immagine PCB...",
   "TakingScreenshot": "Acquisizione screenshot...",
+  "F8ShortcutInUse": "Il tasto di scelta rapida F8 è già in uso da un altro programma. Per questo motivo, la funzionalità di screenshot è disattivata.",
   "DeletingGame": "Eliminazione gioco...",
   "DeletingCoverImage": "Eliminazione immagine di copertina...",
   "AchievementsEarned": "Obiettivi Guadagnati",
@@ -549,5 +550,8 @@
   "TotalSystemsWithMissingImages": "Sistemi con Immagini Mancanti:",
   "UpdateHistoryLoadError": "Errore. Impossibile caricare la cronologia degli aggiornamenti. L'errore è stato registrato.",
   "wascanceled": "è stato annullato.",
-  "WhatsNewFileNotFound": "# 'whatsnew.md' non trovato. Il file della cronologia aggiornamenti non è stato trovato."
+  "WhatsNewFileNotFound": "# 'whatsnew.md' non trovato. Il file della cronologia aggiornamenti non è stato trovato.",
+  "SystemFolderpathisnotvalid": "Il percorso della cartella di sistema non è valido o non esiste:",
+  "SystemImageFolderpathisnotvalid": "Il percorso della cartella immagini di sistema non è valido o non esiste:",
+  "Emulatorpathisnotvalidfor": "Il percorso dell'emulatore non è valido per"
 }

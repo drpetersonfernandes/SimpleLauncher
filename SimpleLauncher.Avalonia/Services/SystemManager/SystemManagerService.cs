@@ -234,7 +234,9 @@ public class SystemManagerService
                 config.FileFormatsToSearch,
                 config.FileFormatsToLaunch,
                 config.ExtractFileBeforeLaunch,
-                emulator));
+                emulator,
+                config.GroupByFolder,
+                config.DisableRecursiveSearch));
         }
 
         var doc = new XDocument(new XDeclaration("1.0", "utf-8", null), root);
@@ -339,7 +341,9 @@ public class SystemManagerService
         string? originalSystemName,
         IConfiguration configuration,
         ILogger? logErrors = null,
-        SystemManagerService? cacheOwner = null)
+        SystemManagerService? cacheOwner = null,
+        bool groupByFolder = false,
+        bool disableRecursiveSearch = false)
     {
         try
         {
@@ -428,7 +432,8 @@ public class SystemManagerService
                         var newElement = BuildSystemConfigElement(
                             systemName, systemFolders, systemImageFolder,
                             fileFormatsToSearch, fileFormatsToLaunch,
-                            extractFileBeforeLaunch, emulator);
+                            extractFileBeforeLaunch, emulator,
+                            groupByFolder, disableRecursiveSearch);
                         root.Add(newElement);
                     }
 
@@ -665,7 +670,9 @@ public class SystemManagerService
         IEnumerable<string> fileFormatsToSearch,
         IEnumerable<string> fileFormatsToLaunch,
         bool extractFileBeforeLaunch,
-        Emulator? emulator)
+        Emulator? emulator,
+        bool groupByFolder = false,
+        bool disableRecursiveSearch = false)
     {
         var element = new XElement("SystemConfig",
             new XElement("SystemName", systemName),
@@ -674,8 +681,8 @@ public class SystemManagerService
             new XElement("SystemImageFolder", systemImageFolder),
             new XElement("FileFormatsToSearch",
                 fileFormatsToSearch.Select(f => new XElement("FormatToSearch", f))),
-            new XElement("GroupByFolder", false),
-            new XElement("DisableRecursiveSearch", false),
+            new XElement("GroupByFolder", groupByFolder),
+            new XElement("DisableRecursiveSearch", disableRecursiveSearch),
             extractFileBeforeLaunch ? new XElement("ExtractFileBeforeLaunch", true) : null,
             new XElement("FileFormatsToLaunch",
                 fileFormatsToLaunch.Select(f => new XElement("FormatToLaunch", f))));

@@ -45,7 +45,8 @@ public class AvaloniaHelpUserServiceTests
     {
         var service = CreateService();
 
-        Assert.Equal("No details available for 'Unicorn 2000'.", service.GetHelpText("Unicorn 2000"));
+        // WPF parity: uses Noinformationavailableforsystem key without quote wrapping
+        Assert.Equal("No information available for system Unicorn 2000", service.GetHelpText("Unicorn 2000"));
     }
 
     [Fact]

@@ -455,7 +455,7 @@
         </Menu>
 
         <!-- ═══ BODY (Row 1) ═══ -->
-        <Grid Grid.Row="1" ColumnDefinitions="Auto,*">
+        <Grid x:Name="MainContentGrid" Grid.Row="1" ColumnDefinitions="Auto,*">
 
             <!-- ═══ LEFT NAVIGATION RAIL (WPF LeftNavigationPanel parity) ═══ -->
             <Border Grid.Column="0" Width="60"
@@ -1123,7 +1123,7 @@
                 <!-- ═══ STATUS BAR (Bottom) ═══ -->
                 <Border Grid.Row="2" Background="{DynamicResource BgSecondaryBrush}"
                         BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,1,0,0">
-                    <Grid Margin="10,0" ColumnDefinitions="*,Auto,*">
+                    <Grid Margin="10,0" ColumnDefinitions="*,Auto,Auto,*">
                         <TextBlock x:Name="StatusLeft"
                                    Text="{Binding GameCountText}"
                                    Foreground="{DynamicResource TextMutedBrush}"
@@ -1155,7 +1155,18 @@
                                        Width="16" Height="16" RenderOptions.BitmapInterpolationMode="HighQuality" />
                             </Button>
                         </StackPanel>
-                        <TextBlock x:Name="StatusRight" Grid.Column="2"
+                        <!-- Play-time display (WPF IsPlayTimeVisible / PlayTime parity) -->
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4"
+                                    VerticalAlignment="Center" HorizontalAlignment="Right"
+                                    IsVisible="{Binding IsPlayTimeVisible}">
+                            <TextBlock Text="Playtime:"
+                                       Foreground="{DynamicResource TextMutedBrush}"
+                                       FontSize="11" />
+                            <TextBlock Text="{Binding PlayTime}"
+                                       Foreground="{DynamicResource TextMutedBrush}"
+                                       FontSize="11" />
+                        </StackPanel>
+                        <TextBlock x:Name="StatusRight" Grid.Column="3"
                                    Text="{Binding StatusText}"
                                    Foreground="{DynamicResource TextMutedBrush}"
                                    FontSize="11" VerticalAlignment="Center"

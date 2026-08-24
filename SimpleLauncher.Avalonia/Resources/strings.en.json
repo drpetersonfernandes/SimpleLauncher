@@ -77,7 +77,7 @@
   "DeveloperSuggestion": "Developer Suggestion",
   "TooltipDeveloperSuggestionLabel": "Developer suggestions and help documentation for configuring this system",
   "Nodetailsavailablefor": "No details available for",
-  "Noinformationavailableforsystem": "No information available for system:",
+  "Noinformationavailableforsystem": "No information available for system",
   "Nosystemnameprovided": "No system name provided.",
   "Options": "_Options",
   "Language": "_Language",
@@ -278,6 +278,7 @@
   "OpeningFlyerImage": "Opening flyer image...",
   "OpeningPCBImage": "Opening PCB image...",
   "TakingScreenshot": "Taking screenshot...",
+  "F8ShortcutInUse": "The F8 shortcut key is already in use by another program. Because of this, the screenshot functionality is turned off.",
   "DeletingGame": "Deleting game...",
   "DeletingCoverImage": "Deleting cover image...",
   "AchievementsEarned": "Achievements Earned",
@@ -549,5 +550,8 @@
   "TotalSystemsWithMissingImages": "Systems with Missing Images:",
   "UpdateHistoryLoadError": "Error. Could not load the update history. The error has been logged.",
   "wascanceled": "was canceled.",
-  "WhatsNewFileNotFound": "# 'whatsnew.md' not found. The update history file could not be found."
+  "WhatsNewFileNotFound": "# 'whatsnew.md' not found. The update history file could not be found.",
+  "SystemFolderpathisnotvalid": "System Folder path is not valid or does not exist:",
+  "SystemImageFolderpathisnotvalid": "System Image Folder path is not valid or does not exist:",
+  "Emulatorpathisnotvalidfor": "Emulator path is not valid for"
 }

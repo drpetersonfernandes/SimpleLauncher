@@ -77,7 +77,7 @@
   "DeveloperSuggestion": "Рекомендация разработчика",
   "TooltipDeveloperSuggestionLabel": "Рекомендации разработчиков и справочная документация по настройке этой системы",
   "Nodetailsavailablefor": "Нет доступной информации для",
-  "Noinformationavailableforsystem": "Нет информации о системе:",
+  "Noinformationavailableforsystem": "Информация для системы недоступна",
   "Nosystemnameprovided": "Название системы не указано.",
   "Options": "Опции",
   "Language": "Язык",
@@ -278,6 +278,7 @@
   "OpeningFlyerImage": "Открытие изображения флаера...",
   "OpeningPCBImage": "Открытие изображения печатной платы...",
   "TakingScreenshot": "Создание снимка экрана...",
+  "F8ShortcutInUse": "Клавиша быстрого доступа F8 уже используется другой программой. Из-за этого функция создания скриншотов отключена.",
   "DeletingGame": "Удаление игры...",
   "DeletingCoverImage": "Удаление изображения обложки...",
   "AchievementsEarned": "\u041F\u043E\u043B\u0443\u0447\u0435\u043D\u043E \u0434\u043E\u0441\u0442\u0438\u0436\u0435\u043D\u0438\u0439",
@@ -549,5 +550,8 @@
   "TotalSystemsWithMissingImages": "Системы с отсутствующими изображениями:",
   "UpdateHistoryLoadError": "Ошибка. Не удалось загрузить историю обновлений. Ошибка была записана в журнал.",
   "wascanceled": "было отменено.",
-  "WhatsNewFileNotFound": "# 'whatsnew.md' не найден. Файл истории обновлений не найден."
+  "WhatsNewFileNotFound": "# 'whatsnew.md' не найден. Файл истории обновлений не найден.",
+  "SystemFolderpathisnotvalid": "Путь к системной папке недействителен или не существует:",
+  "SystemImageFolderpathisnotvalid": "Путь к папке изображений системы недействителен или не существует:",
+  "Emulatorpathisnotvalidfor": "Путь эмулятора недействителен для"
 }

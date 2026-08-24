@@ -11,6 +11,13 @@ namespace SimpleLauncher.Avalonia.Services.DisplaySystemInfo;
 /// </summary>
 public class AvaloniaDisplaySystemInformation
 {
+    private readonly LocalizationService? _localization;
+
+    public AvaloniaDisplaySystemInformation(LocalizationService? localization = null)
+    {
+        _localization = localization;
+    }
+
     /// <summary>
     /// Validates a system configuration (folders, image folder, emulator paths).
     /// </summary>
@@ -28,7 +35,9 @@ public class AvaloniaDisplaySystemInformation
         {
             result.IsValid = false;
             result.AreSystemFoldersValid = false;
-            result.ErrorMessages.Add($"System Folder path is not valid or does not exist: '{string.Join(";", config.SystemFolders)}'");
+            // WPF parity: use localized strings with trailing newlines
+            var systemFolderMsg = _localization?.GetString("SystemFolderpathisnotvalid") ?? "System Folder path is not valid or does not exist:";
+            result.ErrorMessages.Add($"{systemFolderMsg} '{string.Join(";", config.SystemFolders)}'\n\n");
         }
 
         if (!string.IsNullOrWhiteSpace(config.SystemImageFolder))
@@ -38,7 +47,9 @@ public class AvaloniaDisplaySystemInformation
             {
                 result.IsValid = false;
                 result.IsSystemImageFolderValid = false;
-                result.ErrorMessages.Add($"System Image Folder path is not valid or does not exist: '{config.SystemImageFolder}'");
+                // WPF parity: use localized strings with trailing newlines
+                var imageFolderMsg = _localization?.GetString("SystemImageFolderpathisnotvalid") ?? "System Image Folder path is not valid or does not exist:";
+                result.ErrorMessages.Add($"{imageFolderMsg} '{config.SystemImageFolder}'\n\n");
             }
         }
 
@@ -48,7 +59,9 @@ public class AvaloniaDisplaySystemInformation
 
             result.IsValid = false;
             result.InvalidEmulatorLocations.Add(emulator.EmulatorLocation);
-            result.ErrorMessages.Add($"Emulator path is not valid for {emulator.EmulatorName}: '{emulator.EmulatorLocation}'");
+            // WPF parity: use localized strings with trailing newlines
+            var emulatorMsg = _localization?.GetString("Emulatorpathisnotvalidfor") ?? "Emulator path is not valid for";
+            result.ErrorMessages.Add($"{emulatorMsg} {emulator.EmulatorName}: '{emulator.EmulatorLocation}'\n\n");
         }
 
         return result;

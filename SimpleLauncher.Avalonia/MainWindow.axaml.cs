@@ -136,6 +136,7 @@ public partial class MainWindow : Window, IPaginationHost
         // Wire the extracted services to this host (WPF parity)
         _uiResetService.Initialize(this);
         _systemSelectionOrchestrator.Initialize(this);
+        _loadingOverlay.Initialize(this);
 
         // Localize the emergency return button (WPF DynamicResource ReturnButton parity)
         EmergencyReturnButton.Content = _localization.GetString("ReturnButton");
@@ -181,6 +182,18 @@ public partial class MainWindow : Window, IPaginationHost
             else
             {
                 _wasControllerRunningBeforeDeactivation = false;
+            }
+        };
+
+        // Minimize-to-tray: hide the window and remove from taskbar when minimized
+        // (WPF MainWindow_StateChanged parity). The tray icon's Clicked handler
+        // already calls OnOpen() which restores ShowInTaskbar + WindowState + Show.
+        PropertyChanged += (_, e) =>
+        {
+            if (e.Property == WindowStateProperty && e.NewValue is WindowState.Minimized)
+            {
+                Hide();
+                ShowInTaskbar = false;
             }
         };
 
@@ -260,6 +273,16 @@ public partial class MainWindow : Window, IPaginationHost
             {
                 Dispatcher.UIThread.Post(() =>
                 {
+                    // WPF parity: only refresh when the affected system is the currently
+                    // selected system (or when viewing all systems / favorites / etc.).
+                    var selectedSystem = _viewModel.SelectedSystem;
+                    if (!string.IsNullOrEmpty(selectedSystem)
+                        && !string.Equals(selectedSystem, e.Value, StringComparison.OrdinalIgnoreCase))
+                    {
+                        // File change is for a different system — ignore it.
+                        return;
+                    }
+
                     // The affected system's cached file list is stale — drop it so the
                     // refresh below re-scans that system's folders from disk.
                     _viewModel.InvalidateGameFileCacheForSystem(e.Value);

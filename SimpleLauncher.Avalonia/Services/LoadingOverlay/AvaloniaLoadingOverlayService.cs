@@ -16,6 +16,12 @@ public interface IAvaloniaLoadingOverlayHost
 
     /// <summary>Resets the UI to a non-loading state (clears filters, returns to main content).</summary>
     Task ResetUiAsync();
+
+    /// <summary>Cancels any in-flight background work and recreates the cancellation token.</summary>
+    void CancelAndRecreateToken();
+
+    /// <summary>Enables or disables the main content grid.</summary>
+    void SetMainContentGridEnabled(bool enabled);
 }
 
 /// <summary>
@@ -103,10 +109,14 @@ public class AvaloniaLoadingOverlayService
             _loadingOperationsCount = 0;
         }
 
+        // WPF parity: cancel in-flight background work and recreate the token
+        host.CancelAndRecreateToken();
+
         Dispatcher.UIThread.Post(() =>
         {
             host.SetIsLoading(false);
             host.SetLoadingMessage("Loading\u2026");
+            host.SetMainContentGridEnabled(true);
         });
 
         _ = host.ResetUiAsync();

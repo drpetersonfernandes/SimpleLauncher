@@ -98,23 +98,15 @@ public partial class AvaloniaCheckForUpdatesService
     }
 
     /// <summary>
-    /// Raised (on a thread-pool thread) when a newer release is found by
-    /// <see cref="SilentCheckForUpdatesAsync"/>; the string parameter is the latest version.
-    /// </summary>
-    public event EventHandler<string>? NewVersionAvailable;
-
-    /// <summary>
-    /// Checks for updates without showing any dialog. When a newer version exists,
-    /// raises <see cref="NewVersionAvailable"/> (the host decides how to surface it —
-    /// the WPF app shows a toast notification). Unreachable sources and "no update"
-    /// are expected conditions and are only logged.
+    /// Checks for updates silently and prompts the user if an update is available.
+    /// WPF parity: always shows the update window when a newer version is found.
     /// </summary>
     /// <returns>A task representing the asynchronous update check operation.</returns>
     public async Task SilentCheckForUpdatesAsync()
     {
         try
         {
-            var (latestVersion, _, _, _) = await GetLatestReleaseInfoAsync();
+            var (latestVersion, _, updaterZipAssetUrl, _) = await GetLatestReleaseInfoAsync();
 
             if (latestVersion == null)
             {
@@ -129,7 +121,14 @@ public partial class AvaloniaCheckForUpdatesService
             }
 
             _logger.Information("Silent update check: update {LatestVersion} available (current {CurrentVersion}).", latestVersion, CurrentVersion);
-            NewVersionAvailable?.Invoke(this, latestVersion);
+
+            // WPF parity: prompt the user directly instead of just raising an event
+            var result = await _messageBoxLibrary.DoYouWantToUpdateMessageBoxAsync(CurrentVersion, latestVersion);
+            if (result == CoreMessageBoxResult.Yes)
+            {
+                _logger.Information("Update to {LatestVersion} confirmed by user; launching the updater.", latestVersion);
+                await LaunchUpdaterAndShutdownAsync(updaterZipAssetUrl);
+            }
         }
         catch (Exception ex)
         {

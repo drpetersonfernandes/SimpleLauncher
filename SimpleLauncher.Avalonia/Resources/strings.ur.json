@@ -77,7 +77,7 @@
   "DeveloperSuggestion": "ڈویلپر کی تجویز",
   "TooltipDeveloperSuggestionLabel": "اس سسٹم کو ترتیب دینے کے لیے ڈویلپر کی تجاویز اور مدد کی دستاویزات",
   "Nodetailsavailablefor": "کے لئے تفصیلات دستیاب نہیں ہیں",
-  "Noinformationavailableforsystem": "سسٹم کے لیے کوئی معلومات دستیاب نہیں ہیں:",
+  "Noinformationavailableforsystem": "سسٹم کے لیے کوئی معلومات دستیاب نہیں ہیں",
   "Nosystemnameprovided": "کوئی سسٹم کا نام فراہم نہیں کیا گیا۔",
   "Options": "اختیارات",
   "Language": "زبان",
@@ -278,6 +278,7 @@
   "OpeningFlyerImage": "فلائر کی تصویر کھول رہا ہے...",
   "OpeningPCBImage": "PCB کی تصویر کھول رہا ہے...",
   "TakingScreenshot": "اسکرین شاٹ لے رہا ہے...",
+  "F8ShortcutInUse": "F8 شارٹ کٹ کلید پہلے سے ہی کسی دوسرے پروگرام کے ذریعے استعمال میں ہے۔ اس وجہ سے، اسکرین شاٹ کی فعالیت بند کر دی گئی ہے۔",
   "DeletingGame": "گیم حذف کر رہا ہے...",
   "DeletingCoverImage": "کور امیج حذف کر رہا ہے...",
   "AchievementsEarned": "\u062D\u0627\u0635\u0644 \u06A9\u0631\u062F\u06C1 \u06A9\u0627\u0645\u06CC\u0627\u0628\u06CC\u0627\u06BA",
@@ -549,5 +550,8 @@
   "TotalSystemsWithMissingImages": "غائب تصاویر والے سسٹمز:",
   "UpdateHistoryLoadError": "خرابی۔ اپ ڈیٹ کی ہسٹری لوڈ نہیں ہو سکی۔ خرابی لاگ ہو گئی ہے۔",
   "wascanceled": "منسوخ ہو گیا۔",
-  "WhatsNewFileNotFound": "# 'whatsnew.md' نہیں ملا۔ اپ ڈیٹ ہسٹری فائل نہیں مل سکی۔"
+  "WhatsNewFileNotFound": "# 'whatsnew.md' نہیں ملا۔ اپ ڈیٹ ہسٹری فائل نہیں مل سکی۔",
+  "SystemFolderpathisnotvalid": "سسٹم فولڈر کا راستہ درست نہیں ہے یا موجود نہیں ہے:",
+  "SystemImageFolderpathisnotvalid": "سسٹم امیج فولڈر کا راستہ درست نہیں ہے یا موجود نہیں ہے:",
+  "Emulatorpathisnotvalidfor": "ایمولیٹر کا راستہ درست نہیں ہے"
 }

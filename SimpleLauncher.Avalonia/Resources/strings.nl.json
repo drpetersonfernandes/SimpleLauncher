@@ -77,7 +77,7 @@
   "DeveloperSuggestion": "Suggestie van ontwikkelaar",
   "TooltipDeveloperSuggestionLabel": "Suggesties van ontwikkelaars en hulpdocumentatie voor het configureren van dit systeem",
   "Nodetailsavailablefor": "Geen details beschikbaar voor",
-  "Noinformationavailableforsystem": "Geen informatie beschikbaar voor het systeem:",
+  "Noinformationavailableforsystem": "Geen informatie beschikbaar voor systeem",
   "Nosystemnameprovided": "Geen systeemnaam opgegeven.",
   "Options": "Opties",
   "Language": "Taal",
@@ -278,6 +278,7 @@
   "OpeningFlyerImage": "Flyer-afbeelding wordt geopend...",
   "OpeningPCBImage": "PCB-afbeelding wordt geopend...",
   "TakingScreenshot": "Schermafbeelding maken...",
+  "F8ShortcutInUse": "De F8-sneltoets is al in gebruik door een ander programma. Hierdoor is de screenshot-functionaliteit uitgeschakeld.",
   "DeletingGame": "Spel verwijderen...",
   "DeletingCoverImage": "Coverafbeelding verwijderen...",
   "AchievementsEarned": "Behaalde Prestaties",
@@ -549,5 +550,8 @@
   "TotalSystemsWithMissingImages": "Systemen met Ontbrekende Afbeeldingen:",
   "UpdateHistoryLoadError": "Fout. Kan de updategeschiedenis niet laden. De fout is geregistreerd.",
   "wascanceled": "werd geannuleerd.",
-  "WhatsNewFileNotFound": "# 'whatsnew.md' niet gevonden. Het updategeschiedenisbestand kon niet worden gevonden."
+  "WhatsNewFileNotFound": "# 'whatsnew.md' niet gevonden. Het updategeschiedenisbestand kon niet worden gevonden.",
+  "SystemFolderpathisnotvalid": "Systeemmap pad is ongeldig of bestaat niet:",
+  "SystemImageFolderpathisnotvalid": "Systeemafbeeldingmap pad is ongeldig of bestaat niet:",
+  "Emulatorpathisnotvalidfor": "Emulator pad is ongeldig voor"
 }

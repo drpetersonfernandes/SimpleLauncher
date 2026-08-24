@@ -143,6 +143,10 @@ public class AvaloniaSystemSelectionOrchestratorService
 
             _host.NavigateToSystem(systemName);
 
+            // WPF parity: restart the file watcher for the selected system
+            // so only the current system's folders are monitored.
+            _host.RestartFileWatcher();
+
             var emulatorNames = selectedManager.Emulators
                                     .Select(static e => e.EmulatorName).ToList();
             _host.SetEmulatorComboBoxItems(emulatorNames);
