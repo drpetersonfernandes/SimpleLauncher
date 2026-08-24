@@ -24,7 +24,7 @@ namespace SimpleLauncher.Avalonia.Services.GameLauncher;
 /// Mirrors the original SimpleLauncher launch pipeline: argument fallback (ROM path append),
 /// emulator pre-flight flags, real play-time measurement and emulator config injection.
 /// </summary>
-public class MinimalLauncherService : ILauncherService
+public class LauncherService : ILauncherService
 {
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IEnumerable<IEmulatorConfigHandler> _configHandlers;
@@ -52,7 +52,7 @@ public class MinimalLauncherService : ILauncherService
     /// </summary>
     public event EventHandler<GamePlayedEventArgs>? GamePlayed;
 
-    public MinimalLauncherService(
+    public LauncherService(
         IMessageBoxLibraryService messageBox,
         IEnumerable<IEmulatorConfigHandler> configHandlers,
         IConfiguration configuration,
@@ -782,6 +782,14 @@ public class MinimalLauncherService : ILauncherService
                     {
                         // User cancelled the operation (e.g., clicked Cancel on the UAC
                         // prompt) — do nothing and don't offer the AI fix.
+                        loadingStateProvider?.SetLoadingState(false);
+                        return;
+                    }
+                    else if (CheckApplicationControlPolicyService.IsInvalidExecutableFormat(win32Ex))
+                    {
+                        // Expected user-error condition (the file is not a valid executable for
+                        // this OS platform): not a bug, don't log as error or offer the AI fix.
+                        await _messageBox.ErrorLaunchingGameMessageBoxAsync(win32Ex.Message);
                         loadingStateProvider?.SetLoadingState(false);
                         return;
                     }

@@ -531,8 +531,8 @@ public class App : Application, IDisposable
         // Single shared launcher instance: MainViewModel reads LastPlayTime from the
         // concrete type, so ILauncherService and MinimalLauncherService must resolve
         // to the SAME instance.
-        services.AddSingleton<MinimalLauncherService>();
-        services.AddSingleton<ILauncherService>(sp => sp.GetRequiredService<MinimalLauncherService>());
+        services.AddSingleton<LauncherService>();
+        services.AddSingleton<ILauncherService>(sp => sp.GetRequiredService<LauncherService>());
 
         // ── Launch strategies (full WPF pipeline: ascending priority, Default last) ──
         services.AddSingleton<ILaunchStrategy, ChdMountStrategy>();

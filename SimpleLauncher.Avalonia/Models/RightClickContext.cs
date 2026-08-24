@@ -33,7 +33,7 @@ public class RightClickContext(
     MainWindow mainWindow,
     GamePadController gamePadController,
     Action? onFavoriteRemoved = null,
-    MinimalLauncherService? gameLauncher = null,
+    LauncherService? gameLauncher = null,
     PlaySoundEffects? playSoundEffects = null,
     ILoadingState? loadingStateProvider = null)
 {
@@ -86,7 +86,7 @@ public class RightClickContext(
     public Action? OnFavoriteRemoved { get; } = onFavoriteRemoved;
 
     /// <summary>Gets the game launcher service, if available.</summary>
-    public MinimalLauncherService? GameLauncherService { get; } = gameLauncher;
+    public LauncherService? GameLauncherService { get; } = gameLauncher;
 
     /// <summary>Gets the sound effects service, if available.</summary>
     public PlaySoundEffects? PlaySoundEffects { get; } = playSoundEffects;

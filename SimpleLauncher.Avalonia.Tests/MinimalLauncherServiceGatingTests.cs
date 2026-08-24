@@ -44,7 +44,7 @@ public class MinimalLauncherServiceGatingTests : IDisposable
         }
     }
 
-    private MinimalLauncherService CreateLauncher(IEnumerable<IEmulatorConfigHandler> handlers)
+    private LauncherService CreateLauncher(IEnumerable<IEmulatorConfigHandler> handlers)
     {
         var config = new Microsoft.Extensions.Configuration.ConfigurationBuilder().Build();
         var logger = new Mock<ILogger>().Object;
@@ -60,7 +60,7 @@ public class MinimalLauncherServiceGatingTests : IDisposable
         var settings = new SettingsManagerService(
             config, logger, new Mock<ICredentialProtector>().Object, _messageBox.Object);
 
-        return new MinimalLauncherService(
+        return new LauncherService(
             _messageBox.Object,
             handlers,
             config,

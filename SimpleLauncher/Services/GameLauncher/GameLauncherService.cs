@@ -771,6 +771,33 @@ public partial class GameLauncherService : ILauncherService
             {
                 // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
             }
+            else if (CheckApplicationControlPolicyService.IsInvalidExecutableFormat(ex))
+            {
+                // Expected user-error condition (the file is not a valid executable for this OS platform,
+                // e.g. a non-Win32 or wrong-architecture binary): not a bug, keep it out of the bug report service.
+                string exitCodeInfo;
+                try
+                {
+                    exitCodeInfo = $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}";
+                }
+                catch (InvalidOperationException)
+                {
+                    exitCodeInfo = "Exit code: N/A (Process not associated)";
+                }
+
+                var errorDetail = $"Exception launching the executable file.\n" +
+                                  $"Executable file: {psi.FileName}\n" +
+                                  $"{exitCodeInfo}\n" +
+                                  $"Exception: {ex.Message}";
+                var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
+                var contextMessage = $"{errorDetail}\n\n{userNotified}";
+                _logger.Information(contextMessage);
+
+                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
+                    await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                }
+            }
             else
             {
                 string exitCodeInfo;
@@ -923,6 +950,9 @@ public partial class GameLauncherService : ILauncherService
 
             await _messageBoxLibrary.RetroArchParameterShouldContainLMessageBoxAsync();
 
+            // Offer AI parameter fix
+            await AskAiToFixParameters.ExecuteAsync(selectedSystemManager, selectedEmulatorManager, _messageBoxLibrary, _parameterResolverService, _configuration, _serviceProvider, _logger);
+
             return;
         }
 
@@ -933,6 +963,9 @@ public partial class GameLauncherService : ILauncherService
             _logger.Warning(errorMessage);
 
             await _messageBoxLibrary.XemuParameterShouldContainDvdPathMessageBoxAsync();
+
+            // Offer AI parameter fix
+            await AskAiToFixParameters.ExecuteAsync(selectedSystemManager, selectedEmulatorManager, _messageBoxLibrary, _parameterResolverService, _configuration, _serviceProvider, _logger);
 
             return;
         }

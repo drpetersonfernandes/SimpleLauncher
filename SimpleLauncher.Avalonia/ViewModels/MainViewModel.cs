@@ -29,7 +29,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     private readonly FavoritesManager _favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager;
     private readonly SystemManagerService _systemManager;
-    private readonly MinimalLauncherService _launcher;
+    private readonly LauncherService _launcher;
     private readonly IFindCoverImageService _findCoverImage;
     private readonly Stats _stats;
     private readonly SettingsManagerService _settings;
@@ -161,7 +161,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         FavoritesManager favoritesManager,
         PlayHistoryManager playHistoryManager,
         SystemManagerService systemManager,
-        MinimalLauncherService launcher,
+        LauncherService launcher,
         IFindCoverImageService findCoverImage,
         Stats stats,
         SettingsManagerService settings,
@@ -1106,7 +1106,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
                 this);
 
             // Play history and usage stats are already recorded once by
-            // MinimalLauncherService.HandleButtonClickAsync -> UpdateStatsAndPlayCountAsync.
+            // LauncherService.HandleButtonClickAsync -> UpdateStatsAndPlayCountAsync.
             // Recording them again here would double-count launches.
 
             StatusText = $"Played: {Path.GetFileNameWithoutExtension(filePath)}";

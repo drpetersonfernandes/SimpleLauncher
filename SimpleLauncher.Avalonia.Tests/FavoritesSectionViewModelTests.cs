@@ -118,7 +118,7 @@ public class FavoritesSectionViewModelTests : IDisposable
         File.WriteAllText(Path.Combine(_romsFolder, name), "fake rom");
     }
 
-    private static MinimalLauncherService CreateLauncher(SystemManagerService systemManager, SettingsManagerService settings)
+    private static LauncherService CreateLauncher(SystemManagerService systemManager, SettingsManagerService settings)
     {
         var config = new ConfigurationBuilder().Build();
         var logger = new Mock<ILogger>().Object;
@@ -131,7 +131,7 @@ public class FavoritesSectionViewModelTests : IDisposable
             systemManager,
             logger);
 
-        return new MinimalLauncherService(
+        return new LauncherService(
             messageBox.Object,
             [],
             config,

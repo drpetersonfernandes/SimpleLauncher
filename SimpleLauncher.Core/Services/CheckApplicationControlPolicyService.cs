@@ -38,6 +38,20 @@ public static class CheckApplicationControlPolicyService
     }
 
     /// <summary>
+    /// Checks if the given exception is a Win32Exception indicating the executable is not a valid
+    /// application for the current OS platform (e.g., a non-Win32 or wrong-architecture binary).
+    /// This is an expected user-error condition, not a bug.
+    /// </summary>
+    /// <param name="ex">The exception to check.</param>
+    /// <returns>True if the executable is not a valid application for this OS platform, false otherwise.</returns>
+    public static bool IsInvalidExecutableFormat(Exception ex)
+    {
+        // Win32 error code 193 (ERROR_BAD_EXE_FORMAT): "The specified executable is not a valid
+        // application for this OS platform." Common when launching a non-Win32 or wrong-architecture binary.
+        return ex is Win32Exception { NativeErrorCode: 193 };
+    }
+
+    /// <summary>
     /// Checks if the given exception is a Win32Exception indicating the operation was canceled by the user.
     /// This typically occurs when a user cancels a UAC (User Account Control) prompt.
     /// </summary>
