@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.Json;
@@ -322,9 +323,9 @@ public partial class MainWindow : Window, IPaginationHost
             GameGridView.ScrollIntoView(GameGridView.Items[0]!);
         }
 
-        if (GameListView.Items.Count > 0)
+        if (_viewModel.Games.Count > 0)
         {
-            GameListView.ScrollIntoView(GameListView.Items[0]!);
+            GameDataGrid.ScrollIntoView(_viewModel.Games[0], null);
         }
     }
 
@@ -651,19 +652,54 @@ public partial class MainWindow : Window, IPaginationHost
 
     #endregion
 
-    #region View Toggle
+    #region View Toggle — DataGrid parity (WPF 6 columns: Favorite / FileName / MachineDescription / FolderPath / TimesPlayed / PlayTime)
 
     private string _lastSortColumn = "";
     private bool _sortAscending = true;
 
     private void ListHeader_Click(object? sender, PointerPressedEventArgs e)
     {
-        if (sender is not TextBlock { Tag: string columnName } header)
+        // Legacy shim — DataGrid headers now sort via GameDataGrid_Sorting, but keep this
+        // for any residual header TextBlocks that may still exist.
+        if (sender is not TextBlock { Tag: string columnName })
             return;
+        SortGamesByColumn(columnName);
+    }
 
+    private void GameDataGrid_Sorting(object? sender, DataGridColumnEventArgs e)
+    {
+        // Intercept DataGrid's built-in sort and apply it to the underlying Games collection
+        // so pagination / status counts remain correct (WPF parity).
+        var column = e.Column;
+        var sortMember = column.SortMemberPath;
+        if (string.IsNullOrEmpty(sortMember))
+        {
+            // Map header translate fallback
+            sortMember = column.Header?.ToString() ?? "";
+        }
+
+        // Map WPF header keys to sort fields
+        var columnName = sortMember switch
+        {
+            "IsFavorite" => "Favorite",
+            "FileName" => "FileName",
+            "MachineDescription" => "MachineDescription",
+            "FolderPath" => "FolderPath",
+            "TimesPlayed" => "TimesPlayed",
+            "PlayTime" => "PlayTime",
+            _ => sortMember
+        };
+
+        // Prevent DataGrid's default view-sort (we sort the source)
+        e.Handled = true;
+
+        // Toggle direction
+        SortGamesByColumn(columnName);
+    }
+
+    private void SortGamesByColumn(string columnName)
+    {
         var collection = _viewModel.Games;
-
-        // Toggle direction if same column
         if (_lastSortColumn == columnName)
         {
             _sortAscending = !_sortAscending;
@@ -676,36 +712,90 @@ public partial class MainWindow : Window, IPaginationHost
 
         var sorted = columnName switch
         {
+            "Favorite" => _sortAscending
+                ? collection.OrderBy(g => g.IsFavorite)
+                : collection.OrderByDescending(g => g.IsFavorite),
+            "FileName" => _sortAscending
+                ? collection.OrderBy(g => g.FileName, StringComparer.OrdinalIgnoreCase)
+                : collection.OrderByDescending(g => g.FileName, StringComparer.OrdinalIgnoreCase),
+            "MachineDescription" => _sortAscending
+                ? collection.OrderBy(g => string.IsNullOrEmpty(g.MachineDescription) ? g.FileName : g.MachineDescription, StringComparer.OrdinalIgnoreCase)
+                : collection.OrderByDescending(g => string.IsNullOrEmpty(g.MachineDescription) ? g.FileName : g.MachineDescription, StringComparer.OrdinalIgnoreCase),
+            "FolderPath" => _sortAscending
+                ? collection.OrderBy(g => g.FolderPath, StringComparer.OrdinalIgnoreCase)
+                : collection.OrderByDescending(g => g.FolderPath, StringComparer.OrdinalIgnoreCase),
+            "TimesPlayed" or "Times Played" => _sortAscending
+                ? collection.OrderBy(g => g.PlayCount)
+                : collection.OrderByDescending(g => g.PlayCount),
+            "PlayTime" or "Play Time" => _sortAscending
+                ? collection.OrderBy(g => g.PlayTime, StringComparer.OrdinalIgnoreCase)
+                : collection.OrderByDescending(g => g.PlayTime, StringComparer.OrdinalIgnoreCase),
             "Name" => _sortAscending
                 ? collection.OrderBy(g => g.DisplayTitle)
                 : collection.OrderByDescending(g => g.DisplayTitle),
             "System" => _sortAscending
                 ? collection.OrderBy(g => g.SystemName)
                 : collection.OrderByDescending(g => g.SystemName),
-            "Times Played" => _sortAscending
-                ? collection.OrderBy(g => g.PlayCount)
-                : collection.OrderByDescending(g => g.PlayCount),
             "Path" => _sortAscending
                 ? collection.OrderBy(g => g.FilePath)
                 : collection.OrderByDescending(g => g.FilePath),
-            _ => collection.OrderBy(g => g.DisplayTitle)
+            _ => collection.OrderBy(g => g.FileName, StringComparer.OrdinalIgnoreCase)
         };
 
         _viewModel.Games = new ObservableCollection<GameCardViewModel>(sorted);
-
-        // Update header text with arrow
-        foreach (var headerBlock in new[] { ListHeaderName, ListHeaderSystem, ListHeaderPlayed, ListHeaderPath })
-        {
-            var baseName = headerBlock.Tag as string ?? "";
-            headerBlock.Text = baseName.Replace(" ▲", "").Replace(" ▼", "");
-        }
-
-        header.Text = columnName + (_sortAscending ? " ▲" : " ▼");
     }
 
+    private void GameDataGrid_DoubleTapped(object? sender, TappedEventArgs e)
+    {
+        if (GameDataGrid.SelectedItem is GameCardViewModel game)
+            _viewModel.PlayGameCommand.Execute(game);
+    }
+
+    private void GameDataGrid_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        try
+        {
+            if (GameDataGrid.SelectedItem is GameCardViewModel game && !string.IsNullOrEmpty(game.CoverPath))
+            {
+                var converter = new PathToImageConverter();
+                var bmp = converter.Convert(game.CoverPath, typeof(Bitmap), null, System.Globalization.CultureInfo.InvariantCulture) as Bitmap;
+                ListViewPreviewImage.Source = bmp;
+            }
+            else
+            {
+                ListViewPreviewImage.Source = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "Failed to update list view preview");
+            ListViewPreviewImage.Source = null;
+        }
+    }
+
+    private void GameDataGrid_RightClick(object? sender, PointerReleasedEventArgs e)
+    {
+        // Only handle right button
+        if (!e.InitialPressMouseButton.HasFlag(MouseButton.Right)) return;
+
+        var point = e.GetPosition(GameDataGrid);
+        var hit = GameDataGrid.InputHitTest(point) as Visual;
+        // Walk up to the row
+        var row = hit != null ? FindParent<DataGridRow>(hit) : null;
+        if (row?.DataContext is not GameCardViewModel game) return;
+
+        // Ensure row is selected
+        GameDataGrid.SelectedItem = game;
+        ShowGameContextMenu(game, GameDataGrid);
+        e.Handled = true;
+    }
+
+    // Legacy handlers kept for binary compat (not wired in new axaml but may be referenced)
     private void GameListView_DoubleClick(object? sender, TappedEventArgs e)
     {
-        if (GameListView.SelectedItem is GameCardViewModel game)
+        if (sender is DataGrid { SelectedItem: GameCardViewModel g })
+            _viewModel.PlayGameCommand.Execute(g);
+        else if (GameDataGrid.SelectedItem is GameCardViewModel game)
             _viewModel.PlayGameCommand.Execute(game);
     }
 
@@ -714,20 +804,10 @@ public partial class MainWindow : Window, IPaginationHost
         if (sender is Control { DataContext: GameCardViewModel game } item)
         {
             var properties = e.GetCurrentPoint(item).Properties;
-
             if (properties.IsRightButtonPressed)
             {
                 ShowGameContextMenu(game, item);
-                e.Handled = true; // prevent the popup from closing on the subsequent mouse-up
-            }
-            else
-            {
-                // Single left click: select the game (double-click is handled by the ListBox)
-                var listBoxItem = FindParent<ListBoxItem>(item);
-                if (listBoxItem is not null)
-                {
-                    listBoxItem.IsSelected = true;
-                }
+                e.Handled = true;
             }
         }
     }
@@ -759,7 +839,7 @@ public partial class MainWindow : Window, IPaginationHost
                     case true when GameGridView.SelectedItem is GameCardViewModel gridGame:
                         _viewModel.PlayGameCommand.Execute(gridGame);
                         break;
-                    case false when GameListView.SelectedItem is GameCardViewModel listGame:
+                    case false when GameDataGrid.SelectedItem is GameCardViewModel listGame:
                         _viewModel.PlayGameCommand.Execute(listGame);
                         break;
                 }
@@ -819,7 +899,8 @@ public partial class MainWindow : Window, IPaginationHost
             // WPF parity: Feeling Lucky operates on the currently selected system
             if (string.IsNullOrEmpty(_viewModel.SelectedSystem))
             {
-                ShowToast("Feeling Lucky", _localization.GetString("Toast.SelectSystemFirst", "Please select a system first."));
+                ShowToast("Feeling Lucky",
+                    _localization.GetString("Toast.SelectSystemFirst", "Please select a system first."));
                 return;
             }
 
@@ -832,7 +913,8 @@ public partial class MainWindow : Window, IPaginationHost
             var randomGame = await _viewModel.PickRandomGameAsync();
             if (randomGame is null)
             {
-                ShowToast("Feeling Lucky", _localization.GetString("Toast.NoGameFound", "No games found to pick from."));
+                ShowToast("Feeling Lucky",
+                    _localization.GetString("Toast.NoGameFound", "No games found to pick from."));
                 return;
             }
 
@@ -840,8 +922,8 @@ public partial class MainWindow : Window, IPaginationHost
             // GridView intentionally leaves nothing selected, like the WPF app.
             if (!_viewModel.IsGridView)
             {
-                GameListView.SelectedItem = randomGame;
-                GameListView.ScrollIntoView(randomGame);
+                GameDataGrid.SelectedItem = randomGame;
+                GameDataGrid.ScrollIntoView(randomGame, null);
             }
 
             ShowToast("Feeling Lucky", _localization.GetString("Toast.FeelingLucky", "Picked a random game."));
@@ -1144,7 +1226,8 @@ public partial class MainWindow : Window, IPaginationHost
                 return;
             }
 
-            var aspectRatios = new List<string> { "Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2" };
+            var aspectRatios = new List<string>
+                { "Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2" };
 
             var currentIndex = Math.Max(aspectRatios.IndexOf(_settings.ButtonAspectRatio ?? "Square"), 0);
             var nextIndex = (currentIndex + 1) % aspectRatios.Count;
@@ -1218,7 +1301,8 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>Builds the WPF-parity right-click context for a game file.</summary>
-    private AvaloniaRightClickContext BuildRightClickContext(string filePath, string systemName, GameCardViewModel? card = null,
+    private AvaloniaRightClickContext BuildRightClickContext(string filePath, string systemName,
+        GameCardViewModel? card = null,
         string? fileNameWithExtensionOverride = null, Action? onFavoriteRemoved = null)
     {
         var sp = App.ServiceProvider;
@@ -1663,7 +1747,8 @@ public partial class MainWindow : Window, IPaginationHost
         var checkedName = _languageMenu.GetMenuItemNameForLanguageCode(lang);
         foreach (var item in LanguageMenu.Items.OfType<MenuItem>())
         {
-            item.IsChecked = _languageMenu.IsLanguageMenuItem(item.Name) && string.Equals(item.Name, checkedName, StringComparison.Ordinal);
+            item.IsChecked = _languageMenu.IsLanguageMenuItem(item.Name) &&
+                             string.Equals(item.Name, checkedName, StringComparison.Ordinal);
         }
     }
 
@@ -1703,7 +1788,8 @@ public partial class MainWindow : Window, IPaginationHost
         _menuCheckMarks.UpdateFilenameFontSizeCheckMarks(
             [FilenameFontSizeSmall, FilenameFontSizeNormal, FilenameFontSizeBig], _settings.FilenameFontSize);
         _menuCheckMarks.UpdateMachineNameFontSizeCheckMarks(
-            [MachineNameFontSizeSmall, MachineNameFontSizeNormal, MachineNameFontSizeBig], _settings.MachineNameFontSize);
+            [MachineNameFontSizeSmall, MachineNameFontSizeNormal, MachineNameFontSizeBig],
+            _settings.MachineNameFontSize);
     }
 
     // ── Language ──
@@ -2672,7 +2758,9 @@ public partial class MainWindow : Window, IPaginationHost
         {
             var system = _systemManagerService.GetSystem(_viewModel.SelectedSystem);
             var folder = system?.SystemImageFolder;
-            return string.IsNullOrEmpty(folder) ? null : Core.Services.CheckPaths.PathHelper.ResolveRelativeToAppDirectory(folder);
+            return string.IsNullOrEmpty(folder)
+                ? null
+                : Core.Services.CheckPaths.PathHelper.ResolveRelativeToAppDirectory(folder);
         }
         catch (Exception ex)
         {

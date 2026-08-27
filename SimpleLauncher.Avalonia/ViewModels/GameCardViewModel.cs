@@ -10,11 +10,21 @@ public partial class GameCardViewModel : ObservableObject
 {
     [ObservableProperty] private string _displayTitle = "";
 
+    [ObservableProperty] private string _fileName = "";
+
     [ObservableProperty] private string _coverPath = "";
 
     [ObservableProperty] private string _systemName = "";
 
     [ObservableProperty] private string _filePath = "";
+
+    [ObservableProperty] private string _folderPath = "";
+
+    [ObservableProperty] private string _machineDescription = "";
+
+    [ObservableProperty] private string _timesPlayed = "0";
+
+    [ObservableProperty] private string _playTime = "0m 0s";
 
     [ObservableProperty] private bool _isFavorite;
 

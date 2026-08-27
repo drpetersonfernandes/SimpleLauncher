@@ -96,7 +96,7 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="Resources\strings.*.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
@@ -104,42 +104,43 @@
          must use Include + Link — Update only modifies already-included items. -->
     <ItemGroup>
         <None Include="..\SimpleLauncher\tools\CHDMounter\*" Link="tools\CHDMounter\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Include="..\SimpleLauncher\tools\RetroAchievementsSharp\*" Link="tools\RetroAchievementsSharp\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <None Include="..\SimpleLauncher\tools\RetroAchievementsSharp\*"
+              Link="tools\RetroAchievementsSharp\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Include="..\SimpleLauncher\images\systems\*.png" Link="images\systems\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Include="..\SimpleLauncher\audio\*.mp3" Link="audio\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
     <!-- Root data/docs files — same files the WPF app ships next to the executable -->
     <ItemGroup>
         <None Include="..\SimpleLauncher\WhatsNew.md" Link="WhatsNew.md">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Include="..\SimpleLauncher\parameters.md" Link="parameters.md">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Include="..\SimpleLauncher\mame.dat" Link="mame.dat">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Include="..\SimpleLauncher\RetroAchievements.dat" Link="RetroAchievements.dat">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Include="..\SimpleLauncher\history.dat" Link="history.dat">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
     <!-- UI icons (root of images\; images\systems\*.png is linked above) -->
     <ItemGroup>
         <None Include="..\SimpleLauncher\images\*.png" Link="images\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <!-- UI icons embedded into the binary (Avalonia equivalent of the WPF
              <Resource Include="images\*.png" /> entries) — loaded via
@@ -148,66 +149,78 @@
              (e.g. images\default.png), exactly like the WPF app ships them. -->
         <AvaloniaResource Include="..\SimpleLauncher\images\*.png" Link="images\%(Filename)%(Extension)" />
         <None Include="icon\icon.ico">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
     <!-- Emulator sample config files (injection + easy mode) -->
     <ItemGroup>
         <None Include="..\SimpleLauncher\samples\**\*" Link="samples\%(RecursiveDir)%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
     <!-- Batch/utility tools — mirrors the file list shipped by the WPF csproj -->
     <ItemGroup>
-        <None Include="..\SimpleLauncher\tools\BatchConvertIsoToXiso\*" Link="tools\BatchConvertIsoToXiso\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <None Include="..\SimpleLauncher\tools\BatchConvertIsoToXiso\*"
+              Link="tools\BatchConvertIsoToXiso\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Include="..\SimpleLauncher\tools\BatchConvertToCHD\*" Link="tools\BatchConvertToCHD\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <None Include="..\SimpleLauncher\tools\BatchConvertToCHD\*"
+              Link="tools\BatchConvertToCHD\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Include="..\SimpleLauncher\tools\BatchConvertToCHD\Resources\*" Link="tools\BatchConvertToCHD\Resources\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <None Include="..\SimpleLauncher\tools\BatchConvertToCHD\Resources\*"
+              Link="tools\BatchConvertToCHD\Resources\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Include="..\SimpleLauncher\tools\BatchConvertToCompressedFile\*" Link="tools\BatchConvertToCompressedFile\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <None Include="..\SimpleLauncher\tools\BatchConvertToCompressedFile\*"
+              Link="tools\BatchConvertToCompressedFile\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Include="..\SimpleLauncher\tools\BatchConvertToRVZ\*" Link="tools\BatchConvertToRVZ\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <None Include="..\SimpleLauncher\tools\BatchConvertToRVZ\*"
+              Link="tools\BatchConvertToRVZ\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Include="..\SimpleLauncher\tools\CreateBatchFilesForPS3Games\*" Link="tools\CreateBatchFilesForPS3Games\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <None Include="..\SimpleLauncher\tools\CreateBatchFilesForPS3Games\*"
+              Link="tools\CreateBatchFilesForPS3Games\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Include="..\SimpleLauncher\tools\CreateBatchFilesForScummVMGames\*" Link="tools\CreateBatchFilesForScummVMGames\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <None Include="..\SimpleLauncher\tools\CreateBatchFilesForScummVMGames\*"
+              Link="tools\CreateBatchFilesForScummVMGames\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Include="..\SimpleLauncher\tools\CreateBatchFilesForWindowsGames\*" Link="tools\CreateBatchFilesForWindowsGames\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <None Include="..\SimpleLauncher\tools\CreateBatchFilesForWindowsGames\*"
+              Link="tools\CreateBatchFilesForWindowsGames\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Include="..\SimpleLauncher\tools\CreateBatchFilesForXbox360XBLAGames\*" Link="tools\CreateBatchFilesForXbox360XBLAGames\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <None Include="..\SimpleLauncher\tools\CreateBatchFilesForXbox360XBLAGames\*"
+              Link="tools\CreateBatchFilesForXbox360XBLAGames\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Include="..\SimpleLauncher\tools\FindRomCover\arm64\**\*" Link="tools\FindRomCover\arm64\%(RecursiveDir)%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <None Include="..\SimpleLauncher\tools\FindRomCover\arm64\**\*"
+              Link="tools\FindRomCover\arm64\%(RecursiveDir)%(Filename)%(Extension)">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Include="..\SimpleLauncher\tools\FindRomCover\x64\**\*" Link="tools\FindRomCover\x64\%(RecursiveDir)%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <None Include="..\SimpleLauncher\tools\FindRomCover\x64\**\*"
+              Link="tools\FindRomCover\x64\%(RecursiveDir)%(Filename)%(Extension)">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Include="..\SimpleLauncher\tools\RetroGameCoverDownloader\*" Link="tools\RetroGameCoverDownloader\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <None Include="..\SimpleLauncher\tools\RetroGameCoverDownloader\*"
+              Link="tools\RetroGameCoverDownloader\%(Filename)%(Extension)">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Include="..\SimpleLauncher\tools\RomValidator\*" Link="tools\RomValidator\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Include="..\SimpleLauncher\tools\SevenZip\*" Link="tools\SevenZip\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Include="..\SimpleLauncher\tools\SimpleXisoDrive\*" Link="tools\SimpleXisoDrive\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Include="..\SimpleLauncher\tools\SimpleZipDrive\*" Link="tools\SimpleZipDrive\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
@@ -222,15 +235,17 @@
          but it must ship in the same folder as the app so updates can replace the app files while
          the updater itself stays locked/running. -->
     <ItemGroup>
-        <ProjectReference Include="..\SimpleLauncher.Avalonia.Updater\SimpleLauncher.Avalonia.Updater.csproj" ReferenceOutputAssembly="false" />
+        <ProjectReference Include="..\SimpleLauncher.Avalonia.Updater\SimpleLauncher.Avalonia.Updater.csproj"
+                          ReferenceOutputAssembly="false" />
     </ItemGroup>
     <ItemGroup Condition="'$(TargetFramework)' == 'net10.0-windows'">
-      <PackageReference Include="System.Drawing.Common" Version="10.0.11" />
+        <PackageReference Include="System.Drawing.Common" Version="10.0.11" />
     </ItemGroup>
 
     <Target Name="CopyAvaloniaUpdaterToOutput" AfterTargets="Build" Condition="'$(TargetFramework)' != ''">
         <ItemGroup>
-            <AvaloniaUpdaterFiles Include="..\SimpleLauncher.Avalonia.Updater\bin\$(Configuration)\$(TargetFramework)\**\*.*" />
+            <AvaloniaUpdaterFiles
+                Include="..\SimpleLauncher.Avalonia.Updater\bin\$(Configuration)\$(TargetFramework)\**\*.*" />
         </ItemGroup>
         <Copy SourceFiles="@(AvaloniaUpdaterFiles)"
               DestinationFiles="@(AvaloniaUpdaterFiles->'$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')"

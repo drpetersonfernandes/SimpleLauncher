@@ -79,6 +79,36 @@ public static class AvaloniaThemeService
         ["FavoriteHeartColor"] = "#D12733", ["SelectionBackgroundColor"] = "#0A84FF"
     };
 
+    private static readonly Dictionary<string, string> HighContrastPalette = new()
+    {
+        ["BgPrimaryColor"] = "#000000", ["BgSecondaryColor"] = "#000000",
+        ["BgTertiaryColor"] = "#1A1A1A", ["BgQuaternaryColor"] = "#333333",
+        ["TextPrimaryColor"] = "#FFFFFF", ["TextSecondaryColor"] = "#FFFFFF",
+        ["TextMutedColor"] = "#CCCCCC",
+        ["BorderSubtleColor"] = "#FFFFFF", ["BorderNormalColor"] = "#FFFFFF",
+        ["PlaceholderFillColor"] = "#22FFFFFF", ["PlaceholderStrokeColor"] = "#55FFFFFF",
+        ["OverlayProcessingColor"] = "#CC000000", ["LinkColor"] = "#00FFFF",
+        ["ShadowColor"] = "#000000",
+        ["NotificationInfoColor"] = "#00FFFF", ["NotificationSuccessColor"] = "#00FF00",
+        ["NotificationWarningColor"] = "#FFFF00", ["NotificationErrorColor"] = "#FF0000",
+        ["FavoriteHeartColor"] = "#FFFF00", ["SelectionBackgroundColor"] = "#555555"
+    };
+
+    private static readonly Dictionary<string, string> MidnightPalette = new()
+    {
+        ["BgPrimaryColor"] = "#000B1A", ["BgSecondaryColor"] = "#00142E",
+        ["BgTertiaryColor"] = "#00224D", ["BgQuaternaryColor"] = "#00316E",
+        ["TextPrimaryColor"] = "#FFFFFF", ["TextSecondaryColor"] = "#B0C4DE",
+        ["TextMutedColor"] = "#6A8BB5",
+        ["BorderSubtleColor"] = "#004080", ["BorderNormalColor"] = "#0066CC",
+        ["PlaceholderFillColor"] = "#150066CC", ["PlaceholderStrokeColor"] = "#330066CC",
+        ["OverlayProcessingColor"] = "#B3000B1A", ["LinkColor"] = "#4A90D9",
+        ["ShadowColor"] = "#000000",
+        ["NotificationInfoColor"] = "#4A90D9", ["NotificationSuccessColor"] = "#30D158",
+        ["NotificationWarningColor"] = "#FF9F0A", ["NotificationErrorColor"] = "#FF453A",
+        ["FavoriteHeartColor"] = "#FF6B8A", ["SelectionBackgroundColor"] = "#00316E"
+    };
+
     /// <summary>
     /// Applies the base theme and accent color. Unknown base themes fall back to Dark;
     /// unknown accents fall back to Blue. <c>Adaptive</c> follows the OS theme.
@@ -93,6 +123,8 @@ public static class AvaloniaThemeService
         var palette = effectiveBase switch
         {
             "Light" => LightPalette,
+            "HighContrast" => HighContrastPalette,
+            "Midnight" => MidnightPalette,
             _ => DarkPalette
         };
 

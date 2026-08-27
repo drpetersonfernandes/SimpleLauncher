@@ -791,68 +791,58 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
 
-                        <!-- Game List View -->
-                        <Grid IsVisible="{Binding IsGridView, Converter={StaticResource InverseBoolToVisibility}}" RowDefinitions="Auto,*">
-                            <!-- Sortable column headers -->
-                            <Border Grid.Row="0"
-                                    Background="{DynamicResource BgTertiaryBrush}"
-                                    BorderBrush="{DynamicResource BorderSubtleBrush}"
-                                    BorderThickness="0,0,0,1">
-                                <Grid Margin="10,6" ColumnDefinitions="250,120,100,*">
-                                    <TextBlock x:Name="ListHeaderName" Text="Name"
-                                               Classes="sidebar-group-header" Margin="0"
-                                               Cursor="Hand" PointerPressed="ListHeader_Click" Tag="Name" />
-                                    <TextBlock x:Name="ListHeaderSystem" Grid.Column="1" Text="System"
-                                               Classes="sidebar-group-header" Margin="0"
-                                               Cursor="Hand" PointerPressed="ListHeader_Click" Tag="System" />
-                                    <TextBlock x:Name="ListHeaderPlayed" Grid.Column="2" Text="Times Played"
-                                               Classes="sidebar-group-header" Margin="0"
-                                               Cursor="Hand" PointerPressed="ListHeader_Click" Tag="Times Played" />
-                                    <TextBlock x:Name="ListHeaderPath" Grid.Column="3" Text="Path"
-                                               Classes="sidebar-group-header" Margin="0"
-                                               Cursor="Hand" PointerPressed="ListHeader_Click" Tag="Path" />
+                        <!-- Game List View — WPF DataGrid parity (6 columns + splitter + preview) -->
+                        <Grid IsVisible="{Binding IsGridView, Converter={StaticResource InverseBoolToVisibility}}" ColumnDefinitions="4.5*,5,*">
+                            <DataGrid x:Name="GameDataGrid"
+                                      Grid.Column="0"
+                                      ItemsSource="{Binding Games}"
+                                      AutoGenerateColumns="False"
+                                      IsReadOnly="True"
+                                      CanUserSortColumns="True"
+                                      CanUserResizeColumns="True"
+                                      CanUserReorderColumns="False"
+                                      GridLinesVisibility="All"
+                                      BorderThickness="1"
+                                      BorderBrush="{DynamicResource BorderSubtleBrush}"
+                                      Background="{DynamicResource BgPrimaryBrush}"
+                                      Foreground="{DynamicResource TextPrimaryBrush}"
+                                      SelectionMode="Single"
+                                      Sorting="GameDataGrid_Sorting"
+                                      DoubleTapped="GameDataGrid_DoubleTapped"
+                                      SelectionChanged="GameDataGrid_SelectionChanged"
+                                      PointerReleased="GameDataGrid_RightClick"
+                                      ToolTip.Tip="{ext:Translate TooltipGameDataGrid}"
+                                      RowHeight="26">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="{ext:Translate FavoriteColumnHeader}" Width="Auto" CanUserSort="True" SortMemberPath="IsFavorite">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Image Source="avares://SimpleLauncher.Avalonia/images/star.png" Width="16" Height="16"
+                                                       IsVisible="{Binding IsFavorite}"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="{ext:Translate FileNameColumnHeader}" Binding="{Binding FileName}" Width="*" />
+                                    <DataGridTextColumn Header="{ext:Translate MachineDescriptionColumnHeader}" Binding="{Binding MachineDescription}" Width="*" />
+                                    <DataGridTextColumn Header="{ext:Translate FolderPathColumnHeader}" Binding="{Binding FolderPath}" Width="*" />
+                                    <DataGridTextColumn Header="{ext:Translate TimesPlayedColumnHeader}" Binding="{Binding TimesPlayed}" Width="Auto" />
+                                    <DataGridTextColumn Header="{ext:Translate PlayTimeColumnHeader}" Binding="{Binding PlayTime}" Width="Auto" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <GridSplitter Grid.Column="1" Width="5" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Stretch" ResizeDirection="Columns" />
+                            <Border Grid.Column="2" BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="1" Padding="5" Margin="5,0">
+                                <Grid RowDefinitions="Auto,*">
+                                    <TextBlock Text="{ext:Translate PreviewImage}" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,5" />
+                                    <Border Grid.Row="1" ClipToBounds="True" CornerRadius="6">
+                                        <Image x:Name="ListViewPreviewImage"
+                                               Stretch="Uniform"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               RenderOptions.BitmapInterpolationMode="HighQuality" />
+                                    </Border>
                                 </Grid>
                             </Border>
-                            <ListBox x:Name="GameListView"
-                                     Grid.Row="1"
-                                     ItemsSource="{Binding Games}"
-                                     Background="Transparent"
-                                     BorderThickness="0"
-                                     SelectionMode="Single"
-                                     DoubleTapped="GameListView_DoubleClick">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type vm:GameCardViewModel}">
-                                        <Grid ColumnDefinitions="*,120,100,*" Margin="10,4"
-                                              Cursor="Hand" PointerPressed="GameListItem_Click">
-                                            <TextBlock Text="{Binding DisplayTitle, Converter={StaticResource SmartTitleCase}}"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       Foreground="{DynamicResource TextPrimaryBrush}" />
-                                            <TextBlock Grid.Column="1" Text="{Binding SystemName}"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       Foreground="{DynamicResource TextSecondaryBrush}" />
-                                            <TextBlock Grid.Column="2" Text="{Binding PlayCount}"
-                                                       Foreground="{DynamicResource TextSecondaryBrush}" />
-                                            <TextBlock Grid.Column="3" Text="{Binding FilePath}"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       Foreground="{DynamicResource TextMutedBrush}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                                <ListBox.Styles>
-                                    <Style Selector="ListBoxItem">
-                                        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
-                                        <Setter Property="FontSize" Value="13" />
-                                        <Setter Property="Padding" Value="0" />
-                                        <Setter Property="Background" Value="Transparent" />
-                                    </Style>
-                                    <Style Selector="ListBoxItem:pointerover">
-                                        <Setter Property="Background" Value="{DynamicResource BgQuaternaryBrush}" />
-                                    </Style>
-                                    <Style Selector="ListBoxItem:selected">
-                                        <Setter Property="Background" Value="{DynamicResource SelectionBackgroundBrush}" />
-                                    </Style>
-                                </ListBox.Styles>
-                            </ListBox>
                         </Grid>
 
                         <!-- Empty state -->
@@ -874,10 +864,10 @@
                         </StackPanel>
                         </Grid>
 
-                        <!-- Loading overlay -->
+                        <!-- Loading overlay — ZIndex 9999 parity with WPF ContentControl Panel.ZIndex=9999 -->
                         <Border x:Name="LoadingOverlay"
                                 Background="{DynamicResource OverlayProcessingBrush}"
-                                IsVisible="{Binding IsLoading}" ZIndex="50">
+                                IsVisible="{Binding IsLoading}" ZIndex="9999">
                             <Grid>
                                 <!-- Center Content (Spinner and Message) -->
                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -1120,25 +1110,26 @@
                     </Grid>
                 </Border>
 
-                <!-- ═══ STATUS BAR (Bottom) ═══ -->
+                <!-- ═══ STATUS BAR (Bottom) — WPF StatusBarArea parity: StatusText + Pagination + System + PlayTime ═══ -->
                 <Border Grid.Row="2" Background="{DynamicResource BgSecondaryBrush}"
                         BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0,1,0,0">
-                    <Grid Margin="10,0" ColumnDefinitions="*,Auto,Auto,*">
+                    <Grid Margin="10,0" ColumnDefinitions="Auto,*,Auto,Auto,Auto">
+                        <!-- Left: general status (WPF StatusBarText) -->
                         <TextBlock x:Name="StatusLeft"
-                                   Text="{Binding GameCountText}"
+                                   Text="{Binding StatusText}"
                                    Foreground="{DynamicResource TextMutedBrush}"
                                    FontSize="11" VerticalAlignment="Center"
                                    HorizontalAlignment="Left" />
-                        <!-- Pagination controls (hidden until a label is set by the pagination service) -->
+                        <!-- Center: pagination — Prev + TotalFilesLabel + Next (WPF TotalFilesLabel parity) -->
                         <StackPanel x:Name="PaginationPanel" Grid.Column="1" Orientation="Horizontal"
-                                    Spacing="8" VerticalAlignment="Center"
+                                    Spacing="8" VerticalAlignment="Center" HorizontalAlignment="Center"
                                     IsVisible="False">
                             <Button x:Name="PrevPageButton"
                                     Classes="secondary"
                                     Padding="8,3"
                                     IsEnabled="False"
                                     Click="PrevPage_Click"
-                                    ToolTip.Tip="Previous page">
+                                    ToolTip.Tip="{ext:Translate TooltipPreviousPage}">
                                 <Image Source="avares://SimpleLauncher.Avalonia/images/arrowleft.png"
                                        Width="16" Height="16" RenderOptions.BitmapInterpolationMode="HighQuality" />
                             </Button>
@@ -1150,27 +1141,48 @@
                                     Padding="8,3"
                                     IsEnabled="False"
                                     Click="NextPage_Click"
-                                    ToolTip.Tip="Next page">
+                                    ToolTip.Tip="{ext:Translate TooltipNextPage}">
                                 <Image Source="avares://SimpleLauncher.Avalonia/images/arrowright.png"
                                        Width="16" Height="16" RenderOptions.BitmapInterpolationMode="HighQuality" />
                             </Button>
                         </StackPanel>
-                        <!-- Play-time display (WPF IsPlayTimeVisible / PlayTime parity) -->
+                        <!-- Game count fallback (shown when pagination not visible) — mirrors WPF TotalFilesLabel content -->
+                        <TextBlock x:Name="GameCountTextBlock"
+                                   Grid.Column="1"
+                                   Text="{Binding GameCountText}"
+                                   Foreground="{DynamicResource TextMutedBrush}"
+                                   FontSize="11" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   IsVisible="{Binding #PaginationPanel.IsVisible, Converter={StaticResource InverseBoolToVisibility}}" />
+                        <!-- Right: System info (WPF CurrentSystemInfo parity) -->
                         <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4"
                                     VerticalAlignment="Center" HorizontalAlignment="Right"
-                                    IsVisible="{Binding IsPlayTimeVisible}">
-                            <TextBlock Text="Playtime:"
+                                    Margin="12,0,8,0">
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/gamepad.png" Width="16" Height="16" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate System}"
                                        Foreground="{DynamicResource TextMutedBrush}"
-                                       FontSize="11" />
+                                       FontSize="11" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding SelectedSystem, FallbackValue=''}"
+                                       Foreground="{DynamicResource TextMutedBrush}"
+                                       FontSize="11" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <!-- Right: Play-time display (WPF IsPlayTimeVisible / PlayTime parity) -->
+                        <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="4"
+                                    VerticalAlignment="Center" HorizontalAlignment="Right"
+                                    IsVisible="{Binding IsPlayTimeVisible}">
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/playhistory.png" Width="16" Height="16" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate Playtime}"
+                                       Foreground="{DynamicResource TextMutedBrush}"
+                                       FontSize="11" VerticalAlignment="Center" />
                             <TextBlock Text="{Binding PlayTime}"
                                        Foreground="{DynamicResource TextMutedBrush}"
-                                       FontSize="11" />
+                                       FontSize="11" VerticalAlignment="Center" />
                         </StackPanel>
-                        <TextBlock x:Name="StatusRight" Grid.Column="3"
-                                   Text="{Binding StatusText}"
+                        <!-- Far right: secondary status (kept for toast compatibility) -->
+                        <TextBlock x:Name="StatusRight" Grid.Column="4"
                                    Foreground="{DynamicResource TextMutedBrush}"
                                    FontSize="11" VerticalAlignment="Center"
-                                   HorizontalAlignment="Right" />
+                                   HorizontalAlignment="Right"
+                                   IsVisible="False" />
                     </Grid>
                 </Border>
 

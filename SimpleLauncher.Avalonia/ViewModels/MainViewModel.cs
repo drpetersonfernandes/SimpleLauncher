@@ -340,7 +340,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     {
         var systems = string.IsNullOrEmpty(SelectedSystem)
             ? []
-            : _allSystems.Where(s => string.Equals(s.SystemName, SelectedSystem, StringComparison.OrdinalIgnoreCase)).ToList();
+            : _allSystems.Where(s => string.Equals(s.SystemName, SelectedSystem, StringComparison.OrdinalIgnoreCase))
+                .ToList();
         if (systems.Count == 0) return null;
 
         // Force the Show Games filter to ShowAll and persist it (WPF parity)
@@ -440,7 +441,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         _mameSortOrder = sortOrder;
         _currentBaseGames = SortByMameOrder(_currentBaseGames);
         ReapplyLetterFilterAndPagination();
-        StatusText = string.Equals(_mameSortOrder, "MachineDescription", StringComparison.Ordinal) ? "Sorted by machine description" : "Sorted by file name";
+        StatusText = string.Equals(_mameSortOrder, "MachineDescription", StringComparison.Ordinal)
+            ? "Sorted by machine description"
+            : "Sorted by file name";
     }
 
     /// <summary>
@@ -555,7 +558,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             // Prevent parallel hash calculations (they would spawn many CLI processes at once)
             if (_raHashScanner.IsScanning)
             {
-                ShowToast("RetroAchievements", "A RetroAchievements hash calculation is already in progress. Please wait for it to finish before trying again.");
+                ShowToast("RetroAchievements",
+                    "A RetroAchievements hash calculation is already in progress. Please wait for it to finish before trying again.");
                 return;
             }
 
@@ -579,7 +583,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             {
                 if (!_raHashScanner.IsSystemScannable(system.SystemName))
                 {
-                    ShowToast("RetroAchievements", $"{system.SystemName} is not supported for RetroAchievements hashing.");
+                    ShowToast("RetroAchievements",
+                        $"{system.SystemName} is not supported for RetroAchievements hashing.");
                     return;
                 }
 
@@ -601,7 +606,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
                     system.GroupByFolder,
                     onCompleted: OnHashScanCompleted);
 
-                ShowToast("RetroAchievements", "The hash calculation will happen in the background. You can click the filter button again later to see if the hashing is complete.");
+                ShowToast("RetroAchievements",
+                    "The hash calculation will happen in the background. You can click the filter button again later to see if the hashing is complete.");
                 return;
             }
 
@@ -624,7 +630,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         {
             var systems = string.IsNullOrEmpty(SelectedSystem)
                 ? _allSystems
-                : _allSystems.Where(s => string.Equals(s.SystemName, SelectedSystem, StringComparison.OrdinalIgnoreCase)).ToList();
+                : _allSystems
+                    .Where(s => string.Equals(s.SystemName, SelectedSystem, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
             await ShowRetroAchievementsGamesAsync(systems);
         }
         catch (Exception ex)
@@ -682,7 +690,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     /// </summary>
     private void OnHashScanCompleted(string systemName)
     {
-        Dispatcher.UIThread.Post(() => ShowToast("RetroAchievements", $"RetroAchievements hash calculation is complete for {systemName}."));
+        Dispatcher.UIThread.Post(() =>
+            ShowToast("RetroAchievements", $"RetroAchievements hash calculation is complete for {systemName}."));
     }
 
     /// <summary>
@@ -802,9 +811,10 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         // WPF SearchOrchestrator parity: require a selected system AND a non-blank
         // query, and clear prior search results so stale results never persist.
         var validation = _searchOrchestrator?.ValidateAndPrepare(query, SelectedSystem)
-            ?? (string.IsNullOrWhiteSpace(query)
-                ? SimpleLauncher.Avalonia.Services.SearchOrchestrator.SearchValidationResult.Failure()
-                : SimpleLauncher.Avalonia.Services.SearchOrchestrator.SearchValidationResult.Success(query.Trim()));
+                         ?? (string.IsNullOrWhiteSpace(query)
+                             ? SimpleLauncher.Avalonia.Services.SearchOrchestrator.SearchValidationResult.Failure()
+                             : SimpleLauncher.Avalonia.Services.SearchOrchestrator.SearchValidationResult.Success(
+                                 query.Trim()));
         if (!validation.IsValid)
         {
             _currentBaseGames = [];
@@ -825,6 +835,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
                 if (_messageBox != null)
                     await _messageBox.EnterSearchQueryMessageBoxAsync();
             }
+
             return;
         }
 
@@ -851,14 +862,17 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
 
             var systems = string.IsNullOrEmpty(systemName)
                 ? _allSystems
-                : _allSystems.Where(s => string.Equals(s.SystemName, systemName, StringComparison.OrdinalIgnoreCase)).ToList();
+                : _allSystems.Where(s => string.Equals(s.SystemName, systemName, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
 
             var games = ScanGames(systems);
             ApplyFavoritesAndHistory(games);
             ShowGames(games);
             var count = games.Count;
             StatusText = string.IsNullOrEmpty(systemName) ? "All Games" : systemName;
-            ToolbarTitle = string.IsNullOrEmpty(systemName) ? "SimpleLauncher" : $"SimpleLauncher — {systemName} ({count} game{(count == 1 ? "" : "s")})";
+            ToolbarTitle = string.IsNullOrEmpty(systemName)
+                ? "SimpleLauncher"
+                : $"SimpleLauncher — {systemName} ({count} game{(count == 1 ? "" : "s")})";
         }
         catch (Exception ex)
         {
@@ -938,7 +952,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
 
             var systems = string.IsNullOrEmpty(SelectedSystem)
                 ? _allSystems
-                : _allSystems.Where(s => string.Equals(s.SystemName, SelectedSystem, StringComparison.OrdinalIgnoreCase)).ToList();
+                : _allSystems
+                    .Where(s => string.Equals(s.SystemName, SelectedSystem, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
 
             var allGames = ScanGames(systems);
             ApplyFavoritesAndHistory(allGames);
@@ -1168,10 +1184,17 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
                     system.SystemName,
                     system.SystemImageFolder);
 
+                var fileNameWithoutExt = Path.GetFileNameWithoutExtension(file) ?? file;
+                var machineDescription = _mameData.Lookup.TryGetValue(fileNameWithoutExt, out var desc) ? desc : "";
+                var folderPath = Path.GetDirectoryName(file) ?? "";
+
                 games.Add(new GameCardViewModel
                 {
                     DisplayTitle = GetDisplayTitle(file),
+                    FileName = fileNameWithoutExt,
                     FilePath = file,
+                    FolderPath = folderPath,
+                    MachineDescription = machineDescription,
                     SystemName = system.SystemName,
                     CoverPath = coverPath,
                     // Show art only when the file actually exists (the service falls back
@@ -1270,7 +1293,17 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             if (historyLookup.TryGetValue(game.FilePath, out var history))
             {
                 game.PlayCount = history.TimesPlayed;
+                game.TimesPlayed = history.TimesPlayed.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                var ts = TimeSpan.FromSeconds(history.TotalPlayTime);
+                game.PlayTime = ts.TotalHours >= 1
+                    ? $"{(int)ts.TotalHours}h {ts.Minutes}m {ts.Seconds}s"
+                    : $"{ts.Minutes}m {ts.Seconds}s";
                 game.LastPlayed = history.LastPlayDate;
+            }
+            else
+            {
+                game.TimesPlayed = "0";
+                game.PlayTime = "0m 0s";
             }
         }
 
