@@ -1,11 +1,8 @@
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
 using Avalonia.Controls;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Avalonia;
-using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.QuitOrReinstall;
 using SimpleLauncher.Avalonia.Views;
 using SimpleLauncher.Core.Interfaces;
@@ -916,7 +913,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     public async Task<MessageBoxResult> AreYouSureDoYouWantToDeleteThisSystemMessageBoxAsync()
     {
         if (O == null) return MessageBoxResult.Cancel;
-        return await ShowAsync(O, "", "", MessageButtons.Ok, MessageIcon.Information);
+        return await ShowAsync(O, "Are you sure you want to delete this system?", "Confirmation", MessageButtons.YesNo, MessageIcon.Question);
     }
 
 
@@ -2553,7 +2550,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         int? exitCode = null)
     {
         if (O == null) return;
-        var batchFileName = System.IO.Path.GetFileName(batchFilePath);
+        var batchFileName = Path.GetFileName(batchFilePath);
         var batchNameMessage = $"The batch file failed to run.\n\n{batchFileName}";
         var errorMessage = !string.IsNullOrEmpty(errorDetail) ? $"Error: {errorDetail}\n\n" : "";
         var exitCodeMessage = exitCode.HasValue ? $"Exit code: {exitCode.Value}\n\n" : "";

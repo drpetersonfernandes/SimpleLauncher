@@ -1,4 +1,3 @@
-using Avalonia.Controls;
 using SimpleLauncher.Avalonia.Services.LoadingOverlay;
 
 namespace SimpleLauncher.Avalonia;

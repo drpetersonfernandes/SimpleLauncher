@@ -11,17 +11,29 @@
 ## Build & test
 
 ```bash
-# build everything
-dotnet build SimpleLauncher.sln
+# build everything (Windows, both TFMs)
+dotnet build SimpleLauncher.sln -c Debug
+dotnet build SimpleLauncher.sln -c Release
 
 # build one project
-dotnet build SimpleLauncher/SimpleLauncher.csproj
+dotnet build SimpleLauncher/SimpleLauncher.csproj -c Debug
+dotnet build SimpleLauncher.Avalonia/SimpleLauncher.Avalonia.csproj -c Debug
 
-# run unit tests
-dotnet test SimpleLauncher.Tests/SimpleLauncher.Tests.csproj
+# run unit tests — WPF (net10.0-windows) and Avalonia (net10.0, headless)
+dotnet test SimpleLauncher.Tests/SimpleLauncher.Tests.csproj -c Debug
+dotnet test SimpleLauncher.Avalonia.Tests/SimpleLauncher.Avalonia.Tests.csproj -c Debug
+
+# fast local WPF run (skip live mount + network tests that need G:\/X:\/J:\ or internet)
+dotnet test SimpleLauncher.Tests/SimpleLauncher.Tests.csproj -c Debug \
+  --filter "FullyQualifiedName!~IntegrationTests&FullyQualifiedName!~ApiConnectivity&FullyQualifiedName!~UrlValidation&FullyQualifiedName!~MountChd&FullyQualifiedName!~MountZip"
+
+# WSL2 / Linux — Avalonia only (net10.0 TFM, no Windows desktop pack)
+dotnet build SimpleLauncher.Avalonia/SimpleLauncher.Avalonia.csproj -c Debug -f net10.0
+dotnet test SimpleLauncher.Avalonia.Tests/SimpleLauncher.Avalonia.Tests.csproj -c Debug
+wsl dotnet test SimpleLauncher.Avalonia.Tests/SimpleLauncher.Avalonia.Tests.csproj -c Debug
 ```
 
-See [14 — Testing](14-testing.md) for test filters and the known slow network test.
+See [14 — Testing](14-testing.md) for test filters and the known slow network test. No CI is configured (intentionally — see `AGENTS.md`); verification is local + WSL2.
 
 ## Publish (win-x64 / win-arm64)
 
@@ -44,6 +56,10 @@ dotnet publish SimpleLauncher.Avalonia/SimpleLauncher.Avalonia.csproj -c Release
 dotnet publish SimpleLauncher.Avalonia/SimpleLauncher.Avalonia.csproj -c Release -f net10.0-windows -r win-arm64
 dotnet publish SimpleLauncher.Avalonia/SimpleLauncher.Avalonia.csproj -c Release -f net10.0 -r linux-x64
 dotnet publish SimpleLauncher.Avalonia/SimpleLauncher.Avalonia.csproj -c Release -f net10.0 -r linux-arm64
+
+# Verify the output is self-contained and includes the bundled tools + updater
+ls SimpleLauncher.Avalonia/bin/Release/net10.0/linux-x64/publish/ | head -20
+ls SimpleLauncher.Avalonia/bin/Release/net10.0-windows/win-x64/publish/SimpleLauncher.Avalonia.Updater* 2>/dev/null | head
 ```
 
 - The `net10.0` TFM is **Linux-only** (audio uses libsndfile/`SoundFileReader`). Publishing it
@@ -54,6 +70,7 @@ dotnet publish SimpleLauncher.Avalonia/SimpleLauncher.Avalonia.csproj -c Release
 - Windows-only features (F8 global hotkey, active-window screenshot) are compiled with
   `#if WINDOWS` (defined only on the `net10.0-windows` TFM) and pull `System.Drawing.Common`
   as a package reference conditional on that TFM; the tray icon is cross-platform.
+- **WSL2 smoke test (Linux):** after `publish -f net10.0 -r linux-x64`, run the binary under WSLg: `wsl ./SimpleLauncher.Avalonia/bin/Release/net10.0/linux-x64/publish/SimpleLauncher.Avalonia` — window 1280×800 should map, single-instance mutex enforces one instance, tray icon is NoOp on WSL2. The full headless test suite also runs on WSL2 without a display: `wsl dotnet test SimpleLauncher.Avalonia.Tests/... -c Debug` (482 tests via `Avalonia.Headless`).
 
 ## Versioning
 

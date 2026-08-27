@@ -9,15 +9,16 @@
 |---|---|---|
 | `SimpleLauncher` | WPF app (WinExe) | **The launcher** — UI, ViewModels, services, launch handlers, scanners, DI composition root |
 | `SimpleLauncher.Core` | Class library | **Shared logic** — services, models, interfaces, persistence, emulator config injection |
-| `SimpleLauncher.Tests` | xUnit test project | 150 test files; references `SimpleLauncher` (and transitively Core) |
+| `SimpleLauncher.Tests` | xUnit test project | ~152 test files; references `SimpleLauncher` (and transitively Core) |
+| `SimpleLauncher.Avalonia.Tests` | xUnit test project | ~46 test files (482 tests, `net10.0`, runs on Windows + Linux/WSL2 via `Avalonia.Headless`) |
 | `SimpleLauncher.Updater` | Console app | Self-update helper (`Updater.exe`) — downloads release zip, swaps files, relaunches app |
-| `SimpleLauncher.Avalonia` | Avalonia UI app | Cross-platform port (Windows + Linux); phases 1–7 of [`AvaloniaPlan.md`](../AvaloniaPlan.md) done |
+| `SimpleLauncher.Avalonia` | Avalonia UI app | Cross-platform port (Windows + Linux); phases 1–11 of [`References/AvaloniaPlan.md`](../References/AvaloniaPlan.md) done |
 | `SimpleLauncher.ResourceTranslator` | Tool | Assists translating `resources\strings.*.xaml` files |
 | `Tools\Mame.DatCreator` | WPF tool | Builds `mame.dat` (MessagePack) from MAME `-listxml` + software lists |
 | `Tools\RetroAchievements.DataFetcher` | CLI tool | Fetches the RA game database into `RetroAchievements.dat` |
 | `Tools\XmlToBinaryConverter` | WPF tool | Converts `history.xml` ↔ `history.dat` (MessagePack) |
 
-Dependency edges: `SimpleLauncher → SimpleLauncher.Core`; `SimpleLauncher.Tests → SimpleLauncher`; `SimpleLauncher.Updater` standalone; `SimpleLauncher.Avalonia` references Core (via `InternalsVisibleTo`).
+Dependency edges: `SimpleLauncher → SimpleLauncher.Core`; `SimpleLauncher.Tests → SimpleLauncher`; `SimpleLauncher.Avalonia.Tests → SimpleLauncher.Avalonia`; `SimpleLauncher.Updater` standalone; `SimpleLauncher.Avalonia` references Core (via `InternalsVisibleTo`). `SimpleLauncher.Avalonia.Tests` targets `net10.0` (not `-windows`) so it runs on Linux CI/WSL2 without the Windows desktop pack.
 
 ## `SimpleLauncher\SimpleLauncher.csproj` (the app)
 
@@ -81,8 +82,8 @@ Key properties: `net10.0` + `net10.0-windows` (dual target — the `net10.0` TFM
 
 - **Reuses `SimpleLauncher.Core`** for all business logic (launch, scanning, persistence, emulator config injection, RA).
 - **Windows-only services** (`#if WINDOWS`, `net10.0-windows`): F8 global hotkey (`AvaloniaGlobalHotkeyService`), active-window screenshot (`AvaloniaActiveWindowScreenshotService` + `WindowScreenshot` Win32 helpers, `System.Drawing.Common` package conditional on the windows TFM).
-- **Cross-platform services**: `AvaloniaTrayIconManager` (Avalonia `TrayIcon` + `NativeMenu`; `icon\icon.ico` copied to output), `AvaloniaFilePickerService`, `AvaloniaDispatcherService`, JSON localization (`Resources\strings.*.json`, 4 languages).
-- Port status and remaining work: [`AvaloniaPlan.md`](../AvaloniaPlan.md) and [`TODO.md`](../TODO.md).
+- **Cross-platform services**: `AvaloniaTrayIconManager` (Avalonia `TrayIcon` + `NativeMenu`; `icon\icon.ico` copied to output), `AvaloniaFilePickerService`, `AvaloniaDispatcherService`, JSON localization (`Resources\strings.*.json`, 18 languages, 2447 keys, parity with WPF).
+- Port status and remaining work: [`References/AvaloniaPlan.md`](../References/AvaloniaPlan.md) and [`References/TODO.md`](../References/TODO.md). All 44 windows and 21 `Inject*` dialogs are headless-smoke-tested via `AvaloniaViewSmokeTests` (45 window + 21 inject tests); `RetroAchievementsViewModel` and `RetroAchievementsSettingsViewModel` have full unit coverage in both WPF and Avalonia (30 + 19 tests).
 
 ## Folder structure of the app project
 

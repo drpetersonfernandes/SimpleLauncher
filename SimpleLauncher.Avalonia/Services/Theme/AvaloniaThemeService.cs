@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Media;
 using Avalonia.Styling;
-using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Avalonia.Services.Theme;
 
@@ -159,15 +157,25 @@ public static class AvaloniaThemeService
 
     private static Color Lighten(Color c, double amount)
     {
-        byte L(byte v) => (byte)System.Math.Min(255, v + (255 - v) * amount);
         return Color.FromArgb(c.A, L(c.R), L(c.G), L(c.B));
+        byte L(byte v)
+        {
+            return (byte)Math.Min(255, v + (255 - v) * amount);
+        }
     }
 
     private static Color Darken(Color c, double amount)
     {
-        byte D(byte v) => (byte)(v * (1 - amount));
         return Color.FromArgb(c.A, D(c.R), D(c.G), D(c.B));
+
+        byte D(byte v)
+        {
+            return (byte)(v * (1 - amount));
+        }
     }
 
-    private static Color WithAlpha(Color c, byte a) => Color.FromArgb(a, c.R, c.G, c.B);
+    private static Color WithAlpha(Color c, byte a)
+    {
+        return Color.FromArgb(a, c.R, c.G, c.B);
+    }
 }

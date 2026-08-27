@@ -203,11 +203,12 @@ Simple Launcher is translated into **18 languages**:
 An **Avalonia-based cross-platform port** (`SimpleLauncher.Avalonia`) is being developed alongside the WPF app. It reuses all business logic, models, data access, and emulator config handling from `SimpleLauncher.Core`:
 
 - **Platforms:** Windows (x64/ARM64) and Linux (x64/ARM64) — dual-target `net10.0` (Linux) + `net10.0-windows` (Windows)
-- **Port status:** menu bar with full options (language, button size, aspect ratio, view mode, filename preferences, RetroAchievements, inject emulator config for all 21 emulators, tools, donate, about), per-game context menus (launch, favorites, details, RetroAchievements, copy path/name, show in folder, edit system), 15 utility windows, Favorites / Play History / Global Search pages, RetroAchievements UI, tray icon with native menu, F8 global screenshot hotkey (Windows), single dark theme, JSON localization (4 languages)
-- **Quality:** 0 warnings / 0 errors on Debug + Release for both target frameworks; 111 tests passing
-- **Still in progress:** the built-in updater flow, Linux CHD mounting, packaging, remaining test coverage (Phase 8 of the port plan)
+- **Port status:** menu bar with full options (language, button size, aspect ratio, view mode, filename preferences, RetroAchievements, inject emulator config for all 21 emulators, tools, donate, about), per-game context menus (launch, favorites, details, RetroAchievements, copy path/name, show in folder, edit system), 15 utility windows, Favorites / Play History / Global Search pages, RetroAchievements UI (profile / unlocks / progress + settings), tray icon with native menu, F8 global screenshot hotkey (Windows), single dark theme, JSON localization (18 languages, 2447 keys each, parity with WPF)
+- **Quality:** 0 warnings / 0 errors on Debug + Release for both target frameworks; **486 Avalonia tests** + **150+ WPF tests** passing (RetroAchievements ViewModels, Headless view smoke for all 44 windows, Delete-System integration)
+- **Build & test (Windows):** `dotnet build SimpleLauncher.sln -c Debug` · `dotnet test SimpleLauncher.Tests/SimpleLauncher.Tests.csproj` · `dotnet test SimpleLauncher.Avalonia.Tests/SimpleLauncher.Avalonia.Tests.csproj` (headless, no display required)
+- **Build & test (Linux / WSL2):** `dotnet build SimpleLauncher.Avalonia/SimpleLauncher.Avalonia.csproj -c Debug -f net10.0` · `dotnet test SimpleLauncher.Avalonia.Tests/SimpleLauncher.Avalonia.Tests.csproj` (net10.0, runs on Ubuntu 24.04) · `dotnet publish -f net10.0 -r linux-x64` / `linux-arm64` for self-contained folders
 
-Development status and the step-by-step plan are tracked in [`AvaloniaPlan.md`](AvaloniaPlan.md).
+Development status and the step-by-step plan are tracked in [`References/AvaloniaPlan.md`](References/AvaloniaPlan.md) and [`References/TODO.md`](References/TODO.md).
 
 ---
 

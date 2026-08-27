@@ -49,15 +49,15 @@
                     <MenuItem x:Name="LanguageVietnamese" GroupName="LanguageGroup" Header="Tiếng Việt" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
                     <MenuItem x:Name="LanguageChineseSimplified" GroupName="LanguageGroup" Header="简体中文" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
                 </MenuItem>
-                <MenuItem Header="Theme" ToolTip.Tip="Base theme and accent color">
-                    <MenuItem x:Name="BaseThemeMenu" Header="Base Theme">
-                        <MenuItem x:Name="ThemeLight" GroupName="BaseThemeGroup" Header="Light" Tag="Light" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" />
-                        <MenuItem x:Name="ThemeDark" GroupName="BaseThemeGroup" Header="Dark" Tag="Dark" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" />
-                        <MenuItem x:Name="ThemeAdaptive" GroupName="BaseThemeGroup" Header="Adaptive" Tag="Adaptive" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" />
-                        <MenuItem x:Name="ThemeHighContrast" GroupName="BaseThemeGroup" Header="High Contrast" Tag="HighContrast" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" />
-                        <MenuItem x:Name="ThemeMidnight" GroupName="BaseThemeGroup" Header="Midnight" Tag="Midnight" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" />
+                <MenuItem Header="{ext:Translate Theme}" ToolTip.Tip="{ext:Translate TooltipThemeMenu}">
+                    <MenuItem x:Name="BaseThemeMenu" Header="{ext:Translate BaseTheme}">
+                        <MenuItem x:Name="ThemeLight" GroupName="BaseThemeGroup" Header="{ext:Translate Light}" Tag="Light" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipBaseThemeMenu}" />
+                        <MenuItem x:Name="ThemeDark" GroupName="BaseThemeGroup" Header="{ext:Translate Dark}" Tag="Dark" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipBaseThemeMenu}" />
+                        <MenuItem x:Name="ThemeAdaptive" GroupName="BaseThemeGroup" Header="{ext:Translate Adaptive}" Tag="Adaptive" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipAdaptiveMenu}" />
+                        <MenuItem x:Name="ThemeHighContrast" GroupName="BaseThemeGroup" Header="{ext:Translate HighContrast}" Tag="HighContrast" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipHighContrastMenu}" />
+                        <MenuItem x:Name="ThemeMidnight" GroupName="BaseThemeGroup" Header="{ext:Translate Midnight}" Tag="Midnight" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipMidnightMenu}" />
                     </MenuItem>
-                    <MenuItem x:Name="AccentColorMenu" Header="Accent Color">
+                    <MenuItem x:Name="AccentColorMenu" Header="{ext:Translate AccentColors}" ToolTip.Tip="{ext:Translate TooltipAccentColorsMenu}">
                         <!-- Accent color items are populated at runtime from AvaloniaThemeService.AccentColorNames -->
                     </MenuItem>
                 </MenuItem>
@@ -465,54 +465,54 @@
                     BorderThickness="1"
                     Background="{DynamicResource BgTertiaryBrush}"
                     BorderBrush="{DynamicResource BorderSubtleBrush}"
-                    ToolTip.Tip="Navigation">
+                    ToolTip.Tip="{ext:Translate TooltipLeftNavigationPanel}">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="2">
-                    <Button x:Name="NavRestartButton" Classes="nav-icon" ToolTip.Tip="Restart / Home"
+                    <Button x:Name="NavRestartButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipRestart}"
                             Click="NavRestartButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/home.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
-                    <Button x:Name="NavFavoritesButton" Classes="nav-icon" ToolTip.Tip="Favorites"
+                    <Button x:Name="NavFavoritesButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipFavorites}"
                             Click="NavFavoritesButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/heart.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
-                    <Button x:Name="NavGlobalSearchButton" Classes="nav-icon" ToolTip.Tip="Global Search"
+                    <Button x:Name="NavGlobalSearchButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipGlobalSearch}"
                             Click="NavGlobalSearchButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/search2.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
-                    <Button x:Name="NavHistoryButton" Classes="nav-icon" ToolTip.Tip="Play History"
+                    <Button x:Name="NavHistoryButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipPlayHistory}"
                             Click="NavHistoryButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/playhistory.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
-                    <Button x:Name="NavRetroAchievementsButton" Classes="nav-icon" ToolTip.Tip="RetroAchievements"
+                    <Button x:Name="NavRetroAchievementsButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipRetroAchievements}"
                             Click="NavRetroAchievementsButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
-                    <Button x:Name="NavEditSystemButton" Classes="nav-icon" ToolTip.Tip="Edit System"
+                    <Button x:Name="NavEditSystemButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipEditSystem}"
                             Click="NavEditSystemButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/settings.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
-                    <Button x:Name="NavToggleViewModeButton" Classes="nav-icon" ToolTip.Tip="Toggle View Mode"
+                    <Button x:Name="NavToggleViewModeButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipToggleViewMode}"
                             Click="NavToggleViewModeButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/show.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
-                    <Button x:Name="NavToggleButtonAspectRatioButton" Classes="nav-icon" ToolTip.Tip="Toggle Button Aspect Ratio"
+                    <Button x:Name="NavToggleButtonAspectRatioButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipToggleAspectRatio}"
                             Click="NavToggleButtonAspectRatioButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/aspectratio.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
-                    <Button x:Name="NavZoomInButton" Classes="nav-icon" ToolTip.Tip="Zoom In"
+                    <Button x:Name="NavZoomInButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipZoomIn}"
                             Click="NavZoomInButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/zoom-in.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
-                    <Button x:Name="NavZoomOutButton" Classes="nav-icon" ToolTip.Tip="Zoom Out"
+                    <Button x:Name="NavZoomOutButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipZoomOut}"
                             Click="NavZoomOutButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/zoom-out.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
@@ -851,12 +851,12 @@
                                     IsVisible="{Binding IsEmpty}">
                             <TextBlock Text="🎮" FontSize="64" HorizontalAlignment="Center"
                                        Foreground="{DynamicResource TextMutedBrush}" />
-                            <TextBlock Text="No Games Found"
+                            <TextBlock Text="{ext:Translate Empty.Title}"
                                        FontSize="20" FontWeight="Medium"
                                        Foreground="{DynamicResource TextPrimaryBrush}"
                                        HorizontalAlignment="Center" Margin="0,16,0,4"
                                        FontFamily="{DynamicResource PrimaryFont}" />
-                            <TextBlock Text="Select a system or scan for games"
+                            <TextBlock Text="{ext:Translate Empty.Subtitle}"
                                        FontSize="13"
                                        Foreground="{DynamicResource TextSecondaryBrush}"
                                        HorizontalAlignment="Center"
@@ -881,7 +881,7 @@
 
                                 <!-- Emergency Return Button at Bottom Right -->
                                 <Button x:Name="EmergencyReturnButton"
-                                        Content="Return"
+                                        Content="{ext:Translate ReturnButton}"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Bottom"
                                         Margin="30"
@@ -893,7 +893,7 @@
                                         BorderBrush="White"
                                         BorderThickness="1"
                                         Cursor="Hand"
-                                        ToolTip.Tip="Click here if the loading screen is stuck to return to the main menu"
+                                        ToolTip.Tip="{ext:Translate ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu}"
                                         Click="EmergencyReturnButton_Click" />
                             </Grid>
                         </Border>
@@ -902,14 +902,14 @@
                         <Border x:Name="SystemSelectionRoot" IsVisible="False"
                                 Background="{DynamicResource BgPrimaryBrush}" Padding="16">
                             <DockPanel>
-                                <TextBlock DockPanel.Dock="Top" Text="Select a System"
+                                <TextBlock DockPanel.Dock="Top" Text="{ext:Translate SelectSystem}"
                                            FontSize="22" FontWeight="Bold"
                                            Foreground="{DynamicResource TextPrimaryBrush}"
                                            Margin="0,0,0,12"
                                            FontFamily="{DynamicResource PrimaryFont}" />
                                 <TextBlock x:Name="NoSystemsConfiguredMessage"
                                            DockPanel.Dock="Top"
-                                           Text="No systems configured. Please use the 'Edit System' menu to add systems."
+                                           Text="{ext:Translate NoSystemsConfiguredMessage}"
                                            FontSize="14"
                                            Foreground="{DynamicResource TextSecondaryBrush}"
                                            IsVisible="False"
@@ -980,22 +980,28 @@
                         <Grid x:Name="PlayHistorySectionRoot" IsVisible="False" RowDefinitions="Auto,Auto,*" Margin="10">
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8"
                                         Margin="0,4,0,4" VerticalAlignment="Center">
-                                <TextBlock Text="Play History" FontSize="22" FontWeight="Bold"
+                                <TextBlock Text="{ext:Translate PlayHistory}" FontSize="22" FontWeight="Bold"
                                            VerticalAlignment="Center" Margin="0,0,12,0"
                                            FontFamily="{DynamicResource PrimaryFont}" />
-                                <Button Classes="secondary" Content="Remove from History"
+                                <Button Classes="secondary" Content="{ext:Translate RemovefromHistory}"
+                                        ToolTip.Tip="{ext:Translate TooltipRemoveFromHistory}"
                                         Command="{Binding RemoveSelectedCommand}" />
-                                <Button Classes="secondary" Content="Remove All from History"
+                                <Button Classes="secondary" Content="{ext:Translate RemoveAllfromHistory}"
+                                        ToolTip.Tip="{ext:Translate TooltipRemoveAllFromHistory}"
                                         Command="{Binding RemoveAllCommand}" />
-                                <Button Classes="primary" Content="Launch Selected Game"
+                                <Button Classes="primary" Content="{ext:Translate LaunchSelectedGame}"
+                                        ToolTip.Tip="{ext:Translate TooltipLaunchFavorite}"
                                         Command="{Binding LaunchSelectedCommand}" />
                             </StackPanel>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
-                                <Button Classes="secondary" Content="Sort by Date"
+                                <Button Classes="secondary" Content="{ext:Translate SortByDate}"
+                                        ToolTip.Tip="{ext:Translate TooltipSortByDate}"
                                         Command="{Binding SortByDateCommand}" />
-                                <Button Classes="secondary" Content="Sort by Play Time"
+                                <Button Classes="secondary" Content="{ext:Translate SortByPlayTime}"
+                                        ToolTip.Tip="{ext:Translate TooltipSortByPlayTime}"
                                         Command="{Binding SortByTotalPlayTimeCommand}" />
-                                <Button Classes="secondary" Content="Sort by Times Played"
+                                <Button Classes="secondary" Content="{ext:Translate SortByTimesPlayed}"
+                                        ToolTip.Tip="{ext:Translate TooltipSortByTimesPlayed}"
                                         Command="{Binding SortByTimesPlayedCommand}" />
                             </StackPanel>
                             <Grid Grid.Row="2" ColumnDefinitions="*,6,240">
@@ -1011,14 +1017,14 @@
                                           KeyDown="PlayHistoryDataGrid_KeyDown"
                                           PointerReleased="PlayHistoryDataGrid_RightClick">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="File Name" Binding="{Binding DisplayName}" Width="*" />
-                                        <DataGridTextColumn Header="Machine Description" Binding="{Binding MachineDescription}" Width="*" />
-                                        <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="160" />
-                                        <DataGridTextColumn Header="Default Emulator" Binding="{Binding DefaultEmulator}" Width="180" />
-                                        <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="110" />
-                                        <DataGridTextColumn Header="Play Time" Binding="{Binding FormattedPlayTime}" Width="110" />
-                                        <DataGridTextColumn Header="Last Played Date" Binding="{Binding LastPlayDate}" Width="130" />
-                                        <DataGridTextColumn Header="Last Played Time" Binding="{Binding LastPlayTime}" Width="130" />
+                                        <DataGridTextColumn Header="{ext:Translate FileNameColumnHeader}" Binding="{Binding DisplayName}" Width="*" />
+                                        <DataGridTextColumn Header="{ext:Translate MachineDescriptionColumnHeader}" Binding="{Binding MachineDescription}" Width="*" />
+                                        <DataGridTextColumn Header="{ext:Translate SystemNameHeader}" Binding="{Binding SystemName}" Width="160" />
+                                        <DataGridTextColumn Header="{ext:Translate DefaultEmulatorHeader}" Binding="{Binding DefaultEmulator}" Width="180" />
+                                        <DataGridTextColumn Header="{ext:Translate TimesPlayedColumnHeader}" Binding="{Binding TimesPlayed}" Width="110" />
+                                        <DataGridTextColumn Header="{ext:Translate PlayTimeColumnHeader}" Binding="{Binding FormattedPlayTime}" Width="110" />
+                                        <DataGridTextColumn Header="{ext:Translate LastPlayedDateColumnHeader}" Binding="{Binding LastPlayedDate}" Width="130" />
+                                        <DataGridTextColumn Header="{ext:Translate LastPlayedTimeColumnHeader}" Binding="{Binding LastPlayTime}" Width="130" />
                                     </DataGrid.Columns>
                                 </DataGrid>
                                 <GridSplitter Grid.Column="1" Width="6"
@@ -1040,26 +1046,30 @@
                         <Grid x:Name="GlobalSearchSectionRoot" IsVisible="False" RowDefinitions="Auto,Auto,*" Margin="10">
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8"
                                         Margin="0,4,0,4" VerticalAlignment="Center">
-                                <TextBlock Text="Global Search" FontSize="22" FontWeight="Bold"
+                                <TextBlock Text="{ext:Translate GlobalSearch}" FontSize="22" FontWeight="Bold"
                                            VerticalAlignment="Center" Margin="0,0,12,0"
                                            FontFamily="{DynamicResource PrimaryFont}" />
                                 <TextBox x:Name="GlobalSearchTextBox" Width="220" VerticalAlignment="Center"
                                          Text="{Binding SearchText}"
-                                         KeyDown="GlobalSearchTextBox_KeyDown" />
+                                         KeyDown="GlobalSearchTextBox_KeyDown"
+                                         ToolTip.Tip="{ext:Translate TooltipSearch}" />
                                 <ComboBox ItemsSource="{Binding SystemNames}"
                                           SelectedIndex="{Binding SelectedSystemIndex}"
-                                          Width="180" VerticalAlignment="Center" />
-                                <Button Classes="secondary" Content="Search" VerticalAlignment="Center"
+                                          Width="180" VerticalAlignment="Center"
+                                          ToolTip.Tip="{ext:Translate TooltipSelectSystem}" />
+                                <Button Classes="secondary" Content="{ext:Translate Search}" VerticalAlignment="Center"
+                                        ToolTip.Tip="{ext:Translate TooltipGlobalSearchButton}"
                                         Command="{Binding SearchCommand}" />
-                                <Button Classes="primary" Content="Launch Selected" VerticalAlignment="Center"
+                                <Button Classes="primary" Content="{ext:Translate LaunchSelectedGame}" VerticalAlignment="Center"
+                                        ToolTip.Tip="{ext:Translate TooltipLaunchFromSearch}"
                                         Command="{Binding LaunchSelectedCommand}"
                                         IsEnabled="{Binding LaunchButtonEnabled}" />
                             </StackPanel>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="16" Margin="0,0,0,8">
-                                <CheckBox Content="Filename" IsChecked="{Binding SearchFilename}" />
-                                <CheckBox Content="MAME Description" IsChecked="{Binding SearchMameDescription}" />
-                                <CheckBox Content="Folder Name" IsChecked="{Binding SearchFolderName}" />
-                                <CheckBox Content="Search Recursively" IsChecked="{Binding SearchRecursively}" />
+                                <CheckBox Content="{ext:Translate Filename}" IsChecked="{Binding SearchFilename}" ToolTip.Tip="{ext:Translate TooltipSearchFilename}" />
+                                <CheckBox Content="{ext:Translate MameDescription}" IsChecked="{Binding SearchMameDescription}" ToolTip.Tip="{ext:Translate TooltipSearchMameDescription}" />
+                                <CheckBox Content="{ext:Translate FolderName}" IsChecked="{Binding SearchFolderName}" ToolTip.Tip="{ext:Translate TooltipSearchFolderName}" />
+                                <CheckBox Content="{ext:Translate SearchRecursively}" IsChecked="{Binding SearchRecursively}" ToolTip.Tip="{ext:Translate TooltipSearchRecursively}" />
                                 <TextBlock Text="{Binding ResultsCountText}" FontWeight="SemiBold"
                                            VerticalAlignment="Center"
                                            Foreground="{DynamicResource TextSecondaryBrush}" />
@@ -1076,17 +1086,17 @@
                                               DoubleTapped="GlobalSearchResults_DoubleTapped"
                                               PointerReleased="GlobalSearchResults_RightClick">
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="File Name" Binding="{Binding FileNameWithExtension}" Width="*" />
-                                            <DataGridTextColumn Header="Machine Name" Binding="{Binding MachineName}" Width="*" />
-                                            <DataGridTextColumn Header="Default Emulator" Binding="{Binding DefaultEmulator}" Width="180" />
-                                            <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="200" />
+                                            <DataGridTextColumn Header="{ext:Translate FileNameColumnHeader}" Binding="{Binding FileNameWithExtension}" Width="*" />
+                                            <DataGridTextColumn Header="{ext:Translate MachineDescriptionMameHeader}" Binding="{Binding MachineName}" Width="*" />
+                                            <DataGridTextColumn Header="{ext:Translate DefaultEmulatorHeader}" Binding="{Binding DefaultEmulator}" Width="180" />
+                                            <DataGridTextColumn Header="{ext:Translate SystemNameHeader}" Binding="{Binding SystemName}" Width="200" />
                                         </DataGrid.Columns>
                                     </DataGrid>
                                     <Border Background="{DynamicResource BgPrimaryBrush}"
                                             IsVisible="{Binding NoResultsVisible}"
                                             BorderBrush="{DynamicResource BorderSubtleBrush}"
                                             BorderThickness="1" CornerRadius="2">
-                                        <TextBlock Text="No results found"
+                                        <TextBlock Text="{ext:Translate Noresultsfound}"
                                                    VerticalAlignment="Center" HorizontalAlignment="Center"
                                                    FontSize="18" FontWeight="Bold"
                                                    Foreground="{DynamicResource TextPrimaryBrush}"

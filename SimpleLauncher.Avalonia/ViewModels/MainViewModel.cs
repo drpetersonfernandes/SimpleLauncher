@@ -812,8 +812,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         // query, and clear prior search results so stale results never persist.
         var validation = _searchOrchestrator?.ValidateAndPrepare(query, SelectedSystem)
                          ?? (string.IsNullOrWhiteSpace(query)
-                             ? SimpleLauncher.Avalonia.Services.SearchOrchestrator.SearchValidationResult.Failure()
-                             : SimpleLauncher.Avalonia.Services.SearchOrchestrator.SearchValidationResult.Success(
+                             ? Services.SearchOrchestrator.SearchValidationResult.Failure()
+                             : Services.SearchOrchestrator.SearchValidationResult.Success(
                                  query.Trim()));
         if (!validation.IsValid)
         {

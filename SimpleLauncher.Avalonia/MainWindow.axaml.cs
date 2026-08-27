@@ -1,7 +1,5 @@
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Text.Json;
 using SimpleLauncher.Avalonia.Services.Theme;
 using Avalonia;
@@ -779,9 +777,8 @@ public partial class MainWindow : Window, IPaginationHost
         if (!e.InitialPressMouseButton.HasFlag(MouseButton.Right)) return;
 
         var point = e.GetPosition(GameDataGrid);
-        var hit = GameDataGrid.InputHitTest(point) as Visual;
         // Walk up to the row
-        var row = hit != null ? FindParent<DataGridRow>(hit) : null;
+        var row = GameDataGrid.InputHitTest(point) is Visual hit ? FindParent<DataGridRow>(hit) : null;
         if (row?.DataContext is not GameCardViewModel game) return;
 
         // Ensure row is selected
@@ -2433,6 +2430,17 @@ public partial class MainWindow : Window, IPaginationHost
             contextMenu.Items.Add(editItem);
             contextMenu.Items.Add(deleteItem);
             systemButton.ContextMenu = contextMenu;
+            // Avalonia Button handles pointer events internally which can prevent the automatic
+            // ContextMenu opening on right-click. Explicitly open on right PointerPressed (WPF
+            // shows the menu automatically via Button.ContextMenu).
+            systemButton.PointerPressed += (s, e) =>
+            {
+                if (e.GetCurrentPoint(systemButton).Properties.IsRightButtonPressed)
+                {
+                    contextMenu.Open(systemButton);
+                    e.Handled = true;
+                }
+            };
 
             SystemSelectionWrapPanel.Children.Add(systemButton);
         }

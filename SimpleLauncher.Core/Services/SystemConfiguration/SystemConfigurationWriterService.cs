@@ -199,7 +199,36 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                     if (systemNode != null)
                     {
                         systemNode.Remove();
-                        xmlDoc.Save(systemXmlPath);
+
+                        // Atomic write via temp file (WPF SystemManagerService parity)
+                        var tempPath = systemXmlPath + ".tmp";
+                        var settings = new XmlWriterSettings
+                        {
+                            Indent = true,
+                            IndentChars = "  ",
+                            NewLineHandling = NewLineHandling.Replace,
+                            Encoding = System.Text.Encoding.UTF8
+                        };
+
+                        byte[] xmlBytes;
+                        using (var ms = new MemoryStream())
+                        {
+                            using (var writer = XmlWriter.Create(ms, settings))
+                            {
+                                xmlDoc.Declaration ??= new XDeclaration("1.0", "utf-8", null);
+                                xmlDoc.Save(writer);
+                            }
+
+                            xmlBytes = ms.ToArray();
+                        }
+
+                        if (xmlBytes.Length == 0)
+                        {
+                            throw new InvalidOperationException("Generated system XML is empty after delete.");
+                        }
+
+                        File.WriteAllBytes(tempPath, xmlBytes);
+                        File.Move(tempPath, systemXmlPath, true);
                     }
                 }
             });
