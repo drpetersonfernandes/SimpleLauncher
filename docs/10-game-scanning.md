@@ -18,7 +18,7 @@
 |---|---|---|
 | `ScanAmazonGames` | SQLite `%LOCALAPPDATA%\Amazon Games\Data\Games\Sql\GameInstallInfo.sqlite` (read-only) | `.url` → `amazon-games://play/{id}` |
 | `ScanBattleNetGames` | registry uninstall keys, UID regex `Battle.net.*--uid=(.*?)`, `BNetAppDef` InternalId→name map | `.url` → `battlenet://{uid}`; classics get `.bat` launching the exe |
-| `ScanEaGames` | registry `HKLM\SOFTWARE\WOW6432Node\Electronic Arts\EA Core\Installed Games` | `.url` → `origin2://game/launch?offerIds={contentId}` |
+| `ScanEaGames` | registry `HKLM\SOFTWARE\WOW6432Node\Electronic Arts\EA Core\Installed Games` + game-classification API (`GameClassificationClient` → `api/GameIdentification/IsAGame`, same as Microsoft Store) | `.url` → `origin2://game/launch?offerIds={contentId}` (only confirmed games) |
 | `ScanEpicGames` | JSON `LauncherInstalled.dat` (preferred) or `Manifests\*.item` fallback; filters `UE_`/Falcon/plugins/editors/engines/DLC | `.url` → `com.epicgames.launcher://apps/{app}?action=launch&silent=true` |
 | `ScanGogGames` | registry uninstall keys (Publisher `GOG.com`); DLC via `goggame-{id}.info` JSON `RootGameId` | `.bat` launching primary `PlayTasks` FileTask exe |
 | `ScanHumbleGames` | JSON `%APPDATA%\Humble App\config.json` → `game-collection-4` | `.url` → `humble://launch/{machineName}` |

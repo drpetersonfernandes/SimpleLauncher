@@ -3,6 +3,7 @@ using System.Text;
 using Avalonia.Controls;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.QuitOrReinstall;
 using SimpleLauncher.Avalonia.Views;
 using SimpleLauncher.Core.Interfaces;
@@ -674,7 +675,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     public async Task<MessageBoxResult> AreYouSureYouWantToDeleteTheGameMessageBoxAsync(string fileNameWithExtension)
     {
         if (O == null) return MessageBoxResult.Cancel;
-        return await ShowAsync(O, "", "", MessageButtons.Ok, MessageIcon.Information);
+        var loc = App.ServiceProvider?.GetService<LocalizationService>();
+        var areYouSure = loc?.GetString("Areyousureyouwanttodeletethefile") is { } s1 && s1 != "Areyousureyouwanttodeletethefile" ? s1 : "Are you sure you want to delete the file";
+        var thisAction = loc?.GetString("Thisactionwilldelete") is { } s2 && s2 != "Thisactionwilldelete" ? s2 : "This action will delete the file from the HDD and cannot be undone.";
+        var confirm = loc?.GetString("ConfirmDeletion") is { } s3 && s3 != "ConfirmDeletion" ? s3 : "Confirm Deletion";
+        return await ShowAsync(O, $"{areYouSure} '{fileNameWithExtension}'?\n\n{thisAction}", confirm, MessageButtons.YesNo, MessageIcon.Question);
     }
 
 
@@ -703,7 +708,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         string fileNameWithoutExtension)
     {
         if (O == null) return MessageBoxResult.Cancel;
-        return await ShowAsync(O, "", "", MessageButtons.Ok, MessageIcon.Information);
+        var loc = App.ServiceProvider?.GetService<LocalizationService>();
+        var areYouSure = loc?.GetString("Areyousureyouwanttodeletethecoverimageof") is { } s1 && s1 != "Areyousureyouwanttodeletethecoverimageof" ? s1 : "Are you sure you want to delete the cover image of";
+        var thisAction = loc?.GetString("Thisactionwilldelete") is { } s2 && s2 != "Thisactionwilldelete" ? s2 : "This action will delete the file from the HDD and cannot be undone.";
+        var confirm = loc?.GetString("ConfirmDeletion") is { } s3 && s3 != "ConfirmDeletion" ? s3 : "Confirm Deletion";
+        return await ShowAsync(O, $"{areYouSure} '{fileNameWithoutExtension}'?\n\n{thisAction}", confirm, MessageButtons.YesNo, MessageIcon.Question);
     }
 
 

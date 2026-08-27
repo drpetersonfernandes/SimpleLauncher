@@ -810,7 +810,6 @@
                                       Sorting="GameDataGrid_Sorting"
                                       DoubleTapped="GameDataGrid_DoubleTapped"
                                       SelectionChanged="GameDataGrid_SelectionChanged"
-                                      PointerReleased="GameDataGrid_RightClick"
                                       ToolTip.Tip="{ext:Translate TooltipGameDataGrid}"
                                       RowHeight="26">
                                 <DataGrid.Columns>
@@ -946,8 +945,7 @@
                                           BorderThickness="1"
                                           ToolTip.Tip="{ext:Translate TooltipFavoritesDataGrid}"
                                           DoubleTapped="FavoritesDataGrid_DoubleTapped"
-                                          KeyDown="FavoritesDataGrid_KeyDown"
-                                          PointerReleased="FavoritesDataGrid_RightClick">
+                                          KeyDown="FavoritesDataGrid_KeyDown">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="{ext:Translate FileNameColumnHeader}" Binding="{Binding DisplayName}" Width="*" />
                                         <DataGridTextColumn Header="{ext:Translate MachineDescriptionMameHeader}" Binding="{Binding MachineDescription}" Width="*" />
@@ -1014,8 +1012,7 @@
                                           GridLinesVisibility="All"
                                           BorderThickness="1"
                                           DoubleTapped="PlayHistoryDataGrid_DoubleTapped"
-                                          KeyDown="PlayHistoryDataGrid_KeyDown"
-                                          PointerReleased="PlayHistoryDataGrid_RightClick">
+                                          KeyDown="PlayHistoryDataGrid_KeyDown">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="{ext:Translate FileNameColumnHeader}" Binding="{Binding DisplayName}" Width="*" />
                                         <DataGridTextColumn Header="{ext:Translate MachineDescriptionColumnHeader}" Binding="{Binding MachineDescription}" Width="*" />
@@ -1083,8 +1080,7 @@
                                               IsReadOnly="True"
                                               GridLinesVisibility="All"
                                               BorderThickness="1"
-                                              DoubleTapped="GlobalSearchResults_DoubleTapped"
-                                              PointerReleased="GlobalSearchResults_RightClick">
+                                              DoubleTapped="GlobalSearchResults_DoubleTapped">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="{ext:Translate FileNameColumnHeader}" Binding="{Binding FileNameWithExtension}" Width="*" />
                                             <DataGridTextColumn Header="{ext:Translate MachineDescriptionMameHeader}" Binding="{Binding MachineName}" Width="*" />

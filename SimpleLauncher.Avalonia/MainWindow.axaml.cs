@@ -264,6 +264,20 @@ public partial class MainWindow : Window, IPaginationHost
         _pointerWheelChangedHandler = OnPointerWheelChangedForZoom;
         AddHandler(PointerWheelChangedEvent, _pointerWheelChangedHandler, handledEventsToo: true);
 
+        // Grid/List right-click parity: ListBox (grid view) had only per-card Button handlers
+        // like the early System grid; right-clicks that land on the ListBoxItem chrome
+        // (or when the Button's PointerPressed is swallowed) would never open the menu.
+        // Wire all right-click handlers with handledEventsToo — Avalonia DataGrid/ListBox
+        // may mark PointerReleased handled before it bubbles, which would swallow the
+        // axaml PointerReleased without handledEventsToo (previous Delete System fix).
+        // GridView fallback uses PointerPressed so it can coalesce with the per-card
+        // Button's PointerPressed via e.Handled (Pressed+Released would double-open).
+        GameGridView.AddHandler(PointerPressedEvent, GameGridView_RightClick, handledEventsToo: true);
+        GameDataGrid.AddHandler(PointerReleasedEvent, GameDataGrid_RightClick, handledEventsToo: true);
+        FavoritesDataGrid.AddHandler(PointerReleasedEvent, FavoritesDataGrid_RightClick, handledEventsToo: true);
+        PlayHistoryDataGrid.AddHandler(PointerReleasedEvent, PlayHistoryDataGrid_RightClick, handledEventsToo: true);
+        GlobalSearchResultsDataGrid.AddHandler(PointerReleasedEvent, GlobalSearchResults_RightClick, handledEventsToo: true);
+
         // Live library refresh: when a watched ROM folder changes on disk, reload the
         // current view on the UI thread (same debounced behavior as the WPF app).
         _gameFilesChangedHandler = (_, e) =>
@@ -422,10 +436,16 @@ public partial class MainWindow : Window, IPaginationHost
     {
         try
         {
-            _loadingOverlay.SetLoadingState(true, "Scanning for Windows games...");
+            var scanningText = _localization.GetString("ScanningForWindowsGames", "Scanning for Windows games...");
+            _loadingOverlay.SetLoadingState(true, scanningText);
+            _viewModel.StatusText = scanningText;
             var result = await _gameScannerService.ScanForStoreGamesAsync();
             if (result.SystemWasCreated)
             {
+                var foundText = _localization.GetString("FoundNewMicrosoftWindowsGames",
+                    "Found new Microsoft Windows games. Refreshing system list.");
+                _viewModel.StatusText = foundText;
+                ShowToast("Microsoft Windows", foundText, ToastType.Success);
                 _systemSelectionOrchestrator.LoadOrReloadSystemManager();
                 RefreshSidebarCounts();
             }
@@ -784,6 +804,21 @@ public partial class MainWindow : Window, IPaginationHost
         // Ensure row is selected
         GameDataGrid.SelectedItem = game;
         ShowGameContextMenu(game, GameDataGrid);
+        e.Handled = true;
+    }
+
+    private void GameGridView_RightClick(object? sender, PointerPressedEventArgs e)
+    {
+        if (e.Handled) return;
+        var props = e.GetCurrentPoint(GameGridView).Properties;
+        if (!props.IsRightButtonPressed) return;
+
+        var point = e.GetPosition(GameGridView);
+        var item = GameGridView.InputHitTest(point) is Visual hit ? FindParent<ListBoxItem>(hit) : null;
+        if (item?.DataContext is not GameCardViewModel game) return;
+
+        GameGridView.SelectedItem = game;
+        ShowGameContextMenu(game, GameGridView);
         e.Handled = true;
     }
 
@@ -2267,31 +2302,83 @@ public partial class MainWindow : Window, IPaginationHost
     {
         try
         {
+            _playSound.PlayNotificationSound();
+            var scanningText = _localization.GetString("ScanningForWindowsGames", "Scanning for Windows games...");
+            _loadingOverlay.SetLoadingState(true, scanningText);
             _viewModel.IsLoading = true;
-            _viewModel.StatusText = "Scanning for Windows games...";
-            var result = await _gameScannerService.ScanForStoreGamesAsync();
+            _viewModel.StatusText = scanningText;
+            await Task.Yield();
 
-            if (result.GamesFound > 0)
+            StorefrontScanResult result;
+            try
             {
-                // Reload systems + games so the new/updated system shows up immediately
-                // (sidebars, counts, and the file watcher pick up the new folders too).
+                result = await _gameScannerService.ScanForStoreGamesAsync();
+                // WPF parity: small delay before reloading so the loading overlay is visible
+                await Task.Delay(2000);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error in the method ScanForMicrosoftWindowsGames_ClickAsync");
+                throw;
+            }
+
+            // WPF parity: always reload the system manager so a newly created
+            // "Microsoft Windows" system appears even when 0 games were found.
+            // Avalonia previously only reloaded when GamesFound>0, leaving an
+            // empty newly-created system invisible until restart.
+            if (result.SystemWasCreated || result.ShortcutsCreated > 0 || result.GamesFound > 0)
+            {
                 await _viewModel.InitializeAsync();
+                await _systemSelectionOrchestrator.ReloadAfterConfigurationChangeAsync();
+                RefreshSidebarCounts();
+                await ShowSystemSelectionScreenAsync();
+            }
+            else
+            {
+                // No new shortcuts but still ensure the manager is fresh (parity with
+                // WPF HandleScanForWindowsGamesAsync which always reloads).
                 await _systemSelectionOrchestrator.ReloadAfterConfigurationChangeAsync();
             }
 
-            var action = result.SystemWasCreated ? "Created" : "Updated";
-            _viewModel.StatusText = $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system.";
-            ShowToast("Scan Complete", result.GamesFound == 0
-                ? "No PC games were found on this system."
-                : $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).");
+            if (result.SystemWasCreated || result.GamesFound > 0)
+            {
+                var foundText = _localization.GetString("FoundNewMicrosoftWindowsGames",
+                    "Found new Microsoft Windows games. Refreshing system list.");
+                _viewModel.StatusText = foundText;
+                ShowToast("Microsoft Windows", foundText, ToastType.Success);
+            }
+
+            var action = result.SystemWasCreated
+                ? _localization.GetString("Created", "Created")
+                : _localization.GetString("Updated", "Updated");
+            var scanCompleteTitle = _localization.GetString("ScanComplete", "Scan Complete");
+            if (result.GamesFound == 0 && !result.SystemWasCreated)
+            {
+                var noGames = _localization.GetString("NoPcGamesFound", "No PC games were found on this system.");
+                _viewModel.StatusText = noGames;
+                ShowToast(scanCompleteTitle, noGames);
+            }
+            else
+            {
+                var detail = _localization.GetString("FoundPcGamesDetail",
+                    $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).");
+                // Fallback when translation still contains placeholder English
+                if (detail.Contains("{0}") || detail == $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).")
+                {
+                    detail = $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).";
+                }
+                _viewModel.StatusText = detail;
+                ShowToast(scanCompleteTitle, detail);
+            }
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Error in the method ScanForMicrosoftWindowsGames_ClickAsync");
-            _viewModel.StatusText = "Error scanning for Windows games";
+            _viewModel.StatusText = _localization.GetString("ErrorScanningForWindowsGames", "Error scanning for Windows games");
         }
         finally
         {
+            _loadingOverlay.SetLoadingState(false);
             _viewModel.IsLoading = false;
         }
     }

@@ -171,7 +171,7 @@ Run "Scan for store games" after installing 1–2 real games per store. Verify p
 
 - [ ] **Amazon** (`ScanAmazonGames`) — `amazon-games://play/{id}` URLs from the Amazon Games SQLite DB; DB locked → no crash.
 - [ ] **Battle.net** (`ScanBattleNetGames`) — WoW/Diablo IV etc. detected; classics (Diablo II, WC3) get working `.bat` launchers; titles not in the table skipped.
-- [ ] **EA App** (`ScanEaGames`) — `origin2://game/launch` URLs from the registry.
+- [ ] **EA App** (`ScanEaGames`) — `origin2://game/launch` URLs from the registry + game-classification API (`GameClassificationClient` → `api/GameIdentification/IsAGame`, same as Microsoft Store); non-game EA software filtered; offline → graceful (no shortcuts).
 - [ ] **Epic** (`ScanEpicGames`) — `LauncherInstalled.dat` + manifest fallback; UE tools/DLC/non-games filtered.
 - [ ] **GOG** (`ScanGogGames`) — base games only (DLC skipped via `goggame-*.info`); `.bat` launches the game directly.
 - [ ] **Humble** (`ScanHumbleGames`) — installed and downloaded-but-present games appear via `humble://launch/{machineName}`.

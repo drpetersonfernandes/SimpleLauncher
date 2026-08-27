@@ -122,6 +122,14 @@ public class LocalizationService
     }
 
     /// <summary>
+    /// Gets a localized string by key, returning <paramref name="fallback"/> when the key is missing.
+    /// </summary>
+    public string GetString(string key, string fallback)
+    {
+        return _strings.TryGetValue(key, out var value) ? value : fallback;
+    }
+
+    /// <summary>
     /// Gets a formatted localized string.
     /// </summary>
     public string GetString(string key, params object[] args)
